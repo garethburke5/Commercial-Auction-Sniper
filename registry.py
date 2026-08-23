@@ -1,21 +1,16 @@
+from auction_house_london import collect as ahl
 from allsop import collect as allsop
 from pugh import collect as pugh
+from bond_wolfe import collect as bond_wolfe
 from savills import collect as savills
 from acuitus import collect as acuitus
-from db import upsert_lots,record_scan
-COLLECTORS=[
-("Allsop Commercial",allsop),
-("Pugh / BTG Eddisons",pugh),
-("Savills Auctions",savills),
-("Acuitus",acuitus),
-]
+from db import replace_snapshot
+from base import CollectorResult
+COLLECTORS=[("Auction House London",ahl),("Allsop Commercial",allsop),("Pugh / BTG Eddisons",pugh),("Bond Wolfe",bond_wolfe),("Savills Auctions",savills),("Acuitus",acuitus)]
 def run_all(max_guide=300000):
-    summary=[];total=0
+    results=[]
     for name,fn in COLLECTORS:
-        try:
-            r=fn(max_guide=max_guide)
-            if r.lots:upsert_lots([x.as_dict() for x in r.lots]);total+=len(r.lots)
-            record_scan(r.source,r.status,len(r.lots),r.message);summary.append(r.as_dict())
-        except Exception as e:
-            record_scan(name,"ERROR",0,str(e));summary.append({"source":name,"status":"ERROR","lots":0,"message":str(e)})
-    return {"sources":summary,"lots_seen":total}
+        try:results.append(fn(max_guide=max_guide))
+        except Exception as e:results.append(CollectorResult(name,"ERROR",[],str(e)))
+    replace_snapshot(results)
+    return {"lots_seen":sum(len(r.lots) for r in results),"sources":[r.as_dict() for r in results]}
