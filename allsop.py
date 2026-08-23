@@ -1,41 +1,25 @@
+import re
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 from base import CollectorResult
 from common import detail_lot
-from parser_utils import fetch, nearest_card_text, parse_guide, looks_commercial
-
+from parser_utils import fetch,nearest_card_text,parse_guide,norm
 NAME="Allsop Commercial"
-BASE="https://www.allsop.co.uk"
-SEARCH=BASE+"/property-search?future_auctions=on&page=1&sortOrder=Max+Price&view=list"
-
+URL="https://www.allsop.co.uk/auctions/commercial-auctions/"
 def collect(max_guide=300000):
     try:
-        soup=BeautifulSoup(fetch(SEARCH),"lxml")
-        seen=set()
-        candidates=[]
-        for a in soup.find_all("a",href=True):
-            href=a["href"]
-            if "property" not in href.lower() or href.startswith("#"):
-                continue
-            url=urljoin(BASE,href)
-            card=nearest_card_text(a)
-            if url in seen or not looks_commercial(card):
-                continue
-            guide=parse_guide(card)
-            if guide and guide>max_guide:
-                continue
-            if len(card)<50:
-                continue
-            seen.add(url)
-            candidates.append((url,card))
-        lots=[]
-        for url,card in candidates:
+        s=BeautifulSoup(fetch(URL),"lxml");seen=set();lots=[]
+        for a in s.find_all("a",href=True):
+            label=norm(a.get_text(" ",strip=True))
+            if not label.lower().startswith("commercial lot"):continue
+            u=urljoin(URL,a["href"])
+            if u in seen:continue
+            seen.add(u);card=nearest_card_text(a);g=parse_guide(card)
+            if g and g>max_guide:continue
+            m=re.search(r"LOT\s+(\d+)",label,re.I)
             try:
-                lot=detail_lot(NAME,url,seed_text=card)
-                if lot.guide_price is None or lot.guide_price<=max_guide:
-                    lots.append(lot)
-            except Exception:
-                pass
-        return CollectorResult(NAME,"OK",lots,f"{len(candidates)} candidate commercial lots checked")
-    except Exception as e:
-        return CollectorResult(NAME,"ERROR",message=str(e))
+                lot=detail_lot(NAME,u,seed_text=card,lot_number=f"Lot {m.group(1)}" if m else None,force_commercial=True)
+                if lot.guide_price is None or lot.guide_price<=max_guide:lots.append(lot)
+            except Exception:pass
+        return CollectorResult(NAME,"OK",lots,f"Dedicated Allsop commercial feed; {len(lots)} qualifying lots")
+    except Exception as e:return CollectorResult(NAME,"ERROR",[],str(e))
