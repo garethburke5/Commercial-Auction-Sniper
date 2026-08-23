@@ -3,19 +3,18 @@ from pugh import collect as collect_pugh
 from savills import collect as collect_savills
 from allsop import collect as collect_allsop
 from acuitus import collect as collect_acuitus
-from db import upsert_lots, record_scan
+from db import upsert_lots,record_scan
 
 COLLECTORS=[
-    ("Auction House London",collect_ahl),
-    ("Pugh / BTG Eddisons",collect_pugh),
-    ("Savills Auctions",collect_savills),
-    ("Allsop Commercial",collect_allsop),
-    ("Acuitus",collect_acuitus),
+("Auction House London",collect_ahl),
+("Pugh / BTG Eddisons",collect_pugh),
+("Savills Auctions",collect_savills),
+("Allsop Commercial",collect_allsop),
+("Acuitus",collect_acuitus),
 ]
 
 def run_all(max_guide=300000):
-    summary=[]
-    total=0
+    summary=[];total=0
     for name,fn in COLLECTORS:
         try:
             result=fn(max_guide=max_guide)

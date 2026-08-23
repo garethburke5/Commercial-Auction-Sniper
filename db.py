@@ -65,6 +65,11 @@ lots_seen INTEGER DEFAULT 0,
 message TEXT,
 checked_at TEXT DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS app_meta(
+key TEXT PRIMARY KEY,
+value TEXT
+);
 """
 
 def connect():
@@ -73,6 +78,18 @@ def connect():
 def init_db():
     with connect() as con:
         con.executescript(SCHEMA)
+
+def run_clean_commercial_migration():
+    """One-time cleanup after the early residential-contaminated collector build."""
+    marker = "commercial_only_reset_v2"
+    with connect() as con:
+        done = con.execute("SELECT value FROM app_meta WHERE key=?", (marker,)).fetchone()
+        if done:
+            return False
+        con.execute("DELETE FROM lots")
+        con.execute("DELETE FROM scans")
+        con.execute("INSERT OR REPLACE INTO app_meta(key,value) VALUES (?,?)", (marker, "done"))
+        return True
 
 def upsert_lots(lots):
     if not lots:
@@ -129,8 +146,7 @@ def get_lots(max_price=250000, min_yield=10):
                AND (gross_yield IS NULL OR gross_yield >= ?)
                ORDER BY COALESCE(sniper_score,0) DESC,
                         CASE WHEN gross_yield IS NULL THEN 1 ELSE 0 END,
-                        gross_yield DESC,
-                        last_changed DESC""",
+                        gross_yield DESC,last_changed DESC""",
             (max_price,min_yield)
         ).fetchall()
         return [dict(x) for x in rows]
