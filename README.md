@@ -1,14 +1,14 @@
-# Auction Sniper V2
+# Auction Sniper V2 Final
 
 Commercial/mixed-use UK auction scanner.
 
-V2 design principles:
-- Current snapshot replaces the old database every scan: stale lots cannot survive.
-- Auction House London uses its dedicated commercial page.
-- Allsop uses its dedicated commercial catalogue.
-- Savills detects its published Commercial Section range where available.
-- Pugh and Bond Wolfe require positive commercial evidence and re-check the exact lot page.
-- Acuitus is inherently commercial and reports catalogue-pending state.
-- Guide/rent/yield are never filled with fallback/default values.
+Key corrections:
+- Every scan replaces the entire current snapshot; stale lots cannot survive.
+- Auction House London uses its dedicated commercial-property page only.
+- Allsop uses its dedicated commercial-auctions page only.
+- Pugh/BTG Eddisons and Bond Wolfe require positive commercial evidence and then re-check the exact lot page.
+- Savills uses its published Commercial Section range where detectable and otherwise requires positive commercial evidence.
+- Acuitus is treated as a commercial source and reports catalogue-pending state.
+- No fallback/default rent figures.
 - GIY is calculated only from an extracted guide and passing rent.
-- Unknown values remain Unknown.
+- Missing values remain Unknown.
