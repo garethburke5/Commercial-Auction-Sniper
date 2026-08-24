@@ -1,14 +1,20 @@
-# Auction Sniper V2 Final
+# Auction Sniper V4
 
-Commercial/mixed-use UK auction scanner.
+Architecture:
+1. GitHub Actions scans auction sources every 6 hours.
+2. Source-specific collectors write one verified snapshot to `data/properties.json`.
+3. Streamlit only reads the snapshot; it does not scrape auction sites.
+4. Default view shows ALL current commercial/mixed-use properties.
+5. Price/yield filters are optional and OFF by default.
+6. Failed sources preserve the previous successful source data and mark those lots stale.
+7. Old/pending catalogues are not presented as current auctions.
 
-Key corrections:
-- Every scan replaces the entire current snapshot; stale lots cannot survive.
-- Auction House London uses its dedicated commercial-property page only.
-- Allsop uses its dedicated commercial-auctions page only.
-- Pugh/BTG Eddisons and Bond Wolfe require positive commercial evidence and then re-check the exact lot page.
-- Savills uses its published Commercial Section range where detectable and otherwise requires positive commercial evidence.
-- Acuitus is treated as a commercial source and reports catalogue-pending state.
-- No fallback/default rent figures.
-- GIY is calculated only from an extracted guide and passing rent.
-- Missing values remain Unknown.
+Manual run:
+- GitHub -> Actions -> Auction Sniper Scan -> Run workflow.
+
+Savills credentials:
+- Repository Settings -> Secrets and variables -> Actions
+- Add `SAVILLS_EMAIL`
+- Add `SAVILLS_PASSWORD`
+
+The credentials are reserved for legal-document authentication. Public lot discovery does not depend on them.
