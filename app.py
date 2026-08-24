@@ -2,6 +2,7 @@
 import re, html, json, time
 from pathlib import Path
 from urllib.parse import urljoin
+import urllib.parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
@@ -10,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V5.2"
-CACHE = Path("auction_sniper_cache_v52.json")
+BUILD = "V5.3"
+CACHE = Path("auction_sniper_cache_v53.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -200,6 +201,34 @@ def _img_candidates(node, base):
             out.append(u)
     return out
 
+def _savills_page_preview(url):
+    """
+    Savills galleries are JS-loaded. When the raw HTML does not expose a
+    genuine property-photo URL, use a rendered thumbnail of the exact Savills
+    lot page rather than showing the Savills brand logo.
+
+    WordPress mShots is a public webpage-thumbnail endpoint and requires no API key.
+    """
+    if not url:
+        return None
+    encoded=urllib.parse.quote(url,safe="")
+    return f"https://s.wordpress.com/mshots/v1/{encoded}?w=800"
+
+def _is_savills_brand_image(url):
+    if not url:
+        return True
+    low=url.lower()
+    # Reject known/non-property assets aggressively. Actual property CDN
+    # images can still include "savills" in the hostname, so do not reject
+    # that word alone.
+    bad=[
+        "logo","favicon","icon-","/icons/","brand","sprite",
+        "savills-auctions-logo","savills_logo","logo-savills",
+        "placeholder","default-image","no-image","social"
+    ]
+    return any(x in low for x in bad)
+
+
 def _nearest_lot_container(anchor, lotno=None, max_chars=5000):
     node=anchor
     fallback=None
@@ -331,13 +360,22 @@ def _catalogue_savills():
             ):
                 continue
 
+            candidate_img=imgs[0] if imgs else None
+            if _is_savills_brand_image(candidate_img):
+                candidate_img=None
+
+            # JS-loaded Savills galleries frequently hide their photo URLs from
+            # requests/BeautifulSoup. Never fall back to the yellow Savills
+            # logo: use the rendered exact-lot page instead.
+            preview_img=candidate_img or _savills_page_preview(href)
+
             row=dict(
                 source="Savills Auctions",lot=lotno,date="2026-09-02",
                 address=addr,guide=guide,rent=rent,
                 tenure=("Freehold" if "freehold" in low else "Leasehold" if "leasehold" in low else None),
                 vat=("NOT APPLICABLE" if "vat is not applicable" in low or "vat-free" in low else
                      "APPLICABLE" if "vat is applicable" in low else "UNKNOWN"),
-                url=href,desc=post[:350],image=imgs[0] if imgs else None
+                url=href,desc=post[:350],image=preview_img
             )
 
             existing=rows.get(lotno)
@@ -424,8 +462,14 @@ def _best_exact_page_image(url):
     except Exception:
         return None
 
-def _enrich_missing_images(rows,limit=60):
-    # Catalogue images are preferred. Exact page is only a fallback.
+def _enrich_missing_images(rows,limit=80):
+    # Savills: ensure a visual exists even when gallery URLs are JS-only.
+    for x in rows:
+        if x.get("source")=="Savills Auctions":
+            if (not x.get("image")) or _is_savills_brand_image(x.get("image")):
+                x["image"]=_savills_page_preview(x.get("url"))
+
+    # Other sources: exact page image is the fallback.
     todo=[x for x in rows[:limit] if not x.get("image") and x.get("url")]
     with ThreadPoolExecutor(max_workers=10) as ex:
         fut={ex.submit(_best_exact_page_image,x["url"]):x for x in todo}
