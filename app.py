@@ -10,8 +10,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V5.1"
-CACHE = Path("auction_sniper_cache_v51.json")
+BUILD = "V5.2"
+CACHE = Path("auction_sniper_cache_v52.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -145,21 +145,17 @@ GENERIC_TITLES = {
 }
 
 def _canonical_key(x):
-    # Prefer source+lot when present; this removes Savills duplicate "Full details"
-    # anchors which point at the same catalogue lot.
     lot=(x.get("lot") or "").strip().lower()
     if lot and lot!="lot tbc":
         return (x.get("source","").lower(), lot)
     return (x.get("source","").lower(), (x.get("url") or "").split("?",1)[0].rstrip("/").lower())
 
 def _clean_rows(rows):
-    cleaned=[]
-    seen=set()
+    cleaned=[]; seen=set()
     for x in prepare(rows):
         address=norm(x.get("address",""))
         if not address or address.lower() in GENERIC_TITLES:
             continue
-        # reject obvious navigation/card-label junk
         if address.lower().startswith(("full details","view details")):
             continue
         key=_canonical_key(x)
@@ -169,68 +165,292 @@ def _clean_rows(rows):
         cleaned.append(x)
     return cleaned
 
+def _img_candidates(node, base):
+    if node is None:
+        return []
+    raw=[]
+    for img in node.find_all("img"):
+        for attr in ("data-src","data-lazy-src","data-original","src"):
+            v=img.get(attr)
+            if v: raw.append(v)
+        ss=img.get("srcset") or img.get("data-srcset")
+        if ss:
+            for part in ss.split(","):
+                u=part.strip().split(" ")[0]
+                if u: raw.append(u)
+    for source in node.find_all("source"):
+        ss=source.get("srcset")
+        if ss:
+            for part in ss.split(","):
+                u=part.strip().split(" ")[0]
+                if u: raw.append(u)
+    for tag in node.find_all(style=True):
+        for u in re.findall(r'url\([\'"]?([^\'")]+)',tag.get("style",""),re.I):
+            raw.append(u)
+
+    out=[]
+    bad=("logo","icon","favicon","avatar","sprite","placeholder","savills-logo",
+         "facebook","instagram","linkedin","twitter","youtube")
+    for u in raw:
+        u=urljoin(base,u)
+        low=u.lower()
+        if any(b in low for b in bad):
+            continue
+        if u not in out:
+            out.append(u)
+    return out
+
+def _nearest_lot_container(anchor, lotno=None, max_chars=5000):
+    node=anchor
+    fallback=None
+    for _ in range(10):
+        node=getattr(node,"parent",None)
+        if node is None: break
+        txt=norm(node.get_text(" ",strip=True))
+        if len(txt)>max_chars:
+            break
+        if lotno and lotno.lower() in txt.lower():
+            fallback=node
+            if "guide" in txt.lower():
+                return node
+    return fallback
+
 @st.cache_data(ttl=21600, show_spinner=False)
-def _preview_from_url(url):
+def _catalogue_ahl():
+    url="https://auctionhouselondon.co.uk/commercial-property-for-sale"
     try:
         s=BeautifulSoup(fetch(url),"lxml")
-        img=None
-        for attrs in ({"property":"og:image"},{"name":"twitter:image"}):
-            tag=s.find("meta",attrs=attrs)
-            if tag and tag.get("content"):
-                img=urljoin(url,tag["content"])
-                break
-        if not img:
-            tag=s.find("img")
-            if tag:
-                raw=tag.get("src") or tag.get("data-src") or tag.get("data-lazy-src")
-                if raw:
-                    img=urljoin(url,raw)
+        rows={}
 
-        title=None
-        h1=s.find("h1")
-        if h1:
-            title=norm(h1.get_text(" ",strip=True))
-        return {"image":img,"title":title}
+        # Each lot-heading link on the commercial page points to the exact lot.
+        for a in s.find_all("a",href=True):
+            label=norm(a.get_text(" ",strip=True))
+            m=re.search(r"\bLOT\s+(\d+[A-Z]?)\b",label,re.I)
+            if not m:
+                continue
+            lotno="Lot "+m.group(1)
+            href=urljoin(url,a["href"])
+            node=_nearest_lot_container(a,lotno,3500)
+            if node is None: continue
+            text=norm(node.get_text(" ",strip=True))
+            low=text.lower()
+            if "sold prior" in low or "withdrawn prior" in low:
+                continue
+
+            # Address is normally a text/link after the property type.
+            address=None
+            for cand in node.find_all(["h2","h3","h4","a","p"]):
+                t=norm(cand.get_text(" ",strip=True))
+                if (len(t)>12 and
+                    "guide price" not in t.lower() and
+                    "view details" not in t.lower() and
+                    not re.search(r"^LOT\s+\d",t,re.I) and
+                    re.search(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",t,re.I)):
+                    address=t; break
+            if not address:
+                # robust text fallback from the card
+                address=text[:180]
+
+            gm=re.search(r"Guide Price:\s*(£[\d,]+)",text,re.I)
+            guide=parse_money(gm.group(1)) if gm else None
+            rent=parse_rent(text)
+            imgs=_img_candidates(node,url)
+            rows[lotno]=dict(
+                source="Auction House London",lot=lotno,date="2026-09-02",
+                address=address,guide=guide,rent=rent,
+                tenure=("Freehold" if "freehold" in low else "Leasehold" if "leasehold" in low else None),
+                vat="UNKNOWN",url=href,desc=text[:350],
+                image=imgs[0] if imgs else None
+            )
+
+        if len(rows)<8:
+            raise ValueError("AHL catalogue parse too small")
+        return list(rows.values())
     except Exception:
-        return {"image":None,"title":None}
+        return []
 
-def _enrich_previews(rows, limit=80):
-    # Fetch previews in parallel. Failures never remove a property.
+@st.cache_data(ttl=21600, show_spinner=False)
+def _catalogue_savills():
+    url="https://auctions.savills.co.uk/auctions/2-september-2026-241/page-1/quantity-100/property_type-253/sort-by-0"
+    try:
+        s=BeautifulSoup(fetch(url),"lxml")
+        rows={}
+        generic={"full details","view details","details","previous lot","next lot","return to catalogue"}
+
+        # Savills uses the address itself as the exact-lot link.
+        for a in s.find_all("a",href=True):
+            addr=norm(a.get_text(" ",strip=True))
+            if not addr or addr.lower() in generic or len(addr)<8:
+                continue
+
+            # Require an address-like string so "Full details" and UI links never become rows.
+            if not (re.search(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",addr,re.I)
+                    or any(x in addr.lower() for x in ("street","road","unit ","land ","centre","garage","mill"))):
+                continue
+
+            # Find the closest preceding lot marker from DOM text.
+            before=[]
+            for t in a.find_all_previous(string=True,limit=55):
+                tt=norm(str(t))
+                if tt: before.append(tt)
+            before.reverse()
+            idx=None;lotno=None
+            for i in range(len(before)-1,-1,-1):
+                m=re.fullmatch(r"Lot\s+(\d+[A-Z]?)",before[i],re.I)
+                if m:
+                    idx=i; lotno="Lot "+m.group(1); break
+            if idx is None:
+                continue
+
+            pre=" ".join(before[idx:])
+            if "sold prior" in pre.lower() or "withdrawn prior" in pre.lower():
+                continue
+
+            after=[]
+            for t in a.find_all_next(string=True,limit=75):
+                tt=norm(str(t))
+                if not tt: continue
+                if after and re.fullmatch(r"Lot\s+\d+[A-Z]?",tt,re.I):
+                    break
+                after.append(tt)
+            post=" ".join(after)
+
+            gm=re.search(r"Guide Price\s*(£[\d,]+)",pre,re.I)
+            guide=parse_money(gm.group(1)) if gm else None
+            rent=parse_rent(post)
+
+            href=urljoin(url,a["href"])
+            node=_nearest_lot_container(a,lotno,6000)
+            imgs=_img_candidates(node,url)
+
+            # The catalogue is Savills' own commercial section, but exclude
+            # clearly residential-development-only land.
+            low=(addr+" "+post).lower()
+            if "planning permission for" in low and "residential dwellings" in low and not any(
+                k in low for k in ("retail","commercial","industrial","office","mixed-use","mixed use")
+            ):
+                continue
+
+            row=dict(
+                source="Savills Auctions",lot=lotno,date="2026-09-02",
+                address=addr,guide=guide,rent=rent,
+                tenure=("Freehold" if "freehold" in low else "Leasehold" if "leasehold" in low else None),
+                vat=("NOT APPLICABLE" if "vat is not applicable" in low or "vat-free" in low else
+                     "APPLICABLE" if "vat is applicable" in low else "UNKNOWN"),
+                url=href,desc=post[:350],image=imgs[0] if imgs else None
+            )
+
+            existing=rows.get(lotno)
+            if existing is None or ((not existing.get("image")) and row.get("image")):
+                rows[lotno]=row
+
+        known=set(rows)
+        if len(rows)<15 or "Lot 73" not in known or "Lot 86" not in known:
+            raise ValueError("Savills catalogue sanity failed")
+        return list(rows.values())
+    except Exception:
+        return []
+
+@st.cache_data(ttl=21600, show_spinner=False)
+def _catalogue_strettons():
+    url="https://www.strettons.co.uk/auction-commercial-property/for-sale/"
+    try:
+        s=BeautifulSoup(fetch(url),"lxml")
+        rows={}
+        for a in s.find_all("a",href=True):
+            text=norm(a.get_text(" ",strip=True))
+            node=a
+            card=""
+            for _ in range(8):
+                node=getattr(node,"parent",None)
+                if node is None: break
+                t=norm(node.get_text(" ",strip=True))
+                if "10 Sep 26" in t and re.search(r"\bLot\s+\d+",t,re.I) and len(t)<4000:
+                    card=t
+                    break
+            if not card:
+                continue
+            m=re.search(r"10 Sep 26\s*-\s*Lot\s+(\d+[A-Z]?)\s+(.+?)(?=(?:FREEHOLD|LONG LEASEHOLD|Guide Price|View more))",card,re.I)
+            if not m:
+                continue
+            lotno="Lot "+m.group(1)
+            address=norm(m.group(2))
+            gm=re.search(r"Guide Price\s*(£[\d,]+)",card,re.I)
+            guide=parse_money(gm.group(1)) if gm else None
+            href=urljoin(url,a.get("href",""))
+            imgs=_img_candidates(node,url)
+            low=card.lower()
+            rows[lotno]=dict(
+                source="Strettons",lot=lotno,date="2026-09-10",
+                address=address,guide=guide,rent=parse_rent(card),
+                tenure=("Freehold" if "freehold" in low else "Leasehold" if "leasehold" in low else None),
+                vat="UNKNOWN",url=href or url,desc=card[:350],
+                image=imgs[0] if imgs else None
+            )
+        if len(rows)<8:
+            raise ValueError("Strettons parse too small")
+        return list(rows.values())
+    except Exception:
+        return []
+
+def _merge_catalogue_rows(base_rows):
+    # Current catalogue rows supersede the small seed source-by-source,
+    # but a parser failure never deletes the seed.
+    current={x["source"]:[] for x in base_rows}
+    for x in base_rows:
+        current.setdefault(x["source"],[]).append(x)
+
+    for source,fn in [
+        ("Auction House London",_catalogue_ahl),
+        ("Savills Auctions",_catalogue_savills),
+        ("Strettons",_catalogue_strettons),
+    ]:
+        rows=fn()
+        if rows:
+            current[source]=rows
+
+    merged=[]
+    for rows in current.values():
+        merged.extend(rows)
+    return _clean_rows(merged)
+
+@st.cache_data(ttl=21600, show_spinner=False)
+def _best_exact_page_image(url):
+    try:
+        s=BeautifulSoup(fetch(url),"lxml")
+        # Never use og:image for Savills; it is often just the brand logo.
+        candidates=_img_candidates(s,url)
+        return candidates[0] if candidates else None
+    except Exception:
+        return None
+
+def _enrich_missing_images(rows,limit=60):
+    # Catalogue images are preferred. Exact page is only a fallback.
     todo=[x for x in rows[:limit] if not x.get("image") and x.get("url")]
-    if not todo:
-        return rows
     with ThreadPoolExecutor(max_workers=10) as ex:
-        futures={ex.submit(_preview_from_url,x["url"]):x for x in todo}
-        for f in as_completed(futures):
-            x=futures[f]
+        fut={ex.submit(_best_exact_page_image,x["url"]):x for x in todo}
+        for f in as_completed(fut):
+            x=fut[f]
             try:
-                p=f.result()
-                if p.get("image"):
-                    x["image"]=p["image"]
-                # Only replace ugly scraped card text with a clean exact-page title.
-                current=norm(x.get("address",""))
-                if p.get("title") and (
-                    current.lower() in GENERIC_TITLES
-                    or current.upper().startswith("LOT ")
-                    or len(current)>180
-                ):
-                    x["address"]=p["title"]
+                img=f.result()
+                if img: x["image"]=img
             except Exception:
                 pass
     return rows
 
 def load_rows():
-    # Local cache wins if the user explicitly refreshed successfully.
     if CACHE.exists():
         try:
             cached=json.loads(CACHE.read_text(encoding="utf-8"))
             if cached.get("properties"):
                 rows=_clean_rows(cached["properties"])
-                return _enrich_previews(rows), cached.get("health", SOURCE_HEALTH), cached.get("updated")
+                rows=_merge_catalogue_rows(rows)
+                return _enrich_missing_images(rows), cached.get("health", SOURCE_HEALTH), cached.get("updated")
         except Exception:
             pass
-    rows=_clean_rows(SEED)
-    return _enrich_previews(rows), SOURCE_HEALTH, "Verified seed · 24 Aug 2026"
+
+    rows=_merge_catalogue_rows(SEED)
+    return _enrich_missing_images(rows), SOURCE_HEALTH, "Current commercial catalogues · 24 Aug 2026"
 
 # ---------------- live refresh (non-blocking until user asks) ----------------
 MONEY_RE=re.compile(r"£\s*([\d,]+(?:\.\d{1,2})?)")
@@ -458,7 +678,7 @@ header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:no
 .badge{font-size:.43rem;border:1px solid #2e8b5c;color:#9ae6b4;border-radius:999px;padding:4px 6px;white-space:nowrap}
 .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
 .card{background:#121925;border:1px solid #29354b;border-radius:9px;overflow:hidden}
-.preview{display:block;width:100%;height:118px;object-fit:cover;background:#172131}
+.preview{display:block;width:100%;height:125px;object-fit:cover;background:#172131}
 .noimg{display:grid;place-items:center;color:#748197;font-size:.34rem}
 .cb{padding:7px}.src{font-size:.36rem;color:#f2c94c;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .addr{font-size:.59rem;font-weight:850;line-height:1.18;min-height:2.3em;margin:3px 0 5px}
@@ -467,7 +687,7 @@ header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:no
 .meta{font-size:.31rem;color:#a8b5c7;margin-top:4px;line-height:1.3}
 .action{display:block;text-align:center;text-decoration:none;background:#f2c94c;color:#171208;border-radius:5px;padding:5px;margin-top:5px;font-size:.40rem;font-weight:900}
 .statusrow{padding:7px 8px;border:1px solid #29354b;background:#111824;border-radius:8px;margin-bottom:5px}
-@media(max-width:800px){.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}.brand{font-size:1rem}.preview{height:92px}.cb{padding:5px}.addr{font-size:.53rem}}
+@media(max-width:800px){.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}.brand{font-size:1rem}.preview{height:96px}.cb{padding:5px}.addr{font-size:.53rem}}
 </style>
 """,unsafe_allow_html=True)
 
