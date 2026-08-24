@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V5.4"
-CACHE = Path("auction_sniper_cache_v54.json")
+BUILD = "V5.5"
+CACHE = Path("auction_sniper_cache_v55.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -226,12 +226,25 @@ def _is_savills_brand_image(url):
     ]
     return any(x in low for x in bad)
 
+def _is_genuine_savills_property_image(url):
+    if not url:
+        return False
+    low=url.lower()
+    # Current genuine Savills auction gallery images use this CDN.
+    if "resize.auctions.savills.co.uk/assets/images/lots/" in low:
+        return True
+    # Indexed fallback may proxy the same property photo through
+    # PropertyAuctions. Accept only if it is clearly not a branding asset.
+    if "propertyauctions.io" in low and not _is_savills_brand_image(url):
+        return True
+    return False
+
+
 @st.cache_data(ttl=21600, show_spinner=False)
 def _savills_real_gallery_image(lotno):
     """
-    Pull the first genuine property photo from an indexed listing that exposes
-    Savills' underlying resize.auctions.savills.co.uk gallery files.
-    Never returns logos/screenshots/placeholders.
+    Return a genuine property image for mapped Savills lots.
+    Never returns the yellow Savills tile, social images or screenshots.
     """
     page=SAVILLS_IMAGE_SOURCE_PAGES.get(lotno)
     if not page:
@@ -239,13 +252,18 @@ def _savills_real_gallery_image(lotno):
     try:
         s=BeautifulSoup(fetch(page),"lxml")
         candidates=[]
+
+        # Property gallery images are near the top and have the property address
+        # as alt text. Savills branding uses "Savills" in alt text.
         for img in s.find_all("img"):
+            alt=norm(img.get("alt","")).lower()
+            if "savills" in alt and ("plc" in alt or alt.strip()=="savills"):
+                continue
             for attr in ("src","data-src","data-lazy-src","data-original"):
                 raw=img.get(attr)
                 if raw:
                     u=urljoin(page,raw)
-                    low=u.lower()
-                    if "resize.auctions.savills.co.uk" in low and not _is_savills_brand_image(u):
+                    if _is_genuine_savills_property_image(u):
                         candidates.append(u)
             ss=img.get("srcset") or img.get("data-srcset")
             if ss:
@@ -253,22 +271,22 @@ def _savills_real_gallery_image(lotno):
                     raw=part.strip().split(" ")[0]
                     if raw:
                         u=urljoin(page,raw)
-                        low=u.lower()
-                        if "resize.auctions.savills.co.uk" in low and not _is_savills_brand_image(u):
+                        if _is_genuine_savills_property_image(u):
                             candidates.append(u)
 
-        # Some pages expose gallery images as linked image assets rather than img src.
+        # Some indexed pages expose the original Savills CDN image as href.
         for a in s.find_all("a",href=True):
             u=urljoin(page,a["href"])
-            if "resize.auctions.savills.co.uk" in u.lower() and not _is_savills_brand_image(u):
+            if "resize.auctions.savills.co.uk/assets/images/lots/" in u.lower():
                 candidates.append(u)
 
-        # Prefer first unique image.
+        # Preserve document order, first valid gallery image wins.
         seen=set()
         for u in candidates:
-            if u not in seen:
-                seen.add(u)
-                return u
+            if u in seen:
+                continue
+            seen.add(u)
+            return u
     except Exception:
         pass
     return None
@@ -389,9 +407,12 @@ def _catalogue_savills():
                 after.append(tt)
             post=" ".join(after)
 
-            gm=re.search(r"Guide Price\s*(£[\d,]+)",pre,re.I)
+            # Guide price can appear before or after the address depending on
+            # Savills' rendered DOM. Search the isolated current-lot text.
+            lot_text=pre+" "+post
+            gm=re.search(r"Guide Price\s*(£[\d,]+)",lot_text,re.I)
             guide=parse_money(gm.group(1)) if gm else None
-            rent=parse_rent(post)
+            rent=parse_rent(lot_text)
 
             href=urljoin(url,a["href"])
             node=_nearest_lot_container(a,lotno,6000)
@@ -405,13 +426,15 @@ def _catalogue_savills():
             ):
                 continue
 
-            candidate_img=imgs[0] if imgs else None
-            if _is_savills_brand_image(candidate_img):
-                candidate_img=None
+            candidate_img=None
+            # Do not trust "first image" from Savills: the yellow Savills tile
+            # is often the first image and its URL does not say "logo".
+            for possible in imgs:
+                if _is_genuine_savills_property_image(possible):
+                    candidate_img=possible
+                    break
 
-            # Prefer a genuine catalogue image. If Savills hides it behind JS,
-            # use the actual Savills CDN gallery image exposed by the indexed
-            # property page. Never use logos or webpage screenshots.
+            # Only a whitelisted genuine property image is allowed.
             preview_img=candidate_img or _savills_real_gallery_image(lotno)
 
             row=dict(
@@ -514,11 +537,15 @@ def _enrich_missing_images(rows,limit=80):
     # Savills: only genuine property gallery photos are accepted.
     for x in rows:
         if x.get("source")=="Savills Auctions":
-            if (not x.get("image")) or _is_savills_brand_image(x.get("image")):
+            # Discard anything not explicitly recognised as a genuine property image.
+            if not _is_genuine_savills_property_image(x.get("image")):
                 x["image"]=_savills_real_gallery_image(x.get("lot"))
 
     # Other sources: exact page image is the fallback.
-    todo=[x for x in rows[:limit] if not x.get("image") and x.get("url")]
+    todo=[
+        x for x in rows[:limit]
+        if not x.get("image") and x.get("url") and x.get("source")!="Savills Auctions"
+    ]
     with ThreadPoolExecutor(max_workers=10) as ex:
         fut={ex.submit(_best_exact_page_image,x["url"]):x for x in todo}
         for f in as_completed(fut):
