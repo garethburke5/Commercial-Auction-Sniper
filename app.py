@@ -10,8 +10,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V5"
-CACHE = Path("auction_sniper_cache.json")
+BUILD = "V5.1"
+CACHE = Path("auction_sniper_cache_v51.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -139,16 +139,98 @@ def prepare(rows):
         out.append(x)
     return out
 
+GENERIC_TITLES = {
+    "full details","view details","details","more details","property details",
+    "view property","open property","click here"
+}
+
+def _canonical_key(x):
+    # Prefer source+lot when present; this removes Savills duplicate "Full details"
+    # anchors which point at the same catalogue lot.
+    lot=(x.get("lot") or "").strip().lower()
+    if lot and lot!="lot tbc":
+        return (x.get("source","").lower(), lot)
+    return (x.get("source","").lower(), (x.get("url") or "").split("?",1)[0].rstrip("/").lower())
+
+def _clean_rows(rows):
+    cleaned=[]
+    seen=set()
+    for x in prepare(rows):
+        address=norm(x.get("address",""))
+        if not address or address.lower() in GENERIC_TITLES:
+            continue
+        # reject obvious navigation/card-label junk
+        if address.lower().startswith(("full details","view details")):
+            continue
+        key=_canonical_key(x)
+        if key in seen:
+            continue
+        seen.add(key)
+        cleaned.append(x)
+    return cleaned
+
+@st.cache_data(ttl=21600, show_spinner=False)
+def _preview_from_url(url):
+    try:
+        s=BeautifulSoup(fetch(url),"lxml")
+        img=None
+        for attrs in ({"property":"og:image"},{"name":"twitter:image"}):
+            tag=s.find("meta",attrs=attrs)
+            if tag and tag.get("content"):
+                img=urljoin(url,tag["content"])
+                break
+        if not img:
+            tag=s.find("img")
+            if tag:
+                raw=tag.get("src") or tag.get("data-src") or tag.get("data-lazy-src")
+                if raw:
+                    img=urljoin(url,raw)
+
+        title=None
+        h1=s.find("h1")
+        if h1:
+            title=norm(h1.get_text(" ",strip=True))
+        return {"image":img,"title":title}
+    except Exception:
+        return {"image":None,"title":None}
+
+def _enrich_previews(rows, limit=80):
+    # Fetch previews in parallel. Failures never remove a property.
+    todo=[x for x in rows[:limit] if not x.get("image") and x.get("url")]
+    if not todo:
+        return rows
+    with ThreadPoolExecutor(max_workers=10) as ex:
+        futures={ex.submit(_preview_from_url,x["url"]):x for x in todo}
+        for f in as_completed(futures):
+            x=futures[f]
+            try:
+                p=f.result()
+                if p.get("image"):
+                    x["image"]=p["image"]
+                # Only replace ugly scraped card text with a clean exact-page title.
+                current=norm(x.get("address",""))
+                if p.get("title") and (
+                    current.lower() in GENERIC_TITLES
+                    or current.upper().startswith("LOT ")
+                    or len(current)>180
+                ):
+                    x["address"]=p["title"]
+            except Exception:
+                pass
+    return rows
+
 def load_rows():
     # Local cache wins if the user explicitly refreshed successfully.
     if CACHE.exists():
         try:
             cached=json.loads(CACHE.read_text(encoding="utf-8"))
             if cached.get("properties"):
-                return prepare(cached["properties"]), cached.get("health", SOURCE_HEALTH), cached.get("updated")
+                rows=_clean_rows(cached["properties"])
+                return _enrich_previews(rows), cached.get("health", SOURCE_HEALTH), cached.get("updated")
         except Exception:
             pass
-    return prepare(SEED), SOURCE_HEALTH, "Verified seed · 24 Aug 2026"
+    rows=_clean_rows(SEED)
+    return _enrich_previews(rows), SOURCE_HEALTH, "Verified seed · 24 Aug 2026"
 
 # ---------------- live refresh (non-blocking until user asks) ----------------
 MONEY_RE=re.compile(r"£\s*([\d,]+(?:\.\d{1,2})?)")
@@ -172,63 +254,163 @@ def parse_rent(text):
         if 500<=v<=5_000_000: vals.append(v)
     return max(vals) if vals else None
 
+def _exact_preview(url):
+    s=BeautifulSoup(fetch(url),"lxml")
+    h1=s.find("h1")
+    title=norm(h1.get_text(" ",strip=True)) if h1 else None
+    img=None
+    for attrs in ({"property":"og:image"},{"name":"twitter:image"}):
+        tag=s.find("meta",attrs=attrs)
+        if tag and tag.get("content"):
+            img=urljoin(url,tag["content"])
+            break
+    main=s.find("main") or s.find("article")
+    text=norm(main.get_text(" ",strip=True)) if main else norm(s.get_text(" ",strip=True))
+    return title,img,text
+
 def refresh_ahl():
     url="https://auctionhouselondon.co.uk/commercial-property-for-sale"
     s=BeautifulSoup(fetch(url),"lxml")
-    rows=[];seen=set()
+    candidates=[];seen=set()
+
     for a in s.find_all("a",href=True):
         href=urljoin(url,a["href"])
-        if "/lot/" not in href or href in seen: continue
-        node=a
+        if "/lot/" not in href or href in seen:
+            continue
         card=""
+        node=a
         for _ in range(8):
             node=getattr(node,"parent",None)
-            if node is None: break
+            if node is None:
+                break
             txt=norm(node.get_text(" ",strip=True))
-            if 40<len(txt)<2400: card=txt
+            if 40<len(txt)<2600:
+                card=txt
         m=re.search(r"\bLOT\s+(\d+[A-Z]?)\b",card,re.I)
-        if not m or "sold prior" in card.lower(): continue
-        if not any(k in card.lower() for k in ["retail property","commercial property","mixed use","industrial","workshop"]): continue
-        gp_match=re.search(r"Guide Price:\s*(£[\d,]+)",card,re.I)
-        guide=parse_money(gp_match.group(1)) if gp_match else None
-        rent=parse_rent(card)
-        title=a.get_text(" ",strip=True)
-        # Exact card link might be the lot heading rather than the address;
-        # address will be completed by lot page if reachable.
-        address=title if title and "LOT " not in title.upper() and title.lower()!="view details" else card
-        rows.append(dict(source="Auction House London",lot=f"Lot {m.group(1)}",date="2026-09-02",
-                         address=address[:180],guide=guide,rent=rent,tenure=None,vat="UNKNOWN",
-                         url=href,desc=card[:300]))
+        if not m or "sold prior" in card.lower() or "withdrawn" in card.lower():
+            continue
+        # Dedicated commercial page; lot page is still used as the source of truth.
         seen.add(href)
+        candidates.append((href,f"Lot {m.group(1)}",card))
+
+    rows=[]
+    def build(c):
+        href,lotno,card=c
+        try:
+            title,img,text=_exact_preview(href)
+            combined=card+" "+text
+            guide=None
+            gm=re.search(r"Guide Price(?:\\s*[:*])?\\s*(£[\\d,]+)",combined,re.I)
+            if gm:
+                guide=parse_money(gm.group(1))
+            rent=parse_rent(combined)
+            return dict(
+                source="Auction House London",lot=lotno,date="2026-09-02",
+                address=title or norm(card)[:180],guide=guide,rent=rent,
+                tenure=("Freehold" if "freehold" in combined.lower() else
+                        "Leasehold" if "leasehold" in combined.lower() else None),
+                vat="UNKNOWN",url=href,desc=card[:300],image=img
+            )
+        except Exception:
+            return None
+
+    with ThreadPoolExecutor(max_workers=10) as ex:
+        futures=[ex.submit(build,c) for c in candidates]
+        for f in as_completed(futures):
+            row=f.result()
+            if row:
+                rows.append(row)
+
+    if len(rows)<5:
+        raise ValueError("Auction House London sanity check failed")
     return rows
 
 def refresh_savills():
     url="https://auctions.savills.co.uk/auctions/2-september-2026-241/page-1/quantity-100/property_type-253/sort-by-0"
     s=BeautifulSoup(fetch(url),"lxml")
-    text=norm(s.get_text("\n",strip=True))
-    rows=[]
-    # Keep refresh conservative: seed remains if parsing is not strong enough.
-    # We identify repeating Lot / Guide / Address blocks from headings/anchors.
+    rows_by_lot={}
+
+    generic={"full details","view details","details","previous lot","next lot","return to catalogue"}
+
     for a in s.find_all("a",href=True):
-        href=urljoin(url,a["href"])
         addr=norm(a.get_text(" ",strip=True))
-        if not addr or "/auctions/2-september-2026-241/" not in href: continue
-        node=a;card=""
+        if not addr or addr.lower() in generic:
+            continue
+        if len(addr)<8:
+            continue
+
+        href=urljoin(url,a["href"])
+        # Ignore links which are clearly not a property detail destination.
+        if "2-september-2026-241" not in href and "option=com_bidding" not in href:
+            continue
+
+        # Walk backwards only to the current lot marker.
+        before=[]
+        for t in a.find_all_previous(string=True,limit=50):
+            tt=norm(str(t))
+            if tt:
+                before.append(tt)
+        before.reverse()
+
+        idx=None; lotno=None
+        for i in range(len(before)-1,-1,-1):
+            m=re.fullmatch(r"Lot\\s+(\\d+[A-Z]?)",before[i],re.I)
+            if m:
+                idx=i
+                lotno="Lot "+m.group(1)
+                break
+        if idx is None:
+            continue
+
+        pre=" ".join(before[idx:])
+        if "sold prior" in pre.lower() or "withdrawn prior" in pre.lower():
+            continue
+
+        # Read only this lot's following text, stopping at the next lot.
+        after=[]
+        for t in a.find_all_next(string=True,limit=70):
+            tt=norm(str(t))
+            if not tt:
+                continue
+            if after and re.fullmatch(r"Lot\\s+\\d+[A-Z]?",tt,re.I):
+                break
+            after.append(tt)
+        card=pre+" "+" ".join(after)
+
+        gm=re.search(r"Guide Price\\s*(£[\\d,]+)",pre,re.I)
+        guide=parse_money(gm.group(1)) if gm else None
+        rent=parse_rent(card)
+
+        # Find image within the lot container first.
+        img=None
+        node=a
         for _ in range(8):
             node=getattr(node,"parent",None)
-            if node is None: break
-            txt=norm(node.get_text(" ",strip=True))
-            if "Guide Price" in txt and re.search(r"\bLot\s+\d+",txt,re.I) and len(txt)<3500:
-                card=txt;break
-        if not card: continue
-        m=re.search(r"\bLot\s+(\d+[A-Z]?)",card,re.I)
-        if not m or "sold prior" in card.lower(): continue
-        guide=parse_money(re.search(r"Guide Price\s*(£[\d,]+)",card,re.I).group(1)) if re.search(r"Guide Price\s*(£[\d,]+)",card,re.I) else None
-        rent=parse_rent(card)
-        rows.append(dict(source="Savills Auctions",lot=f"Lot {m.group(1)}",date="2026-09-02",
-                         address=addr,guide=guide,rent=rent,tenure=None,vat="UNKNOWN",
-                         url=href,desc=card[:300]))
-    # Sanity gate: do not replace verified seed with a broken zero/small parse.
+            if node is None:
+                break
+            tag=node.find("img")
+            if tag:
+                raw=tag.get("src") or tag.get("data-src") or tag.get("data-lazy-src")
+                if raw:
+                    img=urljoin(url,raw)
+                    break
+
+        row=dict(
+            source="Savills Auctions",lot=lotno,date="2026-09-02",
+            address=addr,guide=guide,rent=rent,tenure=None,vat="UNKNOWN",
+            url=href,desc=card[:300],image=img
+        )
+
+        # One record per lot. Prefer the row with a real image and fuller address.
+        existing=rows_by_lot.get(lotno)
+        if existing is None:
+            rows_by_lot[lotno]=row
+        else:
+            score=lambda r: (1 if r.get("image") else 0, len(r.get("address","")))
+            if score(row)>score(existing):
+                rows_by_lot[lotno]=row
+
+    rows=list(rows_by_lot.values())
     known={x["lot"] for x in rows}
     if len(rows)<8 or "Lot 73" not in known or "Lot 86" not in known:
         raise ValueError("Savills sanity check failed")
@@ -276,6 +458,8 @@ header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:no
 .badge{font-size:.43rem;border:1px solid #2e8b5c;color:#9ae6b4;border-radius:999px;padding:4px 6px;white-space:nowrap}
 .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
 .card{background:#121925;border:1px solid #29354b;border-radius:9px;overflow:hidden}
+.preview{display:block;width:100%;height:118px;object-fit:cover;background:#172131}
+.noimg{display:grid;place-items:center;color:#748197;font-size:.34rem}
 .cb{padding:7px}.src{font-size:.36rem;color:#f2c94c;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .addr{font-size:.59rem;font-weight:850;line-height:1.18;min-height:2.3em;margin:3px 0 5px}
 .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}.metric{background:#171f2d;border-radius:5px;padding:4px}
@@ -283,7 +467,7 @@ header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:no
 .meta{font-size:.31rem;color:#a8b5c7;margin-top:4px;line-height:1.3}
 .action{display:block;text-align:center;text-decoration:none;background:#f2c94c;color:#171208;border-radius:5px;padding:5px;margin-top:5px;font-size:.40rem;font-weight:900}
 .statusrow{padding:7px 8px;border:1px solid #29354b;background:#111824;border-radius:8px;margin-bottom:5px}
-@media(max-width:800px){.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}.brand{font-size:1rem}.cb{padding:5px}.addr{font-size:.53rem}}
+@media(max-width:800px){.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}.brand{font-size:1rem}.preview{height:92px}.cb{padding:5px}.addr{font-size:.53rem}}
 </style>
 """,unsafe_allow_html=True)
 
@@ -347,8 +531,10 @@ with lots_tab:
         y=x.get("yield")
         ceiling=x["rent"]/.10 if x.get("rent") else None
         meta=" · ".join(v for v in [x.get("date"),x.get("tenure"),("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)
+        preview=(f'<img class="preview" src="{html.escape(x["image"])}" loading="lazy">' if x.get("image")
+                 else '<div class="preview noimg">NO PROPERTY IMAGE</div>')
         cards.append(
-            '<div class="card"><div class="cb">'
+            '<div class="card">'+preview+'<div class="cb">'
             +f'<div class="src">{html.escape(x["source"])} · {html.escape(x.get("lot") or "Lot TBC")}</div>'
             +f'<div class="addr">{html.escape(x["address"])}</div><div class="metrics">'
             +f'<div class="metric"><span>Guide</span><b>{money(x.get("guide"))}</b></div>'
