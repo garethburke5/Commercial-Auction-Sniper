@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V5.3"
-CACHE = Path("auction_sniper_cache_v53.json")
+BUILD = "V5.4"
+CACHE = Path("auction_sniper_cache_v54.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -201,32 +201,77 @@ def _img_candidates(node, base):
             out.append(u)
     return out
 
-def _savills_page_preview(url):
-    """
-    Savills galleries are JS-loaded. When the raw HTML does not expose a
-    genuine property-photo URL, use a rendered thumbnail of the exact Savills
-    lot page rather than showing the Savills brand logo.
-
-    WordPress mShots is a public webpage-thumbnail endpoint and requires no API key.
-    """
-    if not url:
-        return None
-    encoded=urllib.parse.quote(url,safe="")
-    return f"https://s.wordpress.com/mshots/v1/{encoded}?w=800"
+SAVILLS_IMAGE_SOURCE_PAGES = {
+    # Current 2 Sep 2026 commercial lots. These indexed pages expose the
+    # underlying Savills gallery image URLs (resize.auctions.savills.co.uk).
+    "Lot 71": "https://propertyauctions.io/listings/59bcb113b7496ff8f48e639fdd36c1e4",
+    "Lot 73": "https://propertyauctions.io/listings/3e7569a6b6e479aa8f8f66b443e55965",
+    "Lot 77": "https://propertyauctions.io/listings/b6a5dec6796f6ac28bded379f10d5ffb",
+    "Lot 80": "https://propertyauctions.io/listings/164dd1d35895810e7bb8abdfc93db3f3",
+    "Lot 83": "https://propertyauctions.io/listings/17f6b4840e0340be26c5d4ef084ced52",
+    "Lot 84": "https://propertyauctions.io/listings/d332f9a58fea4489b6cd8a870abc7b42",
+    "Lot 86": "https://propertyauctions.io/listings/e1039b6003cc7fe7878d52294d6d6ac9",
+    "Lot 87": "https://propertyauctions.io/listings/ac0b56c309a5d50b5da578487625bdaf",
+}
 
 def _is_savills_brand_image(url):
     if not url:
         return True
     low=url.lower()
-    # Reject known/non-property assets aggressively. Actual property CDN
-    # images can still include "savills" in the hostname, so do not reject
-    # that word alone.
     bad=[
         "logo","favicon","icon-","/icons/","brand","sprite",
         "savills-auctions-logo","savills_logo","logo-savills",
-        "placeholder","default-image","no-image","social"
+        "placeholder","default-image","no-image","social",
+        "s.wordpress.com/mshots"
     ]
     return any(x in low for x in bad)
+
+@st.cache_data(ttl=21600, show_spinner=False)
+def _savills_real_gallery_image(lotno):
+    """
+    Pull the first genuine property photo from an indexed listing that exposes
+    Savills' underlying resize.auctions.savills.co.uk gallery files.
+    Never returns logos/screenshots/placeholders.
+    """
+    page=SAVILLS_IMAGE_SOURCE_PAGES.get(lotno)
+    if not page:
+        return None
+    try:
+        s=BeautifulSoup(fetch(page),"lxml")
+        candidates=[]
+        for img in s.find_all("img"):
+            for attr in ("src","data-src","data-lazy-src","data-original"):
+                raw=img.get(attr)
+                if raw:
+                    u=urljoin(page,raw)
+                    low=u.lower()
+                    if "resize.auctions.savills.co.uk" in low and not _is_savills_brand_image(u):
+                        candidates.append(u)
+            ss=img.get("srcset") or img.get("data-srcset")
+            if ss:
+                for part in ss.split(","):
+                    raw=part.strip().split(" ")[0]
+                    if raw:
+                        u=urljoin(page,raw)
+                        low=u.lower()
+                        if "resize.auctions.savills.co.uk" in low and not _is_savills_brand_image(u):
+                            candidates.append(u)
+
+        # Some pages expose gallery images as linked image assets rather than img src.
+        for a in s.find_all("a",href=True):
+            u=urljoin(page,a["href"])
+            if "resize.auctions.savills.co.uk" in u.lower() and not _is_savills_brand_image(u):
+                candidates.append(u)
+
+        # Prefer first unique image.
+        seen=set()
+        for u in candidates:
+            if u not in seen:
+                seen.add(u)
+                return u
+    except Exception:
+        pass
+    return None
 
 
 def _nearest_lot_container(anchor, lotno=None, max_chars=5000):
@@ -364,10 +409,10 @@ def _catalogue_savills():
             if _is_savills_brand_image(candidate_img):
                 candidate_img=None
 
-            # JS-loaded Savills galleries frequently hide their photo URLs from
-            # requests/BeautifulSoup. Never fall back to the yellow Savills
-            # logo: use the rendered exact-lot page instead.
-            preview_img=candidate_img or _savills_page_preview(href)
+            # Prefer a genuine catalogue image. If Savills hides it behind JS,
+            # use the actual Savills CDN gallery image exposed by the indexed
+            # property page. Never use logos or webpage screenshots.
+            preview_img=candidate_img or _savills_real_gallery_image(lotno)
 
             row=dict(
                 source="Savills Auctions",lot=lotno,date="2026-09-02",
@@ -456,18 +501,21 @@ def _merge_catalogue_rows(base_rows):
 def _best_exact_page_image(url):
     try:
         s=BeautifulSoup(fetch(url),"lxml")
-        # Never use og:image for Savills; it is often just the brand logo.
         candidates=_img_candidates(s,url)
-        return candidates[0] if candidates else None
+        for u in candidates:
+            if "auctions.savills.co.uk" in (url or "") and _is_savills_brand_image(u):
+                continue
+            return u
+        return None
     except Exception:
         return None
 
 def _enrich_missing_images(rows,limit=80):
-    # Savills: ensure a visual exists even when gallery URLs are JS-only.
+    # Savills: only genuine property gallery photos are accepted.
     for x in rows:
         if x.get("source")=="Savills Auctions":
             if (not x.get("image")) or _is_savills_brand_image(x.get("image")):
-                x["image"]=_savills_page_preview(x.get("url"))
+                x["image"]=_savills_real_gallery_image(x.get("lot"))
 
     # Other sources: exact page image is the fallback.
     todo=[x for x in rows[:limit] if not x.get("image") and x.get("url")]
@@ -796,7 +844,7 @@ with lots_tab:
         ceiling=x["rent"]/.10 if x.get("rent") else None
         meta=" · ".join(v for v in [x.get("date"),x.get("tenure"),("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)
         preview=(f'<img class="preview" src="{html.escape(x["image"])}" loading="lazy">' if x.get("image")
-                 else '<div class="preview noimg">NO PROPERTY IMAGE</div>')
+                 else '<div class="preview noimg">IMAGE NOT YET INDEXED</div>')
         cards.append(
             '<div class="card">'+preview+'<div class="cb">'
             +f'<div class="src">{html.escape(x["source"])} · {html.escape(x.get("lot") or "Lot TBC")}</div>'
