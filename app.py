@@ -291,31 +291,116 @@ def collect_bond_wolfe(max_guide):
 
 
 def collect_savills(max_guide):
-    source='Savills Auctions'; base='https://auctions.savills.co.uk'; upcoming=base+'/upcoming-auctions'
+    source='Savills Auctions'
+    base='https://auctions.savills.co.uk'
+    upcoming=base+'/upcoming-auctions'
     try:
-        landing=BeautifulSoup(fetch(upcoming),'lxml'); cats=[]
+        landing=BeautifulSoup(fetch(upcoming),'lxml')
+        catalogues=[]
+
+        # Find actual auction catalogue links from the upcoming-auctions page.
         for a in landing.find_all('a', href=True):
-            if '/auctions/' in a['href']:
-                u=urljoin(base,a['href'])
-                if u not in cats: cats.append(u)
-        seen=set(); lots=[]
-        for cat in cats[:3]:
-            soup=BeautifulSoup(fetch(cat),'lxml')
-            for a in soup.find_all('a', href=True):
-                if '/auctions/' not in a['href']: continue
-                lot_url=urljoin(base,a['href'])
-                if lot_url==cat or lot_url in seen: continue
+            href=a['href']
+            label=norm(a.get_text(' ',strip=True)).lower()
+            if '/auctions/' in href and ('catalogue' in label or 'view' in label):
+                u=urljoin(base,href)
+                if u not in catalogues:
+                    catalogues.append(u)
+
+        # Fallback in case Savills changes the anchor wording.
+        if not catalogues:
+            for a in landing.find_all('a', href=True):
+                if '/auctions/' in a['href']:
+                    u=urljoin(base,a['href'])
+                    if u not in catalogues:
+                        catalogues.append(u)
+
+        lots=[]
+        seen=set()
+        commercial_sections=0
+        checked=0
+
+        for catalogue in catalogues[:4]:
+            # Savills catalogue pages are paginated; page-1 contains a special
+            # 'Commercial Section' card when a dedicated commercial section exists.
+            cat_url=catalogue.rstrip('/')
+            if not re.search(r'/page-\d+(?:/|$)',cat_url):
+                page1=cat_url+'/page-1'
+            else:
+                page1=cat_url
+
+            try:
+                soup=BeautifulSoup(fetch(page1),'lxml')
+            except Exception:
+                soup=BeautifulSoup(fetch(catalogue),'lxml')
+
+            section_url=None
+            for a in soup.find_all('a',href=True):
                 card=nearest_text(a)
-                if 'login to see' in card.lower() or not commercial(card): continue
-                g=parse_guide(card)
-                if g and g>max_guide: continue
+                if 'commercial section' in card.lower():
+                    href=urljoin(base,a['href'])
+                    # Prefer Savills' own filtered commercial catalogue URL,
+                    # e.g. /quantity-100/property_type-253/sort-by-0
+                    if 'property_type-' in href or 'commercial' in card.lower():
+                        section_url=href
+                        break
+
+            if section_url:
+                commercial_sections+=1
+                section_soup=BeautifulSoup(fetch(section_url),'lxml')
+                force_commercial=True
+            else:
+                # Preliminary auctions may not yet expose the special section link.
+                section_soup=soup
+                force_commercial=False
+
+            candidates=[]
+            local_seen=set()
+            for a in section_soup.find_all('a',href=True):
+                href=a['href']
+                lot_url=urljoin(base,href)
+                if lot_url in local_seen or lot_url in seen:
+                    continue
+
+                card=nearest_text(a)
+                low=card.lower()
+                m=re.search(r'\bLot\s+(\d+[A-Z]?)\b',card,re.I)
+                if not m:
+                    continue
+                if 'guide price' not in low:
+                    continue
+                if 'login to see' in low:
+                    continue
+                if not force_commercial and not commercial(card):
+                    continue
+
+                guide=parse_guide(card)
+                if guide and guide>max_guide:
+                    continue
+
+                # Avoid pagination/filter/navigation links; a real lot link normally
+                # carries the auction slug and a property-specific tail.
+                if '/auctions/' not in lot_url and '/component/bidding/' not in lot_url:
+                    continue
+
+                local_seen.add(lot_url)
                 seen.add(lot_url)
-                lot=exact_lot(source,lot_url,card)
-                if lot and (lot['guide_price'] is None or lot['guide_price']<=max_guide): lots.append(lot)
-        return source,'OK',lots,f'Exact-page commercial check · {len(lots)} verified lots'
+                candidates.append((lot_url,card,f"Lot {m.group(1)}"))
+
+            # The commercial-filter page already gives us trustworthy commercial
+            # provenance; exact pages are then used for rent/tenure/VAT/legal pack.
+            for lot_url,card,lotno in candidates:
+                checked+=1
+                lot=exact_lot(source,lot_url,card,lotno,force=force_commercial)
+                if lot and (lot['guide_price'] is None or lot['guide_price']<=max_guide):
+                    lots.append(lot)
+
+        return source,'OK',lots,(
+            f'{commercial_sections} dedicated commercial section(s) found · '
+            f'{checked} Savills commercial lots checked · {len(lots)} loaded'
+        )
     except Exception as e:
         return source,'ERROR',[],str(e)
-
 
 def collect_acuitus(max_guide):
     source='Acuitus'; base='https://www.acuitus.co.uk'; url=base+'/find-a-property/?which=sales'
