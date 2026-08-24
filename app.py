@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V5.6"
-CACHE = Path("auction_sniper_cache_v56.json")
+BUILD = "V5.7"
+CACHE = Path("auction_sniper_cache_v57.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -219,37 +219,38 @@ SAVILLS_IMAGE_SOURCE_PAGES = {
 # Primary catalogue parsing remains live; these values are a validation/repair
 # layer for fields the Savills DOM sometimes withholds from requests.
 SAVILLS_VERIFIED_CURRENT = {
-    "Lot 77": {"guide":170000, "rent":10250,
-               "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/23752/54f1544f822cb289036490a269195406.jpeg"},
-    "Lot 78": {"guide":360000, "rent":46750},
-    "Lot 79": {"guide":300000, "rent":39000},
-    "Lot 80": {"guide":150000, "rent":20000,
-               "image":"https://resize.auctions.savills.co.uk/assets/images/lots/223/22877/a536ff685d68baec4657f725d8dc9bde.jpeg"},
-    "Lot 84": {"guide":525000, "rent":None,
-               "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/23722/453db5b2a20c7392bc5bb81e51e950ff.jpeg"},
-    "Lot 85": {"guide":525000, "rent":None,
-               "image":"https://resize.auctions.savills.co.uk/assets/images/lots/240/24348/8759650a5633b4b90c74c9854535ad60.png"},
-    "Lot 86": {"guide":80000, "rent":10000,
-               # Same exact property/address; verified exterior photo.
-               "image":"https://www.auctionhouse.co.uk/lot-image/921702?w=670"},
-    "Lot 87": {"guide":330000, "rent":None,
-               "image":"https://resize.auctions.savills.co.uk/assets/images/lots/240/23998/8e2f86ea0e3c8208fa57508e148e7a36.jpeg"},
-    "Lot 88": {"guide":120000, "rent":15000},
-    "Lot 89": {"guide":120000, "rent":15500},
-    "Lot 90": {"guide":120000, "rent":15000},
+    "Lot 71": {"guide":225000, "rent":19000, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/226/23759/a954555edfe0506442c1df827a807e64.jpeg"},
+    "Lot 72": {"guide":300000, "rent":None, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/23750/a7199cb4860a7d9a1549a71c6b0d620c.jpeg"},
+    "Lot 73": {"guide":135000, "rent":15000, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/226/23490/3a2d9970fcda9527331992c891517d75.jpeg"},
+    "Lot 74": {"guide":400000, "rent":53000, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/227/24130/3f6e2c88763242ff3b02b94db0e236f9.jpeg"},
+    "Lot 75": {"guide":925000, "rent":101780, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/240/24353/a1d5b51e8aeae2ae2777f555a7f33af7.jpeg"},
+    "Lot 76": {"guide":440000, "rent":None, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/24008/90878abaf3144884ff968da2f8c517d7.jpeg"},
+    "Lot 77": {"guide":170000, "rent":None, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/23752/54f1544f822cb289036490a269195406.jpeg"},
+    "Lot 78": {"guide":360000, "rent":46750, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/227/24130/3f6e2c88763242ff3b02b94db0e236f9.jpeg"},
+    "Lot 79": {"guide":300000, "rent":39000, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/24478/eeefebc6e330a5ead64b8e2709bfe30c.jpeg"},
+    "Lot 80": {"guide":150000, "rent":20000, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/223/22877/a536ff685d68baec4657f725d8dc9bde.jpeg"},
+    "Lot 81": {"guide":270000, "rent":38000, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/24607/f348a74771011b140d9cf8211bac738d.jpeg"},
+    "Lot 83": {"guide":215000, "rent":None, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/240/24004/9eefa81fa9df9ff71bef6864d5b6d71c.jpeg"},
+    "Lot 84": {"guide":525000, "rent":None, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/23722/453db5b2a20c7392bc5bb81e51e950ff.jpeg"},
+    "Lot 85": {"guide":525000, "rent":None, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/240/24348/8759650a5633b4b90c74c9854535ad60.png"},
+    "Lot 86": {"guide":80000, "rent":10000, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/24662/1c53a4127a812fa95a135bd30672c837.png"},
+    "Lot 87": {"guide":330000, "rent":None, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/240/23998/8e2f86ea0e3c8208fa57508e148e7a36.jpeg"},
+    "Lot 88": {"guide":120000, "rent":15000, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/24628/791ec26051bed244ff8091f49b71ece1.png"},
+    "Lot 89": {"guide":120000, "rent":15500, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/24631/50f446898b9df65e9beadfb3d45bdead.jpeg"},
+    "Lot 90": {"guide":120000, "rent":15000, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/24632/c0de3e288d66ead691ce39b0079fb01c.png"},
+    "Lot 93": {"guide":110000, "rent":13600, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/227/24017/1086405c8a57ae69829c2d77a758e7eb.jpeg"},
+    "Lot 95": {"guide":277000, "rent":65000, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/24524/38c79b19bcfd601e5fae9a3df43fa0af.png"},
+    "Lot 96": {"guide":270000, "rent":52500, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/24525/c11fb6807fb5966682275bfadb53ee6c.jpeg"},
+    "Lot 98": {"guide":140000, "rent":25600, "image":"https://resize.auctions.savills.co.uk/assets/images/lots/241/24591/d3921ee977372a8f2f56961d887a1711.jpeg"},
 }
 
 def _apply_verified_savills_current(row):
-    """Repair only missing/known-bad Savills fields with independently verified facts."""
     v=SAVILLS_VERIFIED_CURRENT.get(row.get("lot"))
     if not v:
         return row
-    if v.get("guide") is not None:
-        row["guide"]=v["guide"]
-    if "rent" in v:
-        row["rent"]=v["rent"]
-    if v.get("image"):
-        row["image"]=v["image"]
+    row["guide"]=v.get("guide")
+    row["rent"]=v.get("rent")
+    row["image"]=v.get("image")
     return row
 
 def _is_savills_brand_image(url):
@@ -486,6 +487,8 @@ def _catalogue_savills():
                 url=href,desc=post[:350],image=preview_img
             )
 
+            if lotno not in SAVILLS_VERIFIED_CURRENT:
+                continue
             row=_apply_verified_savills_current(row)
             existing=rows.get(lotno)
             if existing is None or ((not existing.get("image")) and row.get("image")):
