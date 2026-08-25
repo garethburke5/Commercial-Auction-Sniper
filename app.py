@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.6.1"
-CACHE = Path("auction_sniper_cache_v661.json")
+BUILD = "V6.7"
+CACHE = Path("auction_sniper_cache_v67.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -1120,11 +1120,76 @@ SAVILLS_VERIFIED_AREAS = {
 }
 
 TOWN_RELETTING_BASE = {
-    "bath":7.8, "beaconsfield":7.6, "west malling":7.0, "petworth":6.8,
-    "enfield":6.4, "northampton":5.6, "hythe":5.6, "crewe":5.1,
-    "hull":4.9, "barnsley":4.6, "carmarthen":4.6, "wallasey":4.5,
-    "liscard":4.5, "alfreton":4.4, "mexborough":3.9,
+    # Town/catchment is intentionally only 10% of the final reletting score.
+    "bath":7.5, "beaconsfield":7.3, "west malling":6.5, "petworth":6.2,
+    "enfield":6.3, "northampton":5.6, "hythe":5.3, "crewe":5.0,
+    "hull":4.8, "barnsley":4.5, "carmarthen":4.4, "wallasey":4.3,
+    "liscard":4.3, "alfreton":4.3, "mexborough":3.8, "haverfordwest":4.2,
 }
+
+# Verified address-level evidence. These are micro-market facts, not covenant scores.
+# They are deliberately source/address-specific and never keyed by lot number alone.
+RELETTING_EVIDENCE = {
+    "tutt antiques, angel street, petworth": {
+        "micro_pitch":3.2,
+        "occupier_depth":3.4,
+        "vacancy_evidence":3.0,
+        "note":"Commercial use on a predominantly residential/period street; vacant and reliant on a relatively narrow independent/specialist occupier pool.",
+        "hard_cap":4.4,
+    },
+    "unit 5b, 10-18 queen street, barnsley": {
+        "micro_pitch":7.4,
+        "occupier_depth":4.2,
+        "vacancy_evidence":5.0,
+        "note":"Prime pedestrianised pitch, but 7,749 sq ft is a large retail quantum for the Barnsley occupier market.",
+        "hard_cap":5.5,
+    },
+    "unit 5a, 10-18 queen street, barnsley": {
+        "micro_pitch":7.4,
+        "occupier_depth":5.5,
+        "vacancy_evidence":5.2,
+        "note":"Prime pedestrianised pitch and materially smaller 1,862 sq ft unit, giving better occupier depth than Unit 5B.",
+        "hard_cap":6.2,
+    },
+    "54-56 wallasey road, wallasey": {
+        "micro_pitch":6.3,
+        "occupier_depth":4.8,
+        "vacancy_evidence":5.4,
+        "note":"Established Liscard retail parade with national nearby occupiers, but weaker wider catchment and a double-width unit limit depth.",
+        "hard_cap":5.8,
+    },
+    "unit 3, 15 john street, carmarthen": {
+        "micro_pitch":6.0,
+        "occupier_depth":4.5,
+        "vacancy_evidence":4.8,
+        "market_rent":45000,
+        "market_rent_source":"proposed regear rent",
+        "note":"Established retail pitch, but current £65,000 passing rent is materially above the £45,000 proposed regear evidence.",
+        "hard_cap":5.2,
+    },
+    "15 red street, carmarthen": {
+        "micro_pitch":5.8,
+        "occupier_depth":4.2,
+        "vacancy_evidence":4.6,
+        "note":"Town-centre retail location, but 3,553 sq ft is a sizeable unit for Carmarthen and replacement demand is likely narrower.",
+        "hard_cap":5.1,
+    },
+    "unit 5, the marsh, hythe": {
+        "micro_pitch":5.8,
+        "occupier_depth":5.0,
+        "vacancy_evidence":5.0,
+        "note":"Established local parade, but Hythe is a smaller occupier market; covenant strength is excluded from reletting.",
+        "hard_cap":5.8,
+    },
+}
+
+def _address_evidence(address):
+    a=(address or "").lower().strip()
+    for key,data in RELETTING_EVIDENCE.items():
+        if key in a:
+            return data
+    return {}
+
 
 def _town_base(address):
     a=(address or "").lower()
@@ -1204,69 +1269,161 @@ def _rental_stress(p,text):
 
 def _reletting_assessment(p,facts,text):
     """
-    Reletting potential = town/area + micro-pitch + unit liquidity + rent support.
-    Missing rent comparables reduce confidence; they do not erase the judgement.
+    Reletting means: existing tenant disappears tomorrow.
+
+    Score components:
+      25% immediate commercial pitch
+      20% local occupier depth
+      20% unit size/configuration liquidity
+      15% vacancy/letting evidence
+      10% rent sustainability
+      10% town/catchment strength
+
+    Covenant strength is deliberately excluded.
     """
     address=p.get("address") or ""
+    low=(text or "").lower()
+    ev=_address_evidence(address)
     town_score,town_name=_town_base(address)
-
-    # Unit liquidity from verified/parsed size.
     sqft,sqm=_property_area(p,text)
-    unit_score=5.0
-    unit_note=None
+
+    # 1) Immediate pitch.
+    pitch=5.0
+    pitch_reason="No strong micro-pitch evidence captured."
+    if any(x in low for x in ("prime retail pitch","principal pedestrianised","prime pedestrianised","high footfall","main shopping")):
+        pitch=7.2; pitch_reason="Particulars support a strong established commercial pitch."
+    elif any(x in low for x in ("popular parade","prominent pitch","town centre","city centre","prominent corner")):
+        pitch=6.0; pitch_reason="Established/prominent commercial pitch."
+    if any(x in low for x in ("secondary pitch","secondary parade","tertiary","limited footfall")):
+        pitch=3.8; pitch_reason="Secondary/weaker commercial pitch."
+    if ev.get("micro_pitch") is not None:
+        pitch=ev["micro_pitch"]; pitch_reason=ev.get("note",pitch_reason)
+
+    # Residential/isolation signals create a genuine micro-pitch penalty.
+    residential_context=any(x in low for x in (
+        "predominantly residential","mainly residential","residential street",
+        "surrounded by residential","amongst residential"
+    ))
+    if residential_context:
+        pitch=min(pitch,3.5)
+        pitch_reason="Commercial premises within a substantially residential context."
+
+    # 2) Occupier depth.
+    occupier=5.0
+    if any(x in low for x in ("national retailers","range of national retailers","principal retail amenity","main shopping")):
+        occupier=6.1
+    if any(x in low for x in ("small market town","village","rural location")):
+        occupier=4.0
+    if ev.get("occupier_depth") is not None:
+        occupier=ev["occupier_depth"]
+
+    # 3) Unit liquidity: size is a major input.
+    unit=5.0
+    unit_reason="Size/configuration not sufficiently evidenced."
     if sqft:
         if sqft<=750:
-            unit_score=7.8; unit_note=f"Very small unit ({sqft:,.0f} sq ft) — broad occupier pool."
+            unit=7.8; unit_reason=f"Very small unit ({sqft:,.0f} sq ft): broad potential occupier pool."
         elif sqft<=1500:
-            unit_score=7.1; unit_note=f"Small unit ({sqft:,.0f} sq ft) — comparatively liquid."
+            unit=7.0; unit_reason=f"Small unit ({sqft:,.0f} sq ft): comparatively flexible."
         elif sqft<=3000:
-            unit_score=6.2; unit_note=f"Manageable unit ({sqft:,.0f} sq ft)."
+            unit=6.0; unit_reason=f"Manageable unit ({sqft:,.0f} sq ft)."
         elif sqft<=5000:
-            unit_score=5.1; unit_note=f"Larger unit ({sqft:,.0f} sq ft) — narrower occupier pool."
+            unit=4.8; unit_reason=f"Larger unit ({sqft:,.0f} sq ft): narrower replacement pool."
         elif sqft<=10000:
-            unit_score=3.8; unit_note=f"Large unit ({sqft:,.0f} sq ft) — materially harder to relet."
+            unit=3.4; unit_reason=f"Large unit ({sqft:,.0f} sq ft): materially narrower occupier pool."
         else:
-            unit_score=2.8; unit_note=f"Very large unit ({sqft:,.0f} sq ft) — specialist occupier depth needed."
-
-    low=text.lower()
+            unit=2.5; unit_reason=f"Very large unit ({sqft:,.0f} sq ft): specialist/deep occupier demand required."
     if any(x in low for x in ("care home","cinema","church","nightclub","petrol station","department store")):
-        unit_score=max(1,unit_score-1.0)
+        unit=max(1.0,unit-1.0)
+        unit_reason+=" Specialist configuration adds friction."
+    if any(x in low for x in ("parking","car park","service yard","loading bay","rear loading")):
+        unit=min(10.0,unit+0.4)
 
-    # Micro-pitch.
-    pitch_score=5.0
-    pitch_note=None
-    if any(x in low for x in ("prime retail pitch","principal pedestrianised","prime pedestrianised","high footfall","main shopping")):
-        pitch_score=7.2; pitch_note="Strong micro-pitch evidence in the particulars."
-    elif any(x in low for x in ("prominent pitch","popular parade","town centre","city centre","prominent corner")):
-        pitch_score=6.2; pitch_note="Positive micro-pitch / local parade evidence."
-    if any(x in low for x in ("secondary pitch","secondary parade","tertiary","limited footfall")):
-        pitch_score=3.8; pitch_note="Secondary/weaker micro-pitch evidence."
+    # 4) Vacancy / letting evidence.
+    vacancy=5.0
+    vacancy_reason="No strong local letting/vacancy evidence captured."
+    if "vacant" in low or "vacant possession" in low:
+        vacancy=4.2
+        vacancy_reason="Currently vacant: no existing occupation evidence supporting immediate demand."
+    if any(x in low for x in ("long standing occupier","tenant in occupation","occupation for 10+ years","occupation 20+ years")):
+        vacancy=5.5
+        vacancy_reason="Long occupation provides some evidence that the unit can sustain commercial use."
+    if ev.get("vacancy_evidence") is not None:
+        vacancy=ev["vacancy_evidence"]
 
-    # Rental support.
+    # 5) Rent sustainability.
     market_rent,stress,stress_source=_rental_stress(p,text)
-    rent_score=5.0
-    rent_note="No independent/regear rent evidence captured; neutral rent-support assumption."
-    if market_rent is not None and p.get("rent"):
-        if stress>=30: rent_score=2.5
-        elif stress>=20: rent_score=3.2
-        elif stress>=10: rent_score=4.2
-        elif stress>=-10: rent_score=6.0
-        else: rent_score=6.5
-        rent_note=f"{stress_source}: £{market_rent:,.0f} versus passing £{p['rent']:,.0f} ({stress:.0f}% stress)."
+    if ev.get("market_rent") is not None:
+        market_rent=float(ev["market_rent"])
+        stress_source=ev.get("market_rent_source","market evidence")
+        stress=((p.get("rent")-market_rent)/p.get("rent")*100) if p.get("rent") else None
 
-    score=0.35*town_score+0.25*pitch_score+0.30*unit_score+0.10*rent_score
-    score=max(1,min(10,score))
-    label="STRONG" if score>=7.2 else "GOOD" if score>=6.0 else "MODERATE" if score>=4.7 else "WEAK" if score>=3.5 else "HIGH RISK"
-    confidence="MEDIUM" if (sqft and pitch_note) else "LOW-MEDIUM"
+    rent_support=5.0
+    rent_reason="No independent/regear rental evidence captured; neutral assumption."
+    if market_rent is not None and p.get("rent"):
+        if stress>=30:
+            rent_support=2.0
+        elif stress>=20:
+            rent_support=3.0
+        elif stress>=10:
+            rent_support=4.0
+        elif stress>=-10:
+            rent_support=6.0
+        else:
+            rent_support=6.5
+        rent_reason=f"{stress_source.title()} £{market_rent:,.0f} versus passing rent £{p['rent']:,.0f} ({stress:.0f}% stress)."
+
+    # 6) Town/catchment.
+    # Only 10%: an affluent town cannot rescue a poor unit/pitch.
+    score=(0.25*pitch + 0.20*occupier + 0.20*unit +
+           0.15*vacancy + 0.10*rent_support + 0.10*town_score)
+
+    # Hard caps: these are deliberately non-linear.
+    caps=[]
+    if residential_context:
+        caps.append((4.4,"Predominantly residential micro-location caps reletting at DIFFICULT."))
+    if sqft and sqft>10000 and occupier<6.0:
+        caps.append((4.5,"Very large unit in a limited occupier market caps reletting at DIFFICULT."))
+    elif sqft and sqft>7500 and town_score<5.5:
+        caps.append((5.2,"Large unit in a weaker regional market prevents a GOOD reletting rating."))
+    if ("vacant" in low or "vacant possession" in low) and pitch<4.5:
+        caps.append((4.3,"Vacant property on a weak/non-core pitch has prolonged-void risk."))
+    if stress is not None and stress>=30:
+        caps.append((4.8,"Passing rent is >30% above evidenced alternative rent."))
+    if ev.get("hard_cap") is not None:
+        caps.append((float(ev["hard_cap"]),ev.get("note","Address-level market evidence imposes a cap.")))
+
+    for cap,_reason in caps:
+        score=min(score,cap)
+
+    score=max(1.0,min(10.0,score))
+    label=("VERY STRONG" if score>=8.0 else
+           "GOOD" if score>=6.5 else
+           "MODERATE" if score>=5.0 else
+           "DIFFICULT" if score>=3.5 else
+           "HIGH RISK")
+
+    evidence_points=sum([
+        1 if sqft else 0,
+        1 if ev else 0,
+        1 if market_rent is not None else 0,
+        1 if pitch_reason!="No strong micro-pitch evidence captured." else 0,
+        1 if vacancy_reason!="No strong local letting/vacancy evidence captured." else 0,
+    ])
+    confidence="HIGH" if evidence_points>=4 else "MEDIUM" if evidence_points>=2 else "LOW"
 
     return {
         "score":score,"label":label,"confidence":confidence,
         "town_score":town_score,"town_name":town_name,
-        "pitch_score":pitch_score,"unit_score":unit_score,"rent_score":rent_score,
-        "sqft":sqft,"sqm":sqm,"market_rent":market_rent,"rent_stress":stress,
-        "market_rent_source":stress_source,
-        "reasons":[x for x in [unit_note,pitch_note,rent_note] if x]
+        "pitch_score":pitch,"occupier_score":occupier,"unit_score":unit,
+        "vacancy_score":vacancy,"rent_score":rent_support,
+        "sqft":sqft,"sqm":sqm,
+        "market_rent":market_rent,"rent_stress":stress,"market_rent_source":stress_source,
+        "pitch_reason":pitch_reason,"unit_reason":unit_reason,
+        "vacancy_reason":vacancy_reason,"rent_reason":rent_reason,
+        "caps":[r for _c,r in caps],
     }
+
 
 def _investment_interpretation(f):
     notes=[]; yrs=f.get("_remaining_years")
@@ -1344,24 +1501,28 @@ def _investment_facts(p):
     rel=_reletting_assessment(p,f,text)
     f["Reletting potential"]=f'{rel["score"]:.1f}/10 — {rel["label"]}'
     f["Reletting confidence"]=rel["confidence"]
-    f["Town / area screen"]=f'{rel["town_score"]:.1f}/10 — {rel["town_name"]}'
-    f["Micro-pitch screen"]=f'{rel["pitch_score"]:.1f}/10'
-    f["Unit liquidity screen"]=f'{rel["unit_score"]:.1f}/10'
+    f["Immediate pitch"]=f'{rel["pitch_score"]:.1f}/10'
+    f["Occupier depth"]=f'{rel["occupier_score"]:.1f}/10'
+    f["Unit liquidity"]=f'{rel["unit_score"]:.1f}/10'
+    f["Vacancy / letting evidence"]=f'{rel["vacancy_score"]:.1f}/10'
+    f["Rent sustainability"]=f'{rel["rent_score"]:.1f}/10'
+    f["Town / catchment"]=f'{rel["town_score"]:.1f}/10 — {rel["town_name"]}'
     chips.append(f'RELETTING {rel["label"]}')
 
     if rel.get("sqft"):
         f["Floor area"]=f'{rel["sqft"]:,.0f} sq ft / {rel["sqm"]:,.0f} sq m'
     if rel.get("market_rent") is not None:
         f["Evidenced re-letting rent"]=f'£{rel["market_rent"]:,.0f} p.a. ({rel["market_rent_source"]})'
-        f["Passing-rent stress"]=f'{rel["rent_stress"]:.0f}%'
-        f["10% value at re-letting rent"]=f'£{rel["market_rent"]/0.10:,.0f}'
+        if rel.get("rent_stress") is not None:
+            f["Passing-rent stress"]=f'{rel["rent_stress"]:.0f}%'
+            f["10% value at re-letting rent"]=f'£{rel["market_rent"]/0.10:,.0f}'
 
     interpretation=_investment_interpretation(f)
-    if rel["reasons"]:
-        interpretation.append("Reletting: "+rel["reasons"][0])
-    if len(rel["reasons"])>1:
-        interpretation.append("Location: "+rel["reasons"][1])
-    interpretation=interpretation[:6]
+    interpretation.append("Reletting: "+rel["unit_reason"])
+    interpretation.append("Pitch: "+rel["pitch_reason"])
+    if rel["caps"]:
+        interpretation.append("Risk cap: "+rel["caps"][0])
+    interpretation=interpretation[:7]
     f.pop("_remaining_years",None)
     return f,list(dict.fromkeys(chips)),interpretation
 
