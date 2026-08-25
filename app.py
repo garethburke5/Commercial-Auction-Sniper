@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.3"
-CACHE = Path("auction_sniper_cache_v63.json")
+BUILD = "V6.4"
+CACHE = Path("auction_sniper_cache_v64.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -1017,7 +1017,7 @@ header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:no
 .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.metric{background:#182333;border:1px solid #202d40;border-radius:8px;padding:9px 10px}
 .metric span{display:block;color:#91a0b4;font-size:.64rem;margin-bottom:3px}.metric b{font-size:.88rem;color:#fff}
 .meta{font-size:.66rem;color:#aab6c7;margin-top:10px;line-height:1.4;min-height:1.4em}
-.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}.chip{font-size:.61rem;font-weight:850;padding:4px 7px;border-radius:999px;background:#223047;border:1px solid #354966;color:#dce7f5}.analysis{margin-top:9px;border-top:1px solid #26354a;padding-top:8px}.iread{margin-top:8px;background:#111d2b;border-left:3px solid #f2c94c;border-radius:6px;padding:8px 10px}.iread span{font-size:.62rem;color:#f2c94c;font-weight:900}.iread p{font-size:.68rem;color:#d8e1ed;margin:4px 0;line-height:1.35}.analysis summary{cursor:pointer;color:#dbe5f2;font-size:.72rem;font-weight:850}.factgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.fact{background:#0f1723;border:1px solid #233149;border-radius:7px;padding:7px 8px}.fact span{display:block;color:#8fa0b5;font-size:.57rem;margin-bottom:2px}.fact b{display:block;color:#f4f7fb;font-size:.70rem;line-height:1.3}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}.chip{font-size:.61rem;font-weight:850;padding:4px 7px;border-radius:999px;background:#223047;border:1px solid #354966;color:#dce7f5}.analysis{margin-top:9px;border-top:1px solid #26354a;padding-top:8px}.research{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.research a{text-decoration:none!important;color:#cfe0f5!important;background:#172638;border:1px solid #314761;border-radius:6px;padding:6px 8px;font-size:.62rem;font-weight:800}.research a:hover{border-color:#f2c94c;color:#f2c94c!important}.iread{margin-top:8px;background:#111d2b;border-left:3px solid #f2c94c;border-radius:6px;padding:8px 10px}.iread span{font-size:.62rem;color:#f2c94c;font-weight:900}.iread p{font-size:.68rem;color:#d8e1ed;margin:4px 0;line-height:1.35}.analysis summary{cursor:pointer;color:#dbe5f2;font-size:.72rem;font-weight:850}.factgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.fact{background:#0f1723;border:1px solid #233149;border-radius:7px;padding:7px 8px}.fact span{display:block;color:#8fa0b5;font-size:.57rem;margin-bottom:2px}.fact b{display:block;color:#f4f7fb;font-size:.70rem;line-height:1.3}
 .action{display:block;text-align:center;text-decoration:none!important;background:#f2c94c;color:#171208!important;border-radius:8px;padding:10px 8px;margin-top:11px;font-size:.76rem;font-weight:950}
 .statusrow{padding:12px 14px;border:1px solid #29354b;background:#111824;border-radius:10px;margin-bottom:8px;font-size:.84rem}
 div[data-testid="stExpander"]{border:1px solid #25344a!important;border-radius:11px!important;background:#0e1621!important;margin-bottom:10px}
@@ -1104,31 +1104,66 @@ def _remaining_years(s):
     d=_parse_date_any(s)
     return None if not d else max(0,(d-date.today()).days/365.2425)
 
-def _reletting_assessment(p,facts,text):
-    low=text.lower(); score=5.0; reasons=[]; risks=[]
-    if any(x in low for x in ("retail unit","shop","office","warehouse","industrial","restaurant","cafe","commercial unit")):
-        score+=.7; reasons.append("Conventional commercial format gives a broader replacement-tenant pool.")
-    if any(x in low for x in ("church","cinema","care home","nightclub","petrol station","large department store")):
-        score-=1; risks.append("Specialist configuration narrows the replacement-tenant pool.")
-    m=re.search(r"([\d,]+)\s*(?:sq\s*ft|sqft|square feet)",text,re.I)
-    if m:
+def _extract_floor_area(text):
+    vals=[]
+    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\s*ft|sqft|square feet)",text,re.I):
         try:
-            a=float(m.group(1).replace(",",""))
-            if a<=2500: score+=.5; reasons.append("Smaller unit should generally be easier to relet.")
-            elif a>=10000: score-=.8; risks.append("Large floor area may materially reduce occupier depth.")
+            v=float(m.group(1).replace(",",""))
+            if 50<=v<=1_000_000: vals.append(v)
         except: pass
-    if any(x in low for x in ("prime position","busy high street","prominent corner","town centre","city centre","high footfall","main road frontage")):
-        score+=1; reasons.append("Particulars indicate a comparatively strong/prominent trading position.")
-    if any(x in low for x in ("secondary position","secondary parade","edge of town","limited footfall","tertiary")):
-        score-=1; risks.append("Particulars indicate a secondary/less liquid trading position.")
-    if any(x in low for x in ("parking","car park","loading","service yard")):
-        score+=.4; reasons.append("Parking/loading improves usability for replacement occupiers.")
-    if facts.get("Occupation")=="Tenanted": score+=.3
-    if "Vacant" in facts.get("Occupation",""): score-=.3
-    score=max(1,min(10,score))
-    label="STRONG" if score>=7.5 else "GOOD" if score>=6 else "MODERATE" if score>=4.5 else "WEAK" if score>=3 else "HIGH RISK"
-    confidence="MEDIUM" if len(reasons)+len(risks)>=3 else "LOW"
-    return score,label,confidence,reasons[:3],risks[:3]
+    return max(vals) if vals else None
+
+def _unit_liquidity(p,facts,text):
+    low=text.lower(); score=5.0; pos=[]; risk=[]; area=_extract_floor_area(text)
+    if area:
+        if area<=1000: score+=1.2; pos.append(f"Small unit ({area:,.0f} sq ft) gives a broader occupier pool.")
+        elif area<=2500: score+=0.6; pos.append(f"Manageable unit size ({area:,.0f} sq ft).")
+        elif area<=5000: score-=0.2; risk.append(f"Mid-large unit ({area:,.0f} sq ft) narrows occupier depth.")
+        elif area<=10000: score-=1.2; risk.append(f"Large unit ({area:,.0f} sq ft) materially narrows occupier demand.")
+        else: score-=2.0; risk.append(f"Very large unit ({area:,.0f} sq ft) has limited occupier depth.")
+    if any(x in low for x in ("care home","cinema","church","nightclub","petrol station","department store")):
+        score-=1.0; risk.append("Specialist configuration reduces replacement-tenant flexibility.")
+    if any(x in low for x in ("parking","car park","service yard","loading bay")):
+        score+=0.4; pos.append("Parking/loading improves usability.")
+    return max(1.0,min(10.0,score)),area,pos[:3],risk[:3]
+
+def _pitch_evidence(text):
+    low=text.lower(); score=5.0; pos=[]; risk=[]; evidence=0
+    if any(x in low for x in ("prime retail pitch","principal pedestrianised","busy high street","prominent corner","town centre","city centre","high footfall")):
+        score+=0.7; evidence+=1; pos.append("Particulars indicate a stronger/prominent pitch.")
+    if any(x in low for x in ("secondary pitch","secondary parade","tertiary","edge of town","limited footfall","secondary retail")):
+        score-=0.9; evidence+=1; risk.append("Particulars indicate a secondary/weaker pitch.")
+    return max(1.0,min(10.0,score)),pos,risk,evidence
+
+def _rental_stress(p,text):
+    rent=p.get("rent"); vals=[]
+    for label,pat in [("Proposed rent",r"(?:proposed rent|new rent|regear rent)\s*(?:of|at)?\s*£([\d,]+)"),("ERV",r"\bERV\b\s*(?:of|at)?\s*£([\d,]+)"),("Market rent",r"(?:estimated rental value|market rent)\s*(?:of|at)?\s*£([\d,]+)")]:
+        for m in re.finditer(pat,text,re.I):
+            try:
+                v=float(m.group(1).replace(",",""))
+                if 500<=v<=5_000_000: vals.append((v,label))
+            except: pass
+    if not rent or not vals: return None,None,None
+    mr,label=min(vals,key=lambda x:x[0]); return mr,(rent-mr)/rent*100,label
+
+def _reletting_assessment(p,facts,text):
+    us,area,upos,urisk=_unit_liquidity(p,facts,text)
+    ps,ppos,prisk,pe=_pitch_evidence(text)
+    mr,stress,src=_rental_stress(p,text)
+    screen=0.55*us+0.45*ps
+    evidence=pe+(2 if mr is not None else 0)
+    if evidence<2 or mr is None:
+        label="UNVERIFIED"; confidence="LOW"
+    else:
+        if stress is not None:
+            if stress>=30: screen-=2.0
+            elif stress>=20: screen-=1.4
+            elif stress>=10: screen-=0.7
+            elif stress<=-10: screen+=0.3
+        screen=max(1.0,min(10.0,screen))
+        label="STRONG" if screen>=7.5 else "GOOD" if screen>=6.2 else "MODERATE" if screen>=4.7 else "WEAK" if screen>=3.2 else "HIGH RISK"
+        confidence="MEDIUM"
+    return {"score":screen,"label":label,"confidence":confidence,"unit_score":us,"pitch_score":ps,"area":area,"market_rent":mr,"rent_stress":stress,"market_rent_source":src,"reasons":upos+ppos,"risks":urisk+prisk}
 
 def _investment_interpretation(f):
     notes=[]; yrs=f.get("_remaining_years")
@@ -1203,16 +1238,42 @@ def _investment_facts(p):
     if p.get("guide") and p.get("rent"):
         y=100*p["rent"]/p["guide"]; f["GIY at guide"]=f"{y:.1f}%"; f["10% ceiling"]=f'£{p["rent"]/0.10:,.0f}'; chips.append(f"{y:.1f}% GIY")
     if tenure: chips.insert(0,tenure.upper())
-    rs,rl,rc,rr,rx=_reletting_assessment(p,f,text)
-    f["Reletting strength"]=f"{rs:.1f}/10 — {rl}"
-    f["Location confidence"]=rc
-    chips.append(f"RELETTING {rl}")
+    rel=_reletting_assessment(p,f,text)
+    if rel["label"]=="UNVERIFIED":
+        f["Reletting risk"]="UNVERIFIED — local market evidence required"
+        f["Unit liquidity screen"]=f'{rel["unit_score"]:.1f}/10'
+        f["Pitch evidence screen"]=f'{rel["pitch_score"]:.1f}/10'
+        chips.append("RELETTING UNVERIFIED")
+    else:
+        f["Reletting strength"]=f'{rel["score"]:.1f}/10 — {rel["label"]}'
+        f["Location confidence"]=rel["confidence"]
+        chips.append(f'RELETTING {rel["label"]}')
+    if rel.get("area"):
+        f["Floor area"]=f'{rel["area"]:,.0f} sq ft'
+    if rel.get("market_rent") is not None:
+        f["Evidenced re-letting rent"]=f'£{rel["market_rent"]:,.0f} p.a. ({rel["market_rent_source"]})'
+        if rel.get("rent_stress") is not None:
+            f["Passing-rent stress"]=f'{rel["rent_stress"]:.0f}%'
+            f["10% value at re-letting rent"]=f'£{rel["market_rent"]/0.10:,.0f}'
     interpretation=_investment_interpretation(f)
-    if rr: interpretation.append("Reletting: "+rr[0])
-    if rx: interpretation.append("Reletting risk: "+rx[0])
-    interpretation=interpretation[:5]
+    if rel["reasons"]: interpretation.append("Reletting evidence: "+rel["reasons"][0])
+    if rel["risks"]: interpretation.append("Reletting risk: "+rel["risks"][0])
+    if rel["label"]=="UNVERIFIED": interpretation.append("Rating withheld until local comparable-rent evidence is available.")
+    interpretation=interpretation[:6]
     f.pop("_remaining_years",None)
     return f,list(dict.fromkeys(chips)),interpretation
+
+def _research_links(p):
+    import urllib.parse
+    address=str(p.get("address") or "").strip()
+    if not address: return ""
+    qh=urllib.parse.quote(f'"{address}" property auction sold previous listing')
+    qp=urllib.parse.quote(f'"{address}" commercial property')
+    return ('<div class="research">'
+            f'<a target="_blank" href="https://www.google.com/search?q={qh}">Sales / auction history ↗</a>'
+            f'<a target="_blank" href="https://www.google.com/search?q={qp}">Previous listings ↗</a>'
+            f'<a target="_blank" href="https://www.gov.uk/search-house-prices">Land Registry search ↗</a>'
+            '</div>')
 
 def _facts_html(p):
     facts,chips,interpretation=_investment_facts(p)
@@ -1222,7 +1283,7 @@ def _facts_html(p):
     read=""
     if interpretation:
         read="<div class='iread'><span>Investment read</span>"+"".join(f"<p>• {html.escape(n)}</p>" for n in interpretation)+"</div>"
-    return f'<div class="chips">{ch}</div><details class="analysis"><summary>Investment details</summary><div class="factgrid">{rows}</div>{read}</details>'
+    return f'<div class="chips">{ch}</div><details class="analysis"><summary>Investment details</summary><div class="factgrid">{rows}</div>{read}{_research_links(p)}</details>'
 
 
 def money(v): return "Unknown" if v is None else f"£{v:,.0f}"
