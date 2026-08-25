@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.2"
-CACHE = Path("auction_sniper_cache_v62.json")
+BUILD = "V6.3"
+CACHE = Path("auction_sniper_cache_v63.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -1104,6 +1104,32 @@ def _remaining_years(s):
     d=_parse_date_any(s)
     return None if not d else max(0,(d-date.today()).days/365.2425)
 
+def _reletting_assessment(p,facts,text):
+    low=text.lower(); score=5.0; reasons=[]; risks=[]
+    if any(x in low for x in ("retail unit","shop","office","warehouse","industrial","restaurant","cafe","commercial unit")):
+        score+=.7; reasons.append("Conventional commercial format gives a broader replacement-tenant pool.")
+    if any(x in low for x in ("church","cinema","care home","nightclub","petrol station","large department store")):
+        score-=1; risks.append("Specialist configuration narrows the replacement-tenant pool.")
+    m=re.search(r"([\d,]+)\s*(?:sq\s*ft|sqft|square feet)",text,re.I)
+    if m:
+        try:
+            a=float(m.group(1).replace(",",""))
+            if a<=2500: score+=.5; reasons.append("Smaller unit should generally be easier to relet.")
+            elif a>=10000: score-=.8; risks.append("Large floor area may materially reduce occupier depth.")
+        except: pass
+    if any(x in low for x in ("prime position","busy high street","prominent corner","town centre","city centre","high footfall","main road frontage")):
+        score+=1; reasons.append("Particulars indicate a comparatively strong/prominent trading position.")
+    if any(x in low for x in ("secondary position","secondary parade","edge of town","limited footfall","tertiary")):
+        score-=1; risks.append("Particulars indicate a secondary/less liquid trading position.")
+    if any(x in low for x in ("parking","car park","loading","service yard")):
+        score+=.4; reasons.append("Parking/loading improves usability for replacement occupiers.")
+    if facts.get("Occupation")=="Tenanted": score+=.3
+    if "Vacant" in facts.get("Occupation",""): score-=.3
+    score=max(1,min(10,score))
+    label="STRONG" if score>=7.5 else "GOOD" if score>=6 else "MODERATE" if score>=4.5 else "WEAK" if score>=3 else "HIGH RISK"
+    confidence="MEDIUM" if len(reasons)+len(risks)>=3 else "LOW"
+    return score,label,confidence,reasons[:3],risks[:3]
+
 def _investment_interpretation(f):
     notes=[]; yrs=f.get("_remaining_years")
     if "national" in f.get("Covenant","").lower(): notes.append("Recognised national/operator covenant.")
@@ -1177,7 +1203,14 @@ def _investment_facts(p):
     if p.get("guide") and p.get("rent"):
         y=100*p["rent"]/p["guide"]; f["GIY at guide"]=f"{y:.1f}%"; f["10% ceiling"]=f'£{p["rent"]/0.10:,.0f}'; chips.append(f"{y:.1f}% GIY")
     if tenure: chips.insert(0,tenure.upper())
+    rs,rl,rc,rr,rx=_reletting_assessment(p,f,text)
+    f["Reletting strength"]=f"{rs:.1f}/10 — {rl}"
+    f["Location confidence"]=rc
+    chips.append(f"RELETTING {rl}")
     interpretation=_investment_interpretation(f)
+    if rr: interpretation.append("Reletting: "+rr[0])
+    if rx: interpretation.append("Reletting risk: "+rx[0])
+    interpretation=interpretation[:5]
     f.pop("_remaining_years",None)
     return f,list(dict.fromkeys(chips)),interpretation
 
