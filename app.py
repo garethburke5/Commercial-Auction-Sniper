@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.0"
-CACHE = Path("auction_sniper_cache_v60.json")
+BUILD = "V6.1"
+CACHE = Path("auction_sniper_cache_v61.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -1017,7 +1017,7 @@ header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:no
 .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.metric{background:#182333;border:1px solid #202d40;border-radius:8px;padding:9px 10px}
 .metric span{display:block;color:#91a0b4;font-size:.64rem;margin-bottom:3px}.metric b{font-size:.88rem;color:#fff}
 .meta{font-size:.66rem;color:#aab6c7;margin-top:10px;line-height:1.4;min-height:1.4em}
-.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}.chip{font-size:.61rem;font-weight:850;padding:4px 7px;border-radius:999px;background:#223047;border:1px solid #354966;color:#dce7f5}.analysis{margin-top:9px;border-top:1px solid #26354a;padding-top:8px}.analysis summary{cursor:pointer;color:#dbe5f2;font-size:.72rem;font-weight:850}.factgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.fact{background:#0f1723;border:1px solid #233149;border-radius:7px;padding:7px 8px}.fact span{display:block;color:#8fa0b5;font-size:.57rem;margin-bottom:2px}.fact b{display:block;color:#f4f7fb;font-size:.70rem;line-height:1.3}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}.chip{font-size:.61rem;font-weight:850;padding:4px 7px;border-radius:999px;background:#223047;border:1px solid #354966;color:#dce7f5}.analysis{margin-top:9px;border-top:1px solid #26354a;padding-top:8px}.iread{margin-top:8px;background:#111d2b;border-left:3px solid #f2c94c;border-radius:6px;padding:8px 10px}.iread span{font-size:.62rem;color:#f2c94c;font-weight:900}.iread p{font-size:.68rem;color:#d8e1ed;margin:4px 0;line-height:1.35}.analysis summary{cursor:pointer;color:#dbe5f2;font-size:.72rem;font-weight:850}.factgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.fact{background:#0f1723;border:1px solid #233149;border-radius:7px;padding:7px 8px}.fact span{display:block;color:#8fa0b5;font-size:.57rem;margin-bottom:2px}.fact b{display:block;color:#f4f7fb;font-size:.70rem;line-height:1.3}
 .action{display:block;text-align:center;text-decoration:none!important;background:#f2c94c;color:#171208!important;border-radius:8px;padding:10px 8px;margin-top:11px;font-size:.76rem;font-weight:950}
 .statusrow{padding:12px 14px;border:1px solid #29354b;background:#111824;border-radius:10px;margin-bottom:8px;font-size:.84rem}
 div[data-testid="stExpander"]{border:1px solid #25344a!important;border-radius:11px!important;background:#0e1621!important;margin-bottom:10px}
@@ -1069,70 +1069,118 @@ with sources_tab:
         st.markdown(f'<div class="statusrow">{icon} <b>{html.escape(h["source"])}</b> — {html.escape(h["status"])}<br><small>{html.escape(h["note"])}</small></div>',unsafe_allow_html=True)
 
 
+@st.cache_data(ttl=21600, show_spinner=False)
+def _property_detail_text(url):
+    if not url: return ""
+    try:
+        s=BeautifulSoup(fetch(url),"lxml")
+        main=s.find("main") or s
+        for tag in main.find_all(["script","style","nav","footer","header"]): tag.decompose()
+        return norm(main.get_text(" ",strip=True))
+    except Exception: return ""
+
+def _source_text(p):
+    return norm(str(p.get("desc") or "")+" "+_property_detail_text(p.get("url")))
+
+def _parse_date_any(s):
+    from datetime import datetime
+    for fmt in ("%d.%m.%Y","%d/%m/%Y","%d-%m-%Y","%d %B %Y","%d %b %Y"):
+        try: return datetime.strptime(norm(s),fmt).date()
+        except Exception: pass
+    return None
+
+def _remaining_years(s):
+    from datetime import date
+    d=_parse_date_any(s)
+    return None if not d else max(0,(d-date.today()).days/365.2425)
+
+def _investment_interpretation(f):
+    notes=[]; yrs=f.get("_remaining_years")
+    if "national" in f.get("Covenant","").lower(): notes.append("Recognised national/operator covenant.")
+    elif f.get("Tenant"): notes.append("Tenant identified; financial covenant strength still needs verification.")
+    if yrs is not None:
+        if yrs<4: notes.append(f"Relatively short income: about {yrs:.1f} years to expiry.")
+        elif yrs<7: notes.append(f"Medium-short income: about {yrs:.1f} years to expiry.")
+        else: notes.append(f"About {yrs:.1f} years of contractual income, subject to any break.")
+    if "outstanding" in f.get("Rent review / steps","").lower(): notes.append("Outstanding rent review may provide rental uplift; outcome is unproven.")
+    if f.get("Break clause"): notes.append("Break clause may shorten the effective income term; exact date/party shown above.")
+    if "Vacant" in f.get("Occupation",""): notes.append("No passing income: value depends on reletting/development prospects.")
+    return notes[:4]
+
 def _investment_facts(p):
-    """Evidence-only: if a fact is not stated, omit it."""
-    text=norm(" ".join(str(v or "") for v in [p.get("desc"),p.get("address")]))
-    low=text.lower(); f={}; chips=[]
+    text=_source_text(p); low=text.lower(); f={}; chips=[]
     tenure=p.get("tenure") or ("Freehold" if "freehold" in low else "Leasehold" if "leasehold" in low else None)
     if tenure: f["Tenure"]=tenure
-    m=re.search(r"(\d+(?:\.\d+)?)\s*years?\s*(?:unexpired|remaining)",text,re.I)
-    if m: f["Unexpired term"]=m.group(1)+" years"
 
     tenant=None
-    for pat in [r"(?:let to|leased to|tenant[:\s]+)\s*[‘'“\"]?([^.;,\n]{2,80})",r"t/a\s+([^.;,\n]{2,60})"]:
+    for pat in [
+        r"(?:fully\s+)?let to\s+([^.;\n]{2,100}?)(?=\s+on\s+(?:a\s+)?\d|\s+paying|\s+at\s+(?:a\s+)?rent|[.;])",
+        r"leased to\s+([^.;\n]{2,100}?)(?=\s+on\s+(?:a\s+)?\d|\s+paying|[.;])",
+        r"tenant[:\s]+([^.;\n]{2,90})"]:
         m=re.search(pat,text,re.I)
         if m:
-            tenant=norm(m.group(1)).strip("'\"“”")
-            tenant=re.split(r"\s+(?:on|for|at)\s+(?:a\s+)?(?:rent|lease|term)",tenant,flags=re.I)[0]
+            tenant=norm(m.group(1)).strip("'\"“”")[:90]
             if tenant: break
     if tenant: f["Tenant"]=tenant
     if p.get("rent"): f["Passing rent"]=f'£{p["rent"]:,.0f} p.a.'
 
     m=re.search(r"(\d+(?:\.\d+)?)\s*year\s+(?:full\s+repairing\s+and\s+insuring\s+|FRI\s+)?lease",text,re.I)
-    if m: f["Occupational lease"]=m.group(1)+" years"
-    m=re.search(r"(?:expir(?:y|ing)|expires?)\s*(?:on\s*)?(\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\d{1,2}\s+[A-Za-z]+\s+\d{4}|[A-Za-z]+\s+\d{4})",text,re.I)
-    if m: f["Lease expiry"]=m.group(1)
+    if m: f["Original lease term"]=m.group(1)+" years"
+    m=re.search(r"(?:lease\s+)?expir(?:y|ing|es)\s*(?:on\s*)?(\d{1,2}[./-]\d{1,2}[./-]\d{2,4}|\d{1,2}\s+[A-Za-z]+\s+\d{4})",text,re.I)
+    if m:
+        expiry=m.group(1); f["Lease expiry"]=expiry; yrs=_remaining_years(expiry)
+        if yrs is not None:
+            f["Term remaining"]=f"{yrs:.1f} years"; f["_remaining_years"]=yrs
+            if yrs<4: chips.append(f"{yrs:.1f} YRS LEFT")
+
     if re.search(r"\bFRI\b|full repairing and insuring",text,re.I): f["Repairing"]="FRI"; chips.append("FRI")
     elif re.search(r"\bIRI\b|internal repairing",text,re.I): f["Repairing"]="IRI"
 
-    m=re.search(r"(?:tenant|landlord)?\s*(?:break|option to determine)(?:\s+clause)?[^.;]{0,90}",text,re.I)
-    if m: f["Break clause"]=norm(m.group(0))[:110]; chips.append("BREAK CLAUSE")
-    m=re.search(r"(?:rent review|rising to|increas(?:e|ing) to)[^.;]{0,100}",text,re.I)
-    if m: f["Rent review / steps"]=norm(m.group(0))[:120]
+    for pat in [r"((?:tenant|landlord)[^.;]{0,35}break[^.;]{0,100})",r"((?:break clause|option to determine)[^.;]{0,120})"]:
+        m=re.search(pat,text,re.I)
+        if m: f["Break clause"]=norm(m.group(1))[:140]; chips.append("BREAK"); break
+
+    m=re.search(r"((?:\d{4}\s+)?rent review[^.;]{0,120}(?:outstanding)?|outstanding rent review[^.;]{0,120}|rising to\s+£?[\d,]+[^.;]{0,100})",text,re.I)
+    if m:
+        rr=norm(m.group(1)); f["Rent review / steps"]=rr[:140]
+        if "outstanding" in rr.lower(): chips.append("RENT REVIEW OUTSTANDING")
+
     m=re.search(r"(\d+)\s*months?\s+deposit",text,re.I)
     if m: f["Rent deposit"]=m.group(1)+" months"
     m=re.search(r"(\d+)\s*months?\s+(?:initial\s+)?rent[- ]free",text,re.I)
     if m: f["Rent free"]=m.group(1)+" months"
 
-    if re.search(r"VAT[- ]free|VAT\s+not\s+applicable|not subject to VAT",text,re.I): f["VAT"]="VAT-free / not applicable"; chips.append("VAT-FREE")
+    if re.search(r"VAT[- ]free|VAT\s+is\s+not\s+applicable|VAT\s+not\s+applicable|not subject to VAT",text,re.I): f["VAT"]="Not applicable / VAT-free"; chips.append("VAT-FREE")
     elif re.search(r"plus VAT|VAT applicable|subject to VAT|VAT will be payable",text,re.I): f["VAT"]="Applicable"; chips.append("VAT")
     elif re.search(r"option(?:ed)? to tax|opted for VAT",text,re.I): f["VAT"]="Option to tax mentioned"; chips.append("VAT VERIFY")
-    if re.search(r"\bTOGC\b|transfer of a business as a going concern",text,re.I): f["TOGC"]="Mentioned"
+    if re.search(r"\bTOGC\b|transfer of a business as a going concern",text,re.I): f["TOGC"]="Mentioned"; chips.append("TOGC")
 
     if re.search(r"vacant possession|\bvacant\b",text,re.I): f["Occupation"]="Vacant / vacant possession"; chips.append("VACANT")
     elif tenant: f["Occupation"]="Tenanted"
-    if re.search(r"legal pack|legal documents|auction pack",text,re.I): f["Legal pack"]="Referenced / available"
-    m=re.search(r"\bEPC\b[^A-G]{0,20}\b([A-G])\b",text,re.I)
-    if m: f["EPC"]=m.group(1).upper()
-    m=re.search(r"(?:rateable value|RV)\s*[:£ ]+\s*£?([\d,]+)",text,re.I)
-    if m: f["Rateable value"]="£"+m.group(1)
+    if re.search(r"download the legal pack|legal documents|legal pack",text,re.I): f["Legal pack"]="Available / referenced"; chips.append("LEGAL PACK")
 
-    national=("tesco","sainsbury","boots","superdrug","co-op","nationwide","hsbc","barclays","lloyds","natwest","coral","william hill","greggs","subway","costa","starbucks","mcdonald","aldi","lidl","b&m","poundland")
+    national=("domino","dp realty","tesco","sainsbury","boots","superdrug","co-op","nationwide","hsbc","barclays","lloyds","natwest","coral","william hill","greggs","subway","costa","starbucks","mcdonald","aldi","lidl","b&m","poundland","british red cross")
     if tenant:
-        if any(n in tenant.lower() for n in national): f["Covenant"]="Recognised national operator"; chips.append("NATIONAL TENANT")
+        if any(n in tenant.lower() for n in national): f["Covenant"]="Recognised national operator / established organisation"; chips.append("STRONGER COVENANT")
         else: f["Covenant"]="Tenant identified — strength not yet verified"
+
     if p.get("guide") and p.get("rent"):
-        f["GIY at guide"]=f'{100*p["rent"]/p["guide"]:.1f}%'
-        f["10% ceiling"]=f'£{p["rent"]/0.10:,.0f}'
+        y=100*p["rent"]/p["guide"]; f["GIY at guide"]=f"{y:.1f}%"; f["10% ceiling"]=f'£{p["rent"]/0.10:,.0f}'; chips.append(f"{y:.1f}% GIY")
     if tenure: chips.insert(0,tenure.upper())
-    return f,list(dict.fromkeys(chips))
+    interpretation=_investment_interpretation(f)
+    f.pop("_remaining_years",None)
+    return f,list(dict.fromkeys(chips)),interpretation
 
 def _facts_html(p):
-    facts,chips=_investment_facts(p)
+    facts,chips,interpretation=_investment_facts(p)
     if not facts: return ""
-    ch="".join(f'<span class="chip">{html.escape(str(x))}</span>' for x in chips[:6])
+    ch="".join(f'<span class="chip">{html.escape(str(x))}</span>' for x in chips[:7])
     rows="".join(f'<div class="fact"><span>{html.escape(str(k))}</span><b>{html.escape(str(v))}</b></div>' for k,v in facts.items())
-    return f'<div class="chips">{ch}</div><details class="analysis"><summary>Investment details</summary><div class="factgrid">{rows}</div></details>'
+    read=""
+    if interpretation:
+        read="<div class='iread'><span>Investment read</span>"+"".join(f"<p>• {html.escape(n)}</p>" for n in interpretation)+"</div>"
+    return f'<div class="chips">{ch}</div><details class="analysis"><summary>Investment details</summary><div class="factgrid">{rows}</div>{read}</details>'
+
 
 def money(v): return "Unknown" if v is None else f"£{v:,.0f}"
 def pct(v): return "Unknown" if v is None else f"{v:.1f}%"
