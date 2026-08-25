@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.4"
-CACHE = Path("auction_sniper_cache_v64.json")
+BUILD = "V6.5"
+CACHE = Path("auction_sniper_cache_v65.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -1014,7 +1014,7 @@ header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:no
 .noimg{display:grid;place-items:center;color:#7e8da3;font-size:.72rem;letter-spacing:.03em}
 .cb{padding:15px 16px 16px}.src{font-size:.72rem;color:#f2c94c;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:none}
 .addr{font-size:1rem;font-weight:850;line-height:1.32;min-height:2.65em;margin:7px 0 13px;color:#f6f8fb}
-.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.metric{background:#182333;border:1px solid #202d40;border-radius:8px;padding:9px 10px}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.sizeMetric{grid-column:span 2}.metric{background:#182333;border:1px solid #202d40;border-radius:8px;padding:9px 10px}
 .metric span{display:block;color:#91a0b4;font-size:.64rem;margin-bottom:3px}.metric b{font-size:.88rem;color:#fff}
 .meta{font-size:.66rem;color:#aab6c7;margin-top:10px;line-height:1.4;min-height:1.4em}
 .chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}.chip{font-size:.61rem;font-weight:850;padding:4px 7px;border-radius:999px;background:#223047;border:1px solid #354966;color:#dce7f5}.analysis{margin-top:9px;border-top:1px solid #26354a;padding-top:8px}.research{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.research a{text-decoration:none!important;color:#cfe0f5!important;background:#172638;border:1px solid #314761;border-radius:6px;padding:6px 8px;font-size:.62rem;font-weight:800}.research a:hover{border-color:#f2c94c;color:#f2c94c!important}.iread{margin-top:8px;background:#111d2b;border-left:3px solid #f2c94c;border-radius:6px;padding:8px 10px}.iread span{font-size:.62rem;color:#f2c94c;font-weight:900}.iread p{font-size:.68rem;color:#d8e1ed;margin:4px 0;line-height:1.35}.analysis summary{cursor:pointer;color:#dbe5f2;font-size:.72rem;font-weight:850}.factgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.fact{background:#0f1723;border:1px solid #233149;border-radius:7px;padding:7px 8px}.fact span{display:block;color:#8fa0b5;font-size:.57rem;margin-bottom:2px}.fact b{display:block;color:#f4f7fb;font-size:.70rem;line-height:1.3}
@@ -1105,27 +1105,52 @@ def _remaining_years(s):
     return None if not d else max(0,(d-date.today()).days/365.2425)
 
 def _extract_floor_area(text):
-    vals=[]
+    sqft_vals=[]; sqm_vals=[]
     for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\s*ft|sqft|square feet)",text,re.I):
         try:
             v=float(m.group(1).replace(",",""))
-            if 50<=v<=1_000_000: vals.append(v)
+            if 50<=v<=1_000_000: sqft_vals.append(v)
         except: pass
-    return max(vals) if vals else None
+    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\s*m|sqm|m²|square metres|square meters)",text,re.I):
+        try:
+            v=float(m.group(1).replace(",",""))
+            if 5<=v<=100_000: sqm_vals.append(v)
+        except: pass
+    sqft=max(sqft_vals) if sqft_vals else None
+    sqm=max(sqm_vals) if sqm_vals else None
+    if sqft is None and sqm is not None: sqft=sqm*10.7639
+    if sqm is None and sqft is not None: sqm=sqft/10.7639
+    return sqft,sqm
+
+def _format_area(sqft,sqm):
+    if sqft is None and sqm is None: return None
+    return f"{sqft:,.0f} sq ft / {sqm:,.0f} sq m" if sqft is not None and sqm is not None else (f"{sqft:,.0f} sq ft" if sqft is not None else f"{sqm:,.0f} sq m")
+
 
 def _unit_liquidity(p,facts,text):
-    low=text.lower(); score=5.0; pos=[]; risk=[]; area=_extract_floor_area(text)
-    if area:
-        if area<=1000: score+=1.2; pos.append(f"Small unit ({area:,.0f} sq ft) gives a broader occupier pool.")
-        elif area<=2500: score+=0.6; pos.append(f"Manageable unit size ({area:,.0f} sq ft).")
-        elif area<=5000: score-=0.2; risk.append(f"Mid-large unit ({area:,.0f} sq ft) narrows occupier depth.")
-        elif area<=10000: score-=1.2; risk.append(f"Large unit ({area:,.0f} sq ft) materially narrows occupier demand.")
-        else: score-=2.0; risk.append(f"Very large unit ({area:,.0f} sq ft) has limited occupier depth.")
+    low=text.lower(); score=5.0; pos=[]; risk=[]
+    sqft,sqm=_extract_floor_area(text)
+    if sqft is not None:
+        if sqft<=750:
+            score+=1.4; pos.append(f"Very compact unit ({sqft:,.0f} sq ft) should appeal to a broad occupier pool.")
+        elif sqft<=1500:
+            score+=1.0; pos.append(f"Small unit ({sqft:,.0f} sq ft) gives a relatively broad occupier pool.")
+        elif sqft<=3000:
+            score+=0.4; pos.append(f"Manageable unit size ({sqft:,.0f} sq ft).")
+        elif sqft<=5000:
+            score-=0.4; risk.append(f"Larger unit ({sqft:,.0f} sq ft) reduces occupier depth.")
+        elif sqft<=10000:
+            score-=1.4; risk.append(f"Large unit ({sqft:,.0f} sq ft) materially narrows replacement demand.")
+        else:
+            score-=2.2; risk.append(f"Very large unit ({sqft:,.0f} sq ft) requires a much deeper/specialist occupier market.")
     if any(x in low for x in ("care home","cinema","church","nightclub","petrol station","department store")):
         score-=1.0; risk.append("Specialist configuration reduces replacement-tenant flexibility.")
-    if any(x in low for x in ("parking","car park","service yard","loading bay")):
-        score+=0.4; pos.append("Parking/loading improves usability.")
-    return max(1.0,min(10.0,score)),area,pos[:3],risk[:3]
+    if any(x in low for x in ("parking","car park","service yard","loading bay","rear loading")):
+        score+=0.4; pos.append("Parking/loading improves practical usability.")
+    if any(x in low for x in ("corner unit","double frontage","double-fronted","wide frontage")):
+        score+=0.3; pos.append("Good frontage/configuration should broaden occupier appeal.")
+    return max(1.0,min(10.0,score)),sqft,sqm,pos[:3],risk[:3]
+
 
 def _pitch_evidence(text):
     low=text.lower(); score=5.0; pos=[]; risk=[]; evidence=0
@@ -1147,7 +1172,7 @@ def _rental_stress(p,text):
     mr,label=min(vals,key=lambda x:x[0]); return mr,(rent-mr)/rent*100,label
 
 def _reletting_assessment(p,facts,text):
-    us,area,upos,urisk=_unit_liquidity(p,facts,text)
+    us,sqft,sqm,upos,urisk=_unit_liquidity(p,facts,text)
     ps,ppos,prisk,pe=_pitch_evidence(text)
     mr,stress,src=_rental_stress(p,text)
     screen=0.55*us+0.45*ps
@@ -1163,7 +1188,7 @@ def _reletting_assessment(p,facts,text):
         screen=max(1.0,min(10.0,screen))
         label="STRONG" if screen>=7.5 else "GOOD" if screen>=6.2 else "MODERATE" if screen>=4.7 else "WEAK" if screen>=3.2 else "HIGH RISK"
         confidence="MEDIUM"
-    return {"score":screen,"label":label,"confidence":confidence,"unit_score":us,"pitch_score":ps,"area":area,"market_rent":mr,"rent_stress":stress,"market_rent_source":src,"reasons":upos+ppos,"risks":urisk+prisk}
+    return {"score":screen,"label":label,"confidence":confidence,"unit_score":us,"pitch_score":ps,"sqft":sqft,"sqm":sqm,"market_rent":mr,"rent_stress":stress,"market_rent_source":src,"reasons":upos+ppos,"risks":urisk+prisk}
 
 def _investment_interpretation(f):
     notes=[]; yrs=f.get("_remaining_years")
@@ -1248,8 +1273,8 @@ def _investment_facts(p):
         f["Reletting strength"]=f'{rel["score"]:.1f}/10 — {rel["label"]}'
         f["Location confidence"]=rel["confidence"]
         chips.append(f'RELETTING {rel["label"]}')
-    if rel.get("area"):
-        f["Floor area"]=f'{rel["area"]:,.0f} sq ft'
+    if rel.get("sqft") is not None or rel.get("sqm") is not None:
+        f["Floor area"]=_format_area(rel.get("sqft"),rel.get("sqm"))
     if rel.get("market_rent") is not None:
         f["Evidenced re-letting rent"]=f'£{rel["market_rent"]:,.0f} p.a. ({rel["market_rent_source"]})'
         if rel.get("rent_stress") is not None:
@@ -1311,6 +1336,7 @@ with lots_tab:
     for x in lots:
         y=x.get("yield")
         ceiling=x["rent"]/.10 if x.get("rent") else None
+        _size_text=_format_area(*_extract_floor_area(norm(str(x.get("desc") or "")+" "+str(x.get("address") or ""))))
         meta=" · ".join(v for v in [x.get("date"),x.get("tenure"),("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)
         preview=(f'<img class="preview" src="{html.escape(x["image"])}" loading="lazy">' if x.get("image")
                  else '<div class="preview noimg">IMAGE NOT YET INDEXED</div>')
