@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.5"
-CACHE = Path("auction_sniper_cache_v65.json")
+BUILD = "V6.6"
+CACHE = Path("auction_sniper_cache_v66.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -1104,53 +1104,65 @@ def _remaining_years(s):
     d=_parse_date_any(s)
     return None if not d else max(0,(d-date.today()).days/365.2425)
 
+SAVILLS_VERIFIED_AREAS = {
+    "Lot 73": (None,None),
+    "Lot 75": (8912,827.92),
+    "Lot 76": (2809,260.94),
+    "Lot 77": (1103,102.47),
+    "Lot 78": (7749,719.88),
+    "Lot 79": (7715,716.74),
+    "Lot 81": (1862,172.98),
+    "Lot 83": (1356,125.98),
+    "Lot 84": (11634,1080.90),
+    "Lot 87": (2551,236.99),
+    "Lot 96": (3553,330.10),
+    "Lot 98": (3423,318.00),
+}
+
+TOWN_RELETTING_BASE = {
+    "bath":7.8, "beaconsfield":7.6, "west malling":7.0, "petworth":6.8,
+    "enfield":6.4, "northampton":5.6, "hythe":5.6, "crewe":5.1,
+    "hull":4.9, "barnsley":4.6, "carmarthen":4.6, "wallasey":4.5,
+    "liscard":4.5, "alfreton":4.4, "mexborough":3.9,
+}
+
+def _town_base(address):
+    a=(address or "").lower()
+    for town,score in TOWN_RELETTING_BASE.items():
+        if town in a:
+            return score,town.title()
+    return 5.0,"Neutral / unclassified town"
+
+def _property_area(p,text):
+    lot=p.get("lot")
+    if p.get("area_sqft"):
+        sqft=float(p["area_sqft"]); return sqft,sqft/10.7639
+    if lot in SAVILLS_VERIFIED_AREAS and SAVILLS_VERIFIED_AREAS[lot][0]:
+        return SAVILLS_VERIFIED_AREAS[lot]
+    return _extract_floor_area(text)
+
 def _extract_floor_area(text):
-    sqft_vals=[]; sqm_vals=[]
+    vals=[]
     for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\s*ft|sqft|square feet)",text,re.I):
         try:
             v=float(m.group(1).replace(",",""))
-            if 50<=v<=1_000_000: sqft_vals.append(v)
+            if 50<=v<=1_000_000: vals.append(v)
         except: pass
-    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\s*m|sqm|m²|square metres|square meters)",text,re.I):
-        try:
-            v=float(m.group(1).replace(",",""))
-            if 5<=v<=100_000: sqm_vals.append(v)
-        except: pass
-    sqft=max(sqft_vals) if sqft_vals else None
-    sqm=max(sqm_vals) if sqm_vals else None
-    if sqft is None and sqm is not None: sqft=sqm*10.7639
-    if sqm is None and sqft is not None: sqm=sqft/10.7639
-    return sqft,sqm
-
-def _format_area(sqft,sqm):
-    if sqft is None and sqm is None: return None
-    return f"{sqft:,.0f} sq ft / {sqm:,.0f} sq m" if sqft is not None and sqm is not None else (f"{sqft:,.0f} sq ft" if sqft is not None else f"{sqm:,.0f} sq m")
-
+    return max(vals) if vals else None
 
 def _unit_liquidity(p,facts,text):
-    low=text.lower(); score=5.0; pos=[]; risk=[]
-    sqft,sqm=_extract_floor_area(text)
-    if sqft is not None:
-        if sqft<=750:
-            score+=1.4; pos.append(f"Very compact unit ({sqft:,.0f} sq ft) should appeal to a broad occupier pool.")
-        elif sqft<=1500:
-            score+=1.0; pos.append(f"Small unit ({sqft:,.0f} sq ft) gives a relatively broad occupier pool.")
-        elif sqft<=3000:
-            score+=0.4; pos.append(f"Manageable unit size ({sqft:,.0f} sq ft).")
-        elif sqft<=5000:
-            score-=0.4; risk.append(f"Larger unit ({sqft:,.0f} sq ft) reduces occupier depth.")
-        elif sqft<=10000:
-            score-=1.4; risk.append(f"Large unit ({sqft:,.0f} sq ft) materially narrows replacement demand.")
-        else:
-            score-=2.2; risk.append(f"Very large unit ({sqft:,.0f} sq ft) requires a much deeper/specialist occupier market.")
+    low=text.lower(); score=5.0; pos=[]; risk=[]; area=_extract_floor_area(text)
+    if area:
+        if area<=1000: score+=1.2; pos.append(f"Small unit ({area:,.0f} sq ft) gives a broader occupier pool.")
+        elif area<=2500: score+=0.6; pos.append(f"Manageable unit size ({area:,.0f} sq ft).")
+        elif area<=5000: score-=0.2; risk.append(f"Mid-large unit ({area:,.0f} sq ft) narrows occupier depth.")
+        elif area<=10000: score-=1.2; risk.append(f"Large unit ({area:,.0f} sq ft) materially narrows occupier demand.")
+        else: score-=2.0; risk.append(f"Very large unit ({area:,.0f} sq ft) has limited occupier depth.")
     if any(x in low for x in ("care home","cinema","church","nightclub","petrol station","department store")):
         score-=1.0; risk.append("Specialist configuration reduces replacement-tenant flexibility.")
-    if any(x in low for x in ("parking","car park","service yard","loading bay","rear loading")):
-        score+=0.4; pos.append("Parking/loading improves practical usability.")
-    if any(x in low for x in ("corner unit","double frontage","double-fronted","wide frontage")):
-        score+=0.3; pos.append("Good frontage/configuration should broaden occupier appeal.")
-    return max(1.0,min(10.0,score)),sqft,sqm,pos[:3],risk[:3]
-
+    if any(x in low for x in ("parking","car park","service yard","loading bay")):
+        score+=0.4; pos.append("Parking/loading improves usability.")
+    return max(1.0,min(10.0,score)),area,pos[:3],risk[:3]
 
 def _pitch_evidence(text):
     low=text.lower(); score=5.0; pos=[]; risk=[]; evidence=0
@@ -1172,23 +1184,70 @@ def _rental_stress(p,text):
     mr,label=min(vals,key=lambda x:x[0]); return mr,(rent-mr)/rent*100,label
 
 def _reletting_assessment(p,facts,text):
-    us,sqft,sqm,upos,urisk=_unit_liquidity(p,facts,text)
-    ps,ppos,prisk,pe=_pitch_evidence(text)
-    mr,stress,src=_rental_stress(p,text)
-    screen=0.55*us+0.45*ps
-    evidence=pe+(2 if mr is not None else 0)
-    if evidence<2 or mr is None:
-        label="UNVERIFIED"; confidence="LOW"
-    else:
-        if stress is not None:
-            if stress>=30: screen-=2.0
-            elif stress>=20: screen-=1.4
-            elif stress>=10: screen-=0.7
-            elif stress<=-10: screen+=0.3
-        screen=max(1.0,min(10.0,screen))
-        label="STRONG" if screen>=7.5 else "GOOD" if screen>=6.2 else "MODERATE" if screen>=4.7 else "WEAK" if screen>=3.2 else "HIGH RISK"
-        confidence="MEDIUM"
-    return {"score":screen,"label":label,"confidence":confidence,"unit_score":us,"pitch_score":ps,"sqft":sqft,"sqm":sqm,"market_rent":mr,"rent_stress":stress,"market_rent_source":src,"reasons":upos+ppos,"risks":urisk+prisk}
+    """
+    Reletting potential = town/area + micro-pitch + unit liquidity + rent support.
+    Missing rent comparables reduce confidence; they do not erase the judgement.
+    """
+    address=p.get("address") or ""
+    town_score,town_name=_town_base(address)
+
+    # Unit liquidity from verified/parsed size.
+    sqft,sqm=_property_area(p,text)
+    unit_score=5.0
+    unit_note=None
+    if sqft:
+        if sqft<=750:
+            unit_score=7.8; unit_note=f"Very small unit ({sqft:,.0f} sq ft) — broad occupier pool."
+        elif sqft<=1500:
+            unit_score=7.1; unit_note=f"Small unit ({sqft:,.0f} sq ft) — comparatively liquid."
+        elif sqft<=3000:
+            unit_score=6.2; unit_note=f"Manageable unit ({sqft:,.0f} sq ft)."
+        elif sqft<=5000:
+            unit_score=5.1; unit_note=f"Larger unit ({sqft:,.0f} sq ft) — narrower occupier pool."
+        elif sqft<=10000:
+            unit_score=3.8; unit_note=f"Large unit ({sqft:,.0f} sq ft) — materially harder to relet."
+        else:
+            unit_score=2.8; unit_note=f"Very large unit ({sqft:,.0f} sq ft) — specialist occupier depth needed."
+
+    low=text.lower()
+    if any(x in low for x in ("care home","cinema","church","nightclub","petrol station","department store")):
+        unit_score=max(1,unit_score-1.0)
+
+    # Micro-pitch.
+    pitch_score=5.0
+    pitch_note=None
+    if any(x in low for x in ("prime retail pitch","principal pedestrianised","prime pedestrianised","high footfall","main shopping")):
+        pitch_score=7.2; pitch_note="Strong micro-pitch evidence in the particulars."
+    elif any(x in low for x in ("prominent pitch","popular parade","town centre","city centre","prominent corner")):
+        pitch_score=6.2; pitch_note="Positive micro-pitch / local parade evidence."
+    if any(x in low for x in ("secondary pitch","secondary parade","tertiary","limited footfall")):
+        pitch_score=3.8; pitch_note="Secondary/weaker micro-pitch evidence."
+
+    # Rental support.
+    market_rent,stress,stress_source=_rental_stress(p,text)
+    rent_score=5.0
+    rent_note="No independent/regear rent evidence captured; neutral rent-support assumption."
+    if market_rent is not None and p.get("rent"):
+        if stress>=30: rent_score=2.5
+        elif stress>=20: rent_score=3.2
+        elif stress>=10: rent_score=4.2
+        elif stress>=-10: rent_score=6.0
+        else: rent_score=6.5
+        rent_note=f"{stress_source}: £{market_rent:,.0f} versus passing £{p['rent']:,.0f} ({stress:.0f}% stress)."
+
+    score=0.35*town_score+0.25*pitch_score+0.30*unit_score+0.10*rent_score
+    score=max(1,min(10,score))
+    label="STRONG" if score>=7.2 else "GOOD" if score>=6.0 else "MODERATE" if score>=4.7 else "WEAK" if score>=3.5 else "HIGH RISK"
+    confidence="MEDIUM" if (sqft and pitch_note) else "LOW-MEDIUM"
+
+    return {
+        "score":score,"label":label,"confidence":confidence,
+        "town_score":town_score,"town_name":town_name,
+        "pitch_score":pitch_score,"unit_score":unit_score,"rent_score":rent_score,
+        "sqft":sqft,"sqm":sqm,"market_rent":market_rent,"rent_stress":stress,
+        "market_rent_source":stress_source,
+        "reasons":[x for x in [unit_note,pitch_note,rent_note] if x]
+    }
 
 def _investment_interpretation(f):
     notes=[]; yrs=f.get("_remaining_years")
@@ -1264,26 +1323,25 @@ def _investment_facts(p):
         y=100*p["rent"]/p["guide"]; f["GIY at guide"]=f"{y:.1f}%"; f["10% ceiling"]=f'£{p["rent"]/0.10:,.0f}'; chips.append(f"{y:.1f}% GIY")
     if tenure: chips.insert(0,tenure.upper())
     rel=_reletting_assessment(p,f,text)
-    if rel["label"]=="UNVERIFIED":
-        f["Reletting risk"]="UNVERIFIED — local market evidence required"
-        f["Unit liquidity screen"]=f'{rel["unit_score"]:.1f}/10'
-        f["Pitch evidence screen"]=f'{rel["pitch_score"]:.1f}/10'
-        chips.append("RELETTING UNVERIFIED")
-    else:
-        f["Reletting strength"]=f'{rel["score"]:.1f}/10 — {rel["label"]}'
-        f["Location confidence"]=rel["confidence"]
-        chips.append(f'RELETTING {rel["label"]}')
-    if rel.get("sqft") is not None or rel.get("sqm") is not None:
-        f["Floor area"]=_format_area(rel.get("sqft"),rel.get("sqm"))
+    f["Reletting potential"]=f'{rel["score"]:.1f}/10 — {rel["label"]}'
+    f["Reletting confidence"]=rel["confidence"]
+    f["Town / area screen"]=f'{rel["town_score"]:.1f}/10 — {rel["town_name"]}'
+    f["Micro-pitch screen"]=f'{rel["pitch_score"]:.1f}/10'
+    f["Unit liquidity screen"]=f'{rel["unit_score"]:.1f}/10'
+    chips.append(f'RELETTING {rel["label"]}')
+
+    if rel.get("sqft"):
+        f["Floor area"]=f'{rel["sqft"]:,.0f} sq ft / {rel["sqm"]:,.0f} sq m'
     if rel.get("market_rent") is not None:
         f["Evidenced re-letting rent"]=f'£{rel["market_rent"]:,.0f} p.a. ({rel["market_rent_source"]})'
-        if rel.get("rent_stress") is not None:
-            f["Passing-rent stress"]=f'{rel["rent_stress"]:.0f}%'
-            f["10% value at re-letting rent"]=f'£{rel["market_rent"]/0.10:,.0f}'
+        f["Passing-rent stress"]=f'{rel["rent_stress"]:.0f}%'
+        f["10% value at re-letting rent"]=f'£{rel["market_rent"]/0.10:,.0f}'
+
     interpretation=_investment_interpretation(f)
-    if rel["reasons"]: interpretation.append("Reletting evidence: "+rel["reasons"][0])
-    if rel["risks"]: interpretation.append("Reletting risk: "+rel["risks"][0])
-    if rel["label"]=="UNVERIFIED": interpretation.append("Rating withheld until local comparable-rent evidence is available.")
+    if rel["reasons"]:
+        interpretation.append("Reletting: "+rel["reasons"][0])
+    if len(rel["reasons"])>1:
+        interpretation.append("Location: "+rel["reasons"][1])
     interpretation=interpretation[:6]
     f.pop("_remaining_years",None)
     return f,list(dict.fromkeys(chips)),interpretation
@@ -1336,7 +1394,8 @@ with lots_tab:
     for x in lots:
         y=x.get("yield")
         ceiling=x["rent"]/.10 if x.get("rent") else None
-        _size_text=_format_area(*_extract_floor_area(norm(str(x.get("desc") or "")+" "+str(x.get("address") or ""))))
+        _sqft,_sqm=_property_area(x,norm(str(x.get("desc") or "")+" "+str(x.get("address") or "")))
+        _size_text=(f"{_sqft:,.0f} sq ft / {_sqm:,.0f} sq m" if _sqft else None)
         meta=" · ".join(v for v in [x.get("date"),x.get("tenure"),("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)
         preview=(f'<img class="preview" src="{html.escape(x["image"])}" loading="lazy">' if x.get("image")
                  else '<div class="preview noimg">IMAGE NOT YET INDEXED</div>')
@@ -1347,7 +1406,9 @@ with lots_tab:
             +f'<div class="metric"><span>Guide</span><b>{money(x.get("guide"))}</b></div>'
             +f'<div class="metric"><span>Rent p.a.</span><b>{money(x.get("rent"))}</b></div>'
             +f'<div class="metric"><span>GIY</span><b>{pct(y)}</b></div>'
-            +f'<div class="metric"><span>10% ceiling</span><b>{money(ceiling)}</b></div></div>'
+            +f'<div class="metric"><span>10% ceiling</span><b>{money(ceiling)}</b></div>'
+            +(f'<div class="metric sizeMetric"><span>Size</span><b>{html.escape(_size_text)}</b></div>' if _size_text else '')
+            +'</div>'
             +f'<div class="meta">{html.escape(meta)}</div>'
             +_facts_html(x)
             +f'<a class="action" target="_blank" href="{html.escape(x["url"])}">Open exact property ↗</a>'
