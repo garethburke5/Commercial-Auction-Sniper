@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V5.8"
-CACHE = Path("auction_sniper_cache_v58.json")
+BUILD = "V5.9"
+CACHE = Path("auction_sniper_cache_v59.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -1002,23 +1002,28 @@ def refresh_market():
 st.markdown("""
 <style>
 header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:none!important}
-.block-container{max-width:1500px;padding:.25rem .3rem 1.3rem!important}
-.stApp{background:#090e16;color:#f5f7fb}
-.hero{display:flex;justify-content:space-between;align-items:center;gap:8px;background:linear-gradient(135deg,#131b28,#0d131d);border:1px solid #29354b;border-radius:12px;padding:10px;margin-bottom:5px}
-.brand{font-size:1.12rem;font-weight:950}.brand b{color:#f2c94c}.sub{font-size:.47rem;color:#94a3b8;margin-top:3px}
-.badge{font-size:.43rem;border:1px solid #2e8b5c;color:#9ae6b4;border-radius:999px;padding:4px 6px;white-space:nowrap}
-.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
-.card{background:#121925;border:1px solid #29354b;border-radius:9px;overflow:hidden}
-.preview{display:block;width:100%;height:125px;object-fit:cover;background:#172131}
-.noimg{display:grid;place-items:center;color:#748197;font-size:.34rem}
-.cb{padding:7px}.src{font-size:.36rem;color:#f2c94c;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.addr{font-size:.59rem;font-weight:850;line-height:1.18;min-height:2.3em;margin:3px 0 5px}
-.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}.metric{background:#171f2d;border-radius:5px;padding:4px}
-.metric span{display:block;color:#8f9db0;font-size:.29rem}.metric b{font-size:.47rem}
-.meta{font-size:.31rem;color:#a8b5c7;margin-top:4px;line-height:1.3}
-.action{display:block;text-align:center;text-decoration:none;background:#f2c94c;color:#171208;border-radius:5px;padding:5px;margin-top:5px;font-size:.40rem;font-weight:900}
-.statusrow{padding:7px 8px;border:1px solid #29354b;background:#111824;border-radius:8px;margin-bottom:5px}
-@media(max-width:800px){.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}.brand{font-size:1rem}.preview{height:96px}.cb{padding:5px}.addr{font-size:.53rem}}
+.block-container{max-width:1420px;padding:1.1rem 1.35rem 2.5rem!important}
+.stApp{background:#0a1019;color:#f5f7fb}
+.hero{display:flex;justify-content:space-between;align-items:center;gap:18px;background:linear-gradient(135deg,#151f2e,#0e1622);border:1px solid #2b3a50;border-radius:16px;padding:20px 22px;margin-bottom:12px;box-shadow:0 8px 28px rgba(0,0,0,.18)}
+.brand{font-size:1.55rem;font-weight:950;letter-spacing:-.02em}.brand b{color:#f2c94c}.sub{font-size:.78rem;color:#9cacc0;margin-top:5px}
+.badge{font-size:.72rem;border:1px solid #2e8b5c;color:#a8f0c4;background:#0d2119;border-radius:999px;padding:7px 10px;white-space:nowrap;font-weight:750}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.card{background:#121b29;border:1px solid #2b3a50;border-radius:14px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.18);transition:transform .15s ease,border-color .15s ease}
+.card:hover{transform:translateY(-2px);border-color:#455b79}
+.preview{display:block;width:100%;height:220px;object-fit:cover;background:#172131}
+.noimg{display:grid;place-items:center;color:#7e8da3;font-size:.72rem;letter-spacing:.03em}
+.cb{padding:15px 16px 16px}.src{font-size:.72rem;color:#f2c94c;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:none}
+.addr{font-size:1rem;font-weight:850;line-height:1.32;min-height:2.65em;margin:7px 0 13px;color:#f6f8fb}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.metric{background:#182333;border:1px solid #202d40;border-radius:8px;padding:9px 10px}
+.metric span{display:block;color:#91a0b4;font-size:.64rem;margin-bottom:3px}.metric b{font-size:.88rem;color:#fff}
+.meta{font-size:.66rem;color:#aab6c7;margin-top:10px;line-height:1.4;min-height:1.4em}
+.action{display:block;text-align:center;text-decoration:none!important;background:#f2c94c;color:#171208!important;border-radius:8px;padding:10px 8px;margin-top:11px;font-size:.76rem;font-weight:950}
+.statusrow{padding:12px 14px;border:1px solid #29354b;background:#111824;border-radius:10px;margin-bottom:8px;font-size:.84rem}
+div[data-testid="stExpander"]{border:1px solid #25344a!important;border-radius:11px!important;background:#0e1621!important;margin-bottom:10px}
+button[data-baseweb="tab"]{font-size:.9rem!important}
+@media(min-width:1500px){.block-container{max-width:1500px}.cards{gap:20px}.preview{height:235px}}
+@media(max-width:1050px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.preview{height:205px}}
+@media(max-width:650px){.block-container{padding:.45rem .5rem 1.5rem!important}.hero{padding:13px 12px}.brand{font-size:1.1rem}.sub{font-size:.58rem}.badge{font-size:.55rem;padding:5px 7px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.preview{height:112px}.cb{padding:7px}.src{font-size:.47rem}.addr{font-size:.68rem;min-height:2.7em;margin:4px 0 7px}.metrics{gap:3px}.metric{padding:5px}.metric span{font-size:.40rem}.metric b{font-size:.58rem}.meta{font-size:.42rem;margin-top:5px}.action{font-size:.50rem;padding:6px;margin-top:6px}}
 </style>
 """,unsafe_allow_html=True)
 
