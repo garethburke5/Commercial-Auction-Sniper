@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V5.7"
-CACHE = Path("auction_sniper_cache_v57.json")
+BUILD = "V5.8"
+CACHE = Path("auction_sniper_cache_v58.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -116,14 +116,18 @@ SEED = [
 ]
 
 SOURCE_HEALTH = [
-    dict(source="Auction House London", status="VERIFIED LIVE", note="2–3 Sep commercial lots verified"),
-    dict(source="Savills Auctions", status="VERIFIED LIVE", note="2 Sep official commercial section verified"),
-    dict(source="Bond Wolfe", status="VERIFIED LIVE", note="10 Sep exact commercial/mixed-use pages verified"),
-    dict(source="Pugh / BTG Eddisons", status="VERIFIED LIVE", note="27 Aug commercial/mixed-use catalogue verified"),
-    dict(source="Strettons", status="VERIFIED LIVE", note="10 Sep dedicated commercial feed: 19 properties"),
-    dict(source="LSH Auctions", status="VERIFIED LIVE", note="9 Sep catalogue live; commercial filtering required"),
-    dict(source="Allsop Commercial", status="CATALOGUE PENDING", note="Next commercial auction 7 Oct; do not show older lots as current"),
-    dict(source="Acuitus", status="EARLY / PENDING", note="17 Sep; full catalogue due 28 Aug"),
+    dict(source="Auction House London", status="LIVE", note="2–3 Sep commercial catalogue"),
+    dict(source="Savills Auctions", status="LIVE", note="2 Sep commercial section"),
+    dict(source="Bond Wolfe", status="LIVE", note="10 Sep current catalogue"),
+    dict(source="Pugh / BTG Eddisons", status="LIVE", note="Current/forthcoming commercial & mixed-use"),
+    dict(source="Strettons", status="LIVE", note="10 Sep dedicated commercial feed"),
+    dict(source="Acuitus", status="EARLY CATALOGUE", note="17 Sep; full catalogue due 28 Aug"),
+    dict(source="Allsop Commercial", status="CATALOGUE PENDING", note="Next commercial auction 7 Oct; old lots excluded"),
+    dict(source="Clive Emson", status="CATALOGUE PENDING", note="22–24 Sep; catalogue due 4 Sep"),
+    dict(source="Barnard Marcus", status="TO INTEGRATE", note="10 Sep current auction"),
+    dict(source="Barnett Ross", status="TO INTEGRATE", note="10 Sep commercial auction source"),
+    dict(source="LSH Auctions", status="TO INTEGRATE", note="9 Sep commercial/mixed-use filtering"),
+    dict(source="BidX1 UK", status="TO INTEGRATE", note="Commercial/mixed-use feed"),
 ]
 
 # ---------------- helpers ----------------
@@ -544,25 +548,27 @@ def _catalogue_strettons():
         return []
 
 def _merge_catalogue_rows(base_rows):
-    # Current catalogue rows supersede the small seed source-by-source,
-    # but a parser failure never deletes the seed.
-    current={x["source"]:[] for x in base_rows}
+    current={}
     for x in base_rows:
         current.setdefault(x["source"],[]).append(x)
 
-    for source,fn in [
+    source_functions=[
         ("Auction House London",_catalogue_ahl),
         ("Savills Auctions",_catalogue_savills),
-        ("Strettons",_catalogue_strettons),
-    ]:
-        rows=fn()
-        if rows:
-            current[source]=rows
+        ("Bond Wolfe",_bond_wolfe_current),
+        ("Strettons",_strettons_current),
+        ("Acuitus",_acuitus_current),
+    ]
+    for source,fn in source_functions:
+        try: rows=fn()
+        except Exception: rows=[]
+        if rows: current[source]=rows
 
     merged=[]
     for rows in current.values():
         merged.extend(rows)
     return _clean_rows(merged)
+
 
 @st.cache_data(ttl=21600, show_spinner=False)
 def _best_exact_page_image(url):
@@ -617,6 +623,165 @@ def load_rows():
 
     rows=_merge_catalogue_rows(SEED)
     return _enrich_missing_images(rows), SOURCE_HEALTH, "Current commercial catalogues · 24 Aug 2026"
+
+
+# ---------------- expanded source coverage ----------------
+@st.cache_data(ttl=21600, show_spinner=False)
+def _exact_page_card(url, source, auction_date, force_commercial=False):
+    try:
+        s=BeautifulSoup(fetch(url),"lxml")
+        h1=s.find("h1")
+        address=norm(h1.get_text(" ",strip=True)) if h1 else url
+        main=s.find("main") or s
+        text=norm(main.get_text(" ",strip=True))
+        low=text.lower()
+
+        image=None
+        og=s.find("meta",attrs={"property":"og:image"})
+        if og and og.get("content"):
+            cand=urljoin(url,og["content"])
+            if not any(x in cand.lower() for x in ("logo","favicon","icon","sprite","placeholder")):
+                image=cand
+        if not image:
+            for img in s.find_all("img"):
+                raw=img.get("data-src") or img.get("data-lazy-src") or img.get("src")
+                if not raw: continue
+                cand=urljoin(url,raw)
+                lc=cand.lower()
+                if any(x in lc for x in ("logo","favicon","icon","sprite","placeholder","avatar")):
+                    continue
+                alt=norm(img.get("alt","")).lower()
+                first=address.split(",")[0].lower()
+                if first and first in alt:
+                    image=cand; break
+                if any(x in lc for x in ("/uploads/","/properties/","/property/","/images/")):
+                    image=cand; break
+
+        gm=re.search(r"Guide price\*?\s*(?:£)?\s*([\d,]+)",text,re.I)
+        guide=float(gm.group(1).replace(",","")) if gm else None
+        rent=parse_rent(text)
+
+        commercial_words=[
+            "commercial","retail","office","industrial","warehouse","shop",
+            "mixed use","mixed-use","business premises","former church",
+            "care home","hotel","public house","storage land"
+        ]
+        residential_only=[
+            "semi detached property","semi-detached property","terraced house",
+            "detached house","bungalow","one bedroom flat","two bedroom flat",
+            "three bedroom flat"
+        ]
+        if not force_commercial:
+            if not any(x in low for x in commercial_words):
+                return None
+            if any(x in low for x in residential_only) and not any(x in low for x in ("mixed use","mixed-use","commercial")):
+                return None
+
+        tenure=("Freehold" if "freehold" in low else "Leasehold" if "leasehold" in low else None)
+        return dict(source=source,lot="Lot TBC",date=auction_date,address=address,
+                    guide=guide,rent=rent,tenure=tenure,vat="UNKNOWN",
+                    url=url,desc=text[:350],image=image)
+    except Exception:
+        return None
+
+@st.cache_data(ttl=21600, show_spinner=False)
+def _bond_wolfe_current():
+    catalogue="https://www.bondwolfe.com/auctions/properties/"
+    try:
+        s=BeautifulSoup(fetch(catalogue),"lxml")
+        urls=[]
+        for a in s.find_all("a",href=True):
+            href=urljoin(catalogue,a["href"]).rstrip("/")+"/"
+            if re.match(r"^https://www\.bondwolfe\.com/auctions/properties/\d+-property-auction-[^/]+/$",href,re.I):
+                if href not in urls: urls.append(href)
+
+        verified=[
+            "https://www.bondwolfe.com/auctions/properties/360362-property-auction-smethwick/",
+            "https://www.bondwolfe.com/auctions/properties/361360-property-auction-kidderminster/",
+            "https://www.bondwolfe.com/auctions/properties/357075-property-auction-birmingham/",
+            "https://www.bondwolfe.com/auctions/properties/361049-property-auction-wednesbury/",
+            "https://www.bondwolfe.com/auctions/properties/361103-property-auction-halesowen/",
+            "https://www.bondwolfe.com/auctions/properties/362298-property-auction-whitchurch/",
+        ]
+        for u in verified:
+            if u not in urls: urls.append(u)
+
+        rows=[]
+        with ThreadPoolExecutor(max_workers=10) as ex:
+            futures=[ex.submit(_exact_page_card,u,"Bond Wolfe","2026-09-10",False) for u in urls[:80]]
+            for f in as_completed(futures):
+                row=f.result()
+                if row: rows.append(row)
+        unique={r["url"]:r for r in rows}
+        return list(unique.values())
+    except Exception:
+        return []
+
+@st.cache_data(ttl=21600, show_spinner=False)
+def _strettons_current():
+    url="https://www.strettons.co.uk/auction-commercial-property/for-sale/"
+    try:
+        s=BeautifulSoup(fetch(url),"lxml")
+        rows={}
+        for a in s.find_all("a",href=True):
+            node=a; card=""
+            for _ in range(9):
+                node=getattr(node,"parent",None)
+                if node is None: break
+                t=norm(node.get_text(" ",strip=True))
+                if re.search(r"10 Sep 26\s*-\s*Lot\s+\d+",t,re.I) and len(t)<5000:
+                    card=t; break
+            if not card: continue
+            m=re.search(r"10 Sep 26\s*-\s*Lot\s+(\d+[A-Z]?)\s+(.+?)(?=(?:FREEHOLD|LONG LEASEHOLD|LEASEHOLD|Guide Price|View more))",card,re.I)
+            if not m: continue
+            lot="Lot "+m.group(1)
+            address=norm(m.group(2))
+            gm=re.search(r"Guide Price\s*(£[\d,]+)",card,re.I)
+            guide=parse_money(gm.group(1)) if gm else None
+            href=urljoin(url,a.get("href",""))
+            imgs=_img_candidates(node,url) if "_img_candidates" in globals() else []
+            low=card.lower()
+            rows[lot]=dict(source="Strettons",lot=lot,date="2026-09-10",
+                           address=address,guide=guide,rent=parse_rent(card),
+                           tenure=("Freehold" if "freehold" in low else "Leasehold" if "leasehold" in low else None),
+                           vat="UNKNOWN",url=href or url,desc=card[:350],
+                           image=imgs[0] if imgs else None)
+        return list(rows.values())
+    except Exception:
+        return []
+
+@st.cache_data(ttl=21600, show_spinner=False)
+def _acuitus_current():
+    url="https://www.acuitus.co.uk/find-a-property/?clear=y"
+    try:
+        s=BeautifulSoup(fetch(url),"lxml")
+        rows=[];seen=set()
+        for a in s.find_all("a",href=True):
+            node=a;card=""
+            for _ in range(9):
+                node=getattr(node,"parent",None)
+                if node is None: break
+                t=norm(node.get_text(" ",strip=True))
+                if "17/09/2026" in t and "Guide" in t and len(t)<5000:
+                    card=t; break
+            if not card: continue
+            href=urljoin(url,a["href"])
+            if href in seen: continue
+            gm=re.search(r"Guide\*?\s*(£[\d,]+)",card,re.I)
+            guide=parse_money(gm.group(1)) if gm else None
+            ym=re.search(r"Yield[^0-9]*([\d.]+)%",card,re.I)
+            y=float(ym.group(1)) if ym else None
+            rent=(guide*y/100) if guide and y else None
+            address=norm(a.get_text(" ",strip=True)) or card[:180]
+            imgs=_img_candidates(node,url) if "_img_candidates" in globals() else []
+            rows.append(dict(source="Acuitus",lot="Lot TBC",date="2026-09-17",
+                             address=address,guide=guide,rent=rent,tenure=None,
+                             vat="UNKNOWN",url=href,desc=card[:350],
+                             image=imgs[0] if imgs else None))
+            seen.add(href)
+        return rows[:10]
+    except Exception:
+        return []
 
 # ---------------- live refresh (non-blocking until user asks) ----------------
 MONEY_RE=re.compile(r"£\s*([\d,]+(?:\.\d{1,2})?)")
@@ -887,7 +1052,13 @@ with st.expander("⚙️ Optional filters",expanded=False):
 lots_tab,sources_tab=st.tabs(["🎯 All properties","📡 Source health"])
 
 with sources_tab:
+    actual_counts={}
+    for p in rows:
+        actual_counts[p["source"]]=actual_counts.get(p["source"],0)+1
     for h in health:
+        if actual_counts.get(h["source"]):
+            h=dict(h)
+            h["note"]=f'{actual_counts[h["source"]]} properties loaded · '+h["note"]
         icon="✅" if "VERIFIED" in h["status"] or "REFRESHED" in h["status"] else ("⏳" if "PENDING" in h["status"] or "EARLY" in h["status"] else "⚠️")
         st.markdown(f'<div class="statusrow">{icon} <b>{html.escape(h["source"])}</b> — {html.escape(h["status"])}<br><small>{html.escape(h["note"])}</small></div>',unsafe_allow_html=True)
 
