@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.1"
-CACHE = Path("auction_sniper_cache_v61.json")
+BUILD = "V6.2"
+CACHE = Path("auction_sniper_cache_v62.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -1037,7 +1037,7 @@ st.markdown(
 )
 
 with st.expander("🔄 Live data",expanded=False):
-    st.caption("The verified snapshot is shown immediately. Refresh never blanks the board: a source that fails keeps its last verified data.")
+    st.caption("The board loads from the verified snapshot immediately. Investment analysis does not make live web requests while cards are rendering.")
     if st.button("Refresh live sources",type="primary",use_container_width=True):
         with st.spinner("Refreshing source-specific commercial feeds…"):
             refresh_market()
@@ -1080,7 +1080,17 @@ def _property_detail_text(url):
     except Exception: return ""
 
 def _source_text(p):
-    return norm(str(p.get("desc") or "")+" "+_property_detail_text(p.get("url")))
+    """
+    Render-path safe: use only data already captured for the property.
+    Never fetch exact property pages while building the board.
+    """
+    parts=[
+        p.get("desc"),
+        p.get("address"),
+        p.get("tenure"),
+        p.get("vat"),
+    ]
+    return norm(" ".join(str(x or "") for x in parts))
 
 def _parse_date_any(s):
     from datetime import datetime
