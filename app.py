@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.6"
-CACHE = Path("auction_sniper_cache_v66.json")
+BUILD = "V6.6.1"
+CACHE = Path("auction_sniper_cache_v661.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -1135,23 +1135,41 @@ def _town_base(address):
 
 def _property_area(p,text):
     lot=p.get("lot")
+    source=(p.get("source") or "").lower()
     if p.get("area_sqft"):
-        sqft=float(p["area_sqft"]); return sqft,sqft/10.7639
-    if lot in SAVILLS_VERIFIED_AREAS and SAVILLS_VERIFIED_AREAS[lot][0]:
+        try:
+            sqft=float(p["area_sqft"])
+            return sqft,sqft/10.7639
+        except Exception:
+            pass
+    # Verified lookup is Savills-only: never leak a Savills Lot 78 size onto another auctioneer's Lot 78.
+    if "savills" in source and lot in SAVILLS_VERIFIED_AREAS and SAVILLS_VERIFIED_AREAS[lot][0]:
         return SAVILLS_VERIFIED_AREAS[lot]
     return _extract_floor_area(text)
 
 def _extract_floor_area(text):
-    vals=[]
-    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\s*ft|sqft|square feet)",text,re.I):
+    """Return (sqft, sqm), normalised from either unit. Never returns a scalar."""
+    sqft_vals=[]; sqm_vals=[]
+    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\s*ft|sqft|square feet)",text or "",re.I):
         try:
             v=float(m.group(1).replace(",",""))
-            if 50<=v<=1_000_000: vals.append(v)
-        except: pass
-    return max(vals) if vals else None
+            if 50<=v<=1_000_000: sqft_vals.append(v)
+        except Exception: pass
+    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\s*m|sqm|m²|square metres|square meters)",text or "",re.I):
+        try:
+            v=float(m.group(1).replace(",",""))
+            if 5<=v<=100_000: sqm_vals.append(v)
+        except Exception: pass
+    sqft=max(sqft_vals) if sqft_vals else None
+    sqm=max(sqm_vals) if sqm_vals else None
+    if sqft is None and sqm is not None: sqft=sqm*10.7639
+    if sqm is None and sqft is not None: sqm=sqft/10.7639
+    return sqft,sqm
+
 
 def _unit_liquidity(p,facts,text):
-    low=text.lower(); score=5.0; pos=[]; risk=[]; area=_extract_floor_area(text)
+    low=(text or "").lower(); score=5.0; pos=[]; risk=[]
+    area,_sqm=_property_area(p,text)
     if area:
         if area<=1000: score+=1.2; pos.append(f"Small unit ({area:,.0f} sq ft) gives a broader occupier pool.")
         elif area<=2500: score+=0.6; pos.append(f"Manageable unit size ({area:,.0f} sq ft).")
@@ -1163,6 +1181,7 @@ def _unit_liquidity(p,facts,text):
     if any(x in low for x in ("parking","car park","service yard","loading bay")):
         score+=0.4; pos.append("Parking/loading improves usability.")
     return max(1.0,min(10.0,score)),area,pos[:3],risk[:3]
+
 
 def _pitch_evidence(text):
     low=text.lower(); score=5.0; pos=[]; risk=[]; evidence=0
