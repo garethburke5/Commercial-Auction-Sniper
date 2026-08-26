@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.8.1"
-CACHE = Path("auction_sniper_cache_v681.json")
+BUILD = "V6.8.2"
+CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -837,19 +837,39 @@ def _enrich_missing_images(rows,limit=80):
     return rows
 
 def load_rows():
-    """Fast boot: render verified snapshot/cache with zero network I/O.
-
-    Live catalogue crawling is user-triggered from the Live data panel.
-    This prevents a slow/blocked auction house from blanking the whole app.
     """
-    if CACHE.exists():
+    Fast, non-destructive boot.
+
+    - Never performs network I/O.
+    - Starts with the verified seed.
+    - Merges every usable legacy/current cache it can find.
+    - Keeps the largest unique property universe rather than replacing it with
+      a smaller snapshot after a deployment/version change.
+    """
+    candidates=[Path("auction_sniper_cache.json")]
+    candidates += sorted(Path(".").glob("auction_sniper_cache_v*.json"))
+
+    combined=list(SEED)
+    health=SOURCE_HEALTH
+    updated="Verified snapshot · 26 Aug 2026"
+
+    for path in candidates:
+        if not path.exists():
+            continue
         try:
-            cached=json.loads(CACHE.read_text(encoding="utf-8"))
-            if cached.get("properties"):
-                return _clean_rows(cached["properties"]), cached.get("health", SOURCE_HEALTH), cached.get("updated")
+            cached=json.loads(path.read_text(encoding="utf-8"))
+            props=cached.get("properties") or []
+            if props:
+                combined.extend(props)
+                if cached.get("health"):
+                    health=cached["health"]
+                if cached.get("updated"):
+                    updated=cached["updated"]
         except Exception:
             pass
-    return _clean_rows(SEED), SOURCE_HEALTH, "Verified snapshot · 26 Aug 2026"
+
+    rows=_clean_rows(combined)
+    return rows,health,updated
 
 
 # ---------------- expanded source coverage ----------------
@@ -1216,9 +1236,21 @@ def refresh_market():
                     if src=="Auction House Regional":
                         # Keep regional branch names instead of collapsing them.
                         for r in rows:
-                            current_by_source.setdefault(r["source"],[]).append(r)
+                            current_by_source.setdefault(r["source"],[])
+                        existing_keys={_canonical_key(x) for x in current_by_source[r["source"]]}
+                        if _canonical_key(r) not in existing_keys:
+                            current_by_source[r["source"]].append(r)
                     else:
-                        current_by_source[src]=rows
+                        # Never shrink a source after refresh. Merge new rows into
+                        # the last-known-good source snapshot.
+                        existing=current_by_source.get(src,[])
+                        merged=list(existing)
+                        seen={_canonical_key(x) for x in merged}
+                        for r in rows:
+                            k=_canonical_key(r)
+                            if k not in seen:
+                                merged.append(r); seen.add(k)
+                        current_by_source[src]=merged
                     for h in health:
                         if h["source"]==src:
                             h["status"]="LIVE REFRESHED"
@@ -1232,6 +1264,15 @@ def refresh_market():
     for rows in current_by_source.values():
         merged.extend(rows)
     payload={"updated":time.strftime("%Y-%m-%d %H:%M"),"properties":merged,"health":health}
+    # Global non-shrink guard: a refresh is not allowed to reduce the
+    # current property universe.
+    refreshed=[]
+    for _rows in current_by_source.values():
+        refreshed.extend(_rows)
+    refreshed=_clean_rows(refreshed)
+    if len(refreshed) < len(current_rows):
+        refreshed=_clean_rows(list(current_rows)+refreshed)
+
     CACHE.write_text(json.dumps(payload,indent=2),encoding="utf-8")
     return payload
 
