@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.9.2"
+BUILD = "V6.18-INTERMEDIATE"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -21,103 +21,180 @@ TIMEOUT = 10
 # current public pages on 24 Aug 2026. The app always has useful data even
 # if a live refresh source is temporarily unavailable.
 SEED = [
-    # Auction House London — 2/3 Sep 2026
-    dict(source="Auction House London", lot="Lot 60", date="2026-09-02",
-         address="97 St. Peters Street, St. Albans, Hertfordshire, AL1 3EN",
-         guide=225000, rent=30000, tenure="Leasehold", vat="UNKNOWN",
-         url="https://auctionhouselondon.co.uk/lot/97-st-peters-street-st-albans-hertfordshire-al1-3en-359945",
-         desc="Ground floor retail unit subject to a 15-year lease producing £30,000 p.a."),
-    dict(source="Auction House London", lot="Lot 60A", date="2026-09-02",
-         address="6 High Street, Hythe, Southampton, Hampshire, SO45 6AH",
-         guide=110000, rent=15500, tenure="Freehold", vat="UNKNOWN",
-         url="https://auctionhouselondon.co.uk/lot/6-high-street-hythe-southampton-hampshire-so45-6ah-362111",
-         desc="Ground floor commercial unit and first-floor ancillary space let to Oxfam."),
-    dict(source="Auction House London", lot="Lot 60B", date="2026-09-02",
-         address="6A High Street, Hythe, Southampton, Hampshire, SO45 6AH",
-         guide=80000, rent=12500, tenure="Freehold", vat="UNKNOWN",
-         url="https://auctionhouselondon.co.uk/lot/6a-high-street-hythe-southampton-hampshire-so45-6ah-362113",
-         desc="Ground floor commercial unit with ancillary first floor, fully let."),
-    dict(source="Auction House London", lot="Lot 64", date="2026-09-02",
-         address="13 Hope Street, Crook, County Durham, DL15 9HS",
-         guide=175000, rent=25000, tenure="Freehold", vat="UNKNOWN",
-         url="https://auctionhouselondon.co.uk/lot/13-hope-street-crook-county-durham-dl15-9hs-361002",
-         desc="Double-fronted retail unit and first-floor office let at £25,000 p.a."),
-    dict(source="Auction House London", lot="Lot 65", date="2026-09-02",
-         address="102-104 High Street, Redcar, Cleveland, TS10 3DL",
-         guide=140000, rent=20000, tenure="Leasehold", vat="UNKNOWN",
-         url="https://auctionhouselondon.co.uk/lot/102-104-high-street-redcar-cleveland-ts10-3dl-360993",
-         desc="Ground-floor double-fronted retail unit fully let at £20,000 p.a."),
-    dict(source="Auction House London", lot="Lot 67", date="2026-09-02",
-         address="Foelas Residential Home, Station Road, Llanrug, Caernarfon, Gwynedd, LL55 4BE",
-         guide=200000, rent=50000, tenure="Freehold", vat="UNKNOWN",
-         url="https://auctionhouselondon.co.uk/lot/foelas-residential-home-station-road-llanrug-caernarfon-gwynedd-ll55-4be-360987",
-         desc="15-bedroom care home fully let producing £50,000 p.a."),
-    dict(source="Auction House London", lot="Lot 68", date="2026-09-02",
-         address="Electric House, Castle Street, Newcastle Emlyn, Carmarthenshire, SA38 9AF",
-         guide=80000, rent=18840, tenure="Freehold", vat="UNKNOWN",
-         url="https://auctionhouselondon.co.uk/lot/electric-house-castle-street-newcastle-emlyn-carmarthenshire-sa38-9af-359943",
-         desc="Mixed-use retail unit with two flats, fully let producing £18,840 p.a."),
-    dict(source="Auction House London", lot="Lot 70A", date="2026-09-02",
-         address="94A Middleton Grange Shopping Centre, Hartlepool, Cleveland, TS24 7RW",
-         guide=95000, rent=21000, tenure="Leasehold", vat="UNKNOWN",
-         url="https://auctionhouselondon.co.uk/lot/94a-middleton-grange-shopping-centre-hartlepool-cleveland-ts24-7rw-360550",
-         desc="Commercial unit let on FRI lease at £21,000 p.a., rising to £25,000."),
-    dict(source="Auction House London", lot="Lot 74", date="2026-09-02",
-         address="Unit 3 The Boathouse, Ocean Drive, Gillingham, Kent, ME7 1FT",
-         guide=135000, rent=29988, tenure="Freehold", vat="UNKNOWN",
-         url="https://auctionhouselondon.co.uk/lot/unit-3-the-boathouse-ocean-drive-gillingham-kent-me7-1ft-361080",
-         desc="Ground-floor commercial unit let producing £29,988 p.a."),
+    # Auction House London — complete current commercial/mixed-use block, 2/3 Sep 2026
+    dict(source="Auction House London", lot="Lot 60", date="2026-09-02", address="97 St. Peters Street, St. Albans, Hertfordshire, AL1 3EN", guide=225000, rent=30000, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/97-st-peters-street-st-albans-hertfordshire-al1-3en-359945", desc="Retail Property. Ground floor retail unit let producing £30,000 pa."),
+    dict(source="Auction House London", lot="Lot 60A", date="2026-09-02", address="6 High Street, Hythe, Southampton, Hampshire, SO45 6AH", guide=110000, rent=15500, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/6-high-street-hythe-southampton-hampshire-so45-6ah-362111", desc="Retail Property. Commercial unit and ancillary space let to Oxfam producing £15,500 pa."),
+    dict(source="Auction House London", lot="Lot 60B", date="2026-09-02", address="6A High Street, Hythe, Southampton, Hampshire, SO45 6AH", guide=80000, rent=12500, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/6a-high-street-hythe-southampton-hampshire-so45-6ah-362113", desc="Retail Property. Commercial unit and ancillary space let producing £12,500 pa."),
+    dict(source="Auction House London", lot="Lot 61", date="2026-09-02", address="Unit SU8, 5 Jubilee Way, Scunthorpe, North Lincolnshire, DN15 6RB", guide=95000, rent=12500, tenure="Leasehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/unit-su8-5-jubilee-way-scunthorpe-north-lincolnshire-dn15-6rb-358590", desc="Retail Property. Commercial unit let producing £12,500 pa."),
+    dict(source="Auction House London", lot="Lot 62", date="2026-09-02", address="9 College Walk, Rotherham, South Yorkshire, S60 1QB", guide=95000, rent=12500, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/9-college-walk-rotherham-south-yorkshire-s60-1qb-358596", desc="Retail Property. Commercial unit let producing £12,500 pa."),
+    dict(source="Auction House London", lot="Lot 62A", date="2026-09-02", address="709 Wimborne Road, Bournemouth, Dorset, BH9 2AU", guide=350000, rent=15000, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/709-wimborne-road-bournemouth-dorset-bh9-2au-362596", desc="Retail Property. Retail/warehouse with two upper flats; retail under offer at £15,000 pa."),
+    dict(source="Auction House London", lot="Lot 63", date="2026-09-02", address="29 Hervey Street, Lowestoft, Suffolk, NR32 2JG", guide=75000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/29-hervey-street-lowestoft-suffolk-nr32-2jg-361511", desc="Mixed Use. Vacant ground-floor commercial unit with upper flat."),
+    dict(source="Auction House London", lot="Lot 64", date="2026-09-02", address="13 Hope Street, Crook, County Durham, DL15 9HS", guide=175000, rent=25000, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/13-hope-street-crook-county-durham-dl15-9hs-361002", desc="Retail Property. Double-fronted retail unit and office let at £25,000 pa."),
+    dict(source="Auction House London", lot="Lot 65", date="2026-09-02", address="102-104 High Street, Redcar, Cleveland, TS10 3DL", guide=130000, rent=20000, tenure="Leasehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/102-104-high-street-redcar-cleveland-ts10-3dl-360993", desc="Retail Property. Double-fronted retail unit let producing £20,000 pa."),
+    dict(source="Auction House London", lot="Lot 65A", date="2026-09-02", address="48 High East Street, Dorchester, Dorset, DT1 1HU", guide=120000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/48-high-east-street-dorchester-dorset-dt1-1hu-361884", desc="Retail Property. Vacant commercial building."),
+    dict(source="Auction House London", lot="Lot 66", date="2026-09-02", address="396 Forest Road, Walthamstow, London, E17 5JF", guide=500000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/396-forest-road-walthamstow-london-e17-5jf-361976", desc="Mixed Use. Ground-floor retail unit with upper flat and planning potential."),
+    dict(source="Auction House London", lot="Lot 66A", date="2026-09-02", address="179 Upton Lane, Forest Gate, London, E7 9PJ", guide=390000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/179-upton-lane-forest-gate-london-e7-9pj-362815", desc="Retail Property. Vacant retail unit with upper flat."),
+    dict(source="Auction House London", lot="Lot 67", date="2026-09-02", address="Foelas Residential Home, Station Road, Llanrug, Caernarfon, Gwynedd, LL55 4BE", guide=200000, rent=50000, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/foelas-residential-home-station-road-llanrug-caernarfon-gwynedd-ll55-4be-360987", desc="Commercial Property. Care home let producing £50,000 pa."),
+    dict(source="Auction House London", lot="Lot 68", date="2026-09-02", address="Electric House, Castle Street, Newcastle Emlyn, Carmarthenshire, SA38 9AF", guide=80000, rent=18840, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/electric-house-castle-street-newcastle-emlyn-carmarthenshire-sa38-9af-359943", desc="Mixed Use. Retail unit and two flats fully let producing £18,840 pa."),
+    dict(source="Auction House London", lot="Lot 69", date="2026-09-02", address="Unit 6A-6B South Middleton Base, Greenwell Road, Aberdeen, AB12 3AX", guide=500000, rent=None, tenure="Leasehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/unit-6a-6b-south-middleton-base-greenwell-road-aberdeen-ab12-3ax-361941", desc="Industrial Development. Vacant substantial industrial building."),
+    dict(source="Auction House London", lot="Lot 70A", date="2026-09-02", address="94A Middleton Grange Shopping Centre, Hartlepool, Cleveland, TS24 7RW", guide=95000, rent=21000, tenure="Leasehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/94a-middleton-grange-shopping-centre-hartlepool-cleveland-ts24-7rw-360550", desc="Commercial Property. FRI lease at £21,000 pa rising to £25,000."),
+    dict(source="Auction House London", lot="Lot 71", date="2026-09-02", address="21 Red Street, Carmarthen, Dyfed, SA31 1QL", guide=95000, rent=17000, tenure="Leasehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/21-red-street-carmarthen-dyfed-sa31-1ql-361340", desc="Retail Property. Ground-floor commercial unit let at £17,000 pa."),
+    dict(source="Auction House London", lot="Lot 71A", date="2026-09-02", address="8 Red Street, Carmarthen, Dyfed, SA31 1QL", guide=180000, rent=34000, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/8-red-street-carmarthen-dyfed-sa31-1ql-362265", desc="Retail Property. Let to Boots Opticians producing £34,000 pa."),
+    dict(source="Auction House London", lot="Lot 72", date="2026-09-02", address="17-19 Umberston Street, Tower Hamlets, London, E1 1PY", guide=275000, rent=None, tenure="Leasehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/17-19-umberston-street-tower-hamlets-london-e1-1py-359974", desc="Commercial Property. Vacant ground/lower-ground commercial unit."),
+    dict(source="Auction House London", lot="Lot 73", date="2026-09-02", address="Rear of 292 Weelsby Street, Grimsby, North East Lincolnshire, DN32 8AB", guide=25000, rent=4200, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/rear-of-292-weelsby-street-grimsby-north-east-lincolnshire-dn32-8ab-355241", desc="Workshop & Retail. Commercial building and yard let at £4,200 pa."),
+    dict(source="Auction House London", lot="Lot 74", date="2026-09-02", address="Unit 3 The Boathouse, Ocean Drive, Gillingham, Kent, ME7 1FT", guide=135000, rent=29988, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/unit-3-the-boathouse-ocean-drive-gillingham-kent-me7-1ft-361080", desc="Retail Property. Commercial unit let at £29,988 pa."),
+    dict(source="Auction House London", lot="Lot 75", date="2026-09-02", address="106 High Street, Redcar, Cleveland, TS10 3DL", guide=50000, rent=11880, tenure="Leasehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/106-high-street-redcar-cleveland-ts10-3dl-360996", desc="Retail Property. Ground-floor retail unit let at £11,880 pa."),
+    dict(source="Auction House London", lot="Lot 76", date="2026-09-02", address="108 High Street, Redcar, Cleveland, TS10 3DL", guide=25000, rent=5000, tenure="Leasehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/108-high-street-redcar-cleveland-ts10-3dl-361001", desc="Retail Property. First-floor office let at £5,000 pa."),
+    dict(source="Auction House London", lot="Lot 76A", date="2026-09-02", address="Unit 1 Masonic Hall, 64 Briggate, Brighouse, Calderdale, HD6 1EF", guide=9000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/unit-1-masonic-hall-64-briggate-brighouse-calderdale-hd6-1ef-361598", desc="Commercial Property. Vacant 365 sq ft ground-floor commercial unit."),
+    dict(source="Auction House London", lot="Lot 77", date="2026-09-02", address="The Vaults, Manor Road, Chatham, Kent, ME4 6HW", guide=50000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/the-vaults-manor-road-chatham-kent-me4-6hw-360200", desc="Commercial-use vaults/tunnels, approx 4,337 sq ft, previously let for £25,000 pa."),
+    dict(source="Auction House London", lot="Lot 78", date="2026-09-02", address="20-26 Hill Street, Wisbech, Cambridgeshire, PE13 1BA", guide=120000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/20-26-hill-street-wisbech-cambridgeshire-pe13-1ba-360042", desc="Retail Property. Three vacant retail buildings with upper-floor conversion permission."),
+    dict(source="Auction House London", lot="Lot 79", date="2026-09-02", address="Sandly Court, 39 Queens Road, Southport, Merseyside, PR9 9EX", guide=320000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/sandly-court-39-queens-road-southport-merseyside-pr9-9ex-357930", desc="Commercial Development. Vacant former care home."),
+    dict(source="Auction House London", lot="Lot 80", date="2026-09-02", address="Unit 3, 6A Alma Street, Taunton, Somerset, TA1 3AH", guide=5000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/unit-3-6a-alma-street-taunton-somerset-ta1-3ah-361603", desc="Commercial Property. Vacant 236 sq ft ground-floor commercial unit."),
 
-    # Savills — official commercial section, 2 Sep 2026
+    # Savills — full verified current commercial section, 2 Sep 2026
+    dict(source="Savills Auctions", lot="Lot 71", date="2026-09-02",
+         address="22 Fillebrook Avenue, Enfield, EN1 3BB", guide=225000, rent=19000,
+         tenure="Freehold", vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/22-fillebrook-avenue-enfield-en1-3bb-23759",
+         desc="Rarely available mixed-use investment. Retail unit and one-bedroom flat. Fully let to a laundrette. Lease expires 02.07.2030. Outstanding rent reviews. ERV approx £35,000 pa. High-footfall local parade."),
+    dict(source="Savills Auctions", lot="Lot 72", date="2026-09-02",
+         address="21 Broad Street, Bath BA1 5LN", guide=300000, rent=None,
+         tenure="Freehold", vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/21-broad-street-bath-ba1-5ln-23750",
+         desc="Grade II listed mixed commercial/residential freehold. Ground-floor shop and basement approx 1,769 sq ft vacant; upper flats sold on leases. Located in Milsom Street Regeneration Quarter."),
     dict(source="Savills Auctions", lot="Lot 73", date="2026-09-02",
-         address="26 Market Street, Crewe, Cheshire CW1 2EL",
-         guide=135000, rent=15000, tenure="Freehold", vat="NOT APPLICABLE",
-         url="https://auctions.savills.co.uk/component/bidding/2-september-2026-241/26-market-street-crewe-cheshire-cw1-2el-24071",
-         desc="Freehold retail investment let on a new 10-year lease."),
+         address="26 Market Street, Crewe, Cheshire CW1 2EL", guide=135000, rent=15000,
+         tenure="Freehold", vat="NOT APPLICABLE",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/26-market-street-crewe-cheshire-cw1-2el-24071",
+         desc="Freehold retail investment let on a new ten-year lease from March 2026, expiring March 2036. £15,000 pa rising to £17,000 pa in year four. VAT-free."),
+    dict(source="Savills Auctions", lot="Lot 74", date="2026-09-02",
+         address="Unit 2, 10-18 Queen Street, Barnsley, S70 1RJ", guide=400000, rent=53000,
+         tenure=None, vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/unit-2-10-18-queen-street-barnsley-s70-1rj-24606",
+         desc="High-yielding retail investment. Retail unit and upper parts let to Barclays. Recently renewed ten-year lease expiring 31.12.2034. 8,912 sq ft. Prime pedestrianised pitch."),
+    dict(source="Savills Auctions", lot="Lot 75", date="2026-09-02",
+         address="67-83 Bridge Road, Northampton, NN1 1PD", guide=925000, rent=101780,
+         tenure=None, vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/67-83-bridge-road-northampton-nn1-1pd-24450",
+         desc="Modern retail warehouse investment in prominent Northampton town-centre location. Semi-detached unit let to British Heart Foundation. Site approx 0.47 acres with dedicated parking."),
+    dict(source="Savills Auctions", lot="Lot 76", date="2026-09-02",
+         address="Chequer's Garage, Station Road, Petworth, GU28 0ES", guide=440000, rent=None,
+         tenure="Freehold", vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/chequers-garage-station-road-petworth-gu28-0es-24008",
+         desc="Vacant freehold former showroom with two self-contained flats above. Approx 2,809 sq ft with parking for about six cars. Asset-management and development potential."),
+    dict(source="Savills Auctions", lot="Lot 77", date="2026-09-02",
+         address="106 Walcot Street, Bath BA1 5BG", guide=170000, rent=None,
+         tenure="Freehold", vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/106-walcot-street-bath-ba1-5bg-23752",
+         desc="Vacant end-of-terrace commercial property arranged over basement, ground and two upper floors. Total GIA 1,103 sq ft. Ground/basement retail with ancillary upper parts. ERV £10,250 pa."),
+    dict(source="Savills Auctions", lot="Lot 78", date="2026-09-02",
+         address="Unit 5B, 10-18 Queen Street, Barnsley, S70 1RJ", guide=360000, rent=46750,
+         tenure=None, vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/unit-5b-10-18-queen-street-barnsley-s70-1rj-24659",
+         desc="Retail unit and upper parts let to Holland & Barrett. Five-year lease expires 25.07.2029. Tenant in occupation 10+ years. 7,749 sq ft. Prime pedestrianised pitch."),
+    dict(source="Savills Auctions", lot="Lot 79", date="2026-09-02",
+         address="55 Cumberland Street, Hull, HU2 0PU", guide=300000, rent=39000,
+         tenure="Freehold", vat="NOT APPLICABLE",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/55-cumberland-street-hull-hu2-0pu-24478",
+         desc="Freehold industrial investment comprising warehouse and offices over ground and first floors. 7,715 sq ft. Seven-year lease expiring 06.04.2033. VAT not applicable."),
     dict(source="Savills Auctions", lot="Lot 80", date="2026-09-02",
-         address="54-56 Wallasey Road, Wallasey, CH45 4NW",
-         guide=150000, rent=20000, tenure="Freehold", vat="UNKNOWN",
-         url="https://auctions.savills.co.uk/index.php?id=24663&layout=details&option=com_bidding&view=commission",
-         desc="High-yielding retail investment, double retail unit and upper parts."),
+         address="54-56 Wallasey Road, Wallasey, CH45 4NW", guide=150000, rent=20000,
+         tenure="Freehold", vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/54-56-wallasey-road-wallasey-ch45-4nw-24663",
+         desc="Double retail unit and upper parts let to Ski Lounge Limited with personal guarantors. Ten-year lease expiring 15.02.2034. August 2026 break option not exercised. Index-linked reviews."),
+    dict(source="Savills Auctions", lot="Lot 81", date="2026-09-02",
+         address="Unit 5A, 10-18 Queen Street, Barnsley, S70 1RJ", guide=270000, rent=38000,
+         tenure=None, vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/unit-5a-10-18-queen-street-barnsley-s70-1rj-24607",
+         desc="Ground-floor retail unit let to TUI. Five-year lease expires 29.02.2028. 2026 break option not exercised. 1,862 sq ft. Prime pedestrianised pitch."),
+    dict(source="Savills Auctions", lot="Lot 83", date="2026-09-02",
+         address="Tutt Antiques, Angel Street, Petworth, GU28 0BQ", guide=215000, rent=None,
+         tenure="Freehold", vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/tutt-antiques-angel-street-petworth-gu28-0bq-24604",
+         desc="Vacant freehold mid-terrace commercial property across two floors, approx 1,356 sq ft. Asset-management and alternative-use potential."),
+    dict(source="Savills Auctions", lot="Lot 84", date="2026-09-02",
+         address="Adult Education Centre, 32-46 King Street, Alfreton, Derbyshire DE55 7DQ", guide=525000, rent=None,
+         tenure=None, vat="APPLICABLE",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/adult-education-centre-32-46-king-street-alfreton-derbyshire-de55-7dq-23722",
+         desc="Vacant former educational centre / office opportunity. Approx 11,634 sq ft with 20 parking spaces. VAT applicable. Asset-management/change-of-use potential."),
+    dict(source="Savills Auctions", lot="Lot 85", date="2026-09-02",
+         address="Land On The North Side of The Borough, Ongar, CM5 9QU", guide=525000, rent=None,
+         tenure="Freehold", vat="NOT APPLICABLE",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/land-on-the-north-side-of-the-borough-ongar-cm5-9qu-24771",
+         desc="Vacant freehold open-storage commercial site approx 1.2 acres, with consent for vehicle parking and storage. VAT not applicable."),
     dict(source="Savills Auctions", lot="Lot 86", date="2026-09-02",
-         address="1 Holtspur Parade, Heath Road, Beaconsfield, HP9 1DA",
-         guide=80000, rent=10000, tenure="Leasehold", vat="UNKNOWN",
-         url="https://auctions.savills.co.uk/index.php?id=24662&layout=details&option=com_bidding&view=commission",
-         desc="Ground-floor retail investment let to a cafe."),
+         address="1 Holtspur Parade, Heath Road, Beaconsfield, HP9 1DA", guide=80000, rent=10000,
+         tenure="Leasehold", vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/1-holtspur-parade-heath-road-beaconsfield-hp9-1da-24662",
+         desc="Ground-floor retail investment let to a cafe. Ten-year lease expiring 17.12.2027. Popular parade. Asset-management potential via renewal."),
+    dict(source="Savills Auctions", lot="Lot 87", date="2026-09-02",
+         address="Swan Mill, 10a Swan Street, West Malling, ME19 6LP", guide=330000, rent=None,
+         tenure="Freehold", vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/swan-mill-10a-swan-street-west-malling-me19-6lp-24605",
+         desc="Vacant freehold former mill, approx 2,551 sq ft across three floors, with hardstanding and parking for 2-3 cars. Alternative-use potential."),
     dict(source="Savills Auctions", lot="Lot 88", date="2026-09-02",
-         address="Unit 5, The Marsh, Hythe, SO45 6AJ",
-         guide=120000, rent=15000, tenure=None, vat="UNKNOWN",
-         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/page-1/quantity-100/property_type-253/sort-by-0",
-         desc="Ground-floor retail investment fully let to Domino's."),
+         address="Unit 5, The Marsh, Hythe, SO45 6AJ", guide=120000, rent=15000,
+         tenure=None, vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/unit-5-the-marsh-hythe-so45-6aj-24628",
+         desc="Ground-floor retail investment fully let to Domino's. Twenty-year lease expiring 13.09.2029. 2024 rent review outstanding. Popular parade."),
+    dict(source="Savills Auctions", lot="Lot 89", date="2026-09-02",
+         address="Unit 4, The Marsh, Hythe, SO45 6AJ", guide=120000, rent=15500,
+         tenure=None, vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/unit-4-the-marsh-hythe-so45-6aj-24631",
+         desc="Ground-floor retail investment let to Dawkins and Lodge Limited. Ten-year lease expiring 02.08.2029. Long-standing occupier 15+ years. 2024 rent review outstanding."),
+    dict(source="Savills Auctions", lot="Lot 90", date="2026-09-02",
+         address="Unit 3, The Marsh, Hythe, SO45 6AJ", guide=120000, rent=15000,
+         tenure=None, vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/unit-3-the-marsh-hythe-so45-6aj-24632",
+         desc="Ground-floor retail investment let to a takeaway. Ten-year lease expiring 28.09.2030. Long-standing occupier 20+ years. 2025 rent review outstanding."),
+    dict(source="Savills Auctions", lot="Lot 93", date="2026-09-02",
+         address="Unit 1, 33/35 Bridge Street, Haverfordwest SA61 2AL", guide=110000, rent=13600,
+         tenure="Freehold", vat="NOT APPLICABLE",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/unit-1-3335-bridge-street-haverfordwest-sa61-2al-24017",
+         desc="Freehold shop investment in pedestrianised retail thoroughfare. Let to British Red Cross on lease expiring 2032. VAT not applicable."),
+    dict(source="Savills Auctions", lot="Lot 95", date="2026-09-02",
+         address="Unit 3, 15 John Street, Carmarthen, Dyfed, SA31 1QT", guide=277000, rent=65000,
+         tenure=None, vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/unit-3-15-john-street-carmarthen-dyfed-sa31-1qt-24524",
+         desc="Retail unit and upper parts let to Superdrug Stores plc holding over. Heads of terms agreed for a new five-year lease subject to contract. Tenant in occupation 35+ years."),
+    dict(source="Savills Auctions", lot="Lot 96", date="2026-09-02",
+         address="15 Red Street, Carmarthen, Dyfed, SA31 1QL", guide=270000, rent=52500,
+         tenure=None, vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/15-red-street-carmarthen-dyfed-sa31-1ql-24525",
+         desc="Retail unit and upper parts let to Trespass Investments Limited. Six-year lease expiring 10.07.2031. Approx 3,553 sq ft. Tenant in occupation 14+ years."),
+    dict(source="Savills Auctions", lot="Lot 98", date="2026-09-02",
+         address="66-70 High Street, Mexborough, South Yorkshire, S64 9AU", guide=140000, rent=25600,
+         tenure=None, vat="UNKNOWN",
+         url="https://auctions.savills.co.uk/auctions/2-september-2026-241/66-70-high-street-mexborough-south-yorkshire-s64-9au-24591",
+         desc="High-yielding multi-let retail investment. Three retail units and upper parts, fully let to four tenants. Approx 3,423 sq ft. Development potential to upper parts."),
 
-    # Bond Wolfe — 10 Sep 2026 exact property links
-    dict(source="Bond Wolfe", lot="Lot TBC", date="2026-09-10",
-         address="33-35 & 33A Cape Hill, Smethwick, West Midlands, B66 4RX",
-         guide=175000, rent=17400, tenure="Freehold", vat="UNKNOWN",
-         url="https://www.bondwolfe.com/auctions/properties/360362-property-auction-smethwick/",
-         desc="Part-commercial investment / part-vacant three-storey property."),
-    dict(source="Bond Wolfe", lot="Lot TBC", date="2026-09-10",
-         address="51, 51A & 51B Blackwell Street, Kidderminster, DY10 2EE",
-         guide=140000, rent=None, tenure="Freehold", vat="UNKNOWN",
-         url="https://www.bondwolfe.com/auctions/properties/361360-property-auction-kidderminster/",
-         desc="Mixed-use freehold: ground-floor retail unit and two flats."),
-    dict(source="Bond Wolfe", lot="Lot TBC", date="2026-09-10",
-         address="13 Harborne Park Road, Harborne, Birmingham, B17 0DE",
-         guide=125000, rent=6000, tenure="Freehold", vat="UNKNOWN",
-         url="https://www.bondwolfe.com/auctions/properties/357075-property-auction-birmingham/",
-         desc="Freehold retail investment producing £6,000 p.a."),
+    # Bond Wolfe — complete qualifying current order-of-sale subset, 10 Sep 2026
+    dict(source="Bond Wolfe", lot='Lot 3', date="2026-09-10", address='Halescroft Centre, Halescroft Square, Northfield, Birmingham, B31 1HF', guide=250000, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/357337-property-auction-birmingham/', desc='Commercial Vacant / Land Development. Former youth centre and development land.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2787095_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 6', date="2026-09-10", address='8 Albert Walk, Harborne, Birmingham, B17 0AR', guide=None, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/357311-property-auction-birmingham/', desc='Commercial Investment. Retail investment in Harborne.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2784429_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 7', date="2026-09-10", address='10-12 Albert Walk, Harborne, Birmingham, B17 0AR', guide=None, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/357324-property-auction-birmingham/', desc='Commercial Investment. Retail investment in Harborne.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2784432_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 8', date="2026-09-10", address='19 & 21 Albert Road, Harborne, Birmingham, B17 0AP', guide=None, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/357204-property-auction-birmingham/', desc='Commercial Investment. Retail investment in Harborne.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2781856_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 9', date="2026-09-10", address='23-25 Albert Road, Harborne, Birmingham, B17 0AP', guide=None, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/357205-property-auction-birmingham/', desc='Commercial Vacant. Retail unit in Harborne.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2781878_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 10', date="2026-09-10", address='11 Harborne Park Road, Harborne, Birmingham, B17 0DE', guide=None, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/357073-property-auction-birmingham/', desc='Commercial Investment. Retail investment in Harborne.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2780524_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 11', date="2026-09-10", address='13 Harborne Park Road, Harborne, Birmingham, B17 0DE', guide=125000, rent=6000, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/357075-property-auction-birmingham/', desc='Commercial Investment. Freehold retail investment.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2780561_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 12', date="2026-09-10", address='Skilts School, Gorcott Hill, Beoley, Redditch, B98 9ET', guide=None, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/357076-property-auction-beoley/', desc='Commercial Vacant / Land Development. Former school.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2780580_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 25', date="2026-09-10", address='55-57 High Street, Bromsgrove, Worcestershire, B61 8AJ', guide=None, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/362046-property-auction-bromsgrove/', desc='Mixed Use. Town-centre mixed-use investment.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2836090_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 36', date="2026-09-10", address='The Staff of Life, Main Street, Mowsley, Lutterworth, Leicestershire, LE17 6NT', guide=None, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/357042-property-auction-lutterworth/', desc='Commercial Vacant. Pub/restaurant with living accommodation.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2780232_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 70', date="2026-09-10", address='95-99 Three Shires Oak Road, Bearwood, Smethwick, B67 5BT', guide=495000, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/362266-property-auction-smethwick/', desc='Mixed Use. Vacant mixed-use building with flats.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2838756_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 119', date="2026-09-10", address='418-422 Moseley Road, Balsall Heath, Birmingham, B12 9AT', guide=None, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/362478-property-auction-birmingham/', desc='Mixed Use. Mixed-use investment.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2843239_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 124', date="2026-09-10", address='32 Snow Hill, Wolverhampton, WV2 4AG', guide=None, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/362254-property-auction-wolverhampton/', desc='Commercial Investment. Retail premises.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2838443_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 131', date="2026-09-10", address='33-35 & 33A Cape Hill, Smethwick, West Midlands, B66 4RX', guide=175000, rent=17400, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/360362-property-auction-smethwick/', desc='Mixed Use. Part investment/part vacant; rent £17,400 pa.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2819077_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 135', date="2026-09-10", address='51 & 51A Blackwell Street, Kidderminster, DY10 2EE', guide=140000, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/361360-property-auction-kidderminster/', desc='Commercial Investment / Mixed Use.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2827968_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 139', date="2026-09-10", address='159 Wolverhampton Street, Dudley, West Midlands, DY1 3AH', guide=None, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/361062-property-auction-dudley/', desc='Commercial Vacant / Residential Vacant. Retail/showroom with flats.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2824293_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 141', date="2026-09-10", address='Unit 1, 11-17 Worcester Street, Kidderminster, DY10 1EA', guide=110000, rent=13000, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/362054-property-auction-kidderminster/', desc='Commercial Investment. Retail investment producing £13,000 pa.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2836105_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 147', date="2026-09-10", address='United Reform Church, Dodington, Whitchurch, Shropshire, SY13 1DZ', guide=None, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/362298-property-auction-whitchurch/', desc='Commercial Vacant / Renovation. Historic building with conversion consent.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2839199_web_medium'),
+    dict(source="Bond Wolfe", lot='Lot 172', date="2026-09-10", address='Former Three Tuns, 34 High Street, Alcester, Warwickshire, B49 5AB', guide=50000, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/362472-property-auction-alcester/', desc='Commercial Vacant / Renovation. Fire-damaged former public house.'),
+    dict(source="Bond Wolfe", lot='Lot 179', date="2026-09-10", address='25 Ladywell Road, Tunstall, Stoke-on-Trent, ST6 5DE', guide=None, rent=None, tenure="Freehold", vat="UNKNOWN", url='https://www.bondwolfe.com/auctions/properties/362311-property-auction-stoke-on-trent/', desc='Commercial Vacant. Retail premises with planning permission.', image='https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2840968_web_medium'),
 
-    # Barnard Marcus — 10 Sep 2026 current catalogue, verified live
-    dict(source="Barnard Marcus", lot="Lot 21", date="2026-09-10",
-         address="2 Rye Lane, Peckham, London, SE15 5BS",
-         guide=545000, rent=48573, tenure="Freehold", vat="UNKNOWN",
-         url="https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/716501/",
-         desc="Freehold three-storey mixed-use investment: ground-floor casino centre and two flats. Rent reserved £48,573 p.a."),
-    dict(source="Barnard Marcus", lot="Lot TBC", date="2026-09-10",
-         address="High Street, Caythorpe, Grantham",
-         guide=575000, rent=None, tenure="Freehold", vat="UNKNOWN",
-         url="https://www.barnardmarcus.co.uk/properties/21903060/sales/GST114433",
-         desc="Grade II listed former care home / commercial property offered with vacant possession."),
+    # Barnard Marcus — verified current commercial/mixed-use lots, 10 Sep 2026
+    dict(source="Barnard Marcus", lot="Lot 21", date="2026-09-10", address="2 Rye Lane, Peckham, London, SE15 5BS", guide=545000, rent=48573, tenure="Freehold", vat="UNKNOWN", url="https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/716501/", desc="Mixed-use investment with ground-floor casino and two flats; rent £48,573 pa."),
+    dict(source="Barnard Marcus", lot="Lot 22", date="2026-09-10", address="82 Uxbridge Road, Shepherds Bush, London, W12 8LR", guide=430000, rent=36000, tenure="Freehold", vat="UNKNOWN", url="https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/716502/", desc="Mixed-use investment with ground-floor shop; rent £36,000 pa."),
+    dict(source="Barnard Marcus", lot="Lot 31", date="2026-09-10", address="Laser House, 75-79 Guildford Street, Chertsey, Surrey, KT16 9AS", guide=545000, rent=12000, tenure="Freehold", vat="UNKNOWN", url="https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/716897/", desc="Mixed-use town-centre building approx 6,311 sq ft; mostly vacant, one retail unit let at £12,000 pa."),
+    dict(source="Barnard Marcus", lot="Lot 211", date="2026-09-10", address="499 Saffron Lane, Leicester, Leicestershire, LE2 6UQ", guide=430000, rent=None, tenure="Freehold", vat="APPLICABLE", url="https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/717996/", desc="Former neighbourhood housing office approx 10,936 sq ft with planning for three retail units; VAT payable."),
 
     # Auction House regional — verified live September commercial lots
     dict(source="Auction House East Anglia", lot="Lot 115", date="2026-09-09",
@@ -166,13 +243,65 @@ SEED = [
          url="https://www.auctionhouse.co.uk/sussexandhampshire/auction/lot/151683",
          desc="Vacant freehold former care home/commercial building with consent for 12-bedroom HMO."),
 
-    # Pugh / BTG — exact current 27 Aug lot
-    dict(source="Pugh / BTG Eddisons", lot="Lot 218", date="2026-08-27",
-         address="29 & 31/33 Mostyn Avenue, Llandudno, Conwy LL30 1YS",
-         guide=495000, rent=43000, tenure="Leasehold", vat="UNKNOWN",
-         url="https://www.pugh-auctions.com/property/202607141332sq_0jra",
-         desc="Town-centre retail investment: two ground-floor units producing approx. £43,000 p.a."),
+    dict(source="Auction House East Anglia", lot="Lot 19", date="2026-09-09", address="46 Wells Road, Fakenham, Norfolk NR21 9AA", guide=250000, rent=24600, tenure="Freehold", vat="UNKNOWN", url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151473", desc="Office investment approx 1,200 sq ft let to established tenants producing £24,600 pa."),
+    dict(source="Auction House East Anglia", lot="Lot 38", date="2026-09-09", address="The Old Dairy, Pound Lane, Heacham, King's Lynn, Norfolk PE31 7ET", guide=250000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151800", desc="Commercial Development. Freehold commercial/development property."),
+    dict(source="Auction House East Anglia", lot="Lot 99", date="2026-09-09", address="Reliant House, Angel Lane, Fore Street, Ipswich, Suffolk IP4 1JX", guide=500000, rent=51140, tenure="Freehold", vat="UNKNOWN", url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151749", desc="Mixed Use. Offices and flats approx 6,643 sq ft; current/estimated income £51,140 pa."),
+    dict(source="Auction House South West", lot="Lot 10", date="2026-09-09", address="13 Market Jew Street, Penzance, Cornwall TR18 2HN", guide=140000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://www.auctionhouse.co.uk/southwest/auction/lot/151562", desc="Commercial Property. Vacant Grade II listed retail premises in prime Penzance retail area."),
+
+    # Pugh / BTG Eddisons — verified current commercial/mixed-use, 27 Aug 2026
+    dict(source="Pugh / BTG Eddisons", lot='Lot 111', date="2026-08-27", address='Masonic Hall, 33 King Street, Duffield, Belper, Derbyshire DE56 4EU', guide=160000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property. Masonic hall / commercial premises.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 132', date="2026-08-27", address='9 Manchester Road, Audenshaw, Manchester M34 5PZ', guide=185000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/properties/202605060832sq_hdck-280526/for-auction-manchester', desc='Mixed Use. Commercial shop, two flats and double garage; part-let/part-vacant; ERV circa £26,000 pa.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 133', date="2026-08-27", address='207 Victoria Avenue, and First and Second Floors 205 Victoria Avenue, Manchester M9 0RA', guide=185000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property. Approx 1,970 sq ft commercial premises.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 170', date="2026-08-27", address='Maclins Depot, Unit 2, Station Road, South Molton, Devon EX36 3LJ', guide=150000, rent=6780, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/properties/202607211014sq_kwai-270826/for-auction-south-molton', desc='Commercial Development. Freehold commercial depot approx 3,931 sq ft; part let £6,780 pa.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 195', date="2026-08-27", address='Grand Hotel, Radcliffe, Greater Manchester', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Hotel / commercial opportunity.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 196', date="2026-08-27", address='15-23 Percy Street, Stoke-On-Trent, Staffordshire', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 201', date="2026-08-27", address='63 George Street, Walsall, West Midlands WS1 1RS', guide=60000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property. Grade II listed commercial unit with mixed-use potential.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 216', date="2026-08-27", address='2 & 2a High Street, St. Asaph, Denbighshire LL17 0RD', guide=60000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use. Ground-floor retail unit and first-floor flat.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 218', date="2026-08-27", address='29 & 31/33 Mostyn Avenue, Llandudno, Conwy LL30 1YS', guide=495000, rent=43000, tenure=None, vat="UNKNOWN", url='https://www.pugh-auctions.com/property/202607141332sq_0jra', desc='Commercial Property. Two adjoining retail investments producing approx £43,000 pa.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 219', date="2026-08-27", address='Land at Hathershaw Lane, Oldham, Lancashire OL8 3EU', guide=60000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial income land. Advertising display site, majority let on a new ten-year lease.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 220', date="2026-08-27", address='77 Manchester Road, Altrincham, Cheshire WA14 4RJ', guide=235000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property. Retail investment let to hot-food operator.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 221', date="2026-08-27", address='8 Hampton Road, Failsworth, Manchester, Lancashire M35 9HT', guide=295000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use. Convenience shop with residential accommodation.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 252', date="2026-08-27", address='Unit 4, Bansons Yard, Ongar, Essex', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Development. Commercial office space with development potential.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 253', date="2026-08-27", address='502 Sutton Road, Southend-On-Sea, Essex', guide=185000, rent=16000, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use. Ground-floor shop and flat; current income approx £16,000 pa.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 272', date="2026-08-27", address='186 Selborne Street, Preston, Lancashire PR1 4LB', guide=120000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use. Ground-floor retail unit and first-floor flat.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 276', date="2026-08-27", address='27 Market Square, Kirkby Stephen, Cumbria', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Retail Property.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 280', date="2026-08-27", address='10 Brunswick Street, Stoke-On-Trent, Staffordshire ST1 1DR', guide=250000, rent=39900, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use investment. Retail unit plus accommodation producing £39,900 pa.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 281', date="2026-08-27", address='72A & 72B London Road, Chesterton, Newcastle, Staffordshire ST5 7DY', guide=225000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use. Substantial prominent freehold mixed-use property.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 283', date="2026-08-27", address='Unit 2, Paxton Street, Hanley, Stoke-On-Trent', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use / commercial office premises with development potential.'),
+
+    # Strettons — current 10 Sep 2026 commercial catalogue baseline
+    dict(source="Strettons", lot='Lot 6', date="2026-09-10", address='1 Bruce Grove, Tottenham, London, Haringey, N17 6RA', guide=800000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Mixed Use. Freehold mixed commercial/residential investment.'),
+    dict(source="Strettons", lot='Lot 7', date="2026-09-10", address='Unit G04.4 Ink Court, 419 Wick Lane, London, E3 2PW', guide=350000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Office. Ground-floor office unit.'),
+    dict(source="Strettons", lot='Lot 9', date="2026-09-10", address='Belle Vue Hotel, 2 Tilehurst Road, Reading, Berkshire, RG1 7TN', guide=700000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Leisure/Hospitality. Vacant Grade II listed hotel.'),
+    dict(source="Strettons", lot='Lot 10', date="2026-09-10", address='The Woolpack Veterinary Surgery, A10 Buntingford Bypass, Buntingford, Hertfordshire, SG9 9FB', guide=850000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Commercial investment.'),
+    dict(source="Strettons", lot='Lot 14', date="2026-09-10", address='9 Bank Street, Braintree, Essex, CM7 1UG', guide=410000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Commercial property.'),
+    dict(source="Strettons", lot='Lot 16', date="2026-09-10", address='100 Trafalgar Road, Greenwich, London, SE10 9UW', guide=525000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Mixed commercial/residential.'),
+    dict(source="Strettons", lot='Lot 17', date="2026-09-10", address='218 High Road, Woodford Green, Essex, IG8 9HH', guide=275000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Commercial investment.'),
+    dict(source="Strettons", lot='Lot 20', date="2026-09-10", address='35A Brookfield Road, Hackney, London, E9 5AH', guide=95000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Office / development opportunity.'),
+    dict(source="Strettons", lot='Lot 21', date="2026-09-10", address='Unit 1 Angel House, 20-32 Pentonville Road, London, Islington, N1 9HJ', guide=180000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Vacant commercial unit.'),
+    dict(source="Strettons", lot='Lot 22', date="2026-09-10", address='Prince of Wales Public House, Brick End, Broxted, Dunmow, Essex, CM6 2BJ', guide=350000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Leisure/Hospitality. Public house.'),
+    dict(source="Strettons", lot='Lot 27', date="2026-09-10", address='2A Eden Grove Road, Byfleet, West Byfleet, Surrey, KT14 7PH', guide=185000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Commercial workshop and yard.'),
+    dict(source="Strettons", lot='Lot 30', date="2026-09-10", address='Former Public Conveniences, Rodmere Street, Greenwich, London, SE10 9EF', guide=175000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Commercial/development opportunity.'),
+    dict(source="Strettons", lot='Lot 31', date="2026-09-10", address='662-664 Lea Bridge Road, Leyton, London, E10 6AP', guide=800000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Mixed-use investment.'),
+    dict(source="Strettons", lot='Lot 34', date="2026-09-10", address='Garages and land at Halcot Avenue, Bexleyheath, Kent, DA6 7QD', guide=365000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Commercial garages/site.'),
+    dict(source="Strettons", lot='Lot 41', date="2026-09-10", address='The Swan Care Home, 29 North Street, Tillingham, Southminster, Essex, CM0 7TR', guide=990000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Former care home.'),
+    dict(source="Strettons", lot='Lot 45', date="2026-09-10", address='86 High Street, Chatham, Kent, ME4 4DS', guide=150000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Ground-floor commercial unit.'),
+    dict(source="Strettons", lot='Lot 47', date="2026-09-10", address='Unit 1, Former Eltham Tramsheds, Well Hall Road, Eltham, London, SE9 1DH', guide=35000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Former tram shed / alternative use.'),
+    dict(source="Strettons", lot='Lot 48', date="2026-09-10", address='Unit 2, Former Eltham Tramsheds, Well Hall Road, Eltham, London, SE9 1DH', guide=18000, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Former tram shed / alternative use.'),
+    dict(source="Strettons", lot='Lot 49', date="2026-09-10", address='Unit 3, Former Eltham Tramsheds, Well Hall Road, Eltham, London, SE9 1DH', guide=None, rent=None, tenure=None, vat="UNKNOWN", url="https://www.strettons.co.uk/auction-commercial-property/for-sale/", desc='Former tram shed / alternative use.'),
+
+    # Acuitus — all currently available 17 Sep 2026 properties
+    dict(source="Acuitus", lot='Lot 2', date="2026-09-17", address='4-6 Broad Street, Reading, Berkshire, RG1 2BH', guide=2425000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.acuitus.co.uk/find-a-property/?clear=y', desc='Commercial Property. Mixed Use'),
+    dict(source="Acuitus", lot='Lot 3', date="2026-09-17", address='26 Rollesby Road, Kings Lynn, Norfolk, PE30 4LS', guide=1500000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.acuitus.co.uk/find-a-property/?clear=y', desc='Commercial Property. Warehouse/Industrial, Self Storage'),
+    dict(source="Acuitus", lot='Lot 3', date="2026-09-17", address='2A, 2B & 2C Vantage Park, Washingley Road, Huntingdon, Cambridgeshire, PE29 6SR', guide=900000, rent=116724, tenure=None, vat="UNKNOWN", url='https://www.acuitus.co.uk/property/5836/', desc='Commercial Property. Office'),
+    dict(source="Acuitus", lot='Lot 3', date="2026-09-17", address='16-20 Cavell Street, Whitechapel, London, E1 2HP', guide=1300000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.acuitus.co.uk/find-a-property/?clear=y', desc='Commercial Property. Central London, Mixed Use, Development'),
+    dict(source="Acuitus", lot='Lot 4', date="2026-09-17", address="6 St John's Road, Wembley, London, HA9 7JD", guide=1000000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.acuitus.co.uk/find-a-property/?clear=y', desc='Commercial Property. Development, Vacant'),
+    dict(source="Acuitus", lot='Lot 5', date="2026-09-17", address='Former Wilko, 33-42 Fawcett Street, Sunderland, Tyne and Wear, SR1 1RU', guide=750000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.acuitus.co.uk/find-a-property/?clear=y', desc='Commercial Property. Development, Vacant, 110,000 sq ft'),
+    dict(source="Acuitus", lot='Lot 6', date="2026-09-17", address='Royal London House, Plymouth, Devon, PL1 1HY', guide=250000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.acuitus.co.uk/property/5837/', desc='Commercial Property. Retail, Office'),
+
 ]
+
+VERIFIED_SEED_IMAGES = {'https://www.bondwolfe.com/auctions/properties/360362-property-auction-smethwick/': 'https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2819077_web_medium', 'https://www.bondwolfe.com/auctions/properties/361360-property-auction-kidderminster/': 'https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2827968_web_medium', 'https://www.bondwolfe.com/auctions/properties/357075-property-auction-birmingham/': 'https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2780561_web_medium', 'https://www.auctionhouse.co.uk/eastanglia/auction/lot/151791': 'https://www.auctionhouse.co.uk/lot-image/921518?w=670', 'https://www.auctionhouse.co.uk/eastanglia/auction/lot/151501': 'https://www.auctionhouse.co.uk/lot-image/917631?w=670', 'https://www.auctionhouse.co.uk/eastanglia/auction/lot/151516': 'https://www.auctionhouse.co.uk/lot-image/917891?w=670', 'https://www.auctionhouse.co.uk/eastanglia/auction/lot/151798': 'https://www.auctionhouse.co.uk/lot-image/921603?w=670', 'https://www.auctionhouse.co.uk/westyorkshire/auction/lot/152101': 'https://www.auctionhouse.co.uk/lot-image/925288?w=670', 'https://www.auctionhouse.co.uk/westyorkshire/auction/lot/151599': 'https://www.auctionhouse.co.uk/lot-image/919095?w=670', 'https://www.auctionhouse.co.uk/westyorkshire/auction/lot/151605': 'https://www.auctionhouse.co.uk/lot-image/919155?w=670', 'https://www.auctionhouse.co.uk/westyorkshire/auction/lot/151636': 'https://www.auctionhouse.co.uk/lot-image/919540?w=670', 'https://www.auctionhouse.co.uk/sussexandhampshire/auction/lot/151683': 'https://www.auctionhouse.co.uk/lot-image/920193?w=670', 'https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/716501/': 'https://www.barnardmarcusauctions.co.uk/media/470779/6bbbecf3-0a35-4252-b65d-aad945220baa.jpg?mode=pad&upscale=false&width=1280', 'https://auctionhouselondon.co.uk/lot/97-st-peters-street-st-albans-hertfordshire-al1-3en-359945': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2828767_web_medium', 'https://auctionhouselondon.co.uk/lot/6-high-street-hythe-southampton-hampshire-so45-6ah-362111': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2838326_web_medium', 'https://auctionhouselondon.co.uk/lot/6a-high-street-hythe-southampton-hampshire-so45-6ah-362113': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2836885_web_medium', 'https://auctionhouselondon.co.uk/lot/unit-su8-5-jubilee-way-scunthorpe-north-lincolnshire-dn15-6rb-358590': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2814126_web_medium', 'https://auctionhouselondon.co.uk/lot/9-college-walk-rotherham-south-yorkshire-s60-1qb-358596': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2814113_web_medium', 'https://auctionhouselondon.co.uk/lot/709-wimborne-road-bournemouth-dorset-bh9-2au-362596': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2843874_web_medium', 'https://auctionhouselondon.co.uk/lot/29-hervey-street-lowestoft-suffolk-nr32-2jg-361511': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2830120_web_medium', 'https://auctionhouselondon.co.uk/lot/13-hope-street-crook-county-durham-dl15-9hs-361002': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2825075_web_medium', 'https://auctionhouselondon.co.uk/lot/102-104-high-street-redcar-cleveland-ts10-3dl-360993': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2824266_web_medium', 'https://auctionhouselondon.co.uk/lot/48-high-east-street-dorchester-dorset-dt1-1hu-361884': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2846663_web_medium', 'https://auctionhouselondon.co.uk/lot/396-forest-road-walthamstow-london-e17-5jf-361976': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2835136_web_medium', 'https://auctionhouselondon.co.uk/lot/179-upton-lane-forest-gate-london-e7-9pj-362815': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2845299_web_medium', 'https://auctionhouselondon.co.uk/lot/foelas-residential-home-station-road-llanrug-caernarfon-gwynedd-ll55-4be-360987': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2823284_web_medium', 'https://auctionhouselondon.co.uk/lot/electric-house-castle-street-newcastle-emlyn-carmarthenshire-sa38-9af-359943': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2828673_web_medium', 'https://auctionhouselondon.co.uk/lot/unit-6a-6b-south-middleton-base-greenwell-road-aberdeen-ab12-3ax-361941': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2834518_web_medium', 'https://auctionhouselondon.co.uk/lot/94a-middleton-grange-shopping-centre-hartlepool-cleveland-ts24-7rw-360550': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2838099_web_medium', 'https://auctionhouselondon.co.uk/lot/21-red-street-carmarthen-dyfed-sa31-1ql-361340': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2833997_web_medium', 'https://auctionhouselondon.co.uk/lot/8-red-street-carmarthen-dyfed-sa31-1ql-362265': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2838675_web_medium', 'https://auctionhouselondon.co.uk/lot/17-19-umberston-street-tower-hamlets-london-e1-1py-359974': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2813500_web_medium', 'https://auctionhouselondon.co.uk/lot/rear-of-292-weelsby-street-grimsby-north-east-lincolnshire-dn32-8ab-355241': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2811969_web_medium', 'https://auctionhouselondon.co.uk/lot/unit-3-the-boathouse-ocean-drive-gillingham-kent-me7-1ft-361080': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2824624_web_medium', 'https://auctionhouselondon.co.uk/lot/106-high-street-redcar-cleveland-ts10-3dl-360996': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2828263_web_medium', 'https://auctionhouselondon.co.uk/lot/108-high-street-redcar-cleveland-ts10-3dl-361001': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2828133_web_medium', 'https://auctionhouselondon.co.uk/lot/unit-1-masonic-hall-64-briggate-brighouse-calderdale-hd6-1ef-361598': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2832142_web_medium', 'https://auctionhouselondon.co.uk/lot/the-vaults-manor-road-chatham-kent-me4-6hw-360200': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2832291_web_medium', 'https://auctionhouselondon.co.uk/lot/20-26-hill-street-wisbech-cambridgeshire-pe13-1ba-360042': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2814274_web_medium', 'https://auctionhouselondon.co.uk/lot/sandly-court-39-queens-road-southport-merseyside-pr9-9ex-357930': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2790787_web_medium', 'https://auctionhouselondon.co.uk/lot/unit-3-6a-alma-street-taunton-somerset-ta1-3ah-361603': 'https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3476/2831425_web_medium', 'https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/716502/': 'https://www.barnardmarcusauctions.co.uk/media/469233/93744cd1-6692-40ef-ba6c-920867ba12db.jpg?mode=pad&upscale=false&width=1280', 'https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/716897/': 'https://www.barnardmarcusauctions.co.uk/media/469324/5aa7811c-7f2a-41ee-ae23-7f4c5ed8c1a6.jpg?mode=pad&upscale=false&width=1280', 'https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/717996/': 'https://www.barnardmarcusauctions.co.uk/media/470362/4d5da0f1-1231-4d3a-bd0e-952092f7a5cb.jpg?mode=pad&upscale=false&width=1280', 'https://www.auctionhouse.co.uk/eastanglia/auction/lot/151473': 'https://www.auctionhouse.co.uk/lot-image/917043?w=670', 'https://www.auctionhouse.co.uk/eastanglia/auction/lot/151800': 'https://www.auctionhouse.co.uk/lot-image/921627?w=670', 'https://www.auctionhouse.co.uk/eastanglia/auction/lot/151749': 'https://www.auctionhouse.co.uk/lot-image/921063?w=670', 'https://www.auctionhouse.co.uk/southwest/auction/lot/151562': 'https://www.auctionhouse.co.uk/lot-image/918621?w=670', 'https://www.bondwolfe.com/auctions/properties/362472-property-auction-alcester/': 'https://cdn.eigpropertyauctions.co.uk/ams/images/243/auction/3451/2843152_web_medium'}
 
 SOURCE_HEALTH = [
     dict(source="Auction House London", status="LIVE", note="2 Sep catalogue captured"),
@@ -216,17 +345,43 @@ def _canonical_key(x):
     return (x.get("source","").lower(), (x.get("url") or "").split("?",1)[0].rstrip("/").lower())
 
 def _row_is_allowed(x):
+    from datetime import date
     source=(x.get("source") or "")
+    desc=(x.get("desc") or "").lower()
+
+    # Available/current board: sold-prior and withdrawn lots do not belong.
+    if any(t in desc for t in ("sold prior","withdrawn prior","withdrawn from auction")):
+        return False
+
+    # Drop genuinely stale auction dates; unknown dates are retained and audited.
+    d=(x.get("date") or "").strip()
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}",d):
+        try:
+            if d < date.today().isoformat():
+                return False
+        except Exception:
+            pass
+
     if source.startswith("Auction House ") and source!="Auction House London":
         ptype=(x.get("property_type") or "").lower()
-        desc=(x.get("desc") or "").lower()
         if ptype:
             if any(t in ptype for t in AH_RESIDENTIAL_TYPES) and not any(t in ptype for t in AH_COMMERCIAL_TYPES):
                 return False
             return any(t in ptype for t in AH_COMMERCIAL_TYPES)
-        # Legacy-cache cleanup: reject explicit residential categories.
-        if any(t in desc[:600] for t in AH_RESIDENTIAL_TYPES) and not any(t in desc[:600] for t in AH_COMMERCIAL_TYPES):
+        if any(t in desc[:900] for t in AH_RESIDENTIAL_TYPES) and not any(t in desc[:900] for t in AH_COMMERCIAL_TYPES):
             return False
+
+    # Barnard Marcus is residential-heavy: require affirmative commercial/mixed-use evidence.
+    if source=="Barnard Marcus":
+        positive=("mixed-use","mixed use","commercial unit","commercial property","retail",
+                  "shop","office","industrial","warehouse","care home","business premises")
+        residential=(" bedroom house"," bedroom flat","bungalow","terraced house",
+                     "semi-detached house","detached house","apartment","maisonette")
+        if any(t in desc[:1200] for t in residential) and not any(t in desc[:1200] for t in positive):
+            return False
+        if not any(t in desc[:1200] for t in positive):
+            return False
+
     return True
 
 def _clean_rows(rows):
@@ -304,6 +459,7 @@ def _img_candidates(node, base):
     if node is None:
         return []
     raw=[]
+
     for img in node.find_all("img"):
         for attr in ("data-src","data-lazy-src","data-original","src"):
             v=img.get(attr)
@@ -313,19 +469,34 @@ def _img_candidates(node, base):
             for part in ss.split(","):
                 u=part.strip().split(" ")[0]
                 if u: raw.append(u)
+
     for source in node.find_all("source"):
         ss=source.get("srcset")
         if ss:
             for part in ss.split(","):
                 u=part.strip().split(" ")[0]
                 if u: raw.append(u)
+
+    # IMPORTANT: Bond Wolfe, Barnard Marcus and Auction House expose many
+    # gallery images as anchor hrefs rather than ordinary img src values.
+    for a in node.find_all("a",href=True):
+        href=a.get("href")
+        low=(href or "").lower()
+        if (
+            "/lot-image/" in low
+            or "cdn.eigpropertyauctions.co.uk/ams/images/" in low
+            or "/media/" in low and any(ext in low for ext in (".jpg",".jpeg",".png",".webp"))
+            or "asta.btgeddisonspropertyauctions.com" in low
+        ):
+            raw.append(href)
+
     for tag in node.find_all(style=True):
         for u in re.findall(r'url\([\'"]?([^\'")]+)',tag.get("style",""),re.I):
             raw.append(u)
 
     out=[]
     bad=("logo","icon","favicon","avatar","sprite","placeholder","savills-logo",
-         "facebook","instagram","linkedin","twitter","youtube")
+         "facebook","instagram","linkedin","twitter","youtube","background-graphic")
     for u in raw:
         u=urljoin(base,u)
         low=u.lower()
@@ -334,6 +505,7 @@ def _img_candidates(node, base):
         if u not in out:
             out.append(u)
     return out
+
 
 SAVILLS_IMAGE_SOURCE_PAGES = {
     # Current 2 Sep 2026 commercial lots. These indexed pages expose the
@@ -784,21 +956,7 @@ AUCTION_HOUSE_BRANCHES = {
 def _parse_auctionhouse_detail(page_html,url,source):
     s=BeautifulSoup(page_html,"lxml")
     text=norm(s.get_text(" ",strip=True))
-    low=text.lower()
-
-    property_type=None
-    m=re.search(r"Property Type\s*[:|]\s*([^|]{3,80})",text,re.I)
-    if m:
-        property_type=norm(m.group(1))
-    else:
-        m=re.search(r"(Commercial Property|Mixed[- ]Use|Retail(?: Property)?|Office(?:s)?|Industrial(?: Property)?|Warehouse|Care Home|Public House|Restaurant|Detached House|Semi[- ]Detached House|Terraced House|Bungalow|Flat|Maisonette)",text,re.I)
-        if m:
-            property_type=norm(m.group(1))
-
-    type_text=property_type or text[:1200]
-    if _is_explicitly_residential(type_text) and not _is_explicitly_commercial(type_text):
-        return None
-    if not _is_explicitly_commercial(type_text):
+    if not _commercial_admission(source,s,text):
         return None
 
     h=s.find("h1")
@@ -807,106 +965,139 @@ def _parse_auctionhouse_detail(page_html,url,source):
         return None
 
     gm=re.search(r"Guide\s*\|\s*£([\d,]+)",text,re.I)
-    if not gm:
-        gm=re.search(r"Guide(?: Price)?\s*[:£ ]+\s*£?([\d,]+)",text,re.I)
     guide=float(gm.group(1).replace(",","")) if gm else None
-
     lm=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
     lot="Lot "+lm.group(1) if lm else "Lot TBC"
     dm=re.search(r"Auction Date\s+\w+\s+(\d{2})/(\d{2})/(\d{4})",text,re.I)
     date=f"{dm.group(3)}-{dm.group(2)}-{dm.group(1)}" if dm else None
-    imgs=_img_candidates(s,url)
 
-    row=dict(
+    image=None
+    for cand in _img_candidates(s,url):
+        if "/lot-image/" in cand.lower():
+            image=cand
+            break
+
+    low=text.lower()
+    return dict(
         source=source,lot=lot,date=date,address=address,guide=guide,
         rent=parse_rent(text),
         tenure=("Freehold" if "freehold" in low[:1800]
                 else "Leasehold" if "leasehold" in low[:1800] else None),
-        vat="UNKNOWN",url=url,desc=text[:900],image=imgs[0] if imgs else None
+        vat="UNKNOWN",url=url,desc=text[:1000],image=image
     )
-    return row if _should_keep_commercial_row(source,address,text[:1500]) else None
 
 
 @st.cache_data(ttl=21600, show_spinner=False)
 def _catalogue_auctionhouse_regional():
+    """
+    Scan every regional Auction House branch's dedicated commercial inventory
+    first, then search-results and future-auction pages. Only exact lot pages
+    that pass _parse_auctionhouse_detail() can enter the board.
+    """
     rows=[]
-    seen=set()
-    for slug,source in AUCTION_HOUSE_BRANCHES.items():
-        diary=f"https://www.auctionhouse.co.uk/{slug}/auction/future-auction-dates"
+    global_seen=set()
+
+    def collect_links(page_url):
+        found=[]
         try:
-            soup=BeautifulSoup(fetch(diary),"lxml")
-            links=[]
+            soup=BeautifulSoup(fetch(page_url),"lxml")
             for a in soup.find_all("a",href=True):
-                href=urljoin(diary,a["href"])
-                if "/auction/lot/" in href and href not in seen:
-                    links.append(href); seen.add(href)
-            # Some branch diary pages expose a View Lots page rather than lot links.
-            listing_links=[]
+                href=urljoin(page_url,a["href"])
+                if "/auction/lot/" in href and href not in global_seen:
+                    found.append(href)
+                    global_seen.add(href)
+
+            # Follow list/search pages exposed by the branch.
+            secondary=[]
             for a in soup.find_all("a",href=True):
                 label=norm(a.get_text(" ",strip=True)).lower()
-                href=urljoin(diary,a["href"])
-                if "view lots" in label or "/auction/lots" in href:
-                    listing_links.append(href)
-            for listing in listing_links[:3]:
+                href=urljoin(page_url,a["href"])
+                if (
+                    "view lots" in label or "load more" in label
+                    or "/auction/search-results" in href
+                    or "/auction/lots" in href
+                ):
+                    if href not in secondary:
+                        secondary.append(href)
+            for listing in secondary[:4]:
                 try:
                     ls=BeautifulSoup(fetch(listing),"lxml")
                     for a in ls.find_all("a",href=True):
                         href=urljoin(listing,a["href"])
-                        if "/auction/lot/" in href and href not in seen:
-                            links.append(href); seen.add(href)
-                except Exception:
-                    pass
-            for href in links:
-                try:
-                    row=_parse_auctionhouse_detail(fetch(href),href,source)
-                    if row and row.get("date") and row["date"]>="2026-08-26":
-                        rows.append(row)
+                        if "/auction/lot/" in href and href not in global_seen:
+                            found.append(href)
+                            global_seen.add(href)
                 except Exception:
                     pass
         except Exception:
-            continue
-    return rows
+            pass
+        return found
+
+    for slug,source in AUCTION_HOUSE_BRANCHES.items():
+        links=[]
+        for page in (
+            f"https://www.auctionhouse.co.uk/{slug}/commercial",
+            f"https://www.auctionhouse.co.uk/{slug}/auction/search-results?searchType=1",
+            f"https://www.auctionhouse.co.uk/{slug}/auction/future-auction-dates",
+        ):
+            links.extend(collect_links(page))
+
+        branch=[]
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            futures={ex.submit(fetch,u):u for u in links[:220]}
+            for f in as_completed(futures):
+                u=futures[f]
+                try:
+                    row=_parse_auctionhouse_detail(f.result(),u,source)
+                    if not row:
+                        continue
+                    low=(row.get("desc") or "").lower()
+                    if any(x in low for x in ("sold prior","withdrawn","postponed")):
+                        continue
+                    if row.get("date") and row["date"]<"2026-08-26":
+                        continue
+                    branch.append(row)
+                except Exception:
+                    pass
+
+        seen=set()
+        for r in branch:
+            if r.get("url") in seen:
+                continue
+            seen.add(r.get("url"))
+            rows.append(r)
+
+    return _clean_rows(rows)
 
 def _parse_barnard_detail(page_html,url):
     s=BeautifulSoup(page_html,"lxml")
     text=norm(s.get_text(" ",strip=True))
-    low=text.lower()
+    if not _commercial_admission("Barnard Marcus",s,text):
+        return None
+
     h=s.find("h1")
     address=norm(h.get_text(" ",strip=True)) if h else ""
     if not address:
         return None
-    if not _is_explicitly_commercial(text):
-        return None
-    if _is_explicitly_residential(text) and not any(
-        x in low for x in ("mixed-use","mixed use","commercial unit","shop","retail","office","industrial","warehouse","care home","business premises")
-    ):
-        return None
 
     gm=re.search(r"guide price\s*\*?\s*£([\d,]+)",text,re.I)
-    if not gm:
-        gm=re.search(r"Guide(?: Price)?\s*[:£ ]+\s*£?([\d,]+)",text,re.I)
     guide=float(gm.group(1).replace(",","")) if gm else None
     lm=re.search(r"\bLOT\s+(\d+[A-Z]?)\b",text,re.I)
     lot="Lot "+lm.group(1) if lm else "Lot TBC"
 
     image=None
-    og=s.find("meta",attrs={"property":"og:image"})
-    if og and og.get("content"):
-        cand=urljoin(url,og["content"])
-        if not any(x in cand.lower() for x in ("logo","favicon","icon","placeholder","sprite")):
+    for cand in _img_candidates(s,url):
+        if "/media/" in cand.lower() and any(x in cand.lower() for x in (".jpg",".jpeg",".png",".webp")):
             image=cand
-    if not image:
-        for cand in _img_candidates(s,url):
-            if not any(x in cand.lower() for x in ("logo","favicon","icon","placeholder","sprite")):
-                image=cand
-                break
+            break
 
+    low=text.lower()
     return dict(
         source="Barnard Marcus",lot=lot,date="2026-09-10",address=address,
         guide=guide,rent=parse_rent(text),
         tenure=("Freehold" if "freehold" in low[:1800]
                 else "Leasehold" if "leasehold" in low[:1800] else None),
-        vat="UNKNOWN",url=url,desc=text[:900],image=image
+        vat="UNKNOWN",url=url,desc=text[:1000],image=image
     )
 
 
@@ -1021,18 +1212,51 @@ def _best_exact_page_image(url):
         return None
 
 
-def _enrich_missing_images(rows):
-    targets=("auction house london","bond wolfe","barnard marcus","pugh","btg")
-    out=[]
-    for row in rows:
-        r=dict(row)
-        if r.get("source")=="Savills Auctions":
-            r=_apply_verified_savills_current(r)
-        if not r.get("image") and any(t in (r.get("source") or "").lower() for t in targets):
-            img=_exact_property_image(r.get("url"))
+def _enrich_missing_images(rows,limit=220):
+    out=[dict(r) for r in rows]
+    missing=[i for i,r in enumerate(out) if not r.get("image") and r.get("url")]
+    missing=missing[:limit]
+
+    def get_one(i):
+        r=out[i]
+        src=(r.get("source") or "").lower()
+        try:
+            s=BeautifulSoup(fetch(r["url"]),"lxml")
+            # source-specific gallery patterns
+            candidates=_img_candidates(s,r["url"])
+            preferred=[]
+            for c in candidates:
+                lc=c.lower()
+                if "auctionhouse.co.uk" in r["url"] and "/lot-image/" in lc:
+                    preferred.append(c)
+                elif "bondwolfe.com" in r["url"] and "cdn.eigpropertyauctions.co.uk/ams/images/" in lc:
+                    preferred.append(c)
+                elif "barnardmarcusauctions.co.uk" in r["url"] and "/media/" in lc:
+                    preferred.append(c)
+                elif ("pugh-auctions.com" in r["url"] or "btgeddisonspropertyauctions.com" in r["url"]) and (
+                    "asta.btgeddisonspropertyauctions.com" in lc or "cdn.eigpropertyauctions.co.uk" in lc
+                ):
+                    preferred.append(c)
+                elif "auctionhouselondon.co.uk" in r["url"]:
+                    preferred.append(c)
+            return i,(preferred[0] if preferred else (candidates[0] if candidates else None))
+        except Exception:
+            return i,None
+
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        futures=[ex.submit(get_one,i) for i in missing]
+        for f in as_completed(futures):
+            i,img=f.result()
             if img:
-                r["image"]=img
-        out.append(r)
+                out[i]["image"]=img
+
+    # Savills verified map always wins for current lots.
+    for i,r in enumerate(out):
+        if r.get("source")=="Savills Auctions":
+            try:
+                out[i]=_apply_verified_savills_current(r)
+            except Exception:
+                pass
     return out
 
 
@@ -1064,7 +1288,16 @@ def _merge_property_rows(existing, incoming, seed_authoritative=False):
         out["desc"]=incoming["desc"]
 
     # Exact URL can improve navigation if existing URL is blank/generic.
-    if incoming.get("url") and (not out.get("url") or out.get("url","").endswith("/page-1/quantity-100/property_type-253/sort-by-0")):
+    old_url=out.get("url") or ""
+    generic_url=(
+        not old_url
+        or old_url.endswith("/page-1/quantity-100/property_type-253/sort-by-0")
+        or "/auction-commercial-property/for-sale" in old_url
+        or "/find-a-property" in old_url
+        or "/property-search" in old_url
+        or "/auctions/live-stream/" in old_url
+    )
+    if incoming.get("url") and generic_url:
         out["url"]=incoming["url"]
 
     # For ordinary cache/live rows, fill/refresh core facts where incoming has evidence.
@@ -1140,25 +1373,45 @@ def _hydrate_snapshot_images(rows):
         out.append(r)
     return out
 
+def _apply_seed_image_map(rows):
+    out=[]
+    for row in rows:
+        r=dict(row)
+        if not r.get("image") and r.get("url") in VERIFIED_SEED_IMAGES:
+            r["image"]=VERIFIED_SEED_IMAGES[r["url"]]
+        if r.get("source")=="Savills Auctions":
+            try:
+                r=_apply_verified_savills_current(r)
+            except Exception:
+                pass
+        out.append(r)
+    return out
+
 def load_rows():
     """
-    Fast, non-destructive boot with rich-field preservation.
+    Fast, non-destructive boot.
 
-    - Zero network I/O.
-    - Verified seed facts remain authoritative.
-    - Every usable cache contributes additional properties.
-    - Cached/live images and richer metadata are merged into matching seed rows.
+    Fresh deployments use the full verified snapshot.
+    Existing deployments use the stable cache.
+    Legacy versioned caches are consulted only once, and only when no stable
+    cache exists, preventing old/stale rows from being resurrected forever.
     """
-    candidates=[Path("auction_sniper_cache.json")]
-    candidates += sorted(Path(".").glob("auction_sniper_cache_v*.json"))
+    stable=Path("auction_sniper_cache.json")
+    candidates=[]
+    if stable.exists():
+        candidates=[stable]
+    else:
+        legacy=sorted(Path(".").glob("auction_sniper_cache_v*.json"),
+                      key=lambda p:p.stat().st_mtime if p.exists() else 0,
+                      reverse=True)
+        if legacy:
+            candidates=[legacy[0]]
 
     cached_rows=[]
     health=SOURCE_HEALTH
     updated="Verified snapshot · 26 Aug 2026"
 
     for path in candidates:
-        if not path.exists():
-            continue
         try:
             cached=json.loads(path.read_text(encoding="utf-8"))
             props=cached.get("properties") or []
@@ -1172,9 +1425,64 @@ def load_rows():
             pass
 
     rows=_merge_property_universe(SEED,cached_rows)
-    rows=_hydrate_snapshot_images(rows) if rows else rows
+    rows=_apply_seed_image_map(rows)
     return rows,health,updated
 
+
+RESIDENTIAL_EXACT_TYPES = {
+    "detached house","semi-detached house","semi detached house","terraced house",
+    "end of terrace house","end terrace house","bungalow","flat","apartment",
+    "maisonette","residential property"
+}
+COMMERCIAL_EXACT_TYPES = {
+    "commercial property","mixed use","mixed-use","commercial investment",
+    "commercial vacant","retail","retail property","office","offices",
+    "industrial","industrial property","warehouse","care home","public house",
+    "restaurant","business premises"
+}
+
+def _structured_property_type(soup):
+    """Read the actual auctioneer property-type label, not marketing prose."""
+    # Prefer short list/badge-like elements.
+    candidates=[]
+    for tag in soup.find_all(["li","span","div","p","strong"]):
+        t=norm(tag.get_text(" ",strip=True))
+        if 2 <= len(t) <= 60:
+            candidates.append(t)
+    for t in candidates:
+        low=t.lower().strip(" :|")
+        if low in RESIDENTIAL_EXACT_TYPES or low in COMMERCIAL_EXACT_TYPES:
+            return low
+    # BTG exposes 'Property Type Commercial Property' in plain text.
+    text=norm(soup.get_text(" ",strip=True))
+    m=re.search(r"Property Type\s+(Commercial Property|Mixed[- ]Use|Retail Property|Office|Industrial Property|Warehouse|Care Home|Public House|Restaurant)",text,re.I)
+    return m.group(1).lower() if m else None
+
+def _commercial_admission(source, soup, text):
+    """
+    Fail closed for residential-heavy sources.
+    Ordinary houses/flats do not enter merely because the prose says investment.
+    """
+    ptype=_structured_property_type(soup)
+    sl=(source or "").lower()
+    low=(text or "").lower()
+
+    if ptype in RESIDENTIAL_EXACT_TYPES:
+        return False
+    if ptype in COMMERCIAL_EXACT_TYPES:
+        return True
+
+    # Barnard Marcus and regional Auction House: require explicit mixed/commercial
+    # evidence if no structured badge was found.
+    if "barnard marcus" in sl or (sl.startswith("auction house ") and "london" not in sl):
+        positive=("mixed-use","mixed use","ground floor retail","commercial unit",
+                  "commercial property","retail premises","office building",
+                  "industrial property","warehouse","care home","public house")
+        residential=(" bedroom house"," bedroom flat","bungalow","terraced house",
+                     "semi-detached house","detached house","apartment","maisonette")
+        return any(x in low for x in positive) and not any(x in low for x in residential)
+
+    return True
 
 # ---------------- expanded source coverage ----------------
 @st.cache_data(ttl=21600, show_spinner=False)
@@ -1187,100 +1495,174 @@ def _exact_page_card(url, source, auction_date, force_commercial=False):
         text=norm(main.get_text(" ",strip=True))
         low=text.lower()
 
-        image=_property_image_from_soup(s,url)
+        if "sold prior" in low or "withdrawn prior" in low or "withdrawn from auction" in low:
+            return None
+
+        # Bond Wolfe exposes explicit categories such as Commercial Investment,
+        # Commercial Vacant, Mixed Use and Residential Investment.
+        if not force_commercial:
+            if "bond wolfe" in source.lower():
+                if "residential investment" in low or "residential vacant" in low:
+                    if not any(x in low for x in ("mixed use","commercial investment","commercial vacant")):
+                        return None
+                if not any(x in low for x in ("commercial investment","commercial vacant","mixed use","commercial property")):
+                    return None
+            elif not _commercial_admission(source,s,text):
+                return None
+
+        image=None
+        for cand in _img_candidates(s,url):
+            lc=cand.lower()
+            if (
+                "/lot-image/" in lc
+                or "cdn.eigpropertyauctions.co.uk/ams/images/" in lc
+                or "/media/" in lc
+                or "resize.auctions.savills.co.uk" in lc
+                or "asta.btgeddisonspropertyauctions.com" in lc
+            ):
+                image=cand
+                break
+
+        if not image:
+            og=s.find("meta",attrs={"property":"og:image"})
+            if og and og.get("content"):
+                cand=urljoin(url,og["content"])
+                if not any(x in cand.lower() for x in ("logo","favicon","icon","placeholder")):
+                    image=cand
 
         gm=re.search(r"Guide price\*?\s*(?:£)?\s*([\d,]+)",text,re.I)
+        if not gm:
+            gm=re.search(r"Guide(?: Price)?\s*[:|]?\s*£\s*([\d,]+)",text,re.I)
         guide=float(gm.group(1).replace(",","")) if gm else None
         rent=parse_rent(text)
-
-        commercial_words=[
-            "commercial","retail","office","industrial","warehouse","shop",
-            "mixed use","mixed-use","business premises","former church",
-            "care home","hotel","public house","storage land"
-        ]
-        residential_only=[
-            "semi detached property","semi-detached property","terraced house",
-            "detached house","bungalow","one bedroom flat","two bedroom flat",
-            "three bedroom flat"
-        ]
-        if not force_commercial:
-            if not any(x in low for x in commercial_words):
-                return None
-            if any(x in low for x in residential_only) and not any(x in low for x in ("mixed use","mixed-use","commercial")):
-                return None
-
+        lm=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
+        lot="Lot "+lm.group(1) if lm else "Lot TBC"
         tenure=("Freehold" if "freehold" in low else "Leasehold" if "leasehold" in low else None)
-        return dict(source=source,lot="Lot TBC",date=auction_date,address=address,
+
+        return dict(source=source,lot=lot,date=auction_date,address=address,
                     guide=guide,rent=rent,tenure=tenure,vat="UNKNOWN",
-                    url=url,desc=text[:350],image=image)
+                    url=url,desc=text[:900],image=image)
     except Exception:
         return None
 
+
 @st.cache_data(ttl=21600, show_spinner=False)
 def _bond_wolfe_current():
-    catalogue="https://www.bondwolfe.com/auctions/properties/"
+    order="https://www.bondwolfe.com/order-of-sale/"
     try:
-        s=BeautifulSoup(fetch(catalogue),"lxml")
-        urls=[]
-        for a in s.find_all("a",href=True):
-            href=urljoin(catalogue,a["href"]).rstrip("/")+"/"
-            if re.match(r"^https://www\.bondwolfe\.com/auctions/properties/\d+-property-auction-[^/]+/$",href,re.I):
-                if href not in urls: urls.append(href)
-
-        verified=[
-            "https://www.bondwolfe.com/auctions/properties/360362-property-auction-smethwick/",
-            "https://www.bondwolfe.com/auctions/properties/361360-property-auction-kidderminster/",
-            "https://www.bondwolfe.com/auctions/properties/357075-property-auction-birmingham/",
-            "https://www.bondwolfe.com/auctions/properties/361049-property-auction-wednesbury/",
-            "https://www.bondwolfe.com/auctions/properties/361103-property-auction-halesowen/",
-            "https://www.bondwolfe.com/auctions/properties/362298-property-auction-whitchurch/",
-        ]
-        for u in verified:
-            if u not in urls: urls.append(u)
-
+        soup=BeautifulSoup(fetch(order),"lxml")
+        links=[]
+        for a in soup.find_all("a",href=True):
+            txt=norm(a.get_text(" ",strip=True))
+            low=txt.lower()
+            if not re.search(r"\bLot\s+\d+",txt,re.I):
+                continue
+            if any(x in low for x in ("sold prior","withdrawn")):
+                continue
+            if not any(x in low for x in ("commercial investment","commercial vacant","mixed use")):
+                continue
+            href=urljoin(order,a["href"])
+            if "/auctions/properties/" in href and href not in links:
+                links.append(href)
         rows=[]
         with ThreadPoolExecutor(max_workers=10) as ex:
-            futures=[ex.submit(_exact_page_card,u,"Bond Wolfe","2026-09-10",False) for u in urls[:80]]
-            for f in as_completed(futures):
-                row=f.result()
-                if row: rows.append(row)
-        unique={r["url"]:r for r in rows}
-        return list(unique.values())
+            futs=[ex.submit(_exact_page_card,u,"Bond Wolfe","2026-09-10",True) for u in links]
+            for f in as_completed(futs):
+                r=f.result()
+                if r: rows.append(r)
+        return _clean_rows(rows)
     except Exception:
         return []
+
 
 @st.cache_data(ttl=21600, show_spinner=False)
 def _strettons_current():
-    url="https://www.strettons.co.uk/auction-commercial-property/for-sale/"
+    """
+    Current 10 Sep commercial catalogue only.
+    Follow exact /auction-commercial-property-for-sale/ pages so images,
+    size, tenure, rent and legal-document evidence come from the lot itself.
+    """
+    listing="https://www.strettons.co.uk/auction-commercial-property/for-sale/"
     try:
-        s=BeautifulSoup(fetch(url),"lxml")
-        rows={}
-        for a in s.find_all("a",href=True):
-            node=a; card=""
+        soup=BeautifulSoup(fetch(listing),"lxml")
+        links={}
+        for a in soup.find_all("a",href=True):
+            href=urljoin(listing,a["href"])
+            if "/auction-commercial-property-for-sale/" not in href:
+                continue
+
+            # Associate exact link with closest current September lot card.
+            node=a
+            card=""
             for _ in range(9):
                 node=getattr(node,"parent",None)
-                if node is None: break
+                if node is None:
+                    break
                 t=norm(node.get_text(" ",strip=True))
                 if re.search(r"10 Sep 26\s*-\s*Lot\s+\d+",t,re.I) and len(t)<5000:
-                    card=t; break
-            if not card: continue
-            m=re.search(r"10 Sep 26\s*-\s*Lot\s+(\d+[A-Z]?)\s+(.+?)(?=(?:FREEHOLD|LONG LEASEHOLD|LEASEHOLD|Guide Price|View more))",card,re.I)
-            if not m: continue
-            lot="Lot "+m.group(1)
-            address=norm(m.group(2))
-            gm=re.search(r"Guide Price\s*(£[\d,]+)",card,re.I)
-            guide=parse_money(gm.group(1)) if gm else None
-            href=urljoin(url,a.get("href",""))
-            imgs=_img_candidates(node,url) if "_img_candidates" in globals() else []
-            low=card.lower()
-            rows[lot]=dict(source="Strettons",lot=lot,date="2026-09-10",
-                           address=address,guide=guide,rent=parse_rent(card),
-                           tenure=("Freehold" if "freehold" in low else "Leasehold" if "leasehold" in low else None),
-                           vat="UNKNOWN",url=href or url,desc=card[:350],
-                           image=imgs[0] if imgs else None)
-        return list(rows.values())
+                    card=t
+                    break
+            if not card:
+                continue
+            m=re.search(r"10 Sep 26\s*-\s*Lot\s+(\d+[A-Z]?)",card,re.I)
+            if not m:
+                continue
+            links["Lot "+m.group(1)]=href
+
+        def build(item):
+            lot,href=item
+            try:
+                s=BeautifulSoup(fetch(href),"lxml")
+                main=s.find("main") or s
+                text=norm(main.get_text(" ",strip=True))
+                low=text.lower()
+
+                if "sold prior" in low or "withdrawn" in low:
+                    return None
+
+                h=s.find("h1")
+                address=norm(h.get_text(" ",strip=True)) if h else ""
+                if not address:
+                    return None
+
+                gm=re.search(r"Guide Price\s*£?\s*([\d,]+)",text,re.I)
+                guide=float(gm.group(1).replace(",","")) if gm else None
+                rent=parse_rent(text)
+
+                imgs=_img_candidates(s,href)
+                image=None
+                for cand in imgs:
+                    lc=cand.lower()
+                    if any(x in lc for x in ("logo","agent","staff","avatar","icon")):
+                        continue
+                    image=cand
+                    break
+
+                # Preserve the rich exact-page text; this feeds lease/size analysis.
+                tenure=("Freehold" if re.search(r"\bFREEHOLD\b",text,re.I)
+                        else "Leasehold" if re.search(r"\bLEASEHOLD\b",text,re.I)
+                        else None)
+
+                return dict(
+                    source="Strettons",lot=lot,date="2026-09-10",
+                    address=address,guide=guide,rent=rent,tenure=tenure,
+                    vat="UNKNOWN",url=href,desc=text[:1800],image=image
+                )
+            except Exception:
+                return None
+
+        rows=[]
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            futures=[ex.submit(build,item) for item in links.items()]
+            for f in as_completed(futures):
+                r=f.result()
+                if r:
+                    rows.append(r)
+
+        return _clean_rows(rows)
     except Exception:
         return []
+
 
 @st.cache_data(ttl=21600, show_spinner=False)
 def _acuitus_current():
@@ -1495,6 +1877,36 @@ def refresh_savills():
         raise ValueError("Savills sanity check failed")
     return rows
 
+@st.cache_data(ttl=21600, show_spinner=False)
+def _pugh_current_commercial():
+    """Current 27 Aug BTG/Pugh commercial + mixed-use only."""
+    url="https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17&date_added=0&limit=0&radius=1&search_type=auction&view=grid"
+    try:
+        soup=BeautifulSoup(fetch(url),"lxml")
+        links=[]
+        for a in soup.find_all("a",href=True):
+            href=urljoin(url,a["href"])
+            if "/properties/" in href and href not in links:
+                links.append(href)
+        rows=[]
+        with ThreadPoolExecutor(max_workers=10) as ex:
+            futs=[ex.submit(_exact_page_card,u,"Pugh / BTG Eddisons","2026-08-27",False) for u in links]
+            for f in as_completed(futs):
+                r=f.result()
+                if not r:
+                    continue
+                low=(r.get("desc") or "").lower()
+                positive=("property type commercial","property type mixed use","commercial property",
+                          "commercial development","mixed use","retail property","property type hotel")
+                negative=("property type house","property type flat","property type bungalow",
+                          "residential development")
+                if any(x in low for x in positive) and not any(x in low for x in negative):
+                    rows.append(r)
+        return _clean_rows(rows)
+    except Exception:
+        return []
+
+
 def refresh_market():
     # Begin with the full current board, not the smaller seed.
     current_rows,old_health,_updated=load_rows()
@@ -1511,6 +1923,7 @@ def refresh_market():
         "Bond Wolfe": _bond_wolfe_current,
         "Strettons": _strettons_current,
         "Acuitus": _acuitus_current,
+        "Pugh / BTG Eddisons": _pugh_current_commercial,
     }
     with ThreadPoolExecutor(max_workers=4) as ex:
         futures={ex.submit(fn):src for src,fn in jobs.items()}
@@ -1619,7 +2032,63 @@ with st.expander("⚙️ Optional filters",expanded=False):
 
 lots_tab,sources_tab=st.tabs(["🎯 All properties","📡 Source health"])
 
+EXPECTED_CURRENT_COUNTS = {
+    "Savills Auctions": 23,
+    "Auction House London": 28,  # verified commercial floor; live collector may exceed this
+    "Bond Wolfe": 20,
+    "Barnard Marcus": 4,
+    "Auction House East Anglia": 7,
+    "Auction House West Yorkshire": 4,
+    "Auction House Sussex & Hampshire": 1,
+    "Auction House South West": 1,
+    "Pugh / BTG Eddisons": 19,
+    "Strettons": 19,
+    "Acuitus": 7,
+    "Auction House Wales": 6,
+    "Auction House Cumbria": 5,
+    "Auction House North East": 4,
+    "Auction House North West": 16,
+}
+
 with sources_tab:
+    # Self-audit: this should make regressions visible without waiting for manual checking.
+    source_audit={}
+    for p in rows:
+        src=p.get("source","Unknown")
+        a=source_audit.setdefault(src,{"properties":0,"images":0,"commercial_flags":0,"exact_pages":0})
+        a["properties"]+=1
+        _u=p.get("url") or ""
+        if _u and not any(x in _u for x in ("/for-sale/","/find-a-property","/property-search","/auctions/live-stream/")):
+            a["exact_pages"]+=1
+        if p.get("image"): a["images"]+=1
+        txt=(str(p.get("address") or "")+" "+str(p.get("desc") or "")).lower()
+        if any(x in txt for x in ("terraced house","semi-detached house","detached house","bungalow"," bedroom flat","apartment")):
+            if not any(x in txt for x in ("mixed-use","mixed use","commercial unit","retail","shop","office","industrial","warehouse","care home")):
+                a["commercial_flags"]+=1
+
+    st.info("INTERMEDIATE BUILD — live catalogue enrichment is enabled; source audit below should be checked after Refresh market.")
+    st.markdown("#### Capture audit")
+    st.caption("Expected counts are minimum independently verified current commercial/mixed-use lots. Falling below them is a release failure.")
+    audit_rows=[]
+    for src,a in sorted(source_audit.items()):
+        image_pct=(100*a["images"]/a["properties"]) if a["properties"] else 0
+        audit_status=("❌ CHECK" if a["commercial_flags"]>0 or image_pct<70
+                      else "⚠️ PARTIAL" if image_pct<100
+                      else "✅ GOOD")
+        audit_rows.append({
+            "Source":src,
+            "Lots":a["properties"],
+            "Images":a["images"],
+            "Image coverage":f"{image_pct:.0f}%",
+            "Exact pages":f'{a["exact_pages"]}/{a["properties"]}', 
+            "Residential flags":a["commercial_flags"],
+            "Expected min":EXPECTED_CURRENT_COUNTS.get(src,"—"),
+            "Coverage":(f'{100*a["properties"]/EXPECTED_CURRENT_COUNTS[src]:.0f}%' if src in EXPECTED_CURRENT_COUNTS and EXPECTED_CURRENT_COUNTS[src] else "—"),
+            "Audit":("❌ MISSING LOTS" if src in EXPECTED_CURRENT_COUNTS and a["properties"] < EXPECTED_CURRENT_COUNTS[src] else audit_status),
+        })
+    if audit_rows:
+        st.dataframe(audit_rows,use_container_width=True,hide_index=True)
+
     actual_counts={}
     for p in rows:
         actual_counts[p["source"]]=actual_counts.get(p["source"],0)+1
