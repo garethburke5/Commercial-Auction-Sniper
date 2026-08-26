@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.8.3"
+BUILD = "V6.9"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -215,9 +215,25 @@ def _canonical_key(x):
         return (x.get("source","").lower(), lot)
     return (x.get("source","").lower(), (x.get("url") or "").split("?",1)[0].rstrip("/").lower())
 
+def _row_is_allowed(x):
+    source=(x.get("source") or "")
+    if source.startswith("Auction House ") and source!="Auction House London":
+        ptype=(x.get("property_type") or "").lower()
+        desc=(x.get("desc") or "").lower()
+        if ptype:
+            if any(t in ptype for t in AH_RESIDENTIAL_TYPES) and not any(t in ptype for t in AH_COMMERCIAL_TYPES):
+                return False
+            return any(t in ptype for t in AH_COMMERCIAL_TYPES)
+        # Legacy-cache cleanup: reject explicit residential categories.
+        if any(t in desc[:600] for t in AH_RESIDENTIAL_TYPES) and not any(t in desc[:600] for t in AH_COMMERCIAL_TYPES):
+            return False
+    return True
+
 def _clean_rows(rows):
     cleaned=[]; seen=set()
     for x in prepare(rows):
+        if not _row_is_allowed(x):
+            continue
         address=norm(x.get("address",""))
         if not address or address.lower() in GENERIC_TITLES:
             continue
@@ -229,6 +245,60 @@ def _clean_rows(rows):
         seen.add(key)
         cleaned.append(x)
     return cleaned
+
+def _looks_like_property_image(url):
+    if not url: return False
+    low=url.lower()
+    bad=("logo","favicon","icon","sprite","placeholder","avatar","cookie","tracking","pixel","social","facebook","instagram","linkedin","youtube","twitter","svg")
+    return not any(x in low for x in bad)
+
+def _property_image_from_soup(s, url):
+    """Choose a real property/gallery image from an exact lot page."""
+    # Social preview is usually the canonical property hero image.
+    for attrs in ({"property":"og:image"},{"name":"twitter:image"},{"property":"twitter:image"}):
+        tag=s.find("meta",attrs=attrs)
+        if tag and tag.get("content"):
+            cand=urljoin(url,tag["content"])
+            if _looks_like_property_image(cand):
+                return cand
+
+    scored=[]
+    for img in s.find_all("img"):
+        raw=img.get("data-src") or img.get("data-lazy-src") or img.get("data-original") or img.get("src")
+        if not raw: continue
+        cand=urljoin(url,raw)
+        if not _looks_like_property_image(cand): continue
+        alt=norm(img.get("alt","")).lower()
+        lc=cand.lower()
+        score=0
+        if any(x in alt for x in ("lot image","property image","property","auction lot")): score+=8
+        if any(x in lc for x in ("/lots/","/lot/","/properties/","/property/","/uploads/","/media/","lot-image")): score+=5
+        try:
+            w=int(re.sub(r"\\D","",str(img.get("width") or "0")) or 0)
+            h=int(re.sub(r"\\D","",str(img.get("height") or "0")) or 0)
+            if w>=400 or h>=250: score+=3
+            if 0<w<150 and 0<h<150: score-=5
+        except Exception: pass
+        if score>0: scored.append((score,cand))
+
+    if scored:
+        scored.sort(key=lambda x:x[0],reverse=True)
+        return scored[0][1]
+
+    # Last resort from filtered candidates; exact lot page only.
+    for cand in _img_candidates(s,url):
+        if _looks_like_property_image(cand):
+            return cand
+    return None
+
+def _fast_property_image(url):
+    """Bounded image-only fetch used for initial verified snapshot hydration."""
+    try:
+        r=requests.get(url,headers=HEADERS,timeout=4)
+        r.raise_for_status()
+        return _property_image_from_soup(BeautifulSoup(r.text,"lxml"),url)
+    except Exception:
+        return None
 
 def _img_candidates(node, base):
     if node is None:
@@ -609,11 +679,50 @@ def _catalogue_strettons():
 
 
 COMMERCIAL_WORDS = (
-    "commercial property","mixed use","mixed-use","shop","retail","office",
-    "industrial","warehouse","light industrial","commercial development",
-    "restaurant","public house","pub","care home","business premises",
-    "investment","freehold ground rent","development site"
+    "commercial property","mixed use","mixed-use","retail property","retail unit",
+    "office building","offices","industrial","warehouse","shop investment",
+    "restaurant","public house","care home","business premises","commercial unit"
 )
+
+AH_COMMERCIAL_TYPES=(
+    "commercial property","commercial land","mixed use","mixed-use","retail property",
+    "shop","office","offices","industrial","warehouse","public house","hotel",
+    "care home","restaurant","business premises"
+)
+AH_RESIDENTIAL_TYPES=(
+    "detached house","semi-detached house","semi detached house","terraced house",
+    "end of terrace house","bungalow","cottage","flat","apartment","block of apartments",
+    "house (unspecified)","maisonette","residential property"
+)
+
+def _auctionhouse_property_type(s,text):
+    # Auction House publishes its type immediately beneath the guide price as a list item.
+    candidates=[]
+    for tag in s.find_all(["li","span","div","p"]):
+        t=norm(tag.get_text(" ",strip=True))
+        if not t or len(t)>80: continue
+        tl=t.lower()
+        if any(x==tl or x in tl for x in AH_COMMERCIAL_TYPES+AH_RESIDENTIAL_TYPES):
+            candidates.append(t)
+    # Prefer explicit commercial type if present, otherwise explicit residential type.
+    for t in candidates:
+        if any(x in t.lower() for x in AH_COMMERCIAL_TYPES): return t
+    for t in candidates:
+        if any(x in t.lower() for x in AH_RESIDENTIAL_TYPES): return t
+    # Controlled text fallback near Guide; do not use words such as 'investment'.
+    for typ in AH_COMMERCIAL_TYPES:
+        if re.search(r"(?:Guide[^£]{0,80}£[\\d,]+[^A-Za-z]{0,120})"+re.escape(typ),text,re.I):
+            return typ.title()
+    return None
+
+def _auctionhouse_is_commercial(s,text):
+    typ=_auctionhouse_property_type(s,text)
+    if not typ: return False,typ
+    tl=typ.lower()
+    if any(x in tl for x in AH_RESIDENTIAL_TYPES) and not any(x in tl for x in AH_COMMERCIAL_TYPES):
+        return False,typ
+    return any(x in tl for x in AH_COMMERCIAL_TYPES),typ
+
 
 AUCTION_HOUSE_BRANCHES = {
     "eastanglia":"Auction House East Anglia",
@@ -641,28 +750,26 @@ def _parse_auctionhouse_detail(page_html,url,source):
     s=BeautifulSoup(page_html,"lxml")
     text=norm(s.get_text(" ",strip=True))
     low=text.lower()
-    # Reject ordinary residential lots unless the page itself identifies commercial/mixed-use.
-    if not any(k in low for k in COMMERCIAL_WORDS):
+    is_commercial,property_type=_auctionhouse_is_commercial(s,text)
+    if not is_commercial:
         return None
     title=(s.find("h1").get_text(" ",strip=True) if s.find("h1") else "")
     title=norm(title)
     if not title or title.lower().startswith("property for auction"):
-        # Find address-like heading/text before Guide.
-        m=re.search(r"(?:Lot\s+\d+\s+)?(.{8,180}?)\s+(?:Save Lot|Guide\s*\|)",text,re.I)
+        m=re.search(r"(?:Lot\\s+\\d+\\s+)?(.{8,180}?)\\s+(?:Save Lot|Guide\\s*\\|)",text,re.I)
         title=norm(m.group(1)) if m else title
-    gm=re.search(r"Guide\s*\|\s*£([\d,]+)",text,re.I)
+    gm=re.search(r"Guide\\s*\\|\\s*£([\\d,]+)",text,re.I)
     guide=float(gm.group(1).replace(",","")) if gm else None
-    lm=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
+    lm=re.search(r"\\bLot\\s+(\\d+[A-Z]?)\\b",text,re.I)
     lot="Lot "+lm.group(1) if lm else "Lot TBC"
-    dm=re.search(r"Auction Date\s+\w+\s+(\d{2})/(\d{2})/(\d{4})",text,re.I)
+    dm=re.search(r"Auction Date\\s+\\w+\\s+(\\d{2})/(\\d{2})/(\\d{4})",text,re.I)
     date=f"{dm.group(3)}-{dm.group(2)}-{dm.group(1)}" if dm else None
-    imgs=_img_candidates(s,url)
+    image=_property_image_from_soup(s,url)
     return dict(
         source=source,lot=lot,date=date,address=title,guide=guide,
-        rent=parse_rent(text),
-        tenure=("Freehold" if "tenure: freehold" in low or "freehold" in low[:1200]
-                else "Leasehold" if "tenure: leasehold" in low or "leasehold" in low[:1200] else None),
-        vat="UNKNOWN",url=url,desc=text[:650],image=imgs[0] if imgs else None
+        rent=parse_rent(text),property_type=property_type,
+        tenure=("Freehold" if "tenure: freehold" in low else "Leasehold" if "tenure: leasehold" in low else None),
+        vat="UNKNOWN",url=url,desc=text[:900],image=image
     )
 
 @st.cache_data(ttl=21600, show_spinner=False)
@@ -719,13 +826,13 @@ def _parse_barnard_detail(page_html,url):
     guide=float(gm.group(1).replace(",","")) if gm else None
     lm=re.search(r"\bLOT\s+(\d+[A-Z]?)\b",text,re.I)
     lot="Lot "+lm.group(1) if lm else "Lot TBC"
-    imgs=_img_candidates(s,url)
+    image=_property_image_from_soup(s,url)
     return dict(
         source="Barnard Marcus",lot=lot,date="2026-09-10",address=address,
         guide=guide,rent=parse_rent(text),
         tenure=("Freehold" if "tenure: freehold" in low or address and "freehold" in low[:1500]
                 else "Leasehold" if "tenure: leasehold" in low else None),
-        vat="UNKNOWN",url=url,desc=text[:650],image=imgs[0] if imgs else None
+        vat="UNKNOWN",url=url,desc=text[:650],image=image
     )
 
 @st.cache_data(ttl=21600, show_spinner=False)
@@ -800,14 +907,13 @@ def _merge_catalogue_rows(base_rows):
 def _best_exact_page_image(url):
     try:
         s=BeautifulSoup(fetch(url),"lxml")
-        candidates=_img_candidates(s,url)
-        for u in candidates:
-            if "auctions.savills.co.uk" in (url or "") and _is_savills_brand_image(u):
-                continue
-            return u
-        return None
+        img=_property_image_from_soup(s,url)
+        if "auctions.savills.co.uk" in (url or "") and _is_savills_brand_image(img):
+            return None
+        return img
     except Exception:
         return None
+
 
 def _enrich_missing_images(rows,limit=80):
     # Savills: only genuine property gallery photos are accepted.
@@ -904,6 +1010,20 @@ def _merge_property_universe(seed_rows, cached_rows):
 
     return _clean_rows(list(universe.values()))
 
+def _hydrate_snapshot_images(rows):
+    """Bounded initial photo hydration only; no catalogue crawling."""
+    todo=[x for x in rows if not x.get("image") and x.get("url") and x.get("source")!="Savills Auctions"]
+    # Exact property pages only. 24 workers + 4s request timeout prevents multi-minute startup.
+    with ThreadPoolExecutor(max_workers=min(24,max(1,len(todo)))) as ex:
+        fut={ex.submit(_fast_property_image,x["url"]):x for x in todo[:80]}
+        for f in as_completed(fut):
+            x=fut[f]
+            try:
+                img=f.result()
+                if img: x["image"]=img
+            except Exception: pass
+    return rows
+
 def load_rows():
     """
     Fast, non-destructive boot with rich-field preservation.
@@ -936,6 +1056,7 @@ def load_rows():
             pass
 
     rows=_merge_property_universe(SEED,cached_rows)
+    rows=_hydrate_snapshot_images(rows)
     return rows,health,updated
 
 
@@ -950,26 +1071,7 @@ def _exact_page_card(url, source, auction_date, force_commercial=False):
         text=norm(main.get_text(" ",strip=True))
         low=text.lower()
 
-        image=None
-        og=s.find("meta",attrs={"property":"og:image"})
-        if og and og.get("content"):
-            cand=urljoin(url,og["content"])
-            if not any(x in cand.lower() for x in ("logo","favicon","icon","sprite","placeholder")):
-                image=cand
-        if not image:
-            for img in s.find_all("img"):
-                raw=img.get("data-src") or img.get("data-lazy-src") or img.get("src")
-                if not raw: continue
-                cand=urljoin(url,raw)
-                lc=cand.lower()
-                if any(x in lc for x in ("logo","favicon","icon","sprite","placeholder","avatar")):
-                    continue
-                alt=norm(img.get("alt","")).lower()
-                first=address.split(",")[0].lower()
-                if first and first in alt:
-                    image=cand; break
-                if any(x in lc for x in ("/uploads/","/properties/","/property/","/images/")):
-                    image=cand; break
+        image=_property_image_from_soup(s,url)
 
         gm=re.search(r"Guide price\*?\s*(?:£)?\s*([\d,]+)",text,re.I)
         guide=float(gm.group(1).replace(",","")) if gm else None
@@ -1123,15 +1225,11 @@ def _exact_preview(url):
     s=BeautifulSoup(fetch(url),"lxml")
     h1=s.find("h1")
     title=norm(h1.get_text(" ",strip=True)) if h1 else None
-    img=None
-    for attrs in ({"property":"og:image"},{"name":"twitter:image"}):
-        tag=s.find("meta",attrs=attrs)
-        if tag and tag.get("content"):
-            img=urljoin(url,tag["content"])
-            break
+    img=_property_image_from_soup(s,url)
     main=s.find("main") or s.find("article")
     text=norm(main.get_text(" ",strip=True)) if main else norm(s.get_text(" ",strip=True))
     return title,img,text
+
 
 def refresh_ahl():
     url="https://auctionhouselondon.co.uk/commercial-property-for-sale"
@@ -1282,72 +1380,69 @@ def refresh_savills():
     return rows
 
 def refresh_market():
-    # Only replace sources that passed their own sanity checks.
+    # Begin with the full current board, not the smaller seed.
+    current_rows,old_health,_updated=load_rows()
     current_by_source={}
-    for p in SEED:
+    for p in current_rows:
         current_by_source.setdefault(p["source"],[]).append(dict(p))
-    health=list(SOURCE_HEALTH)
+    health=[dict(h) for h in SOURCE_HEALTH]
+
     jobs={
         "Auction House London": refresh_ahl,
         "Savills Auctions": refresh_savills,
         "Barnard Marcus": _catalogue_barnard_marcus,
         "Auction House Regional": _catalogue_auctionhouse_regional,
+        "Bond Wolfe": _bond_wolfe_current,
+        "Strettons": _strettons_current,
+        "Acuitus": _acuitus_current,
     }
-    with ThreadPoolExecutor(max_workers=2) as ex:
+    with ThreadPoolExecutor(max_workers=4) as ex:
         futures={ex.submit(fn):src for src,fn in jobs.items()}
         for f in as_completed(futures):
             src=futures[f]
             try:
-                rows=f.result()
-                if rows:
-                    if src=="Auction House Regional":
-                        # Keep regional branch names instead of collapsing them.
-                        for r in rows:
-                            current_by_source.setdefault(r["source"],[])
-                        branch=current_by_source[r["source"]]
-                        by_key={_canonical_key(x):dict(x) for x in branch}
-                        k=_canonical_key(r)
-                        if k in by_key:
-                            by_key[k]=_merge_property_rows(by_key[k],r,seed_authoritative=False)
-                        else:
-                            by_key[k]=dict(r)
-                        current_by_source[r["source"]]=list(by_key.values())
-                    else:
-                        # Never shrink a source after refresh. Merge new rows into
-                        # the last-known-good source snapshot.
-                        existing=current_by_source.get(src,[])
-                        by_key={_canonical_key(x):dict(x) for x in existing}
-                        for r in rows:
+                rows=f.result() or []
+                rows=_clean_rows(rows)
+                if not rows:
+                    continue
+                if src=="Auction House Regional":
+                    # FIX: merge EVERY returned regional row, not only the final loop item.
+                    grouped={}
+                    for r in rows:
+                        grouped.setdefault(r["source"],[]).append(r)
+                    for branch,newrows in grouped.items():
+                        by_key={_canonical_key(x):dict(x) for x in current_by_source.get(branch,[])}
+                        for r in newrows:
                             k=_canonical_key(r)
-                            if k in by_key:
-                                by_key[k]=_merge_property_rows(by_key[k],r,seed_authoritative=False)
-                            else:
-                                by_key[k]=dict(r)
-                        current_by_source[src]=list(by_key.values())
-                    for h in health:
-                        if h["source"]==src:
-                            h["status"]="LIVE REFRESHED"
-                            h["note"]=f"{len(rows)} lots refreshed"
-            except Exception as e:
-                for h in health:
-                    if h["source"]==src:
-                        h["status"]="SEED RETAINED"
-                        h["note"]=f"Live refresh failed; verified seed retained ({type(e).__name__})"
-    merged=[]
-    for rows in current_by_source.values():
-        merged.extend(rows)
-    payload={"updated":time.strftime("%Y-%m-%d %H:%M"),"properties":merged,"health":health}
-    # Global non-shrink guard: a refresh is not allowed to reduce the
-    # current property universe.
-    refreshed=[]
-    for _rows in current_by_source.values():
-        refreshed.extend(_rows)
-    refreshed=_clean_rows(refreshed)
-    if len(refreshed) < len(current_rows):
-        refreshed=_clean_rows(list(current_rows)+refreshed)
+                            by_key[k]=_merge_property_rows(by_key.get(k),r,seed_authoritative=False) if k in by_key else dict(r)
+                        current_by_source[branch]=list(by_key.values())
+                else:
+                    by_key={_canonical_key(x):dict(x) for x in current_by_source.get(src,[])}
+                    for r in rows:
+                        k=_canonical_key(r)
+                        by_key[k]=_merge_property_rows(by_key.get(k),r,seed_authoritative=False) if k in by_key else dict(r)
+                    current_by_source[src]=list(by_key.values())
+            except Exception:
+                pass
 
+    refreshed=[]
+    for source_rows in current_by_source.values():
+        refreshed.extend(source_rows)
+    refreshed=_clean_rows(refreshed)
+
+    # Exact property-page photo enrichment for ALL missing non-Savills cards,
+    # including AHL, Bond Wolfe, Barnard Marcus and cached BTG/Pugh rows.
+    refreshed=_enrich_missing_images(refreshed,limit=220)
+
+    # Non-shrink guard after residential cleanup: only compare allowed current rows.
+    allowed_current=_clean_rows(current_rows)
+    if len(refreshed) < len(allowed_current):
+        refreshed=_merge_property_universe(allowed_current,refreshed)
+
+    payload={"updated":time.strftime("%Y-%m-%d %H:%M"),"properties":refreshed,"health":health}
     CACHE.write_text(json.dumps(payload,indent=2),encoding="utf-8")
     return payload
+
 
 # ---------------- UI ----------------
 st.markdown("""
@@ -1388,8 +1483,8 @@ st.markdown(
 )
 
 with st.expander("🔄 Live data",expanded=False):
-    st.caption("The board loads from the verified snapshot immediately. Investment analysis does not make live web requests while cards are rendering.")
-    if st.button("Refresh live sources",type="primary",use_container_width=True):
+    st.caption("The board loads from the verified snapshot. Property photos are hydrated from exact lot pages; full catalogue crawling only runs when you press Refresh.")
+    if st.button("Refresh sources + photos",type="primary",use_container_width=True):
         with st.spinner("Refreshing source-specific commercial feeds…"):
             refresh_market()
         st.rerun()
