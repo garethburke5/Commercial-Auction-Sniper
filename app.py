@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.8.2"
+BUILD = "V6.8.3"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -836,20 +836,87 @@ def _enrich_missing_images(rows,limit=80):
                 pass
     return rows
 
+
+def _merge_property_rows(existing, incoming, seed_authoritative=False):
+    """
+    Merge two records for the same property without throwing away richer fields.
+
+    If seed_authoritative=True, verified financial/tenure facts from the seed win,
+    while richer cache/live metadata (especially images) can fill gaps.
+    """
+    if not existing:
+        return dict(incoming or {})
+    if not incoming:
+        return dict(existing)
+
+    out=dict(existing)
+
+    # Fields where richer incoming data should fill a blank existing value.
+    fill_fields=("image","area_sqft","area_sqm","tenant","lease_expiry","break_clause",
+                 "legal_pack","epc","rateable_value","service_charge","ground_rent")
+    for k in fill_fields:
+        if not out.get(k) and incoming.get(k):
+            out[k]=incoming[k]
+
+    # Prefer longer non-generic descriptions because they feed analysis.
+    old_desc=str(out.get("desc") or "")
+    new_desc=str(incoming.get("desc") or "")
+    if len(new_desc) > len(old_desc):
+        out["desc"]=incoming["desc"]
+
+    # Exact URL can improve navigation if existing URL is blank/generic.
+    if incoming.get("url") and (not out.get("url") or out.get("url","").endswith("/page-1/quantity-100/property_type-253/sort-by-0")):
+        out["url"]=incoming["url"]
+
+    # For ordinary cache/live rows, fill/refresh core facts where incoming has evidence.
+    if not seed_authoritative:
+        for k in ("guide","rent","tenure","vat","date","lot","address"):
+            if incoming.get(k) not in (None,"","UNKNOWN"):
+                out[k]=incoming[k]
+    else:
+        # Seed verified facts remain authoritative, but fill genuine blanks.
+        for k in ("guide","rent","tenure","vat","date","lot","address"):
+            if out.get(k) in (None,"","UNKNOWN") and incoming.get(k) not in (None,"","UNKNOWN"):
+                out[k]=incoming[k]
+
+    return out
+
+def _merge_property_universe(seed_rows, cached_rows):
+    """
+    Merge by canonical property key.
+    Seed provides verified baseline facts; cache provides richer images/details
+    and additional properties. No duplicate is allowed to discard a real image.
+    """
+    universe={}
+    seed_keys=set()
+
+    for row in seed_rows:
+        k=_canonical_key(row)
+        universe[k]=dict(row)
+        seed_keys.add(k)
+
+    for row in cached_rows:
+        k=_canonical_key(row)
+        if k in universe:
+            universe[k]=_merge_property_rows(universe[k],row,seed_authoritative=(k in seed_keys))
+        else:
+            universe[k]=dict(row)
+
+    return _clean_rows(list(universe.values()))
+
 def load_rows():
     """
-    Fast, non-destructive boot.
+    Fast, non-destructive boot with rich-field preservation.
 
-    - Never performs network I/O.
-    - Starts with the verified seed.
-    - Merges every usable legacy/current cache it can find.
-    - Keeps the largest unique property universe rather than replacing it with
-      a smaller snapshot after a deployment/version change.
+    - Zero network I/O.
+    - Verified seed facts remain authoritative.
+    - Every usable cache contributes additional properties.
+    - Cached/live images and richer metadata are merged into matching seed rows.
     """
     candidates=[Path("auction_sniper_cache.json")]
     candidates += sorted(Path(".").glob("auction_sniper_cache_v*.json"))
 
-    combined=list(SEED)
+    cached_rows=[]
     health=SOURCE_HEALTH
     updated="Verified snapshot · 26 Aug 2026"
 
@@ -860,7 +927,7 @@ def load_rows():
             cached=json.loads(path.read_text(encoding="utf-8"))
             props=cached.get("properties") or []
             if props:
-                combined.extend(props)
+                cached_rows.extend(props)
                 if cached.get("health"):
                     health=cached["health"]
                 if cached.get("updated"):
@@ -868,7 +935,7 @@ def load_rows():
         except Exception:
             pass
 
-    rows=_clean_rows(combined)
+    rows=_merge_property_universe(SEED,cached_rows)
     return rows,health,updated
 
 
@@ -1237,20 +1304,26 @@ def refresh_market():
                         # Keep regional branch names instead of collapsing them.
                         for r in rows:
                             current_by_source.setdefault(r["source"],[])
-                        existing_keys={_canonical_key(x) for x in current_by_source[r["source"]]}
-                        if _canonical_key(r) not in existing_keys:
-                            current_by_source[r["source"]].append(r)
+                        branch=current_by_source[r["source"]]
+                        by_key={_canonical_key(x):dict(x) for x in branch}
+                        k=_canonical_key(r)
+                        if k in by_key:
+                            by_key[k]=_merge_property_rows(by_key[k],r,seed_authoritative=False)
+                        else:
+                            by_key[k]=dict(r)
+                        current_by_source[r["source"]]=list(by_key.values())
                     else:
                         # Never shrink a source after refresh. Merge new rows into
                         # the last-known-good source snapshot.
                         existing=current_by_source.get(src,[])
-                        merged=list(existing)
-                        seen={_canonical_key(x) for x in merged}
+                        by_key={_canonical_key(x):dict(x) for x in existing}
                         for r in rows:
                             k=_canonical_key(r)
-                            if k not in seen:
-                                merged.append(r); seen.add(k)
-                        current_by_source[src]=merged
+                            if k in by_key:
+                                by_key[k]=_merge_property_rows(by_key[k],r,seed_authoritative=False)
+                            else:
+                                by_key[k]=dict(r)
+                        current_by_source[src]=list(by_key.values())
                     for h in health:
                         if h["source"]==src:
                             h["status"]="LIVE REFRESHED"
