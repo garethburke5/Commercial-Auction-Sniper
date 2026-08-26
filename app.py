@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.9"
+BUILD = "V6.9.1"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -678,6 +678,41 @@ def _catalogue_strettons():
         return []
 
 
+
+COMMERCIAL_TYPES = (
+    "commercial property","mixed use","mixed-use","retail","shop","office",
+    "industrial","warehouse","light industrial","restaurant","public house",
+    "pub","care home","business premises","commercial investment",
+    "commercial development"
+)
+
+def _is_explicitly_residential(text):
+    low=(text or "").lower()
+    return any(x in low for x in (
+        "semi-detached house","semi detached house","detached house",
+        "terraced house","end terrace house","end-terrace house",
+        "bungalow","one bedroom flat","two bedroom flat","three bedroom flat",
+        "maisonette","residential dwelling"
+    ))
+
+def _is_explicitly_commercial(text):
+    low=(text or "").lower()
+    return any(x in low for x in COMMERCIAL_TYPES)
+
+def _should_keep_commercial_row(source,address,desc):
+    text=norm(f"{address or ''} {desc or ''}")
+    low=text.lower()
+    if _is_explicitly_residential(text) and not any(
+        x in low for x in ("mixed-use","mixed use","commercial unit","shop","retail unit","office","industrial","warehouse","care home")
+    ):
+        return False
+    sl=(source or "").lower()
+    if "barnard marcus" in sl:
+        return _is_explicitly_commercial(text)
+    if sl.startswith("auction house ") and "london" not in sl:
+        return _is_explicitly_commercial(text)
+    return True
+
 COMMERCIAL_WORDS = (
     "commercial property","mixed use","mixed-use","retail property","retail unit",
     "office building","offices","industrial","warehouse","shop investment",
@@ -750,27 +785,47 @@ def _parse_auctionhouse_detail(page_html,url,source):
     s=BeautifulSoup(page_html,"lxml")
     text=norm(s.get_text(" ",strip=True))
     low=text.lower()
-    is_commercial,property_type=_auctionhouse_is_commercial(s,text)
-    if not is_commercial:
+
+    property_type=None
+    m=re.search(r"Property Type\s*[:|]\s*([^|]{3,80})",text,re.I)
+    if m:
+        property_type=norm(m.group(1))
+    else:
+        m=re.search(r"(Commercial Property|Mixed[- ]Use|Retail(?: Property)?|Office(?:s)?|Industrial(?: Property)?|Warehouse|Care Home|Public House|Restaurant|Detached House|Semi[- ]Detached House|Terraced House|Bungalow|Flat|Maisonette)",text,re.I)
+        if m:
+            property_type=norm(m.group(1))
+
+    type_text=property_type or text[:1200]
+    if _is_explicitly_residential(type_text) and not _is_explicitly_commercial(type_text):
         return None
-    title=(s.find("h1").get_text(" ",strip=True) if s.find("h1") else "")
-    title=norm(title)
-    if not title or title.lower().startswith("property for auction"):
-        m=re.search(r"(?:Lot\\s+\\d+\\s+)?(.{8,180}?)\\s+(?:Save Lot|Guide\\s*\\|)",text,re.I)
-        title=norm(m.group(1)) if m else title
-    gm=re.search(r"Guide\\s*\\|\\s*£([\\d,]+)",text,re.I)
+    if not _is_explicitly_commercial(type_text):
+        return None
+
+    h=s.find("h1")
+    address=norm(h.get_text(" ",strip=True)) if h else ""
+    if not address:
+        return None
+
+    gm=re.search(r"Guide\s*\|\s*£([\d,]+)",text,re.I)
+    if not gm:
+        gm=re.search(r"Guide(?: Price)?\s*[:£ ]+\s*£?([\d,]+)",text,re.I)
     guide=float(gm.group(1).replace(",","")) if gm else None
-    lm=re.search(r"\\bLot\\s+(\\d+[A-Z]?)\\b",text,re.I)
+
+    lm=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
     lot="Lot "+lm.group(1) if lm else "Lot TBC"
-    dm=re.search(r"Auction Date\\s+\\w+\\s+(\\d{2})/(\\d{2})/(\\d{4})",text,re.I)
+    dm=re.search(r"Auction Date\s+\w+\s+(\d{2})/(\d{2})/(\d{4})",text,re.I)
     date=f"{dm.group(3)}-{dm.group(2)}-{dm.group(1)}" if dm else None
-    image=_property_image_from_soup(s,url)
-    return dict(
-        source=source,lot=lot,date=date,address=title,guide=guide,
-        rent=parse_rent(text),property_type=property_type,
-        tenure=("Freehold" if "tenure: freehold" in low else "Leasehold" if "tenure: leasehold" in low else None),
-        vat="UNKNOWN",url=url,desc=text[:900],image=image
+    imgs=_img_candidates(s,url)
+
+    row=dict(
+        source=source,lot=lot,date=date,address=address,guide=guide,
+        rent=parse_rent(text),
+        tenure=("Freehold" if "freehold" in low[:1800]
+                else "Leasehold" if "leasehold" in low[:1800] else None),
+        vat="UNKNOWN",url=url,desc=text[:900],image=imgs[0] if imgs else None
     )
+    return row if _should_keep_commercial_row(source,address,text[:1500]) else None
+
 
 @st.cache_data(ttl=21600, show_spinner=False)
 def _catalogue_auctionhouse_regional():
@@ -814,26 +869,46 @@ def _catalogue_auctionhouse_regional():
 
 def _parse_barnard_detail(page_html,url):
     s=BeautifulSoup(page_html,"lxml")
-    text=norm(s.get_text(" ",strip=True)); low=text.lower()
-    # Keep commercial, mixed-use and income-producing non-standard lots.
-    if not any(k in low for k in COMMERCIAL_WORDS):
-        return None
+    text=norm(s.get_text(" ",strip=True))
+    low=text.lower()
     h=s.find("h1")
     address=norm(h.get_text(" ",strip=True)) if h else ""
     if not address:
         return None
+    if not _is_explicitly_commercial(text):
+        return None
+    if _is_explicitly_residential(text) and not any(
+        x in low for x in ("mixed-use","mixed use","commercial unit","shop","retail","office","industrial","warehouse","care home","business premises")
+    ):
+        return None
+
     gm=re.search(r"guide price\s*\*?\s*£([\d,]+)",text,re.I)
+    if not gm:
+        gm=re.search(r"Guide(?: Price)?\s*[:£ ]+\s*£?([\d,]+)",text,re.I)
     guide=float(gm.group(1).replace(",","")) if gm else None
     lm=re.search(r"\bLOT\s+(\d+[A-Z]?)\b",text,re.I)
     lot="Lot "+lm.group(1) if lm else "Lot TBC"
-    image=_property_image_from_soup(s,url)
+
+    image=None
+    og=s.find("meta",attrs={"property":"og:image"})
+    if og and og.get("content"):
+        cand=urljoin(url,og["content"])
+        if not any(x in cand.lower() for x in ("logo","favicon","icon","placeholder","sprite")):
+            image=cand
+    if not image:
+        for cand in _img_candidates(s,url):
+            if not any(x in cand.lower() for x in ("logo","favicon","icon","placeholder","sprite")):
+                image=cand
+                break
+
     return dict(
         source="Barnard Marcus",lot=lot,date="2026-09-10",address=address,
         guide=guide,rent=parse_rent(text),
-        tenure=("Freehold" if "tenure: freehold" in low or address and "freehold" in low[:1500]
-                else "Leasehold" if "tenure: leasehold" in low else None),
-        vat="UNKNOWN",url=url,desc=text[:650],image=image
+        tenure=("Freehold" if "freehold" in low[:1800]
+                else "Leasehold" if "leasehold" in low[:1800] else None),
+        vat="UNKNOWN",url=url,desc=text[:900],image=image
     )
+
 
 @st.cache_data(ttl=21600, show_spinner=False)
 def _catalogue_barnard_marcus():
@@ -904,6 +979,37 @@ def _merge_catalogue_rows(base_rows):
 
 
 @st.cache_data(ttl=21600, show_spinner=False)
+def _exact_property_image(url):
+    if not url:
+        return None
+    try:
+        s=BeautifulSoup(fetch(url),"lxml")
+        og=s.find("meta",attrs={"property":"og:image"})
+        if og and og.get("content"):
+            cand=urljoin(url,og["content"])
+            if not any(x in cand.lower() for x in ("logo","favicon","icon","placeholder","sprite","avatar")):
+                return cand
+        scored=[]
+        for img in s.find_all("img"):
+            raw=img.get("data-src") or img.get("data-lazy-src") or img.get("data-original") or img.get("src")
+            if not raw:
+                continue
+            cand=urljoin(url,raw)
+            lc=cand.lower()
+            if any(x in lc for x in ("logo","favicon","icon","placeholder","sprite","avatar","tracking")):
+                continue
+            alt=norm(img.get("alt","")).lower()
+            score=0
+            if any(x in lc for x in ("/uploads/","/properties/","/property/","/lots/","/images/")):
+                score+=3
+            if any(x in alt for x in ("property","auction","front","external","exterior")):
+                score+=2
+            scored.append((score,cand))
+        scored.sort(reverse=True,key=lambda x:x[0])
+        return scored[0][1] if scored and scored[0][0]>0 else None
+    except Exception:
+        return None
+
 def _best_exact_page_image(url):
     try:
         s=BeautifulSoup(fetch(url),"lxml")
@@ -915,32 +1021,19 @@ def _best_exact_page_image(url):
         return None
 
 
-def _enrich_missing_images(rows,limit=80):
-    # Savills: only genuine property gallery photos are accepted.
-    for x in rows:
-        if x.get("source")=="Savills Auctions":
-            # Discard anything not explicitly recognised as a genuine property image.
-            verified=SAVILLS_VERIFIED_CURRENT.get(x.get("lot"),{})
-            if verified.get("image"):
-                x["image"]=verified["image"]
-            elif not _is_genuine_savills_property_image(x.get("image")):
-                x["image"]=_savills_real_gallery_image(x.get("lot"))
-
-    # Other sources: exact page image is the fallback.
-    todo=[
-        x for x in rows[:limit]
-        if not x.get("image") and x.get("url") and x.get("source")!="Savills Auctions"
-    ]
-    with ThreadPoolExecutor(max_workers=10) as ex:
-        fut={ex.submit(_best_exact_page_image,x["url"]):x for x in todo}
-        for f in as_completed(fut):
-            x=fut[f]
-            try:
-                img=f.result()
-                if img: x["image"]=img
-            except Exception:
-                pass
-    return rows
+def _enrich_missing_images(rows):
+    targets=("auction house london","bond wolfe","barnard marcus","pugh","btg")
+    out=[]
+    for row in rows:
+        r=dict(row)
+        if r.get("source")=="Savills Auctions":
+            r=_apply_verified_savills_current(r)
+        if not r.get("image") and any(t in (r.get("source") or "").lower() for t in targets):
+            img=_exact_property_image(r.get("url"))
+            if img:
+                r["image"]=img
+        out.append(r)
+    return out
 
 
 def _merge_property_rows(existing, incoming, seed_authoritative=False):
@@ -988,41 +1081,35 @@ def _merge_property_rows(existing, incoming, seed_authoritative=False):
     return out
 
 def _merge_property_universe(seed_rows, cached_rows):
-    """
-    Merge by canonical property key.
-    Seed provides verified baseline facts; cache provides richer images/details
-    and additional properties. No duplicate is allowed to discard a real image.
-    """
     universe={}
     seed_keys=set()
 
     for row in seed_rows:
-        k=_canonical_key(row)
-        universe[k]=dict(row)
+        if not _should_keep_commercial_row(row.get("source"),row.get("address"),row.get("desc")):
+            continue
+        r=dict(row)
+        if r.get("source")=="Savills Auctions":
+            r=_apply_verified_savills_current(r)
+        k=_canonical_key(r)
+        universe[k]=r
         seed_keys.add(k)
 
     for row in cached_rows:
-        k=_canonical_key(row)
+        if not _should_keep_commercial_row(row.get("source"),row.get("address"),row.get("desc")):
+            continue
+        r=dict(row)
+        if r.get("source")=="Savills Auctions":
+            r=_apply_verified_savills_current(r)
+        k=_canonical_key(r)
         if k in universe:
-            universe[k]=_merge_property_rows(universe[k],row,seed_authoritative=(k in seed_keys))
+            universe[k]=_merge_property_rows(universe[k],r,seed_authoritative=(k in seed_keys))
+            if universe[k].get("source")=="Savills Auctions":
+                universe[k]=_apply_verified_savills_current(universe[k])
         else:
-            universe[k]=dict(row)
+            universe[k]=r
 
     return _clean_rows(list(universe.values()))
 
-def _hydrate_snapshot_images(rows):
-    """Bounded initial photo hydration only; no catalogue crawling."""
-    todo=[x for x in rows if not x.get("image") and x.get("url") and x.get("source")!="Savills Auctions"]
-    # Exact property pages only. 24 workers + 4s request timeout prevents multi-minute startup.
-    with ThreadPoolExecutor(max_workers=min(24,max(1,len(todo)))) as ex:
-        fut={ex.submit(_fast_property_image,x["url"]):x for x in todo[:80]}
-        for f in as_completed(fut):
-            x=fut[f]
-            try:
-                img=f.result()
-                if img: x["image"]=img
-            except Exception: pass
-    return rows
 
 def load_rows():
     """
