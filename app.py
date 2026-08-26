@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.7"
-CACHE = Path("auction_sniper_cache_v67.json")
+BUILD = "V6.8"
+CACHE = Path("auction_sniper_cache_v68.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -107,6 +107,65 @@ SEED = [
          url="https://www.bondwolfe.com/auctions/properties/357075-property-auction-birmingham/",
          desc="Freehold retail investment producing £6,000 p.a."),
 
+    # Barnard Marcus — 10 Sep 2026 current catalogue, verified live
+    dict(source="Barnard Marcus", lot="Lot 21", date="2026-09-10",
+         address="2 Rye Lane, Peckham, London, SE15 5BS",
+         guide=545000, rent=48573, tenure="Freehold", vat="UNKNOWN",
+         url="https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/716501/",
+         desc="Freehold three-storey mixed-use investment: ground-floor casino centre and two flats. Rent reserved £48,573 p.a."),
+    dict(source="Barnard Marcus", lot="Lot TBC", date="2026-09-10",
+         address="High Street, Caythorpe, Grantham",
+         guide=575000, rent=None, tenure="Freehold", vat="UNKNOWN",
+         url="https://www.barnardmarcus.co.uk/properties/21903060/sales/GST114433",
+         desc="Grade II listed former care home / commercial property offered with vacant possession."),
+
+    # Auction House regional — verified live September commercial lots
+    dict(source="Auction House East Anglia", lot="Lot 115", date="2026-09-09",
+         address="102 High Street, Lowestoft, Suffolk NR32 1XW",
+         guide=50000, rent=None, tenure=None, vat="UNKNOWN",
+         url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151798",
+         desc="Commercial property; former retail gallery with live/work conversion consent."),
+    dict(source="Auction House East Anglia", lot="Lot 123", date="2026-09-09",
+         address="23A South Quay, Great Yarmouth, Norfolk NR30 2RG",
+         guide=30000, rent=None, tenure="Freehold", vat="UNKNOWN",
+         url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151516",
+         desc="Freehold two-storey office building with development potential."),
+    dict(source="Auction House East Anglia", lot="Lot 114", date="2026-09-09",
+         address="2 The Walk, Beccles, Suffolk NR34 9AJ",
+         guide=375000, rent=None, tenure="Freehold", vat="UNKNOWN",
+         url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151791",
+         desc="Substantial town-centre retail premises with parking; approx. 6,873 sq ft / 638.59 sq m."),
+    dict(source="Auction House East Anglia", lot="Lot 62", date="2026-09-09",
+         address="Romar House, 12 Faraday Road, Leigh-On-Sea, Essex SS9 5JU",
+         guide=800000, rent=None, tenure="Freehold", vat="UNKNOWN",
+         url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151501",
+         desc="Freehold light-industrial property."),
+    dict(source="Auction House West Yorkshire", lot="Lot TBC", date="2026-09-09",
+         address="Poplar Products, Ramshead Approach, Leeds, West Yorkshire LS14 1LR",
+         guide=115000, rent=None, tenure=None, vat="UNKNOWN",
+         url="https://www.auctionhouse.co.uk/westyorkshire/auction/lot/152101",
+         desc="Detached industrial facility with offices and yard; approx. 30,742 sq ft / 2,856 sq m."),
+    dict(source="Auction House West Yorkshire", lot="Lot TBC", date="2026-09-09",
+         address="16 Station Road / 2 Wood Street, Horsforth, Leeds, West Yorkshire LS18 5NR",
+         guide=165000, rent=None, tenure=None, vat="UNKNOWN",
+         url="https://www.auctionhouse.co.uk/westyorkshire/auction/lot/151599",
+         desc="Commercial property in Horsforth."),
+    dict(source="Auction House West Yorkshire", lot="Lot TBC", date="2026-09-09",
+         address="3-5 High Street, Yeadon, Leeds, West Yorkshire LS19 7SP",
+         guide=238000, rent=None, tenure=None, vat="UNKNOWN",
+         url="https://www.auctionhouse.co.uk/westyorkshire/auction/lot/151605",
+         desc="Vacant prominent high-street former restaurant with upper-floor residential conversion consent."),
+    dict(source="Auction House West Yorkshire", lot="Lot TBC", date="2026-09-09",
+         address="Land and buildings, South side of Station Road, Dunscroft, Doncaster, South Yorkshire DN7 4DY",
+         guide=170000, rent=0, tenure=None, vat="UNKNOWN",
+         url="https://www.auctionhouse.co.uk/westyorkshire/auction/lot/151636",
+         desc="Former supermarket approx. 17,980 sq ft / 1,670 sq m; charity occupier in situ paying no rent."),
+    dict(source="Auction House Sussex & Hampshire", lot="Lot 15", date="2026-09-09",
+         address="Auckland House, 55 St. Ronans Road, Southsea, Hampshire, PO4 0PP",
+         guide=475000, rent=None, tenure="Freehold", vat="UNKNOWN",
+         url="https://www.auctionhouse.co.uk/sussexandhampshire/auction/lot/151683",
+         desc="Vacant freehold former care home/commercial building with consent for 12-bedroom HMO."),
+
     # Pugh / BTG — exact current 27 Aug lot
     dict(source="Pugh / BTG Eddisons", lot="Lot 218", date="2026-08-27",
          address="29 & 31/33 Mostyn Avenue, Llandudno, Conwy LL30 1YS",
@@ -116,18 +175,19 @@ SEED = [
 ]
 
 SOURCE_HEALTH = [
-    dict(source="Auction House London", status="LIVE", note="2–3 Sep commercial catalogue"),
+    dict(source="Auction House London", status="LIVE", note="2 Sep catalogue captured"),
+    dict(source="Auction House Regional", status="LIVE / EXPANDING", note="All regional branches scanned; current commercial/mixed-use lots included"),
+    dict(source="Barnard Marcus", status="LIVE", note="10 Sep catalogue now integrated"),
     dict(source="Savills Auctions", status="LIVE", note="2 Sep commercial section"),
     dict(source="Bond Wolfe", status="LIVE", note="10 Sep current catalogue"),
     dict(source="Pugh / BTG Eddisons", status="LIVE", note="Current/forthcoming commercial & mixed-use"),
     dict(source="Strettons", status="LIVE", note="10 Sep dedicated commercial feed"),
-    dict(source="Acuitus", status="EARLY CATALOGUE", note="17 Sep; full catalogue due 28 Aug"),
+    dict(source="Acuitus", status="EARLY CATALOGUE", note="17 Sep; catalogue building"),
     dict(source="Allsop Commercial", status="CATALOGUE PENDING", note="Next commercial auction 7 Oct; old lots excluded"),
-    dict(source="Clive Emson", status="CATALOGUE PENDING", note="22–24 Sep; catalogue due 4 Sep"),
-    dict(source="Barnard Marcus", status="TO INTEGRATE", note="10 Sep current auction"),
-    dict(source="Barnett Ross", status="TO INTEGRATE", note="10 Sep commercial auction source"),
-    dict(source="LSH Auctions", status="TO INTEGRATE", note="9 Sep commercial/mixed-use filtering"),
-    dict(source="BidX1 UK", status="TO INTEGRATE", note="Commercial/mixed-use feed"),
+    dict(source="Clive Emson", status="CATALOGUE PENDING", note="September catalogue due 4 Sep — do not show stale July lots"),
+    dict(source="Barnett Ross", status="TO INTEGRATE", note="Commercial source"),
+    dict(source="LSH Auctions", status="TO INTEGRATE", note="Commercial/mixed-use source"),
+    dict(source="BidX1 UK", status="TO INTEGRATE", note="Commercial/mixed-use source"),
 ]
 
 # ---------------- helpers ----------------
@@ -547,6 +607,161 @@ def _catalogue_strettons():
     except Exception:
         return []
 
+
+COMMERCIAL_WORDS = (
+    "commercial property","mixed use","mixed-use","shop","retail","office",
+    "industrial","warehouse","light industrial","commercial development",
+    "restaurant","public house","pub","care home","business premises",
+    "investment","freehold ground rent","development site"
+)
+
+AUCTION_HOUSE_BRANCHES = {
+    "eastanglia":"Auction House East Anglia",
+    "westyorkshire":"Auction House West Yorkshire",
+    "sussexandhampshire":"Auction House Sussex & Hampshire",
+    "southwest":"Auction House South West",
+    "wales":"Auction House Wales",
+    "cumbria":"Auction House Cumbria",
+    "northeast":"Auction House North East",
+    "northwest":"Auction House North West",
+    "manchester":"Auction House Manchester",
+    "chesterfield":"Auction House Chesterfield & North Derbyshire",
+    "leicestershire":"Auction House Leicestershire",
+    "northamptonshire":"Auction House Northamptonshire",
+    "northyorkshire":"Auction House North Yorkshire & Tees Valley",
+    "hullandeastyorkshire":"Auction House Hull & East Yorkshire",
+    "birmingham":"Auction House Birmingham & Black Country",
+    "coventry":"Auction House Coventry & Warwickshire",
+    "bedsandbucks":"Auction House Beds & Bucks",
+    "lincolnshire":"Auction House Lincolnshire, North Notts & South Yorks",
+    "scotland":"Auction House Scotland",
+}
+
+def _parse_auctionhouse_detail(page_html,url,source):
+    s=BeautifulSoup(page_html,"lxml")
+    text=norm(s.get_text(" ",strip=True))
+    low=text.lower()
+    # Reject ordinary residential lots unless the page itself identifies commercial/mixed-use.
+    if not any(k in low for k in COMMERCIAL_WORDS):
+        return None
+    title=(s.find("h1").get_text(" ",strip=True) if s.find("h1") else "")
+    title=norm(title)
+    if not title or title.lower().startswith("property for auction"):
+        # Find address-like heading/text before Guide.
+        m=re.search(r"(?:Lot\s+\d+\s+)?(.{8,180}?)\s+(?:Save Lot|Guide\s*\|)",text,re.I)
+        title=norm(m.group(1)) if m else title
+    gm=re.search(r"Guide\s*\|\s*£([\d,]+)",text,re.I)
+    guide=float(gm.group(1).replace(",","")) if gm else None
+    lm=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
+    lot="Lot "+lm.group(1) if lm else "Lot TBC"
+    dm=re.search(r"Auction Date\s+\w+\s+(\d{2})/(\d{2})/(\d{4})",text,re.I)
+    date=f"{dm.group(3)}-{dm.group(2)}-{dm.group(1)}" if dm else None
+    imgs=_img_candidates(s,url)
+    return dict(
+        source=source,lot=lot,date=date,address=title,guide=guide,
+        rent=parse_rent(text),
+        tenure=("Freehold" if "tenure: freehold" in low or "freehold" in low[:1200]
+                else "Leasehold" if "tenure: leasehold" in low or "leasehold" in low[:1200] else None),
+        vat="UNKNOWN",url=url,desc=text[:650],image=imgs[0] if imgs else None
+    )
+
+@st.cache_data(ttl=21600, show_spinner=False)
+def _catalogue_auctionhouse_regional():
+    rows=[]
+    seen=set()
+    for slug,source in AUCTION_HOUSE_BRANCHES.items():
+        diary=f"https://www.auctionhouse.co.uk/{slug}/auction/future-auction-dates"
+        try:
+            soup=BeautifulSoup(fetch(diary),"lxml")
+            links=[]
+            for a in soup.find_all("a",href=True):
+                href=urljoin(diary,a["href"])
+                if "/auction/lot/" in href and href not in seen:
+                    links.append(href); seen.add(href)
+            # Some branch diary pages expose a View Lots page rather than lot links.
+            listing_links=[]
+            for a in soup.find_all("a",href=True):
+                label=norm(a.get_text(" ",strip=True)).lower()
+                href=urljoin(diary,a["href"])
+                if "view lots" in label or "/auction/lots" in href:
+                    listing_links.append(href)
+            for listing in listing_links[:3]:
+                try:
+                    ls=BeautifulSoup(fetch(listing),"lxml")
+                    for a in ls.find_all("a",href=True):
+                        href=urljoin(listing,a["href"])
+                        if "/auction/lot/" in href and href not in seen:
+                            links.append(href); seen.add(href)
+                except Exception:
+                    pass
+            for href in links:
+                try:
+                    row=_parse_auctionhouse_detail(fetch(href),href,source)
+                    if row and row.get("date") and row["date"]>="2026-08-26":
+                        rows.append(row)
+                except Exception:
+                    pass
+        except Exception:
+            continue
+    return rows
+
+def _parse_barnard_detail(page_html,url):
+    s=BeautifulSoup(page_html,"lxml")
+    text=norm(s.get_text(" ",strip=True)); low=text.lower()
+    # Keep commercial, mixed-use and income-producing non-standard lots.
+    if not any(k in low for k in COMMERCIAL_WORDS):
+        return None
+    h=s.find("h1")
+    address=norm(h.get_text(" ",strip=True)) if h else ""
+    if not address:
+        return None
+    gm=re.search(r"guide price\s*\*?\s*£([\d,]+)",text,re.I)
+    guide=float(gm.group(1).replace(",","")) if gm else None
+    lm=re.search(r"\bLOT\s+(\d+[A-Z]?)\b",text,re.I)
+    lot="Lot "+lm.group(1) if lm else "Lot TBC"
+    imgs=_img_candidates(s,url)
+    return dict(
+        source="Barnard Marcus",lot=lot,date="2026-09-10",address=address,
+        guide=guide,rent=parse_rent(text),
+        tenure=("Freehold" if "tenure: freehold" in low or address and "freehold" in low[:1500]
+                else "Leasehold" if "tenure: leasehold" in low else None),
+        vat="UNKNOWN",url=url,desc=text[:650],image=imgs[0] if imgs else None
+    )
+
+@st.cache_data(ttl=21600, show_spinner=False)
+def _catalogue_barnard_marcus():
+    roots=[
+        "https://www.barnardmarcusauctions.co.uk/",
+        "https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/",
+    ]
+    lot_links=set()
+    for root in roots:
+        try:
+            s=BeautifulSoup(fetch(root),"lxml")
+            for a in s.find_all("a",href=True):
+                href=urljoin(root,a["href"])
+                if "/auctions/10-september-2026/" in href and re.search(r"/\d+/?$",href):
+                    lot_links.add(href)
+                # Follow catalogue/view-lots page once.
+                label=norm(a.get_text(" ",strip=True)).lower()
+                if "view lots" in label:
+                    try:
+                        ls=BeautifulSoup(fetch(href),"lxml")
+                        for la in ls.find_all("a",href=True):
+                            lh=urljoin(href,la["href"])
+                            if "/auctions/10-september-2026/" in lh and re.search(r"/\d+/?$",lh):
+                                lot_links.add(lh)
+                    except Exception: pass
+        except Exception:
+            pass
+    rows=[]
+    for href in lot_links:
+        try:
+            row=_parse_barnard_detail(fetch(href),href)
+            if row: rows.append(row)
+        except Exception: pass
+    return rows
+
 def _merge_catalogue_rows(base_rows):
     current={}
     for x in base_rows:
@@ -558,11 +773,22 @@ def _merge_catalogue_rows(base_rows):
         ("Bond Wolfe",_bond_wolfe_current),
         ("Strettons",_strettons_current),
         ("Acuitus",_acuitus_current),
+        ("Barnard Marcus",_catalogue_barnard_marcus),
+        ("Auction House Regional",_catalogue_auctionhouse_regional),
     ]
     for source,fn in source_functions:
         try: rows=fn()
         except Exception: rows=[]
-        if rows: current[source]=rows
+        if rows:
+            if source=="Auction House Regional":
+                # Preserve each regional branch as its own source.
+                for r in rows:
+                    current.setdefault(r["source"],[])
+                    existing={x.get("url") for x in current[r["source"]]}
+                    if r.get("url") not in existing:
+                        current[r["source"]].append(r)
+            else:
+                current[source]=rows
 
     merged=[]
     for rows in current.values():
