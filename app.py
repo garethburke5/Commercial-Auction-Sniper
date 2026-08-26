@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.9.1"
+BUILD = "V6.9.2"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -1111,6 +1111,35 @@ def _merge_property_universe(seed_rows, cached_rows):
     return _clean_rows(list(universe.values()))
 
 
+def _hydrate_snapshot_images(rows):
+    """
+    Safe bounded image hydration for the already-loaded snapshot.
+    Never blanks or blocks the board if a page fails.
+    """
+    out=[]
+    targets=("auction house london","bond wolfe","barnard marcus","pugh","btg")
+    for row in rows:
+        r=dict(row)
+
+        # Savills uses its verified image map.
+        if r.get("source")=="Savills Auctions":
+            try:
+                r=_apply_verified_savills_current(r)
+            except Exception:
+                pass
+
+        # For other known sources, attempt exact-page image only when missing.
+        if not r.get("image") and any(t in (r.get("source") or "").lower() for t in targets):
+            try:
+                img=_exact_property_image(r.get("url"))
+                if img:
+                    r["image"]=img
+            except Exception:
+                pass
+
+        out.append(r)
+    return out
+
 def load_rows():
     """
     Fast, non-destructive boot with rich-field preservation.
@@ -1143,7 +1172,7 @@ def load_rows():
             pass
 
     rows=_merge_property_universe(SEED,cached_rows)
-    rows=_hydrate_snapshot_images(rows)
+    rows=_hydrate_snapshot_images(rows) if rows else rows
     return rows,health,updated
 
 
