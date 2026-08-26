@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.8"
-CACHE = Path("auction_sniper_cache_v68.json")
+BUILD = "V6.8.1"
+CACHE = Path("auction_sniper_cache_v681.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
 
@@ -837,18 +837,19 @@ def _enrich_missing_images(rows,limit=80):
     return rows
 
 def load_rows():
+    """Fast boot: render verified snapshot/cache with zero network I/O.
+
+    Live catalogue crawling is user-triggered from the Live data panel.
+    This prevents a slow/blocked auction house from blanking the whole app.
+    """
     if CACHE.exists():
         try:
             cached=json.loads(CACHE.read_text(encoding="utf-8"))
             if cached.get("properties"):
-                rows=_clean_rows(cached["properties"])
-                rows=_merge_catalogue_rows(rows)
-                return _enrich_missing_images(rows), cached.get("health", SOURCE_HEALTH), cached.get("updated")
+                return _clean_rows(cached["properties"]), cached.get("health", SOURCE_HEALTH), cached.get("updated")
         except Exception:
             pass
-
-    rows=_merge_catalogue_rows(SEED)
-    return _enrich_missing_images(rows), SOURCE_HEALTH, "Current commercial catalogues · 24 Aug 2026"
+    return _clean_rows(SEED), SOURCE_HEALTH, "Verified snapshot · 26 Aug 2026"
 
 
 # ---------------- expanded source coverage ----------------
@@ -1199,7 +1200,12 @@ def refresh_market():
     for p in SEED:
         current_by_source.setdefault(p["source"],[]).append(dict(p))
     health=list(SOURCE_HEALTH)
-    jobs={"Auction House London":refresh_ahl,"Savills Auctions":refresh_savills}
+    jobs={
+        "Auction House London": refresh_ahl,
+        "Savills Auctions": refresh_savills,
+        "Barnard Marcus": _catalogue_barnard_marcus,
+        "Auction House Regional": _catalogue_auctionhouse_regional,
+    }
     with ThreadPoolExecutor(max_workers=2) as ex:
         futures={ex.submit(fn):src for src,fn in jobs.items()}
         for f in as_completed(futures):
@@ -1207,7 +1213,12 @@ def refresh_market():
             try:
                 rows=f.result()
                 if rows:
-                    current_by_source[src]=rows
+                    if src=="Auction House Regional":
+                        # Keep regional branch names instead of collapsing them.
+                        for r in rows:
+                            current_by_source.setdefault(r["source"],[]).append(r)
+                    else:
+                        current_by_source[src]=rows
                     for h in health:
                         if h["source"]==src:
                             h["status"]="LIVE REFRESHED"
