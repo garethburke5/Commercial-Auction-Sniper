@@ -15,16 +15,7 @@ anchor="""def _v657_candidate_images(property_url, source):
     soup=BeautifulSoup(raw,'lxml')
     out=[]
 """
-replacement="""def _v657_candidate_images(property_url, source):
-    if not property_url:
-        return []
-    try:
-        raw=fetch(property_url)
-    except Exception:
-        return []
-    soup=BeautifulSoup(raw,'lxml')
-    out=[]
-"""
+replacement=anchor
 if anchor not in s: raise SystemExit('candidate function anchor missing')
 s=s.replace(anchor,replacement,1)
 
@@ -32,11 +23,9 @@ needle="""    # Structured metadata first.
     for sel,attr in [
 """
 insert=r'''    # Clive Emson uses predictable /AucNNN/pics/... image URLs on genuine lot pages.
-    # Capture these before generic metadata so logos/placeholders cannot win.
     if (source or '').lower()=='clive emson':
         decoded=html.unescape(raw).replace('\\/','/')
         exact=[]
-        # First inspect actual IMG/A elements, which preserves filenames containing spaces.
         for tag in soup.find_all(['img','a']):
             for attr in ('src','data-src','data-lazy-src','data-original','href'):
                 v=tag.get(attr)
@@ -44,7 +33,6 @@ insert=r'''    # Clive Emson uses predictable /AucNNN/pics/... image URLs on gen
                 vv=html.unescape(str(v)).replace('\\/','/')
                 if re.search(r'/Auc\d+/pics/.+?\.(?:jpe?g|png|webp)(?:\?.*)?$',vv,re.I):
                     exact.append(urljoin(property_url,vv))
-        # Then scan raw source for quoted Auc gallery paths.
         for m in re.findall(r'["\']([^"\']*/Auc\d+/pics/[^"\']+?\.(?:jpe?g|png|webp)(?:\?[^"\']*)?)["\']',decoded,re.I):
             exact.append(urljoin(property_url,m))
         for v in exact:
@@ -54,7 +42,6 @@ insert=r'''    # Clive Emson uses predictable /AucNNN/pics/... image URLs on gen
 if needle not in s: raise SystemExit('structured metadata anchor missing')
 s=s.replace(needle,insert+needle,1)
 
-# Rank exact Clive gallery images first.
 old="""        elif 'clive emson' in src:
             if 'property' in lu or 'properties' in lu: sc+=70
             if 'lot' in lu: sc+=55
@@ -69,7 +56,6 @@ new="""        elif 'clive emson' in src:
 if old not in s: raise SystemExit('clive score anchor missing')
 s=s.replace(old,new,1)
 
-# Use a normal browser UA for remote image requests; Clive rejects the bot-style UA on image assets.
 old="""            h=dict(HEADERS)
             h.update({'Accept':'image/avif,image/webp,image/apng,image/*,*/*;q=0.8','Referer':property_url or ''})
             r=requests.get(u,headers=h,timeout=15,allow_redirects=True)
@@ -85,7 +71,6 @@ new="""            h={
 if old not in s: raise SystemExit('image request headers anchor missing')
 s=s.replace(old,new,1)
 
-# If server-side localisation fails for Clive, preserve the exact gallery URL for client-side rendering.
 old="""    return None
 
 
@@ -104,7 +89,6 @@ def _v657_localise_priority_rows(rows):
 if old not in s: raise SystemExit('local image fallback anchor missing')
 s=s.replace(old,new,1)
 
-# Visible previous-auction / sale-history search on every card.
 old="""        _map_query=urllib.parse.quote_plus(str(x.get(\"address\") or \"\"))
         _maps_url=f\"https://www.google.com/maps/search/?api=1&query={_map_query}\"
         _image_src=_safe_card_image_src(x.get(\"source\"),x.get(\"image\"))
@@ -127,7 +111,6 @@ new="""            +f'<div class=\"historyAction\"><a target=\"_blank\" rel=\"no
 if old not in s: raise SystemExit('card actions anchor missing')
 s=s.replace(old,new,1)
 
-# Prevent browsers sending Auction Sniper as referrer when a direct Clive image fallback is used.
 s=s.replace('<img class=\"preview\" src=\"{html.escape(_image_src,quote=True)}\" loading=\"lazy\">','<img class=\"preview\" src=\"{html.escape(_image_src,quote=True)}\" loading=\"lazy\" referrerpolicy=\"no-referrer\">')
 
 css='''
