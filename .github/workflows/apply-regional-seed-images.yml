@@ -1,0 +1,25 @@
+name: Apply regional seed images
+on:
+  push:
+    branches: [develop]
+    paths:
+      - .github/workflows/apply-regional-seed-images.yml
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+      - name: Apply verified regional images
+        run: python scripts/apply_regional_seed_images.py
+      - name: Commit regional image pins
+        run: |
+          git config user.name "Auction Sniper Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add app.py
+          git diff --cached --quiet && exit 0
+          git commit -m "Pin verified Auction House regional preview images"
+          git push origin develop
