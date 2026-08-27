@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'scripts/apply_v657_static_image_proxy.py'
+      - '.github/workflows/apply-v657.yml'
   workflow_dispatch:
 permissions:
   contents: write
