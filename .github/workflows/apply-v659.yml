@@ -26,3 +26,4 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m 'V6.59 show and factor previous rent evidence'
           git push origin main
+# trigger: 2026-08-27 previous-rent rollout
