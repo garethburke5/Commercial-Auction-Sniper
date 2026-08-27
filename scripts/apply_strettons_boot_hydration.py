@@ -1,3 +1,4 @@
+# Applies exact-page Strettons boot hydration to the current develop build.
 from pathlib import Path
 
 p=Path('app.py')
