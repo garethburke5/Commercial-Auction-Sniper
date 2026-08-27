@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.35-POLISHED-TOPBAR"
+BUILD = "V6.37-STRETTONS-YIELD"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -848,47 +848,42 @@ def _catalogue_savills():
 
 
 def _strettons_exact_image(soup_obj,page_url):
-    """Extract a genuine Strettons lot photograph from its exact property page."""
+    """Extract the lot photo Strettons embeds in page data, not ordinary img tags."""
+    raw=str(soup_obj)
+    # Verified live markup example:
+    # https://ggfx-strettons.s3.eu-west-2.amazonaws.com/i/api_sources/<property-id>/images/<id>_web_medium.jpeg
+    embedded=re.findall(
+        r'https://ggfx-strettons\.s3\.eu-west-2\.amazonaws\.com/i/api_sources/[^"\'<>\s]+?/images/[^"\'<>\s]+?\.(?:jpe?g|png|webp)',
+        raw,re.I
+    )
+    if embedded:
+        # Prefer medium/large web property versions and never personnel assets.
+        embedded=sorted(set(embedded),key=lambda u:("web_medium" in u.lower() or "web_large" in u.lower(),len(u)),reverse=True)
+        return embedded[0]
+
     candidates=[]
-    def add(raw,score=0):
-        if not raw: return
-        raw=str(raw).strip().split(' ')[0]
-        if not raw: return
-        u=urljoin(page_url,raw)
+    def add(raw_url,score=0):
+        if not raw_url: return
+        raw_url=str(raw_url).strip().split(' ')[0]
+        if not raw_url: return
+        u=urljoin(page_url,raw_url)
         low=u.lower()
-        if any(x in low for x in ("logo","icon","avatar","agent","staff","map","marker","favicon","placeholder","sprite")):
+        if any(x in low for x in ("logo","icon","avatar","agent","staff","headshot","map","marker","favicon","placeholder","sprite")):
             return
-        if "ggfx-strettons.s3" in low: score+=8
-        if any(x in low for x in ("property","auction","image","uploads","media")): score+=3
+        if "ggfx-strettons.s3" in low: score+=6
+        if "/api_sources/" in low and "/images/" in low: score+=20
+        if any(x in low for x in ("property","auction","uploads","media")): score+=3
         candidates.append((score,u))
-    for meta in soup_obj.find_all("meta"):
-        key=(meta.get("property") or meta.get("name") or "").lower()
-        if key in ("og:image","twitter:image","twitter:image:src"):
-            add(meta.get("content"),10)
     for img in soup_obj.find_all("img"):
-        alt=norm(img.get("alt","")).lower()
-        bonus=4 if any(x in alt for x in ("property","auction","external","front","lot")) else 0
         for attr in ("src","data-src","data-lazy-src","data-original","data-image"):
-            add(img.get(attr),bonus)
+            add(img.get(attr))
         for attr in ("srcset","data-srcset"):
             ss=img.get(attr)
             if ss:
-                for part in ss.split(','):
-                    add(part.strip().split(' ')[0],bonus+1)
-    for source in soup_obj.find_all("source"):
-        for attr in ("srcset","data-srcset"):
-            ss=source.get(attr)
-            if ss:
-                for part in ss.split(','):
-                    add(part.strip().split(' ')[0],2)
-    # Background images are used by some Strettons gallery components.
-    for tag in soup_obj.find_all(style=True):
-        for raw in re.findall(r'url\([\"\']?([^\)\"\']+)',tag.get('style',''),re.I):
-            add(raw,2)
-    if not candidates:
-        return None
+                for part in ss.split(','): add(part.strip().split(' ')[0],1)
     candidates.sort(key=lambda x:x[0],reverse=True)
-    return candidates[0][1]
+    return candidates[0][1] if candidates and candidates[0][0] >= 6 else None
+
 
 @st.cache_data(ttl=21600, show_spinner=False)
 def _catalogue_strettons():
@@ -2445,6 +2440,11 @@ div[data-testid="stButton"]>button{border-radius:8px!important;font-weight:850!i
 div[data-testid="stPopover"] button{border-radius:8px!important;font-weight:850!important;min-height:38px!important;border-color:#3a4b62!important;background:#131e2c!important;color:#eef4fb!important}
 div[data-testid="stPopover"] button:hover{border-color:#6d87aa!important;background:#172538!important}
 @media(max-width:650px){.hero{padding:8px 9px!important}.brand{font-size:1.38rem!important}.tagline{font-size:.59rem!important}.sub{font-size:.46rem!important}.badge{font-size:.50rem!important;padding:4px 6px!important}div[data-testid="stButton"]>button,div[data-testid="stPopover"] button{min-height:34px!important;font-size:.70rem!important}}
+
+/* V6.37 target yield toolbar */
+div[data-testid="stNumberInput"] label p{font-size:.67rem!important;font-weight:850!important;color:#dfe8f3!important}
+div[data-testid="stNumberInput"] input{font-weight:900!important}
+@media(max-width:650px){div[data-testid="stNumberInput"] label p{font-size:.56rem!important}}
 </style>
 """,unsafe_allow_html=True)
 
@@ -2458,7 +2458,7 @@ st.markdown(
 )
 
 # Compact utility strip: actions stay visible without consuming the page.
-tool_a,tool_b,tool_space=st.columns([1.05,1.15,4.8],gap="small")
+tool_a,tool_b,tool_yield,tool_space=st.columns([1.05,1.15,1.25,3.55],gap="small")
 with tool_a:
     if st.button("↻ Update listings",type="primary",use_container_width=True,help="Refresh current auction lots and property photos"):
         with st.spinner("Updating current commercial auction listings and photos…"):
@@ -2477,6 +2477,9 @@ with tool_b:
         if CACHE.exists() and st.button("Reset to verified snapshot",use_container_width=True):
             CACHE.unlink(missing_ok=True)
             st.rerun()
+
+with tool_yield:
+    target_yield=st.number_input("Target yield (%)",min_value=1.0,max_value=30.0,value=10.0,step=.5,format="%.1f",help="Change this to recalculate the maximum purchase price for every rented property")
 
 lots_tab,sources_tab=st.tabs(["🎯 All properties","📡 Source health"])
 
@@ -3052,7 +3055,7 @@ with lots_tab:
     cards=[]
     for x in lots:
         y=x.get("yield")
-        ceiling=x["rent"]/.10 if x.get("rent") else None
+        ceiling=x["rent"]/(target_yield/100.0) if x.get("rent") and target_yield else None
         _sqft,_sqm=_property_area(x,norm(str(x.get("desc") or "")+" "+str(x.get("address") or "")))
         _size_text=(f"{_sqft:,.0f} sq ft / {_sqm:,.0f} sq m" if _sqft else None)
         meta=" · ".join(v for v in [x.get("date"),x.get("tenure"),("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)
