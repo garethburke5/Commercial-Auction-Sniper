@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.52-SOURCES-FILTERS-IMAGES"
+BUILD = "V6.53-PRIORITY-SOURCE-BOOT"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2786,7 +2786,31 @@ div[data-testid="stPopoverBody"] div[data-testid="stNumberInput"] input{height:3
 </style>
 """,unsafe_allow_html=True)
 
+@st.cache_data(ttl=21600,show_spinner=False)
+def _v653_priority_boot_rows():
+    jobs={
+        "Pattinson":_pattinson_current,
+        "Clive Emson":_clive_emson_current,
+        "Strettons":_strettons_current,
+        "Acuitus":_acuitus_current,
+    }
+    out=[]
+    with ThreadPoolExecutor(max_workers=4) as ex:
+        futs={ex.submit(fn):src for src,fn in jobs.items()}
+        for f in as_completed(futs):
+            try:
+                out.extend(f.result() or [])
+            except Exception:
+                pass
+    return _clean_rows(out)
+
 rows,health,updated=load_rows()
+try:
+    priority=_v653_priority_boot_rows()
+    if priority:
+        rows=_merge_property_universe(rows,priority)
+except Exception:
+    pass
 st.markdown(
     '<div class="hero"><div><div class="brand">AUCTION <b>SNIPER</b></div>'
     '<div class="tagline">UK commercial auction deal scanner</div>'
