@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.44-ALIGNED-DETAILS"
+BUILD = "V6.47-TOOLBAR-MASTHEAD"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2518,6 +2518,19 @@ div[data-testid="stNumberInput"] input{min-width:0!important}
 @media(max-width:1180px){.preview{height:174px!important}}
 @media(max-width:820px){.preview{height:162px!important}}
 @media(max-width:650px){.preview{height:122px!important}}
+
+/* V6.47 product masthead + right-side yield label */
+.hero{min-height:92px!important;padding:16px 20px!important;border-radius:14px!important;background:linear-gradient(105deg,#121f30 0%,#0d1724 58%,#101b29 100%)!important;border:1px solid #405673!important;box-shadow:0 10px 28px rgba(0,0,0,.24)!important;position:relative!important;overflow:hidden!important}
+.hero:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:#f2c94c}
+.brand{font-size:2.55rem!important;font-weight:1000!important;letter-spacing:-.055em!important;line-height:.92!important;color:#f7f9fc!important;text-shadow:0 2px 12px rgba(0,0,0,.28)!important}
+.brand b{color:#f2c94c!important}
+.tagline{font-size:.82rem!important;margin-top:9px!important;color:#e5edf7!important;font-weight:800!important;letter-spacing:.015em!important}
+.sub{font-size:.53rem!important;margin-top:5px!important;color:#7f91a8!important}
+.badge{font-size:.66rem!important;padding:7px 11px!important}
+.yieldCaption{display:none!important}
+.yieldSideLabel{height:38px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;color:#c4d0df;font-size:.58rem;font-weight:850;line-height:1.02;letter-spacing:.01em;white-space:nowrap}
+.yieldSideLabel span{font-size:.46rem;color:#8393a7;font-weight:750;margin-top:1px}
+@media(max-width:650px){.hero{min-height:70px!important;padding:12px 13px 11px 16px!important}.hero:before{width:4px}.brand{font-size:1.62rem!important}.tagline{font-size:.61rem!important;margin-top:6px!important}.sub{font-size:.42rem!important}.badge{font-size:.50rem!important;padding:5px 7px!important}.yieldSideLabel{height:34px;font-size:.47rem}.yieldSideLabel span{font-size:.39rem}}
 </style>
 """,unsafe_allow_html=True)
 
@@ -2531,7 +2544,7 @@ st.markdown(
 )
 
 # Compact utility strip: actions stay visible without consuming the page.
-tool_a,tool_b,tool_yield,tool_space=st.columns([1.05,1.15,.72,4.08],gap="small")
+tool_a,tool_b,tool_yield,tool_yield_label,tool_space=st.columns([1.05,1.15,.62,.34,3.84],gap="small")
 with tool_a:
     if st.button("↻ Update listings",type="primary",use_container_width=True,help="Refresh current auction lots and property photos"):
         with st.spinner("Updating current commercial auction listings and photos…"):
@@ -2558,7 +2571,8 @@ with tool_yield:
         help="Target yield — changes the max purchase price on every rented property",
         label_visibility="collapsed"
     )
-    st.markdown('<div class="yieldCaption">Target yield (%)</div>',unsafe_allow_html=True)
+with tool_yield_label:
+    st.markdown('<div class="yieldSideLabel">Target<br>Yield <span>(%)</span></div>',unsafe_allow_html=True)
 
 lots_tab,sources_tab=st.tabs(["🎯 All properties","📡 Source health"])
 
