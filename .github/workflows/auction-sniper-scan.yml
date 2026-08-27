@@ -72,4 +72,5 @@ jobs:
           git add data/properties.json
           git diff --cached --quiet && exit 0
           git commit -m 'Refresh Auction Sniper production data'
+          git pull --rebase origin main
           git push origin main
