@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.28-IMAGE-REPAIR"
+BUILD = "V6.29-READABILITY"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2301,24 +2301,25 @@ header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:no
 .hero{display:flex;justify-content:space-between;align-items:center;gap:14px;background:linear-gradient(120deg,rgba(24,35,52,.97),rgba(11,18,29,.97));border:1px solid #2b3d57;border-radius:14px;padding:14px 17px;margin-bottom:8px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
 .brand{font-size:1.35rem;font-weight:950;letter-spacing:-.035em}.brand b{color:#f0c94a}.sub{font-size:.68rem;color:#98a9bf;margin-top:3px}
 .badge{font-size:.64rem;border:1px solid #347d58;color:#b8f1cd;background:#10261c;border-radius:999px;padding:6px 9px;white-space:nowrap;font-weight:800}
-.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .card{background:linear-gradient(180deg,#131d2b,#101824);border:1px solid #273950;border-radius:11px;overflow:hidden;box-shadow:0 5px 16px rgba(0,0,0,.16);transition:transform .14s ease,border-color .14s ease,box-shadow .14s ease}
 .card:hover{transform:translateY(-2px);border-color:#526a8b;box-shadow:0 10px 22px rgba(0,0,0,.23)}
-.preview{display:block;width:100%;height:155px;object-fit:cover;background:linear-gradient(135deg,#192638,#111925)}
+.preview{display:block;width:100%;height:172px;object-fit:cover;background:linear-gradient(135deg,#192638,#111925)}
 .noimg{display:grid;place-items:center;color:#73839a;font-size:.66rem;letter-spacing:.03em}
-.cb{padding:9px 10px 10px}.src{font-size:.58rem;color:#f0c94a;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:none}
-.addr{font-size:.82rem;font-weight:850;line-height:1.25;min-height:2.05em;margin:4px 0 7px;color:#f7f9fc}
+.cb{padding:11px 12px 12px}.src{font-size:.66rem;color:#f5d45e;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:none;letter-spacing:.01em}
+.addr{font-size:.94rem;font-weight:850;line-height:1.28;min-height:2.45em;margin:5px 0 9px;color:#ffffff}
 .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:4px}.sizeMetric{grid-column:span 2}.metric{background:#162130;border:1px solid #223047;border-radius:7px;padding:5px 7px;min-height:40px;display:flex;flex-direction:column;justify-content:center}
-.metric span{display:block;color:#91a0b4;font-size:.52rem;margin-bottom:1px;line-height:1.15}.metric b{font-size:.74rem;line-height:1.15;color:#fff}
-.meta{font-size:.62rem;color:#9faec1;margin-top:7px;line-height:1.3;min-height:0}
-.chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}.chip{font-size:.61rem;font-weight:850;padding:4px 7px;border-radius:999px;background:#223047;border:1px solid #354966;color:#dce7f5}.analysis{margin-top:7px;border-top:1px solid #26354a;padding-top:6px}.research{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.research a{text-decoration:none!important;color:#cfe0f5!important;background:#172638;border:1px solid #314761;border-radius:6px;padding:6px 8px;font-size:.62rem;font-weight:800}.research a:hover{border-color:#f2c94c;color:#f2c94c!important}.iread{margin-top:8px;background:#111d2b;border-left:3px solid #f2c94c;border-radius:6px;padding:8px 10px}.iread span{font-size:.62rem;color:#f2c94c;font-weight:900}.iread p{font-size:.68rem;color:#d8e1ed;margin:4px 0;line-height:1.35}.analysis summary{cursor:pointer;color:#dbe5f2;font-size:.72rem;font-weight:850}.factgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.fact{background:#0f1723;border:1px solid #233149;border-radius:7px;padding:7px 8px}.fact span{display:block;color:#8fa0b5;font-size:.57rem;margin-bottom:2px}.fact b{display:block;color:#f4f7fb;font-size:.70rem;line-height:1.3}
-.action{display:block;text-align:center;text-decoration:none!important;background:#f2c94c;color:#171208!important;border-radius:7px;padding:8px 7px;margin-top:8px;font-size:.72rem;font-weight:900}
+.metric span{display:block;color:#aebbd0;font-size:.61rem;margin-bottom:2px;line-height:1.15;font-weight:650}.metric b{font-size:.86rem;line-height:1.16;color:#fff;font-weight:850}
+.meta{font-size:.68rem;color:#b0bdd0;margin-top:8px;line-height:1.35;min-height:0}
+.chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}.chip{font-size:.66rem;font-weight:800;padding:4px 7px;border-radius:999px;background:#223047;border:1px solid #405674;color:#e7eef8}.analysis{margin-top:7px;border-top:1px solid #26354a;padding-top:6px}.research{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.research a{text-decoration:none!important;color:#cfe0f5!important;background:#172638;border:1px solid #314761;border-radius:6px;padding:6px 8px;font-size:.62rem;font-weight:800}.research a:hover{border-color:#f2c94c;color:#f2c94c!important}.iread{margin-top:8px;background:#111d2b;border-left:3px solid #f2c94c;border-radius:6px;padding:8px 10px}.iread span{font-size:.62rem;color:#f2c94c;font-weight:900}.iread p{font-size:.68rem;color:#d8e1ed;margin:4px 0;line-height:1.35}.analysis summary{cursor:pointer;color:#dbe5f2;font-size:.72rem;font-weight:850}.factgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.fact{background:#0f1723;border:1px solid #233149;border-radius:7px;padding:7px 8px}.fact span{display:block;color:#8fa0b5;font-size:.57rem;margin-bottom:2px}.fact b{display:block;color:#f4f7fb;font-size:.70rem;line-height:1.3}
+.action{display:block;text-align:center;text-decoration:none!important;background:#f2c94c;color:#171208!important;border-radius:8px;padding:9px 8px;margin-top:9px;font-size:.77rem;font-weight:950}
 .statusrow{padding:12px 14px;border:1px solid #29354b;background:#111824;border-radius:10px;margin-bottom:8px;font-size:.84rem}
 div[data-testid="stExpander"]{border:1px solid #25344a!important;border-radius:11px!important;background:#0e1621!important;margin-bottom:10px}
 button[data-baseweb="tab"]{font-size:.9rem!important}
 @media(min-width:1700px){.block-container{max-width:1640px}.cards{grid-template-columns:repeat(5,minmax(0,1fr));gap:11px}.preview{height:160px}}
-@media(max-width:1180px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.preview{height:150px}}@media(max-width:820px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.preview{height:132px}}
-@media(max-width:650px){.block-container{padding:.3rem .34rem 1.1rem!important}.hero{padding:9px 9px}.brand{font-size:1.05rem}.sub{font-size:.56rem}.badge{font-size:.53rem;padding:4px 6px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.preview{height:96px}.cb{padding:5px 5px 6px}.src{font-size:.45rem}.addr{font-size:.62rem;line-height:1.22;min-height:2.4em;margin:3px 0 4px}.metrics{gap:3px}.metric{padding:3px 5px;min-height:36px;border-radius:6px}.metric span{font-size:.38rem;margin-bottom:0}.metric b{font-size:.56rem;line-height:1.1}.meta{font-size:.40rem;margin-top:4px;min-height:0}.chips{margin-top:5px;gap:3px}.chip{font-size:.48rem;padding:3px 5px}.analysis{margin-top:5px;padding-top:5px}.analysis summary{font-size:.58rem}.action{font-size:.48rem;padding:5px 4px;margin-top:5px;border-radius:6px}}
+@media(max-width:1180px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.preview{height:165px}}@media(max-width:820px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.preview{height:155px}.addr{font-size:.9rem}}
+@media(max-width:650px){.block-container{padding:.38rem .45rem 1.2rem!important}.hero{padding:10px 11px;margin-bottom:7px}.brand{font-size:1.08rem}.sub{font-size:.58rem}.badge{font-size:.56rem;padding:5px 7px}.cards{grid-template-columns:1fr;gap:8px}.card{display:grid;grid-template-columns:118px minmax(0,1fr);align-items:stretch}.preview{height:100%;min-height:178px;border-radius:0;object-fit:cover}.cb{padding:9px 9px 9px}.src{font-size:.57rem}.addr{font-size:.78rem;line-height:1.25;min-height:0;margin:4px 0 7px}.metrics{gap:3px}.metric{padding:4px 6px;min-height:36px;border-radius:6px}.metric span{font-size:.49rem;margin-bottom:1px}.metric b{font-size:.67rem;line-height:1.12}.meta{font-size:.52rem;margin-top:5px;line-height:1.3}.chips{margin-top:5px;gap:3px}.chip{font-size:.52rem;padding:3px 5px}.analysis{margin-top:5px;padding-top:5px}.analysis summary{font-size:.61rem}.action{font-size:.61rem;padding:7px 5px;margin-top:6px;border-radius:6px}.factgrid{grid-template-columns:1fr}.research{gap:4px}.iread{padding:6px 7px}}
+.yieldMetric{background:#14271f;border-color:#2e5a45}.yieldMetric b{color:#b9f3cf}
 </style>
 """,unsafe_allow_html=True)
 
@@ -2935,7 +2936,7 @@ with lots_tab:
             +f'<div class="addr">{html.escape(x["address"])}</div><div class="metrics">'
             +f'<div class="metric"><span>Guide</span><b>{money(x.get("guide"))}</b></div>'
             +f'<div class="metric"><span>Rent p.a.</span><b>{money(x.get("rent"))}</b></div>'
-            +f'<div class="metric"><span>GIY</span><b>{pct(y)}</b></div>'
+            +f'<div class="metric yieldMetric"><span>GIY</span><b>{pct(y)}</b></div>'
             +f'<div class="metric"><span>10% ceiling</span><b>{money(ceiling)}</b></div>'
             +(f'<div class="metric sizeMetric"><span>Size</span><b>{html.escape(_size_text)}</b></div>' if _size_text else '')
             +'</div>'
