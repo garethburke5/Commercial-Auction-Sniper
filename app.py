@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.19-INTERMEDIATE"
+BUILD = "V6.20-BTG-GALLERY"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -407,8 +407,39 @@ def _looks_like_property_image(url):
     bad=("logo","favicon","icon","sprite","placeholder","avatar","cookie","tracking","pixel","social","facebook","instagram","linkedin","youtube","twitter","svg")
     return not any(x in low for x in bad)
 
+def _btg_property_key(url):
+    """Return BTG's stable exact-lot gallery identifier."""
+    marker="/properties/"
+    low=(url or "").lower()
+    if marker not in low: return None
+    slug=low.split(marker,1)[1].split("/",1)[0]
+    head,sep,tail=slug.rpartition("-")
+    if sep and len(tail)==6 and tail.isdigit():
+        slug=head
+    return slug
+
+def _btg_gallery_images(s, url):
+    """Return only photographs belonging to the exact BTG lot gallery."""
+    key=_btg_property_key(url)
+    if not key: return []
+    marker=f"/artnr_{key}/_pictures/"
+    found=[]
+    for cand in _img_candidates(s,url):
+        clean=(cand or "").split("?",1)[0]
+        low=clean.lower()
+        if marker not in low: continue
+        if not low.endswith((".jpg",".jpeg",".png",".webp")): continue
+        if any(x in low for x in ("logo","agent","staff","avatar","profile","rory_mack")): continue
+        if cand not in found: found.append(cand)
+    return found
+
 def _property_image_from_soup(s, url):
     """Choose a real property/gallery image from an exact lot page."""
+    if "btgeddisonspropertyauctions.com" in (url or "").lower() or "pugh-auctions.com" in (url or "").lower():
+        gallery=_btg_gallery_images(s,url)
+        if gallery:
+            return gallery[0]
+
     # Social preview is usually the canonical property hero image.
     for attrs in ({"property":"og:image"},{"name":"twitter:image"},{"property":"twitter:image"}):
         tag=s.find("meta",attrs=attrs)
@@ -1241,12 +1272,14 @@ def _enrich_missing_images(rows,limit=220):
                     preferred.append(c)
                 elif "barnardmarcusauctions.co.uk" in r["url"] and "/media/" in lc:
                     preferred.append(c)
-                elif ("pugh-auctions.com" in r["url"] or "btgeddisonspropertyauctions.com" in r["url"]) and (
-                    "asta.btgeddisonspropertyauctions.com" in lc or "cdn.eigpropertyauctions.co.uk" in lc
-                ):
-                    preferred.append(c)
+                elif ("pugh-auctions.com" in r["url"] or "btgeddisonspropertyauctions.com" in r["url"]):
+                    # Exact-gallery matching below; never trust the asta host by itself.
+                    pass
                 elif "auctionhouselondon.co.uk" in r["url"]:
                     preferred.append(c)
+            if "pugh-auctions.com" in r["url"] or "btgeddisonspropertyauctions.com" in r["url"]:
+                gallery=_btg_gallery_images(s,r["url"])
+                return i,(gallery[0] if gallery else None)
             return i,(preferred[0] if preferred else (candidates[0] if candidates else None))
         except Exception:
             return i,None
@@ -1521,25 +1554,29 @@ def _exact_page_card(url, source, auction_date, force_commercial=False):
         image=None
         candidates=_img_candidates(s,url)
 
-        # Prefer known auction gallery/CDN patterns.
+        # BTG/Pugh: host alone is not proof of a property photograph. Only the
+        # exact property's own artnr_<property-key> gallery folder is trusted.
+        if "btgeddisonspropertyauctions.com" in (url or "").lower() or "pugh-auctions.com" in (url or "").lower():
+            gallery=_btg_gallery_images(s,url)
+            if gallery:
+                image=gallery[0]
+
         preferred=(
             "/lot-image/",
             "cdn.eigpropertyauctions.co.uk/ams/images/",
             "/media/",
             "resize.auctions.savills.co.uk",
-            "asta.btgeddisonspropertyauctions.com",
-            "btgeddisonspropertyauctions.com/uploads/",
-            "btgeddisonspropertyauctions.com/images/",
         )
-        for cand in candidates:
-            if any(x in cand.lower() for x in preferred):
-                image=cand
-                break
+        if not image:
+            for cand in candidates:
+                if any(x in cand.lower() for x in preferred):
+                    image=cand
+                    break
 
         # BTG can serve property photographs from changing CDN hosts. The old
         # whitelist silently threw those photographs away. Fall back to the
         # first credible image from the exact property page.
-        if not image:
+        if not image and not ("btgeddisonspropertyauctions.com" in (url or "").lower() or "pugh-auctions.com" in (url or "").lower()):
             for cand in candidates:
                 lc=cand.lower()
                 if any(x in lc for x in ("logo","favicon","icon","placeholder",
@@ -1550,8 +1587,8 @@ def _exact_page_card(url, source, auction_date, force_commercial=False):
                     image=cand
                     break
 
-        # Metadata fallback.
-        if not image:
+        # BTG metadata may be joint-agent artwork; never use it as lot imagery.
+        if not image and not ("btgeddisonspropertyauctions.com" in (url or "").lower() or "pugh-auctions.com" in (url or "").lower()):
             for attrs in (
                 {"property":"og:image"},
                 {"name":"twitter:image"},
