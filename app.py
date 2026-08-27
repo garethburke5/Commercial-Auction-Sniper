@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.37-STRETTONS-YIELD"
+BUILD = "V6.38-MAPS-DYNAMIC-YIELD"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2445,6 +2445,8 @@ div[data-testid="stPopover"] button:hover{border-color:#6d87aa!important;backgro
 div[data-testid="stNumberInput"] label p{font-size:.67rem!important;font-weight:850!important;color:#dfe8f3!important}
 div[data-testid="stNumberInput"] input{font-weight:900!important}
 @media(max-width:650px){div[data-testid="stNumberInput"] label p{font-size:.56rem!important}}
+
+.cardActions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}.cardActions .action{margin-top:0}.mapAction{display:block;text-align:center;text-decoration:none!important;background:#172638;color:#d9e7f7!important;border:1px solid #3b5470;border-radius:8px;padding:9px 7px;font-size:.70rem;font-weight:900}.mapAction:hover{border-color:#f2c94c;color:#f2c94c!important}.cardActions .action{padding:9px 7px;font-size:.70rem}@media(max-width:650px){.cardActions{gap:4px;margin-top:6px}.mapAction,.cardActions .action{font-size:.49rem;padding:6px 3px;border-radius:6px}}
 </style>
 """,unsafe_allow_html=True)
 
@@ -3060,6 +3062,8 @@ with lots_tab:
         _size_text=(f"{_sqft:,.0f} sq ft / {_sqm:,.0f} sq m" if _sqft else None)
         meta=" · ".join(v for v in [x.get("date"),x.get("tenure"),("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)
         _property_url=html.escape(str(x.get("url") or ""),quote=True)
+        _map_query=urllib.parse.quote_plus(str(x.get("address") or ""))
+        _maps_url=f"https://www.google.com/maps/search/?api=1&query={_map_query}"
         preview=(f'<a class="previewLink" href="{_property_url}" target="_blank" rel="noopener noreferrer"><img class="preview" src="{html.escape(x["image"],quote=True)}" loading="lazy"></a>' if x.get("image") and _property_url
                  else (f'<img class="preview" src="{html.escape(x["image"],quote=True)}" loading="lazy">' if x.get("image") else '<div class="preview noimg">Photo unavailable</div>'))
         cards.append(
@@ -3069,12 +3073,12 @@ with lots_tab:
             +f'<div class="metric"><span>Guide</span><b>{money(x.get("guide"))}</b></div>'
             +f'<div class="metric"><span>Rent p.a.</span><b>{money(x.get("rent"))}</b></div>'
             +f'<div class="metric yieldMetric"><span>GIY</span><b>{pct(y)}</b></div>'
-            +f'<div class="metric"><span>Max price @ 10% yield</span><b>{money(ceiling)}</b></div>'
+            +f'<div class="metric"><span>Max price @ {target_yield:g}% yield</span><b>{money(ceiling)}</b></div>'
             +(f'<div class="metric sizeMetric"><span>Size</span><b>{html.escape(_size_text)}</b></div>' if _size_text else '')
             +'</div>'
             +f'<div class="meta">{html.escape(meta)}</div>'
             +_facts_html(x)
-            +f'<a class="action" target="_blank" href="{html.escape(x["url"])}">Open exact property ↗</a>'
+            +f'<div class="cardActions"><a class="mapAction" target="_blank" rel="noopener noreferrer" href="{html.escape(_maps_url,quote=True)}">Map / Street View ↗</a><a class="action" target="_blank" href="{html.escape(x["url"])}">Open property ↗</a></div>'
             +'</div></div>'
         )
     st.markdown('<div class="cards">'+"".join(cards)+'</div>',unsafe_allow_html=True)
