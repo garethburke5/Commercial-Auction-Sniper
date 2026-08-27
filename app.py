@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.23-BTG-EXACT-FIRST"
+BUILD = "V6.24-STRETTONS-EXACT-BOOT"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -1531,6 +1531,60 @@ def _hydrate_pugh_seed_rows(rows):
         return rows
     return _merge_property_universe(rows,live)
 
+@st.cache_data(ttl=21600, show_spinner=False)
+def _strettons_seed_exact_rows(target_lots):
+    """Resolve known Strettons seed lots to exact current property pages."""
+    listing="https://www.strettons.co.uk/auction-commercial-property/for-sale/"
+    wanted=set(target_lots)
+    if not wanted:
+        return []
+    try:
+        soup=BeautifulSoup(fetch(listing),"lxml")
+        links={}
+        for a in soup.find_all("a",href=True):
+            href=urljoin(listing,a["href"])
+            if "/auction-commercial-property-for-sale/" not in href:
+                continue
+            node=a; card=""
+            for _ in range(9):
+                node=getattr(node,"parent",None)
+                if node is None: break
+                t=norm(node.get_text(" ",strip=True))
+                if re.search(r"10 Sep 26\s*-\s*Lot\s+\d+",t,re.I) and len(t)<5000:
+                    card=t; break
+            if not card: continue
+            m=re.search(r"10 Sep 26\s*-\s*Lot\s+(\d+[A-Z]?)",card,re.I)
+            if not m: continue
+            lot="Lot "+m.group(1)
+            if lot in wanted:
+                links[lot]=href
+
+        live=[]
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            futures={ex.submit(_exact_page_card,u,"Strettons","2026-09-10",True):(lot,u) for lot,u in links.items()}
+            for f in as_completed(futures):
+                lot,u=futures[f]
+                try:
+                    rec=f.result()
+                    if rec:
+                        rec["lot"]=lot
+                        rec["url"]=u
+                        live.append(rec)
+                except Exception:
+                    pass
+        return live
+    except Exception:
+        return []
+
+def _hydrate_strettons_seed_rows(rows):
+    missing=[r for r in rows if r.get("source")=="Strettons" and (not r.get("image") or "/auction-commercial-property/for-sale" in (r.get("url") or ""))]
+    if not missing:
+        return rows
+    live=_strettons_seed_exact_rows(tuple(r.get("lot") for r in missing if r.get("lot")))
+    if not live:
+        return rows
+    return _merge_property_universe(rows,live)
+
 def load_rows():
     """
     Fast, non-destructive boot.
@@ -1574,6 +1628,10 @@ def load_rows():
     # property image could render until a manual full refresh. Hydrate just the
     # known commercial Pugh/BTG cards from their exact current lot pages.
     rows=_hydrate_pugh_seed_rows(rows)
+    # Strettons seed rows also begin with the generic commercial catalogue URL.
+    # Resolve the current lot cards to exact property pages at boot so preview
+    # images and exact navigation work before a manual full refresh.
+    rows=_hydrate_strettons_seed_rows(rows)
     return rows,health,updated
 
 
