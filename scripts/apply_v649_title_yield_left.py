@@ -26,3 +26,4 @@ s=s.replace('</style>\n""",unsafe_allow_html=True)',css+'</style>\n""",unsafe_al
 p.write_text(s,encoding='utf-8')
 py_compile.compile(str(p),doraise=True)
 print('V6.49 title and left-labelled yield control applied')
+# trigger deploy
