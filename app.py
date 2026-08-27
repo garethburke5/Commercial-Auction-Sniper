@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.43-COMPACT-YIELD"
+BUILD = "V6.44-ALIGNED-DETAILS"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2503,6 +2503,13 @@ div[data-testid="stNumberInput"]{max-width:100%!important;margin:0!important}
 div[data-testid="stNumberInput"]>div{margin:0!important}
 div[data-testid="stNumberInput"] input{min-width:0!important}
 @media(max-width:650px){.yieldCaption{font-size:.49rem;margin-top:2px;padding-left:1px}}
+
+/* V6.44 harmonise card bottoms */
+.card{display:flex!important;flex-direction:column!important;height:100%!important}
+.cb{display:flex!important;flex-direction:column!important;flex:1 1 auto!important}
+.analysis{margin-top:auto!important}
+.cardActions{margin-top:9px!important}
+@media(max-width:650px){.card{display:flex!important;flex-direction:column!important}.cb{display:flex!important;flex-direction:column!important;flex:1 1 auto!important}.analysis{margin-top:auto!important}}
 
 /* V6.42 wider property photography */
 .previewLink{display:block!important;width:100%!important;margin:0!important;padding:0!important;overflow:hidden!important}
