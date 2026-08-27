@@ -4,6 +4,12 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '17 */6 * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/auction-sniper-scan.yml'
+      - 'run_collectors.py'
+      - 'collectors/**'
 
 permissions:
   contents: write
@@ -15,7 +21,7 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - name: Checkout production branch
         uses: actions/checkout@v4
@@ -31,33 +37,39 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install requests beautifulsoup4
+          pip install -r requirements.txt
+          pip install playwright
+          python -m playwright install chromium
 
-      - name: Compile production app
-        run: python -m py_compile app.py
+      - name: Compile production code
+        run: |
+          python -m py_compile app.py run_collectors.py collectors/*.py
 
-      - name: Run collector pipeline when available
+      - name: Run production collectors
         env:
           SAVILLS_EMAIL: ${{ secrets.SAVILLS_EMAIL }}
           SAVILLS_PASSWORD: ${{ secrets.SAVILLS_PASSWORD }}
+        run: python run_collectors.py
+
+      - name: Validate refreshed snapshot
         run: |
-          set -e
-          if [ -f run_scan.py ]; then
-            python run_scan.py
-          elif [ -f scan.py ]; then
-            python scan.py
-          elif [ -f update_data.py ]; then
-            python update_data.py
-          else
-            echo 'No standalone scan runner found; app.py remains production source.'
-          fi
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/properties.json')
+          assert p.exists(), 'data/properties.json was not generated'
+          d=json.loads(p.read_text(encoding='utf-8'))
+          assert 'properties' in d and 'source_health' in d and d.get('generated_at'), 'invalid snapshot contract'
+          print('SNAPSHOT', len(d['properties']), 'properties')
+          for s in d['source_health']:
+              print(s['source'], s['status'], s['lots_seen'])
+          PY
 
       - name: Commit refreshed snapshot
         run: |
           git config user.name 'Auction Sniper Bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add -A
+          git add data/properties.json
           git diff --cached --quiet && exit 0
           git commit -m 'Refresh Auction Sniper production data'
           git push origin main
