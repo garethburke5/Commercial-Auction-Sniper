@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.39-ALIGNED-YIELD"
+BUILD = "V6.40-INLINE-YIELD-LABEL"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2447,6 +2447,12 @@ div[data-testid="stNumberInput"] input{font-weight:900!important}
 @media(max-width:650px){div[data-testid="stNumberInput"] label p{font-size:.56rem!important}}
 
 .cardActions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}.cardActions .action{margin-top:0}.mapAction{display:block;text-align:center;text-decoration:none!important;background:#172638;color:#d9e7f7!important;border:1px solid #3b5470;border-radius:8px;padding:9px 7px;font-size:.70rem;font-weight:900}.mapAction:hover{border-color:#f2c94c;color:#f2c94c!important}.cardActions .action{padding:9px 7px;font-size:.70rem}@media(max-width:650px){.cardActions{gap:4px;margin-top:6px}.mapAction,.cardActions .action{font-size:.49rem;padding:6px 3px;border-radius:6px}}
+
+/* V6.40 inline yield control */
+.yieldInlineLabel{height:38px;display:flex;align-items:center;justify-content:center;padding:0 10px;border:1px solid #3a4b62;border-radius:8px;background:#131e2c;color:#eef4fb;font-size:.68rem;font-weight:850;white-space:nowrap;box-sizing:border-box}
+div[data-testid="stNumberInput"]{margin:0!important}
+div[data-testid="stNumberInput"]>div{margin:0!important}
+@media(max-width:650px){.yieldInlineLabel{height:34px;font-size:.55rem;padding:0 6px}}
 </style>
 """,unsafe_allow_html=True)
 
@@ -2460,7 +2466,7 @@ st.markdown(
 )
 
 # Compact utility strip: actions stay visible without consuming the page.
-tool_a,tool_b,tool_yield,tool_space=st.columns([1.05,1.15,1.25,3.55],gap="small")
+tool_a,tool_b,tool_yield,tool_space=st.columns([1.05,1.15,1.55,3.25],gap="small")
 with tool_a:
     if st.button("↻ Update listings",type="primary",use_container_width=True,help="Refresh current auction lots and property photos"):
         with st.spinner("Updating current commercial auction listings and photos…"):
@@ -2481,7 +2487,11 @@ with tool_b:
             st.rerun()
 
 with tool_yield:
-    target_yield=st.number_input("Target yield (%)",min_value=1.0,max_value=30.0,value=10.0,step=.5,format="%.1f",help="Target yield — changes the max purchase price on every rented property",label_visibility="collapsed")
+    yl,yi=st.columns([1.15,1.0],gap="small",vertical_alignment="center")
+    with yl:
+        st.markdown('<div class="yieldInlineLabel">Target yield (%)</div>',unsafe_allow_html=True)
+    with yi:
+        target_yield=st.number_input("Target yield (%)",min_value=1.0,max_value=30.0,value=10.0,step=.5,format="%.1f",help="Target yield — changes the max purchase price on every rented property",label_visibility="collapsed")
 
 lots_tab,sources_tab=st.tabs(["🎯 All properties","📡 Source health"])
 
