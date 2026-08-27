@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.48-INTEGRATED-YIELD"
+BUILD = "V6.49-TITLE-YIELD-LEFT"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2541,6 +2541,16 @@ div[data-testid="stNumberInput"]>div{height:38px!important;margin:0!important}
 div[data-testid="stNumberInput"] input{height:38px!important;border-radius:9px 0 0 9px!important;font-weight:950!important}
 div[data-testid="stNumberInput"] button{height:38px!important;border-radius:0!important}
 @media(max-width:650px){.yieldIntegratedLabel{height:34px;padding:0 6px}.yieldIntegratedLabel span{font-size:.45rem}.yieldIntegratedLabel b{font-size:.52rem}div[data-testid="stNumberInput"],div[data-testid="stNumberInput"]>div,div[data-testid="stNumberInput"] input,div[data-testid="stNumberInput"] button{height:34px!important}}
+
+/* V6.49 stronger title + joined left-side yield label */
+.brand{font-size:3.05rem!important;line-height:.88!important;letter-spacing:-.06em!important;text-shadow:0 3px 18px rgba(0,0,0,.34)!important}
+.hero{min-height:104px!important;padding:19px 23px!important}
+.tagline{font-size:.88rem!important;margin-top:10px!important}
+.yieldIntegratedLabel.left{border:1px solid #52657c!important;border-right:0!important;border-radius:9px 0 0 9px!important;margin-left:0!important;margin-right:-1px!important;background:linear-gradient(180deg,#263a52,#1b2a3d)!important;align-items:flex-start!important;padding-left:12px!important}
+.yieldIntegratedLabel.left span{color:#b7c5d6!important}.yieldIntegratedLabel.left b{color:#f2c94c!important}
+div[data-testid="stNumberInput"] input{border-radius:0!important}
+div[data-testid="stNumberInput"] button:last-child{border-radius:0 9px 9px 0!important}
+@media(max-width:650px){.hero{min-height:76px!important;padding:13px 14px 12px 17px!important}.brand{font-size:1.85rem!important}.tagline{font-size:.64rem!important}.yieldIntegratedLabel.left{padding-left:7px!important}}
 </style>
 """,unsafe_allow_html=True)
 
@@ -2554,7 +2564,7 @@ st.markdown(
 )
 
 # Compact utility strip: actions stay visible without consuming the page.
-tool_a,tool_b,tool_yield,tool_yield_label,tool_space=st.columns([1.05,1.15,.58,.48,3.74],gap=None)
+tool_a,tool_b,tool_yield_label,tool_yield,tool_space=st.columns([1.05,1.15,.46,.62,3.68],gap=None)
 with tool_a:
     if st.button("↻ Update listings",type="primary",use_container_width=True,help="Refresh current auction lots and property photos"):
         with st.spinner("Updating current commercial auction listings and photos…"):
@@ -2574,6 +2584,8 @@ with tool_b:
             CACHE.unlink(missing_ok=True)
             st.rerun()
 
+with tool_yield_label:
+    st.markdown('<div class="yieldIntegratedLabel left"><span>Target</span><b>Yield (%)</b></div>',unsafe_allow_html=True)
 with tool_yield:
     target_yield=st.number_input(
         "Target yield (%)",
@@ -2581,8 +2593,6 @@ with tool_yield:
         help="Target yield — changes the max purchase price on every rented property",
         label_visibility="collapsed"
     )
-with tool_yield_label:
-    st.markdown('<div class="yieldIntegratedLabel"><span>Target</span><b>Yield (%)</b></div>',unsafe_allow_html=True)
 
 lots_tab,sources_tab=st.tabs(["🎯 All properties","📡 Source health"])
 
