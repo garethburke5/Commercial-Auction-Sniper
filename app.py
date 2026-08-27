@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.47-TOOLBAR-MASTHEAD"
+BUILD = "V6.48-INTEGRATED-YIELD"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2531,6 +2531,16 @@ div[data-testid="stNumberInput"] input{min-width:0!important}
 .yieldSideLabel{height:38px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;color:#c4d0df;font-size:.58rem;font-weight:850;line-height:1.02;letter-spacing:.01em;white-space:nowrap}
 .yieldSideLabel span{font-size:.46rem;color:#8393a7;font-weight:750;margin-top:1px}
 @media(max-width:650px){.hero{min-height:70px!important;padding:12px 13px 11px 16px!important}.hero:before{width:4px}.brand{font-size:1.62rem!important}.tagline{font-size:.61rem!important;margin-top:6px!important}.sub{font-size:.42rem!important}.badge{font-size:.50rem!important;padding:5px 7px!important}.yieldSideLabel{height:34px;font-size:.47rem}.yieldSideLabel span{font-size:.39rem}}
+
+/* V6.48 integrated two-tone target-yield control */
+.yieldCaption,.yieldSideLabel{display:none!important}
+.yieldIntegratedLabel{height:38px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#24354a,#1b293a);border:1px solid #52657c;border-left:0;border-radius:0 9px 9px 0;color:#dbe6f2;margin-left:-1px;padding:0 10px;line-height:1.02;box-shadow:inset 1px 0 0 rgba(255,255,255,.04)}
+.yieldIntegratedLabel span{font-size:.54rem;font-weight:750;color:#9fb0c3;letter-spacing:.02em}.yieldIntegratedLabel b{font-size:.64rem;font-weight:950;color:#f2c94c;margin-top:2px;white-space:nowrap}
+div[data-testid="stNumberInput"]{height:38px!important;margin:0!important}
+div[data-testid="stNumberInput"]>div{height:38px!important;margin:0!important}
+div[data-testid="stNumberInput"] input{height:38px!important;border-radius:9px 0 0 9px!important;font-weight:950!important}
+div[data-testid="stNumberInput"] button{height:38px!important;border-radius:0!important}
+@media(max-width:650px){.yieldIntegratedLabel{height:34px;padding:0 6px}.yieldIntegratedLabel span{font-size:.45rem}.yieldIntegratedLabel b{font-size:.52rem}div[data-testid="stNumberInput"],div[data-testid="stNumberInput"]>div,div[data-testid="stNumberInput"] input,div[data-testid="stNumberInput"] button{height:34px!important}}
 </style>
 """,unsafe_allow_html=True)
 
@@ -2544,7 +2554,7 @@ st.markdown(
 )
 
 # Compact utility strip: actions stay visible without consuming the page.
-tool_a,tool_b,tool_yield,tool_yield_label,tool_space=st.columns([1.05,1.15,.62,.34,3.84],gap="small")
+tool_a,tool_b,tool_yield,tool_yield_label,tool_space=st.columns([1.05,1.15,.58,.48,3.74],gap=None)
 with tool_a:
     if st.button("↻ Update listings",type="primary",use_container_width=True,help="Refresh current auction lots and property photos"):
         with st.spinner("Updating current commercial auction listings and photos…"):
@@ -2572,7 +2582,7 @@ with tool_yield:
         label_visibility="collapsed"
     )
 with tool_yield_label:
-    st.markdown('<div class="yieldSideLabel">Target<br>Yield <span>(%)</span></div>',unsafe_allow_html=True)
+    st.markdown('<div class="yieldIntegratedLabel"><span>Target</span><b>Yield (%)</b></div>',unsafe_allow_html=True)
 
 lots_tab,sources_tab=st.tabs(["🎯 All properties","📡 Source health"])
 
