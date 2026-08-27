@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.21-BTG-BOOT"
+BUILD = "V6.22-BTG-19OF19"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -253,15 +253,15 @@ SEED = [
     dict(source="Pugh / BTG Eddisons", lot='Lot 132', date="2026-08-27", address='9 Manchester Road, Audenshaw, Manchester M34 5PZ', guide=185000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/properties/202605060832sq_hdck-280526/for-auction-manchester', desc='Mixed Use. Commercial shop, two flats and double garage; part-let/part-vacant; ERV circa £26,000 pa.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 133', date="2026-08-27", address='207 Victoria Avenue, and First and Second Floors 205 Victoria Avenue, Manchester M9 0RA', guide=185000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property. Approx 1,970 sq ft commercial premises.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 170', date="2026-08-27", address='Maclins Depot, Unit 2, Station Road, South Molton, Devon EX36 3LJ', guide=150000, rent=6780, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/properties/202607211014sq_kwai-270826/for-auction-south-molton', desc='Commercial Development. Freehold commercial depot approx 3,931 sq ft; part let £6,780 pa.'),
-    dict(source="Pugh / BTG Eddisons", lot='Lot 195', date="2026-08-27", address='Grand Hotel, Radcliffe, Greater Manchester', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Hotel / commercial opportunity.'),
-    dict(source="Pugh / BTG Eddisons", lot='Lot 196', date="2026-08-27", address='15-23 Percy Street, Stoke-On-Trent, Staffordshire', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 195', date="2026-08-27", address='The Grand Hotel, 13 Market Street, Radcliffe, Manchester, Lancashire M26 1GF', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Hotel / commercial opportunity.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 196', date="2026-08-27", address='15 - 23 Percy Street, Stoke-On-Trent, Staffordshire ST1 1NA', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/properties/202607231641sq_tkoe-300926/for-auction-stoke-on-trent', desc='Commercial Property.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 201', date="2026-08-27", address='63 George Street, Walsall, West Midlands WS1 1RS', guide=60000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property. Grade II listed commercial unit with mixed-use potential.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 216', date="2026-08-27", address='2 & 2a High Street, St. Asaph, Denbighshire LL17 0RD', guide=60000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use. Ground-floor retail unit and first-floor flat.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 218', date="2026-08-27", address='29 & 31/33 Mostyn Avenue, Llandudno, Conwy LL30 1YS', guide=495000, rent=43000, tenure=None, vat="UNKNOWN", url='https://www.pugh-auctions.com/property/202607141332sq_0jra', desc='Commercial Property. Two adjoining retail investments producing approx £43,000 pa.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 219', date="2026-08-27", address='Land at Hathershaw Lane, Oldham, Lancashire OL8 3EU', guide=60000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial income land. Advertising display site, majority let on a new ten-year lease.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 220', date="2026-08-27", address='77 Manchester Road, Altrincham, Cheshire WA14 4RJ', guide=235000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property. Retail investment let to hot-food operator.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 221', date="2026-08-27", address='8 Hampton Road, Failsworth, Manchester, Lancashire M35 9HT', guide=295000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use. Convenience shop with residential accommodation.'),
-    dict(source="Pugh / BTG Eddisons", lot='Lot 252', date="2026-08-27", address='Unit 4, Bansons Yard, Ongar, Essex', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Development. Commercial office space with development potential.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 252', date="2026-08-27", address='Unit 4, Bansons Yard, High Street, Ongar, Essex CM5 9AA', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Development. Commercial office space with development potential.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 253', date="2026-08-27", address='502 Sutton Road, Southend-On-Sea, Essex', guide=185000, rent=16000, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use. Ground-floor shop and flat; current income approx £16,000 pa.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 272', date="2026-08-27", address='186 Selborne Street, Preston, Lancashire PR1 4LB', guide=120000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use. Ground-floor retail unit and first-floor flat.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 276', date="2026-08-27", address='27 Market Square, Kirkby Stephen, Cumbria', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Retail Property.'),
@@ -1438,20 +1438,43 @@ def _pugh_seed_exact_rows(targets):
     catalogue="https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17&date_added=0&limit=0&radius=1&search_type=auction&view=grid"
     try:
         s=BeautifulSoup(fetch(catalogue),"lxml")
+        # Cache exact lot links and labels once, then match each seed robustly.
+        links=[]
+        for a in s.find_all("a",href=True):
+            href=urljoin(catalogue,a["href"])
+            if "/properties/" not in href:
+                continue
+            label=norm(a.get_text(" ",strip=True)).lower()
+            if label:
+                links.append((label,href))
+
+        def tokens(text):
+            cleaned=re.sub(r"[^a-z0-9]+"," ",(text or "").lower())
+            stop={"the","and","of","at","in","on","greater","county"}
+            return {x for x in cleaned.split() if x not in stop and (len(x)>2 or x.isdigit())}
+
         wanted=[]
+        used=set()
         for lot,address in targets:
             addr=norm(address).lower()
-            best=None
-            for a in s.find_all("a",href=True):
-                href=urljoin(catalogue,a["href"])
-                if "/properties/" not in href:
+            best_url=None
+            best_score=0.0
+            target=tokens(addr)
+            for label,href in links:
+                if href in used:
                     continue
-                label=norm(a.get_text(" ",strip=True)).lower()
-                if label and (label==addr or label in addr or addr in label):
-                    best=href
-                    break
-            if best:
-                wanted.append((lot,best))
+                if label==addr or label in addr or addr in label:
+                    best_url=href; best_score=1.0; break
+                candidate=tokens(label)
+                common=len(target & candidate)
+                # Coverage against the shorter target is deliberately used because
+                # BTG often adds street, county and postcode detail to the seed label.
+                score=(common/max(1,len(target)))
+                if common>=3 and score>best_score:
+                    best_score=score; best_url=href
+            if best_url and best_score>=0.55:
+                wanted.append((lot,best_url))
+                used.add(best_url)
 
         hydrated=[]
         with ThreadPoolExecutor(max_workers=8) as ex:
