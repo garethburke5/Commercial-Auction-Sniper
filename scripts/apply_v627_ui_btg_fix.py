@@ -1,14 +1,12 @@
 from pathlib import Path
 import py_compile
 
+# V6.27 production patch: compact visual redesign + stronger Pugh/BTG image resolution.
 p=Path('app.py')
 s=p.read_text(encoding='utf-8')
 
 s=s.replace('BUILD = "V6.26-PRODUCTION-INTEGRATION"','BUILD = "V6.27-COMPACT-PRODUCTION"',1)
 
-# Pugh pages often contain a direct BTG exact-lot link but not the BTG gallery
-# markup themselves. If exact gallery discovery fails on the Pugh page, follow
-# that exact BTG link and select the matching property image.
 old='''        if "btgeddisonspropertyauctions.com" in (url or "").lower() or "pugh-auctions.com" in (url or "").lower():
             gallery=_btg_gallery_images(s,url)
             if gallery:
@@ -19,7 +17,6 @@ new='''        if "btgeddisonspropertyauctions.com" in (url or "").lower() or "p
             if gallery:
                 image=gallery[0]
             elif "pugh-auctions.com" in (url or "").lower():
-                # Legacy Pugh page -> exact BTG lot page -> exact gallery.
                 for a in s.find_all("a",href=True):
                     exact=urljoin(url,a["href"])
                     if "btgeddisonspropertyauctions.com/properties/" not in exact.lower():
