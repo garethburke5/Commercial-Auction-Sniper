@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.30-FAST-SCAN-GRID"
+BUILD = "V6.34-SOURCES-HEADER"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -846,45 +846,99 @@ def _catalogue_savills():
     except Exception:
         return []
 
+
+def _strettons_exact_image(soup_obj,page_url):
+    """Extract a genuine Strettons lot photograph from its exact property page."""
+    candidates=[]
+    def add(raw,score=0):
+        if not raw: return
+        raw=str(raw).strip().split(' ')[0]
+        if not raw: return
+        u=urljoin(page_url,raw)
+        low=u.lower()
+        if any(x in low for x in ("logo","icon","avatar","agent","staff","map","marker","favicon","placeholder","sprite")):
+            return
+        if "ggfx-strettons.s3" in low: score+=8
+        if any(x in low for x in ("property","auction","image","uploads","media")): score+=3
+        candidates.append((score,u))
+    for meta in soup_obj.find_all("meta"):
+        key=(meta.get("property") or meta.get("name") or "").lower()
+        if key in ("og:image","twitter:image","twitter:image:src"):
+            add(meta.get("content"),10)
+    for img in soup_obj.find_all("img"):
+        alt=norm(img.get("alt","")).lower()
+        bonus=4 if any(x in alt for x in ("property","auction","external","front","lot")) else 0
+        for attr in ("src","data-src","data-lazy-src","data-original","data-image"):
+            add(img.get(attr),bonus)
+        for attr in ("srcset","data-srcset"):
+            ss=img.get(attr)
+            if ss:
+                for part in ss.split(','):
+                    add(part.strip().split(' ')[0],bonus+1)
+    for source in soup_obj.find_all("source"):
+        for attr in ("srcset","data-srcset"):
+            ss=source.get(attr)
+            if ss:
+                for part in ss.split(','):
+                    add(part.strip().split(' ')[0],2)
+    # Background images are used by some Strettons gallery components.
+    for tag in soup_obj.find_all(style=True):
+        for raw in re.findall(r'url\([\"\']?([^\)\"\']+)',tag.get('style',''),re.I):
+            add(raw,2)
+    if not candidates:
+        return None
+    candidates.sort(key=lambda x:x[0],reverse=True)
+    return candidates[0][1]
+
 @st.cache_data(ttl=21600, show_spinner=False)
 def _catalogue_strettons():
     url="https://www.strettons.co.uk/auction-commercial-property/for-sale/"
     try:
-        s=BeautifulSoup(fetch(url),"lxml")
-        rows={}
-        for a in s.find_all("a",href=True):
-            text=norm(a.get_text(" ",strip=True))
-            node=a
-            card=""
-            for _ in range(8):
-                node=getattr(node,"parent",None)
-                if node is None: break
-                t=norm(node.get_text(" ",strip=True))
-                if "10 Sep 26" in t and re.search(r"\bLot\s+\d+",t,re.I) and len(t)<4000:
-                    card=t
-                    break
-            if not card:
+        ls=BeautifulSoup(fetch(url),"lxml")
+        links={}
+        for a in ls.find_all("a",href=True):
+            href=urljoin(url,a["href"])
+            if "/auction-commercial-property-for-sale/" not in href:
                 continue
-            m=re.search(r"10 Sep 26\s*-\s*Lot\s+(\d+[A-Z]?)\s+(.+?)(?=(?:FREEHOLD|LONG LEASEHOLD|Guide Price|View more))",card,re.I)
+            label=norm(a.get_text(" ",strip=True))
+            m=re.search(r"10 Sep 26\s*-\s*Lot\s+(\d+[A-Z]?)\s+(.+)",label,re.I)
             if not m:
-                continue
-            lotno="Lot "+m.group(1)
-            address=norm(m.group(2))
-            gm=re.search(r"Guide Price\s*(£[\d,]+)",card,re.I)
-            guide=parse_money(gm.group(1)) if gm else None
-            href=urljoin(url,a.get("href",""))
-            imgs=_img_candidates(node,url)
-            low=card.lower()
-            rows[lotno]=dict(
-                source="Strettons",lot=lotno,date="2026-09-10",
-                address=address,guide=guide,rent=parse_rent(card),
-                tenure=("Freehold" if "freehold" in low else "Leasehold" if "leasehold" in low else None),
-                vat="UNKNOWN",url=href or url,desc=card[:350],
-                image=imgs[0] if imgs else None
-            )
-        if len(rows)<8:
-            raise ValueError("Strettons parse too small")
-        return list(rows.values())
+                node=a
+                for _ in range(7):
+                    node=getattr(node,"parent",None)
+                    if node is None: break
+                    label=norm(node.get_text(" ",strip=True))
+                    m=re.search(r"10 Sep 26\s*-\s*Lot\s+(\d+[A-Z]?)\s+(.+?)(?=(?:FREEHOLD|LONG LEASEHOLD|LEASEHOLD|Guide Price|View more))",label,re.I)
+                    if m: break
+            if m:
+                links["Lot "+m.group(1)]=href
+        rows=[]
+        def build(item):
+            lot,href=item
+            try:
+                ds=BeautifulSoup(fetch(href),"lxml")
+                main=ds.find("main") or ds
+                text=norm(main.get_text(" ",strip=True))
+                low=text.lower()
+                if "sold prior" in low or "withdrawn" in low: return None
+                h=ds.find("h1")
+                address=norm(h.get_text(" ",strip=True)) if h else ""
+                if not address: return None
+                gm=re.search(r"Guide Price\s*£?\s*([\d,]+)",text,re.I)
+                guide=float(gm.group(1).replace(',','')) if gm else None
+                image=_strettons_exact_image(ds,href)
+                return dict(source="Strettons",lot=lot,date="2026-09-10",address=address,
+                            guide=guide,rent=parse_rent(text),
+                            tenure=("Freehold" if "freehold" in low[:2200] else "Leasehold" if "leasehold" in low[:2200] else None),
+                            vat="UNKNOWN",url=href,desc=text[:1800],image=image)
+            except Exception:
+                return None
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            futures=[ex.submit(build,x) for x in links.items()]
+            for f in as_completed(futures):
+                r=f.result()
+                if r: rows.append(r)
+        return _clean_rows(rows)
     except Exception:
         return []
 
@@ -1174,6 +1228,62 @@ def _catalogue_barnard_marcus():
         except Exception: pass
     return rows
 
+
+@st.cache_data(ttl=21600, show_spinner=False)
+def _pattinson_current():
+    """Pattinson current online commercial auction lots from its commercial search feed."""
+    base="https://www.pattinson.co.uk/commercial/property-search?searchType=CommercialSale"
+    links=set()
+    for page_no in range(1,9):
+        page=base if page_no==1 else f"https://www.pattinson.co.uk/commercial/property-search?p={page_no}&searchType=CommercialSale"
+        try:
+            ls=BeautifulSoup(fetch(page),"lxml")
+            for a in ls.find_all("a",href=True):
+                href=urljoin(page,a["href"])
+                if not re.search(r"/property/\d+",href):
+                    continue
+                node=a; card=norm(a.get_text(" ",strip=True))
+                for _ in range(5):
+                    node=getattr(node,"parent",None)
+                    if node is None: break
+                    t=norm(node.get_text(" ",strip=True))
+                    if len(t)<1800 and ("Starting Bid" in t or "Current Bid" in t):
+                        card=t; break
+                low=card.lower()
+                commercial=any(x in low for x in ("retail","commercial development","industrial","offices","office","hotel","leisure","drinking establishment","land & development","land in ","hot food takeaway","shop"))
+                if commercial and ("starting bid" in low or "current bid" in low):
+                    links.add(href)
+        except Exception:
+            pass
+    rows=[]
+    def build(href):
+        try:
+            ds=BeautifulSoup(fetch(href),"lxml")
+            text=norm((ds.find("main") or ds).get_text(" ",strip=True))
+            low=text.lower()
+            if "starting bid" not in low and "current bid" not in low and "secure sale" not in low:
+                return None
+            h=ds.find("h1")
+            ptitle=norm(h.get_text(" ",strip=True)) if h else ""
+            # Pattinson puts the full address immediately after the H1. Prefer title metadata/address-like text.
+            title_tag=ds.find("title")
+            title_text=norm(title_tag.get_text(" ",strip=True)) if title_tag else ""
+            address=title_text.split(" | ")[0] if " | " in title_text else ptitle
+            gm=re.search(r"Starting\s*bid\s*£([\d,]+)",text,re.I)
+            guide=float(gm.group(1).replace(',','')) if gm else None
+            image=_property_image_from_soup(ds,href)
+            tenure=("Freehold" if re.search(r"\bFreehold\b",text,re.I) else "Leasehold" if re.search(r"\bLeasehold\b",text,re.I) else None)
+            return dict(source="Pattinson",lot="Online",date=None,address=address,guide=guide,rent=parse_rent(text),
+                        tenure=tenure,vat="UNKNOWN",url=href,desc=text[:1800],image=image)
+        except Exception:
+            return None
+    with ThreadPoolExecutor(max_workers=12) as ex:
+        futures=[ex.submit(build,u) for u in list(links)[:160]]
+        for f in as_completed(futures):
+            r=f.result()
+            if r: rows.append(r)
+    return _clean_rows(rows)
+
 def _merge_catalogue_rows(base_rows):
     current={}
     for x in base_rows:
@@ -1185,6 +1295,7 @@ def _merge_catalogue_rows(base_rows):
         ("Bond Wolfe",_bond_wolfe_current),
         ("Strettons",_strettons_current),
         ("Acuitus",_acuitus_current),
+        ("Pattinson",_pattinson_current),
         ("Barnard Marcus",_catalogue_barnard_marcus),
         ("Auction House Regional",_catalogue_auctionhouse_regional),
     ]
@@ -1935,7 +2046,7 @@ def _strettons_current():
 
                 # Strettons: choose the image from the exact property page, not
                 # the catalogue card. This catches lazy/srcset/OG gallery images.
-                image=_property_image_from_soup(s,href)
+                image=_strettons_exact_image(s,href) or _property_image_from_soup(s,href)
                 if not image:
                     imgs=_img_candidates(s,href)
                     for cand in imgs:
@@ -2242,6 +2353,7 @@ def refresh_market():
         "Bond Wolfe": _bond_wolfe_current,
         "Strettons": _strettons_current,
         "Acuitus": _acuitus_current,
+        "Pattinson": _pattinson_current,
         "Pugh / BTG Eddisons": _pugh_current_commercial,
     }
     with ThreadPoolExecutor(max_workers=4) as ex:
@@ -2298,8 +2410,8 @@ st.markdown("""
 header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:none!important}
 .block-container{max-width:1560px;padding:.7rem 1rem 2rem!important}
 .stApp{background:radial-gradient(circle at 15% -10%,#172236 0,#0b111b 35%,#080d14 72%);color:#f5f7fb}
-.hero{display:flex;justify-content:space-between;align-items:center;gap:14px;background:linear-gradient(120deg,rgba(24,35,52,.97),rgba(11,18,29,.97));border:1px solid #2b3d57;border-radius:14px;padding:14px 17px;margin-bottom:8px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
-.brand{font-size:1.35rem;font-weight:950;letter-spacing:-.035em}.brand b{color:#f0c94a}.sub{font-size:.68rem;color:#98a9bf;margin-top:3px}
+.hero{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#101a27;border:1px solid #34465e;border-radius:10px;padding:8px 12px;margin-bottom:5px;box-shadow:0 4px 14px rgba(0,0,0,.22)}
+.brand{font-size:1.62rem;font-weight:1000;letter-spacing:-.045em;line-height:1}.brand b{color:#f4cf50}.sub{font-size:.62rem;color:#b3c0d0;margin-top:3px}.tagline{font-size:.72rem;color:#eef3f8;font-weight:750;margin-top:3px}
 .badge{font-size:.64rem;border:1px solid #347d58;color:#b8f1cd;background:#10261c;border-radius:999px;padding:6px 9px;white-space:nowrap;font-weight:800}
 .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .card{background:linear-gradient(180deg,#131d2b,#101824);border:1px solid #273950;border-radius:11px;overflow:hidden;box-shadow:0 5px 16px rgba(0,0,0,.16);transition:transform .14s ease,border-color .14s ease,box-shadow .14s ease}
@@ -2320,35 +2432,37 @@ button[data-baseweb="tab"]{font-size:.9rem!important}
 @media(max-width:1180px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.preview{height:165px}}@media(max-width:820px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.preview{height:155px}.addr{font-size:.9rem}}
 @media(max-width:650px){.block-container{padding:.34rem .38rem 1.15rem!important}.hero{padding:9px 10px;margin-bottom:6px}.brand{font-size:1.05rem}.sub{font-size:.56rem}.badge{font-size:.54rem;padding:4px 6px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.card{display:block}.preview{height:112px;min-height:0;border-radius:0;object-fit:cover}.cb{padding:7px 7px 8px}.src{font-size:.52rem}.addr{font-size:.70rem;line-height:1.23;min-height:3.35em;margin:4px 0 6px}.metrics{gap:3px}.metric{padding:4px 5px;min-height:38px;border-radius:6px}.metric span{font-size:.44rem;margin-bottom:1px}.metric b{font-size:.62rem;line-height:1.12}.meta{font-size:.47rem;margin-top:5px;line-height:1.25}.chips{margin-top:5px;gap:3px}.chip{font-size:.47rem;padding:3px 5px}.analysis{margin-top:5px;padding-top:5px}.analysis summary{font-size:.56rem}.action{font-size:.55rem;padding:6px 4px;margin-top:6px;border-radius:6px}.factgrid{grid-template-columns:1fr}.research{gap:4px}.iread{padding:6px 7px}}
 .yieldMetric{background:#14271f;border-color:#2e5a45}.yieldMetric b{color:#b9f3cf}
+.previewLink{display:block;text-decoration:none!important;cursor:pointer}
 </style>
 """,unsafe_allow_html=True)
 
 rows,health,updated=load_rows()
 st.markdown(
     '<div class="hero"><div><div class="brand">AUCTION <b>SNIPER</b></div>'
-    f'<div class="sub">Commercial & mixed-use only · {BUILD} · {html.escape(updated or "")}</div></div>'
+    '<div class="tagline">UK commercial auction deal scanner</div>'
+    f'<div class="sub">{BUILD} · {html.escape(updated or "")}</div></div>'
     f'<div class="badge">{len(rows)} verified lots</div></div>',
     unsafe_allow_html=True
 )
 
-with st.expander("🔄 Live data",expanded=False):
-    st.caption("The board loads from the verified snapshot. Property photos are hydrated from exact lot pages; full catalogue crawling only runs when you press Refresh.")
-    if st.button("Refresh sources + photos",type="primary",use_container_width=True):
-        with st.spinner("Refreshing source-specific commercial feeds…"):
-            refresh_market()
-        st.rerun()
-    if CACHE.exists() and st.button("Reset to verified snapshot",use_container_width=True):
-        CACHE.unlink(missing_ok=True)
-        st.rerun()
-
-with st.expander("⚙️ Optional filters",expanded=False):
-    apply_filters=st.toggle("Apply price / yield filters",value=False)
-    c1,c2=st.columns(2)
-    max_price=c1.number_input("Maximum guide (£)",min_value=0,value=250000,step=5000)
-    min_yield=c2.number_input("Minimum GIY (%)",min_value=0.0,value=10.0,step=.5)
-    source_options=sorted({x["source"] for x in rows})
-    chosen=st.multiselect("Auction houses",source_options,default=[])
-    include_unknown=st.toggle("Keep properties with unknown rent/yield",value=True)
+with st.expander("⚡ Controls · refresh · filters",expanded=False):
+    refresh_col,filter_col=st.columns([1,2])
+    with refresh_col:
+        if st.button("Refresh market",type="primary",use_container_width=True):
+            with st.spinner("Refreshing current commercial auction feeds and photos…"):
+                refresh_market()
+            st.rerun()
+        if CACHE.exists() and st.button("Reset snapshot",use_container_width=True):
+            CACHE.unlink(missing_ok=True)
+            st.rerun()
+    with filter_col:
+        apply_filters=st.toggle("Apply deal filters",value=False)
+        c1,c2=st.columns(2)
+        max_price=c1.number_input("Max guide (£)",min_value=0,value=250000,step=5000)
+        min_yield=c2.number_input("Min GIY (%)",min_value=0.0,value=10.0,step=.5)
+        source_options=sorted({x["source"] for x in rows})
+        chosen=st.multiselect("Auction houses",source_options,default=[])
+        include_unknown=st.toggle("Keep unknown rent/yield",value=True)
 
 lots_tab,sources_tab=st.tabs(["🎯 All properties","📡 Source health"])
 
@@ -2928,8 +3042,9 @@ with lots_tab:
         _sqft,_sqm=_property_area(x,norm(str(x.get("desc") or "")+" "+str(x.get("address") or "")))
         _size_text=(f"{_sqft:,.0f} sq ft / {_sqm:,.0f} sq m" if _sqft else None)
         meta=" · ".join(v for v in [x.get("date"),x.get("tenure"),("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)
-        preview=(f'<img class="preview" src="{html.escape(x["image"])}" loading="lazy">' if x.get("image")
-                 else '<div class="preview noimg">Photo unavailable</div>')
+        _property_url=html.escape(str(x.get("url") or ""),quote=True)
+        preview=(f'<a class="previewLink" href="{_property_url}" target="_blank" rel="noopener noreferrer"><img class="preview" src="{html.escape(x["image"],quote=True)}" loading="lazy"></a>' if x.get("image") and _property_url
+                 else (f'<img class="preview" src="{html.escape(x["image"],quote=True)}" loading="lazy">' if x.get("image") else '<div class="preview noimg">Photo unavailable</div>'))
         cards.append(
             '<div class="card">'+preview+'<div class="cb">'
             +f'<div class="src">{html.escape(x["source"])} · {html.escape(x.get("lot") or "Lot TBC")}</div>'
@@ -2937,7 +3052,7 @@ with lots_tab:
             +f'<div class="metric"><span>Guide</span><b>{money(x.get("guide"))}</b></div>'
             +f'<div class="metric"><span>Rent p.a.</span><b>{money(x.get("rent"))}</b></div>'
             +f'<div class="metric yieldMetric"><span>GIY</span><b>{pct(y)}</b></div>'
-            +f'<div class="metric"><span>10% ceiling</span><b>{money(ceiling)}</b></div>'
+            +f'<div class="metric"><span>Max price @ 10% yield</span><b>{money(ceiling)}</b></div>'
             +(f'<div class="metric sizeMetric"><span>Size</span><b>{html.escape(_size_text)}</b></div>' if _size_text else '')
             +'</div>'
             +f'<div class="meta">{html.escape(meta)}</div>'
