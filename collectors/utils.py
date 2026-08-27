@@ -80,8 +80,6 @@ def _btg_gallery_image(s, base):
             clean=cand.split("?",1)[0].lower()
             if marker in clean and clean.endswith((".jpg",".jpeg",".png",".webp")):
                 return cand
-    # A legacy Pugh page links to the exact BTG page. Its gallery uses the same
-    # stable property key and is preferred over Pugh's generic social artwork.
     exact=_btg_exact_url(s,base)
     if exact:
         try:
@@ -100,7 +98,11 @@ def _btg_gallery_image(s, base):
 def image_from_soup(s, base):
     low=(base or "").lower()
     if "pugh-auctions.com" in low or "btgeddisonspropertyauctions.com" in low:
-        return _btg_gallery_image(s,base)
+        img=_btg_gallery_image(s,base)
+        if img:
+            return img
+        candidates=_img_candidates(s,base)
+        return candidates[0] if candidates else None
     for attrs in [{"property":"og:image"},{"name":"twitter:image"}]:
         tag = s.find("meta", attrs=attrs)
         if tag and tag.get("content"):
@@ -120,13 +122,22 @@ def legal_pack(s, base):
         return None,"NOT YET AVAILABLE"
     return None, "NOT FOUND"
 
+def _strict_title_is_commercial(title_text):
+    low=(title_text or "").lower()
+    if any(x in low for x in ("mixed use","mixed-use","commercial","retail","shop","office","industrial","warehouse","public house","pub ","care home","hotel","restaurant")):
+        return True
+    if any(x in low for x in ("| flat for auction","| house for auction","| bungalow for auction","| apartment for auction","| block of apartments for auction","| residential development for auction")):
+        return False
+    return None
+
 def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
                force_commercial=False, use_browser=False, strict_commercial=False):
     s = soup(url, use_browser=use_browser)
     h1 = s.find("h1")
     title = s.find("title")
+    title_text=norm(title.get_text(" ", strip=True)) if title else ""
     address = norm(h1.get_text(" ", strip=True)) if h1 else (
-        norm(title.get_text(" ", strip=True)).split("|")[0] if title else url
+        title_text.split("|")[0] if title_text else url
     )
     main = s.find("main") or s.find("article")
     text = norm(main.get_text(" ", strip=True)) if main else norm(s.get_text(" ", strip=True))
@@ -136,6 +147,10 @@ def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
 
     if "sold prior" in low or "withdrawn prior" in low:
         return None
+    if strict_commercial:
+        title_decision=_strict_title_is_commercial(title_text)
+        if title_decision is False:
+            return None
     commercial_text = strict_text if strict_commercial else combined
     if not force_commercial and not is_commercial(commercial_text):
         return None
