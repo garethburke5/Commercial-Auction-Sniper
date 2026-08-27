@@ -1,3 +1,4 @@
+import re
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from .core import Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat, is_commercial
@@ -20,22 +21,107 @@ def nearest_card(anchor, max_chars=3500):
             break
     return best
 
+def _img_candidates(s, base):
+    raw=[]
+    for img in s.find_all("img"):
+        for attr in ("data-src","data-lazy-src","data-original","data-image","data-url","data-lazy","src"):
+            v=img.get(attr)
+            if v: raw.append(v)
+        ss=img.get("srcset") or img.get("data-srcset")
+        if ss:
+            raw.extend(part.strip().split(" ")[0] for part in ss.split(",") if part.strip())
+    for source in s.find_all("source"):
+        ss=source.get("srcset")
+        if ss:
+            raw.extend(part.strip().split(" ")[0] for part in ss.split(",") if part.strip())
+    for a in s.find_all("a",href=True):
+        href=a.get("href") or ""
+        low=href.lower()
+        if any(x in low for x in ("asta.btgeddisonspropertyauctions.com","/lot-image/","cdn.eigpropertyauctions.co.uk/ams/images/","/media/")):
+            raw.append(href)
+    for script in s.find_all("script"):
+        txt=script.string or script.get_text(" ",strip=True)
+        if not txt: continue
+        for u in re.findall(r'https?:\\?/\\?/[^"\'<> ]+?\.(?:jpg|jpeg|png|webp)(?:\\?[^"\'<> ]*)?',txt,re.I):
+            raw.append(u.replace("\\/","/"))
+    out=[]
+    for u in raw:
+        u=urljoin(base,u)
+        low=u.lower()
+        if any(x in low for x in ("logo","favicon","icon","sprite","placeholder","avatar","social","facebook","instagram","linkedin","youtube","twitter")):
+            continue
+        if u not in out: out.append(u)
+    return out
+
+def _btg_key(url):
+    low=(url or "").lower()
+    if "/properties/" in low:
+        slug=low.split("/properties/",1)[1].split("/",1)[0]
+        head,sep,tail=slug.rpartition("-")
+        if sep and len(tail)==6 and tail.isdigit():
+            slug=head
+        return slug
+    if "/property/" in low:
+        return low.split("/property/",1)[1].split("/",1)[0]
+    return None
+
+def _btg_exact_url(s, base):
+    for a in s.find_all("a",href=True):
+        href=urljoin(base,a["href"])
+        if "btgeddisonspropertyauctions.com/properties/" in href.lower():
+            return href
+    return None
+
+def _btg_gallery_image(s, base):
+    key=_btg_key(base)
+    if key:
+        marker=f"/artnr_{key}/_pictures/"
+        for cand in _img_candidates(s,base):
+            clean=cand.split("?",1)[0].lower()
+            if marker in clean and clean.endswith((".jpg",".jpeg",".png",".webp")):
+                return cand
+    # A legacy Pugh page links to the exact BTG page. Its gallery uses the same
+    # stable property key and is preferred over Pugh's generic social artwork.
+    exact=_btg_exact_url(s,base)
+    if exact:
+        try:
+            bs=soup(exact,use_browser=False)
+            key=_btg_key(exact)
+            marker=f"/artnr_{key}/_pictures/" if key else None
+            if marker:
+                for cand in _img_candidates(bs,exact):
+                    clean=cand.split("?",1)[0].lower()
+                    if marker in clean and clean.endswith((".jpg",".jpeg",".png",".webp")):
+                        return cand
+        except Exception:
+            pass
+    return None
+
 def image_from_soup(s, base):
+    low=(base or "").lower()
+    if "pugh-auctions.com" in low or "btgeddisonspropertyauctions.com" in low:
+        return _btg_gallery_image(s,base)
     for attrs in [{"property":"og:image"},{"name":"twitter:image"}]:
         tag = s.find("meta", attrs=attrs)
         if tag and tag.get("content"):
-            return urljoin(base, tag["content"])
-    return None
+            cand=urljoin(base, tag["content"])
+            if "social" not in cand.lower() and "logo" not in cand.lower():
+                return cand
+    candidates=_img_candidates(s,base)
+    return candidates[0] if candidates else None
 
 def legal_pack(s, base):
     for a in s.find_all("a", href=True):
         txt = norm(a.get_text(" ", strip=True)).lower()
         if "legal pack" in txt or "legal documents" in txt:
             return urljoin(base, a["href"]), "AVAILABLE"
+    text=norm(s.get_text(" ",strip=True)).lower()
+    if "not yet in receipt of the legal pack" in text:
+        return None,"NOT YET AVAILABLE"
     return None, "NOT FOUND"
 
 def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
-               force_commercial=False, use_browser=False):
+               force_commercial=False, use_browser=False, strict_commercial=False):
     s = soup(url, use_browser=use_browser)
     h1 = s.find("h1")
     title = s.find("title")
@@ -44,12 +130,14 @@ def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
     )
     main = s.find("main") or s.find("article")
     text = norm(main.get_text(" ", strip=True)) if main else norm(s.get_text(" ", strip=True))
+    strict_text=address + " " + text[:15000]
     combined = address + " " + seed + " " + text[:15000]
     low = combined.lower()
 
     if "sold prior" in low or "withdrawn prior" in low:
         return None
-    if not force_commercial and not is_commercial(combined):
+    commercial_text = strict_text if strict_commercial else combined
+    if not force_commercial and not is_commercial(commercial_text):
         return None
 
     guide = parse_guide(text) or parse_guide(seed)
@@ -61,5 +149,5 @@ def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
         auction_date=auction_date, image_url=image_from_soup(s, url),
         guide_price=guide, annual_rent=rent, tenure=parse_tenure(combined),
         vat_status=parse_vat(combined), legal_pack_status=lp_status,
-        legal_pack_url=lp_url, description=seed[:1200]
+        legal_pack_url=lp_url, description=text[:1200]
     ).finalise()
