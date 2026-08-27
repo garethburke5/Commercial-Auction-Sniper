@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.34-SOURCES-HEADER"
+BUILD = "V6.35-POLISHED-TOPBAR"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2433,6 +2433,18 @@ button[data-baseweb="tab"]{font-size:.9rem!important}
 @media(max-width:650px){.block-container{padding:.34rem .38rem 1.15rem!important}.hero{padding:9px 10px;margin-bottom:6px}.brand{font-size:1.05rem}.sub{font-size:.56rem}.badge{font-size:.54rem;padding:4px 6px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.card{display:block}.preview{height:112px;min-height:0;border-radius:0;object-fit:cover}.cb{padding:7px 7px 8px}.src{font-size:.52rem}.addr{font-size:.70rem;line-height:1.23;min-height:3.35em;margin:4px 0 6px}.metrics{gap:3px}.metric{padding:4px 5px;min-height:38px;border-radius:6px}.metric span{font-size:.44rem;margin-bottom:1px}.metric b{font-size:.62rem;line-height:1.12}.meta{font-size:.47rem;margin-top:5px;line-height:1.25}.chips{margin-top:5px;gap:3px}.chip{font-size:.47rem;padding:3px 5px}.analysis{margin-top:5px;padding-top:5px}.analysis summary{font-size:.56rem}.action{font-size:.55rem;padding:6px 4px;margin-top:6px;border-radius:6px}.factgrid{grid-template-columns:1fr}.research{gap:4px}.iread{padding:6px 7px}}
 .yieldMetric{background:#14271f;border-color:#2e5a45}.yieldMetric b{color:#b9f3cf}
 .previewLink{display:block;text-decoration:none!important;cursor:pointer}
+
+/* V6.35 polished top bar */
+.hero{padding:9px 13px!important;border-radius:11px!important;background:linear-gradient(115deg,#111b28 0%,#0d1621 100%)!important;border:1px solid #3a4d67!important;margin-bottom:7px!important}
+.brand{font-size:1.78rem!important;letter-spacing:-.05em!important;text-shadow:0 1px 0 rgba(255,255,255,.04)}
+.tagline{font-size:.70rem!important;color:#e8eef6!important;font-weight:800!important;letter-spacing:.01em}
+.sub{font-size:.55rem!important;color:#8798ad!important;margin-top:2px!important}
+.badge{font-size:.60rem!important;padding:5px 8px!important;border-color:#3d795b!important;background:#10251b!important}
+div[data-testid="stHorizontalBlock"]:has(button[kind="primary"]){margin-top:-1px;margin-bottom:4px}
+div[data-testid="stButton"]>button{border-radius:8px!important;font-weight:850!important;min-height:38px!important}
+div[data-testid="stPopover"] button{border-radius:8px!important;font-weight:850!important;min-height:38px!important;border-color:#3a4b62!important;background:#131e2c!important;color:#eef4fb!important}
+div[data-testid="stPopover"] button:hover{border-color:#6d87aa!important;background:#172538!important}
+@media(max-width:650px){.hero{padding:8px 9px!important}.brand{font-size:1.38rem!important}.tagline{font-size:.59rem!important}.sub{font-size:.46rem!important}.badge{font-size:.50rem!important;padding:4px 6px!important}div[data-testid="stButton"]>button,div[data-testid="stPopover"] button{min-height:34px!important;font-size:.70rem!important}}
 </style>
 """,unsafe_allow_html=True)
 
@@ -2445,24 +2457,26 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-with st.expander("⚡ Controls · refresh · filters",expanded=False):
-    refresh_col,filter_col=st.columns([1,2])
-    with refresh_col:
-        if st.button("Refresh market",type="primary",use_container_width=True):
-            with st.spinner("Refreshing current commercial auction feeds and photos…"):
-                refresh_market()
-            st.rerun()
-        if CACHE.exists() and st.button("Reset snapshot",use_container_width=True):
+# Compact utility strip: actions stay visible without consuming the page.
+tool_a,tool_b,tool_space=st.columns([1.05,1.15,4.8],gap="small")
+with tool_a:
+    if st.button("↻ Update listings",type="primary",use_container_width=True,help="Refresh current auction lots and property photos"):
+        with st.spinner("Updating current commercial auction listings and photos…"):
+            refresh_market()
+        st.rerun()
+with tool_b:
+    with st.popover("Refine properties",use_container_width=True):
+        st.caption("Narrow the board only when you want to — all qualifying lots remain visible by default.")
+        apply_filters=st.toggle("Use price & yield limits",value=False)
+        c1,c2=st.columns(2)
+        max_price=c1.number_input("Maximum guide",min_value=0,value=250000,step=5000,format="%d",help="Maximum auction guide price in pounds")
+        min_yield=c2.number_input("Minimum GIY",min_value=0.0,value=10.0,step=.5,format="%.1f",help="Minimum gross initial yield percentage")
+        source_options=sorted({x["source"] for x in rows})
+        chosen=st.multiselect("Auction house",source_options,default=[],placeholder="All auction houses")
+        include_unknown=st.toggle("Include unknown rent / yield",value=True)
+        if CACHE.exists() and st.button("Reset to verified snapshot",use_container_width=True):
             CACHE.unlink(missing_ok=True)
             st.rerun()
-    with filter_col:
-        apply_filters=st.toggle("Apply deal filters",value=False)
-        c1,c2=st.columns(2)
-        max_price=c1.number_input("Max guide (£)",min_value=0,value=250000,step=5000)
-        min_yield=c2.number_input("Min GIY (%)",min_value=0.0,value=10.0,step=.5)
-        source_options=sorted({x["source"] for x in rows})
-        chosen=st.multiselect("Auction houses",source_options,default=[])
-        include_unknown=st.toggle("Keep unknown rent/yield",value=True)
 
 lots_tab,sources_tab=st.tabs(["🎯 All properties","📡 Source health"])
 
