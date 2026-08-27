@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.57-STATIC-IMAGE-PROXY"
+BUILD = "V6.58-CLIVE-HISTORY"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2774,6 +2774,22 @@ def _v657_candidate_images(property_url, source):
         v=urljoin(property_url,v)
         if v not in out: out.append(v)
 
+    # Clive Emson uses predictable /AucNNN/pics/... image URLs on genuine lot pages.
+    if (source or '').lower()=='clive emson':
+        decoded=html.unescape(raw).replace('\\/','/')
+        exact=[]
+        for tag in soup.find_all(['img','a']):
+            for attr in ('src','data-src','data-lazy-src','data-original','href'):
+                v=tag.get(attr)
+                if not v: continue
+                vv=html.unescape(str(v)).replace('\\/','/')
+                if re.search(r'/Auc\d+/pics/.+?\.(?:jpe?g|png|webp)(?:\?.*)?$',vv,re.I):
+                    exact.append(urljoin(property_url,vv))
+        for m in re.findall(r'["\']([^"\']*/Auc\d+/pics/[^"\']+?\.(?:jpe?g|png|webp)(?:\?[^"\']*)?)["\']',decoded,re.I):
+            exact.append(urljoin(property_url,m))
+        for v in exact:
+            if v not in out: out.append(v)
+
     # Structured metadata first.
     for sel,attr in [
         ('meta[property="og:image"]','content'),
@@ -2820,6 +2836,7 @@ def _v657_candidate_images(property_url, source):
             if re.search(r'/\d+-\d+/',lu): sc+=60
             if 'banner' in lu or 'property' in lu: sc+=30
         elif 'clive emson' in src:
+            if re.search(r'/auc\d+/pics/',lu): sc+=500
             if 'property' in lu or 'properties' in lu: sc+=70
             if 'lot' in lu: sc+=55
             if any(x in lu for x in ('gallery','photo','image')): sc+=30
@@ -2840,8 +2857,12 @@ def _v657_local_image(source, property_url, image_url=None):
         if u not in candidates: candidates.append(u)
     for u in candidates[:18]:
         try:
-            h=dict(HEADERS)
-            h.update({'Accept':'image/avif,image/webp,image/apng,image/*,*/*;q=0.8','Referer':property_url or ''})
+            h={
+                'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0 Safari/537.36',
+                'Accept':'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+                'Accept-Language':'en-GB,en;q=0.9',
+                'Referer':property_url or '',
+            }
             r=requests.get(u,headers=h,timeout=15,allow_redirects=True)
             ct=(r.headers.get('content-type') or '').split(';')[0].lower()
             if not r.ok or not ct.startswith('image/') or len(r.content)<2500 or len(r.content)>5000000:
@@ -2858,6 +2879,11 @@ def _v657_local_image(source, property_url, image_url=None):
             return 'app/static/property_images/'+path.name
         except Exception:
             continue
+    if source=='Clive Emson':
+        exact=_v657_candidate_images(property_url,source)
+        for u in exact:
+            if re.search(r'/Auc\d+/pics/',u,re.I):
+                return u
     return None
 
 
@@ -3102,6 +3128,12 @@ div[data-testid="stPopoverBody"] [data-testid="stMultiSelect"]{margin-bottom:4px
 div[data-testid="stPopoverBody"] label p{color:#334155!important;font-weight:750!important}
 div[data-testid="stPopoverBody"] input:disabled{opacity:1!important}
 @media(max-width:650px){div[data-testid="stPopoverBody"]{min-width:310px!important;max-width:94vw!important;padding:12px!important}}
+
+/* V6.58 visible historical-sale research */
+.historyAction{margin-top:7px}
+.historyAction a{display:block;text-align:center;text-decoration:none!important;background:#101b28;color:#cbd8e8!important;border:1px solid #334862;border-radius:7px;padding:7px 7px;font-size:.63rem;font-weight:850}
+.historyAction a:hover{border-color:#f2c94c;color:#f2c94c!important}
+@media(max-width:650px){.historyAction{margin-top:5px}.historyAction a{font-size:.46rem;padding:5px 3px}}
 </style>
 """,unsafe_allow_html=True)
 
@@ -3823,11 +3855,14 @@ with lots_tab:
         _size_text=(f"{_sqft:,.0f} sq ft / {_sqm:,.0f} sq m" if _sqft else None)
         meta=" · ".join(v for v in [x.get("date"),x.get("tenure"),("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)
         _property_url=html.escape(str(x.get("url") or ""),quote=True)
-        _map_query=urllib.parse.quote_plus(str(x.get("address") or ""))
+        _address=str(x.get("address") or "").strip()
+        _map_query=urllib.parse.quote_plus(_address)
         _maps_url=f"https://www.google.com/maps/search/?api=1&query={_map_query}"
+        _history_query=urllib.parse.quote_plus(f'"{_address}" (auction OR sold OR sale OR guide OR lot)')
+        _history_url=f"https://www.google.com/search?q={_history_query}"
         _image_src=_safe_card_image_src(x.get("source"),x.get("image"))
-        preview=(f'<a class="previewLink" href="{_property_url}" target="_blank" rel="noopener noreferrer"><img class="preview" src="{html.escape(_image_src,quote=True)}" loading="lazy"></a>' if _image_src and _property_url
-                 else (f'<img class="preview" src="{html.escape(_image_src,quote=True)}" loading="lazy">' if _image_src else '<div class="preview noimg">Photo unavailable</div>'))
+        preview=(f'<a class="previewLink" href="{_property_url}" target="_blank" rel="noopener noreferrer"><img class="preview" src="{html.escape(_image_src,quote=True)}" loading="lazy" referrerpolicy="no-referrer"></a>' if _image_src and _property_url
+                 else (f'<img class="preview" src="{html.escape(_image_src,quote=True)}" loading="lazy" referrerpolicy="no-referrer">' if _image_src else '<div class="preview noimg">Photo unavailable</div>'))
         cards.append(
             '<div class="card">'+preview+'<div class="cb">'
             +f'<div class="src">{html.escape(x["source"])} · {html.escape(x.get("lot") or "Lot TBC")}</div>'
@@ -3840,6 +3875,7 @@ with lots_tab:
             +'</div>'
             +f'<div class="meta">{html.escape(meta)}</div>'
             +_facts_html(x)
+            +f'<div class="historyAction"><a target="_blank" rel="noopener noreferrer" href="{html.escape(_history_url,quote=True)}">Previous auctions / sale history ↗</a></div>'
             +f'<div class="cardActions"><a class="mapAction" target="_blank" rel="noopener noreferrer" href="{html.escape(_maps_url,quote=True)}">Map / Street View ↗</a><a class="action" target="_blank" href="{html.escape(x["url"])}">Open property ↗</a></div>'
             +'</div></div>'
         )
