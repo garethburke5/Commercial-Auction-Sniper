@@ -1,4 +1,5 @@
 name: Verify Pugh BTG seed images live
+# Re-run after robust exact-page matching and corrected live addresses.
 on:
   push:
     branches: [develop]
