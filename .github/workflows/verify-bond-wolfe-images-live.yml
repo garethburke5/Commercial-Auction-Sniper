@@ -33,14 +33,14 @@ jobs:
               url=re.search(r"url=['\"]([^'\"]+)",line).group(1)
               im=re.search(r"image=['\"]([^'\"]+)",line)
               rows.append((lot,address,url,im.group(1) if im else None))
-          assert len(rows)==12, len(rows)
+          assert len(rows)==20, len(rows)
 
           sess=requests.Session(); sess.headers.update({'User-Agent':'Mozilla/5.0'})
           good=[]; discovered=[]; bad=[]
           for lot,address,url,seed_img in rows:
               page=sess.get(url,timeout=25)
               try: page.raise_for_status()
-              except Exception as e:
+              except Exception:
                   bad.append((lot,'PAGE',page.status_code,url)); continue
               s=BeautifulSoup(page.text,'html.parser')
               candidates=[]
@@ -68,7 +68,6 @@ jobs:
                   bad.append((lot,'NO IMAGE',address)); continue
               ir=sess.get(selected,timeout=25)
               if ir.status_code != 200 or not ir.headers.get('content-type','').lower().startswith('image/'):
-                  # stale seed: try live exact-page candidates
                   fallback=None
                   for u in property_imgs:
                       rr=sess.get(u,timeout=25)
