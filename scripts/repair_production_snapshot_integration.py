@@ -10,3 +10,4 @@ if needle not in s:
 s=s.replace(needle,replacement,1)
 p.write_text(s,encoding='utf-8')
 print('Patched app.py for V6.26 production snapshot integration')
+# Trigger marker: production repair 2026-08-27
