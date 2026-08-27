@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.29-READABILITY"
+BUILD = "V6.30-FAST-SCAN-GRID"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2304,10 +2304,10 @@ header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:no
 .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .card{background:linear-gradient(180deg,#131d2b,#101824);border:1px solid #273950;border-radius:11px;overflow:hidden;box-shadow:0 5px 16px rgba(0,0,0,.16);transition:transform .14s ease,border-color .14s ease,box-shadow .14s ease}
 .card:hover{transform:translateY(-2px);border-color:#526a8b;box-shadow:0 10px 22px rgba(0,0,0,.23)}
-.preview{display:block;width:100%;height:172px;object-fit:cover;background:linear-gradient(135deg,#192638,#111925)}
+.preview{display:block;width:100%;height:162px;object-fit:cover;background:linear-gradient(135deg,#192638,#111925)}
 .noimg{display:grid;place-items:center;color:#73839a;font-size:.66rem;letter-spacing:.03em}
-.cb{padding:11px 12px 12px}.src{font-size:.66rem;color:#f5d45e;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:none;letter-spacing:.01em}
-.addr{font-size:.94rem;font-weight:850;line-height:1.28;min-height:2.45em;margin:5px 0 9px;color:#ffffff}
+.cb{padding:10px 11px 11px}.src{font-size:.66rem;color:#f5d45e;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:none;letter-spacing:.01em}
+.addr{font-size:.90rem;font-weight:850;line-height:1.28;min-height:2.45em;margin:5px 0 9px;color:#ffffff}
 .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:4px}.sizeMetric{grid-column:span 2}.metric{background:#162130;border:1px solid #223047;border-radius:7px;padding:5px 7px;min-height:40px;display:flex;flex-direction:column;justify-content:center}
 .metric span{display:block;color:#aebbd0;font-size:.61rem;margin-bottom:2px;line-height:1.15;font-weight:650}.metric b{font-size:.86rem;line-height:1.16;color:#fff;font-weight:850}
 .meta{font-size:.68rem;color:#b0bdd0;margin-top:8px;line-height:1.35;min-height:0}
@@ -2318,7 +2318,7 @@ div[data-testid="stExpander"]{border:1px solid #25344a!important;border-radius:1
 button[data-baseweb="tab"]{font-size:.9rem!important}
 @media(min-width:1700px){.block-container{max-width:1640px}.cards{grid-template-columns:repeat(5,minmax(0,1fr));gap:11px}.preview{height:160px}}
 @media(max-width:1180px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.preview{height:165px}}@media(max-width:820px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.preview{height:155px}.addr{font-size:.9rem}}
-@media(max-width:650px){.block-container{padding:.38rem .45rem 1.2rem!important}.hero{padding:10px 11px;margin-bottom:7px}.brand{font-size:1.08rem}.sub{font-size:.58rem}.badge{font-size:.56rem;padding:5px 7px}.cards{grid-template-columns:1fr;gap:8px}.card{display:grid;grid-template-columns:118px minmax(0,1fr);align-items:stretch}.preview{height:100%;min-height:178px;border-radius:0;object-fit:cover}.cb{padding:9px 9px 9px}.src{font-size:.57rem}.addr{font-size:.78rem;line-height:1.25;min-height:0;margin:4px 0 7px}.metrics{gap:3px}.metric{padding:4px 6px;min-height:36px;border-radius:6px}.metric span{font-size:.49rem;margin-bottom:1px}.metric b{font-size:.67rem;line-height:1.12}.meta{font-size:.52rem;margin-top:5px;line-height:1.3}.chips{margin-top:5px;gap:3px}.chip{font-size:.52rem;padding:3px 5px}.analysis{margin-top:5px;padding-top:5px}.analysis summary{font-size:.61rem}.action{font-size:.61rem;padding:7px 5px;margin-top:6px;border-radius:6px}.factgrid{grid-template-columns:1fr}.research{gap:4px}.iread{padding:6px 7px}}
+@media(max-width:650px){.block-container{padding:.34rem .38rem 1.15rem!important}.hero{padding:9px 10px;margin-bottom:6px}.brand{font-size:1.05rem}.sub{font-size:.56rem}.badge{font-size:.54rem;padding:4px 6px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.card{display:block}.preview{height:112px;min-height:0;border-radius:0;object-fit:cover}.cb{padding:7px 7px 8px}.src{font-size:.52rem}.addr{font-size:.70rem;line-height:1.23;min-height:3.35em;margin:4px 0 6px}.metrics{gap:3px}.metric{padding:4px 5px;min-height:38px;border-radius:6px}.metric span{font-size:.44rem;margin-bottom:1px}.metric b{font-size:.62rem;line-height:1.12}.meta{font-size:.47rem;margin-top:5px;line-height:1.25}.chips{margin-top:5px;gap:3px}.chip{font-size:.47rem;padding:3px 5px}.analysis{margin-top:5px;padding-top:5px}.analysis summary{font-size:.56rem}.action{font-size:.55rem;padding:6px 4px;margin-top:6px;border-radius:6px}.factgrid{grid-template-columns:1fr}.research{gap:4px}.iread{padding:6px 7px}}
 .yieldMetric{background:#14271f;border-color:#2e5a45}.yieldMetric b{color:#b9f3cf}
 </style>
 """,unsafe_allow_html=True)
