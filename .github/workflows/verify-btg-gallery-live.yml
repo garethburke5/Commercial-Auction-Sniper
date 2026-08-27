@@ -1,0 +1,51 @@
+name: Verify BTG gallery live
+on:
+  push:
+    branches: [develop]
+    paths:
+      - .github/workflows/verify-btg-gallery-live.yml
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+      - name: Install verification dependencies
+        run: pip install requests beautifulsoup4
+      - name: Verify Percy Street real gallery image
+        run: |
+          python - <<'PY'
+          import requests
+          from bs4 import BeautifulSoup
+          from urllib.parse import urljoin
+
+          page='https://www.btgeddisonspropertyauctions.com/properties/202607231641sq_tkoe-300926/for-auction-stoke-on-trent'
+          key='202607231641sq_tkoe'
+          rpage=requests.get(page,headers={'User-Agent':'Mozilla/5.0'},timeout=20)
+          rpage.raise_for_status()
+          s=BeautifulSoup(rpage.text,'html.parser')
+          raw=[]
+          for img in s.find_all('img'):
+              for attr in ('data-src','data-lazy-src','data-original','data-image','data-url','data-lazy','src'):
+                  if img.get(attr): raw.append(urljoin(page,img.get(attr)))
+              ss=img.get('srcset') or img.get('data-srcset')
+              if ss:
+                  raw.extend(urljoin(page,x.strip().split(' ')[0]) for x in ss.split(',') if x.strip())
+          for a in s.find_all('a',href=True):
+              raw.append(urljoin(page,a['href']))
+          marker=f'/artnr_{key}/_pictures/'
+          gallery=[]
+          for u in raw:
+              clean=u.split('?',1)[0].lower()
+              if marker in clean and clean.endswith(('.jpg','.jpeg','.png','.webp')) and u not in gallery:
+                  gallery.append(u)
+          assert gallery, 'No exact Percy Street gallery photo discovered'
+          assert all('rory_mack' not in u.lower() for u in gallery)
+          image=requests.get(gallery[0],headers={'User-Agent':'Mozilla/5.0'},timeout=20)
+          image.raise_for_status()
+          assert image.headers.get('content-type','').lower().startswith('image/'), image.headers.get('content-type')
+          print('LIVE BTG GALLERY PASS:',gallery[0])
+          PY

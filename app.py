@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.19-INTERMEDIATE"
+BUILD = "V6.25-COMPACT-UI"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -200,68 +200,68 @@ SEED = [
     dict(source="Auction House East Anglia", lot="Lot 115", date="2026-09-09",
          address="102 High Street, Lowestoft, Suffolk NR32 1XW",
          guide=50000, rent=None, tenure=None, vat="UNKNOWN",
-         url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151798",
+         url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151798", image="https://www.auctionhouse.co.uk/lot-image/921603?w=670",
          desc="Commercial property; former retail gallery with live/work conversion consent."),
     dict(source="Auction House East Anglia", lot="Lot 123", date="2026-09-09",
          address="23A South Quay, Great Yarmouth, Norfolk NR30 2RG",
          guide=30000, rent=None, tenure="Freehold", vat="UNKNOWN",
-         url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151516",
+         url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151516", image="https://www.auctionhouse.co.uk/lot-image/917891?w=670",
          desc="Freehold two-storey office building with development potential."),
     dict(source="Auction House East Anglia", lot="Lot 114", date="2026-09-09",
          address="2 The Walk, Beccles, Suffolk NR34 9AJ",
          guide=375000, rent=None, tenure="Freehold", vat="UNKNOWN",
-         url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151791",
+         url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151791", image="https://www.auctionhouse.co.uk/lot-image/921518?w=670",
          desc="Substantial town-centre retail premises with parking; approx. 6,873 sq ft / 638.59 sq m."),
     dict(source="Auction House East Anglia", lot="Lot 62", date="2026-09-09",
          address="Romar House, 12 Faraday Road, Leigh-On-Sea, Essex SS9 5JU",
          guide=800000, rent=None, tenure="Freehold", vat="UNKNOWN",
-         url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151501",
+         url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151501", image="https://www.auctionhouse.co.uk/lot-image/917631?w=670",
          desc="Freehold light-industrial property."),
     dict(source="Auction House West Yorkshire", lot="Lot TBC", date="2026-09-09",
          address="Poplar Products, Ramshead Approach, Leeds, West Yorkshire LS14 1LR",
          guide=115000, rent=None, tenure=None, vat="UNKNOWN",
-         url="https://www.auctionhouse.co.uk/westyorkshire/auction/lot/152101",
+         url="https://www.auctionhouse.co.uk/westyorkshire/auction/lot/152101", image="https://www.auctionhouse.co.uk/lot-image/925288?w=670",
          desc="Detached industrial facility with offices and yard; approx. 30,742 sq ft / 2,856 sq m."),
     dict(source="Auction House West Yorkshire", lot="Lot TBC", date="2026-09-09",
          address="16 Station Road / 2 Wood Street, Horsforth, Leeds, West Yorkshire LS18 5NR",
          guide=165000, rent=None, tenure=None, vat="UNKNOWN",
-         url="https://www.auctionhouse.co.uk/westyorkshire/auction/lot/151599",
+         url="https://www.auctionhouse.co.uk/westyorkshire/auction/lot/151599", image="https://www.auctionhouse.co.uk/lot-image/919095?w=670",
          desc="Commercial property in Horsforth."),
     dict(source="Auction House West Yorkshire", lot="Lot TBC", date="2026-09-09",
          address="3-5 High Street, Yeadon, Leeds, West Yorkshire LS19 7SP",
          guide=238000, rent=None, tenure=None, vat="UNKNOWN",
-         url="https://www.auctionhouse.co.uk/westyorkshire/auction/lot/151605",
+         url="https://www.auctionhouse.co.uk/westyorkshire/auction/lot/151605", image="https://www.auctionhouse.co.uk/lot-image/919155?w=670",
          desc="Vacant prominent high-street former restaurant with upper-floor residential conversion consent."),
     dict(source="Auction House West Yorkshire", lot="Lot TBC", date="2026-09-09",
          address="Land and buildings, South side of Station Road, Dunscroft, Doncaster, South Yorkshire DN7 4DY",
          guide=170000, rent=0, tenure=None, vat="UNKNOWN",
-         url="https://www.auctionhouse.co.uk/westyorkshire/auction/lot/151636",
+         url="https://www.auctionhouse.co.uk/westyorkshire/auction/lot/151636", image="https://www.auctionhouse.co.uk/lot-image/919540?w=670",
          desc="Former supermarket approx. 17,980 sq ft / 1,670 sq m; charity occupier in situ paying no rent."),
     dict(source="Auction House Sussex & Hampshire", lot="Lot 15", date="2026-09-09",
          address="Auckland House, 55 St. Ronans Road, Southsea, Hampshire, PO4 0PP",
          guide=475000, rent=None, tenure="Freehold", vat="UNKNOWN",
-         url="https://www.auctionhouse.co.uk/sussexandhampshire/auction/lot/151683",
+         url="https://www.auctionhouse.co.uk/sussexandhampshire/auction/lot/151683", image="https://www.auctionhouse.co.uk/lot-image/920193?w=670",
          desc="Vacant freehold former care home/commercial building with consent for 12-bedroom HMO."),
 
-    dict(source="Auction House East Anglia", lot="Lot 19", date="2026-09-09", address="46 Wells Road, Fakenham, Norfolk NR21 9AA", guide=250000, rent=24600, tenure="Freehold", vat="UNKNOWN", url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151473", desc="Office investment approx 1,200 sq ft let to established tenants producing £24,600 pa."),
-    dict(source="Auction House East Anglia", lot="Lot 38", date="2026-09-09", address="The Old Dairy, Pound Lane, Heacham, King's Lynn, Norfolk PE31 7ET", guide=250000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151800", desc="Commercial Development. Freehold commercial/development property."),
-    dict(source="Auction House East Anglia", lot="Lot 99", date="2026-09-09", address="Reliant House, Angel Lane, Fore Street, Ipswich, Suffolk IP4 1JX", guide=500000, rent=51140, tenure="Freehold", vat="UNKNOWN", url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151749", desc="Mixed Use. Offices and flats approx 6,643 sq ft; current/estimated income £51,140 pa."),
-    dict(source="Auction House South West", lot="Lot 10", date="2026-09-09", address="13 Market Jew Street, Penzance, Cornwall TR18 2HN", guide=140000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://www.auctionhouse.co.uk/southwest/auction/lot/151562", desc="Commercial Property. Vacant Grade II listed retail premises in prime Penzance retail area."),
+    dict(source="Auction House East Anglia", lot="Lot 19", date="2026-09-09", address="46 Wells Road, Fakenham, Norfolk NR21 9AA", guide=250000, rent=24600, tenure="Freehold", vat="UNKNOWN", url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151473", image="https://www.auctionhouse.co.uk/lot-image/917043?w=670", desc="Office investment approx 1,200 sq ft let to established tenants producing £24,600 pa."),
+    dict(source="Auction House East Anglia", lot="Lot 38", date="2026-09-09", address="The Old Dairy, Pound Lane, Heacham, King's Lynn, Norfolk PE31 7ET", guide=250000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151800", image="https://www.auctionhouse.co.uk/lot-image/921627?w=670", desc="Commercial Development. Freehold commercial/development property."),
+    dict(source="Auction House East Anglia", lot="Lot 99", date="2026-09-09", address="Reliant House, Angel Lane, Fore Street, Ipswich, Suffolk IP4 1JX", guide=500000, rent=51140, tenure="Freehold", vat="UNKNOWN", url="https://www.auctionhouse.co.uk/eastanglia/auction/lot/151749", image="https://www.auctionhouse.co.uk/lot-image/921063?w=670", desc="Mixed Use. Offices and flats approx 6,643 sq ft; current/estimated income £51,140 pa."),
+    dict(source="Auction House South West", lot="Lot 10", date="2026-09-09", address="13 Market Jew Street, Penzance, Cornwall TR18 2HN", guide=140000, rent=None, tenure="Freehold", vat="UNKNOWN", url="https://www.auctionhouse.co.uk/southwest/auction/lot/151562", image="https://www.auctionhouse.co.uk/lot-image/918620?w=670", desc="Commercial Property. Vacant Grade II listed retail premises in prime Penzance retail area."),
 
     # Pugh / BTG Eddisons — verified current commercial/mixed-use, 27 Aug 2026
     dict(source="Pugh / BTG Eddisons", lot='Lot 111', date="2026-08-27", address='Masonic Hall, 33 King Street, Duffield, Belper, Derbyshire DE56 4EU', guide=160000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property. Masonic hall / commercial premises.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 132', date="2026-08-27", address='9 Manchester Road, Audenshaw, Manchester M34 5PZ', guide=185000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/properties/202605060832sq_hdck-280526/for-auction-manchester', desc='Mixed Use. Commercial shop, two flats and double garage; part-let/part-vacant; ERV circa £26,000 pa.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 133', date="2026-08-27", address='207 Victoria Avenue, and First and Second Floors 205 Victoria Avenue, Manchester M9 0RA', guide=185000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property. Approx 1,970 sq ft commercial premises.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 170', date="2026-08-27", address='Maclins Depot, Unit 2, Station Road, South Molton, Devon EX36 3LJ', guide=150000, rent=6780, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/properties/202607211014sq_kwai-270826/for-auction-south-molton', desc='Commercial Development. Freehold commercial depot approx 3,931 sq ft; part let £6,780 pa.'),
-    dict(source="Pugh / BTG Eddisons", lot='Lot 195', date="2026-08-27", address='Grand Hotel, Radcliffe, Greater Manchester', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Hotel / commercial opportunity.'),
-    dict(source="Pugh / BTG Eddisons", lot='Lot 196', date="2026-08-27", address='15-23 Percy Street, Stoke-On-Trent, Staffordshire', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 195', date="2026-08-27", address='The Grand Hotel, 13 Market Street, Radcliffe, Manchester, Lancashire M26 1GF', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Hotel / commercial opportunity.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 196', date="2026-08-27", address='15 - 23 Percy Street, Stoke-On-Trent, Staffordshire ST1 1NA', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/properties/202607231641sq_tkoe-300926/for-auction-stoke-on-trent', desc='Commercial Property.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 201', date="2026-08-27", address='63 George Street, Walsall, West Midlands WS1 1RS', guide=60000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property. Grade II listed commercial unit with mixed-use potential.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 216', date="2026-08-27", address='2 & 2a High Street, St. Asaph, Denbighshire LL17 0RD', guide=60000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use. Ground-floor retail unit and first-floor flat.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 218', date="2026-08-27", address='29 & 31/33 Mostyn Avenue, Llandudno, Conwy LL30 1YS', guide=495000, rent=43000, tenure=None, vat="UNKNOWN", url='https://www.pugh-auctions.com/property/202607141332sq_0jra', desc='Commercial Property. Two adjoining retail investments producing approx £43,000 pa.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 219', date="2026-08-27", address='Land at Hathershaw Lane, Oldham, Lancashire OL8 3EU', guide=60000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial income land. Advertising display site, majority let on a new ten-year lease.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 220', date="2026-08-27", address='77 Manchester Road, Altrincham, Cheshire WA14 4RJ', guide=235000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Property. Retail investment let to hot-food operator.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 221', date="2026-08-27", address='8 Hampton Road, Failsworth, Manchester, Lancashire M35 9HT', guide=295000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use. Convenience shop with residential accommodation.'),
-    dict(source="Pugh / BTG Eddisons", lot='Lot 252', date="2026-08-27", address='Unit 4, Bansons Yard, Ongar, Essex', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Development. Commercial office space with development potential.'),
+    dict(source="Pugh / BTG Eddisons", lot='Lot 252', date="2026-08-27", address='Unit 4, Bansons Yard, High Street, Ongar, Essex CM5 9AA', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Commercial Development. Commercial office space with development potential.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 253', date="2026-08-27", address='502 Sutton Road, Southend-On-Sea, Essex', guide=185000, rent=16000, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use. Ground-floor shop and flat; current income approx £16,000 pa.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 272', date="2026-08-27", address='186 Selborne Street, Preston, Lancashire PR1 4LB', guide=120000, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Mixed Use. Ground-floor retail unit and first-floor flat.'),
     dict(source="Pugh / BTG Eddisons", lot='Lot 276', date="2026-08-27", address='27 Market Square, Kirkby Stephen, Cumbria', guide=None, rent=None, tenure=None, vat="UNKNOWN", url='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17', desc='Retail Property.'),
@@ -407,8 +407,39 @@ def _looks_like_property_image(url):
     bad=("logo","favicon","icon","sprite","placeholder","avatar","cookie","tracking","pixel","social","facebook","instagram","linkedin","youtube","twitter","svg")
     return not any(x in low for x in bad)
 
+def _btg_property_key(url):
+    """Return BTG's stable exact-lot gallery identifier."""
+    marker="/properties/"
+    low=(url or "").lower()
+    if marker not in low: return None
+    slug=low.split(marker,1)[1].split("/",1)[0]
+    head,sep,tail=slug.rpartition("-")
+    if sep and len(tail)==6 and tail.isdigit():
+        slug=head
+    return slug
+
+def _btg_gallery_images(s, url):
+    """Return only photographs belonging to the exact BTG lot gallery."""
+    key=_btg_property_key(url)
+    if not key: return []
+    marker=f"/artnr_{key}/_pictures/"
+    found=[]
+    for cand in _img_candidates(s,url):
+        clean=(cand or "").split("?",1)[0]
+        low=clean.lower()
+        if marker not in low: continue
+        if not low.endswith((".jpg",".jpeg",".png",".webp")): continue
+        if any(x in low for x in ("logo","agent","staff","avatar","profile","rory_mack")): continue
+        if cand not in found: found.append(cand)
+    return found
+
 def _property_image_from_soup(s, url):
     """Choose a real property/gallery image from an exact lot page."""
+    if "btgeddisonspropertyauctions.com" in (url or "").lower() or "pugh-auctions.com" in (url or "").lower():
+        gallery=_btg_gallery_images(s,url)
+        if gallery:
+            return gallery[0]
+
     # Social preview is usually the canonical property hero image.
     for attrs in ({"property":"og:image"},{"name":"twitter:image"},{"property":"twitter:image"}):
         tag=s.find("meta",attrs=attrs)
@@ -1241,12 +1272,14 @@ def _enrich_missing_images(rows,limit=220):
                     preferred.append(c)
                 elif "barnardmarcusauctions.co.uk" in r["url"] and "/media/" in lc:
                     preferred.append(c)
-                elif ("pugh-auctions.com" in r["url"] or "btgeddisonspropertyauctions.com" in r["url"]) and (
-                    "asta.btgeddisonspropertyauctions.com" in lc or "cdn.eigpropertyauctions.co.uk" in lc
-                ):
-                    preferred.append(c)
+                elif ("pugh-auctions.com" in r["url"] or "btgeddisonspropertyauctions.com" in r["url"]):
+                    # Exact-gallery matching below; never trust the asta host by itself.
+                    pass
                 elif "auctionhouselondon.co.uk" in r["url"]:
                     preferred.append(c)
+            if "pugh-auctions.com" in r["url"] or "btgeddisonspropertyauctions.com" in r["url"]:
+                gallery=_btg_gallery_images(s,r["url"])
+                return i,(gallery[0] if gallery else None)
             return i,(preferred[0] if preferred else (candidates[0] if candidates else None))
         except Exception:
             return i,None
@@ -1395,6 +1428,163 @@ def _apply_seed_image_map(rows):
         out.append(r)
     return out
 
+@st.cache_data(ttl=21600, show_spinner=False)
+def _pugh_seed_exact_rows(targets):
+    """Hydrate only the known Pugh/BTG commercial seed lots from exact pages.
+
+    This avoids crawling every residential lot at startup while ensuring that
+    the verified Pugh/BTG cards do not boot with generic catalogue URLs and no images.
+    """
+    catalogue="https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17&date_added=0&limit=0&radius=1&search_type=auction&view=grid"
+    try:
+        s=BeautifulSoup(fetch(catalogue),"lxml")
+        # Cache exact lot links and labels once, then match each seed robustly.
+        links=[]
+        for a in s.find_all("a",href=True):
+            href=urljoin(catalogue,a["href"])
+            if "/properties/" not in href:
+                continue
+            label=norm(a.get_text(" ",strip=True)).lower()
+            if label:
+                links.append((label,href))
+
+        def tokens(text):
+            cleaned=re.sub(r"[^a-z0-9]+"," ",(text or "").lower())
+            stop={"the","and","of","at","in","on","greater","county"}
+            return {x for x in cleaned.split() if x not in stop and (len(x)>2 or x.isdigit())}
+
+        wanted=[]
+        used=set()
+        for lot,address in targets:
+            addr=norm(address).lower()
+            best_url=None
+            best_score=0.0
+            target=tokens(addr)
+            for label,href in links:
+                if href in used:
+                    continue
+                if label==addr or label in addr or addr in label:
+                    best_url=href; best_score=1.0; break
+                candidate=tokens(label)
+                common=len(target & candidate)
+                # Coverage against the shorter target is deliberately used because
+                # BTG often adds street, county and postcode detail to the seed label.
+                score=(common/max(1,len(target)))
+                if common>=3 and score>best_score:
+                    best_score=score; best_url=href
+            if best_url and best_score>=0.55:
+                wanted.append((lot,best_url))
+                used.add(best_url)
+
+        hydrated=[]
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            futures={ex.submit(_exact_page_card,u,"Pugh / BTG Eddisons","2026-08-27",True):(lot,u) for lot,u in wanted}
+            for f in as_completed(futures):
+                lot,u=futures[f]
+                try:
+                    r=f.result()
+                    if r:
+                        r["lot"]=lot
+                        r["url"]=u
+                        hydrated.append(r)
+                except Exception:
+                    pass
+        return hydrated
+    except Exception:
+        return []
+
+def _hydrate_pugh_seed_rows(rows):
+    missing=[r for r in rows if r.get("source")=="Pugh / BTG Eddisons" and (not r.get("image") or "/auctions/live-stream/" in (r.get("url") or "") or "pugh-auctions.com/property/" in (r.get("url") or ""))]
+    if not missing:
+        return rows
+
+    # Never rediscover an exact current BTG URL we already know. Percy Street is
+    # a useful example: its catalogue card has partner-agent markup around the
+    # link, but the exact property URL itself is stable and fully verifiable.
+    direct=[]
+    discover=[]
+    for r in missing:
+        u=r.get("url") or ""
+        if "btgeddisonspropertyauctions.com/properties/" in u:
+            direct.append((r.get("lot") or "Lot TBC",u))
+        elif r.get("address"):
+            discover.append((r.get("lot") or "Lot TBC",r.get("address") or ""))
+
+    live=[]
+    if direct:
+        with ThreadPoolExecutor(max_workers=6) as ex:
+            futures={ex.submit(_exact_page_card,u,"Pugh / BTG Eddisons","2026-08-27",True):(lot,u) for lot,u in direct}
+            for f in as_completed(futures):
+                lot,u=futures[f]
+                try:
+                    rec=f.result()
+                    if rec:
+                        rec["lot"]=lot
+                        rec["url"]=u
+                        live.append(rec)
+                except Exception:
+                    pass
+    if discover:
+        live.extend(_pugh_seed_exact_rows(tuple(discover)))
+
+    if not live:
+        return rows
+    return _merge_property_universe(rows,live)
+
+@st.cache_data(ttl=21600, show_spinner=False)
+def _strettons_seed_exact_rows(target_lots):
+    """Resolve known Strettons seed lots to exact current property pages."""
+    listing="https://www.strettons.co.uk/auction-commercial-property/for-sale/"
+    wanted=set(target_lots)
+    if not wanted:
+        return []
+    try:
+        soup=BeautifulSoup(fetch(listing),"lxml")
+        links={}
+        for a in soup.find_all("a",href=True):
+            href=urljoin(listing,a["href"])
+            if "/auction-commercial-property-for-sale/" not in href:
+                continue
+            node=a; card=""
+            for _ in range(9):
+                node=getattr(node,"parent",None)
+                if node is None: break
+                t=norm(node.get_text(" ",strip=True))
+                if re.search(r"10 Sep 26\s*-\s*Lot\s+\d+",t,re.I) and len(t)<5000:
+                    card=t; break
+            if not card: continue
+            m=re.search(r"10 Sep 26\s*-\s*Lot\s+(\d+[A-Z]?)",card,re.I)
+            if not m: continue
+            lot="Lot "+m.group(1)
+            if lot in wanted:
+                links[lot]=href
+
+        live=[]
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            futures={ex.submit(_exact_page_card,u,"Strettons","2026-09-10",True):(lot,u) for lot,u in links.items()}
+            for f in as_completed(futures):
+                lot,u=futures[f]
+                try:
+                    rec=f.result()
+                    if rec:
+                        rec["lot"]=lot
+                        rec["url"]=u
+                        live.append(rec)
+                except Exception:
+                    pass
+        return live
+    except Exception:
+        return []
+
+def _hydrate_strettons_seed_rows(rows):
+    missing=[r for r in rows if r.get("source")=="Strettons" and (not r.get("image") or "/auction-commercial-property/for-sale" in (r.get("url") or ""))]
+    if not missing:
+        return rows
+    live=_strettons_seed_exact_rows(tuple(r.get("lot") for r in missing if r.get("lot")))
+    if not live:
+        return rows
+    return _merge_property_universe(rows,live)
+
 def load_rows():
     """
     Fast, non-destructive boot.
@@ -1434,6 +1624,14 @@ def load_rows():
 
     rows=_merge_property_universe(SEED,cached_rows)
     rows=_apply_seed_image_map(rows)
+    # Pugh/BTG seed records historically used a generic catalogue URL, so no
+    # property image could render until a manual full refresh. Hydrate just the
+    # known commercial Pugh/BTG cards from their exact current lot pages.
+    rows=_hydrate_pugh_seed_rows(rows)
+    # Strettons seed rows also begin with the generic commercial catalogue URL.
+    # Resolve the current lot cards to exact property pages at boot so preview
+    # images and exact navigation work before a manual full refresh.
+    rows=_hydrate_strettons_seed_rows(rows)
     return rows,health,updated
 
 
@@ -1521,25 +1719,29 @@ def _exact_page_card(url, source, auction_date, force_commercial=False):
         image=None
         candidates=_img_candidates(s,url)
 
-        # Prefer known auction gallery/CDN patterns.
+        # BTG/Pugh: host alone is not proof of a property photograph. Only the
+        # exact property's own artnr_<property-key> gallery folder is trusted.
+        if "btgeddisonspropertyauctions.com" in (url or "").lower() or "pugh-auctions.com" in (url or "").lower():
+            gallery=_btg_gallery_images(s,url)
+            if gallery:
+                image=gallery[0]
+
         preferred=(
             "/lot-image/",
             "cdn.eigpropertyauctions.co.uk/ams/images/",
             "/media/",
             "resize.auctions.savills.co.uk",
-            "asta.btgeddisonspropertyauctions.com",
-            "btgeddisonspropertyauctions.com/uploads/",
-            "btgeddisonspropertyauctions.com/images/",
         )
-        for cand in candidates:
-            if any(x in cand.lower() for x in preferred):
-                image=cand
-                break
+        if not image:
+            for cand in candidates:
+                if any(x in cand.lower() for x in preferred):
+                    image=cand
+                    break
 
         # BTG can serve property photographs from changing CDN hosts. The old
         # whitelist silently threw those photographs away. Fall back to the
         # first credible image from the exact property page.
-        if not image:
+        if not image and not ("btgeddisonspropertyauctions.com" in (url or "").lower() or "pugh-auctions.com" in (url or "").lower()):
             for cand in candidates:
                 lc=cand.lower()
                 if any(x in lc for x in ("logo","favicon","icon","placeholder",
@@ -1550,8 +1752,8 @@ def _exact_page_card(url, source, auction_date, force_commercial=False):
                     image=cand
                     break
 
-        # Metadata fallback.
-        if not image:
+        # BTG metadata may be joint-agent artwork; never use it as lot imagery.
+        if not image and not ("btgeddisonspropertyauctions.com" in (url or "").lower() or "pugh-auctions.com" in (url or "").lower()):
             for attrs in (
                 {"property":"og:image"},
                 {"name":"twitter:image"},
@@ -2016,24 +2218,24 @@ header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:no
 .hero{display:flex;justify-content:space-between;align-items:center;gap:18px;background:linear-gradient(135deg,#151f2e,#0e1622);border:1px solid #2b3a50;border-radius:16px;padding:20px 22px;margin-bottom:12px;box-shadow:0 8px 28px rgba(0,0,0,.18)}
 .brand{font-size:1.55rem;font-weight:950;letter-spacing:-.02em}.brand b{color:#f2c94c}.sub{font-size:.78rem;color:#9cacc0;margin-top:5px}
 .badge{font-size:.72rem;border:1px solid #2e8b5c;color:#a8f0c4;background:#0d2119;border-radius:999px;padding:7px 10px;white-space:nowrap;font-weight:750}
-.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.card{background:#121b29;border:1px solid #2b3a50;border-radius:14px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.18);transition:transform .15s ease,border-color .15s ease}
+ .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{background:#121b29;border:1px solid #26364b;border-radius:12px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.14);transition:transform .15s ease,border-color .15s ease}
 .card:hover{transform:translateY(-2px);border-color:#455b79}
 .preview{display:block;width:100%;height:220px;object-fit:cover;background:#172131}
 .noimg{display:grid;place-items:center;color:#7e8da3;font-size:.72rem;letter-spacing:.03em}
-.cb{padding:15px 16px 16px}.src{font-size:.72rem;color:#f2c94c;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:none}
-.addr{font-size:1rem;font-weight:850;line-height:1.32;min-height:2.65em;margin:7px 0 13px;color:#f6f8fb}
-.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.sizeMetric{grid-column:span 2}.metric{background:#182333;border:1px solid #202d40;border-radius:8px;padding:9px 10px}
-.metric span{display:block;color:#91a0b4;font-size:.64rem;margin-bottom:3px}.metric b{font-size:.88rem;color:#fff}
-.meta{font-size:.66rem;color:#aab6c7;margin-top:10px;line-height:1.4;min-height:1.4em}
-.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}.chip{font-size:.61rem;font-weight:850;padding:4px 7px;border-radius:999px;background:#223047;border:1px solid #354966;color:#dce7f5}.analysis{margin-top:9px;border-top:1px solid #26354a;padding-top:8px}.research{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.research a{text-decoration:none!important;color:#cfe0f5!important;background:#172638;border:1px solid #314761;border-radius:6px;padding:6px 8px;font-size:.62rem;font-weight:800}.research a:hover{border-color:#f2c94c;color:#f2c94c!important}.iread{margin-top:8px;background:#111d2b;border-left:3px solid #f2c94c;border-radius:6px;padding:8px 10px}.iread span{font-size:.62rem;color:#f2c94c;font-weight:900}.iread p{font-size:.68rem;color:#d8e1ed;margin:4px 0;line-height:1.35}.analysis summary{cursor:pointer;color:#dbe5f2;font-size:.72rem;font-weight:850}.factgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.fact{background:#0f1723;border:1px solid #233149;border-radius:7px;padding:7px 8px}.fact span{display:block;color:#8fa0b5;font-size:.57rem;margin-bottom:2px}.fact b{display:block;color:#f4f7fb;font-size:.70rem;line-height:1.3}
-.action{display:block;text-align:center;text-decoration:none!important;background:#f2c94c;color:#171208!important;border-radius:8px;padding:10px 8px;margin-top:11px;font-size:.76rem;font-weight:950}
+.cb{padding:12px 13px 13px}.src{font-size:.68rem;color:#f2c94c;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:none}
+.addr{font-size:.96rem;font-weight:850;line-height:1.28;min-height:0;margin:6px 0 9px;color:#f6f8fb}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:5px}.sizeMetric{grid-column:span 2}.metric{background:#162130;border:1px solid #223047;border-radius:7px;padding:6px 8px;min-height:46px;display:flex;flex-direction:column;justify-content:center}
+.metric span{display:block;color:#91a0b4;font-size:.58rem;margin-bottom:1px;line-height:1.15}.metric b{font-size:.82rem;line-height:1.15;color:#fff}
+.meta{font-size:.62rem;color:#9faec1;margin-top:7px;line-height:1.3;min-height:0}
+.chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}.chip{font-size:.61rem;font-weight:850;padding:4px 7px;border-radius:999px;background:#223047;border:1px solid #354966;color:#dce7f5}.analysis{margin-top:7px;border-top:1px solid #26354a;padding-top:6px}.research{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.research a{text-decoration:none!important;color:#cfe0f5!important;background:#172638;border:1px solid #314761;border-radius:6px;padding:6px 8px;font-size:.62rem;font-weight:800}.research a:hover{border-color:#f2c94c;color:#f2c94c!important}.iread{margin-top:8px;background:#111d2b;border-left:3px solid #f2c94c;border-radius:6px;padding:8px 10px}.iread span{font-size:.62rem;color:#f2c94c;font-weight:900}.iread p{font-size:.68rem;color:#d8e1ed;margin:4px 0;line-height:1.35}.analysis summary{cursor:pointer;color:#dbe5f2;font-size:.72rem;font-weight:850}.factgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.fact{background:#0f1723;border:1px solid #233149;border-radius:7px;padding:7px 8px}.fact span{display:block;color:#8fa0b5;font-size:.57rem;margin-bottom:2px}.fact b{display:block;color:#f4f7fb;font-size:.70rem;line-height:1.3}
+.action{display:block;text-align:center;text-decoration:none!important;background:#f2c94c;color:#171208!important;border-radius:7px;padding:8px 7px;margin-top:8px;font-size:.72rem;font-weight:900}
 .statusrow{padding:12px 14px;border:1px solid #29354b;background:#111824;border-radius:10px;margin-bottom:8px;font-size:.84rem}
 div[data-testid="stExpander"]{border:1px solid #25344a!important;border-radius:11px!important;background:#0e1621!important;margin-bottom:10px}
 button[data-baseweb="tab"]{font-size:.9rem!important}
 @media(min-width:1500px){.block-container{max-width:1500px}.cards{gap:20px}.preview{height:235px}}
 @media(max-width:1050px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.preview{height:205px}}
-@media(max-width:650px){.block-container{padding:.45rem .5rem 1.5rem!important}.hero{padding:13px 12px}.brand{font-size:1.1rem}.sub{font-size:.58rem}.badge{font-size:.55rem;padding:5px 7px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.preview{height:112px}.cb{padding:7px}.src{font-size:.47rem}.addr{font-size:.68rem;min-height:2.7em;margin:4px 0 7px}.metrics{gap:3px}.metric{padding:5px}.metric span{font-size:.40rem}.metric b{font-size:.58rem}.meta{font-size:.42rem;margin-top:5px}.action{font-size:.50rem;padding:6px;margin-top:6px}}
+@media(max-width:650px){.block-container{padding:.38rem .42rem 1.25rem!important}.hero{padding:11px 10px}.brand{font-size:1.05rem}.sub{font-size:.56rem}.badge{font-size:.53rem;padding:4px 6px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.preview{height:108px}.cb{padding:6px 6px 7px}.src{font-size:.45rem}.addr{font-size:.66rem;line-height:1.23;min-height:0;margin:3px 0 5px}.metrics{gap:3px}.metric{padding:3px 5px;min-height:36px;border-radius:6px}.metric span{font-size:.38rem;margin-bottom:0}.metric b{font-size:.56rem;line-height:1.1}.meta{font-size:.40rem;margin-top:4px;min-height:0}.chips{margin-top:5px;gap:3px}.chip{font-size:.48rem;padding:3px 5px}.analysis{margin-top:5px;padding-top:5px}.analysis summary{font-size:.58rem}.action{font-size:.48rem;padding:5px 4px;margin-top:5px;border-radius:6px}}
 </style>
 """,unsafe_allow_html=True)
 
@@ -2614,8 +2816,8 @@ def _facts_html(p):
     return f'<div class="chips">{ch}</div><details class="analysis"><summary>Investment details</summary><div class="factgrid">{rows}</div>{read}{_research_links(p)}</details>'
 
 
-def money(v): return "Unknown" if v is None else f"£{v:,.0f}"
-def pct(v): return "Unknown" if v is None else f"{v:.1f}%"
+def money(v): return "—" if v is None else f"£{v:,.0f}"
+def pct(v): return "—" if v is None else f"{v:.1f}%"
 
 with lots_tab:
     lots=list(rows)
@@ -2643,7 +2845,7 @@ with lots_tab:
         _size_text=(f"{_sqft:,.0f} sq ft / {_sqm:,.0f} sq m" if _sqft else None)
         meta=" · ".join(v for v in [x.get("date"),x.get("tenure"),("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)
         preview=(f'<img class="preview" src="{html.escape(x["image"])}" loading="lazy">' if x.get("image")
-                 else '<div class="preview noimg">IMAGE NOT YET INDEXED</div>')
+                 else '<div class="preview noimg">Photo unavailable</div>')
         cards.append(
             '<div class="card">'+preview+'<div class="cb">'
             +f'<div class="src">{html.escape(x["source"])} · {html.escape(x.get("lot") or "Lot TBC")}</div>'

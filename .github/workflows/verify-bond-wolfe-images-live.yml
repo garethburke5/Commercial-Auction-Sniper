@@ -1,0 +1,87 @@
+name: Verify Bond Wolfe images live
+on:
+  push:
+    branches: [develop]
+    paths:
+      - .github/workflows/verify-bond-wolfe-images-live.yml
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+      - run: pip install requests beautifulsoup4
+      - name: Verify current Bond Wolfe exact pages and property images
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, requests
+          from bs4 import BeautifulSoup
+          from urllib.parse import urljoin
+
+          src=Path('app.py').read_text(encoding='utf-8')
+          section=src.split('# Bond Wolfe',1)[1].split('# Barnard Marcus',1)[0]
+          rows=[]
+          for line in section.splitlines():
+              if 'source="Bond Wolfe"' not in line:
+                  continue
+              lot=re.search(r"lot=['\"]([^'\"]+)",line).group(1)
+              address=re.search(r"address=['\"]([^'\"]+)",line).group(1)
+              url=re.search(r"url=['\"]([^'\"]+)",line).group(1)
+              im=re.search(r"image=['\"]([^'\"]+)",line)
+              rows.append((lot,address,url,im.group(1) if im else None))
+          assert len(rows)==20, len(rows)
+
+          sess=requests.Session(); sess.headers.update({'User-Agent':'Mozilla/5.0'})
+          good=[]; discovered=[]; bad=[]
+          for lot,address,url,seed_img in rows:
+              page=sess.get(url,timeout=25)
+              try: page.raise_for_status()
+              except Exception:
+                  bad.append((lot,'PAGE',page.status_code,url)); continue
+              s=BeautifulSoup(page.text,'html.parser')
+              candidates=[]
+              for img in s.find_all('img'):
+                  for attr in ('data-src','data-lazy-src','data-original','src'):
+                      v=img.get(attr)
+                      if v: candidates.append(urljoin(url,v))
+                  ss=img.get('srcset') or img.get('data-srcset')
+                  if ss:
+                      candidates += [urljoin(url,x.strip().split(' ')[0]) for x in ss.split(',') if x.strip()]
+              for a in s.find_all('a',href=True):
+                  candidates.append(urljoin(url,a['href']))
+              property_imgs=[]
+              for u in candidates:
+                  low=u.lower()
+                  if 'cdn.eigpropertyauctions.co.uk/ams/images/' not in low:
+                      continue
+                  if any(x in low for x in ('logo','icon','avatar','placeholder')):
+                      continue
+                  if u not in property_imgs:
+                      property_imgs.append(u)
+
+              selected=seed_img or (property_imgs[0] if property_imgs else None)
+              if not selected:
+                  bad.append((lot,'NO IMAGE',address)); continue
+              ir=sess.get(selected,timeout=25)
+              if ir.status_code != 200 or not ir.headers.get('content-type','').lower().startswith('image/'):
+                  fallback=None
+                  for u in property_imgs:
+                      rr=sess.get(u,timeout=25)
+                      if rr.status_code==200 and rr.headers.get('content-type','').lower().startswith('image/'):
+                          fallback=u; break
+                  if not fallback:
+                      bad.append((lot,'BAD IMAGE',ir.status_code,selected)); continue
+                  selected=fallback
+              good.append((lot,selected))
+              if selected != seed_img:
+                  discovered.append((lot,address,selected))
+
+          print('BOND WOLFE VERIFIED',len(good),'OF',len(rows))
+          for x in discovered: print('DISCOVERED',x)
+          for x in bad: print('BAD',x)
+          assert len(good)==len(rows), f'{len(good)}/{len(rows)} Bond Wolfe images verified'
+          PY
