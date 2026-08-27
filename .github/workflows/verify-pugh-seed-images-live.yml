@@ -1,5 +1,5 @@
 name: Verify Pugh BTG seed images live
-# Re-run after robust exact-page matching and corrected live addresses.
+# Exact seed URLs are authoritative; catalogue matching is only a fallback.
 on:
   push:
     branches: [develop]
@@ -25,7 +25,7 @@ jobs:
 
           src=Path('app.py').read_text(encoding='utf-8')
           section=src.split('# Pugh / BTG Eddisons — verified current commercial/mixed-use, 27 Aug 2026',1)[1].split('# Strettons',1)[0]
-          targets=re.findall(r"lot='([^']+)'.*?address='([^']+)'",section)
+          targets=re.findall(r"lot='([^']+)'.*?address='([^']+)'.*?url='([^']+)'",section)
           assert len(targets)==19, len(targets)
           catalogue='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17&date_added=0&limit=0&radius=1&search_type=auction&view=grid'
           sess=requests.Session(); sess.headers.update({'User-Agent':'Mozilla/5.0'})
@@ -38,14 +38,18 @@ jobs:
                   links.append((re.sub(r'\s+',' ',a.get_text(' ',strip=True)).strip().lower(),href))
 
           resolved=[]; missing=[]
-          for lot,address in targets:
-              addr=re.sub(r'\s+',' ',address).strip().lower()
-              match=next(((label,u) for label,u in links if label and (label==addr or label in addr or addr in label)),None)
-              if not match:
-                  missing.append((lot,address,'NO EXACT LINK')); continue
-              u=match[1]
+          for lot,address,seed_url in targets:
+              if 'btgeddisonspropertyauctions.com/properties/' in seed_url:
+                  u=seed_url
+              else:
+                  addr=re.sub(r'\s+',' ',address).strip().lower()
+                  match=next(((label,u) for label,u in links if label and (label==addr or label in addr or addr in label)),None)
+                  if not match:
+                      missing.append((lot,address,'NO EXACT LINK')); continue
+                  u=match[1]
               r=sess.get(u,timeout=25); r.raise_for_status()
               s=BeautifulSoup(r.text,'html.parser')
+              assert '/properties/' in u, (lot,u)
               slug=u.lower().split('/properties/',1)[1].split('/',1)[0]
               head,sep,tail=slug.rpartition('-')
               if sep and len(tail)==6 and tail.isdigit(): slug=head
