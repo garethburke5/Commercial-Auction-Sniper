@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.42-STRETTONS-WIDE-IMAGES"
+BUILD = "V6.43-COMPACT-YIELD"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2498,8 +2498,11 @@ div[data-testid="stNumberInput"]{margin:0!important}
 div[data-testid="stNumberInput"]>div{margin:0!important}
 @media(max-width:650px){.yieldInlineLabel{height:34px;font-size:.55rem;padding:0 6px}}
 
-.yieldCaption{font-size:.64rem;font-weight:800;color:#aebed1;margin-top:2px;padding-left:2px;line-height:1.05}
-@media(max-width:650px){.yieldCaption{font-size:.52rem;margin-top:1px}}
+.yieldCaption{font-size:.60rem;font-weight:800;color:#aebed1;margin-top:3px;padding-left:2px;line-height:1.05;text-align:left;white-space:nowrap}
+div[data-testid="stNumberInput"]{max-width:100%!important;margin:0!important}
+div[data-testid="stNumberInput"]>div{margin:0!important}
+div[data-testid="stNumberInput"] input{min-width:0!important}
+@media(max-width:650px){.yieldCaption{font-size:.49rem;margin-top:2px;padding-left:1px}}
 
 /* V6.42 wider property photography */
 .previewLink{display:block!important;width:100%!important;margin:0!important;padding:0!important;overflow:hidden!important}
@@ -2521,7 +2524,7 @@ st.markdown(
 )
 
 # Compact utility strip: actions stay visible without consuming the page.
-tool_a,tool_b,tool_yield,tool_space=st.columns([1.05,1.15,1.55,3.25],gap="small")
+tool_a,tool_b,tool_yield,tool_space=st.columns([1.05,1.15,.72,4.08],gap="small")
 with tool_a:
     if st.button("↻ Update listings",type="primary",use_container_width=True,help="Refresh current auction lots and property photos"):
         with st.spinner("Updating current commercial auction listings and photos…"):
