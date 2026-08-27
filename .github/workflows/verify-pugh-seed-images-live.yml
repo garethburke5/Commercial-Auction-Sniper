@@ -1,0 +1,74 @@
+name: Verify Pugh BTG seed images live
+on:
+  push:
+    branches: [develop]
+    paths:
+      - .github/workflows/verify-pugh-seed-images-live.yml
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+      - run: pip install requests beautifulsoup4
+      - name: Verify all seeded Pugh BTG lots resolve to exact pages and images
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, requests
+          from bs4 import BeautifulSoup
+          from urllib.parse import urljoin
+
+          src=Path('app.py').read_text(encoding='utf-8')
+          section=src.split('# Pugh / BTG Eddisons — verified current commercial/mixed-use, 27 Aug 2026',1)[1].split('# Strettons',1)[0]
+          targets=re.findall(r"lot='([^']+)'.*?address='([^']+)'",section)
+          assert len(targets)==19, len(targets)
+          catalogue='https://www.btgeddisonspropertyauctions.com/auctions/live-stream/august-2026?auction_id=17&date_added=0&limit=0&radius=1&search_type=auction&view=grid'
+          sess=requests.Session(); sess.headers.update({'User-Agent':'Mozilla/5.0'})
+          page=sess.get(catalogue,timeout=25); page.raise_for_status()
+          soup=BeautifulSoup(page.text,'html.parser')
+          links=[]
+          for a in soup.find_all('a',href=True):
+              href=urljoin(catalogue,a['href'])
+              if '/properties/' in href:
+                  links.append((re.sub(r'\s+',' ',a.get_text(' ',strip=True)).strip().lower(),href))
+
+          resolved=[]; missing=[]
+          for lot,address in targets:
+              addr=re.sub(r'\s+',' ',address).strip().lower()
+              match=next(((label,u) for label,u in links if label and (label==addr or label in addr or addr in label)),None)
+              if not match:
+                  missing.append((lot,address,'NO EXACT LINK')); continue
+              u=match[1]
+              r=sess.get(u,timeout=25); r.raise_for_status()
+              s=BeautifulSoup(r.text,'html.parser')
+              slug=u.lower().split('/properties/',1)[1].split('/',1)[0]
+              head,sep,tail=slug.rpartition('-')
+              if sep and len(tail)==6 and tail.isdigit(): slug=head
+              marker=f'/artnr_{slug}/_pictures/'
+              raw=[]
+              for img in s.find_all('img'):
+                  for attr in ('data-src','data-lazy-src','data-original','data-image','data-url','data-lazy','src'):
+                      if img.get(attr): raw.append(urljoin(u,img.get(attr)))
+                  ss=img.get('srcset') or img.get('data-srcset')
+                  if ss:
+                      raw += [urljoin(u,x.strip().split(' ')[0]) for x in ss.split(',') if x.strip()]
+              for a in s.find_all('a',href=True): raw.append(urljoin(u,a['href']))
+              gallery=[]
+              for imgurl in raw:
+                  clean=imgurl.split('?',1)[0].lower()
+                  if marker in clean and clean.endswith(('.jpg','.jpeg','.png','.webp')) and imgurl not in gallery:
+                      gallery.append(imgurl)
+              if not gallery:
+                  missing.append((lot,address,'NO PROPERTY GALLERY IMAGE')); continue
+              ir=sess.get(gallery[0],timeout=25); ir.raise_for_status()
+              if not ir.headers.get('content-type','').lower().startswith('image/'):
+                  missing.append((lot,address,'BAD IMAGE RESPONSE')); continue
+              resolved.append((lot,address,u,gallery[0]))
+          print('RESOLVED',len(resolved),'OF',len(targets))
+          for x in missing: print('MISSING',x)
+          assert len(resolved)==len(targets), f'{len(resolved)}/{len(targets)} Pugh/BTG images resolved'
+          PY
