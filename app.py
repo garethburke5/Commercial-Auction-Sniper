@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.18-INTERMEDIATE"
+BUILD = "V6.19-INTERMEDIATE"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -461,7 +461,7 @@ def _img_candidates(node, base):
     raw=[]
 
     for img in node.find_all("img"):
-        for attr in ("data-src","data-lazy-src","data-original","src"):
+        for attr in ("data-src","data-lazy-src","data-original","data-image","data-url","data-lazy","src"):
             v=img.get(attr)
             if v: raw.append(v)
         ss=img.get("srcset") or img.get("data-srcset")
@@ -493,6 +493,14 @@ def _img_candidates(node, base):
     for tag in node.find_all(style=True):
         for u in re.findall(r'url\([\'"]?([^\'")]+)',tag.get("style",""),re.I):
             raw.append(u)
+
+    # Structured-data and gallery JSON fallbacks (important for BTG/Pugh).
+    for script in node.find_all("script"):
+        txt=script.string or script.get_text(" ",strip=True)
+        if not txt:
+            continue
+        for u in re.findall(r'https?:\\?/\\?/[^"\'<> ]+?\.(?:jpg|jpeg|png|webp)(?:\\?[^"\'<> ]*)?',txt,re.I):
+            raw.append(u.replace("\\/","/"))
 
     out=[]
     bad=("logo","icon","favicon","avatar","sprite","placeholder","savills-logo",
@@ -1511,24 +1519,50 @@ def _exact_page_card(url, source, auction_date, force_commercial=False):
                 return None
 
         image=None
-        for cand in _img_candidates(s,url):
-            lc=cand.lower()
-            if (
-                "/lot-image/" in lc
-                or "cdn.eigpropertyauctions.co.uk/ams/images/" in lc
-                or "/media/" in lc
-                or "resize.auctions.savills.co.uk" in lc
-                or "asta.btgeddisonspropertyauctions.com" in lc
-            ):
+        candidates=_img_candidates(s,url)
+
+        # Prefer known auction gallery/CDN patterns.
+        preferred=(
+            "/lot-image/",
+            "cdn.eigpropertyauctions.co.uk/ams/images/",
+            "/media/",
+            "resize.auctions.savills.co.uk",
+            "asta.btgeddisonspropertyauctions.com",
+            "btgeddisonspropertyauctions.com/uploads/",
+            "btgeddisonspropertyauctions.com/images/",
+        )
+        for cand in candidates:
+            if any(x in cand.lower() for x in preferred):
                 image=cand
                 break
 
+        # BTG can serve property photographs from changing CDN hosts. The old
+        # whitelist silently threw those photographs away. Fall back to the
+        # first credible image from the exact property page.
         if not image:
-            og=s.find("meta",attrs={"property":"og:image"})
-            if og and og.get("content"):
-                cand=urljoin(url,og["content"])
-                if not any(x in cand.lower() for x in ("logo","favicon","icon","placeholder")):
+            for cand in candidates:
+                lc=cand.lower()
+                if any(x in lc for x in ("logo","favicon","icon","placeholder",
+                                         "agent","staff","avatar","background",
+                                         "facebook","instagram","linkedin","youtube")):
+                    continue
+                if re.search(r"\.(?:jpe?g|png|webp)(?:\?|$)",lc) or "image" in lc or "upload" in lc:
                     image=cand
+                    break
+
+        # Metadata fallback.
+        if not image:
+            for attrs in (
+                {"property":"og:image"},
+                {"name":"twitter:image"},
+                {"property":"twitter:image"},
+            ):
+                meta=s.find("meta",attrs=attrs)
+                if meta and meta.get("content"):
+                    cand=urljoin(url,meta["content"])
+                    if not any(x in cand.lower() for x in ("logo","favicon","icon","placeholder")):
+                        image=cand
+                        break
 
         gm=re.search(r"Guide price\*?\s*(?:£)?\s*([\d,]+)",text,re.I)
         if not gm:
