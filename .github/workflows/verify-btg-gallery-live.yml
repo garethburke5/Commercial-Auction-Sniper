@@ -13,6 +13,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: develop
+      - name: Install verification dependencies
+        run: pip install requests beautifulsoup4
       - name: Verify Percy Street real gallery image
         run: |
           python - <<'PY'
@@ -22,8 +24,9 @@ jobs:
 
           page='https://www.btgeddisonspropertyauctions.com/properties/202607231641sq_tkoe-300926/for-auction-stoke-on-trent'
           key='202607231641sq_tkoe'
-          html=requests.get(page,headers={'User-Agent':'Mozilla/5.0'},timeout=20).text
-          s=BeautifulSoup(html,'html.parser')
+          rpage=requests.get(page,headers={'User-Agent':'Mozilla/5.0'},timeout=20)
+          rpage.raise_for_status()
+          s=BeautifulSoup(rpage.text,'html.parser')
           raw=[]
           for img in s.find_all('img'):
               for attr in ('data-src','data-lazy-src','data-original','data-image','data-url','data-lazy','src'):
@@ -41,8 +44,8 @@ jobs:
                   gallery.append(u)
           assert gallery, 'No exact Percy Street gallery photo discovered'
           assert all('rory_mack' not in u.lower() for u in gallery)
-          r=requests.get(gallery[0],headers={'User-Agent':'Mozilla/5.0'},timeout=20)
-          assert r.status_code==200, (r.status_code,gallery[0])
-          assert r.headers.get('content-type','').lower().startswith('image/'), r.headers.get('content-type')
+          image=requests.get(gallery[0],headers={'User-Agent':'Mozilla/5.0'},timeout=20)
+          image.raise_for_status()
+          assert image.headers.get('content-type','').lower().startswith('image/'), image.headers.get('content-type')
           print('LIVE BTG GALLERY PASS:',gallery[0])
           PY
