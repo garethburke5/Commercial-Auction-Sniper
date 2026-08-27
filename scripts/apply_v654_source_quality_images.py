@@ -98,7 +98,6 @@ def _v654_data_image(image_url, referer=None):
 def _v654_exact_row(url, source, date=None):
     try:
         raw=fetch(url); soup=BeautifulSoup(raw,'lxml'); text=norm(soup.get_text(' ',strip=True))
-        src=source.lower()
         lot='Lot TBC'; address=''; guide=None; rent=None; tenure=None
         if source=='Clive Emson':
             if not re.search(r'/properties/\d+/\d+/?$',url): return None
@@ -106,7 +105,6 @@ def _v654_exact_row(url, source, date=None):
             lm=re.search(r'\bLot\s*(\d+[A-Z]?)\b',h1,re.I)
             if not lm: return None
             lot='Lot '+lm.group(1).upper()
-            # Clive's address is the first postcode-bearing H2 on the lot page.
             for h in soup.find_all(['h2','h3']):
                 t=norm(h.get_text(' ',strip=True))
                 if re.search(r'\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b',t,re.I):
@@ -145,7 +143,6 @@ def _clive_emson_current():
         links=[]
         for a in soup.find_all('a',href=True):
             href=urljoin(listing,a['href']).split('#')[0]
-            # Genuine lot URLs are exactly /properties/<auction>/<lot>/.
             if re.search(r'https?://(?:www\.)?cliveemson\.co\.uk/properties/\d+/\d+/?$',href,re.I) and href not in links:
                 links.append(href)
         rows=[]
@@ -196,7 +193,6 @@ def _acuitus_current():
 '''
 s=s.replace(anchor,insert+anchor,1)
 
-# Version the priority boot cache so previous contaminated Clive data cannot survive.
 old='''@st.cache_data(ttl=21600,show_spinner=False)
 def _v653_priority_boot_rows():'''
 new='''@st.cache_data(ttl=1800,show_spinner=False)
@@ -204,7 +200,6 @@ def _v654_priority_boot_rows():'''
 if old in s: s=s.replace(old,new,1)
 s=s.replace('priority=_v653_priority_boot_rows()','priority=_v654_priority_boot_rows()',1)
 
-# Remove any already-cached Clive navigation pages, then refresh images for priority rows.
 needle='''    if priority:
         rows=_merge_property_universe(rows,priority)
 except Exception:
@@ -228,3 +223,4 @@ s=s.replace(needle,replacement,1)
 p.write_text(s,encoding='utf-8')
 py_compile.compile(str(p),doraise=True)
 print('V6.54 source quality and image extraction applied')
+# deployment trigger
