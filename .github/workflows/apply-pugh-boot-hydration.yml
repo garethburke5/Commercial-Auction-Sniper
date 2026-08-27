@@ -1,0 +1,25 @@
+name: Apply Pugh BTG boot hydration
+on:
+  push:
+    branches: [develop]
+    paths:
+      - .github/workflows/apply-pugh-boot-hydration.yml
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+      - name: Apply Pugh BTG boot hydration patch
+        run: python scripts/apply_pugh_boot_hydration.py
+      - name: Commit hydration fix
+        run: |
+          git config user.name "Auction Sniper Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add app.py
+          git diff --cached --quiet && exit 0
+          git commit -m "Hydrate Pugh BTG seed cards from exact lot pages"
+          git push origin develop
