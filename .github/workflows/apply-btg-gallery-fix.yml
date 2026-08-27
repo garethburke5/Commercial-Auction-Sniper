@@ -1,0 +1,74 @@
+name: Apply BTG gallery fix
+on:
+  push:
+    branches: [develop]
+    paths:
+      - .github/workflows/apply-btg-gallery-fix.yml
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+      - name: Patch BTG image extraction
+        shell: python
+        run: |
+          from pathlib import Path
+          import re, py_compile
+          p=Path('app.py')
+          c=p.read_text(encoding='utf-8')
+
+          needle='''def _looks_like_property_image(url):\n    if not url: return False\n    low=url.lower()\n    bad=("logo","favicon","icon","sprite","placeholder","avatar","cookie","tracking","pixel","social","facebook","instagram","linkedin","youtube","twitter","svg")\n    return not any(x in low for x in bad)\n'''
+          helper='''def _looks_like_property_image(url):\n    if not url: return False\n    low=url.lower()\n    bad=("logo","favicon","icon","sprite","placeholder","avatar","cookie","tracking","pixel","social","facebook","instagram","linkedin","youtube","twitter","svg")\n    return not any(x in low for x in bad)\n\ndef _btg_property_key(url):\n    m=re.search(r"/properties/([^/]+)",url or "",re.I)\n    if not m: return None\n    return re.sub(r"-\\d{6}$","",m.group(1),flags=re.I).lower()\n\ndef _btg_gallery_images(s, url):\n    """Return only photographs belonging to the exact BTG lot gallery."""\n    key=_btg_property_key(url)\n    if not key: return []\n    marker=f"/artnr_{key}/_pictures/"\n    found=[]\n    for cand in _img_candidates(s,url):\n        clean=(cand or "").split("?",1)[0]\n        low=clean.lower()\n        if marker not in low: continue\n        if not re.search(r"\\.(?:jpe?g|png|webp)$",low): continue\n        if any(x in low for x in ("logo","agent","staff","avatar","profile","rory_mack")): continue\n        if cand not in found: found.append(cand)\n    return found\n'''
+          assert needle in c
+          c=c.replace(needle,helper,1)
+
+          needle='''def _property_image_from_soup(s, url):\n    """Choose a real property/gallery image from an exact lot page."""\n    # Social preview is usually the canonical property hero image.\n'''
+          repl='''def _property_image_from_soup(s, url):\n    """Choose a real property/gallery image from an exact lot page."""\n    if "btgeddisonspropertyauctions.com" in (url or "").lower() or "pugh-auctions.com" in (url or "").lower():\n        gallery=_btg_gallery_images(s,url)\n        if gallery:\n            return gallery[0]\n\n    # Social preview is usually the canonical property hero image.\n'''
+          assert needle in c
+          c=c.replace(needle,repl,1)
+
+          needle='''        image=None\n        candidates=_img_candidates(s,url)\n\n        # Prefer known auction gallery/CDN patterns.\n        preferred=(\n            "/lot-image/",\n            "cdn.eigpropertyauctions.co.uk/ams/images/",\n            "/media/",\n            "resize.auctions.savills.co.uk",\n            "asta.btgeddisonspropertyauctions.com",\n            "btgeddisonspropertyauctions.com/uploads/",\n            "btgeddisonspropertyauctions.com/images/",\n        )\n'''
+          repl='''        image=None\n        candidates=_img_candidates(s,url)\n\n        if "btgeddisonspropertyauctions.com" in (url or "").lower() or "pugh-auctions.com" in (url or "").lower():\n            gallery=_btg_gallery_images(s,url)\n            if gallery:\n                image=gallery[0]\n\n        preferred=(\n            "/lot-image/",\n            "cdn.eigpropertyauctions.co.uk/ams/images/",\n            "/media/",\n            "resize.auctions.savills.co.uk",\n        )\n'''
+          assert needle in c
+          c=c.replace(needle,repl,1)
+          c=c.replace('''        for cand in candidates:\n            if any(x in cand.lower() for x in preferred):\n                image=cand\n                break\n\n        # BTG can serve property photographs''','''        if not image:\n            for cand in candidates:\n                if any(x in cand.lower() for x in preferred):\n                    image=cand\n                    break\n\n        # BTG can serve property photographs''',1)
+
+          needle='''        if not image:\n            for cand in candidates:\n                lc=cand.lower()\n                if any(x in lc for x in ("logo","favicon","icon","placeholder",\n                                         "agent","staff","avatar","background",\n                                         "facebook","instagram","linkedin","youtube")):\n                    continue\n                if re.search(r"\\.(?:jpe?g|png|webp)(?:\\?|$)",lc) or "image" in lc or "upload" in lc:\n                    image=cand\n                    break\n'''
+          repl='''        if not image and not ("btgeddisonspropertyauctions.com" in (url or "").lower() or "pugh-auctions.com" in (url or "").lower()):\n            for cand in candidates:\n                lc=cand.lower()\n                if any(x in lc for x in ("logo","favicon","icon","placeholder",\n                                         "agent","staff","avatar","background",\n                                         "facebook","instagram","linkedin","youtube")):\n                    continue\n                if re.search(r"\\.(?:jpe?g|png|webp)(?:\\?|$)",lc) or "image" in lc or "upload" in lc:\n                    image=cand\n                    break\n'''
+          assert needle in c
+          c=c.replace(needle,repl,1)
+          c=c.replace('''        # Metadata fallback.\n        if not image:\n''','''        # BTG metadata may be partner/agent artwork; never use it as the lot photo.\n        if not image and not ("btgeddisonspropertyauctions.com" in (url or "").lower() or "pugh-auctions.com" in (url or "").lower()):\n''',1)
+
+          old='''                elif ("pugh-auctions.com" in r["url"] or "btgeddisonspropertyauctions.com" in r["url"]) and (\n                    "asta.btgeddisonspropertyauctions.com" in lc or "cdn.eigpropertyauctions.co.uk" in lc\n                ):\n                    preferred.append(c)\n'''
+          new='''                elif ("pugh-auctions.com" in r["url"] or "btgeddisonspropertyauctions.com" in r["url"]):\n                    pass\n'''
+          assert old in c
+          c=c.replace(old,new,1)
+          needle='''            return i,(preferred[0] if preferred else (candidates[0] if candidates else None))\n'''
+          repl='''            if "pugh-auctions.com" in r["url"] or "btgeddisonspropertyauctions.com" in r["url"]:\n                gallery=_btg_gallery_images(s,r["url"])\n                return i,(gallery[0] if gallery else None)\n            return i,(preferred[0] if preferred else (candidates[0] if candidates else None))\n'''
+          assert needle in c
+          c=c.replace(needle,repl,1)
+          c=c.replace('BUILD = "V6.19-INTERMEDIATE"','BUILD = "V6.20-BTG-GALLERY"',1)
+          p.write_text(c,encoding='utf-8')
+          py_compile.compile(str(p),doraise=True)
+
+          # Regression: property-id folder accepted, joint-agent folder rejected.
+          u='https://www.btgeddisonspropertyauctions.com/properties/202607231641sq_tkoe-300926/for-auction-stoke-on-trent'
+          key=re.search(r'/properties/([^/]+)',u,re.I).group(1)
+          key=re.sub(r'-\\d{6}$','',key).lower()
+          real='https://asta.btgeddisonspropertyauctions.com/sdl_data/address/pkm_sdl/artnr_202607231641sq_tkoe/_pictures/1_t202607281426__2__t202607281543.jpg?uuid=x'
+          agent='https://asta.btgeddisonspropertyauctions.com/sdl_data/address/pkm_sdl/artnr_878C7C9F-A3B1-4803-882F-9CAFCE259352/_pictures/rory_mack.jpg?uuid=x'
+          marker=f'/artnr_{key}/_pictures/'
+          assert marker in real.lower()
+          assert marker not in agent.lower()
+      - name: Commit fix
+        run: |
+          git config user.name "Auction Sniper Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add app.py
+          git diff --cached --quiet && exit 0
+          git commit -m "Fix BTG/Pugh exact gallery image selection"
+          git push origin develop
