@@ -1,5 +1,6 @@
 
 import re, html, json, time
+import base64
 from pathlib import Path
 from urllib.parse import urljoin
 import urllib.parse
@@ -11,7 +12,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.41-YIELD-CAPTION"
+BUILD = "V6.42-STRETTONS-WIDE-IMAGES"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -1686,7 +1687,45 @@ def _hydrate_strettons_seed_rows(rows):
     missing=[r for r in rows if r.get("source")=="Strettons" and (not r.get("image") or "/auction-commercial-property/for-sale" in (r.get("url") or ""))]
     if not missing:
         return rows
-    live=_strettons_seed_exact_rows(tuple(r.get("lot") for r in missing if r.get("lot")))
+
+    live=[]
+    discover=[]
+    direct=[]
+    for r in missing:
+        u=r.get("url") or ""
+        if "/auction-commercial-property-for-sale/" in u:
+            direct.append((r.get("lot") or "Lot TBC",u))
+        elif r.get("lot"):
+            discover.append(r.get("lot"))
+
+    def hydrate_exact(item):
+        lot,u=item
+        try:
+            ds=BeautifulSoup(fetch(u),"lxml")
+            img=_strettons_exact_image(ds,u)
+            main=ds.find("main") or ds
+            text=norm(main.get_text(" ",strip=True))
+            h=ds.find("h1")
+            address=norm(h.get_text(" ",strip=True)) if h else ""
+            gm=re.search(r"Guide Price\s*£?\s*([\d,]+)",text,re.I)
+            guide=float(gm.group(1).replace(',','')) if gm else None
+            low=text.lower()
+            return dict(source="Strettons",lot=lot,date="2026-09-10",address=address,
+                        guide=guide,rent=parse_rent(text),
+                        tenure=("Freehold" if "freehold" in low[:2200] else "Leasehold" if "leasehold" in low[:2200] else None),
+                        vat="UNKNOWN",url=u,desc=text[:1800],image=img)
+        except Exception:
+            return None
+
+    if direct:
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            futures=[ex.submit(hydrate_exact,x) for x in direct]
+            for f in as_completed(futures):
+                rec=f.result()
+                if rec and rec.get("image"):
+                    live.append(rec)
+    if discover:
+        live.extend(_strettons_seed_exact_rows(tuple(discover)))
     if not live:
         return rows
     return _merge_property_universe(rows,live)
@@ -1878,6 +1917,11 @@ def _exact_page_card(url, source, auction_date, force_commercial=False):
 
         image=None
         candidates=_img_candidates(s,url)
+
+        # Strettons property photos are embedded in page data rather than ordinary <img> tags.
+        # Use the verified api_sources extractor before generic image selection.
+        if "strettons.co.uk" in (url or "").lower():
+            image=_strettons_exact_image(s,url)
 
         # BTG/Pugh: host alone is not proof of a property photograph. Only the
         # exact property's own artnr_<property-key> gallery folder is trusted.
@@ -2456,6 +2500,14 @@ div[data-testid="stNumberInput"]>div{margin:0!important}
 
 .yieldCaption{font-size:.64rem;font-weight:800;color:#aebed1;margin-top:2px;padding-left:2px;line-height:1.05}
 @media(max-width:650px){.yieldCaption{font-size:.52rem;margin-top:1px}}
+
+/* V6.42 wider property photography */
+.previewLink{display:block!important;width:100%!important;margin:0!important;padding:0!important;overflow:hidden!important}
+.preview{display:block!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;height:178px!important;object-fit:cover!important}
+@media(min-width:1700px){.preview{height:176px!important}}
+@media(max-width:1180px){.preview{height:174px!important}}
+@media(max-width:820px){.preview{height:162px!important}}
+@media(max-width:650px){.preview{height:122px!important}}
 </style>
 """,unsafe_allow_html=True)
 
@@ -3048,6 +3100,23 @@ def _facts_html(p):
     return f'<div class="chips">{ch}</div><details class="analysis"><summary>Investment details</summary><div class="factgrid">{rows}</div>{read}{_research_links(p)}</details>'
 
 
+@st.cache_data(ttl=21600, show_spinner=False)
+def _safe_card_image_src(source,image_url):
+    if not image_url:
+        return None
+    if (source or "").lower() != "strettons":
+        return image_url
+    try:
+        r=requests.get(image_url,headers={**HEADERS,"Referer":"https://www.strettons.co.uk/"},timeout=15)
+        r.raise_for_status()
+        ctype=(r.headers.get("content-type") or "image/jpeg").split(";")[0]
+        if not ctype.startswith("image/"):
+            return image_url
+        encoded=base64.b64encode(r.content).decode("ascii")
+        return f"data:{ctype};base64,{encoded}"
+    except Exception:
+        return image_url
+
 def money(v): return "—" if v is None else f"£{v:,.0f}"
 def pct(v): return "—" if v is None else f"{v:.1f}%"
 
@@ -3079,8 +3148,9 @@ with lots_tab:
         _property_url=html.escape(str(x.get("url") or ""),quote=True)
         _map_query=urllib.parse.quote_plus(str(x.get("address") or ""))
         _maps_url=f"https://www.google.com/maps/search/?api=1&query={_map_query}"
-        preview=(f'<a class="previewLink" href="{_property_url}" target="_blank" rel="noopener noreferrer"><img class="preview" src="{html.escape(x["image"],quote=True)}" loading="lazy"></a>' if x.get("image") and _property_url
-                 else (f'<img class="preview" src="{html.escape(x["image"],quote=True)}" loading="lazy">' if x.get("image") else '<div class="preview noimg">Photo unavailable</div>'))
+        _image_src=_safe_card_image_src(x.get("source"),x.get("image"))
+        preview=(f'<a class="previewLink" href="{_property_url}" target="_blank" rel="noopener noreferrer"><img class="preview" src="{html.escape(_image_src,quote=True)}" loading="lazy"></a>' if _image_src and _property_url
+                 else (f'<img class="preview" src="{html.escape(_image_src,quote=True)}" loading="lazy">' if _image_src else '<div class="preview noimg">Photo unavailable</div>'))
         cards.append(
             '<div class="card">'+preview+'<div class="cb">'
             +f'<div class="src">{html.escape(x["source"])} · {html.escape(x.get("lot") or "Lot TBC")}</div>'
