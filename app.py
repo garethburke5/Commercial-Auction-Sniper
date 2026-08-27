@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.38-MAPS-DYNAMIC-YIELD"
+BUILD = "V6.39-ALIGNED-YIELD"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2481,7 +2481,7 @@ with tool_b:
             st.rerun()
 
 with tool_yield:
-    target_yield=st.number_input("Target yield (%)",min_value=1.0,max_value=30.0,value=10.0,step=.5,format="%.1f",help="Change this to recalculate the maximum purchase price for every rented property")
+    target_yield=st.number_input("Target yield (%)",min_value=1.0,max_value=30.0,value=10.0,step=.5,format="%.1f",help="Target yield — changes the max purchase price on every rented property",label_visibility="collapsed")
 
 lots_tab,sources_tab=st.tabs(["🎯 All properties","📡 Source health"])
 
