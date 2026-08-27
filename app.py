@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.40-INLINE-YIELD-LABEL"
+BUILD = "V6.41-YIELD-CAPTION"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -2453,6 +2453,9 @@ div[data-testid="stNumberInput"] input{font-weight:900!important}
 div[data-testid="stNumberInput"]{margin:0!important}
 div[data-testid="stNumberInput"]>div{margin:0!important}
 @media(max-width:650px){.yieldInlineLabel{height:34px;font-size:.55rem;padding:0 6px}}
+
+.yieldCaption{font-size:.64rem;font-weight:800;color:#aebed1;margin-top:2px;padding-left:2px;line-height:1.05}
+@media(max-width:650px){.yieldCaption{font-size:.52rem;margin-top:1px}}
 </style>
 """,unsafe_allow_html=True)
 
@@ -2487,11 +2490,13 @@ with tool_b:
             st.rerun()
 
 with tool_yield:
-    yl,yi=st.columns([1.15,1.0],gap="small",vertical_alignment="center")
-    with yl:
-        st.markdown('<div class="yieldInlineLabel">Target yield (%)</div>',unsafe_allow_html=True)
-    with yi:
-        target_yield=st.number_input("Target yield (%)",min_value=1.0,max_value=30.0,value=10.0,step=.5,format="%.1f",help="Target yield — changes the max purchase price on every rented property",label_visibility="collapsed")
+    target_yield=st.number_input(
+        "Target yield (%)",
+        min_value=1.0,max_value=30.0,value=10.0,step=.5,format="%.1f",
+        help="Target yield — changes the max purchase price on every rented property",
+        label_visibility="collapsed"
+    )
+    st.markdown('<div class="yieldCaption">Target yield (%)</div>',unsafe_allow_html=True)
 
 lots_tab,sources_tab=st.tabs(["🎯 All properties","📡 Source health"])
 
