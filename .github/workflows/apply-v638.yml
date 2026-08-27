@@ -1,0 +1,28 @@
+name: Apply V6.38 maps and dynamic yield
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-v638.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/apply_v638_maps_dynamic_yield.py
+      - run: python -m py_compile app.py
+      - run: |
+          git config user.name 'Auction Sniper Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add app.py
+          git diff --cached --quiet && exit 0
+          git commit -m 'V6.38 add map links and dynamic yield labels'
+          git push origin main
