@@ -22,13 +22,17 @@ def collect():
                 card=nearest_card(a,3200)
                 if "27th August 2026" not in card and "27/08/2026" not in card:
                     continue
+                # Catalogue cards are only a discovery hint; surrounding cards can
+                # contaminate their text. The exact detail page makes the final
+                # commercial/mixed-use admission decision.
                 if not is_commercial(card):
                     continue
                 seen.add(href)
-                m=re.search(r"\bLot\s+(\d+[A-Z]?)",card,re.I)
+                m=re.search(r"(?:\bLot\s+)?(\d+[A-Z]?)",card,re.I)
                 lot=detail_lot(SOURCE,href,seed=card,
                                lot_number=f"Lot {m.group(1)}" if m else None,
-                               auction_date="2026-08-27",force_commercial=False)
+                               auction_date="2026-08-27",force_commercial=False,
+                               strict_commercial=True)
                 if lot: lots.append(lot)
         return SourceResult(SOURCE,"LIVE" if lots else "FAILED",lots,
                             f"27 Aug current auction only: {len(lots)} commercial/mixed-use lots")
