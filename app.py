@@ -11,6 +11,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 import streamlit as st
 from bs4 import BeautifulSoup
+from collector_enrichment import extract_particulars, merge_enrichment
 try:
     from eig_client import EIGClient
 except Exception:
@@ -22,7 +23,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.63-LEGAL-PACK-INTELLIGENCE"
+BUILD = "V6.64-RICH-COLLECTOR-ENRICHMENT"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -758,7 +759,19 @@ def _catalogue_ahl():
 
         if len(rows)<8:
             raise ValueError("AHL catalogue parse too small")
-        return list(rows.values())
+        def enrich_ahl(item):
+            lotno,row=item
+            try:
+                page_html=fetch(row["url"])
+                return lotno,merge_enrichment(row,extract_particulars(page_html,"Auction House London",row["url"]))
+            except Exception:
+                return lotno,row
+        enriched={}
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            futures=[ex.submit(enrich_ahl,item) for item in rows.items()]
+            for f in as_completed(futures):
+                lotno,row=f.result(); enriched[lotno]=row
+        return list(enriched.values())
     except Exception:
         return []
 
@@ -1081,13 +1094,14 @@ def _parse_auctionhouse_detail(page_html,url,source):
             break
 
     low=text.lower()
-    return dict(
+    row=dict(
         source=source,lot=lot,date=date,address=address,guide=guide,
         rent=parse_rent(text),
         tenure=("Freehold" if "freehold" in low[:1800]
                 else "Leasehold" if "leasehold" in low[:1800] else None),
         vat="UNKNOWN",url=url,desc=text[:1000],image=image
     )
+    return merge_enrichment(row,extract_particulars(page_html,source,url))
 
 
 @st.cache_data(ttl=21600, show_spinner=False)
@@ -1294,6 +1308,22 @@ def _pattinson_current():
             if r: rows.append(r)
     return _clean_rows(rows)
 
+def _enrich_exact_rows(rows, source_name, limit=220):
+    out=[dict(r) for r in (rows or [])]
+    targets=[i for i,r in enumerate(out) if r.get("url")][:limit]
+    def one(i):
+        r=out[i]
+        try:
+            facts=extract_particulars(fetch(r["url"]),source_name,r["url"])
+            return i,merge_enrichment(r,facts)
+        except Exception:
+            return i,r
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        futures=[ex.submit(one,i) for i in targets]
+        for f in as_completed(futures):
+            i,r=f.result(); out[i]=r
+    return out
+
 def _merge_catalogue_rows(base_rows):
     current={}
     for x in base_rows:
@@ -1313,6 +1343,8 @@ def _merge_catalogue_rows(base_rows):
         try: rows=fn()
         except Exception: rows=[]
         if rows:
+            if source=="Bond Wolfe":
+                rows=_enrich_exact_rows(rows,"Bond Wolfe")
             if source=="Auction House Regional":
                 # Preserve each regional branch as its own source.
                 for r in rows:
@@ -1437,8 +1469,9 @@ def _merge_property_rows(existing, incoming, seed_authoritative=False):
     out=dict(existing)
 
     # Fields where richer incoming data should fill a blank existing value.
-    fill_fields=("image","area_sqft","area_sqm","tenant","lease_expiry","break_clause",
-                 "legal_pack","epc","rateable_value","service_charge","ground_rent")
+    fill_fields=("image","area_sqft","area_sqm","tenant","lease_term","lease_start",
+                 "lease_expiry","break_clause","rent_review","erv","fri","legal_pack",
+                 "epc","rateable_value","service_charge","ground_rent")
     for k in fill_fields:
         if not out.get(k) and incoming.get(k):
             out[k]=incoming[k]
