@@ -23,3 +23,13 @@ s=s.replace('_ev(d,"Boots Opticians Professional Services")','_ev(d,"Boots Optic
 s=s.replace('_ev(d,m.group(0))]))\n elif d.doc_type==DocType.COURT','_ev(d,m.group(0),scope="subject_property",temporal_status="current",authority="epc_certificate")]))\n elif d.doc_type==DocType.COURT',1)
 s=s.replace('"schema":"1.1"','"schema":"1.2"')
 p.write_text(s,encoding='utf-8')
+
+q=Path('property_intelligence.py')
+t=q.read_text(encoding='utf-8')
+old_epc='r"(?:EPC|Energy Performance Certificate|energy rating)[^A-G0-9]{0,50}([A-G])(?:\\s*\\(?\\s*(\\d{1,3})\\s*\\)?)?"'
+new_epc='r"(?:EPC|Energy Performance Certificate|energy rating)(?:\\s+(?:rating|grade|band))?\\s*(?:[:|-]?\\s*)([A-G])(?:\\s*\\(?\\s*(\\d{1,3})\\s*\\)?)?"'
+if old_epc in t:
+    t=t.replace(old_epc,new_epc,1)
+elif new_epc not in t:
+    raise SystemExit('EPC parser anchor missing')
+q.write_text(t,encoding='utf-8')
