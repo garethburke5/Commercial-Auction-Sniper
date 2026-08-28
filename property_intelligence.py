@@ -60,7 +60,7 @@ def extract_particulars(text:str)->dict[str,dict]:
     m=re.search(r"(?:full repairing and insuring|fully repairing and insuring|\bFRI\b)",t,re.I)
     if m:out["repairing_basis"]=_field("FRI",m,.95)
     # EPC: rating and optional numeric score.
-    m=re.search(r"(?:EPC|Energy Performance Certificate|energy rating)[^A-G0-9]{0,50}([A-G])(?:\s*\(?\s*(\d{1,3})\s*\)?)?",t,re.I)
+    m=re.search(r"(?:EPC|Energy Performance Certificate|energy rating)(?:\s+(?:rating|grade|band))?\s*(?:[:|-]?\s*)([A-G])(?:\s*\(?\s*(\d{1,3})\s*\)?)?",t,re.I)
     if m:
       val=m.group(1).upper()+(f" ({m.group(2)})" if m.group(2) else "")
       out["epc"]=_field(val,m,.93)

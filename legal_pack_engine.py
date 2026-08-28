@@ -11,7 +11,10 @@ import hashlib, re
 class DocType(str,Enum):
  SPECIAL_CONDITIONS="special_conditions"; LEASE="lease"; TRANSFER="transfer"; TITLE_REGISTER="title_register"; TITLE_PLAN="title_plan"; CPSE1="cpse1"; CPSE2="cpse2"; EPC="epc"; VAT="vat"; COURT="court"; SEARCH="search"; ENVIRONMENTAL="environmental"; ASBESTOS="asbestos"; HEALTH_SAFETY="health_safety"; ARREARS="arrears"; TENANCY_SCHEDULE="tenancy_schedule"; OTHER="other"
 @dataclass
-class Evidence: document:str; document_type:str; excerpt:str=""; page:int|None=None; clause:str|None=None; confidence:float=1.0
+class Evidence:
+ document:str; document_type:str; excerpt:str=""; page:int|None=None; clause:str|None=None; confidence:float=1.0
+ paragraph:int|None=None; table:int|None=None; row:int|None=None; sheet:str|None=None
+ scope:str="unknown"; temporal_status:str="unspecified"; authority:str="document"
 @dataclass
 class Finding: key:str; label:str; value:Any; status:str="info"; significance:str=""; evidence:list[Evidence]=field(default_factory=list)
 @dataclass
@@ -28,7 +31,25 @@ def classify_document(name,text=""):
  return DocType.OTHER
 def make_document(name,text="",raw=None,metadata=None):
  b=raw if raw is not None else text.encode("utf-8","ignore"); return PackDocument(name,classify_document(name,text),text,hashlib.sha256(b).hexdigest(),metadata or {})
-def _ev(d,x,clause=None,confidence=1.0): return Evidence(d.name,d.doc_type.value,x[:700],clause=clause,confidence=confidence)
+def _locate(metadata,needle):
+ if not needle:return {}
+ target=re.sub(r"\s+"," ",needle).strip().lower()
+ def hit(text):return target in re.sub(r"\s+"," ",text or "").lower()
+ for p in metadata.get("pages",[]):
+  if hit(p.get("text","")):return {"page":p.get("page")}
+ for p in metadata.get("paragraphs",[]):
+  if hit(p.get("text","")):return {"paragraph":p.get("paragraph")}
+ for t in metadata.get("tables",[]):
+  for row in t.get("rows",[]):
+   if hit(" | ".join(row.get("cells",[]))):return {"table":t.get("table"),"row":row.get("row")}
+ for sh in metadata.get("sheets",[]):
+  for row in sh.get("rows",[]):
+   if hit(" | ".join(row.get("cells",[]))):return {"sheet":sh.get("sheet"),"row":row.get("row")}
+ return {}
+
+def _ev(d,x,clause=None,confidence=1.0,scope="unknown",temporal_status="unspecified",authority="document"):
+ loc=_locate(d.metadata or {},x)
+ return Evidence(d.name,d.doc_type.value,x[:700],page=loc.get("page"),clause=clause,confidence=confidence,paragraph=loc.get("paragraph"),table=loc.get("table"),row=loc.get("row"),sheet=loc.get("sheet"),scope=scope,temporal_status=temporal_status,authority=authority)
 def _put(r,f):
  old=r.findings.get(f.key)
  if old and old.value!=f.value:
@@ -38,12 +59,12 @@ def _put(r,f):
 def extract_document(d,r):
  t=d.text; low=t.lower()
  if d.doc_type==DocType.SPECIAL_CONDITIONS:
-  if "expired on 30 april 2024" in low:_put(r,Finding("lease_expiry","Original lease expiry","30 April 2024","amber","The contractual term has expired; assess the statutory continuation and renewal position.",[_ev(d,"tenancy expired on 30 April 2024")]))
-  if "part ii of the landlord and tenant act 1954" in low:_put(r,Finding("tenancy_status","Current tenancy position","Statutory continuation under Part II Landlord and Tenant Act 1954","amber","The tenant remains in occupation after contractual expiry.",[_ev(d,"remains in occupation pursuant to Part II of the Landlord and Tenant Act 1954")]))
+  if "expired on 30 april 2024" in low:_put(r,Finding("lease_expiry","Original lease expiry","30 April 2024","amber","The contractual term has expired; assess the statutory continuation and renewal position.",[_ev(d,"tenancy expired on 30 April 2024",temporal_status="historical",authority="special_conditions")]))
+  if "part ii of the landlord and tenant act 1954" in low:_put(r,Finding("tenancy_status","Current tenancy position","Statutory continuation under Part II Landlord and Tenant Act 1954","amber","The tenant remains in occupation after contractual expiry.",[_ev(d,"remains in occupation pursuant to Part II of the Landlord and Tenant Act 1954",temporal_status="current",authority="special_conditions")]))
   m=re.search(r"rent of £\s*([\d,]+)\s*per annum and a term of five years",t,re.I)
   if m:
-   v=int(m.group(1).replace(",",""));_put(r,Finding("proposed_rent","Rent agreed in principle for renewal",v,"red","Principal forward-income scenario until renewal completes.",[_ev(d,m.group(0))]));_put(r,Finding("proposed_term","Renewal term agreed in principle","5 years","amber","Agreed in principle, not an executed lease.",[_ev(d,m.group(0))]))
-  if "renewal tenancy has not yet been completed" in low:_put(r,Finding("renewal_completion","Renewal lease completed?","No","red","Purchaser is buying before completion of the new tenancy.",[_ev(d,"renewal tenancy has not yet been completed")]))
+   v=int(m.group(1).replace(",",""));_put(r,Finding("proposed_rent","Rent agreed in principle for renewal",v,"red","Principal forward-income scenario until renewal completes.",[_ev(d,m.group(0),temporal_status="proposed",authority="special_conditions")]));_put(r,Finding("proposed_term","Renewal term agreed in principle","5 years","amber","Agreed in principle, not an executed lease.",[_ev(d,m.group(0),temporal_status="proposed",authority="special_conditions")]))
+  if "renewal tenancy has not yet been completed" in low:_put(r,Finding("renewal_completion","Renewal lease completed?","No","red","Purchaser is buying before completion of the new tenancy.",[_ev(d,"renewal tenancy has not yet been completed",temporal_status="current",authority="special_conditions")]))
   charges=[]
   for label,pat in (("Search costs",r"search[^£]{0,80}£\s*([\d,]+)"),("Marketing/acquisition charge",r"(?:marketing|acquisition)[^£]{0,100}£\s*([\d,]+)")):
    m=re.search(pat,t,re.I|re.S)
@@ -55,7 +76,7 @@ def extract_document(d,r):
  elif d.doc_type==DocType.LEASE:
   m=re.search(r"(?:term[^\n]{0,80})10 years[^\n]{0,80}(?:1 may 2014|01\.05\.2014)",t,re.I)
   if m:_put(r,Finding("original_term","Original lease","10 years from 1 May 2014","info","Establishes original contractual timeline.",[_ev(d,m.group(0))]))
-  if "boots opticians professional services" in low:_put(r,Finding("tenant","Tenant","Boots Opticians Professional Services Ltd","positive","Named tenant under original lease.",[_ev(d,"Boots Opticians Professional Services")]))
+  if "boots opticians professional services" in low:_put(r,Finding("tenant","Tenant","Boots Opticians Professional Services Ltd","positive","Named tenant under original lease.",[_ev(d,"Boots Opticians Professional Services",scope="tenant_demise",temporal_status="historical",authority="lease")]))
   if any(x in low for x in ("exterior","structure","roof")) and "landlord" in low:_put(r,Finding("repairing_structure","Repairing obligations","Landlord retains material exterior/structure/roof responsibilities under original lease","amber","Do not describe the original lease as simple whole-building tenant-direct FRI without qualification.",[_ev(d,"landlord / exterior / structure / roof repairing provisions")]))
   if "insur" in low and "landlord" in low:_put(r,Finding("insurance_structure","Insurance","Landlord insures building under original lease; recoverability subject to lease terms","info","Check final renewal lease preserves intended cost recovery.",[_ev(d,"landlord insurance provisions")]))
  elif d.doc_type in (DocType.CPSE1,DocType.CPSE2):
@@ -74,7 +95,7 @@ def extract_document(d,r):
   if "option to tax" in low or "opted to tax" in low:_put(r,Finding("option_to_tax","Option to Tax","Evidence present","amber","Reconcile final VAT/TOGC completion treatment.",[_ev(d,"Option to Tax evidence")]))
  elif d.doc_type==DocType.EPC:
   m=re.search(r"(?:rating|energy rating)[^A-G]{0,30}([A-G])[^\d]{0,20}(\d{1,3})",t,re.I)
-  if m:_put(r,Finding("epc","EPC",f"{m.group(1).upper()} ({m.group(2)})","positive","Captured from certificate; do not infer missing ratings.",[_ev(d,m.group(0))]))
+  if m:_put(r,Finding("epc","EPC",f"{m.group(1).upper()} ({m.group(2)})","positive","Captured from certificate; do not infer missing ratings.",[_ev(d,m.group(0),scope="subject_property",temporal_status="current",authority="epc_certificate")]))
  elif d.doc_type==DocType.COURT:_put(r,Finding("court_documents","Lease-renewal/court documents","Present","amber","Review chronology and unresolved drafting; presence is not evidence of tenant default.",[_ev(d,d.name)]))
  elif d.doc_type==DocType.ASBESTOS:
   sig="Differentiate tenant-demise ACM management from any landlord structural cause."
