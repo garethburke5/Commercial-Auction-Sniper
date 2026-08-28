@@ -46,22 +46,15 @@ def _normalise_rent_semantics(row):
     text=norm(' '.join(str(r.get(k) or '') for k in ('desc','legal_text','summary','notes')))
     ev=_classify_rental_evidence(text)
     old=r.get('rent')
-
-    # Prefer explicit current evidence. If there are several, use the recurring/current total most
-    # closely matching the collector value; otherwise use the largest plausible total income.
     current_vals=[x['value'] for x in ev['current']]
     hist_vals=[x['value'] for x in ev['historical']]
     erv_vals=[x['value'] for x in ev['erv']]
     if current_vals:
-        if old:
-            current=min(current_vals,key=lambda v:abs(v-float(old)))
-        else:
-            current=max(current_vals)
+        current=min(current_vals,key=lambda v:abs(v-float(old))) if old else max(current_vals)
         r['rent']=current
         r['rent_status']='CURRENT / PASSING'
         r['rent_evidence']=next((x['context'] for x in ev['current'] if x['value']==current),'')
     else:
-        # Critical safeguard: a vacant/formerly-let property must not inherit historical rent as income.
         old_is_historic=bool(old and any(abs(x['value']-float(old)) < 1 for x in ev['historical']))
         old_is_erv=bool(old and any(abs(x['value']-float(old)) < 1 for x in ev['erv']))
         vacancy=bool(re.search(r"vacant(?:\s+possession)?|currently\s+vacant|former\s+tenant|lease\s+expired",text,re.I))
@@ -72,17 +65,13 @@ def _normalise_rent_semantics(row):
         elif old:
             r['rent_status']='COLLECTOR VALUE — VERIFY'
             r['rent_evidence']='Collector supplied a rent figure, but the captured text does not yet positively identify it as current passing rent.'
-
     if hist_vals:
         r['previous_rent']=hist_vals[0]
         r['previous_rent_evidence']=ev['historical'][0]['context']
     if erv_vals:
         r['erv']=erv_vals[0]
         r['erv_evidence']=ev['erv'][0]['context']
-    if r.get('guide') and r.get('rent'):
-        r['yield']=100*float(r['rent'])/float(r['guide'])
-    else:
-        r['yield']=None
+    r['yield']=100*float(r['rent'])/float(r['guide']) if r.get('guide') and r.get('rent') else None
     return r
 
 
@@ -136,7 +125,6 @@ def _deep_page_evidence(url):
         page_text=norm(main.get_text(' ',strip=True))[:18000]
         links=_legal_links(url,soup)
         legal=[]
-        # Scan a small number of the highest-value direct PDFs. Do not blindly crawl packs/zips.
         for link in links[:3]:
             if link.lower().split('?')[0].endswith('.pdf'):
                 t=_pdf_text(link,url)
@@ -148,7 +136,6 @@ def _deep_page_evidence(url):
 
 def _deep_enrich_rows(rows,limit=70):
     rows=[dict(x) for x in rows]
-    # Prioritise lots where accuracy matters most: any rent, unknown EPC, or legal-pack mention.
     idx=[]
     for i,r in enumerate(rows):
         u=r.get('url') or ''
@@ -159,12 +146,10 @@ def _deep_enrich_rows(rows,limit=70):
     idx=[i for _s,i in sorted(idx,reverse=True)[:limit]]
     def one(i):
         r=rows[i]; ev=_deep_page_evidence(r.get('url'))
-        if ev.get('page_text'):
-            r['desc']=norm((r.get('desc') or '')+' '+ev['page_text'])[:22000]
+        if ev.get('page_text'): r['desc']=norm((r.get('desc') or '')+' '+ev['page_text'])[:22000]
         if ev.get('legal_text'): r['legal_text']=ev['legal_text']
         if ev.get('legal_links'):
-            r['legal_links']=ev['legal_links']
-            r['legal_pack_url']=ev['legal_links'][0]
+            r['legal_links']=ev['legal_links']; r['legal_pack_url']=ev['legal_links'][0]
         return i,_normalise_rent_semantics(r)
     with ThreadPoolExecutor(max_workers=6) as ex:
         futs=[ex.submit(one,i) for i in idx]
@@ -172,42 +157,31 @@ def _deep_enrich_rows(rows,limit=70):
             try:
                 i,r=f.result(); rows[i]=r
             except Exception: pass
-    # Semantic rent protection applies to every row, even if deep crawling was not needed.
     return [_normalise_rent_semantics(r) for r in rows]
 
 '''
 if anchor not in s: raise SystemExit('UI anchor missing')
 s=s.replace(anchor,helper+anchor,1)
-
-# Deep enrichment on explicit market refresh, before cache write.
 needle='''    refreshed=_enrich_missing_images(refreshed,limit=220)\n\n    # Non-shrink guard'''
 replace='''    refreshed=_enrich_missing_images(refreshed,limit=220)\n    refreshed=_deep_enrich_rows(refreshed,limit=70)\n\n    # Non-shrink guard'''
 if needle not in s: raise SystemExit('refresh enrichment anchor missing')
 s=s.replace(needle,replace,1)
-
-# Always apply semantic rent safety to cached/boot rows.
 needle='''    rows=_v657_localise_priority_rows(rows)\nexcept Exception:\n    pass\nst.markdown('''
 replace='''    rows=_v657_localise_priority_rows(rows)\n    rows=[_normalise_rent_semantics(r) for r in rows]\nexcept Exception:\n    pass\nst.markdown('''
 if needle not in s: raise SystemExit('boot rows anchor missing')
 s=s.replace(needle,replace,1)
-
-# Feed legal and structured evidence to investment parser.
 old='''        p.get("vat"),\n    ]'''
 new='''        p.get("vat"),\n        p.get("legal_text"),\n        p.get("rent_evidence"),\n        p.get("previous_rent_evidence"),\n        p.get("erv_evidence"),\n    ]'''
 if old in s: s=s.replace(old,new,1)
-
-# Investment facts: explicit current/historic/ERV distinction and legal-document provenance.
 needle='''    if tenant: f["Tenant"]=tenant\n    if p.get("rent"): f["Passing rent"]=f'£{p["rent"]:,.0f} p.a.'\n'''
 replace='''    if tenant: f["Tenant"]=tenant\n    if p.get("rent"): f["Passing rent"]=f'£{p["rent"]:,.0f} p.a.'\n    if p.get("rent_status"): f["Rent status"]=p["rent_status"]\n    if p.get("previous_rent"):\n        f["Previous / historic rent"]=f'£{p["previous_rent"]:,.0f} p.a. — NOT current income'\n        chips.append("HISTORIC RENT")\n    if p.get("erv"):\n        f["ERV / market-rent evidence"]=f'£{p["erv"]:,.0f} p.a. — NOT passing rent'\n        chips.append("ERV")\n    if p.get("legal_text"):\n        f["Legal documents scanned"]="Yes — extracted text used in analysis"\n        chips.append("LEGAL TEXT SCANNED")\n    elif p.get("legal_pack_url"):\n        f["Legal pack"]="Link found — text not yet extractable"\n'''
 if needle not in s: raise SystemExit('investment rent anchor missing')
 s=s.replace(needle,replace,1)
-
-# Add legal-pack link to research buttons if captured.
 old='''    return ('<div class="research">'\n            f'<a target="_blank" href="https://www.google.com/search?q={qh}">Sales / auction history ↗</a>'\n'''
 new='''    legal=(f'<a target="_blank" href="{html.escape(str(p.get("legal_pack_url")),quote=True)}">Legal pack / document ↗</a>' if p.get("legal_pack_url") else "")\n    return ('<div class="research">'+legal\n            +f'<a target="_blank" href="https://www.google.com/search?q={qh}">Sales / auction history ↗</a>'\n'''
 if old not in s: raise SystemExit('research link anchor missing')
 s=s.replace(old,new,1)
-
 p.write_text(s,encoding='utf-8')
 py_compile.compile(str(p),doraise=True)
 print('V6.61 deep evidence extraction and semantic rent classification applied')
+# deployment trigger
