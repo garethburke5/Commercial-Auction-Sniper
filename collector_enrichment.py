@@ -8,10 +8,8 @@ lot discovery.
 """
 from __future__ import annotations
 import re
-from datetime import datetime
 from bs4 import BeautifulSoup
 
-MONEY=r"£\s*([0-9][0-9,]*(?:\.\d{1,2})?)"
 POSTCODE=re.compile(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",re.I)
 
 BOILERPLATE=(
@@ -41,11 +39,9 @@ def _amount(patterns,text):
 def clean_address(raw):
     """Remove known auction/navigation contamination without truncating address."""
     s=clean_text(raw)
-    # Prefer a postcode-bounded address when the H1 accidentally contains page chrome.
     pm=POSTCODE.search(s)
     if pm:
         s=s[:pm.end()]
-    # Remove common prefixes accidentally prepended by branch templates.
     for phrase in BOILERPLATE:
         i=s.lower().find(phrase)
         if i==0:
@@ -53,12 +49,10 @@ def clean_address(raw):
     return s
 
 def extract_address(soup):
-    # Exact property H1 is authoritative. Never construct the address from all-page text.
     h=soup.find("h1")
     if h:
         v=clean_address(h.get_text(" ",strip=True))
         if len(v)>=5:return v
-    # Fallback to metadata, still postcode bounded.
     for attrs in ({"property":"og:title"},{"name":"twitter:title"}):
         tag=soup.find("meta",attrs=attrs)
         if tag and tag.get("content"):
@@ -66,11 +60,31 @@ def extract_address(soup):
             if POSTCODE.search(v):return v
     return None
 
+def _rent_text_without_historical_clauses(text):
+    """Remove former-rent clauses before looking for current passing rent.
+
+    This prevents phrases such as 'previously let for £25,000 pa' from being
+    misclassified as live income, while leaving the original text intact for
+    separate ERV/historical analysis.
+    """
+    patterns=(
+        r"\bpreviously\s+(?:let|leased)[^.]{0,160}(?:\.|$)",
+        r"\bformerly\s+(?:let|leased)[^.]{0,160}(?:\.|$)",
+        r"\bhistorically\s+(?:let|leased)[^.]{0,160}(?:\.|$)",
+        r"\bwas\s+(?:previously\s+)?(?:let|leased)[^.]{0,160}(?:\.|$)",
+        r"\bformer\s+rent[^.]{0,120}(?:\.|$)",
+        r"\bprevious\s+rent[^.]{0,120}(?:\.|$)",
+    )
+    cleaned=text
+    for pattern in patterns:
+        cleaned=re.sub(pattern," ",cleaned,flags=re.I)
+    return clean_text(cleaned)
+
 def extract_particulars(html, source="", url=""):
     soup=BeautifulSoup(html,"lxml")
     main=soup.find("main") or soup
     text=clean_text(main.get_text(" ",strip=True))
-    low=text.lower()
+    rent_text=_rent_text_without_historical_clauses(text)
     out={"address":extract_address(soup)}
 
     out["guide"]=_amount([
@@ -79,13 +93,11 @@ def extract_particulars(html, source="", url=""):
         r"Guide\s*£\s*([\d,]+(?:\.\d+)?)",
     ],text)
 
-    # Current/passing rent only. Historical/ERV/proposed figures are separate.
     out["rent"]=_amount([
         r"(?:currently\s+)?(?:let|leased)\s+(?:at|for)\s+£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|per annum|pa)",
         r"(?:current|passing)\s+(?:rent|rental|income)[^£]{0,40}£\s*([\d,]+(?:\.\d+)?)",
-        r"(?:producing|income(?:\s+of)?|rental income(?:\s+of)?)[^£]{0,30}£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|per annum|pa)?",
-        r"£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|per annum|pa)\s+(?:exclusive\s+)?(?:current|passing)?",
-    ],text)
+        r"(?:producing|rental income(?:\s+of)?|annual income(?:\s+of)?)[^£]{0,30}£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|per annum|pa)?",
+    ],rent_text)
     out["erv"]=_amount([r"(?:ERV|estimated rental value|market rent)[^£]{0,35}£\s*([\d,]+(?:\.\d+)?)"],text)
 
     out["tenure"]=("Freehold" if re.search(r"\bfreehold\b",text,re.I)
@@ -114,8 +126,8 @@ def extract_particulars(html, source="", url=""):
         r"rent review(?:s)?\s*(?:\||:|-)?\s*([^.;|]{4,100})",
     ],text)
     out["epc"]=_first([
-        r"EPC(?:\s+Rating)?\s*(?:\||:|-)?\s*([A-G](?:\s*\(\s*\d{1,3}\s*\))?)\b",
-        r"Energy Performance Certificate[^A-G]{0,30}([A-G](?:\s*\(\s*\d{1,3}\s*\))?)\b",
+        r"EPC(?:\s+Rating)?\s*(?:\||:|-)?\s*([A-G](?:\s*\(\s*\d{1,3}\s*\))?)",
+        r"Energy Performance Certificate[^A-G]{0,30}([A-G](?:\s*\(\s*\d{1,3}\s*\))?)",
     ],text)
     out["rateable_value"]=_amount([
         r"(?:Rateable Value|RV)\s*(?:\||:|-)?\s*£\s*([\d,]+(?:\.\d+)?)",
@@ -131,8 +143,6 @@ def extract_particulars(html, source="", url=""):
     out["vat"]=("NOT APPLICABLE" if re.search(r"VAT\s+(?:is\s+)?not\s+(?:applicable|payable)",text,re.I)
                 else "APPLICABLE" if re.search(r"VAT\s+(?:is\s+)?(?:applicable|payable)",text,re.I) else None)
 
-    # Preserve a rich, property-focused excerpt for deeper card details, but never
-    # use this text as the address/title.
     out["desc"]=text[:3500]
     return out
 
@@ -140,8 +150,6 @@ def merge_enrichment(row, facts):
     out=dict(row or {})
     for k,v in (facts or {}).items():
         if v not in (None,""):
-            # Exact page should repair financial/lease facts. Address only replaces
-            # obvious contaminated titles or blanks.
             if k=="address" and out.get("address"):
                 old=out["address"].lower()
                 contaminated=any(x in old for x in BOILERPLATE) or len(out["address"])>220
