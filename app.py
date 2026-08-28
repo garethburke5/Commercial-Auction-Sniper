@@ -12,13 +12,17 @@ import requests
 import streamlit as st
 from bs4 import BeautifulSoup
 try:
+    from eig_client import EIGClient
+except Exception:
+    EIGClient=None
+try:
     from pypdf import PdfReader
 except Exception:
     PdfReader=None
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.61-DEEP-EVIDENCE"
+BUILD = "V6.63-LEGAL-PACK-INTELLIGENCE"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -27,6 +31,10 @@ TIMEOUT = 10
 # These are live commercial/mixed-use lots checked against the auctioneers'
 # current public pages on 24 Aug 2026. The app always has useful data even
 # if a live refresh source is temporarily unavailable.
+EIG_KNOWN_PACKS = {
+    "8 red street, carmarthen": "1433491",
+}
+
 SEED = [
     # Auction House London — complete current commercial/mixed-use block, 2/3 Sep 2026
     dict(source="Auction House London", lot="Lot 60", date="2026-09-02", address="97 St. Peters Street, St. Albans, Hertfordshire, AL1 3EN", guide=225000, rent=30000, tenure="Freehold", vat="UNKNOWN", url="https://auctionhouselondon.co.uk/lot/97-st-peters-street-st-albans-hertfordshire-al1-3en-359945", desc="Retail Property. Ground floor retail unit let producing £30,000 pa."),
@@ -3967,6 +3975,51 @@ def _research_links(p):
             f'<a target="_blank" href="https://www.gov.uk/search-house-prices">Land Registry search ↗</a>'
             '</div>')
 
+def _legal_pack_identity(p):
+    address=(p.get("address") or "").lower()
+    pack_id=p.get("eig_pack_id")
+    if not pack_id:
+        for key,val in EIG_KNOWN_PACKS.items():
+            if key in address:
+                pack_id=val; break
+    return pack_id
+
+def _legal_pack_status(p):
+    """Useful card-level status only: never claim analysis before documents were read."""
+    if p.get("legal_analysis"):
+        return "Legal Pack Analysis ✓"
+    if _legal_pack_identity(p) or p.get("legal_pack_url"):
+        return "Analyse Legal Pack"
+    return None
+
+def _legal_pack_html(p):
+    status=_legal_pack_status(p)
+    if not status: return ""
+    analysed=p.get("legal_analysis") or {}
+    if analysed:
+        rows=[]
+        for k in ("Passing rent","Tenant","Lease","EPC","VAT","Title","Special conditions"):
+            if analysed.get(k): rows.append(f'<div class="fact"><span>{html.escape(k)}</span><b>{html.escape(str(analysed[k]))}</b></div>')
+        warnings=analysed.get("warnings") or []
+        warn=''.join(f'<p>⚠ {html.escape(str(w))}</p>' for w in warnings)
+        return '<details class="analysis legalIntel"><summary>Legal Pack Analysis ✓</summary><div class="factgrid">'+''.join(rows)+'</div><div class="iread">'+warn+'</div></details>'
+    # Authentication/download is intentionally user-triggered/provider-independent.
+    # HTML cards cannot safely post Streamlit actions, so expose the product state here;
+    # interactive analyser is rendered separately below the board for selected/test packs.
+    return '<div class="legalPackReady">🔎 '+html.escape(status)+'</div>'
+
+def _eig_manifest_on_demand(pack_id):
+    """One-pack, user-triggered EIG access. Never called during catalogue collection."""
+    if not EIGClient:
+        raise RuntimeError("Legal-pack client unavailable")
+    try:
+        email=st.secrets["EIG_EMAIL"]; password=st.secrets["EIG_PASSWORD"]
+    except Exception:
+        raise RuntimeError("EIG credentials are not configured")
+    client=EIGClient(email,password)
+    title,docs=client.pack(pack_id)
+    return title,docs
+
 def _facts_html(p):
     facts,chips,interpretation=_investment_facts(p)
     if not facts: return ""
@@ -4049,8 +4102,30 @@ with lots_tab:
             +'</div>'
             +f'<div class="meta">{html.escape(meta)}</div>'
             +_facts_html(x)
+            +_legal_pack_html(x)
             +f'<div class="historyAction"><a target="_blank" rel="noopener noreferrer" href="{html.escape(_history_url,quote=True)}">Previous auctions / sale history ↗</a></div>'
             +f'<div class="cardActions"><a class="mapAction" target="_blank" rel="noopener noreferrer" href="{html.escape(_maps_url,quote=True)}">Map / Street View ↗</a><a class="action" target="_blank" href="{html.escape(x["url"])}">Open property ↗</a></div>'
             +'</div></div>'
         )
     st.markdown('<div class="cards">'+"".join(cards)+'</div>',unsafe_allow_html=True)
+
+    # Development proof: authenticated legal-pack access is never part of refresh/collection.
+    # This button causes one deliberate pack read and therefore cannot turn the user's account
+    # into a background catalogue crawler.
+    with st.expander("Legal Pack Intelligence · development test", expanded=False):
+        st.caption("On-demand analysis only. Auction Sniper does not bulk-crawl authenticated legal packs.")
+        if st.button("Analyse 8 Red Street legal pack", key="eig_test_1433491"):
+            try:
+                with st.spinner("Opening authorised legal pack…"):
+                    title,docs=_eig_manifest_on_demand("1433491")
+                st.success(f"Legal pack opened · {len(docs)} documents found")
+                if title: st.write(title)
+                priority=[d for d in docs if d.priority<=30]
+                st.write("Priority due-diligence documents:")
+                for d in priority[:20]:
+                    flag="⚠ " if d.priority==12 else ""
+                    st.write(f"{flag}{d.name}")
+                if any(d.priority==12 for d in docs):
+                    st.warning("Legal dispute/court documents present — review required. No conclusion is inferred until the documents are read.")
+            except Exception as e:
+                st.error(f"Legal pack connection failed: {e}")
