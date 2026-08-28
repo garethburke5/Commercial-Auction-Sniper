@@ -23,7 +23,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.64-RICH-COLLECTOR-ENRICHMENT"
+BUILD = "V6.65-STRUCTURED-CARD-FACTS"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -3900,16 +3900,35 @@ def _investment_facts(p):
     tenure=p.get("tenure") or ("Freehold" if "freehold" in low else "Leasehold" if "leasehold" in low else None)
     if tenure: f["Tenure"]=tenure
 
-    tenant=None
-    for pat in [
-        r"(?:fully\s+)?let to\s+([^.;\n]{2,100}?)(?=\s+on\s+(?:a\s+)?\d|\s+paying|\s+at\s+(?:a\s+)?rent|[.;])",
-        r"leased to\s+([^.;\n]{2,100}?)(?=\s+on\s+(?:a\s+)?\d|\s+paying|[.;])",
-        r"tenant[:\s]+([^.;\n]{2,90})"]:
-        m=re.search(pat,text,re.I)
-        if m:
-            tenant=norm(m.group(1)).strip("'\"“”")[:90]
-            if tenant: break
+    tenant=p.get("tenant")
+    if not tenant:
+        for pat in [
+            r"(?:fully\s+)?let to\s+([^.;\n]{2,100}?)(?=\s+on\s+(?:a\s+)?\d|\s+paying|\s+at\s+(?:a\s+)?rent|[.;])",
+            r"leased to\s+([^.;\n]{2,100}?)(?=\s+on\s+(?:a\s+)?\d|\s+paying|[.;])",
+            r"tenant[:\s]+([^.;\n]{2,90})"]:
+            m=re.search(pat,text,re.I)
+            if m:
+                tenant=norm(m.group(1)).strip("'\"“”")[:90]
+                if tenant: break
     if tenant: f["Tenant"]=tenant
+
+    # Prefer structured exact-page collector facts over re-parsing prose.
+    if p.get("lease_term"):
+        f["Lease term"]=str(p["lease_term"])
+    if p.get("lease_start"):
+        f["Lease start"]=str(p["lease_start"])
+    if p.get("lease_expiry"):
+        f["Lease expiry"]=str(p["lease_expiry"])
+    if p.get("break_clause"):
+        f["Break clause"]=str(p["break_clause"])
+    if p.get("rent_review"):
+        f["Rent review / steps"]=str(p["rent_review"])
+    if p.get("epc"):
+        f["EPC"]=str(p["epc"])
+    if p.get("rateable_value"):
+        f["Rateable value"]=f'£{p["rateable_value"]:,.0f}'
+    if p.get("fri") is True:
+        f["Repairing"]="FRI"
     if p.get("rent"): f["Passing rent"]=f'£{p["rent"]:,.0f} p.a.'
     if p.get("rent_status"): f["Rent status"]=p["rent_status"]
     if p.get("previous_rent"):
@@ -3917,7 +3936,7 @@ def _investment_facts(p):
         chips.append("HISTORIC RENT")
     if p.get("erv"):
         f["ERV / market-rent evidence"]=f'£{p["erv"]:,.0f} p.a. — NOT passing rent'
-        chips.append("ERV")
+        chips.append(f'ERV £{p["erv"]:,.0f} p.a.')
     if p.get("legal_text"):
         f["Legal documents scanned"]="Yes — extracted text used in analysis"
         chips.append("LEGAL TEXT SCANNED")
