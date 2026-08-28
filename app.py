@@ -23,7 +23,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.66-UPLOAD-DUE-DILIGENCE"
+BUILD = "V6.67-INLINE-FILTERS"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -3331,6 +3331,12 @@ div[data-testid="stPopoverBody"] input:disabled{opacity:1!important}
 .historyAction a{display:block;text-align:center;text-decoration:none!important;background:#101b28;color:#cbd8e8!important;border:1px solid #334862;border-radius:7px;padding:7px 7px;font-size:.63rem;font-weight:850}
 .historyAction a:hover{border-color:#f2c94c;color:#f2c94c!important}
 @media(max-width:650px){.historyAction{margin-top:5px}.historyAction a{font-size:.46rem;padding:5px 3px}}
+
+/* V6.67 nonblocking inline filters */
+.filterToolbarLabel{height:38px;display:flex;align-items:center;justify-content:center;border:1px solid #3a4b62;border-radius:8px;background:#131e2c;color:#dce7f4;font-size:.68rem;font-weight:850}
+.filterClearSpacer{height:28px}
+div[data-testid="stExpander"]:has(input[aria-label="Area / town / postcode"]){background:#0f1824!important;border-color:#344861!important}
+@media(max-width:650px){.filterToolbarLabel{height:34px;font-size:.54rem}.filterClearSpacer{height:0}}
 </style>
 """,unsafe_allow_html=True)
 
@@ -3378,67 +3384,7 @@ with tool_a:
             refresh_market()
         st.rerun()
 with tool_b:
-    with st.popover("Refine properties",use_container_width=True):
-        st.markdown("**Refine properties**")
-        st.caption("Use any combination below. Leave everything blank / at zero to show the full board.")
-
-        st.markdown('<div class="filterSection">LOCATION</div>',unsafe_allow_html=True)
-        area_query=st.text_input(
-            "Area / town / postcode",
-            value="",
-            placeholder="e.g. Stoke, London, ST1, Wales",
-            help="Matches the property address and captured listing description.",
-            key="filter_area_query",
-        )
-
-        st.markdown('<div class="filterSection">AUCTION HOUSE</div>',unsafe_allow_html=True)
-        source_options=sorted({x["source"] for x in rows})
-        chosen=st.multiselect(
-            "Auction house",
-            source_options,
-            default=[],
-            placeholder="All auction houses",
-            key="filter_sources",
-        )
-
-        st.markdown('<div class="filterSection">PRICE & YIELD</div>',unsafe_allow_html=True)
-        max_price=st.number_input(
-            "Maximum guide price (£)",min_value=0,value=0,step=5000,format="%d",
-            help="0 means no maximum price.",key="filter_max_price"
-        )
-        min_yield=st.number_input(
-            "Minimum gross yield (%)",min_value=0.0,max_value=100.0,value=0.0,step=.5,format="%.1f",
-            help="0 means no minimum yield.",key="filter_min_yield"
-        )
-        include_unknown=st.toggle(
-            "Keep properties where price / yield is unknown",value=True,key="filter_include_unknown"
-        )
-
-        st.markdown('<div class="filterSection">TENURE</div>',unsafe_allow_html=True)
-        tenure_choice=st.multiselect(
-            "Tenure",["Freehold","Leasehold"],default=[],placeholder="Any tenure",key="filter_tenure"
-        )
-
-        apply_filters=bool(
-            (area_query or "").strip() or chosen or max_price>0 or min_yield>0 or tenure_choice
-        )
-        active_count=sum([
-            bool((area_query or "").strip()), bool(chosen), max_price>0, min_yield>0, bool(tenure_choice)
-        ])
-        if active_count:
-            st.caption(f"{active_count} filter{'s' if active_count != 1 else ''} active")
-
-        if st.button("Clear filters",use_container_width=True,key="clear_property_filters"):
-            for k,v in {
-                "filter_area_query":"",
-                "filter_sources":[],
-                "filter_max_price":0,
-                "filter_min_yield":0.0,
-                "filter_include_unknown":True,
-                "filter_tenure":[],
-            }.items():
-                st.session_state[k]=v
-            st.rerun()
+    st.markdown('<div class="filterToolbarLabel">Filters below ↓</div>',unsafe_allow_html=True)
 
 with tool_yield_label:
     st.markdown('<div class="yieldIntegratedLabel left"><span>Target</span><b>Yield (%)</b></div>',unsafe_allow_html=True)
@@ -3449,6 +3395,42 @@ with tool_yield:
         help="Target yield — changes the max purchase price on every rented property",
         label_visibility="collapsed"
     )
+
+
+# Nonblocking full-width filter panel. Unlike a popover it never overlays or dims the board.
+with st.expander("🔎 Refine properties",expanded=False):
+    st.caption("Use any combination. Leave blank / zero to show the full board.")
+    f1,f2,f3,f4=st.columns([2.0,2.0,1.15,1.15])
+    with f1:
+        area_query=st.text_input(
+            "Area / town / postcode",value="",placeholder="e.g. Stoke, London, ST1, Wales",
+            help="Matches the property address and captured listing description.",key="filter_area_query")
+    with f2:
+        source_options=sorted({x["source"] for x in rows})
+        chosen=st.multiselect("Auction house",source_options,default=[],placeholder="All auction houses",key="filter_sources")
+    with f3:
+        max_price=st.number_input("Maximum guide (£)",min_value=0,value=0,step=5000,format="%d",help="0 means no maximum.",key="filter_max_price")
+    with f4:
+        min_yield=st.number_input("Minimum GIY (%)",min_value=0.0,max_value=100.0,value=0.0,step=.5,format="%.1f",help="0 means no minimum.",key="filter_min_yield")
+    f5,f6,f7=st.columns([2.0,2.0,1.0])
+    with f5:
+        tenure_choice=st.multiselect("Tenure",["Freehold","Leasehold"],default=[],placeholder="Any tenure",key="filter_tenure")
+    with f6:
+        include_unknown=st.toggle("Keep properties where price / yield is unknown",value=True,key="filter_include_unknown")
+    with f7:
+        st.markdown('<div class="filterClearSpacer"></div>',unsafe_allow_html=True)
+        clear_filters=st.button("Clear filters",use_container_width=True,key="clear_property_filters")
+    apply_filters=bool((area_query or "").strip() or chosen or max_price>0 or min_yield>0 or tenure_choice)
+    active_count=sum([bool((area_query or "").strip()),bool(chosen),max_price>0,min_yield>0,bool(tenure_choice)])
+    if active_count:
+        st.caption(f"{active_count} filter{'s' if active_count != 1 else ''} active")
+    if clear_filters:
+        for k,v in {
+            "filter_area_query":"","filter_sources":[],"filter_max_price":0,
+            "filter_min_yield":0.0,"filter_include_unknown":True,"filter_tenure":[],
+        }.items():
+            st.session_state[k]=v
+        st.rerun()
 
 lots_tab,sources_tab=st.tabs(["🎯 All properties","📡 Source health"])
 
