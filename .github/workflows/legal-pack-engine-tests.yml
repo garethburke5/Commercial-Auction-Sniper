@@ -3,15 +3,21 @@ on:
   push:
     paths:
       - 'legal_pack_engine.py'
+      - 'legal_pack_ingest.py'
       - 'legal_pack_report.py'
+      - 'requirements.txt'
       - 'tests/test_legal_pack_engine.py'
+      - 'tests/test_legal_pack_ingest.py'
       - 'tests/test_legal_pack_report.py'
       - '.github/workflows/legal-pack-engine-tests.yml'
   pull_request:
     paths:
       - 'legal_pack_engine.py'
+      - 'legal_pack_ingest.py'
       - 'legal_pack_report.py'
+      - 'requirements.txt'
       - 'tests/test_legal_pack_engine.py'
+      - 'tests/test_legal_pack_ingest.py'
       - 'tests/test_legal_pack_report.py'
   workflow_dispatch:
 jobs:
@@ -22,6 +28,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install pytest
-      - run: python -m pytest -q tests/test_legal_pack_engine.py tests/test_legal_pack_report.py
-      - run: python -m py_compile legal_pack_engine.py legal_pack_report.py
+      - run: python -m pip install pytest pypdf python-docx
+      - run: python -m pytest -q tests/test_legal_pack_engine.py tests/test_legal_pack_ingest.py tests/test_legal_pack_report.py
+      - run: python -m py_compile legal_pack_engine.py legal_pack_ingest.py legal_pack_report.py
