@@ -3359,9 +3359,10 @@ def _v654_priority_boot_rows():
     return _clean_rows(out)
 
 rows,health,updated=load_rows()
-# Startup is snapshot-only. Live auction-site collection runs only when the
-# user explicitly presses Update listings or via the scheduled collector.
 try:
+    priority=_v654_priority_boot_rows()
+    if priority:
+        rows=_merge_property_universe(rows,priority)
     rows=[r for r in rows if r.get("source")!="Clive Emson" or re.search(r"/properties/\d+/\d+/?$",r.get("url") or "",re.I)]
     rows=_v657_localise_priority_rows(rows)
     rows=[_normalise_rent_semantics(r) for r in rows]
