@@ -12,10 +12,8 @@ import requests
 import streamlit as st
 from bs4 import BeautifulSoup
 from collector_enrichment import extract_particulars, merge_enrichment
-try:
-    from legal_pack_service import analyse_uploaded_pack
-except Exception:
-    analyse_uploaded_pack=None
+# Heavy legal-pack parsers are loaded only when due diligence is actually run.
+analyse_uploaded_pack=None
 try:
     from pypdf import PdfReader
 except Exception:
@@ -4135,14 +4133,18 @@ with lots_tab:
             total_bytes=sum(getattr(f,"size",0) or len(f.getvalue()) for f in uploads)
             st.caption(f"{len(uploads)} file(s) selected · {total_bytes/1024/1024:.1f} MB")
         if st.button("Run Buyer Due Diligence",type="primary",disabled=not bool(uploads),key="run_uploaded_due_diligence"):
-            if not analyse_uploaded_pack:
+            try:
+                from legal_pack_service import analyse_uploaded_pack as _analyse_uploaded_pack
+            except Exception:
+                _analyse_uploaded_pack=None
+            if not _analyse_uploaded_pack:
                 st.error("Buyer Due Diligence engine is unavailable in this build.")
             else:
                 try:
                     supplied=[(f.name,f.getvalue()) for f in uploads]
                     ref=(property_ref or "Uploaded legal pack").strip()
                     with st.spinner("Reading documents, reconciling evidence and building the Investment Assessment…"):
-                        result=analyse_uploaded_pack(ref,supplied)
+                        result=_analyse_uploaded_pack(ref,supplied)
                     cov=result.get("ingestion",{}).get("coverage",{})
                     st.success("Buyer Due Diligence completed" if result.get("status")=="completed" else "Buyer Due Diligence completed with items to verify")
                     c1,c2,c3,c4=st.columns(4)
