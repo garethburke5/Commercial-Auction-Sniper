@@ -1,0 +1,26 @@
+name: Restore V6.67 app
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/restore-v667-app.yml
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore known-good V6.67 app.py
+        run: git checkout dc7c06d5c137ae387c1ce32c8c76fedc4430bb6b -- app.py
+      - name: Compile
+        run: python -m py_compile app.py
+      - name: Commit restore
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add app.py
+          git diff --cached --quiet || git commit -m "Restore V6.67 app after startup-count regression"
+          git push origin HEAD:main
