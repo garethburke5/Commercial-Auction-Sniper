@@ -1,0 +1,46 @@
+name: Remove startup network hydration
+on:
+  push:
+    paths:
+      - '.github/workflows/remove-startup-hydration.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Remove remaining live network work from load_rows
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('app.py')
+          s=p.read_text(encoding='utf-8')
+          old='''    rows=_apply_seed_image_map(rows)\n    # Pugh/BTG seed records historically used a generic catalogue URL, so no\n    # property image could render until a manual full refresh. Hydrate just the\n    # known commercial Pugh/BTG cards from their exact current lot pages.\n    rows=_hydrate_pugh_seed_rows(rows)\n    # Strettons seed rows also begin with the generic commercial catalogue URL.\n    # Resolve the current lot cards to exact property pages at boot so preview\n    # images and exact navigation work before a manual full refresh.\n    rows=_hydrate_strettons_seed_rows(rows)\n    rows=_hydrate_acuitus_images(rows)\n    return rows,health,updated'''
+          new='''    rows=_apply_seed_image_map(rows)\n    # Startup must remain local-only. Exact-page image hydration is handled by\n    # the background snapshot refresh, never before first paint.\n    return rows,health,updated'''
+          if old not in s:
+              raise SystemExit('expected load_rows hydration block not found')
+          p.write_text(s.replace(old,new,1),encoding='utf-8')
+          PY
+      - name: Compile and verify local-only boot
+        run: |
+          python -m py_compile app.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('app.py').read_text(encoding='utf-8')
+          block=s.split('def load_rows():',1)[1].split('RESIDENTIAL_EXACT_TYPES',1)[0]
+          assert '_hydrate_pugh_seed_rows(rows)' not in block
+          assert '_hydrate_strettons_seed_rows(rows)' not in block
+          assert '_hydrate_acuitus_images(rows)' not in block
+          print('verified: load_rows has no live hydration calls')
+          PY
+      - name: Commit patch
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add app.py
+          git commit -m 'Remove remaining network hydration from startup'
+          git push
