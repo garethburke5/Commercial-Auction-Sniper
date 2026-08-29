@@ -3446,54 +3446,6 @@ EXPECTED_CURRENT_COUNTS = {
     "Auction House North West": 16,
 }
 
-with sources_tab:
-    # Self-audit: this should make regressions visible without waiting for manual checking.
-    source_audit={}
-    for p in rows:
-        src=p.get("source","Unknown")
-        a=source_audit.setdefault(src,{"properties":0,"images":0,"commercial_flags":0,"exact_pages":0})
-        a["properties"]+=1
-        _u=p.get("url") or ""
-        if _u and not any(x in _u for x in ("/for-sale/","/find-a-property","/property-search","/auctions/live-stream/")):
-            a["exact_pages"]+=1
-        if p.get("image"): a["images"]+=1
-        txt=(str(p.get("address") or "")+" "+str(p.get("desc") or "")).lower()
-        if any(x in txt for x in ("terraced house","semi-detached house","detached house","bungalow"," bedroom flat","apartment")):
-            if not any(x in txt for x in ("mixed-use","mixed use","commercial unit","retail","shop","office","industrial","warehouse","care home")):
-                a["commercial_flags"]+=1
-
-    st.info("INTERMEDIATE BUILD — live catalogue enrichment is enabled; source audit below should be checked after Refresh market.")
-    st.markdown("#### Capture audit")
-    st.caption("Expected counts are minimum independently verified current commercial/mixed-use lots. Falling below them is a release failure.")
-    audit_rows=[]
-    for src,a in sorted(source_audit.items()):
-        image_pct=(100*a["images"]/a["properties"]) if a["properties"] else 0
-        audit_status=("❌ CHECK" if a["commercial_flags"]>0 or image_pct<70
-                      else "⚠️ PARTIAL" if image_pct<100
-                      else "✅ GOOD")
-        audit_rows.append({
-            "Source":src,
-            "Lots":a["properties"],
-            "Images":a["images"],
-            "Image coverage":f"{image_pct:.0f}%",
-            "Exact pages":f'{a["exact_pages"]}/{a["properties"]}', 
-            "Residential flags":a["commercial_flags"],
-            "Expected min":EXPECTED_CURRENT_COUNTS.get(src,"—"),
-            "Coverage":(f'{100*a["properties"]/EXPECTED_CURRENT_COUNTS[src]:.0f}%' if src in EXPECTED_CURRENT_COUNTS and EXPECTED_CURRENT_COUNTS[src] else "—"),
-            "Audit":("❌ MISSING LOTS" if src in EXPECTED_CURRENT_COUNTS and a["properties"] < EXPECTED_CURRENT_COUNTS[src] else audit_status),
-        })
-    if audit_rows:
-        st.dataframe(audit_rows,use_container_width=True,hide_index=True)
-
-    actual_counts={}
-    for p in rows:
-        actual_counts[p["source"]]=actual_counts.get(p["source"],0)+1
-    for h in health:
-        if actual_counts.get(h["source"]):
-            h=dict(h)
-            h["note"]=f'{actual_counts[h["source"]]} properties loaded · '+h["note"]
-        icon="✅" if "VERIFIED" in h["status"] or "REFRESHED" in h["status"] else ("⏳" if "PENDING" in h["status"] or "EARLY" in h["status"] else "⚠️")
-        st.markdown(f'<div class="statusrow">{icon} <b>{html.escape(h["source"])}</b> — {html.escape(h["status"])}<br><small>{html.escape(h["note"])}</small></div>',unsafe_allow_html=True)
 
 
 @st.cache_data(ttl=21600, show_spinner=False)
@@ -4162,4 +4114,54 @@ with lots_tab:
                     st.caption("Investment due-diligence aid only — not a substitute for a solicitor or other professional advice.")
                 except Exception as e:
                     st.error(f"Legal-pack analysis failed: {e}")
+
+# Source-health diagnostics execute only after the property board has been emitted.
+with sources_tab:
+    # Self-audit: this should make regressions visible without waiting for manual checking.
+    source_audit={}
+    for p in rows:
+        src=p.get("source","Unknown")
+        a=source_audit.setdefault(src,{"properties":0,"images":0,"commercial_flags":0,"exact_pages":0})
+        a["properties"]+=1
+        _u=p.get("url") or ""
+        if _u and not any(x in _u for x in ("/for-sale/","/find-a-property","/property-search","/auctions/live-stream/")):
+            a["exact_pages"]+=1
+        if p.get("image"): a["images"]+=1
+        txt=(str(p.get("address") or "")+" "+str(p.get("desc") or "")).lower()
+        if any(x in txt for x in ("terraced house","semi-detached house","detached house","bungalow"," bedroom flat","apartment")):
+            if not any(x in txt for x in ("mixed-use","mixed use","commercial unit","retail","shop","office","industrial","warehouse","care home")):
+                a["commercial_flags"]+=1
+
+    st.info("INTERMEDIATE BUILD — live catalogue enrichment is enabled; source audit below should be checked after Refresh market.")
+    st.markdown("#### Capture audit")
+    st.caption("Expected counts are minimum independently verified current commercial/mixed-use lots. Falling below them is a release failure.")
+    audit_rows=[]
+    for src,a in sorted(source_audit.items()):
+        image_pct=(100*a["images"]/a["properties"]) if a["properties"] else 0
+        audit_status=("❌ CHECK" if a["commercial_flags"]>0 or image_pct<70
+                      else "⚠️ PARTIAL" if image_pct<100
+                      else "✅ GOOD")
+        audit_rows.append({
+            "Source":src,
+            "Lots":a["properties"],
+            "Images":a["images"],
+            "Image coverage":f"{image_pct:.0f}%",
+            "Exact pages":f'{a["exact_pages"]}/{a["properties"]}', 
+            "Residential flags":a["commercial_flags"],
+            "Expected min":EXPECTED_CURRENT_COUNTS.get(src,"—"),
+            "Coverage":(f'{100*a["properties"]/EXPECTED_CURRENT_COUNTS[src]:.0f}%' if src in EXPECTED_CURRENT_COUNTS and EXPECTED_CURRENT_COUNTS[src] else "—"),
+            "Audit":("❌ MISSING LOTS" if src in EXPECTED_CURRENT_COUNTS and a["properties"] < EXPECTED_CURRENT_COUNTS[src] else audit_status),
+        })
+    if audit_rows:
+        st.dataframe(audit_rows,use_container_width=True,hide_index=True)
+
+    actual_counts={}
+    for p in rows:
+        actual_counts[p["source"]]=actual_counts.get(p["source"],0)+1
+    for h in health:
+        if actual_counts.get(h["source"]):
+            h=dict(h)
+            h["note"]=f'{actual_counts[h["source"]]} properties loaded · '+h["note"]
+        icon="✅" if "VERIFIED" in h["status"] or "REFRESHED" in h["status"] else ("⏳" if "PENDING" in h["status"] or "EARLY" in h["status"] else "⚠️")
+        st.markdown(f'<div class="statusrow">{icon} <b>{html.escape(h["source"])}</b> — {html.escape(h["status"])}<br><small>{html.escape(h["note"])}</small></div>',unsafe_allow_html=True)
 
