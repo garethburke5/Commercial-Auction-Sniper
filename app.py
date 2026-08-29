@@ -23,7 +23,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.69-ACUITUS-STRUCTURED"
+BUILD = "V6.70-OCCUPATION-SEMANTICS"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -4206,8 +4206,20 @@ def _investment_facts(p):
     elif re.search(r"option(?:ed)? to tax|opted for VAT",text,re.I): f["VAT"]="Option to tax mentioned"; chips.append("VAT VERIFY")
     if re.search(r"\bTOGC\b|transfer of a business as a going concern",text,re.I): f["TOGC"]="Mentioned"; chips.append("TOGC")
 
-    if re.search(r"vacant possession|\bvacant\b",text,re.I): f["Occupation"]="Vacant / vacant possession"; chips.append("VACANT")
-    elif tenant: f["Occupation"]="Tenanted"
+    has_vacant=bool(re.search(r"vacant possession|\bvacant\b",text,re.I))
+    has_live_income=bool(p.get("rent"))
+    has_tenant=bool(tenant)
+    if has_vacant and (has_live_income or has_tenant):
+        # A mixed/part-let property must never be labelled wholly VACANT just
+        # because one component or upper floor is vacant.
+        f["Occupation"]="Part let / part vacant"
+        chips.append("PART LET")
+    elif has_vacant:
+        f["Occupation"]="Vacant / vacant possession"
+        chips.append("VACANT")
+    elif has_live_income or has_tenant:
+        f["Occupation"]="Tenanted / income producing"
+        chips.append("LET")
     if re.search(r"download the legal pack|legal documents|legal pack",text,re.I): f["Legal pack"]="Available / referenced"; chips.append("LEGAL PACK")
 
     national=("domino","dp realty","tesco","sainsbury","boots","superdrug","co-op","nationwide","hsbc","barclays","lloyds","natwest","coral","william hill","greggs","subway","costa","starbucks","mcdonald","aldi","lidl","b&m","poundland","british red cross")
