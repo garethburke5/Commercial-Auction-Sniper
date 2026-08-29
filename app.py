@@ -3910,7 +3910,7 @@ def _investment_facts(p):
         else: f["Covenant"]="Tenant identified — strength not yet verified"
 
     if p.get("guide") and p.get("rent"):
-        y=100*p["rent"]/p["guide"]; f["GIY at guide"]=f"{y:.1f}%"; f["10% ceiling"]=f'£{p["rent"]/0.10:,.0f}'; chips.append(f"{y:.1f}% GIY")
+        y=100*p["rent"]/p["guide"]; f["GIY at guide"]=f"{y:.1f}%"; f["10% ceiling"]=f'£{p["rent"]/0.10:,.0f}'
     if tenure: chips.insert(0,tenure.upper())
     rel=_reletting_assessment(p,f,text)
     f["Reletting potential"]=f'{rel["score"]:.1f}/10 — {rel["label"]}'
