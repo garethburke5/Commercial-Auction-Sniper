@@ -3360,9 +3360,8 @@ def _v654_priority_boot_rows():
 
 rows,health,updated=load_rows()
 try:
-    priority=_v654_priority_boot_rows()
-    if priority:
-        rows=_merge_property_universe(rows,priority)
+    # Full collector universe is prebuilt into auction_sniper_cache.json by GitHub Actions.
+    # Never block first paint on auction-house network requests.
     rows=[r for r in rows if r.get("source")!="Clive Emson" or re.search(r"/properties/\d+/\d+/?$",r.get("url") or "",re.I)]
     rows=_v657_localise_priority_rows(rows)
     rows=[_normalise_rent_semantics(r) for r in rows]
