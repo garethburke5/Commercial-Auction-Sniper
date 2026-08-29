@@ -4158,7 +4158,6 @@ with lots_tab:
     cards=_ProgressiveCards()
     for x in lots:
         y=x.get("yield")
-        ceiling=x["rent"]/(target_yield/100.0) if x.get("rent") and target_yield else None
         _sqft,_sqm=_property_area(x,norm(str(x.get("desc") or "")+" "+str(x.get("address") or "")))
         _size_text=(f"{_sqft:,.0f} sq ft / {_sqm:,.0f} sq m" if _sqft else None)
         meta=" · ".join(v for v in [x.get("date"),x.get("tenure"),("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)
@@ -4177,9 +4176,8 @@ with lots_tab:
             +f'<div class="addr">{html.escape(x["address"])}</div><div class="metrics">'
             +f'<div class="metric"><span>Guide</span><b>{money(x.get("guide"))}</b></div>'
             +f'<div class="metric"><span>Rent p.a.</span><b>{money(x.get("rent"))}</b></div>'
-            +f'<div class="metric yieldMetric"><span>GIY</span><b>{pct(y)}</b></div>'
-            +f'<div class="metric"><span>Max price @ {target_yield:g}% yield</span><b>{money(ceiling)}</b></div>'
-            +(f'<div class="metric sizeMetric"><span>Size</span><b>{html.escape(_size_text)}</b></div>' if _size_text else '')
+            +f'<div class="metric yieldMetric"><span>GIY</span><b>{html.escape(pct(y))}</b></div>'
+            +'<div class="metric"><span>Size</span><b>'+html.escape(_size_text or "—")+'</b></div>' 
             +'</div>'
             +f'<div class="meta">{html.escape(meta)}</div>'
             +_facts_html(x)
