@@ -1,0 +1,30 @@
+name: Hotfix Auction Sniper startup
+on:
+  push:
+    branches: [main]
+    paths:
+      - hotfix_light_mode_startup.py
+      - .github/workflows/hotfix-light-mode-startup.yml
+jobs:
+  hotfix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply startup hotfix
+        run: python hotfix_light_mode_startup.py
+      - name: Compile
+        run: python -m py_compile app.py
+      - name: Verify
+        run: grep -Fq 'LIGHT_MODE = bool(st.session_state.get("light_mode", False))' app.py
+      - name: Commit hotfix
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add app.py
+          git diff --cached --quiet || git commit -m "Fix light-mode startup crash"
+          git push origin HEAD:main
