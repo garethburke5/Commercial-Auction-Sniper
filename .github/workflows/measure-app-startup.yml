@@ -16,10 +16,11 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -r requirements.txt
-      - name: Measure Streamlit app execution and network calls
+      - name: Profile Streamlit board render
         run: |
           python - <<'PY'
-          import time, threading
+          import time, threading, cProfile, pstats, io, json
+          from pathlib import Path
           import requests
           from streamlit.testing.v1 import AppTest
 
@@ -30,15 +31,29 @@ jobs:
               try:
                   return original(self, method, url, *args, **kwargs)
               finally:
-                  dt=time.perf_counter()-t
-                  calls.append((dt, method, url, threading.current_thread().name))
-                  print(f'HTTP {dt:.3f}s {method} {url} thread={threading.current_thread().name}')
+                  calls.append((time.perf_counter()-t, method, url, threading.current_thread().name))
           requests.sessions.Session.request=traced
 
+          cache=Path('auction_sniper_cache.json')
+          if cache.exists():
+              payload=json.loads(cache.read_text(encoding='utf-8'))
+              props=payload.get('properties') or []
+              data_images=[str(p.get('image') or '') for p in props if str(p.get('image') or '').startswith('data:image/')]
+              local_images=[str(p.get('image') or '') for p in props if str(p.get('image') or '').startswith('app/static/')]
+              remote_images=[str(p.get('image') or '') for p in props if str(p.get('image') or '').startswith('http')]
+              print(f'CACHE_ROWS={len(props)}')
+              print(f'DATA_IMAGE_COUNT={len(data_images)}')
+              print(f'DATA_IMAGE_BYTES={sum(len(x) for x in data_images)}')
+              print(f'LOCAL_IMAGE_COUNT={len(local_images)}')
+              print(f'REMOTE_IMAGE_COUNT={len(remote_images)}')
+
+          pr=cProfile.Profile()
           t0=time.perf_counter()
           at=AppTest.from_file('app.py')
           t1=time.perf_counter()
+          pr.enable()
           at.run(timeout=120)
+          pr.disable()
           t2=time.perf_counter()
 
           print(f'APPTEST_CREATE_SECONDS={t1-t0:.3f}')
@@ -46,8 +61,20 @@ jobs:
           print(f'APPTEST_TOTAL_SECONDS={t2-t0:.3f}')
           print(f'HTTP_CALL_COUNT={len(calls)}')
           print(f'HTTP_TOTAL_SECONDS={sum(x[0] for x in calls):.3f}')
-          for dt,method,url,thread in sorted(calls, reverse=True)[:30]:
-              print(f'SLOW_HTTP {dt:.3f}s {method} {url} thread={thread}')
+
+          s=io.StringIO()
+          pstats.Stats(pr,stream=s).strip_dirs().sort_stats('cumtime').print_stats(40)
+          print('PROFILE_CUMTIME_TOP40')
+          print(s.getvalue())
+          s=io.StringIO()
+          pstats.Stats(pr,stream=s).strip_dirs().sort_stats('tottime').print_stats(40)
+          print('PROFILE_TOTTIME_TOP40')
+          print(s.getvalue())
+
+          print(f'MARKDOWN_COUNT={len(at.markdown)}')
+          print(f'BUTTON_COUNT={len(at.button)}')
+          print(f'EXPANDER_COUNT={len(at.expander)}')
+          print(f'EXCEPTION_COUNT={len(at.exception)}')
           if at.exception:
               print('EXCEPTIONS:', at.exception)
               raise SystemExit(1)
