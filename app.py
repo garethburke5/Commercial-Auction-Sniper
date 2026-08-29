@@ -1869,15 +1869,8 @@ def load_rows():
 
     rows=_merge_property_universe(SEED,cached_rows)
     rows=_apply_seed_image_map(rows)
-    # Pugh/BTG seed records historically used a generic catalogue URL, so no
-    # property image could render until a manual full refresh. Hydrate just the
-    # known commercial Pugh/BTG cards from their exact current lot pages.
-    rows=_hydrate_pugh_seed_rows(rows)
-    # Strettons seed rows also begin with the generic commercial catalogue URL.
-    # Resolve the current lot cards to exact property pages at boot so preview
-    # images and exact navigation work before a manual full refresh.
-    rows=_hydrate_strettons_seed_rows(rows)
-    rows=_hydrate_acuitus_images(rows)
+    # Startup must remain local-only. Exact-page image hydration is handled by
+    # the background snapshot refresh, never before first paint.
     return rows,health,updated
 
 
