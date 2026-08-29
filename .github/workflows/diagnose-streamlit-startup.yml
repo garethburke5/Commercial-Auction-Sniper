@@ -1,0 +1,38 @@
+name: Diagnose Streamlit startup
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/diagnose-streamlit-startup.yml
+jobs:
+  startup-diagnostic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Compile app and modules
+        run: python -m py_compile app.py collector_enrichment.py legal_pack_service.py legal_pack_engine.py legal_pack_ingest.py legal_pack_report.py property_intelligence.py
+      - name: Start Streamlit and probe health
+        run: |
+          set -o pipefail
+          streamlit run app.py --server.headless true --server.address 127.0.0.1 --server.port 8501 > /tmp/streamlit.log 2>&1 &
+          PID=$!
+          OK=0
+          for i in $(seq 1 45); do
+            if curl -fsS http://127.0.0.1:8501/_stcore/health >/tmp/health.txt; then OK=1; break; fi
+            if ! kill -0 "$PID" 2>/dev/null; then break; fi
+            sleep 2
+          done
+          echo '--- health ---'
+          cat /tmp/health.txt 2>/dev/null || true
+          echo '--- streamlit log ---'
+          cat /tmp/streamlit.log || true
+          if [ "$OK" -ne 1 ]; then exit 1; fi
+          curl -fsS http://127.0.0.1:8501/ >/tmp/root.html
+          grep -qi streamlit /tmp/root.html
+          kill "$PID" || true
