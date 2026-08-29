@@ -25,12 +25,12 @@ jobs:
         run: python -m py_compile app.py collector_enrichment.py
       - name: Verify Acuitus structured extraction
         run: |
-          grep -q 'V6.69-ACUITUS-STRUCTURED' app.py
-          grep -q 'accommodation_summary' app.py
-          grep -q 'VAT\\s+(?:is\\s+)?applicable' app.py
-          grep -q 'total_sqm' app.py
-          grep -q 'epc=" / ".join' app.py
-          grep -q 'Rent\\s*£' app.py
+          grep -Fq 'V6.69-ACUITUS-STRUCTURED' app.py
+          grep -Fq 'accommodation_summary' app.py
+          grep -Fq 'VAT\\s+(?:is\\s+)?applicable' app.py
+          grep -Fq 'total_sqm' app.py
+          grep -Fq 'epc=" / ".join' app.py
+          grep -Fq 'Rent\\s*£' app.py
       - name: Commit app
         run: |
           git config user.name github-actions
