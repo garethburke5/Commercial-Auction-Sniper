@@ -1,0 +1,38 @@
+name: Apply occupation semantics
+on:
+  workflow_dispatch:
+  push:
+    branches: [occupation-semantics]
+    paths:
+      - apply_occupation_semantics.py
+      - .github/workflows/apply-occupation-semantics.yml
+jobs:
+  patch-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: occupation-semantics
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install streamlit requests beautifulsoup4 lxml pypdf python-docx openpyxl
+      - name: Apply patch
+        run: python apply_occupation_semantics.py
+      - name: Compile
+        run: python -m py_compile app.py
+      - name: Verify occupation logic
+        run: |
+          grep -Fq 'V6.70-OCCUPATION-SEMANTICS' app.py
+          grep -Fq 'Part let / part vacant' app.py
+          grep -Fq 'Tenanted / income producing' app.py
+          grep -Fq 'has_live_income=bool(p.get("rent"))' app.py
+      - name: Commit app
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add app.py
+          git diff --cached --quiet || git commit -m "Fix part-let versus vacant card semantics"
+          git push origin HEAD:occupation-semantics
