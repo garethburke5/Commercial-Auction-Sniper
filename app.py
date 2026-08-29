@@ -3356,7 +3356,9 @@ try:
     # Full collector universe is prebuilt into auction_sniper_cache.json by GitHub Actions.
     # Never block first paint on auction-house network requests.
     rows=[r for r in rows if r.get("source")!="Clive Emson" or re.search(r"/properties/\d+/\d+/?$",r.get("url") or "",re.I)]
-    rows=_v657_localise_priority_rows(rows)
+    # DIAGNOSED 2026-08-29: _v657_localise_priority_rows performs live page + image
+    # HTTP requests for Strettons, Acuitus and Clive Emson during every cold start.
+    # Property/image data must come from the persisted snapshot; first paint is local-only.
     rows=[_normalise_rent_semantics(r) for r in rows]
 except Exception:
     pass
