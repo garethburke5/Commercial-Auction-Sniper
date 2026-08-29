@@ -1,0 +1,22 @@
+name: Inspect remaining render hotspots
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/inspect-remaining-render-hotspots.yml'
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Locate legal-pack and dataframe render paths
+        run: |
+          echo '--- analyse_uploaded_pack references ---'
+          grep -n "analyse_uploaded_pack" app.py || true
+          echo '--- dataframe/table references ---'
+          grep -nE "st\.(dataframe|table|data_editor)" app.py || true
+          echo '--- image render references ---'
+          grep -nE "st\.image|<img|preview" app.py | tail -80 || true
