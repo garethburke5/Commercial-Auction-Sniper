@@ -4040,7 +4040,12 @@ with lots_tab:
     lots=filtered
 
     st.caption(f"{len(lots)} properties shown" + (" · filters applied" if apply_filters else " · ALL verified current properties"))
-    cards=[]
+    class _ProgressiveCards(list):
+        def append(self,item):
+            super().append(item)
+            if len(self)==12:
+                st.markdown('<div class="cards progressiveFirst">'+"".join(self)+'</div>',unsafe_allow_html=True)
+    cards=_ProgressiveCards()
     for x in lots:
         y=x.get("yield")
         ceiling=x["rent"]/(target_yield/100.0) if x.get("rent") and target_yield else None
@@ -4073,7 +4078,10 @@ with lots_tab:
             +f'<div class="cardActions"><a class="mapAction" target="_blank" rel="noopener noreferrer" href="{html.escape(_maps_url,quote=True)}">Map / Street View ↗</a><a class="action" target="_blank" href="{html.escape(x["url"])}">Open property ↗</a></div>'
             +'</div></div>'
         )
-    st.markdown('<div class="cards">'+"".join(cards)+'</div>',unsafe_allow_html=True)
+    if len(cards) > 12:
+        st.markdown('<div class="cards progressiveRest">'+"".join(cards[12:])+'</div>',unsafe_allow_html=True)
+    elif len(cards) < 12:
+        st.markdown('<div class="cards progressiveFirst">'+"".join(cards)+'</div>',unsafe_allow_html=True)
 
     # Provider-independent Buyer Due Diligence. Files are supplied deliberately by the user;
     # authenticated auction-provider accounts are never crawled during catalogue refresh.
