@@ -34,10 +34,6 @@ jobs:
           if old2 not in s:
               raise SystemExit('final board markdown anchor not found')
           s=s.replace(old2,new2,1)
-          # Remove visual gap between the two grid batches while preserving identical card layout.
-          css='\n<style>.progressiveFirst{margin-bottom:0!important}.progressiveRest{margin-top:0!important}</style>\n'
-          marker='with lots_tab:\n'
-          s=s.replace(marker,css+marker,1)
           p.write_text(s,encoding='utf-8')
           PY
           python -m py_compile app.py
