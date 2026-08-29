@@ -1,0 +1,68 @@
+name: Move source health after property board
+
+on:
+  push:
+    paths:
+      - '.github/workflows/move-source-health-after-board.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Patch execution order
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('app.py')
+          s=p.read_text(encoding='utf-8')
+          start=s.index('with sources_tab:\n')
+          end=s.index('\n\n@st.cache_data(ttl=21600', start)
+          block=s[start:end]
+          s=s[:start]+s[end:]
+          # Source-health tab content is useful, but hidden-tab work must not block first-card emission.
+          s=s.rstrip()+"\n\n# Source-health diagnostics execute only after the property board has been emitted.\n"+block+"\n"
+          p.write_text(s,encoding='utf-8')
+          print('moved source-health block after board')
+          PY
+      - name: Verify syntax and ordering
+        run: |
+          python -m py_compile app.py
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          s=Path('app.py').read_text(encoding='utf-8')
+          assert s.index("st.markdown('<div class=\"cards\">'+\"\".join(cards)+'</div>',unsafe_allow_html=True)") < s.rindex('with sources_tab:')
+          payload=json.loads(Path('auction_sniper_cache.json').read_text(encoding='utf-8'))
+          print('snapshot rows:',len(payload.get('properties',[])))
+          assert len(payload.get('properties',[])) >= 150
+          print('PASS: board emitted before source-health audit')
+          PY
+      - name: Smoke test Streamlit
+        run: |
+          pip install -r requirements.txt
+          python - <<'PY'
+          from streamlit.testing.v1 import AppTest
+          import time
+          t=time.perf_counter()
+          at=AppTest.from_file('app.py').run(timeout=60)
+          dt=time.perf_counter()-t
+          print('app run seconds:',round(dt,3))
+          print('exceptions:',len(at.exception))
+          if at.exception:
+              raise SystemExit(at.exception)
+          PY
+      - name: Commit production patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app.py
+          git commit -m "Render property board before source health diagnostics"
+          git push
