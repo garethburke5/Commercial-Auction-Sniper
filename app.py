@@ -23,7 +23,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.69-ACUITUS-STRUCTURED"
+BUILD = "V6.70-SNAPSHOT-FAST-BOOT"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -3609,10 +3609,10 @@ def _v654_priority_boot_rows():
     return _clean_rows(out)
 
 rows,health,updated=load_rows()
+# Production startup must be snapshot-only. Live auction-site scraping is handled by
+# the scheduled collector workflow and the explicit Update listings action, never
+# during first render. This keeps Streamlit boot deterministic and fast.
 try:
-    priority=_v654_priority_boot_rows()
-    if priority:
-        rows=_merge_property_universe(rows,priority)
     rows=[r for r in rows if r.get("source")!="Clive Emson" or re.search(r"/properties/\d+/\d+/?$",r.get("url") or "",re.I)]
     rows=_v657_localise_priority_rows(rows)
     rows=[_normalise_rent_semantics(r) for r in rows]
