@@ -1,0 +1,41 @@
+name: Hotfix diagnosed startup network
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hotfix_remove_startup_image_localisation.py'
+      - '.github/workflows/hotfix-diagnosed-startup-network.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fix-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply diagnosed fix
+        run: python hotfix_remove_startup_image_localisation.py
+      - name: Compile
+        run: python -m py_compile app.py
+      - name: Verify startup path is local-only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('app.py').read_text()
+          tail=s[s.index('rows,health,updated=load_rows()'):]
+          pre=tail[:tail.index('st.markdown(')]
+          assert '_v657_localise_priority_rows(rows)' not in pre
+          assert '_v654_priority_boot_rows()' not in pre
+          print('PASS: no priority live collector or image localisation before first paint')
+          PY
+      - name: Commit production fix
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app.py
+          git diff --cached --quiet && exit 0
+          git commit -m 'Remove diagnosed live image requests from startup'
+          git push
