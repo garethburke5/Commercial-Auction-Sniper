@@ -18,6 +18,21 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -r requirements.txt pytest
+      - name: Repair embedded test-string delimiter
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('scripts/apply_universal_listing_enrichment.py')
+          s=p.read_text(encoding='utf-8')
+          start="TESTS = r'''from collector_enrichment import extract_particulars, merge_enrichment"
+          if start in s:
+              s=s.replace(start,'TESTS = r"""from collector_enrichment import extract_particulars, merge_enrichment',1)
+              marker="\n'''\n\nPath('collector_enrichment.py').write_text(MODULE, encoding='utf-8')"
+              if marker not in s:
+                  raise SystemExit('test closing delimiter marker not found')
+              s=s.replace(marker,"\n\"\"\"\n\nPath('collector_enrichment.py').write_text(MODULE, encoding='utf-8')",1)
+              p.write_text(s,encoding='utf-8')
+          PY
       - name: Apply universal enrichment patch
         run: python scripts/apply_universal_listing_enrichment.py
       - name: Parser regression tests
