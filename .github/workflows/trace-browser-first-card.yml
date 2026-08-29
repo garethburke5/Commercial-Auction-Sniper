@@ -1,0 +1,84 @@
+name: Trace browser first-card timing
+
+on:
+  push:
+    paths:
+      - '.github/workflows/trace-browser-first-card.yml'
+  workflow_dispatch:
+
+jobs:
+  trace-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install app and browser tooling
+        run: |
+          pip install -r requirements.txt
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Start Streamlit
+        run: |
+          nohup streamlit run app.py --server.headless true --server.port 8501 > /tmp/streamlit.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:8501/_stcore/health >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/streamlit.log
+          exit 1
+      - name: Measure browser timeline
+        run: |
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          import time
+
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True)
+              page=browser.new_page(viewport={"width":1440,"height":1000})
+              t0=time.perf_counter()
+              marks={}
+
+              def mark(name):
+                  if name not in marks:
+                      marks[name]=time.perf_counter()-t0
+
+              page.on('domcontentloaded', lambda: mark('domcontentloaded'))
+              page.on('load', lambda: mark('load'))
+              page.goto('http://127.0.0.1:8501', wait_until='commit', timeout=60000)
+              mark('navigation_commit')
+
+              page.wait_for_selector('.hero', timeout=60000)
+              mark('hero_visible')
+              page.wait_for_selector('.card', timeout=60000)
+              mark('first_card_visible')
+
+              card_count=page.locator('.card').count()
+              html_len=page.locator('.cards').evaluate('(e)=>e.outerHTML.length')
+              img_count=page.locator('.cards img').count()
+              loaded_imgs=page.locator('.cards img').evaluate_all('(els)=>els.filter(e=>e.complete && e.naturalWidth>0).length')
+              mark('metrics_collected')
+
+              print('TIMELINE')
+              for k,v in sorted(marks.items(), key=lambda kv: kv[1]):
+                  print(f'{k}: {v:.3f}s')
+              print('hero_to_first_card:', f"{marks['first_card_visible']-marks['hero_visible']:.3f}s")
+              print('card_count:', card_count)
+              print('cards_outer_html_chars:', html_len)
+              print('image_count:', img_count)
+              print('images_loaded_at_measure:', loaded_imgs)
+
+              # Also measure DOM parsing cost by cloning the card container HTML into a detached node.
+              parse_ms=page.locator('.cards').evaluate('''(e)=>{
+                const h=e.outerHTML; const t=performance.now();
+                const d=document.createElement('div'); d.innerHTML=h;
+                return performance.now()-t;
+              }''')
+              print('detached_dom_parse_ms:', round(parse_ms,2))
+              browser.close()
+          PY
+      - name: Show Streamlit log tail
+        if: always()
+        run: tail -n 120 /tmp/streamlit.log || true
