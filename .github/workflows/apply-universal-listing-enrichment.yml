@@ -41,17 +41,33 @@ jobs:
           from pathlib import Path
           p=Path('collector_enrichment.py')
           s=p.read_text(encoding='utf-8')
-          band=r'r"\bEPC\s+Band\s+([A-G])\b",'
-          band_safe=r'r"\bEPC\s+Band\s+([A-G](?:\s*\(\s*\d{1,3}\s*\))?)\b",'
-          unsafe=r'r"\bEPC(?:\s+Rating)?\s*(?:\||:|-)?\s*([A-G](?:\s*\(\s*\d{1,3}\s*\))?)",'
-          safe='''r"\\bEPC\\s+Rating\\s*(?:\\||:|-)?\\s*([A-G](?:\\s*\\(\\s*\\d{1,3}\\s*\\))?)\\b",\n        r"\\bEPC\\s*(?:\\||:|-)\\s*([A-G](?:\\s*\\(\\s*\\d{1,3}\\s*\\))?)\\b",\n        r"\\bEPC\\s+([A-G](?:\\s*\\(\\s*\\d{1,3}\\s*\\))?)\\b",'''
-          fallback=r'r"Energy Performance Certificate[^A-G]{0,30}([A-G](?:\s*\(\s*\d{1,3}\s*\))?)",'
-          fallback_safe=r'r"Energy Performance Certificate(?:\s+(?:Rating|Band))\s*(?:\||:|-)?\s*([A-G](?:\s*\(\s*\d{1,3}\s*\))?)\b",'
-          if band not in s or unsafe not in s or fallback not in s:
-              raise SystemExit('EPC pattern anchor not found')
-          s=s.replace(band,band_safe,1)
-          s=s.replace(unsafe,safe,1)
-          s=s.replace(fallback,fallback_safe,1)
+          start=s.index('def _extract_epc(text):')
+          end=s.index('\n\ndef _extract_area(text):',start)
+          replacement=r'''def _extract_epc(text):
+    # Keep the published numerical score when present and never interpret the
+    # B in the label "Band" as a second EPC grade.
+    patterns = (
+        r"\bEPC\s+Band\s+([A-G](?:\s*\(\s*\d{1,3}\s*\))?)(?!\w)",
+        r"\bEPC\s+Rating\s*(?:\||:|-)?\s*([A-G](?:\s*\(\s*\d{1,3}\s*\))?)(?!\w)",
+        r"\bEPC\s*(?:\||:|-)\s*([A-G](?:\s*\(\s*\d{1,3}\s*\))?)(?!\w)",
+        r"\bEPC\s+([A-G](?:\s*\(\s*\d{1,3}\s*\))?)(?!\w)",
+        r"Energy Performance Certificate\s+(?:Rating|Band)\s*(?:\||:|-)?\s*([A-G](?:\s*\(\s*\d{1,3}\s*\))?)(?!\w)",
+    )
+    values=[]
+    for p in patterns:
+        for m in re.finditer(p,text,re.I):
+            value=clean_text(m.group(1)).upper()
+            grade=value[0]
+            # Prefer the richer value for the same grade, e.g. C (63) over C.
+            existing=next((x for x in values if x.startswith(grade)),None)
+            if existing:
+                if len(value)>len(existing):
+                    values[values.index(existing)]=value
+            else:
+                values.append(value)
+    return " / ".join(values) if values else None
+'''
+          s=s[:start]+replacement+s[end:]
           p.write_text(s,encoding='utf-8')
           PY
       - name: Parser regression tests
