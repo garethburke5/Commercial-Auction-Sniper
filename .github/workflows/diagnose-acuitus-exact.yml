@@ -1,0 +1,47 @@
+name: Diagnose Acuitus exact-page extraction
+on:
+  push:
+    paths:
+      - '.github/workflows/diagnose-acuitus-exact.yml'
+  workflow_dispatch:
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Inspect cache and live Acuitus page
+        run: |
+          python - <<'PY'
+          import json,re,requests
+          from bs4 import BeautifulSoup
+          from pathlib import Path
+          d=json.loads(Path('auction_sniper_cache.json').read_text())
+          rows=[r for r in d.get('properties',[]) if r.get('source')=='Acuitus']
+          print('ACUITUS_CACHE_ROWS',len(rows))
+          for r in rows:
+              if 'Stonehills' in str(r.get('address')) or str(r.get('lot')) in {'25','26','28'}:
+                  print('CACHE_ROW',json.dumps(r,ensure_ascii=False)[:5000])
+          url='https://www.acuitus.co.uk/property/5849/'
+          h=requests.get(url,headers={'User-Agent':'Mozilla/5.0'},timeout=30).text
+          print('LIVE_STATUS',len(h),'chars')
+          soup=BeautifulSoup(h,'lxml')
+          print('OG',[(m.get('property') or m.get('name'),m.get('content')) for m in soup.find_all('meta') if (m.get('property') or m.get('name')) in ('og:image','twitter:image')])
+          imgs=[]
+          for img in soup.find_all('img'):
+              vals={k:img.get(k) for k in ('src','data-src','data-lazy-src','srcset','alt','class') if img.get(k)}
+              if vals: imgs.append(vals)
+          for x in imgs[:80]: print('IMG',x)
+          text=' '.join(soup.stripped_strings)
+          for needle in ['Not Elected for VAT','EPC','Band E','4,534','421.20','VACANT']:
+              print('TEXT_HAS',needle,needle.lower() in text.lower())
+          src=Path('app.py').read_text()
+          for m in re.finditer('Acuitus',src,re.I):
+              lo=max(0,src.rfind('\n',0,m.start()-1200)); hi=min(len(src),src.find('\n',m.start()+2500))
+              print('APP_CONTEXT_START')
+              print(src[lo:hi])
+              print('APP_CONTEXT_END')
+          PY
