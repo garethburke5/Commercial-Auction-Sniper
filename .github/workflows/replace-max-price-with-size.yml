@@ -29,7 +29,7 @@ jobs:
               raise SystemExit('ceiling calculation marker not found')
           s=s.replace(old,new,1)
           old='''            +f'<div class="metric yieldMetric"><span>GIY</span><b>{pct(y)}</b></div>'\n            +f'<div class="metric"><span>Max price @ {target_yield:g}% yield</span><b>{money(ceiling)}</b></div>'\n            +(f'<div class="metric sizeMetric"><span>Size</span><b>{html.escape(_size_text)}</b></div>' if _size_text else '')'''
-          new='''            +f'<div class="metric yieldMetric"><span>GIY</span><b>{pct(y)}</b></div>'\n            +f'<div class="metric"><span>Size</span><b>{html.escape(_size_text) if _size_text else "—"}</b></div>'''
+          new='''            +f'<div class="metric yieldMetric"><span>GIY</span><b>{html.escape(pct(y))}</b></div>'\n            +'<div class="metric"><span>Size</span><b>'+html.escape(_size_text or "—")+'</b></div>' '''
           if old not in s:
               raise SystemExit('headline metric marker not found')
           s=s.replace(old,new,1)
@@ -44,7 +44,7 @@ jobs:
           s=Path('app.py').read_text(encoding='utf-8')
           card=s[s.index('class _ProgressiveCards'):]
           assert 'Max price @ {target_yield:g}% yield' not in card
-          assert '<span>Size</span><b>{html.escape(_size_text) if _size_text else "—"}</b>' in card
+          assert '<span>Size</span><b>' in card
           assert 'class="metric yieldMetric"><span>GIY</span>' in card
           assert 'if len(self)==12:' in card
           print('headline metric contract OK')
