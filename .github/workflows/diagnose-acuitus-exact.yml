@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -r requirements.txt
-      - name: Inspect cache and live Acuitus page
+      - name: Inspect current Acuitus pages
         run: |
           python - <<'PY'
           import json,re,requests
@@ -22,26 +22,28 @@ jobs:
           d=json.loads(Path('auction_sniper_cache.json').read_text())
           rows=[r for r in d.get('properties',[]) if r.get('source')=='Acuitus']
           print('ACUITUS_CACHE_ROWS',len(rows))
+          targets=[]
           for r in rows:
-              if 'Stonehills' in str(r.get('address')) or str(r.get('lot')) in {'25','26','28'}:
+              if 'Stonehills' in str(r.get('address')) or str(r.get('lot')) in {'Lot 25','Lot 26','Lot 28','25','26','28'}:
                   print('CACHE_ROW',json.dumps(r,ensure_ascii=False)[:5000])
-          url='https://www.acuitus.co.uk/property/5849/'
-          h=requests.get(url,headers={'User-Agent':'Mozilla/5.0'},timeout=30).text
-          print('LIVE_STATUS',len(h),'chars')
-          soup=BeautifulSoup(h,'lxml')
-          print('OG',[(m.get('property') or m.get('name'),m.get('content')) for m in soup.find_all('meta') if (m.get('property') or m.get('name')) in ('og:image','twitter:image')])
-          imgs=[]
-          for img in soup.find_all('img'):
-              vals={k:img.get(k) for k in ('src','data-src','data-lazy-src','srcset','alt','class') if img.get(k)}
-              if vals: imgs.append(vals)
-          for x in imgs[:80]: print('IMG',x)
-          text=' '.join(soup.stripped_strings)
-          for needle in ['Not Elected for VAT','EPC','Band E','4,534','421.20','VACANT']:
-              print('TEXT_HAS',needle,needle.lower() in text.lower())
-          src=Path('app.py').read_text()
-          for m in re.finditer('Acuitus',src,re.I):
-              lo=max(0,src.rfind('\n',0,m.start()-1200)); hi=min(len(src),src.find('\n',m.start()+2500))
-              print('APP_CONTEXT_START')
-              print(src[lo:hi])
-              print('APP_CONTEXT_END')
+                  if r.get('url'): targets.append(r['url'])
+          for url in dict.fromkeys(targets):
+              print('\nURL',url)
+              h=requests.get(url,headers={'User-Agent':'Mozilla/5.0'},timeout=30).text
+              print('HTML_LEN',len(h))
+              soup=BeautifulSoup(h,'lxml')
+              print('TITLE',soup.title.get_text(' ',strip=True) if soup.title else '')
+              print('OG',[(m.get('property') or m.get('name'),m.get('content')) for m in soup.find_all('meta') if (m.get('property') or m.get('name')) in ('og:image','twitter:image')])
+              for i,img in enumerate(soup.find_all('img')):
+                  vals={k:img.get(k) for k in ('src','data-src','data-lazy-src','srcset','alt','class') if img.get(k)}
+                  if vals and i<120: print('IMG',i,vals)
+              text=' '.join(soup.stripped_strings)
+              rel=text.lower().find('you may also be interested in')
+              main=text[:rel] if rel!=-1 else text
+              print('RELATED_CUT',rel,'MAIN_LEN',len(main),'FULL_LEN',len(text))
+              for needle in ['Refer to Auctioneer','Not Elected for VAT','EPC','Band E','4,534','421.20','VACANT','110,154','10,234']:
+                  print('TEXT_HAS',needle,needle.lower() in main.lower())
+              for pat in [r'.{0,100}Guide.{0,180}',r'.{0,100}VAT.{0,180}',r'.{0,100}EPC.{0,180}',r'.{0,100}421\.20.{0,180}',r'.{0,100}4,534.{0,180}']:
+                  m=re.search(pat,main,re.I)
+                  print('MATCH',pat, m.group(0) if m else None)
           PY
