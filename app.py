@@ -1306,17 +1306,19 @@ def _pattinson_current():
             if r: rows.append(r)
     return _clean_rows(rows)
 
-def _enrich_exact_rows(rows, source_name, limit=220):
+def _enrich_exact_rows(rows, source_name=None, limit=260):
+    """Run the same exact-page schema across every auction source during refresh."""
     out=[dict(r) for r in (rows or [])]
-    targets=[i for i,r in enumerate(out) if r.get("url")][:limit]
+    targets=[i for i,r in enumerate(out) if r.get("url") and not any(x in (r.get("url") or "") for x in ("/find-a-property/?clear=y","/property-search","/auctions/live-stream/"))][:limit]
     def one(i):
         r=out[i]
         try:
-            facts=extract_particulars(fetch(r["url"]),source_name,r["url"])
+            actual_source=r.get("source") or source_name or ""
+            facts=extract_particulars(fetch(r["url"]),actual_source,r["url"])
             return i,merge_enrichment(r,facts)
         except Exception:
             return i,r
-    with ThreadPoolExecutor(max_workers=8) as ex:
+    with ThreadPoolExecutor(max_workers=10) as ex:
         futures=[ex.submit(one,i) for i in targets]
         for f in as_completed(futures):
             i,r=f.result(); out[i]=r
@@ -1341,8 +1343,9 @@ def _merge_catalogue_rows(base_rows):
         try: rows=fn()
         except Exception: rows=[]
         if rows:
-            if source=="Bond Wolfe":
-                rows=_enrich_exact_rows(rows,"Bond Wolfe")
+            # Every discovered exact listing passes through the same structured
+            # investment-fact parser before it is persisted into the snapshot.
+            rows=_enrich_exact_rows(rows,source)
             if source=="Auction House Regional":
                 # Preserve each regional branch as its own source.
                 for r in rows:
@@ -2812,7 +2815,8 @@ def _v654_exact_row(url, source, date=None):
         if img:
             proxied=_v654_data_image(img,url)
             if proxied: img=proxied
-        return dict(source=source,lot=lot,date=date,address=address or 'Property',guide=guide,rent=rent,tenure=tenure,vat='UNKNOWN',url=url,desc=text[:1000],image=img)
+        base=dict(source=source,lot=lot,date=date,address=address or 'Property',guide=guide,rent=rent,tenure=tenure,vat='UNKNOWN',url=url,desc=text[:1000],image=img)
+        return merge_enrichment(base,extract_particulars(raw,source,url))
     except Exception:
         return None
 
@@ -3941,6 +3945,26 @@ def _investment_facts(p):
         f["Rateable value"]=f'£{p["rateable_value"]:,.0f}'
     if p.get("fri") is True:
         f["Repairing"]="FRI"
+    structured_vat=str(p.get("vat") or "").strip()
+    if structured_vat and structured_vat.upper()!="UNKNOWN":
+        f["VAT"]=structured_vat
+        if structured_vat.lower() in ("not applicable","not elected"):
+            chips.append("VAT "+structured_vat.upper())
+        elif structured_vat.lower()=="applicable":
+            chips.append("VAT APPLICABLE")
+        else:
+            chips.append("VAT VERIFY")
+    if p.get("togc") is True:
+        f["TOGC"]="Mentioned"
+        chips.append("TOGC")
+    if p.get("service_charge") is not None:
+        f["Service charge"]=f'£{p["service_charge"]:,.0f} p.a.'
+    if p.get("ground_rent") is not None:
+        f["Ground rent"]=f'£{p["ground_rent"]:,.0f} p.a.'
+    if p.get("planning_use"):
+        f["Planning / use"]=str(p["planning_use"])
+    if p.get("occupation"):
+        f["Occupation"]=str(p["occupation"])
     if p.get("rent"): f["Passing rent"]=f'£{p["rent"]:,.0f} p.a.'
     if p.get("rent_status"): f["Rent status"]=p["rent_status"]
     if p.get("previous_rent"):
