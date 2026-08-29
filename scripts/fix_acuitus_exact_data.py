@@ -22,7 +22,7 @@ old = '''def _acuitus_current():
         return []
 '''
 
-new = '''def _acuitus_exact_row(url):
+new = r'''def _acuitus_exact_row(url):
     """Parse one Acuitus property page without leaking related lots/contact imagery."""
     try:
         raw=fetch(url)
@@ -147,13 +147,13 @@ final_old = '''def _acuitus_current():
     except Exception:
         return []
 '''
-final_new = '''def _acuitus_current():
+final_new = r'''def _acuitus_current():
     listing='https://www.acuitus.co.uk/find-a-property/?clear=y'
     try:
         soup=BeautifulSoup(fetch(listing),'lxml'); links=[]
         for a in soup.find_all('a',href=True):
             href=urljoin(listing,a['href']).split('#')[0]
-            if re.fullmatch(r'https?://(?:www\\.)?acuitus\\.co\\.uk/property/\\d+/?',href,re.I) and href not in links:
+            if re.fullmatch(r'https?://(?:www\.)?acuitus\.co\.uk/property/\d+/?',href,re.I) and href not in links:
                 links.append(href)
         rows=[]
         with ThreadPoolExecutor(max_workers=10) as ex:
@@ -213,13 +213,17 @@ stone=find('Stonehills')
 wilko=find('Fawcett')
 print('STONEHILLS',json.dumps(stone,ensure_ascii=False,indent=2)[:6000])
 print('WILKO',json.dumps(wilko,ensure_ascii=False,indent=2)[:6000])
+assert stone.get('lot')=='Lot 26', stone.get('lot')
 assert stone.get('guide') is None, stone.get('guide')
 assert stone.get('guide_status')=='Refer to Auctioneer'
+assert stone.get('tenure')=='Freehold', stone.get('tenure')
 assert stone.get('epc')=='E', stone.get('epc')
 assert stone.get('vat')=='Not elected', stone.get('vat')
 assert abs(stone.get('area_sqft',0)-4534)<1
 assert abs(stone.get('area_sqm',0)-421.20)<0.1
 assert stone.get('image') and 'app/static/property_images/' in stone['image']
+assert wilko.get('lot')=='Lot 25', wilko.get('lot')
+assert wilko.get('tenure')=='Freehold', wilko.get('tenure')
 assert wilko.get('epc')=='D', wilko.get('epc')
 assert wilko.get('vat')=='Applicable', wilko.get('vat')
 assert abs(wilko.get('area_sqft',0)-110154)<1
