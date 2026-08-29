@@ -25,12 +25,22 @@ jobs:
         run: python -m py_compile app.py collector_enrichment.py
       - name: Verify Acuitus structured extraction
         run: |
-          grep -Fq 'V6.69-ACUITUS-STRUCTURED' app.py
-          grep -Fq 'accommodation_summary' app.py
-          grep -Fq 'VAT\\s+(?:is\\s+)?applicable' app.py
-          grep -Fq 'total_sqm' app.py
-          grep -Fq 'epc=" / ".join' app.py
-          grep -Fq 'Rent\\s*£' app.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('app.py').read_text(encoding='utf-8')
+          required=[
+              'V6.69-ACUITUS-STRUCTURED',
+              'accommodation_summary',
+              'total_sqm',
+              'total_sqft',
+              'epc=" / ".join',
+              'source="Acuitus"',
+              'rent=rent',
+              'vat=vat',
+          ]
+          missing=[x for x in required if x not in s]
+          assert not missing, f'Missing Acuitus features: {missing}'
+          PY
       - name: Commit app
         run: |
           git config user.name github-actions
