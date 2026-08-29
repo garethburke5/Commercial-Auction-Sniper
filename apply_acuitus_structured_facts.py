@@ -4,11 +4,6 @@ p=Path('app.py')
 s=p.read_text(encoding='utf-8')
 s=s.replace('BUILD = "V6.68-LIGHT-MODE"','BUILD = "V6.69-ACUITUS-STRUCTURED"',1)
 
-start=s.find('@st.cache_data(ttl=21600, show_spinner=False)\ndef _acuitus_current():')
-end=s.find('\n# ---------------- live refresh (non-blocking until user asks) ----------------',start)
-if start==-1 or end==-1:
-    raise SystemExit('Acuitus current collector block not found')
-
 replacement=r'''@st.cache_data(ttl=21600, show_spinner=False)
 def _acuitus_current():
     """Current Acuitus catalogue enriched from each exact property page.
@@ -30,7 +25,6 @@ def _acuitus_current():
             ds=BeautifulSoup(raw,"lxml")
             main=ds.find("main") or ds
             text=norm(main.get_text(" ",strip=True))
-            low=text.lower()
             h=ds.find("h1")
             address=norm(h.get_text(" ",strip=True)) if h else ""
             if not address:return None
@@ -48,7 +42,6 @@ def _acuitus_current():
                  else "APPLICABLE" if re.search(r"VAT\s+(?:is\s+)?applicable|VAT\s+is\s+payable",text,re.I)
                  else "UNKNOWN")
 
-            # Preserve multiple EPCs where a lot contains more than one demise.
             epc=None
             epc_section=re.search(r"\bEPC\b(.{0,180})",text,re.I)
             if epc_section:
@@ -62,9 +55,6 @@ def _acuitus_current():
                 bands=list(dict.fromkeys(bands))
                 if bands:epc=" / ".join(bands)
 
-            # Read Acuitus' tenancy/accommodation tables as tables, not as one
-            # flattened string. Prefer an explicit Total row; otherwise sum the
-            # component rows where the column semantics are identifiable.
             total_sqm=None;total_sqft=None;accommodation=[]
             for table in ds.find_all("table"):
                 rows=[]
@@ -94,15 +84,14 @@ def _acuitus_current():
                 if total_sqm or total_sqft or accommodation:
                     break
 
-            if not total_sqm and accommodation:
-                # Acuitus can put multiple sq m figures in one stacked cell. If
-                # no Total row was machine-readable, use the published text total.
-                tm=re.search(r"\bTotal\b[^0-9]{0,30}([\d,.]+)\s*(?:sq\.?\s*m|sqm|m²)",text,re.I)
+            if not total_sqm:
+                tm=re.search(r"\bTotal\b[^0-9]{0,40}([\d,.]+)\s*(?:sq\.?\s*m|sqm|m²)",text,re.I)
                 if tm:total_sqm=float(tm.group(1).replace(',',''))
-            if total_sqm and not total_sqft:
-                total_sqft=round(total_sqm*10.7639)
-            if total_sqft and not total_sqm:
-                total_sqm=round(total_sqft/10.7639,2)
+            if not total_sqft:
+                tf=re.search(r"\bTotal\b.{0,90}?([\d,]+)\s*(?:sq\.?\s*ft|sqft|ft²)",text,re.I)
+                if tf:total_sqft=float(tf.group(1).replace(',',''))
+            if total_sqm and not total_sqft:total_sqft=round(total_sqm*10.7639)
+            if total_sqft and not total_sqm:total_sqm=round(total_sqft/10.7639,2)
 
             facts=extract_particulars(raw,"Acuitus",href)
             row=dict(source="Acuitus",lot=lot,date="2026-09-17",address=address,
@@ -111,13 +100,13 @@ def _acuitus_current():
                      epc=epc,area_sqm=total_sqm,area_sqft=total_sqft,
                      accommodation_summary=" | ".join(accommodation[:8]) or None)
             row=merge_enrichment(row,facts)
-            # Source-specific exact-page values outrank generic first-match area/EPC.
             if epc:row["epc"]=epc
             if total_sqm:row["area_sqm"]=total_sqm
             if total_sqft:row["area_sqft"]=total_sqft
             if accommodation:row["accommodation_summary"]=" | ".join(accommodation[:8])
             if guide is not None:row["guide"]=guide
             if rent is not None:row["rent"]=rent
+            if tenure:row["tenure"]=tenure
             if vat!="UNKNOWN":row["vat"]=vat
             return row
         except Exception:
@@ -127,8 +116,8 @@ def _acuitus_current():
         soup=BeautifulSoup(fetch(listing),"lxml")
         links=[];cards={}
         for a in soup.find_all("a",href=True):
-            href=urljoin(listing,a["href"])
-            if not re.search(r"acuitus\.co\.uk/property/\d+/?",href,re.I):continue
+            href=urljoin(listing,a["href"]).split('#')[0]
+            if not re.search(r"https?://(?:www\.)?acuitus\.co\.uk/property/\d+/?$",href,re.I):continue
             if href not in links:links.append(href)
             node=a;card=""
             for _ in range(7):
@@ -148,9 +137,20 @@ def _acuitus_current():
         return []
 '''
 
-s=s[:start]+replacement+s[end:]
+# Replace the first historical definition if still present.
+first=s.find('@st.cache_data(ttl=21600, show_spinner=False)\ndef _acuitus_current():')
+first_end=s.find('\n# ---------------- live refresh (non-blocking until user asks) ----------------',first)
+if first!=-1 and first_end!=-1:
+    s=s[:first]+replacement+s[first_end:]
 
-# Surface the accommodation breakdown in Investment Details when captured.
+# The file contains a later V6.54/V6.57 override; Python uses the LAST definition.
+# Replace that active definition as well, otherwise rich facts are silently discarded.
+active=s.rfind('\ndef _acuitus_current():')
+active_end=s.find('\n\n# V6.57:',active)
+if active==-1 or active_end==-1:
+    raise SystemExit('active Acuitus collector override not found')
+s=s[:active+1]+replacement+s[active_end:]
+
 needle='''        ("Rateable value",money_fmt(p.get("rateable_value"))) if p.get("rateable_value") else None,\n        ("Repairing basis","FRI") if p.get("fri") else None,\n'''
 if needle in s:
     repl='''        ("Rateable value",money_fmt(p.get("rateable_value"))) if p.get("rateable_value") else None,\n        ("Accommodation",str(p.get("accommodation_summary"))) if p.get("accommodation_summary") else None,\n        ("Repairing basis","FRI") if p.get("fri") else None,\n'''
