@@ -1,0 +1,70 @@
+name: Trace actual Streamlit server timeline
+
+on:
+  push:
+    paths:
+      - '.github/workflows/trace-actual-streamlit-timeline.yml'
+  workflow_dispatch:
+
+jobs:
+  trace:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install app and browser tooling
+        run: |
+          pip install -r requirements.txt
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Instrument local app only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('app.py')
+          s=p.read_text(encoding='utf-8')
+          anchor='st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")'
+          s=s.replace(anchor, anchor+'\n_TRACE_T0=time.perf_counter()\ndef _trace(msg): print(f"TRACE {time.perf_counter()-_TRACE_T0:.3f}s {msg}", flush=True)\n_trace("SCRIPT_START")',1)
+          s=s.replace('rows,health,updated=load_rows()','_trace("BEFORE_LOAD_ROWS")\nrows,health,updated=load_rows()\n_trace(f"AFTER_LOAD_ROWS rows={len(rows)}")',1)
+          s=s.replace("st.markdown(\n    '<div class=\"hero\"", "_trace(\"BEFORE_HERO\")\nst.markdown(\n    '<div class=\"hero\"",1)
+          s=s.replace('with sources_tab:\n','_trace("BEFORE_SOURCE_TAB")\nwith sources_tab:\n',1)
+          s=s.replace('    if audit_rows:\n        st.dataframe(audit_rows,use_container_width=True,hide_index=True)','    if audit_rows:\n        _trace("BEFORE_SOURCE_DF")\n        st.dataframe(audit_rows,use_container_width=True,hide_index=True)\n        _trace("AFTER_SOURCE_DF")',1)
+          s=s.replace('    st.caption(f"{len(lots)} properties shown"','    _trace(f"BEFORE_CARD_BUILD lots={len(lots)}")\n    st.caption(f"{len(lots)} properties shown"',1)
+          s=s.replace("    st.markdown('<div class=\"cards\">'+\"\".join(cards)+'</div>',unsafe_allow_html=True)","    _trace(f\"BEFORE_CARDS_MARKDOWN cards={len(cards)}\")\n    st.markdown('<div class=\"cards\">'+\"\".join(cards)+'</div>',unsafe_allow_html=True)\n    _trace(\"AFTER_CARDS_MARKDOWN\")",1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Start Streamlit
+        run: |
+          nohup streamlit run app.py --server.headless true --server.port 8501 > /tmp/streamlit.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:8501/_stcore/health >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          exit 1
+      - name: Browser timing
+        run: |
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          import time
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True)
+              page=browser.new_page(viewport={"width":1440,"height":1000})
+              t0=time.perf_counter()
+              page.goto('http://127.0.0.1:8501',wait_until='commit',timeout=60000)
+              page.wait_for_selector('.hero',timeout=60000)
+              hero=time.perf_counter()-t0
+              page.wait_for_selector('.card',timeout=60000)
+              card=time.perf_counter()-t0
+              print(f'BROWSER hero={hero:.3f}s first_card={card:.3f}s hero_to_card={card-hero:.3f}s cards={page.locator(".card").count()}')
+              browser.close()
+          PY
+      - name: Show trace lines
+        if: always()
+        run: |
+          echo '--- SERVER TRACE ---'
+          grep 'TRACE ' /tmp/streamlit.log || true
+          echo '--- LOG TAIL ---'
+          tail -n 80 /tmp/streamlit.log || true
