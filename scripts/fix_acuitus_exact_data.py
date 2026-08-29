@@ -10,7 +10,7 @@ old = '''def _acuitus_current():
         soup=BeautifulSoup(fetch(url),"lxml"); links=[]
         for a in soup.find_all("a",href=True):
             href=urljoin(url,a["href"])
-            if re.search(r"acuitus\\.co\\.uk/property/\\d+/?",href) and href not in links: links.append(href)
+            if re.search(r"acuitus\.co\.uk/property/\d+/?",href) and href not in links: links.append(href)
         rows=[]
         with ThreadPoolExecutor(max_workers=8) as ex:
             futs=[ex.submit(_v652_exact_row,u,"Acuitus","2026-09-17","") for u in links[:20]]
@@ -38,42 +38,42 @@ new = '''def _acuitus_exact_row(url):
             h1=soup.find("h1")
             address=norm(h1.get_text(" ",strip=True)) if h1 else "Property"
 
-        lm=re.search(r"\\bLot\\s+(\\d+[A-Z]?)\\b",text,re.I)
+        lm=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
         lot=("Lot "+lm.group(1).upper()) if lm else "Lot TBC"
 
-        gm=re.search(r"Guide\\*?\\s*(?:£\\s*([\\d,]+)|Refer\\s+to\\s+Auctioneer)",text,re.I)
+        gm=re.search(r"Guide\*?\s*(?:£\s*([\d,]+)|Refer\s+to\s+Auctioneer)",text,re.I)
         guide=float(gm.group(1).replace(",","")) if gm and gm.group(1) else None
         guide_status="Refer to Auctioneer" if gm and not gm.group(1) else None
 
-        rm=re.search(r"\\bRent\\s+£\\s*([\\d,]+(?:\\.\\d+)?)\\s*(?:per\\s+annum|p\\.?a\\.?|pa)\\b",text,re.I)
+        rm=re.search(r"\bRent\s+£\s*([\d,]+(?:\.\d+)?)\s*(?:per\s+annum|p\.?a\.?|pa)\b",text,re.I)
         rent=float(rm.group(1).replace(",","")) if rm else None
-        tenure="Freehold" if re.search(r"\\bTenure\\s+Freehold\\b|\\bFreehold\\.",text,re.I) else ("Leasehold" if re.search(r"\\bTenure\\s+Leasehold\\b|\\bLeasehold\\.",text,re.I) else None)
+        tenure="Freehold" if re.search(r"\bTenure\s+Freehold\b|\bFreehold\.",text,re.I) else ("Leasehold" if re.search(r"\bTenure\s+Leasehold\b|\bLeasehold\.",text,re.I) else None)
 
-        if re.search(r"Not\\s+elected\\s+for\\s+VAT",text,re.I):
+        if re.search(r"Not\s+elected\s+for\s+VAT",text,re.I):
             vat="Not elected"
-        elif re.search(r"VAT\\s+is\\s+applicable\\s+to\\s+this\\s+lot|VAT\\s+applicable|subject\\s+to\\s+VAT",text,re.I):
+        elif re.search(r"VAT\s+is\s+applicable\s+to\s+this\s+lot|VAT\s+applicable|subject\s+to\s+VAT",text,re.I):
             vat="Applicable"
-        elif re.search(r"VAT\\s+(?:is\\s+)?not\\s+applicable|not\\s+subject\\s+to\\s+VAT",text,re.I):
+        elif re.search(r"VAT\s+(?:is\s+)?not\s+applicable|not\s+subject\s+to\s+VAT",text,re.I):
             vat="Not applicable"
         else:
             vat="UNKNOWN"
 
         epc=None
-        em=re.search(r"\\bEPC\\b(.{0,260})",text,re.I)
+        em=re.search(r"\bEPC\b(.{0,260})",text,re.I)
         if em:
             bands=[]
-            for b in re.findall(r"\\bBand\\s+([A-G])\\b",em.group(1),re.I):
+            for b in re.findall(r"\bBand\s+([A-G])\b",em.group(1),re.I):
                 b=b.upper()
                 if b not in bands: bands.append(b)
             if bands: epc=" / ".join(bands)
 
         area_sqm=area_sqft=None
-        am=re.search(r"(?:total\\s+floor\\s+area\\s+of\\s+)?(?:approximately|approx\\.?)?\\s*([\\d,]+(?:\\.\\d+)?)\\s*sq\\.?\\s*m\\.?\\s*\\(([\\d,]+(?:\\.\\d+)?)\\s*sq\\.?\\s*ft\\.?\\)",text,re.I)
+        am=re.search(r"(?:total\s+floor\s+area\s+of\s+)?(?:approximately|approx\.?)?\s*([\d,]+(?:\.\d+)?)\s*sq\.?\s*m\.?\s*\(([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft\.?\)",text,re.I)
         if am:
             area_sqm=float(am.group(1).replace(",",""))
             area_sqft=float(am.group(2).replace(",",""))
 
-        pid_match=re.search(r"/property/(\\d+)/?",url)
+        pid_match=re.search(r"/property/(\d+)/?",url)
         pid=pid_match.group(1) if pid_match else None
         image=None
         candidates=[]
@@ -82,7 +82,7 @@ new = '''def _acuitus_exact_row(url):
             if not src: continue
             u=urljoin(url,src)
             lu=u.lower()
-            if pid and re.search(rf"/uploads/\\d+-{re.escape(pid)}/",lu):
+            if pid and re.search(rf"/uploads/\d+-{re.escape(pid)}/",lu):
                 score=0
                 if "1600x900" in lu: score+=100
                 if "800x450" in lu: score+=60
@@ -111,7 +111,7 @@ def _acuitus_current():
         soup=BeautifulSoup(fetch(url),"lxml"); links=[]
         for a in soup.find_all("a",href=True):
             href=urljoin(url,a["href"])
-            if re.fullmatch(r"https://(?:www\\.)?acuitus\\.co\\.uk/property/\\d+/?",href,re.I) and href not in links:
+            if re.fullmatch(r"https://(?:www\.)?acuitus\.co\.uk/property/\d+/?",href,re.I) and href not in links:
                 links.append(href)
         rows=[]
         with ThreadPoolExecutor(max_workers=10) as ex:
@@ -127,6 +127,47 @@ def _acuitus_current():
 if old not in s:
     raise SystemExit('Acuitus collector anchor not found')
 s = s.replace(old, new, 1)
+
+# V6.54 later redefines _acuitus_current. Patch that final override too, otherwise
+# Python silently replaces the new exact-page collector with the old generic parser.
+final_old = '''def _acuitus_current():
+    listing='https://www.acuitus.co.uk/find-a-property/?clear=y'
+    try:
+        soup=BeautifulSoup(fetch(listing),'lxml'); links=[]
+        for a in soup.find_all('a',href=True):
+            href=urljoin(listing,a['href']).split('#')[0]
+            if re.search(r'https?://(?:www\\.)?acuitus\\.co\\.uk/property/\\d+/?$',href,re.I) and href not in links: links.append(href)
+        rows=[]
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            futs=[ex.submit(_v654_exact_row,u,'Acuitus','2026-09-17') for u in links[:40]]
+            for f in as_completed(futs):
+                r=f.result()
+                if r: rows.append(r)
+        return _clean_rows(rows)
+    except Exception:
+        return []
+'''
+final_new = '''def _acuitus_current():
+    listing='https://www.acuitus.co.uk/find-a-property/?clear=y'
+    try:
+        soup=BeautifulSoup(fetch(listing),'lxml'); links=[]
+        for a in soup.find_all('a',href=True):
+            href=urljoin(listing,a['href']).split('#')[0]
+            if re.fullmatch(r'https?://(?:www\\.)?acuitus\\.co\\.uk/property/\\d+/?',href,re.I) and href not in links:
+                links.append(href)
+        rows=[]
+        with ThreadPoolExecutor(max_workers=10) as ex:
+            futs=[ex.submit(_acuitus_exact_row,u) for u in links[:80]]
+            for f in as_completed(futs):
+                r=f.result()
+                if r: rows.append(r)
+        return _clean_rows(rows)
+    except Exception:
+        return []
+'''
+if final_old not in s:
+    raise SystemExit('Final V6.54 Acuitus override anchor not found')
+s = s.replace(final_old, final_new, 1)
 
 old_epc = '''    if p.get("epc"):
         f["EPC"]=str(p["epc"])
