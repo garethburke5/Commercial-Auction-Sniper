@@ -16,19 +16,38 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -r requirements.txt
-      - name: Measure Streamlit app execution
+      - name: Measure Streamlit app execution and network calls
         run: |
           python - <<'PY'
-          import time
+          import time, threading
+          import requests
           from streamlit.testing.v1 import AppTest
+
+          calls=[]
+          original=requests.sessions.Session.request
+          def traced(self, method, url, *args, **kwargs):
+              t=time.perf_counter()
+              try:
+                  return original(self, method, url, *args, **kwargs)
+              finally:
+                  dt=time.perf_counter()-t
+                  calls.append((dt, method, url, threading.current_thread().name))
+                  print(f'HTTP {dt:.3f}s {method} {url} thread={threading.current_thread().name}')
+          requests.sessions.Session.request=traced
+
           t0=time.perf_counter()
           at=AppTest.from_file('app.py')
           t1=time.perf_counter()
           at.run(timeout=120)
           t2=time.perf_counter()
-          print(f'APPTTEST_CREATE_SECONDS={t1-t0:.3f}')
-          print(f'APPTTEST_RUN_SECONDS={t2-t1:.3f}')
-          print(f'APPTTEST_TOTAL_SECONDS={t2-t0:.3f}')
+
+          print(f'APPTEST_CREATE_SECONDS={t1-t0:.3f}')
+          print(f'APPTEST_RUN_SECONDS={t2-t1:.3f}')
+          print(f'APPTEST_TOTAL_SECONDS={t2-t0:.3f}')
+          print(f'HTTP_CALL_COUNT={len(calls)}')
+          print(f'HTTP_TOTAL_SECONDS={sum(x[0] for x in calls):.3f}')
+          for dt,method,url,thread in sorted(calls, reverse=True)[:30]:
+              print(f'SLOW_HTTP {dt:.3f}s {method} {url} thread={thread}')
           if at.exception:
               print('EXCEPTIONS:', at.exception)
               raise SystemExit(1)
