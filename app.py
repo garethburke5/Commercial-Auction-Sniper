@@ -3545,6 +3545,8 @@ div[data-testid="stExpander"]:has(input[aria-label="Area / town / postcode"]){ba
 </style>
 """,unsafe_allow_html=True)
 
+LIGHT_MODE = bool(st.session_state.get("light_mode", False))
+
 if LIGHT_MODE:
     st.markdown("""
     <style>
