@@ -1,0 +1,65 @@
+name: Lazy-load legal pack engine
+on:
+  push:
+    paths:
+      - '.github/workflows/lazy-load-legal-pack.yml'
+permissions:
+  contents: write
+jobs:
+  patch-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Make legal engine lazy
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('app.py')
+          s=p.read_text(encoding='utf-8')
+          old='''try:\n    from legal_pack_service import analyse_uploaded_pack\nexcept Exception:\n    analyse_uploaded_pack=None\n'''
+          new='''# Heavy legal-pack parsers are loaded only when due diligence is actually run.\nanalyse_uploaded_pack=None\n'''
+          if old not in s:
+              raise SystemExit('top-level legal-pack import pattern not found')
+          s=s.replace(old,new,1)
+          old2='''        if st.button("Run Buyer Due Diligence",type="primary",disabled=not bool(uploads),key="run_uploaded_due_diligence"):\n            if not analyse_uploaded_pack:\n                st.error("Buyer Due Diligence engine is unavailable in this build.")\n            else:\n                try:\n'''
+          new2='''        if st.button("Run Buyer Due Diligence",type="primary",disabled=not bool(uploads),key="run_uploaded_due_diligence"):\n            try:\n                from legal_pack_service import analyse_uploaded_pack as _analyse_uploaded_pack\n            except Exception:\n                _analyse_uploaded_pack=None\n            if not _analyse_uploaded_pack:\n                st.error("Buyer Due Diligence engine is unavailable in this build.")\n            else:\n                try:\n'''
+          if old2 not in s:
+              raise SystemExit('due diligence button pattern not found')
+          s=s.replace(old2,new2,1)
+          s=s.replace('result=analyse_uploaded_pack(ref,supplied)','result=_analyse_uploaded_pack(ref,supplied)',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Compile and verify snapshot count
+        run: |
+          python -m py_compile app.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          s=Path('app.py').read_text(encoding='utf-8')
+          assert 'from legal_pack_service import analyse_uploaded_pack\n' not in s.split('st.set_page_config',1)[0]
+          assert 'from legal_pack_service import analyse_uploaded_pack as _analyse_uploaded_pack' in s
+          n=len(json.loads(Path('auction_sniper_cache.json').read_text(encoding='utf-8')).get('properties',[]))
+          print('snapshot rows:',n)
+          assert n >= 150
+          PY
+      - name: App smoke test
+        run: |
+          python - <<'PY'
+          import time
+          from streamlit.testing.v1 import AppTest
+          t=time.perf_counter(); at=AppTest.from_file('app.py').run(timeout=60); elapsed=time.perf_counter()-t
+          print(f'app run seconds: {elapsed:.3f}')
+          print('exceptions:',len(at.exception))
+          if at.exception: raise SystemExit(at.exception)
+          PY
+      - name: Commit production patch
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add app.py
+          git commit -m 'Lazy-load legal pack engine after user action'
+          git push
