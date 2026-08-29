@@ -1,0 +1,40 @@
+name: Apply light mode
+on:
+  workflow_dispatch:
+  push:
+    branches: [light-mode-toggle]
+    paths:
+      - apply_light_mode.py
+      - .github/workflows/apply-light-mode.yml
+jobs:
+  patch-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: light-mode-toggle
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install streamlit requests beautifulsoup4 lxml pypdf python-docx openpyxl
+      - name: Apply patch
+        run: python apply_light_mode.py
+      - name: Compile
+        run: python -m py_compile app.py
+      - name: Verify theme control and palette
+        run: |
+          grep -q 'V6.68-LIGHT-MODE' app.py
+          grep -q '☀️ Light background' app.py
+          grep -q 'if LIGHT_MODE:' app.py
+          grep -q '.stApp{background:#f5f7fa!important' app.py
+          grep -q '.card{background:#ffffff!important' app.py
+          grep -q 'key="light_mode"' app.py
+      - name: Commit app
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add app.py
+          git diff --cached --quiet || git commit -m "Add light background theme toggle"
+          git push origin HEAD:light-mode-toggle
