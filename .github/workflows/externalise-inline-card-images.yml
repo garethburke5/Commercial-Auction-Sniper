@@ -1,0 +1,90 @@
+name: Externalise inline card images
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/externalise-inline-card-images.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  optimise-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Move inline data images to Streamlit static files
+        run: |
+          python - <<'PY'
+          import base64, hashlib, json, re
+          from pathlib import Path
+
+          cache=Path('auction_sniper_cache.json')
+          payload=json.loads(cache.read_text(encoding='utf-8'))
+          props=payload.get('properties') or []
+          if len(props) < 150:
+              raise SystemExit(f'refusing to optimise shrunken cache: {len(props)} rows')
+
+          out=Path('static/property_images')
+          out.mkdir(parents=True,exist_ok=True)
+          converted=0
+          inline_before=0
+          for p in props:
+              image=str(p.get('image') or '')
+              if not image.startswith('data:image/'):
+                  continue
+              inline_before += len(image)
+              m=re.match(r'^data:image/([a-zA-Z0-9.+-]+);base64,(.*)$',image,re.S)
+              if not m:
+                  raise SystemExit('unsupported inline image format')
+              subtype=m.group(1).lower()
+              ext={'jpeg':'jpg','jpg':'jpg','png':'png','webp':'webp','gif':'gif'}.get(subtype,'bin')
+              raw=base64.b64decode(m.group(2),validate=False)
+              if len(raw) < 100:
+                  raise SystemExit('decoded image unexpectedly small')
+              name=f"{hashlib.sha256(raw).hexdigest()[:24]}.{ext}"
+              (out/name).write_bytes(raw)
+              p['image']=f'app/static/property_images/{name}'
+              converted += 1
+
+          if converted == 0:
+              raise SystemExit('no inline images found to externalise')
+          cache.write_text(json.dumps(payload,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+          check=json.loads(cache.read_text(encoding='utf-8'))
+          remaining=sum(1 for p in check.get('properties',[]) if str(p.get('image') or '').startswith('data:image/'))
+          static_refs=sum(1 for p in check.get('properties',[]) if str(p.get('image') or '').startswith('app/static/property_images/'))
+          print('rows:',len(check.get('properties',[])))
+          print('converted inline images:',converted)
+          print('inline payload chars removed:',inline_before)
+          print('remaining inline images:',remaining)
+          print('static refs:',static_refs)
+          if remaining:
+              raise SystemExit('inline images remain')
+          if len(check.get('properties',[])) < 150:
+              raise SystemExit('property count regressed')
+          PY
+      - name: Compile and smoke test app
+        run: |
+          python -m py_compile app.py
+          python - <<'PY'
+          import time
+          from streamlit.testing.v1 import AppTest
+          t=time.perf_counter(); at=AppTest.from_file('app.py').run(timeout=60); elapsed=time.perf_counter()-t
+          print(f'app run seconds: {elapsed:.3f}')
+          print('exceptions:',len(at.exception))
+          if at.exception:
+              raise SystemExit(at.exception)
+          PY
+      - name: Commit production payload fix
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add auction_sniper_cache.json static/property_images
+          git commit -m 'Serve inline card images as lazy static files'
+          git push
