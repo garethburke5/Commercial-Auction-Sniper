@@ -31,6 +31,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add app.py auction_sniper_cache.json app/static/property_images
+          git add app.py auction_sniper_cache.json static/property_images
           git commit -m 'Fix Acuitus property images and structured facts'
           git push
