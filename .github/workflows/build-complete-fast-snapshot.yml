@@ -1,0 +1,64 @@
+name: Build complete snapshot for fast startup
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/build-complete-fast-snapshot.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Build the same full property universe off the UI path
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          src=Path('app.py').read_text(encoding='utf-8')
+          marker='rows,health,updated=load_rows()'
+          if marker not in src:
+              raise SystemExit('startup marker not found')
+          ns={'__name__':'auction_snapshot_builder'}
+          exec(compile(src.split(marker,1)[0], 'app.py', 'exec'), ns)
+          payload=ns['refresh_market']()
+          print('background snapshot rows:', len(payload.get('properties',[])))
+          if len(payload.get('properties',[])) < 150:
+              raise SystemExit('refusing to publish shrunken snapshot')
+          PY
+      - name: Make production startup snapshot-only after full snapshot exists
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('app.py'); s=p.read_text(encoding='utf-8')
+          old='''rows,health,updated=load_rows()\ntry:\n    priority=_v654_priority_boot_rows()\n    if priority:\n        rows=_merge_property_universe(rows,priority)\n    rows=[r for r in rows if r.get("source")!="Clive Emson" or re.search(r"/properties/\\d+/\\d+/?$",r.get("url") or "",re.I)]'''
+          new='''rows,health,updated=load_rows()\ntry:\n    # Full collector universe is prebuilt into auction_sniper_cache.json by GitHub Actions.\n    # Never block first paint on auction-house network requests.\n    rows=[r for r in rows if r.get("source")!="Clive Emson" or re.search(r"/properties/\\d+/\\d+/?$",r.get("url") or "",re.I)]'''
+          if old not in s:
+              raise SystemExit('expected V6.67 startup block not found')
+          p.write_text(s.replace(old,new,1),encoding='utf-8')
+          PY
+      - run: python -m py_compile app.py
+      - name: Verify retained count and no live startup collector
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('auction_sniper_cache.json').read_text())
+          assert len(d['properties']) >= 150, len(d['properties'])
+          s=Path('app.py').read_text()
+          tail=s.split('rows,health,updated=load_rows()',1)[1][:700]
+          assert '_v654_priority_boot_rows()' not in tail
+          print('verified snapshot rows:',len(d['properties']))
+          PY
+      - name: Commit full snapshot and fast startup together
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add app.py auction_sniper_cache.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Keep full property count with snapshot-only startup'
+          git push
