@@ -1,0 +1,50 @@
+name: Hotfix snapshot-only startup
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - hotfix_snapshot_only_boot.py
+      - .github/workflows/hotfix-snapshot-only-boot.yml
+jobs:
+  hotfix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - name: Apply hotfix
+        run: python hotfix_snapshot_only_boot.py
+      - name: Compile
+        run: python -m py_compile app.py
+      - name: Execute Streamlit app test
+        run: |
+          python - <<'PY'
+          from streamlit.testing.v1 import AppTest
+          at=AppTest.from_file('app.py')
+          at.run(timeout=30)
+          if at.exception:
+              raise SystemExit(str(at.exception))
+          print('AppTest completed without exception')
+          PY
+      - name: Verify startup no longer scrapes live sources
+        run: |
+          grep -q 'V6.70-SNAPSHOT-FAST-BOOT' app.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('app.py').read_text()
+          block=s[s.index('rows,health,updated=load_rows()'):s.index('st.markdown(',s.index('rows,health,updated=load_rows()'))]
+          assert '_v654_priority_boot_rows()' not in block, block
+          print(block)
+          PY
+      - name: Commit hotfix
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add app.py
+          git diff --cached --quiet || git commit -m "Stop live scraping during Streamlit startup"
+          git push origin HEAD:main
