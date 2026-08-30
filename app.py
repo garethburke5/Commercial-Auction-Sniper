@@ -4142,7 +4142,26 @@ def _facts_html(p):
 
 
 def _safe_card_image_src(source,image_url):
-    return image_url or None
+    if not image_url:
+        return None
+    value=str(image_url).strip()
+    # Persisted property photos are served from repo-local static storage.
+    # Encode them locally so card rendering cannot fail because of CDN hotlink
+    # rules or relative /app/static URL resolution. No network request occurs.
+    rel=value
+    for prefix in ("/app/static/","app/static/","/static/","static/"):
+        if rel.startswith(prefix):
+            rel=rel[len(prefix):]
+            p=Path("static")/rel
+            try:
+                if p.exists() and p.is_file():
+                    ext=p.suffix.lower()
+                    mime=("image/png" if ext==".png" else "image/webp" if ext==".webp" else "image/jpeg")
+                    return f"data:{mime};base64,{base64.b64encode(p.read_bytes()).decode('ascii')}"
+            except Exception:
+                pass
+            break
+    return value
 
 def money(v): return "—" if v is None else f"£{v:,.0f}"
 def pct(v): return "—" if v is None else f"{v:.1f}%"
