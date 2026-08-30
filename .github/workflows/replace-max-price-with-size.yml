@@ -1,4 +1,4 @@
-name: Replace max-price headline with size
+name: Use tenure as fourth headline metric
 on:
   push:
     branches: [main]
@@ -17,21 +17,21 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -r requirements.txt
-      - name: Replace headline metric
+      - name: Replace size headline with tenure
         run: |
           python - <<'PY'
           from pathlib import Path
           p=Path('app.py')
           s=p.read_text(encoding='utf-8')
-          old='''        ceiling=x["rent"]/(target_yield/100.0) if x.get("rent") and target_yield else None\n        _sqft,_sqm=_property_area(x,norm(str(x.get("desc") or "")+" "+str(x.get("address") or "")))'''
-          new='''        _sqft,_sqm=_property_area(x,norm(str(x.get("desc") or "")+" "+str(x.get("address") or "")))'''
+          old='''        _size_text=(f"{_sqft:,.0f} sq ft / {_sqm:,.0f} sq m" if _sqft else None)\n        meta=" · ".join(v for v in [x.get("date"),x.get("tenure"),("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)'''
+          new='''        _size_text=(f"{_sqft:,.0f} sq ft / {_sqm:,.0f} sq m" if _sqft else None)\n        meta=" · ".join(v for v in [x.get("date"),("Size "+_size_text) if _size_text else None,("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)'''
           if old not in s:
-              raise SystemExit('ceiling calculation marker not found')
+              raise SystemExit('meta marker not found')
           s=s.replace(old,new,1)
-          old='''            +f'<div class="metric yieldMetric"><span>GIY</span><b>{pct(y)}</b></div>'\n            +f'<div class="metric"><span>Max price @ {target_yield:g}% yield</span><b>{money(ceiling)}</b></div>'\n            +(f'<div class="metric sizeMetric"><span>Size</span><b>{html.escape(_size_text)}</b></div>' if _size_text else '')'''
-          new='''            +f'<div class="metric yieldMetric"><span>GIY</span><b>{html.escape(pct(y))}</b></div>'\n            +'<div class="metric"><span>Size</span><b>'+html.escape(_size_text or "—")+'</b></div>' '''
+          old='''            +f'<div class="metric yieldMetric"><span>GIY</span><b>{html.escape(pct(y))}</b></div>'\n            +'<div class="metric"><span>Size</span><b>'+html.escape(_size_text or "—")+'</b></div>' '''
+          new='''            +f'<div class="metric yieldMetric"><span>GIY</span><b>{html.escape(pct(y))}</b></div>'\n            +'<div class="metric"><span>Tenure</span><b>'+html.escape((x.get("tenure") or "—").upper())+'</b></div>' '''
           if old not in s:
-              raise SystemExit('headline metric marker not found')
+              raise SystemExit('size headline marker not found')
           s=s.replace(old,new,1)
           p.write_text(s,encoding='utf-8')
           PY
@@ -43,11 +43,12 @@ jobs:
           from pathlib import Path
           s=Path('app.py').read_text(encoding='utf-8')
           card=s[s.index('class _ProgressiveCards'):]
-          assert 'Max price @ {target_yield:g}% yield' not in card
-          assert '<span>Size</span><b>' in card
+          assert '<span>Tenure</span><b>' in card
+          assert '<span>Size</span><b>' not in card
+          assert '("Size "+_size_text) if _size_text else None' in card
           assert 'class="metric yieldMetric"><span>GIY</span>' in card
           assert 'if len(self)==12:' in card
-          print('headline metric contract OK')
+          print('headline tenure contract OK')
           PY
       - name: Streamlit smoke test
         run: |
@@ -62,5 +63,5 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add app.py
-          git diff --cached --quiet || git commit -m 'Replace max-price headline metric with size'
+          git diff --cached --quiet || git commit -m 'Use tenure as fourth headline metric'
           git push
