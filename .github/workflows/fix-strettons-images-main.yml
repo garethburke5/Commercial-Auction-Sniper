@@ -1,0 +1,117 @@
+name: Fix Strettons property images
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-strettons-images-main.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Patch Strettons exact-page image hydration
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('app.py'); s=p.read_text(encoding='utf-8')
+          marker='def load_rows():\n'
+          if '_strettons_seed_exact_rows' not in s:
+            fn=r'''@st.cache_data(ttl=21600, show_spinner=False)
+def _strettons_seed_exact_rows(target_lots):
+    """Resolve Strettons catalogue rows to exact property pages and their property images."""
+    listing="https://www.strettons.co.uk/auction-commercial-property/for-sale/"
+    wanted={str(x).replace("Lot ","").strip().upper() for x in target_lots if x}
+    if not wanted: return []
+    try:
+        raw=fetch(listing); soup=BeautifulSoup(raw,"lxml")
+        links={}
+        for a in soup.find_all("a",href=True):
+            href=urljoin(listing,a["href"])
+            if "/auction-commercial-property-for-sale/" not in href: continue
+            node=a; card=""
+            for _ in range(10):
+                node=getattr(node,"parent",None)
+                if node is None: break
+                t=norm(node.get_text(" ",strip=True))
+                m=re.search(r"Lot\s+(\d+[A-Z]?)",t,re.I)
+                if m and len(t)<5000:
+                    card=t; break
+            m=re.search(r"Lot\s+(\d+[A-Z]?)",card,re.I)
+            if m and m.group(1).upper() in wanted:
+                links[m.group(1).upper()]=href
+        live=[]
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            futures={ex.submit(_exact_page_card,u,"Strettons","2026-09-10",True):(lot,u) for lot,u in links.items()}
+            for f in as_completed(futures):
+                lot,u=futures[f]
+                try:
+                    rec=f.result()
+                    if rec:
+                        rec["lot"]="Lot "+lot; rec["url"]=u
+                        live.append(rec)
+                except Exception: pass
+        return live
+    except Exception: return []
+
+def _hydrate_strettons_seed_rows(rows):
+    missing=[r for r in rows if r.get("source")=="Strettons" and not r.get("image")]
+    if not missing: return rows
+    live=_strettons_seed_exact_rows(tuple(r.get("lot") for r in missing))
+    if not live: return rows
+    return _merge_property_universe(rows,live)
+
+'''
+            if marker not in s: raise SystemExit('load_rows marker missing')
+            s=s.replace(marker,fn+marker,1)
+          # Snapshot-only startup is retained: do not add network hydration to first paint.
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Compile and smoke test
+        run: |
+          python -m py_compile app.py collector_enrichment.py
+          python - <<'PY'
+          from streamlit.testing.v1 import AppTest
+          at=AppTest.from_file('app.py',default_timeout=20).run()
+          print('exceptions',len(at.exception)); assert not at.exception
+          PY
+      - name: Refresh Strettons rows in snapshot
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          # Import app after smoke-tested patch, then call the cached resolver explicitly offline.
+          import app
+          cp=Path('auction_sniper_cache.json')
+          data=json.loads(cp.read_text(encoding='utf-8'))
+          rows=data.get('rows',data) if isinstance(data,dict) else data
+          before=len(rows)
+          targets=[r for r in rows if r.get('source')=='Strettons']
+          print('Strettons rows',len(targets),'missing images',sum(not r.get('image') for r in targets))
+          live=app._strettons_seed_exact_rows(tuple(r.get('lot') for r in targets if r.get('lot')))
+          print('resolved exact rows',len(live),'with images',sum(bool(r.get('image')) for r in live))
+          if targets and not live: raise SystemExit('Strettons exact resolver returned no rows')
+          rows=app._merge_property_universe(rows,live)
+          after=[r for r in rows if r.get('source')=='Strettons']
+          missing=sum(not r.get('image') for r in after)
+          print('after Strettons',len(after),'missing images',missing,'total',len(rows))
+          if len(rows)<150: raise SystemExit('property count regression')
+          if after and missing: raise SystemExit(f'{missing} Strettons rows still missing images')
+          if isinstance(data,dict): data['rows']=rows
+          else: data=rows
+          cp.write_text(json.dumps(data,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+          PY
+      - name: Commit repair
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add app.py auction_sniper_cache.json
+          git diff --cached --quiet || git commit -m 'Restore Strettons exact property images'
+          git push
