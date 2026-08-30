@@ -1,0 +1,190 @@
+name: Fix Clive Emson and Strettons images
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/fix-clive-strettons-images.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4 lxml
+      - name: Repair exact property images and make local images render reliably
+        run: |
+          python - <<'PY'
+          import base64, hashlib, html as htmlmod, json, mimetypes, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+          from bs4 import BeautifulSoup
+
+          ROOT=Path('.')
+          IMGDIR=ROOT/'static'/'property_images'
+          IMGDIR.mkdir(parents=True, exist_ok=True)
+          H={
+              'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131 Safari/537.36',
+              'Accept':'text/html,application/xhtml+xml,image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+          }
+
+          def fetch_html(url):
+              r=requests.get(url,headers=H,timeout=25)
+              r.raise_for_status()
+              return r.text
+
+          def strettons_remote(row):
+              current=row.get('image_url') or row.get('image') or ''
+              if current.startswith('http') and 'ggfx-strettons' in current:
+                  return current
+              u=row.get('url') or ''
+              if not u: return None
+              text=fetch_html(u)
+              found=re.findall(r'https://ggfx-strettons\.s3\.eu-west-2\.amazonaws\.com/i/api_sources/[^"\'<>\\s]+?/images/[^"\'<>\\s]+?\.(?:jpe?g|png|webp)',text,re.I)
+              found=list(dict.fromkeys(found))
+              found.sort(key=lambda x:(('web_medium' in x.lower()) or ('web_large' in x.lower()),len(x)),reverse=True)
+              return found[0] if found else None
+
+          def clive_remote(row):
+              u=row.get('url') or ''
+              if not u: return None
+              text=fetch_html(u)
+              s=BeautifulSoup(text,'lxml')
+              candidates=[]
+              def add(v,score=0):
+                  if not v: return
+                  v=htmlmod.unescape(str(v)).strip()
+                  if not v or v.startswith('data:'): return
+                  x=urljoin(u,v)
+                  low=x.lower()
+                  if any(b in low for b in ('logo','icon','favicon','sprite','avatar','social','ombudsman','rics','zoopla','rightmove','onthemarket')): return
+                  if '/pics/' in low: score+=30
+                  if re.search(r'/auc\d+/',low): score+=15
+                  if re.search(r'\.(?:jpe?g|png|webp)(?:\?|$)',low): score+=5
+                  candidates.append((score,x))
+              for img in s.find_all('img'):
+                  alt=(img.get('alt') or '').lower()
+                  bonus=15 if ('lot:' in alt or 'property' in alt or 'front' in alt) else 0
+                  for a in ('src','data-src','data-lazy-src','data-original'):
+                      add(img.get(a),bonus)
+                  for a in ('srcset','data-srcset'):
+                      ss=img.get(a)
+                      if ss:
+                          for part in ss.split(','): add(part.strip().split(' ')[0],bonus)
+              for a in s.find_all('a',href=True):
+                  add(a.get('href'),10)
+              # Clive Emson gallery links are commonly /Auc267/pics/<filename>.jpg.
+              for x in re.findall(r'(?i)(?:https?://[^"\'<> ]+|/[A-Za-z0-9_./%+ -]+)/(?:pics|Pics)/[^"\'<>]+?\.(?:jpe?g|png|webp)',text):
+                  add(x,25)
+              candidates.sort(key=lambda z:z[0],reverse=True)
+              return candidates[0][1] if candidates and candidates[0][0]>=20 else None
+
+          def localise(remote, page_url, prefix):
+              if not remote: return None
+              headers=dict(H)
+              headers['Referer']=page_url or ''
+              r=requests.get(remote,headers=headers,timeout=30)
+              r.raise_for_status()
+              ctype=(r.headers.get('content-type') or '').lower()
+              data=r.content
+              if len(data)<5000 or ('image/' not in ctype and not re.search(r'\.(?:jpe?g|png|webp)(?:\?|$)',remote,re.I)):
+                  raise RuntimeError(f'Not a credible image: {remote} ({ctype}, {len(data)} bytes)')
+              ext='.jpg'
+              if 'png' in ctype or '.png' in remote.lower(): ext='.png'
+              elif 'webp' in ctype or '.webp' in remote.lower(): ext='.webp'
+              name=f"{prefix}_{hashlib.sha1((page_url+'|'+remote).encode()).hexdigest()[:20]}{ext}"
+              p=IMGDIR/name
+              p.write_bytes(data)
+              return f'app/static/property_images/{name}'
+
+          touched=[]
+          def repair_doc(path):
+              p=ROOT/path
+              if not p.exists(): return (0,0)
+              doc=json.loads(p.read_text(encoding='utf-8'))
+              rows=doc.get('properties') or []
+              fixed=targets=0
+              for row in rows:
+                  src=row.get('source') or ''
+                  if src not in ('Strettons','Clive Emson'): continue
+                  targets+=1
+                  try:
+                      remote=strettons_remote(row) if src=='Strettons' else clive_remote(row)
+                      local=localise(remote,row.get('url') or '', 'strettons' if src=='Strettons' else 'clive')
+                      if not local:
+                          raise RuntimeError('no exact property image found')
+                      if path=='data/properties.json': row['image_url']=local
+                      else: row['image']=local
+                      fixed+=1
+                  except Exception as e:
+                      print('IMAGE_REPAIR_FAIL',src,row.get('lot_number') or row.get('lot'),row.get('url'),repr(e))
+              p.write_text(json.dumps(doc,indent=2,ensure_ascii=False),encoding='utf-8')
+              touched.append((path,targets,fixed))
+              return targets,fixed
+
+          # Production snapshot plus legacy cache rows that still appear in the app.
+          counts=[repair_doc('data/properties.json'),repair_doc('auction_sniper_cache.json')]
+
+          # Make local image references independent of Streamlit relative-URL behaviour:
+          # read the already-persisted file and emit a data URI. This is local-only and
+          # does not reintroduce cold-start HTTP requests.
+          app=Path('app.py')
+          text=app.read_text(encoding='utf-8')
+          old='''def _safe_card_image_src(source,image_url):\n    return image_url or None\n'''
+          new='''def _safe_card_image_src(source,image_url):\n    if not image_url:\n        return None\n    value=str(image_url).strip()\n    # Persisted property photos are served from repo-local static storage.\n    # Encode them locally so card rendering cannot fail because of CDN hotlink\n    # rules or relative /app/static URL resolution. No network request occurs.\n    rel=value\n    for prefix in ("/app/static/","app/static/","/static/","static/"):\n        if rel.startswith(prefix):\n            rel=rel[len(prefix):]\n            p=Path("static")/rel\n            try:\n                if p.exists() and p.is_file():\n                    ext=p.suffix.lower()\n                    mime=("image/png" if ext==".png" else "image/webp" if ext==".webp" else "image/jpeg")\n                    return f"data:{mime};base64,{base64.b64encode(p.read_bytes()).decode('ascii')}"\n            except Exception:\n                pass\n            break\n    return value\n'''
+          if old in text:
+              text=text.replace(old,new,1)
+              app.write_text(text,encoding='utf-8')
+          elif 'Persisted property photos are served from repo-local static storage.' not in text:
+              raise SystemExit('Could not patch _safe_card_image_src safely')
+
+          # Validate every Strettons row in the current production snapshot is local.
+          prod=json.loads(Path('data/properties.json').read_text(encoding='utf-8'))
+          st=[r for r in prod.get('properties',[]) if r.get('source')=='Strettons']
+          bad=[r for r in st if not str(r.get('image_url') or '').startswith('app/static/property_images/strettons_')]
+          if st and bad:
+              raise SystemExit(f'Strettons validation failed: {len(bad)}/{len(st)} not localised')
+
+          cache=json.loads(Path('auction_sniper_cache.json').read_text(encoding='utf-8'))
+          ce=[r for r in cache.get('properties',[]) if r.get('source')=='Clive Emson']
+          bad_ce=[r for r in ce if not str(r.get('image') or '').startswith('app/static/property_images/clive_')]
+          if ce and bad_ce:
+              raise SystemExit(f'Clive Emson validation failed: {len(bad_ce)}/{len(ce)} not localised')
+
+          print('REPAIR_COUNTS',touched)
+          print('STRETTONS_OK',len(st),'CLIVE_OK',len(ce))
+          PY
+      - name: Smoke checks
+        run: |
+          python -m py_compile app.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for fn,key,source in [('data/properties.json','image_url','Strettons'),('auction_sniper_cache.json','image','Clive Emson')]:
+              d=json.loads(Path(fn).read_text())
+              rows=[r for r in d.get('properties',[]) if r.get('source')==source]
+              print(fn,source,len(rows),sum(bool(r.get(key)) for r in rows))
+              for r in rows:
+                  v=r.get(key)
+                  if v and v.startswith('app/static/'):
+                      f=Path(v.removeprefix('app/'))
+                      assert f.exists() and f.stat().st_size>5000,(source,r.get('url'),v)
+          PY
+      - name: Commit repaired production assets
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add app.py data/properties.json auction_sniper_cache.json static/property_images
+          if git diff --cached --quiet; then
+            echo 'No changes required'
+          else
+            git commit -m 'Fix Clive Emson and Strettons images end-to-end'
+            git push
+          fi
