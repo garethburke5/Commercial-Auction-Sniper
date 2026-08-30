@@ -53,6 +53,44 @@ def _img_candidates(s, base):
         if u not in out: out.append(u)
     return out
 
+def _strettons_gallery_image(s, base):
+    """Return the exact Strettons lot photograph embedded in its page data.
+
+    Strettons' visible gallery is hydrated from page/JSON data and the property
+    photographs are served from the ggfx-strettons S3 api_sources path. They are
+    therefore often absent from ordinary <img src> markup used by generic
+    collectors. Restricting the match to that path also prevents staff/headshot
+    and branding images being selected.
+    """
+    raw=str(s).replace("\\/", "/")
+    found=re.findall(
+        r'https://ggfx-strettons\.s3\.eu-west-2\.amazonaws\.com/i/api_sources/[^"\'<>\s]+?/images/[^"\'<>\s]+?\.(?:jpe?g|png|webp)(?:\?[^"\'<>\s]*)?',
+        raw,
+        re.I,
+    )
+    if found:
+        unique=list(dict.fromkeys(found))
+        unique.sort(
+            key=lambda u: (
+                "web_large" in u.lower(),
+                "web_medium" in u.lower(),
+                "web_small" not in u.lower(),
+                len(u),
+            ),
+            reverse=True,
+        )
+        return unique[0]
+
+    # Defensive fallback if Strettons moves the URL into normal image markup
+    # while retaining its property-specific api_sources path.
+    candidates=[
+        u for u in _img_candidates(s,base)
+        if "ggfx-strettons.s3" in u.lower()
+        and "/i/api_sources/" in u.lower()
+        and "/images/" in u.lower()
+    ]
+    return candidates[0] if candidates else None
+
 def _btg_key(url):
     low=(url or "").lower()
     if "/properties/" in low:
@@ -97,6 +135,10 @@ def _btg_gallery_image(s, base):
 
 def image_from_soup(s, base):
     low=(base or "").lower()
+    if "strettons.co.uk" in low:
+        img=_strettons_gallery_image(s,base)
+        if img:
+            return img
     if "pugh-auctions.com" in low or "btgeddisonspropertyauctions.com" in low:
         img=_btg_gallery_image(s,base)
         if img:
