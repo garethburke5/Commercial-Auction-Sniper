@@ -4160,7 +4160,7 @@ with lots_tab:
         y=x.get("yield")
         _sqft,_sqm=_property_area(x,norm(str(x.get("desc") or "")+" "+str(x.get("address") or "")))
         _size_text=(f"{_sqft:,.0f} sq ft / {_sqm:,.0f} sq m" if _sqft else None)
-        meta=" · ".join(v for v in [x.get("date"),x.get("tenure"),("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)
+        meta=" · ".join(v for v in [x.get("date"),("Size "+_size_text) if _size_text else None,("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)
         _property_url=html.escape(str(x.get("url") or ""),quote=True)
         _address=str(x.get("address") or "").strip()
         _map_query=urllib.parse.quote_plus(_address)
@@ -4177,7 +4177,7 @@ with lots_tab:
             +f'<div class="metric"><span>Guide</span><b>{money(x.get("guide"))}</b></div>'
             +f'<div class="metric"><span>Rent p.a.</span><b>{money(x.get("rent"))}</b></div>'
             +f'<div class="metric yieldMetric"><span>GIY</span><b>{html.escape(pct(y))}</b></div>'
-            +'<div class="metric"><span>Size</span><b>'+html.escape(_size_text or "—")+'</b></div>' 
+            +'<div class="metric"><span>Tenure</span><b>'+html.escape((x.get("tenure") or "—").upper())+'</b></div>' 
             +'</div>'
             +f'<div class="meta">{html.escape(meta)}</div>'
             +_facts_html(x)
