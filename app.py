@@ -3247,6 +3247,10 @@ def _deep_enrich_rows(rows,limit=70):
     return [_normalise_rent_semantics(r) for r in rows]
 
 # ---------------- UI ----------------
+# Theme preference lives in session state so it is available before CSS is rendered.
+if "light_mode" not in st.session_state:
+    st.session_state["light_mode"] = False
+LIGHT_MODE = bool(st.session_state.get("light_mode", False))
 st.markdown("""
 <style>
 header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:none!important}
@@ -3420,6 +3424,34 @@ div[data-testid="stExpander"]:has(input[aria-label="Area / town / postcode"]){ba
 </style>
 """,unsafe_allow_html=True)
 
+if LIGHT_MODE:
+    st.markdown("""
+    <style>
+    .stApp{background:#f4f6f8!important;color:#15202b!important}
+    .block-container{color:#15202b!important}
+    .hero{background:linear-gradient(115deg,#ffffff 0%,#f7f8fa 100%)!important;border-color:#cbd5e1!important;box-shadow:0 4px 14px rgba(15,23,42,.08)!important}
+    .brand{color:#111827!important;text-shadow:none!important}.brand b{color:#b88700!important}
+    .tagline{color:#334155!important}.sub{color:#64748b!important}
+    .badge{background:#eefaf3!important;border-color:#84c99f!important;color:#17633a!important}
+    .card{background:#ffffff!important;border-color:#d4dce6!important;box-shadow:0 4px 14px rgba(15,23,42,.07)!important}
+    .card:hover{border-color:#94a3b8!important;box-shadow:0 9px 20px rgba(15,23,42,.11)!important}
+    .preview,.noimg{background:#e9edf2!important}.noimg{color:#64748b!important}
+    .src{color:#9a7200!important}.addr{color:#111827!important}
+    .metric{background:#f5f7fa!important;border-color:#d8e0e9!important}.metric span{color:#64748b!important}.metric b{color:#111827!important}
+    .yieldMetric{background:#edf8f1!important;border-color:#bddfc9!important}.yieldMetric b{color:#17633a!important}
+    .meta{color:#64748b!important}.chip{background:#eef2f6!important;border-color:#cbd5e1!important;color:#334155!important}
+    .analysis{border-top-color:#d8e0e9!important}.analysis summary{color:#334155!important}
+    .fact{background:#f8fafc!important;border-color:#d8e0e9!important}.fact span{color:#64748b!important}.fact b{color:#172033!important}
+    .iread{background:#fffbea!important;border-left-color:#c79b12!important}.iread span{color:#9a7200!important}.iread p{color:#334155!important}
+    .research a,.mapAction,.historyAction a{background:#f5f7fa!important;border-color:#cbd5e1!important;color:#334155!important}
+    .filterToolbarLabel,.yieldIntegratedLabel.left{background:#ffffff!important;border-color:#cbd5e1!important;color:#334155!important}
+    div[data-testid="stExpander"]{background:#ffffff!important;border-color:#d4dce6!important}
+    div[data-testid="stExpander"]:has(input[aria-label="Area / town / postcode"]){background:#ffffff!important;border-color:#d4dce6!important}
+    div[data-testid="stNumberInput"] label p{color:#334155!important}
+    div[data-testid="stTabs"] button{color:#334155!important}
+    </style>
+    """, unsafe_allow_html=True)
+
 @st.cache_data(ttl=1800,show_spinner=False)
 def _v654_priority_boot_rows():
     jobs={
@@ -3476,6 +3508,8 @@ with tool_yield:
         help="Target yield — changes the max purchase price on every rented property",
         label_visibility="collapsed"
     )
+with tool_space:
+    st.toggle("☀️ White background", key="light_mode", help="Switch between the standard dark board and a light board")
 
 
 # Nonblocking full-width filter panel. Unlike a popover it never overlays or dims the board.
