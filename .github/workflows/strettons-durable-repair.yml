@@ -1,0 +1,111 @@
+name: Durable Strettons image repair
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/strettons-durable-repair.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest playwright
+          playwright install --with-deps chromium
+
+      - name: Test Strettons image parser
+        run: pytest -q tests/test_strettons_images.py
+
+      - name: Allow corrected snapshot images to replace placeholders
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('app.py')
+          s=p.read_text(encoding='utf-8')
+          old='''    fill_fields=("image","area_sqft","area_sqm","tenant","lease_term","lease_start",
+                 "lease_expiry","break_clause","rent_review","erv","fri","legal_pack",
+                 "epc","rateable_value","service_charge","ground_rent")
+    for k in fill_fields:
+        if not out.get(k) and incoming.get(k):
+            out[k]=incoming[k]
+'''
+          new='''    fill_fields=("area_sqft","area_sqm","tenant","lease_term","lease_start",
+                 "lease_expiry","break_clause","rent_review","erv","fri","legal_pack",
+                 "epc","rateable_value","service_charge","ground_rent")
+    for k in fill_fields:
+        if not out.get(k) and incoming.get(k):
+            out[k]=incoming[k]
+
+    # A tiny inline/data-URI placeholder is not a genuine property photograph.
+    # Let a later exact-page collector snapshot replace it with a real HTTP image.
+    old_image=str(out.get("image") or "")
+    new_image=str(incoming.get("image") or "")
+    old_image_bad=(not old_image or old_image.lower().startswith("data:image") or
+                   any(x in old_image.lower() for x in ("placeholder","favicon","logo")))
+    new_image_good=(new_image.lower().startswith(("http://","https://")) and
+                    not any(x in new_image.lower() for x in ("placeholder","favicon","logo")))
+    if old_image_bad and new_image_good:
+        out["image"]=incoming["image"]
+'''
+          if old not in s:
+              if 'old_image_bad=' not in s:
+                  raise SystemExit('Expected merge block not found')
+          else:
+              s=s.replace(old,new,1)
+              p.write_text(s,encoding='utf-8')
+          PY
+
+      - name: Refresh production snapshot
+        run: python run_collectors.py
+
+      - name: Verify every live Strettons row has a real property image
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/properties.json').read_text(encoding='utf-8'))
+          rows=[r for r in d.get('properties',[]) if r.get('source')=='Strettons']
+          print('Strettons rows:',len(rows))
+          bad=[]
+          for r in rows:
+              img=str(r.get('image_url') or '')
+              if not img.startswith(('http://','https://')) or img.startswith('data:image'):
+                  bad.append((r.get('lot_number'),r.get('address'),img[:80]))
+          print('Bad Strettons images:',bad)
+          if not rows:
+              raise SystemExit('No Strettons rows collected')
+          if bad:
+              raise SystemExit(f'{len(bad)} Strettons rows still lack real images')
+          PY
+
+      - name: Compile and smoke test app
+        run: |
+          python -m py_compile app.py collectors/utils.py collectors/strettons.py
+          python - <<'PY'
+          from streamlit.testing.v1 import AppTest
+          at=AppTest.from_file('app.py',default_timeout=20).run()
+          print('exceptions',len(at.exception))
+          assert not at.exception
+          PY
+
+      - name: Commit repaired snapshot
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add app.py data/properties.json
+          git diff --cached --quiet || git commit -m 'Restore real Strettons property images'
+          git push
