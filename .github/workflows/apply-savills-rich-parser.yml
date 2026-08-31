@@ -1,4 +1,5 @@
 name: Apply rich Savills investment parser
+# rerun after exact-page discovery fix
 
 on:
   workflow_dispatch:
@@ -47,10 +48,6 @@ jobs:
           rich='''    if p.get("fri") is True:\n        f["Repairing"]="FRI"\n    if p.get("property_type"): f["Property type"]=str(p["property_type"])\n    if p.get("site_area_acres"): f["Site area"]=f'{p["site_area_acres"]:,.2f} acres'\n    if p.get("parking"): f["Parking"]=str(p["parking"])\n    if p.get("break_status"): f["Break status"]=str(p["break_status"])\n    if p.get("covenant_rating"):\n        cv=str(p["covenant_rating"])\n        if p.get("covenant_risk"): cv+=f' ({p["covenant_risk"]})'\n        f["Covenant"]=cv\n    if p.get("covenant_turnover"): f["Tenant turnover"]=str(p["covenant_turnover"])\n    if p.get("guarantors"): f["Lease security"]=str(p["guarantors"])\n    if p.get("pitch"): f["Pitch"]=str(p["pitch"])\n    if p.get("nearby_occupiers"): f["Nearby occupiers"]=str(p["nearby_occupiers"])\n    if p.get("listed_status"): f["Listed status"]=str(p["listed_status"])\n\n    # Context-sensitive badges: show what changes the investment case, not duplicate tenure.\n    for flag,label in (("development_potential","DEVELOPMENT"),("asset_management","ASSET MANAGEMENT"),\n                       ("refurbishment","REFURBISHMENT"),("residential_conversion","RESIDENTIAL CONVERSION")):\n        if p.get(flag) and label not in chips: chips.append(label)\n    if p.get("listed_status") and str(p["listed_status"]).upper() not in chips: chips.append(str(p["listed_status"]).upper())\n    if p.get("break_status") and "BREAK PASSED" not in chips: chips.append("BREAK PASSED")\n    if p.get("guarantors") and "GUARANTORS" not in chips: chips.append("GUARANTORS")\n    if p.get("covenant_risk") and "low risk" in str(p["covenant_risk"]).lower() and "LOW-RISK COVENANT" not in chips: chips.append("LOW-RISK COVENANT")\n    if p.get("rent_review") and "rpi" in str(p["rent_review"]).lower() and "RPI REVIEW" not in chips: chips.append("RPI REVIEW")\n    if p.get("property_type") and str(p["property_type"]).lower()=="mixed use" and "MIXED USE" not in chips: chips.append("MIXED USE")\n'''
           if fact_anchor in s and 'Context-sensitive badges: show what changes the investment case' not in s:
               s=s.replace(fact_anchor,rich,1)
-
-          # Explicit vacancy is information, not missing rent/yield data.
-          old_money='''def money(v): return "—" if v is None else f"£{v:,.0f}"\n'''
-          # Leave generic formatter unchanged; card-specific vacancy is handled where metrics render.
 
           s=s.replace('BUILD = "V6.67-INLINE-FILTERS"','BUILD = "V6.68-RICH-INVESTMENT-PARSER"',1)
           p.write_text(s,encoding='utf-8')
