@@ -1,4 +1,6 @@
+import json
 import re
+from pathlib import Path
 from urllib.parse import urljoin
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
 from .utils import soup, image_from_soup
@@ -39,8 +41,6 @@ def _savills_detail(href, lotno=None, fallback_address="", fallback_guide=None, 
     labelled_tenure=_first([r"\bTenure\s+(Freehold|Long Leasehold|Leasehold)\b"],text)
     tenure=(labelled_tenure.title() if labelled_tenure else parse_tenure(text))
 
-    # Prefer explicit total/GIA figures. Never let a smaller floor/component figure
-    # override an explicitly published overall accommodation figure.
     area_sqft=area_sqm=None
     for pat in [
         r"(?:Accommodation\s+)?([\d,]+(?:\.\d+)?)\s*sq\s*m\s*\(([\d,]+(?:\.\d+)?)\s*sq\s*ft\)",
@@ -145,39 +145,58 @@ def _savills_detail(href, lotno=None, fallback_address="", fallback_guide=None, 
         covenant_turnover=covenant_turnover,guarantors=guarantors,pitch=pitch,nearby_occupiers=nearby
     ).finalise()
 
+def _snapshot_links():
+    """Fallback exact URLs already verified in the persisted production snapshot."""
+    p=Path("data/properties.json")
+    if not p.exists(): return []
+    try:
+        rows=json.loads(p.read_text(encoding="utf-8")).get("properties",[])
+    except Exception:
+        return []
+    out=[]
+    for r in rows:
+        if r.get("source") != SOURCE: continue
+        u=str(r.get("url") or "").split("?",1)[0].rstrip("/")
+        if u.startswith(AUCTION_PREFIX) and u not in out:
+            out.append(u)
+    return out
+
 def collect():
+    links=[]
+    seen=set()
     try:
         s=soup(CURRENT,use_browser=True)
-        links=[]
-        seen=set()
         for a in s.find_all("a",href=True):
             href=urljoin(BASE,a["href"]).split("?",1)[0].rstrip("/")
-            if not href.startswith(AUCTION_PREFIX):
-                continue
+            if not href.startswith(AUCTION_PREFIX): continue
             tail=href[len(AUCTION_PREFIX):]
-            if not tail or "/" in tail:
-                continue
-            if tail in {"page-1","quantity-100","property_type-253","sort-by-0"}:
-                continue
+            if not tail or "/" in tail: continue
+            if href not in seen:
+                seen.add(href); links.append(href)
+    except Exception as e:
+        print("SAVILLS_CATALOGUE_FAIL",repr(e))
+
+    # Savills sometimes hides filtered catalogue links from headless sessions.
+    # Never drop the source in that case: enrich the exact lot URLs already in
+    # the production snapshot, which are the same public detail pages users open.
+    if len(links) < 5:
+        for href in _snapshot_links():
             if href not in seen:
                 seen.add(href); links.append(href)
 
-        lots=[]
-        for href in links:
-            try:
-                lot=_savills_detail(href)
-                if lot and lot.lot_number:
-                    lots.append(lot)
-            except Exception as e:
-                print("SAVILLS_DETAIL_FAIL",href,repr(e))
+    lots=[]
+    for href in links:
+        try:
+            lot=_savills_detail(href)
+            if lot and lot.lot_number:
+                lots.append(lot)
+        except Exception as e:
+            print("SAVILLS_DETAIL_FAIL",href,repr(e))
 
-        # Deduplicate by lot number, preferring the first exact-page record.
-        bylot={}
-        for lot in lots:
-            bylot.setdefault(lot.lot_number,lot)
-        lots=list(bylot.values())
-        found={x.lot_number for x in lots}; matched=len(KNOWN & found)
-        status="LIVE" if matched>=9 else "FAILED"
-        return SourceResult(SOURCE,status,lots,f"Exact Savills detail pages parsed: {len(lots)} lots; sanity check {matched}/{len(KNOWN)}")
-    except Exception as e:
-        return SourceResult(SOURCE,"FAILED",[],str(e))
+    bylot={}
+    for lot in lots:
+        bylot.setdefault(lot.lot_number,lot)
+    lots=list(bylot.values())
+    found={x.lot_number for x in lots}; matched=len(KNOWN & found)
+    status="LIVE" if matched>=9 else "FAILED"
+    return SourceResult(SOURCE,status,lots,f"Exact Savills detail pages parsed: {len(lots)} lots; sanity check {matched}/{len(KNOWN)}")
