@@ -142,6 +142,7 @@ def _rich_detail(lot, ds):
         r"Addendum:\s*Please note the current rental income is\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:PA|p\.?a\.?|per annum)",
         r"Current rental income\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:PA|p\.?a\.?|per annum)",
         r"Current gross income:\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:PA|p\.?a\.?|per annum)",
+        r"Total Income:\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:PA|p\.?a\.?|per annum)",
     ],text)
     if total_rent:
         lot.annual_rent=_number(total_rent)
@@ -205,12 +206,28 @@ def _rich_detail(lot, ds):
             lot.annual_rent=_number(rent)
 
     mixed=bool(re.search(r"\bMixed Use\b|mixed use investment|mixed-use investment",text,re.I))
-    flat_count=len(set(re.findall(r"\bFlat\s+(\d+)\b",(tenancy or ""),re.I)))
+    flat_numbers=set(re.findall(r"\bFlat\s+(\d+)\b",(tenancy or ""),re.I))
+    flat_count=len(flat_numbers)
+    vacant_flats=len(re.findall(r"Flat\s+\d+\s*-\s*Vacant",tenancy or "",re.I))
     if mixed:
         lot.property_type="Mixed use"
         lot.occupation="Multi-let" if flat_count or lease_details else "Tenanted"
-        if lot.tenant and flat_count:
+
+        occupiers=[]
+        for pat in (r"license to\s+(.+?)(?=\s+with effect|\s+for a term|[.;])",
+                    r"lease to\s+(.+?)(?=\s+with effect|\s+for a term|[.;])",
+                    r"trading as\s+(.+?)(?=,|\.| and \d|$)"):
+            for m in re.finditer(pat,tenancy or text,re.I):
+                name=norm(m.group(1)).strip("'\"“”")
+                if name and len(name)<80 and name.lower() not in {x.lower() for x in occupiers}:
+                    occupiers.append(name)
+        if occupiers:
+            lot.tenant=" / ".join(occupiers[:3]) + (f" + {flat_count} flats" if flat_count else "")
+        elif lot.tenant and flat_count:
             lot.tenant=f"{lot.tenant} + {flat_count} flats"
+
+        if vacant_flats:
+            lot.occupation=f"Part-let / {vacant_flats} flat{'s' if vacant_flats != 1 else ''} vacant"
         if re.search(r"tenant of flat\s+\d+\s+has served notice",text,re.I):
             lot.occupation="Multi-let; one flat under notice"
     elif tenancy or lease_details:
@@ -260,7 +277,8 @@ def _rich_detail(lot, ds):
         lot.vat_status="MENTIONED - VERIFY"
 
     lot.development_potential=True if re.search(r"development potential|development opportunity|subject to planning",text,re.I) else lot.development_potential
-    lot.asset_management=True if re.search(r"asset management opportunity|asset management potential",text,re.I) else lot.asset_management
+    lot.asset_management=True if re.search(r"asset management opportunity|asset management potential|further asset management potential",text,re.I) else lot.asset_management
+    lot.refurbishment=True if re.search(r"potential for refurbishment|refurbishment potential|offer the potential for refurbishment",text,re.I) else lot.refurbishment
 
     lot.description=text[:5000]
     return lot.finalise()
