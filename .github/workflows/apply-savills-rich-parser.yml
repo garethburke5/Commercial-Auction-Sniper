@@ -6,6 +6,8 @@ on:
   push:
     paths:
       - '.github/workflows/apply-savills-rich-parser.yml'
+      - 'collectors/savills.py'
+      - 'collectors/core.py'
 
 permissions:
   contents: write
