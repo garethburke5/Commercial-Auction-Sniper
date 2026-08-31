@@ -7,7 +7,6 @@ from .utils import soup, nearest_card, detail_lot
 
 SOURCE = "Auction House London"
 URL = "https://auctionhouselondon.co.uk/auction/september-2-3-2026"
-COMMERCIAL_HINTS=("commercial","mixed use","mixed-use","retail","workshop","office","industrial","warehouse","shop","public house","restaurant","business premises","care home","development")
 
 
 def _num(v):
@@ -44,13 +43,11 @@ def _rich_detail(lot, ds):
     """Auction House London exact-page enrichment; labelled particulars outrank generic/cache facts."""
     main=ds.find("main") or ds
     text=norm(main.get_text(" ",strip=True))
-    # Cut off related cards so their guide/rent/tenure cannot contaminate this lot.
     text=re.split(r"\bSimilar Properties\b",text,1,flags=re.I)[0]
 
     lm=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
     if lm: lot.lot_number="Lot "+lm.group(1)
 
-    # Preserve lower guide numerically for filtering/GIY; retain full range in description.
     gm=re.search(r"£\s*([\d,]+(?:\.\d+)?)\s*(?:-\s*£\s*([\d,]+(?:\.\d+)?)|\+)?\s*Guide Price",text,re.I)
     if gm: lot.guide_price=_num(gm.group(1))
 
@@ -68,7 +65,6 @@ def _rich_detail(lot, ds):
     if accom:
         pairs=re.findall(r"([\d,]+(?:\.\d+)?)\s*sq\s*m\s*\(([\d,]+(?:\.\d+)?)\s*sq\s*ft\)",accom,re.I)
         if pairs:
-            # If a total is explicitly present it is normally the largest pair; otherwise sum floors/components.
             vals=[(_num(a),_num(b)) for a,b in pairs]
             if len(vals)==1:
                 lot.area_sqm,lot.area_sqft=vals[0]
@@ -85,9 +81,7 @@ def _rich_detail(lot, ds):
     tenancy=_section(text,"Tenancy",["VAT","EPC Rating","Planning","Joint Agent","Note"])
     headline=text[:min(len(text),1800)]
     vacant=bool(re.search(r"\bVacant\b",headline,re.I))
-    historic=_first([r"previously let (?:for|at)\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?)"],text)
 
-    # Current rent only from current tenancy/headline language; never from financial calculator or historic rent.
     current=_first([
         r"Fully Let Producing\s*£\s*([\d,]+(?:\.\d+)?)\s*Per Annum",
         r"Let Producing\s*£\s*([\d,]+(?:\.\d+)?)\s*Per Annum",
@@ -116,9 +110,7 @@ def _rich_detail(lot, ds):
         review=_first([r"(\d+[- ]yearly RPI index linked reviews?)",r"(RPI index linked reviews?[^.;]{0,80})",r"(rent reviews?[^.;]{0,100})"],tenancy)
         if review: lot.rent_review=review
         br=_first([r"(Tenant(?:'s)? break clause\s+20\d{2})",r"(break clause[^.;]{0,80})"],tenancy)
-        if br:
-            lot.break_clause=br
-            lot.break_status="PASSED" if re.search(r"did not exercise|not exercised",tenancy,re.I) else None
+        if br: lot.break_clause=br
         if re.search(r"did not exercise (?:their )?break clause",tenancy,re.I):
             lot.break_status="PASSED"; lot.break_clause="Break not exercised"
 
@@ -150,25 +142,37 @@ def _rich_detail(lot, ds):
 
     if re.search(r"prominent|busy|city centre|town centre",text,re.I): lot.pitch="Prominent/established commercial location"
 
-    # Keep exact-page evidence, including historic rent and guide range, for Investment Details.
     lot.description=text[:6000]
     return lot.finalise()
 
 
 def collect():
     try:
+        # Discover every exact lot URL from the exact September catalogue. Do not
+        # pre-filter on the surrounding card: AHL's current markup often leaves the
+        # anchor without enough nearby text, which previously produced zero targets.
         s=soup(URL,use_browser=False)
         seen,targets=set(),[]
         for a in s.find_all("a",href=True):
             href=urljoin(URL,a["href"])
             if "/lot/" not in href or href in seen: continue
-            card=nearest_card(a,4200); low=card.lower()
-            if "sold prior" in low or "withdrawn" in low:
-                seen.add(href); continue
-            if not any(x in low for x in COMMERCIAL_HINTS): continue
             seen.add(href)
+            card=nearest_card(a,4200)
+            low=card.lower()
+            if "sold prior" in low or "withdrawn" in low: continue
             m=re.search(r"\bLOT\s+(\d+[A-Z]?)\b",card,re.I)
             targets.append((href,card,f"Lot {m.group(1)}" if m else None))
+
+        # Browser fallback if static catalogue markup changes.
+        if not targets:
+            s=soup(URL,use_browser=True)
+            for a in s.find_all("a",href=True):
+                href=urljoin(URL,a["href"])
+                if "/lot/" not in href or href in seen: continue
+                seen.add(href)
+                card=nearest_card(a,4200)
+                m=re.search(r"\bLOT\s+(\d+[A-Z]?)\b",card,re.I)
+                targets.append((href,card,f"Lot {m.group(1)}" if m else None))
 
         lots=[]
         def hydrate(item):
@@ -178,7 +182,8 @@ def collect():
                 try: lot=_rich_detail(lot,soup(href,use_browser=False))
                 except Exception as e: print("AHL_RICH_DETAIL_FAIL",href,repr(e))
             return lot
-        with ThreadPoolExecutor(max_workers=8) as ex:
+
+        with ThreadPoolExecutor(max_workers=10) as ex:
             futures=[ex.submit(hydrate,x) for x in targets]
             for f in as_completed(futures):
                 try:
@@ -186,6 +191,6 @@ def collect():
                     if lot: lots.append(lot.finalise())
                 except Exception: pass
         status="LIVE" if lots else "FAILED"
-        return SourceResult(SOURCE,status,lots,f"Sep 2/3 exact pages: {len(lots)} commercial/mixed-use lots")
+        return SourceResult(SOURCE,status,lots,f"Sep 2/3 catalogue {len(targets)} exact URLs; {len(lots)} commercial/mixed-use lots")
     except Exception as e:
         return SourceResult(SOURCE,"FAILED",[],str(e))
