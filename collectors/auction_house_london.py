@@ -39,6 +39,54 @@ def _section(text,name,next_names):
     return _first([rf"{re.escape(name)}\s+(.+?)(?=(?:{tail})\s+|Financial Tools|Legal Pack|Additional Fees|Similar Properties|$)"],text)
 
 
+def _ahl_exact_is_commercial(ds):
+    """Classify AHL from the exact lot page, not the generic cross-source classifier.
+
+    AHL exposes its property class and the auction headline at the top of each lot
+    page.  Those source labels are much more reliable than generic keyword rules.
+    Residential-only lots are explicitly rejected; mixed/commercial/development
+    lots are retained.  Land is retained only when the headline itself contains a
+    commercial/industrial/business use signal.
+    """
+    main=ds.find("main") or ds
+    text=norm(main.get_text(" ",strip=True))
+    head=text[:2200]
+    low=head.lower()
+
+    # Strong AHL source classifications / headline evidence.
+    strong=(
+        "commercial property","retail property","industrial development",
+        "industrial property","industrial building","commercial investment",
+        "commercial unit","commercial building","commercial premises",
+        "retail investment","retail unit","shop investment","shop unit",
+        "office investment","office unit","warehouse","workshop",
+        "restaurant","public house"," pub ","hotel","care home",
+        "business premises","mixed use","mixed-use","commercial/residential",
+        "commercial / residential","vaults","tunnels",
+    )
+    if any(x in low for x in strong):
+        return True
+
+    # AHL sometimes labels unusual commercial opportunities simply as Land or
+    # Development.  Require a business-use cue so residential plots stay out.
+    if re.search(r"\b(?:land|development)\b",low):
+        if re.search(r"\b(?:industrial|commercial|retail|office|warehouse|workshop|business|garage block|storage|yard)\b",low):
+            return True
+
+    # Explicit residential source classes remain excluded unless a strong mixed
+    # or commercial signal above has already won.
+    residential=(
+        " flat "," apartment "," maisonette "," terraced ","semi-detached",
+        "detached house","end of terrace","mid terrace house","bungalow",
+        "cottage","residential property","three bedroom","four bedroom",
+        "two bedroom","one bedroom flat","studio flat",
+    )
+    if any(x in f" {low} " for x in residential):
+        return False
+
+    return False
+
+
 def _rich_detail(lot, ds):
     """Auction House London exact-page enrichment; labelled particulars outrank generic/cache facts."""
     main=ds.find("main") or ds
@@ -148,9 +196,6 @@ def _rich_detail(lot, ds):
 
 def collect():
     try:
-        # Discover every exact lot URL from the exact September catalogue. Do not
-        # pre-filter on the surrounding card: AHL's current markup often leaves the
-        # anchor without enough nearby text, which previously produced zero targets.
         s=soup(URL,use_browser=False)
         seen,targets=set(),[]
         for a in s.find_all("a",href=True):
@@ -163,7 +208,6 @@ def collect():
             m=re.search(r"\bLOT\s+(\d+[A-Z]?)\b",card,re.I)
             targets.append((href,card,f"Lot {m.group(1)}" if m else None))
 
-        # Browser fallback if static catalogue markup changes.
         if not targets:
             s=soup(URL,use_browser=True)
             for a in s.find_all("a",href=True):
@@ -175,22 +219,40 @@ def collect():
                 targets.append((href,card,f"Lot {m.group(1)}" if m else None))
 
         lots=[]
+        rejected=0
+        failures=0
+
         def hydrate(item):
             href,card,lotno=item
-            lot=detail_lot(SOURCE,href,seed=card,lot_number=lotno,auction_date="2026-09-02",force_commercial=False,strict_commercial=True)
-            if lot:
-                try: lot=_rich_detail(lot,soup(href,use_browser=False))
-                except Exception as e: print("AHL_RICH_DETAIL_FAIL",href,repr(e))
-            return lot
+            try:
+                ds=soup(href,use_browser=False)
+                if not _ahl_exact_is_commercial(ds):
+                    return "REJECTED", None
+                # Source-specific AHL classification has already established that
+                # this exact page is commercial/mixed-use.  Bypass the generic
+                # cross-source classifier which was incorrectly rejecting all AHL lots.
+                lot=detail_lot(SOURCE,href,seed=card,lot_number=lotno,auction_date="2026-09-02",force_commercial=True,strict_commercial=False)
+                if not lot:
+                    return "FAILED", None
+                lot=_rich_detail(lot,ds)
+                return "OK", lot
+            except Exception as e:
+                print("AHL_HYDRATE_FAIL",href,repr(e))
+                return "FAILED", None
 
         with ThreadPoolExecutor(max_workers=10) as ex:
             futures=[ex.submit(hydrate,x) for x in targets]
             for f in as_completed(futures):
                 try:
-                    lot=f.result()
-                    if lot: lots.append(lot.finalise())
-                except Exception: pass
+                    kind,lot=f.result()
+                    if kind=="OK" and lot: lots.append(lot.finalise())
+                    elif kind=="REJECTED": rejected+=1
+                    else: failures+=1
+                except Exception:
+                    failures+=1
+
         status="LIVE" if lots else "FAILED"
-        return SourceResult(SOURCE,status,lots,f"Sep 2/3 catalogue {len(targets)} exact URLs; {len(lots)} commercial/mixed-use lots")
+        msg=f"Sep 2/3 catalogue {len(targets)} exact URLs; {len(lots)} commercial/mixed-use lots; {rejected} residential/non-commercial rejected; {failures} fetch/parser failures"
+        return SourceResult(SOURCE,status,lots,msg)
     except Exception as e:
         return SourceResult(SOURCE,"FAILED",[],str(e))
