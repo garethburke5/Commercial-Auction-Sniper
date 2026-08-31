@@ -25,18 +25,24 @@ jobs:
           s=p.read_text(encoding='utf-8')
 
           old='''    mixed=bool(re.search(r"\\bMixed Use\\b|mixed use investment|mixed-use investment",text,re.I))\n    flat_count=len(set(re.findall(r"\\bFlat\\s+(\\d+)\\b",(tenancy or ""),re.I)))\n    if mixed:\n        lot.property_type="Mixed use"\n        lot.occupation="Multi-let" if flat_count or lease_details else "Tenanted"\n        if lot.tenant and flat_count:\n            lot.tenant=f"{lot.tenant} + {flat_count} flats"\n        if re.search(r"tenant of flat\\s+\\d+\\s+has served notice",text,re.I):\n            lot.occupation="Multi-let; one flat under notice"\n'''
-          new='''    mixed=bool(re.search(r"\\bMixed Use\\b|mixed use investment|mixed-use investment",text,re.I))\n    flat_numbers=set(re.findall(r"\\bFlat\\s+(\\d+)\\b",(tenancy or ""),re.I))\n    flat_count=len(flat_numbers)\n    vacant_flats=len(re.findall(r"Flat\\s+\\d+\\s*-\\s*Vacant",tenancy or "",re.I))\n    if mixed:\n        lot.property_type="Mixed use"\n        lot.occupation="Multi-let" if flat_count or lease_details else "Tenanted"\n\n        # Capture named commercial occupiers without pretending they are the only tenants.\n        occupiers=[]\n        for pat in (r"license to\\s+(.+?)(?=\\s+with effect|\\s+for a term|[.;])",\n                    r"lease to\\s+(.+?)(?=\\s+with effect|\\s+for a term|[.;])",\n                    r"trading as\\s+(.+?)(?=,|\\.| and \\d|$)"):\n            for m in re.finditer(pat,tenancy or text,re.I):\n                name=norm(m.group(1)).strip("'\\\"“”")\n                if name and len(name)<80 and name.lower() not in {x.lower() for x in occupiers}:\n                    occupiers.append(name)\n        if occupiers:\n            lot.tenant=" / ".join(occupiers[:3]) + (f" + {flat_count} flats" if flat_count else "")\n        elif lot.tenant and flat_count:\n            lot.tenant=f"{lot.tenant} + {flat_count} flats"\n\n        if vacant_flats:\n            lot.occupation=f"Part-let / {vacant_flats} flat{'s' if vacant_flats != 1 else ''} vacant"\n        if re.search(r"tenant of flat\\s+\\d+\\s+has served notice",text,re.I):\n            lot.occupation="Multi-let; one flat under notice"\n'''
-          if old not in s:
-              raise SystemExit('target mixed-use block not found')
-          s=s.replace(old,new,1)
+          new='''    mixed=bool(re.search(r"\\bMixed Use\\b|mixed use investment|mixed-use investment",text,re.I))\n    flat_numbers=set(re.findall(r"\\bFlat\\s+(\\d+)\\b",(tenancy or ""),re.I))\n    flat_count=len(flat_numbers)\n    vacant_flats=len(re.findall(r"Flat\\s+\\d+\\s*-\\s*Vacant",tenancy or "",re.I))\n    if mixed:\n        lot.property_type="Mixed use"\n        lot.occupation="Multi-let" if flat_count or lease_details else "Tenanted"\n\n        occupiers=[]\n        for pat in (r"license to\\s+(.+?)(?=\\s+with effect|\\s+for a term|[.;])",\n                    r"lease to\\s+(.+?)(?=\\s+with effect|\\s+for a term|[.;])",\n                    r"trading as\\s+(.+?)(?=,|\\.| and \\d|$)"):\n            for m in re.finditer(pat,tenancy or text,re.I):\n                name=norm(m.group(1)).strip("'\\\"“”")\n                if name and len(name)<80 and name.lower() not in {x.lower() for x in occupiers}:\n                    occupiers.append(name)\n        if occupiers:\n            lot.tenant=" / ".join(occupiers[:3]) + (f" + {flat_count} flats" if flat_count else "")\n        elif lot.tenant and flat_count:\n            lot.tenant=f"{lot.tenant} + {flat_count} flats"\n\n        if vacant_flats:\n            lot.occupation=f"Part-let / {vacant_flats} flat{'s' if vacant_flats != 1 else ''} vacant"\n        if re.search(r"tenant of flat\\s+\\d+\\s+has served notice",text,re.I):\n            lot.occupation="Multi-let; one flat under notice"\n'''
+          if 'flat_numbers=set(' not in s:
+              if old not in s:
+                  raise SystemExit('target mixed-use block not found')
+              s=s.replace(old,new,1)
 
           old2='''    lot.development_potential=True if re.search(r"development potential|development opportunity|subject to planning",text,re.I) else lot.development_potential\n    lot.asset_management=True if re.search(r"asset management opportunity|asset management potential",text,re.I) else lot.asset_management\n'''
           new2='''    lot.development_potential=True if re.search(r"development potential|development opportunity|subject to planning",text,re.I) else lot.development_potential\n    lot.asset_management=True if re.search(r"asset management opportunity|asset management potential|further asset management potential",text,re.I) else lot.asset_management\n    lot.refurbishment=True if re.search(r"potential for refurbishment|refurbishment potential|offer the potential for refurbishment",text,re.I) else lot.refurbishment\n'''
-          if old2 not in s:
-              raise SystemExit('strategy flag block not found')
-          s=s.replace(old2,new2,1)
+          if 'lot.refurbishment=True if re.search(' not in s:
+              if old2 not in s:
+                  raise SystemExit('strategy flag block not found')
+              s=s.replace(old2,new2,1)
 
-          # Current total income wording used by multi-let schedules must outrank components.\n          s=s.replace('''        r"Current gross income:\\s*£\\s*([\\d,]+(?:\\.\\d+)?)\\s*(?:PA|p\\.?a\\.?|per annum)",\n''','''        r"Current gross income:\\s*£\\s*([\\d,]+(?:\\.\\d+)?)\\s*(?:PA|p\\.?a\\.?|per annum)",\n        r"Total Income:\\s*£\\s*([\\d,]+(?:\\.\\d+)?)\\s*(?:PA|p\\.?a\\.?|per annum)",\n''',1)
+          if 'r"Total Income:' not in s:
+              marker='''        r"Current gross income:\\s*£\\s*([\\d,]+(?:\\.\\d+)?)\\s*(?:PA|p\\.?a\\.?|per annum)",'''
+              if marker not in s:
+                  raise SystemExit('current gross income marker not found')
+              s=s.replace(marker, marker+'\n        r"Total Income:\\s*£\\s*([\\d,]+(?:\\.\\d+)?)\\s*(?:PA|p\\.?a\\.?|per annum)",',1)
 
           p.write_text(s,encoding='utf-8')
           PY
@@ -46,7 +52,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           s=Path('collectors/bond_wolfe.py').read_text()
-          for needle in ('Part-let /','further asset management potential','offer the potential for refurbishment','Total Income:'):
+          for needle in ('Part-let /','further asset management potential','offer the potential for refurbishment','r"Total Income:'):
               assert needle in s, needle
           print('BOND_WOLFE_MULTILET_PATCH_OK')
           PY
