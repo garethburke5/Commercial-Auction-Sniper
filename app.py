@@ -21,7 +21,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.67-INLINE-FILTERS"
+BUILD = "V6.68-RICH-INVESTMENT-PARSER"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -1470,9 +1470,11 @@ def _merge_property_rows(existing, incoming, seed_authoritative=False):
     out=dict(existing)
 
     # Fields where richer incoming data should fill a blank existing value.
-    fill_fields=("image","area_sqft","area_sqm","tenant","lease_term","lease_start",
-                 "lease_expiry","break_clause","rent_review","erv","fri","legal_pack",
-                 "epc","rateable_value","service_charge","ground_rent")
+    fill_fields=("image","area_sqft","area_sqm","site_area_acres","tenant","lease_term","lease_start",
+                 "lease_expiry","break_clause","break_status","rent_review","erv","fri","legal_pack",
+                 "epc","rateable_value","service_charge","ground_rent","property_type","occupation","parking",
+                 "development_potential","asset_management","refurbishment","residential_conversion","listed_status",
+                 "covenant_rating","covenant_risk","covenant_turnover","guarantors","pitch","nearby_occupiers")
     for k in fill_fields:
         if not out.get(k) and incoming.get(k):
             out[k]=incoming[k]
@@ -1859,6 +1861,20 @@ def load_rows():
                     legal_pack_status=x.get("legal_pack_status") or "UNKNOWN",
                     legal_pack_url=x.get("legal_pack_url"),
                     status=x.get("status") or "Live",
+                    area_sqft=x.get("area_sqft"), area_sqm=x.get("area_sqm"),
+                    site_area_acres=x.get("site_area_acres"), tenant=x.get("tenant"),
+                    lease_term=x.get("lease_term"), lease_start=x.get("lease_start"),
+                    lease_expiry=x.get("lease_expiry"), break_clause=x.get("break_clause"),
+                    break_status=x.get("break_status"), rent_review=x.get("rent_review"),
+                    fri=x.get("fri"), erv=x.get("erv"), epc=x.get("epc"),
+                    rateable_value=x.get("rateable_value"), service_charge=x.get("service_charge"),
+                    ground_rent=x.get("ground_rent"), property_type=x.get("property_type"),
+                    occupation=x.get("occupation"), parking=x.get("parking"),
+                    development_potential=x.get("development_potential"), asset_management=x.get("asset_management"),
+                    refurbishment=x.get("refurbishment"), residential_conversion=x.get("residential_conversion"),
+                    listed_status=x.get("listed_status"), covenant_rating=x.get("covenant_rating"),
+                    covenant_risk=x.get("covenant_risk"), covenant_turnover=x.get("covenant_turnover"),
+                    guarantors=x.get("guarantors"), pitch=x.get("pitch"), nearby_occupiers=x.get("nearby_occupiers"),
                 ))
             if live_rows:
                 cached_rows.extend(live_rows)
@@ -3612,7 +3628,7 @@ def _remaining_years(s):
 
 SAVILLS_VERIFIED_AREAS = {
     "Lot 73": (None,None),
-    "Lot 75": (8912,827.92),
+    "Lot 75": (12082,1122.00),
     "Lot 76": (2809,260.94),
     "Lot 77": (1103,102.47),
     "Lot 78": (7749,719.88),
@@ -3979,6 +3995,30 @@ def _investment_facts(p):
         f["Rateable value"]=f'£{p["rateable_value"]:,.0f}'
     if p.get("fri") is True:
         f["Repairing"]="FRI"
+    if p.get("property_type"): f["Property type"]=str(p["property_type"])
+    if p.get("site_area_acres"): f["Site area"]=f'{p["site_area_acres"]:,.2f} acres'
+    if p.get("parking"): f["Parking"]=str(p["parking"])
+    if p.get("break_status"): f["Break status"]=str(p["break_status"])
+    if p.get("covenant_rating"):
+        cv=str(p["covenant_rating"])
+        if p.get("covenant_risk"): cv+=f' ({p["covenant_risk"]})'
+        f["Covenant"]=cv
+    if p.get("covenant_turnover"): f["Tenant turnover"]=str(p["covenant_turnover"])
+    if p.get("guarantors"): f["Lease security"]=str(p["guarantors"])
+    if p.get("pitch"): f["Pitch"]=str(p["pitch"])
+    if p.get("nearby_occupiers"): f["Nearby occupiers"]=str(p["nearby_occupiers"])
+    if p.get("listed_status"): f["Listed status"]=str(p["listed_status"])
+
+    # Context-sensitive badges: show what changes the investment case, not duplicate tenure.
+    for flag,label in (("development_potential","DEVELOPMENT"),("asset_management","ASSET MANAGEMENT"),
+                       ("refurbishment","REFURBISHMENT"),("residential_conversion","RESIDENTIAL CONVERSION")):
+        if p.get(flag) and label not in chips: chips.append(label)
+    if p.get("listed_status") and str(p["listed_status"]).upper() not in chips: chips.append(str(p["listed_status"]).upper())
+    if p.get("break_status") and "BREAK PASSED" not in chips: chips.append("BREAK PASSED")
+    if p.get("guarantors") and "GUARANTORS" not in chips: chips.append("GUARANTORS")
+    if p.get("covenant_risk") and "low risk" in str(p["covenant_risk"]).lower() and "LOW-RISK COVENANT" not in chips: chips.append("LOW-RISK COVENANT")
+    if p.get("rent_review") and "rpi" in str(p["rent_review"]).lower() and "RPI REVIEW" not in chips: chips.append("RPI REVIEW")
+    if p.get("property_type") and str(p["property_type"]).lower()=="mixed use" and "MIXED USE" not in chips: chips.append("MIXED USE")
     structured_vat=str(p.get("vat") or "").strip()
     if structured_vat and structured_vat.upper()!="UNKNOWN":
         f["VAT"]=structured_vat
