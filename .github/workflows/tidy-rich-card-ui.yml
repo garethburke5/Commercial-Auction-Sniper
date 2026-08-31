@@ -1,0 +1,80 @@
+name: Tidy rich investment cards
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/tidy-rich-card-ui.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  tidy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Remove duplicate badges and preserve structured covenant evidence
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('app.py')
+          s=p.read_text(encoding='utf-8')
+
+          # Tenure already has a dedicated headline metric; do not repeat it as a chip.
+          s=s.replace('    if tenure: chips.insert(0,tenure.upper())\n','')
+
+          # Structured covenant evidence (e.g. D&B rating/risk) must not be overwritten
+          # later by the generic tenant-name heuristic.
+          old='''    if tenant:\n        if any(n in tenant.lower() for n in national): f["Covenant"]="Recognised national operator / established organisation"; chips.append("STRONGER COVENANT")\n        else: f["Covenant"]="Tenant identified — strength not yet verified"\n'''
+          new='''    if tenant and not p.get("covenant_rating") and not f.get("Covenant"):\n        if any(n in tenant.lower() for n in national):\n            f["Covenant"]="Recognised national operator / established organisation"\n            chips.append("STRONGER COVENANT")\n        else:\n            f["Covenant"]="Tenant identified — strength not yet verified"\n'''
+          if old in s:
+              s=s.replace(old,new,1)
+
+          # Include the two national covenants present in the Savills reference set.
+          s=s.replace('"british red cross")','"british red cross","british heart foundation","holland & barrett","holland and barrett")',1)
+
+          # Lease term remaining is card-level information for investment lots, not only
+          # when it has fallen below four years.
+          old='''            if yrs<4: chips.append(f"{yrs:.1f} YRS LEFT")\n'''
+          new='''            if yrs<=10: chips.append(f"{yrs:.1f} YRS LEFT")\n'''
+          if old in s:
+              s=s.replace(old,new,1)
+
+          # Semantically de-duplicate and prioritise chips.  The goal is a compact card:
+          # strategy/lease/covenant facts first; generic legal/VAT/reletting facts later.
+          old='''    f.pop("_remaining_years",None)\n    return f,list(dict.fromkeys(chips)),interpretation\n'''
+          new='''    f.pop("_remaining_years",None)\n\n    # Remove synonyms/duplication before rendering. Headline tenure is intentionally\n    # excluded because it already occupies its own metric box.\n    raw=list(dict.fromkeys(chips))\n    cleaned=[]\n    seen_sem=set()\n    for chip in raw:\n        c=str(chip).strip()\n        u=c.upper()\n        if not c or u in {"FREEHOLD","LEASEHOLD","LONG LEASEHOLD"}:\n            continue\n        if u.startswith("VAT"):\n            sem="VAT"\n        elif u in {"BREAK","BREAK PASSED"}:\n            sem="BREAK"\n        elif u in {"LEGAL PACK","LEGAL TEXT SCANNED"}:\n            sem="LEGAL"\n        elif u.startswith("RELETTING "):\n            sem="RELETTING"\n        elif u in {"STRONGER COVENANT","LOW-RISK COVENANT"}:\n            sem="COVENANT"\n        else:\n            sem=u\n        if sem in seen_sem:\n            # Prefer the more informative forms when encountered later.\n            if sem=="BREAK" and u=="BREAK PASSED":\n                cleaned=[x for x in cleaned if x.upper()!="BREAK"]\n                cleaned.append(c)\n            elif sem=="COVENANT" and u=="LOW-RISK COVENANT":\n                cleaned=[x for x in cleaned if x.upper()!="STRONGER COVENANT"]\n                cleaned.append(c)\n            elif sem=="LEGAL" and u=="LEGAL TEXT SCANNED":\n                cleaned=[x for x in cleaned if x.upper()!="LEGAL PACK"]\n                cleaned.append(c)\n            continue\n        seen_sem.add(sem); cleaned.append(c)\n\n    def chip_priority(c):\n        u=c.upper()\n        if any(x in u for x in ("DEVELOPMENT","ASSET MANAGEMENT","RESIDENTIAL CONVERSION","REFURBISHMENT","MIXED USE")): return 10\n        if "YRS LEFT" in u or u in {"BREAK PASSED","GUARANTORS","RPI REVIEW"}: return 20\n        if "COVENANT" in u: return 30\n        if u=="VACANT" or "GRADE II" in u: return 40\n        if u=="FRI" or u=="IRI": return 50\n        if u.startswith("ERV "): return 60\n        if u.startswith("VAT"): return 70\n        if u.startswith("RELETTING "): return 80\n        if u.startswith("LEGAL"): return 90\n        return 65\n    cleaned=sorted(cleaned,key=chip_priority)[:6]\n    return f,cleaned,interpretation\n'''
+          if old not in s:
+              raise SystemExit('Investment-facts return anchor not found')
+          s=s.replace(old,new,1)
+
+          s=s.replace('BUILD = "V6.68-RICH-INVESTMENT-PARSER"','BUILD = "V6.69-RICH-CARD-TIDY"',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Validate UI logic
+        run: |
+          python -m py_compile app.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('app.py').read_text(encoding='utf-8')
+          assert 'chips.insert(0,tenure.upper())' not in s
+          assert 'cleaned=sorted(cleaned,key=chip_priority)[:6]' in s
+          assert 'tenant and not p.get("covenant_rating")' in s
+          assert 'if yrs<=10: chips.append' in s
+          print('RICH_CARD_TIDY_OK')
+          PY
+      - name: Commit tidy
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add app.py
+          if git diff --cached --quiet; then
+            echo 'No changes'
+          else
+            git commit -m 'Tidy rich investment card badges'
+            git push
+          fi
