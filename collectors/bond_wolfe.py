@@ -96,6 +96,11 @@ def _rich_detail(lot, ds):
     if lm:
         lot.lot_number="Lot "+lm.group(1)
 
+    # Guide must come from the exact lot header, not related-property cards/footer examples.
+    gm=re.search(r"Guide price\*?\s*£\s*([\d,]+(?:\.\d+)?)",text,re.I)
+    if gm:
+        lot.guide_price=_number(gm.group(1))
+
     area_sqm=area_sqft=None
     pairs=re.findall(r"([\d,]+(?:\.\d+)?)\s*sq\.?m\.?\s*\(([\d,]+(?:\.\d+)?)\s*sq\.?ft\.?(?:\s*approx\.?)?\)",text,re.I)
     if pairs:
@@ -105,9 +110,17 @@ def _rich_detail(lot, ds):
             area_sqm=sum(sqm_vals)
             area_sqft=sum(sqft_vals)
     else:
-        m=re.search(r"Accommodation\s+[^.]{0,140}?([\d,]+(?:\.\d+)?)\s*sq\.?ft",text,re.I)
-        if m:
-            area_sqft=_number(m.group(1)); area_sqm=area_sqft/10.7639 if area_sqft else None
+        # Some Bond Wolfe pages print imperial first, e.g. 2028 sq ft (188.4 sqm).
+        reverse_pairs=re.findall(r"([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft\s*\(([\d,]+(?:\.\d+)?)\s*sq\.?m\.?\)",text,re.I)
+        if reverse_pairs:
+            sqft_vals=[_number(a) for a,_b in reverse_pairs if _number(a)]
+            sqm_vals=[_number(b) for _a,b in reverse_pairs if _number(b)]
+            if sqm_vals and sqft_vals:
+                area_sqm=sum(sqm_vals); area_sqft=sum(sqft_vals)
+        else:
+            m=re.search(r"Accommodation\s+[^.]{0,180}?([\d,]+(?:\.\d+)?)\s*sq\.?ft",text,re.I)
+            if m:
+                area_sqft=_number(m.group(1)); area_sqm=area_sqft/10.7639 if area_sqft else None
     if area_sqft:
         lot.area_sqft=round(area_sqft,2)
         lot.area_sqm=round(area_sqm,2) if area_sqm else None
@@ -123,27 +136,40 @@ def _rich_detail(lot, ds):
     if tenure:
         lot.tenure=tenure.title()
 
-    tenancy=_first([
-        r"Tenancy Details\s+(.+?)(?=Rights of way|Auctioneer(?:'s|’s) Note|Pre-auction Offers|Viewings|DISCLAIMER|$)",
+    # Current whole-property income outranks any component rent. Addenda outrank
+    # the original particulars because Bond Wolfe explicitly uses them to correct income.
+    total_rent=_first([
+        r"Addendum:\s*Please note the current rental income is\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:PA|p\.?a\.?|per annum)",
+        r"Current rental income\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:PA|p\.?a\.?|per annum)",
+        r"Current gross income:\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:PA|p\.?a\.?|per annum)",
     ],text)
-    if tenancy:
+    if total_rent:
+        lot.annual_rent=_number(total_rent)
+
+    # Lease Details may be separate from Tenancy Details on mixed-use lots.
+    lease_details=_first([
+        r"Lease Details\s+(.+?)(?=Tenancy Details|Value Added Tax|Rights of way|Auctioneer(?:'s|’s) Note|Pre-auction Offers|Viewings|DISCLAIMER|$)",
+    ],text)
+    tenancy=_first([
+        r"Tenancy Details\s+(.+?)(?=Value Added Tax|Rights of way|Auctioneer(?:'s|’s) Note|Pre-auction Offers|Viewings|DISCLAIMER|$)",
+    ],text)
+    primary=lease_details or tenancy
+    if primary:
         start=_first([
-            r"(?:let|lease)[^.;]{0,70}?from\s+(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20\d{2})",
-            r"(?:let|lease)[^.;]{0,70}?from\s+(\d{1,2}[./-]\d{1,2}[./-]20\d{2})",
-        ],tenancy)
+            r"(?:with effect from|from)\s+(\d{1,2}(?:st|nd|rd|th)?[./-]\d{1,2}[./-]20\d{2})",
+            r"(?:with effect from|from)\s+(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20\d{2})",
+        ],primary)
         if start:
             lot.lease_start=start
 
         expiry=_first([
             r"expir(?:es|ing|y)\s+(?:on\s+)?(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20\d{2})",
             r"expir(?:es|ing|y)\s+(?:on\s+)?(\d{1,2}[./-]\d{1,2}[./-]20\d{2})",
-        ],tenancy)
+        ],primary)
         if expiry:
             lot.lease_expiry=expiry
 
-        term=_first([
-            r"(?:on|for)\s+(?:a\s+)?(?:term\s+of\s+)?(\d+(?:\.\d+)?\s*years?)\b",
-        ],tenancy)
+        term=_first([r"(?:on|for|by way of)\s+(?:a\s+)?(?:term\s+of\s+)?(\d+(?:\.\d+)?\s*years?)\s+lease"],primary)
         if term:
             lot.lease_term=term
             if not lot.lease_expiry and start:
@@ -153,12 +179,24 @@ def _rich_detail(lot, ds):
                     lot.lease_expiry=derived
 
         tenant=_first([
+            r"lease to\s+(.+?)(?=,|\s+with effect|\s+from|\s+for|[.;])",
             r"(?:let|leased)\s+to\s+(.+?)(?=\s+(?:for|from|on|at a rental|at a rent|paying)|[.;])",
             r"Tenant\s*[:\-]\s*(.+?)(?=[.;])",
-        ],tenancy)
+        ],primary)
         if tenant and len(tenant)<120:
             lot.tenant=tenant
 
+        review=_first([
+            r"(subject to\s+\d+\s*year\s+reviews?)",
+            r"(subject to\s+reviews?[^.;]{0,90})",
+            r"(rent review[^.;]{0,140})",
+            r"(index[- ]linked rent review[^.;]{0,120})",
+        ],primary)
+        if review:
+            lot.rent_review=review
+
+    # If no whole-property income was stated, use the single tenancy rent only.
+    if not total_rent and tenancy:
         rent=_first([
             r"rental figure of\s*£\s*([\d,]+(?:\.\d+)?)\s*per annum",
             r"rent(?:al)?(?: figure)?(?: of| at)?\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)",
@@ -166,33 +204,37 @@ def _rich_detail(lot, ds):
         if rent:
             lot.annual_rent=_number(rent)
 
-        review=_first([
-            r"(subject to\s+\d+\s*year\s+reviews?)",
-            r"(subject to\s+reviews?[^.;]{0,90})",
-            r"(rent review[^.;]{0,140})",
-            r"(index[- ]linked rent review[^.;]{0,120})",
-        ],tenancy)
-        if review:
-            lot.rent_review=review
-
+    mixed=bool(re.search(r"\bMixed Use\b|mixed use investment|mixed-use investment",text,re.I))
+    flat_count=len(set(re.findall(r"\bFlat\s+(\d+)\b",(tenancy or ""),re.I)))
+    if mixed:
+        lot.property_type="Mixed use"
+        lot.occupation="Multi-let" if flat_count or lease_details else "Tenanted"
+        if lot.tenant and flat_count:
+            lot.tenant=f"{lot.tenant} + {flat_count} flats"
+        if re.search(r"tenant of flat\s+\d+\s+has served notice",text,re.I):
+            lot.occupation="Multi-let; one flat under notice"
+    elif tenancy or lease_details:
         lot.occupation="Tenanted"
 
-    if re.search(r"vacant possession|commercial vacant",text,re.I) and not tenancy:
+    if re.search(r"vacant possession|commercial vacant",text,re.I) and not tenancy and not lease_details:
         lot.occupation="Vacant"
 
-    if re.search(r"retail investment|retail unit|retail property",text,re.I):
-        lot.property_type="Retail"
-    elif re.search(r"industrial|warehouse|workshop",text,re.I):
-        lot.property_type="Industrial"
-    elif re.search(r"mixed use|mixed-use",text,re.I):
-        lot.property_type="Mixed use"
-    elif re.search(r"office",text,re.I):
-        lot.property_type="Office"
+    if not lot.property_type:
+        if re.search(r"retail investment|retail unit|retail property",text,re.I):
+            lot.property_type="Retail"
+        elif re.search(r"industrial|warehouse|workshop",text,re.I):
+            lot.property_type="Industrial"
+        elif re.search(r"office",text,re.I):
+            lot.property_type="Office"
 
-    if re.search(r"highly sought[- ]after|popular location|prominent position|prominent location",text,re.I):
+    if re.search(r"rear surfaced parking|parking and loading area|rear parking",text,re.I):
+        lot.parking="Rear parking/loading area"
+
+    if re.search(r"busy pedestrianised|prominent position|highly sought[- ]after|popular location|prominent location",text,re.I):
         phrase=_first([
+            r"(prominent position[^.]{0,100})",
+            r"(busy pedestrianised [^.]{0,100})",
             r"(highly sought[- ]after [^.]{0,90})",
-            r"(prominent (?:position|location)[^.]{0,80})",
         ],text)
         lot.pitch=phrase or "Established/prominent location"
 
@@ -202,9 +244,20 @@ def _rich_detail(lot, ds):
         review=_first([r"(rent review[^.]{0,140})",r"(index[- ]linked rent review[^.]{0,120})"],text)
         if review:
             lot.rent_review=review
-    brk=_first([r"((?:tenant|landlord)[^.;]{0,40}break[^.;]{0,120})",r"(break option[^.;]{0,120})"],text)
+
+    brk=_first([
+        r"(option to break on\s+\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20\d{2})",
+        r"(option to break on\s+\d{1,2}(?:st|nd|rd|th)?[./-]\d{1,2}[./-]20\d{2})",
+        r"((?:tenant|landlord)[^.;]{0,40}break[^.;]{0,120})",
+        r"(break option[^.;]{0,120})",
+    ],text)
     if brk:
         lot.break_clause=brk
+
+    # VAT language that explicitly sends the buyer to the legal pack is not
+    # evidence of VAT being payable; retain it as VERIFY.
+    if re.search(r"whether or not VAT will be chargeable[^.]{0,100}refer to the Legal Pack",text,re.I):
+        lot.vat_status="MENTIONED - VERIFY"
 
     lot.development_potential=True if re.search(r"development potential|development opportunity|subject to planning",text,re.I) else lot.development_potential
     lot.asset_management=True if re.search(r"asset management opportunity|asset management potential",text,re.I) else lot.asset_management
