@@ -39,52 +39,29 @@ def _section(text,name,next_names):
     return _first([rf"{re.escape(name)}\s+(.+?)(?=(?:{tail})\s+|Financial Tools|Legal Pack|Additional Fees|Similar Properties|$)"],text)
 
 
-def _ahl_exact_is_commercial(ds):
-    """Classify AHL from the exact lot page, not the generic cross-source classifier.
+def _ahl_commercial_text(text):
+    """AHL-specific classifier for catalogue cards or exact lot pages."""
+    low=" "+norm(text).lower()+" "
+    strong=(
+        " commercial property "," retail property "," industrial development ",
+        " industrial property "," industrial building "," commercial investment ",
+        " commercial unit "," commercial building "," commercial premises ",
+        " retail investment "," retail unit "," shop investment "," shop unit ",
+        " office "," warehouse "," workshop "," restaurant "," public house ",
+        " hotel "," care home "," business premises "," mixed use "," mixed-use ",
+        " commercial/residential "," commercial / residential "," vaults "," tunnels ",
+        " secure yard "," garage block "," storage unit ",
+    )
+    if any(x in low for x in strong): return True
+    if re.search(r"\b(?:land|development)\b",low) and re.search(r"\b(?:industrial|commercial|retail|office|warehouse|workshop|business|garage|storage|yard|vault|tunnel)\b",low):
+        return True
+    return False
 
-    AHL exposes its property class and the auction headline at the top of each lot
-    page.  Those source labels are much more reliable than generic keyword rules.
-    Residential-only lots are explicitly rejected; mixed/commercial/development
-    lots are retained.  Land is retained only when the headline itself contains a
-    commercial/industrial/business use signal.
-    """
+
+def _ahl_exact_is_commercial(ds):
     main=ds.find("main") or ds
     text=norm(main.get_text(" ",strip=True))
-    head=text[:2200]
-    low=head.lower()
-
-    # Strong AHL source classifications / headline evidence.
-    strong=(
-        "commercial property","retail property","industrial development",
-        "industrial property","industrial building","commercial investment",
-        "commercial unit","commercial building","commercial premises",
-        "retail investment","retail unit","shop investment","shop unit",
-        "office investment","office unit","warehouse","workshop",
-        "restaurant","public house"," pub ","hotel","care home",
-        "business premises","mixed use","mixed-use","commercial/residential",
-        "commercial / residential","vaults","tunnels",
-    )
-    if any(x in low for x in strong):
-        return True
-
-    # AHL sometimes labels unusual commercial opportunities simply as Land or
-    # Development.  Require a business-use cue so residential plots stay out.
-    if re.search(r"\b(?:land|development)\b",low):
-        if re.search(r"\b(?:industrial|commercial|retail|office|warehouse|workshop|business|garage block|storage|yard)\b",low):
-            return True
-
-    # Explicit residential source classes remain excluded unless a strong mixed
-    # or commercial signal above has already won.
-    residential=(
-        " flat "," apartment "," maisonette "," terraced ","semi-detached",
-        "detached house","end of terrace","mid terrace house","bungalow",
-        "cottage","residential property","three bedroom","four bedroom",
-        "two bedroom","one bedroom flat","studio flat",
-    )
-    if any(x in f" {low} " for x in residential):
-        return False
-
-    return False
+    return _ahl_commercial_text(text[:6000])
 
 
 def _rich_detail(lot, ds):
@@ -96,7 +73,7 @@ def _rich_detail(lot, ds):
     lm=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
     if lm: lot.lot_number="Lot "+lm.group(1)
 
-    gm=re.search(r"£\s*([\d,]+(?:\.\d+)?)\s*(?:-\s*£\s*([\d,]+(?:\.\d+)?)|\+)?\s*Guide Price",text,re.I)
+    gm=re.search(r"(?:Guide Price\s*)?£\s*([\d,]+(?:\.\d+)?)\s*(?:-\s*£\s*([\d,]+(?:\.\d+)?)|\+)?(?:\s*Guide Price)?",text,re.I)
     if gm: lot.guide_price=_num(gm.group(1))
 
     tenure_sec=_section(text,"Tenure",["Location","Accommodation","Planning","Tenancy","VAT","EPC Rating","Exterior","Note"])
@@ -114,7 +91,13 @@ def _rich_detail(lot, ds):
         pairs=re.findall(r"([\d,]+(?:\.\d+)?)\s*sq\s*m\s*\(([\d,]+(?:\.\d+)?)\s*sq\s*ft\)",accom,re.I)
         if pairs:
             vals=[(_num(a),_num(b)) for a,b in pairs]
-            if len(vals)==1:
+            # Prefer an explicit total/GIA pair if present, otherwise sum components.
+            total_pair=None
+            for m in re.finditer(r"(?:G\.?I\.?A\.?|Total)[^\d]{0,40}([\d,]+(?:\.\d+)?)\s*sq\s*m\s*\(([\d,]+(?:\.\d+)?)\s*sq\s*ft\)",accom,re.I):
+                total_pair=(_num(m.group(1)),_num(m.group(2)))
+            if total_pair:
+                lot.area_sqm,lot.area_sqft=total_pair
+            elif len(vals)==1:
                 lot.area_sqm,lot.area_sqft=vals[0]
             else:
                 lot.area_sqm=round(sum(a for a,b in vals if a),2); lot.area_sqft=round(sum(b for a,b in vals if b),2)
@@ -127,7 +110,7 @@ def _rich_detail(lot, ds):
     if epc: lot.epc=epc.upper()
 
     tenancy=_section(text,"Tenancy",["VAT","EPC Rating","Planning","Joint Agent","Note"])
-    headline=text[:min(len(text),1800)]
+    headline=text[:min(len(text),2200)]
     vacant=bool(re.search(r"\bVacant\b",headline,re.I))
 
     current=_first([
@@ -171,6 +154,8 @@ def _rich_detail(lot, ds):
     planning=_section(text,"Planning",["Tenancy","VAT","EPC Rating","Joint Agent","Note"])
     if planning:
         lot.development_potential=True
+        if re.search(r"planning permission|permission was granted|approved",planning,re.I):
+            lot.asset_management=True
         if re.search(r"HMO|House in Multiple Occupation",planning,re.I):
             lot.residential_conversion=True
             lot.property_type=lot.property_type or "Commercial / HMO development"
@@ -196,63 +181,71 @@ def _rich_detail(lot, ds):
 
 def collect():
     try:
+        # Current AHL catalogue cards contain a reliable property class. Classify
+        # there first so we do not hammer all 235 exact pages or lose commercial
+        # lots to rate limiting before enrichment starts.
         s=soup(URL,use_browser=False)
         seen,targets=set(),[]
+        all_exact=0
         for a in s.find_all("a",href=True):
             href=urljoin(URL,a["href"])
             if "/lot/" not in href or href in seen: continue
-            seen.add(href)
-            card=nearest_card(a,4200)
+            seen.add(href); all_exact+=1
+            card=nearest_card(a,5200)
             low=card.lower()
             if "sold prior" in low or "withdrawn" in low: continue
+            if not _ahl_commercial_text(card): continue
             m=re.search(r"\bLOT\s+(\d+[A-Z]?)\b",card,re.I)
             targets.append((href,card,f"Lot {m.group(1)}" if m else None))
 
+        # If static catalogue markup is incomplete, use the browser-rendered page.
         if not targets:
             s=soup(URL,use_browser=True)
+            seen=set(); all_exact=0
             for a in s.find_all("a",href=True):
                 href=urljoin(URL,a["href"])
                 if "/lot/" not in href or href in seen: continue
-                seen.add(href)
-                card=nearest_card(a,4200)
+                seen.add(href); all_exact+=1
+                card=nearest_card(a,5200)
+                if not _ahl_commercial_text(card): continue
                 m=re.search(r"\bLOT\s+(\d+[A-Z]?)\b",card,re.I)
                 targets.append((href,card,f"Lot {m.group(1)}" if m else None))
 
-        lots=[]
-        rejected=0
-        failures=0
+        lots=[]; failures=0; exact_rejected=0
 
         def hydrate(item):
             href,card,lotno=item
-            try:
-                ds=soup(href,use_browser=False)
-                if not _ahl_exact_is_commercial(ds):
-                    return "REJECTED", None
-                # Source-specific AHL classification has already established that
-                # this exact page is commercial/mixed-use.  Bypass the generic
-                # cross-source classifier which was incorrectly rejecting all AHL lots.
-                lot=detail_lot(SOURCE,href,seed=card,lot_number=lotno,auction_date="2026-09-02",force_commercial=True,strict_commercial=False)
-                if not lot:
-                    return "FAILED", None
-                lot=_rich_detail(lot,ds)
-                return "OK", lot
-            except Exception as e:
-                print("AHL_HYDRATE_FAIL",href,repr(e))
-                return "FAILED", None
+            last_error=None
+            # A small commercial target set can be retried safely. Direct HTML is
+            # preferred; browser rendering is the fallback for AHL anti-bot/JS pages.
+            for use_browser in (False, True):
+                try:
+                    ds=soup(href,use_browser=use_browser)
+                    if not _ahl_exact_is_commercial(ds):
+                        if use_browser: return "REJECTED",None
+                        continue
+                    lot=detail_lot(SOURCE,href,seed=card,lot_number=lotno,auction_date="2026-09-02",force_commercial=True,strict_commercial=False,use_browser=use_browser)
+                    if not lot: continue
+                    return "OK",_rich_detail(lot,ds)
+                except Exception as e:
+                    last_error=e
+            print("AHL_HYDRATE_FAIL",href,repr(last_error))
+            return "FAILED",None
 
-        with ThreadPoolExecutor(max_workers=10) as ex:
+        # Keep concurrency deliberately modest: the previous 10-way exact-page
+        # sweep produced 42 fetch/parser failures on AHL.
+        with ThreadPoolExecutor(max_workers=4) as ex:
             futures=[ex.submit(hydrate,x) for x in targets]
             for f in as_completed(futures):
                 try:
                     kind,lot=f.result()
                     if kind=="OK" and lot: lots.append(lot.finalise())
-                    elif kind=="REJECTED": rejected+=1
+                    elif kind=="REJECTED": exact_rejected+=1
                     else: failures+=1
-                except Exception:
-                    failures+=1
+                except Exception: failures+=1
 
         status="LIVE" if lots else "FAILED"
-        msg=f"Sep 2/3 catalogue {len(targets)} exact URLs; {len(lots)} commercial/mixed-use lots; {rejected} residential/non-commercial rejected; {failures} fetch/parser failures"
+        msg=f"Sep 2/3 catalogue {all_exact} exact URLs; {len(targets)} commercial card candidates; {len(lots)} enriched lots; {exact_rejected} exact-page rejects; {failures} fetch/parser failures"
         return SourceResult(SOURCE,status,lots,msg)
     except Exception as e:
         return SourceResult(SOURCE,"FAILED",[],str(e))
