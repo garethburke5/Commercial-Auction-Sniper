@@ -2,7 +2,7 @@ import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from urllib.parse import urljoin
-from .core import SourceResult, norm
+from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
 from .utils import soup, nearest_card, detail_lot
 
 SOURCE = "Auction House London"
@@ -39,21 +39,20 @@ def _section(text,name,next_names):
     return _first([rf"{re.escape(name)}\s+(.+?)(?=(?:{tail})\s+|Financial Tools|Legal Pack|Additional Fees|Similar Properties|$)"],text)
 
 
-def _ahl_commercial_text(text):
-    """AHL-specific classifier for catalogue cards or exact lot pages."""
-    low=" "+norm(text).lower()+" "
+def _ahl_card_is_commercial(card):
+    low=(card or "").lower()
     strong=(
-        " commercial property "," retail property "," industrial development ",
-        " industrial property "," industrial building "," commercial investment ",
-        " commercial unit "," commercial building "," commercial premises ",
-        " retail investment "," retail unit "," shop investment "," shop unit ",
-        " office "," warehouse "," workshop "," restaurant "," public house ",
-        " hotel "," care home "," business premises "," mixed use "," mixed-use ",
-        " commercial/residential "," commercial / residential "," vaults "," tunnels ",
-        " secure yard "," garage block "," storage unit ",
+        "commercial property","retail property","industrial development",
+        "industrial property","industrial building","commercial investment",
+        "commercial unit","commercial building","commercial premises",
+        "retail investment","retail unit","shop investment","shop unit",
+        "office investment","office unit","warehouse","workshop",
+        "restaurant","public house"," pub ","hotel","care home",
+        "business premises","mixed use","mixed-use","commercial/residential",
+        "commercial / residential","vaults","tunnels",
     )
     if any(x in low for x in strong): return True
-    if re.search(r"\b(?:land|development)\b",low) and re.search(r"\b(?:industrial|commercial|retail|office|warehouse|workshop|business|garage|storage|yard|vault|tunnel)\b",low):
+    if re.search(r"\b(?:land|development)\b",low) and re.search(r"\b(?:industrial|commercial|retail|office|warehouse|workshop|business|garage block|storage|yard)\b",low):
         return True
     return False
 
@@ -61,11 +60,59 @@ def _ahl_commercial_text(text):
 def _ahl_exact_is_commercial(ds):
     main=ds.find("main") or ds
     text=norm(main.get_text(" ",strip=True))
-    return _ahl_commercial_text(text[:6000])
+    return _ahl_card_is_commercial(text[:2200])
+
+
+def _card_address(card):
+    text=norm(card)
+    # AHL cards consistently place the address immediately after the tenure and
+    # before the marketing description. Anchor it on a UK postcode so the card
+    # remains usable even when exact lot pages block automated fetches.
+    m=re.search(r"\b(?:Freehold|Leasehold)\s+(.+?\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b)",text,re.I)
+    if m:
+        return norm(m.group(1))
+    return None
+
+
+def _card_property_type(card):
+    text=norm(card)
+    m=re.search(r"(?:Guide Price:\s*£[\d,]+(?:\s*-\s*£[\d,]+|\+)?)\s+(.+?)\s+(Freehold|Leasehold)\b",text,re.I)
+    if m:
+        return norm(m.group(1))
+    for label in ("Workshop & Retail space","Retail Property (high street)","Retail Property","Commercial Property","Industrial Development","Industrial Property","Office","Restaurant","Care Home"):
+        if label.lower() in text.lower(): return label
+    return None
+
+
+def _lot_from_card(href, card, lotno):
+    address=_card_address(card) or href.rstrip("/").split("/lot/",1)[-1].rsplit("-",1)[0].replace("-"," ").title()
+    guide=parse_guide(card)
+    vacant=bool(re.search(r"\bVacant\b",card,re.I))
+    rent=None if vacant else parse_rent(card)
+    lot=Lot(
+        source=SOURCE,
+        url=href,
+        address=address,
+        lot_number=lotno,
+        auction_date="2026-09-02",
+        guide_price=guide,
+        annual_rent=rent,
+        tenure=parse_tenure(card),
+        vat_status=parse_vat(card),
+        legal_pack_status="NOT CHECKED",
+        status="Live",
+        description=norm(card)[:3000],
+        property_type=_card_property_type(card),
+        occupation="Vacant" if vacant else ("Tenanted" if rent else None),
+    )
+    if re.search(r"development|planning permission|potential for",card,re.I): lot.development_potential=True
+    if re.search(r"residential|HMO|House in Multiple Occupation",card,re.I) and lot.development_potential:
+        lot.residential_conversion=True
+    if re.search(r"secure yard|yard",card,re.I): lot.parking="Secure yard"
+    return lot.finalise()
 
 
 def _rich_detail(lot, ds):
-    """Auction House London exact-page enrichment; labelled particulars outrank generic/cache facts."""
     main=ds.find("main") or ds
     text=norm(main.get_text(" ",strip=True))
     text=re.split(r"\bSimilar Properties\b",text,1,flags=re.I)[0]
@@ -73,7 +120,7 @@ def _rich_detail(lot, ds):
     lm=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
     if lm: lot.lot_number="Lot "+lm.group(1)
 
-    gm=re.search(r"(?:Guide Price\s*)?£\s*([\d,]+(?:\.\d+)?)\s*(?:-\s*£\s*([\d,]+(?:\.\d+)?)|\+)?(?:\s*Guide Price)?",text,re.I)
+    gm=re.search(r"(?:Guide Price\s*:?\s*)?£\s*([\d,]+(?:\.\d+)?)\s*(?:-\s*£\s*([\d,]+(?:\.\d+)?)|\+)?",text,re.I)
     if gm: lot.guide_price=_num(gm.group(1))
 
     tenure_sec=_section(text,"Tenure",["Location","Accommodation","Planning","Tenancy","VAT","EPC Rating","Exterior","Note"])
@@ -91,13 +138,7 @@ def _rich_detail(lot, ds):
         pairs=re.findall(r"([\d,]+(?:\.\d+)?)\s*sq\s*m\s*\(([\d,]+(?:\.\d+)?)\s*sq\s*ft\)",accom,re.I)
         if pairs:
             vals=[(_num(a),_num(b)) for a,b in pairs]
-            # Prefer an explicit total/GIA pair if present, otherwise sum components.
-            total_pair=None
-            for m in re.finditer(r"(?:G\.?I\.?A\.?|Total)[^\d]{0,40}([\d,]+(?:\.\d+)?)\s*sq\s*m\s*\(([\d,]+(?:\.\d+)?)\s*sq\s*ft\)",accom,re.I):
-                total_pair=(_num(m.group(1)),_num(m.group(2)))
-            if total_pair:
-                lot.area_sqm,lot.area_sqft=total_pair
-            elif len(vals)==1:
+            if len(vals)==1:
                 lot.area_sqm,lot.area_sqft=vals[0]
             else:
                 lot.area_sqm=round(sum(a for a,b in vals if a),2); lot.area_sqft=round(sum(b for a,b in vals if b),2)
@@ -110,9 +151,8 @@ def _rich_detail(lot, ds):
     if epc: lot.epc=epc.upper()
 
     tenancy=_section(text,"Tenancy",["VAT","EPC Rating","Planning","Joint Agent","Note"])
-    headline=text[:min(len(text),2200)]
+    headline=text[:min(len(text),1800)]
     vacant=bool(re.search(r"\bVacant\b",headline,re.I))
-
     current=_first([
         r"Fully Let Producing\s*£\s*([\d,]+(?:\.\d+)?)\s*Per Annum",
         r"Let Producing\s*£\s*([\d,]+(?:\.\d+)?)\s*Per Annum",
@@ -125,10 +165,7 @@ def _rich_detail(lot, ds):
         lot.annual_rent=_num(current); lot.occupation="Tenanted"
 
     if tenancy and not vacant:
-        tenant=_first([
-            r"(?:let|leased) to\s+(.+?)\s+for a term",
-            r"(?:let|leased) to\s+(.+?)\s+(?:on|at a rent|commencing)",
-        ],tenancy)
+        tenant=_first([r"(?:let|leased) to\s+(.+?)\s+for a term",r"(?:let|leased) to\s+(.+?)\s+(?:on|at a rent|commencing)"],tenancy)
         if tenant and len(tenant)<120: lot.tenant=tenant
         start=_first([r"commencing\s+(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20\d{2})",r"from\s+(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20\d{2})"],tenancy)
         term=_first([r"term of\s+(\d+(?:\.\d+)?\s*years?)"],tenancy)
@@ -154,8 +191,6 @@ def _rich_detail(lot, ds):
     planning=_section(text,"Planning",["Tenancy","VAT","EPC Rating","Joint Agent","Note"])
     if planning:
         lot.development_potential=True
-        if re.search(r"planning permission|permission was granted|approved",planning,re.I):
-            lot.asset_management=True
         if re.search(r"HMO|House in Multiple Occupation",planning,re.I):
             lot.residential_conversion=True
             lot.property_type=lot.property_type or "Commercial / HMO development"
@@ -163,7 +198,6 @@ def _rich_detail(lot, ds):
     if re.search(r"Potential for Development",headline,re.I): lot.development_potential=True
     if re.search(r"potential for conversion to residential|convert to (?:an? )?\w*\s*residential",text,re.I): lot.residential_conversion=True
     if re.search(r"refurbish|refurbishment",text,re.I): lot.refurbishment=True
-
     if re.search(r"secure yard|yard area",text,re.I): lot.parking="Secure yard / parking" if re.search(r"parking",text,re.I) else "Secure yard"
     elif re.search(r"\bparking\b",text,re.I): lot.parking="Parking"
 
@@ -172,80 +206,75 @@ def _rich_detail(lot, ds):
         elif re.search(r"Retail Property|retail unit|high street",headline,re.I): lot.property_type="Retail"
         elif re.search(r"office",headline,re.I): lot.property_type="Office"
         elif re.search(r"vaults|tunnels",headline,re.I): lot.property_type="Vaults / commercial storage"
-
     if re.search(r"prominent|busy|city centre|town centre",text,re.I): lot.pitch="Prominent/established commercial location"
-
     lot.description=text[:6000]
     return lot.finalise()
 
 
 def collect():
     try:
-        # Current AHL catalogue cards contain a reliable property class. Classify
-        # there first so we do not hammer all 235 exact pages or lose commercial
-        # lots to rate limiting before enrichment starts.
         s=soup(URL,use_browser=False)
         seen,targets=set(),[]
-        all_exact=0
         for a in s.find_all("a",href=True):
             href=urljoin(URL,a["href"])
             if "/lot/" not in href or href in seen: continue
-            seen.add(href); all_exact+=1
-            card=nearest_card(a,5200)
+            seen.add(href)
+            card=nearest_card(a,4200)
             low=card.lower()
             if "sold prior" in low or "withdrawn" in low: continue
-            if not _ahl_commercial_text(card): continue
+            if not _ahl_card_is_commercial(card): continue
             m=re.search(r"\bLOT\s+(\d+[A-Z]?)\b",card,re.I)
             targets.append((href,card,f"Lot {m.group(1)}" if m else None))
 
-        # If static catalogue markup is incomplete, use the browser-rendered page.
         if not targets:
             s=soup(URL,use_browser=True)
-            seen=set(); all_exact=0
             for a in s.find_all("a",href=True):
                 href=urljoin(URL,a["href"])
                 if "/lot/" not in href or href in seen: continue
-                seen.add(href); all_exact+=1
-                card=nearest_card(a,5200)
-                if not _ahl_commercial_text(card): continue
+                seen.add(href)
+                card=nearest_card(a,4200)
+                if not _ahl_card_is_commercial(card): continue
                 m=re.search(r"\bLOT\s+(\d+[A-Z]?)\b",card,re.I)
                 targets.append((href,card,f"Lot {m.group(1)}" if m else None))
 
-        lots=[]; failures=0; exact_rejected=0
+        lots=[]
+        enriched=0
+        fallback=0
+        failures=0
 
         def hydrate(item):
             href,card,lotno=item
-            last_error=None
-            # A small commercial target set can be retried safely. Direct HTML is
-            # preferred; browser rendering is the fallback for AHL anti-bot/JS pages.
+            base=_lot_from_card(href,card,lotno)
+            # The catalogue itself is authoritative enough to publish the lot.
+            # Exact-page enrichment is best-effort and must never suppress it.
             for use_browser in (False, True):
                 try:
                     ds=soup(href,use_browser=use_browser)
-                    if not _ahl_exact_is_commercial(ds):
-                        if use_browser: return "REJECTED",None
-                        continue
-                    lot=detail_lot(SOURCE,href,seed=card,lot_number=lotno,auction_date="2026-09-02",force_commercial=True,strict_commercial=False,use_browser=use_browser)
-                    if not lot: continue
-                    return "OK",_rich_detail(lot,ds)
-                except Exception as e:
-                    last_error=e
-            print("AHL_HYDRATE_FAIL",href,repr(last_error))
-            return "FAILED",None
+                    if _ahl_exact_is_commercial(ds):
+                        lot=detail_lot(SOURCE,href,seed=card,lot_number=lotno,auction_date="2026-09-02",force_commercial=True,strict_commercial=False,use_browser=use_browser)
+                        if lot:
+                            lot=_rich_detail(lot,ds)
+                            return "ENRICHED", lot
+                except Exception:
+                    pass
+            return "FALLBACK", base
 
-        # Keep concurrency deliberately modest: the previous 10-way exact-page
-        # sweep produced 42 fetch/parser failures on AHL.
         with ThreadPoolExecutor(max_workers=4) as ex:
             futures=[ex.submit(hydrate,x) for x in targets]
             for f in as_completed(futures):
                 try:
                     kind,lot=f.result()
-                    if kind=="OK" and lot: lots.append(lot.finalise())
-                    elif kind=="REJECTED": exact_rejected+=1
-                    else: failures+=1
-                except Exception: failures+=1
+                    if lot:
+                        lots.append(lot.finalise())
+                        if kind=="ENRICHED": enriched+=1
+                        else: fallback+=1
+                    else:
+                        failures+=1
+                except Exception:
+                    failures+=1
 
         status="LIVE" if lots else "FAILED"
-        msg=f"Sep 2/3 catalogue {all_exact} exact URLs; {len(targets)} commercial card candidates; {len(lots)} enriched lots; {exact_rejected} exact-page rejects; {failures} fetch/parser failures"
+        msg=f"Sep 2/3 commercial catalogue candidates {len(targets)}; {len(lots)} published; {enriched} exact-page enriched; {fallback} catalogue-card fallback; {failures} failures"
         return SourceResult(SOURCE,status,lots,msg)
     except Exception as e:
         return SourceResult(SOURCE,"FAILED",[],str(e))
