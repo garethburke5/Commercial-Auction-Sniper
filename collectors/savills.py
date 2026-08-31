@@ -6,26 +6,9 @@ from .utils import soup, image_from_soup
 SOURCE = "Savills Auctions"
 BASE = "https://auctions.savills.co.uk"
 CURRENT = BASE + "/auctions/2-september-2026-241/page-1/quantity-100/property_type-253/sort-by-0"
+AUCTION_PREFIX = BASE + "/auctions/2-september-2026-241/"
 
 KNOWN = {"Lot 73","Lot 75","Lot 76","Lot 77","Lot 78","Lot 79","Lot 80","Lot 86","Lot 88","Lot 89","Lot 90","Lot 93","Lot 95","Lot 96","Lot 98"}
-
-def _strings_before(a, limit=50):
-    vals=[]
-    for s in a.find_all_previous(string=True, limit=limit):
-        t=norm(str(s))
-        if t: vals.append(t)
-    vals.reverse()
-    return vals
-
-def _strings_after(a, limit=70):
-    vals=[]
-    for s in a.find_all_next(string=True, limit=limit):
-        t=norm(str(s))
-        if not t: continue
-        if vals and re.fullmatch(r"Lot\s+\d+[A-Z]?", t, re.I):
-            break
-        vals.append(t)
-    return vals
 
 def _first(patterns,text):
     for pat in patterns:
@@ -38,13 +21,17 @@ def _money(v):
     try: return float(str(v).replace(",",""))
     except Exception: return None
 
-def _savills_detail(href, lotno, fallback_address, fallback_guide, fallback_rent):
+def _savills_detail(href, lotno=None, fallback_address="", fallback_guide=None, fallback_rent=None):
     ds=soup(href,use_browser=True)
     main=ds.find("main") or ds
     text=norm(main.get_text(" ",strip=True))
-    low=text.lower()
     h1=ds.find("h1")
     address=norm(h1.get_text(" ",strip=True)) if h1 else fallback_address
+    if not lotno:
+        lm=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
+        lotno="Lot "+lm.group(1) if lm else None
+    if not lotno or not address:
+        raise ValueError("Savills exact page missing lot/address")
 
     guide=parse_guide(text) or fallback_guide
     rent=parse_rent(text) or fallback_rent
@@ -71,9 +58,9 @@ def _savills_detail(href, lotno, fallback_address, fallback_guide, fallback_rent
         break
 
     tenant=_first([
-        r"The property is let to\s+(.+?)\s+on\s+(?:a|an)\s+[^.]{0,80}?lease",
-        r"Let to\s+(.+?)\s+on\s+(?:a|an)\s+[^.]{0,80}?lease",
-        r"fully let to\s+(.+?),?\s+(?:long-standing tenants?[^,]*,?\s+)?on\s+(?:a|an)\s+[^.]{0,80}?lease",
+        r"The property is let to\s+(.+?)\s+on\s+(?:a|an)\s+[^.]{0,100}?lease",
+        r"Let to\s+(.+?)\s+on\s+(?:a|an)\s+[^.]{0,100}?lease",
+        r"fully let to\s+(.+?),?\s+(?:long-standing tenants?[^,]*,?\s+)?on\s+(?:a|an)\s+[^.]{0,100}?lease",
     ],text)
     if tenant:
         tenant=re.sub(r"\s*\(t/a[^)]*\)","",tenant,flags=re.I).strip()
@@ -88,9 +75,9 @@ def _savills_detail(href, lotno, fallback_address, fallback_guide, fallback_rent
     fri=True if re.search(r"full repairing and insuring|effective full repairing and insuring|\bFRI\b",text,re.I) else None
 
     break_clause=None; break_status=None
-    if re.search(r"break option[^.]{0,80}not exercised|break option has\s+not\s+been\s+exercised",text,re.I):
+    if re.search(r"break option[^.]{0,100}not exercised|break option has\s+not\s+been\s+exercised",text,re.I):
         break_status="Break passed / not exercised"
-        break_clause=_first([r"(August\s+20\d{2}\s+break option[^.]{0,80}not exercised)",r"(break option[^.]{0,100}not exercised)"],text) or break_status
+        break_clause=_first([r"(August\s+20\d{2}\s+break option[^.]{0,100}not exercised)",r"(break option[^.]{0,120}not exercised)"],text) or break_status
     else:
         break_clause=_first([r"(?:tenant(?:'s)?\s+)?break(?: option| clause)?\s+([^.;]{4,100})"],text)
 
@@ -142,6 +129,8 @@ def _savills_detail(href, lotno, fallback_address, fallback_guide, fallback_rent
 
     occupation="Vacant" if re.search(r"vacant possession|\bvacant\b",text,re.I) else ("Tenanted" if tenant or rent else None)
     vat=parse_vat(text)
+    if re.search(r"\belected for VAT\b|\belected to VAT\b",text,re.I):
+        vat="APPLICABLE"
 
     return Lot(
         source=SOURCE,url=href,address=address,lot_number=lotno,auction_date="2026-09-02",
@@ -159,29 +148,34 @@ def _savills_detail(href, lotno, fallback_address, fallback_guide, fallback_rent
 def collect():
     try:
         s=soup(CURRENT,use_browser=True)
-        lots,seen=[],set()
+        links=[]
+        seen=set()
         for a in s.find_all("a",href=True):
             href=urljoin(BASE,a["href"]).split("?",1)[0].rstrip("/")
-            if not re.match(r"^https://auctions\.savills\.co\.uk/auctions/2-september-2026-241/[^/]+$",href,re.I): continue
-            if href in seen: continue
-            address=norm(a.get_text(" ",strip=True))
-            if not address or address.lower() in {"full details","previous lot","next lot","return to catalogue"}: continue
-            before=_strings_before(a); idx=None; lotno=None
-            for i in range(len(before)-1,-1,-1):
-                m=re.fullmatch(r"Lot\s+(\d+[A-Z]?)",before[i],re.I)
-                if m: idx=i; lotno="Lot "+m.group(1); break
-            if idx is None: continue
-            pre=" ".join(before[idx:])
-            if "sold prior" in pre.lower() or "withdrawn prior" in pre.lower(): seen.add(href); continue
-            post=" ".join(_strings_after(a))
+            if not href.startswith(AUCTION_PREFIX):
+                continue
+            tail=href[len(AUCTION_PREFIX):]
+            if not tail or "/" in tail:
+                continue
+            if tail in {"page-1","quantity-100","property_type-253","sort-by-0"}:
+                continue
+            if href not in seen:
+                seen.add(href); links.append(href)
+
+        lots=[]
+        for href in links:
             try:
-                lot=_savills_detail(href,lotno,address,parse_guide(pre),parse_rent(post))
-            except Exception:
-                lot=Lot(source=SOURCE,url=href,address=address,lot_number=lotno,auction_date="2026-09-02",
-                        guide_price=parse_guide(pre),annual_rent=parse_rent(post),tenure=parse_tenure(post),
-                        vat_status=parse_vat(post),legal_pack_status="LOGIN REQUIRED",legal_pack_url=href,
-                        description=post[:1200]).finalise()
-            lots.append(lot); seen.add(href)
+                lot=_savills_detail(href)
+                if lot and lot.lot_number:
+                    lots.append(lot)
+            except Exception as e:
+                print("SAVILLS_DETAIL_FAIL",href,repr(e))
+
+        # Deduplicate by lot number, preferring the first exact-page record.
+        bylot={}
+        for lot in lots:
+            bylot.setdefault(lot.lot_number,lot)
+        lots=list(bylot.values())
         found={x.lot_number for x in lots}; matched=len(KNOWN & found)
         status="LIVE" if matched>=9 else "FAILED"
         return SourceResult(SOURCE,status,lots,f"Exact Savills detail pages parsed: {len(lots)} lots; sanity check {matched}/{len(KNOWN)}")
