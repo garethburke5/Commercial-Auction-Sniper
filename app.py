@@ -21,7 +21,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.68-RICH-INVESTMENT-PARSER"
+BUILD = "V6.69-RICH-CARD-TIDY"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -4060,7 +4060,7 @@ def _investment_facts(p):
         expiry=m.group(1); f["Lease expiry"]=expiry; yrs=_remaining_years(expiry)
         if yrs is not None:
             f["Term remaining"]=f"{yrs:.1f} years"; f["_remaining_years"]=yrs
-            if yrs<4: chips.append(f"{yrs:.1f} YRS LEFT")
+            if yrs<=10: chips.append(f"{yrs:.1f} YRS LEFT")
 
     if re.search(r"\bFRI\b|full repairing and insuring",text,re.I): f["Repairing"]="FRI"; chips.append("FRI")
     elif re.search(r"\bIRI\b|internal repairing",text,re.I): f["Repairing"]="IRI"
@@ -4088,14 +4088,16 @@ def _investment_facts(p):
     elif tenant: f["Occupation"]="Tenanted"
     if re.search(r"download the legal pack|legal documents|legal pack",text,re.I): f["Legal pack"]="Available / referenced"; chips.append("LEGAL PACK")
 
-    national=("domino","dp realty","tesco","sainsbury","boots","superdrug","co-op","nationwide","hsbc","barclays","lloyds","natwest","coral","william hill","greggs","subway","costa","starbucks","mcdonald","aldi","lidl","b&m","poundland","british red cross")
-    if tenant:
-        if any(n in tenant.lower() for n in national): f["Covenant"]="Recognised national operator / established organisation"; chips.append("STRONGER COVENANT")
-        else: f["Covenant"]="Tenant identified — strength not yet verified"
+    national=("domino","dp realty","tesco","sainsbury","boots","superdrug","co-op","nationwide","hsbc","barclays","lloyds","natwest","coral","william hill","greggs","subway","costa","starbucks","mcdonald","aldi","lidl","b&m","poundland","british red cross","british heart foundation","holland & barrett","holland and barrett")
+    if tenant and not p.get("covenant_rating") and not f.get("Covenant"):
+        if any(n in tenant.lower() for n in national):
+            f["Covenant"]="Recognised national operator / established organisation"
+            chips.append("STRONGER COVENANT")
+        else:
+            f["Covenant"]="Tenant identified — strength not yet verified"
 
     if p.get("guide") and p.get("rent"):
         y=100*p["rent"]/p["guide"]; f["GIY at guide"]=f"{y:.1f}%"; f["10% ceiling"]=f'£{p["rent"]/0.10:,.0f}'
-    if tenure: chips.insert(0,tenure.upper())
     rel=_reletting_assessment(p,f,text)
     f["Reletting potential"]=f'{rel["score"]:.1f}/10 — {rel["label"]}'
     f["Reletting confidence"]=rel["confidence"]
@@ -4122,7 +4124,57 @@ def _investment_facts(p):
         interpretation.append("Risk cap: "+rel["caps"][0])
     interpretation=interpretation[:7]
     f.pop("_remaining_years",None)
-    return f,list(dict.fromkeys(chips)),interpretation
+
+    # Remove synonyms/duplication before rendering. Headline tenure is intentionally
+    # excluded because it already occupies its own metric box.
+    raw=list(dict.fromkeys(chips))
+    cleaned=[]
+    seen_sem=set()
+    for chip in raw:
+        c=str(chip).strip()
+        u=c.upper()
+        if not c or u in {"FREEHOLD","LEASEHOLD","LONG LEASEHOLD"}:
+            continue
+        if u.startswith("VAT"):
+            sem="VAT"
+        elif u in {"BREAK","BREAK PASSED"}:
+            sem="BREAK"
+        elif u in {"LEGAL PACK","LEGAL TEXT SCANNED"}:
+            sem="LEGAL"
+        elif u.startswith("RELETTING "):
+            sem="RELETTING"
+        elif u in {"STRONGER COVENANT","LOW-RISK COVENANT"}:
+            sem="COVENANT"
+        else:
+            sem=u
+        if sem in seen_sem:
+            # Prefer the more informative forms when encountered later.
+            if sem=="BREAK" and u=="BREAK PASSED":
+                cleaned=[x for x in cleaned if x.upper()!="BREAK"]
+                cleaned.append(c)
+            elif sem=="COVENANT" and u=="LOW-RISK COVENANT":
+                cleaned=[x for x in cleaned if x.upper()!="STRONGER COVENANT"]
+                cleaned.append(c)
+            elif sem=="LEGAL" and u=="LEGAL TEXT SCANNED":
+                cleaned=[x for x in cleaned if x.upper()!="LEGAL PACK"]
+                cleaned.append(c)
+            continue
+        seen_sem.add(sem); cleaned.append(c)
+
+    def chip_priority(c):
+        u=c.upper()
+        if any(x in u for x in ("DEVELOPMENT","ASSET MANAGEMENT","RESIDENTIAL CONVERSION","REFURBISHMENT","MIXED USE")): return 10
+        if "YRS LEFT" in u or u in {"BREAK PASSED","GUARANTORS","RPI REVIEW"}: return 20
+        if "COVENANT" in u: return 30
+        if u=="VACANT" or "GRADE II" in u: return 40
+        if u=="FRI" or u=="IRI": return 50
+        if u.startswith("ERV "): return 60
+        if u.startswith("VAT"): return 70
+        if u.startswith("RELETTING "): return 80
+        if u.startswith("LEGAL"): return 90
+        return 65
+    cleaned=sorted(cleaned,key=chip_priority)[:6]
+    return f,cleaned,interpretation
 
 def _research_links(p):
     import urllib.parse
