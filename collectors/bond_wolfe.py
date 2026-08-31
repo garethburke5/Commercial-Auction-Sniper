@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 from urllib.parse import urljoin
 from .core import SourceResult, norm
 from .utils import soup, nearest_card, detail_lot
@@ -63,28 +64,41 @@ def _number(value):
         return None
 
 
-def _rich_detail(lot, ds):
-    """Populate source-labelled Bond Wolfe particulars from the exact lot page.
+def _clean_ordinal_date(value):
+    return re.sub(r"(\d{1,2})(?:st|nd|rd|th)\b",r"\1",norm(value or ""),flags=re.I)
 
-    Bond Wolfe pages are unusually structured and expose Accommodation, EPC,
-    Tenure and Tenancy Details as explicit labelled sections. These facts must
-    outrank broad prose inference and generic card values.
-    """
+
+def _derive_expiry(start, years):
+    """Derive expiry only when Bond Wolfe explicitly gives both commencement and fixed term."""
+    if not start or not years:
+        return None
+    raw=_clean_ordinal_date(start)
+    for fmt in ("%d %B %Y","%d %b %Y","%d/%m/%Y","%d-%m-%Y","%d.%m.%Y"):
+        try:
+            d=datetime.strptime(raw,fmt)
+            y=d.year+int(float(years))
+            try:
+                out=d.replace(year=y)
+            except ValueError:
+                out=d.replace(year=y,day=28)
+            return out.strftime("%d %B %Y").lstrip("0")
+        except Exception:
+            pass
+    return None
+
+
+def _rich_detail(lot, ds):
+    """Populate source-labelled Bond Wolfe particulars from the exact lot page."""
     main=ds.find("main") or ds
     text=norm(main.get_text(" ",strip=True))
-    low=text.lower()
 
-    # Exact lot number printed beside the sale category, e.g. "Lot 6 Commercial Investment".
     lm=re.search(r"\bLot\s+(\d+[A-Z]?)\s+(?:Commercial Investment|Commercial Vacant|Mixed Use|Commercial)",text,re.I)
     if lm:
         lot.lot_number="Lot "+lm.group(1)
 
-    # Authoritative total accommodation. Prefer paired metric/imperial figures.
     area_sqm=area_sqft=None
     pairs=re.findall(r"([\d,]+(?:\.\d+)?)\s*sq\.?m\.?\s*\(([\d,]+(?:\.\d+)?)\s*sq\.?ft\.?(?:\s*approx\.?)?\)",text,re.I)
     if pairs:
-        # A Bond Wolfe accommodation schedule can contain several components;
-        # where there are multiple rows sum them rather than choosing a component.
         sqm_vals=[_number(a) for a,_b in pairs if _number(a)]
         sqft_vals=[_number(b) for _a,b in pairs if _number(b)]
         if sqm_vals and sqft_vals:
@@ -105,10 +119,7 @@ def _rich_detail(lot, ds):
     if epc:
         lot.epc=epc.rstrip(".")
 
-    # Explicit labelled tenure takes precedence over generic mention elsewhere.
-    tenure=_first([
-        r"\bTenure\s+(Freehold|Leasehold|Long Leasehold|Virtual Freehold)\b",
-    ],text)
+    tenure=_first([r"\bTenure\s+(Freehold|Leasehold|Long Leasehold|Virtual Freehold)\b"],text)
     if tenure:
         lot.tenure=tenure.title()
 
@@ -117,8 +128,8 @@ def _rich_detail(lot, ds):
     ],text)
     if tenancy:
         start=_first([
-            r"(?:let|lease)[^.;]{0,45}?from\s+(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20\d{2})",
-            r"(?:let|lease)[^.;]{0,45}?from\s+(\d{1,2}[./-]\d{1,2}[./-]20\d{2})",
+            r"(?:let|lease)[^.;]{0,70}?from\s+(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20\d{2})",
+            r"(?:let|lease)[^.;]{0,70}?from\s+(\d{1,2}[./-]\d{1,2}[./-]20\d{2})",
         ],tenancy)
         if start:
             lot.lease_start=start
@@ -131,10 +142,15 @@ def _rich_detail(lot, ds):
             lot.lease_expiry=expiry
 
         term=_first([
-            r"(?:on|for)\s+(?:a\s+)?(\d+(?:\.\d+)?\s*year)\s+lease",
+            r"(?:on|for)\s+(?:a\s+)?(?:term\s+of\s+)?(\d+(?:\.\d+)?\s*years?)\b",
         ],tenancy)
         if term:
             lot.lease_term=term
+            if not lot.lease_expiry and start:
+                years=re.search(r"\d+(?:\.\d+)?",term)
+                derived=_derive_expiry(start,years.group(0) if years else None)
+                if derived:
+                    lot.lease_expiry=derived
 
         tenant=_first([
             r"(?:let|leased)\s+to\s+(.+?)(?=\s+(?:for|from|on|at a rental|at a rent|paying)|[.;])",
@@ -150,12 +166,20 @@ def _rich_detail(lot, ds):
         if rent:
             lot.annual_rent=_number(rent)
 
+        review=_first([
+            r"(subject to\s+\d+\s*year\s+reviews?)",
+            r"(subject to\s+reviews?[^.;]{0,90})",
+            r"(rent review[^.;]{0,140})",
+            r"(index[- ]linked rent review[^.;]{0,120})",
+        ],tenancy)
+        if review:
+            lot.rent_review=review
+
         lot.occupation="Tenanted"
 
     if re.search(r"vacant possession|commercial vacant",text,re.I) and not tenancy:
         lot.occupation="Vacant"
 
-    # Property type/category from Bond Wolfe's own sale label and description.
     if re.search(r"retail investment|retail unit|retail property",text,re.I):
         lot.property_type="Retail"
     elif re.search(r"industrial|warehouse|workshop",text,re.I):
@@ -172,21 +196,19 @@ def _rich_detail(lot, ds):
         ],text)
         lot.pitch=phrase or "Established/prominent location"
 
-    # Explicit repairing obligations / rent reviews / break clauses where published.
     if re.search(r"full repairing and insuring|\bFRI\b",text,re.I):
         lot.fri=True
-    review=_first([r"(rent review[^.]{0,140})",r"(index[- ]linked rent review[^.]{0,120})"],text)
-    if review:
-        lot.rent_review=review
+    if not lot.rent_review:
+        review=_first([r"(rent review[^.]{0,140})",r"(index[- ]linked rent review[^.]{0,120})"],text)
+        if review:
+            lot.rent_review=review
     brk=_first([r"((?:tenant|landlord)[^.;]{0,40}break[^.;]{0,120})",r"(break option[^.;]{0,120})"],text)
     if brk:
         lot.break_clause=brk
 
-    # Development/asset-management flags only where Bond Wolfe explicitly says so.
     lot.development_potential=True if re.search(r"development potential|development opportunity|subject to planning",text,re.I) else lot.development_potential
     lot.asset_management=True if re.search(r"asset management opportunity|asset management potential",text,re.I) else lot.asset_management
 
-    # Preserve enough exact-page evidence for downstream UI/reletting analysis.
     lot.description=text[:5000]
     return lot.finalise()
 
