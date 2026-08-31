@@ -50,6 +50,36 @@ class Lot:
     status: str = "Live"
     description: str = ""
     collected_at: str = ""
+    area_sqft: Optional[float] = None
+    area_sqm: Optional[float] = None
+    site_area_acres: Optional[float] = None
+    tenant: Optional[str] = None
+    lease_term: Optional[str] = None
+    lease_start: Optional[str] = None
+    lease_expiry: Optional[str] = None
+    break_clause: Optional[str] = None
+    break_status: Optional[str] = None
+    rent_review: Optional[str] = None
+    fri: Optional[bool] = None
+    erv: Optional[float] = None
+    epc: Optional[str] = None
+    rateable_value: Optional[float] = None
+    service_charge: Optional[float] = None
+    ground_rent: Optional[float] = None
+    property_type: Optional[str] = None
+    occupation: Optional[str] = None
+    parking: Optional[str] = None
+    development_potential: Optional[bool] = None
+    asset_management: Optional[bool] = None
+    refurbishment: Optional[bool] = None
+    residential_conversion: Optional[bool] = None
+    listed_status: Optional[str] = None
+    covenant_rating: Optional[str] = None
+    covenant_risk: Optional[str] = None
+    covenant_turnover: Optional[str] = None
+    guarantors: Optional[str] = None
+    pitch: Optional[str] = None
+    nearby_occupiers: Optional[str] = None
 
     def finalise(self):
         if self.guide_price and self.annual_rent:
@@ -139,7 +169,7 @@ def parse_vat(text):
     t = (text or "").lower()
     if any(x in t for x in ["vat is not applicable","vat-free","vat free","no vat"]):
         return "NOT APPLICABLE"
-    if any(x in t for x in ["vat applicable","vat is applicable","elected to charge vat"]):
+    if any(x in t for x in ["elected for vat","elected to charge vat","vat applicable","vat is applicable"]):
         return "APPLICABLE"
     return "MENTIONED - VERIFY" if "vat" in t else "UNKNOWN"
 
