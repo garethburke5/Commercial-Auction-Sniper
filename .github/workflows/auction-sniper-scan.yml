@@ -63,14 +63,21 @@ jobs:
           print('SNAPSHOT', len(d['properties']), 'properties')
           for s in d['source_health']:
               print(s['source'], s['status'], s['lots_seen'])
+          # Data-integrity invariant: wholly vacant lots cannot advertise current rent/GIY.
+          bad=[x for x in d['properties'] if str(x.get('occupation') or '').strip().lower() in {'vacant','vacant possession'} and (x.get('annual_rent') is not None or x.get('gross_yield') is not None)]
+          assert not bad, f'vacant rent/yield integrity failures: {len(bad)}'
           PY
 
       - name: Commit refreshed snapshot
         run: |
           git config user.name 'Auction Sniper Bot'
           git config user.email 'actions@users.noreply.github.com'
+          # Keep the freshly generated snapshot outside git while synchronising code.
+          cp data/properties.json /tmp/auction-sniper-properties.json
+          git restore data/properties.json
+          git pull --rebase origin main
+          cp /tmp/auction-sniper-properties.json data/properties.json
           git add data/properties.json
           git diff --cached --quiet && exit 0
           git commit -m 'Refresh Auction Sniper production data'
-          git pull --rebase origin main
           git push origin main
