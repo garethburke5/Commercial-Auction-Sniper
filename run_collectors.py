@@ -11,12 +11,13 @@ from collectors.strettons import collect as strettons
 from collectors.lsh import collect as lsh
 from collectors.acuitus import collect as acuitus
 from collectors.pattinson import collect as pattinson
-from collectors.pending import allsop, clive_emson, mchugh
+from collectors.mchugh import collect as mchugh
+from collectors.pending import allsop, clive_emson
 
 DATA = Path("data")
 DATA.mkdir(exist_ok=True)
 
-COLLECTORS = [ahl, savills, bond_wolfe, pugh, strettons, lsh, pattinson, allsop, acuitus, clive_emson, mchugh]
+COLLECTORS = [ahl, savills, bond_wolfe, pugh, strettons, lsh, pattinson, mchugh, allsop, acuitus, clive_emson]
 
 def load_old():
     p=DATA/"properties.json"
