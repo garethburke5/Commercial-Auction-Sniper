@@ -9,7 +9,8 @@ from collectors.bond_wolfe_v2 import collect as bond_wolfe
 from collectors.pugh import collect as pugh
 from collectors.strettons import collect as strettons
 from collectors.lsh import collect as lsh
-from collectors.pending import allsop, acuitus, clive_emson, mchugh
+from collectors.acuitus import collect as acuitus
+from collectors.pending import allsop, clive_emson, mchugh
 
 DATA = Path("data")
 DATA.mkdir(exist_ok=True)
