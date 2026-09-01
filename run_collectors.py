@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 from collectors.auction_house_london import collect as ahl
 from collectors.savills import collect as savills
-from collectors.bond_wolfe import collect as bond_wolfe
+from collectors.bond_wolfe_v2 import collect as bond_wolfe
 from collectors.pugh import collect as pugh
 from collectors.strettons import collect as strettons
 from collectors.lsh import collect as lsh
