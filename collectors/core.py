@@ -82,7 +82,16 @@ class Lot:
     nearby_occupiers: Optional[str] = None
 
     def finalise(self):
-        if self.guide_price and self.annual_rent:
+        # A wholly vacant property has no current passing rent. Source pages often
+        # contain historic/previous rent figures, and those must never leak into
+        # the headline rent or GIY. Part-let/multi-let assets are deliberately not
+        # cleared because they can still have genuine current income.
+        occ = (self.occupation or "").strip().lower()
+        wholly_vacant = occ in {"vacant", "vacant possession"} or occ.startswith("vacant -")
+        if wholly_vacant:
+            self.annual_rent = None
+            self.gross_yield = None
+        elif self.guide_price and self.annual_rent:
             self.gross_yield = round(self.annual_rent / self.guide_price * 100, 2)
         else:
             self.gross_yield = None
