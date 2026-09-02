@@ -31,14 +31,16 @@ def collect():
                 m = re.search(r"\bLot\s+(\d+[A-Z]?)\b", card, re.I)
                 if m:
                     lot_no = "Lot " + m.group(1)
-                # The catalogue card has already been positively classified as
-                # commercial/mixed-use. Do not make the exact page pass the same
-                # generic classifier a second time: McHugh detail pages often use
-                # terse property wording that caused all valid candidates to drop.
+                # Candidate classification is taken from the catalogue card, but
+                # the card itself is deliberately not passed into detail_lot.
+                # McHugh's surrounding catalogue markup can contain a neighbouring
+                # lot's "sold prior" text; detail_lot then (correctly for its own
+                # page) suppresses the candidate. Use the exact page as the data
+                # source once the candidate has been positively classified.
                 lot = detail_lot(
                     SOURCE,
                     href,
-                    seed=card,
+                    seed="",
                     lot_number=lot_no,
                     auction_date="2026-09-16",
                     force_commercial=True,
