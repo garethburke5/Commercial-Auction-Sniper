@@ -25,9 +25,7 @@ def _auction_card(text):
     t = norm(text).lower()
     if "starting bid" not in t and "current bid" not in t:
         return False
-    if any(x in t for x in COMMERCIAL_LABELS):
-        return True
-    return False
+    return any(x in t for x in COMMERCIAL_LABELS)
 
 
 def _detail_url(href):
@@ -41,8 +39,6 @@ def _detail_url(href):
 
 
 def _card_text(a):
-    # Pattinson's entire result is often the anchor itself; if not, climb just
-    # enough to capture the listing without swallowing neighbouring cards.
     own = norm(a.get_text(" ", strip=True))
     if _auction_card(own):
         return own
@@ -122,11 +118,13 @@ def collect():
     try:
         targets = {}
         pages_scanned = 0
-        for page in range(1, 31):
+        # Pattinson's listing cards are client-rendered in the production runner.
+        # Render the first five pages: this immediately captures live commercial
+        # cards while keeping the scheduled scan comfortably within its time budget.
+        for page in range(1, 6):
             url = SEARCH if page == 1 else SEARCH + f"?p={page}"
-            s = soup(url, use_browser=False)
+            s = soup(url, use_browser=True)
             pages_scanned += 1
-            page_new = 0
             for a in s.find_all("a", href=True):
                 href = _detail_url(a.get("href"))
                 if not href:
@@ -134,18 +132,10 @@ def collect():
                 card = _card_text(a)
                 if not _auction_card(card):
                     continue
-                # Exclude clearly residential cards unless there is an explicit
-                # commercial label on the same listing.
                 low = card.lower()
                 if any(x in low for x in RESIDENTIAL_ONLY) and not any(x in low for x in COMMERCIAL_LABELS):
                     continue
-                if href not in targets:
-                    targets[href] = card
-                    page_new += 1
-            # Do not stop after one quiet page: Pattinson mixes residential and
-            # commercial stock, so commercial cards can be sparse across pages.
-            if page >= 10 and page_new == 0 and len(targets) >= 8:
-                break
+                targets.setdefault(href, card)
 
         lots = []
         failures = 0
