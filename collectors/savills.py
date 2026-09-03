@@ -6,13 +6,18 @@ from .utils import soup, image_from_soup, nearest_card
 SOURCE = "Savills Auctions"
 BASE = "https://auctions.savills.co.uk"
 CATALOGUE = BASE + "/auctions/15-september-2026-242"
-AUCTION_DATE = "2026-09-15"
+# Savills' commercial section is offered on Wednesday 16 September.
+AUCTION_DATE = "2026-09-16"
+# Savills' own commercial-property filter. quantity-100 keeps the complete
+# current commercial section on one results page (83 lots at time of repair).
+COMMERCIAL_FEED = BASE + "/auctions/15--16-september-2026-242/page-1/quantity-100/property_type-253/sort-by-0"
 
 COMMERCIAL_POSITIVE = re.compile(
     r"commercial|retail|shop\b|office\b|industrial|warehouse|business centre|market\b|"
     r"mixed[- ]use|public house|\bpub\b|hotel\b|care (?:home|facility)|trade park|"
     r"investment let|commercial unit|commercial investment|retail investment|light industrial|"
-    r"rail arches|development site|employment land|petrol station|veterinary|restaurant|cafe",
+    r"rail arches|development site|employment land|petrol station|veterinary|restaurant|cafe|"
+    r"takeaway|betting office|trade counter|workshop|garage|showroom|leisure",
     re.I,
 )
 RESIDENTIAL_ONLY = re.compile(r"\b(flat|maisonette|house|bungalow|apartment|residential dwelling)\b", re.I)
@@ -37,7 +42,7 @@ def _is_commercial(text):
     text = text or ""
     if not COMMERCIAL_POSITIVE.search(text):
         return False
-    if re.search(r"mixed[- ]use|commercial|retail|shop\b|office\b|industrial|warehouse|market\b|pub\b|hotel\b|care (?:home|facility)|petrol station|veterinary", text, re.I):
+    if re.search(r"mixed[- ]use|commercial|retail|shop\b|office\b|industrial|warehouse|market\b|pub\b|hotel\b|care (?:home|facility)|petrol station|veterinary|takeaway|betting office|trade counter|workshop|garage|showroom|leisure", text, re.I):
         return True
     return not RESIDENTIAL_ONLY.search(text)
 
@@ -47,56 +52,89 @@ def _lot_no(card):
     return int(m.group(1)) if m else None
 
 
-def _discover():
-    """Discover the whole live Savills commercial section.
+def _detail_href(a):
+    href = urljoin(BASE, a.get("href") or "")
+    if "savills.co.uk" not in href:
+        return None
+    # Current catalogue uses both SEO auction-detail URLs and legacy
+    # index.php?id=...&view=commission exact detail pages.
+    if re.search(r"/auctions/.+-\d{4,6}/?$", href, re.I):
+        return href.split("?")[0].rstrip("/")
+    if "index.php" in href and "id=" in href and "view=commission" in href:
+        return href
+    return None
 
-    Savills explicitly labels Lots 201-300 as its Commercial Section for the
-    15/16 September sale. We therefore use the auctioneer's own lot-number
-    classification rather than trying to infer commercial use from residential
-    catalogue cards. All catalogue pages are scanned because the commercial
-    section is paginated near the end of the sale catalogue.
+
+def _discover():
+    """Use Savills' own Commercial property filter as the source of truth.
+
+    The previous collector stopped at catalogue page 21 and therefore missed
+    later commercial lots after Savills expanded the sale to 262 properties.
+    The source now exposes a dedicated property_type-253 commercial feed with
+    quantity-100, so every lot on that feed is accepted as source-classified
+    commercial. A full catalogue sweep remains as a resilience fallback.
     """
-    urls = set()
+    urls = {}
     pages_checked = 0
 
-    for page_no in range(1, 22):
+    # Primary: auctioneer's dedicated commercial feed.
+    try:
+        ds = soup(COMMERCIAL_FEED, use_browser=False)
+    except Exception:
+        ds = soup(COMMERCIAL_FEED, use_browser=True)
+    pages_checked += 1
+    for a in ds.find_all("a", href=True):
+        href = _detail_href(a)
+        if not href:
+            continue
+        card = nearest_card(a, 4000)
+        lot_no = _lot_no(card)
+        # Avoid the synthetic Lot 0 commercial-section navigation card.
+        if lot_no == 0:
+            continue
+        urls[href] = {"source_commercial": True, "card": card}
+
+    # Fallback / cross-check: sweep all currently visible catalogue pages.
+    # There are 25 pages today; use 35 headroom so catalogue growth cannot
+    # silently truncate the collector again.
+    for page_no in range(1, 36):
         page = CATALOGUE if page_no == 1 else f"{CATALOGUE}/page-{page_no}"
         try:
-            ds = soup(page, use_browser=False)
+            cds = soup(page, use_browser=False)
         except Exception:
             try:
-                ds = soup(page, use_browser=True)
+                cds = soup(page, use_browser=True)
             except Exception:
                 continue
         pages_checked += 1
-
-        for a in ds.find_all("a", href=True):
-            href = urljoin(BASE, a.get("href"))
-            if "savills.co.uk/auctions/" not in href or "-242/" not in href:
+        text = norm(cds.get_text(" ", strip=True)).lower()
+        # Once Savills returns an empty/non-catalogue page after the known
+        # catalogue tail, stop instead of wasting requests.
+        if page_no > 25 and "lot " not in text and "guide price" not in text:
+            break
+        for a in cds.find_all("a", href=True):
+            href = _detail_href(a)
+            if not href:
                 continue
-            if href.rstrip("/") == CATALOGUE.rstrip("/"):
-                continue
-            if not re.search(r"-\d{4,6}/?$", href):
-                continue
-
-            card = nearest_card(a, 3500)
+            card = nearest_card(a, 4000)
             lot_no = _lot_no(card)
-            source_classified_commercial = lot_no is not None and 201 <= lot_no <= 300
-            explicit_commercial = _is_commercial(card)
-            if source_classified_commercial or explicit_commercial:
-                urls.add(href.split("?")[0].rstrip("/"))
+            source_commercial = lot_no is not None and 201 <= lot_no <= 300
+            if source_commercial or _is_commercial(card):
+                urls.setdefault(href, {"source_commercial": source_commercial, "card": card})
 
-    return sorted(urls), pages_checked
+    return urls, pages_checked
 
 
-def _detail(href):
+def _detail(href, source_commercial=False):
     try:
         ds = soup(href, use_browser=False)
     except Exception:
         ds = soup(href, use_browser=True)
     main = ds.find("main") or ds
     text = norm(main.get_text(" ", strip=True))
-    if not _is_commercial(text):
+    # A lot selected by Savills' own Commercial filter is authoritative even
+    # if its detail copy omits one of our keyword signals.
+    if not source_commercial and not _is_commercial(text):
         return None
 
     h1 = ds.find("h1")
@@ -139,14 +177,16 @@ def _detail(href):
 
     property_type = None
     for pat, label in [
-        (r"mixed[- ]use", "Mixed use"), (r"industrial|warehouse|light industrial|rail arches", "Industrial"),
-        (r"retail|shop\b|market\b", "Retail"), (r"office\b|business centre", "Office"),
+        (r"mixed[- ]use", "Mixed use"), (r"industrial|warehouse|light industrial|rail arches|workshop", "Industrial"),
+        (r"retail|shop\b|market\b|betting office|showroom", "Retail"), (r"office\b|business centre", "Office"),
         (r"hotel\b", "Hotel"), (r"public house|\bpub\b", "Pub"), (r"care (?:home|facility)", "Care facility"),
-        (r"petrol station", "Petrol station"), (r"veterinary", "Veterinary")
+        (r"petrol station", "Petrol station"), (r"veterinary", "Veterinary"), (r"leisure", "Leisure")
     ]:
         if re.search(pat, text, re.I):
             property_type = label
             break
+    if source_commercial and not property_type:
+        property_type = "Commercial"
 
     return Lot(
         source=SOURCE, url=href, address=address, lot_number=lot_number,
@@ -164,20 +204,21 @@ def _detail(href):
 
 
 def collect():
-    urls, pages_checked = _discover()
+    targets, pages_checked = _discover()
     lots = []
     rejected = failures = 0
-    for href in urls:
+    for href, meta in targets.items():
         try:
-            lot = _detail(href)
+            lot = _detail(href, source_commercial=meta.get("source_commercial", False))
             if lot:
                 lots.append(lot)
             else:
                 rejected += 1
-        except Exception:
+        except Exception as exc:
             failures += 1
+            print("SAVILLS_DETAIL_FAIL", href, repr(exc))
     status = "LIVE" if lots else "FAILED"
     return SourceResult(
         SOURCE, status, lots,
-        f"15/16 Sep catalogue pages {pages_checked}; {len(urls)} source-classified/explicit commercial exact pages discovered; {len(lots)} published; {rejected} rejected; {failures} detail failures"
+        f"15/16 Sep dedicated commercial feed + {pages_checked - 1} catalogue pages; {len(targets)} source-classified/explicit commercial exact pages discovered; {len(lots)} published; {rejected} rejected; {failures} detail failures"
     )
