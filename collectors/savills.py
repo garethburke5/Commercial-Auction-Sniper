@@ -61,12 +61,6 @@ def _detail_href(a):
 
 
 def _card_block(a):
-    """Return only the local lot card, never a catalogue-sized ancestor.
-
-    Generic nearest-card traversal can accidentally absorb neighbouring lots and
-    make a residential detail link look commercial. This bounded local-card rule
-    requires a lot number plus auction price/status language before accepting it.
-    """
     node = a
     fallback = norm(a.get_text(" ", strip=True))
     for _ in range(8):
@@ -83,7 +77,6 @@ def _card_block(a):
 
 
 def _advertised_count(page_text, discovered):
-    """Read the source-advertised filtered result count where Savills exposes it."""
     values = []
     for pat in [
         r"showing\s+\d+\s*(?:-|to)\s*\d+\s+of\s+(\d{1,4})",
@@ -97,19 +90,11 @@ def _advertised_count(page_text, discovered):
                 continue
             if n > 0:
                 values.append(n)
-    # On a filtered catalogue Savills can also mention the full auction total.
-    # Prefer the smallest advertised total that can contain the discovered feed.
     viable = sorted({n for n in values if n >= discovered})
     return viable[0] if viable else (max(values) if values else None)
 
 
 def _discover():
-    """Discover from Savills' own Commercial filter, with an isolated fallback.
-
-    The commercial filter is authoritative. We do not merge a broad catalogue
-    keyword sweep into it, because that previously inflated 83 commercial lots to
-    186 by allowing neighbouring-card text to contaminate classification.
-    """
     targets = {}
     feed_text = ""
     pages_checked = 0
@@ -129,14 +114,10 @@ def _discover():
         lot_no = _lot_no(card)
         if lot_no in {None, 0}:
             continue
-        # A genuine filtered result card must locally identify its lot. This
-        # excludes navigation, related-lot and footer links that share detail URLs.
         if not re.search(r"\bLot\s*#?\s*%s\b" % re.escape(str(lot_no)), card, re.I):
             continue
         targets[href] = {"source_commercial": True, "card": card, "lot_no": lot_no}
 
-    # Resilience fallback only if the authoritative commercial feed is unavailable
-    # or structurally empty. Never union this broad sweep with a healthy feed.
     if not targets:
         for page_no in range(1, 36):
             page = CATALOGUE if page_no == 1 else f"{CATALOGUE}/page-{page_no}"
@@ -267,4 +248,6 @@ def collect():
         f"16 Sep commercial feed authoritative; {pages_checked} source pages checked; {len(targets)} exact commercial pages discovered; {len(lots)} published; expected {expected if expected else 'unknown'}; {rejected} rejected; {failures} detail failures",
         expected_count=expected,
         discovered_count=len(targets),
+        authoritative_snapshot=True,
+        scope_dates=(AUCTION_DATE,),
     )
