@@ -17,16 +17,21 @@ DATA = Path("data")
 DATA.mkdir(exist_ok=True)
 
 COLLECTORS = [ahl, savills, bond_wolfe, pugh, strettons, lsh, pattinson, mchugh, allsop, acuitus, clive_emson]
+PUBLISHABLE = {"LIVE", "DEGRADED"}
 
 
-def load_old():
+def load_old_snapshot():
     p = DATA / "properties.json"
     if not p.exists():
-        return []
+        return {"properties": [], "source_health": []}
     try:
-        return json.loads(p.read_text(encoding="utf-8")).get("properties", [])
+        data = json.loads(p.read_text(encoding="utf-8"))
+        return {
+            "properties": data.get("properties", []),
+            "source_health": data.get("source_health", []),
+        }
     except Exception:
-        return []
+        return {"properties": [], "source_health": []}
 
 
 def _key(x):
@@ -43,14 +48,33 @@ def _auction_has_finished(x, today):
         return False
 
 
+def _complete_authoritative(r):
+    """True only when a collector has proved a complete source-scoped catalogue.
+
+    Partial/degraded collectors may publish useful fresh rows, but they are never
+    allowed to delete previously captured rows. Pruning is permitted only when a
+    source explicitly declares an authoritative scope and its published count
+    exactly matches the source-advertised expected count.
+    """
+    return bool(
+        getattr(r, "authoritative_snapshot", False)
+        and r.status == "LIVE"
+        and getattr(r, "expected_count", None)
+        and len(r.lots) == r.expected_count
+        and getattr(r, "scope_dates", ())
+    )
+
+
 def run():
-    old = load_old()
+    old_snapshot = load_old_snapshot()
+    old = old_snapshot["properties"]
     today = datetime.now(timezone.utc).date()
     old_by_key = {_key(x): dict(x) for x in old if _key(x) != ("", "")}
 
     results = []
     current_by_key = {}
     source_status = {}
+    authoritative_scopes = []
 
     for fn in COLLECTORS:
         r = fn()
@@ -58,27 +82,43 @@ def run():
         results.append(status)
         source_status[r.source] = r.status
 
-        if r.status == "LIVE":
+        if r.status in PUBLISHABLE:
             for lot in r.lots:
                 item = lot.to_dict()
                 current_by_key[_key(item)] = item
 
-    # History is append-preserving: once a commercial auction lot has been captured,
-    # it remains in the radar after the auction finishes or disappears from the
-    # auctioneer's current catalogue. A freshly collected exact source/url always wins.
+        if _complete_authoritative(r):
+            authoritative_scopes.append((r.source, set(r.scope_dates)))
+
+    # Append-preserving by default: a partial scrape, site outage, pagination
+    # change or parser regression cannot erase catalogue history.
     merged_by_key = dict(old_by_key)
     merged_by_key.update(current_by_key)
 
+    # Exception: when a collector proves it has the COMPLETE authoritative source
+    # scope (published == source-advertised count), stale rows from that same sale
+    # can be removed. This is what cleans parser-created false positives without
+    # risking data loss during an incomplete run.
     current_keys = set(current_by_key)
+    pruned = 0
+    for source, scope_dates in authoritative_scopes:
+        stale_keys = [
+            key for key, item in merged_by_key.items()
+            if key not in current_keys
+            and item.get("source") == source
+            and str(item.get("auction_date") or "")[:10] in scope_dates
+        ]
+        for key in stale_keys:
+            merged_by_key.pop(key, None)
+            pruned += 1
+
     for key, item in merged_by_key.items():
         if key in current_keys:
             continue
 
         if _auction_has_finished(item, today):
-            # Keep all captured facts and the original URL; only lifecycle status changes.
             item["status"] = "ARCHIVED"
         elif source_status.get(item.get("source")) not in {None, "LIVE"}:
-            # Future/current lot retained while its collector is temporarily unavailable.
             item["status"] = "STALE SOURCE"
 
     merged = list(merged_by_key.values())
@@ -93,12 +133,18 @@ def run():
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "properties": merged,
         "source_health": results,
+        "integrity": {
+            "authoritative_scopes_completed": len(authoritative_scopes),
+            "stale_false_positive_rows_pruned": pruned,
+        },
     }
     (DATA / "properties.json").write_text(json.dumps(snapshot, indent=2), encoding="utf-8")
     print(json.dumps({
         "generated_at": snapshot["generated_at"],
         "property_count": len(merged),
         "archived_count": sum(1 for x in merged if x.get("status") == "ARCHIVED"),
+        "authoritative_scopes_completed": len(authoritative_scopes),
+        "stale_false_positive_rows_pruned": pruned,
         "sources": results,
     }, indent=2))
 
