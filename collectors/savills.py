@@ -1,12 +1,10 @@
 import re
 from urllib.parse import urljoin
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
-from .utils import soup, image_from_soup
+from .utils import soup, image_from_soup, nearest_card
 
 SOURCE = "Savills Auctions"
 BASE = "https://auctions.savills.co.uk"
-# Current live catalogue. This must move with the auction calendar rather than remain
-# pinned to the previous sale (the old collector was hard-coded to 2 September).
 CATALOGUE = BASE + "/auctions/15-september-2026-242"
 AUCTION_DATE = "2026-09-15"
 
@@ -14,12 +12,10 @@ COMMERCIAL_POSITIVE = re.compile(
     r"commercial|retail|shop\b|office\b|industrial|warehouse|business centre|market\b|"
     r"mixed[- ]use|public house|\bpub\b|hotel\b|care (?:home|facility)|trade park|"
     r"investment let|commercial unit|commercial investment|retail investment|light industrial|"
-    r"rail arches|development site|employment land",
+    r"rail arches|development site|employment land|petrol station|veterinary|restaurant|cafe",
     re.I,
 )
-RESIDENTIAL_ONLY = re.compile(
-    r"\b(flat|maisonette|house|bungalow|apartment|residential dwelling)\b", re.I
-)
+RESIDENTIAL_ONLY = re.compile(r"\b(flat|maisonette|house|bungalow|apartment|residential dwelling)\b", re.I)
 
 
 def _money(v):
@@ -41,36 +37,63 @@ def _is_commercial(text):
     text = text or ""
     if not COMMERCIAL_POSITIVE.search(text):
         return False
-    # Mixed-use and explicit commercial descriptions remain valid even where flats
-    # or residential conversion potential are mentioned.
-    if re.search(r"mixed[- ]use|commercial|retail|shop\b|office\b|industrial|warehouse|market\b|pub\b|hotel\b|care (?:home|facility)", text, re.I):
+    if re.search(r"mixed[- ]use|commercial|retail|shop\b|office\b|industrial|warehouse|market\b|pub\b|hotel\b|care (?:home|facility)|petrol station|veterinary", text, re.I):
         return True
     return not RESIDENTIAL_ONLY.search(text)
 
 
+def _lot_no(card):
+    m = re.search(r"\bLot\s*#?\s*(\d{1,3})[A-Za-z]?\b", card or "", re.I)
+    return int(m.group(1)) if m else None
+
+
 def _discover():
-    """Discover exact lot URLs from the live catalogue instead of a frozen seed list."""
-    pages = [CATALOGUE, BASE + "/component/bidding/15-september-2026-242"]
+    """Discover the whole live Savills commercial section.
+
+    Savills explicitly labels Lots 201-300 as its Commercial Section for the
+    15/16 September sale. We therefore use the auctioneer's own lot-number
+    classification rather than trying to infer commercial use from residential
+    catalogue cards. All catalogue pages are scanned because the commercial
+    section is paginated near the end of the sale catalogue.
+    """
     urls = set()
-    for page in pages:
+    pages_checked = 0
+
+    for page_no in range(1, 22):
+        page = CATALOGUE if page_no == 1 else f"{CATALOGUE}/page-{page_no}"
         try:
-            ds = soup(page, use_browser=True)
+            ds = soup(page, use_browser=False)
         except Exception:
-            continue
+            try:
+                ds = soup(page, use_browser=True)
+            except Exception:
+                continue
+        pages_checked += 1
+
         for a in ds.find_all("a", href=True):
             href = urljoin(BASE, a.get("href"))
-            if "/auctions/15" not in href or "-242/" not in href:
+            if "savills.co.uk/auctions/" not in href or "-242/" not in href:
                 continue
             if href.rstrip("/") == CATALOGUE.rstrip("/"):
                 continue
-            # Exact Savills lot URLs end in a numeric property id.
-            if re.search(r"-\d{4,6}/?$", href):
+            if not re.search(r"-\d{4,6}/?$", href):
+                continue
+
+            card = nearest_card(a, 3500)
+            lot_no = _lot_no(card)
+            source_classified_commercial = lot_no is not None and 201 <= lot_no <= 300
+            explicit_commercial = _is_commercial(card)
+            if source_classified_commercial or explicit_commercial:
                 urls.add(href.split("?")[0].rstrip("/"))
-    return sorted(urls)
+
+    return sorted(urls), pages_checked
 
 
 def _detail(href):
-    ds = soup(href, use_browser=True)
+    try:
+        ds = soup(href, use_browser=False)
+    except Exception:
+        ds = soup(href, use_browser=True)
     main = ds.find("main") or ds
     text = norm(main.get_text(" ", strip=True))
     if not _is_commercial(text):
@@ -116,9 +139,10 @@ def _detail(href):
 
     property_type = None
     for pat, label in [
-        (r"mixed[- ]use", "Mixed use"), (r"industrial|warehouse|light industrial", "Industrial"),
+        (r"mixed[- ]use", "Mixed use"), (r"industrial|warehouse|light industrial|rail arches", "Industrial"),
         (r"retail|shop\b|market\b", "Retail"), (r"office\b|business centre", "Office"),
-        (r"hotel\b", "Hotel"), (r"public house|\bpub\b", "Pub"), (r"care (?:home|facility)", "Care facility")
+        (r"hotel\b", "Hotel"), (r"public house|\bpub\b", "Pub"), (r"care (?:home|facility)", "Care facility"),
+        (r"petrol station", "Petrol station"), (r"veterinary", "Veterinary")
     ]:
         if re.search(pat, text, re.I):
             property_type = label
@@ -140,7 +164,7 @@ def _detail(href):
 
 
 def collect():
-    urls = _discover()
+    urls, pages_checked = _discover()
     lots = []
     rejected = failures = 0
     for href in urls:
@@ -155,5 +179,5 @@ def collect():
     status = "LIVE" if lots else "FAILED"
     return SourceResult(
         SOURCE, status, lots,
-        f"15/16 Sep live catalogue: {len(urls)} exact lot pages discovered; {len(lots)} commercial/mixed-use published; {rejected} residential/non-commercial rejected; {failures} detail failures"
+        f"15/16 Sep catalogue pages {pages_checked}; {len(urls)} source-classified/explicit commercial exact pages discovered; {len(lots)} published; {rejected} rejected; {failures} detail failures"
     )
