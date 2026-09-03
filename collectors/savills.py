@@ -76,35 +76,16 @@ def _card_block(a):
     return fallback
 
 
-def _advertised_count(page_text, discovered):
-    values = []
-    for pat in [
-        r"showing\s+\d+\s*(?:-|to)\s*\d+\s+of\s+(\d{1,4})",
-        r"\b(\d{1,4})\s+(?:commercial\s+)?(?:properties|property|lots|results)\b",
-        r"(?:properties|lots|results)\s*\(?\s*(\d{1,4})\s*\)?",
-    ]:
-        for m in re.finditer(pat, page_text or "", re.I):
-            try:
-                n = int(m.group(1))
-            except Exception:
-                continue
-            if n > 0:
-                values.append(n)
-    viable = sorted({n for n in values if n >= discovered})
-    return viable[0] if viable else (max(values) if values else None)
-
-
 def _discover():
     targets = {}
-    feed_text = ""
     pages_checked = 0
+    feed_ok = False
 
     try:
         ds = soup(COMMERCIAL_FEED, use_browser=False)
     except Exception:
         ds = soup(COMMERCIAL_FEED, use_browser=True)
     pages_checked += 1
-    feed_text = norm(ds.get_text(" ", strip=True))
 
     for a in ds.find_all("a", href=True):
         href = _detail_href(a)
@@ -118,34 +99,43 @@ def _discover():
             continue
         targets[href] = {"source_commercial": True, "card": card, "lot_no": lot_no}
 
-    if not targets:
-        for page_no in range(1, 36):
-            page = CATALOGUE if page_no == 1 else f"{CATALOGUE}/page-{page_no}"
-            try:
-                cds = soup(page, use_browser=False)
-            except Exception:
-                try:
-                    cds = soup(page, use_browser=True)
-                except Exception:
-                    continue
-            pages_checked += 1
-            text = norm(cds.get_text(" ", strip=True)).lower()
-            if page_no > 25 and "lot " not in text and "guide price" not in text:
-                break
-            for a in cds.find_all("a", href=True):
-                href = _detail_href(a)
-                if not href:
-                    continue
-                card = _card_block(a)
-                lot_no = _lot_no(card)
-                if lot_no is None:
-                    continue
-                source_commercial = 201 <= lot_no <= 300
-                if source_commercial or _is_commercial(card):
-                    targets.setdefault(href, {"source_commercial": source_commercial, "card": card, "lot_no": lot_no})
+    # The quantity-100/property_type-253 page is already a source-scoped commercial
+    # catalogue. If it yields local lot cards, the unique card count is the complete
+    # scoped inventory. Do not parse generic page text for an "expected" number: the
+    # same HTML also contains the full auction total, which previously produced the
+    # false 213 denominator against the verified 83 commercial lots.
+    if targets:
+        feed_ok = True
+        expected = len(targets)
+        return targets, pages_checked, expected, feed_ok
 
-    expected = _advertised_count(feed_text, len(targets)) if feed_text else None
-    return targets, pages_checked, expected
+    # Fallback only if the dedicated filtered feed is structurally unavailable.
+    for page_no in range(1, 36):
+        page = CATALOGUE if page_no == 1 else f"{CATALOGUE}/page-{page_no}"
+        try:
+            cds = soup(page, use_browser=False)
+        except Exception:
+            try:
+                cds = soup(page, use_browser=True)
+            except Exception:
+                continue
+        pages_checked += 1
+        text = norm(cds.get_text(" ", strip=True)).lower()
+        if page_no > 25 and "lot " not in text and "guide price" not in text:
+            break
+        for a in cds.find_all("a", href=True):
+            href = _detail_href(a)
+            if not href:
+                continue
+            card = _card_block(a)
+            lot_no = _lot_no(card)
+            if lot_no is None:
+                continue
+            source_commercial = 201 <= lot_no <= 300
+            if source_commercial or _is_commercial(card):
+                targets.setdefault(href, {"source_commercial": source_commercial, "card": card, "lot_no": lot_no})
+
+    return targets, pages_checked, None, feed_ok
 
 
 def _detail(href, source_commercial=False):
@@ -225,7 +215,7 @@ def _detail(href, source_commercial=False):
 
 
 def collect():
-    targets, pages_checked, expected = _discover()
+    targets, pages_checked, expected, feed_ok = _discover()
     lots = []
     rejected = failures = 0
     for href, meta in targets.items():
@@ -240,14 +230,19 @@ def collect():
             print("SAVILLS_DETAIL_FAIL", href, repr(exc))
 
     status = "LIVE" if lots else "FAILED"
-    if expected and len(lots) != expected:
+    if expected is not None and len(lots) != expected:
+        status = "DEGRADED"
+    if not feed_ok and lots:
         status = "DEGRADED"
 
     return SourceResult(
         SOURCE, status, lots,
-        f"16 Sep commercial feed authoritative; {pages_checked} source pages checked; {len(targets)} exact commercial pages discovered; {len(lots)} published; expected {expected if expected else 'unknown'}; {rejected} rejected; {failures} detail failures",
+        f"16 Sep commercial feed {'authoritative' if feed_ok else 'fallback'}; {pages_checked} source pages checked; {len(targets)} exact commercial pages discovered; {len(lots)} published; expected {expected if expected is not None else 'unknown'}; {rejected} rejected; {failures} detail failures",
         expected_count=expected,
         discovered_count=len(targets),
-        authoritative_snapshot=True,
-        scope_dates=(AUCTION_DATE,),
+        authoritative_snapshot=feed_ok,
+        # The sale spans 15/16 Sep and the old collector incorrectly stamped some
+        # commercial rows 15 Sep. Include both dates so a complete authoritative
+        # refresh can safely remove those earlier parser false positives.
+        scope_dates=("2026-09-15", "2026-09-16"),
     )
