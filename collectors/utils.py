@@ -54,14 +54,7 @@ def _img_candidates(s, base):
     return out
 
 def _strettons_gallery_image(s, base):
-    """Return the exact Strettons lot photograph embedded in its page data.
-
-    Strettons' visible gallery is hydrated from page/JSON data and the property
-    photographs are served from the ggfx-strettons S3 api_sources path. They are
-    therefore often absent from ordinary <img src> markup used by generic
-    collectors. Restricting the match to that path also prevents staff/headshot
-    and branding images being selected.
-    """
+    """Return the exact Strettons lot photograph embedded in its page data."""
     raw=str(s).replace("\\/", "/")
     found=re.findall(
         r'https://ggfx-strettons\.s3\.eu-west-2\.amazonaws\.com/i/api_sources/[^"\'<>\s]+?/images/[^"\'<>\s]+?\.(?:jpe?g|png|webp)(?:\?[^"\'<>\s]*)?',
@@ -80,9 +73,6 @@ def _strettons_gallery_image(s, base):
             reverse=True,
         )
         return unique[0]
-
-    # Defensive fallback if Strettons moves the URL into normal image markup
-    # while retaining its property-specific api_sources path.
     candidates=[
         u for u in _img_candidates(s,base)
         if "ggfx-strettons.s3" in u.lower()
@@ -173,7 +163,8 @@ def _strict_title_is_commercial(title_text):
     return None
 
 def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
-               force_commercial=False, use_browser=False, strict_commercial=False):
+               force_commercial=False, use_browser=False, strict_commercial=False,
+               suppress_prior=True):
     s = soup(url, use_browser=use_browser)
     h1 = s.find("h1")
     title = s.find("title")
@@ -187,7 +178,7 @@ def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
     combined = address + " " + seed + " " + text[:15000]
     low = combined.lower()
 
-    if "sold prior" in low or "withdrawn prior" in low:
+    if suppress_prior and ("sold prior" in low or "withdrawn prior" in low):
         return None
     if strict_commercial:
         title_decision=_strict_title_is_commercial(title_text)
@@ -201,10 +192,18 @@ def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
     rent = parse_rent(text) or parse_rent(seed)
     lp_url, lp_status = legal_pack(s, url)
 
-    return Lot(
+    lot = Lot(
         source=source, url=url, address=address, lot_number=lot_number,
         auction_date=auction_date, image_url=image_from_soup(s, url),
         guide_price=guide, annual_rent=rent, tenure=parse_tenure(combined),
         vat_status=parse_vat(combined), legal_pack_status=lp_status,
         legal_pack_url=lp_url, description=text[:1200]
     ).finalise()
+    if not suppress_prior:
+        # Retain the lot rather than deleting it from history. Only classify a
+        # prior-status when the exact page text itself presents that lifecycle.
+        if "withdrawn prior" in low:
+            lot.status = "WITHDRAWN PRIOR"
+        elif "sold prior" in low:
+            lot.status = "SOLD PRIOR"
+    return lot
