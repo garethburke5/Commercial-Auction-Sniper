@@ -1,6 +1,9 @@
 import re
 from urllib.parse import urljoin
 
+from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright
+
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
 from .utils import soup, image_from_soup, legal_pack
 
@@ -11,7 +14,8 @@ SEARCH = BASE + "/auction/property-search"
 COMMERCIAL_LABELS = (
     "retail", "hotel", "office", "industrial", "warehouse", "workshop",
     "commercial", "public house", "pub", "restaurant", "takeaway", "care home",
-    "nursery", "supermarket", "shop", "mixed use", "mixed-use", "business premises"
+    "nursery", "supermarket", "shop", "mixed use", "mixed-use", "business premises",
+    "commercial development"
 )
 
 RESIDENTIAL_ONLY = (
@@ -34,7 +38,7 @@ def _detail_url(href):
     if "pattinson.co.uk" not in low:
         return None
     if "/property/" in low and "property-search" not in low:
-        return u
+        return u.split("?")[0]
     return None
 
 
@@ -44,16 +48,46 @@ def _card_text(a):
         return own
     node = a
     best = own
-    for _ in range(5):
+    for _ in range(8):
         node = getattr(node, "parent", None)
         if node is None:
             break
         txt = norm(node.get_text(" ", strip=True))
-        if 20 <= len(txt) <= 1800:
+        if 20 <= len(txt) <= 2400:
             best = txt
             if _auction_card(txt):
                 return txt
     return best
+
+
+def _render_search_pages(page_count=10):
+    """Render Pattinson search results in one browser session and wait for cards.
+
+    Pattinson hydrates auction cards after DOMContentLoaded. The generic browser
+    helper was returning valid HTML before those cards were consistently present,
+    which produced a false zero-candidate result. This source-specific renderer
+    waits for auction text and reuses one Chromium session for performance.
+    """
+    out = []
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        ctx = browser.new_context(user_agent="Mozilla/5.0 (compatible; AuctionSniper/5.0)")
+        page = ctx.new_page()
+        for n in range(1, page_count + 1):
+            url = SEARCH if n == 1 else SEARCH + f"?p={n}"
+            try:
+                page.goto(url, wait_until="domcontentloaded", timeout=25000)
+                try:
+                    page.get_by_text(re.compile(r"Starting Bid|Current Bid", re.I)).first.wait_for(timeout=8000)
+                except Exception:
+                    pass
+                page.wait_for_timeout(1200)
+                out.append((url, BeautifulSoup(page.content(), "lxml")))
+            except Exception as e:
+                print("PATTINSON_SEARCH_FAIL", url, repr(e))
+        ctx.close()
+        browser.close()
+    return out
 
 
 def _extract_detail(url, seed):
@@ -68,7 +102,7 @@ def _extract_detail(url, seed):
     )
     main = ds.find("main") or ds.find("article") or ds
     text = norm(main.get_text(" ", strip=True))
-    combined = norm(seed + " " + text[:8000])
+    combined = norm(seed + " " + text[:12000])
     low = combined.lower()
 
     if not any(x in low for x in COMMERCIAL_LABELS):
@@ -84,22 +118,28 @@ def _extract_detail(url, seed):
     lp_url, lp_status = legal_pack(ds, url)
 
     occupation = None
-    if re.search(r"vacant possession|\bvacant\b", text, re.I):
+    if re.search(r"vacant possession|\bvacant\b", text, re.I) and not re.search(r"tenant|tenanted|let to|currently let|producing £", text, re.I):
         occupation = "Vacant"
         rent = None
     elif re.search(r"tenanted|tenant|let to|currently let|producing £", text, re.I):
         occupation = "Tenanted"
 
     ptype = None
-    for label in ("Retail", "Hotel", "Office", "Industrial", "Warehouse", "Workshop", "Mixed use", "Commercial"):
+    for label in ("Retail", "Hotel", "Office", "Industrial", "Warehouse", "Workshop", "Mixed use", "Commercial Development", "Commercial"):
         if label.lower() in low:
             ptype = label
             break
+
+    lot_no = None
+    m = re.search(r"\bLot\s*#?\s*(\d+[A-Za-z]?)\b", text, re.I)
+    if m:
+        lot_no = "Lot " + m.group(1)
 
     return Lot(
         source=SOURCE,
         url=url,
         address=address,
+        lot_number=lot_no,
         auction_date=None,
         image_url=image_from_soup(ds, url),
         guide_price=guide,
@@ -117,14 +157,8 @@ def _extract_detail(url, seed):
 def collect():
     try:
         targets = {}
-        pages_scanned = 0
-        # Pattinson's listing cards are client-rendered in the production runner.
-        # Render the first five pages: this immediately captures live commercial
-        # cards while keeping the scheduled scan comfortably within its time budget.
-        for page in range(1, 6):
-            url = SEARCH if page == 1 else SEARCH + f"?p={page}"
-            s = soup(url, use_browser=True)
-            pages_scanned += 1
+        pages = _render_search_pages(page_count=10)
+        for _, s in pages:
             for a in s.find_all("a", href=True):
                 href = _detail_url(a.get("href"))
                 if not href:
@@ -156,7 +190,7 @@ def collect():
             SOURCE,
             status,
             lots,
-            f"Auction search pages {pages_scanned}; commercial candidates {len(targets)}; {len(lots)} published; {rejected} rejected; {failures} detail failures",
+            f"Auction search pages {len(pages)}; commercial candidates {len(targets)}; {len(lots)} published; {rejected} rejected; {failures} detail failures",
         )
     except Exception as e:
         return SourceResult(SOURCE, "FAILED", [], str(e))
