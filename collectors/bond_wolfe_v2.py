@@ -10,43 +10,35 @@ BASE = "https://www.bondwolfe.com"
 URL = BASE + "/auctions/properties/"
 AUCTION_DATE = "2026-09-10"
 
-# Bond Wolfe uses several combinations of these source labels.  Match the
-# commercial signal itself rather than only four exact phrases so commercial
-# + residential/development combinations are not lost.
 COMMERCIAL_LABELS = (
-    "commercial investment",
-    "commercial vacant",
-    "commercial property",
-    "commercial",
-    "mixed use",
-    "mixed-use",
-    "retail",
-    "shop",
-    "office",
-    "industrial",
-    "warehouse",
-    "public house",
-    "pub",
-    "business premises",
+    "commercial investment", "commercial vacant", "commercial property", "commercial",
+    "mixed use", "mixed-use", "retail", "shop", "office", "industrial", "warehouse",
+    "public house", "pub", "business premises", "land/development", "land development",
+    "former church", "former hotel", "workshop", "yard",
 )
 
 
-def _is_commercial_card(card: str) -> bool:
-    low = norm(card).lower()
-    return any(x in low for x in COMMERCIAL_LABELS)
-
-
 def _page_category(text: str):
-    low = text.lower()
+    low = norm(text).lower()
     if "mixed use" in low or "mixed-use" in low:
         return "Mixed use"
     if "commercial investment" in low:
         return "Commercial investment"
     if "commercial vacant" in low:
         return "Commercial vacant"
-    if any(x in low for x in ("commercial", "retail", "shop", "office", "industrial", "warehouse", "public house", "pub", "business premises")):
+    if any(x in low for x in COMMERCIAL_LABELS):
         return "Commercial"
     return None
+
+
+def _is_current_auction(text: str):
+    low = norm(text).lower()
+    return (
+        "10th september 2026" in low
+        or "10 september 2026" in low
+        or "2026-09-10" in low
+        or "thursday 10th september 2026" in low
+    )
 
 
 def _base_lot(href, card, lotno, ds):
@@ -57,7 +49,7 @@ def _base_lot(href, card, lotno, ds):
     category = _page_category(text) or _page_category(card)
 
     lp_url, lp_status = legal_pack(ds, href)
-    lot = Lot(
+    return Lot(
         source=SOURCE,
         url=href,
         address=address,
@@ -75,7 +67,6 @@ def _base_lot(href, card, lotno, ds):
         property_type=category,
         occupation="Vacant" if category == "Commercial vacant" else None,
     )
-    return lot
 
 
 def collect():
@@ -84,6 +75,10 @@ def collect():
         targets = []
         seen = set()
 
+        # Discover every exact property page in the live catalogue. Classification
+        # happens against each property's own page, not against a large shared card
+        # ancestor. That prevents neighbouring residential/commercial contamination
+        # and catches commercial lots whose listing-card markup is sparse.
         for a in listing.find_all("a", href=True):
             href = urljoin(BASE, a["href"])
             if not re.match(r"^https://www\.bondwolfe\.com/auctions/properties/\d+-property-auction-[^/]+/?$", href, re.I):
@@ -92,15 +87,14 @@ def collect():
             if href in seen:
                 continue
             seen.add(href)
-            card = nearest_card(a, 5000)
-            if not _is_commercial_card(card):
-                continue
+            card = nearest_card(a, 2200)
             m = re.search(r"\bLot\s+(\d+[A-Z]?)\b", card, re.I)
             targets.append((href, card, f"Lot {m.group(1)}" if m else None))
 
         lots = []
         failures = 0
-        rich = 0
+        residential_rejected = 0
+        wrong_sale_rejected = 0
         prior = 0
 
         for href, card, lotno in targets:
@@ -111,19 +105,27 @@ def collect():
                     ds = soup(href, use_browser=True)
                 main = ds.find("main") or ds
                 text = norm(main.get_text(" ", strip=True))
-                category = _page_category(text) or _page_category(card)
-                if not category:
-                    failures += 1
+
+                # Exact detail page is authoritative for both auction scope and type.
+                if not _is_current_auction(text):
+                    wrong_sale_rejected += 1
                     continue
+                category = _page_category(text)
+                if not category:
+                    residential_rejected += 1
+                    continue
+
+                # Prefer exact-page lot number because listing markup can omit it.
+                exact_lot = re.search(r"\bLot\s+(\d+[A-Z]?)\b", text, re.I)
+                if exact_lot:
+                    lotno = f"Lot {exact_lot.group(1)}"
 
                 lot = _base_lot(href, card, lotno, ds)
                 lot = _rich_detail(lot, ds)
                 if not lot.property_type:
                     lot.property_type = category
 
-                # Sold-prior/withdrawn commercial lots remain part of Auction
-                # Sniper's historical catalogue.  Label rather than discard.
-                lifecycle = norm(card + " " + text[:2500]).lower()
+                lifecycle = norm(text[:3000]).lower()
                 if "sold prior" in lifecycle:
                     lot.status = "SOLD PRIOR"
                     prior += 1
@@ -132,16 +134,17 @@ def collect():
                     prior += 1
 
                 lots.append(lot.finalise())
-                rich += 1
             except Exception as exc:
                 failures += 1
                 print("BOND_WOLFE_V2_FAIL", href, repr(exc))
 
         status = "LIVE" if lots else "FAILED"
-        message = (
-            f"10 Sep source-labelled commercial/mixed-use: {len(targets)} candidates; "
-            f"{len(lots)} published; {rich} exact pages enriched; {prior} prior/withdrawn retained; {failures} failures"
+        return SourceResult(
+            SOURCE,
+            status,
+            lots,
+            f"10 Sep exact-page sweep: {len(targets)} catalogue property pages; {len(lots)} commercial/mixed published; {residential_rejected} residential rejected; {wrong_sale_rejected} other-sale rejected; {prior} prior/withdrawn retained; {failures} failures",
+            discovered_count=len(targets),
         )
-        return SourceResult(SOURCE, status, lots, message)
     except Exception as exc:
         return SourceResult(SOURCE, "FAILED", [], str(exc))
