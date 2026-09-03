@@ -10,18 +10,29 @@ BASE = "https://www.bondwolfe.com"
 URL = BASE + "/auctions/properties/"
 AUCTION_DATE = "2026-09-10"
 
+# Bond Wolfe uses several combinations of these source labels.  Match the
+# commercial signal itself rather than only four exact phrases so commercial
+# + residential/development combinations are not lost.
 COMMERCIAL_LABELS = (
     "commercial investment",
     "commercial vacant",
+    "commercial property",
+    "commercial",
     "mixed use",
     "mixed-use",
+    "retail",
+    "shop",
+    "office",
+    "industrial",
+    "warehouse",
+    "public house",
+    "pub",
+    "business premises",
 )
 
 
 def _is_commercial_card(card: str) -> bool:
     low = norm(card).lower()
-    if any(x in low for x in ("sold prior", "withdrawn", "not being offered")):
-        return False
     return any(x in low for x in COMMERCIAL_LABELS)
 
 
@@ -33,6 +44,8 @@ def _page_category(text: str):
         return "Commercial investment"
     if "commercial vacant" in low:
         return "Commercial vacant"
+    if any(x in low for x in ("commercial", "retail", "shop", "office", "industrial", "warehouse", "public house", "pub", "business premises")):
+        return "Commercial"
     return None
 
 
@@ -88,10 +101,8 @@ def collect():
         lots = []
         failures = 0
         rich = 0
+        prior = 0
 
-        # Bond Wolfe detail pages are static enough for direct requests. Process
-        # only source-labelled commercial/mixed-use cards and hydrate each exact
-        # page once, avoiding the previous double-fetch and generic classifier.
         for href, card, lotno in targets:
             try:
                 try:
@@ -104,15 +115,22 @@ def collect():
                 if not category:
                     failures += 1
                     continue
-                if re.search(r"sold prior|withdrawn|not being offered", text[:2500], re.I):
-                    continue
 
                 lot = _base_lot(href, card, lotno, ds)
                 lot = _rich_detail(lot, ds)
-                # Preserve the source's explicit category if the richer parser
-                # has not replaced it with a more specific classification.
                 if not lot.property_type:
                     lot.property_type = category
+
+                # Sold-prior/withdrawn commercial lots remain part of Auction
+                # Sniper's historical catalogue.  Label rather than discard.
+                lifecycle = norm(card + " " + text[:2500]).lower()
+                if "sold prior" in lifecycle:
+                    lot.status = "SOLD PRIOR"
+                    prior += 1
+                elif "withdrawn" in lifecycle or "not being offered" in lifecycle:
+                    lot.status = "WITHDRAWN"
+                    prior += 1
+
                 lots.append(lot.finalise())
                 rich += 1
             except Exception as exc:
@@ -122,7 +140,7 @@ def collect():
         status = "LIVE" if lots else "FAILED"
         message = (
             f"10 Sep source-labelled commercial/mixed-use: {len(targets)} candidates; "
-            f"{len(lots)} published; {rich} exact pages enriched; {failures} failures"
+            f"{len(lots)} published; {rich} exact pages enriched; {prior} prior/withdrawn retained; {failures} failures"
         )
         return SourceResult(SOURCE, status, lots, message)
     except Exception as exc:
