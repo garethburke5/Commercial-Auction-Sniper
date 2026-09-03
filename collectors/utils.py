@@ -54,7 +54,6 @@ def _img_candidates(s, base):
     return out
 
 def _strettons_gallery_image(s, base):
-    """Return the exact Strettons lot photograph embedded in its page data."""
     raw=str(s).replace("\\/", "/")
     found=re.findall(
         r'https://ggfx-strettons\.s3\.eu-west-2\.amazonaws\.com/i/api_sources/[^"\'<>\s]+?/images/[^"\'<>\s]+?\.(?:jpe?g|png|webp)(?:\?[^"\'<>\s]*)?',
@@ -192,18 +191,10 @@ def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
     rent = parse_rent(text) or parse_rent(seed)
     lp_url, lp_status = legal_pack(s, url)
 
-    lot = Lot(
+    return Lot(
         source=source, url=url, address=address, lot_number=lot_number,
         auction_date=auction_date, image_url=image_from_soup(s, url),
         guide_price=guide, annual_rent=rent, tenure=parse_tenure(combined),
         vat_status=parse_vat(combined), legal_pack_status=lp_status,
         legal_pack_url=lp_url, description=text[:1200]
     ).finalise()
-    if not suppress_prior:
-        # Retain the lot rather than deleting it from history. Only classify a
-        # prior-status when the exact page text itself presents that lifecycle.
-        if "withdrawn prior" in low:
-            lot.status = "WITHDRAWN PRIOR"
-        elif "sold prior" in low:
-            lot.status = "SOLD PRIOR"
-    return lot
