@@ -112,6 +112,8 @@ class SourceResult:
     message: str = ""
     expected_count: Optional[int] = None
     discovered_count: Optional[int] = None
+    authoritative_snapshot: bool = False
+    scope_dates: tuple[str, ...] = ()
 
     @property
     def coverage_pct(self):
@@ -127,6 +129,8 @@ class SourceResult:
             "expected_count": self.expected_count,
             "discovered_count": self.discovered_count,
             "coverage_pct": self.coverage_pct,
+            "authoritative_snapshot": self.authoritative_snapshot,
+            "scope_dates": list(self.scope_dates),
             "message": self.message,
             "checked_at": datetime.now(timezone.utc).isoformat(),
         }
