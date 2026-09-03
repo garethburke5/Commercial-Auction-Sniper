@@ -2,7 +2,7 @@ import re
 from urllib.parse import urljoin
 
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
-from .utils import soup, image_from_soup, legal_pack
+from .utils import soup, image_from_soup, legal_pack, nearest_card
 
 SOURCE = "Pattinson Auction"
 BASE = "https://www.pattinson.co.uk"
@@ -13,170 +13,126 @@ COMMERCIAL_LABELS = (
     "commercial", "public house", "pub", "restaurant", "restaurants", "takeaway",
     "care home", "nursery", "supermarket", "shop", "mixed use", "mixed-use",
     "business premises", "commercial development", "leisure", "land & development",
-    "land and development", "development land",
-)
-
-AUCTION_MARKERS = (
-    "being sold via secure sale",
-    "auction property",
-    "online auction notice",
-    "starting bid",
-    "current bid",
-    "subject to unconditional reservation fee auction terms",
+    "land and development", "development land", "hospitality facility", "land",
 )
 
 
-def _detail_url(href):
-    u = urljoin(BASE, href or "")
+def _auction_card(text):
+    low = norm(text).lower()
+    return ("starting bid" in low or "current bid" in low) and any(x in low for x in COMMERCIAL_LABELS)
+
+
+def _detail_url(a):
+    u = urljoin(BASE, a.get("href") or "").split("?")[0].rstrip("/")
     low = u.lower()
-    if "pattinson.co.uk" in low and re.search(r"/property/\d+/?$", low):
-        return u.split("?")[0].rstrip("/")
+    if "pattinson.co.uk" not in low or "property-search" in low:
+        return None
+    # Pattinson has changed detail URL shapes over time; do not require /property/<id>.
+    if any(x in low for x in ("/commercial/", "/property/", "/properties/")):
+        return u
     return None
 
 
-def _commercial(text):
-    low = norm(text).lower()
-    return any(x in low for x in COMMERCIAL_LABELS)
+def _lot_from_card(card, url=None):
+    text = norm(card)
+    if not _auction_card(text):
+        return None
+    m = re.search(r"(?:Starting Bid|Current Bid)\s*£\s*([\d,]+(?:\.\d+)?)", text, re.I)
+    guide = float(m.group(1).replace(",", "")) if m else None
+    # Card wording is consistently '<type> in <postcode/address>'. Keep it usable even
+    # if Pattinson changes the detail-link route again.
+    address = text
+    maddr = re.search(r"(?:Commercial Development|Land & Development|Hospitality Facility|Restaurants?|Retail|Hotels?|Offices?|Industrial|Warehouse|Workshop|Leisure|Land|Commercial)\s+in\s+(.+?)(?:\s+(?:Garage|Double Garage|Allocated|On Street|Off Street|Driveway|Private|None)\s+parking|$)", text, re.I)
+    if maddr:
+        address = norm(maddr.group(1))
+    ptype = next((x for x in ("Commercial Development","Land & Development","Hospitality Facility","Restaurant","Retail","Hotel","Offices","Industrial","Warehouse","Workshop","Leisure","Land","Commercial") if x.lower() in text.lower()), "Commercial")
+    auction_date = None
+    md = re.search(r"\((\d{1,2})\s+(Sep|September|Oct|October)\s+(?:20)?(\d{2})?\s*\d{1,2}:\d{2}\)", text, re.I)
+    if md:
+        month = 9 if md.group(2).lower().startswith("sep") else 10
+        year = 2000 + int(md.group(3)) if md.group(3) else 2026
+        auction_date = f"{year:04d}-{month:02d}-{int(md.group(1)):02d}"
+    return Lot(source=SOURCE, url=url or SEARCH, address=address, auction_date=auction_date,
+               guide_price=guide, property_type=ptype, description=text[:5000]).finalise()
 
 
-def _is_auction(text):
-    low = norm(text).lower()
-    return any(x in low for x in AUCTION_MARKERS)
-
-
-def _extract_detail(url, seed=""):
+def _enrich(url, seed):
     try:
         ds = soup(url, use_browser=False)
     except Exception:
         ds = soup(url, use_browser=True)
-
-    h1 = ds.find("h1")
-    title = ds.find("title")
     main = ds.find("main") or ds.find("article") or ds
     text = norm(main.get_text(" ", strip=True))
-    title_text = norm(title.get_text(" ", strip=True)) if title else ""
-    combined = norm(seed + " " + title_text + " " + text[:16000])
-
-    # Pattinson's commercial results page mixes auction stock with ordinary
-    # commercial sale listings. The detail page itself is the authoritative
-    # auction test: it explicitly exposes Secure Sale / auction / bid language.
-    if not _commercial(combined) or not _is_auction(combined):
+    lot = _lot_from_card(seed, url)
+    if not lot:
         return None
-
-    address = norm(h1.get_text(" ", strip=True)) if h1 else (title_text.split("|")[0] if title_text else url)
-    guide = parse_guide(text) or parse_guide(seed)
-    if not guide:
-        m = re.search(r"(?:Starting Bid|Current Bid)\s*£\s*([\d,]+(?:\.\d+)?)", combined, re.I)
-        if m:
-            guide = float(m.group(1).replace(",", ""))
-
-    rent = parse_rent(text)
+    h1 = ds.find("h1")
+    if h1:
+        lot.address = norm(h1.get_text(" ", strip=True))
+    lot.image_url = image_from_soup(ds, url)
+    lot.guide_price = parse_guide(text) or lot.guide_price
+    lot.annual_rent = parse_rent(text)
+    lot.tenure = parse_tenure(text + " " + seed)
+    lot.vat_status = parse_vat(text)
     lp_url, lp_status = legal_pack(ds, url)
-
-    occupation = None
+    lot.legal_pack_url, lot.legal_pack_status = lp_url, lp_status
+    lot.description = text[:5000]
     if re.search(r"vacant possession|\bvacant\b", text, re.I) and not re.search(r"tenant|tenanted|let to|currently let|producing £", text, re.I):
-        occupation = "Vacant"
-        rent = None
-    elif re.search(r"tenanted|tenant|let to|currently let|producing £", text, re.I):
-        occupation = "Tenanted"
-
-    ptype = next((label for label in (
-        "Retail", "Hotel", "Offices", "Office", "Industrial", "Warehouse", "Workshop",
-        "Leisure", "Restaurants", "Restaurant", "Mixed use", "Commercial Development",
-        "Land & Development", "Commercial"
-    ) if label.lower() in combined.lower()), None)
-
-    lot_no = None
-    m = re.search(r"\bLot\s*#?\s*(\d+[A-Za-z]?)\b", text, re.I)
-    if m:
-        lot_no = "Lot " + m.group(1)
-
-    auction_date = None
-    # Rolling timed auctions often expose the close date in card/detail copy.
-    m = re.search(r"\((\d{1,2})\s+(Sep|September|Oct|October)\s+(?:20)?(\d{2})?\s*\d{1,2}:\d{2}\)", combined, re.I)
-    if m:
-        month = 9 if m.group(2).lower().startswith("sep") else 10
-        year = 2000 + int(m.group(3)) if m.group(3) else 2026
-        auction_date = f"{year:04d}-{month:02d}-{int(m.group(1)):02d}"
-
-    return Lot(
-        source=SOURCE,
-        url=url,
-        address=address,
-        lot_number=lot_no,
-        auction_date=auction_date,
-        image_url=image_from_soup(ds, url),
-        guide_price=guide,
-        annual_rent=rent,
-        tenure=parse_tenure(text + " " + seed),
-        vat_status=parse_vat(text),
-        legal_pack_status=lp_status,
-        legal_pack_url=lp_url,
-        description=text[:5000],
-        property_type=ptype,
-        occupation=occupation,
-    ).finalise()
+        lot.occupation = "Vacant"; lot.annual_rent = None
+    elif re.search(r"tenant|tenanted|let to|currently let|producing £", text, re.I):
+        lot.occupation = "Tenanted"
+    return lot.finalise()
 
 
 def collect():
     try:
-        targets = {}
+        candidates = {}
         pages_seen = 0
-        empty_pages = 0
-
-        # Pattinson currently exposes ~20+ paginated commercial-sale pages.
-        # Discovery deliberately accepts every property detail link from the
-        # commercial feed and defers auction validation to each exact detail page.
-        # This avoids fragile DOM-card assumptions that previously yielded zero.
         for n in range(1, 31):
             url = SEARCH + ("" if n == 1 else f"&p={n}")
             try:
                 s = soup(url, use_browser=False)
             except Exception:
-                try:
-                    s = soup(url, use_browser=True)
-                except Exception as e:
-                    print("PATTINSON_SEARCH_FAIL", url, repr(e))
-                    continue
-
+                try: s = soup(url, use_browser=True)
+                except Exception as exc:
+                    print("PATTINSON_SEARCH_FAIL", url, repr(exc)); continue
             pages_seen += 1
-            page_links = 0
+            page_hits = 0
             for a in s.find_all("a", href=True):
-                href = _detail_url(a.get("href"))
-                if not href:
+                card = nearest_card(a, 1800)
+                if not _auction_card(card):
                     continue
-                page_links += 1
-                seed = norm(a.get_text(" ", strip=True))
-                targets.setdefault(href, seed)
-
-            if page_links == 0:
-                empty_pages += 1
-            else:
-                empty_pages = 0
-            if n > 1 and empty_pages >= 2:
+                page_hits += 1
+                href = _detail_url(a)
+                key = href or norm(card)[:500]
+                candidates.setdefault(key, (href, card))
+            # If anchors do not carry usable links, parse auction cards from visible page text.
+            if page_hits == 0:
+                text = norm(s.get_text(" ", strip=True))
+                chunks = re.split(r"(?=(?:Current Bid\s*)?Starting Bid\s*£)", text, flags=re.I)
+                for chunk in chunks:
+                    chunk = norm(chunk[:1200])
+                    if _auction_card(chunk):
+                        candidates.setdefault(chunk[:500], (None, chunk))
+            if n > 1 and page_hits == 0 and "Starting Bid" not in norm(s.get_text(" ", strip=True)):
                 break
 
-        lots = []
-        failures = 0
-        rejected_non_auction = 0
-        for href, seed in targets.items():
+        lots=[]; failures=0
+        for _, (href, card) in candidates.items():
             try:
-                lot = _extract_detail(href, seed)
-                if lot:
-                    lots.append(lot)
-                else:
-                    rejected_non_auction += 1
-            except Exception as e:
-                failures += 1
-                print("PATTINSON_DETAIL_FAIL", href, repr(e))
-
-        status = "LIVE" if lots else "FAILED"
-        return SourceResult(
-            SOURCE,
-            status,
-            lots,
-            f"Commercial-sale pages {pages_seen}; {len(targets)} exact property pages discovered; {len(lots)} auction-commercial published; {rejected_non_auction} non-auction/non-commercial rejected; {failures} detail failures",
-            discovered_count=len(targets),
-        )
+                lot = _enrich(href, card) if href else _lot_from_card(card)
+                if lot: lots.append(lot)
+            except Exception as exc:
+                failures += 1; print("PATTINSON_DETAIL_FAIL", href, repr(exc))
+        # Deduplicate fallback cards by address/guide/date while preserving richer URL records.
+        dedup={}
+        for lot in lots:
+            key=(norm(lot.address).lower(), lot.guide_price, lot.auction_date)
+            if key not in dedup or (lot.url != SEARCH and dedup[key].url == SEARCH): dedup[key]=lot
+        lots=list(dedup.values())
+        status="LIVE" if lots else "FAILED"
+        return SourceResult(SOURCE,status,lots,
+            f"Commercial-sale pages {pages_seen}; {len(candidates)} auction-commercial cards discovered; {len(lots)} published; {failures} enrichment failures",
+            discovered_count=len(candidates))
     except Exception as e:
-        return SourceResult(SOURCE, "FAILED", [], str(e))
+        return SourceResult(SOURCE,"FAILED",[],str(e))
