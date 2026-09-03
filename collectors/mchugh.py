@@ -31,12 +31,10 @@ def collect():
                 m = re.search(r"\bLot\s+(\d+[A-Z]?)\b", card, re.I)
                 if m:
                     lot_no = "Lot " + m.group(1)
-                # Candidate classification is taken from the catalogue card, but
-                # the card itself is deliberately not passed into detail_lot.
-                # McHugh's surrounding catalogue markup can contain a neighbouring
-                # lot's "sold prior" text; detail_lot then (correctly for its own
-                # page) suppresses the candidate. Use the exact page as the data
-                # source once the candidate has been positively classified.
+                # The catalogue card positively classifies the asset as commercial.
+                # McHugh pages contain lifecycle vocabulary in shared markup; do not
+                # delete the lot merely because "sold prior"/"withdrawn prior" occurs.
+                # Keep the record and let detail_lot attach that lifecycle status.
                 lot = detail_lot(
                     SOURCE,
                     href,
@@ -46,6 +44,7 @@ def collect():
                     force_commercial=True,
                     use_browser=False,
                     strict_commercial=False,
+                    suppress_prior=False,
                 )
                 if lot:
                     lots.append(lot)
