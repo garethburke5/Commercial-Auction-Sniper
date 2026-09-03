@@ -82,10 +82,6 @@ class Lot:
     nearby_occupiers: Optional[str] = None
 
     def finalise(self):
-        # A wholly vacant property has no current passing rent. Source pages often
-        # contain historic/previous rent figures, and those must never leak into
-        # the headline rent or GIY. Part-let/multi-let assets are deliberately not
-        # cleared because they can still have genuine current income.
         occ = (self.occupation or "").strip().lower()
         wholly_vacant = occ in {"vacant", "vacant possession"} or occ.startswith("vacant -")
         if wholly_vacant:
@@ -114,12 +110,23 @@ class SourceResult:
     status: str
     lots: list[Lot]
     message: str = ""
+    expected_count: Optional[int] = None
+    discovered_count: Optional[int] = None
+
+    @property
+    def coverage_pct(self):
+        if not self.expected_count:
+            return None
+        return round(len(self.lots) / self.expected_count * 100, 1)
 
     def to_status_dict(self):
         return {
             "source": self.source,
             "status": self.status,
             "lots_seen": len(self.lots),
+            "expected_count": self.expected_count,
+            "discovered_count": self.discovered_count,
+            "coverage_pct": self.coverage_pct,
             "message": self.message,
             "checked_at": datetime.now(timezone.utc).isoformat(),
         }
