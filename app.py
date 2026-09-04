@@ -21,7 +21,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.69-RICH-CARD-TIDY"
+BUILD = "V6.70-HISTORY-RETAINED"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -363,18 +363,11 @@ def _row_is_allowed(x):
     source=(x.get("source") or "")
     desc=(x.get("desc") or "").lower()
 
-    # Available/current board: sold-prior and withdrawn lots do not belong.
-    if any(t in desc for t in ("sold prior","withdrawn prior","withdrawn from auction")):
-        return False
-
-    # Drop genuinely stale auction dates; unknown dates are retained and audited.
+    # Historical auction records are deliberately retained. Auction Sniper is a
+    # cumulative commercial-auction database, not an upcoming-only board.
+    # Past, sold-prior and withdrawn lots remain searchable and can be filtered
+    # by lifecycle/status in the UI rather than being deleted here.
     d=(x.get("date") or "").strip()
-    if re.fullmatch(r"\d{4}-\d{2}-\d{2}",d):
-        try:
-            if d < date.today().isoformat():
-                return False
-        except Exception:
-            pass
 
     if source.startswith("Auction House ") and source!="Auction House London":
         ptype=(x.get("property_type") or "").lower()
