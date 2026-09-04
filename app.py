@@ -21,7 +21,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.70-HISTORY-RETAINED"
+BUILD = "V6.71-AUCTION-SAFE-IDENTITY"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -353,10 +353,23 @@ GENERIC_TITLES = {
 }
 
 def _canonical_key(x):
-    lot=(x.get("lot") or "").strip().lower()
-    if lot and lot!="lot tbc":
-        return (x.get("source","").lower(), lot)
-    return (x.get("source","").lower(), (x.get("url") or "").split("?",1)[0].rstrip("/").lower())
+    # Lot numbers are reused by auctioneers in every catalogue, so (source, lot)
+    # is not a stable property identity. Prefer the exact property URL; where a
+    # source only provides a generic catalogue URL, scope the fallback identity
+    # by auction date + lot + address so successive auctions accumulate safely.
+    source=(x.get("source") or "").strip().lower()
+    url=(x.get("url") or "").split("?",1)[0].rstrip("/").lower()
+    generic=(not url or any(t in url for t in (
+        "/property-search", "/auction-commercial-property/for-sale",
+        "/page-1/quantity-100/property_type-253/sort-by-0",
+        "/find-a-property", "/auctions/live-stream/"
+    )))
+    if url and not generic:
+        return (source, "url", url)
+    date=(x.get("date") or "").strip().lower()
+    lot=(x.get("lot") or "lot tbc").strip().lower()
+    address=norm(x.get("address") or "").strip().lower()
+    return (source, "catalogue", date, lot, address)
 
 def _row_is_allowed(x):
     from datetime import date
