@@ -1,0 +1,54 @@
+name: Fix Auction Sniper cross-auction identity
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-cross-auction-identity.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Make property identity auction-safe
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('app.py')
+          s=p.read_text(encoding='utf-8')
+          old='''def _canonical_key(x):\n    lot=(x.get("lot") or "").strip().lower()\n    if lot and lot!="lot tbc":\n        return (x.get("source","").lower(), lot)\n    return (x.get("source","").lower(), (x.get("url") or "").split("?",1)[0].rstrip("/").lower())\n'''
+          new='''def _canonical_key(x):\n    # Lot numbers are reused by auctioneers in every catalogue, so (source, lot)\n    # is not a stable property identity. Prefer the exact property URL; where a\n    # source only provides a generic catalogue URL, scope the fallback identity\n    # by auction date + lot + address so successive auctions accumulate safely.\n    source=(x.get("source") or "").strip().lower()\n    url=(x.get("url") or "").split("?",1)[0].rstrip("/").lower()\n    generic=(not url or any(t in url for t in (\n        "/property-search", "/auction-commercial-property/for-sale",\n        "/page-1/quantity-100/property_type-253/sort-by-0",\n        "/find-a-property", "/auctions/live-stream/"\n    )))\n    if url and not generic:\n        return (source, "url", url)\n    date=(x.get("date") or "").strip().lower()\n    lot=(x.get("lot") or "lot tbc").strip().lower()\n    address=norm(x.get("address") or "").strip().lower()\n    return (source, "catalogue", date, lot, address)\n'''
+          if old not in s:
+              raise SystemExit('Expected canonical-key block not found; refusing unsafe patch')
+          s=s.replace(old,new,1)
+          s=s.replace('BUILD = "V6.70-HISTORY-RETAINED"','BUILD = "V6.71-AUCTION-SAFE-IDENTITY"',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Verify identity policy
+        run: |
+          python -m py_compile app.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('app.py').read_text(encoding='utf-8')
+          assert 'return (x.get("source","").lower(), lot)' not in s
+          assert 'V6.71-AUCTION-SAFE-IDENTITY' in s
+          assert 'return (source, "catalogue", date, lot, address)' in s
+          print('Cross-auction identity patch verified')
+          PY
+      - name: Commit fix
+        run: |
+          git config user.name 'Auction Sniper Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add app.py
+          git commit -m 'Prevent lot-number collisions across auctions'
+          git pull --rebase origin main
+          git push origin main
