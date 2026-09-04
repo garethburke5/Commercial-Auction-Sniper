@@ -23,39 +23,39 @@ PUBLISHABLE = {"LIVE", "DEGRADED"}
 def load_old_snapshot():
     p = DATA / "properties.json"
     if not p.exists():
-        return {"properties": [], "source_health": []}
+        return {"properties": [], "archive": [], "source_health": []}
     try:
         data = json.loads(p.read_text(encoding="utf-8"))
         return {
             "properties": data.get("properties", []),
+            "archive": data.get("archive", []),
             "source_health": data.get("source_health", []),
         }
     except Exception:
-        return {"properties": [], "source_health": []}
+        return {"properties": [], "archive": [], "source_health": []}
 
 
 def _key(x):
     return (str(x.get("source") or "").strip(), str(x.get("url") or "").strip())
 
 
-def _auction_has_finished(x, today):
+def _auction_date(x):
     raw = str(x.get("auction_date") or "").strip()
     if not raw:
-        return False
+        return None
     try:
-        return datetime.fromisoformat(raw[:10]).date() < today
+        return datetime.fromisoformat(raw[:10]).date()
     except Exception:
-        return False
+        return None
+
+
+def _auction_has_finished(x, today):
+    d = _auction_date(x)
+    return bool(d and d < today)
 
 
 def _complete_authoritative(r):
-    """True only when a collector has proved a complete source-scoped catalogue.
-
-    Partial/degraded collectors may publish useful fresh rows, but they are never
-    allowed to delete previously captured rows. Pruning is permitted only when a
-    source explicitly declares an authoritative scope and its published count
-    exactly matches the source-advertised expected count.
-    """
+    """True only when a collector has proved a complete source-scoped catalogue."""
     return bool(
         getattr(r, "authoritative_snapshot", False)
         and r.status == "LIVE"
@@ -67,7 +67,8 @@ def _complete_authoritative(r):
 
 def run():
     old_snapshot = load_old_snapshot()
-    old = old_snapshot["properties"]
+    # Keep the full historical universe, but do not mix it into the current board.
+    old = list(old_snapshot["properties"]) + list(old_snapshot["archive"])
     today = datetime.now(timezone.utc).date()
     old_by_key = {_key(x): dict(x) for x in old if _key(x) != ("", "")}
 
@@ -90,15 +91,12 @@ def run():
         if _complete_authoritative(r):
             authoritative_scopes.append((r.source, set(r.scope_dates)))
 
-    # Append-preserving by default: a partial scrape, site outage, pagination
-    # change or parser regression cannot erase catalogue history.
+    # Historical universe is append-preserving. Collector/site failures cannot erase it.
     merged_by_key = dict(old_by_key)
     merged_by_key.update(current_by_key)
 
-    # Exception: when a collector proves it has the COMPLETE authoritative source
-    # scope (published == source-advertised count), stale rows from that same sale
-    # can be removed. This is what cleans parser-created false positives without
-    # risking data loss during an incomplete run.
+    # Only a proved-complete authoritative scope can prune parser false positives
+    # from that exact auction scope.
     current_keys = set(current_by_key)
     pruned = 0
     for source, scope_dates in authoritative_scopes:
@@ -112,28 +110,44 @@ def run():
             merged_by_key.pop(key, None)
             pruned += 1
 
+    # GLOBAL lifecycle rule for every auction house. A collector is not allowed to
+    # keep a finished auction live merely because its scraper still points at the
+    # old catalogue. Past auction dates are archived even when rediscovered today.
     for key, item in merged_by_key.items():
-        if key in current_keys:
-            continue
-
         if _auction_has_finished(item, today):
             item["status"] = "ARCHIVED"
-        elif source_status.get(item.get("source")) not in {None, "LIVE"}:
+            continue
+
+        if key in current_keys:
+            item["status"] = "CURRENT"
+            continue
+
+        # Previously captured future/undated rows not rediscovered this run are
+        # kept for research but are not presented as current opportunities.
+        if source_status.get(item.get("source")) is not None:
             item["status"] = "STALE SOURCE"
 
-    merged = list(merged_by_key.values())
-    merged.sort(key=lambda x: (
+    history = list(merged_by_key.values())
+    history.sort(key=lambda x: (
         str(x.get("auction_date") or ""),
         str(x.get("source") or ""),
         str(x.get("lot_number") or ""),
         str(x.get("address") or ""),
     ), reverse=True)
 
+    # App-facing properties are ONLY positively rediscovered current/upcoming lots.
+    # Finished and stale catalogues are preserved separately in the archive.
+    active = [x for x in history if x.get("status") == "CURRENT"]
+    archive = [x for x in history if x.get("status") != "CURRENT"]
+
     snapshot = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "properties": merged,
+        "properties": active,
+        "archive": archive,
         "source_health": results,
         "integrity": {
+            "active_property_count": len(active),
+            "historical_property_count": len(archive),
             "authoritative_scopes_completed": len(authoritative_scopes),
             "stale_false_positive_rows_pruned": pruned,
         },
@@ -141,8 +155,10 @@ def run():
     (DATA / "properties.json").write_text(json.dumps(snapshot, indent=2), encoding="utf-8")
     print(json.dumps({
         "generated_at": snapshot["generated_at"],
-        "property_count": len(merged),
-        "archived_count": sum(1 for x in merged if x.get("status") == "ARCHIVED"),
+        "property_count": len(active),
+        "historical_count": len(archive),
+        "archived_count": sum(1 for x in archive if x.get("status") == "ARCHIVED"),
+        "stale_source_count": sum(1 for x in archive if x.get("status") == "STALE SOURCE"),
         "authoritative_scopes_completed": len(authoritative_scopes),
         "stale_false_positive_rows_pruned": pruned,
         "sources": results,
