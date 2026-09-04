@@ -1,13 +1,13 @@
 import re
+from datetime import date, datetime
 from urllib.parse import urljoin
+
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
 from .utils import soup, image_from_soup, nearest_card
 
 SOURCE = "Savills Auctions"
 BASE = "https://auctions.savills.co.uk"
-CATALOGUE = BASE + "/auctions/15-september-2026-242"
-AUCTION_DATE = "2026-09-16"
-COMMERCIAL_FEED = BASE + "/auctions/15--16-september-2026-242/page-1/quantity-100/property_type-253/sort-by-0"
+UPCOMING = BASE + "/upcoming-auctions"
 
 COMMERCIAL_POSITIVE = re.compile(
     r"commercial|retail|shop\b|office\b|industrial|warehouse|business centre|market\b|"
@@ -18,6 +18,11 @@ COMMERCIAL_POSITIVE = re.compile(
     re.I,
 )
 RESIDENTIAL_ONLY = re.compile(r"\b(flat|maisonette|house|bungalow|apartment|residential dwelling)\b", re.I)
+
+MONTHS = {
+    "january": 1, "february": 2, "march": 3, "april": 4, "may": 5, "june": 6,
+    "july": 7, "august": 8, "september": 9, "october": 10, "november": 11, "december": 12,
+}
 
 
 def _money(v):
@@ -76,69 +81,121 @@ def _card_block(a):
     return fallback
 
 
-def _discover():
-    targets = {}
-    pages_checked = 0
-    feed_ok = False
+def _auction_dates(text, href=""):
+    """Return (start_date, end_date) for a Savills sale card/title."""
+    text = norm(text)
+    m = re.search(r"\b(\d{1,2})\s*&\s*(\d{1,2})\s+([A-Za-z]+)\s+(20\d{2})\b", text, re.I)
+    if m and m.group(3).lower() in MONTHS:
+        y, mo = int(m.group(4)), MONTHS[m.group(3).lower()]
+        return date(y, mo, int(m.group(1))), date(y, mo, int(m.group(2)))
+    m = re.search(r"\b(\d{1,2})\s+([A-Za-z]+)\s+(20\d{2})\b", text, re.I)
+    if m and m.group(2).lower() in MONTHS:
+        d = date(int(m.group(3)), MONTHS[m.group(2).lower()], int(m.group(1)))
+        return d, d
+    # URL fallback: /auctions/29-september-2026-243
+    m = re.search(r"/auctions/(\d{1,2})-([a-z]+)-(20\d{2})-\d+", href or "", re.I)
+    if m and m.group(2).lower() in MONTHS:
+        d = date(int(m.group(3)), MONTHS[m.group(2).lower()], int(m.group(1)))
+        return d, d
+    return None, None
 
+
+def _discover_next_auction():
+    """
+    Discover the active/next Savills auction from Savills' own auction calendar.
+    No catalogue date or auction id is hard-coded. The earliest sale whose end date
+    is today or later wins, so the collector rolls forward automatically after a sale.
+    """
     try:
-        ds = soup(COMMERCIAL_FEED, use_browser=False)
+        us = soup(UPCOMING, use_browser=False)
     except Exception:
-        ds = soup(COMMERCIAL_FEED, use_browser=True)
-    pages_checked += 1
+        us = soup(UPCOMING, use_browser=True)
 
-    for a in ds.find_all("a", href=True):
-        href = _detail_href(a)
-        if not href:
+    candidates = {}
+    today = date.today()
+    for a in us.find_all("a", href=True):
+        href = urljoin(BASE, a.get("href") or "").split("?")[0].rstrip("/")
+        if not re.search(r"/auctions/[^/]+-\d+$", href, re.I):
             continue
-        card = _card_block(a)
-        lot_no = _lot_no(card)
-        if lot_no in {None, 0}:
+        card = nearest_card(a, 2500) or norm(a.get_text(" ", strip=True))
+        start, end = _auction_dates(card, href)
+        if not start:
+            # Fetch the catalogue title only when the calendar card omitted its date.
+            try:
+                cs = soup(href, use_browser=False)
+                title = norm((cs.find("h1") or cs.find("title")).get_text(" ", strip=True))
+                start, end = _auction_dates(title, href)
+            except Exception:
+                pass
+        if not start or not end or end < today:
             continue
-        if not re.search(r"\bLot\s*#?\s*%s\b" % re.escape(str(lot_no)), card, re.I):
-            continue
-        targets[href] = {"source_commercial": True, "card": card, "lot_no": lot_no}
+        candidates[href] = (start, end, card)
 
-    # The quantity-100/property_type-253 page is already a source-scoped commercial
-    # catalogue. If it yields local lot cards, the unique card count is the complete
-    # scoped inventory. Do not parse generic page text for an "expected" number: the
-    # same HTML also contains the full auction total, which previously produced the
-    # false 213 denominator against the verified 83 commercial lots.
-    if targets:
-        feed_ok = True
-        expected = len(targets)
-        return targets, pages_checked, expected, feed_ok
+    if not candidates:
+        return None
+    href, (start, end, card) = min(candidates.items(), key=lambda item: (item[1][0], item[0]))
+    return {"catalogue": href, "start": start, "end": end, "label": card}
 
-    # Fallback only if the dedicated filtered feed is structurally unavailable.
-    for page_no in range(1, 36):
-        page = CATALOGUE if page_no == 1 else f"{CATALOGUE}/page-{page_no}"
+
+def _discover_commercial_feed(auction):
+    """Resolve the commercial-only feed from the selected auction itself."""
+    catalogue = auction["catalogue"]
+    try:
+        cs = soup(catalogue, use_browser=False)
+    except Exception:
+        cs = soup(catalogue, use_browser=True)
+
+    feed_candidates = []
+    for a in cs.find_all("a", href=True):
+        href = urljoin(BASE, a.get("href") or "")
+        label = norm(a.get_text(" ", strip=True)).lower()
+        if "property_type-253" in href or "commercial section" in label:
+            feed_candidates.append(href)
+
+    # Generic filtered route works on Savills catalogues when the explicit
+    # Commercial Section link is not exposed in static markup.
+    feed_candidates.append(catalogue + "/page-1/quantity-100/property_type-253/sort-by-0")
+
+    seen = set()
+    for feed in feed_candidates:
+        feed = feed.split("?")[0] if "property_type-253" not in feed else feed
+        if feed in seen:
+            continue
+        seen.add(feed)
         try:
-            cds = soup(page, use_browser=False)
+            ds = soup(feed, use_browser=False)
         except Exception:
             try:
-                cds = soup(page, use_browser=True)
+                ds = soup(feed, use_browser=True)
             except Exception:
                 continue
-        pages_checked += 1
-        text = norm(cds.get_text(" ", strip=True)).lower()
-        if page_no > 25 and "lot " not in text and "guide price" not in text:
-            break
-        for a in cds.find_all("a", href=True):
+        targets = {}
+        for a in ds.find_all("a", href=True):
             href = _detail_href(a)
             if not href:
                 continue
             card = _card_block(a)
             lot_no = _lot_no(card)
-            if lot_no is None:
+            if lot_no in {None, 0}:
                 continue
-            source_commercial = 201 <= lot_no <= 300
-            if source_commercial or _is_commercial(card):
-                targets.setdefault(href, {"source_commercial": source_commercial, "card": card, "lot_no": lot_no})
+            targets[href] = {"source_commercial": True, "card": card, "lot_no": lot_no}
+        if targets:
+            return feed, targets
+    return None, {}
 
-    return targets, pages_checked, None, feed_ok
+
+def _offered_date(text, auction):
+    """Prefer the actual day stated on the lot page, else sale end date."""
+    m = re.search(r"To be offered on\s+(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)?\s*(\d{1,2})\s+([A-Za-z]+)", text or "", re.I)
+    if m and m.group(2).lower() in MONTHS:
+        try:
+            return date(auction["start"].year, MONTHS[m.group(2).lower()], int(m.group(1))).isoformat()
+        except Exception:
+            pass
+    return auction["end"].isoformat()
 
 
-def _detail(href, source_commercial=False):
+def _detail(href, auction, source_commercial=False):
     try:
         ds = soup(href, use_browser=False)
     except Exception:
@@ -201,7 +258,7 @@ def _detail(href, source_commercial=False):
 
     return Lot(
         source=SOURCE, url=href, address=address, lot_number=lot_number,
-        auction_date=AUCTION_DATE, image_url=image_from_soup(ds, href),
+        auction_date=_offered_date(text, auction), image_url=image_from_soup(ds, href),
         guide_price=guide, annual_rent=rent, tenure=tenure, vat_status=vat,
         legal_pack_status="LOGIN REQUIRED", legal_pack_url=href,
         description=text[:5000], area_sqft=area_sqft, area_sqm=area_sqm,
@@ -215,12 +272,25 @@ def _detail(href, source_commercial=False):
 
 
 def collect():
-    targets, pages_checked, expected, feed_ok = _discover()
+    auction = _discover_next_auction()
+    if not auction:
+        return SourceResult(SOURCE, "FAILED", [], "Could not discover the next Savills auction from the auction calendar")
+
+    feed, targets = _discover_commercial_feed(auction)
+    if not targets:
+        scope = tuple(d.isoformat() for d in ({auction['start'], auction['end']}))
+        return SourceResult(
+            SOURCE, "CATALOGUE PENDING", [],
+            f"Next auction discovered automatically: {auction['start'].isoformat()} to {auction['end'].isoformat()}; commercial section not published yet",
+            authoritative_snapshot=False, scope_dates=scope,
+        )
+
+    expected = len(targets)
     lots = []
     rejected = failures = 0
     for href, meta in targets.items():
         try:
-            lot = _detail(href, source_commercial=meta.get("source_commercial", False))
+            lot = _detail(href, auction, source_commercial=True)
             if lot:
                 lots.append(lot)
             else:
@@ -229,20 +299,13 @@ def collect():
             failures += 1
             print("SAVILLS_DETAIL_FAIL", href, repr(exc))
 
-    status = "LIVE" if lots else "FAILED"
-    if expected is not None and len(lots) != expected:
-        status = "DEGRADED"
-    if not feed_ok and lots:
-        status = "DEGRADED"
-
+    status = "LIVE" if lots and len(lots) == expected else "DEGRADED" if lots else "FAILED"
+    scope = tuple(sorted({auction["start"].isoformat(), auction["end"].isoformat()}))
     return SourceResult(
         SOURCE, status, lots,
-        f"16 Sep commercial feed {'authoritative' if feed_ok else 'fallback'}; {pages_checked} source pages checked; {len(targets)} exact commercial pages discovered; {len(lots)} published; expected {expected if expected is not None else 'unknown'}; {rejected} rejected; {failures} detail failures",
+        f"Auto-selected next Savills auction {auction['start'].isoformat()} to {auction['end'].isoformat()}; commercial feed {feed}; {len(targets)} discovered; {len(lots)} published; {rejected} rejected; {failures} detail failures",
         expected_count=expected,
         discovered_count=len(targets),
-        authoritative_snapshot=feed_ok,
-        # The sale spans 15/16 Sep and the old collector incorrectly stamped some
-        # commercial rows 15 Sep. Include both dates so a complete authoritative
-        # refresh can safely remove those earlier parser false positives.
-        scope_dates=("2026-09-15", "2026-09-16"),
+        authoritative_snapshot=(status == "LIVE"),
+        scope_dates=scope,
     )
