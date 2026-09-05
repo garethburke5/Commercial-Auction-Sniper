@@ -28,30 +28,28 @@ jobs:
       - name: Install collector dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4 lxml
+          pip install requests beautifulsoup4 lxml playwright
+          python -m playwright install chromium
       - name: Run Pattinson regression tests
         run: python -m unittest tests.test_pattinson -v
-      - name: Probe neutral proxy routes
+      - name: Test Cloudflare challenge in Chromium
         run: |
           python - <<'PY'
-          import requests, urllib.parse
-          target='https://www.pattinson.co.uk/commercial/property-search?searchType=CommercialSale'
-          probes = {
-              'allorigins_raw':'https://api.allorigins.win/raw?url='+urllib.parse.quote(target,safe=''),
-              'allorigins_get':'https://api.allorigins.win/get?url='+urllib.parse.quote(target,safe=''),
-              'corsproxy':'https://corsproxy.io/?url='+urllib.parse.quote(target,safe=''),
-              'codetabs':'https://api.codetabs.com/v1/proxy?quest='+urllib.parse.quote(target,safe=':/?=&'),
-              'google_translate':'https://www-pattinson-co-uk.translate.goog/commercial/property-search?searchType=CommercialSale&_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en',
-          }
-          headers={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36'}
-          for name,u in probes.items():
-              try:
-                  r=requests.get(u,headers=headers,timeout=30,allow_redirects=True)
-                  body=r.text
-                  print('PROXY',name,'STATUS',r.status_code,'LEN',len(body),'TYPE',r.headers.get('content-type'),'RESULTS',('results' in body.lower()),'CF',('just a moment' in body.lower()))
-                  print('HEAD',repr(body[:500]))
-              except Exception as e:
-                  print('PROXY_FAIL',name,repr(e))
+          from playwright.sync_api import sync_playwright
+          url='https://www.pattinson.co.uk/commercial/property-search?searchType=CommercialSale'
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True,args=['--disable-blink-features=AutomationControlled','--no-sandbox'])
+              ctx=browser.new_context(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',locale='en-GB',viewport={'width':1440,'height':1200})
+              page=ctx.new_page()
+              page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+              resp=page.goto(url,wait_until='domcontentloaded',timeout=45000)
+              print('INITIAL',resp.status if resp else None,page.title(),len(page.content()))
+              for seconds in (5,10,20,30):
+                  page.wait_for_timeout((seconds-(0 if seconds==5 else {10:5,20:10,30:20}[seconds]))*1000)
+                  html=page.content()
+                  print('AFTER',seconds,'TITLE',page.title(),'LEN',len(html),'PROPS',page.locator("a[href*='/property/']").count(),'CF',('Just a moment' in html))
+              print('FINAL_HEAD',page.content()[:1200])
+              ctx.close(); browser.close()
           PY
       - name: Run Pattinson collector only
         run: |
