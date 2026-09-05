@@ -8,8 +8,6 @@ from .utils import soup, nearest_card, detail_lot
 
 SOURCE = "Pugh / BTG Eddisons"
 BASE = "https://www.pugh-auctions.com"
-# Pugh's date-ascending search starts deep in its historical inventory; on the
-# current site the live/future catalogues are exposed first by date-desc.
 SEARCH = BASE + "/property-search?include-sold=off&order-results=date-desc&style=list"
 
 
@@ -37,7 +35,6 @@ def _lot_no(text):
 
 
 def _property_cards(s):
-    """Return exact property URLs with their bounded result-card text."""
     out = {}
     for a in s.find_all("a", href=True):
         href = urljoin(BASE, a.get("href") or "").split("?")[0].rstrip("/")
@@ -65,6 +62,89 @@ def _page_dates(s):
     return sorted({d for d in (_auction_date(card) for card in _property_cards(s).values()) if d})
 
 
+def _amount(patterns, text):
+    for pat in patterns:
+        m = re.search(pat, text, re.I)
+        if m:
+            try:
+                return float(m.group(1).replace(",", ""))
+            except Exception:
+                pass
+    return None
+
+
+def _apply_pugh_particulars(lot, page_soup):
+    """Extract decision-useful facts from the exact Pugh/BTG particulars page.
+
+    Pugh often places the most valuable information in Description and General/Tenancy,
+    not in the search card. Keep enough source text for the UI opportunity summary and
+    populate the structured fields so the card does not throw away disclosed facts.
+    """
+    if not lot or page_soup is None:
+        return lot
+    main = page_soup.find("main") or page_soup
+    text = norm(main.get_text(" ", strip=True))
+    low = text.lower()
+    lot.description = text[:7000]
+
+    rent = _amount((
+        r"combined rental income(?:\s+of)?\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:p\s*/\s*a|p\.?a\.?|pa|per annum)",
+        r"(?:rental income|annual income|producing|let at|rent of)\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:p\s*/\s*a|p\.?a\.?|pa|per annum)",
+        r"£\s*([\d,]+(?:\.\d+)?)\s*(?:p\s*/\s*a|p\.?a\.?|pa|per annum)",
+    ), text)
+    if rent is not None:
+        lot.annual_rent = rent
+
+    sqft = _amount((
+        r"(?:extending|extends|approximately|approx\.?|circa)\s*(?:to\s*)?([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)",
+        r"\b([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)\b",
+    ), text)
+    if sqft:
+        lot.area_sqft = sqft
+        lot.area_sqm = sqft / 10.7639
+
+    if re.search(r"\bFRI\b|full repairing and insuring", text, re.I):
+        lot.fri = True
+
+    terms = re.findall(r"\b(\d+(?:\.\d+)?)\s+year\s+FRI\s+lease", text, re.I)
+    if not terms:
+        terms = re.findall(r"\b(\d+(?:\.\d+)?)\s+year\s+(?:lease|term)", text, re.I)
+    if terms:
+        lot.lease_term = " / ".join(dict.fromkeys(f"{x} years" for x in terms[:3]))
+
+    if re.search(r"no break clauses?|without (?:a )?break", text, re.I):
+        lot.break_clause = "No break clauses stated"
+
+    if re.search(r"personal guarantor|guarantor is secured|guaranteed by", text, re.I):
+        lot.guarantors = "Personal guarantor stated"
+
+    m = re.search(r"tenant in situ\s*\(([^)]+)\)", text, re.I)
+    if m:
+        lot.tenant = norm(m.group(1))[:120]
+
+    if re.search(r"(?:nil|nill|peppercorn)\s+rent", text, re.I):
+        lot.annual_rent = None
+        lot.occupation = "Occupied - nominal/no income"
+    elif re.search(r"vacant first and second floors|vacant upper floors|part(?:ly)? vacant", text, re.I) and lot.annual_rent:
+        lot.occupation = "Part let / part vacant"
+    elif lot.annual_rent:
+        lot.occupation = "Tenanted"
+    elif re.search(r"vacant possession|\bvacant\b", text, re.I):
+        lot.occupation = "Vacant"
+
+    if re.search(r"development opportunity|development potential|potential to develop|redevelop", text, re.I):
+        lot.development_potential = True
+    if re.search(r"bedsits?|residential accommodation|residential conversion|convert(?:ed|ing)? to residential", text, re.I):
+        lot.residential_conversion = True
+
+    if any(x in low for x in ("retail premises", "retail units", "retail property", "shop")):
+        lot.property_type = "Mixed Use" if any(x in low for x in ("residential accommodation", "bedsit", "flat above", "upper flat")) else "Retail"
+    elif any(x in low for x in ("industrial", "warehouse", "workshop")):
+        lot.property_type = "Industrial"
+
+    return lot.finalise()
+
+
 def collect():
     try:
         today = date.today().isoformat()
@@ -74,10 +154,6 @@ def collect():
         future_pages_seen = 0
         past_only_streak = 0
 
-        # Sweep from newest inventory backwards. We deliberately use page date
-        # evidence, not 'commercial targets found', as the stop condition: a
-        # page can be entirely residential while later pages still contain a
-        # future commercial lot.
         for page in range(1, 81):
             url = SEARCH if page == 1 else SEARCH + f"&page={page}"
             try:
@@ -92,9 +168,6 @@ def collect():
             if page > 1 and page_ids and page_ids == previous_ids:
                 break
             if not page_ids:
-                # A genuinely empty page after the future catalogue range is a
-                # safe termination signal; transient fetch failures are handled
-                # above and do not masquerade as empty pages.
                 if future_pages_seen:
                     break
                 previous_ids = page_ids
@@ -111,11 +184,6 @@ def collect():
                 past_only_streak = 0
 
             targets.update(_page_targets(s, today))
-
-            # With date-desc ordering, once two consecutive populated pages are
-            # wholly historical after seeing future inventory, later pages are
-            # historical too. This bounds runtime without truncating a future
-            # catalogue merely because one page contains no commercial lots.
             if future_pages_seen and past_only_streak >= 2:
                 break
             previous_ids = page_ids
@@ -136,7 +204,7 @@ def collect():
 
         def hydrate(item):
             href, (card, lotno, auction_date) = item
-            return detail_lot(
+            lot = detail_lot(
                 SOURCE, href, seed=card,
                 lot_number=lotno,
                 auction_date=auction_date,
@@ -144,6 +212,14 @@ def collect():
                 strict_commercial=True,
                 suppress_prior=True,
             )
+            if not lot:
+                return None
+            try:
+                ds = soup(href, use_browser=False)
+                lot = _apply_pugh_particulars(lot, ds)
+            except Exception as exc:
+                print("PUGH_RICH_DETAIL_FAIL", href, repr(exc))
+            return lot
 
         with ThreadPoolExecutor(max_workers=10) as ex:
             futures = {ex.submit(hydrate, item): item[0] for item in targets.items()}
