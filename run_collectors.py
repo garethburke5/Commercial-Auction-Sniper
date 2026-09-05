@@ -20,11 +20,12 @@ from collectors.allsop import collect as allsop
 from collectors.barnard_marcus import collect as barnard_marcus
 from collectors.barnett_ross import collect as barnett_ross
 from collectors.harman_healy import collect as harman_healy
+from collectors.knight_frank import collect as knight_frank
 from source_manifest import append_missing_health, manifest_coverage
 
 DATA=Path("data")
 DATA.mkdir(exist_ok=True)
-COLLECTORS=[ahl,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross,harman_healy]
+COLLECTORS=[ahl,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross,harman_healy,knight_frank]
 PUBLISHABLE={"LIVE","DEGRADED"}
 BAD_ADDRESS=re.compile(r"(?:login|log in|sign in|register to bid|book a viewing|arrange a viewing|viewing appointment|cancel proxy bid|your bid|remove from wishlist|add to wishlist|connecting to auction|please wait|full details|legal pack available)",re.I)
 RICH_FIELDS=("image_url","area_sqft","area_sqm","site_area_acres","tenant","lease_term","lease_start","lease_expiry","break_clause","break_status","rent_review","fri","erv","epc","rateable_value","service_charge","ground_rent","property_type","occupation","parking","development_potential","asset_management","refurbishment","residential_conversion","listed_status","covenant_rating","covenant_risk","covenant_turnover","guarantors","pitch","nearby_occupiers","legal_pack_url","legal_pack_status","vat_status","tenure","guide_price","annual_rent","lot_number","auction_date")
