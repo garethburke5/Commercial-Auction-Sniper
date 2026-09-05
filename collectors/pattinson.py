@@ -1,3 +1,4 @@
+import math
 import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.parse import urljoin
@@ -11,17 +12,12 @@ from .utils import soup, image_from_soup, legal_pack, nearest_card
 SOURCE = "Pattinson Auction"
 BASE = "https://www.pattinson.co.uk"
 SEARCH = BASE + "/commercial/property-search?searchType=CommercialSale"
-
-# Pattinson treats the repository-wide AuctionSniper UA differently from a normal
-# browser on its search pages. Keep this identity local to this collector so a
-# source-specific anti-bot workaround cannot destabilise the other auction houses.
 PATTINSON_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
     "Accept-Language": "en-GB,en;q=0.9",
     "Cache-Control": "no-cache",
 }
-
 COMMERCIAL_LABELS = (
     "retail", "hotel", "office", "offices", "industrial", "warehouse", "workshop",
     "commercial", "public house", "drinking establishment", "pub", "restaurant", "restaurants",
@@ -34,7 +30,7 @@ RESIDENTIAL_LABELS = ("residential portfolio", "hmo", "house in ", "flat in ", "
 
 def _auction_card(text):
     low = norm(text).lower()
-    if not ("starting bid" in low or "current bid" in low):
+    if not ("starting bid" in low or "current bid" in low or "reduced starting bid" in low):
         return False
     if any(x in low for x in RESIDENTIAL_LABELS):
         return False
@@ -43,16 +39,14 @@ def _auction_card(text):
 
 def _detail_url(a):
     u = urljoin(BASE, a.get("href") or "").split("?")[0].rstrip("/")
-    if re.fullmatch(r"https://www\.pattinson\.co\.uk/property/\d+", u, re.I):
-        return u
-    return None
+    return u if re.fullmatch(r"https://www\.pattinson\.co\.uk/property/\d+", u, re.I) else None
 
 
 def _lot_from_card(card, url=None):
     text = norm(card)
     if not _auction_card(text):
         return None
-    m = re.search(r"(?:Starting Bid|Current Bid)\s*£\s*([\d,]+(?:\.\d+)?)", text, re.I)
+    m = re.search(r"(?:Reduced\s+)?(?:Starting Bid|Current Bid)\s*£\s*([\d,]+(?:\.\d+)?)", text, re.I)
     guide = float(m.group(1).replace(",", "")) if m else None
     address = text
     maddr = re.search(
@@ -68,63 +62,65 @@ def _lot_from_card(card, url=None):
                guide_price=guide, property_type=ptype, description=text[:5000]).finalise()
 
 
-def _source_soup(url):
-    """Fetch Pattinson search/detail HTML with a normal browser identity first."""
+def _direct_soup(url, timeout=10):
     try:
-        r = requests.get(url, headers=PATTINSON_HEADERS, timeout=25)
+        r = requests.get(url, headers=PATTINSON_HEADERS, timeout=timeout)
         r.raise_for_status()
-        if len(r.text) > 5000:
+        if len(r.text) > 4000:
             return BeautifulSoup(r.text, "lxml")
     except Exception as exc:
         print("PATTINSON_DIRECT_FAIL", url, repr(exc))
-    for use_browser in (False, True):
-        try:
-            s = soup(url, use_browser=use_browser)
-            if s:
-                return s
-        except Exception:
-            pass
     return None
 
 
-def _enrich(url, seed):
-    ds = _source_soup(url)
-    if ds is None:
+def _search_soup(url):
+    # Search inventory is essential, so allow one rendered fallback. Detail pages
+    # never invoke Playwright: hundreds of per-lot browser launches previously made
+    # the production scan run for more than an hour.
+    s = _direct_soup(url, timeout=12)
+    if s is not None:
+        return s
+    try:
+        return soup(url, use_browser=True)
+    except Exception:
         return None
+
+
+def _enrich(url, seed):
+    # Direct HTTP is fast and sufficient for Pattinson detail pages. If a detail
+    # request fails transiently, retain the source card as a valid inventory row;
+    # a later run can enrich it instead of losing the property entirely.
+    ds = _direct_soup(url, timeout=9)
+    base_lot = _lot_from_card(seed, url)
+    if ds is None:
+        return base_lot, False
+
     main = ds.find("main") or ds.find("article") or ds
     text = norm(main.get_text(" ", strip=True))
-
-    # Detail pages are authoritative. This also allows recovery when the search
-    # card text is embedded in JS rather than attached to the result anchor.
     detail_is_auction = bool(re.search(r"starting bid|current bid|secure sale online bidding|online auction", text, re.I))
     detail_is_commercial = any(x in text.lower() for x in COMMERCIAL_LABELS) and not any(x in text.lower() for x in RESIDENTIAL_LABELS)
-    lot = _lot_from_card(seed, url)
+    lot = base_lot
     if not lot and detail_is_auction and detail_is_commercial:
-        title_text = ""
-        title = ds.find("title")
-        if title:
-            title_text = norm(title.get_text(" ", strip=True))
+        title_text = norm(ds.title.get_text(" ", strip=True)) if ds.title else ""
         address = title_text.split(" | Auction Property", 1)[0] if " | Auction Property" in title_text else ""
         h1 = ds.find("h1")
         ptype = norm(h1.get_text(" ", strip=True)) if h1 else "Commercial"
         lot = Lot(source=SOURCE, url=url, address=address or ptype, auction_date=None,
                   guide_price=parse_guide(text), property_type=ptype, description=text[:5000]).finalise()
     if not lot:
-        return None
+        return None, True
 
-    title = ds.find("title")
-    if title:
-        tt = norm(title.get_text(" ", strip=True))
+    if ds.title:
+        tt = norm(ds.title.get_text(" ", strip=True))
         if " | Auction Property" in tt:
             lot.address = tt.split(" | Auction Property", 1)[0]
-    if not lot.address or lot.address == seed or " in " in lot.address.lower():
-        h1 = ds.find("h1")
-        if h1:
-            parent_text = norm((h1.parent or h1).get_text(" ", strip=True))
-            h1_text = norm(h1.get_text(" ", strip=True))
-            tail = parent_text[len(h1_text):].strip() if parent_text.startswith(h1_text) else ""
-            if tail:
-                lot.address = tail.split("Tenure", 1)[0].split("Connecting to auction", 1)[0].strip()
+    h1 = ds.find("h1")
+    if (not lot.address or " in " in lot.address.lower()) and h1:
+        parent_text = norm((h1.parent or h1).get_text(" ", strip=True))
+        h1_text = norm(h1.get_text(" ", strip=True))
+        tail = parent_text[len(h1_text):].strip() if parent_text.startswith(h1_text) else ""
+        if tail:
+            lot.address = tail.split("Tenure", 1)[0].split("Connecting to auction", 1)[0].strip()
 
     lot.image_url = image_from_soup(ds, url)
     lot.guide_price = parse_guide(text) or lot.guide_price
@@ -139,80 +135,83 @@ def _enrich(url, seed):
         lot.annual_rent = None
     elif re.search(r"tenant|tenanted|let to|currently let|producing £|currently rented", text, re.I):
         lot.occupation = "Tenanted"
-    return lot.finalise()
+    return lot.finalise(), True
 
 
 def _discover_page(url):
-    s = _source_soup(url)
+    s = _search_soup(url)
     if s is None:
-        return {}
+        return {}, None
+    text = norm(s.get_text(" ", strip=True))
+    m = re.search(r"\b(\d{1,5})\s+results\b", text, re.I)
+    total = int(m.group(1)) if m else None
     found = {}
-    raw_property_urls = set()
     for a in s.find_all("a", href=True):
         href = _detail_url(a)
         if not href:
             continue
-        raw_property_urls.add(href)
         card = norm(a.get_text(" ", strip=True))
         if not _auction_card(card):
-            near = nearest_card(a, 3200)
+            near = nearest_card(a, 2600)
             if _auction_card(near):
                 card = near
         if _auction_card(card):
             found[href] = card
-
-    # Some responses contain property links but render result text separately.
-    # Preserve those URLs as detail-validation candidates instead of returning a
-    # catastrophic false zero; _enrich will require auction + commercial evidence.
-    if not found and raw_property_urls:
-        found.update({href: "" for href in raw_property_urls})
-    return found
+    return found, total
 
 
 def collect():
     try:
         candidates = {}
         pages_seen = 0
-        previous_page_ids = None
-        consecutive_empty = 0
-        for n in range(1, 31):
-            url = SEARCH if n == 1 else BASE + f"/commercial/property-search?p={n}&searchType=CommercialSale"
-            found = _discover_page(url)
+        first, total_results = _discover_page(SEARCH)
+        pages_seen += 1
+        candidates.update(first)
+        if not first:
+            return SourceResult(SOURCE, "FAILED", [], "Pattinson commercial search returned no parseable auction cards on page 1.", discovered_count=0)
+
+        # Source currently renders 20 cards per page. Derive the limit from the
+        # advertised result total and keep a hard ceiling as runaway protection.
+        page_limit = min(40, max(1, math.ceil((total_results or 20) / 20)))
+        previous_ids = set(first)
+        for n in range(2, page_limit + 1):
+            url = BASE + f"/commercial/property-search?p={n}&searchType=CommercialSale"
+            found, _ = _discover_page(url)
             pages_seen += 1
-            page_ids = {href.rsplit("/", 1)[-1] for href in found}
+            ids = set(found)
+            if not ids or ids == previous_ids:
+                break
             candidates.update(found)
-            if page_ids:
-                consecutive_empty = 0
-            else:
-                consecutive_empty += 1
-            if n > 1 and page_ids and page_ids == previous_page_ids:
-                break
-            if consecutive_empty >= 2 and candidates:
-                break
-            previous_page_ids = page_ids or previous_page_ids
+            previous_ids = ids
 
         lots = []
-        failures = 0
-        with ThreadPoolExecutor(max_workers=12) as ex:
-            futs = {ex.submit(_enrich, href, card): href for href, card in candidates.items()}
+        detail_failures = 0
+        rejected = 0
+        with ThreadPoolExecutor(max_workers=28) as ex:
+            futs = {ex.submit(_enrich, href, card): (href, card) for href, card in candidates.items()}
             for f in as_completed(futs):
+                href, card = futs[f]
                 try:
-                    lot = f.result()
+                    lot, enriched = f.result()
                     if lot:
                         lots.append(lot)
+                        if not enriched:
+                            detail_failures += 1
+                    else:
+                        rejected += 1
                 except Exception as exc:
-                    failures += 1
-                    print("PATTINSON_DETAIL_FAIL", futs[f], repr(exc))
+                    detail_failures += 1
+                    fallback = _lot_from_card(card, href)
+                    if fallback:
+                        lots.append(fallback)
+                    print("PATTINSON_DETAIL_FAIL", href, repr(exc))
 
-        dedup = {}
-        for lot in lots:
-            key = lot.url or (norm(lot.address).lower(), lot.guide_price)
-            dedup[key] = lot
+        dedup = {lot.url or (norm(lot.address).lower(), lot.guide_price): lot for lot in lots}
         lots = list(dedup.values())
-        status = "LIVE" if lots and failures == 0 else "DEGRADED" if lots else "FAILED"
+        status = "LIVE" if lots and detail_failures == 0 else "DEGRADED" if lots else "FAILED"
         return SourceResult(
             SOURCE, status, lots,
-            f"Commercial inventory pages {pages_seen}; {len(candidates)} property candidates; {len(lots)} verified auction-commercial lots published; {failures} enrichment failures",
+            f"Commercial inventory {total_results if total_results is not None else 'unknown'} source results across {pages_seen} page(s); {len(candidates)} commercial auction cards; {len(lots)} published; {detail_failures} awaiting detail enrichment; {rejected} detail rejections",
             discovered_count=len(candidates),
         )
     except Exception as e:
