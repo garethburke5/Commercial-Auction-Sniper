@@ -2,22 +2,16 @@ import re
 from datetime import date
 from urllib.parse import urljoin
 
-import requests
 from bs4 import BeautifulSoup
 
+from .browser import get_html
 from .core import SourceResult
 from .savills import SOURCE, BASE, UPCOMING, _auction_dates, _discover_commercial_feed, _detail
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36",
-    "Accept-Language": "en-GB,en;q=0.9",
-}
 
-
-def _calendar_html(timeout=20):
-    r = requests.get(UPCOMING, headers=HEADERS, timeout=timeout)
-    r.raise_for_status()
-    return r.text
+def _calendar_html(timeout=30):
+    """Read Savills' calendar without treating one network stall as source failure."""
+    return get_html(UPCOMING, use_browser=False, timeout_ms=timeout * 1000)
 
 
 def _discover_all_future_auctions(html=None):
