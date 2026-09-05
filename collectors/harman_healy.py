@@ -27,7 +27,6 @@ def _future_events(s):
             m=re.search(r"\b(\d+)\s*(?:lots?|properties)\b",text,re.I)
             count=int(m.group(1)) if m else None
             out.append((d,count))
-    # Root-page text is still authoritative enough to recover dates if table markup changes.
     if not out:
         text=norm(s.get_text(" ",strip=True))
         for m in re.finditer(r"(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20\d{2})",text,re.I):
@@ -53,8 +52,6 @@ def _catalogue_candidates(root):
         d=_date(text)
         if d and d>=today: out[href]=d
     events=_future_events(root)
-    # Current Harman Healy site uses one generic /future-auctions catalogue page.
-    # Pair it with the first future event that actually advertises lots.
     if not out and events:
         live=[(d,c) for d,c in events if c is None or c>0]
         if live: out[FUTURE]=live[0][0]
@@ -67,8 +64,7 @@ def _fetch(url):
         return soup(url,use_browser=True)
 
 
-def _lots_from_catalogue(url,auction_date):
-    s=_fetch(url)
+def _lots_from_soup(s,url,auction_date):
     lots=[]; seen=0; residential=0
     for heading in s.find_all(["h2","h3","h4"]):
         h=norm(heading.get_text(" ",strip=True))
@@ -86,7 +82,6 @@ def _lots_from_catalogue(url,auction_date):
                     link=node.find("a",href=True)
                     if link: break
         address=norm(link.get_text(" ",strip=True)) if link else ""
-        # Prefer the first compact postcode-bearing string in the card over generic View/Bid text.
         for tag in (container.find_all(["h3","h4","p","a"]) if container else []):
             candidate=norm(tag.get_text(" ",strip=True))
             if re.search(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",candidate,re.I) and len(candidate)<240:
@@ -100,6 +95,35 @@ def _lots_from_catalogue(url,auction_date):
     return lots,seen,residential
 
 
+def _lots_from_catalogue(url,auction_date):
+    return _lots_from_soup(_fetch(url),url,auction_date)
+
+
+def _inspect_catalogue_with_fallback(url,auction_date):
+    """Inspect the dated route, then Harman Healy's canonical live-results route.
+
+    Their event links have changed historically while /future-auctions remains the
+    public canonical current catalogue. The fallback is deliberately same-site and
+    only accepted when it exposes parseable lot headings, so transport failures do
+    not become false source failures and an empty/error page cannot masquerade as a
+    clean zero-commercial catalogue.
+    """
+    urls=[url]
+    if url.rstrip("/") != FUTURE.rstrip("/"):
+        urls.append(FUTURE)
+    last_exc=None
+    for candidate in urls:
+        try:
+            result=_lots_from_catalogue(candidate,auction_date)
+            if result[1] > 0:
+                return result,candidate
+        except Exception as exc:
+            last_exc=exc
+    if last_exc:
+        raise last_exc
+    return ([],0,0),urls[-1]
+
+
 def collect():
     try:
         root=_fetch(AUCTIONS)
@@ -107,21 +131,23 @@ def collect():
         scopes=tuple(d.isoformat() for d,_ in events)
         if not cats:
             return SourceResult(SOURCE,"CATALOGUE PENDING",[],"No published Harman Healy future catalogue currently exposes lots.",discovered_count=0,scope_dates=scopes)
-        all_lots=[]; total_seen=total_res=failures=0
+        all_lots=[]; total_seen=total_res=failures=0; fallback_count=0
         for url,d in cats.items():
             try:
-                lots,seen,res=_lots_from_catalogue(url,d); all_lots.extend(lots); total_seen+=seen; total_res+=res
+                (lots,seen,res),used_url=_inspect_catalogue_with_fallback(url,d)
+                if used_url.rstrip("/") != url.rstrip("/"):
+                    fallback_count+=1
+                all_lots.extend(lots); total_seen+=seen; total_res+=res
             except Exception:
                 failures+=1
         if all_lots:
             status="LIVE" if failures==0 else "DEGRADED"
             return SourceResult(SOURCE,status,all_lots,
-                f"All-future Harman Healy sweep: {total_seen} lots inspected; {len(all_lots)} commercial/mixed published; {total_res} residential rejected; {failures} catalogue failures.",
+                f"All-future Harman Healy sweep: {total_seen} lots inspected; {len(all_lots)} commercial/mixed published; {total_res} residential rejected; {failures} catalogue failures; {fallback_count} generic-route recoveries.",
                 discovered_count=total_seen,scope_dates=scopes)
         if total_seen and failures==0:
-            expected=next((c for d,c in events if d==next(iter(cats.values())) and c is not None),total_seen)
             return SourceResult(SOURCE,"CATALOGUE PENDING",[],
-                f"Harman Healy future catalogue inspected: {total_seen} published lots, all residential; no commercial/mixed-use inventory currently published.",
+                f"Harman Healy future catalogue inspected: {total_seen} published lots, all residential; no commercial/mixed-use inventory currently published; {fallback_count} generic-route recoveries.",
                 expected_count=0,discovered_count=total_seen,authoritative_snapshot=True,scope_dates=scopes)
         if failures:
             return SourceResult(SOURCE,"FAILED",[],f"Harman Healy future catalogue could not be reliably inspected ({failures} failures).",discovered_count=total_seen,scope_dates=scopes)
