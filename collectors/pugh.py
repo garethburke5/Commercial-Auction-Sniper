@@ -8,7 +8,9 @@ from .utils import soup, nearest_card, detail_lot
 
 SOURCE = "Pugh / BTG Eddisons"
 BASE = "https://www.pugh-auctions.com"
-SEARCH = BASE + "/property-search?include-sold=off&order-results=date-asc&style=list"
+# Pugh's date-ascending search starts deep in its historical inventory; on the
+# current site the live/future catalogues are exposed first by date-desc.
+SEARCH = BASE + "/property-search?include-sold=off&order-results=date-desc&style=list"
 
 
 def _auction_date(text):
@@ -34,13 +36,22 @@ def _lot_no(text):
     return f"Lot {m.group(1)}" if m else None
 
 
-def _page_targets(s, today):
+def _property_cards(s):
+    """Return exact property URLs with their bounded result-card text."""
     out = {}
     for a in s.find_all("a", href=True):
         href = urljoin(BASE, a.get("href") or "").split("?")[0].rstrip("/")
         if "/property/" not in href:
             continue
         card = nearest_card(a, 3600) or norm(a.get_text(" ", strip=True))
+        if card:
+            out[href] = card
+    return out
+
+
+def _page_targets(s, today):
+    out = {}
+    for href, card in _property_cards(s).items():
         auction_date = _auction_date(card)
         if not auction_date or auction_date < today:
             continue
@@ -50,47 +61,73 @@ def _page_targets(s, today):
     return out
 
 
+def _page_dates(s):
+    return sorted({d for d in (_auction_date(card) for card in _property_cards(s).values()) if d})
+
+
 def collect():
     try:
         today = date.today().isoformat()
         targets = {}
         previous_ids = None
         pages_seen = 0
-        consecutive_empty = 0
+        future_pages_seen = 0
+        past_only_streak = 0
 
-        # Pugh/BTG can expose several future catalogues simultaneously. Sweep the
-        # future-sorted search rather than pinning one auction date in code.
-        for page in range(1, 61):
+        # Sweep from newest inventory backwards. We deliberately use page date
+        # evidence, not 'commercial targets found', as the stop condition: a
+        # page can be entirely residential while later pages still contain a
+        # future commercial lot.
+        for page in range(1, 81):
             url = SEARCH if page == 1 else SEARCH + f"&page={page}"
             try:
                 s = soup(url, use_browser=False)
             except Exception as exc:
                 print("PUGH_INDEX_FAIL", page, repr(exc))
-                consecutive_empty += 1
-                if consecutive_empty >= 2:
-                    break
                 continue
 
             pages_seen += 1
-            found = _page_targets(s, today)
-            page_ids = set(found)
-            targets.update(found)
-
-            if page_ids:
-                consecutive_empty = 0
-            else:
-                consecutive_empty += 1
-
+            cards = _property_cards(s)
+            page_ids = set(cards)
             if page > 1 and page_ids and page_ids == previous_ids:
                 break
-            if consecutive_empty >= 2 and targets:
+            if not page_ids:
+                # A genuinely empty page after the future catalogue range is a
+                # safe termination signal; transient fetch failures are handled
+                # above and do not masquerade as empty pages.
+                if future_pages_seen:
+                    break
+                previous_ids = page_ids
+                continue
+
+            dates = sorted({d for d in (_auction_date(card) for card in cards.values()) if d})
+            has_future = any(d >= today for d in dates)
+            if has_future:
+                future_pages_seen += 1
+                past_only_streak = 0
+            elif dates and max(dates) < today:
+                past_only_streak += 1
+            else:
+                past_only_streak = 0
+
+            targets.update(_page_targets(s, today))
+
+            # With date-desc ordering, once two consecutive populated pages are
+            # wholly historical after seeing future inventory, later pages are
+            # historical too. This bounds runtime without truncating a future
+            # catalogue merely because one page contains no commercial lots.
+            if future_pages_seen and past_only_streak >= 2:
                 break
-            previous_ids = page_ids or previous_ids
+            previous_ids = page_ids
 
         if not targets:
             return SourceResult(
-                SOURCE, "CATALOGUE PENDING", [],
-                f"Future-sorted Pugh search scanned {pages_seen} page(s); no future commercial/mixed-use lots identified.",
+                SOURCE, "FAILED" if future_pages_seen else "CATALOGUE PENDING", [],
+                (
+                    f"Pugh future inventory was visible across {future_pages_seen} page(s) but no commercial/mixed-use lots were captured."
+                    if future_pages_seen else
+                    f"Newest-first Pugh search scanned {pages_seen} page(s); no future catalogue inventory identified."
+                ),
                 discovered_count=0,
             )
 
@@ -128,7 +165,7 @@ def collect():
         status = "LIVE" if lots and failures == 0 else "DEGRADED" if lots else "FAILED"
         return SourceResult(
             SOURCE, status, lots,
-            f"Dynamic all-future sweep: {pages_seen} page(s); {len(targets)} commercial/mixed candidates; {len(lots)} published across {len(scope_dates)} future auction date(s); {failures} detail failures.",
+            f"Newest-first all-future sweep: {pages_seen} page(s); {len(targets)} commercial/mixed candidates; {len(lots)} published across {len(scope_dates)} future auction date(s); {failures} detail failures.",
             discovered_count=len(targets),
             authoritative_snapshot=False,
             scope_dates=scope_dates,
