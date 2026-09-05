@@ -1,6 +1,9 @@
 import unittest
 
-from collectors.savills_all_future import _discover_all_future_auctions
+from collectors.savills_all_future import (
+    _discover_all_future_auctions,
+    _savills_property_image_from_html,
+)
 
 
 class SavillsAllFutureTests(unittest.TestCase):
@@ -39,6 +42,37 @@ class SavillsAllFutureTests(unittest.TestCase):
         auctions = _discover_all_future_auctions(html)
         self.assertEqual(len(auctions), 1)
         self.assertEqual(auctions[0]["start"].isoformat(), "2099-12-08")
+
+    def test_extracts_root_relative_catalogue_lot_image(self):
+        html = '<img alt="Lot image" src="/assets/images/lots/25025/1.jpg?width=640">'
+        image = _savills_property_image_from_html(
+            html,
+            "https://auctions.savills.co.uk/auctions/15-september-2099-242/page-1",
+        )
+        self.assertEqual(
+            image,
+            "https://resize.auctions.savills.co.uk/assets/images/lots/25025/1.jpg?width=640",
+        )
+
+    def test_extracts_extensionless_lot_image_route(self):
+        html = '<img alt="Property" data-src="/lot-image/25025/1?width=640&height=480">'
+        image = _savills_property_image_from_html(
+            html,
+            "https://auctions.savills.co.uk/auctions/15-september-2099-242/page-1",
+        )
+        self.assertEqual(
+            image,
+            "https://auctions.savills.co.uk/lot-image/25025/1?width=640&height=480",
+        )
+
+    def test_rejects_branding_as_property_image(self):
+        html = '<img alt="Savills" src="/assets/images/savills-logo.svg">'
+        self.assertIsNone(
+            _savills_property_image_from_html(
+                html,
+                "https://auctions.savills.co.uk/auctions/15-september-2099-242/page-1",
+            )
+        )
 
 
 if __name__ == "__main__":
