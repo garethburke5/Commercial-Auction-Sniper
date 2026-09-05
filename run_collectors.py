@@ -15,7 +15,7 @@ from collectors.acuitus import collect as acuitus
 from collectors.pattinson import collect as pattinson
 from collectors.mchugh import collect as mchugh
 from collectors.clive_emson import collect as clive_emson
-from collectors.pending import allsop
+from collectors.allsop import collect as allsop
 
 DATA = Path("data")
 DATA.mkdir(exist_ok=True)
