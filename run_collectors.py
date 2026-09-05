@@ -4,7 +4,7 @@ import re
 from datetime import datetime, timezone
 from urllib.parse import urlparse, unquote
 
-from collectors.auction_house_london import collect as ahl
+from collectors.auction_house_london_v2 import collect as ahl
 from collectors.savills import collect as savills
 from collectors.bond_wolfe_v2 import collect as bond_wolfe
 from collectors.pugh import collect as pugh
@@ -80,9 +80,7 @@ def _address_from_url(item):
     if not path:
         return None
     slug = path.split("/")[-1]
-    # Savills detail URLs end in an internal numeric id; remove it.
     slug = re.sub(r"-\d{4,7}$", "", slug)
-    # Generic non-property route names are not acceptable fallbacks.
     if slug.lower() in {"current-auction", "current-catalogue", "property-search", "auctions", "auction"}:
         return None
     label = re.sub(r"[-_]+", " ", slug).strip()
@@ -104,18 +102,15 @@ def _sanitize_item(item):
         else:
             return None, repairs, "invalid_address"
 
-    # A property card must have a source URL unique enough to reopen the evidence.
     url = str(item.get("url") or "").strip()
     if not url.startswith(("http://", "https://")):
         return None, repairs, "invalid_url"
 
-    # Never display known navigation/branding images as if they were property photos.
     img = str(item.get("image_url") or "").strip()
     if img and re.search(r"(?:logo|favicon|sprite|placeholder|avatar|social|brandmark)", img, re.I):
         item["image_url"] = None
         repairs.append("generic_image_removed")
 
-    # Vacant-current-rent is an integrity contradiction.
     occ = str(item.get("occupation") or "").strip().lower()
     if occ in {"vacant", "vacant possession"} and (item.get("annual_rent") is not None or item.get("gross_yield") is not None):
         item["annual_rent"] = None
@@ -201,8 +196,6 @@ def run():
     active = [x for x in history if x.get("status") == "CURRENT"]
     archive = [x for x in history if x.get("status") != "CURRENT"]
 
-    # Final non-negotiable presentation gate: no past or boilerplate-titled property
-    # can reach the app-facing current board even if an upstream collector regresses.
     bad_active = [x for x in active if _auction_has_finished(x, today) or BAD_ADDRESS.search(str(x.get("address") or ""))]
     if bad_active:
         raise RuntimeError(f"production quality gate failed: {len(bad_active)} unsafe active rows")
