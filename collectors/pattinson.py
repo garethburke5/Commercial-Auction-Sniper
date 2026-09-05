@@ -12,7 +12,7 @@ from .utils import image_from_soup, legal_pack, nearest_card
 
 SOURCE = "Pattinson Auction"
 BASE = "https://www.pattinson.co.uk"
-SEARCH = BASE + "/commercial/property-search?searchType=CommercialSale"
+SEARCH = BASE + "/auction/property-search"
 SCRAPERAPI_ENDPOINT = "https://api.scraperapi.com"
 PATTINSON_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
@@ -24,11 +24,12 @@ COMMERCIAL_LABELS = (
     "commercial", "public house", "drinking establishment", "pub", "restaurant", "restaurants",
     "hot food takeaway", "takeaway", "care home", "nursery", "supermarket", "shop", "mixed use", "mixed-use",
     "business premises", "commercial development", "leisure", "land & development", "land and development",
-    "development land", "hospitality facility", "commercial land",
+    "development land", "hospitality facility", "commercial land", "investment property",
 )
 RESIDENTIAL_LABELS = (
     "residential portfolio", "residential development", " hmo ", "house in ", "flat in ",
     "bungalow in ", "apartment in ", "retirement property", "bedroom house", "bed apartment",
+    "terraced house", "semi-detached house", "detached house", "maisonette", "studio flat",
 )
 CLOSED_MARKERS = (
     " sold ", " sold stc ", " sold subject ", " auction ended ", " bidding ended ",
@@ -36,15 +37,22 @@ CLOSED_MARKERS = (
 )
 
 
-def _auction_card(text):
+def _is_current_auction(text):
     low = " " + norm(text).lower() + " "
     if any(x in low for x in CLOSED_MARKERS):
         return False
-    if not ("starting bid" in low or "current bid" in low or "reduced starting bid" in low):
-        return False
+    return any(x in low for x in ("starting bid", "current bid", "reduced starting bid", "bid now", "online auction"))
+
+
+def _is_commercial(text):
+    low = " " + norm(text).lower() + " "
     if any(x in low for x in RESIDENTIAL_LABELS):
         return False
     return any(x in low for x in COMMERCIAL_LABELS)
+
+
+def _auction_card(text):
+    return _is_current_auction(text) and _is_commercial(text)
 
 
 def _normalise_property_url(raw):
@@ -69,7 +77,7 @@ def _lot_from_card(card, url=None):
     guide = float(m.group(1).replace(",", "")) if m else None
     address = text
     maddr = re.search(
-        r"(?:Commercial Development|Land & Development|Hospitality Facility|Drinking Establishment|Hot Food Takeaway|Restaurants?|Retail|Hotels?|Offices?|Industrial|Warehouse|Workshop|Leisure|Commercial Land|Commercial)\s+in\s+(?:[A-Z]{1,2}\d[A-Z\d]?\s+)?(.+?)(?:\s+(?:Garage|Double Garage|Allocated|On Street|Off Street|Driveway|Private|Gated|Rear|None)\s+parking|$)",
+        r"(?:Commercial Development|Land & Development|Hospitality Facility|Drinking Establishment|Hot Food Takeaway|Restaurants?|Retail|Hotels?|Offices?|Industrial|Warehouse|Workshop|Leisure|Commercial Land|Commercial|Investment Property)\s+in\s+(?:[A-Z]{1,2}\d[A-Z\d]?\s+)?(.+?)(?:\s+(?:Garage|Double Garage|Allocated|On Street|Off Street|Driveway|Private|Gated|Rear|None|Residents)\s+parking|$)",
         text, re.I,
     )
     if maddr:
@@ -77,7 +85,7 @@ def _lot_from_card(card, url=None):
     ptype = next((x for x in (
         "Commercial Development", "Land & Development", "Hospitality Facility", "Drinking Establishment",
         "Hot Food Takeaway", "Restaurant", "Retail", "Hotel", "Offices", "Industrial", "Warehouse",
-        "Workshop", "Leisure", "Commercial Land", "Commercial",
+        "Workshop", "Leisure", "Commercial Land", "Investment Property", "Commercial",
     ) if x.lower() in text.lower()), "Commercial")
     return Lot(
         source=SOURCE, url=url or SEARCH, address=address, auction_date=None,
@@ -103,12 +111,6 @@ def _direct_soup(url, timeout=10):
 
 
 def _scraperapi_soup(url, *, render=False, timeout=75):
-    """Use an authenticated residential/mobile proxy only when direct egress is blocked.
-
-    Pattinson presents a Cloudflare managed challenge to GitHub/Azure runner IPs,
-    including its robots.txt and JSON/particulars endpoints. ScraperAPI is used as
-    a source-specific, documented scraping egress; canonical links remain Pattinson.
-    """
     key = os.getenv("SCRAPERAPI_KEY", "").strip()
     if not key:
         return None
@@ -152,64 +154,49 @@ def _parse_search_html(html):
     return found, total
 
 
-def _discover_direct():
-    first = _direct_soup(SEARCH, timeout=12)
+def _page_url(page_number):
+    return SEARCH if page_number == 1 else SEARCH + f"?p={page_number}"
+
+
+def _discover_with(fetcher):
+    first = fetcher(_page_url(1))
     if first is None:
         return {}, None, 0
     first_found, total = _parse_search_html(first)
-    if not first_found:
-        return {}, total, 1
     candidates = dict(first_found)
     pages_seen = 1
-    limit = min(40, max(1, math.ceil((total or len(first_found)) / 20)))
+    if total is None:
+        limit = 100
+    else:
+        limit = min(100, max(1, math.ceil(total / 20)))
     previous = set(first_found)
     for n in range(2, limit + 1):
-        url = BASE + f"/commercial/property-search?p={n}&searchType=CommercialSale"
-        s = _direct_soup(url, timeout=10)
-        if s is None:
+        page = fetcher(_page_url(n))
+        if page is None:
             break
-        page_found, _ = _parse_search_html(s)
+        page_found, _ = _parse_search_html(page)
         pages_seen += 1
         ids = set(page_found)
-        if not ids or ids == previous:
+        if ids == previous and ids:
             break
         candidates.update(page_found)
         previous = ids
+        # If the final page has no property links at all, stop. A page with only
+        # residential cards is valid and must not terminate an auction-wide sweep.
+        if not page.find("a", href=re.compile(r"/property/\d+")):
+            break
     return candidates, total, pages_seen
+
+
+def _discover_direct():
+    return _discover_with(lambda url: _direct_soup(url, timeout=12))
 
 
 def _discover_scraperapi():
-    first = _scraperapi_soup(SEARCH, render=True)
-    if first is None:
-        return {}, None, 0
-    first_found, total = _parse_search_html(first)
-    if not first_found:
-        return {}, total, 1
-    candidates = dict(first_found)
-    pages_seen = 1
-    limit = min(40, max(1, math.ceil((total or len(first_found)) / 20)))
-    previous = set(first_found)
-    for n in range(2, limit + 1):
-        url = BASE + f"/commercial/property-search?p={n}&searchType=CommercialSale"
-        s = _scraperapi_soup(url, render=True)
-        if s is None:
-            break
-        page_found, _ = _parse_search_html(s)
-        pages_seen += 1
-        ids = set(page_found)
-        if not ids or ids == previous:
-            break
-        candidates.update(page_found)
-        previous = ids
-    return candidates, total, pages_seen
+    return _discover_with(lambda url: _scraperapi_soup(url, render=True, timeout=75))
 
 
-def _discover_inventory():
-    candidates, total, pages_seen = _discover_direct()
-    if candidates:
-        return candidates, total, pages_seen, "direct"
-
-    # A normal browser is worth trying for temporary/non-managed challenges.
+def _discover_browser():
     try:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
@@ -217,35 +204,34 @@ def _discover_inventory():
             context = browser.new_context(user_agent=PATTINSON_HEADERS["User-Agent"], locale="en-GB")
             page = context.new_page()
             page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-            response = page.goto(SEARCH, wait_until="domcontentloaded", timeout=35000)
-            if response and response.status == 200:
+
+            def fetcher(url):
+                response = page.goto(url, wait_until="domcontentloaded", timeout=35000)
+                if not response or response.status != 200:
+                    return None
                 try:
                     page.wait_for_selector("a[href*='/property/']", timeout=8000)
                 except Exception:
                     pass
-                first_found, total = _parse_search_html(page.content())
-                if first_found:
-                    candidates = dict(first_found)
-                    pages_seen = 1
-                    limit = min(40, max(1, math.ceil((total or len(first_found)) / 20)))
-                    previous = set(first_found)
-                    for n in range(2, limit + 1):
-                        page.goto(BASE + f"/commercial/property-search?p={n}&searchType=CommercialSale", wait_until="domcontentloaded", timeout=35000)
-                        page_found, _ = _parse_search_html(page.content())
-                        pages_seen += 1
-                        ids = set(page_found)
-                        if not ids or ids == previous:
-                            break
-                        candidates.update(page_found)
-                        previous = ids
-                    context.close(); browser.close()
-                    return candidates, total, pages_seen, "browser"
+                return BeautifulSoup(page.content(), "lxml")
+
+            result = _discover_with(fetcher)
             context.close(); browser.close()
+            return result
     except Exception as exc:
         print("PATTINSON_BROWSER_FAIL", repr(exc))
+        return {}, None, 0
 
+
+def _discover_inventory():
+    candidates, total, pages_seen = _discover_direct()
+    if candidates:
+        return candidates, total, pages_seen, "auction-direct"
+    candidates, total, pages_seen = _discover_browser()
+    if candidates:
+        return candidates, total, pages_seen, "auction-browser"
     candidates, total, pages_seen = _discover_scraperapi()
-    return candidates, total, pages_seen, "scraperapi"
+    return candidates, total, pages_seen, "auction-scraperapi"
 
 
 def _apply_detail(lot, ds, seed, url):
@@ -256,7 +242,9 @@ def _apply_detail(lot, ds, seed, url):
     low = " " + text.lower() + " "
     if any(x in low for x in CLOSED_MARKERS):
         return None
-    if not re.search(r"starting bid|current bid|secure sale online bidding|online auction", text, re.I):
+    if not _is_current_auction(text):
+        return None
+    if not _is_commercial(text + " " + seed):
         return None
 
     if ds.title:
@@ -267,7 +255,6 @@ def _apply_detail(lot, ds, seed, url):
 
     lot.image_url = image_from_soup(ds, url)
     lot.guide_price = parse_guide(text) or lot.guide_price
-    # Pattinson calls this a Starting Bid, not a Guide Price.
     if not lot.guide_price:
         m = re.search(r"(?:Reduced\s+)?(?:Starting Bid|Current Bid)\s*£\s*([\d,]+(?:\.\d+)?)", text, re.I)
         if m:
@@ -294,7 +281,6 @@ def _enrich(url, seed, use_proxy=False):
     if ds is None and use_proxy:
         ds = _scraperapi_soup(url, render=False, timeout=50)
     if ds is None:
-        # Search-card evidence is already enough to publish a conservative record.
         return lot, False
     return _apply_detail(lot, ds, seed, url), True
 
@@ -305,16 +291,16 @@ def collect():
         if not candidates:
             key_present = bool(os.getenv("SCRAPERAPI_KEY", "").strip())
             message = (
-                "Pattinson is protected by a Cloudflare managed challenge on GitHub/Azure egress. "
-                + ("Configured residential proxy also returned no parseable auction-commercial cards."
-                   if key_present else "Set SCRAPERAPI_KEY to enable the supported residential-proxy fallback.")
+                "Pattinson auction search is protected by a Cloudflare managed challenge on GitHub/Azure egress. "
+                + ("Configured residential proxy also returned no parseable current commercial auction cards."
+                   if key_present else "Set SCRAPERAPI_KEY to enable the residential-proxy fallback for the auction inventory.")
             )
             return SourceResult(SOURCE, "FAILED", [], message, discovered_count=0)
 
         lots = []
         detail_failures = 0
         rejected = 0
-        use_proxy = mode == "scraperapi"
+        use_proxy = mode == "auction-scraperapi"
         workers = 6 if use_proxy else 16
         with ThreadPoolExecutor(max_workers=workers) as ex:
             futures = {ex.submit(_enrich, href, card, use_proxy): (href, card) for href, card in candidates.items()}
@@ -337,12 +323,11 @@ def collect():
 
         dedup = {lot.url or (norm(lot.address).lower(), lot.guide_price): lot for lot in lots}
         lots = list(dedup.values())
-        # Search cards are exact inventory evidence; inaccessible detail pages degrade enrichment, not inventory completeness.
         status = "LIVE" if lots and len(lots) == len(candidates) and rejected == 0 else "DEGRADED" if lots else "FAILED"
         return SourceResult(
             SOURCE, status, lots,
-            f"Commercial inventory {total_results if total_results is not None else 'unknown'} source results across {pages_seen} page(s) via {mode}; "
-            f"{len(candidates)} current auction-commercial cards; {len(lots)} published; {detail_failures} card-only/detail-limited; {rejected} rejected",
+            f"Auction inventory {total_results if total_results is not None else 'unknown'} source results across {pages_seen} page(s) via {mode}; "
+            f"{len(candidates)} current commercial/mixed-use auction cards; {len(lots)} published; {detail_failures} card-only/detail-limited; {rejected} rejected",
             expected_count=len(candidates), discovered_count=len(candidates),
             authoritative_snapshot=(status == "LIVE"),
         )
