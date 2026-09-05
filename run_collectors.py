@@ -17,10 +17,13 @@ from collectors.pattinson import collect as pattinson
 from collectors.mchugh import collect as mchugh
 from collectors.clive_emson import collect as clive_emson
 from collectors.allsop import collect as allsop
+from collectors.barnard_marcus import collect as barnard_marcus
+from collectors.barnett_ross import collect as barnett_ross
+from source_manifest import append_missing_health, manifest_coverage
 
 DATA=Path("data")
 DATA.mkdir(exist_ok=True)
-COLLECTORS=[ahl,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson]
+COLLECTORS=[ahl,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross]
 PUBLISHABLE={"LIVE","DEGRADED"}
 BAD_ADDRESS=re.compile(r"(?:login|log in|sign in|register to bid|book a viewing|arrange a viewing|viewing appointment|cancel proxy bid|your bid|remove from wishlist|add to wishlist|connecting to auction|please wait|full details|legal pack available)",re.I)
 RICH_FIELDS=("image_url","area_sqft","area_sqm","site_area_acres","tenant","lease_term","lease_start","lease_expiry","break_clause","break_status","rent_review","fri","erv","epc","rateable_value","service_charge","ground_rent","property_type","occupation","parking","development_potential","asset_management","refurbishment","residential_conversion","listed_status","covenant_rating","covenant_risk","covenant_turnover","guarantors","pitch","nearby_occupiers","legal_pack_url","legal_pack_status","vat_status","tenure","guide_price","annual_rent","lot_number","auction_date")
@@ -151,6 +154,8 @@ def run():
         results.append(status)
         if _complete_authoritative(r) and not source_rejected: authoritative_scopes.append((r.source,set(r.scope_dates)))
 
+    target_coverage=append_missing_health(results)
+
     merged_by_key=dict(old_by_key); merged_by_key.update(current_by_key); current_keys=set(current_by_key); pruned=0
     for source,scope_dates in authoritative_scopes:
         stale=[k for k,item in merged_by_key.items() if k not in current_keys and item.get("source")==source and str(item.get("auction_date") or "")[:10] in scope_dates]
@@ -177,9 +182,10 @@ def run():
         q["image_coverage_pct"]=round(100*q["valid_images"]/q["lots"],1) if q["lots"] else 0
         q["rich_coverage_pct"]=round(100*q["rich"]/q["lots"],1) if q["lots"] else 0
 
-    snapshot={"generated_at":datetime.now(timezone.utc).isoformat(),"properties":active,"archive":archive,"source_health":results,"integrity":{"active_property_count":len(active),"historical_property_count":len(archive),"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"quality_rejection_reasons":rejection_reasons,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"source_quality":source_quality}}
+    target_coverage=manifest_coverage(results)
+    snapshot={"generated_at":datetime.now(timezone.utc).isoformat(),"properties":active,"archive":archive,"source_health":results,"integrity":{"active_property_count":len(active),"historical_property_count":len(archive),"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"quality_rejection_reasons":rejection_reasons,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"source_quality":source_quality,"target_coverage":target_coverage,"acceptance_ready":target_coverage.get("acceptance_ready",False)}}
     (DATA/"properties.json").write_text(json.dumps(snapshot,indent=2),encoding="utf-8")
-    print(json.dumps({"generated_at":snapshot["generated_at"],"property_count":len(active),"historical_count":len(archive),"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"source_quality":source_quality,"sources":results},indent=2))
+    print(json.dumps({"generated_at":snapshot["generated_at"],"property_count":len(active),"historical_count":len(archive),"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"source_quality":source_quality,"target_coverage":target_coverage,"sources":results},indent=2))
 
 
 if __name__=="__main__": run()
