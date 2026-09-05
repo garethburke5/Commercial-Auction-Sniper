@@ -1,0 +1,44 @@
+name: Pattinson Collector Diagnostic
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'collectors/pattinson.py'
+      - 'tests/test_pattinson.py'
+      - '.github/workflows/pattinson-diagnostic.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pattinson-collector-diagnostic
+  cancel-in-progress: true
+
+jobs:
+  pattinson:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install collector dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run Pattinson regression tests
+        run: python -m unittest tests.test_pattinson -v
+      - name: Run Pattinson collector only
+        run: |
+          python - <<'PY'
+          from collectors.pattinson import collect
+          r = collect()
+          print(r.to_status_dict())
+          for lot in r.lots[:10]:
+              print(lot.to_dict())
+          if r.status == 'FAILED' or not r.lots:
+              raise SystemExit('Pattinson collector returned no publishable lots')
+          PY
