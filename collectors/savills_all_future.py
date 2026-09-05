@@ -36,6 +36,60 @@ def _discover_all_future_auctions(html=None):
     return [auctions[k] for k in sorted(auctions,key=lambda u:(auctions[u]["start"],u))]
 
 
+def _normalise_savills_asset(value, href):
+    """Convert every first-party Savills lot-image representation into a usable URL.
+
+    The current site emits the same gallery asset in several forms: full resize URLs,
+    protocol-relative URLs, root-relative `/assets/images/lots/...` paths and JSON
+    strings with escaped slashes. Treat only lot assets as property photographs.
+    """
+    if not value:
+        return None
+    value=str(value).replace("\\/","/").replace("&amp;","&").strip("\"' ")
+    low=value.lower()
+    if "/assets/images/lots/" not in low:
+        return None
+    if value.startswith("//"):
+        return "https:"+value
+    if value.startswith("/assets/images/lots/"):
+        return "https://resize.auctions.savills.co.uk"+value
+    if value.startswith("assets/images/lots/"):
+        return "https://resize.auctions.savills.co.uk/"+value
+    if value.startswith(("http://","https://")):
+        return value
+    return urljoin(href,value)
+
+
+def _savills_property_image_from_html(raw, href):
+    raw=(raw or "").replace("\\/","/")
+    candidates=[]
+    # Capture quoted/JSON and CSS/srcset forms, including root-relative lot assets.
+    for token in re.findall(r'(?:https?:)?//[^"\'<>\s,]+|/assets/images/lots/[^"\'<>\s,]+|assets/images/lots/[^"\'<>\s,]+',raw,re.I):
+        u=_normalise_savills_asset(token,href)
+        if u:
+            # Strip trailing JSON/CSS punctuation but retain ordinary query strings.
+            u=re.sub(r"[)\]}]+$","",u)
+            candidates.append(u)
+    if candidates:
+        return candidates[0]
+    s=BeautifulSoup(raw,"lxml")
+    scored=[]
+    for img in s.find_all("img"):
+        values=[img.get("data-src"),img.get("data-lazy-src"),img.get("src")]
+        srcset=img.get("srcset") or img.get("data-srcset")
+        if srcset:
+            values.extend(part.strip().split(" ",1)[0] for part in srcset.split(","))
+        for src in values:
+            u=_normalise_savills_asset(src,href)
+            if not u: continue
+            low=u.lower(); alt=norm(img.get("alt") or "").lower(); score=100
+            if "resize.auctions.savills.co.uk" in low: score+=40
+            if any(x in alt for x in ("property","lot","auction")): score+=5
+            scored.append((score,u))
+    scored.sort(key=lambda x:x[0],reverse=True)
+    return scored[0][1] if scored else None
+
+
 def _savills_property_image(href):
     """Return a real Savills lot photograph, never the yellow Savills brand tile."""
     try:
@@ -43,30 +97,7 @@ def _savills_property_image(href):
     except Exception:
         try: raw=get_html(href,use_browser=True,timeout_ms=25000)
         except Exception: return None
-    raw=raw.replace("\\/","/")
-    candidates=[]
-    # Current Savills auction gallery assets use this stable lot-asset path.
-    for u in re.findall(r'https?://[^"\'<>\s]+',raw,re.I):
-        clean=u.replace('&amp;','&')
-        low=clean.lower()
-        if "resize.auctions.savills.co.uk/assets/images/lots/" in low and re.search(r"\.(?:jpe?g|png|webp)(?:\?|$)",low):
-            candidates.append(clean)
-    if candidates:
-        return candidates[0]
-    s=BeautifulSoup(raw,"lxml")
-    scored=[]
-    for img in s.find_all("img"):
-        src=img.get("data-src") or img.get("data-lazy-src") or img.get("src")
-        if not src: continue
-        u=urljoin(href,src); low=u.lower(); alt=norm(img.get("alt") or "").lower()
-        if any(x in low for x in ("logo","savills-logo","favicon","icon","placeholder","brand","social")): continue
-        score=0
-        if "/assets/images/lots/" in low: score+=100
-        if "resize.auctions.savills.co.uk" in low: score+=40
-        if any(x in alt for x in ("property","lot","auction")): score+=5
-        if score: scored.append((score,u))
-    scored.sort(key=lambda x:x[0],reverse=True)
-    return scored[0][1] if scored else None
+    return _savills_property_image_from_html(raw,href)
 
 
 def _repair_from_catalogue(lot, meta, href):
