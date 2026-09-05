@@ -12,6 +12,7 @@ import requests
 import streamlit as st
 from bs4 import BeautifulSoup
 from collector_enrichment import extract_particulars, merge_enrichment
+from property_summary import build_opportunity_summary
 # Heavy legal-pack parsers are loaded only when due diligence is actually run.
 analyse_uploaded_pack=None
 try:
@@ -21,7 +22,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.72-CANONICAL-CURRENT"
+BUILD = "V6.73-OPPORTUNITY-SUMMARIES"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -3185,7 +3186,7 @@ header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:no
 .preview{display:block;width:100%;height:162px;object-fit:cover;background:linear-gradient(135deg,#192638,#111925)}
 .noimg{display:grid;place-items:center;color:#73839a;font-size:.66rem;letter-spacing:.03em}
 .cb{padding:10px 11px 11px}.src{font-size:.66rem;color:#f5d45e;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:none;letter-spacing:.01em}
-.addr{font-size:.90rem;font-weight:850;line-height:1.28;min-height:2.45em;margin:5px 0 9px;color:#ffffff}
+.oppTitle{font-size:.66rem;font-weight:950;letter-spacing:.025em;color:#f5d45e;margin:5px 0 3px;line-height:1.2}.oppFacts{font-size:.62rem;color:#d4dfec;line-height:1.32;margin:0 0 6px}.addr{font-size:.90rem;font-weight:850;line-height:1.28;min-height:2.45em;margin:4px 0 7px;color:#ffffff}
 .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:4px}.sizeMetric{grid-column:span 2}.metric{background:#162130;border:1px solid #223047;border-radius:7px;padding:5px 7px;min-height:40px;display:flex;flex-direction:column;justify-content:center}
 .metric span{display:block;color:#aebbd0;font-size:.61rem;margin-bottom:2px;line-height:1.15;font-weight:650}.metric b{font-size:.86rem;line-height:1.16;color:#fff;font-weight:850}
 .meta{font-size:.68rem;color:#b0bdd0;margin-top:8px;line-height:1.35;min-height:0}
@@ -4227,6 +4228,8 @@ with lots_tab:
         meta=" · ".join(v for v in [x.get("date"),("Size "+_size_text) if _size_text else None,("VAT "+x["vat"]) if x.get("vat") and x["vat"]!="UNKNOWN" else None] if v)
         _property_url=html.escape(str(x.get("url") or ""),quote=True)
         _address=str(x.get("address") or "").strip()
+        _opp_title,_opp_highlights=build_opportunity_summary(x)
+        _opp_facts=" · ".join(_opp_highlights[:3])
         _map_query=urllib.parse.quote_plus(_address)
         _maps_url=f"https://www.google.com/maps/search/?api=1&query={_map_query}"
         _history_query=urllib.parse.quote_plus(f'"{_address}" (auction OR sold OR sale OR guide OR lot)')
@@ -4237,6 +4240,8 @@ with lots_tab:
         cards.append(
             '<div class="card">'+preview+'<div class="cb">'
             +f'<div class="src">{html.escape(x["source"])} · {html.escape(x.get("lot") or "Lot TBC")}</div>'
+            +f'<div class="oppTitle">{html.escape(_opp_title)}</div>'
+            +(f'<div class="oppFacts">{html.escape(_opp_facts)}</div>' if _opp_facts else '')
             +f'<div class="addr">{html.escape(x["address"])}</div><div class="metrics">'
             +f'<div class="metric"><span>Guide</span><b>{money(x.get("guide"))}</b></div>'
             +f'<div class="metric"><span>Rent p.a.</span><b>{money(x.get("rent"))}</b></div>'
