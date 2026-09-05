@@ -9,6 +9,8 @@ on:
     paths:
       - '.github/workflows/auction-sniper-scan.yml'
       - 'run_collectors.py'
+      - 'source_manifest.py'
+      - 'config/target_sources.json'
       - 'collectors/**'
       - 'tests/**'
       - 'scripts/repair_app_canonical.py'
@@ -49,7 +51,7 @@ jobs:
 
       - name: Compile production code
         run: |
-          python -m py_compile app.py run_collectors.py collectors/*.py tests/*.py
+          python -m py_compile app.py run_collectors.py source_manifest.py collectors/*.py tests/*.py
 
       - name: Run collector regression tests
         run: python -m unittest discover -s tests -p 'test_*.py' -v
@@ -82,6 +84,7 @@ jobs:
           import json, re
           from datetime import date
           from pathlib import Path
+          from source_manifest import manifest_coverage
           p=Path('data/properties.json')
           assert p.exists(), 'data/properties.json was not generated'
           d=json.loads(p.read_text(encoding='utf-8'))
@@ -95,6 +98,12 @@ jobs:
           mismatch=[s for s in d['source_health'] if s.get('expected_count') and s.get('lots_seen')!=s.get('expected_count')]
           assert not mismatch, 'catalogue count mismatches: '+', '.join(f"{s['source']} {s['lots_seen']}/{s['expected_count']}" for s in mismatch)
 
+          coverage=manifest_coverage(d['source_health'])
+          print('TARGET COVERAGE',coverage)
+          assert not coverage['missing_required_sources'], 'required sources absent from source health: '+', '.join(coverage['missing_required_sources'])
+          assert not coverage['unhealthy_required_sources'], 'required sources unhealthy/unimplemented: '+', '.join(coverage['unhealthy_required_sources'])
+          assert (d.get('integrity') or {}).get('target_coverage') is not None, 'target coverage missing from production snapshot'
+
           integrity=d.get('integrity') or {}
           assert not integrity.get('quality_rejections'), f"quality gate rejected {integrity.get('quality_rejections')} records: {integrity.get('quality_rejection_reasons')}"
           quality=integrity.get('source_quality') or {}
@@ -103,8 +112,6 @@ jobs:
               print(src,q)
 
           # Property photos and useful particulars are release criteria, not cosmetic extras.
-          # These thresholds intentionally make regressions visible instead of silently
-          # publishing brand tiles or skeleton cards.
           for src in ('Savills Auctions','Acuitus'):
               q=quality.get(src)
               assert q and q.get('lots',0)>0, f'{src}: no current lots to quality-check'
