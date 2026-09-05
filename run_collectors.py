@@ -6,7 +6,7 @@ from urllib.parse import urlparse, unquote
 
 from collectors.core import SourceResult
 from collectors.auction_house_london_v2 import collect as ahl
-from collectors.savills import collect as savills
+from collectors.savills_all_future import collect as savills
 from collectors.bond_wolfe_v2 import collect as bond_wolfe
 from collectors.pugh import collect as pugh
 from collectors.strettons import collect as strettons
