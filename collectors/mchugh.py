@@ -5,8 +5,9 @@ from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
 
-from .core import SourceResult, is_commercial, norm
+from .core import SourceResult, is_commercial
 from .utils import nearest_card, detail_lot
+from .browser import get_html
 
 SOURCE = "McHugh & Co"
 BASE = "https://www.mchughandco.com"
@@ -29,9 +30,12 @@ def _fetch(url):
         except Exception as exc:
             last = exc
             time.sleep(1 + attempt)
-    if last:
-        raise last
-    raise RuntimeError("empty McHugh response")
+    try:
+        return BeautifulSoup(get_html(url, use_browser=False), "lxml")
+    except Exception:
+        if last:
+            raise last
+        raise RuntimeError("empty McHugh response")
 
 
 def collect():
@@ -84,4 +88,4 @@ def collect():
             scope_dates=("2026-09-16", "2026-09-17"),
         )
     except Exception as e:
-        return SourceResult(SOURCE, "FAILED", [], f"McHugh catalogue failed after HTTP retry: {e}")
+        return SourceResult(SOURCE, "FAILED", [], f"McHugh catalogue failed after transport fallbacks: {e}")
