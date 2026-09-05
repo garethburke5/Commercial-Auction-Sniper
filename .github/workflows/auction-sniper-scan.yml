@@ -12,6 +12,7 @@ on:
       - 'collectors/**'
       - 'tests/**'
       - 'scripts/repair_app_canonical.py'
+      - 'property_summary.py'
 
 permissions:
   contents: write
@@ -59,9 +60,6 @@ jobs:
           SAVILLS_PASSWORD: ${{ secrets.SAVILLS_PASSWORD }}
         run: python run_collectors.py
 
-      # Publish the collector's sanitised/current-only snapshot even when one source
-      # is incomplete. The quality gate below still turns CI red, but a failed source
-      # can no longer freeze the whole live site on an older canonical snapshot.
       - name: Publish safe refreshed snapshot
         run: |
           git config user.name 'Auction Sniper Bot'
@@ -88,30 +86,40 @@ jobs:
           assert p.exists(), 'data/properties.json was not generated'
           d=json.loads(p.read_text(encoding='utf-8'))
           assert 'properties' in d and 'archive' in d and 'source_health' in d and d.get('generated_at'), 'invalid snapshot contract'
-          print('SNAPSHOT', len(d['properties']), 'active properties', len(d['archive']), 'historical')
+          print('SNAPSHOT',len(d['properties']),'active properties',len(d['archive']),'historical')
           for s in d['source_health']:
-              print(s['source'], s['status'], s['lots_seen'], '/', s.get('expected_count'))
+              print(s['source'],s['status'],s['lots_seen'],'/',s.get('expected_count'))
 
           failed=[s for s in d['source_health'] if s.get('status')=='FAILED']
-          assert not failed, 'FAILED collectors: ' + ', '.join(s['source'] for s in failed)
-          mismatch=[s for s in d['source_health'] if s.get('expected_count') and s.get('lots_seen') != s.get('expected_count')]
-          assert not mismatch, 'catalogue count mismatches: ' + ', '.join(f"{s['source']} {s['lots_seen']}/{s['expected_count']}" for s in mismatch)
+          assert not failed, 'FAILED collectors: '+', '.join(s['source'] for s in failed)
+          mismatch=[s for s in d['source_health'] if s.get('expected_count') and s.get('lots_seen')!=s.get('expected_count')]
+          assert not mismatch, 'catalogue count mismatches: '+', '.join(f"{s['source']} {s['lots_seen']}/{s['expected_count']}" for s in mismatch)
 
           integrity=d.get('integrity') or {}
           assert not integrity.get('quality_rejections'), f"quality gate rejected {integrity.get('quality_rejections')} records: {integrity.get('quality_rejection_reasons')}"
+          quality=integrity.get('source_quality') or {}
+          print('SOURCE QUALITY')
+          for src,q in sorted(quality.items()):
+              print(src,q)
+
+          # Property photos and useful particulars are release criteria, not cosmetic extras.
+          # These thresholds intentionally make regressions visible instead of silently
+          # publishing brand tiles or skeleton cards.
+          for src in ('Savills Auctions','Acuitus'):
+              q=quality.get(src)
+              assert q and q.get('lots',0)>0, f'{src}: no current lots to quality-check'
+              assert q.get('image_coverage_pct',0)>=90, f"{src}: genuine property-image coverage only {q.get('image_coverage_pct')}%"
+              assert q.get('rich_coverage_pct',0)>=70, f"{src}: rich-particular coverage only {q.get('rich_coverage_pct')}%"
 
           bad_vacant=[x for x in d['properties'] if str(x.get('occupation') or '').strip().lower() in {'vacant','vacant possession'} and (x.get('annual_rent') is not None or x.get('gross_yield') is not None)]
           assert not bad_vacant, f'vacant rent/yield integrity failures: {len(bad_vacant)}'
-
-          boiler=re.compile(r'login|log in|register to bid|book a viewing|arrange a viewing|cancel proxy bid|your bid|wishlist|connecting to auction|please wait', re.I)
+          boiler=re.compile(r'login|log in|register to bid|book a viewing|arrange a viewing|cancel proxy bid|your bid|wishlist|connecting to auction|please wait',re.I)
           bad_titles=[x for x in d['properties'] if boiler.search(str(x.get('address') or ''))]
           assert not bad_titles, f'boilerplate property titles: {len(bad_titles)}'
-
           today=date.today().isoformat()
-          past=[x for x in d['properties'] if str(x.get('auction_date') or '')[:10] and str(x.get('auction_date'))[:10] < today]
+          past=[x for x in d['properties'] if str(x.get('auction_date') or '')[:10] and str(x.get('auction_date'))[:10]<today]
           assert not past, f'past auction rows leaked into active board: {len(past)}'
-
           sav=[x for x in d['properties'] if x.get('source')=='Savills Auctions']
           assert sav, 'no current Savills lots published'
-          assert all(str(x.get('auction_date') or '')[:10] >= today for x in sav), 'stale Savills current rows detected'
+          assert all(str(x.get('auction_date') or '')[:10]>=today for x in sav), 'stale Savills current rows detected'
           PY
