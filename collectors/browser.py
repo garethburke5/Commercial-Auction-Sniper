@@ -1,10 +1,14 @@
 from __future__ import annotations
+import subprocess
 import time
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/4.0)"}
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "Accept-Language": "en-GB,en;q=0.9",
+}
 
 
 def _session() -> requests.Session:
@@ -24,14 +28,46 @@ def _session() -> requests.Session:
     return session
 
 
-def get_html(url: str, use_browser: bool = False, timeout_ms: int = 30000) -> str:
-    """Fetch source HTML with bounded retries and a browser fallback.
+def _curl_http11(url: str, timeout_ms: int) -> str | None:
+    """Last-resort public HTTP fetch for servers that reset Python/HTTP2 clients.
 
-    Auction sites periodically stall or return transient 5xx/429 responses. A single
-    network wobble must not turn an otherwise healthy catalogue into a FAILED source
-    and cause the live board to lose an entire auction house. Cloudflare-style hard
-    403 challenges are deliberately *not* retried repeatedly here; source-specific
-    collectors must use a legitimate alternate public route instead.
+    Several UK auction platforms intermittently close TLS connections from GitHub
+    runners or fail Chromium with ERR_HTTP2_PROTOCOL_ERROR while still serving the
+    same public page over HTTP/1.1. Curl is present on GitHub's Ubuntu runners and
+    gives us a protocol-distinct fallback without bypassing authentication or bot
+    challenges.
+    """
+    timeout_s = max(10, int(timeout_ms / 1000))
+    try:
+        proc = subprocess.run(
+            [
+                "curl", "--http1.1", "--location", "--silent", "--show-error",
+                "--fail-with-body", "--retry", "2", "--retry-all-errors",
+                "--connect-timeout", "12", "--max-time", str(timeout_s),
+                "-A", HEADERS["User-Agent"],
+                "-H", f"Accept-Language: {HEADERS['Accept-Language']}",
+                url,
+            ],
+            capture_output=True,
+            text=True,
+            timeout=timeout_s + 5,
+            check=False,
+        )
+        text = proc.stdout or ""
+        if proc.returncode == 0 and len(text) > 1000:
+            return text
+    except (OSError, subprocess.SubprocessError):
+        pass
+    return None
+
+
+def get_html(url: str, use_browser: bool = False, timeout_ms: int = 30000) -> str:
+    """Fetch source HTML through independent transports before declaring failure.
+
+    Order is requests/urllib3, explicit HTTP/1.1 curl, then Chromium. This prevents
+    a transient protocol-specific failure from turning an otherwise public live
+    catalogue into a FAILED collector. Hard 401/403 challenges are not bypassed;
+    source-specific collectors must use another legitimate first-party route.
     """
     if not use_browser:
         try:
@@ -42,6 +78,10 @@ def get_html(url: str, use_browser: bool = False, timeout_ms: int = 30000) -> st
                 return text
         except Exception:
             pass
+
+        text = _curl_http11(url, timeout_ms)
+        if text:
+            return text
 
     from playwright.sync_api import sync_playwright
     last_exc = None
