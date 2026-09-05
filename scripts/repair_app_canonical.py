@@ -70,10 +70,12 @@ if n != 1:
     raise SystemExit('refresh_market patch failed')
 
 needle = 'rows,health,updated=load_rows()\ntry:\n'
+marker = '# The main board is CURRENT/UPCOMING only.'
 replacement = '''rows,health,updated=load_rows()\n# The main board is CURRENT/UPCOMING only. Completed, sold-prior and withdrawn\n# records remain preserved in data/properties.json for history/research, but they\n# must not pollute the live deal-scanning board.\nfrom datetime import date as _date\n_all_snapshot_rows=list(rows)\n_today=_date.today().isoformat()\ndef _is_current_board_row(r):\n    status=str(r.get("status") or "").strip().lower()\n    if status in {"archived","sold prior","withdrawn","withdrawn prior","auction ended","completed"}:\n        return False\n    d=str(r.get("date") or "").strip()\n    if re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}",d) and d < _today:\n        return False\n    return True\nrows=[r for r in rows if _is_current_board_row(r)]\ntry:\n'''
-if needle not in s:
-    raise SystemExit('render board insertion point missing')
-s=s.replace(needle,replacement,1)
+if marker not in s:
+    if needle not in s:
+        raise SystemExit('render board insertion point missing')
+    s=s.replace(needle,replacement,1)
 
 s=s.replace('st.tabs(["🎯 All properties","📡 Source health"])', 'st.tabs(["🎯 Current properties","📡 Source health"])', 1)
 s=s.replace('ALL verified current properties', 'current/upcoming verified properties', 1)
