@@ -57,6 +57,7 @@ jobs:
         env:
           SAVILLS_EMAIL: ${{ secrets.SAVILLS_EMAIL }}
           SAVILLS_PASSWORD: ${{ secrets.SAVILLS_PASSWORD }}
+          SCRAPERAPI_KEY: ${{ secrets.SCRAPERAPI_KEY }}
         run: python run_collectors.py
 
       # Publish the collector's sanitised/current-only snapshot even when one source
@@ -92,9 +93,6 @@ jobs:
           for s in d['source_health']:
               print(s['source'], s['status'], s['lots_seen'], '/', s.get('expected_count'))
 
-          # A green workflow must mean the source layer is actually healthy. The
-          # snapshot has already been safely published so this failure is a quality
-          # signal, not a mechanism that freezes production on stale data.
           failed=[s for s in d['source_health'] if s.get('status')=='FAILED']
           assert not failed, 'FAILED collectors: ' + ', '.join(s['source'] for s in failed)
           mismatch=[s for s in d['source_health'] if s.get('expected_count') and s.get('lots_seen') != s.get('expected_count')]
@@ -114,7 +112,6 @@ jobs:
           past=[x for x in d['properties'] if str(x.get('auction_date') or '')[:10] and str(x.get('auction_date'))[:10] < today]
           assert not past, f'past auction rows leaked into active board: {len(past)}'
 
-          # Current Savills is dynamically selected and must never regress to a completed sale.
           sav=[x for x in d['properties'] if x.get('source')=='Savills Auctions']
           assert sav, 'no current Savills lots published'
           assert all(str(x.get('auction_date') or '')[:10] >= today for x in sav), 'stale Savills current rows detected'
