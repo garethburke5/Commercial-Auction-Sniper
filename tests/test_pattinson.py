@@ -97,7 +97,11 @@ class PattinsonCollectorTests(unittest.TestCase):
 
         found, total, pages_seen = _discover_with(fetcher)
         self.assertEqual(total, 60)
-        self.assertEqual(pages_seen, 3)
+        # The result count and observed page size deliberately conflict with the
+        # short pager in this fixture. The collector defensively probes one empty
+        # terminal page rather than trusting a potentially truncated pager and
+        # silently missing later commercial lots.
+        self.assertEqual(pages_seen, 4)
         self.assertIn("https://www.pattinson.co.uk/property/3", found)
 
     def test_duplicate_page_ids_stop_a_broken_pagination_loop(self):
