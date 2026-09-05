@@ -31,13 +31,35 @@ jobs:
           pip install requests beautifulsoup4 lxml
       - name: Run Pattinson regression tests
         run: python -m unittest tests.test_pattinson -v
+      - name: Probe public retrieval routes
+        run: |
+          python - <<'PY'
+          import requests
+          probes = [
+              'https://www.pattinson.co.uk/',
+              'https://www.pattinson.co.uk/auction',
+              'https://www.pattinson.co.uk/robots.txt',
+              'https://www.pattinson.co.uk/sitemap.xml',
+              'https://www.pattinson.co.uk/api/property/508740/particulars',
+              'https://www-pattinson-co-uk.translate.goog/commercial/property-search?searchType=CommercialSale&_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en',
+              'https://www-pattinson-co-uk.translate.goog/auction/property-search?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en',
+          ]
+          headers={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36'}
+          for u in probes:
+              try:
+                  r=requests.get(u,headers=headers,timeout=20,allow_redirects=True)
+                  print('PROBE',u,'STATUS',r.status_code,'LEN',len(r.content),'TYPE',r.headers.get('content-type'),'FINAL',r.url)
+                  print('HEAD',repr(r.text[:800]))
+              except Exception as e:
+                  print('PROBE_FAIL',u,repr(e))
+          PY
       - name: Inspect Pattinson fallback payload
         run: |
           python - <<'PY'
           from collectors.pattinson import SEARCH, _jina_text, _parse_search_markdown
           text = _jina_text(SEARCH, timeout=30)
           print('JINA_LEN', len(text or ''))
-          print('JINA_HEAD', repr((text or '')[:6000]))
+          print('JINA_HEAD', repr((text or '')[:3000]))
           found, total = _parse_search_markdown(text or '')
           print('JINA_PARSED', len(found), total)
           print('JINA_URLS', list(found)[:10])
