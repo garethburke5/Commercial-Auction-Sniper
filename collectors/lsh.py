@@ -7,7 +7,8 @@ import requests
 from bs4 import BeautifulSoup
 
 from .core import SourceResult, is_commercial, norm
-from .utils import soup, detail_lot
+from .utils import detail_lot
+from .browser import get_html
 
 SOURCE = "LSH Auctions"
 BASE = "https://propertyauctions.lsh.co.uk"
@@ -28,9 +29,6 @@ SOURCE_TERMS = (
 
 
 def _resilient_soup(url):
-    # LSH occasionally resets HTTP/2 browser connections from CI. Prefer plain
-    # HTTP/1.1 requests with retry/backoff, then use the existing browser only as
-    # a last resort.
     last = None
     session = requests.Session()
     for attempt in range(3):
@@ -43,7 +41,7 @@ def _resilient_soup(url):
             last = exc
             time.sleep(1.0 + attempt)
     try:
-        return soup(url, use_browser=True)
+        return BeautifulSoup(get_html(url, use_browser=False), "lxml")
     except Exception:
         if last:
             raise last
@@ -121,9 +119,6 @@ def collect():
                     residential_rejected += 1
                     continue
 
-                # detail_lot performs a second network request; create only after
-                # classification, and allow its normal static path. If that request
-                # fails, keep this source run degraded rather than dropping silently.
                 lot = detail_lot(
                     SOURCE, href, seed=card, auction_date=auction_date,
                     force_commercial=True, use_browser=False, suppress_prior=True,
@@ -145,4 +140,4 @@ def collect():
             scope_dates=tuple(sorted(scope_dates)),
         )
     except Exception as exc:
-        return SourceResult(SOURCE, "FAILED", [], f"LSH discovery failed after retry: {exc}")
+        return SourceResult(SOURCE, "FAILED", [], f"LSH discovery failed after transport fallbacks: {exc}")
