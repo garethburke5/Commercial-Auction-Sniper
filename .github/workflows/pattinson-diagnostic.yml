@@ -28,9 +28,20 @@ jobs:
       - name: Install collector dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install requests beautifulsoup4 lxml
       - name: Run Pattinson regression tests
         run: python -m unittest tests.test_pattinson -v
+      - name: Inspect Pattinson fallback payload
+        run: |
+          python - <<'PY'
+          from collectors.pattinson import SEARCH, _jina_text, _parse_search_markdown
+          text = _jina_text(SEARCH, timeout=30)
+          print('JINA_LEN', len(text or ''))
+          print('JINA_HEAD', repr((text or '')[:6000]))
+          found, total = _parse_search_markdown(text or '')
+          print('JINA_PARSED', len(found), total)
+          print('JINA_URLS', list(found)[:10])
+          PY
       - name: Run Pattinson collector only
         run: |
           python - <<'PY'
