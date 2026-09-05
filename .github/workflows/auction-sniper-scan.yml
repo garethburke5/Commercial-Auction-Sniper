@@ -57,7 +57,6 @@ jobs:
         env:
           SAVILLS_EMAIL: ${{ secrets.SAVILLS_EMAIL }}
           SAVILLS_PASSWORD: ${{ secrets.SAVILLS_PASSWORD }}
-          SCRAPERAPI_KEY: ${{ secrets.SCRAPERAPI_KEY }}
         run: python run_collectors.py
 
       # Publish the collector's sanitised/current-only snapshot even when one source
