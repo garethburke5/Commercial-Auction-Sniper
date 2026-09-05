@@ -10,6 +10,7 @@ on:
       - '.github/workflows/auction-sniper-scan.yml'
       - 'run_collectors.py'
       - 'collectors/**'
+      - 'tests/**'
       - 'scripts/repair_app_canonical.py'
 
 permissions:
@@ -47,7 +48,10 @@ jobs:
 
       - name: Compile production code
         run: |
-          python -m py_compile app.py run_collectors.py collectors/*.py
+          python -m py_compile app.py run_collectors.py collectors/*.py tests/*.py
+
+      - name: Run collector regression tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
 
       - name: Run production collectors
         env:
