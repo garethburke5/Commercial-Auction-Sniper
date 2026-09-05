@@ -7,7 +7,7 @@ from .utils import soup, image_from_soup, legal_pack, nearest_card
 
 SOURCE = "Pattinson Auction"
 BASE = "https://www.pattinson.co.uk"
-SEARCH = BASE + "/commercial/property-search?searchType=CommercialSale"
+SEARCH = BASE + "/commercial/property-search"
 
 COMMERCIAL_LABELS = (
     "retail", "hotel", "office", "offices", "industrial", "warehouse", "workshop",
@@ -21,8 +21,6 @@ RESIDENTIAL_LABELS = ("residential portfolio", "hmo", "house in ", "flat in ", "
 
 def _auction_card(text):
     low = norm(text).lower()
-    # Pattinson mixes sale, letting and auction inventory on the commercial search.
-    # A bid marker is the reliable discriminator for a currently auction-listed lot.
     if not ("starting bid" in low or "current bid" in low):
         return False
     if any(x in low for x in RESIDENTIAL_LABELS):
@@ -45,7 +43,7 @@ def _lot_from_card(card, url=None):
     guide = float(m.group(1).replace(",", "")) if m else None
     address = text
     maddr = re.search(
-        r"(?:Commercial Development|Land & Development|Hospitality Facility|Drinking Establishment|Restaurants?|Retail|Hotels?|Offices?|Industrial|Warehouse|Workshop|Leisure|Land|Commercial)\s+in\s+(.+?)(?:\s+(?:Garage|Double Garage|Allocated|On Street|Off Street|Driveway|Private|Gated|None)\s+parking|$)",
+        r"(?:Commercial Development|Land & Development|Hospitality Facility|Drinking Establishment|Restaurants?|Retail|Hotels?|Offices?|Industrial|Warehouse|Workshop|Leisure|Land|Commercial)\s+in\s+(.+?)(?:\s+(?:Garage|Double Garage|Allocated|On Street|Off Street|Driveway|Private|Gated|Rear|None)\s+parking|$)",
         text, re.I)
     if maddr:
         address = norm(maddr.group(1))
@@ -74,8 +72,6 @@ def _enrich(url, seed):
     if not lot:
         return None
 
-    # Detail h1 is usually a property type; the line immediately following it is
-    # the true address. Prefer the page title (which contains the address) first.
     title = ds.find("title")
     if title:
         tt = norm(title.get_text(" ", strip=True))
@@ -107,7 +103,6 @@ def _enrich(url, seed):
 
 
 def _discover_page(url):
-    """Return candidate auction cards, retrying the JS-rendered page when needed."""
     best = {}
     for use_browser in (False, True):
         try:
@@ -122,17 +117,14 @@ def _discover_page(url):
                 continue
             card = norm(a.get_text(" ", strip=True))
             if not _auction_card(card):
-                near = nearest_card(a, 2400)
+                near = nearest_card(a, 2600)
                 if _auction_card(near):
                     card = near
             if _auction_card(card):
                 found[href] = card
         if len(found) > len(best):
             best = found
-        # One useful rendered page is enough; do not pay browser cost twice.
-        if found and use_browser:
-            break
-        if found and not use_browser:
+        if found:
             break
     return best
 
@@ -142,21 +134,26 @@ def collect():
         candidates = {}
         pages_seen = 0
         previous_page_ids = None
+        consecutive_empty = 0
+
+        # The commercial page itself is the authoritative inventory. The older
+        # searchType=CommercialSale parameter can return a shell with no property
+        # anchors, so crawl the real paginated URLs shown by Pattinson.
         for n in range(1, 31):
-            url = SEARCH if n == 1 else BASE + f"/commercial/property-search?p={n}&searchType=CommercialSale"
+            url = SEARCH if n == 1 else SEARCH + f"?p={n}"
             found = _discover_page(url)
             pages_seen += 1
             page_ids = {href.rsplit("/", 1)[-1] for href in found}
             candidates.update(found)
 
-            # Search currently advertises about 20+ pages. Stop only after a real
-            # pagination terminator/repeat, never because static HTML produced a false zero.
+            if page_ids:
+                consecutive_empty = 0
+            else:
+                consecutive_empty += 1
             if n > 1 and page_ids and page_ids == previous_page_ids:
                 break
-            if n > 1 and not page_ids:
-                # one empty page after a populated previous page is the natural end
-                if previous_page_ids:
-                    break
+            if consecutive_empty >= 2 and candidates:
+                break
             previous_page_ids = page_ids or previous_page_ids
 
         lots = []
@@ -180,7 +177,7 @@ def collect():
         status = "LIVE" if lots and failures == 0 else "DEGRADED" if lots else "FAILED"
         return SourceResult(
             SOURCE, status, lots,
-            f"Commercial-sale pages {pages_seen}; {len(candidates)} auction-commercial cards discovered; {len(lots)} published; {failures} enrichment failures",
+            f"Commercial inventory pages {pages_seen}; {len(candidates)} auction-commercial cards discovered; {len(lots)} published; {failures} enrichment failures",
             discovered_count=len(candidates),
         )
     except Exception as e:
