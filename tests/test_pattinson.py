@@ -1,6 +1,6 @@
 import unittest
 
-from collectors.pattinson import _auction_card, _parse_search_markdown, _lot_from_card
+from collectors.pattinson import _auction_card, _lot_from_card, _parse_search_html
 
 
 class PattinsonCollectorTests(unittest.TestCase):
@@ -16,14 +16,24 @@ class PattinsonCollectorTests(unittest.TestCase):
         card = "£12,600 Industrial in NE63 Alexandra Enterprise Centre, Ashington, NE63 8UB Allocated parking"
         self.assertFalse(_auction_card(card))
 
-    def test_reader_markdown_recovers_exact_property_urls_and_total(self):
-        markdown = """
-        ##### 422 results
-        [Starting Bid£60,000 Commercial Development in TS18 High Street, Stockton, Durham, TS18 1PL On Street parking](https://www.pattinson.co.uk/property/512345)
-        [Starting Bid£275,000 Residential Development in NN1 St. Michaels Avenue, Northampton, NN1 4JQ Allocated parking](https://www.pattinson.co.uk/property/512346)
-        [£12,600 Industrial in NE63 Alexandra Enterprise Centre, Ashington, NE63 8UB Allocated parking](https://www.pattinson.co.uk/property/512347)
+    def test_sold_commercial_auction_card_is_rejected(self):
+        card = "SOLD Starting Bid£60,000 Retail in TS18 High Street, Stockton, Durham, TS18 1PL On Street parking"
+        self.assertFalse(_auction_card(card))
+
+    def test_withdrawn_commercial_auction_card_is_rejected(self):
+        card = "Withdrawn Starting Bid£60,000 Commercial Development in TS18 High Street, Stockton, Durham, TS18 1PL"
+        self.assertFalse(_auction_card(card))
+
+    def test_html_parser_keeps_only_current_auction_commercial(self):
+        html = """
+        <html><body><h1>422 results</h1>
+        <a href="/property/512345">Starting Bid£60,000 Commercial Development in TS18 High Street, Stockton, Durham, TS18 1PL On Street parking</a>
+        <a href="/property/512346">Starting Bid£275,000 Residential Development in NN1 St. Michaels Avenue, Northampton, NN1 4JQ Allocated parking</a>
+        <a href="/property/512347">£12,600 Industrial in NE63 Alexandra Enterprise Centre, Ashington, NE63 8UB Allocated parking</a>
+        <a href="/property/512348">SOLD Starting Bid£90,000 Retail in NE1 High Street, Newcastle, NE1 1AA</a>
+        </body></html>
         """
-        found, total = _parse_search_markdown(markdown)
+        found, total = _parse_search_html(html)
         self.assertEqual(total, 422)
         self.assertEqual(list(found), ["https://www.pattinson.co.uk/property/512345"])
 
