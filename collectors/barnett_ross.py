@@ -22,12 +22,59 @@ def _parse_date(text):
 
 
 def _discover(s):
+    """Discover Barnett Ross detail links across ordinary anchors and JS table rows."""
     links = {}
+    detail_re = re.compile(r"(?:/)?property\.php\?id=\d+", re.I)
     for a in s.find_all("a", href=True):
         href = urljoin(BASE, a.get("href") or "")
-        if re.search(r"/property\.php\?id=\d+", href, re.I):
+        if detail_re.search(href):
             links[href] = norm(a.get_text(" ", strip=True))
+    # The current catalogue has previously changed from anchors to onclick/data-href
+    # navigation. Inspect all attributes so this does not silently become zero-result.
+    for tag in s.find_all(True):
+        for value in tag.attrs.values():
+            values=value if isinstance(value,list) else [value]
+            for raw in values:
+                m=detail_re.search(str(raw or ""))
+                if m:
+                    href=urljoin(BASE,m.group(0))
+                    links[href]=norm(tag.get_text(" ",strip=True))
     return links
+
+
+def _fallback_rows(s, auction_date):
+    """Parse the authoritative current-lots table when detail URLs are not exposed.
+
+    Barnett Ross publishes its commercial catalogue as a server-rendered table even
+    when property detail navigation is JS-only. The table is preferable to returning
+    a false FAILED/zero-result source. Sold-prior and withdrawn rows are excluded.
+    """
+    lots=[]
+    for tr in s.find_all("tr"):
+        cells=[norm(td.get_text(" ",strip=True)) for td in tr.find_all(["td","th"])]
+        if len(cells)<3:
+            continue
+        lot_cell,address=cells[0],cells[1]
+        lotm=re.fullmatch(r"\s*(\d+[A-Z]?)\s*",lot_cell,re.I)
+        if not lotm or len(address)<8:
+            continue
+        row_text=norm(" | ".join(cells))
+        if re.search(r"sold\s+prior|withdrawn|postponed",row_text,re.I):
+            continue
+        # Current.php is Barnett Ross's published commercial auction catalogue.
+        # Preserve only catalogue facts; do not invent rent/tenure from sparse rows.
+        lot_no=lotm.group(1)
+        lots.append(Lot(
+            source=SOURCE,
+            url=f"{CURRENT}#lot-{lot_no}",
+            address=address,
+            lot_number=f"Lot {lot_no}",
+            auction_date=auction_date,
+            guide_price=parse_guide(row_text),
+            description=row_text,
+            property_type="Commercial auction lot (catalogue summary)",
+        ).finalise())
+    return lots
 
 
 def _address(s, text):
@@ -87,7 +134,15 @@ def collect():
         auction_date = _parse_date(listing_text)
         targets = _discover(listing)
         if not targets:
-            return SourceResult(SOURCE, "FAILED", [], "Barnett Ross current catalogue was published but no property detail links were discovered.", discovered_count=0)
+            fallback=_fallback_rows(listing,auction_date)
+            if fallback:
+                return SourceResult(
+                    SOURCE,"DEGRADED",fallback,
+                    f"Barnett Ross current catalogue exposed no detail URLs; recovered {len(fallback)} live commercial catalogue rows from the authoritative current-lots table. Detail enrichment will resume automatically when first-party detail links are exposed.",
+                    expected_count=len(fallback),discovered_count=len(fallback),authoritative_snapshot=True,
+                    scope_dates=tuple(sorted({x.auction_date for x in fallback if x.auction_date})),
+                )
+            return SourceResult(SOURCE, "FAILED", [], "Barnett Ross current catalogue was published but neither detail links nor parseable catalogue rows were discovered.", discovered_count=0)
         lots = []
         failures = 0
         with ThreadPoolExecutor(max_workers=10) as ex:
