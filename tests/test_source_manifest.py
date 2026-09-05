@@ -19,7 +19,7 @@ class SourceManifestTests(unittest.TestCase):
     def test_missing_required_source_blocks_acceptance(self):
         td, path = self._config()
         self.addCleanup(td.cleanup)
-        health = [{"source": "A", "status": "LIVE"}]
+        health = [{"source": "A", "status": "LIVE"}, {"source": "C", "status": "CATALOGUE PENDING"}]
         coverage = manifest_coverage(health, path)
         self.assertEqual(coverage["missing_required_sources"], ["B"])
         self.assertFalse(coverage["acceptance_ready"])
@@ -27,9 +27,25 @@ class SourceManifestTests(unittest.TestCase):
     def test_failed_required_source_blocks_acceptance(self):
         td, path = self._config()
         self.addCleanup(td.cleanup)
-        health = [{"source": "A", "status": "LIVE"}, {"source": "B", "status": "FAILED"}]
+        health = [{"source": "A", "status": "LIVE"}, {"source": "B", "status": "FAILED"}, {"source": "C", "status": "LIVE"}]
         coverage = manifest_coverage(health, path)
         self.assertEqual(coverage["unhealthy_required_sources"], ["B"])
+        self.assertFalse(coverage["acceptance_ready"])
+
+    def test_missing_expansion_source_blocks_acceptance(self):
+        td, path = self._config()
+        self.addCleanup(td.cleanup)
+        health = [{"source": "A", "status": "LIVE"}, {"source": "B", "status": "CATALOGUE PENDING"}]
+        coverage = manifest_coverage(health, path)
+        self.assertEqual(coverage["missing_expansion_sources"], ["C"])
+        self.assertFalse(coverage["acceptance_ready"])
+
+    def test_failed_expansion_source_blocks_acceptance(self):
+        td, path = self._config()
+        self.addCleanup(td.cleanup)
+        health = [{"source": "A", "status": "LIVE"}, {"source": "B", "status": "LIVE"}, {"source": "C", "status": "FAILED"}]
+        coverage = manifest_coverage(health, path)
+        self.assertEqual(coverage["unhealthy_expansion_sources"], ["C"])
         self.assertFalse(coverage["acceptance_ready"])
 
     def test_missing_health_is_explicit_not_silent(self):
@@ -37,21 +53,28 @@ class SourceManifestTests(unittest.TestCase):
         self.addCleanup(td.cleanup)
         health = [{"source": "A", "status": "LIVE"}]
         coverage = append_missing_health(health, path)
-        self.assertIn("B", {x["source"] for x in health})
-        self.assertEqual(next(x for x in health if x["source"] == "B")["status"], "NOT IMPLEMENTED")
+        by_name = {x["source"]: x for x in health}
+        self.assertEqual(by_name["B"]["status"], "NOT IMPLEMENTED")
+        self.assertEqual(by_name["C"]["status"], "NOT IMPLEMENTED")
         self.assertIn("B", coverage["unhealthy_required_sources"])
+        self.assertIn("C", coverage["unhealthy_expansion_sources"])
 
-    def test_all_required_healthy_is_ready(self):
+    def test_all_targets_healthy_is_ready(self):
         td, path = self._config()
         self.addCleanup(td.cleanup)
-        health = [{"source": "A", "status": "LIVE"}, {"source": "B", "status": "CATALOGUE PENDING"}]
+        health = [
+            {"source": "A", "status": "LIVE"},
+            {"source": "B", "status": "CATALOGUE PENDING"},
+            {"source": "C", "status": "LIVE"},
+        ]
         coverage = manifest_coverage(health, path)
         self.assertTrue(coverage["acceptance_ready"])
+        self.assertEqual(coverage["target_coverage_pct"], 100.0)
 
     def test_verified_successor_alias_satisfies_required_source(self):
         td, path = self._config({"B": "A"})
         self.addCleanup(td.cleanup)
-        health = [{"source": "A", "status": "LIVE", "lots_seen": 7}]
+        health = [{"source": "A", "status": "LIVE", "lots_seen": 7}, {"source": "C", "status": "CATALOGUE PENDING"}]
         coverage = manifest_coverage(health, path)
         self.assertNotIn("B", coverage["missing_required_sources"])
         self.assertEqual(coverage["resolved_source_aliases"], {"B": "A"})
@@ -60,7 +83,7 @@ class SourceManifestTests(unittest.TestCase):
     def test_successor_failure_propagates_to_alias(self):
         td, path = self._config({"B": "A"})
         self.addCleanup(td.cleanup)
-        health = [{"source": "A", "status": "FAILED"}]
+        health = [{"source": "A", "status": "FAILED"}, {"source": "C", "status": "LIVE"}]
         coverage = manifest_coverage(health, path)
         self.assertIn("B", coverage["unhealthy_required_sources"])
         self.assertFalse(coverage["acceptance_ready"])
@@ -68,7 +91,7 @@ class SourceManifestTests(unittest.TestCase):
     def test_append_missing_health_emits_merged_source_row(self):
         td, path = self._config({"B": "A"})
         self.addCleanup(td.cleanup)
-        health = [{"source": "A", "status": "LIVE", "lots_seen": 7, "scope_dates": ["2026-09-28"]}]
+        health = [{"source": "A", "status": "LIVE", "lots_seen": 7, "scope_dates": ["2026-09-28"]}, {"source": "C", "status": "LIVE"}]
         append_missing_health(health, path)
         merged = next(x for x in health if x["source"] == "B")
         self.assertEqual(merged["status"], "MERGED SOURCE")
