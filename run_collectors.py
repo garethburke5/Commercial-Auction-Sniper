@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 import re
+from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from urllib.parse import urlparse, unquote
 
@@ -35,7 +36,6 @@ def load_old_snapshot():
 
 
 def _key(x): return (str(x.get("source") or "").strip(),str(x.get("url") or "").strip())
-
 def _auction_date(x):
     raw=str(x.get("auction_date") or "").strip()
     if not raw: return None
@@ -44,7 +44,6 @@ def _auction_date(x):
 
 def _auction_has_finished(x,today):
     d=_auction_date(x); return bool(d and d<today)
-
 def _complete_authoritative(r):
     return bool(getattr(r,"authoritative_snapshot",False) and r.status=="LIVE" and getattr(r,"expected_count",None) and len(r.lots)==r.expected_count and getattr(r,"scope_dates",()))
 
@@ -107,10 +106,26 @@ def _merge_last_good(old,new):
     return out
 
 
+def _remove_duplicate_images(active):
+    """Remove source-level default/brand images reused across multiple distinct lots."""
+    by_source=defaultdict(list)
+    for item in active:
+        by_source[str(item.get("source") or "Unknown")].append(item)
+    removed=0; duplicate_urls={}
+    for source,items in by_source.items():
+        counts=Counter(str(x.get("image_url") or "").strip() for x in items if x.get("image_url"))
+        bad={u:c for u,c in counts.items() if u and c>=3}
+        if not bad: continue
+        duplicate_urls[source]=bad
+        for item in items:
+            if str(item.get("image_url") or "").strip() in bad:
+                item["image_url"]=None; removed+=1
+    return removed,duplicate_urls
+
+
 def _collector_name(fn):
     module=getattr(fn,"__module__",""); leaf=module.rsplit(".",1)[-1].replace("_v2","").replace("_"," ").strip()
     return leaf.title() or getattr(fn,"__name__","Unknown collector")
-
 def _run_collector_safely(fn):
     try: return fn()
     except Exception as exc:
@@ -149,6 +164,9 @@ def run():
     bad_active=[x for x in active if _auction_has_finished(x,today) or BAD_ADDRESS.search(str(x.get("address") or ""))]
     if bad_active: raise RuntimeError(f"production quality gate failed: {len(bad_active)} unsafe active rows")
 
+    duplicate_image_repairs,duplicate_image_urls=_remove_duplicate_images(active)
+    quality_repairs+=duplicate_image_repairs
+
     source_quality={}
     for x in active:
         q=source_quality.setdefault(x.get("source") or "Unknown",{"lots":0,"valid_images":0,"rich":0}); q["lots"]+=1
@@ -159,9 +177,9 @@ def run():
         q["image_coverage_pct"]=round(100*q["valid_images"]/q["lots"],1) if q["lots"] else 0
         q["rich_coverage_pct"]=round(100*q["rich"]/q["lots"],1) if q["lots"] else 0
 
-    snapshot={"generated_at":datetime.now(timezone.utc).isoformat(),"properties":active,"archive":archive,"source_health":results,"integrity":{"active_property_count":len(active),"historical_property_count":len(archive),"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"quality_rejection_reasons":rejection_reasons,"source_quality":source_quality}}
+    snapshot={"generated_at":datetime.now(timezone.utc).isoformat(),"properties":active,"archive":archive,"source_health":results,"integrity":{"active_property_count":len(active),"historical_property_count":len(archive),"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"quality_rejection_reasons":rejection_reasons,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"source_quality":source_quality}}
     (DATA/"properties.json").write_text(json.dumps(snapshot,indent=2),encoding="utf-8")
-    print(json.dumps({"generated_at":snapshot["generated_at"],"property_count":len(active),"historical_count":len(archive),"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"source_quality":source_quality,"sources":results},indent=2))
+    print(json.dumps({"generated_at":snapshot["generated_at"],"property_count":len(active),"historical_count":len(archive),"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"source_quality":source_quality,"sources":results},indent=2))
 
 
 if __name__=="__main__": run()
