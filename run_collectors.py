@@ -4,6 +4,7 @@ import re
 from datetime import datetime, timezone
 from urllib.parse import urlparse, unquote
 
+from collectors.core import SourceResult
 from collectors.auction_house_london_v2 import collect as ahl
 from collectors.savills import collect as savills
 from collectors.bond_wolfe_v2 import collect as bond_wolfe
@@ -119,6 +120,28 @@ def _sanitize_item(item):
     return item, repairs, None
 
 
+def _collector_name(fn):
+    module = getattr(fn, "__module__", "")
+    leaf = module.rsplit(".", 1)[-1].replace("_v2", "").replace("_", " ").strip()
+    return leaf.title() or getattr(fn, "__name__", "Unknown collector")
+
+
+def _run_collector_safely(fn):
+    """Never let one source exception abort all other sources or safe snapshot publication."""
+    try:
+        return fn()
+    except Exception as exc:
+        source = _collector_name(fn)
+        return SourceResult(
+            source=source,
+            status="FAILED",
+            lots=[],
+            message=f"Collector raised {type(exc).__name__}: {exc}",
+            discovered_count=0,
+            authoritative_snapshot=False,
+        )
+
+
 def run():
     old_snapshot = load_old_snapshot()
     old = list(old_snapshot["properties"]) + list(old_snapshot["archive"])
@@ -134,7 +157,7 @@ def run():
     rejection_reasons = {}
 
     for fn in COLLECTORS:
-        r = fn()
+        r = _run_collector_safely(fn)
         source_status[r.source] = r.status
         source_rejected = 0
 
