@@ -1,6 +1,10 @@
 import re
+import time
 from datetime import datetime, timezone
 from urllib.parse import urljoin
+
+import requests
+from bs4 import BeautifulSoup
 
 from .core import SourceResult, is_commercial, norm
 from .utils import soup, detail_lot
@@ -8,6 +12,10 @@ from .utils import soup, detail_lot
 SOURCE = "LSH Auctions"
 BASE = "https://propertyauctions.lsh.co.uk"
 URL = BASE + "/future-auctions"
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "Accept-Language": "en-GB,en;q=0.9",
+}
 
 SOURCE_TERMS = (
     "coaching inn", "business centre", "grade a office", "office accommodation",
@@ -19,8 +27,27 @@ SOURCE_TERMS = (
 )
 
 
-def _catalogue(use_browser=False):
-    return soup(URL, use_browser=use_browser)
+def _resilient_soup(url):
+    # LSH occasionally resets HTTP/2 browser connections from CI. Prefer plain
+    # HTTP/1.1 requests with retry/backoff, then use the existing browser only as
+    # a last resort.
+    last = None
+    session = requests.Session()
+    for attempt in range(3):
+        try:
+            r = session.get(url, headers=HEADERS, timeout=20)
+            r.raise_for_status()
+            if len(r.text) > 1000:
+                return BeautifulSoup(r.text, "lxml")
+        except Exception as exc:
+            last = exc
+            time.sleep(1.0 + attempt)
+    try:
+        return soup(url, use_browser=True)
+    except Exception:
+        if last:
+            raise last
+        raise
 
 
 def _card_text(a):
@@ -64,16 +91,9 @@ def _date(text):
 
 def collect():
     try:
-        try:
-            s = _catalogue(False)
-        except Exception:
-            s = _catalogue(True)
-
+        s = _resilient_soup(URL)
         today = datetime.now(timezone.utc).date().isoformat()
 
-        # LSH can publish lots for more than one forthcoming auction simultaneously.
-        # Sweep every exact future-auction lot page and determine its own sale date;
-        # do not hard-code or restrict the collector to only the nearest session.
         targets = {}
         for a in s.find_all("a", href=True):
             href = urljoin(BASE, a.get("href") or "").split("?")[0]
@@ -86,10 +106,7 @@ def collect():
         scope_dates = set()
         for href, card in targets.items():
             try:
-                try:
-                    ds = soup(href, use_browser=False)
-                except Exception:
-                    ds = soup(href, use_browser=True)
+                ds = _resilient_soup(href)
                 main = ds.find("main") or ds.find("article") or ds
                 detail_text = norm(main.get_text(" ", strip=True))
                 combined = norm(card + " " + detail_text)
@@ -104,6 +121,9 @@ def collect():
                     residential_rejected += 1
                     continue
 
+                # detail_lot performs a second network request; create only after
+                # classification, and allow its normal static path. If that request
+                # fails, keep this source run degraded rather than dropping silently.
                 lot = detail_lot(
                     SOURCE, href, seed=card, auction_date=auction_date,
                     force_commercial=True, use_browser=False, suppress_prior=True,
@@ -125,4 +145,4 @@ def collect():
             scope_dates=tuple(sorted(scope_dates)),
         )
     except Exception as exc:
-        return SourceResult(SOURCE, "FAILED", [], f"LSH discovery failed: {exc}")
+        return SourceResult(SOURCE, "FAILED", [], f"LSH discovery failed after retry: {exc}")
