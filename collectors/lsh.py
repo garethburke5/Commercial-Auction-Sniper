@@ -1,12 +1,13 @@
 import re
+from datetime import datetime, timezone
 from urllib.parse import urljoin
+
 from .core import SourceResult, is_commercial, norm
 from .utils import soup, detail_lot
 
 SOURCE = "LSH Auctions"
 BASE = "https://propertyauctions.lsh.co.uk"
 URL = BASE + "/future-auctions"
-AUCTION_DATE = "2026-09-09"
 
 SOURCE_TERMS = (
     "coaching inn", "business centre", "grade a office", "office accommodation",
@@ -14,6 +15,7 @@ SOURCE_TERMS = (
     "public house", "former hotel", "former bank", "retail premises", "showroom",
     "shop & café", "shop and café", "mixed-use building", "mixed use building",
     "business park", "office building", "warehouse", "commercial unit", "hotel",
+    "workshop", "development site", "commercial investment", "retail investment",
 )
 
 
@@ -41,8 +43,23 @@ def _commercial(text):
     return is_commercial(text) or any(term in low for term in SOURCE_TERMS)
 
 
-def _current_sale(text):
-    return bool(re.search(r"9(?:th)?\s+September\s+2026|09/09/2026|9\s+Sep", text or "", re.I))
+def _date(text):
+    text = norm(text)
+    patterns = [
+        (r"Auction Date\s*:?\s*(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})", "%d %B %Y"),
+        (r"Auction Date\s*:?\s*(\d{1,2})/(\d{1,2})/(20\d{2})", "%d %m %Y"),
+        (r"\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})\b", "%d %B %Y"),
+        (r"\b(\d{1,2})/(\d{1,2})/(20\d{2})\b", "%d %m %Y"),
+    ]
+    for pat, fmt in patterns:
+        m = re.search(pat, text, re.I)
+        if not m:
+            continue
+        try:
+            return datetime.strptime(" ".join(m.groups()), fmt).date().isoformat()
+        except Exception:
+            pass
+    return None
 
 
 def collect():
@@ -52,27 +69,21 @@ def collect():
         except Exception:
             s = _catalogue(True)
 
-        page_text = norm(s.get_text(" ", strip=True))
-        sale_context = _current_sale(page_text)
+        today = datetime.now(timezone.utc).date().isoformat()
 
-        # Discover every exact lot page from the current auction. Commercial
-        # classification happens on each exact lot page, not on a possibly sparse
-        # or contaminated listing card. With only ~17 current lots this is cheap
-        # and substantially more reliable than pre-filtering the catalogue DOM.
+        # LSH can publish lots for more than one forthcoming auction simultaneously.
+        # Sweep every exact future-auction lot page and determine its own sale date;
+        # do not hard-code or restrict the collector to only the nearest session.
         targets = {}
         for a in s.find_all("a", href=True):
-            href = urljoin(BASE, a.get("href") or "")
+            href = urljoin(BASE, a.get("href") or "").split("?")[0]
             if "/lot/details/" not in href.lower():
                 continue
-            card = _card_text(a)
-            if not sale_context and not _current_sale(card):
-                continue
-            targets.setdefault(href, card)
+            targets.setdefault(href, _card_text(a))
 
         lots = []
-        failures = 0
-        residential_rejected = 0
-        wrong_sale_rejected = 0
+        failures = residential_rejected = past_rejected = undated_rejected = 0
+        scope_dates = set()
         for href, card in targets.items():
             try:
                 try:
@@ -82,54 +93,36 @@ def collect():
                 main = ds.find("main") or ds.find("article") or ds
                 detail_text = norm(main.get_text(" ", strip=True))
                 combined = norm(card + " " + detail_text)
-
-                if not sale_context and not _current_sale(combined):
-                    wrong_sale_rejected += 1
+                auction_date = _date(detail_text) or _date(card)
+                if not auction_date:
+                    undated_rejected += 1
+                    continue
+                if auction_date < today:
+                    past_rejected += 1
                     continue
                 if not _commercial(combined):
                     residential_rejected += 1
                     continue
 
                 lot = detail_lot(
-                    SOURCE,
-                    href,
-                    seed=card,
-                    auction_date=AUCTION_DATE,
-                    force_commercial=True,
-                    use_browser=False,
-                    suppress_prior=False,
+                    SOURCE, href, seed=card, auction_date=auction_date,
+                    force_commercial=True, use_browser=False, suppress_prior=True,
                 )
                 if lot:
-                    low = combined.lower()
-                    if "sold prior" in low:
-                        lot.status = "SOLD PRIOR"
-                    elif "withdrawn" in low:
-                        lot.status = "WITHDRAWN"
+                    lot.status = "Live"
                     lots.append(lot)
-            except Exception:
-                try:
-                    lot = detail_lot(
-                        SOURCE,
-                        href,
-                        seed=card,
-                        auction_date=AUCTION_DATE,
-                        force_commercial=True,
-                        use_browser=True,
-                        suppress_prior=False,
-                    )
-                    if lot:
-                        lots.append(lot)
-                except Exception as e:
-                    failures += 1
-                    print("LSH_DETAIL_FAIL", href, repr(e))
+                    scope_dates.add(auction_date)
+            except Exception as exc:
+                failures += 1
+                print("LSH_DETAIL_FAIL", href, repr(exc))
 
-        status = "LIVE" if lots else "FAILED"
+        status = "LIVE" if lots and failures == 0 and undated_rejected == 0 else ("DEGRADED" if lots else "FAILED")
         return SourceResult(
-            SOURCE,
-            status,
-            lots,
-            f"9 Sep exact-page sweep: {len(targets)} current lot pages; {len(lots)} commercial/mixed published; {residential_rejected} residential rejected; {wrong_sale_rejected} other-sale rejected; {failures} detail failures",
+            SOURCE, status, lots,
+            f"All-future exact-page sweep: {len(targets)} lot pages; {len(lots)} commercial/mixed published across {len(scope_dates)} future auction date(s); {residential_rejected} residential; {past_rejected} past; {undated_rejected} undated; {failures} failures",
             discovered_count=len(targets),
+            authoritative_snapshot=False,
+            scope_dates=tuple(sorted(scope_dates)),
         )
-    except Exception as e:
-        return SourceResult(SOURCE, "FAILED", [], str(e))
+    except Exception as exc:
+        return SourceResult(SOURCE, "FAILED", [], f"LSH discovery failed: {exc}")
