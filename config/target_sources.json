@@ -18,6 +18,9 @@
     "Network Auctions",
     "Town & Country Property Auctions"
   ],
+  "source_aliases": {
+    "Network Auctions": "Pugh / BTG Eddisons"
+  },
   "expansion_sources": [
     "Auction House East Anglia",
     "Auction House West Yorkshire",
@@ -30,5 +33,5 @@
     "Auction Estates",
     "Andersons"
   ],
-  "policy": "Every required source must have a collector or an explicit current-catalogue-pending status. Published future commercial/mixed-use catalogues must reconcile before production is considered complete. Expansion sources must be assessed and activated wherever qualifying public inventory exists."
+  "policy": "Every required source must have a collector, an explicit current-catalogue-pending status, or a verified successor-source alias after acquisition/rebrand. Published future commercial/mixed-use catalogues must reconcile before production is considered complete. Expansion sources must be assessed and activated wherever qualifying public inventory exists."
 }
