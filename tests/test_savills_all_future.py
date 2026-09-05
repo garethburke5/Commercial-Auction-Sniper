@@ -1,0 +1,45 @@
+import unittest
+
+from collectors.savills_all_future import _discover_all_future_auctions
+
+
+class SavillsAllFutureTests(unittest.TestCase):
+    def test_discovers_every_future_catalogue_and_excludes_history(self):
+        html = """
+        <html><body>
+          <section><h2>15 &amp; 16 September 2099</h2>
+            <a href="/auctions/september-2099-123">View catalogue</a>
+          </section>
+          <section><h2>29 &amp; 30 September 2099</h2>
+            <a href="https://auctions.savills.co.uk/auctions/late-september-2099-124?x=1">Preliminary lots</a>
+          </section>
+          <section><h2>20 October 2099</h2>
+            <a href="/auctions/october-2099-125/">View catalogue</a>
+          </section>
+          <section><h2>3 November 2020</h2>
+            <a href="/auctions/november-2020-99">Historic catalogue</a>
+          </section>
+        </body></html>
+        """
+        auctions = _discover_all_future_auctions(html)
+        self.assertEqual(len(auctions), 3)
+        self.assertEqual(
+            [a["start"].isoformat() for a in auctions],
+            ["2099-09-15", "2099-09-29", "2099-10-20"],
+        )
+        self.assertTrue(all("?" not in a["catalogue"] for a in auctions))
+
+    def test_deduplicates_repeated_links_to_same_catalogue(self):
+        html = """
+        <html><body><section><h2>8 December 2099</h2>
+          <a href="/auctions/december-2099-200">Catalogue</a>
+          <a href="/auctions/december-2099-200?view=lots">Lots</a>
+        </section></body></html>
+        """
+        auctions = _discover_all_future_auctions(html)
+        self.assertEqual(len(auctions), 1)
+        self.assertEqual(auctions[0]["start"].isoformat(), "2099-12-08")
+
+
+if __name__ == "__main__":
+    unittest.main()
