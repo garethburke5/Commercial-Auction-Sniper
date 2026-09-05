@@ -28,6 +28,15 @@ def _resolved_health(source, by_name, aliases):
     return None
 
 
+def _unhealthy(sources, by_name, aliases):
+    bad = []
+    for source in sources:
+        health = _resolved_health(source, by_name, aliases)
+        if health and str(health.get("status") or "").upper() in {"FAILED", "NOT IMPLEMENTED", "MISSING"}:
+            bad.append(source)
+    return bad
+
+
 def manifest_coverage(source_health, path=CONFIG):
     required, expansion = load_target_sources(path)
     aliases = _source_aliases(path)
@@ -35,15 +44,14 @@ def manifest_coverage(source_health, path=CONFIG):
     represented = set(by_name)
     missing_required = [x for x in required if _resolved_health(x, by_name, aliases) is None]
     missing_expansion = [x for x in expansion if _resolved_health(x, by_name, aliases) is None]
-    unhealthy_required = []
-    for source in required:
-        health = _resolved_health(source, by_name, aliases)
-        if health and str(health.get("status") or "").upper() in {"FAILED", "NOT IMPLEMENTED", "MISSING"}:
-            unhealthy_required.append(source)
+    unhealthy_required = _unhealthy(required, by_name, aliases)
+    unhealthy_expansion = _unhealthy(expansion, by_name, aliases)
     resolved_aliases = {
         source: successor for source, successor in aliases.items()
         if source in required + expansion and successor in by_name
     }
+    all_targets = required + expansion
+    missing_all = missing_required + missing_expansion
     return {
         "required_sources": required,
         "expansion_sources": expansion,
@@ -52,8 +60,14 @@ def manifest_coverage(source_health, path=CONFIG):
         "missing_required_sources": missing_required,
         "missing_expansion_sources": missing_expansion,
         "unhealthy_required_sources": unhealthy_required,
+        "unhealthy_expansion_sources": unhealthy_expansion,
         "required_coverage_pct": round(100 * (len(required) - len(missing_required)) / len(required), 1) if required else 100.0,
-        "acceptance_ready": not missing_required and not unhealthy_required,
+        "target_coverage_pct": round(100 * (len(all_targets) - len(missing_all)) / len(all_targets), 1) if all_targets else 100.0,
+        # Acceptance means every configured target is represented and inspectable.
+        # Expansion targets are still targets: silently omitting them previously
+        # allowed a nominally green acceptance flag while ten configured houses had
+        # no collector/source-health row at all.
+        "acceptance_ready": not missing_required and not missing_expansion and not unhealthy_required and not unhealthy_expansion,
     }
 
 
@@ -88,7 +102,8 @@ def append_missing_health(source_health, path=CONFIG):
         by_name[source] = alias_health
 
     coverage = manifest_coverage(source_health, path)
-    for source in coverage["missing_required_sources"]:
+    missing_required = set(coverage["missing_required_sources"])
+    for source in coverage["missing_required_sources"] + coverage["missing_expansion_sources"]:
         source_health.append({
             "source": source,
             "status": "NOT IMPLEMENTED",
@@ -98,7 +113,11 @@ def append_missing_health(source_health, path=CONFIG):
             "coverage_pct": None,
             "authoritative_snapshot": False,
             "scope_dates": [],
-            "message": "Required target source has no production collector. Acceptance is blocked until it is assessed and implemented, explicitly classified as catalogue-pending, or mapped to a verified successor source.",
+            "message": (
+                "Required target source has no production collector. Acceptance is blocked until it is assessed and implemented, explicitly classified as catalogue-pending, or mapped to a verified successor source."
+                if source in missing_required else
+                "Expansion target source has no production collector. Acceptance is blocked because every configured target must be represented, assessed and reconciled."
+            ),
             "checked_at": None,
         })
     return manifest_coverage(source_health, path)
