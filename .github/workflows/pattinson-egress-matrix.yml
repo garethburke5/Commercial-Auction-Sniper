@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
 
+# One-time/diagnostic probe for zero-cost GitHub-hosted egress options.
 jobs:
   probe:
     strategy:
