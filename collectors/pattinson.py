@@ -7,7 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
-from .utils import soup, image_from_soup, legal_pack, nearest_card
+from .utils import image_from_soup, legal_pack, nearest_card
 
 SOURCE = "Pattinson Auction"
 BASE = "https://www.pattinson.co.uk"
@@ -73,23 +73,97 @@ def _direct_soup(url, timeout=10):
     return None
 
 
-def _search_soup(url):
-    # Search inventory is essential, so allow one rendered fallback. Detail pages
-    # never invoke Playwright: hundreds of per-lot browser launches previously made
-    # the production scan run for more than an hour.
-    s = _direct_soup(url, timeout=12)
-    if s is not None:
-        return s
-    try:
-        return soup(url, use_browser=True)
-    except Exception:
-        return None
+def _parse_search_html(html):
+    s = BeautifulSoup(html or "", "lxml")
+    text = norm(s.get_text(" ", strip=True))
+    m = re.search(r"\b(\d{1,5})\s+results\b", text, re.I)
+    total = int(m.group(1)) if m else None
+    found = {}
+    for a in s.find_all("a", href=True):
+        href = _detail_url(a)
+        if not href:
+            continue
+        card = norm(a.get_text(" ", strip=True))
+        if not _auction_card(card):
+            near = nearest_card(a, 2600)
+            if _auction_card(near):
+                card = near
+        if _auction_card(card):
+            found[href] = card
+    return found, total
+
+
+def _discover_inventory():
+    """Discover all Pattinson auction-commercial cards with one browser session.
+
+    Pattinson intermittently returns HTTP 403 to datacentre requests. Reusing a
+    normal Chromium session is both faster and more reliable than launching a new
+    browser for each results page. The browser is bounded to the source-advertised
+    number of pages and closes before detail enrichment begins.
+    """
+    first = _direct_soup(SEARCH, timeout=12)
+    if first is not None:
+        found, total = _parse_search_html(str(first))
+        if found:
+            pages = {1: found}
+            limit = min(40, max(1, math.ceil((total or len(found)) / 20)))
+            for n in range(2, limit + 1):
+                s = _direct_soup(BASE + f"/commercial/property-search?p={n}&searchType=CommercialSale", timeout=10)
+                if s is None:
+                    break
+                page_found, _ = _parse_search_html(str(s))
+                if not page_found:
+                    break
+                pages[n] = page_found
+            merged = {}
+            for p in pages.values():
+                merged.update(p)
+            return merged, total, len(pages), "direct"
+
+    from playwright.sync_api import sync_playwright
+    candidates = {}
+    total = None
+    pages_seen = 0
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
+        context = browser.new_context(
+            user_agent=PATTINSON_HEADERS["User-Agent"],
+            locale="en-GB",
+            extra_http_headers={"Accept-Language": "en-GB,en;q=0.9"},
+            viewport={"width": 1440, "height": 1200},
+        )
+        page = context.new_page()
+        page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+        page.goto(SEARCH, wait_until="domcontentloaded", timeout=30000)
+        try:
+            page.wait_for_selector("a[href*='/property/']", timeout=12000)
+        except Exception:
+            pass
+        first_found, total = _parse_search_html(page.content())
+        pages_seen = 1
+        candidates.update(first_found)
+        if first_found:
+            limit = min(40, max(1, math.ceil((total or len(first_found)) / 20)))
+            previous = set(first_found)
+            for n in range(2, limit + 1):
+                page.goto(BASE + f"/commercial/property-search?p={n}&searchType=CommercialSale", wait_until="domcontentloaded", timeout=30000)
+                try:
+                    page.wait_for_selector("a[href*='/property/']", timeout=8000)
+                except Exception:
+                    pass
+                page_found, _ = _parse_search_html(page.content())
+                pages_seen += 1
+                ids = set(page_found)
+                if not ids or ids == previous:
+                    break
+                candidates.update(page_found)
+                previous = ids
+        context.close()
+        browser.close()
+    return candidates, total, pages_seen, "browser"
 
 
 def _enrich(url, seed):
-    # Direct HTTP is fast and sufficient for Pattinson detail pages. If a detail
-    # request fails transiently, retain the source card as a valid inventory row;
-    # a later run can enrich it instead of losing the property entirely.
     ds = _direct_soup(url, timeout=9)
     base_lot = _lot_from_card(seed, url)
     if ds is None:
@@ -138,51 +212,11 @@ def _enrich(url, seed):
     return lot.finalise(), True
 
 
-def _discover_page(url):
-    s = _search_soup(url)
-    if s is None:
-        return {}, None
-    text = norm(s.get_text(" ", strip=True))
-    m = re.search(r"\b(\d{1,5})\s+results\b", text, re.I)
-    total = int(m.group(1)) if m else None
-    found = {}
-    for a in s.find_all("a", href=True):
-        href = _detail_url(a)
-        if not href:
-            continue
-        card = norm(a.get_text(" ", strip=True))
-        if not _auction_card(card):
-            near = nearest_card(a, 2600)
-            if _auction_card(near):
-                card = near
-        if _auction_card(card):
-            found[href] = card
-    return found, total
-
-
 def collect():
     try:
-        candidates = {}
-        pages_seen = 0
-        first, total_results = _discover_page(SEARCH)
-        pages_seen += 1
-        candidates.update(first)
-        if not first:
-            return SourceResult(SOURCE, "FAILED", [], "Pattinson commercial search returned no parseable auction cards on page 1.", discovered_count=0)
-
-        # Source currently renders 20 cards per page. Derive the limit from the
-        # advertised result total and keep a hard ceiling as runaway protection.
-        page_limit = min(40, max(1, math.ceil((total_results or 20) / 20)))
-        previous_ids = set(first)
-        for n in range(2, page_limit + 1):
-            url = BASE + f"/commercial/property-search?p={n}&searchType=CommercialSale"
-            found, _ = _discover_page(url)
-            pages_seen += 1
-            ids = set(found)
-            if not ids or ids == previous_ids:
-                break
-            candidates.update(found)
-            previous_ids = ids
+        candidates, total_results, pages_seen, mode = _discover_inventory()
+        if not candidates:
+            return SourceResult(SOURCE, "FAILED", [], "Pattinson commercial search returned no parseable auction cards after direct+browser discovery.", discovered_count=0)
 
         lots = []
         detail_failures = 0
@@ -211,7 +245,7 @@ def collect():
         status = "LIVE" if lots and detail_failures == 0 else "DEGRADED" if lots else "FAILED"
         return SourceResult(
             SOURCE, status, lots,
-            f"Commercial inventory {total_results if total_results is not None else 'unknown'} source results across {pages_seen} page(s); {len(candidates)} commercial auction cards; {len(lots)} published; {detail_failures} awaiting detail enrichment; {rejected} detail rejections",
+            f"Commercial inventory {total_results if total_results is not None else 'unknown'} source results across {pages_seen} page(s) via {mode}; {len(candidates)} auction-commercial cards; {len(lots)} published; {detail_failures} awaiting detail enrichment; {rejected} detail rejections",
             discovered_count=len(candidates),
         )
     except Exception as e:
