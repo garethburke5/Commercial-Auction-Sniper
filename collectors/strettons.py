@@ -2,6 +2,8 @@ import re
 from datetime import datetime
 from urllib.parse import urljoin
 
+from bs4 import BeautifulSoup
+
 from .core import SourceResult, norm
 from .utils import soup, detail_lot, nearest_card
 
@@ -53,15 +55,51 @@ def _targets(s):
             continue
         if not any(x in low for x in ("auction-commercial-property-for-sale", "auction-mixed-use-property-for-sale")):
             continue
-        # Result anchors are sometimes tiny; climb only to a bounded card.
         card = nearest_card(a, 3200) or norm(a.get_text(" ", strip=True))
-        lot_no = _lot_no(card)
-        if not lot_no:
-            # The URL itself is still a valid detail target. Detail page parsing
-            # will recover the lot number; do not silently drop it here.
-            lot_no = None
-        out.setdefault(href, (card, lot_no))
+        out.setdefault(href, (card, _lot_no(card)))
     return out
+
+
+def _fully_rendered_commercial():
+    """Render and exhaust Strettons' lazy-loaded commercial results.
+
+    The public page advertises the authoritative commercial count but initially
+    renders only the first batch of cards. A plain HTTP/browser snapshot therefore
+    under-counts the catalogue. Click Load More until exhausted so discovered links
+    can be reconciled to the source-advertised total rather than silently publishing
+    a partial catalogue.
+    """
+    try:
+        from playwright.sync_api import sync_playwright
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page(
+                viewport={"width": 1440, "height": 1400},
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36",
+            )
+            page.goto(COMMERCIAL, wait_until="domcontentloaded", timeout=45000)
+            page.wait_for_timeout(1200)
+            for _ in range(12):
+                button = page.get_by_role("button", name=re.compile(r"load more", re.I))
+                if button.count() == 0:
+                    break
+                try:
+                    if not button.first.is_visible():
+                        break
+                    before = len(page.locator("a[href*='auction-commercial-property-for-sale'], a[href*='auction-mixed-use-property-for-sale']").all())
+                    button.first.click(timeout=6000)
+                    page.wait_for_timeout(900)
+                    after = len(page.locator("a[href*='auction-commercial-property-for-sale'], a[href*='auction-mixed-use-property-for-sale']").all())
+                    if after <= before and not button.first.is_visible():
+                        break
+                except Exception:
+                    break
+            html = page.content()
+            browser.close()
+            return BeautifulSoup(html, "lxml")
+    except Exception as exc:
+        print("STRETTONS_LOAD_MORE_FAIL", repr(exc))
+        return None
 
 
 def collect():
@@ -75,12 +113,11 @@ def collect():
         if not auction_date:
             return SourceResult(SOURCE, "FAILED", [], "Could not discover Strettons next/current auction date.")
 
-        # Requests can receive Strettons' shell while the actual result cards are
-        # rendered client-side. Always retry with a browser when static HTML has no
-        # usable commercial detail links, rather than declaring a false zero.
-        s = None
         expected = None
         targets = {}
+
+        # Start cheaply, then exhaust the JS 'Load More' catalogue whenever the
+        # advertised count proves the initial DOM is incomplete.
         for use_browser in (False, True):
             try:
                 candidate = soup(COMMERCIAL, use_browser=use_browser)
@@ -90,16 +127,21 @@ def collect():
             text = norm(candidate.get_text(" ", strip=True))
             expected = _expected(text) or expected
             found = _targets(candidate)
-            if found:
-                s = candidate
+            if len(found) > len(targets):
                 targets = found
+            if expected and len(targets) >= expected:
                 break
-            s = candidate
+
+        if expected and len(targets) < expected:
+            rendered = _fully_rendered_commercial()
+            if rendered is not None:
+                expected = _expected(norm(rendered.get_text(" ", strip=True))) or expected
+                targets.update(_targets(rendered))
 
         if not targets:
             return SourceResult(
                 SOURCE, "FAILED", [],
-                f"Discovered current auction {auction_date}, but index returned no commercial detail links after static+browser retrieval.",
+                f"Discovered current auction {auction_date}, but index returned no commercial detail links after static+rendered retrieval.",
                 expected_count=expected, discovered_count=0,
                 authoritative_snapshot=False, scope_dates=(auction_date,),
             )
@@ -121,10 +163,7 @@ def collect():
                     if use_browser:
                         failures += 1
                         print("STRETTONS_DETAIL_FAIL", href, repr(exc))
-            if lot:
-                # Detail page is authoritative for the actual sale date/lot number.
-                if str(lot.auction_date or "")[:10] != auction_date:
-                    continue
+            if lot and str(lot.auction_date or "")[:10] == auction_date:
                 lots.append(lot)
 
         if not lots:
@@ -135,7 +174,6 @@ def collect():
                 authoritative_snapshot=False, scope_dates=(auction_date,),
             )
 
-        # If Strettons advertises a commercial count, only exact reconciliation is LIVE.
         status = "LIVE" if expected and len(lots) == expected and failures == 0 else "DEGRADED"
         return SourceResult(
             SOURCE, status, lots,
