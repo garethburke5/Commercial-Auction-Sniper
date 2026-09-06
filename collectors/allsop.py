@@ -15,6 +15,7 @@ SEARCHES = (
     BASE + "/property-search?future_auctions=on&page={page}&sortOrder=Max+Price&view=list",
     BASE + "/property-search?available_only=true&lot_type=both&page={page}&view=list",
 )
+POSTCODE = re.compile(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b", re.I)
 
 
 def _lot_no(text):
@@ -31,11 +32,25 @@ def _month_date(text):
     return f"{m.group(2)}-{months.get(month, '01')}-01"
 
 
+def _header_auction_date(text):
+    """Parse Allsop headers such as 'Residential - 16th & 17th Sept 2026'."""
+    m = re.search(
+        r"\b(?:Commercial|Residential)\s*-\s*(\d{1,2})(?:st|nd|rd|th)?(?:\s*&\s*\d{1,2}(?:st|nd|rd|th)?)?\s+([A-Za-z]{3,9})\s+(20\d{2})",
+        text or "", re.I,
+    )
+    if not m:
+        return None
+    months = {"jan":"01","feb":"02","mar":"03","apr":"04","may":"05","jun":"06","jul":"07","aug":"08","sep":"09","oct":"10","nov":"11","dec":"12"}
+    mm = months.get(m.group(2).lower()[:3])
+    return f"{m.group(3)}-{mm}-{int(m.group(1)):02d}" if mm else None
+
+
 def _exact_auction_date(text, fallback=None):
-    m = re.search(r"(?:offered on|auction(?:ed)?(?: on)?|auction date)\s+(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)?\s*(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)(?:\s+(20\d{2}))?", text or "", re.I)
+    m = re.search(r"(?:offered on|auction(?:ed)?(?: on)?|auction date\.?)[^\d]{0,35}(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)(?:\s+(20\d{2}))?", text or "", re.I)
     if not m:
         return fallback
-    months = {"january":"01","february":"02","march":"03","april":"04","may":"05","june":"06","july":"07","august":"08","september":"09","october":"10","november":"11","december":"12"}
+    months = {"january":"01","february":"02","march":"03","april":"04","may":"05","june":"06","july":"07","august":"08","september":"09","october":"10","november":"11","december":"12",
+              "jan":"01","feb":"02","mar":"03","apr":"04","jun":"06","jul":"07","aug":"08","sep":"09","sept":"09","oct":"10","nov":"11","dec":"12"}
     year = m.group(3) or (fallback[:4] if fallback else "2026")
     mm = months.get(m.group(2).lower())
     return f"{year}-{mm}-{int(m.group(1)):02d}" if mm else fallback
@@ -62,9 +77,6 @@ def _extract_targets(s, found):
 
 def _discover():
     found = {}
-    # Canonical auction landing pages now expose early/current lots before the generic
-    # property-search endpoint does. Always inspect them first so a published catalogue
-    # cannot be incorrectly reported as pending.
     for url in LANDING_PAGES:
         try:
             _extract_targets(soup(url, use_browser=False), found)
@@ -96,29 +108,51 @@ def _discover():
     return found
 
 
+def _live_status_probe(s, card):
+    """Use only lot-local title/status text when deciding prior/withdrawn state."""
+    bits = [card]
+    for tag in s.find_all(["h1", "h2"], limit=4):
+        bits.append(norm(tag.get_text(" ", strip=True)))
+    return " ".join(bits)
+
+
+def _address_from_soup(s, card):
+    """Extract a single address string without climbing into large page wrappers."""
+    # Allsop renders the address as its own text node near the LOT heading. A direct
+    # stripped-string scan is more reliable than tag.get_text(), which can absorb the
+    # whole React/container subtree and exceed the previous 220-character guard.
+    strings = [norm(x) for x in s.stripped_strings]
+    for t in strings:
+        if POSTCODE.search(t) and 8 <= len(t) <= 240:
+            low = t.lower()
+            if not any(x in low for x in ("guide price", "register to bid", "lot overview", "looking for finance")):
+                return t
+
+    pm = POSTCODE.search(card or "")
+    if pm:
+        prefix = (card or "")[:pm.end()]
+        # Prefer the tail after catalogue/status metadata.
+        parts = re.split(r"FEATURED LOT|Guide Price\*?|Yield\s+[\d.]+%|(?:Commercial|Residential)\s*-.*?20\d{2}", prefix, flags=re.I)
+        candidate = norm(parts[-1])[-240:]
+        if POSTCODE.search(candidate):
+            return candidate
+    return None
+
+
 def _hydrate(item):
     url, card = item
     s = soup(url, use_browser=False)
     main = s.find("main") or s
     text = norm(main.get_text(" ", strip=True))
-    low = text.lower()
-    if "withdrawn" in low or "sold prior" in low:
+
+    # Do not search the entire page for these words: Allsop page chrome and related
+    # navigation can mention withdrawn/sold-prior lots. Only the current lot's card
+    # and headings are authoritative for its status.
+    status_probe = _live_status_probe(s, card)
+    if re.search(r"\b(?:withdrawn(?:\s+prior)?|sold\s+prior)\b", status_probe, re.I):
         return None
 
-    address = None
-    postcode = re.compile(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b", re.I)
-    for tag in s.find_all(["h2", "h3", "h4", "h5", "div", "p"]):
-        t = norm(tag.get_text(" ", strip=True))
-        if postcode.search(t) and 8 <= len(t) <= 220:
-            if not any(x in t.lower() for x in ("guide price", "lot overview", "register to bid")):
-                address = t
-                break
-    if not address:
-        pm = postcode.search(card)
-        if pm:
-            prefix = card[:pm.end()]
-            parts = re.split(r"FEATURED LOT|Guide Price\*?|Yield\s+[\d.]+%", prefix, flags=re.I)
-            address = norm(parts[-1])[-220:]
+    address = _address_from_soup(s, card)
     if not address:
         return None
 
@@ -132,7 +166,8 @@ def _hydrate(item):
     rent = parse_rent(combined)
     guide = parse_guide(combined)
     tenure = parse_tenure(combined)
-    auction_date = _exact_auction_date(text, _month_date(card))
+    fallback_date = _header_auction_date(combined) or _month_date(card)
+    auction_date = _exact_auction_date(text, fallback_date)
 
     occupation = None
     if re.search(r"\bvacant\b|vacant possession", combined, re.I) and not rent:
@@ -144,7 +179,7 @@ def _hydrate(item):
         source=SOURCE,
         url=url,
         address=address,
-        lot_number=_lot_no(card),
+        lot_number=_lot_no(card + " " + text[:800]),
         auction_date=auction_date,
         image_url=image_from_soup(s, url),
         guide_price=guide,
