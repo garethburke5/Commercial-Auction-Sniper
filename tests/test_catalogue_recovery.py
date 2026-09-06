@@ -4,7 +4,7 @@ from unittest.mock import patch
 from bs4 import BeautifulSoup
 
 from collectors.barnett_ross import _fallback_rows
-from collectors.harman_healy import FUTURE, _inspect_catalogue_with_fallback
+from collectors.harman_healy import FUTURE, SEARCH, _inspect_catalogue_with_fallback
 from collectors.savills_all_future import _savills_property_image_from_html
 
 
@@ -47,6 +47,25 @@ class CatalogueRecoveryTests(unittest.TestCase):
         with patch('collectors.harman_healy._fetch', side_effect=fake_fetch):
             (lots,seen,residential),used=_inspect_catalogue_with_fallback('https://harman-healy.co.uk/future-auctions/78948',date(2026,9,17))
         self.assertEqual(used,FUTURE)
+        self.assertEqual(seen,1)
+        self.assertEqual(residential,1)
+        self.assertEqual(lots,[])
+
+    def test_harman_healy_search_fallback_filters_out_historical_lots(self):
+        html='''
+        <section><h3>Online: Lot 1 | End Time - 17/09/2026 10:30</h3>
+        <div><p>40 Hilton Road, Wolverhampton, WV4 6DR</p><p>A two bedroom semi-detached house</p><a href="/lot/current">View / Bid</a></div></section>
+        <section><h3>Online: Lot 88 | End Time - 20/08/2026 12:30</h3>
+        <div><p>88 High Street, London SW1A 1AA</p><p>Freehold retail shop investment</p><a href="/lot/history">View / Bid</a></div></section>
+        '''
+        search=BeautifulSoup(html,'lxml')
+        def fake_fetch(url):
+            if url == SEARCH:
+                return search
+            raise RuntimeError('primary route unavailable')
+        with patch('collectors.harman_healy._fetch', side_effect=fake_fetch):
+            (lots,seen,residential),used=_inspect_catalogue_with_fallback('https://harman-healy.co.uk/future-auctions/78948',date(2026,9,17))
+        self.assertEqual(used,SEARCH)
         self.assertEqual(seen,1)
         self.assertEqual(residential,1)
         self.assertEqual(lots,[])
