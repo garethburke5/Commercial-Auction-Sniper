@@ -60,8 +60,11 @@ def _catalogue_candidates(root):
         d=_date(text)
         if d and d>=today: out[href]=d
     events=_future_events(root)
+    # A dated event with no lot count is an announced auction, not proof that a
+    # catalogue has been published. Only synthesize /future-auctions as a catalogue
+    # route when the first-party page explicitly advertises a positive lot count.
     if not out and events:
-        live=[(d,c) for d,c in events if c is None or c>0]
+        live=[(d,c) for d,c in events if c is not None and c>0]
         if live: out[FUTURE]=live[0][0]
     return out,events
 
@@ -112,14 +115,6 @@ def _lots_from_catalogue(url,auction_date,require_matching_end_date=False):
 
 
 def _inspect_catalogue_with_fallback(url,auction_date):
-    """Inspect current Harman Healy inventory through independent first-party routes.
-
-    Dated catalogue links and /future-auctions can intermittently fail from hosted
-    runners. /search also exposes the live lots but includes history, so it is only
-    accepted after filtering each lot heading to the requested auction end date.
-    This prevents transport failures becoming false source failures without ever
-    mixing historical properties into the live catalogue count.
-    """
     urls=[]
     for candidate in (url,FUTURE,SEARCH):
         if candidate.rstrip("/") not in {u.rstrip("/") for u in urls}:
@@ -143,7 +138,10 @@ def collect():
         cats,events=_catalogue_candidates(root)
         scopes=tuple(d.isoformat() for d,_ in events)
         if not cats:
-            return SourceResult(SOURCE,"CATALOGUE PENDING",[],"No published Harman Healy future catalogue currently exposes lots.",discovered_count=0,scope_dates=scopes)
+            announced = ", ".join(d.isoformat() for d,_ in events) or "none"
+            return SourceResult(SOURCE,"CATALOGUE PENDING",[],
+                f"Harman Healy future auction date(s) announced ({announced}) but no first-party evidence of a published lot catalogue yet.",
+                discovered_count=0,scope_dates=scopes,authoritative_snapshot=True)
         all_lots=[]; total_seen=total_res=failures=0; fallback_count=0
         for url,d in cats.items():
             try:
@@ -163,7 +161,7 @@ def collect():
                 f"Harman Healy future catalogue inspected: {total_seen} published lots, all residential; no commercial/mixed-use inventory currently published; {fallback_count} alternate-route recoveries.",
                 expected_count=0,discovered_count=total_seen,authoritative_snapshot=True,scope_dates=scopes)
         if failures:
-            return SourceResult(SOURCE,"FAILED",[],f"Harman Healy future catalogue could not be reliably inspected ({failures} failures).",discovered_count=total_seen,scope_dates=scopes)
+            return SourceResult(SOURCE,"FAILED",[],f"Harman Healy published future catalogue could not be reliably inspected ({failures} failures).",discovered_count=total_seen,scope_dates=scopes)
         return SourceResult(SOURCE,"CATALOGUE PENDING",[],"Harman Healy future catalogue currently exposes no parseable lots.",discovered_count=0,scope_dates=scopes)
     except Exception as exc:
         return SourceResult(SOURCE,"FAILED",[],f"Harman Healy collection failed: {type(exc).__name__}: {exc}")
