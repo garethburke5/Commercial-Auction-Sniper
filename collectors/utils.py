@@ -80,6 +80,46 @@ def _strettons_gallery_image(s, base):
     ]
     return candidates[0] if candidates else None
 
+def _savills_gallery_image(s, base):
+    """Extract a real Savills lot photograph from JS-backed gallery markup.
+
+    Savills' visible <img> tags are often just the Savills logo or tiny inline
+    placeholders. The actual gallery paths live in page scripts as
+    /images/lots/<auction-id>/<lot-id>/<hash>.jpeg. Prefer paths matching the
+    current lot id, then current auction id, then any real lot-gallery image.
+    """
+    raw=str(s).replace("\\/", "/")
+    found=[]
+    for path in re.findall(r'/images/lots/(\d+)/(\d+)/([^"\'<>\s]+?\.(?:jpe?g|png|webp))', raw, re.I):
+        auction_id, lot_id, filename=path
+        url=urljoin(base, f"/images/lots/{auction_id}/{lot_id}/{filename}")
+        if url not in found:
+            found.append(url)
+    if not found:
+        return None
+
+    current_auction=None
+    current_lot=None
+    m=re.search(r'/auctions/[^/]+-(\d+)/(?:[^/?#]+-)?(\d+)(?:[/?#]|$)', base or "", re.I)
+    if m:
+        current_auction, current_lot=m.group(1), m.group(2)
+    else:
+        m=re.search(r'/auctions/[^/]+-(\d+)/', base or "", re.I)
+        if m: current_auction=m.group(1)
+        m=re.search(r'-(\d+)(?:[/?#]|$)', base or "")
+        if m: current_lot=m.group(1)
+
+    def score(url):
+        mm=re.search(r'/images/lots/(\d+)/(\d+)/', url, re.I)
+        aid,lid=mm.group(1),mm.group(2) if mm else (None,None)
+        return (
+            bool(current_lot and lid == current_lot),
+            bool(current_auction and aid == current_auction),
+            1,
+        )
+    found.sort(key=score, reverse=True)
+    return found[0]
+
 def _btg_key(url):
     low=(url or "").lower()
     if "/properties/" in low:
@@ -126,6 +166,10 @@ def image_from_soup(s, base):
     low=(base or "").lower()
     if "strettons.co.uk" in low:
         img=_strettons_gallery_image(s,base)
+        if img:
+            return img
+    if "auctions.savills.co.uk" in low:
+        img=_savills_gallery_image(s,base)
         if img:
             return img
     if "pugh-auctions.com" in low or "btgeddisonspropertyauctions.com" in low:
