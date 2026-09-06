@@ -47,14 +47,22 @@ MIXED_MARKERS = (
     "commercial/residential", "mixed use", "mixed-use", "pair of flats", "block of apartments",
 )
 CLOSED_MARKERS = (
-    " sold ", " sold stc ", " sold subject ", " auction ended ", " bidding ended ",
-    " withdrawn ", " no longer available ", " under offer ",
+    "sold stc", "sold subject", "auction ended", "bidding ended",
+    "withdrawn", "no longer available", "under offer",
 )
+
+def _is_closed(text):
+    low = " " + norm(text).lower() + " "
+    if any(x in low for x in CLOSED_MARKERS):
+        return True
+    # Plain SOLD is terminal, but auction marketing routinely says
+    # "being sold via online auction" and must not be mistaken for a sold lot.
+    return bool(re.search(r"(?:^|\s)sold(?:\s|$)", low) and not re.search(r"\b(?:being|property|lot)\s+sold\s+(?:via|by|through)\b", low))
 
 
 def _is_current_auction(text):
     low = " " + norm(text).lower() + " "
-    if any(x in low for x in CLOSED_MARKERS):
+    if _is_closed(text):
         return False
     return any(x in low for x in ("starting bid", "current bid", "reduced starting bid", "bid now", "online auction", "secure sale", "via auction"))
 
@@ -289,11 +297,11 @@ def _rightmove_address(card, pid):
 def _rightmove_lot(card, pid, href):
     text = norm(card.get_text(" ", strip=True))
     low = " " + text.lower() + " "
-    if any(x in low for x in CLOSED_MARKERS):
+    if _is_closed(text):
         return None
     # This is the dedicated Pattinson Auction branch, but still require explicit
     # auction wording so a stray agency listing cannot leak onto the auction board.
-    if not any(x in low for x in (" auction ", "secure sale", "online bidding")):
+    if not (re.search(r"\bauction\b", low) or "secure sale" in low or "online bidding" in low):
         return None
     address = _rightmove_address(card, pid)
     if not address:
@@ -417,7 +425,7 @@ def _apply_detail(lot, ds, seed, url):
     main = ds.find("main") or ds.find("article") or ds
     text = norm(main.get_text(" ", strip=True))
     low = " " + text.lower() + " "
-    if any(x in low for x in CLOSED_MARKERS):
+    if _is_closed(text):
         return None
     if not _is_current_auction(text + " " + seed):
         return None
