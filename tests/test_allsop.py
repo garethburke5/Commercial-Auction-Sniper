@@ -25,6 +25,7 @@ class AllsopCollectorTests(unittest.TestCase):
             <div>FEATURED LOT</div>
             <h3>Sheffield S10</h3>
             <p>Substantial Freehold Retail, Supermarket &amp; Car Park Investment</p>
+            <img src="/media/auction/lot-44.jpg" alt="Sheffield investment" />
             <a href="/lot-overview/substantial-freehold-retail-supermarket-car-park-investment-in-sheffield/c261001-044">View lot</a>
           </article>
         </section>
@@ -34,7 +35,8 @@ class AllsopCollectorTests(unittest.TestCase):
         self.assertEqual(len(found), 1)
         url = next(iter(found))
         self.assertIn("/lot-overview/", url)
-        self.assertIn("Commercial LOT - Oct 2026", found[url])
+        self.assertIn("Commercial LOT - Oct 2026", found[url]["card"])
+        self.assertEqual(found[url]["image"], "https://www.allsop.co.uk/media/auction/lot-44.jpg")
 
     def test_rejects_pure_residential_card(self):
         self.assertFalse(_card_is_target("Residential LOT 12 - Sep 2026 Two Bedroom Flat London SW1"))
@@ -60,11 +62,12 @@ class AllsopCollectorTests(unittest.TestCase):
     def test_future_featured_teaser_recovers_published_locality(self):
         card = "Commercial LOT - Oct 2026 FEATURED LOT Sheffield S10 Substantial Freehold Retail, Supermarket & Car Park Investment Guide Price £5.8M"
         self.assertEqual(_teaser_address(card), "Sheffield S10")
-        lot = _teaser_lot("https://www.allsop.co.uk/lot-overview/example/c261001-044", card)
+        lot = _teaser_lot("https://www.allsop.co.uk/lot-overview/example/c261001-044", card, "https://www.allsop.co.uk/media/auction/lot-44.jpg")
         self.assertIsNotNone(lot)
         self.assertEqual(lot.address, "Sheffield S10")
         self.assertEqual(lot.auction_date, "2026-10-01")
         self.assertIn("Retail", lot.property_type)
+        self.assertEqual(lot.image_url, "https://www.allsop.co.uk/media/auction/lot-44.jpg")
 
 
 if __name__ == "__main__":
