@@ -7,6 +7,8 @@ from collectors.allsop import (
     _address_from_soup,
     _header_auction_date,
     _live_status_probe,
+    _teaser_address,
+    _teaser_lot,
 )
 
 
@@ -54,6 +56,15 @@ class AllsopCollectorTests(unittest.TestCase):
         s = BeautifulSoup('''<main><h1>INVESTMENT - Freehold Mixed Use Building</h1><p>Other auction results include sold prior lots.</p></main>''', "lxml")
         probe = _live_status_probe(s, "Residential LOT 66 - Sep 2026 Mixed Use Building")
         self.assertNotIn("sold prior", probe.lower())
+
+    def test_future_featured_teaser_recovers_published_locality(self):
+        card = "Commercial LOT - Oct 2026 FEATURED LOT Sheffield S10 Substantial Freehold Retail, Supermarket & Car Park Investment Guide Price £5.8M"
+        self.assertEqual(_teaser_address(card), "Sheffield S10")
+        lot = _teaser_lot("https://www.allsop.co.uk/lot-overview/example/c261001-044", card)
+        self.assertIsNotNone(lot)
+        self.assertEqual(lot.address, "Sheffield S10")
+        self.assertEqual(lot.auction_date, "2026-10-01")
+        self.assertIn("Retail", lot.property_type)
 
 
 if __name__ == "__main__":
