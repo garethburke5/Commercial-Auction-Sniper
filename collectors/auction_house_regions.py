@@ -54,7 +54,7 @@ def _local_card(anchor, max_chars=1800):
         text = norm(node.get_text(" ", strip=True))
         if len(text) > max_chars:
             break
-        if 80 <= len(text) <= max_chars:
+        if 20 <= len(text) <= max_chars:
             # A genuine single-lot card normally contains at most one explicit
             # "Lot N" marker. Multiple different markers indicate a shared wrapper.
             lot_markers = set(re.findall(r"\bLot\s+\d+[A-Z]?\b", text, re.I))
@@ -98,8 +98,6 @@ def _future_events(slug, source):
         if prefix not in href:
             continue
         row = _local_card(a, 1400)
-        # Regional diary pages can include National Online events. Only accept the
-        # row for the named regional auctioneer so inventory is not double-counted.
         if source.lower().replace("&", "and") not in row.lower().replace("&", "and"):
             continue
         auction_date = _parse_date(row)
@@ -150,9 +148,6 @@ def _collect_region(slug):
             lot = None
             for use_browser in (False, True):
                 try:
-                    # Status was already determined from the lot-local catalogue
-                    # card. Do not let a generic 'sold prior' phrase elsewhere in
-                    # page chrome suppress a live property.
                     lot = detail_lot(
                         source, href, seed=card, lot_number=lot_number,
                         auction_date=auction_date, force_commercial=True,
