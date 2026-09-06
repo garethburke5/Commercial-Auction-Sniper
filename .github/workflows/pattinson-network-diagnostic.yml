@@ -12,20 +12,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install requests beautifulsoup4 lxml playwright && python -m playwright install chromium
-      - name: Inspect public fallback routes and catalogue markup
+      - run: pip install -r requirements.txt && pip install playwright && python -m playwright install chromium
+      - name: Probe Rightmove fallback and Harman collector
         run: |
           python - <<'PY'
-          import requests,re
+          import requests
           from bs4 import BeautifulSoup
           from urllib.parse import urljoin
           headers={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36'}
           targets=[
+            'https://www.rightmove.co.uk/estate-agents/agent/Pattinsons/Pattinsons-Auction--National-Auctioneer-251528.html',
+            'https://www.rightmove.co.uk/commercial-property-for-sale/find/Pattinsons/Pattinsons-Auction--National-Auctioneer.html?locationIdentifier=BRANCH%5E251528&includeSSTC=true&_includeSSTC=on',
             'https://www.pattinson.co.uk/auction/property-search?IncludeCommercialProperties=true&OnlineOnly=true&PropertySort=EndingSoonest&PageSize=100&p=1',
-            'https://propertyauctions.io/auctioneers/pattinson',
-            'https://propertyauctions.io/auctioneers/pattinson?page=2',
-            'https://propertyauctions.io/listings?search=%7B%22listing_auctioneer%22%3A%22Pattinson%22%2C%22listing_lot_status%22%3A%22Available%22%7D',
-            'https://harman-healy.co.uk/future-auctions',
           ]
           for url in targets:
             print('\nTARGET',url)
@@ -34,18 +32,23 @@ jobs:
               print('STATUS',r.status_code,'LEN',len(r.text),'FINAL',r.url)
               s=BeautifulSoup(r.text,'lxml')
               print('TITLE',s.title.get_text(' ',strip=True) if s.title else '')
-              print('TEXT',s.get_text(' ',strip=True)[:1800])
+              text=s.get_text(' ',strip=True)
+              print('TEXT',text[:2200])
               links=[]
               for a in s.find_all('a',href=True):
                 href=urljoin(r.url,a['href'])
                 txt=a.get_text(' ',strip=True)
-                if any(k in href.lower() for k in ('listings','pattinson','future-auctions','property')):
+                if '/properties/' in href or '/commercial-property-for-sale/' in href or 'property-' in href:
                   links.append((txt[:100],href))
-              print('LINKS',links[:80])
-              scripts='\n'.join(x.get_text(' ',strip=True) for x in s.find_all('script'))
-              for pat in ('__NEXT_DATA__','listing_auctioneer','page=','cursor','pagination'):
-                if pat.lower() in r.text.lower(): print('MARKER',pat)
-              print('SCRIPT_SNIP',scripts[:2500])
+              print('PROPERTY_LINKS',links[:100])
             except Exception as e:
               print('FAIL',type(e).__name__,e)
+          print('\nHARMAN_COLLECTOR')
+          try:
+            from collectors.harman_healy import collect
+            result=collect()
+            print(result.to_status_dict())
+            for lot in result.lots[:20]: print(lot.to_dict())
+          except Exception as e:
+            print('HARMAN_FAIL',type(e).__name__,e)
           PY
