@@ -32,6 +32,85 @@ MIXED_MARKERS = [
     "shop and flat","shop with flat","retail and residential"
 ]
 
+# Navigation / transactional chrome sometimes enters a lot's page-text when a source
+# does not provide a dedicated description node.  Keep this centralized so collectors
+# can safely pass page text without each source reinventing cleanup rules.
+DESCRIPTION_START_MARKERS = (
+    "Property Details Description",
+    "Property Description",
+)
+DESCRIPTION_END_MARKERS = (
+    "Costs Auction Details",
+    "Auction Details The sale of this property",
+    "Auction Deposit and Fees",
+    "Address Open in Google Maps",
+)
+DESCRIPTION_CHROME = re.compile(
+    r"(?:book your free appraisal|register to bid|create account\s*/\s*login|my account|"
+    r"auction countdown|book a viewing|sign up for auction alerts|contact our team of auction experts)",
+    re.I,
+)
+LET_EVIDENCE = re.compile(
+    r"\b(?:is|are|unit|shop|flat|property|premises)\s+let\b|\blet\s+to\b|"
+    r"\btenancy details\b|\bcurrent (?:gross )?income\b|\bproducing\s+£",
+    re.I,
+)
+VACANT_EVIDENCE = re.compile(r"\bvacant(?: possession)?\b", re.I)
+
+
+def norm(text):
+    return re.sub(r"\s+", " ", text or "").strip()
+
+
+def clean_description(text):
+    """Return property particulars rather than a whole scraped web page.
+
+    Some auction platforms expose useful particulars inside a page whose text also
+    contains menus, login controls and bidding/viewing UI.  Prefer a recognised
+    particulars section when present; otherwise retain normalized text unless the
+    input is obviously chrome-heavy, in which case bound it to a safe size rather
+    than publishing an unbounded page dump.
+    """
+    value = norm(text)
+    if not value:
+        return ""
+
+    lowered = value.lower()
+    for marker in DESCRIPTION_START_MARKERS:
+        pos = lowered.find(marker.lower())
+        if pos >= 0:
+            value = value[pos + len(marker):].strip(" :-|")
+            lowered = value.lower()
+            break
+
+    end_positions = []
+    for marker in DESCRIPTION_END_MARKERS:
+        pos = lowered.find(marker.lower())
+        if pos > 0:
+            end_positions.append(pos)
+    if end_positions:
+        value = value[:min(end_positions)].strip(" :-|")
+
+    # A description should never be a multi-thousand-word rendering of controls.
+    # Do not truncate normal particulars; only apply the guard to chrome-heavy text.
+    if DESCRIPTION_CHROME.search(value) and len(value) > 6000:
+        value = value[:6000].rsplit(" ", 1)[0].strip()
+    return norm(value)
+
+
+def normalize_occupation(occupation, description):
+    """Repair the common 'Vacant' false-positive for part-let mixed investments."""
+    current = norm(occupation)
+    if current.lower() not in {"vacant", "vacant possession"} and not current.lower().startswith("vacant -"):
+        return current or None
+    particulars = clean_description(description)
+    if particulars and LET_EVIDENCE.search(particulars):
+        if VACANT_EVIDENCE.search(particulars):
+            return "Part Vacant / Part Let"
+        return "Let"
+    return current or None
+
+
 @dataclass
 class Lot:
     source: str
@@ -82,6 +161,8 @@ class Lot:
     nearby_occupiers: Optional[str] = None
 
     def finalise(self):
+        self.description = clean_description(self.description)
+        self.occupation = normalize_occupation(self.occupation, self.description)
         occ = (self.occupation or "").strip().lower()
         wholly_vacant = occ in {"vacant", "vacant possession"} or occ.startswith("vacant -")
         if wholly_vacant:
@@ -134,9 +215,6 @@ class SourceResult:
             "message": self.message,
             "checked_at": datetime.now(timezone.utc).isoformat(),
         }
-
-def norm(text):
-    return re.sub(r"\s+", " ", text or "").strip()
 
 def parse_money(text):
     m = MONEY_RE.search(str(text or ""))
