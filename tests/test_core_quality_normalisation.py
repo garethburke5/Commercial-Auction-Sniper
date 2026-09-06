@@ -17,6 +17,33 @@ class CoreQualityNormalisationTests(unittest.TestCase):
         self.assertNotIn("Register to bid", cleaned)
         self.assertNotIn("Auction Details", cleaned)
 
+    def test_generic_key_features_start_removes_leading_controls(self):
+        raw = (
+            "Home Auctions Login Register to bid My account Book a viewing Key Features "
+            "Freehold town centre retail investment let at £24,000 per annum. "
+            "Description Ground floor shop with offices above. Auction Deposit and Fees apply."
+        )
+        cleaned = clean_description(raw)
+        self.assertTrue(cleaned.startswith("Freehold town centre retail investment"))
+        self.assertNotIn("Register to bid", cleaned)
+        self.assertNotIn("Book a viewing", cleaned)
+        self.assertNotIn("Auction Deposit", cleaned)
+
+    def test_trailing_transactional_controls_are_cut(self):
+        raw = (
+            "Description A warehouse investment extending to 5,000 sq ft and let for £30,000 pa. "
+            "The tenant has occupied for ten years. Register to bid Add to wishlist Book a viewing"
+        )
+        cleaned = clean_description(raw)
+        self.assertEqual(
+            cleaned,
+            "A warehouse investment extending to 5,000 sq ft and let for £30,000 pa. The tenant has occupied for ten years."
+        )
+
+    def test_normal_property_prose_is_not_truncated_by_fallback_words(self):
+        raw = "A commercial investment with a detailed description of the accommodation and location."
+        self.assertEqual(clean_description(raw), raw)
+
     def test_vacant_label_is_repaired_when_particulars_show_part_let(self):
         description = (
             "A mixed-use investment. Units 3 and 7 are sold with vacant possession; "
