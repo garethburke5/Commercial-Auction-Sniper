@@ -10,7 +10,23 @@ from .savills import SOURCE, BASE, UPCOMING, _auction_dates, _discover_commercia
 
 
 def _calendar_html(timeout=30):
-    return get_html(UPCOMING, use_browser=False, timeout_ms=timeout * 1000)
+    """Read the Savills auction calendar from independent first-party routes.
+
+    The dedicated /upcoming-auctions endpoint intermittently stalls from hosted
+    runners even when the Savills home page is healthy and contains the same
+    current/future catalogue links. Do not let one route/protocol failure erase
+    an otherwise public catalogue.
+    """
+    errors=[]
+    for url in (UPCOMING, BASE + "/", BASE + "/home", BASE + "/index.php"):
+        try:
+            html=get_html(url, use_browser=False, timeout_ms=timeout * 1000)
+            if html and re.search(r"/auctions/[^/]+-\d+", html, re.I):
+                return html
+            errors.append(f"{url}: no auction links")
+        except Exception as exc:
+            errors.append(f"{url}: {type(exc).__name__}")
+    raise RuntimeError("Savills calendar routes unavailable: " + "; ".join(errors))
 
 
 def _discover_all_future_auctions(html=None):
@@ -71,7 +87,6 @@ def _normalise_savills_asset(value, href):
 def _savills_property_image_from_html(raw, href):
     raw = (raw or "").replace("\\/", "/")
     candidates = []
-    # Match the current script-hydrated /images/lots path as well as legacy routes.
     token_re = r'(?:https?:)?//[^"\'<>\s,]+|/(?:assets/)?images/lots/[^"\'<>\s,]+|(?:assets/)?images/lots/[^"\'<>\s,]+|/lot-images?/[^"\'<>\s,]+'
     for token in re.findall(token_re, raw, re.I):
         u = _normalise_savills_asset(token, href)
@@ -118,12 +133,7 @@ def _savills_property_image(href):
 
 
 def _catalogue_images(feed):
-    """Map detail URLs to the image in their catalogue card.
-
-    Detail pages increasingly hydrate galleries client-side while catalogue cards still
-    contain the first property photograph. This gives a first-party, lot-scoped fallback
-    rather than accepting logos, placeholders, or generic auction imagery.
-    """
+    """Map detail URLs to the image in their catalogue card."""
     if not feed:
         return {}
     try:
