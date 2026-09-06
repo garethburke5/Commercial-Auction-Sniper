@@ -11,6 +11,8 @@ AUCTIONS=BASE+"/auction"
 FUTURE=BASE+"/future-auctions"
 SEARCH=BASE+"/search"
 
+LOT_MARKER_RE=re.compile(r"\b(?:Online:\s*)?Lot\s+(\d+[A-Z]?)\b.*?(?:End Time\s*-\s*)?(\d{1,2}/\d{1,2}/20\d{2})",re.I)
+
 
 def _date(text):
     m=re.search(r"(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})",text or "",re.I)
@@ -26,13 +28,47 @@ def _numeric_date(text):
     except ValueError: return None
 
 
+def _lot_blocks(s):
+    """Return one local DOM block per current EIG lot card.
+
+    Harman Healy's EIG templates have changed tag levels several times and may
+    expose the 'Online: Lot N | End Time' marker in headings, divs or strong tags.
+    Searching semantically for the marker is substantially more robust than
+    assuming h2/h3/h4 forever. Ancestor growth stops before neighbouring cards are
+    absorbed, which also prevents one commercial phrase leaking into another lot.
+    """
+    found=[]; seen=set()
+    for node in s.find_all(["h1","h2","h3","h4","h5","strong","div","section","article"]):
+        own=norm(node.get_text(" ",strip=True))
+        m=LOT_MARKER_RE.search(own)
+        if not m:
+            continue
+        key=(m.group(1).upper(),m.group(2))
+        if key in seen:
+            continue
+        best=node
+        cur=node
+        for _ in range(5):
+            parent=getattr(cur,"parent",None)
+            if parent is None:
+                break
+            text=norm(parent.get_text(" ",strip=True))
+            markers=LOT_MARKER_RE.findall(text)
+            if len(text)>5000 or len(markers)>1:
+                break
+            best=parent
+            cur=parent
+            if re.search(r"Guide Price|View\s*/\s*Bid|Minimum Opening Bid",text,re.I):
+                # This is normally the card wrapper; don't climb into page chrome.
+                break
+        found.append((m.group(1),_numeric_date(m.group(2)),best))
+        seen.add(key)
+    return found
+
+
 def _current_catalogue_date(s):
-    today=date.today(); dates=[]
-    for heading in s.find_all(["h2","h3","h4"]):
-        h=norm(heading.get_text(" ",strip=True))
-        if not re.search(r"\bLot\s+\d+",h,re.I): continue
-        d=_numeric_date(h)
-        if d and d>=today: dates.append(d)
+    today=date.today()
+    dates=[d for _,d,_ in _lot_blocks(s) if d and d>=today]
     return min(dates) if dates else None
 
 
@@ -79,47 +115,40 @@ def _fetch(url):
     except Exception: return soup(url,use_browser=True)
 
 
+def _address_from_block(block):
+    # Prefer the actual linked property address, then any compact postcode line.
+    for a in block.find_all("a",href=True):
+        candidate=norm(a.get_text(" ",strip=True))
+        if re.search(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",candidate,re.I) and len(candidate)<260:
+            return candidate,a
+    for tag in block.find_all(["h2","h3","h4","h5","p","div"]):
+        candidate=norm(tag.get_text(" ",strip=True))
+        if re.search(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",candidate,re.I) and len(candidate)<260:
+            return candidate,None
+    return "",None
+
+
 def _lots_from_soup(s,url,auction_date,require_matching_end_date=False):
     lots=[]; seen=0; residential=0
-    for heading in s.find_all(["h2","h3","h4"]):
-        h=norm(heading.get_text(" ",strip=True))
-        m=re.search(r"\bLot\s+(\d+[A-Z]?)\b",h,re.I)
-        if not m: continue
-        if require_matching_end_date:
-            end_date=_numeric_date(h)
-            if end_date != auction_date: continue
-        seen+=1; container=heading.parent
-        text=norm(container.get_text(" ",strip=True)) if container else h
-        link=(container.find("a",href=True) if container else None)
-        if not link:
-            node=heading
-            for _ in range(4):
-                node=getattr(node,"next_sibling",None)
-                if getattr(node,"find",None):
-                    link=node.find("a",href=True)
-                    if link: break
-        address=norm(link.get_text(" ",strip=True)) if link else ""
-        for tag in (container.find_all(["h3","h4","p","a"]) if container else []):
-            candidate=norm(tag.get_text(" ",strip=True))
-            if re.search(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",candidate,re.I) and len(candidate)<240:
-                address=candidate; break
-        detail=urljoin(url,link.get("href")) if link else f"{url}#lot-{m.group(1)}"
-        if not is_commercial(text): residential+=1; continue
-        lots.append(Lot(source=SOURCE,url=detail,address=address or f"Harman Healy Lot {m.group(1)}",
-            lot_number=f"Lot {m.group(1)}",auction_date=auction_date.isoformat(),guide_price=parse_guide(text),
-            image_url=image_from_soup(container or s,url),description=text,property_type="Commercial / mixed-use auction lot").finalise())
+    for lot_no,end_date,container in _lot_blocks(s):
+        if require_matching_end_date and end_date != auction_date:
+            continue
+        if end_date and end_date < date.today():
+            continue
+        seen+=1
+        text=norm(container.get_text(" ",strip=True))
+        address,link=_address_from_block(container)
+        detail=urljoin(url,link.get("href")) if link and link.get("href") else f"{url}#lot-{lot_no}"
+        if not is_commercial(text):
+            residential+=1
+            continue
+        lots.append(Lot(source=SOURCE,url=detail,address=address or f"Harman Healy Lot {lot_no}",
+            lot_number=f"Lot {lot_no}",auction_date=auction_date.isoformat(),guide_price=parse_guide(text),
+            image_url=image_from_soup(container,url),description=text,property_type="Commercial / mixed-use auction lot").finalise())
     return lots,seen,residential
 
 
 def _lots_from_catalogue(url,auction_date,require_matching_end_date=False):
-    """Parse direct HTML, then explicitly render the page when it is only a JS shell.
-
-    Harman Healy/EIG can return a perfectly valid >1KB HTML shell to datacentre
-    clients while injecting the actual lot cards client-side. The shared fetcher
-    correctly treats that response as usable HTML, so a source-specific semantic
-    retry is required when no lot headings are present. This prevents a published
-    catalogue from being misreported as a transport failure.
-    """
     direct=_fetch(url)
     parsed=_lots_from_soup(direct,url,auction_date,require_matching_end_date=require_matching_end_date)
     if parsed[1] > 0:
@@ -136,6 +165,8 @@ def _lots_from_catalogue(url,auction_date,require_matching_end_date=False):
 
 def _inspect_catalogue_with_fallback(url,auction_date):
     urls=[]
+    # The generic current catalogue is the canonical EIG route and is usually
+    # more stable than dated aliases, so try it before the broad historical search.
     for candidate in (url,FUTURE,SEARCH):
         if candidate.rstrip("/") not in {u.rstrip("/") for u in urls}: urls.append(candidate)
     last_exc=None
