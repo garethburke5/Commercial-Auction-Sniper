@@ -2,7 +2,7 @@ import unittest
 from datetime import date
 from bs4 import BeautifulSoup
 
-from collectors.symonds_sampson import _event_links, _is_target, _property_links, _parse_date
+from collectors.symonds_sampson import _event_links, _is_target, _property_links, _parse_date, _image
 
 
 class SymondsSampsonCollectorTests(unittest.TestCase):
@@ -33,6 +33,17 @@ class SymondsSampsonCollectorTests(unittest.TestCase):
         found = _property_links(BeautifulSoup(html, "lxml"), "2026-09-24")
         self.assertEqual(len(found), 2)
         self.assertTrue(all(value[1] == "2026-09-24" for value in found.values()))
+
+    def test_image_prefers_real_property_gallery_over_branding(self):
+        html = '''
+        <html><head><meta property="og:image" content="https://cdn.webdadi.net/assets/logo.png"></head>
+        <body>
+          <img src="https://cdn.webdadi.net/static/office-team.jpg" alt="office" />
+          <img data-src="https://cdn.webdadi.net/2a8d27ce-3e62-4d24-bf5e-97cb3f7f4a91/property-main.webp" alt="Property image" />
+        </body></html>
+        '''
+        image = _image(BeautifulSoup(html, "lxml"), "https://auctions.symondsandsampson.co.uk/property/example")
+        self.assertEqual(image, "https://cdn.webdadi.net/2a8d27ce-3e62-4d24-bf5e-97cb3f7f4a91/property-main.webp")
 
     def test_commercial_and_mixed_use_are_kept_but_plain_house_is_rejected(self):
         self.assertTrue(_is_target("Grade II Listed public house with living accommodation upstairs and redevelopment potential"))
