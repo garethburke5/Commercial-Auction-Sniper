@@ -26,11 +26,12 @@ from collectors.town_country import collect as town_country
 from collectors.future_property_auctions import collect as future_property
 from collectors.bidx1 import collect as bidx1
 from collectors.symonds_sampson import collect as symonds_sampson
+from collectors.auction_estates import collect as auction_estates
 from source_manifest import append_missing_health, manifest_coverage
 
 DATA=Path("data")
 DATA.mkdir(exist_ok=True)
-COLLECTORS=[ahl,collect_east_anglia,collect_west_yorkshire,collect_sussex_hampshire,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross,harman_healy,knight_frank,town_country,future_property,bidx1,symonds_sampson]
+COLLECTORS=[ahl,collect_east_anglia,collect_west_yorkshire,collect_sussex_hampshire,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross,harman_healy,knight_frank,town_country,future_property,bidx1,symonds_sampson,auction_estates]
 PUBLISHABLE={"LIVE","DEGRADED"}
 BAD_ADDRESS=re.compile(r"(?:login|log in|sign in|register to bid|book a viewing|arrange a viewing|viewing appointment|cancel proxy bid|your bid|remove from wishlist|add to wishlist|connecting to auction|please wait|full details|legal pack available)",re.I)
 DESCRIPTION_BOILERPLATE=re.compile(r"(?:book your free appraisal|register to bid|create account\s*/\s*login|my account|auction countdown|book a viewing|sign up for auction alerts)",re.I)
