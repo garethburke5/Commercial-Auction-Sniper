@@ -6,7 +6,7 @@ import hashlib
 import re
 from urllib.parse import urljoin
 
-MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d{1,2})?)")
+MONEY_RE = re.compile(r"(?:£\s*)+([\d,]+(?:\.\d{1,2})?)")
 
 COMMERCIAL_TERMS = [
     "commercial property","commercial unit","commercial building","commercial investment",
@@ -32,9 +32,6 @@ MIXED_MARKERS = [
     "shop and flat","shop with flat","retail and residential"
 ]
 
-# Navigation / transactional chrome sometimes enters a lot's page-text when a source
-# does not provide a dedicated description node. Keep this centralized so collectors
-# can safely pass page text without each source reinventing cleanup rules.
 DESCRIPTION_START_MARKERS = (
     "Property Details Description",
     "Property Description",
@@ -86,14 +83,6 @@ def _first_marker(value, markers, case_sensitive=False):
 
 
 def clean_description(text):
-    """Return property particulars rather than a whole scraped web page.
-
-    Auction sites frequently wrap the useful particulars in login, bidding, viewing
-    and account UI. Prefer a recognised particulars section, cut known transactional
-    tails, and never allow residual UI controls to survive into the published board.
-    Fallback section labels are matched case-sensitively so ordinary prose such as
-    "a detailed description of..." cannot be mistaken for a heading.
-    """
     value = norm(text)
     if not value:
         return ""
@@ -118,27 +107,18 @@ def clean_description(text):
     if end_positions:
         value = value[:min(end_positions)].strip(" :-|")
 
-    # Transactional controls that remain after the particulars almost always mark
-    # the end of useful property content. Do not truncate on a leading control: a
-    # fallback start marker may still follow it and preserving the body is safer.
     tail_chrome = DESCRIPTION_CHROME.search(value)
     if tail_chrome and tail_chrome.start() >= 120:
         value = value[:tail_chrome.start()].strip(" :-|")
 
-    # If a source places one or more controls directly before otherwise useful text,
-    # remove those phrases rather than publishing them as property data.
     value = DESCRIPTION_CHROME.sub(" ", value)
     value = norm(value).strip(" :-|")
-
-    # Last-resort guard for malformed pages: descriptions should never be unbounded
-    # renderings of menus and controls even if a source changes its headings.
     if len(value) > 9000:
         value = value[:9000].rsplit(" ", 1)[0].strip()
     return norm(value)
 
 
 def normalize_occupation(occupation, description):
-    """Repair the common 'Vacant' false-positive for part-let mixed investments."""
     current = norm(occupation)
     if current.lower() not in {"vacant", "vacant possession"} and not current.lower().startswith("vacant -"):
         return current or None
@@ -260,10 +240,11 @@ def parse_money(text):
     return float(m.group(1).replace(",", "")) if m else None
 
 def parse_guide(text):
+    money = r"((?:£\s*)+[\d,]+(?:\.\d+)?)"
     for pat in [
-        r"Guide Price(?:\s*[:*])?\s*(£[\d,]+(?:\.\d+)?)",
-        r"Guide(?:\s*[:*])?\s*(£[\d,]+(?:\.\d+)?)",
-        r"Available At\s*(£[\d,]+(?:\.\d+)?)",
+        rf"Guide Price(?:\s*[:*])?\s*{money}",
+        rf"Guide(?:\s*[:*])?\s*{money}",
+        rf"Available At\s*{money}",
     ]:
         m = re.search(pat, text or "", re.I)
         if m:
