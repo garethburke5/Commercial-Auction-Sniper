@@ -7,13 +7,17 @@ import requests
 from bs4 import BeautifulSoup
 
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
-from .utils import image_from_soup, legal_pack, nearest_card
+from .utils import image_from_soup, legal_pack, nearest_card, enrich_common_fields
 
 SOURCE = "Pattinson Auction"
 BASE = "https://www.pattinson.co.uk"
 SEARCH = BASE + "/auction/property-search"
 PARTNER_BASE = "https://addisonbarton.pattinson.co.uk"
 PARTNER_SEARCH = PARTNER_BASE + "/"
+RIGHTMOVE_SEARCH = (
+    "https://www.rightmove.co.uk/commercial-property-for-sale/find/Pattinsons/"
+    "Pattinsons-Auction--National-Auctioneer.html?locationIdentifier=BRANCH%5E251528"
+)
 PATTINSON_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -31,7 +35,7 @@ COMMERCIAL_LABELS = (
     "hot food takeaway", "takeaway", "care home", "nursery", "supermarket", "shop", "mixed use", "mixed-use",
     "business premises", "commercial development", "leisure", "land & development", "land and development",
     "development land", "hospitality facility", "commercial land", "investment property", "pair of flats",
-    "block of apartments",
+    "block of apartments", "land", "heavy industrial", "light industrial", "retail property",
 )
 RESIDENTIAL_LABELS = (
     "residential portfolio", "residential development", " hmo ", "house in ", "flat in ",
@@ -52,14 +56,14 @@ def _is_current_auction(text):
     low = " " + norm(text).lower() + " "
     if any(x in low for x in CLOSED_MARKERS):
         return False
-    return any(x in low for x in ("starting bid", "current bid", "reduced starting bid", "bid now", "online auction", "secure sale"))
+    return any(x in low for x in ("starting bid", "current bid", "reduced starting bid", "bid now", "online auction", "secure sale", "via auction"))
 
 
 def _is_commercial(text):
     low = " " + norm(text).lower() + " "
     if any(x in low for x in MIXED_MARKERS):
         return True
-    if any(x in low for x in RESIDENTIAL_LABELS):
+    if any(x in low for x in RESIDENTIAL_LABELS) and not any(x in low for x in MIXED_MARKERS):
         return False
     return any(x in low for x in COMMERCIAL_LABELS)
 
@@ -241,13 +245,146 @@ def _discover_browser(search_base=SEARCH):
         return {}, None, 0
 
 
+def _rightmove_property_id(href):
+    m = re.search(r"/properties/(\d+)", href or "", re.I)
+    return m.group(1) if m else None
+
+
+def _rightmove_card(anchor, pid):
+    node = anchor
+    best = None
+    for _ in range(10):
+        node = getattr(node, "parent", None)
+        if node is None:
+            break
+        ids = {_rightmove_property_id(a.get("href") or "") for a in node.find_all("a", href=True)}
+        ids.discard(None)
+        text = norm(node.get_text(" ", strip=True))
+        if ids == {pid} and 40 <= len(text) <= 6500:
+            best = node
+        if len(ids) > 1 or len(text) > 6500:
+            break
+    return best or anchor.parent
+
+
+def _rightmove_address(card, pid):
+    postcode_re = re.compile(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b", re.I)
+    choices = []
+    for a in card.find_all("a", href=True):
+        if _rightmove_property_id(a.get("href") or "") != pid:
+            continue
+        txt = norm(a.get_text(" ", strip=True))
+        if postcode_re.search(txt) and 10 <= len(txt) <= 300:
+            choices.append(txt)
+    if choices:
+        value = max(choices, key=len)
+        # Rightmove often appends a property-type label to the address link.
+        value = re.sub(r"\s+(?:Commercial Development|Residential Development|Retail Property(?: \(high street\))?|Heavy Industrial|Light Industrial|Industrial|Warehouse|Office|Restaurant|Hotel|Land|Leisure Property|Pub|Shop)\s*$", "", value, flags=re.I)
+        return norm(value)
+    text = norm(card.get_text(" ", strip=True))
+    m = re.search(r"([A-Z0-9][^£]{5,240}?\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b)", text, re.I)
+    return norm(m.group(1)) if m else None
+
+
+def _rightmove_lot(card, pid, href):
+    text = norm(card.get_text(" ", strip=True))
+    low = " " + text.lower() + " "
+    if any(x in low for x in CLOSED_MARKERS):
+        return None
+    # This is the dedicated Pattinson Auction branch, but still require explicit
+    # auction wording so a stray agency listing cannot leak onto the auction board.
+    if not any(x in low for x in (" auction ", "secure sale", "online bidding")):
+        return None
+    address = _rightmove_address(card, pid)
+    if not address:
+        return None
+    guide = parse_guide(text)
+    if guide is None:
+        m = re.search(r"£\s*([\d,]+(?:\.\d+)?)\s*Guide Price", text, re.I)
+        if m:
+            guide = float(m.group(1).replace(",", ""))
+    ptype = None
+    for label in (
+        "Commercial Development", "Retail Property (high street)", "Heavy Industrial", "Light Industrial",
+        "Industrial", "Warehouse", "Office", "Restaurant", "Hotel", "Land", "Leisure Property", "Pub", "Shop",
+    ):
+        if label.lower() in text.lower():
+            ptype = label
+            break
+    image = image_from_soup(card, RIGHTMOVE_SEARCH)
+    lot = Lot(
+        source=SOURCE,
+        url=f"https://www.rightmove.co.uk/properties/{pid}#/?channel=COM_BUY",
+        address=address,
+        auction_date=None,
+        image_url=image,
+        guide_price=guide,
+        annual_rent=parse_rent(text),
+        tenure=parse_tenure(text),
+        vat_status=parse_vat(text),
+        property_type=ptype or "Commercial",
+        description=text[:5000],
+    )
+    enrich_common_fields(lot, text)
+    return lot.finalise()
+
+
+def _parse_rightmove_page(s):
+    raw = str(s)
+    m = re.search(r'"resultCount"\s*:\s*"?(\d+)"?', raw)
+    total = int(m.group(1)) if m else None
+    found = {}
+    all_ids = set()
+    for a in s.find_all("a", href=True):
+        pid = _rightmove_property_id(a.get("href") or "")
+        if not pid or pid in all_ids:
+            continue
+        all_ids.add(pid)
+        card = _rightmove_card(a, pid)
+        lot = _rightmove_lot(card, pid, a.get("href") or "")
+        if lot:
+            found[lot.url] = lot
+    return found, total, all_ids
+
+
+def _discover_rightmove(hard_cap=100):
+    first = _direct_soup(RIGHTMOVE_SEARCH, timeout=30)
+    if first is None:
+        return {}, None, 0
+    first_found, total, first_ids = _parse_rightmove_page(first)
+    candidates = dict(first_found)
+    pages_seen = 1
+    page_size = len(first_ids) or 24
+    expected_pages = math.ceil(total / page_size) if total else 1
+    limit = min(hard_cap, max(1, expected_pages))
+    previous_ids = first_ids
+    for page_no in range(2, limit + 1):
+        index = (page_no - 1) * page_size
+        url = RIGHTMOVE_SEARCH + f"&index={index}"
+        s = _direct_soup(url, timeout=30)
+        if s is None:
+            break
+        page_found, _, page_ids = _parse_rightmove_page(s)
+        pages_seen += 1
+        candidates.update(page_found)
+        if not page_ids or page_ids == previous_ids:
+            break
+        previous_ids = page_ids
+    complete = (total is None) or pages_seen >= expected_pages
+    if not complete:
+        print("PATTINSON_RIGHTMOVE_INCOMPLETE", pages_seen, expected_pages, total)
+    return candidates, total, pages_seen
+
+
 def _discover_inventory():
     # Free/public routes only. The partner portal is first-party Pattinson data and
-    # is intentionally preferred over any paid proxy dependency when main-site
-    # Cloudflare rejects datacentre runners.
+    # is intentionally preferred when available. Rightmove is the public agency
+    # mirror for Pattinson's National Auctioneer branch and gives an exhaustive,
+    # paginated fallback when Cloudflare blocks Pattinson from datacentre runners.
     for mode, fn in (
         ("auction-direct", _discover_main),
         ("partner-direct", _discover_partner),
+        ("rightmove-auction-branch", _discover_rightmove),
         ("partner-browser", lambda: _discover_browser(PARTNER_SEARCH)),
         ("auction-browser", lambda: _discover_browser(SEARCH)),
     ):
@@ -258,7 +395,11 @@ def _discover_inventory():
 
 
 def _detail_soup(url):
-    # Canonical main page first, then the free Pattinson partner representation.
+    # Rightmove fallback rows are already hydrated from their search cards; do not
+    # turn them back into blocked Pattinson URLs. Canonical Pattinson rows still get
+    # first-party detail enrichment when the source is reachable.
+    if "rightmove.co.uk/properties/" in (url or ""):
+        return None, None
     ds = _direct_soup(url, timeout=10)
     if ds is not None:
         return ds, "main-detail"
@@ -287,8 +428,6 @@ def _apply_detail(lot, ds, seed, url):
     if h1:
         title = norm(h1.get_text(" ", strip=True))
         if title and not re.search(r"pattinson|property search|properties at auction|just a moment", title, re.I):
-            # Partner pages often put the generic property type in h1. Prefer the
-            # address line immediately following it when present.
             postcode_address = None
             for node in h1.find_all_next(["h2", "h3", "p", "div"], limit=12):
                 candidate = norm(node.get_text(" ", strip=True))
@@ -322,10 +461,13 @@ def _apply_detail(lot, ds, seed, url):
         lot.annual_rent = None
     elif re.search(r"tenant|tenanted|let to|currently let|producing £|currently rented", text, re.I):
         lot.occupation = "Tenanted"
+    enrich_common_fields(lot, text)
     return lot.finalise()
 
 
 def _enrich(url, seed):
+    if isinstance(seed, Lot):
+        return seed, False, "rightmove-card"
     lot = _lot_from_card(seed, url)
     if not lot:
         return None, True, None
@@ -341,7 +483,7 @@ def collect():
         if not candidates:
             return SourceResult(
                 SOURCE, "FAILED", [],
-                "No parseable Pattinson commercial/mixed-use auction inventory from either the canonical site or the free first-party partner portal.",
+                "No parseable Pattinson commercial/mixed-use auction inventory from the canonical site, first-party partner portal, or public Rightmove National Auctioneer mirror.",
                 discovered_count=0,
             )
 
@@ -357,7 +499,7 @@ def collect():
                     lot, enriched, detail_mode = future.result()
                     if lot:
                         lots.append(lot)
-                        if not enriched:
+                        if not enriched and detail_mode != "rightmove-card":
                             detail_failures += 1
                         if detail_mode:
                             detail_modes[detail_mode] = detail_modes.get(detail_mode, 0) + 1
@@ -365,14 +507,16 @@ def collect():
                         rejected += 1
                 except Exception as exc:
                     detail_failures += 1
-                    fallback = _lot_from_card(card, href)
+                    fallback = card if isinstance(card, Lot) else _lot_from_card(card, href)
                     if fallback:
                         lots.append(fallback)
                     print("PATTINSON_DETAIL_FAIL", href, repr(exc))
 
         dedup = {lot.url or (norm(lot.address).lower(), lot.guide_price): lot for lot in lots}
         lots = list(dedup.values())
-        status = "LIVE" if lots and len(lots) == len(candidates) and rejected == 0 else "DEGRADED" if lots else "FAILED"
+        expected_pages = math.ceil(total_results / 24) if mode == "rightmove-auction-branch" and total_results else pages_seen
+        complete_pages = pages_seen >= expected_pages
+        status = "LIVE" if lots and len(lots) == len(candidates) and rejected == 0 and complete_pages else "DEGRADED" if lots else "FAILED"
         detail_note = ", ".join(f"{k}={v}" for k, v in sorted(detail_modes.items())) or "detail-unavailable"
         return SourceResult(
             SOURCE, status, lots,
