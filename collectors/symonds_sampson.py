@@ -1,5 +1,5 @@
 import re
-from datetime import date, datetime
+from datetime import date
 from urllib.parse import urljoin
 
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat, is_commercial
@@ -46,6 +46,34 @@ def _parse_date(text):
         return None
 
 
+def _event_card_text(anchor):
+    """Return text for one event card without leaking dates from sibling events."""
+    own = norm(anchor.get_text(" ", strip=True))
+    node = anchor
+    best = own
+    for _ in range(7):
+        node = getattr(node, "parent", None)
+        if node is None:
+            break
+        candidate = norm(node.get_text(" ", strip=True))
+        if not candidate or len(candidate) > 2200:
+            break
+        event_links = [
+            x for x in node.find_all("a", href=True)
+            if "/event/property-auction-" in urljoin(BASE, x.get("href") or "").lower()
+        ]
+        # The first ancestor that owns exactly this event link and exposes a date
+        # is the safest card boundary. Never climb into a grid/container holding
+        # sibling events, otherwise an expired event can inherit a future date.
+        if len(event_links) == 1:
+            best = candidate
+            if DATE_RE.search(candidate):
+                return candidate
+        elif len(event_links) > 1:
+            break
+    return best
+
+
 def _event_links(s, today=None):
     today = today or date.today()
     found = {}
@@ -53,15 +81,7 @@ def _event_links(s, today=None):
         href = urljoin(BASE, a.get("href") or "").split("#", 1)[0]
         if "/event/property-auction-" not in href.lower():
             continue
-        node = a
-        block = norm(a.get_text(" ", strip=True))
-        for _ in range(5):
-            node = getattr(node, "parent", None)
-            if node is None:
-                break
-            candidate = norm(node.get_text(" ", strip=True))
-            if len(candidate) <= 1800 and len(candidate) > len(block):
-                block = candidate
+        block = _event_card_text(a)
         event_date = _parse_date(block)
         if event_date and event_date >= today.isoformat():
             found[href] = event_date
@@ -102,7 +122,6 @@ def _image(s, base):
 
 
 def _main_property_text(s):
-    # Bound text to the actual listing and avoid cookie/nav/footer chrome.
     h1 = s.find("h1") or s.find("h2")
     if not h1:
         return norm((s.find("main") or s).get_text(" ", strip=True))[:9000]
@@ -114,8 +133,7 @@ def _main_property_text(s):
             value = norm(node.get_text(" ", strip=True))
             if value and value not in pieces:
                 pieces.append(value)
-        joined = " ".join(pieces)
-        if len(joined) > 9000:
+        if len(" ".join(pieces)) > 9000:
             break
     return norm(" ".join(pieces))[:9000]
 
@@ -126,25 +144,20 @@ def _is_target(text):
         return True
     if any(x in low for x in COMMERCIAL_EXTRA):
         return True
-    # Do not treat generic "potential" on a house as commercial/development stock.
     if any(x in low for x in RESIDENTIAL_STRONG):
         return False
-    if re.search(r"\bdevelopment (?:site|land|plot)\b|\bbuilding plot\b", low):
-        return True
-    return False
+    return bool(re.search(r"\bdevelopment (?:site|land|plot)\b|\bbuilding plot\b", low))
 
 
 def _address(s, url):
     h1 = s.find("h1")
     if h1:
-        value = norm(h1.get_text(" ", strip=True))
-        value = re.sub(r"^#?\s*", "", value)
+        value = re.sub(r"^#?\s*", "", norm(h1.get_text(" ", strip=True)))
         if len(value) >= 6:
             return value
     title = s.find("title")
     if title:
-        value = norm(title.get_text(" ", strip=True))
-        value = re.sub(r"\s*\|.*$", "", value)
+        value = re.sub(r"\s*\|.*$", "", norm(title.get_text(" ", strip=True)))
         if len(value) >= 6:
             return value
     return url
@@ -184,7 +197,6 @@ def _detail(url, seed, event_date, fetcher=_fetch):
     combined = norm(seed + " " + text)
     if not _is_target(combined):
         return None
-
     guide = parse_guide(combined)
     if guide is None:
         m = re.search(r"Guide(?: Price)?\s*£+\s*([\d,]+(?:\.\d+)?)", combined, re.I)
@@ -223,7 +235,6 @@ def collect():
         events = _event_links(index)
         if not events:
             return SourceResult(SOURCE, "FAILED", [], "No future Symonds & Sampson property-auction events could be parsed.")
-
         candidates = {}
         published_event_dates = set()
         pending_event_dates = set()
@@ -240,7 +251,6 @@ def collect():
             except Exception as exc:
                 event_failures += 1
                 print("SYMONDS_EVENT_FAIL", event_url, repr(exc))
-
         lots = []
         detail_failures = 0
         for href, (seed, event_date) in candidates.items():
@@ -251,7 +261,6 @@ def collect():
             except Exception as exc:
                 detail_failures += 1
                 print("SYMONDS_DETAIL_FAIL", href, repr(exc))
-
         if event_failures:
             status = "DEGRADED" if lots else "FAILED"
         else:
@@ -263,8 +272,7 @@ def collect():
             f"{detail_failures} detail failures; {event_failures} event failures."
         )
         return SourceResult(
-            SOURCE, status, lots, message,
-            discovered_count=len(lots),
+            SOURCE, status, lots, message, discovered_count=len(lots),
             authoritative_snapshot=bool(status == "LIVE" and not event_failures and not detail_failures and published_event_dates),
             scope_dates=tuple(sorted(published_event_dates)),
         )
