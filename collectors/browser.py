@@ -1,7 +1,9 @@
 from __future__ import annotations
+import ssl
 import subprocess
 import time
 import requests
+from urllib.request import Request, urlopen
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
@@ -61,13 +63,38 @@ def _curl_http11(url: str, timeout_ms: int) -> str | None:
     return None
 
 
+def _urllib_fetch(url: str, timeout_ms: int) -> str | None:
+    """Protocol-independent stdlib fallback for public pages.
+
+    Some legacy EIG-hosted auction sites behave differently with urllib/OpenSSL
+    than with requests/curl on GitHub runners. This remains a normal unauthenticated
+    GET and intentionally does not weaken TLS verification or bypass challenges.
+    """
+    timeout_s = max(10, int(timeout_ms / 1000))
+    try:
+        req = Request(url, headers={
+            "User-Agent": HEADERS["User-Agent"],
+            "Accept-Language": HEADERS["Accept-Language"],
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        })
+        with urlopen(req, timeout=timeout_s, context=ssl.create_default_context()) as response:
+            raw = response.read()
+            if len(raw) <= 1000:
+                return None
+            charset = response.headers.get_content_charset() or "utf-8"
+            return raw.decode(charset, errors="replace")
+    except Exception:
+        return None
+
+
 def get_html(url: str, use_browser: bool = False, timeout_ms: int = 30000) -> str:
     """Fetch source HTML through independent transports before declaring failure.
 
-    Order is requests/urllib3, explicit HTTP/1.1 curl, then Chromium. This prevents
-    a transient protocol-specific failure from turning an otherwise public live
-    catalogue into a FAILED collector. Hard 401/403 challenges are not bypassed;
-    source-specific collectors must use another legitimate first-party route.
+    Order is requests/urllib3, explicit HTTP/1.1 curl, stdlib urllib/OpenSSL, then
+    Chromium. This prevents a transient protocol-specific failure from turning an
+    otherwise public live catalogue into a FAILED collector. Hard authentication
+    or bot challenges are not bypassed; source-specific collectors must use another
+    legitimate public route where one exists.
     """
     if not use_browser:
         try:
@@ -80,6 +107,10 @@ def get_html(url: str, use_browser: bool = False, timeout_ms: int = 30000) -> st
             pass
 
         text = _curl_http11(url, timeout_ms)
+        if text:
+            return text
+
+        text = _urllib_fetch(url, timeout_ms)
         if text:
             return text
 
