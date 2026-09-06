@@ -1,0 +1,40 @@
+name: Pattinson Closed Status Repair
+on:
+  push:
+    paths:
+      - '.github/workflows/pattinson-closed-marker-repair.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Repair auction closed-status semantics
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('collectors/pattinson.py')
+          s=p.read_text()
+          old='''CLOSED_MARKERS = (\n    " sold ", " sold stc ", " sold subject ", " auction ended ", " bidding ended ",\n    " withdrawn ", " no longer available ", " under offer ",\n)\n'''
+          new='''CLOSED_MARKERS = (\n    "sold stc", "sold subject", "auction ended", "bidding ended",\n    "withdrawn", "no longer available", "under offer",\n)\n\ndef _is_closed(text):\n    low = " " + norm(text).lower() + " "\n    if any(x in low for x in CLOSED_MARKERS):\n        return True\n    # Plain SOLD is terminal, but auction marketing routinely says\n    # "being sold via online auction" and must not be mistaken for a sold lot.\n    return bool(re.search(r"(?:^|\\s)sold(?:\\s|$)", low) and not re.search(r"\\b(?:being|property|lot)\\s+sold\\s+(?:via|by|through)\\b", low))\n'''
+          assert old in s, 'closed marker block changed unexpectedly'
+          s=s.replace(old,new,1)
+          s=s.replace('''    if any(x in low for x in CLOSED_MARKERS):\n        return False\n''','''    if _is_closed(text):\n        return False\n''',1)
+          s=s.replace('''    if any(x in low for x in CLOSED_MARKERS):\n        return None\n''','''    if _is_closed(text):\n        return None\n''',1)
+          s=s.replace('''    if any(x in low for x in CLOSED_MARKERS):\n        return None\n''','''    if _is_closed(text):\n        return None\n''',1)
+          p.write_text(s)
+          PY
+          python -m unittest tests.test_pattinson -v
+          git config user.name 'Auction Sniper Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add collectors/pattinson.py
+          git commit -m 'Fix Pattinson sold-via-auction status parsing'
+          git push origin main
