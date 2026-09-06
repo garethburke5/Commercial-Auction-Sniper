@@ -1,10 +1,8 @@
 name: Durable Strettons image repair
 
+# Legacy one-off repair retained for manual diagnostics. The canonical production
+# refresh and validation path is Auction Sniper Scan.
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/strettons-durable-repair.yml'
   workflow_dispatch:
 
 permissions:
@@ -50,8 +48,6 @@ jobs:
         if not out.get(k) and incoming.get(k):
             out[k]=incoming[k]
 
-    # A tiny inline/data-URI placeholder is not a genuine property photograph.
-    # Let a later exact-page collector snapshot replace it with a real HTTP image.
     old_image=str(out.get("image") or "")
     new_image=str(incoming.get("image") or "")
     old_image_bad=(not old_image or old_image.lower().startswith("data:image") or
@@ -79,13 +75,11 @@ jobs:
           from pathlib import Path
           d=json.loads(Path('data/properties.json').read_text(encoding='utf-8'))
           rows=[r for r in d.get('properties',[]) if r.get('source')=='Strettons']
-          print('Strettons rows:',len(rows))
           bad=[]
           for r in rows:
               img=str(r.get('image_url') or '')
               if not img.startswith(('http://','https://')) or img.startswith('data:image'):
                   bad.append((r.get('lot_number'),r.get('address'),img[:80]))
-          print('Bad Strettons images:',bad)
           if not rows:
               raise SystemExit('No Strettons rows collected')
           if bad:
@@ -98,7 +92,6 @@ jobs:
           python - <<'PY'
           from streamlit.testing.v1 import AppTest
           at=AppTest.from_file('app.py',default_timeout=20).run()
-          print('exceptions',len(at.exception))
           assert not at.exception
           PY
 
