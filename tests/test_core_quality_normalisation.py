@@ -1,6 +1,6 @@
 import unittest
 
-from collectors.core import Lot, clean_description, normalize_occupation
+from collectors.core import Lot, clean_description, normalize_occupation, parse_guide
 
 
 class CoreQualityNormalisationTests(unittest.TestCase):
@@ -43,6 +43,10 @@ class CoreQualityNormalisationTests(unittest.TestCase):
     def test_normal_property_prose_is_not_truncated_by_fallback_words(self):
         raw = "A commercial investment with a detailed description of the accommodation and location."
         self.assertEqual(clean_description(raw), raw)
+
+    def test_repeated_currency_markers_do_not_hide_guide_price(self):
+        self.assertEqual(parse_guide("Guide Price £ £ 295,000"), 295000.0)
+        self.assertEqual(parse_guide("Guide: ££125,000"), 125000.0)
 
     def test_vacant_label_is_repaired_when_particulars_show_part_let(self):
         description = (
