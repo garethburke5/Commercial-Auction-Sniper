@@ -242,8 +242,8 @@ def parse_money(text):
 def parse_guide(text):
     money = r"((?:£\s*)+[\d,]+(?:\.\d+)?)"
     # Auctioneers commonly decorate labels as "Guide Price*: £...", "Guide Price: £..."
-    # or "Guide**: £...". Accept any short punctuation run between label and money.
-    separator = r"(?:\s*[:*+\-–—|.]\s*)*"
+    # or "Guide**: £...". Keep free whitespace valid too, including duplicated £ markers.
+    separator = r"\s*(?:[:*+\-–—|.]\s*)*"
     for pat in [
         rf"Guide Price{separator}{money}",
         rf"Guide{separator}{money}",
