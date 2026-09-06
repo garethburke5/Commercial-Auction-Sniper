@@ -12,43 +12,34 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install -r requirements.txt && pip install playwright && python -m playwright install chromium
-      - name: Probe Rightmove fallback and Harman collector
+      - run: pip install requests beautifulsoup4 lxml
+      - name: Inspect Rightmove Pattinson pagination contract
         run: |
           python - <<'PY'
-          import requests
+          import requests,re,json
           from bs4 import BeautifulSoup
           from urllib.parse import urljoin
+          base='https://www.rightmove.co.uk/commercial-property-for-sale/find/Pattinsons/Pattinsons-Auction--National-Auctioneer.html?locationIdentifier=BRANCH%5E251528&includeSSTC=true&_includeSSTC=on'
           headers={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36'}
-          targets=[
-            'https://www.rightmove.co.uk/estate-agents/agent/Pattinsons/Pattinsons-Auction--National-Auctioneer-251528.html',
-            'https://www.rightmove.co.uk/commercial-property-for-sale/find/Pattinsons/Pattinsons-Auction--National-Auctioneer.html?locationIdentifier=BRANCH%5E251528&includeSSTC=true&_includeSSTC=on',
-            'https://www.pattinson.co.uk/auction/property-search?IncludeCommercialProperties=true&OnlineOnly=true&PropertySort=EndingSoonest&PageSize=100&p=1',
-          ]
-          for url in targets:
-            print('\nTARGET',url)
-            try:
-              r=requests.get(url,headers=headers,timeout=30,allow_redirects=True)
-              print('STATUS',r.status_code,'LEN',len(r.text),'FINAL',r.url)
-              s=BeautifulSoup(r.text,'lxml')
-              print('TITLE',s.title.get_text(' ',strip=True) if s.title else '')
-              text=s.get_text(' ',strip=True)
-              print('TEXT',text[:2200])
-              links=[]
-              for a in s.find_all('a',href=True):
-                href=urljoin(r.url,a['href'])
-                txt=a.get_text(' ',strip=True)
-                if '/properties/' in href or '/commercial-property-for-sale/' in href or 'property-' in href:
-                  links.append((txt[:100],href))
-              print('PROPERTY_LINKS',links[:100])
-            except Exception as e:
-              print('FAIL',type(e).__name__,e)
-          print('\nHARMAN_COLLECTOR')
-          try:
-            from collectors.harman_healy import collect
-            result=collect()
-            print(result.to_status_dict())
-            for lot in result.lots[:20]: print(lot.to_dict())
-          except Exception as e:
-            print('HARMAN_FAIL',type(e).__name__,e)
+          for idx in (0,24,48):
+            url=base+('&index='+str(idx) if idx else '')
+            r=requests.get(url,headers=headers,timeout=30)
+            print('\nINDEX',idx,'STATUS',r.status_code,'LEN',len(r.text))
+            s=BeautifulSoup(r.text,'lxml')
+            props=[]
+            for a in s.find_all('a',href=True):
+              m=re.search(r'/properties/(\d+)',a['href'])
+              if m and m.group(1) not in props: props.append(m.group(1))
+            print('UNIQUE_PROPERTY_IDS',len(props),props[:30])
+            text=s.get_text(' ',strip=True)
+            for pat in [r'(\d[\d,]*)\s+results',r'(\d[\d,]*)\s+properties',r'propertyCount.{0,30}(\d+)',r'resultCount.{0,30}(\d+)']:
+              hits=re.findall(pat,r.text,re.I)
+              if hits: print('COUNT_HIT',pat,hits[:20])
+            pages=[]
+            for a in s.find_all('a',href=True):
+              if 'index=' in a['href'] and a['href'] not in pages: pages.append(a['href'])
+            print('PAGINATION_LINKS',pages[:40])
+            for marker in ('propertySearchResults','searchResults','pagination','resultCount','properties'):
+              pos=r.text.find(marker)
+              if pos>=0: print('MARKER',marker,r.text[pos:pos+900].replace('\n',' ')[:900])
           PY
