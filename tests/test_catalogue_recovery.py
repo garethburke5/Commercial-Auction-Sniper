@@ -4,7 +4,7 @@ from unittest.mock import patch
 from bs4 import BeautifulSoup
 
 from collectors.barnett_ross import _fallback_rows
-from collectors.harman_healy import FUTURE, SEARCH, _inspect_catalogue_with_fallback, _lots_from_catalogue
+from collectors.harman_healy import FUTURE, SEARCH, _inspect_catalogue_with_fallback, _lots_from_catalogue, _lots_from_soup
 from collectors.savills_all_future import _savills_property_image_from_html
 
 
@@ -47,6 +47,22 @@ class CatalogueRecoveryTests(unittest.TestCase):
         self.assertEqual(residential,1)
         self.assertEqual(lots,[])
         browser.assert_called_once_with(FUTURE,use_browser=True)
+
+    def test_harman_healy_semantic_parser_accepts_non_heading_lot_marker(self):
+        html='''
+        <article class="result-card">
+          <div class="auction-marker">Online: Lot 12 | End Time - 17/09/2026 11:25</div>
+          <a href="/lot/details/999">12 High Street, Croydon, CR0 1AA</a>
+          <p>Freehold retail shop investment producing £18,000 pa.</p>
+          <p>Guide Price*: £150,000 plus</p><span>View / Bid</span>
+        </article>
+        '''
+        lots,seen,residential=_lots_from_soup(BeautifulSoup(html,'lxml'),FUTURE,date(2026,9,17),True)
+        self.assertEqual(seen,1)
+        self.assertEqual(residential,0)
+        self.assertEqual(len(lots),1)
+        self.assertEqual(lots[0].address,'12 High Street, Croydon, CR0 1AA')
+        self.assertEqual(lots[0].guide_price,150000.0)
 
     def test_harman_healy_specific_route_failure_falls_back_to_generic_catalogue(self):
         html='''
