@@ -18,11 +18,11 @@ COMMERCIAL_EXTRA = (
     "public house", "pub", "commercial", "mixed use", "mixed-use", "retail", "shop", "office",
     "industrial", "warehouse", "workshop", "business park", "business premises", "restaurant",
     "hotel", "leisure", "investment property", "commercial premises", "commercial building",
-    "garages", "garage block", "redevelopment potential", "development opportunity",
+    "garages", "garage block",
 )
 RESIDENTIAL_STRONG = (
     "detached house", "semi-detached house", "terraced house", "bungalow", "residential flat",
-    "bedroom flat", "family home", "residential property",
+    "bedroom flat", "family home", "residential property", "bedroom house", "house for sale",
 )
 
 
@@ -176,11 +176,13 @@ def _main_property_text(s):
 
 def _is_target(text):
     low = " " + norm(text).lower() + " "
-    if is_commercial(text):
+    explicit_commercial = is_commercial(text) or any(x in low for x in COMMERCIAL_EXTRA)
+    if explicit_commercial:
         return True
-    if any(x in low for x in COMMERCIAL_EXTRA):
-        return True
-    if any(x in low for x in RESIDENTIAL_STRONG):
+    # A residential lot does not become a commercial target merely because its
+    # particulars mention refurbishment/redevelopment. This previously admitted
+    # ordinary houses such as Fore Street, Beer into the commercial live board.
+    if any(x in low for x in RESIDENTIAL_STRONG) or re.search(r"\b\d+\s+bedroom\s+house\b", low):
         return False
     return bool(re.search(r"\bdevelopment (?:site|land|plot)\b|\bbuilding plot\b", low))
 
