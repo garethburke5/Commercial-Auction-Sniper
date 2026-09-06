@@ -9,12 +9,20 @@ SOURCE="Harman Healy"
 BASE="https://harman-healy.co.uk"
 AUCTIONS=BASE+"/auction"
 FUTURE=BASE+"/future-auctions"
+SEARCH=BASE+"/search"
 
 
 def _date(text):
     m=re.search(r"(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})",text or "",re.I)
     if not m: return None
     try: return datetime.strptime(f"{m.group(1)} {m.group(2)} {m.group(3)}","%d %B %Y").date()
+    except ValueError: return None
+
+
+def _numeric_date(text):
+    m=re.search(r"\b(\d{1,2})/(\d{1,2})/(20\d{2})\b",text or "")
+    if not m: return None
+    try: return date(int(m.group(3)),int(m.group(2)),int(m.group(1)))
     except ValueError: return None
 
 
@@ -64,12 +72,16 @@ def _fetch(url):
         return soup(url,use_browser=True)
 
 
-def _lots_from_soup(s,url,auction_date):
+def _lots_from_soup(s,url,auction_date,require_matching_end_date=False):
     lots=[]; seen=0; residential=0
     for heading in s.find_all(["h2","h3","h4"]):
         h=norm(heading.get_text(" ",strip=True))
         m=re.search(r"\bLot\s+(\d+[A-Z]?)\b",h,re.I)
         if not m: continue
+        if require_matching_end_date:
+            end_date=_numeric_date(h)
+            if end_date != auction_date:
+                continue
         seen+=1
         container=heading.parent
         text=norm(container.get_text(" ",strip=True)) if container else h
@@ -95,26 +107,27 @@ def _lots_from_soup(s,url,auction_date):
     return lots,seen,residential
 
 
-def _lots_from_catalogue(url,auction_date):
-    return _lots_from_soup(_fetch(url),url,auction_date)
+def _lots_from_catalogue(url,auction_date,require_matching_end_date=False):
+    return _lots_from_soup(_fetch(url),url,auction_date,require_matching_end_date=require_matching_end_date)
 
 
 def _inspect_catalogue_with_fallback(url,auction_date):
-    """Inspect the dated route, then Harman Healy's canonical live-results route.
+    """Inspect current Harman Healy inventory through independent first-party routes.
 
-    Their event links have changed historically while /future-auctions remains the
-    public canonical current catalogue. The fallback is deliberately same-site and
-    only accepted when it exposes parseable lot headings, so transport failures do
-    not become false source failures and an empty/error page cannot masquerade as a
-    clean zero-commercial catalogue.
+    Dated catalogue links and /future-auctions can intermittently fail from hosted
+    runners. /search also exposes the live lots but includes history, so it is only
+    accepted after filtering each lot heading to the requested auction end date.
+    This prevents transport failures becoming false source failures without ever
+    mixing historical properties into the live catalogue count.
     """
-    urls=[url]
-    if url.rstrip("/") != FUTURE.rstrip("/"):
-        urls.append(FUTURE)
+    urls=[]
+    for candidate in (url,FUTURE,SEARCH):
+        if candidate.rstrip("/") not in {u.rstrip("/") for u in urls}:
+            urls.append(candidate)
     last_exc=None
     for candidate in urls:
         try:
-            result=_lots_from_catalogue(candidate,auction_date)
+            result=_lots_from_catalogue(candidate,auction_date,require_matching_end_date=(candidate.rstrip("/")==SEARCH.rstrip("/")))
             if result[1] > 0:
                 return result,candidate
         except Exception as exc:
@@ -143,11 +156,11 @@ def collect():
         if all_lots:
             status="LIVE" if failures==0 else "DEGRADED"
             return SourceResult(SOURCE,status,all_lots,
-                f"All-future Harman Healy sweep: {total_seen} lots inspected; {len(all_lots)} commercial/mixed published; {total_res} residential rejected; {failures} catalogue failures; {fallback_count} generic-route recoveries.",
+                f"All-future Harman Healy sweep: {total_seen} lots inspected; {len(all_lots)} commercial/mixed published; {total_res} residential rejected; {failures} catalogue failures; {fallback_count} alternate-route recoveries.",
                 discovered_count=total_seen,scope_dates=scopes)
         if total_seen and failures==0:
             return SourceResult(SOURCE,"CATALOGUE PENDING",[],
-                f"Harman Healy future catalogue inspected: {total_seen} published lots, all residential; no commercial/mixed-use inventory currently published; {fallback_count} generic-route recoveries.",
+                f"Harman Healy future catalogue inspected: {total_seen} published lots, all residential; no commercial/mixed-use inventory currently published; {fallback_count} alternate-route recoveries.",
                 expected_count=0,discovered_count=total_seen,authoritative_snapshot=True,scope_dates=scopes)
         if failures:
             return SourceResult(SOURCE,"FAILED",[],f"Harman Healy future catalogue could not be reliably inspected ({failures} failures).",discovered_count=total_seen,scope_dates=scopes)
