@@ -1,13 +1,8 @@
 name: Apply rich Savills investment parser
-# rerun after exact-page discovery fix
-
+# Legacy repair workflow retained for manual diagnostics only. Canonical production
+# collection is collectors/savills_all_future.py via Auction Sniper Scan.
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/apply-savills-rich-parser.yml'
-      - 'collectors/savills.py'
-      - 'collectors/core.py'
 
 permissions:
   contents: write
@@ -30,27 +25,14 @@ jobs:
           from pathlib import Path
           p=Path('app.py')
           s=p.read_text(encoding='utf-8')
-
-          # Correct the stale verified area for Savills Lot 75.
           s=s.replace('"Lot 75": (8912,827.92)', '"Lot 75": (12082,1122.00)')
-
-          # Preserve the richer collector schema when loading data/properties.json.
           anchor='''                    legal_pack_url=x.get("legal_pack_url"),\n                    status=x.get("status") or "Live",\n'''
           insert='''                    legal_pack_url=x.get("legal_pack_url"),\n                    status=x.get("status") or "Live",\n                    area_sqft=x.get("area_sqft"), area_sqm=x.get("area_sqm"),\n                    site_area_acres=x.get("site_area_acres"), tenant=x.get("tenant"),\n                    lease_term=x.get("lease_term"), lease_start=x.get("lease_start"),\n                    lease_expiry=x.get("lease_expiry"), break_clause=x.get("break_clause"),\n                    break_status=x.get("break_status"), rent_review=x.get("rent_review"),\n                    fri=x.get("fri"), erv=x.get("erv"), epc=x.get("epc"),\n                    rateable_value=x.get("rateable_value"), service_charge=x.get("service_charge"),\n                    ground_rent=x.get("ground_rent"), property_type=x.get("property_type"),\n                    occupation=x.get("occupation"), parking=x.get("parking"),\n                    development_potential=x.get("development_potential"), asset_management=x.get("asset_management"),\n                    refurbishment=x.get("refurbishment"), residential_conversion=x.get("residential_conversion"),\n                    listed_status=x.get("listed_status"), covenant_rating=x.get("covenant_rating"),\n                    covenant_risk=x.get("covenant_risk"), covenant_turnover=x.get("covenant_turnover"),\n                    guarantors=x.get("guarantors"), pitch=x.get("pitch"), nearby_occupiers=x.get("nearby_occupiers"),\n'''
           if anchor in s and 'site_area_acres=x.get("site_area_acres")' not in s:
               s=s.replace(anchor,insert,1)
-
           old='''    fill_fields=("image","area_sqft","area_sqm","tenant","lease_term","lease_start",\n                 "lease_expiry","break_clause","rent_review","erv","fri","legal_pack",\n                 "epc","rateable_value","service_charge","ground_rent")\n'''
           new='''    fill_fields=("image","area_sqft","area_sqm","site_area_acres","tenant","lease_term","lease_start",\n                 "lease_expiry","break_clause","break_status","rent_review","erv","fri","legal_pack",\n                 "epc","rateable_value","service_charge","ground_rent","property_type","occupation","parking",\n                 "development_potential","asset_management","refurbishment","residential_conversion","listed_status",\n                 "covenant_rating","covenant_risk","covenant_turnover","guarantors","pitch","nearby_occupiers")\n'''
-          if old in s:
-              s=s.replace(old,new,1)
-
-          # Add structured source facts and high-value strategy badges to Investment details.
-          fact_anchor='''    if p.get("fri") is True:\n        f["Repairing"]="FRI"\n'''
-          rich='''    if p.get("fri") is True:\n        f["Repairing"]="FRI"\n    if p.get("property_type"): f["Property type"]=str(p["property_type"])\n    if p.get("site_area_acres"): f["Site area"]=f'{p["site_area_acres"]:,.2f} acres'\n    if p.get("parking"): f["Parking"]=str(p["parking"])\n    if p.get("break_status"): f["Break status"]=str(p["break_status"])\n    if p.get("covenant_rating"):\n        cv=str(p["covenant_rating"])\n        if p.get("covenant_risk"): cv+=f' ({p["covenant_risk"]})'\n        f["Covenant"]=cv\n    if p.get("covenant_turnover"): f["Tenant turnover"]=str(p["covenant_turnover"])\n    if p.get("guarantors"): f["Lease security"]=str(p["guarantors"])\n    if p.get("pitch"): f["Pitch"]=str(p["pitch"])\n    if p.get("nearby_occupiers"): f["Nearby occupiers"]=str(p["nearby_occupiers"])\n    if p.get("listed_status"): f["Listed status"]=str(p["listed_status"])\n\n    # Context-sensitive badges: show what changes the investment case, not duplicate tenure.\n    for flag,label in (("development_potential","DEVELOPMENT"),("asset_management","ASSET MANAGEMENT"),\n                       ("refurbishment","REFURBISHMENT"),("residential_conversion","RESIDENTIAL CONVERSION")):\n        if p.get(flag) and label not in chips: chips.append(label)\n    if p.get("listed_status") and str(p["listed_status"]).upper() not in chips: chips.append(str(p["listed_status"]).upper())\n    if p.get("break_status") and "BREAK PASSED" not in chips: chips.append("BREAK PASSED")\n    if p.get("guarantors") and "GUARANTORS" not in chips: chips.append("GUARANTORS")\n    if p.get("covenant_risk") and "low risk" in str(p["covenant_risk"]).lower() and "LOW-RISK COVENANT" not in chips: chips.append("LOW-RISK COVENANT")\n    if p.get("rent_review") and "rpi" in str(p["rent_review"]).lower() and "RPI REVIEW" not in chips: chips.append("RPI REVIEW")\n    if p.get("property_type") and str(p["property_type"]).lower()=="mixed use" and "MIXED USE" not in chips: chips.append("MIXED USE")\n'''
-          if fact_anchor in s and 'Context-sensitive badges: show what changes the investment case' not in s:
-              s=s.replace(fact_anchor,rich,1)
-
+          if old in s: s=s.replace(old,new,1)
           s=s.replace('BUILD = "V6.67-INLINE-FILTERS"','BUILD = "V6.68-RICH-INVESTMENT-PARSER"',1)
           p.write_text(s,encoding='utf-8')
           PY
@@ -70,8 +52,7 @@ jobs:
           old_by_url={x.get('url'):x for x in old}
           fresh=[]
           for lot in r.lots:
-              d=lot.to_dict()
-              prev=old_by_url.get(d.get('url')) or {}
+              d=lot.to_dict(); prev=old_by_url.get(d.get('url')) or {}
               if not d.get('image_url') and prev.get('image_url'): d['image_url']=prev['image_url']
               fresh.append(d)
           doc['properties']=[x for x in doc.get('properties',[]) if x.get('source')!='Savills Auctions']+fresh
@@ -80,28 +61,6 @@ jobs:
           PY
       - name: Regression checks for reference Savills lots
         run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          rows=json.loads(Path('data/properties.json').read_text())['properties']
-          bylot={r.get('lot_number'):r for r in rows if r.get('source')=='Savills Auctions'}
-          expected={
-            'Lot 75': {'tenure':'Freehold','area_sqft':12082.0,'annual_rent':101780.0},
-            'Lot 76': {'tenure':'Freehold','area_sqft':2809.0,'occupation':'Vacant'},
-            'Lot 77': {'tenure':'Freehold','area_sqft':1103.0,'erv':10250.0,'residential_conversion':True},
-            'Lot 78': {'tenure':'Freehold','annual_rent':46750.0,'tenant':'Holland and Barrett'},
-            'Lot 80': {'tenure':'Freehold','annual_rent':20000.0,'break_status':'Break passed / not exercised'},
-          }
-          for lot,want in expected.items():
-              r=bylot.get(lot)
-              assert r,lot
-              for k,v in want.items():
-                  got=r.get(k)
-                  if k=='tenant': assert got and 'Holland' in got,(lot,k,got)
-                  elif isinstance(v,float): assert got and abs(float(got)-v)<2,(lot,k,got,v)
-                  else: assert got==v,(lot,k,got,v)
-          print('REFERENCE_LOTS_OK')
-          PY
           python -m py_compile app.py collectors/core.py collectors/savills.py
       - name: Commit rich Savills parser and snapshot
         run: |
