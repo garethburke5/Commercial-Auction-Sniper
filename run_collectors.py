@@ -7,6 +7,7 @@ from urllib.parse import urlparse, unquote
 
 from collectors.core import SourceResult, clean_description
 from collectors.auction_house_london_v2 import collect as ahl
+from collectors.auction_house_regions import collect_east_anglia, collect_west_yorkshire, collect_sussex_hampshire
 from collectors.savills_all_future import collect as savills
 from collectors.bond_wolfe_v2 import collect as bond_wolfe
 from collectors.pugh import collect as pugh
@@ -27,7 +28,7 @@ from source_manifest import append_missing_health, manifest_coverage
 
 DATA=Path("data")
 DATA.mkdir(exist_ok=True)
-COLLECTORS=[ahl,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross,harman_healy,knight_frank,town_country,future_property]
+COLLECTORS=[ahl,collect_east_anglia,collect_west_yorkshire,collect_sussex_hampshire,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross,harman_healy,knight_frank,town_country,future_property]
 PUBLISHABLE={"LIVE","DEGRADED"}
 BAD_ADDRESS=re.compile(r"(?:login|log in|sign in|register to bid|book a viewing|arrange a viewing|viewing appointment|cancel proxy bid|your bid|remove from wishlist|add to wishlist|connecting to auction|please wait|full details|legal pack available)",re.I)
 DESCRIPTION_BOILERPLATE=re.compile(r"(?:book your free appraisal|register to bid|create account\s*/\s*login|my account|auction countdown|book a viewing|sign up for auction alerts)",re.I)
