@@ -10,6 +10,7 @@ from collectors.pattinson import (
     _auction_card,
     _canonical_property_url,
     _discover_with,
+    _is_closed,
     _lot_from_card,
     _page_url,
     _parse_rightmove_page,
@@ -55,6 +56,12 @@ class PattinsonCollectorTests(unittest.TestCase):
     def test_sold_commercial_auction_card_is_rejected(self):
         card = "SOLD Starting Bid£60,000 Retail in TS18 High Street, Stockton, Durham, TS18 1PL On Street parking"
         self.assertFalse(_auction_card(card))
+
+    def test_sold_via_auction_marketing_is_not_terminal_status(self):
+        self.assertFalse(_is_closed("Being Sold Via Online Auction. Fees Apply."))
+        self.assertFalse(_is_closed("Property sold by online auction method; bidding is open."))
+        self.assertTrue(_is_closed("SOLD STC - online auction property"))
+        self.assertTrue(_is_closed("SOLD Starting Bid £60,000"))
 
     def test_withdrawn_commercial_auction_card_is_rejected(self):
         card = "Withdrawn Starting Bid£60,000 Commercial Development in TS18 High Street, Stockton, Durham, TS18 1PL"
