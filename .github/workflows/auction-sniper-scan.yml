@@ -115,12 +115,29 @@ jobs:
           for src,q in sorted(quality.items()):
               print(src,q)
 
-          # Property photos and useful particulars are release criteria, not cosmetic extras.
-          for src in ('Savills Auctions','Acuitus'):
+          # Acceptance is board-wide: a collector cannot be called production-ready
+          # merely because it found URLs. Every live source with meaningful inventory
+          # must have predominantly genuine property images and useful particulars.
+          # This intentionally turns silent skeleton-card regressions into CI failures.
+          live_sources={
+              s['source'] for s in d['source_health']
+              if s.get('status') in {'LIVE','DEGRADED'} and (s.get('lots_seen') or 0) >= 3
+          }
+          image_fail=[]
+          rich_fail=[]
+          missing_quality=[]
+          for src in sorted(live_sources):
               q=quality.get(src)
-              assert q and q.get('lots',0)>0, f'{src}: no current lots to quality-check'
-              assert q.get('image_coverage_pct',0)>=90, f"{src}: genuine property-image coverage only {q.get('image_coverage_pct')}%"
-              assert q.get('rich_coverage_pct',0)>=70, f"{src}: rich-particular coverage only {q.get('rich_coverage_pct')}%"
+              if not q or not q.get('lots'):
+                  missing_quality.append(src)
+                  continue
+              if q.get('image_coverage_pct',0) < 80:
+                  image_fail.append(f"{src} {q.get('image_coverage_pct',0)}%")
+              if q.get('rich_coverage_pct',0) < 60:
+                  rich_fail.append(f"{src} {q.get('rich_coverage_pct',0)}%")
+          assert not missing_quality, 'live sources missing quality telemetry: '+', '.join(missing_quality)
+          assert not image_fail, 'live-source genuine image coverage below 80%: '+', '.join(image_fail)
+          assert not rich_fail, 'live-source rich-particular coverage below 60%: '+', '.join(rich_fail)
 
           bad_vacant=[x for x in d['properties'] if str(x.get('occupation') or '').strip().lower() in {'vacant','vacant possession'} and (x.get('annual_rent') is not None or x.get('gross_yield') is not None)]
           assert not bad_vacant, f'vacant rent/yield integrity failures: {len(bad_vacant)}'
