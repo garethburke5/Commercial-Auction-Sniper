@@ -13,6 +13,7 @@ from .browser import get_html
 SOURCE = "LSH Auctions"
 BASE = "https://propertyauctions.lsh.co.uk"
 URL = BASE + "/future-auctions"
+DISCOVERY_URLS = (URL, BASE + "/")
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
     "Accept-Language": "en-GB,en;q=0.9",
@@ -42,10 +43,31 @@ def _resilient_soup(url):
             time.sleep(1.0 + attempt)
     try:
         return BeautifulSoup(get_html(url, use_browser=False), "lxml")
-    except Exception:
-        if last:
-            raise last
-        raise
+    except Exception as exc:
+        raise exc from last
+
+
+def _discovery_soup():
+    """Use multiple first-party catalogue surfaces before declaring LSH unavailable.
+
+    LSH's /future-auctions route intermittently resets connections from hosted
+    runners while the homepage simultaneously exposes the same current auction
+    cards. Treat those pages as equivalent discovery surfaces and only fail after
+    both have been attempted through the normal multi-transport fetcher.
+    """
+    errors=[]
+    for url in DISCOVERY_URLS:
+        try:
+            s=_resilient_soup(url)
+            if any("/lot/details/" in (a.get("href") or "").lower() for a in s.find_all("a",href=True)):
+                return s,url
+            # A valid empty page is still useful if it explicitly identifies the next auction.
+            text=norm(s.get_text(" ",strip=True))
+            if "Next Auction" in text or "View Available Properties" in text:
+                return s,url
+        except Exception as exc:
+            errors.append(f"{url}: {type(exc).__name__}: {exc}")
+    raise RuntimeError("; ".join(errors) or "no usable LSH discovery surface")
 
 
 def _card_text(a):
@@ -89,7 +111,7 @@ def _date(text):
 
 def collect():
     try:
-        s = _resilient_soup(URL)
+        s,discovery_url = _discovery_soup()
         today = datetime.now(timezone.utc).date().isoformat()
 
         targets = {}
@@ -134,10 +156,10 @@ def collect():
         status = "LIVE" if lots and failures == 0 and undated_rejected == 0 else ("DEGRADED" if lots else "FAILED")
         return SourceResult(
             SOURCE, status, lots,
-            f"All-future exact-page sweep: {len(targets)} lot pages; {len(lots)} commercial/mixed published across {len(scope_dates)} future auction date(s); {residential_rejected} residential; {past_rejected} past; {undated_rejected} undated; {failures} failures",
+            f"All-future exact-page sweep via {discovery_url}: {len(targets)} lot pages; {len(lots)} commercial/mixed published across {len(scope_dates)} future auction date(s); {residential_rejected} residential; {past_rejected} past; {undated_rejected} undated; {failures} failures",
             discovered_count=len(targets),
             authoritative_snapshot=False,
             scope_dates=tuple(sorted(scope_dates)),
         )
     except Exception as exc:
-        return SourceResult(SOURCE, "FAILED", [], f"LSH discovery failed after transport fallbacks: {exc}")
+        return SourceResult(SOURCE, "FAILED", [], f"LSH discovery failed after first-party route and transport fallbacks: {exc}")
