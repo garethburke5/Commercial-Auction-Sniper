@@ -26,6 +26,20 @@ def _numeric_date(text):
     except ValueError: return None
 
 
+def _current_catalogue_date(s):
+    """Recover the live event date directly from lot end-time headings."""
+    today=date.today()
+    dates=[]
+    for heading in s.find_all(["h2","h3","h4"]):
+        h=norm(heading.get_text(" ",strip=True))
+        if not re.search(r"\bLot\s+\d+",h,re.I):
+            continue
+        d=_numeric_date(h)
+        if d and d>=today:
+            dates.append(d)
+    return min(dates) if dates else None
+
+
 def _future_events(s):
     out=[]; today=date.today()
     for row in s.find_all(["tr","div","li"]):
@@ -60,9 +74,6 @@ def _catalogue_candidates(root):
         d=_date(text)
         if d and d>=today: out[href]=d
     events=_future_events(root)
-    # A dated event with no lot count is an announced auction, not proof that a
-    # catalogue has been published. Only synthesize /future-auctions as a catalogue
-    # route when the first-party page explicitly advertises a positive lot count.
     if not out and events:
         live=[(d,c) for d,c in events if c is not None and c>0]
         if live: out[FUTURE]=live[0][0]
@@ -132,16 +143,44 @@ def _inspect_catalogue_with_fallback(url,auction_date):
     return ([],0,0),urls[-1]
 
 
+def _direct_current_catalogue_result(root_error=None):
+    """Inspect /future-auctions even when the auction diary transport is unhealthy."""
+    s=_fetch(FUTURE)
+    d=_current_catalogue_date(s)
+    if not d:
+        raise RuntimeError("current catalogue route has no future lot end dates") from root_error
+    lots,seen,res=_lots_from_soup(s,FUTURE,d,require_matching_end_date=True)
+    scopes=(d.isoformat(),)
+    if lots:
+        return SourceResult(SOURCE,"LIVE",lots,
+            f"Harman Healy current catalogue recovered directly: {seen} lots inspected; {len(lots)} commercial/mixed published; {res} residential rejected.",
+            discovered_count=seen,scope_dates=scopes,authoritative_snapshot=True)
+    if seen:
+        return SourceResult(SOURCE,"CATALOGUE PENDING",[],
+            f"Harman Healy current catalogue recovered directly: {seen} published lots inspected, all residential; no commercial/mixed-use inventory currently published.",
+            expected_count=0,discovered_count=seen,authoritative_snapshot=True,scope_dates=scopes)
+    raise RuntimeError("current catalogue route exposed no parseable lots") from root_error
+
+
 def collect():
     try:
-        root=_fetch(AUCTIONS)
+        try:
+            root=_fetch(AUCTIONS)
+        except Exception as root_exc:
+            try:
+                return _direct_current_catalogue_result(root_exc)
+            except Exception as direct_exc:
+                return SourceResult(SOURCE,"FAILED",[],f"Harman Healy diary and direct catalogue routes failed: {type(direct_exc).__name__}: {direct_exc}")
         cats,events=_catalogue_candidates(root)
         scopes=tuple(d.isoformat() for d,_ in events)
         if not cats:
-            announced = ", ".join(d.isoformat() for d,_ in events) or "none"
-            return SourceResult(SOURCE,"CATALOGUE PENDING",[],
-                f"Harman Healy future auction date(s) announced ({announced}) but no first-party evidence of a published lot catalogue yet.",
-                discovered_count=0,scope_dates=scopes,authoritative_snapshot=True)
+            try:
+                return _direct_current_catalogue_result()
+            except Exception:
+                announced = ", ".join(d.isoformat() for d,_ in events) or "none"
+                return SourceResult(SOURCE,"CATALOGUE PENDING",[],
+                    f"Harman Healy future auction date(s) announced ({announced}) but no first-party evidence of a published lot catalogue yet.",
+                    discovered_count=0,scope_dates=scopes,authoritative_snapshot=True)
         all_lots=[]; total_seen=total_res=failures=0; fallback_count=0
         for url,d in cats.items():
             try:
@@ -161,7 +200,10 @@ def collect():
                 f"Harman Healy future catalogue inspected: {total_seen} published lots, all residential; no commercial/mixed-use inventory currently published; {fallback_count} alternate-route recoveries.",
                 expected_count=0,discovered_count=total_seen,authoritative_snapshot=True,scope_dates=scopes)
         if failures:
-            return SourceResult(SOURCE,"FAILED",[],f"Harman Healy published future catalogue could not be reliably inspected ({failures} failures).",discovered_count=total_seen,scope_dates=scopes)
+            try:
+                return _direct_current_catalogue_result()
+            except Exception:
+                return SourceResult(SOURCE,"FAILED",[],f"Harman Healy published future catalogue could not be reliably inspected ({failures} failures).",discovered_count=total_seen,scope_dates=scopes)
         return SourceResult(SOURCE,"CATALOGUE PENDING",[],"Harman Healy future catalogue currently exposes no parseable lots.",discovered_count=0,scope_dates=scopes)
     except Exception as exc:
         return SourceResult(SOURCE,"FAILED",[],f"Harman Healy collection failed: {type(exc).__name__}: {exc}")
