@@ -1,7 +1,13 @@
 import unittest
 from bs4 import BeautifulSoup
 
-from collectors.allsop import _card_is_target, _extract_targets
+from collectors.allsop import (
+    _card_is_target,
+    _extract_targets,
+    _address_from_soup,
+    _header_auction_date,
+    _live_status_probe,
+)
 
 
 class AllsopCollectorTests(unittest.TestCase):
@@ -30,6 +36,24 @@ class AllsopCollectorTests(unittest.TestCase):
 
     def test_rejects_pure_residential_card(self):
         self.assertFalse(_card_is_target("Residential LOT 12 - Sep 2026 Two Bedroom Flat London SW1"))
+
+    def test_address_uses_direct_text_node_not_large_parent(self):
+        html = '''
+        <main>
+          <div><h2>LOT 66 - London</h2><p>7 Kenway Road, Earls Court, London, SW5 0RP</p></div>
+          <section>{}</section>
+        </main>
+        '''.format("boilerplate " * 300)
+        s = BeautifulSoup(html, "lxml")
+        self.assertEqual(_address_from_soup(s, ""), "7 Kenway Road, Earls Court, London, SW5 0RP")
+
+    def test_catalogue_header_date_is_parsed(self):
+        self.assertEqual(_header_auction_date("Residential - 16th & 17th Sept 2026 - Live Stream"), "2026-09-16")
+
+    def test_generic_page_chrome_sold_prior_does_not_enter_status_probe(self):
+        s = BeautifulSoup('''<main><h1>INVESTMENT - Freehold Mixed Use Building</h1><p>Other auction results include sold prior lots.</p></main>''', "lxml")
+        probe = _live_status_probe(s, "Residential LOT 66 - Sep 2026 Mixed Use Building")
+        self.assertNotIn("sold prior", probe.lower())
 
 
 if __name__ == "__main__":
