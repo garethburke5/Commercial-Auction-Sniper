@@ -135,22 +135,53 @@ def _area(text):
 
 
 def _lease_details(text):
-    value = norm(text)
+    low = norm(text)
     expiry = None
-    m = re.search(r"(?:lease\s+(?:until|till|to)|expires?\s+)([A-Za-z]+\s+20\d{2}|\d{1,2}[/-]\d{1,2}[/-]20\d{2})", value, re.I)
+    m = re.search(r"(?:lease\s+(?:until|till|to)|expires?\s+)([A-Za-z]+\s+20\d{2}|\d{1,2}[/-]\d{1,2}[/-]20\d{2})", low, re.I)
     if m:
         expiry = norm(m.group(1))
-    holding_over = bool(re.search(r"holding over", value, re.I))
+    holding_over = bool(re.search(r"holding over", low, re.I))
     return expiry, holding_over
+
+
+def _terminal_status_near_title(s):
+    """Read Sold Prior/Withdrawn only from the current lot header area.
+
+    Auction Estates pages can contain other property cards and generic sale notices
+    elsewhere in the document. Searching the whole page caused one sold-prior badge
+    to suppress unrelated live lots. The lot status is published immediately around
+    the H1, before Guide price / Property Type, so scope detection to that region.
+    """
+    h1 = s.find("h1")
+    if not h1:
+        return None
+    parts = [norm(h1.get_text(" ", strip=True))]
+    for node in h1.find_all_next(limit=24):
+        name = getattr(node, "name", None)
+        if name not in {"div", "span", "p", "strong", "h2", "h3", "dt", "dd"}:
+            continue
+        text = norm(node.get_text(" ", strip=True))
+        if not text:
+            continue
+        if re.search(r"\bGuide\s*price\b|\bProperty\s*Type\b|\bKey\s*Features\b", text, re.I):
+            break
+        parts.append(text)
+        if len(" ".join(parts)) > 1200:
+            break
+    probe = norm(" ".join(parts))
+    if re.search(r"\bSold\s*Prior\b|\bSoldPrior\b", probe, re.I):
+        return "SOLD PRIOR"
+    if re.search(r"\bWithdrawn\b", probe, re.I):
+        return "WITHDRAWN"
+    return None
 
 
 def _detail(url, card, auction_date, fetcher=_fetch):
     s = fetcher(url)
     text = _description(s)
-    full_page = norm(s.get_text(" ", strip=True))
     combined = norm(card + " " + text)
 
-    if re.search(r"\bSold\s*Prior\b|\bSold Prior\b|\bWithdrawn\b", full_page, re.I):
+    if _terminal_status_near_title(s):
         return None
     if not _is_target(combined):
         return None
@@ -189,36 +220,20 @@ def _detail(url, card, auction_date, fetcher=_fetch):
     if re.search(r"scope for conversion of (?:the )?uppers? to residential|conversion of upper floors? to residential|residential conversion|subject to planning|\bSTP\b", combined, re.I):
         lot.residential_conversion = True
         lot.development_potential = True
-    elif re.search(r"development potential|future development|redevelopment|scope for .*development", combined, re.I):
+    elif re.search(r"development potential|redevelopment|scope for .*development|potential for future development|future development", combined, re.I):
         lot.development_potential = True
-
-    if re.search(r"comprehensive refurbishment|refurbish|refurbishment|requires restoration|in need of renovation", combined, re.I):
+    if re.search(r"refurbish|refurbishment|requires restoration|in need of renovation", combined, re.I):
         lot.refurbishment = True
-
     if re.search(r"self[- ]contained access", combined, re.I):
         lot.asset_management = True
-
-    pm = re.search(r"parking for\s+(\d+)\s+(?:cars|vehicles)", combined, re.I)
-    if pm:
-        lot.parking = f"Parking for {pm.group(1)} vehicles"
-    elif re.search(r"secure car park", combined, re.I):
-        lot.parking = "Secure car park"
-    elif re.search(r"\bcar park\b|\bparking\b", combined, re.I):
-        lot.parking = "Car park / parking mentioned"
-
     if re.search(r"prominent position|heart of .*town centre|heart of .*city centre|pedestrianised|prominent location", combined, re.I):
         lot.pitch = "Prominent/central commercial location"
-
-    nearby = []
-    m = re.search(r"Nearby occupiers:?\s*(.+?)(?:\.|Close to|$)", combined, re.I)
-    if m:
-        nearby.append(norm(m.group(1))[:220])
-    for brand in ("Tesco Express", "Tesco", "Sainsbury's", "Lidl", "Aldi", "Morrisons", "Asda"):
-        if re.search(rf"\b(?:adjacent to|close to|opposite)\s+(?:a\s+)?{re.escape(brand)}\b", combined, re.I):
-            nearby.append(brand)
-    if nearby:
-        lot.nearby_occupiers = ", ".join(dict.fromkeys(nearby))[:300]
-
+    if re.search(r"secure car park", combined, re.I):
+        lot.parking = "Secure car park"
+    elif re.search(r"\bcar park\b|\bparking\b", combined, re.I):
+        lot.parking = "Parking mentioned"
+    near = re.search(r"(?:Adjacent to|Nearby occupiers?:?)\s+(.+?)(?:\.|Close to|$)", combined, re.I)
+    if near: lot.nearby_occupiers = norm(near.group(1))[:300]
     return lot.finalise()
 
 
@@ -244,7 +259,7 @@ def collect():
                 print("AUCTION_ESTATES_DETAIL_FAIL", href, repr(exc))
         status = "LIVE" if failures == 0 else "DEGRADED"
         return SourceResult(SOURCE, status, lots,
-            f"Current Auction Estates {auction_date} catalogue: {len(all_links)} total lot pages inspected; {len(lots)} live commercial/mixed-use lots published; {failures} detail failures. Sold-prior/withdrawn lots excluded.",
+            f"Current Auction Estates {auction_date} catalogue: {len(all_links)} total lot pages inspected; {len(lots)} live commercial/mixed-use lots published; {failures} detail failures. Sold-prior/withdrawn lots excluded by lot-scoped status.",
             discovered_count=len(lots), authoritative_snapshot=bool(status == "LIVE"), scope_dates=(auction_date,))
     except Exception as exc:
         return SourceResult(SOURCE, "FAILED", [], f"Auction Estates collection failed: {type(exc).__name__}: {exc}")
