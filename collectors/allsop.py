@@ -7,6 +7,10 @@ from .utils import soup, nearest_card, image_from_soup, legal_pack
 
 SOURCE = "Allsop Commercial"
 BASE = "https://www.allsop.co.uk"
+LANDING_PAGES = (
+    BASE + "/auctions/commercial-auctions/",
+    BASE + "/auctions/residential-auctions/",
+)
 SEARCHES = (
     BASE + "/property-search?future_auctions=on&page={page}&sortOrder=Max+Price&view=list",
     BASE + "/property-search?available_only=true&lot_type=both&page={page}&view=list",
@@ -19,8 +23,7 @@ def _lot_no(text):
 
 
 def _month_date(text):
-    # Result cards expose month/year even when exact day is only on the detail page.
-    m = re.search(r"\b(?:Commercial|Residential)\s*-\s*LOT\s+\d+[A-Z]?\s*-\s*([A-Za-z]{3,9})\s+(20\d{2})\b", text or "", re.I)
+    m = re.search(r"\b(?:Commercial|Residential)\s*-?\s*LOT(?:\s+\d+[A-Z]?)?\s*-?\s*([A-Za-z]{3,9})\s+(20\d{2})\b", text or "", re.I)
     if not m:
         return None
     month = m.group(1).lower()[:3]
@@ -29,7 +32,7 @@ def _month_date(text):
 
 
 def _exact_auction_date(text, fallback=None):
-    m = re.search(r"offered on\s+(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)?\s*(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)(?:\s+(20\d{2}))?", text or "", re.I)
+    m = re.search(r"(?:offered on|auction(?:ed)?(?: on)?|auction date)\s+(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)?\s*(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)(?:\s+(20\d{2}))?", text or "", re.I)
     if not m:
         return fallback
     months = {"january":"01","february":"02","march":"03","april":"04","may":"05","june":"06","july":"07","august":"08","september":"09","october":"10","november":"11","december":"12"}
@@ -40,15 +43,37 @@ def _exact_auction_date(text, fallback=None):
 
 def _card_is_target(card):
     low = (card or "").lower()
-    if "commercial - lot" in low:
+    if "commercial lot" in low or "commercial - lot" in low:
         return True
-    # Allsop residential catalogues contain mixed-use assets that belong on Auction Sniper.
     mixed_terms = ("mixed use", "mixed-use", "commercial & residential", "commercial and residential", "shop and residential", "retail and residential", "commercial unit")
     return any(x in low for x in mixed_terms) and is_commercial(card)
 
 
+def _extract_targets(s, found):
+    for a in s.find_all("a", href=True):
+        href = urljoin(BASE, a.get("href") or "").split("?", 1)[0]
+        if "/lot-overview/" not in href:
+            continue
+        card = nearest_card(a, 5000) or norm(a.get_text(" ", strip=True))
+        if not _card_is_target(card):
+            continue
+        found[href] = card
+
+
 def _discover():
     found = {}
+    # Canonical auction landing pages now expose early/current lots before the generic
+    # property-search endpoint does. Always inspect them first so a published catalogue
+    # cannot be incorrectly reported as pending.
+    for url in LANDING_PAGES:
+        try:
+            _extract_targets(soup(url, use_browser=False), found)
+        except Exception:
+            try:
+                _extract_targets(soup(url, use_browser=True), found)
+            except Exception:
+                pass
+
     for template in SEARCHES:
         repeated = None
         for page in range(1, 31):
@@ -56,20 +81,16 @@ def _discover():
                 s = soup(template.format(page=page), use_browser=False)
             except Exception:
                 continue
-            page_urls = []
-            for a in s.find_all("a", href=True):
-                href = urljoin(BASE, a.get("href") or "")
-                if "/lot-overview/" not in href:
-                    continue
-                card = nearest_card(a, 5000) or norm(a.get_text(" ", strip=True))
-                if not _card_is_target(card):
-                    continue
-                page_urls.append(href)
-                found[href] = card
-            sig = tuple(sorted(set(page_urls)))
+            before = len(found)
+            page_found = {}
+            _extract_targets(s, page_found)
+            found.update(page_found)
+            sig = tuple(sorted(page_found))
             if page > 1 and sig and sig == repeated:
                 break
             if page > 1 and not sig:
+                break
+            if page > 1 and len(found) == before and not sig:
                 break
             repeated = sig
     return found
@@ -84,7 +105,6 @@ def _hydrate(item):
     if "withdrawn" in low or "sold prior" in low:
         return None
 
-    # On Allsop detail pages the H1 is the investment title; the postal address is a separate heading near the lot label.
     address = None
     postcode = re.compile(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b", re.I)
     for tag in s.find_all(["h2", "h3", "h4", "h5", "div", "p"]):
@@ -94,7 +114,6 @@ def _hydrate(item):
                 address = t
                 break
     if not address:
-        # Search-card text normally contains a clean address immediately after FEATURED LOT / lot label.
         pm = postcode.search(card)
         if pm:
             prefix = card[:pm.end()]
@@ -148,7 +167,7 @@ def collect():
     try:
         targets = _discover()
         if not targets:
-            return SourceResult(SOURCE, "CATALOGUE PENDING", [], "Allsop public current/future and still-available searches returned no commercial/mixed-use lots.", discovered_count=0)
+            return SourceResult(SOURCE, "CATALOGUE PENDING", [], "Allsop canonical auction pages and public search endpoints returned no commercial/mixed-use lots.", discovered_count=0)
 
         lots = []
         failures = 0
@@ -169,7 +188,7 @@ def collect():
             SOURCE,
             status,
             lots,
-            f"Allsop first-class collector: {len(targets)} commercial/mixed-use candidate pages discovered; {len(lots)} published; {failures} detail failures.",
+            f"Allsop canonical+search collector: {len(targets)} commercial/mixed-use candidate pages discovered; {len(lots)} published; {failures} detail failures.",
             discovered_count=len(targets),
             authoritative_snapshot=False,
             scope_dates=tuple(sorted({x.auction_date for x in lots if x.auction_date})),
