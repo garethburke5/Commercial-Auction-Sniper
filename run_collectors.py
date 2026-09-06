@@ -22,11 +22,12 @@ from collectors.barnett_ross import collect as barnett_ross
 from collectors.harman_healy import collect as harman_healy
 from collectors.knight_frank import collect as knight_frank
 from collectors.town_country import collect as town_country
+from collectors.future_property_auctions import collect as future_property
 from source_manifest import append_missing_health, manifest_coverage
 
 DATA=Path("data")
 DATA.mkdir(exist_ok=True)
-COLLECTORS=[ahl,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross,harman_healy,knight_frank,town_country]
+COLLECTORS=[ahl,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross,harman_healy,knight_frank,town_country,future_property]
 PUBLISHABLE={"LIVE","DEGRADED"}
 BAD_ADDRESS=re.compile(r"(?:login|log in|sign in|register to bid|book a viewing|arrange a viewing|viewing appointment|cancel proxy bid|your bid|remove from wishlist|add to wishlist|connecting to auction|please wait|full details|legal pack available)",re.I)
 DESCRIPTION_BOILERPLATE=re.compile(r"(?:book your free appraisal|register to bid|create account\s*/\s*login|my account|auction countdown|book a viewing|sign up for auction alerts)",re.I)
@@ -106,10 +107,6 @@ def _merge_last_good(old,new):
         if k=="description":
             new_desc=clean_description(v)
             old_desc=clean_description(out.get(k))
-            # New first-party particulars are authoritative when present. The old
-            # length heuristic preserved giant page dumps forever because chrome is
-            # longer than the repaired description. Clean both sides and prefer the
-            # fresh particulars regardless of raw length.
             if _meaningful(new_desc): out[k]=new_desc
             elif _meaningful(old_desc): out[k]=old_desc
         elif k=="image_url":
