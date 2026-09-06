@@ -32,8 +32,10 @@
     "BidX1",
     "Symonds & Sampson",
     "Dedman Gray",
-    "Auction Estates",
-    "Andersons"
+    "Auction Estates"
   ],
-  "policy": "Every required source must have a collector, an explicit current-catalogue-pending status, or a verified successor-source alias after acquisition/rebrand. Published future commercial/mixed-use catalogues must reconcile before production is considered complete. Expansion sources must be assessed and activated wherever qualifying public inventory exists."
+  "assessed_non_auction_sources": {
+    "Andersons": "Andersons Estate Agents (Sheffield) states on its own current services page that it does not conduct property auctions and instead works with a local auctioneer; it is therefore not an independent auction-house catalogue target."
+  },
+  "policy": "Every required source must have a collector, an explicit current-catalogue-pending status, or a verified successor-source alias after acquisition/rebrand. Published future commercial/mixed-use catalogues must reconcile before production is considered complete. Expansion sources must be assessed and activated wherever qualifying public inventory exists; leads verified not to operate an independent auction catalogue belong in assessed_non_auction_sources rather than blocking acceptance."
 }
