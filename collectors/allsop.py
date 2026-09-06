@@ -65,6 +65,23 @@ def _card_is_target(card):
     return any(x in low for x in mixed_terms) and is_commercial(card)
 
 
+def _card_image(anchor):
+    node = anchor
+    for _ in range(7):
+        if node is None:
+            break
+        try:
+            img = image_from_soup(node, BASE)
+        except Exception:
+            img = None
+        if img:
+            low = img.lower()
+            if not any(x in low for x in ("logo", "icon", "placeholder", "sprite", "social", "avatar")):
+                return img
+        node = getattr(node, "parent", None)
+    return None
+
+
 def _extract_targets(s, found):
     for a in s.find_all("a", href=True):
         href = urljoin(BASE, a.get("href") or "").split("?", 1)[0]
@@ -73,7 +90,7 @@ def _extract_targets(s, found):
         card = nearest_card(a, 5000) or norm(a.get_text(" ", strip=True))
         if not _card_is_target(card):
             continue
-        found[href] = card
+        found[href] = {"card": card, "image": _card_image(a)}
 
 
 def _discover():
@@ -147,12 +164,6 @@ def _address_from_soup(s, card):
 
 
 def _teaser_address(card):
-    """Recover the source-published locality for future teaser lots.
-
-    Allsop publishes some future lots on its commercial landing page before the
-    client-rendered detail page exposes a full street address. We must not drop
-    those published lots merely because the detail route is temporarily skeletal.
-    """
     text = norm(card)
     m = re.search(r"FEATURED LOT\s+(.{2,100}?\b[A-Z]{1,2}\d[A-Z\d]?\b)", text, re.I)
     if m:
@@ -167,28 +178,35 @@ def _teaser_title(card):
     return norm(m.group(1)) if m else None
 
 
-def _teaser_lot(url, card):
+def _teaser_lot(url, card, image_url=None):
     address = _teaser_address(card)
     if not address:
         return None
     title = _teaser_title(card)
     return Lot(
         source=SOURCE, url=url, address=address, lot_number=_lot_no(card),
-        auction_date=_month_date(card), guide_price=parse_guide(card),
+        auction_date=_month_date(card), guide_price=parse_guide(card), image_url=image_url,
         property_type=title[:180] if title else "Commercial / mixed-use auction lot",
         description=card[:3500], status="CURRENT",
     ).finalise()
 
 
 def _hydrate(item):
-    url, card = item
+    url, meta = item
+    if isinstance(meta, dict):
+        card = meta.get("card") or ""
+        teaser_image = meta.get("image")
+    else:
+        card = meta
+        teaser_image = None
     try:
         s = soup(url, use_browser=False)
     except Exception:
         try:
             s = soup(url, use_browser=True)
         except Exception:
-            return _teaser_lot(url, card)
+            return _teaser_lot(url, card, teaser_image)
+    detail_image = image_from_soup(s, url) or teaser_image
     main = s.find("main") or s
     text = norm(main.get_text(" ", strip=True))
     status_probe = _live_status_probe(s, card)
@@ -197,7 +215,7 @@ def _hydrate(item):
 
     address = _address_from_soup(s, card)
     if not address:
-        return _teaser_lot(url, card)
+        return _teaser_lot(url, card, detail_image)
 
     title_tag = s.find("h1")
     opportunity_title = norm(title_tag.get_text(" ", strip=True)) if title_tag else ""
@@ -220,7 +238,7 @@ def _hydrate(item):
 
     return Lot(
         source=SOURCE, url=url, address=address, lot_number=_lot_no(card + " " + text[:800]),
-        auction_date=auction_date, image_url=image_from_soup(s, url), guide_price=guide,
+        auction_date=auction_date, image_url=detail_image, guide_price=guide,
         annual_rent=rent, tenure=tenure, vat_status=parse_vat(combined),
         legal_pack_status=lp_status, legal_pack_url=lp_url, description=combined[:6500],
         occupation=occupation, property_type=opportunity_title[:180] if opportunity_title else None,
@@ -237,7 +255,7 @@ def collect():
         if not targets:
             return SourceResult(SOURCE, "CATALOGUE PENDING", [], "Allsop canonical auction pages and public search endpoints returned no commercial/mixed-use lots.", discovered_count=0)
 
-        live_targets = {url: card for url, card in targets.items() if _candidate_is_current_or_future(card)}
+        live_targets = {url: meta for url, meta in targets.items() if _candidate_is_current_or_future((meta.get("card") if isinstance(meta, dict) else meta) or "")}
         if not live_targets:
             return SourceResult(
                 SOURCE, "CATALOGUE PENDING", [],
