@@ -17,6 +17,7 @@ SEARCHES = (
     BASE + "/property-search?available_only=true&lot_type=both&page={page}&view=list",
 )
 POSTCODE = re.compile(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b", re.I)
+POSTCODE_DISTRICT = re.compile(r"\b[A-Z]{1,2}\d[A-Z\d]?\b", re.I)
 
 
 def _lot_no(text):
@@ -109,10 +110,6 @@ def _discover():
 
 
 def _candidate_is_current_or_future(card, today=None):
-    """Featured/history tiles can remain on Allsop landing pages after an auction.
-    Only treat a candidate tile as evidence of a live catalogue when its own
-    month/year is current or future. Unknown dates are left eligible for hydration.
-    """
     today = today or date.today()
     raw = _header_auction_date(card) or _month_date(card)
     if not raw:
@@ -149,9 +146,49 @@ def _address_from_soup(s, card):
     return None
 
 
+def _teaser_address(card):
+    """Recover the source-published locality for future teaser lots.
+
+    Allsop publishes some future lots on its commercial landing page before the
+    client-rendered detail page exposes a full street address. We must not drop
+    those published lots merely because the detail route is temporarily skeletal.
+    """
+    text = norm(card)
+    m = re.search(r"FEATURED LOT\s+(.{2,100}?\b[A-Z]{1,2}\d[A-Z\d]?\b)", text, re.I)
+    if m:
+        return norm(m.group(1))
+    m = re.search(r"\b([A-Z][A-Za-z .'-]{2,60}\s+[A-Z]{1,2}\d[A-Z\d]?)\b", text)
+    return norm(m.group(1)) if m else None
+
+
+def _teaser_title(card):
+    text = norm(card)
+    m = re.search(r"FEATURED LOT\s+.{2,100}?\b[A-Z]{1,2}\d[A-Z\d]?\b\s+(.+?)(?:Guide Price|Yield|£|$)", text, re.I)
+    return norm(m.group(1)) if m else None
+
+
+def _teaser_lot(url, card):
+    address = _teaser_address(card)
+    if not address:
+        return None
+    title = _teaser_title(card)
+    return Lot(
+        source=SOURCE, url=url, address=address, lot_number=_lot_no(card),
+        auction_date=_month_date(card), guide_price=parse_guide(card),
+        property_type=title[:180] if title else "Commercial / mixed-use auction lot",
+        description=card[:3500], status="CURRENT",
+    ).finalise()
+
+
 def _hydrate(item):
     url, card = item
-    s = soup(url, use_browser=False)
+    try:
+        s = soup(url, use_browser=False)
+    except Exception:
+        try:
+            s = soup(url, use_browser=True)
+        except Exception:
+            return _teaser_lot(url, card)
     main = s.find("main") or s
     text = norm(main.get_text(" ", strip=True))
     status_probe = _live_status_probe(s, card)
@@ -160,7 +197,7 @@ def _hydrate(item):
 
     address = _address_from_soup(s, card)
     if not address:
-        return None
+        return _teaser_lot(url, card)
 
     title_tag = s.find("h1")
     opportunity_title = norm(title_tag.get_text(" ", strip=True)) if title_tag else ""
