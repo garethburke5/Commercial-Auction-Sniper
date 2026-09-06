@@ -33,6 +33,49 @@ class PattinsonResilientTests(unittest.TestCase):
         self.assertEqual(len(result.lots), 1)
         self.assertIn("commercial-search", result.message)
 
+    def test_rightmove_fallback_is_hydrated_from_exact_property_page(self):
+        lot = base.Lot(
+            source=base.SOURCE,
+            url="https://www.rightmove.co.uk/properties/92024505#/?channel=COM_BUY",
+            address="Bridge Street, Tadcaster, LS24 9AH",
+            guide_price=250000,
+            property_type="Commercial Development",
+            description="For sale via auction - terms and conditions apply",
+        ).finalise()
+        page = BeautifulSoup("""
+        <html><head><meta property='og:image' content='https://media.rightmove.co.uk/hero.jpg'></head><body>
+          <h1>Bridge Street, Tadcaster, North Yorkshire, LS24 9AH</h1>
+          <main>For sale via auction - fees, terms and conditions apply. Commercial Development.
+          Guide Price £250,000. Freehold. Total current rent £25,000 per annum. EPC Rating C.</main>
+        </body></html>
+        """, "lxml")
+        preferred = base.SourceResult(base.SOURCE, "LIVE", [lot], "rightmove-card=1", expected_count=1, discovered_count=1, authoritative_snapshot=True)
+        with patch.object(base, "collect", return_value=preferred), patch.object(base, "_direct_soup", return_value=page):
+            result = resilient.collect()
+        self.assertEqual(result.status, "LIVE")
+        self.assertEqual(len(result.lots), 1)
+        hydrated = result.lots[0]
+        self.assertEqual(hydrated.image_url, "https://media.rightmove.co.uk/hero.jpg")
+        self.assertEqual(hydrated.tenure, "Freehold")
+        self.assertEqual(hydrated.epc, "C")
+        self.assertIn("exact-page validation", result.message)
+
+    def test_rightmove_exact_page_can_reject_closed_lot(self):
+        lot = base.Lot(
+            source=base.SOURCE,
+            url="https://www.rightmove.co.uk/properties/999#/?channel=COM_BUY",
+            address="Closed Commercial Lot, AB1 2CD",
+            guide_price=100000,
+            property_type="Commercial",
+            description="For sale via auction",
+        ).finalise()
+        page = BeautifulSoup("<html><body><h1>Closed Commercial Lot, AB1 2CD</h1><main>Commercial auction ended. Sold.</main></body></html>", "lxml")
+        preferred = base.SourceResult(base.SOURCE, "LIVE", [lot], "rightmove-card=1", expected_count=1, discovered_count=1, authoritative_snapshot=True)
+        with patch.object(base, "collect", return_value=preferred), patch.object(base, "_direct_soup", return_value=page):
+            result = resilient.collect()
+        self.assertEqual(result.status, "FAILED")
+        self.assertEqual(result.lots, [])
+
 
 if __name__ == "__main__":
     unittest.main()
