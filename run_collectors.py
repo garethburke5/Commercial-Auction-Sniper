@@ -5,7 +5,8 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from urllib.parse import urlparse, unquote
 
-from collectors.core import SourceResult, clean_description
+from collectors.core import Lot, SourceResult, clean_description
+from collectors.utils import enrich_common_fields
 from collectors.auction_house_london_v2 import collect as ahl
 from collectors.auction_house_regions import collect_east_anglia, collect_west_yorkshire, collect_sussex_hampshire
 from collectors.savills_all_future import collect as savills
@@ -36,6 +37,7 @@ PUBLISHABLE={"LIVE","DEGRADED"}
 BAD_ADDRESS=re.compile(r"(?:login|log in|sign in|register to bid|book a viewing|arrange a viewing|viewing appointment|cancel proxy bid|your bid|remove from wishlist|add to wishlist|connecting to auction|please wait|full details|legal pack available)",re.I)
 DESCRIPTION_BOILERPLATE=re.compile(r"(?:book your free appraisal|register to bid|create account\s*/\s*login|my account|auction countdown|book a viewing|sign up for auction alerts)",re.I)
 RICH_FIELDS=("image_url","area_sqft","area_sqm","site_area_acres","tenant","lease_term","lease_start","lease_expiry","break_clause","break_status","rent_review","fri","erv","epc","rateable_value","service_charge","ground_rent","property_type","occupation","parking","development_potential","asset_management","refurbishment","residential_conversion","listed_status","covenant_rating","covenant_risk","covenant_turnover","guarantors","pitch","nearby_occupiers","legal_pack_url","legal_pack_status","vat_status","tenure","guide_price","annual_rent","lot_number","auction_date")
+LOT_FIELDS={k for k in Lot.__dataclass_fields__}
 
 
 def load_old_snapshot():
@@ -81,12 +83,36 @@ def _image_is_valid(source,url):
     if "acuitus" in src:
         return "/uploads/" in low and not any(x in low for x in ("banner","header","logo"))
     if "bidx1" in src:
-        return "images-prd.bidx1.com" in low and not any(x in low for x in ("support","agent","profile","avatar","team","logo","icon","ber-","user"))
+        return "images-prd.bidx1.com" in low and not any(x in low for x in ("support","agent","surveyor","profile","avatar","team","logo","icon","ber-","user"))
     return True
 
 
+def _enrich_item(item):
+    """Apply conservative cross-source extraction before scoring/publishing.
+
+    Some source collectors deliberately focus on catalogue discovery and pass rich
+    prose through without duplicating every field parser. Reusing the shared,
+    explicit-signal enrichment here keeps the live board consistent and prevents a
+    collector from appearing skeletal simply because it omitted a source-specific
+    call. Existing structured values always win.
+    """
+    payload={k:v for k,v in dict(item).items() if k in LOT_FIELDS}
+    try:
+        lot=Lot(**payload)
+        enriched=enrich_common_fields(lot, str(payload.get("description") or "")).to_dict()
+        out=dict(item)
+        for k,v in enriched.items():
+            if k == "source_id":
+                continue
+            if out.get(k) in (None, "", "UNKNOWN", "NOT FOUND") and v not in (None, "", "UNKNOWN", "NOT FOUND"):
+                out[k]=v
+        return out
+    except Exception:
+        return dict(item)
+
+
 def _sanitize_item(item):
-    item=dict(item); repairs=[]
+    item=_enrich_item(item); repairs=[]
     address=str(item.get("address") or "").strip()
     if not address or len(address)<6 or BAD_ADDRESS.search(address):
         recovered=_address_from_url(item)
