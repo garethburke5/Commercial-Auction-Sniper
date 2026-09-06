@@ -31,11 +31,15 @@ jobs:
           s=s.replace('''    if any(x in low for x in CLOSED_MARKERS):\n        return False\n''','''    if _is_closed(text):\n        return False\n''',1)
           s=s.replace('''    if any(x in low for x in CLOSED_MARKERS):\n        return None\n''','''    if _is_closed(text):\n        return None\n''',1)
           s=s.replace('''    if any(x in low for x in CLOSED_MARKERS):\n        return None\n''','''    if _is_closed(text):\n        return None\n''',1)
+          auction_gate='''    if not any(x in low for x in (" auction ", "secure sale", "online bidding")):\n        return None\n'''
+          auction_gate_fixed='''    if not (re.search(r"\\bauction\\b", low) or "secure sale" in low or "online bidding" in low):\n        return None\n'''
+          assert auction_gate in s, 'Rightmove auction gate changed unexpectedly'
+          s=s.replace(auction_gate,auction_gate_fixed,1)
           p.write_text(s)
           PY
           python -m unittest tests.test_pattinson -v
           git config user.name 'Auction Sniper Bot'
           git config user.email 'actions@users.noreply.github.com'
           git add collectors/pattinson.py
-          git commit -m 'Fix Pattinson sold-via-auction status parsing'
+          git commit -m 'Fix Pattinson auction status phrase parsing'
           git push origin main
