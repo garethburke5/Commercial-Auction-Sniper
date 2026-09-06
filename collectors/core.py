@@ -74,11 +74,12 @@ def norm(text):
     return re.sub(r"\s+", " ", text or "").strip()
 
 
-def _first_marker(value, markers):
-    lowered = value.lower()
+def _first_marker(value, markers, case_sensitive=False):
+    haystack = value if case_sensitive else value.lower()
     hits = []
     for marker in markers:
-        pos = lowered.find(marker.lower())
+        needle = marker if case_sensitive else marker.lower()
+        pos = haystack.find(needle)
         if pos >= 0:
             hits.append((pos, marker))
     return min(hits, default=None, key=lambda x: x[0])
@@ -90,8 +91,8 @@ def clean_description(text):
     Auction sites frequently wrap the useful particulars in login, bidding, viewing
     and account UI. Prefer a recognised particulars section, cut known transactional
     tails, and never allow residual UI controls to survive into the published board.
-    The fallback markers are only used when the page is chrome-heavy or when the
-    marker appears near the beginning, avoiding arbitrary truncation of normal prose.
+    Fallback section labels are matched case-sensitively so ordinary prose such as
+    "a detailed description of..." cannot be mistaken for a heading.
     """
     value = norm(text)
     if not value:
@@ -103,7 +104,7 @@ def clean_description(text):
         value = value[pos + len(marker):].strip(" :-|")
     else:
         chrome = DESCRIPTION_CHROME.search(value)
-        fallback = _first_marker(value, DESCRIPTION_FALLBACK_START_MARKERS)
+        fallback = _first_marker(value, DESCRIPTION_FALLBACK_START_MARKERS, case_sensitive=True)
         if fallback and (chrome or fallback[0] <= 2500):
             pos, marker = fallback
             value = value[pos + len(marker):].strip(" :-|")
