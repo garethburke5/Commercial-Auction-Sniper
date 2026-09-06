@@ -1,0 +1,46 @@
+name: Pattinson Network Diagnostic
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/pattinson-network-diagnostic.yml'
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install playwright && python -m playwright install chromium
+      - name: Inspect first-party portal network
+        run: |
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          targets=[
+            'https://chancellors.pattinson.co.uk/',
+            'https://propertymatters.pattinson.co.uk/',
+            'https://www.pattinson.co.uk/auction/property-search?IncludeCommercialProperties=true&OnlineOnly=true&PropertySort=EndingSoonest&PageSize=100&p=1',
+          ]
+          with sync_playwright() as p:
+            b=p.chromium.launch(headless=True,args=['--no-sandbox'])
+            ctx=b.new_context(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36')
+            for url in targets:
+              page=ctx.new_page()
+              print('\nTARGET',url)
+              def log_response(r):
+                u=r.url.lower()
+                if any(k in u for k in ('api','search','property','auction','listing')):
+                  print('RESP',r.status,r.url)
+              page.on('response',log_response)
+              try:
+                resp=page.goto(url,wait_until='domcontentloaded',timeout=45000)
+                print('MAIN',resp.status if resp else None,'FINAL',page.url)
+                page.wait_for_timeout(8000)
+                print('TITLE',page.title())
+                print('TEXT',page.locator('body').inner_text()[:2500].replace('\n',' | '))
+              except Exception as e:
+                print('FAIL',type(e).__name__,e)
+              page.close()
+            ctx.close(); b.close()
+          PY
