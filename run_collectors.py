@@ -24,11 +24,12 @@ from collectors.harman_healy import collect as harman_healy
 from collectors.knight_frank import collect as knight_frank
 from collectors.town_country import collect as town_country
 from collectors.future_property_auctions import collect as future_property
+from collectors.bidx1 import collect as bidx1
 from source_manifest import append_missing_health, manifest_coverage
 
 DATA=Path("data")
 DATA.mkdir(exist_ok=True)
-COLLECTORS=[ahl,collect_east_anglia,collect_west_yorkshire,collect_sussex_hampshire,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross,harman_healy,knight_frank,town_country,future_property]
+COLLECTORS=[ahl,collect_east_anglia,collect_west_yorkshire,collect_sussex_hampshire,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross,harman_healy,knight_frank,town_country,future_property,bidx1]
 PUBLISHABLE={"LIVE","DEGRADED"}
 BAD_ADDRESS=re.compile(r"(?:login|log in|sign in|register to bid|book a viewing|arrange a viewing|viewing appointment|cancel proxy bid|your bid|remove from wishlist|add to wishlist|connecting to auction|please wait|full details|legal pack available)",re.I)
 DESCRIPTION_BOILERPLATE=re.compile(r"(?:book your free appraisal|register to bid|create account\s*/\s*login|my account|auction countdown|book a viewing|sign up for auction alerts)",re.I)
@@ -77,6 +78,8 @@ def _image_is_valid(source,url):
         )
     if "acuitus" in src:
         return "/uploads/" in low and not any(x in low for x in ("banner","header","logo"))
+    if "bidx1" in src:
+        return "images-prd.bidx1.com" in low and not any(x in low for x in ("support","agent","profile","avatar","team","logo","icon","ber-","user"))
     return True
 
 
