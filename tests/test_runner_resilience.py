@@ -41,7 +41,7 @@ class RunnerResilienceTests(unittest.TestCase):
         self.assertEqual(enriched["area_sqft"], 2150.0)
         self.assertEqual(enriched["epc"], "C")
         self.assertEqual(enriched["occupation"], "Let")
-        self.assertEqual(enriched["tenure"], None if "tenure" not in enriched else enriched.get("tenure"))
+        self.assertIsNone(enriched.get("tenure"))
 
 
 if __name__ == "__main__":
