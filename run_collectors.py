@@ -71,7 +71,10 @@ def _image_is_valid(source,url):
     if re.search(r"(?:logo|favicon|sprite|placeholder|avatar|social|brandmark)",low): return False
     src=(source or "").lower()
     if "savills" in src:
-        return "resize.auctions.savills.co.uk/assets/images/lots/" in low
+        return bool(
+            "resize.auctions.savills.co.uk/assets/images/lots/" in low
+            or re.search(r"https?://auctions\.savills\.co\.uk/images/lots/\d+/\d+/[^/?#]+\.(?:jpe?g|png|webp)",low)
+        )
     if "acuitus" in src:
         return "/uploads/" in low and not any(x in low for x in ("banner","header","logo"))
     return True
@@ -122,7 +125,6 @@ def _merge_last_good(old,new):
 
 
 def _remove_duplicate_images(active):
-    """Remove source-level default/brand images reused across multiple distinct lots."""
     by_source=defaultdict(list)
     for item in active:
         by_source[str(item.get("source") or "Unknown")].append(item)
@@ -167,7 +169,6 @@ def run():
         if _complete_authoritative(r) and not source_rejected: authoritative_scopes.append((r.source,set(r.scope_dates)))
 
     target_coverage=append_missing_health(results)
-
     merged_by_key=dict(old_by_key); merged_by_key.update(current_by_key); current_keys=set(current_by_key); pruned=0
     for source,scope_dates in authoritative_scopes:
         stale=[k for k,item in merged_by_key.items() if k not in current_keys and item.get("source")==source and str(item.get("auction_date") or "")[:10] in scope_dates]
