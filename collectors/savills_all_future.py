@@ -41,16 +41,24 @@ def _discover_all_future_auctions(html=None):
 
 
 def _normalise_savills_asset(value, href):
-    """Normalise first-party Savills lot-image representations into usable URLs."""
+    """Normalise first-party Savills lot-image representations into usable URLs.
+
+    Savills currently emits genuine gallery photos inside script data as
+    /images/lots/<auction>/<lot>/<hash>.jpeg. Older/current variants also use
+    /assets/images/lots/ and dedicated lot-image routes. All accepted patterns
+    are lot-scoped; brand, map and generic auction assets are deliberately excluded.
+    """
     if not value:
         return None
     value = str(value).replace("\\/", "/").replace("&amp;", "&").strip("\"' ")
     low = value.lower()
-    # Savills has used both /assets/images/lots/ and dedicated lot-image resize routes.
-    if not any(marker in low for marker in ("/assets/images/lots/", "/lot-images/", "/lot-image/")):
+    markers = ("/images/lots/", "/assets/images/lots/", "/lot-images/", "/lot-image/")
+    if not any(marker in low for marker in markers):
         return None
     if value.startswith("//"):
         return "https:" + value
+    if value.startswith(("/images/lots/", "images/lots/")):
+        return urljoin(BASE + "/", value)
     if value.startswith("/assets/images/lots/"):
         return "https://resize.auctions.savills.co.uk" + value
     if value.startswith("assets/images/lots/"):
@@ -63,8 +71,8 @@ def _normalise_savills_asset(value, href):
 def _savills_property_image_from_html(raw, href):
     raw = (raw or "").replace("\\/", "/")
     candidates = []
-    # Include extensionless resize/API image URLs as well as the historic asset path.
-    token_re = r'(?:https?:)?//[^"\'<>\s,]+|/assets/images/lots/[^"\'<>\s,]+|assets/images/lots/[^"\'<>\s,]+|/lot-images?/[^"\'<>\s,]+'
+    # Match the current script-hydrated /images/lots path as well as legacy routes.
+    token_re = r'(?:https?:)?//[^"\'<>\s,]+|/(?:assets/)?images/lots/[^"\'<>\s,]+|(?:assets/)?images/lots/[^"\'<>\s,]+|/lot-images?/[^"\'<>\s,]+'
     for token in re.findall(token_re, raw, re.I):
         u = _normalise_savills_asset(token, href)
         if u:
@@ -170,7 +178,7 @@ def _repair_from_catalogue(lot, meta, href):
     else:
         low = (lot.image_url or "").lower()
         if any(x in low for x in ("logo", "savills-logo", "brand", "social", "placeholder")) or not any(
-            marker in low for marker in ("assets/images/lots/", "/lot-images/", "/lot-image/")
+            marker in low for marker in ("/images/lots/", "/assets/images/lots/", "/lot-images/", "/lot-image/")
         ):
             lot.image_url = None
     return lot.finalise()
