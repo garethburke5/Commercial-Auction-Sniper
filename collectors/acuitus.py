@@ -29,8 +29,6 @@ def _is_commercial_card(card):
 
 
 def _property_image(ds, href):
-    """Acuitus pages contain a shared brand/banner image before the lot gallery.
-    Only accept images tied to the exact Acuitus property id where possible."""
     pm=re.search(r"/property/(\d+)/?",href,re.I)
     pid=pm.group(1) if pm else None
     scored=[]
@@ -39,8 +37,7 @@ def _property_image(ds, href):
         if not raw: continue
         u=urljoin(href,raw)
         low=u.lower()
-        if any(x in low for x in ("logo","favicon","icon","sprite","placeholder","avatar","social","acuitus-logo")):
-            continue
+        if any(x in low for x in ("logo","favicon","icon","sprite","placeholder","avatar","social","acuitus-logo")): continue
         score=0
         if pid and re.search(rf"/uploads/[^/]*-{re.escape(pid)}/",low): score+=100
         if "/uploads/" in low: score+=20
@@ -63,7 +60,24 @@ def _area(text):
     if m: return _num(m.group(1)),_num(m.group(2))
     m=re.search(pairs[1],text,re.I)
     if m: return _num(m.group(2)),_num(m.group(1))
+    m=re.search(r"(?:approximately|approx\.?|extending to|comprising)?\s*([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)",text,re.I)
+    if m:
+        sqft=_num(m.group(1)); return sqft, round(sqft/10.7639,2) if sqft else None
+    m=re.search(r"(?:approximately|approx\.?|extending to|comprising)?\s*([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*m|sqm|m²)",text,re.I)
+    if m:
+        sqm=_num(m.group(1)); return round(sqm*10.7639,2) if sqm else None, sqm
     return None,None
+
+
+def _fallback_type(text):
+    for pat,label in (
+        (r"mixed[- ]use","Mixed use"),(r"retail|shop|high street","Retail"),(r"office","Office"),
+        (r"industrial|warehouse|trade counter","Industrial"),(r"ground rent","Ground rent"),
+        (r"hotel|hostel","Hotel"),(r"care home","Care facility"),(r"public house|\bpub\b","Pub"),
+        (r"restaurant|cafe|takeaway","Restaurant / leisure"),(r"development site|development opportunity","Development"),
+    ):
+        if re.search(pat,text,re.I): return label
+    return "Commercial"
 
 
 def _rich_lot(href, card):
@@ -92,7 +106,7 @@ def _rich_lot(href, card):
         legal_pack_url=lp_url,status="Live",description=text[:9000])
 
     sector=_section(text,"Sector",["Auction Venue","Property Information","Location"])
-    if sector: lot.property_type=sector[:120]
+    lot.property_type=sector[:120] if sector else _fallback_type(combined)
     tenure=_section(text,"Tenure",["Description","VAT","EPC","Tenancy & Accommodation"])
     if tenure:
         lot.tenure=parse_tenure(tenure) or lot.tenure
@@ -110,20 +124,27 @@ def _rich_lot(href, card):
     if re.search(r"VAT is not applicable|VAT free investment|VAT-free investment",combined,re.I): lot.vat_status="NOT APPLICABLE"
     elif re.search(r"VAT is applicable|elected for VAT",combined,re.I): lot.vat_status="APPLICABLE"
 
-    headline=combined[:3000]
-    if re.search(r"\bVacant\b",headline,re.I) and not rent: lot.occupation="Vacant"
-    elif re.search(r"Tenancy & Accommodation|Tenant\s+Term\s+Rent",combined,re.I):
-        lot.occupation="Part-let / part-vacant" if re.search(r"\bVACANT\b",combined,re.I) else "Tenanted"
+    # Occupancy is a primary card fact. Derive it from explicit evidence, not only
+    # from one Acuitus table heading, so cards do not lose obvious tenancy status.
+    if rent is not None:
+        lot.occupation="Part-let / part-vacant" if re.search(r"\bpart(?:ly)?[- ]vacant|vacant (?:unit|floor|part)",combined,re.I) else "Tenanted"
+    elif re.search(r"\bvacant(?: possession)?\b|offered with vacant possession",combined[:4500],re.I):
+        lot.occupation="Vacant"
+    elif re.search(r"Tenancy & Accommodation|Tenant\s+Term\s+Rent|\blet to\b|\bleased to\b",combined,re.I):
+        lot.occupation="Tenanted"
 
     tenants=[]
     for tm in re.finditer(r"\b([A-Z][A-Z0-9 '&().-]{3,80}(?:LIMITED|LTD|PLC))\b",combined):
         name=norm(tm.group(1))
         if name not in tenants: tenants.append(name)
     if tenants: lot.tenant=" / ".join(tenants[:3])
+    if not lot.tenant:
+        tm=re.search(r"(?:let|leased) to\s+([A-Z][A-Za-z0-9 '&().,-]{2,80}?)(?:\s+on\s+|\s+for\s+|\s+at\s+|\.|,)",combined)
+        if tm: lot.tenant=norm(tm.group(1))
 
-    if re.search(r"asset management opportunit|asset management potential|repositioning opportunit",combined,re.I): lot.asset_management=True
+    if re.search(r"asset management opportunit|asset management potential|repositioning opportunit|re-letting potential|reletting potential",combined,re.I): lot.asset_management=True
     if re.search(r"development potential|development opportunity|redevelop|subject to planning|planning permission|lapsed.*consent",combined,re.I): lot.development_potential=True
-    if re.search(r"residential conversion|conversion to residential|upper floors.*residential",combined,re.I): lot.residential_conversion=True
+    if re.search(r"residential conversion|conversion to residential|upper floors.*residential|residential accommodation",combined,re.I): lot.residential_conversion=True
     if re.search(r"refurbish|refurbishment",combined,re.I): lot.refurbishment=True
 
     pm=re.search(r"(\d{1,4})\s+(?:car\s+)?parking spaces?",combined,re.I)
@@ -131,10 +152,10 @@ def _rich_lot(href, card):
     elif re.search(r"rear loading|parking|car park",combined,re.I): lot.parking="Parking/loading mentioned"
 
     situation=_section(text,"Situation",["Tenure","Description","VAT","EPC"])
-    if situation:
-        if re.search(r"prominent|prime|city centre|town centre|high street|frontage",situation,re.I): lot.pitch="Prominent/central commercial location"
-        near=re.search(r"Nearby occupiers include\s+(.+?)(?:\.|Tenure|Description|$)",situation,re.I)
-        if near: lot.nearby_occupiers=norm(near.group(1))[:300]
+    situation_text=situation or combined[:4500]
+    if re.search(r"prominent|prime|city centre|town centre|high street|frontage",situation_text,re.I): lot.pitch="Prominent/central commercial location"
+    near=re.search(r"Nearby occupiers include\s+(.+?)(?:\.|Tenure|Description|$)",situation_text,re.I)
+    if near: lot.nearby_occupiers=norm(near.group(1))[:300]
 
     return lot.finalise()
 
