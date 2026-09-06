@@ -52,6 +52,8 @@ class SymondsSampsonCollectorTests(unittest.TestCase):
         self.assertTrue(_is_target("Development site with planning permission"))
         self.assertFalse(_is_target("Detached house with four bedrooms and garden requiring modernisation"))
         self.assertFalse(_is_target("Three bedroom flat for sale by auction"))
+        self.assertFalse(_is_target("3 Bedroom House For Sale. Incredibly versatile residential refurbishment and redevelopment opportunity with large garage and extensive grounds."))
+        self.assertFalse(_is_target("Four bedroom family home with redevelopment potential subject to planning"))
 
 
 if __name__ == "__main__":
