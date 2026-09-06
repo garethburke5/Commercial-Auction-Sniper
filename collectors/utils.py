@@ -81,13 +81,7 @@ def _strettons_gallery_image(s, base):
     return candidates[0] if candidates else None
 
 def _savills_gallery_image(s, base):
-    """Extract a real Savills lot photograph from JS-backed gallery markup.
-
-    Savills' visible <img> tags are often just the Savills logo or tiny inline
-    placeholders. The actual gallery paths live in page scripts as
-    /images/lots/<auction-id>/<lot-id>/<hash>.jpeg. Prefer paths matching the
-    current lot id, then current auction id, then any real lot-gallery image.
-    """
+    """Extract a real Savills lot photograph from JS-backed gallery markup."""
     raw=str(s).replace("\\/", "/")
     found=[]
     for path in re.findall(r'/images/lots/(\d+)/(\d+)/([^"\'<>\s]+?\.(?:jpe?g|png|webp))', raw, re.I):
@@ -111,7 +105,9 @@ def _savills_gallery_image(s, base):
 
     def score(url):
         mm=re.search(r'/images/lots/(\d+)/(\d+)/', url, re.I)
-        aid,lid=mm.group(1),mm.group(2) if mm else (None,None)
+        if not mm:
+            return (False,False,0)
+        aid,lid=mm.group(1),mm.group(2)
         return (
             bool(current_lot and lid == current_lot),
             bool(current_auction and aid == current_auction),
@@ -205,6 +201,106 @@ def _strict_title_is_commercial(title_text):
         return False
     return None
 
+def _money_number(raw):
+    try:
+        return float(str(raw).replace(",", ""))
+    except Exception:
+        return None
+
+def _common_area(text):
+    """Extract only explicitly labelled floor/site measurements.
+
+    Deliberately avoid bare numbers near unrelated prose so shared enrichment cannot
+    manufacture an area when a source page contains dates, phone numbers or prices.
+    """
+    sqft=sqm=None
+    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)\b", text or "", re.I):
+        v=_money_number(m.group(1))
+        if v and 20 <= v <= 5_000_000:
+            sqft=max(sqft or 0,v)
+    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*m|sqm|m²)\b", text or "", re.I):
+        v=_money_number(m.group(1))
+        if v and 2 <= v <= 500_000:
+            sqm=max(sqm or 0,v)
+    if sqft is None and sqm is not None:
+        sqft=round(sqm*10.7639,1)
+    if sqm is None and sqft is not None:
+        sqm=round(sqft/10.7639,1)
+    return sqft,sqm
+
+def _common_property_type(text):
+    low=(text or "").lower()
+    patterns=(
+        ("Mixed Use", ("mixed use","mixed-use","commercial/residential","shop and flat","shop with flat")),
+        ("Retail", ("retail investment","retail unit","shop investment","ground floor shop","supermarket","pharmacy")),
+        ("Office", ("office investment","office building","office premises","office unit")),
+        ("Industrial / Warehouse", ("industrial unit","industrial property","warehouse","factory","trade counter")),
+        ("Leisure / Hospitality", ("public house","pub investment","hotel","restaurant","leisure investment")),
+        ("Commercial", ("commercial property","commercial premises","commercial building","commercial investment","commercial unit")),
+    )
+    for label,terms in patterns:
+        if any(x in low for x in terms):
+            return label
+    return None
+
+def enrich_common_fields(lot, text):
+    """Conservatively add investment facts shared across auction-house particulars.
+
+    Source-specific parsers remain authoritative. This only fills missing fields
+    when a phrase is explicit enough to be safe across sites; it never overwrites a
+    collector's richer structured value.
+    """
+    combined=norm(text)
+    low=combined.lower()
+    if lot.area_sqft is None or lot.area_sqm is None:
+        sqft,sqm=_common_area(combined)
+        if lot.area_sqft is None: lot.area_sqft=sqft
+        if lot.area_sqm is None: lot.area_sqm=sqm
+
+    if lot.site_area_acres is None:
+        vals=[]
+        for m in re.finditer(r"([\d.]+)\s*acres?\b",combined,re.I):
+            v=_money_number(m.group(1))
+            if v and 0.001 <= v <= 100000: vals.append(v)
+        if vals: lot.site_area_acres=max(vals)
+
+    if lot.epc is None:
+        m=re.search(r"\bEPC(?:\s+(?:rating|band))?\s*[:\-]?\s*([A-G])(?:\b|\d)",combined,re.I)
+        if m: lot.epc=m.group(1).upper()
+
+    if lot.rateable_value is None:
+        vals=[]
+        for m in re.finditer(r"(?:rateable value|rating assessment)\s*(?:of|is|:)??\s*£\s*([\d,]+(?:\.\d+)?)",combined,re.I):
+            v=_money_number(m.group(1))
+            if v and 1 <= v <= 20_000_000: vals.append(v)
+        if vals: lot.rateable_value=max(vals)
+
+    if lot.property_type is None:
+        lot.property_type=_common_property_type(combined)
+
+    if lot.occupation is None:
+        has_let=bool(re.search(r"\b(?:let to|is let|are let|currently let|tenanted|tenancy details|producing\s+£|current (?:gross )?income)\b",combined,re.I)) or bool(lot.annual_rent)
+        has_vacant=bool(re.search(r"\bvacant(?: possession)?\b",combined,re.I))
+        if has_let and has_vacant: lot.occupation="Part Vacant / Part Let"
+        elif has_let: lot.occupation="Let"
+        elif has_vacant: lot.occupation="Vacant"
+
+    if lot.fri is None and re.search(r"\bFRI\b|full repairing and insuring",combined,re.I):
+        lot.fri=True
+    if lot.development_potential is None and re.search(r"development potential|development opportunity|redevelop|subject to planning|planning permission",combined,re.I):
+        lot.development_potential=True
+    if lot.asset_management is None and re.search(r"asset management opportunit|asset management potential|reversionary potential",combined,re.I):
+        lot.asset_management=True
+    if lot.refurbishment is None and re.search(r"refurbish|refurbishment|in need of modernisation|requires modernisation",combined,re.I):
+        lot.refurbishment=True
+    if lot.residential_conversion is None and re.search(r"residential conversion|conversion to residential|upper floors?.{0,80}residential",combined,re.I):
+        lot.residential_conversion=True
+    if lot.parking is None:
+        m=re.search(r"\b(\d{1,4})\s+(?:car\s+)?parking spaces?\b",combined,re.I)
+        if m: lot.parking=f"{m.group(1)} parking spaces"
+        elif re.search(r"\b(?:car park|off[- ]street parking|rear parking)\b",combined,re.I): lot.parking="Parking mentioned"
+    return lot
+
 def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
                force_commercial=False, use_browser=False, strict_commercial=False,
                suppress_prior=True):
@@ -235,10 +331,11 @@ def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
     rent = parse_rent(text) or parse_rent(seed)
     lp_url, lp_status = legal_pack(s, url)
 
-    return Lot(
+    lot=Lot(
         source=source, url=url, address=address, lot_number=lot_number,
         auction_date=auction_date, image_url=image_from_soup(s, url),
         guide_price=guide, annual_rent=rent, tenure=parse_tenure(combined),
         vat_status=parse_vat(combined), legal_pack_status=lp_status,
-        legal_pack_url=lp_url, description=text[:1200]
-    ).finalise()
+        legal_pack_url=lp_url, description=text[:9000]
+    )
+    return enrich_common_fields(lot, combined).finalise()
