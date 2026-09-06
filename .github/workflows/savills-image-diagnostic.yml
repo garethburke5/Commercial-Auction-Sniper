@@ -1,0 +1,48 @@
+name: Savills Image Diagnostic
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/savills-image-diagnostic.yml'
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4 lxml
+      - name: Inspect live Savills lot image markup
+        run: |
+          python - <<'PY'
+          import re, requests
+          from bs4 import BeautifulSoup
+          from urllib.parse import urljoin
+          urls=[
+            'https://auctions.savills.co.uk/auctions/15-september-2026-242/pembroke--castlemartin-social-club-tenby-house-main-st-pembroke-sa71-4hh-24613',
+            'https://auctions.savills.co.uk/auctions/29-september-2026-243/116-high-street-weston-super-mare-bs23-1hp-24521',
+          ]
+          headers={'User-Agent':'Mozilla/5.0'}
+          for url in urls:
+            r=requests.get(url,headers=headers,timeout=30)
+            print('\nURL',url,'STATUS',r.status_code,'LEN',len(r.text))
+            s=BeautifulSoup(r.text,'lxml')
+            print('OG',[(m.get('property'),m.get('content')) for m in s.find_all('meta') if 'image' in str(m.get('property') or m.get('name') or '').lower()][:20])
+            print('IMAGES')
+            for i,img in enumerate(s.find_all('img')[:120]):
+              vals={k:img.get(k) for k in ('src','data-src','data-lazy-src','data-original','data-image','data-url','srcset','data-srcset','alt','class') if img.get(k)}
+              if vals: print(i,vals)
+            raw=r.text.replace('\\/','/')
+            hits=[]
+            for pat in [r'https?://[^\"\'<>\s]+', r'/[^\"\'<>\s]+\.(?:jpg|jpeg|png|webp)(?:\?[^\"\'<>\s]*)?']:
+              for x in re.findall(pat,raw,re.I):
+                low=x.lower()
+                if any(k in low for k in ('jpg','jpeg','png','webp','image','photo','media','asset')) and x not in hits:
+                  hits.append(x)
+            print('URL_HITS')
+            for x in hits[:200]: print(x)
+          PY
