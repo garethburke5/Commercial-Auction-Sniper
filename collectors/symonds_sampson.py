@@ -3,7 +3,7 @@ from datetime import date
 from urllib.parse import urljoin
 
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat, is_commercial
-from .utils import soup, legal_pack
+from .utils import soup, legal_pack, image_from_soup
 
 SOURCE = "Symonds & Sampson"
 BASE = "https://auctions.symondsandsampson.co.uk"
@@ -47,7 +47,6 @@ def _parse_date(text):
 
 
 def _event_card_text(anchor):
-    """Return text for one event card without leaking dates from sibling events."""
     own = norm(anchor.get_text(" ", strip=True))
     node = anchor
     best = own
@@ -62,9 +61,6 @@ def _event_card_text(anchor):
             x for x in node.find_all("a", href=True)
             if "/event/property-auction-" in urljoin(BASE, x.get("href") or "").lower()
         ]
-        # The first ancestor that owns exactly this event link and exposes a date
-        # is the safest card boundary. Never climb into a grid/container holding
-        # sibling events, otherwise an expired event can inherit a future date.
         if len(event_links) == 1:
             best = candidate
             if DATE_RE.search(candidate):
@@ -104,21 +100,61 @@ def _property_links(event_s, event_date):
 
 
 def _image(s, base):
+    """Prefer the listing's actual hero/gallery image, including lazy/srcset/JSON-loaded images."""
+    bad = ("logo", "icon", "staff", "office", "map", "floorplan", "epc", "avatar", "placeholder", "sprite")
     candidates = []
+
+    for attrs in ({"property": "og:image"}, {"name": "twitter:image"}):
+        tag = s.find("meta", attrs=attrs)
+        if tag and tag.get("content"):
+            candidates.append(urljoin(base, tag.get("content")))
+
     for img in s.find_all("img"):
-        raw = img.get("data-src") or img.get("data-lazy-src") or img.get("src")
-        if not raw:
-            continue
-        u = urljoin(base, raw)
-        low = u.lower()
         alt = norm(img.get("alt") or "").lower()
-        if "cdn.webdadi.net" not in low:
+        for attr in ("data-src", "data-lazy-src", "data-original", "data-image", "data-url", "src"):
+            raw = img.get(attr)
+            if raw:
+                candidates.append(urljoin(base, raw))
+        for attr in ("srcset", "data-srcset"):
+            raw = img.get(attr)
+            if raw:
+                for part in raw.split(","):
+                    u = part.strip().split(" ")[0]
+                    if u:
+                        candidates.append(urljoin(base, u))
+        if "property" in alt or "auction" in alt:
+            for attr in ("src", "data-src", "data-lazy-src"):
+                if img.get(attr):
+                    candidates.insert(0, urljoin(base, img.get(attr)))
+
+    raw_html = str(s).replace("\\/", "/")
+    for u in re.findall(r'https?://[^"\'<>\s]+?\.(?:jpe?g|png|webp)(?:\?[^"\'<>\s]*)?', raw_html, re.I):
+        candidates.append(u)
+
+    seen = set()
+    scored = []
+    for u in candidates:
+        if not u or u in seen:
             continue
-        if any(x in low for x in ("logo", "icon", "staff", "office", "map", "floorplan", "epc")):
+        seen.add(u)
+        low = u.lower()
+        if any(x in low for x in bad):
             continue
-        if "property image" in alt or re.search(r"[0-9a-f]{8}-[0-9a-f-]{20,}", low, re.I):
-            candidates.append(u)
-    return candidates[0] if candidates else None
+        score = 0
+        if "cdn.webdadi.net" in low: score += 6
+        if re.search(r"[0-9a-f]{8}-[0-9a-f-]{20,}", low, re.I): score += 4
+        if any(x in low for x in ("property", "images", "photos", "uploads", "media")): score += 2
+        if low.endswith((".jpg", ".jpeg", ".webp")) or ".jpg?" in low or ".jpeg?" in low or ".webp?" in low: score += 2
+        scored.append((score, u))
+    if scored:
+        scored.sort(reverse=True)
+        if scored[0][0] > 0:
+            return scored[0][1]
+
+    generic = image_from_soup(s, base)
+    if generic and not any(x in generic.lower() for x in bad):
+        return generic
+    return None
 
 
 def _main_property_text(s):
