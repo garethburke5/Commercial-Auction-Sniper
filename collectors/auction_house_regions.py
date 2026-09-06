@@ -2,8 +2,8 @@ import re
 from datetime import date, datetime
 from urllib.parse import urljoin
 
-from .core import SourceResult, norm, is_commercial
-from .utils import soup, detail_lot, nearest_card
+from .core import SourceResult, norm
+from .utils import soup, detail_lot
 
 BASE = "https://www.auctionhouse.co.uk"
 REGIONS = {
@@ -36,15 +36,55 @@ def _fetch(url):
         return soup(url, use_browser=True)
 
 
+def _local_card(anchor, max_chars=1800):
+    """Return the nearest useful lot card, never a whole catalogue section.
+
+    The old nearest_card() call deliberately chose the largest ancestor under a
+    generous size cap. On some Auction House catalogues that ancestor contained
+    several neighbouring lots and site navigation, so a single occurrence of
+    'Commercial' caused every lot in the event to be classified as commercial.
+    Prefer the first close ancestor with enough property text to describe one lot.
+    """
+    node = anchor
+    fallback = norm(anchor.get_text(" ", strip=True))
+    for _ in range(7):
+        node = getattr(node, "parent", None)
+        if node is None:
+            break
+        text = norm(node.get_text(" ", strip=True))
+        if len(text) > max_chars:
+            break
+        if 80 <= len(text) <= max_chars:
+            # A genuine single-lot card normally contains at most one explicit
+            # "Lot N" marker. Multiple different markers indicate a shared wrapper.
+            lot_markers = set(re.findall(r"\bLot\s+\d+[A-Z]?\b", text, re.I))
+            if len(lot_markers) <= 1:
+                return text
+        if len(text) > len(fallback) and len(text) <= max_chars:
+            fallback = text
+    return fallback
+
+
 def _commercialish(text):
+    """Classify from property-use phrases, not a bare word in an address.
+
+    In particular, an address such as 'Commercial Road' must not turn a flat into
+    a commercial lot. Auction House cards publish an explicit use/type label for
+    genuine non-residential and mixed-use stock, so require one of those signals.
+    """
     low = norm(text).lower()
-    if is_commercial(text):
-        return True
     return bool(re.search(
-        r"\b(?:commercial property|commercial development|shop|office|restaurant|takeaway|storage|warehouse|"
-        r"industrial|workshop|public house|pub|hotel|mixed[- ]use|retail|business premises|garage block)\b",
+        r"\b(?:commercial\s+(?:property|premises|building|investment|development)|"
+        r"mixed[- ]use|shop(?:\s+and\s+(?:upper|residential))?|retail(?:\s+unit|\s+investment)?|"
+        r"office(?:s|\s+building|\s+investment)?|restaurant|takeaway|storage|warehouse|"
+        r"industrial|workshop|public house|pub|hotel|business premises|garage block|"
+        r"development site|commercial unit)\b",
         low,
     ))
+
+
+def _prior_or_withdrawn(text):
+    return bool(re.search(r"\b(?:sold\s+prior|withdrawn(?:\s+prior)?|lot\s+withdrawn)\b", text or "", re.I))
 
 
 def _future_events(slug, source):
@@ -57,7 +97,7 @@ def _future_events(slug, source):
         href = a.get("href") or ""
         if prefix not in href:
             continue
-        row = nearest_card(a, 1200) or norm(a.parent.get_text(" ", strip=True) if a.parent else a.get_text(" ", strip=True))
+        row = _local_card(a, 1400)
         # Regional diary pages can include National Online events. Only accept the
         # row for the named regional auctioneer so inventory is not double-counted.
         if source.lower().replace("&", "and") not in row.lower().replace("&", "and"):
@@ -96,8 +136,8 @@ def _collect_region(slug):
                 href = urljoin(BASE, a.get("href") or "").split("?")[0]
                 if f"/{slug}/auction/lot/" not in href:
                     continue
-                card = nearest_card(a, 3500) or norm(a.get_text(" ", strip=True))
-                if not _commercialish(card):
+                card = _local_card(a)
+                if _prior_or_withdrawn(card) or not _commercialish(card):
                     continue
                 m = re.search(r"\bLot\s+(\d+[A-Z]?)\b", card, re.I)
                 targets[href] = (card, f"Lot {m.group(1)}" if m else None, auction_date)
@@ -110,10 +150,13 @@ def _collect_region(slug):
             lot = None
             for use_browser in (False, True):
                 try:
+                    # Status was already determined from the lot-local catalogue
+                    # card. Do not let a generic 'sold prior' phrase elsewhere in
+                    # page chrome suppress a live property.
                     lot = detail_lot(
                         source, href, seed=card, lot_number=lot_number,
                         auction_date=auction_date, force_commercial=True,
-                        use_browser=use_browser, suppress_prior=True,
+                        use_browser=use_browser, suppress_prior=False,
                     )
                     if lot:
                         break
