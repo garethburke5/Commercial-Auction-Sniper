@@ -32,6 +32,16 @@ def _date(text):
         return None
 
 
+def _named_date(text):
+    m=re.search(r"\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})\b",text or "",re.I)
+    if not m:
+        return None
+    try:
+        return datetime.strptime(" ".join(m.groups()),"%d %B %Y").date().isoformat()
+    except ValueError:
+        return None
+
+
 def _canonical(url):
     p = urlparse(url)
     return p._replace(fragment="", query="").geturl().rstrip("/")
@@ -52,18 +62,71 @@ def _discover_from_page(base, s):
                 break
             card = card.parent
             text = norm(card.get_text(" ", strip=True))
-            if POSTCODE_RE.search(text) and ("guide price" in text.lower() or "auction" in text.lower()):
+            if POSTCODE_RE.search(text) and ("guide price" in text.lower() or "auction" in text.lower() or "end time" in text.lower()):
                 found[_canonical(href)] = text
                 break
     return found
 
 
+def _future_catalogue_links(base, s):
+    """Return published future catalogue links from a region's auction diary."""
+    today=datetime.now(timezone.utc).date().isoformat()
+    found=[]
+    for a in s.find_all("a",href=True):
+        href=urljoin(base,a.get("href") or "").split("?",1)[0]
+        if "/future-auctions/" not in href.lower():
+            continue
+        node=a
+        text=norm(a.get_text(" ",strip=True))
+        for _ in range(4):
+            node=getattr(node,"parent",None)
+            if node is None:
+                break
+            candidate=norm(node.get_text(" ",strip=True))
+            if re.search(r"20\d{2}",candidate):
+                text=candidate
+                break
+        d=_named_date(text)
+        if d and d < today:
+            continue
+        if href not in found:
+            found.append(href)
+    return found
+
+
 def _discover_region(base):
-    found = {}
+    """Prefer the auction diary/catalogue route, then fall back to generic search.
+
+    The EIG-backed regional /search endpoints periodically reject hosted runners,
+    while /auction and /future-auctions/<id> remain public and carry the exact
+    published catalogue. Discovering through the catalogue is also more precise:
+    it avoids stale agency inventory and naturally scopes the sweep to future sales.
+    """
+    found={}
+    errors=[]
+    try:
+        diary=soup(base+"/auction",use_browser=False)
+        catalogue_urls=_future_catalogue_links(base,diary)
+        for url in catalogue_urls:
+            try:
+                found.update(_discover_from_page(base,soup(url,use_browser=False)))
+            except Exception as exc:
+                errors.append(f"{url}: {type(exc).__name__}")
+        if found:
+            return found
+    except Exception as exc:
+        errors.append(f"{base}/auction: {type(exc).__name__}")
+
     repeated = 0
     for page in range(1, 21):
         url = base + "/search" + (f"?page={page}" if page > 1 else "")
-        s = soup(url, use_browser=False)
+        try:
+            s = soup(url, use_browser=False)
+        except Exception as exc:
+            errors.append(f"{url}: {type(exc).__name__}")
+            if page == 1 and not found:
+                raise RuntimeError("; ".join(errors)) from exc
+            break
         page_found = _discover_from_page(base, s)
         new = set(page_found) - set(found)
         found.update(page_found)
@@ -132,7 +195,7 @@ def collect():
             failed_regions.append(f"{urlparse(base).netloc}: {type(exc).__name__}")
     lots = []
     failures = 0
-    with ThreadPoolExecutor(max_workers=12) as ex:
+    with ThreadPoolExecutor(max_workers=8) as ex:
         futures = {ex.submit(_hydrate, url, summary): url for url, summary in discovered.items()}
         for future in as_completed(futures):
             try:
@@ -145,10 +208,10 @@ def collect():
     dates = tuple(sorted({x.auction_date for x in lots if x.auction_date}))
     if lots:
         status = "LIVE" if not failures and not failed_regions else "DEGRADED"
-        msg = f"All-region Town & Country sweep: {len(discovered)} candidate property pages; {len(lots)} commercial/mixed-use future lots published; {failures} detail failures; {len(failed_regions)} regional search failures."
+        msg = f"All-region Town & Country sweep: {len(discovered)} candidate property pages; {len(lots)} commercial/mixed-use future lots published; {failures} detail failures; {len(failed_regions)} regional discovery failures."
         return SourceResult(SOURCE, status, lots, msg, discovered_count=len(discovered), scope_dates=dates)
     if discovered:
-        return SourceResult(SOURCE, "CATALOGUE PENDING", [], f"Town & Country exposed {len(discovered)} current/future property pages but none classified as commercial/mixed-use; {len(failed_regions)} regional search failures.", discovered_count=len(discovered))
+        return SourceResult(SOURCE, "CATALOGUE PENDING", [], f"Town & Country exposed {len(discovered)} current/future property pages but none classified as commercial/mixed-use; {len(failed_regions)} regional discovery failures.", discovered_count=len(discovered))
     if failed_regions:
-        return SourceResult(SOURCE, "FAILED", [], "Town & Country regional searches could not be reliably inspected: " + "; ".join(failed_regions), discovered_count=0)
-    return SourceResult(SOURCE, "CATALOGUE PENDING", [], "Town & Country regional searches exposed no current/future property detail pages.", discovered_count=0)
+        return SourceResult(SOURCE, "FAILED", [], "Town & Country regional catalogues could not be reliably inspected: " + "; ".join(failed_regions), discovered_count=0)
+    return SourceResult(SOURCE, "CATALOGUE PENDING", [], "Town & Country regional catalogues exposed no current/future property detail pages.", discovered_count=0)
