@@ -1,5 +1,6 @@
 import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import date
 from urllib.parse import urljoin
 
 from .core import Lot, SourceResult, norm, parse_guide, parse_rent, parse_tenure, parse_vat, is_commercial
@@ -33,7 +34,6 @@ def _month_date(text):
 
 
 def _header_auction_date(text):
-    """Parse Allsop headers such as 'Residential - 16th & 17th Sept 2026'."""
     m = re.search(
         r"\b(?:Commercial|Residential)\s*-\s*(\d{1,2})(?:st|nd|rd|th)?(?:\s*&\s*\d{1,2}(?:st|nd|rd|th)?)?\s+([A-Za-z]{3,9})\s+(20\d{2})",
         text or "", re.I,
@@ -108,8 +108,23 @@ def _discover():
     return found
 
 
+def _candidate_is_current_or_future(card, today=None):
+    """Featured/history tiles can remain on Allsop landing pages after an auction.
+    Only treat a candidate tile as evidence of a live catalogue when its own
+    month/year is current or future. Unknown dates are left eligible for hydration.
+    """
+    today = today or date.today()
+    raw = _header_auction_date(card) or _month_date(card)
+    if not raw:
+        return True
+    try:
+        y, m, _ = (int(x) for x in raw.split("-", 2))
+    except Exception:
+        return True
+    return (y, m) >= (today.year, today.month)
+
+
 def _live_status_probe(s, card):
-    """Use only lot-local title/status text when deciding prior/withdrawn state."""
     bits = [card]
     for tag in s.find_all(["h1", "h2"], limit=4):
         bits.append(norm(tag.get_text(" ", strip=True)))
@@ -117,10 +132,6 @@ def _live_status_probe(s, card):
 
 
 def _address_from_soup(s, card):
-    """Extract a single address string without climbing into large page wrappers."""
-    # Allsop renders the address as its own text node near the LOT heading. A direct
-    # stripped-string scan is more reliable than tag.get_text(), which can absorb the
-    # whole React/container subtree and exceed the previous 220-character guard.
     strings = [norm(x) for x in s.stripped_strings]
     for t in strings:
         if POSTCODE.search(t) and 8 <= len(t) <= 240:
@@ -131,7 +142,6 @@ def _address_from_soup(s, card):
     pm = POSTCODE.search(card or "")
     if pm:
         prefix = (card or "")[:pm.end()]
-        # Prefer the tail after catalogue/status metadata.
         parts = re.split(r"FEATURED LOT|Guide Price\*?|Yield\s+[\d.]+%|(?:Commercial|Residential)\s*-.*?20\d{2}", prefix, flags=re.I)
         candidate = norm(parts[-1])[-240:]
         if POSTCODE.search(candidate):
@@ -144,10 +154,6 @@ def _hydrate(item):
     s = soup(url, use_browser=False)
     main = s.find("main") or s
     text = norm(main.get_text(" ", strip=True))
-
-    # Do not search the entire page for these words: Allsop page chrome and related
-    # navigation can mention withdrawn/sold-prior lots. Only the current lot's card
-    # and headings are authoritative for its status.
     status_probe = _live_status_probe(s, card)
     if re.search(r"\b(?:withdrawn(?:\s+prior)?|sold\s+prior)\b", status_probe, re.I):
         return None
@@ -176,21 +182,11 @@ def _hydrate(item):
         occupation = "Tenanted"
 
     return Lot(
-        source=SOURCE,
-        url=url,
-        address=address,
-        lot_number=_lot_no(card + " " + text[:800]),
-        auction_date=auction_date,
-        image_url=image_from_soup(s, url),
-        guide_price=guide,
-        annual_rent=rent,
-        tenure=tenure,
-        vat_status=parse_vat(combined),
-        legal_pack_status=lp_status,
-        legal_pack_url=lp_url,
-        description=combined[:6500],
-        occupation=occupation,
-        property_type=opportunity_title[:180] if opportunity_title else None,
+        source=SOURCE, url=url, address=address, lot_number=_lot_no(card + " " + text[:800]),
+        auction_date=auction_date, image_url=image_from_soup(s, url), guide_price=guide,
+        annual_rent=rent, tenure=tenure, vat_status=parse_vat(combined),
+        legal_pack_status=lp_status, legal_pack_url=lp_url, description=combined[:6500],
+        occupation=occupation, property_type=opportunity_title[:180] if opportunity_title else None,
         development_potential=True if re.search(r"development|redevelopment|planning potential", combined, re.I) else None,
         asset_management=True if re.search(r"asset management", combined, re.I) else None,
         residential_conversion=True if re.search(r"conversion to residential|residential conversion", combined, re.I) else None,
@@ -204,10 +200,18 @@ def collect():
         if not targets:
             return SourceResult(SOURCE, "CATALOGUE PENDING", [], "Allsop canonical auction pages and public search endpoints returned no commercial/mixed-use lots.", discovered_count=0)
 
+        live_targets = {url: card for url, card in targets.items() if _candidate_is_current_or_future(card)}
+        if not live_targets:
+            return SourceResult(
+                SOURCE, "CATALOGUE PENDING", [],
+                f"Allsop exposed {len(targets)} commercial/mixed-use history/featured lot pages, but no current/future commercial catalogue lots are published yet.",
+                discovered_count=len(targets), authoritative_snapshot=True,
+            )
+
         lots = []
         failures = 0
         with ThreadPoolExecutor(max_workers=10) as ex:
-            futs = {ex.submit(_hydrate, item): item[0] for item in targets.items()}
+            futs = {ex.submit(_hydrate, item): item[0] for item in live_targets.items()}
             for f in as_completed(futs):
                 try:
                     lot = f.result()
@@ -220,12 +224,9 @@ def collect():
         lots = list(dedup.values())
         status = "LIVE" if lots and failures == 0 else "DEGRADED" if lots else "FAILED"
         return SourceResult(
-            SOURCE,
-            status,
-            lots,
-            f"Allsop canonical+search collector: {len(targets)} commercial/mixed-use candidate pages discovered; {len(lots)} published; {failures} detail failures.",
-            discovered_count=len(targets),
-            authoritative_snapshot=False,
+            SOURCE, status, lots,
+            f"Allsop canonical+search collector: {len(live_targets)} current/future commercial/mixed-use candidate pages from {len(targets)} total target tiles; {len(lots)} published; {failures} detail failures.",
+            discovered_count=len(live_targets), authoritative_snapshot=False,
             scope_dates=tuple(sorted({x.auction_date for x in lots if x.auction_date})),
         )
     except Exception as exc:
