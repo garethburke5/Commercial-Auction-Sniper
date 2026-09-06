@@ -145,13 +145,6 @@ def _lease_details(text):
 
 
 def _terminal_status_near_title(s):
-    """Read Sold Prior/Withdrawn only from the current lot header area.
-
-    Auction Estates pages can contain other property cards and generic sale notices
-    elsewhere in the document. Searching the whole page caused one sold-prior badge
-    to suppress unrelated live lots. The lot status is published immediately around
-    the H1, before Guide price / Property Type, so scope detection to that region.
-    """
     h1 = s.find("h1")
     if not h1:
         return None
@@ -180,9 +173,7 @@ def _detail(url, card, auction_date, fetcher=_fetch):
     s = fetcher(url)
     text = _description(s)
     combined = norm(card + " " + text)
-
-    if _terminal_status_near_title(s):
-        return None
+    terminal_status = _terminal_status_near_title(s)
     if not _is_target(combined):
         return None
 
@@ -202,7 +193,8 @@ def _detail(url, card, auction_date, fetcher=_fetch):
               image_url=_image(s, url), guide_price=guide, annual_rent=rent,
               tenure=parse_tenure(combined), vat_status=parse_vat(combined),
               legal_pack_status=lp_status, legal_pack_url=lp_url,
-              property_type=_property_type(combined) or "Commercial", description=text)
+              property_type=_property_type(combined) or "Commercial", description=text,
+              status=terminal_status or "CURRENT")
     lot.area_sqft, lot.area_sqm, lot.site_area_acres = _area(combined)
 
     has_vacant = bool(re.search(r"\bvacant possession\b|\bvacant\b", combined, re.I))
@@ -249,17 +241,21 @@ def collect():
         all_links = _lot_links(ls)
         if not all_links:
             return SourceResult(SOURCE, "CATALOGUE PENDING", [], f"Next auction {auction_date} is published but currently has no lot pages.", scope_dates=(auction_date,))
-        lots, failures = [], 0
+        lots, failures, terminal = [], 0, 0
         for href, card in all_links.items():
             try:
                 lot = _detail(href, card, auction_date)
-                if lot: lots.append(lot)
+                if lot:
+                    lots.append(lot)
+                    if lot.status in {"SOLD PRIOR", "WITHDRAWN"}:
+                        terminal += 1
             except Exception as exc:
                 failures += 1
                 print("AUCTION_ESTATES_DETAIL_FAIL", href, repr(exc))
         status = "LIVE" if failures == 0 else "DEGRADED"
+        live_count = sum(1 for x in lots if x.status not in {"SOLD PRIOR", "WITHDRAWN"})
         return SourceResult(SOURCE, status, lots,
-            f"Current Auction Estates {auction_date} catalogue: {len(all_links)} total lot pages inspected; {len(lots)} live commercial/mixed-use lots published; {failures} detail failures. Sold-prior/withdrawn lots excluded by lot-scoped status.",
+            f"Current Auction Estates {auction_date} catalogue: {len(all_links)} total lot pages inspected; {live_count} live commercial/mixed-use lots; {terminal} sold-prior/withdrawn lots preserved for archive; {failures} detail failures.",
             discovered_count=len(lots), authoritative_snapshot=bool(status == "LIVE"), scope_dates=(auction_date,))
     except Exception as exc:
         return SourceResult(SOURCE, "FAILED", [], f"Auction Estates collection failed: {type(exc).__name__}: {exc}")
