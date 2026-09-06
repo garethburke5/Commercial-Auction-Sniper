@@ -1,7 +1,10 @@
 import unittest
 from bs4 import BeautifulSoup
 
-from collectors.auction_estates import _auction_date, _is_target, _lot_links, _property_type, _image
+from collectors.auction_estates import (
+    _auction_date, _is_target, _lot_links, _property_type, _image,
+    _terminal_status_near_title,
+)
 
 
 class AuctionEstatesCollectorTests(unittest.TestCase):
@@ -41,6 +44,30 @@ class AuctionEstatesCollectorTests(unittest.TestCase):
         self.assertTrue(_is_target(mixed))
         self.assertTrue(_is_target(investment))
         self.assertFalse(_is_target(residential))
+
+    def test_terminal_status_is_read_from_current_lot_header(self):
+        s = BeautifulSoup('''
+        <html><body>
+          <h1>62 Station Street, Kirkby-in-Ashfield, NG17 7AS</h1>
+          <div class="status">SoldPrior</div>
+          <div>Guide price £80,000+</div>
+          <div>Property Type Commercial</div>
+        </body></html>
+        ''', "lxml")
+        self.assertEqual(_terminal_status_near_title(s), "SOLD PRIOR")
+
+    def test_other_lot_sold_prior_badge_does_not_suppress_live_lot(self):
+        s = BeautifulSoup('''
+        <html><body>
+          <h1>Live Commercial Lot, Nottingham, NG1 1AA</h1>
+          <div>Guide price £200,000+</div>
+          <div>Property Type Commercial</div>
+          <section class="other-properties">
+            <h2>Other properties</h2><div>62 Station Street SoldPrior</div>
+          </section>
+        </body></html>
+        ''', "lxml")
+        self.assertIsNone(_terminal_status_near_title(s))
 
 
 if __name__ == "__main__":
