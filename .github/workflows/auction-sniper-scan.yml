@@ -102,9 +102,13 @@ jobs:
           print('TARGET COVERAGE',coverage)
           assert not coverage['missing_required_sources'], 'required sources absent from source health: '+', '.join(coverage['missing_required_sources'])
           assert not coverage['unhealthy_required_sources'], 'required sources unhealthy/unimplemented: '+', '.join(coverage['unhealthy_required_sources'])
-          assert (d.get('integrity') or {}).get('target_coverage') is not None, 'target coverage missing from production snapshot'
-
+          assert not coverage['missing_expansion_sources'], 'target expansion sources absent from source health: '+', '.join(coverage['missing_expansion_sources'])
+          assert not coverage['unhealthy_expansion_sources'], 'target expansion sources unhealthy/unimplemented: '+', '.join(coverage['unhealthy_expansion_sources'])
+          assert coverage['acceptance_ready'], 'configured source universe is not acceptance-ready'
           integrity=d.get('integrity') or {}
+          assert integrity.get('target_coverage') is not None, 'target coverage missing from production snapshot'
+          assert integrity.get('acceptance_ready') is True, 'snapshot integrity does not certify target acceptance'
+
           assert not integrity.get('quality_rejections'), f"quality gate rejected {integrity.get('quality_rejections')} records: {integrity.get('quality_rejection_reasons')}"
           quality=integrity.get('source_quality') or {}
           print('SOURCE QUALITY')
@@ -123,6 +127,8 @@ jobs:
           boiler=re.compile(r'login|log in|register to bid|book a viewing|arrange a viewing|cancel proxy bid|your bid|wishlist|connecting to auction|please wait',re.I)
           bad_titles=[x for x in d['properties'] if boiler.search(str(x.get('address') or ''))]
           assert not bad_titles, f'boilerplate property titles: {len(bad_titles)}'
+          bad_descriptions=[x for x in d['properties'] if boiler.search(str(x.get('description') or ''))]
+          assert not bad_descriptions, f'boilerplate property descriptions: {len(bad_descriptions)}'
           today=date.today().isoformat()
           past=[x for x in d['properties'] if str(x.get('auction_date') or '')[:10] and str(x.get('auction_date'))[:10]<today]
           assert not past, f'past auction rows leaked into active board: {len(past)}'
