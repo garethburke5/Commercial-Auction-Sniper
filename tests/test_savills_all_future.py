@@ -1,12 +1,31 @@
 import unittest
+from unittest.mock import patch
 
 from collectors.savills_all_future import (
+    _calendar_html,
     _discover_all_future_auctions,
     _savills_property_image_from_html,
 )
 
 
 class SavillsAllFutureTests(unittest.TestCase):
+    def test_calendar_falls_back_to_home_when_upcoming_route_fails(self):
+        home = '<a href="/auctions/15--16-september-2099-242">15 & 16 September 2099</a>'
+        calls=[]
+        def fake_get_html(url, use_browser=False, timeout_ms=30000):
+            calls.append(url)
+            if url.endswith('/upcoming-auctions'):
+                raise TimeoutError('transient route failure')
+            if url.rstrip('/') == 'https://auctions.savills.co.uk':
+                return home
+            raise AssertionError(url)
+        with patch('collectors.savills_all_future.get_html', side_effect=fake_get_html):
+            self.assertEqual(_calendar_html(), home)
+        self.assertEqual(calls[:2], [
+            'https://auctions.savills.co.uk/upcoming-auctions',
+            'https://auctions.savills.co.uk/',
+        ])
+
     def test_discovers_every_future_catalogue_and_excludes_history(self):
         html = """
         <html><body>
