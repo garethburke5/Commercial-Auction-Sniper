@@ -1,8 +1,9 @@
 import unittest
+from datetime import date
 from unittest.mock import patch
 from bs4 import BeautifulSoup
 
-from collectors import lsh, mchugh, town_country
+from collectors import harman_healy, lsh, mchugh, town_country
 
 
 class FirstPartyRouteFallbackTests(unittest.TestCase):
@@ -39,6 +40,16 @@ class FirstPartyRouteFallbackTests(unittest.TestCase):
         s=BeautifulSoup(html,'lxml')
         links=town_country._future_catalogue_links('https://south.townandcountrypropertyauctions.co.uk',s)
         self.assertEqual(links,['https://south.townandcountrypropertyauctions.co.uk/future-auctions/live'])
+
+    def test_harman_current_catalogue_date_comes_from_future_lot_headings(self):
+        future=(date.today().replace(year=max(date.today().year, 2026))).strftime('%d/%m/%Y')
+        # Keep the fixture future-proof if the suite is run after the 2026 catalogue.
+        if date.today() > date(2026,9,17):
+            future='17/09/2099'
+        html=f'<h3>Online: Lot 1 | End Time - {future} 10:30</h3>'
+        d=harman_healy._current_catalogue_date(BeautifulSoup(html,'lxml'))
+        self.assertIsNotNone(d)
+        self.assertGreaterEqual(d,date.today())
 
 
 if __name__ == '__main__':
