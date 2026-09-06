@@ -3,7 +3,7 @@ from datetime import date
 from urllib.parse import urljoin
 
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat, is_commercial
-from .utils import soup, legal_pack
+from .utils import soup, legal_pack, image_from_soup
 
 SOURCE = "Auction Estates"
 BASE = "https://www.auctionestates.co.uk"
@@ -77,22 +77,63 @@ def _is_target(text):
 
 
 def _image(s, base):
+    """Extract the real lot photo from hero/gallery/lazy-loaded markup."""
+    bad = ("logo", "icon", "avatar", "staff", "map", "floorplan", "epc", "placeholder", "sprite", "social")
+    candidates = []
+
+    for attrs in ({"property": "og:image"}, {"name": "twitter:image"}):
+        tag = s.find("meta", attrs=attrs)
+        if tag and tag.get("content"):
+            candidates.append(urljoin(base, tag.get("content")))
+
     for img in s.find_all("img"):
-        raw = img.get("data-src") or img.get("data-lazy-src") or img.get("src")
-        if not raw:
-            continue
-        u = urljoin(base, raw)
-        low = u.lower()
         alt = norm(img.get("alt") or "").lower()
-        if any(x in low for x in ("logo", "icon", "avatar", "staff", "map", "floorplan", "epc")):
+        for attr in ("data-src", "data-lazy-src", "data-original", "data-image", "data-url", "src"):
+            raw = img.get(attr)
+            if raw:
+                candidates.append(urljoin(base, raw))
+        for attr in ("srcset", "data-srcset"):
+            raw = img.get(attr)
+            if raw:
+                for part in raw.split(","):
+                    u = part.strip().split(" ")[0]
+                    if u:
+                        candidates.append(urljoin(base, u))
+        if "property" in alt or "lot" in alt:
+            for attr in ("src", "data-src", "data-lazy-src"):
+                if img.get(attr):
+                    candidates.insert(0, urljoin(base, img.get(attr)))
+
+    raw_html = str(s).replace("\\/", "/")
+    for u in re.findall(r'https?://[^"\'<>\s]+?\.(?:jpe?g|png|webp)(?:\?[^"\'<>\s]*)?', raw_html, re.I):
+        candidates.append(u)
+
+    seen = set()
+    scored = []
+    for u in candidates:
+        if not u or u in seen:
             continue
-        if "auctionestates" in low or "property" in alt:
-            return u
+        seen.add(u)
+        low = u.lower()
+        if any(x in low for x in bad):
+            continue
+        score = 0
+        if "auctionestates" in low: score += 5
+        if any(x in low for x in ("property", "uploads", "images", "photos", "media")): score += 3
+        if low.endswith((".jpg", ".jpeg", ".webp")) or ".jpg?" in low or ".jpeg?" in low or ".webp?" in low: score += 2
+        scored.append((score, u))
+    if scored:
+        scored.sort(reverse=True)
+        if scored[0][0] > 0:
+            return scored[0][1]
+
+    generic = image_from_soup(s, base)
+    if generic and not any(x in generic.lower() for x in bad):
+        return generic
     return None
 
 
 def _description(s):
-    # Build from listing headings/features rather than publishing navigation chrome.
     h1 = s.find("h1")
     if not h1:
         return norm((s.find("main") or s).get_text(" ", strip=True))[:8000]
