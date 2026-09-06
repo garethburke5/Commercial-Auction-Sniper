@@ -62,23 +62,7 @@ jobs:
           SAVILLS_PASSWORD: ${{ secrets.SAVILLS_PASSWORD }}
         run: python run_collectors.py
 
-      - name: Publish safe refreshed snapshot
-        run: |
-          git config user.name 'Auction Sniper Bot'
-          git config user.email 'actions@users.noreply.github.com'
-          cp data/properties.json /tmp/auction-sniper-properties.json
-          cp app.py /tmp/auction-sniper-app.py
-          git restore data/properties.json app.py
-          git pull --rebase origin main
-          cp /tmp/auction-sniper-properties.json data/properties.json
-          cp /tmp/auction-sniper-app.py app.py
-          git add data/properties.json app.py
-          if ! git diff --cached --quiet; then
-            git commit -m 'Refresh canonical Auction Sniper production state'
-            git push origin main
-          fi
-
-      - name: Validate refreshed snapshot
+      - name: Validate candidate snapshot before publish
         run: |
           python - <<'PY'
           import json, re
@@ -115,10 +99,6 @@ jobs:
           for src,q in sorted(quality.items()):
               print(src,q)
 
-          # Acceptance is board-wide: a collector cannot be called production-ready
-          # merely because it found URLs. Every live source with meaningful inventory
-          # must have predominantly genuine property images and useful particulars.
-          # This intentionally turns silent skeleton-card regressions into CI failures.
           live_sources={
               s['source'] for s in d['source_health']
               if s.get('status') in {'LIVE','DEGRADED'} and (s.get('lots_seen') or 0) >= 3
@@ -153,3 +133,19 @@ jobs:
           assert sav, 'no current Savills lots published'
           assert all(str(x.get('auction_date') or '')[:10]>=today for x in sav), 'stale Savills current rows detected'
           PY
+
+      - name: Publish validated refreshed snapshot
+        run: |
+          git config user.name 'Auction Sniper Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          cp data/properties.json /tmp/auction-sniper-properties.json
+          cp app.py /tmp/auction-sniper-app.py
+          git restore data/properties.json app.py
+          git pull --rebase origin main
+          cp /tmp/auction-sniper-properties.json data/properties.json
+          cp /tmp/auction-sniper-app.py app.py
+          git add data/properties.json app.py
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh canonical Auction Sniper production state'
+            git push origin main
+          fi
