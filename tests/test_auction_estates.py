@@ -1,7 +1,7 @@
 import unittest
 from bs4 import BeautifulSoup
 
-from collectors.auction_estates import _auction_date, _is_target, _lot_links, _property_type
+from collectors.auction_estates import _auction_date, _is_target, _lot_links, _property_type, _image
 
 
 class AuctionEstatesCollectorTests(unittest.TestCase):
@@ -18,6 +18,18 @@ class AuctionEstatesCollectorTests(unittest.TestCase):
         """, "lxml")
         found = _lot_links(s)
         self.assertEqual(len(found), 2)
+
+    def test_image_recovers_lazy_gallery_image_and_rejects_logo(self):
+        s = BeautifulSoup('''
+        <html><head><meta property="og:image" content="/images/logo.png"></head><body>
+          <img src="/assets/logo.svg" alt="Auction Estates" />
+          <img data-src="https://media.auctionestates.co.uk/property/363629/hero-main.jpg" alt="Property photograph" />
+        </body></html>
+        ''', "lxml")
+        self.assertEqual(
+            _image(s, "https://www.auctionestates.co.uk/property/eldon-chambers-nottingham-363629"),
+            "https://media.auctionestates.co.uk/property/363629/hero-main.jpg",
+        )
 
     def test_property_type_parser_and_commercial_filter(self):
         commercial = "Guide price £225,000 Property Type Commercial Key Features freehold five-storey restaurant"
