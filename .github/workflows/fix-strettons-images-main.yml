@@ -1,9 +1,5 @@
 name: Fix Strettons property images
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/fix-strettons-images-main.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -71,7 +67,6 @@ def _hydrate_strettons_seed_rows(rows):
 '''
             if marker not in s: raise SystemExit('load_rows marker missing')
             s=s.replace(marker,fn+marker,1)
-          # Snapshot-only startup is retained: do not add network hydration to first paint.
           p.write_text(s,encoding='utf-8')
           PY
       - name: Compile and smoke test
@@ -87,21 +82,16 @@ def _hydrate_strettons_seed_rows(rows):
           python - <<'PY'
           import json
           from pathlib import Path
-          # Import app after smoke-tested patch, then call the cached resolver explicitly offline.
           import app
           cp=Path('auction_sniper_cache.json')
           data=json.loads(cp.read_text(encoding='utf-8'))
           rows=data.get('rows',data) if isinstance(data,dict) else data
-          before=len(rows)
           targets=[r for r in rows if r.get('source')=='Strettons']
-          print('Strettons rows',len(targets),'missing images',sum(not r.get('image') for r in targets))
           live=app._strettons_seed_exact_rows(tuple(r.get('lot') for r in targets if r.get('lot')))
-          print('resolved exact rows',len(live),'with images',sum(bool(r.get('image')) for r in live))
           if targets and not live: raise SystemExit('Strettons exact resolver returned no rows')
           rows=app._merge_property_universe(rows,live)
           after=[r for r in rows if r.get('source')=='Strettons']
           missing=sum(not r.get('image') for r in after)
-          print('after Strettons',len(after),'missing images',missing,'total',len(rows))
           if len(rows)<150: raise SystemExit('property count regression')
           if after and missing: raise SystemExit(f'{missing} Strettons rows still missing images')
           if isinstance(data,dict): data['rows']=rows
