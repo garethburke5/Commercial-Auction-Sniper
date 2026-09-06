@@ -54,6 +54,17 @@ class SavillsAllFutureTests(unittest.TestCase):
             "https://resize.auctions.savills.co.uk/assets/images/lots/25025/1.jpg?width=640",
         )
 
+    def test_extracts_current_script_hydrated_lot_image(self):
+        html = r'''<script>window.gallery=["/images\/lots\/243\/24521\/8e6ca5291d18cedb3997f735535caa71.jpeg"];</script>'''
+        image = _savills_property_image_from_html(
+            html,
+            "https://auctions.savills.co.uk/auctions/29-september-2099-243/116-high-street-24521",
+        )
+        self.assertEqual(
+            image,
+            "https://auctions.savills.co.uk/images/lots/243/24521/8e6ca5291d18cedb3997f735535caa71.jpeg",
+        )
+
     def test_extracts_extensionless_lot_image_route(self):
         html = '<img alt="Property" data-src="/lot-image/25025/1?width=640&height=480">'
         image = _savills_property_image_from_html(
