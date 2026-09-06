@@ -1,0 +1,44 @@
+name: Wire Auction Estates
+on:
+  push:
+    paths:
+      - '.github/workflows/wire-auction-estates.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Wire Auction Estates into production runner
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('run_collectors.py')
+          text=p.read_text()
+          anchor='from collectors.symonds_sampson import collect as symonds_sampson'
+          imp='from collectors.auction_estates import collect as auction_estates'
+          if imp not in text:
+              if anchor not in text: raise SystemExit('Symonds import anchor not found')
+              text=text.replace(anchor,anchor+'\n'+imp,1)
+          old='future_property,bidx1,symonds_sampson]'
+          new='future_property,bidx1,symonds_sampson,auction_estates]'
+          if old in text:
+              text=text.replace(old,new,1)
+          elif new not in text:
+              raise SystemExit('Collector list anchor not found')
+          p.write_text(text)
+          PY
+      - name: Remove transient workflow and publish
+        run: |
+          git config user.name 'Auction Sniper Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git rm .github/workflows/wire-auction-estates.yml
+          git add run_collectors.py
+          if ! git diff --cached --quiet; then
+            git commit -m 'Wire Auction Estates into production'
+            git push origin main
+          fi
