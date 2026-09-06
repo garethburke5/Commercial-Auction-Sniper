@@ -5,7 +5,7 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from urllib.parse import urlparse, unquote
 
-from collectors.core import SourceResult
+from collectors.core import SourceResult, clean_description
 from collectors.auction_house_london_v2 import collect as ahl
 from collectors.savills_all_future import collect as savills
 from collectors.bond_wolfe_v2 import collect as bond_wolfe
@@ -29,6 +29,7 @@ DATA.mkdir(exist_ok=True)
 COLLECTORS=[ahl,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross,harman_healy,knight_frank,town_country]
 PUBLISHABLE={"LIVE","DEGRADED"}
 BAD_ADDRESS=re.compile(r"(?:login|log in|sign in|register to bid|book a viewing|arrange a viewing|viewing appointment|cancel proxy bid|your bid|remove from wishlist|add to wishlist|connecting to auction|please wait|full details|legal pack available)",re.I)
+DESCRIPTION_BOILERPLATE=re.compile(r"(?:book your free appraisal|register to bid|create account\s*/\s*login|my account|auction countdown|book a viewing|sign up for auction alerts)",re.I)
 RICH_FIELDS=("image_url","area_sqft","area_sqm","site_area_acres","tenant","lease_term","lease_start","lease_expiry","break_clause","break_status","rent_review","fri","erv","epc","rateable_value","service_charge","ground_rent","property_type","occupation","parking","development_potential","asset_management","refurbishment","residential_conversion","listed_status","covenant_rating","covenant_risk","covenant_turnover","guarantors","pitch","nearby_occupiers","legal_pack_url","legal_pack_status","vat_status","tenure","guide_price","annual_rent","lot_number","auction_date")
 
 
@@ -83,6 +84,10 @@ def _sanitize_item(item):
         else: return None,repairs,"invalid_address"
     url=str(item.get("url") or "").strip()
     if not url.startswith(("http://","https://")): return None,repairs,"invalid_url"
+    original_description=str(item.get("description") or "")
+    cleaned_description=clean_description(original_description)
+    if cleaned_description != original_description:
+        item["description"]=cleaned_description; repairs.append("description_cleaned")
     if item.get("image_url") and not _image_is_valid(item.get("source"),item.get("image_url")):
         item["image_url"]=None; repairs.append("invalid_image_removed")
     occ=str(item.get("occupation") or "").strip().lower()
@@ -99,7 +104,14 @@ def _merge_last_good(old,new):
     out=dict(old)
     for k,v in new.items():
         if k=="description":
-            if len(str(v or ""))>=len(str(out.get(k) or "")): out[k]=v
+            new_desc=clean_description(v)
+            old_desc=clean_description(out.get(k))
+            # New first-party particulars are authoritative when present. The old
+            # length heuristic preserved giant page dumps forever because chrome is
+            # longer than the repaired description. Clean both sides and prefer the
+            # fresh particulars regardless of raw length.
+            if _meaningful(new_desc): out[k]=new_desc
+            elif _meaningful(old_desc): out[k]=old_desc
         elif k=="image_url":
             if _image_is_valid(new.get("source"),v): out[k]=v
         elif k in RICH_FIELDS:
@@ -170,6 +182,8 @@ def run():
     active=[x for x in history if x.get("status")=="CURRENT"]; archive=[x for x in history if x.get("status")!="CURRENT"]
     bad_active=[x for x in active if _auction_has_finished(x,today) or BAD_ADDRESS.search(str(x.get("address") or ""))]
     if bad_active: raise RuntimeError(f"production quality gate failed: {len(bad_active)} unsafe active rows")
+    bad_descriptions=[x for x in active if DESCRIPTION_BOILERPLATE.search(str(x.get("description") or ""))]
+    if bad_descriptions: raise RuntimeError(f"production description quality gate failed: {len(bad_descriptions)} active rows still contain site chrome")
 
     duplicate_image_repairs,duplicate_image_urls=_remove_duplicate_images(active)
     quality_repairs+=duplicate_image_repairs
