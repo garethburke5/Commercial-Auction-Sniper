@@ -135,12 +135,12 @@ def _area(text):
 
 
 def _lease_details(text):
-    low = norm(text)
+    value = norm(text)
     expiry = None
-    m = re.search(r"(?:lease\s+(?:until|till|to)|expires?\s+)([A-Za-z]+\s+20\d{2}|\d{1,2}[/-]\d{1,2}[/-]20\d{2})", low, re.I)
+    m = re.search(r"(?:lease\s+(?:until|till|to)|expires?\s+)([A-Za-z]+\s+20\d{2}|\d{1,2}[/-]\d{1,2}[/-]20\d{2})", value, re.I)
     if m:
         expiry = norm(m.group(1))
-    holding_over = bool(re.search(r"holding over", low, re.I))
+    holding_over = bool(re.search(r"holding over", value, re.I))
     return expiry, holding_over
 
 
@@ -150,7 +150,6 @@ def _detail(url, card, auction_date, fetcher=_fetch):
     full_page = norm(s.get_text(" ", strip=True))
     combined = norm(card + " " + text)
 
-    # Sold-prior and withdrawn properties must never remain on the live board.
     if re.search(r"\bSold\s*Prior\b|\bSold Prior\b|\bWithdrawn\b", full_page, re.I):
         return None
     if not _is_target(combined):
@@ -190,16 +189,36 @@ def _detail(url, card, auction_date, fetcher=_fetch):
     if re.search(r"scope for conversion of (?:the )?uppers? to residential|conversion of upper floors? to residential|residential conversion|subject to planning|\bSTP\b", combined, re.I):
         lot.residential_conversion = True
         lot.development_potential = True
-    elif re.search(r"development potential|redevelopment|scope for .*development", combined, re.I):
+    elif re.search(r"development potential|future development|redevelopment|scope for .*development", combined, re.I):
         lot.development_potential = True
-    if re.search(r"refurbish|refurbishment|requires restoration|in need of renovation", combined, re.I):
+
+    if re.search(r"comprehensive refurbishment|refurbish|refurbishment|requires restoration|in need of renovation", combined, re.I):
         lot.refurbishment = True
+
     if re.search(r"self[- ]contained access", combined, re.I):
         lot.asset_management = True
-    if re.search(r"prominent position|heart of .*town centre|heart of .*city centre|pedestrianised", combined, re.I):
+
+    pm = re.search(r"parking for\s+(\d+)\s+(?:cars|vehicles)", combined, re.I)
+    if pm:
+        lot.parking = f"Parking for {pm.group(1)} vehicles"
+    elif re.search(r"secure car park", combined, re.I):
+        lot.parking = "Secure car park"
+    elif re.search(r"\bcar park\b|\bparking\b", combined, re.I):
+        lot.parking = "Car park / parking mentioned"
+
+    if re.search(r"prominent position|heart of .*town centre|heart of .*city centre|pedestrianised|prominent location", combined, re.I):
         lot.pitch = "Prominent/central commercial location"
-    near = re.search(r"Nearby occupiers:?\s*(.+?)(?:\.|Close to|$)", combined, re.I)
-    if near: lot.nearby_occupiers = norm(near.group(1))[:300]
+
+    nearby = []
+    m = re.search(r"Nearby occupiers:?\s*(.+?)(?:\.|Close to|$)", combined, re.I)
+    if m:
+        nearby.append(norm(m.group(1))[:220])
+    for brand in ("Tesco Express", "Tesco", "Sainsbury's", "Lidl", "Aldi", "Morrisons", "Asda"):
+        if re.search(rf"\b(?:adjacent to|close to|opposite)\s+(?:a\s+)?{re.escape(brand)}\b", combined, re.I):
+            nearby.append(brand)
+    if nearby:
+        lot.nearby_occupiers = ", ".join(dict.fromkeys(nearby))[:300]
+
     return lot.finalise()
 
 
