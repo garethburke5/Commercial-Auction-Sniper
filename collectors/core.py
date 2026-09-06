@@ -33,21 +33,33 @@ MIXED_MARKERS = [
 ]
 
 # Navigation / transactional chrome sometimes enters a lot's page-text when a source
-# does not provide a dedicated description node.  Keep this centralized so collectors
+# does not provide a dedicated description node. Keep this centralized so collectors
 # can safely pass page text without each source reinventing cleanup rules.
 DESCRIPTION_START_MARKERS = (
     "Property Details Description",
     "Property Description",
+)
+DESCRIPTION_FALLBACK_START_MARKERS = (
+    "Key Features",
+    "Key features",
+    "Description",
+    "Property Information",
+    "Property information",
 )
 DESCRIPTION_END_MARKERS = (
     "Costs Auction Details",
     "Auction Details The sale of this property",
     "Auction Deposit and Fees",
     "Address Open in Google Maps",
+    "Open in Google Maps",
+    "Our Nearest Office",
+    "Sign Up For Auction Alerts",
 )
 DESCRIPTION_CHROME = re.compile(
     r"(?:book your free appraisal|register to bid|create account\s*/\s*login|my account|"
-    r"auction countdown|book a viewing|sign up for auction alerts|contact our team of auction experts)",
+    r"auction countdown|book a viewing|arrange a viewing|sign up for auction alerts|"
+    r"contact our team of auction experts|cancel proxy bid|remove from wishlist|add to wishlist|"
+    r"connecting to auction|please wait)",
     re.I,
 )
 LET_EVIDENCE = re.compile(
@@ -62,27 +74,41 @@ def norm(text):
     return re.sub(r"\s+", " ", text or "").strip()
 
 
+def _first_marker(value, markers):
+    lowered = value.lower()
+    hits = []
+    for marker in markers:
+        pos = lowered.find(marker.lower())
+        if pos >= 0:
+            hits.append((pos, marker))
+    return min(hits, default=None, key=lambda x: x[0])
+
+
 def clean_description(text):
     """Return property particulars rather than a whole scraped web page.
 
-    Some auction platforms expose useful particulars inside a page whose text also
-    contains menus, login controls and bidding/viewing UI.  Prefer a recognised
-    particulars section when present; otherwise retain normalized text unless the
-    input is obviously chrome-heavy, in which case bound it to a safe size rather
-    than publishing an unbounded page dump.
+    Auction sites frequently wrap the useful particulars in login, bidding, viewing
+    and account UI. Prefer a recognised particulars section, cut known transactional
+    tails, and never allow residual UI controls to survive into the published board.
+    The fallback markers are only used when the page is chrome-heavy or when the
+    marker appears near the beginning, avoiding arbitrary truncation of normal prose.
     """
     value = norm(text)
     if not value:
         return ""
 
-    lowered = value.lower()
-    for marker in DESCRIPTION_START_MARKERS:
-        pos = lowered.find(marker.lower())
-        if pos >= 0:
+    strong = _first_marker(value, DESCRIPTION_START_MARKERS)
+    if strong:
+        pos, marker = strong
+        value = value[pos + len(marker):].strip(" :-|")
+    else:
+        chrome = DESCRIPTION_CHROME.search(value)
+        fallback = _first_marker(value, DESCRIPTION_FALLBACK_START_MARKERS)
+        if fallback and (chrome or fallback[0] <= 2500):
+            pos, marker = fallback
             value = value[pos + len(marker):].strip(" :-|")
-            lowered = value.lower()
-            break
 
+    lowered = value.lower()
     end_positions = []
     for marker in DESCRIPTION_END_MARKERS:
         pos = lowered.find(marker.lower())
@@ -91,10 +117,22 @@ def clean_description(text):
     if end_positions:
         value = value[:min(end_positions)].strip(" :-|")
 
-    # A description should never be a multi-thousand-word rendering of controls.
-    # Do not truncate normal particulars; only apply the guard to chrome-heavy text.
-    if DESCRIPTION_CHROME.search(value) and len(value) > 6000:
-        value = value[:6000].rsplit(" ", 1)[0].strip()
+    # Transactional controls that remain after the particulars almost always mark
+    # the end of useful property content. Do not truncate on a leading control: a
+    # fallback start marker may still follow it and preserving the body is safer.
+    tail_chrome = DESCRIPTION_CHROME.search(value)
+    if tail_chrome and tail_chrome.start() >= 120:
+        value = value[:tail_chrome.start()].strip(" :-|")
+
+    # If a source places one or more controls directly before otherwise useful text,
+    # remove those phrases rather than publishing them as property data.
+    value = DESCRIPTION_CHROME.sub(" ", value)
+    value = norm(value).strip(" :-|")
+
+    # Last-resort guard for malformed pages: descriptions should never be unbounded
+    # renderings of menus and controls even if a source changes its headings.
+    if len(value) > 9000:
+        value = value[:9000].rsplit(" ", 1)[0].strip()
     return norm(value)
 
 
