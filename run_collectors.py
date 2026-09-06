@@ -34,6 +34,7 @@ DATA=Path("data")
 DATA.mkdir(exist_ok=True)
 COLLECTORS=[ahl,collect_east_anglia,collect_west_yorkshire,collect_sussex_hampshire,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross,harman_healy,knight_frank,town_country,future_property,bidx1,symonds_sampson,auction_estates]
 PUBLISHABLE={"LIVE","DEGRADED"}
+TERMINAL_STATUSES={"SOLD PRIOR","WITHDRAWN","WITHDRAWN PRIOR","AUCTION ENDED","COMPLETED","ARCHIVED"}
 BAD_ADDRESS=re.compile(r"(?:login|log in|sign in|register to bid|book a viewing|arrange a viewing|viewing appointment|cancel proxy bid|your bid|remove from wishlist|add to wishlist|connecting to auction|please wait|full details|legal pack available)",re.I)
 DESCRIPTION_BOILERPLATE=re.compile(r"(?:book your free appraisal|register to bid|create account\s*/\s*login|my account|auction countdown|book a viewing|sign up for auction alerts)",re.I)
 RICH_FIELDS=("image_url","area_sqft","area_sqm","site_area_acres","tenant","lease_term","lease_start","lease_expiry","break_clause","break_status","rent_review","fri","erv","epc","rateable_value","service_charge","ground_rent","property_type","occupation","parking","development_potential","asset_management","refurbishment","residential_conversion","listed_status","covenant_rating","covenant_risk","covenant_turnover","guarantors","pitch","nearby_occupiers","legal_pack_url","legal_pack_status","vat_status","tenure","guide_price","annual_rent","lot_number","auction_date")
@@ -57,6 +58,8 @@ def _auction_date(x):
     except Exception: return None
 def _auction_has_finished(x,today):
     d=_auction_date(x); return bool(d and d<today)
+def _normal_status(value): return str(value or "").strip().upper().replace("_"," ")
+def _is_terminal(item): return _normal_status(item.get("status")) in TERMINAL_STATUSES
 def _complete_authoritative(r):
     return bool(getattr(r,"authoritative_snapshot",False) and r.status=="LIVE" and getattr(r,"expected_count",None) and len(r.lots)==r.expected_count and getattr(r,"scope_dates",()))
 
@@ -76,39 +79,21 @@ def _image_is_valid(source,url):
     if re.search(r"(?:logo|favicon|sprite|placeholder|avatar|social|brandmark)",low): return False
     src=(source or "").lower()
     if "savills" in src:
-        return bool(
-            "resize.auctions.savills.co.uk/assets/images/lots/" in low
-            or re.search(r"https?://auctions\.savills\.co\.uk/images/lots/\d+/\d+/[^/?#]+\.(?:jpe?g|png|webp)",low)
-        )
-    if "acuitus" in src:
-        return "/uploads/" in low and not any(x in low for x in ("banner","header","logo"))
-    if "bidx1" in src:
-        return "images-prd.bidx1.com" in low and not any(x in low for x in ("support","agent","surveyor","profile","avatar","team","logo","icon","ber-","user"))
+        return bool("resize.auctions.savills.co.uk/assets/images/lots/" in low or re.search(r"https?://auctions\.savills\.co\.uk/images/lots/\d+/\d+/[^/?#]+\.(?:jpe?g|png|webp)",low))
+    if "acuitus" in src: return "/uploads/" in low and not any(x in low for x in ("banner","header","logo"))
+    if "bidx1" in src: return "images-prd.bidx1.com" in low and not any(x in low for x in ("support","agent","surveyor","profile","avatar","team","logo","icon","ber-","user"))
     return True
 
 
 def _enrich_item(item):
-    """Apply conservative cross-source extraction before scoring/publishing.
-
-    Some source collectors deliberately focus on catalogue discovery and pass rich
-    prose through without duplicating every field parser. Reusing the shared,
-    explicit-signal enrichment here keeps the live board consistent and prevents a
-    collector from appearing skeletal simply because it omitted a source-specific
-    call. Existing structured values always win.
-    """
     payload={k:v for k,v in dict(item).items() if k in LOT_FIELDS}
     try:
-        lot=Lot(**payload)
-        enriched=enrich_common_fields(lot, str(payload.get("description") or "")).to_dict()
-        out=dict(item)
+        lot=Lot(**payload); enriched=enrich_common_fields(lot,str(payload.get("description") or "")).to_dict(); out=dict(item)
         for k,v in enriched.items():
-            if k == "source_id":
-                continue
-            if out.get(k) in (None, "", "UNKNOWN", "NOT FOUND") and v not in (None, "", "UNKNOWN", "NOT FOUND"):
-                out[k]=v
+            if k=="source_id": continue
+            if out.get(k) in (None,"","UNKNOWN","NOT FOUND") and v not in (None,"","UNKNOWN","NOT FOUND"): out[k]=v
         return out
-    except Exception:
-        return dict(item)
+    except Exception: return dict(item)
 
 
 def _sanitize_item(item):
@@ -120,28 +105,21 @@ def _sanitize_item(item):
         else: return None,repairs,"invalid_address"
     url=str(item.get("url") or "").strip()
     if not url.startswith(("http://","https://")): return None,repairs,"invalid_url"
-    original_description=str(item.get("description") or "")
-    cleaned_description=clean_description(original_description)
-    if cleaned_description != original_description:
-        item["description"]=cleaned_description; repairs.append("description_cleaned")
-    if item.get("image_url") and not _image_is_valid(item.get("source"),item.get("image_url")):
-        item["image_url"]=None; repairs.append("invalid_image_removed")
+    original_description=str(item.get("description") or ""); cleaned_description=clean_description(original_description)
+    if cleaned_description!=original_description: item["description"]=cleaned_description; repairs.append("description_cleaned")
+    if item.get("image_url") and not _image_is_valid(item.get("source"),item.get("image_url")): item["image_url"]=None; repairs.append("invalid_image_removed")
     occ=str(item.get("occupation") or "").strip().lower()
-    if occ in {"vacant","vacant possession"} and (item.get("annual_rent") is not None or item.get("gross_yield") is not None):
-        item["annual_rent"]=None; item["gross_yield"]=None; repairs.append("vacant_rent_cleared")
+    if occ in {"vacant","vacant possession"} and (item.get("annual_rent") is not None or item.get("gross_yield") is not None): item["annual_rent"]=None; item["gross_yield"]=None; repairs.append("vacant_rent_cleared")
     return item,repairs,None
 
 
 def _meaningful(v): return v not in (None,"","UNKNOWN","NOT FOUND")
-
-
 def _merge_last_good(old,new):
     if not old: return dict(new)
     out=dict(old)
     for k,v in new.items():
         if k=="description":
-            new_desc=clean_description(v)
-            old_desc=clean_description(out.get(k))
+            new_desc=clean_description(v); old_desc=clean_description(out.get(k))
             if _meaningful(new_desc): out[k]=new_desc
             elif _meaningful(old_desc): out[k]=old_desc
         elif k=="image_url":
@@ -149,36 +127,30 @@ def _merge_last_good(old,new):
         elif k in RICH_FIELDS:
             if _meaningful(v): out[k]=v
         elif _meaningful(v): out[k]=v
-    if out.get("guide_price") and out.get("annual_rent"):
-        out["gross_yield"]=round(float(out["annual_rent"])/float(out["guide_price"])*100,2)
+    if out.get("guide_price") and out.get("annual_rent"): out["gross_yield"]=round(float(out["annual_rent"])/float(out["guide_price"])*100,2)
     elif str(out.get("occupation") or "").lower() in {"vacant","vacant possession"}: out["gross_yield"]=None
     return out
 
 
 def _remove_duplicate_images(active):
     by_source=defaultdict(list)
-    for item in active:
-        by_source[str(item.get("source") or "Unknown")].append(item)
+    for item in active: by_source[str(item.get("source") or "Unknown")].append(item)
     removed=0; duplicate_urls={}
     for source,items in by_source.items():
-        counts=Counter(str(x.get("image_url") or "").strip() for x in items if x.get("image_url"))
-        bad={u:c for u,c in counts.items() if u and c>=3}
+        counts=Counter(str(x.get("image_url") or "").strip() for x in items if x.get("image_url")); bad={u:c for u,c in counts.items() if u and c>=3}
         if not bad: continue
         duplicate_urls[source]=bad
         for item in items:
-            if str(item.get("image_url") or "").strip() in bad:
-                item["image_url"]=None; removed+=1
+            if str(item.get("image_url") or "").strip() in bad: item["image_url"]=None; removed+=1
     return removed,duplicate_urls
 
 
 def _collector_name(fn):
-    module=getattr(fn,"__module__",""); leaf=module.rsplit(".",1)[-1].replace("_v2","").replace("_"," ").strip()
-    return leaf.title() or getattr(fn,"__name__","Unknown collector")
+    module=getattr(fn,"__module__",""); leaf=module.rsplit(".",1)[-1].replace("_v2","").replace("_"," ").strip(); return leaf.title() or getattr(fn,"__name__","Unknown collector")
 def _run_collector_safely(fn):
     try: return fn()
     except Exception as exc:
-        source=_collector_name(fn)
-        return SourceResult(source=source,status="FAILED",lots=[],message=f"Collector raised {type(exc).__name__}: {exc}",discovered_count=0,authoritative_snapshot=False)
+        source=_collector_name(fn); return SourceResult(source=source,status="FAILED",lots=[],message=f"Collector raised {type(exc).__name__}: {exc}",discovered_count=0,authoritative_snapshot=False)
 
 
 def run():
@@ -194,8 +166,7 @@ def run():
                     quality_rejections+=1; source_rejected+=1; rejection_reasons[reason]=rejection_reasons.get(reason,0)+1; continue
                 k=_key(item); current_by_key[k]=_merge_last_good(old_by_key.get(k),item)
         status=r.to_status_dict()
-        if source_rejected:
-            status["status"]="DEGRADED"; status["message"]=f"{status.get('message','')} Quality gate rejected {source_rejected} unsafe record(s).".strip()
+        if source_rejected: status["status"]="DEGRADED"; status["message"]=f"{status.get('message','')} Quality gate rejected {source_rejected} unsafe record(s).".strip()
         results.append(status)
         if _complete_authoritative(r) and not source_rejected: authoritative_scopes.append((r.source,set(r.scope_dates)))
 
@@ -205,7 +176,10 @@ def run():
         stale=[k for k,item in merged_by_key.items() if k not in current_keys and item.get("source")==source and str(item.get("auction_date") or "")[:10] in scope_dates]
         for k in stale: merged_by_key.pop(k,None); pruned+=1
     for k,item in merged_by_key.items():
-        if _auction_has_finished(item,today): item["status"]="ARCHIVED"
+        incoming_terminal=_is_terminal(item)
+        if incoming_terminal:
+            item["status"]=_normal_status(item.get("status"))
+        elif _auction_has_finished(item,today): item["status"]="ARCHIVED"
         elif k in current_keys: item["status"]="CURRENT"
         elif source_status.get(item.get("source")) is not None: item["status"]="STALE SOURCE"
     history=list(merged_by_key.values()); history.sort(key=lambda x:(str(x.get("auction_date") or ""),str(x.get("source") or ""),str(x.get("lot_number") or ""),str(x.get("address") or "")),reverse=True)
@@ -214,10 +188,10 @@ def run():
     if bad_active: raise RuntimeError(f"production quality gate failed: {len(bad_active)} unsafe active rows")
     bad_descriptions=[x for x in active if DESCRIPTION_BOILERPLATE.search(str(x.get("description") or ""))]
     if bad_descriptions: raise RuntimeError(f"production description quality gate failed: {len(bad_descriptions)} active rows still contain site chrome")
+    terminal_leaks=[x for x in active if _is_terminal(x)]
+    if terminal_leaks: raise RuntimeError(f"terminal lifecycle rows leaked into active board: {len(terminal_leaks)}")
 
-    duplicate_image_repairs,duplicate_image_urls=_remove_duplicate_images(active)
-    quality_repairs+=duplicate_image_repairs
-
+    duplicate_image_repairs,duplicate_image_urls=_remove_duplicate_images(active); quality_repairs+=duplicate_image_repairs
     source_quality={}
     for x in active:
         q=source_quality.setdefault(x.get("source") or "Unknown",{"lots":0,"valid_images":0,"rich":0}); q["lots"]+=1
@@ -225,13 +199,11 @@ def run():
         rich=sum(1 for k in ("guide_price","annual_rent","tenure","area_sqft","tenant","lease_term","property_type","occupation","epc","development_potential","asset_management") if _meaningful(x.get(k)))
         if rich>=4: q["rich"]+=1
     for q in source_quality.values():
-        q["image_coverage_pct"]=round(100*q["valid_images"]/q["lots"],1) if q["lots"] else 0
-        q["rich_coverage_pct"]=round(100*q["rich"]/q["lots"],1) if q["lots"] else 0
-
+        q["image_coverage_pct"]=round(100*q["valid_images"]/q["lots"],1) if q["lots"] else 0; q["rich_coverage_pct"]=round(100*q["rich"]/q["lots"],1) if q["lots"] else 0
     target_coverage=manifest_coverage(results)
-    snapshot={"generated_at":datetime.now(timezone.utc).isoformat(),"properties":active,"archive":archive,"source_health":results,"integrity":{"active_property_count":len(active),"historical_property_count":len(archive),"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"quality_rejection_reasons":rejection_reasons,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"source_quality":source_quality,"target_coverage":target_coverage,"acceptance_ready":target_coverage.get("acceptance_ready",False)}}
+    lifecycle_counts=Counter(_normal_status(x.get("status")) for x in archive)
+    snapshot={"generated_at":datetime.now(timezone.utc).isoformat(),"properties":active,"archive":archive,"source_health":results,"integrity":{"active_property_count":len(active),"historical_property_count":len(archive),"lifecycle_counts":dict(lifecycle_counts),"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"quality_rejection_reasons":rejection_reasons,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"source_quality":source_quality,"target_coverage":target_coverage,"acceptance_ready":target_coverage.get("acceptance_ready",False)}}
     (DATA/"properties.json").write_text(json.dumps(snapshot,indent=2),encoding="utf-8")
-    print(json.dumps({"generated_at":snapshot["generated_at"],"property_count":len(active),"historical_count":len(archive),"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"source_quality":source_quality,"target_coverage":target_coverage,"sources":results},indent=2))
-
+    print(json.dumps({"generated_at":snapshot["generated_at"],"property_count":len(active),"historical_count":len(archive),"lifecycle_counts":dict(lifecycle_counts),"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"duplicate_image_repairs":duplicate_image_repairs,"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"source_quality":source_quality,"target_coverage":target_coverage,"sources":results},indent=2))
 
 if __name__=="__main__": run()
