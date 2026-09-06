@@ -4,7 +4,7 @@ from unittest.mock import patch
 from bs4 import BeautifulSoup
 
 from collectors.barnett_ross import _fallback_rows
-from collectors.harman_healy import FUTURE, SEARCH, _inspect_catalogue_with_fallback
+from collectors.harman_healy import FUTURE, SEARCH, _inspect_catalogue_with_fallback, _lots_from_catalogue
 from collectors.savills_all_future import _savills_property_image_from_html
 
 
@@ -34,6 +34,20 @@ class CatalogueRecoveryTests(unittest.TestCase):
         url=_savills_property_image_from_html(raw,'https://auctions.savills.co.uk/auctions/lot-44')
         self.assertTrue(url.startswith('https://resize.auctions.savills.co.uk/assets/images/lots/44/'))
 
+    def test_harman_healy_js_shell_is_retried_with_rendered_page(self):
+        shell=BeautifulSoup('<html><body><div id="results"></div><script src="app.js"></script></body></html>','lxml')
+        html='''
+        <section><h3>Online: Lot 1 | End Time - 17/09/2026 10:30</h3>
+        <div><p>40 Hilton Road, Wolverhampton, WV4 6DR</p><p>A two bedroom semi-detached house</p><a href="/lot/1">View / Bid</a></div></section>
+        '''
+        rendered=BeautifulSoup(html,'lxml')
+        with patch('collectors.harman_healy._fetch', return_value=shell), patch('collectors.harman_healy.soup', return_value=rendered) as browser:
+            lots,seen,residential=_lots_from_catalogue(FUTURE,date(2026,9,17))
+        self.assertEqual(seen,1)
+        self.assertEqual(residential,1)
+        self.assertEqual(lots,[])
+        browser.assert_called_once_with(FUTURE,use_browser=True)
+
     def test_harman_healy_specific_route_failure_falls_back_to_generic_catalogue(self):
         html='''
         <section><h3>Online: Lot 1 | End Time - 17/09/2026 10:30</h3>
@@ -41,8 +55,7 @@ class CatalogueRecoveryTests(unittest.TestCase):
         '''
         generic=BeautifulSoup(html,'lxml')
         def fake_fetch(url):
-            if url == FUTURE:
-                return generic
+            if url == FUTURE: return generic
             raise RuntimeError('dated route unavailable')
         with patch('collectors.harman_healy._fetch', side_effect=fake_fetch):
             (lots,seen,residential),used=_inspect_catalogue_with_fallback('https://harman-healy.co.uk/future-auctions/78948',date(2026,9,17))
@@ -60,8 +73,7 @@ class CatalogueRecoveryTests(unittest.TestCase):
         '''
         search=BeautifulSoup(html,'lxml')
         def fake_fetch(url):
-            if url == SEARCH:
-                return search
+            if url == SEARCH: return search
             raise RuntimeError('primary route unavailable')
         with patch('collectors.harman_healy._fetch', side_effect=fake_fetch):
             (lots,seen,residential),used=_inspect_catalogue_with_fallback('https://harman-healy.co.uk/future-auctions/78948',date(2026,9,17))
