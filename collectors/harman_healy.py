@@ -27,28 +27,22 @@ def _numeric_date(text):
 
 
 def _current_catalogue_date(s):
-    """Recover the live event date directly from lot end-time headings."""
-    today=date.today()
-    dates=[]
+    today=date.today(); dates=[]
     for heading in s.find_all(["h2","h3","h4"]):
         h=norm(heading.get_text(" ",strip=True))
-        if not re.search(r"\bLot\s+\d+",h,re.I):
-            continue
+        if not re.search(r"\bLot\s+\d+",h,re.I): continue
         d=_numeric_date(h)
-        if d and d>=today:
-            dates.append(d)
+        if d and d>=today: dates.append(d)
     return min(dates) if dates else None
 
 
 def _future_events(s):
     out=[]; today=date.today()
     for row in s.find_all(["tr","div","li"]):
-        text=norm(row.get_text(" ",strip=True))
-        d=_date(text)
+        text=norm(row.get_text(" ",strip=True)); d=_date(text)
         if d and d>=today and re.search(r"\b(?:lot|auction|first lot closes)\b",text,re.I):
             m=re.search(r"\b(\d+)\s*(?:lots?|properties)\b",text,re.I)
-            count=int(m.group(1)) if m else None
-            out.append((d,count))
+            out.append((d,int(m.group(1)) if m else None))
     if not out:
         text=norm(s.get_text(" ",strip=True))
         for m in re.finditer(r"(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20\d{2})",text,re.I):
@@ -82,8 +76,7 @@ def _catalogue_candidates(root):
 
 def _fetch(url):
     try: return soup(url,use_browser=False)
-    except Exception:
-        return soup(url,use_browser=True)
+    except Exception: return soup(url,use_browser=True)
 
 
 def _lots_from_soup(s,url,auction_date,require_matching_end_date=False):
@@ -94,10 +87,8 @@ def _lots_from_soup(s,url,auction_date,require_matching_end_date=False):
         if not m: continue
         if require_matching_end_date:
             end_date=_numeric_date(h)
-            if end_date != auction_date:
-                continue
-        seen+=1
-        container=heading.parent
+            if end_date != auction_date: continue
+        seen+=1; container=heading.parent
         text=norm(container.get_text(" ",strip=True)) if container else h
         link=(container.find("a",href=True) if container else None)
         if not link:
@@ -113,8 +104,7 @@ def _lots_from_soup(s,url,auction_date,require_matching_end_date=False):
             if re.search(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",candidate,re.I) and len(candidate)<240:
                 address=candidate; break
         detail=urljoin(url,link.get("href")) if link else f"{url}#lot-{m.group(1)}"
-        if not is_commercial(text):
-            residential+=1; continue
+        if not is_commercial(text): residential+=1; continue
         lots.append(Lot(source=SOURCE,url=detail,address=address or f"Harman Healy Lot {m.group(1)}",
             lot_number=f"Lot {m.group(1)}",auction_date=auction_date.isoformat(),guide_price=parse_guide(text),
             image_url=image_from_soup(container or s,url),description=text,property_type="Commercial / mixed-use auction lot").finalise())
@@ -122,33 +112,49 @@ def _lots_from_soup(s,url,auction_date,require_matching_end_date=False):
 
 
 def _lots_from_catalogue(url,auction_date,require_matching_end_date=False):
-    return _lots_from_soup(_fetch(url),url,auction_date,require_matching_end_date=require_matching_end_date)
+    """Parse direct HTML, then explicitly render the page when it is only a JS shell.
+
+    Harman Healy/EIG can return a perfectly valid >1KB HTML shell to datacentre
+    clients while injecting the actual lot cards client-side. The shared fetcher
+    correctly treats that response as usable HTML, so a source-specific semantic
+    retry is required when no lot headings are present. This prevents a published
+    catalogue from being misreported as a transport failure.
+    """
+    direct=_fetch(url)
+    parsed=_lots_from_soup(direct,url,auction_date,require_matching_end_date=require_matching_end_date)
+    if parsed[1] > 0:
+        return parsed
+    try:
+        rendered=soup(url,use_browser=True)
+        rendered_result=_lots_from_soup(rendered,url,auction_date,require_matching_end_date=require_matching_end_date)
+        if rendered_result[1] > 0:
+            return rendered_result
+    except Exception:
+        pass
+    return parsed
 
 
 def _inspect_catalogue_with_fallback(url,auction_date):
     urls=[]
     for candidate in (url,FUTURE,SEARCH):
-        if candidate.rstrip("/") not in {u.rstrip("/") for u in urls}:
-            urls.append(candidate)
+        if candidate.rstrip("/") not in {u.rstrip("/") for u in urls}: urls.append(candidate)
     last_exc=None
     for candidate in urls:
         try:
             result=_lots_from_catalogue(candidate,auction_date,require_matching_end_date=(candidate.rstrip("/")==SEARCH.rstrip("/")))
-            if result[1] > 0:
-                return result,candidate
-        except Exception as exc:
-            last_exc=exc
-    if last_exc:
-        raise last_exc
+            if result[1] > 0: return result,candidate
+        except Exception as exc: last_exc=exc
+    if last_exc: raise last_exc
     return ([],0,0),urls[-1]
 
 
 def _direct_current_catalogue_result(root_error=None):
-    """Inspect /future-auctions even when the auction diary transport is unhealthy."""
-    s=_fetch(FUTURE)
-    d=_current_catalogue_date(s)
+    s=_fetch(FUTURE); d=_current_catalogue_date(s)
     if not d:
-        raise RuntimeError("current catalogue route has no future lot end dates") from root_error
+        try:
+            rendered=soup(FUTURE,use_browser=True); d=_current_catalogue_date(rendered); s=rendered
+        except Exception: pass
+    if not d: raise RuntimeError("current catalogue route has no future lot end dates") from root_error
     lots,seen,res=_lots_from_soup(s,FUTURE,d,require_matching_end_date=True)
     scopes=(d.isoformat(),)
     if lots:
@@ -164,44 +170,31 @@ def _direct_current_catalogue_result(root_error=None):
 
 def collect():
     try:
-        try:
-            root=_fetch(AUCTIONS)
+        try: root=_fetch(AUCTIONS)
         except Exception as root_exc:
-            try:
-                return _direct_current_catalogue_result(root_exc)
+            try: return _direct_current_catalogue_result(root_exc)
             except Exception as direct_exc:
                 return SourceResult(SOURCE,"FAILED",[],f"Harman Healy diary and direct catalogue routes failed: {type(direct_exc).__name__}: {direct_exc}")
-        cats,events=_catalogue_candidates(root)
-        scopes=tuple(d.isoformat() for d,_ in events)
+        cats,events=_catalogue_candidates(root); scopes=tuple(d.isoformat() for d,_ in events)
         if not cats:
-            try:
-                return _direct_current_catalogue_result()
+            try: return _direct_current_catalogue_result()
             except Exception:
-                announced = ", ".join(d.isoformat() for d,_ in events) or "none"
-                return SourceResult(SOURCE,"CATALOGUE PENDING",[],
-                    f"Harman Healy future auction date(s) announced ({announced}) but no first-party evidence of a published lot catalogue yet.",
-                    discovered_count=0,scope_dates=scopes,authoritative_snapshot=True)
+                announced=", ".join(d.isoformat() for d,_ in events) or "none"
+                return SourceResult(SOURCE,"CATALOGUE PENDING",[],f"Harman Healy future auction date(s) announced ({announced}) but no first-party evidence of a published lot catalogue yet.",discovered_count=0,scope_dates=scopes,authoritative_snapshot=True)
         all_lots=[]; total_seen=total_res=failures=0; fallback_count=0
         for url,d in cats.items():
             try:
                 (lots,seen,res),used_url=_inspect_catalogue_with_fallback(url,d)
-                if used_url.rstrip("/") != url.rstrip("/"):
-                    fallback_count+=1
+                if used_url.rstrip("/") != url.rstrip("/"): fallback_count+=1
                 all_lots.extend(lots); total_seen+=seen; total_res+=res
-            except Exception:
-                failures+=1
+            except Exception: failures+=1
         if all_lots:
             status="LIVE" if failures==0 else "DEGRADED"
-            return SourceResult(SOURCE,status,all_lots,
-                f"All-future Harman Healy sweep: {total_seen} lots inspected; {len(all_lots)} commercial/mixed published; {total_res} residential rejected; {failures} catalogue failures; {fallback_count} alternate-route recoveries.",
-                discovered_count=total_seen,scope_dates=scopes)
+            return SourceResult(SOURCE,status,all_lots,f"All-future Harman Healy sweep: {total_seen} lots inspected; {len(all_lots)} commercial/mixed published; {total_res} residential rejected; {failures} catalogue failures; {fallback_count} alternate-route recoveries.",discovered_count=total_seen,scope_dates=scopes)
         if total_seen and failures==0:
-            return SourceResult(SOURCE,"CATALOGUE PENDING",[],
-                f"Harman Healy future catalogue inspected: {total_seen} published lots, all residential; no commercial/mixed-use inventory currently published; {fallback_count} alternate-route recoveries.",
-                expected_count=0,discovered_count=total_seen,authoritative_snapshot=True,scope_dates=scopes)
+            return SourceResult(SOURCE,"CATALOGUE PENDING",[],f"Harman Healy future catalogue inspected: {total_seen} published lots, all residential; no commercial/mixed-use inventory currently published; {fallback_count} alternate-route recoveries.",expected_count=0,discovered_count=total_seen,authoritative_snapshot=True,scope_dates=scopes)
         if failures:
-            try:
-                return _direct_current_catalogue_result()
+            try: return _direct_current_catalogue_result()
             except Exception:
                 return SourceResult(SOURCE,"FAILED",[],f"Harman Healy published future catalogue could not be reliably inspected ({failures} failures).",discovered_count=total_seen,scope_dates=scopes)
         return SourceResult(SOURCE,"CATALOGUE PENDING",[],"Harman Healy future catalogue currently exposes no parseable lots.",discovered_count=0,scope_dates=scopes)
