@@ -2,7 +2,10 @@ import unittest
 from datetime import date
 from bs4 import BeautifulSoup
 
-from collectors.future_property_auctions import _parse_date, _discover, _page_urls, _commercialish, _card_image, _detail_image, _is_property_photo_url
+from collectors.future_property_auctions import (
+    _parse_date, _discover, _page_urls, _commercialish, _card_image,
+    _detail_image, _is_property_photo_url, _feed_image_map,
+)
 
 
 class FuturePropertyAuctionsTests(unittest.TestCase):
@@ -16,69 +19,53 @@ class FuturePropertyAuctionsTests(unittest.TestCase):
         self.assertFalse(_commercialish("2 Bedroom Flat in Glasgow"))
 
     def test_pagination_follows_source_offsets(self):
-        s=BeautifulSoup('''<a href="catalogue_viewall.asp?offset=21">2</a>
-        <a href="catalogue_viewall.asp?offset=42">3</a><a href="/auctions.asp">Auctions</a>''','lxml')
+        s=BeautifulSoup('''<a href="catalogue_viewall.asp?offset=21">2</a><a href="catalogue_viewall.asp?offset=42">3</a><a href="/auctions.asp">Auctions</a>''','lxml')
         urls=_page_urls(s,"https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp")
         self.assertIn("https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp?offset=21",urls)
         self.assertIn("https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp?offset=42",urls)
         self.assertEqual(len(urls),2)
 
     def test_linked_upload_gallery_image_is_recovered(self):
-        s=BeautifulSoup('''<article>
-          <a href="property_details.asp?id=14516980">Lot 2 £1,290,000 Commercial Investment Timed Online Auction - 10 Sep 2026</a>
-          <a class="gallery" href="/upload/small_43917_14516980_IMG_00.jpg"><img src="/images/camera-icon.png"></a>
-        </article>''','lxml')
+        s=BeautifulSoup('''<article><a href="property_details.asp?id=14516980">Lot 2 £1,290,000 Commercial Investment Timed Online Auction - 10 Sep 2026</a><a class="gallery" href="/upload/small_43917_14516980_IMG_00.jpg"><img src="/images/camera-icon.png"></a></article>''','lxml')
         anchor=s.find('a',href=lambda h:h and 'property_details' in h)
         self.assertEqual(_card_image(anchor,"https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp"),"https://www.futurepropertyauctions.co.uk/upload/small_43917_14516980_IMG_00.jpg")
 
     def test_shared_upload_artwork_is_not_accepted_as_lot_photo(self):
-        self.assertFalse(_is_property_photo_url(
-            "https://www.futurepropertyauctions.co.uk/upload/shared-auction-banner.jpg",
-            expected_id="14516980",
-        ))
-        self.assertFalse(_is_property_photo_url(
-            "https://www.futurepropertyauctions.co.uk/upload/small_43917_99999999_IMG_00.jpg",
-            expected_id="14516980",
-        ))
-        self.assertTrue(_is_property_photo_url(
-            "https://www.futurepropertyauctions.co.uk/upload/small_43917_14516980_IMG_00.jpg",
-            expected_id="14516980",
-        ))
+        self.assertFalse(_is_property_photo_url("https://www.futurepropertyauctions.co.uk/upload/shared-auction-banner.jpg",expected_id="14516980"))
+        self.assertFalse(_is_property_photo_url("https://www.futurepropertyauctions.co.uk/upload/small_43917_99999999_IMG_00.jpg",expected_id="14516980"))
+        self.assertTrue(_is_property_photo_url("https://www.futurepropertyauctions.co.uk/upload/small_43917_14516980_IMG_00.jpg",expected_id="14516980"))
+
+    def test_first_party_export_maps_hero_by_embedded_property_id(self):
+        export='''<html><body>
+        https://www.futurepropertyauctions.co.uk/upload/43917_14516980_IMG_00.jpg|Lot A|
+        https://www.futurepropertyauctions.co.uk/upload/44001_14517001_IMG_00.jpg|Lot B|
+        https://www.futurepropertyauctions.co.uk/upload/shared-auction-banner.jpg|bad|
+        </body></html>'''
+        mapping=_feed_image_map(fetcher=lambda _url: BeautifulSoup(export,"lxml"))
+        self.assertEqual(mapping["14516980"],"https://www.futurepropertyauctions.co.uk/upload/43917_14516980_IMG_00.jpg")
+        self.assertEqual(mapping["14517001"],"https://www.futurepropertyauctions.co.uk/upload/44001_14517001_IMG_00.jpg")
+        self.assertEqual(len(mapping),2)
 
     def test_card_image_ignores_other_lot_upload_in_same_markup(self):
-        s=BeautifulSoup('''<article>
-          <a href="property_details.asp?id=14516980">Lot 2 £1,290,000 Commercial Investment Timed Online Auction - 10 Sep 2026</a>
-          <a class="gallery" href="/upload/small_43917_99999999_IMG_00.jpg">Other image</a>
-          <a class="gallery" href="/upload/small_43917_14516980_IMG_00.jpg">Correct image</a>
-        </article>''','lxml')
+        s=BeautifulSoup('''<article><a href="property_details.asp?id=14516980">Lot 2 £1,290,000 Commercial Investment Timed Online Auction - 10 Sep 2026</a><a class="gallery" href="/upload/small_43917_99999999_IMG_00.jpg">Other image</a><a class="gallery" href="/upload/small_43917_14516980_IMG_00.jpg">Correct image</a></article>''','lxml')
         anchor=s.find('a',href=lambda h:h and 'property_details' in h)
         self.assertEqual(_card_image(anchor,"https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp"),"https://www.futurepropertyauctions.co.uk/upload/small_43917_14516980_IMG_00.jpg")
 
     def test_detail_gallery_link_beats_branding(self):
-        s=BeautifulSoup('''<html><head><meta property="og:image" content="/images/logo.png"></head><body>
-        <a href="/upload/small_43917_14516980_IMG_00.jpg">Image</a><img src="/images/logo.png"></body></html>''','lxml')
+        s=BeautifulSoup('''<html><head><meta property="og:image" content="/images/logo.png"></head><body><a href="/upload/small_43917_14516980_IMG_00.jpg">Image</a><img src="/images/logo.png"></body></html>''','lxml')
         image=_detail_image(s,"https://www.futurepropertyauctions.co.uk/property_details.asp?id=14516980")
         self.assertIn('/upload/small_43917_14516980_IMG_00.jpg',image)
 
     def test_discovery_crawls_interleaved_future_inventory_across_pages(self):
         pages={
-            "https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp": '''<html><body>
-              <article><a href="property_details.asp?id=100">Lot 2 £1,290,000 OPENING BID Commercial Investment 1 High Street, Glasgow Timed Online Auction - 10 Sep 2026</a></article>
-              <article><a href="property_details.asp?id=101">Lot 3 £90,000 2 Bedroom Flat Timed Online Auction - 10 Sep 2026</a></article>
-              <a href="catalogue_viewall.asp?offset=21">2</a></body></html>''',
-            "https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp?offset=21": '''<html><body>
-              <article><a href="property_details.asp?id=102">Lot 15 £35,000 Commercial Investment 2 Main Street, Ayr Timed Online Auction - 24 Sep 2026</a></article>
-            </body></html>''',
+            "https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp": '''<html><body><article><a href="property_details.asp?id=100">Lot 2 £1,290,000 OPENING BID Commercial Investment 1 High Street, Glasgow Timed Online Auction - 10 Sep 2026</a></article><article><a href="property_details.asp?id=101">Lot 3 £90,000 2 Bedroom Flat Timed Online Auction - 10 Sep 2026</a></article><a href="catalogue_viewall.asp?offset=21">2</a></body></html>''',
+            "https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp?offset=21": '''<html><body><article><a href="property_details.asp?id=102">Lot 15 £35,000 Commercial Investment 2 Main Street, Ayr Timed Online Auction - 24 Sep 2026</a></article></body></html>''',
         }
         def fetcher(url): return BeautifulSoup(pages[url],"lxml")
         targets,dates,total,pages_read=_discover(fetcher=fetcher,today=date(2026,9,7))
-        self.assertEqual(total,3)
-        self.assertEqual(len(targets),2)
-        self.assertEqual(set(dates),{"2026-09-10","2026-09-24"})
-        self.assertEqual(pages_read,2)
+        self.assertEqual(total,3);self.assertEqual(len(targets),2);self.assertEqual(set(dates),{"2026-09-10","2026-09-24"});self.assertEqual(pages_read,2)
         self.assertIn("https://www.futurepropertyauctions.co.uk/property_details.asp?id=100",targets)
         self.assertIn("https://www.futurepropertyauctions.co.uk/property_details.asp?id=102",targets)
 
 
-if __name__ == "__main__":
-    unittest.main()
+if __name__ == "__main__": unittest.main()
