@@ -18,106 +18,111 @@ DATE_RE = re.compile(r"\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Su
 MONTHS = {name.lower(): i for i, name in enumerate(("January","February","March","April","May","June","July","August","September","October","November","December"), 1)}
 RESIDENTIAL_STRONG = ("detached house","semi-detached house","terraced house","bungalow","residential flat","bedroom flat","family home","residential property","bedroom house","house for sale")
 RESIDENTIAL_COMPONENT = ("flat above","flats above","existing flat","existing flats","vacant flat","vacant flats","residential accommodation","living accommodation","apartment above")
-CHROME_MARKERS = (
-    "Office Details", "Arrange a viewing", "Make An Offer", "Request a Viewing",
-    "Broadband & Mobile Coverage", "Property Information Questionnaire",
-    "Important Information", "Contact the Agent", "Contact Us",
-)
+CHROME_MARKERS = ("Office Details", "Arrange a viewing", "Make An Offer", "Request a Viewing", "Broadband & Mobile Coverage", "Property Information Questionnaire", "Important Information", "Contact the Agent", "Contact Us")
 COMMERCIAL_SIGNAL = re.compile(
     r"\b(?:mixed[- ]use|commercial\s+(?:property|unit|premises|building|investment|accommodation)|"
     r"ground[- ]floor\s+(?:shop|retail|commercial)|shop\b|retail\s+(?:unit|property|investment|premises)|"
     r"office\s+(?:building|unit|investment|premises|accommodation)|industrial\s+(?:unit|property|building)|"
     r"warehouse|workshop|business\s+premises|business\s+park|public\s+house|pub\b|"
     r"restaurant\s+(?:premises|unit|investment)|hotel\b|leisure\s+(?:property|premises|investment)|"
-    r"garage\s+block|garages\b)\b",
-    re.I,
-)
+    r"garage\s+block|garages\b)\b", re.I)
 DEVELOPMENT_SIGNAL = re.compile(r"\bdevelopment\s+(?:site|land|plot)\b|\bbuilding\s+plot\b", re.I)
 
 
 def _fetch(url):
-    try: return soup(url, use_browser=False)
-    except Exception: return soup(url, use_browser=True)
+    try:return soup(url,use_browser=False)
+    except Exception:return soup(url,use_browser=True)
 
 
 def _parse_date(text):
     m=DATE_RE.search(norm(text))
-    if not m or not MONTHS.get(m.group(2).lower()): return None
-    try: return date(int(m.group(3)),MONTHS[m.group(2).lower()],int(m.group(1))).isoformat()
-    except ValueError: return None
+    if not m or not MONTHS.get(m.group(2).lower()):return None
+    try:return date(int(m.group(3)),MONTHS[m.group(2).lower()],int(m.group(1))).isoformat()
+    except ValueError:return None
 
 
 def _event_card_text(a):
-    best=norm(a.get_text(" ",strip=True)); node=a
+    best=norm(a.get_text(" ",strip=True));node=a
     for _ in range(7):
         node=getattr(node,"parent",None)
-        if node is None: break
+        if node is None:break
         c=norm(node.get_text(" ",strip=True))
-        if not c or len(c)>2200: break
+        if not c or len(c)>2200:break
         links=[x for x in node.find_all("a",href=True) if "/event/property-auction-" in urljoin(BASE,x.get("href") or "").lower()]
         if len(links)==1:
             best=c
-            if DATE_RE.search(c): return c
-        elif len(links)>1: break
+            if DATE_RE.search(c):return c
+        elif len(links)>1:break
     return best
 
 
 def _event_links(s,today=None):
-    today=today or date.today(); found={}
+    today=today or date.today();found={}
     for a in s.find_all("a",href=True):
         href=urljoin(BASE,a.get("href") or "").split("#",1)[0]
-        if "/event/property-auction-" not in href.lower(): continue
+        if "/event/property-auction-" not in href.lower():continue
         d=_parse_date(_event_card_text(a))
-        if d and d>=today.isoformat(): found[href]=d
+        if d and d>=today.isoformat():found[href]=d
     return found
 
 
 def _discover_events(fetcher=_fetch,today=None):
-    """Try both public event-index variants and merge future events.
-
-    The site intermittently serves an empty/redirected result for the query-string
-    'upcoming' route while the canonical event index still contains the same future
-    cards. Never fail the source merely because one presentation route is unstable.
-    """
-    found={}; failures=[]
+    found={};failures=[]
     for url in EVENT_INDEXES:
-        try:
-            found.update(_event_links(fetcher(url),today=today))
-        except Exception as exc:
-            failures.append((url,exc))
+        try:found.update(_event_links(fetcher(url),today=today))
+        except Exception as exc:failures.append((url,exc))
     return found,failures
 
 
 def _is_auction_property_url(href):
-    parsed=urlparse(href or "")
-    host=(parsed.hostname or "").lower()
-    path=(parsed.path or "").lower().rstrip("/")
+    parsed=urlparse(href or "");host=(parsed.hostname or "").lower();path=(parsed.path or "").lower().rstrip("/")
     return host==AUCTION_HOST and path.startswith("/property/") and len(path.split("/"))>=3
 
 
-def _property_links(s,event_date):
+def _event_card_image(anchor,event_url):
+    """Take an image only from the DOM block containing exactly this property.
+
+    Event pages can show dozens of properties. Bounding traversal by property-link
+    identity prevents a neighbouring lot's photo from being attached to this one.
+    """
+    href=urljoin(event_url,anchor.get("href") or "").split("#",1)[0];node=anchor
+    for _ in range(7):
+        node=getattr(node,"parent",None)
+        if node is None:break
+        links={urljoin(event_url,a.get("href") or "").split("#",1)[0] for a in node.find_all("a",href=True) if _is_auction_property_url(urljoin(event_url,a.get("href") or ""))}
+        if len(links)>1:break
+        if links and href not in links:break
+        try:
+            img=_image(node,event_url)
+            if img:return img
+        except Exception:pass
+    return None
+
+
+def _property_links(s,event_date,event_url=BASE):
     found={}
     for a in s.find_all("a",href=True):
         href=urljoin(BASE,a.get("href") or "").split("#",1)[0]
-        if not _is_auction_property_url(href) or href in found: continue
-        node=a; text=norm(a.get_text(" ",strip=True))
+        if not _is_auction_property_url(href) or href in found:continue
+        node=a;text=norm(a.get_text(" ",strip=True))
         for _ in range(5):
             node=getattr(node,"parent",None)
-            if node is None: break
+            if node is None:break
             candidate=norm(node.get_text(" ",strip=True))
-            if len(candidate)<=3000 and len(candidate)>len(text): text=candidate
-        if text: found[href]=(text,event_date)
+            links={urljoin(event_url,x.get("href") or "").split("#",1)[0] for x in node.find_all("a",href=True) if _is_auction_property_url(urljoin(event_url,x.get("href") or ""))}
+            if len(links)>1:break
+            if len(candidate)<=3000 and len(candidate)>len(text):text=candidate
+        if text:found[href]=(text,event_date,_event_card_image(a,event_url))
     return found
 
 
 def _image(s,base):
-    bad=("logo","icon","staff","office","map","floorplan","floor-plan","siteplan","site-plan","epc","avatar","placeholder","sprite"); candidates=[]
+    bad=("logo","icon","staff","office","map","floorplan","floor-plan","siteplan","site-plan","epc","avatar","placeholder","sprite");candidates=[]
     def add(raw,alt="",bonus=0):
         if not raw:return
-        raw=str(raw).replace("\\/","/").strip(' "\'')
-        u=urljoin(base,raw); low=u.lower(); alt=(alt or "").lower()
+        raw=str(raw).replace("\\/","/").strip(' "\'');u=urljoin(base,raw);low=u.lower();alt=(alt or "").lower()
         if any(x in low for x in bad) or any(x in alt for x in ("map","floor plan","floorplan","site plan","epc","logo")):return
-        if not re.search(r"\.(?:jpe?g|png|webp)(?:\?|$)",low): return
+        if not re.search(r"\.(?:jpe?g|png|webp)(?:\?|$)",low):return
         score=bonus+(6 if "cdn.webdadi.net" in low else 0)+(4 if re.search(r"[0-9a-f]{8}-[0-9a-f-]{20,}",low,re.I) else 0)+(2 if any(x in low for x in ("property","images","photos","uploads","media")) else 0)+(2 if any(x in low for x in (".jpg",".jpeg",".webp")) else 0)
         if any(x in alt for x in ("property","external","exterior","front elevation","auction")):score+=8
         candidates.append((score,u))
@@ -135,7 +140,7 @@ def _image(s,base):
                     if u:add(u,alt)
     raw=str(s).replace("\\/","/")
     for u in re.findall(r'https?://[^"\'<>\s]+?\.(?:jpe?g|png|webp)(?:\?[^"\'<>\s]*)?',raw,re.I):add(u)
-    for u in re.findall(r'["\']([^"\']+?\.(?:jpe?g|png|webp)(?:\?[^"\']*)?)["\']',raw,re.I): add(u)
+    for u in re.findall(r'["\']([^"\']+?\.(?:jpe?g|png|webp)(?:\?[^"\']*)?)["\']',raw,re.I):add(u)
     if candidates:
         best={}
         for score,u in candidates:best[u]=max(score,best.get(u,-999))
@@ -151,7 +156,7 @@ def _main_property_text(s):
     for node in [h]+list(h.find_all_next(limit=220)):
         if getattr(node,"name",None) in {"h1","h2","h3","h4","p","li","dt","dd"}:
             v=norm(node.get_text(" ",strip=True))
-            if any(v.lower()==m.lower() or v.lower().startswith(m.lower()+" ") for m in CHROME_MARKERS): break
+            if any(v.lower()==m.lower() or v.lower().startswith(m.lower()+" ") for m in CHROME_MARKERS):break
             if v and v not in pieces:pieces.append(v)
         if len(" ".join(pieces))>14000:break
     return _classification_text(norm(" ".join(pieces))[:14000])
@@ -160,12 +165,11 @@ def _main_property_text(s):
 def _brochure_links(s,base):
     scored=[]
     for a in s.find_all("a",href=True):
-        href=urljoin(base,a.get("href") or "").split("#",1)[0]
-        label=norm(a.get_text(" ",strip=True)+" "+href).lower(); score=0
-        if "brochure" in label: score+=10
-        if "particular" in label: score+=9
-        if href.lower().split("?")[0].endswith(".pdf"): score+=5
-        if score and href.startswith("http"): scored.append((score,href))
+        href=urljoin(base,a.get("href") or "").split("#",1)[0];label=norm(a.get_text(" ",strip=True)+" "+href).lower();score=0
+        if "brochure" in label:score+=10
+        if "particular" in label:score+=9
+        if href.lower().split("?")[0].endswith(".pdf"):score+=5
+        if score and href.startswith("http"):scored.append((score,href))
     out=[]
     for _score,u in sorted(scored,key=lambda x:-x[0]):
         if u not in out:out.append(u)
@@ -177,33 +181,34 @@ def _brochure_text(s,base,binary_fetcher=get_bytes):
     for href in _brochure_links(s,base):
         try:
             raw=binary_fetcher(href)
-            if not raw.startswith(b"%PDF"): continue
+            if not raw.startswith(b"%PDF"):continue
             reader=PdfReader(BytesIO(raw))
             for page in reader.pages[:24]:
                 try:
                     t=page.extract_text() or ""
-                    if t: chunks.append(t)
-                except Exception: pass
-                if sum(len(x) for x in chunks)>24000: break
-            if chunks: break
-        except Exception: continue
+                    if t:chunks.append(t)
+                except Exception:pass
+                if sum(len(x) for x in chunks)>24000:break
+            if chunks:break
+        except Exception:continue
     return norm(" ".join(chunks))[:24000]
 
 
 def _classification_text(text):
-    value=norm(text); lowered=value.lower(); cuts=[]
+    value=norm(text);lowered=value.lower();cuts=[]
     for marker in CHROME_MARKERS:
         p=lowered.find(marker.lower())
-        if p>0: cuts.append(p)
+        if p>0:cuts.append(p)
     if cuts:value=value[:min(cuts)]
     return norm(value)
 
 
 def _is_target(text):
-    clean=_classification_text(text); low=" "+clean.lower()+" "
-    if COMMERCIAL_SIGNAL.search(clean): return True
-    if DEVELOPMENT_SIGNAL.search(clean): return True
-    if any(x in low for x in RESIDENTIAL_STRONG) or re.search(r"\b\d+\s+bedroom\s+house\b",low): return False
+    """Auction Sniper is commercial/mixed-use, not a generic development-land feed."""
+    clean=_classification_text(text);low=" "+clean.lower()+" "
+    if COMMERCIAL_SIGNAL.search(clean):return True
+    # A pure house/building plot or residential development site is outside scope.
+    if any(x in low for x in RESIDENTIAL_STRONG) or DEVELOPMENT_SIGNAL.search(clean) or re.search(r"\b\d+\s+bedroom\s+house\b",low):return False
     return False
 
 
@@ -236,8 +241,7 @@ def _area(text):
 
 
 def _has_residential_component(text):
-    low=_classification_text(text).lower()
-    return any(x in low for x in RESIDENTIAL_COMPONENT) or bool(re.search(r"\b(?:two|three|four|five|\d+)\s+(?:existing\s+|vacant\s+)?flats?\b",low))
+    low=_classification_text(text).lower();return any(x in low for x in RESIDENTIAL_COMPONENT) or bool(re.search(r"\b(?:two|three|four|five|\d+)\s+(?:existing\s+|vacant\s+)?flats?\b",low))
 def _has_commercial_component(text):return bool(COMMERCIAL_SIGNAL.search(_classification_text(text)))
 def _property_type(text):
     clean=_classification_text(text);low=clean.lower()
@@ -257,7 +261,7 @@ def _current_rent(text):
     return None
 
 
-def _detail(url,seed,event_date,fetcher=_fetch,brochure_reader=_brochure_text):
+def _detail(url,seed,event_date,fetcher=_fetch,brochure_reader=_brochure_text,card_image=None):
     s=fetcher(url);page_text=_main_property_text(s);brochure=""
     if len(page_text)<5000 or re.search(r"refer to (?:the )?brochure|further information",page_text,re.I):
         try:brochure=brochure_reader(s,url)
@@ -273,7 +277,7 @@ def _detail(url,seed,event_date,fetcher=_fetch,brochure_reader=_brochure_text):
         generic=parse_rent(combined)
         if generic and not re.search(r"potential(?:ly)?[^.]{0,120}£|further\s+£|fully[- ]let income|when let",combined,re.I):rent=generic
     lp_url,lp_status=legal_pack(s,url)
-    lot=Lot(source=SOURCE,url=url,address=_address(s,url),auction_date=event_date,image_url=_image(s,url),guide_price=guide,annual_rent=rent,tenure=parse_tenure(combined),vat_status=parse_vat(combined),legal_pack_status=lp_status,legal_pack_url=lp_url,property_type=_property_type(combined),description=text)
+    lot=Lot(source=SOURCE,url=url,address=_address(s,url),auction_date=event_date,image_url=_image(s,url) or card_image,guide_price=guide,annual_rent=rent,tenure=parse_tenure(combined),vat_status=parse_vat(combined),legal_pack_status=lp_status,legal_pack_url=lp_url,property_type=_property_type(combined),description=text)
     lot.area_sqft,lot.area_sqm,lot.site_area_acres=_area(combined)
     has_vacant=bool(re.search(r"\bvacant\b|vacant possession",combined,re.I));has_income=bool(rent or re.search(r"\blet to\b|\blet at\b|\btenant\b|\btenanted\b|\bproducing\s+£|\brental income\b|generat(?:e|es|ing)\s+£|annual rent of £",combined,re.I))
     if has_vacant and has_income:lot.occupation="Part let / part vacant"
@@ -311,17 +315,18 @@ def collect():
         candidates={};published=set();pending=set();event_failures=0
         for event_url,event_date in events.items():
             try:
-                links=_property_links(_fetch(event_url),event_date)
+                links=_property_links(_fetch(event_url),event_date,event_url)
                 if links:published.add(event_date);candidates.update(links)
                 else:pending.add(event_date)
             except Exception as exc:event_failures+=1;print("SYMONDS_EVENT_FAIL",event_url,repr(exc))
         lots=[];detail_failures=0
-        for href,(seed,event_date) in candidates.items():
+        for href,(seed,event_date,card_image) in candidates.items():
             try:
-                lot=_detail(href,seed,event_date)
+                lot=_detail(href,seed,event_date,card_image=card_image)
                 if lot:lots.append(lot)
             except Exception as exc:detail_failures+=1;print("SYMONDS_DETAIL_FAIL",href,repr(exc))
         status="DEGRADED" if event_failures and lots else "FAILED" if event_failures else "LIVE" if lots or published else "CATALOGUE PENDING"
-        msg=f"All-future Symonds & Sampson sweep: {len(events)} future event(s) discovered across {len(EVENT_INDEXES)} public event-index routes; {len(published)} published catalogue(s), {len(pending)} pending; {len(candidates)} genuine auction property pages inspected; {len(lots)} explicit commercial/mixed-use/development lots published; {detail_failures} detail failures; {event_failures} event failures; {len(index_failures)} index-route failures."
+        images=sum(1 for x in lots if x.image_url)
+        msg=f"All-future Symonds & Sampson sweep: {len(events)} future event(s) discovered; {len(published)} published catalogue(s), {len(pending)} pending; {len(candidates)} genuine auction property pages inspected; {len(lots)} commercial/mixed-use lots published (pure residential/development-only lots excluded); property photos {images}/{len(lots)}; {detail_failures} detail failures; {event_failures} event failures; {len(index_failures)} index-route failures."
         return SourceResult(SOURCE,status,lots,msg,discovered_count=len(lots),authoritative_snapshot=bool(status=="LIVE" and not detail_failures and published),scope_dates=tuple(sorted(published)))
     except Exception as exc:return SourceResult(SOURCE,"FAILED",[],f"Symonds & Sampson collection failed: {type(exc).__name__}: {exc}")
