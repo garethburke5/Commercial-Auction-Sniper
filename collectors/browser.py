@@ -30,6 +30,22 @@ def _curl_http11(url: str, timeout_ms: int) -> str | None:
     return None
 
 
+def _curl_http11_bytes(url: str, timeout_ms: int, max_bytes: int) -> bytes | None:
+    """Binary equivalent of the HTTP/1.1 fallback used for HTML.
+
+    Some auction brochure/CDN hosts fail Python TLS/HTTP transports from hosted
+    runners while curl --http1.1 succeeds. Keep the same public URL and headers;
+    only the transport changes. The byte ceiling prevents oversized downloads.
+    """
+    timeout_s=max(10,int(timeout_ms/1000))
+    try:
+        proc=subprocess.run(["curl","--http1.1","--location","--silent","--show-error","--fail-with-body","--retry","2","--retry-all-errors","--connect-timeout","12","--max-time",str(timeout_s),"-A",HEADERS["User-Agent"],"-H",f"Accept-Language: {HEADERS['Accept-Language']}","-H","Accept: application/pdf,application/octet-stream,*/*;q=0.8","-H","Connection: close",url],capture_output=True,text=False,timeout=timeout_s+5,check=False)
+        data=proc.stdout or b""
+        if proc.returncode==0 and 500<=len(data)<=max_bytes:return data
+    except (OSError,subprocess.SubprocessError):pass
+    return None
+
+
 def _urllib_fetch(url: str, timeout_ms: int) -> str | None:
     timeout_s=max(10,int(timeout_ms/1000))
     try:
@@ -44,9 +60,11 @@ def _urllib_fetch(url: str, timeout_ms: int) -> str | None:
 
 def get_bytes(url: str, timeout_ms: int = 30000, max_bytes: int = 15_000_000) -> bytes:
     try:
-        r=_session().get(url,headers=HEADERS,timeout=(15,30),allow_redirects=True); r.raise_for_status(); data=r.content
+        r=_session().get(url,headers={**HEADERS,"Connection":"close"},timeout=(15,30),allow_redirects=True); r.raise_for_status(); data=r.content
         if 500<=len(data)<=max_bytes:return data
     except Exception:pass
+    data=_curl_http11_bytes(url,timeout_ms,max_bytes)
+    if data:return data
     timeout_s=max(10,int(timeout_ms/1000))
     try:
         req=Request(url,headers={"User-Agent":HEADERS["User-Agent"],"Accept-Language":HEADERS["Accept-Language"],"Accept":"application/pdf,application/octet-stream,*/*;q=0.8","Connection":"close"})
@@ -58,13 +76,6 @@ def get_bytes(url: str, timeout_ms: int = 30000, max_bytes: int = 15_000_000) ->
 
 
 def _browser_launch_args():
-    """Keep the final browser transport independent of broken HTTP/2 negotiation.
-
-    Several UK auction hosts work normally from consumer networks/search crawlers but
-    intermittently return ERR_HTTP2_PROTOCOL_ERROR to Azure/GitHub-hosted Chromium.
-    Chromium's --disable-http2 forces HTTP/1.1 for this last-resort public fetch and
-    complements the existing curl --http1.1 path rather than bypassing access controls.
-    """
     return ["--disable-http2"]
 
 
