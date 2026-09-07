@@ -64,28 +64,60 @@ def _amount(patterns, text):
 
 
 def _floor_area_sqft(text):
-    # Prefer explicit aggregate areas over individual room/unit measurements.
+    """Return the best explicit whole-property area, never a convenient room figure.
+
+    Pugh commonly publishes a precise TOTAL GIA/NIA in square metres followed by the
+    authoritative rounded square-foot equivalent in parentheses, while marketing prose
+    above may say merely 'just over 1,600 sq ft'. Prefer the labelled total and stated
+    imperial equivalent before any rounded prose or component measurement.
+    """
+    text = text or ""
+    paired = re.search(
+        r"(?:overall|total)\s+(?:gross\s+internal\s+floor\s+area|net\s+internal\s+floor\s+area|floor\s+area|nia|gia)"
+        r"\s*[:\-]?\s*[\d,]+(?:\.\d+)?\s*(?:sq\.?\s*m|sqm|m²)\s*\(\s*([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)\s*\)",
+        text, re.I,
+    )
+    if paired:
+        try:
+            value=float(paired.group(1).replace(",", ""))
+            if 20 <= value <= 5_000_000: return value
+        except Exception: pass
+
     labelled = (
         r"(?:overall|total)\s+(?:gross\s+internal\s+floor\s+area|net\s+internal\s+floor\s+area|floor\s+area|nia|gia)\s*[:\-]?\s*([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)",
         r"(?:overall|total)(?:\s+(?:floor|internal|gross|net))?\s*(?:area|nia|gia)\s*[:\-]?\s*([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)",
-        r"(?:provides?|providing|comprising|extending|extends)\s+(?:just\s+)?(?:over\s+)?(?:approximately\s+|approx\.?\s+|circa\s+)?([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)\s+(?:of\s+)?(?:accommodation|floor\s*space|space)",
-        r"(?:extending|extends)\s+(?:to\s*)?(?:approximately\s+|approx\.?\s+|circa\s+)?([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)",
     )
     for pat in labelled:
         vals=[]
-        for m in re.finditer(pat, text or "", re.I):
+        for m in re.finditer(pat, text, re.I):
             try:
                 value=float(m.group(1).replace(",", ""))
                 if 20 <= value <= 5_000_000: vals.append(value)
             except Exception: pass
         if vals: return max(vals)
-    # If only square metres are explicitly labelled as TOTAL GIA/NIA, convert them.
-    m=re.search(r"(?:overall|total)\s+(?:gross\s+internal\s+floor\s+area|net\s+internal\s+floor\s+area|nia|gia)\s*[:\-]?\s*([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*m|sqm|m²)", text or "", re.I)
+
+    # If the authoritative total is only metric, convert it before considering
+    # rounded marketing prose such as 'just over 1,600 sq ft'.
+    m=re.search(r"(?:overall|total)\s+(?:gross\s+internal\s+floor\s+area|net\s+internal\s+floor\s+area|floor\s+area|nia|gia)\s*[:\-]?\s*([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*m|sqm|m²)", text, re.I)
     if m:
         try: return float(m.group(1).replace(",",""))*10.7639
         except Exception: pass
+
+    prose = (
+        r"(?:provides?|providing|comprising|extending|extends)\s+(?:just\s+)?(?:over\s+)?(?:approximately\s+|approx\.?\s+|circa\s+)?([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)\s+(?:of\s+)?(?:accommodation|floor\s*space|space)",
+        r"(?:extending|extends)\s+(?:to\s*)?(?:approximately\s+|approx\.?\s+|circa\s+)?([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)",
+    )
+    for pat in prose:
+        vals=[]
+        for m in re.finditer(pat, text, re.I):
+            try:
+                value=float(m.group(1).replace(",", ""))
+                if 20 <= value <= 5_000_000: vals.append(value)
+            except Exception: pass
+        if vals: return max(vals)
+
     vals=[]
-    for m in re.finditer(r"\b([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)\b", text or "", re.I):
+    for m in re.finditer(r"\b([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)\b", text, re.I):
         try:
             value=float(m.group(1).replace(",", ""))
             if 20 <= value <= 5_000_000: vals.append(value)
