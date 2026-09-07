@@ -175,19 +175,22 @@ def _tenancy_details(text):
 
 
 def _terminal_status_near_title(s):
-    """Read the current lot's availability status without scanning unrelated cards.
+    """Read status only from the current lot's header/summary block.
 
-    Auction Estates prints SoldPrior near the title, while Postponed can replace the
-    guide-price value. Keep the probe bounded to the header/summary area and stop at
-    Key Features/auction particulars so statuses on recommended lots cannot leak in.
+    SoldPrior is printed by the title and Postponed can replace the guide value.
+    Property Type marks the end of the lifecycle summary on Auction Estates, so stop
+    immediately after it; this prevents statuses on later related-property cards from
+    contaminating the current lot.
     """
     h1 = s.find("h1")
     if not h1:
         return None
     parts = [norm(h1.get_text(" ", strip=True))]
-    for node in h1.find_all_next(limit=40):
+    for node in h1.find_all_next(limit=32):
         name = getattr(node, "name", None)
-        if name not in {"div", "span", "p", "strong", "h2", "h3", "dt", "dd"}:
+        if name not in {"div", "span", "p", "strong", "dt", "dd"}:
+            if name in {"h2", "h3", "h4"}:
+                break
             continue
         text = norm(node.get_text(" ", strip=True))
         if not text:
@@ -195,7 +198,9 @@ def _terminal_status_near_title(s):
         if re.search(r"\bKey\s*Features\b|\bPart of the\b|\bDetails\b", text, re.I):
             break
         parts.append(text)
-        if len(" ".join(parts)) > 1800:
+        if re.search(r"\bProperty\s*Type\b", text, re.I):
+            break
+        if len(" ".join(parts)) > 1400:
             break
     probe = norm(" ".join(parts))
     if re.search(r"\bSold\s*Prior\b|\bSoldPrior\b", probe, re.I):
