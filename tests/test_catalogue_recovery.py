@@ -3,7 +3,7 @@ from datetime import date
 from unittest.mock import patch
 from bs4 import BeautifulSoup
 
-from collectors.barnett_ross import _fallback_rows
+from collectors.barnett_ross import _fallback_rows, _property_image
 from collectors.harman_healy import FUTURE, SEARCH, _inspect_catalogue_with_fallback, _lots_from_catalogue, _lots_from_soup
 from collectors.savills_all_future import _savills_property_image_from_html
 
@@ -23,6 +23,18 @@ class CatalogueRecoveryTests(unittest.TestCase):
         self.assertEqual(lots[0].address,'1 High Street, London SW1A 1AA')
         self.assertEqual(lots[0].guide_price,250000.0)
         self.assertEqual(lots[0].auction_date,'2026-09-10')
+
+    def test_barnett_ross_image_prefers_real_gallery_over_branding(self):
+        html='''
+        <html><head><meta property="og:image" content="/images/logo.png"></head><body>
+          <img src="/images/logo-header.png" alt="Barnett Ross">
+          <div class="gallery" style="background-image:url('/property-images/lot-12-front.jpg')"></div>
+          <img data-src="/property-images/lot-12-interior.jpg" alt="Property photograph">
+        </body></html>
+        '''
+        image=_property_image(BeautifulSoup(html,'lxml'),'https://www.barnettross.co.uk/property.php?id=12')
+        self.assertIn('/property-images/lot-12-',image)
+        self.assertNotIn('logo',image.lower())
 
     def test_savills_root_relative_gallery_asset_is_recovered(self):
         raw='''<script>window.gallery={"image":"\\/assets/images/lots/12345/main.jpg"}</script>'''
