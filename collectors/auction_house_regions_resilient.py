@@ -6,9 +6,11 @@ history: a current-sale commercial lot that becomes Sold Prior is valuable evide
 and must leave the active board without disappearing from the dataset.
 
 This collector uses the same first-party event discovery and parsers, but treats
-terminal lifecycle as structured data. Every explicitly commercial/mixed-use lot in
-every published future regional event is emitted; terminal lots carry their status
-and are archived by run_collectors.py.
+terminal lifecycle as structured data. It also hydrates generic Auction House
+"Property For Sale" / "Land For Sale" cards conservatively because the source can
+use those labels for genuine commercial-development assets (for example former
+schools); they are accepted only when the exact detail page itself proves commercial
+scope.
 """
 from __future__ import annotations
 
@@ -20,9 +22,6 @@ from .utils import detail_lot
 from . import auction_house_regions as base
 
 
-# Auction House uses these explicit category labels on cards/detail pages. Keep this
-# slightly broader than the legacy commercialish test so categories such as
-# "Hospitality" and "Heavy Industrial" are not silently lost.
 EXPLICIT_TARGET = re.compile(
     r"\b(?:commercial\s+(?:property|premises|building|investment|development|unit)|"
     r"mixed[- ]use|retail\s+(?:property|investment|unit)|shop(?:\s+and\s+(?:upper|residential))?|"
@@ -32,6 +31,7 @@ EXPLICIT_TARGET = re.compile(
     r"development\s+site)\b",
     re.I,
 )
+AMBIGUOUS_TARGET = re.compile(r"\b(?:Property|Land)\s+For\s+Sale\b", re.I)
 
 
 def _terminal_status(text):
@@ -48,6 +48,10 @@ def _terminal_status(text):
 def _is_target_card(text):
     value = norm(text)
     return bool(base._commercialish(value) or EXPLICIT_TARGET.search(value))
+
+
+def _is_ambiguous_card(text):
+    return bool(AMBIGUOUS_TARGET.search(norm(text)))
 
 
 def _collect_region(slug):
@@ -79,7 +83,9 @@ def _collect_region(slug):
                     continue
                 href = urljoin(event_url, raw_href).split("?")[0]
                 card = base._local_card(a)
-                if not _is_target_card(card):
+                explicit = _is_target_card(card)
+                ambiguous = _is_ambiguous_card(card)
+                if not explicit and not ambiguous:
                     continue
                 m = re.search(r"\bLot\s+(\d+[A-Z]?)\b", card, re.I)
                 label = norm(a.get_text(" ", strip=True))
@@ -90,6 +96,7 @@ def _collect_region(slug):
                     auction_date,
                     base._card_image(a, event_url),
                     _terminal_status(card),
+                    explicit,
                 )
 
         lots = []
@@ -97,30 +104,49 @@ def _collect_region(slug):
         catalogue_fallbacks = 0
         direct_recoveries = 0
         terminal_count = 0
+        ambiguous_rejected = 0
+        ambiguous_accepted = 0
+        explicit_count = sum(1 for target in targets.values() if target[-1])
 
-        for href, (card, label, lot_number, auction_date, card_image, card_status) in targets.items():
+        for href, (card, label, lot_number, auction_date, card_image, card_status, explicit) in targets.items():
             lot = None
+            attempt_errors = 0
             for use_browser in (False, True):
                 try:
-                    # Do NOT suppress Sold Prior / Withdrawn. Lifecycle is evidence;
-                    # run_collectors.py will keep it out of the active board.
+                    # Explicit source categories are authoritative enough to force
+                    # hydration. Generic Property/Land For Sale cards are not: the
+                    # exact detail page must independently satisfy is_commercial().
                     lot = detail_lot(
                         source, href, seed=card, lot_number=lot_number,
-                        auction_date=auction_date, force_commercial=True,
+                        auction_date=auction_date, force_commercial=explicit,
                         use_browser=use_browser, suppress_prior=False,
                     )
                     if lot:
                         break
+                    # A clean None for an ambiguous card means detail evidence did
+                    # not prove commercial scope; no browser retry is necessary.
+                    if not explicit:
+                        break
                 except Exception:
-                    pass
+                    attempt_errors += 1
 
             if lot:
                 if not lot.image_url and card_image:
                     lot.image_url = card_image
+                if not explicit and not lot.property_type:
+                    lot.property_type = "Commercial / Development"
                 lifecycle = _terminal_status(card + " " + (lot.description or "")) or card_status or "CURRENT"
                 lot.status = lifecycle
                 lots.append(lot.finalise())
                 terminal_count += int(lifecycle != "CURRENT")
+                ambiguous_accepted += int(not explicit)
+                continue
+
+            if not explicit:
+                if attempt_errors:
+                    detail_failures += 1
+                else:
+                    ambiguous_rejected += 1
                 continue
 
             # The modern UUID branch pages need the dedicated first-party parser.
@@ -151,7 +177,11 @@ def _collect_region(slug):
             else:
                 detail_failures += 1
 
-        expected = len(targets)
+        # Explicit commercial cards are expected by definition. Ambiguous generic
+        # cards count only after the exact page proves commercial scope. A fetch
+        # failure remains a quality failure so an outage cannot masquerade as a
+        # legitimate residential rejection.
+        expected = explicit_count + ambiguous_accepted + detail_failures
         failures = discovery_failures + detail_failures
         if expected == 0 and failures == 0:
             return SourceResult(
@@ -169,11 +199,13 @@ def _collect_region(slug):
             )
 
         status = "LIVE" if failures == 0 and len(lots) == expected else "DEGRADED"
-        live_count = sum(1 for x in lots if _terminal_status(x.status) is None and str(x.status).upper() == "CURRENT")
+        live_count = sum(1 for x in lots if str(x.status).upper() == "CURRENT")
         message = (
             f"Auction House all-future lifecycle-safe sweep: {len(events)} event(s), "
-            f"{expected} commercial/mixed-use lot page(s), {live_count} available, "
+            f"{expected} verified commercial/mixed-use lot page(s), {live_count} available, "
             f"{terminal_count} sold-prior/withdrawn/postponed retained as history; "
+            f"{ambiguous_accepted} generic cards promoted by exact-page commercial evidence; "
+            f"{ambiguous_rejected} generic non-commercial cards rejected; "
             f"{direct_recoveries} direct recoveries; {catalogue_fallbacks} catalogue fallbacks; "
             f"{failures} failure(s)."
         )
