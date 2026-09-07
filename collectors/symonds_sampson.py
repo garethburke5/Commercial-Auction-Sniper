@@ -2,7 +2,7 @@ import re
 from datetime import date
 from urllib.parse import urljoin
 
-from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat, is_commercial
+from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
 from .utils import soup, legal_pack, image_from_soup
 
 SOURCE = "Symonds & Sampson"
@@ -10,20 +10,36 @@ BASE = "https://auctions.symondsandsampson.co.uk"
 EVENTS = BASE + "/events/property-auction/symonds-and-sampson-property-auctions?eventdate=upcoming"
 DATE_RE = re.compile(r"\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(\d{1,2})\s+([A-Za-z]+)\s+(20\d{2})\b", re.I)
 MONTHS = {name.lower(): i for i, name in enumerate(("January","February","March","April","May","June","July","August","September","October","November","December"), 1)}
-COMMERCIAL_EXTRA = ("public house","pub","commercial","mixed use","mixed-use","retail","shop","office","industrial","warehouse","workshop","business park","business premises","restaurant","hotel","leisure","investment property","commercial premises","commercial building","garages","garage block")
 RESIDENTIAL_STRONG = ("detached house","semi-detached house","terraced house","bungalow","residential flat","bedroom flat","family home","residential property","bedroom house","house for sale")
 RESIDENTIAL_COMPONENT = ("flat above","flats above","existing flat","existing flats","vacant flat","vacant flats","residential accommodation","living accommodation","apartment above")
+CHROME_MARKERS = (
+    "Office Details", "Arrange a viewing", "Make An Offer", "Request a Viewing",
+    "Broadband & Mobile Coverage", "Property Information Questionnaire",
+    "Important Information", "Contact the Agent", "Contact Us",
+)
+COMMERCIAL_SIGNAL = re.compile(
+    r"\b(?:mixed[- ]use|commercial\s+(?:property|unit|premises|building|investment|accommodation)|"
+    r"ground[- ]floor\s+(?:shop|retail|commercial)|shop\b|retail\s+(?:unit|property|investment|premises)|"
+    r"office\s+(?:building|unit|investment|premises|accommodation)|industrial\s+(?:unit|property|building)|"
+    r"warehouse|workshop|business\s+premises|business\s+park|public\s+house|pub\b|"
+    r"restaurant\s+(?:premises|unit|investment)|hotel\b|leisure\s+(?:property|premises|investment)|"
+    r"garage\s+block|garages\b)\b",
+    re.I,
+)
+DEVELOPMENT_SIGNAL = re.compile(r"\bdevelopment\s+(?:site|land|plot)\b|\bbuilding\s+plot\b", re.I)
 
 
 def _fetch(url):
     try: return soup(url, use_browser=False)
     except Exception: return soup(url, use_browser=True)
 
+
 def _parse_date(text):
     m=DATE_RE.search(norm(text))
     if not m or not MONTHS.get(m.group(2).lower()): return None
     try: return date(int(m.group(3)),MONTHS[m.group(2).lower()],int(m.group(1))).isoformat()
     except ValueError: return None
+
 
 def _event_card_text(a):
     best=norm(a.get_text(" ",strip=True)); node=a
@@ -39,6 +55,7 @@ def _event_card_text(a):
         elif len(links)>1: break
     return best
 
+
 def _event_links(s,today=None):
     today=today or date.today(); found={}
     for a in s.find_all("a",href=True):
@@ -47,6 +64,7 @@ def _event_links(s,today=None):
         d=_parse_date(_event_card_text(a))
         if d and d>=today.isoformat(): found[href]=d
     return found
+
 
 def _property_links(s,event_date):
     found={}
@@ -62,12 +80,15 @@ def _property_links(s,event_date):
         if text: found[href]=(text,event_date)
     return found
 
+
 def _image(s,base):
     bad=("logo","icon","staff","office","map","floorplan","floor-plan","siteplan","site-plan","epc","avatar","placeholder","sprite"); candidates=[]
     def add(raw,alt="",bonus=0):
         if not raw:return
+        raw=str(raw).replace("\\/","/").strip(' "\'')
         u=urljoin(base,raw); low=u.lower(); alt=(alt or "").lower()
         if any(x in low for x in bad) or any(x in alt for x in ("map","floor plan","floorplan","site plan","epc","logo")):return
+        if not re.search(r"\.(?:jpe?g|png|webp)(?:\?|$)",low): return
         score=bonus+(6 if "cdn.webdadi.net" in low else 0)+(4 if re.search(r"[0-9a-f]{8}-[0-9a-f-]{20,}",low,re.I) else 0)+(2 if any(x in low for x in ("property","images","photos","uploads","media")) else 0)+(2 if any(x in low for x in (".jpg",".jpeg",".webp")) else 0)
         if any(x in alt for x in ("property","external","exterior","front elevation","auction")):score+=8
         candidates.append((score,u))
@@ -85,6 +106,8 @@ def _image(s,base):
                     if u:add(u,alt)
     raw=str(s).replace("\\/","/")
     for u in re.findall(r'https?://[^"\'<>\s]+?\.(?:jpe?g|png|webp)(?:\?[^"\'<>\s]*)?',raw,re.I):add(u)
+    # Webdadi galleries also serialize relative image paths into script/JSON blobs.
+    for u in re.findall(r'["\']([^"\']+?\.(?:jpe?g|png|webp)(?:\?[^"\']*)?)["\']',raw,re.I): add(u)
     if candidates:
         best={}
         for score,u in candidates:best[u]=max(score,best.get(u,-999))
@@ -92,22 +115,46 @@ def _image(s,base):
     g=image_from_soup(s,base)
     return g if g and not any(x in g.lower() for x in bad) else None
 
+
 def _main_property_text(s):
     h=s.find("h1") or s.find("h2")
-    if not h:return norm((s.find("main") or s).get_text(" ",strip=True))[:14000]
+    if not h:return _classification_text(norm((s.find("main") or s).get_text(" ",strip=True))[:14000])
     pieces=[]
     for node in [h]+list(h.find_all_next(limit=220)):
         if getattr(node,"name",None) in {"h1","h2","h3","h4","p","li","dt","dd"}:
             v=norm(node.get_text(" ",strip=True))
+            if any(v.lower()==m.lower() or v.lower().startswith(m.lower()+" ") for m in CHROME_MARKERS):
+                break
             if v and v not in pieces:pieces.append(v)
         if len(" ".join(pieces))>14000:break
-    return norm(" ".join(pieces))[:14000]
+    return _classification_text(norm(" ".join(pieces))[:14000])
+
+
+def _classification_text(text):
+    """Remove agent/site chrome before deciding whether the asset itself is commercial.
+
+    Symonds residential pages contain 'Office Details' and phrases such as
+    'shopping facilities' below the actual particulars. Broad substring matching
+    therefore admitted ordinary houses and flats as commercial auction lots.
+    """
+    value=norm(text)
+    lowered=value.lower(); cuts=[]
+    for marker in CHROME_MARKERS:
+        p=lowered.find(marker.lower())
+        if p>0: cuts.append(p)
+    if cuts: value=value[:min(cuts)]
+    return norm(value)
+
 
 def _is_target(text):
-    low=" "+norm(text).lower()+" "
-    if is_commercial(text) or any(x in low for x in COMMERCIAL_EXTRA):return True
-    if any(x in low for x in RESIDENTIAL_STRONG) or re.search(r"\b\d+\s+bedroom\s+house\b",low):return False
-    return bool(re.search(r"\bdevelopment (?:site|land|plot)\b|\bbuilding plot\b",low))
+    clean=_classification_text(text)
+    low=" "+clean.lower()+" "
+    if COMMERCIAL_SIGNAL.search(clean): return True
+    # Explicit development land/sites are relevant even without an existing commercial use.
+    if DEVELOPMENT_SIGNAL.search(clean): return True
+    if any(x in low for x in RESIDENTIAL_STRONG) or re.search(r"\b\d+\s+bedroom\s+house\b",low): return False
+    return False
+
 
 def _address(s,url):
     h=s.find("h1")
@@ -120,6 +167,7 @@ def _address(s,url):
         if len(v)>=6:return v
     return url
 
+
 def _area(text):
     sqft=sqm=acres=None
     m=re.search(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)\b",text,re.I)
@@ -130,20 +178,31 @@ def _area(text):
     if m:acres=float(m.group(1))
     return sqft,sqm,acres
 
+
 def _has_residential_component(text):
-    low=text.lower()
+    low=_classification_text(text).lower()
     return any(x in low for x in RESIDENTIAL_COMPONENT) or bool(re.search(r"\b(?:two|three|four|five|\d+)\s+(?:existing\s+|vacant\s+)?flats?\b",low))
 
+
 def _has_commercial_component(text):
-    low=text.lower()
-    return any(x in low for x in ("shop","retail","commercial unit","commercial property","restaurant","office","warehouse","workshop","public house"))
+    return bool(COMMERCIAL_SIGNAL.search(_classification_text(text)))
+
 
 def _property_type(text):
-    low=text.lower()
-    if "mixed use" in low or "mixed-use" in low or (_has_commercial_component(text) and _has_residential_component(text)):return "Mixed Use"
-    for label,markers in (("Public House",("public house","grade ii listed pub"," pub ")),("Retail",("retail","shop")),("Office",("office",)),("Industrial",("industrial","warehouse","workshop","business park")),("Development",("development site","development land","building plot","redevelopment potential")),("Garages",("garages","garage block")),("Commercial",("commercial",))):
-        if any(x in low for x in markers):return label
+    clean=_classification_text(text); low=clean.lower()
+    if "mixed use" in low or "mixed-use" in low or (_has_commercial_component(clean) and _has_residential_component(clean)):return "Mixed Use"
+    for label,pat in (
+        ("Public House",r"\bpublic house\b|\bpub\b"),
+        ("Retail",r"\bshop\b|\bretail\s+(?:unit|property|investment|premises)\b"),
+        ("Office",r"\boffice\s+(?:building|unit|investment|premises|accommodation)\b"),
+        ("Industrial",r"\bindustrial\s+(?:unit|property|building)\b|\bwarehouse\b|\bworkshop\b|\bbusiness park\b"),
+        ("Development",r"\bdevelopment (?:site|land|plot)\b|\bbuilding plot\b|\bredevelopment potential\b"),
+        ("Garages",r"\bgarages\b|\bgarage block\b"),
+        ("Commercial",r"\bcommercial\s+(?:property|unit|premises|building|investment|accommodation)\b"),
+    ):
+        if re.search(pat,clean,re.I): return label
     return "Commercial / Development"
+
 
 def _current_rent(text):
     """Current passing rent only; never substitute potential/ERV income."""
@@ -155,13 +214,11 @@ def _current_rent(text):
     )
     for pat in patterns:
         for m in re.finditer(pat,text,re.I):
-            # Potential income mentioned after a genuine passing-rent sentence must
-            # not invalidate the current figure. Only qualifying words immediately
-            # before this rent amount can turn the match into prospective income.
             prefix=text[max(0,m.start()-90):m.start()]
             if re.search(r"potential(?:ly)?|could\s+generate|estimated|when\s+let|fully[- ]let|further\s*$",prefix,re.I):continue
             return float(m.group(1).replace(",",""))
     return None
+
 
 def _detail(url,seed,event_date,fetcher=_fetch):
     s=fetcher(url);text=_main_property_text(s);combined=norm(seed+" "+text)
@@ -191,6 +248,7 @@ def _detail(url,seed,event_date,fetcher=_fetch):
     elif re.search(r"\bcar park\b|\bparking\b|garage/workshop/store",combined,re.I):lot.parking="Car park / parking / garage mentioned"
     return lot.finalise()
 
+
 def collect():
     try:
         index=_fetch(EVENTS);events=_event_links(index)
@@ -209,6 +267,6 @@ def collect():
                 if lot:lots.append(lot)
             except Exception as exc:detail_failures+=1;print("SYMONDS_DETAIL_FAIL",href,repr(exc))
         status="DEGRADED" if event_failures and lots else "FAILED" if event_failures else "LIVE" if lots or published else "CATALOGUE PENDING"
-        msg=f"All-future Symonds & Sampson sweep: {len(events)} future event(s); {len(published)} published catalogue(s), {len(pending)} pending; {len(candidates)} property pages inspected; {len(lots)} commercial/mixed-use/development lots published; {detail_failures} detail failures; {event_failures} event failures."
+        msg=f"All-future Symonds & Sampson sweep: {len(events)} future event(s); {len(published)} published catalogue(s), {len(pending)} pending; {len(candidates)} property pages inspected; {len(lots)} explicit commercial/mixed-use/development lots published after chrome-safe classification; {detail_failures} detail failures; {event_failures} event failures."
         return SourceResult(SOURCE,status,lots,msg,discovered_count=len(lots),authoritative_snapshot=bool(status=="LIVE" and not detail_failures and published),scope_dates=tuple(sorted(published)))
     except Exception as exc:return SourceResult(SOURCE,"FAILED",[],f"Symonds & Sampson collection failed: {type(exc).__name__}: {exc}")
