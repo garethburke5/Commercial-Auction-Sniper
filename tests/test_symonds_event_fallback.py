@@ -33,6 +33,36 @@ class SymondsEventFallbackTests(unittest.TestCase):
         self.assertEqual(list(events.values()), ['2026-10-08'])
         self.assertEqual(len(failures), 1)
 
+    def test_exact_event_page_recovers_date_when_index_dom_separates_date_from_link(self):
+        # Mirrors the live regression: the event URL is still discoverable, but
+        # the card-bound traversal cannot see its date because several event
+        # links share a larger container.
+        index = '''<html><body><section>
+          <p>Thursday, 24 September 2026 2:00 PM - 5:00 PM</p>
+          <div><a href="/event/property-auction-sep2026-memorialhall">View Event</a></div>
+          <p>Thursday, 08 October 2026 2:00 PM - 5:00 PM</p>
+          <div><a href="/event/property-auction-oct2026">View Event</a></div>
+        </section></body></html>'''
+        event_pages = {
+            'https://auctions.symondsandsampson.co.uk/event/property-auction-sep2026-memorialhall':
+                '<main><h1>Property Auction</h1><p>Event Date &amp; Time</p><p>Thursday, 24 September 2026 2:00 PM - 5:00 PM</p></main>',
+            'https://auctions.symondsandsampson.co.uk/event/property-auction-oct2026':
+                '<main><h1>Property Auction</h1><p>Event Date &amp; Time</p><p>Thursday, 08 October 2026 2:00 PM - 5:00 PM</p></main>',
+        }
+        exact_fetches = []
+
+        def fetcher(url):
+            if url in EVENT_INDEXES:
+                return BeautifulSoup(index, 'lxml')
+            exact_fetches.append(url)
+            return BeautifulSoup(event_pages[url], 'lxml')
+
+        events, failures = _discover_events(fetcher=fetcher, today=date(2026, 9, 7))
+        self.assertFalse(failures)
+        self.assertEqual(set(events.values()), {'2026-09-24', '2026-10-08'})
+        self.assertEqual(set(exact_fetches), set(event_pages))
+        self.assertEqual(len(exact_fetches), 2, 'duplicate index routes should not refetch the same exact event')
+
 
 if __name__ == '__main__':
     unittest.main()
