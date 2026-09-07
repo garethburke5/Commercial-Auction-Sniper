@@ -1,7 +1,7 @@
 import re
 from datetime import date
 from io import BytesIO
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 from pypdf import PdfReader
 
@@ -11,6 +11,7 @@ from .utils import soup, legal_pack, image_from_soup
 
 SOURCE = "Symonds & Sampson"
 BASE = "https://auctions.symondsandsampson.co.uk"
+AUCTION_HOST = "auctions.symondsandsampson.co.uk"
 EVENTS = BASE + "/events/property-auction/symonds-and-sampson-property-auctions?eventdate=upcoming"
 DATE_RE = re.compile(r"\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(\d{1,2})\s+([A-Za-z]+)\s+(20\d{2})\b", re.I)
 MONTHS = {name.lower(): i for i, name in enumerate(("January","February","March","April","May","June","July","August","September","October","November","December"), 1)}
@@ -70,11 +71,26 @@ def _event_links(s,today=None):
     return found
 
 
+def _is_auction_property_url(href):
+    """Accept only genuine lot-detail URLs on the auction microsite.
+
+    Empty future event pages contain navigation/footer links to the main agency's
+    property search. The previous broad '/property/' test followed those links and
+    incorrectly treated ordinary estate-agency listings as auction lots, producing
+    false future inventory and 50% image/rich-data coverage. Genuine event lots live
+    on the auctions host under /property/<listing-slug>.
+    """
+    parsed=urlparse(href or "")
+    host=(parsed.hostname or "").lower()
+    path=(parsed.path or "").lower().rstrip("/")
+    return host==AUCTION_HOST and path.startswith("/property/") and len(path.split("/"))>=3
+
+
 def _property_links(s,event_date):
     found={}
     for a in s.find_all("a",href=True):
         href=urljoin(BASE,a.get("href") or "").split("#",1)[0]
-        if "/property/" not in href.lower() or href in found: continue
+        if not _is_auction_property_url(href) or href in found: continue
         node=a; text=norm(a.get_text(" ",strip=True))
         for _ in range(5):
             node=getattr(node,"parent",None)
@@ -133,12 +149,10 @@ def _main_property_text(s):
 
 
 def _brochure_links(s,base):
-    """Find first-party particulars/brochure documents linked from a lot page."""
     scored=[]
     for a in s.find_all("a",href=True):
         href=urljoin(base,a.get("href") or "").split("#",1)[0]
-        label=norm(a.get_text(" ",strip=True)+" "+href).lower()
-        score=0
+        label=norm(a.get_text(" ",strip=True)+" "+href).lower(); score=0
         if "brochure" in label: score+=10
         if "particular" in label: score+=9
         if href.lower().split("?")[0].endswith(".pdf"): score+=5
@@ -150,7 +164,6 @@ def _brochure_links(s,base):
 
 
 def _brochure_text(s,base,binary_fetcher=get_bytes):
-    """Extract public brochure text when the teaser HTML says 'refer to brochure'."""
     chunks=[]
     for href in _brochure_links(s,base):
         try:
@@ -173,7 +186,7 @@ def _classification_text(text):
     for marker in CHROME_MARKERS:
         p=lowered.find(marker.lower())
         if p>0: cuts.append(p)
-    if cuts: value=value[:min(cuts)]
+    if cuts:value=value[:min(cuts)]
     return norm(value)
 
 
@@ -198,17 +211,16 @@ def _address(s,url):
 
 
 def _area(text):
-    sqft=sqm=acres=None
-    vals=[]
+    sqft=sqm=acres=None;vals=[]
     for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²|square feet)\b",text,re.I):
         v=float(m.group(1).replace(",",""))
-        if 50<=v<=2_000_000: vals.append(v)
-    if vals: sqft=max(vals)
+        if 50<=v<=2_000_000:vals.append(v)
+    if vals:sqft=max(vals)
     vals=[]
     for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*m|sqm|m²|square metres)\b",text,re.I):
         v=float(m.group(1).replace(",",""))
-        if 5<=v<=200_000: vals.append(v)
-    if vals: sqm=max(vals)
+        if 5<=v<=200_000:vals.append(v)
+    if vals:sqm=max(vals)
     m=re.search(r"([\d.]+)\s*acres?\b",text,re.I)
     if m:acres=float(m.group(1))
     return sqft,sqm,acres
@@ -218,34 +230,18 @@ def _has_residential_component(text):
     low=_classification_text(text).lower()
     return any(x in low for x in RESIDENTIAL_COMPONENT) or bool(re.search(r"\b(?:two|three|four|five|\d+)\s+(?:existing\s+|vacant\s+)?flats?\b",low))
 
-
-def _has_commercial_component(text): return bool(COMMERCIAL_SIGNAL.search(_classification_text(text)))
-
+def _has_commercial_component(text):return bool(COMMERCIAL_SIGNAL.search(_classification_text(text)))
 
 def _property_type(text):
-    clean=_classification_text(text); low=clean.lower()
+    clean=_classification_text(text);low=clean.lower()
     if "mixed use" in low or "mixed-use" in low or (_has_commercial_component(clean) and _has_residential_component(clean)):return "Mixed Use"
-    for label,pat in (
-        ("Public House",r"\bpublic house\b|\bpub\b"),
-        ("Retail",r"\bshop\b|\bretail\s+(?:unit|property|investment|premises)\b"),
-        ("Office",r"\boffice\s+(?:building|unit|investment|premises|accommodation)\b"),
-        ("Industrial",r"\bindustrial\s+(?:unit|property|building)\b|\bwarehouse\b|\bworkshop\b|\bbusiness park\b"),
-        ("Development",r"\bdevelopment (?:site|land|plot)\b|\bbuilding plot\b|\bredevelopment potential\b"),
-        ("Garages",r"\bgarages\b|\bgarage block\b"),
-        ("Commercial",r"\bcommercial\s+(?:property|unit|premises|building|investment|accommodation)\b"),
-    ):
-        if re.search(pat,clean,re.I): return label
+    for label,pat in (("Public House",r"\bpublic house\b|\bpub\b"),("Retail",r"\bshop\b|\bretail\s+(?:unit|property|investment|premises)\b"),("Office",r"\boffice\s+(?:building|unit|investment|premises|accommodation)\b"),("Industrial",r"\bindustrial\s+(?:unit|property|building)\b|\bwarehouse\b|\bworkshop\b|\bbusiness park\b"),("Development",r"\bdevelopment (?:site|land|plot)\b|\bbuilding plot\b|\bredevelopment potential\b"),("Garages",r"\bgarages\b|\bgarage block\b"),("Commercial",r"\bcommercial\s+(?:property|unit|premises|building|investment|accommodation)\b")):
+        if re.search(pat,clean,re.I):return label
     return "Commercial / Development"
 
 
 def _current_rent(text):
-    patterns=(
-        r"(?:total\s+)?current\s+(?:rent(?:al)?|income)\s*(?:reserved\s*)?(?:of\s*)?£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|pa|per annum)",
-        r"generat(?:e|es|ing)\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:rent(?:al)?\s*)?(?:p\.?a\.?|pa|per annum)",
-        r"(?:shop|retail unit|commercial unit|restaurant|office)[^.;]{0,100}?\blet\s+(?:at|for|by way of[^.;]{0,60}?at)\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|pa|per annum)",
-        r"\blet\s+(?:at|for)\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|pa|per annum)",
-        r"annual\s+rent\s+(?:of\s+)?£\s*([\d,]+(?:\.\d+)?)",
-    )
+    patterns=(r"(?:total\s+)?current\s+(?:rent(?:al)?|income)\s*(?:reserved\s*)?(?:of\s*)?£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|pa|per annum)",r"generat(?:e|es|ing)\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:rent(?:al)?\s*)?(?:p\.?a\.?|pa|per annum)",r"(?:shop|retail unit|commercial unit|restaurant|office)[^.;]{0,100}?\blet\s+(?:at|for|by way of[^.;]{0,60}?at)\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|pa|per annum)",r"\blet\s+(?:at|for)\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|pa|per annum)",r"annual\s+rent\s+(?:of\s+)?£\s*([\d,]+(?:\.\d+)?)")
     for pat in patterns:
         for m in re.finditer(pat,text,re.I):
             prefix=text[max(0,m.start()-100):m.start()]
@@ -255,13 +251,11 @@ def _current_rent(text):
 
 
 def _detail(url,seed,event_date,fetcher=_fetch,brochure_reader=_brochure_text):
-    s=fetcher(url); page_text=_main_property_text(s)
-    brochure=""
+    s=fetcher(url);page_text=_main_property_text(s);brochure=""
     if len(page_text)<5000 or re.search(r"refer to (?:the )?brochure|further information",page_text,re.I):
-        try: brochure=brochure_reader(s,url)
-        except Exception: brochure=""
-    text=norm(page_text+" "+brochure)[:24000]
-    combined=norm(seed+" "+text)
+        try:brochure=brochure_reader(s,url)
+        except Exception:brochure=""
+    text=norm(page_text+" "+brochure)[:24000];combined=norm(seed+" "+text)
     if not _is_target(combined):return None
     guide=parse_guide(norm(seed+" "+page_text))
     if guide is None:
@@ -274,7 +268,7 @@ def _detail(url,seed,event_date,fetcher=_fetch,brochure_reader=_brochure_text):
     lp_url,lp_status=legal_pack(s,url)
     lot=Lot(source=SOURCE,url=url,address=_address(s,url),auction_date=event_date,image_url=_image(s,url),guide_price=guide,annual_rent=rent,tenure=parse_tenure(combined),vat_status=parse_vat(combined),legal_pack_status=lp_status,legal_pack_url=lp_url,property_type=_property_type(combined),description=text)
     lot.area_sqft,lot.area_sqm,lot.site_area_acres=_area(combined)
-    has_vacant=bool(re.search(r"\bvacant\b|vacant possession",combined,re.I)); has_income=bool(rent or re.search(r"\blet to\b|\blet at\b|\btenant\b|\btenanted\b|\bproducing\s+£|\brental income\b|generat(?:e|es|ing)\s+£|annual rent of £",combined,re.I))
+    has_vacant=bool(re.search(r"\bvacant\b|vacant possession",combined,re.I));has_income=bool(rent or re.search(r"\blet to\b|\blet at\b|\btenant\b|\btenanted\b|\bproducing\s+£|\brental income\b|generat(?:e|es|ing)\s+£|annual rent of £",combined,re.I))
     if has_vacant and has_income:lot.occupation="Part let / part vacant"
     elif has_vacant:lot.occupation="Vacant"
     elif has_income:lot.occupation="Tenanted"
@@ -289,11 +283,9 @@ def _detail(url,seed,event_date,fetcher=_fetch,brochure_reader=_brochure_text):
     erv=re.search(r"(?:ERV|estimated rental value)[^£]{0,90}£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|pa|per annum)?",combined,re.I)
     if erv:lot.erv=float(erv.group(1).replace(",",""))
     lm=re.search(r"(?:commercial )?lease(?: for)?\s+(?:a\s+)?(\d+(?:\.\d+)?)\s*year\s+term\s+from\s+(\d{1,2}\s+[A-Za-z]+\s+20\d{2})",combined,re.I)
-    if lm:
-        lot.lease_term=lm.group(1)+" years"; lot.lease_start=lm.group(2)
+    if lm:lot.lease_term=lm.group(1)+" years";lot.lease_start=lm.group(2)
     if re.search(r"no remaining tenant break clauses?|without (?:a )?break",combined,re.I):lot.break_status="No remaining tenant break"
-    rr=re.search(r"(?:five|5)\s+year\s+rent review",combined,re.I)
-    if rr:lot.rent_review="5-year rent review"
+    if re.search(r"(?:five|5)\s+year\s+rent review",combined,re.I):lot.rent_review="5-year rent review"
     if re.search(r"internal repairing and insuring",combined,re.I):lot.fri=False
     elif re.search(r"full repairing and insuring|\bFRI\b",combined,re.I):lot.fri=True
     rv=re.search(r"(?:Business Rates:?\s*)?RV\s*£\s*([\d,]+)",combined,re.I)
@@ -321,6 +313,6 @@ def collect():
                 if lot:lots.append(lot)
             except Exception as exc:detail_failures+=1;print("SYMONDS_DETAIL_FAIL",href,repr(exc))
         status="DEGRADED" if event_failures and lots else "FAILED" if event_failures else "LIVE" if lots or published else "CATALOGUE PENDING"
-        msg=f"All-future Symonds & Sampson sweep: {len(events)} future event(s); {len(published)} published catalogue(s), {len(pending)} pending; {len(candidates)} property pages inspected; {len(lots)} explicit commercial/mixed-use/development lots published after chrome-safe classification and brochure enrichment; {detail_failures} detail failures; {event_failures} event failures."
+        msg=f"All-future Symonds & Sampson sweep: {len(events)} future event(s); {len(published)} published catalogue(s), {len(pending)} pending; {len(candidates)} genuine auction property pages inspected; {len(lots)} explicit commercial/mixed-use/development lots published after auction-host restriction, chrome-safe classification and brochure enrichment; {detail_failures} detail failures; {event_failures} event failures."
         return SourceResult(SOURCE,status,lots,msg,discovered_count=len(lots),authoritative_snapshot=bool(status=="LIVE" and not detail_failures and published),scope_dates=tuple(sorted(published)))
     except Exception as exc:return SourceResult(SOURCE,"FAILED",[],f"Symonds & Sampson collection failed: {type(exc).__name__}: {exc}")
