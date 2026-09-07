@@ -45,9 +45,7 @@ def _property_type(text):
 
 
 def _authoritative_property_type(s):
-    """Auction Estates publishes an explicit Property Type beside each lot.
-    Read it from the lot header only, before footer/search links can contaminate classification.
-    """
+    """Read Auction Estates' explicit lot-level Property Type before page chrome."""
     h1=s.find("h1")
     if not h1:return None
     parts=[]
@@ -56,8 +54,7 @@ def _authoritative_property_type(s):
         if name in {"h1","h2","h3","h4","div","span","p","strong","dt","dd","li"}:
             value=norm(node.get_text(" ",strip=True))
             if value:parts.append(value)
-        probe=norm(" ".join(parts))
-        ptype=_property_type(probe)
+        probe=norm(" ".join(parts)); ptype=_property_type(probe)
         if ptype:return ptype
         if re.search(r"\bKey\s*Features\b|\bPart of the\b",probe,re.I):break
     return None
@@ -65,10 +62,45 @@ def _authoritative_property_type(s):
 
 def _is_target_type(ptype):
     p=norm(ptype or "").lower().replace("-"," ")
-    # Critical invariant: explicit Residential means residential. Nearby shops,
-    # an AST, investment wording or footer links must never promote it to commercial.
+    # Explicit Residential is a hard exclusion. This prevents nearby shops,
+    # investment wording and site chrome from promoting ordinary dwellings.
     if p=="residential":return False
-    return p in {"commercial","mixed use","telecoms"}
+    return p in {"commercial","mixed use","telecoms","investment"}
+
+
+def _is_target(text):
+    """Compatibility/text helper used by catalogue tests and defensive fallbacks.
+
+    Classification remains driven by the auctioneer's explicit Property Type. An
+    Investment type is admitted only because Auction Estates itself uses that label
+    for commercial investment lots; a Residential type is always rejected.
+    """
+    return _is_target_type(_property_type(text))
+
+
+def _normal_date(day,month,year):
+    try:return f"{int(day)} {month.title()} {int(year)}"
+    except Exception:return None
+
+
+def _tenancy_details(text):
+    """Extract only explicit current lease facts; never infer missing covenant terms."""
+    t=norm(text); tenant=term=start=fri=break_clause=None
+    m=re.search(r"(?:let to|leased to)\s+(.+?)(?=\s+(?:located|at\s+£|paying|on\s+a|for\s+a|under\s+a|,\s*at\s+£|\.|Current\s+Rent))",t,re.I)
+    if m:
+        candidate=norm(m.group(1)).strip(" ,.-")
+        if 2<=len(candidate)<=140:tenant=candidate
+    m=re.search(r"(?:let|lease|tenancy)(?:\s+on)?\s+(?:a\s+)?(\d+(?:\.\d+)?)\s+year\s+(?:FRI\s+)?lease",t,re.I)
+    if not m:m=re.search(r"\b(\d+(?:\.\d+)?)\s+year\s+(?:FRI\s+)?lease\b",t,re.I)
+    if m:term=f"{m.group(1)} years"
+    m=re.search(r"(?:from|commencing(?:\s+on)?)\s+(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})",t,re.I)
+    if m:start=_normal_date(m.group(1),m.group(2),m.group(3))
+    if re.search(r"\bFRI\b|full repairing and insuring",t,re.I):fri=True
+    if re.search(r"\bno\s+break\s+clause\b|\bwithout\s+(?:a\s+)?break\b",t,re.I):break_clause="No break"
+    else:
+        m=re.search(r"((?:tenant|landlord)[^.;]{0,35}break[^.;]{0,100}|break clause[^.;]{0,120})",t,re.I)
+        if m:break_clause=norm(m.group(1))[:140]
+    return tenant,term,start,fri,break_clause
 
 
 def _image(s,base):
@@ -114,16 +146,15 @@ def _description(s):
 
 
 def _area(text):
-    sqft=sqm=acres=None
-    vals=[]
+    sqft=sqm=acres=None; vals=[]
     for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|square feet)\b",text,re.I):
         try:vals.append(float(m.group(1).replace(",","")))
-        except:pass
+        except Exception:pass
     if vals:sqft=max(vals)
     vals=[]
     for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*m|sqm|square metres)\b",text,re.I):
         try:vals.append(float(m.group(1).replace(",","")))
-        except:pass
+        except Exception:pass
     if vals:sqm=max(vals)
     m=re.search(r"([\d.]+)\s*acres?\b",text,re.I)
     if m:acres=float(m.group(1))
@@ -148,8 +179,7 @@ def _terminal_status_near_title(s):
 
 
 def _detail(url,card,auction_date,fetcher=_fetch):
-    s=fetcher(url)
-    ptype=_authoritative_property_type(s)
+    s=fetcher(url); ptype=_authoritative_property_type(s)
     if not _is_target_type(ptype):return None
     text=_description(s); combined=norm(card+" "+text); terminal=_terminal_status_near_title(s)
     h1=s.find("h1"); address=norm(h1.get_text(" ",strip=True)) if h1 else url
@@ -164,6 +194,12 @@ def _detail(url,card,auction_date,fetcher=_fetch):
     lp_url,lp_status=legal_pack(s,url)
     lot=Lot(source=SOURCE,url=url,address=address,auction_date=auction_date,image_url=_image(s,url),guide_price=guide,annual_rent=rent,tenure=parse_tenure(combined),vat_status=parse_vat(combined),legal_pack_status=lp_status,legal_pack_url=lp_url,property_type=ptype,description=text,status=terminal or "CURRENT")
     lot.area_sqft,lot.area_sqm,lot.site_area_acres=_area(combined)
+    tenant,term,start,fri,break_clause=_tenancy_details(combined)
+    if tenant:lot.tenant=tenant
+    if term:lot.lease_term=term
+    if start:lot.lease_start=start
+    if fri is not None:lot.fri=fri
+    if break_clause:lot.break_clause=break_clause
     has_vacant=bool(re.search(r"\bvacant possession\b|\bvacant\b",combined,re.I)); has_let=bool(re.search(r"\blet on a lease\b|\blet to\b|\btenant\b|\btenanted\b|\bcurrent rent\b|\brent reserved\b",combined,re.I))
     if has_vacant and has_let:lot.occupation="Part Vacant / Part Let"
     elif has_vacant:lot.occupation="Vacant"
