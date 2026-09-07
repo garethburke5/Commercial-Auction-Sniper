@@ -56,6 +56,18 @@ class AuctionEstatesCollectorTests(unittest.TestCase):
         ''', "lxml")
         self.assertEqual(_terminal_status_near_title(s), "SOLD PRIOR")
 
+    def test_postponed_guide_status_is_archived_not_live(self):
+        s = BeautifulSoup('''
+        <html><body>
+          <h1>Commercial Lot, Nottingham, NG1 1AA</h1>
+          <div>Guide price</div><div>POSTPONED</div>
+          <div>Property Type Commercial</div>
+          <h3>Key Features</h3>
+          <div>Unrelated other property SoldPrior</div>
+        </body></html>
+        ''', "lxml")
+        self.assertEqual(_terminal_status_near_title(s), "POSTPONED")
+
     def test_other_lot_sold_prior_badge_does_not_suppress_live_lot(self):
         s = BeautifulSoup('''
         <html><body>
