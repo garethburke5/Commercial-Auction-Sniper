@@ -2,8 +2,8 @@ import re
 from datetime import date, datetime
 from urllib.parse import urljoin, urlparse
 
-from .core import SourceResult, norm
-from .utils import soup, detail_lot
+from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
+from .utils import soup, detail_lot, image_from_soup, enrich_common_fields
 
 BASE = "https://www.auctionhouse.co.uk"
 # slug -> (stable Auction Sniper source name, auctioneer label shown in the diary)
@@ -90,8 +90,7 @@ def _is_lot_href(href,slug):
     if re.fullmatch(rf"/{re.escape(slug)}/auction/lot/\d+",path): return True
     if host==f"{slug}.auctionhouse.co.uk":
         if re.fullmatch(r"/lot/(?:redirect/)?\d+",path): return True
-        # Some Auction House branches (notably Wales) now use a first-party UUID
-        # detail route rather than the older numeric /lot/<id> route.
+        # Some branches, notably Wales, now use a first-party UUID detail route.
         if re.fullmatch(r"/lot/details/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",path): return True
     return False
 
@@ -108,6 +107,70 @@ def _future_events(slug,auctioneer_label):
         if not auction_date or auction_date<today: continue
         events[urljoin(BASE,href)]=auction_date.isoformat()
     return events
+
+
+def _card_image(anchor, event_url):
+    """Recover the image bound to one catalogue card without absorbing neighbours."""
+    node=anchor
+    for _ in range(7):
+        node=getattr(node,"parent",None)
+        if node is None: break
+        text=norm(node.get_text(" ",strip=True))
+        if len(text)>2200: break
+        markers=set(re.findall(r"\bLot\s+\d+[A-Z]?\b",text,re.I))
+        if len(markers)<=1:
+            try:
+                image=image_from_soup(node,event_url)
+                if image: return image
+            except Exception: pass
+    return None
+
+
+def _card_address(label, card):
+    """Extract the listing address from Auction House's catalogue-link label.
+
+    This is deliberately used only when the exact first-party detail host cannot be
+    reached. Catalogue links contain guide/type/address in a stable order, so remove
+    the price/type prefix and keep the postcode-terminated address.
+    """
+    text=norm(label or card)
+    text=re.sub(r"^Lot\s+\d+[A-Z]?\s*", "", text, flags=re.I)
+    text=re.sub(r"^\*?Guide\s*\|?\s*£\s*[\d,]+(?:\s*-\s*£\s*[\d,]+)?\s*(?:\(plus fees\))?\s*", "", text, flags=re.I)
+    text=re.sub(r"^\d+\s+Bed\s+", "", text, flags=re.I)
+    text=re.sub(
+        r"^(?:Mixed[- ]Use|Commercial Property|Retail Property|Industrial Property|Office|"
+        r"Property For Sale|Commercial Investment|Retail Investment|Public House|Hotel)\s+",
+        "", text, flags=re.I,
+    )
+    postcode=re.search(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",text,re.I)
+    if postcode:
+        return norm(text[:postcode.end()])
+    return text[:220] if len(text)>=6 else None
+
+
+def _fallback_catalogue_lot(source, href, card, label, lot_number, auction_date, image=None):
+    """Build a conservative lot from an authoritative first-party catalogue card.
+
+    Some Auction House branches serve the catalogue on auctionhouse.co.uk but the
+    exact property page from a separate first-party subdomain. If that detail host
+    temporarily refuses the GitHub runner, dropping every discovered lot creates a
+    false zero. The catalogue card is still authoritative for availability, guide,
+    type, address and image. Last-good enrichment is merged later by run_collectors.
+    """
+    address=_card_address(label,card)
+    if not address: return None
+    ptype=("Mixed Use" if re.search(r"mixed[- ]use",card,re.I) else
+           "Retail" if re.search(r"\b(?:retail|shop)\b",card,re.I) else
+           "Industrial / Warehouse" if re.search(r"\b(?:industrial|warehouse|workshop)\b",card,re.I) else
+           "Leisure / Hospitality" if re.search(r"\b(?:hotel|public house|pub|restaurant)\b",card,re.I) else
+           "Commercial")
+    lot=Lot(
+        source=source,url=href,address=address,lot_number=lot_number,auction_date=auction_date,
+        image_url=image,guide_price=parse_guide(card),annual_rent=parse_rent(card),
+        tenure=parse_tenure(card),vat_status=parse_vat(card),property_type=ptype,
+        description=card,status="CURRENT",
+    )
+    return enrich_common_fields(lot,card).finalise()
 
 
 def _collect_region(slug):
@@ -130,25 +193,38 @@ def _collect_region(slug):
                 card=_local_card(a)
                 if _prior_or_withdrawn(card) or not _commercialish(card): continue
                 m=re.search(r"\bLot\s+(\d+[A-Z]?)\b",card,re.I)
-                targets[href]=(card,f"Lot {m.group(1)}" if m else None,auction_date); event_targets.add(href)
+                label=norm(a.get_text(" ",strip=True))
+                targets[href]=(card,label,f"Lot {m.group(1)}" if m else None,auction_date,_card_image(a,event_url)); event_targets.add(href)
             event_counts[auction_date]=len(event_targets)
-        lots=[]; detail_failures=0
-        for href,(card,lot_number,auction_date) in targets.items():
+        lots=[]; detail_failures=0; catalogue_fallbacks=0
+        for href,(card,label,lot_number,auction_date,card_image) in targets.items():
             lot=None
             for use_browser in (False,True):
                 try:
                     lot=detail_lot(source,href,seed=card,lot_number=lot_number,auction_date=auction_date,force_commercial=True,use_browser=use_browser,suppress_prior=True)
                     if lot: break
                 except Exception: pass
-            if lot: lots.append(lot)
-            else: detail_failures+=1
+            if lot:
+                if not lot.image_url and card_image: lot.image_url=card_image
+                lots.append(lot.finalise())
+                continue
+            # Do not convert a transport failure into a false-zero catalogue. The
+            # first-party event card is authoritative and can be merged with the
+            # previous rich snapshot until the detail subdomain recovers.
+            fallback=_fallback_catalogue_lot(source,href,card,label,lot_number,auction_date,card_image)
+            if fallback:
+                lots.append(fallback); catalogue_fallbacks+=1
+            else:
+                detail_failures+=1
         expected=len(targets); failures=discovery_failures+detail_failures
         if expected==0 and not failures:
             return SourceResult(source,"CATALOGUE PENDING",[],f"{len(events)} published future branch event(s) inspected; none currently contains a commercial/mixed-use lot.",expected_count=0,discovered_count=0,authoritative_snapshot=True,scope_dates=tuple(sorted(scope_dates)))
         if not lots and failures:
             return SourceResult(source,"FAILED",[],f"Branch catalogue discovery/detail parsing failed ({failures} failure(s)); refusing a false zero result.",expected_count=expected or None,discovered_count=expected,authoritative_snapshot=False,scope_dates=tuple(sorted(scope_dates)))
         status="LIVE" if failures==0 and len(lots)==expected else "DEGRADED"
-        return SourceResult(source,status,lots,f"Auction House all-future sweep inspected {len(events)} published event(s); commercial counts by date {event_counts}; captured {len(lots)}/{expected}; {failures} parse failure(s).",expected_count=expected,discovered_count=expected,authoritative_snapshot=(status=="LIVE"),scope_dates=tuple(sorted(scope_dates)))
+        message=(f"Auction House all-future sweep inspected {len(events)} published event(s); commercial counts by date {event_counts}; "
+                 f"captured {len(lots)}/{expected}; {failures} parse failure(s); {catalogue_fallbacks} authoritative catalogue-card fallback(s).")
+        return SourceResult(source,status,lots,message,expected_count=expected,discovered_count=expected,authoritative_snapshot=(status=="LIVE"),scope_dates=tuple(sorted(scope_dates)))
     except Exception as exc:
         return SourceResult(source,"FAILED",[],f"Auction House branch collector failed: {type(exc).__name__}: {exc}")
 
