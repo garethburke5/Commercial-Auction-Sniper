@@ -60,7 +60,12 @@ def _address(s, text):
 
 
 def _property_image(s, base):
-    """Prefer genuine Barnett Ross lot photographs over logos/site chrome."""
+    """Prefer genuine Barnett Ross lot photographs over logos/site chrome.
+
+    Barnett Ross' primary gallery uses <a href="/details/YYYYMMDD/N.jpg"> wrappers
+    around thumbnail images. Reading only <img src> misses most hero photos, so score
+    the linked originals explicitly and prefer Photo1 as the canonical card image.
+    """
     bad=("logo","icon","linkedin","facebook","twitter","staff","team","avatar","ombudsman","rics","cookie","sprite","placeholder")
     candidates=[]
     def add(raw,bonus=0):
@@ -68,7 +73,9 @@ def _property_image(s, base):
         u=urljoin(base,str(raw).replace("\\/","/").strip(' "\''))
         low=u.lower()
         if any(x in low for x in bad): return
+        if not re.search(r"\.(?:jpe?g|png|webp)(?:\?|$)", low): return
         score=bonus
+        if re.search(r"/details/20\d{6}/\d+\.(?:jpe?g|png|webp)(?:\?|$)",low): score+=40
         if any(x in low for x in ("property","lot","auction","photo","image","upload","picture","pic")): score+=6
         if any(x in low for x in ("large","full","original","1200","1600")): score+=2
         if any(x in low for x in ("thumb","thumbnail","small")): score-=2
@@ -76,10 +83,19 @@ def _property_image(s, base):
     for attrs in ({"property":"og:image"},{"name":"twitter:image"},{"itemprop":"image"}):
         t=s.find("meta",attrs=attrs)
         if t and t.get("content"): add(t.get("content"),15)
+    # Full-size gallery originals are anchor hrefs. Photo1 gets a small bonus so
+    # the card consistently uses the auctioneer's first/hero image.
+    for a in s.find_all("a",href=True):
+        label=norm(a.get_text(" ",strip=True))
+        img=a.find("img")
+        alt=norm(img.get("alt") or "") if img else ""
+        combined=(label+" "+alt).lower()
+        bonus=28 if re.search(r"\bphoto\s*1\b",combined,re.I) else 22 if "photo" in combined else 10
+        add(a.get("href"),bonus)
     for img in s.find_all("img"):
         alt=norm(img.get("alt") or "").lower()
         if any(x in alt for x in bad): continue
-        bonus=10 if any(x in alt for x in ("property","lot","external","internal")) else 0
+        bonus=16 if re.search(r"\bphoto\s*1\b",alt,re.I) else 10 if any(x in alt for x in ("property","lot","external","internal","photo")) else 0
         for attr in ("data-src","data-lazy-src","data-original","data-image","data-url","src"): add(img.get(attr),bonus)
         for attr in ("srcset","data-srcset"):
             raw=img.get(attr)
@@ -92,7 +108,7 @@ def _property_image(s, base):
     if candidates:
         best={}
         for score,u in candidates: best[u]=max(score,best.get(u,-999))
-        winner=max(best.items(),key=lambda kv:(kv[1],len(kv[0])))
+        winner=max(best.items(),key=lambda kv:(kv[1],-len(kv[0])))
         if winner[1]>0: return winner[0]
     generic=image_from_soup(s,base)
     if generic and not any(x in generic.lower() for x in bad): return generic
