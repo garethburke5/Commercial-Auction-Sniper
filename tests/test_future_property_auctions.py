@@ -2,7 +2,7 @@ import unittest
 from datetime import date
 from bs4 import BeautifulSoup
 
-from collectors.future_property_auctions import _parse_date, _discover, _page_urls, _commercialish
+from collectors.future_property_auctions import _parse_date, _discover, _page_urls, _commercialish, _card_image, _detail_image
 
 
 class FuturePropertyAuctionsTests(unittest.TestCase):
@@ -22,6 +22,20 @@ class FuturePropertyAuctionsTests(unittest.TestCase):
         self.assertIn("https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp?offset=21",urls)
         self.assertIn("https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp?offset=42",urls)
         self.assertEqual(len(urls),2)
+
+    def test_linked_upload_gallery_image_is_recovered(self):
+        s=BeautifulSoup('''<article>
+          <a href="property_details.asp?id=14516980">Lot 2 £1,290,000 Commercial Investment Timed Online Auction - 10 Sep 2026</a>
+          <a class="gallery" href="/upload/small_43917_14516980_IMG_00.jpg"><img src="/images/camera-icon.png"></a>
+        </article>''','lxml')
+        anchor=s.find('a',href=lambda h:h and 'property_details' in h)
+        self.assertEqual(_card_image(anchor,"https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp"),"https://www.futurepropertyauctions.co.uk/upload/small_43917_14516980_IMG_00.jpg")
+
+    def test_detail_gallery_link_beats_branding(self):
+        s=BeautifulSoup('''<html><head><meta property="og:image" content="/images/logo.png"></head><body>
+        <a href="/upload/small_43917_14516980_IMG_00.jpg">Image</a><img src="/images/logo.png"></body></html>''','lxml')
+        image=_detail_image(s,"https://www.futurepropertyauctions.co.uk/property_details.asp?id=14516980")
+        self.assertIn('/upload/small_43917_14516980_IMG_00.jpg',image)
 
     def test_discovery_crawls_interleaved_future_inventory_across_pages(self):
         pages={
