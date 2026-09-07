@@ -14,6 +14,22 @@ class AllsopCollectorTests(unittest.TestCase):
     def test_current_landing_card_without_hyphen_is_commercial(self):
         self.assertTrue(_card_is_target("Commercial LOT - Oct 2026 FEATURED LOT Sheffield S10 Substantial Freehold Retail Investment Guide Price £5.8M"))
 
+    def test_residential_catalogue_mixed_use_card_is_target(self):
+        card="Residential LOT 66 - Sep 2026 London SW5 INVESTMENT - Freehold Well Located Five Storey Mixed Use Building Guide Price £1.1M+"
+        self.assertTrue(_card_is_target(card))
+
+    def test_residential_catalogue_mixed_use_exact_page_is_hydrated(self):
+        html='''<main><h2>LOT 66 - London</h2><p>7 Kenway Road, Earls Court, London, SW5 0RP</p><h1>INVESTMENT - Freehold Well Located Five Storey Mixed Use Building</h1><p>Residential - 16th &amp; 17th Sept 2026 - Live Stream</p><p>Extending to a total GIA of approximately 2,953 sq ft. Ground and Basement Floors - Retail Unit and Storage - Vacant. First, Second and Third Floors - Four Bedroom Triplex HMO Unit - Subject to an Assured Periodic Tenancy. Current Rent Reserved £45,000 p.a. Freehold.</p></main>'''
+        fake=BeautifulSoup(html,"lxml")
+        meta={"card":"Residential LOT 66 - Sep 2026 London SW5 Mixed Use Building","image":None,"auction_date":"2026-09-16","card_target":True}
+        with patch('collectors.allsop.soup',return_value=fake):
+            lot=_hydrate(("https://www.allsop.co.uk/lot-overview/example/r260917-247",meta),today=date(2026,9,7))
+        self.assertIsNotNone(lot)
+        self.assertEqual(lot.auction_date,"2026-09-16")
+        self.assertEqual(lot.address,"7 Kenway Road, Earls Court, London, SW5 0RP")
+        self.assertEqual(lot.annual_rent,45000.0)
+        self.assertEqual(lot.occupation,"Part vacant / part let")
+
     def test_extracts_lot_overview_from_canonical_landing_markup(self):
         html='''<section><p>Next commercial auction 7th October 2026</p><article><div>Commercial LOT - Oct 2026</div><div>FEATURED LOT</div><h3>Sheffield S10</h3><p>Substantial Freehold Retail, Supermarket &amp; Car Park Investment</p><img src="/media/auction/lot-44.jpg" alt="Sheffield investment" /><a href="/lot-overview/substantial-freehold-retail-supermarket-car-park-investment-in-sheffield/c261001-044">View lot</a></article></section>'''
         found={};_extract_targets(BeautifulSoup(html,"lxml"),found)
@@ -24,7 +40,6 @@ class AllsopCollectorTests(unittest.TestCase):
 
     def test_css_gallery_image_beats_logo(self):
         s=BeautifulSoup('''<html><head><meta property="og:image" content="/media/logo-social.png"></head><body><div class="hero" style="background-image:url('/media/property/c261001-044/hero-large.webp')"></div><img src="/media/logo.png" alt="Allsop logo"></body></html>''','lxml')
-        # CSS-only galleries may fall back to another real image, but branding must never win.
         image=_allsop_image(s,'https://www.allsop.co.uk/lot-overview/example/c261001-044')
         self.assertTrue(image is None or "logo" not in image.lower())
 
