@@ -57,20 +57,48 @@ def _event_card_text(a):
 
 
 def _event_links(s,today=None):
-    today=today or date.today();found={}
+    """Discover event URLs even when the index card no longer contains its date.
+
+    The Symonds index markup changes independently of the exact event pages.  A
+    URL is therefore discovery evidence; a card date is only an optimisation.
+    Exact event pages supply the authoritative fallback date in _discover_events.
+    """
+    found={}
     for a in s.find_all("a",href=True):
         href=urljoin(BASE,a.get("href") or "").split("#",1)[0]
         if "/event/property-auction-" not in href.lower():continue
         d=_parse_date(_event_card_text(a))
-        if d and d>=today.isoformat():found[href]=d
+        if href not in found or (not found[href] and d):found[href]=d
     return found
 
 
+def _event_page_date(s):
+    """Read the exact event date from the authoritative event page."""
+    root=s.find("main") or s
+    text=norm(root.get_text(" ",strip=True))
+    # Prefer the labelled event-date block so dates from property cards/footer
+    # cannot accidentally become the auction date.
+    m=re.search(r"Event\s+Date\s*&\s*Time\s*:?[\s|\-]*(.{0,180})",text,re.I)
+    if m:
+        d=_parse_date(m.group(1))
+        if d:return d
+    return _parse_date(text[:5000])
+
+
 def _discover_events(fetcher=_fetch,today=None):
-    found={};failures=[]
+    today=today or date.today();discovered={};failures=[]
     for url in EVENT_INDEXES:
-        try:found.update(_event_links(fetcher(url),today=today))
+        try:
+            for href,d in _event_links(fetcher(url),today=today).items():
+                if href not in discovered or (not discovered[href] and d):discovered[href]=d
         except Exception as exc:failures.append((url,exc))
+    found={}
+    for href,d in discovered.items():
+        if not d:
+            try:d=_event_page_date(fetcher(href))
+            except Exception as exc:
+                failures.append((href,exc));continue
+        if d and d>=today.isoformat():found[href]=d
     return found,failures
 
 
