@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import html
-import json
 import re
 from difflib import SequenceMatcher
 from functools import lru_cache
@@ -81,7 +80,7 @@ def load_index():
 
 @lru_cache(maxsize=1)
 def load_events():
-    payload=_get_json(EVENTS_URL,timeout=20)
+    payload=_get_json(EVENTS_URL,timeout=25)
     return payload, {e.get('event_id'):e for e in payload.get('events',[]) if e.get('event_id')}
 
 
@@ -106,7 +105,7 @@ def find_history(address, include_possible=False, limit=20):
 def history_action(address):
     matches=find_history(address)
     if matches:
-        url='?history='+quote_plus(_text(address))
+        url='/History?address='+quote_plus(_text(address))
         return {'internal':True,'count':len(matches),'url':url,'label':f'Previous auctions / sale history ({len(matches)})'}
     q=quote_plus(f'"{_text(address)}" (auction OR sold OR sale OR guide OR lot)')
     return {'internal':False,'count':0,'url':f'https://www.google.com/search?q={q}','label':'Previous auctions / sale history'}
