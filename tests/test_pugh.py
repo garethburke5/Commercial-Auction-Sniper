@@ -24,7 +24,7 @@ class PughCollectorRegressionTests(unittest.TestCase):
 
     def test_total_gia_sqm_converts_when_sqft_absent(self):
         sqft = _floor_area_sqft("TOTAL Gross Internal Floor Area 149.35 Sq.M")
-        self.assertAlmostEqual(sqft, 1607.47, places=1)
+        self.assertAlmostEqual(sqft, 149.35 * 10.7639, places=1)
 
     def test_meadowhead_enrichment_captures_material_facts(self):
         html = """
