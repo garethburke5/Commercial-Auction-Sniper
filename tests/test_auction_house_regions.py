@@ -1,7 +1,10 @@
 import unittest
 from bs4 import BeautifulSoup
 
-from collectors.auction_house_regions import _local_card, _commercialish, _prior_or_withdrawn
+from collectors.auction_house_regions import (
+    _local_card, _commercialish, _prior_or_withdrawn,
+    _card_address, _fallback_catalogue_lot,
+)
 
 
 class AuctionHouseRegionTests(unittest.TestCase):
@@ -28,6 +31,26 @@ class AuctionHouseRegionTests(unittest.TestCase):
     def test_prior_status_is_scoped_to_card(self):
         self.assertTrue(_prior_or_withdrawn("Lot 7 SOLD PRIOR Commercial Property"))
         self.assertFalse(_prior_or_withdrawn("Lot 7 Commercial Property"))
+
+    def test_wales_catalogue_label_recovers_real_address(self):
+        label = "*Guide | £120,000 (plus fees) 4 Bed Mixed Use 1 Norfolk Street, Swansea, SA1 6JQ"
+        self.assertEqual(_card_address(label, label), "1 Norfolk Street, Swansea, SA1 6JQ")
+
+    def test_catalogue_fallback_preserves_authoritative_guide_type_and_date(self):
+        card = "Lot 40 *Guide | £120,000 (plus fees) 4 Bed Mixed Use 1 Norfolk Street, Swansea, SA1 6JQ"
+        lot = _fallback_catalogue_lot(
+            "Auction House Wales",
+            "https://wales.auctionhouse.co.uk/lot/details/03fec6fe-eb63-410a-a98a-df0345efa821",
+            card,
+            "*Guide | £120,000 (plus fees) 4 Bed Mixed Use 1 Norfolk Street, Swansea, SA1 6JQ",
+            "Lot 40",
+            "2026-09-09",
+        )
+        self.assertIsNotNone(lot)
+        self.assertEqual(lot.address, "1 Norfolk Street, Swansea, SA1 6JQ")
+        self.assertEqual(lot.guide_price, 120000)
+        self.assertEqual(lot.property_type, "Mixed Use")
+        self.assertEqual(lot.auction_date, "2026-09-09")
 
 
 if __name__ == "__main__":
