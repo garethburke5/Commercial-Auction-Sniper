@@ -1,0 +1,80 @@
+name: Auction Sniper Historical Backfill
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 * * * *'
+
+permissions:
+  contents: write
+
+# Share the production-data lock so historical writes never race the live collector.
+concurrency:
+  group: auction-sniper-production-scan
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - name: Checkout production branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install playwright
+          python -m playwright install chromium
+
+      - name: Compile history code
+        run: |
+          python -m py_compile historical_backfill.py history_database.py historical_evidence.py collectors/allsop.py
+
+      - name: Run history regression tests
+        run: python -m unittest tests.test_history_database -v
+
+      - name: Backfill next Allsop commercial auction batch
+        run: python historical_backfill.py --source allsop --max-auctions 8
+
+      - name: Validate premium history database
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          h=Path('data/property_history.json')
+          p=Path('data/historical_backfill_progress.json')
+          assert h.exists(), 'property_history.json missing'
+          assert p.exists(), 'historical_backfill_progress.json missing'
+          db=json.loads(h.read_text(encoding='utf-8'))
+          progress=json.loads(p.read_text(encoding='utf-8'))
+          assert isinstance(db.get('properties'),list)
+          assert isinstance(db.get('auction_events'),list)
+          assert all(e.get('source') and e.get('address_as_published') for e in db['auction_events'])
+          missing_urls=[e for e in db['auction_events'] if not (e.get('source_evidence') or {}).get('listing_url')]
+          assert not missing_urls, f'{len(missing_urls)} history events missing listing URL evidence'
+          allsop=(progress.get('sources') or {}).get('Allsop Commercial') or {}
+          assert allsop, 'Allsop progress telemetry missing'
+          assert allsop.get('auctions_discovered',0) > 0, 'No Allsop historical auctions discovered'
+          print('HISTORY',len(db['properties']),'properties',len(db['auction_events']),'events')
+          print('ALLSOP',allsop)
+          PY
+
+      - name: Publish historical database and progress
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/property_history.json data/historical_backfill_progress.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Backfill premium auction history'
+            git push origin main
+          fi
