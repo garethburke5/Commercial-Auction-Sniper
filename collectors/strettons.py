@@ -50,7 +50,7 @@ def _parse_detail_auction_date(text, fallback=None):
         if not m:
             continue
         day, month, year = m.groups()
-        year = year or fallback_year if may_omit_year else year
+        year = (year or fallback_year) if may_omit_year else year
         for fmt in ("%d %B %Y", "%d %b %Y", "%d %b %y"):
             try:
                 raw = f"{day} {month} {year}"
@@ -195,17 +195,22 @@ def collect():
         if not lots:
             return SourceResult(
                 SOURCE, "FAILED", [],
-                f"Discovered current auction {current_auction_date} and {len(targets)} commercial detail links, but no valid current/future lots parsed.",
+                f"Discovered current catalogue {current_auction_date} and {len(targets)} commercial detail links, but no valid current/future lots parsed.",
                 expected_count=expected, discovered_count=len(targets),
                 authoritative_snapshot=False, scope_dates=(current_auction_date,),
             )
 
         scope_dates = tuple(sorted({str(x.auction_date)[:10] for x in lots if x.auction_date}))
-        current_date_lots = [x for x in lots if str(x.auction_date)[:10] == current_auction_date]
-        status = "LIVE" if expected and len(current_date_lots) == expected and failures == 0 else "DEGRADED"
+        rescheduled = [x for x in lots if str(x.auction_date)[:10] != current_auction_date]
+        # The advertised commercial count describes the result set shown on this
+        # catalogue page, which can include a lot explicitly rescheduled to a later
+        # auction. Reconcile against all qualifying displayed lots, not only the
+        # original current-auction date, or a valid reschedule creates a false count
+        # mismatch and blocks publication.
+        status = "LIVE" if expected and len(lots) == expected and failures == 0 else "DEGRADED"
         return SourceResult(
             SOURCE, status, lots,
-            f"Dynamic catalogue: current auction {current_auction_date}; expected {expected if expected else 'unknown'} current commercial lots; {len(targets)} exact links discovered; {len(current_date_lots)} current-auction lots plus {len(lots)-len(current_date_lots)} explicitly rescheduled future lot(s); {failures} failures.",
+            f"Dynamic catalogue: page anchored to {current_auction_date}; expected {expected if expected else 'unknown'} displayed commercial lots; {len(targets)} exact links discovered; {len(lots)} current/future lots published including {len(rescheduled)} explicitly rescheduled lot(s); {failures} failures.",
             expected_count=expected,
             discovered_count=len(targets),
             authoritative_snapshot=(status == "LIVE"),
