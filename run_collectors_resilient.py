@@ -1,13 +1,14 @@
-"""Production entry point with lifecycle-safe Auction House collectors.
+"""Production entry point with lifecycle-safe auction collectors.
 
 Keeps run_collectors.py as the canonical snapshot/quality pipeline while replacing
-Auction House London and regional collector functions with lifecycle-safe versions.
+collectors that previously discarded terminal current-sale evidence.
 """
 from __future__ import annotations
 
 import run_collectors as pipeline
 from collectors import auction_house_regions_resilient as regional
 from collectors import auction_house_london_resilient as london
+from collectors import clive_emson_resilient as clive
 
 
 _REPLACEMENTS = {
@@ -43,6 +44,8 @@ def _install_replacements():
             upgraded.append(_REPLACEMENTS.get(name, collector))
         elif module == "collectors.auction_house_london_v2" and name == "collect":
             upgraded.append(london.collect)
+        elif module == "collectors.clive_emson" and name == "collect":
+            upgraded.append(clive.collect)
         else:
             upgraded.append(collector)
     pipeline.COLLECTORS = upgraded
