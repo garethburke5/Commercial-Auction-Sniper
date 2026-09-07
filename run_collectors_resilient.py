@@ -1,7 +1,7 @@
-"""Production entry point with lifecycle-safe auction collectors.
+"""Production entry point with lifecycle-safe and source-resilient auction collectors.
 
 Keeps run_collectors.py as the canonical snapshot/quality pipeline while replacing
-collectors that previously discarded terminal current-sale evidence.
+collectors that need durable production-specific resilience.
 """
 from __future__ import annotations
 
@@ -9,6 +9,8 @@ import run_collectors as pipeline
 from collectors import auction_house_regions_resilient as regional
 from collectors import auction_house_london_resilient as london
 from collectors import clive_emson_resilient as clive
+from collectors import symonds_sampson_resilient as symonds
+from collectors import future_property_auctions_resilient as future_property
 
 
 _REPLACEMENTS = {
@@ -46,6 +48,10 @@ def _install_replacements():
             upgraded.append(london.collect)
         elif module == "collectors.clive_emson" and name == "collect":
             upgraded.append(clive.collect)
+        elif module == "collectors.symonds_sampson" and name == "collect":
+            upgraded.append(symonds.collect)
+        elif module == "collectors.future_property_auctions" and name == "collect":
+            upgraded.append(future_property.collect)
         else:
             upgraded.append(collector)
     pipeline.COLLECTORS = upgraded
