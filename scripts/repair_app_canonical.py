@@ -4,7 +4,7 @@ import re
 p = Path('app.py')
 s = p.read_text(encoding='utf-8')
 
-s = re.sub(r'BUILD = "[^"]+"', 'BUILD = "V6.74-MARKET-HISTORY"', s, count=1)
+s = re.sub(r'BUILD = "[^"]+"', 'BUILD = "V6.75-CANONICAL-HEALTH"', s, count=1)
 
 if 'from property_summary import build_opportunity_summary' not in s:
     anchor = 'from collector_enrichment import extract_particulars, merge_enrichment'
@@ -29,7 +29,6 @@ new = '''            snapshot_rows=[]
 if old in s:
     s=s.replace(old,new,1)
 
-# Preserve the canonical lifecycle and snapshot bucket in presentation rows.
 needle='''                    nearby_occupiers=x.get("nearby_occupiers"), source_id=x.get("source_id"),
                 ))'''
 repl='''                    nearby_occupiers=x.get("nearby_occupiers"), source_id=x.get("source_id"),
@@ -38,7 +37,6 @@ repl='''                    nearby_occupiers=x.get("nearby_occupiers"), source_i
 if needle in s:
     s=s.replace(needle,repl,1)
 
-# Keep current board strict, but retain all snapshot rows for separate history tabs.
 needle='''_all_snapshot_rows=list(rows)
 _today=_date.today().isoformat()'''
 repl='''_all_snapshot_rows=list(rows)
@@ -59,18 +57,15 @@ _historic_rows=[r for r in _all_snapshot_rows if _market_lifecycle(r) in {"WITHD
 if needle in s:
     s=s.replace(needle,repl,1)
 
-# Add lifecycle UI styles.
 if '.lifecycleBanner{' not in s:
     css_anchor='.cards{display:grid;'
     lifecycle_css='''.lifecycleBanner{margin:-1px -1px 7px;padding:6px 8px;border-radius:7px;text-align:center;font-size:.64rem;font-weight:1000;letter-spacing:.035em}.soldPriorBanner{background:#54212a;border:1px solid #a94b5c;color:#ffdbe1}.historicBanner{background:#263140;border:1px solid #53647a;color:#d8e1ec}.historyIntro{font-size:.78rem;color:#aebbd0;margin:0 0 9px}.historicalCard{opacity:.90}.historicalCard .action{background:#334155;color:#eef3f8!important}@media(max-width:650px){.lifecycleBanner{font-size:.48rem;padding:5px 4px;margin-bottom:5px}.historyIntro{font-size:.58rem}}'''
     if css_anchor not in s: raise SystemExit('card CSS anchor missing')
     s=s.replace(css_anchor,lifecycle_css+css_anchor,1)
 
-# Three user-facing lifecycle tabs.
 s=s.replace('lots_tab,sources_tab=st.tabs(["🎯 Current properties","📡 Source health"])',
             'lots_tab,sold_tab,history_tab,sources_tab=st.tabs(["🎯 Current properties",f"🏷️ Sold prior ({len(_sold_prior_rows)})",f"🗂️ History ({len(_historic_rows)})","📡 Source health"])',1)
 
-# Reusable compact historical cards. They preserve guide/rent/yield and evidence-led summary.
 if 'def _render_market_history_cards(' not in s:
     anchor='''def money(v): return "—" if v is None else f"£{v:,.0f}"
 def pct(v): return "—" if v is None else f"{v:.1f}%"
@@ -114,7 +109,6 @@ def _render_market_history_cards(items, sold_prior=False):
     if anchor not in s: raise SystemExit('money/pct anchor missing')
     s=s.replace(anchor,helper,1)
 
-# Insert sold-prior and general history sections immediately before source-health diagnostics.
 if 'with sold_tab:' not in s:
     anchor='# Source-health diagnostics execute only after the property board has been emitted.'
     sections='''with sold_tab:
@@ -129,5 +123,66 @@ with history_tab:
     if anchor not in s: raise SystemExit('source health anchor missing')
     s=s.replace(anchor,sections+anchor,1)
 
+# The old presentation layer carried Aug/Sep hard-coded minimum counts. They are
+# stale by definition once new catalogues publish and can falsely mark healthy current
+# sources as missing. Production collector telemetry is now the only count authority.
+s=re.sub(r'EXPECTED_CURRENT_COUNTS\s*=\s*\{.*?\}\n\n', 'EXPECTED_CURRENT_COUNTS = {}\n\n', s, count=1, flags=re.S)
+
+# Replace the stale capture audit with a canonical active-board audit. Count
+# reconciliation itself is enforced in CI against source_health.expected_count.
+audit_pattern=r'''\s*st\.info\("INTERMEDIATE BUILD — live catalogue enrichment is enabled; source audit below should be checked after Refresh market\."\)\n\s*st\.markdown\("#### Capture audit"\)\n\s*st\.caption\("Expected counts are minimum independently verified current commercial/mixed-use lots\. Falling below them is a release failure\."\)\n\s*audit_rows=\[\]\n\s*for src,a in sorted\(source_audit\.items\(\)\):.*?\n\s*if audit_rows:\n\s*st\.dataframe\(audit_rows,use_container_width=True,hide_index=True\)'''
+audit_replacement='''
+    st.markdown("#### Production capture audit")
+    st.caption("Current-board presentation checks. Catalogue count reconciliation and collector failures are enforced before the snapshot is published.")
+    health_by_source={str(h.get("source") or ""):h for h in health if isinstance(h,dict)}
+    audit_rows=[]
+    for src,a in sorted(source_audit.items()):
+        image_pct=(100*a["images"]/a["properties"]) if a["properties"] else 0
+        h=health_by_source.get(src,{})
+        collector_status=str(h.get("status") or "UNKNOWN")
+        audit_status=("❌ CHECK" if a["commercial_flags"]>0 or image_pct<70
+                      else "⚠️ PARTIAL" if image_pct<100
+                      else "✅ GOOD")
+        if collector_status in {"FAILED","NOT IMPLEMENTED","MISSING"}: audit_status="❌ COLLECTOR"
+        audit_rows.append({
+            "Source":src,
+            "Current lots":a["properties"],
+            "Images":a["images"],
+            "Image coverage":f"{image_pct:.0f}%",
+            "Exact pages":f'{a["exact_pages"]}/{a["properties"]}',
+            "Residential flags":a["commercial_flags"],
+            "Collector status":collector_status,
+            "Audit":audit_status,
+        })
+    if audit_rows:
+        st.dataframe(audit_rows,use_container_width=True,hide_index=True)'''
+s,n=re.subn(audit_pattern,audit_replacement,s,count=1,flags=re.S)
+if n==0 and 'INTERMEDIATE BUILD — live catalogue enrichment is enabled' in s:
+    raise SystemExit('canonical source audit replacement failed')
+
+# Snapshot source-health dictionaries use `message`, not legacy `note`. Render both
+# safely and show the collector's own count reconciliation rather than a stale UI map.
+health_pattern=r'''\s*actual_counts=\{\}\n\s*for p in rows:\n\s*actual_counts\[p\["source"\]\]=actual_counts\.get\(p\["source"\],0\)\+1\n\s*for h in health:.*?st\.markdown\(f'<div class="statusrow">\{icon\} <b>\{html\.escape\(h\["source"\]\)\}</b> — \{html\.escape\(h\["status"\]\)\}<br><small>\{html\.escape\(h\["note"\]\)\}</small></div>',unsafe_allow_html=True\)'''
+health_replacement='''
+    actual_counts={}
+    for p in rows:
+        actual_counts[p["source"]]=actual_counts.get(p["source"],0)+1
+    for raw_h in health:
+        h=dict(raw_h) if isinstance(raw_h,dict) else {}
+        src=str(h.get("source") or "Unknown")
+        status=str(h.get("status") or "UNKNOWN")
+        message=str(h.get("message") or h.get("note") or "")
+        loaded=actual_counts.get(src,0)
+        seen=h.get("lots_seen")
+        expected=h.get("expected_count")
+        count_text=(f"collector {seen}/{expected}" if expected not in (None,0) else f"collector {seen}" if seen is not None else "collector count unavailable")
+        detail=f"{loaded} current board · {count_text}"
+        if message: detail += " · " + message
+        icon="✅" if status=="LIVE" else ("⏳" if "PENDING" in status or "EARLY" in status else "⚠️" if status=="DEGRADED" else "❌" if status in {"FAILED","MISSING","NOT IMPLEMENTED"} else "ℹ️")
+        st.markdown(f'<div class="statusrow">{icon} <b>{html.escape(src)}</b> — {html.escape(status)}<br><small>{html.escape(detail)}</small></div>',unsafe_allow_html=True)'''
+s,n=re.subn(health_pattern,health_replacement,s,count=1,flags=re.S)
+if n==0 and 'h["note"]' in s:
+    raise SystemExit('canonical source health replacement failed')
+
 p.write_text(s, encoding='utf-8')
-print('Patched app.py with opportunity summaries and lifecycle market history')
+print('Patched app.py with lifecycle history and canonical source-health telemetry')
