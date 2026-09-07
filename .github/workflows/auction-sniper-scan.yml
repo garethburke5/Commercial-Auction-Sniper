@@ -9,11 +9,13 @@ on:
     paths:
       - '.github/workflows/auction-sniper-scan.yml'
       - 'run_collectors.py'
+      - 'history_database.py'
       - 'source_manifest.py'
       - 'config/target_sources.json'
       - 'collectors/**'
       - 'tests/**'
       - 'scripts/repair_app_canonical.py'
+      - 'scripts/update_history_database.py'
       - 'property_summary.py'
 
 permissions:
@@ -51,7 +53,7 @@ jobs:
 
       - name: Compile production code
         run: |
-          python -m py_compile app.py run_collectors.py source_manifest.py collectors/*.py tests/*.py
+          python -m py_compile app.py run_collectors.py history_database.py source_manifest.py collectors/*.py tests/*.py scripts/update_history_database.py
 
       - name: Run collector regression tests
         run: python -m unittest discover -s tests -p 'test_*.py' -v
@@ -119,9 +121,6 @@ jobs:
           bad_descriptions=[x for x in d['properties'] if boiler.search(str(x.get('description') or ''))]
           assert not bad_descriptions, f'boilerplate property descriptions: {len(bad_descriptions)}'
 
-          # A source cannot legitimately publish the same non-TBC lot number/address/date
-          # at several different detail URLs. This caught Allsop card-container bleed,
-          # where unrelated search cards inherited the same Sheffield identity.
           identities=defaultdict(set)
           for x in d['properties']:
               lot=str(x.get('lot_number') or '').strip().upper()
@@ -149,17 +148,36 @@ jobs:
           assert all(str(x.get('auction_date') or '')[:10]>=today for x in sav), 'stale Savills current rows detected'
           PY
 
+      - name: Build permanent auction history database
+        run: |
+          python scripts/update_history_database.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/property_history.json')
+          assert p.exists(), 'property history database was not generated'
+          d=json.loads(p.read_text(encoding='utf-8'))
+          assert d.get('schema_version') == 1, 'unknown history schema'
+          assert isinstance(d.get('properties'), list) and isinstance(d.get('auction_events'), list), 'invalid history contract'
+          stats=d.get('stats') or {}
+          assert stats.get('auction_event_count',0) == len(d['auction_events']), 'history event count mismatch'
+          assert stats.get('events_with_source_url',0) == len(d['auction_events']), 'historical events missing source evidence URLs'
+          print('HISTORY VALIDATED',stats)
+          PY
+
       - name: Publish validated refreshed snapshot
         run: |
           git config user.name 'Auction Sniper Bot'
           git config user.email 'actions@users.noreply.github.com'
           cp data/properties.json /tmp/auction-sniper-properties.json
+          cp data/property_history.json /tmp/auction-sniper-property-history.json
           cp app.py /tmp/auction-sniper-app.py
           git restore data/properties.json app.py
           git pull --rebase origin main
           cp /tmp/auction-sniper-properties.json data/properties.json
+          cp /tmp/auction-sniper-property-history.json data/property_history.json
           cp /tmp/auction-sniper-app.py app.py
-          git add data/properties.json app.py
+          git add data/properties.json data/property_history.json app.py
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh canonical Auction Sniper production state'
             git push origin main
