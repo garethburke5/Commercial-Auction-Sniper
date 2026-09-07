@@ -155,8 +155,11 @@ def _current_rent(text):
     )
     for pat in patterns:
         for m in re.finditer(pat,text,re.I):
-            ctx=text[max(0,m.start()-80):min(len(text),m.end()+80)]
-            if re.search(r"potential|could generate|estimated|further\s+£|when let|fully let",ctx,re.I):continue
+            # Potential income mentioned after a genuine passing-rent sentence must
+            # not invalidate the current figure. Only qualifying words immediately
+            # before this rent amount can turn the match into prospective income.
+            prefix=text[max(0,m.start()-90):m.start()]
+            if re.search(r"potential(?:ly)?|could\s+generate|estimated|when\s+let|fully[- ]let|further\s*$",prefix,re.I):continue
             return float(m.group(1).replace(",",""))
     return None
 
@@ -170,7 +173,6 @@ def _detail(url,seed,event_date,fetcher=_fetch):
     rent=_current_rent(combined)
     if rent is None:
         generic=parse_rent(combined)
-        # Generic fallback is safe only when the prose contains no future/potential rent wording.
         if generic and not re.search(r"potential(?:ly)?[^.]{0,120}£|further\s+£|fully[- ]let income|when let",combined,re.I):rent=generic
     lp_url,lp_status=legal_pack(s,url)
     lot=Lot(source=SOURCE,url=url,address=_address(s,url),auction_date=event_date,image_url=_image(s,url),guide_price=guide,annual_rent=rent,tenure=parse_tenure(combined),vat_status=parse_vat(combined),legal_pack_status=lp_status,legal_pack_url=lp_url,property_type=_property_type(combined),description=text)
