@@ -12,6 +12,7 @@ from collectors.allsop import (
     _date_for_card,
     _teaser_address,
     _teaser_lot,
+    _allsop_image,
 )
 
 
@@ -40,6 +41,16 @@ class AllsopCollectorTests(unittest.TestCase):
         self.assertIn("Commercial LOT - Oct 2026", found[url]["card"])
         self.assertEqual(found[url]["image"], "https://www.allsop.co.uk/media/auction/lot-44.jpg")
         self.assertEqual(found[url]["auction_date"], "2026-10-07")
+
+    def test_css_gallery_image_beats_logo(self):
+        s=BeautifulSoup('''
+        <html><head><meta property="og:image" content="/media/logo-social.png"></head><body>
+          <div class="hero" style="background-image:url('/media/property/c261001-044/hero-large.webp')"></div>
+          <img src="/media/logo.png" alt="Allsop logo">
+        </body></html>
+        ''','lxml')
+        self.assertEqual(_allsop_image(s,'https://www.allsop.co.uk/lot-overview/example/c261001-044'),
+                         'https://www.allsop.co.uk/media/property/c261001-044/hero-large.webp')
 
     def test_rejects_pure_residential_card(self):
         self.assertFalse(_card_is_target("Residential LOT 12 - Sep 2026 Two Bedroom Flat London SW1"))
