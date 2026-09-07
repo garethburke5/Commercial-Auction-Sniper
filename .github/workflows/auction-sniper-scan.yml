@@ -66,6 +66,7 @@ jobs:
         run: |
           python - <<'PY'
           import json, re
+          from collections import defaultdict
           from datetime import date
           from pathlib import Path
           from source_manifest import manifest_coverage
@@ -96,17 +97,16 @@ jobs:
           assert not integrity.get('quality_rejections'), f"quality gate rejected {integrity.get('quality_rejections')} records: {integrity.get('quality_rejection_reasons')}"
           quality=integrity.get('source_quality') or {}
           print('SOURCE QUALITY')
-          for src,q in sorted(quality.items()):
-              print(src,q)
+          for src,q in sorted(quality.items()): print(src,q)
 
           live_sources={s['source'] for s in d['source_health'] if s.get('status') in {'LIVE','DEGRADED'} and (s.get('lots_seen') or 0) >= 3}
-          image_fail=[]; rich_fail=[]; missing_quality=[]
+          image_fail=[];rich_fail=[];missing_quality=[]
           for src in sorted(live_sources):
               q=quality.get(src)
               if not q or not q.get('lots'):
-                  missing_quality.append(src); continue
-              if q.get('image_coverage_pct',0) < 80: image_fail.append(f"{src} {q.get('image_coverage_pct',0)}%")
-              if q.get('rich_coverage_pct',0) < 60: rich_fail.append(f"{src} {q.get('rich_coverage_pct',0)}%")
+                  missing_quality.append(src);continue
+              if q.get('image_coverage_pct',0)<80:image_fail.append(f"{src} {q.get('image_coverage_pct',0)}%")
+              if q.get('rich_coverage_pct',0)<60:rich_fail.append(f"{src} {q.get('rich_coverage_pct',0)}%")
           assert not missing_quality, 'live sources missing quality telemetry: '+', '.join(missing_quality)
           assert not image_fail, 'live-source genuine image coverage below 80%: '+', '.join(image_fail)
           assert not rich_fail, 'live-source rich-particular coverage below 60%: '+', '.join(rich_fail)
@@ -118,6 +118,20 @@ jobs:
           assert not bad_titles, f'boilerplate property titles: {len(bad_titles)}'
           bad_descriptions=[x for x in d['properties'] if boiler.search(str(x.get('description') or ''))]
           assert not bad_descriptions, f'boilerplate property descriptions: {len(bad_descriptions)}'
+
+          # A source cannot legitimately publish the same non-TBC lot number/address/date
+          # at several different detail URLs. This caught Allsop card-container bleed,
+          # where unrelated search cards inherited the same Sheffield identity.
+          identities=defaultdict(set)
+          for x in d['properties']:
+              lot=str(x.get('lot_number') or '').strip().upper()
+              address=re.sub(r'\s+',' ',str(x.get('address') or '').strip().lower())
+              day=str(x.get('auction_date') or '')[:10]
+              url=str(x.get('url') or '').strip()
+              if lot and lot not in {'LOT TBC','TBC'} and address and day and url:
+                  identities[(str(x.get('source') or ''),day,lot,address)].add(url)
+          duplicate_identities={k:v for k,v in identities.items() if len(v)>1}
+          assert not duplicate_identities, 'duplicate lot identities across detail URLs: '+repr({k:sorted(v) for k,v in list(duplicate_identities.items())[:10]})
 
           today=date.today().isoformat()
           past=[x for x in d['properties'] if str(x.get('auction_date') or '')[:10] and str(x.get('auction_date'))[:10]<today]
