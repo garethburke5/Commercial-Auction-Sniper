@@ -88,7 +88,11 @@ def _is_event_href(href,slug):
 def _is_lot_href(href,slug):
     parsed=urlparse(urljoin(BASE,href or "")); host=(parsed.hostname or "").lower(); path=parsed.path.rstrip("/").lower()
     if re.fullmatch(rf"/{re.escape(slug)}/auction/lot/\d+",path): return True
-    if host==f"{slug}.auctionhouse.co.uk" and re.fullmatch(r"/lot/(?:redirect/)?\d+",path): return True
+    if host==f"{slug}.auctionhouse.co.uk":
+        if re.fullmatch(r"/lot/(?:redirect/)?\d+",path): return True
+        # Some Auction House branches (notably Wales) now use a first-party UUID
+        # detail route rather than the older numeric /lot/<id> route.
+        if re.fullmatch(r"/lot/details/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",path): return True
     return False
 
 
