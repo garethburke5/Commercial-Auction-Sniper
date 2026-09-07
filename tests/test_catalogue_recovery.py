@@ -48,35 +48,72 @@ class CatalogueRecoveryTests(unittest.TestCase):
     def test_savills_srcset_gallery_asset_is_recovered(self):
         raw='''<img src="/images/logo.png" srcset="/assets/images/lots/44/a.webp 640w, /assets/images/lots/44/b.webp 1200w">'''
         url=_savills_property_image_from_html(raw,'https://auctions.savills.co.uk/auctions/lot-44')
-        self.assertIn('/assets/images/lots/44/',url)
-        self.assertNotIn('logo',url.lower())
+        self.assertTrue(url.startswith('https://resize.auctions.savills.co.uk/assets/images/lots/44/'))
 
     def test_harman_healy_js_shell_is_retried_with_rendered_page(self):
-        shell=BeautifulSoup('<html><body><div id="root"></div><script src="app.js"></script></body></html>','lxml')
-        rendered=BeautifulSoup('<h2>Lot 1 - Shop, London</h2><p>Guide £100,000 Commercial investment</p>','lxml')
-        with patch('collectors.harman_healy.soup',side_effect=[shell,rendered]):
-            got=_inspect_catalogue_with_fallback('https://example.test/current')
-        self.assertIn('Lot 1',got.get_text(' ',strip=True))
+        shell=BeautifulSoup('<html><body><div id="results"></div><script src="app.js"></script></body></html>','lxml')
+        html='''
+        <section><h3>Online: Lot 1 | End Time - 17/09/2026 10:30</h3>
+        <div><p>40 Hilton Road, Wolverhampton, WV4 6DR</p><p>A two bedroom semi-detached house</p><a href="/lot/1">View / Bid</a></div></section>
+        '''
+        rendered=BeautifulSoup(html,'lxml')
+        with patch('collectors.harman_healy._fetch', return_value=shell), patch('collectors.harman_healy.soup', return_value=rendered) as browser:
+            lots,seen,residential=_lots_from_catalogue(FUTURE,date(2026,9,17))
+        self.assertEqual(seen,1)
+        self.assertEqual(residential,1)
+        self.assertEqual(lots,[])
+        browser.assert_called_once_with(FUTURE,use_browser=True)
+
+    def test_harman_healy_semantic_parser_accepts_non_heading_lot_marker(self):
+        html='''
+        <article class="result-card">
+          <div class="auction-marker">Online: Lot 12 | End Time - 17/09/2026 11:25</div>
+          <a href="/lot/details/999">12 High Street, Croydon, CR0 1AA</a>
+          <p>Freehold retail shop investment producing £18,000 pa.</p>
+          <p>Guide Price*: £150,000 plus</p><span>View / Bid</span>
+        </article>
+        '''
+        lots,seen,residential=_lots_from_soup(BeautifulSoup(html,'lxml'),FUTURE,date(2026,9,17),True)
+        self.assertEqual(seen,1)
+        self.assertEqual(residential,0)
+        self.assertEqual(len(lots),1)
+        self.assertEqual(lots[0].address,'12 High Street, Croydon, CR0 1AA')
+        self.assertEqual(lots[0].guide_price,150000.0)
+
+    def test_harman_healy_specific_route_failure_falls_back_to_generic_catalogue(self):
+        html='''
+        <section><h3>Online: Lot 1 | End Time - 17/09/2026 10:30</h3>
+        <div><p>40 Hilton Road, Wolverhampton, WV4 6DR</p><p>A two bedroom semi-detached house</p><a href="/lot/1">View / Bid</a></div></section>
+        '''
+        generic=BeautifulSoup(html,'lxml')
+        def fake_fetch(url):
+            if url == FUTURE: return generic
+            raise RuntimeError('dated route unavailable')
+        with patch('collectors.harman_healy._fetch', side_effect=fake_fetch):
+            (lots,seen,residential),used=_inspect_catalogue_with_fallback('https://harman-healy.co.uk/future-auctions/78948',date(2026,9,17))
+        self.assertEqual(used,FUTURE)
+        self.assertEqual(seen,1)
+        self.assertEqual(residential,1)
+        self.assertEqual(lots,[])
 
     def test_harman_healy_search_fallback_filters_out_historical_lots(self):
         html='''
-        <div><a href="/property/1">Lot 1</a><p>Auction 10 September 2026 Commercial property</p></div>
-        <div><a href="/property/2">Lot 2</a><p>Auction 1 July 2026 Commercial property</p></div>
+        <section><h3>Online: Lot 1 | End Time - 17/09/2026 10:30</h3>
+        <div><p>40 Hilton Road, Wolverhampton, WV4 6DR</p><p>A two bedroom semi-detached house</p><a href="/lot/current">View / Bid</a></div></section>
+        <section><h3>Online: Lot 88 | End Time - 20/08/2026 12:30</h3>
+        <div><p>88 High Street, London SW1A 1AA</p><p>Freehold retail shop investment</p><a href="/lot/history">View / Bid</a></div></section>
         '''
-        s=BeautifulSoup(html,'lxml')
-        with patch('collectors.harman_healy.date') as d:
-            d.today.return_value=date(2026,9,7)
-            lots=_lots_from_soup(s,'https://example.test/search')
-        self.assertTrue(all((x.auction_date or '') >= '2026-09-07' for x in lots))
+        search=BeautifulSoup(html,'lxml')
+        def fake_fetch(url):
+            if url == SEARCH: return search
+            raise RuntimeError('primary route unavailable')
+        with patch('collectors.harman_healy._fetch', side_effect=fake_fetch):
+            (lots,seen,residential),used=_inspect_catalogue_with_fallback('https://harman-healy.co.uk/future-auctions/78948',date(2026,9,17))
+        self.assertEqual(used,SEARCH)
+        self.assertEqual(seen,1)
+        self.assertEqual(residential,1)
+        self.assertEqual(lots,[])
 
-    def test_harman_healy_semantic_parser_accepts_non_heading_lot_marker(self):
-        html='''<div><strong>Lot 7</strong><p>12 High Street, Croydon CR0 1AA</p><p>Commercial investment producing £12,000 pa. Guide £100,000.</p></div>'''
-        lots=_lots_from_soup(BeautifulSoup(html,'lxml'),'https://example.test/current')
-        self.assertTrue(any(x.lot_number=='Lot 7' for x in lots))
 
-    def test_harman_healy_specific_route_failure_falls_back_to_generic_catalogue(self):
-        specific=BeautifulSoup('<html><body>Not found</body></html>','lxml')
-        generic=BeautifulSoup('<h2>Lot 2</h2><p>20 High Street, Sutton SM1 1AA Commercial property Guide £150,000</p>','lxml')
-        with patch('collectors.harman_healy.soup',side_effect=[specific,generic]):
-            lots=_lots_from_catalogue(FUTURE,'2026-09-15')
-        self.assertIsInstance(lots,list)
+if __name__=='__main__':
+    unittest.main()
