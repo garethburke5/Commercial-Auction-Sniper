@@ -12,7 +12,8 @@ from .utils import soup, legal_pack, image_from_soup
 SOURCE = "Symonds & Sampson"
 BASE = "https://auctions.symondsandsampson.co.uk"
 AUCTION_HOST = "auctions.symondsandsampson.co.uk"
-EVENTS = BASE + "/events/property-auction/symonds-and-sampson-property-auctions?eventdate=upcoming"
+EVENT_PATH = BASE + "/events/property-auction/symonds-and-sampson-property-auctions"
+EVENT_INDEXES = (EVENT_PATH, EVENT_PATH + "?eventdate=upcoming")
 DATE_RE = re.compile(r"\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(\d{1,2})\s+([A-Za-z]+)\s+(20\d{2})\b", re.I)
 MONTHS = {name.lower(): i for i, name in enumerate(("January","February","March","April","May","June","July","August","September","October","November","December"), 1)}
 RESIDENTIAL_STRONG = ("detached house","semi-detached house","terraced house","bungalow","residential flat","bedroom flat","family home","residential property","bedroom house","house for sale")
@@ -71,15 +72,23 @@ def _event_links(s,today=None):
     return found
 
 
-def _is_auction_property_url(href):
-    """Accept only genuine lot-detail URLs on the auction microsite.
+def _discover_events(fetcher=_fetch,today=None):
+    """Try both public event-index variants and merge future events.
 
-    Empty future event pages contain navigation/footer links to the main agency's
-    property search. The previous broad '/property/' test followed those links and
-    incorrectly treated ordinary estate-agency listings as auction lots, producing
-    false future inventory and 50% image/rich-data coverage. Genuine event lots live
-    on the auctions host under /property/<listing-slug>.
+    The site intermittently serves an empty/redirected result for the query-string
+    'upcoming' route while the canonical event index still contains the same future
+    cards. Never fail the source merely because one presentation route is unstable.
     """
+    found={}; failures=[]
+    for url in EVENT_INDEXES:
+        try:
+            found.update(_event_links(fetcher(url),today=today))
+        except Exception as exc:
+            failures.append((url,exc))
+    return found,failures
+
+
+def _is_auction_property_url(href):
     parsed=urlparse(href or "")
     host=(parsed.hostname or "").lower()
     path=(parsed.path or "").lower().rstrip("/")
@@ -229,9 +238,7 @@ def _area(text):
 def _has_residential_component(text):
     low=_classification_text(text).lower()
     return any(x in low for x in RESIDENTIAL_COMPONENT) or bool(re.search(r"\b(?:two|three|four|five|\d+)\s+(?:existing\s+|vacant\s+)?flats?\b",low))
-
 def _has_commercial_component(text):return bool(COMMERCIAL_SIGNAL.search(_classification_text(text)))
-
 def _property_type(text):
     clean=_classification_text(text);low=clean.lower()
     if "mixed use" in low or "mixed-use" in low or (_has_commercial_component(clean) and _has_residential_component(clean)):return "Mixed Use"
@@ -297,8 +304,10 @@ def _detail(url,seed,event_date,fetcher=_fetch,brochure_reader=_brochure_text):
 
 def collect():
     try:
-        index=_fetch(EVENTS);events=_event_links(index)
-        if not events:return SourceResult(SOURCE,"FAILED",[],"No future Symonds & Sampson property-auction events could be parsed.")
+        events,index_failures=_discover_events()
+        if not events:
+            detail="; ".join(f"{u}: {type(e).__name__}" for u,e in index_failures) or "no route exception"
+            return SourceResult(SOURCE,"FAILED",[],f"No future Symonds & Sampson property-auction events could be parsed from either public event index ({detail}).")
         candidates={};published=set();pending=set();event_failures=0
         for event_url,event_date in events.items():
             try:
@@ -313,6 +322,6 @@ def collect():
                 if lot:lots.append(lot)
             except Exception as exc:detail_failures+=1;print("SYMONDS_DETAIL_FAIL",href,repr(exc))
         status="DEGRADED" if event_failures and lots else "FAILED" if event_failures else "LIVE" if lots or published else "CATALOGUE PENDING"
-        msg=f"All-future Symonds & Sampson sweep: {len(events)} future event(s); {len(published)} published catalogue(s), {len(pending)} pending; {len(candidates)} genuine auction property pages inspected; {len(lots)} explicit commercial/mixed-use/development lots published after auction-host restriction, chrome-safe classification and brochure enrichment; {detail_failures} detail failures; {event_failures} event failures."
+        msg=f"All-future Symonds & Sampson sweep: {len(events)} future event(s) discovered across {len(EVENT_INDEXES)} public event-index routes; {len(published)} published catalogue(s), {len(pending)} pending; {len(candidates)} genuine auction property pages inspected; {len(lots)} explicit commercial/mixed-use/development lots published; {detail_failures} detail failures; {event_failures} event failures; {len(index_failures)} index-route failures."
         return SourceResult(SOURCE,status,lots,msg,discovered_count=len(lots),authoritative_snapshot=bool(status=="LIVE" and not detail_failures and published),scope_dates=tuple(sorted(published)))
     except Exception as exc:return SourceResult(SOURCE,"FAILED",[],f"Symonds & Sampson collection failed: {type(exc).__name__}: {exc}")
