@@ -38,6 +38,7 @@ TERMINAL_STATUSES={"SOLD PRIOR","WITHDRAWN","WITHDRAWN PRIOR","AUCTION ENDED","C
 BAD_ADDRESS=re.compile(r"(?:login|log in|sign in|register to bid|book a viewing|arrange a viewing|viewing appointment|cancel proxy bid|your bid|remove from wishlist|add to wishlist|connecting to auction|please wait|full details|legal pack available)",re.I)
 DESCRIPTION_BOILERPLATE=re.compile(r"(?:book your free appraisal|register to bid|create account\s*/\s*login|my account|auction countdown|book a viewing|sign up for auction alerts)",re.I)
 RICH_FIELDS=("image_url","area_sqft","area_sqm","site_area_acres","tenant","lease_term","lease_start","lease_expiry","break_clause","break_status","rent_review","fri","erv","epc","rateable_value","service_charge","ground_rent","property_type","occupation","parking","development_potential","asset_management","refurbishment","residential_conversion","listed_status","covenant_rating","covenant_risk","covenant_turnover","guarantors","pitch","nearby_occupiers","legal_pack_url","legal_pack_status","vat_status","tenure","guide_price","annual_rent","lot_number","auction_date")
+QUALITY_FACT_FIELDS=("guide_price","annual_rent","tenure","area_sqft","area_sqm","site_area_acres","tenant","lease_term","lease_start","lease_expiry","break_clause","rent_review","property_type","occupation","epc","rateable_value","fri","development_potential","asset_management","refurbishment","residential_conversion","listed_status","parking","pitch","nearby_occupiers","guarantors","ground_rent","service_charge","erv")
 LOT_FIELDS={k for k in Lot.__dataclass_fields__}
 
 
@@ -146,64 +147,4 @@ def _remove_duplicate_images(active):
 
 
 def _collector_name(fn):
-    module=getattr(fn,"__module__",""); leaf=module.rsplit(".",1)[-1].replace("_v2","").replace("_"," ").strip(); return leaf.title() or getattr(fn,"__name__","Unknown collector")
-def _run_collector_safely(fn):
-    try: return fn()
-    except Exception as exc:
-        source=_collector_name(fn); return SourceResult(source=source,status="FAILED",lots=[],message=f"Collector raised {type(exc).__name__}: {exc}",discovered_count=0,authoritative_snapshot=False)
-
-
-def run():
-    old_snapshot=load_old_snapshot(); old=list(old_snapshot["properties"])+list(old_snapshot["archive"])
-    today=datetime.now(timezone.utc).date(); old_by_key={_key(x):dict(x) for x in old if _key(x)!=("","")}
-    results=[]; current_by_key={}; source_status={}; authoritative_scopes=[]; quality_repairs=quality_rejections=0; rejection_reasons={}
-    for fn in COLLECTORS:
-        r=_run_collector_safely(fn); source_status[r.source]=r.status; source_rejected=0
-        if r.status in PUBLISHABLE:
-            for lot in r.lots:
-                item,repairs,reason=_sanitize_item(lot.to_dict()); quality_repairs+=len(repairs)
-                if item is None:
-                    quality_rejections+=1; source_rejected+=1; rejection_reasons[reason]=rejection_reasons.get(reason,0)+1; continue
-                k=_key(item); current_by_key[k]=_merge_last_good(old_by_key.get(k),item)
-        status=r.to_status_dict()
-        if source_rejected: status["status"]="DEGRADED"; status["message"]=f"{status.get('message','')} Quality gate rejected {source_rejected} unsafe record(s).".strip()
-        results.append(status)
-        if _complete_authoritative(r) and not source_rejected: authoritative_scopes.append((r.source,set(r.scope_dates)))
-
-    target_coverage=append_missing_health(results)
-    merged_by_key=dict(old_by_key); merged_by_key.update(current_by_key); current_keys=set(current_by_key); pruned=0
-    for source,scope_dates in authoritative_scopes:
-        stale=[k for k,item in merged_by_key.items() if k not in current_keys and item.get("source")==source and str(item.get("auction_date") or "")[:10] in scope_dates]
-        for k in stale: merged_by_key.pop(k,None); pruned+=1
-    for k,item in merged_by_key.items():
-        incoming_terminal=_is_terminal(item)
-        if incoming_terminal:
-            item["status"]=_normal_status(item.get("status"))
-        elif _auction_has_finished(item,today): item["status"]="ARCHIVED"
-        elif k in current_keys: item["status"]="CURRENT"
-        elif source_status.get(item.get("source")) is not None: item["status"]="STALE SOURCE"
-    history=list(merged_by_key.values()); history.sort(key=lambda x:(str(x.get("auction_date") or ""),str(x.get("source") or ""),str(x.get("lot_number") or ""),str(x.get("address") or "")),reverse=True)
-    active=[x for x in history if x.get("status")=="CURRENT"]; archive=[x for x in history if x.get("status")!="CURRENT"]
-    bad_active=[x for x in active if _auction_has_finished(x,today) or BAD_ADDRESS.search(str(x.get("address") or ""))]
-    if bad_active: raise RuntimeError(f"production quality gate failed: {len(bad_active)} unsafe active rows")
-    bad_descriptions=[x for x in active if DESCRIPTION_BOILERPLATE.search(str(x.get("description") or ""))]
-    if bad_descriptions: raise RuntimeError(f"production description quality gate failed: {len(bad_descriptions)} active rows still contain site chrome")
-    terminal_leaks=[x for x in active if _is_terminal(x)]
-    if terminal_leaks: raise RuntimeError(f"terminal lifecycle rows leaked into active board: {len(terminal_leaks)}")
-
-    duplicate_image_repairs,duplicate_image_urls=_remove_duplicate_images(active); quality_repairs+=duplicate_image_repairs
-    source_quality={}
-    for x in active:
-        q=source_quality.setdefault(x.get("source") or "Unknown",{"lots":0,"valid_images":0,"rich":0}); q["lots"]+=1
-        if _image_is_valid(x.get("source"),x.get("image_url")): q["valid_images"]+=1
-        rich=sum(1 for k in ("guide_price","annual_rent","tenure","area_sqft","tenant","lease_term","property_type","occupation","epc","development_potential","asset_management") if _meaningful(x.get(k)))
-        if rich>=4: q["rich"]+=1
-    for q in source_quality.values():
-        q["image_coverage_pct"]=round(100*q["valid_images"]/q["lots"],1) if q["lots"] else 0; q["rich_coverage_pct"]=round(100*q["rich"]/q["lots"],1) if q["lots"] else 0
-    target_coverage=manifest_coverage(results)
-    lifecycle_counts=Counter(_normal_status(x.get("status")) for x in archive)
-    snapshot={"generated_at":datetime.now(timezone.utc).isoformat(),"properties":active,"archive":archive,"source_health":results,"integrity":{"active_property_count":len(active),"historical_property_count":len(archive),"lifecycle_counts":dict(lifecycle_counts),"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"quality_rejection_reasons":rejection_reasons,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"source_quality":source_quality,"target_coverage":target_coverage,"acceptance_ready":target_coverage.get("acceptance_ready",False)}}
-    (DATA/"properties.json").write_text(json.dumps(snapshot,indent=2),encoding="utf-8")
-    print(json.dumps({"generated_at":snapshot["generated_at"],"property_count":len(active),"historical_count":len(archive),"lifecycle_counts":dict(lifecycle_counts),"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"duplicate_image_repairs":duplicate_image_repairs,"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"source_quality":source_quality,"target_coverage":target_coverage,"sources":results},indent=2))
-
-if __name__=="__main__": run()
+    module=getattr(fn,"__module__,""")
