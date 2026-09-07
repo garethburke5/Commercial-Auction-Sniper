@@ -99,22 +99,14 @@ jobs:
           for src,q in sorted(quality.items()):
               print(src,q)
 
-          live_sources={
-              s['source'] for s in d['source_health']
-              if s.get('status') in {'LIVE','DEGRADED'} and (s.get('lots_seen') or 0) >= 3
-          }
-          image_fail=[]
-          rich_fail=[]
-          missing_quality=[]
+          live_sources={s['source'] for s in d['source_health'] if s.get('status') in {'LIVE','DEGRADED'} and (s.get('lots_seen') or 0) >= 3}
+          image_fail=[]; rich_fail=[]; missing_quality=[]
           for src in sorted(live_sources):
               q=quality.get(src)
               if not q or not q.get('lots'):
-                  missing_quality.append(src)
-                  continue
-              if q.get('image_coverage_pct',0) < 80:
-                  image_fail.append(f"{src} {q.get('image_coverage_pct',0)}%")
-              if q.get('rich_coverage_pct',0) < 60:
-                  rich_fail.append(f"{src} {q.get('rich_coverage_pct',0)}%")
+                  missing_quality.append(src); continue
+              if q.get('image_coverage_pct',0) < 80: image_fail.append(f"{src} {q.get('image_coverage_pct',0)}%")
+              if q.get('rich_coverage_pct',0) < 60: rich_fail.append(f"{src} {q.get('rich_coverage_pct',0)}%")
           assert not missing_quality, 'live sources missing quality telemetry: '+', '.join(missing_quality)
           assert not image_fail, 'live-source genuine image coverage below 80%: '+', '.join(image_fail)
           assert not rich_fail, 'live-source rich-particular coverage below 60%: '+', '.join(rich_fail)
@@ -126,9 +118,18 @@ jobs:
           assert not bad_titles, f'boilerplate property titles: {len(bad_titles)}'
           bad_descriptions=[x for x in d['properties'] if boiler.search(str(x.get('description') or ''))]
           assert not bad_descriptions, f'boilerplate property descriptions: {len(bad_descriptions)}'
+
           today=date.today().isoformat()
           past=[x for x in d['properties'] if str(x.get('auction_date') or '')[:10] and str(x.get('auction_date'))[:10]<today]
           assert not past, f'past auction rows leaked into active board: {len(past)}'
+
+          terminal_statuses={'SOLD PRIOR','WITHDRAWN','WITHDRAWN PRIOR','POSTPONED','AUCTION ENDED','COMPLETED','ARCHIVED'}
+          terminal=[x for x in d['properties'] if str(x.get('status') or '').strip().upper().replace('_',' ') in terminal_statuses]
+          assert not terminal, f'terminal/unavailable statuses leaked into active board: {len(terminal)}'
+          terminal_words=re.compile(r'\b(?:sold\s*prior|withdrawn(?:\s+prior)?|postponed)\b',re.I)
+          terminal_text=[x for x in d['properties'] if terminal_words.search(str(x.get('description') or ''))]
+          assert not terminal_text, f'unavailable lifecycle evidence leaked into active descriptions: {len(terminal_text)}'
+
           sav=[x for x in d['properties'] if x.get('source')=='Savills Auctions']
           assert sav, 'no current Savills lots published'
           assert all(str(x.get('auction_date') or '')[:10]>=today for x in sav), 'stale Savills current rows detected'
