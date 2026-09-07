@@ -49,9 +49,6 @@ def _infer_year(month, day, today=None):
         candidate = date(today.year, month, day)
     except ValueError:
         return None
-    # BidX1 cards often omit the year. A date more than 14 days behind the
-    # collection date belongs to the next calendar year; otherwise retain the
-    # current year to allow a just-finished lot to be archived by the runner.
     if candidate < today and (today - candidate).days > 14:
         candidate = date(today.year + 1, month, day)
     return candidate
@@ -138,43 +135,81 @@ def _discover(fetcher=_fetch, today=None):
 
 
 def _image_from_detail(s, base):
+    """Recover the lot photograph from BidX1's img, metadata and JS-backed gallery.
+
+    BidX1 increasingly hydrates gallery URLs from script data and some image-service
+    URLs are extensionless. Requiring an ordinary <img src> silently lost most lot
+    photos, so collect every first-party image candidate then reject staff/support UI.
+    """
+    bad = ("support", "agent", "profile", "avatar", "team", "logo", "icon", "ber-", "user", "favourite", "flag", "spinner")
     candidates = []
+
+    def add(raw, bonus=0):
+        if not raw:
+            return
+        u = urljoin(base, str(raw).replace("\\/", "/").strip(' "\''))
+        low = u.lower()
+        if "images-prd.bidx1.com" not in low:
+            return
+        if any(x in low for x in bad):
+            return
+        score = bonus
+        if any(x in low for x in ("property", "auction", "gallery", "photo", "image")): score += 6
+        if any(x in low for x in ("large", "original", "1200", "1600", "1920")): score += 3
+        if any(x in low for x in ("thumb", "thumbnail", "small", "100x", "150x")): score -= 3
+        candidates.append((score, u))
+
+    for attrs in ({"property": "og:image"}, {"name": "twitter:image"}, {"property": "twitter:image"}, {"itemprop": "image"}):
+        tag = s.find("meta", attrs=attrs)
+        if tag and tag.get("content"):
+            add(tag.get("content"), 20)
+    for link in s.find_all("link", href=True):
+        rel = " ".join(link.get("rel") or []).lower()
+        if "image" in rel or "preload" in rel:
+            add(link.get("href"), 10)
     for img in s.find_all("img"):
-        for attr in ("data-src", "data-lazy-src", "data-original", "src"):
+        alt = norm(img.get("alt") or "").lower()
+        if any(x in alt for x in bad):
+            continue
+        bonus = 12 if any(x in alt for x in ("property", "lot", "building", "auction")) else 0
+        for attr in ("data-src", "data-lazy-src", "data-original", "data-image", "data-url", "src"):
+            add(img.get(attr), bonus)
+        for attr in ("srcset", "data-srcset"):
             raw = img.get(attr)
-            if not raw:
-                continue
-            u = urljoin(base, raw)
-            low = u.lower()
-            if "images-prd.bidx1.com" not in low:
-                continue
-            if any(x in low for x in ("support", "agent", "profile", "avatar", "team", "logo", "icon", "ber-", "user")):
-                continue
-            alt = norm(img.get("alt") or "").lower()
-            if any(x in alt for x in ("support", "agent", "profile", "favourite", "ber status")):
-                continue
-            candidates.append(u)
-    return candidates[0] if candidates else None
+            if raw:
+                for part in raw.split(","):
+                    add(part.strip().split(" ")[0], bonus)
+
+    raw_html = str(s).replace("\\/", "/")
+    # Capture quoted and JSON-escaped BidX1 image-service URLs, including extensionless routes.
+    for m in re.finditer(r'https?://images-prd\.bidx1\.com/[^"\'<>\s\\]+', raw_html, re.I):
+        add(m.group(0), 8)
+    for m in re.finditer(r'(?i)(?:image|photo|gallery|media)(?:Url|URL|Src|source)?["\']?\s*[:=]\s*["\']([^"\']+)', raw_html):
+        add(m.group(1), 8)
+
+    if not candidates:
+        return None
+    # Deduplicate while keeping the strongest contextual score.
+    best = {}
+    for score, u in candidates:
+        best[u] = max(score, best.get(u, -999))
+    return max(best.items(), key=lambda kv: (kv[1], len(kv[0])))[0]
 
 
 def _area(text):
     sqft = sqm = acres = None
     m = re.search(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)\b", text, re.I)
-    if m:
-        sqft = float(m.group(1).replace(",", ""))
+    if m: sqft = float(m.group(1).replace(",", ""))
     m = re.search(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*m|sqm|m²)\b", text, re.I)
-    if m:
-        sqm = float(m.group(1).replace(",", ""))
+    if m: sqm = float(m.group(1).replace(",", ""))
     m = re.search(r"([\d.]+)\s*acres?\b", text, re.I)
-    if m:
-        acres = float(m.group(1))
+    if m: acres = float(m.group(1))
     return sqft, sqm, acres
 
 
 def _property_type(text):
     for label in ("Mixed Use", "Development Site", "Retail", "Industrial", "Office", "Warehouse", "Leisure / Hospitality", "Commercial"):
-        if re.search(rf"\b{re.escape(label)}\b", text, re.I):
-            return label
+        if re.search(rf"\b{re.escape(label)}\b", text, re.I): return label
     return "Commercial"
 
 
@@ -187,77 +222,43 @@ def _detail(url, seed, auction_date, fetcher=_fetch):
     if not address or len(address) < 6:
         title = s.find("title")
         address = norm(title.get_text(" ", strip=True)).split("|")[0] if title else url
-
-    # Detail pages can carry generic modal wording such as "Bidding Closed" even
-    # before the scheduled auction. The explicit Auction Date is authoritative.
     detail_date = _date_from_card(text)
     auction_date = detail_date or auction_date
-    if auction_date and auction_date < date.today().isoformat():
-        return None
-
+    if auction_date and auction_date < date.today().isoformat(): return None
     guide = parse_guide(text) or parse_guide(seed)
     rent = parse_rent(text)
     lp_url, lp_status = legal_pack(s, url)
-    if lp_status == "NOT FOUND" and re.search(r"\bView Legal Pack\b|\bLegal Document Download\b", text, re.I):
-        lp_status = "AVAILABLE - LOGIN REQUIRED"
-
-    lot = Lot(
-        source=SOURCE, url=url, address=address, auction_date=auction_date,
+    if lp_status == "NOT FOUND" and re.search(r"\bView Legal Pack\b|\bLegal Document Download\b", text, re.I): lp_status = "AVAILABLE - LOGIN REQUIRED"
+    lot = Lot(source=SOURCE, url=url, address=address, auction_date=auction_date,
         image_url=_image_from_detail(s, url), guide_price=guide, annual_rent=rent,
         tenure=parse_tenure(text), vat_status=parse_vat(text), legal_pack_status=lp_status,
-        legal_pack_url=lp_url, property_type=_property_type(text), description=text[:9000],
-    )
+        legal_pack_url=lp_url, property_type=_property_type(text), description=text[:9000])
     lot.area_sqft, lot.area_sqm, lot.site_area_acres = _area(text)
-    if re.search(r"\bvacant possession\b", text, re.I) and not re.search(r"\blet to\b|\btenanted\b|\bproducing\s+£", text, re.I):
-        lot.occupation = "Vacant"
-    elif re.search(r"\blet to\b|\btenanted\b|\bproducing\s+£|\brent(?:al)? income\b", text, re.I):
-        lot.occupation = "Tenanted"
-    if re.search(r"development potential|development opportunity|planning permission|subject to (?:the )?necessary consents|subject to planning", text, re.I):
-        lot.development_potential = True
-    if re.search(r"asset management|reconfiguration|repositioning|scope to increase", text, re.I):
-        lot.asset_management = True
-    if re.search(r"conversion to residential|residential conversion|planning permission for .*residential", text, re.I):
-        lot.residential_conversion = True
+    if re.search(r"\bvacant possession\b", text, re.I) and not re.search(r"\blet to\b|\btenanted\b|\bproducing\s+£", text, re.I): lot.occupation = "Vacant"
+    elif re.search(r"\blet to\b|\btenanted\b|\bproducing\s+£|\brent(?:al)? income\b", text, re.I): lot.occupation = "Tenanted"
+    if re.search(r"development potential|development opportunity|planning permission|subject to (?:the )?necessary consents|subject to planning", text, re.I): lot.development_potential = True
+    if re.search(r"asset management|reconfiguration|repositioning|scope to increase", text, re.I): lot.asset_management = True
+    if re.search(r"conversion to residential|residential conversion|planning permission for .*residential", text, re.I): lot.residential_conversion = True
     epc = re.search(r"Energy Performance Indicator\s+([A-G])\b|\bEPC(?: Rating)?\s*[:\-]?\s*([A-G])\b", text, re.I)
-    if epc:
-        lot.epc = (epc.group(1) or epc.group(2)).upper()
+    if epc: lot.epc = (epc.group(1) or epc.group(2)).upper()
     return lot.finalise()
 
 
 def collect():
     try:
         targets, scope_dates, pages, complete = _discover()
-        lots = []
-        failures = 0
+        lots = []; failures = 0
         for href, (card, auction_date) in targets.items():
             try:
                 lot = _detail(href, card, auction_date)
-                if lot:
-                    lots.append(lot)
+                if lot: lots.append(lot)
             except Exception as exc:
-                failures += 1
-                print("BIDX1_DETAIL_FAIL", href, repr(exc))
-
+                failures += 1; print("BIDX1_DETAIL_FAIL", href, repr(exc))
         if targets and not lots:
-            return SourceResult(
-                SOURCE, "FAILED", [],
-                f"BidX1 exposed {len(targets)} current/future commercial auction candidates across {pages} pages but none could be parsed.",
-                expected_count=len(targets) if complete else None, discovered_count=len(targets),
-                authoritative_snapshot=False, scope_dates=scope_dates,
-            )
+            return SourceResult(SOURCE, "FAILED", [], f"BidX1 exposed {len(targets)} current/future commercial auction candidates across {pages} pages but none could be parsed.", expected_count=len(targets) if complete else None, discovered_count=len(targets), authoritative_snapshot=False, scope_dates=scope_dates)
         if lots:
             status = "LIVE" if complete and failures == 0 and len(lots) == len(targets) else "DEGRADED"
-            return SourceResult(
-                SOURCE, status, lots,
-                f"All-current/future BidX1 UK sweep: {pages} list pages; {len(targets)} commercial candidates; {len(lots)} published; {failures} detail failures.",
-                expected_count=len(targets) if complete else None, discovered_count=len(targets),
-                authoritative_snapshot=bool(complete and failures == 0 and scope_dates), scope_dates=scope_dates,
-            )
-        return SourceResult(
-            SOURCE, "CATALOGUE PENDING", [],
-            f"BidX1 UK inventory inspected across {pages} pages; no current/future commercial or mixed-use auction lots identified.",
-            expected_count=0 if complete else None, discovered_count=0,
-            authoritative_snapshot=False, scope_dates=scope_dates,
-        )
+            return SourceResult(SOURCE, status, lots, f"All-current/future BidX1 UK sweep: {pages} list pages; {len(targets)} commercial candidates; {len(lots)} published; {failures} detail failures.", expected_count=len(targets) if complete else None, discovered_count=len(targets), authoritative_snapshot=bool(complete and failures == 0 and scope_dates), scope_dates=scope_dates)
+        return SourceResult(SOURCE, "CATALOGUE PENDING", [], f"BidX1 UK inventory inspected across {pages} pages; no current/future commercial or mixed-use auction lots identified.", expected_count=0 if complete else None, discovered_count=0, authoritative_snapshot=False, scope_dates=scope_dates)
     except Exception as exc:
         return SourceResult(SOURCE, "FAILED", [], f"BidX1 collection failed: {type(exc).__name__}: {exc}")
