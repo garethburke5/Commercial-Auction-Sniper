@@ -34,7 +34,20 @@ def _discover(s):
     return links
 
 
-def _fallback_rows(s, auction_date):
+def _row_status(text):
+    if re.search(r"\bsold\s+prior\b", text or "", re.I): return "SOLD PRIOR"
+    if re.search(r"\bwithdrawn(?:\s*-\s*refer)?\b", text or "", re.I): return "WITHDRAWN"
+    if re.search(r"\bpostponed\b", text or "", re.I): return "WITHDRAWN"
+    return "CURRENT"
+
+
+def _catalogue_rows(s, auction_date):
+    """Parse every authoritative current-catalogue table row, including terminal lots.
+
+    Barnett Ross explicitly labels sold-prior and withdrawn lots in the same live
+    catalogue table. Keeping those records (with terminal status) provides market
+    history while ensuring the current board contains only genuinely available lots.
+    """
     lots=[]
     for tr in s.find_all("tr"):
         cells=[norm(td.get_text(" ",strip=True)) for td in tr.find_all(["td","th"])]
@@ -42,13 +55,16 @@ def _fallback_rows(s, auction_date):
         lot_cell,address=cells[0],cells[1]
         lotm=re.fullmatch(r"\s*(\d+[A-Z]?)\s*",lot_cell,re.I)
         if not lotm or len(address)<8: continue
-        row_text=norm(" | ".join(cells))
-        if re.search(r"sold\s+prior|withdrawn|postponed",row_text,re.I): continue
-        lot_no=lotm.group(1)
+        row_text=norm(" | ".join(cells)); lot_no=lotm.group(1); status=_row_status(row_text)
         lots.append(Lot(source=SOURCE,url=f"{CURRENT}#lot-{lot_no}",address=address,
             lot_number=f"Lot {lot_no}",auction_date=auction_date,guide_price=parse_guide(row_text),
-            description=row_text,property_type="Commercial auction lot (catalogue summary)").finalise())
+            description=row_text,property_type="Commercial auction lot (catalogue summary)",status=status).finalise())
     return lots
+
+
+def _fallback_rows(s, auction_date):
+    """Backward-compatible name used by older tests/helpers."""
+    return _catalogue_rows(s, auction_date)
 
 
 def _address(s, text):
@@ -60,20 +76,12 @@ def _address(s, text):
 
 
 def _property_image(s, base):
-    """Prefer genuine Barnett Ross lot photographs over logos/site chrome.
-
-    Barnett Ross' primary gallery uses <a href="/details/YYYYMMDD/N.jpg"> wrappers
-    around thumbnail images. Reading only <img src> misses most hero photos, so score
-    the linked originals explicitly and prefer Photo1 as the canonical card image.
-    """
     bad=("logo","icon","linkedin","facebook","twitter","staff","team","avatar","ombudsman","rics","cookie","sprite","placeholder")
     candidates=[]
     def add(raw,bonus=0):
         if not raw: return
-        u=urljoin(base,str(raw).replace("\\/","/").strip(' "\''))
-        low=u.lower()
-        if any(x in low for x in bad): return
-        if not re.search(r"\.(?:jpe?g|png|webp)(?:\?|$)", low): return
+        u=urljoin(base,str(raw).replace("\\/","/").strip(' "\'')); low=u.lower()
+        if any(x in low for x in bad) or not re.search(r"\.(?:jpe?g|png|webp)(?:\?|$)", low): return
         score=bonus
         if re.search(r"/details/20\d{6}/\d+\.(?:jpe?g|png|webp)(?:\?|$)",low): score+=40
         if any(x in low for x in ("property","lot","auction","photo","image","upload","picture","pic")): score+=6
@@ -83,13 +91,8 @@ def _property_image(s, base):
     for attrs in ({"property":"og:image"},{"name":"twitter:image"},{"itemprop":"image"}):
         t=s.find("meta",attrs=attrs)
         if t and t.get("content"): add(t.get("content"),15)
-    # Full-size gallery originals are anchor hrefs. Photo1 gets a small bonus so
-    # the card consistently uses the auctioneer's first/hero image.
     for a in s.find_all("a",href=True):
-        label=norm(a.get_text(" ",strip=True))
-        img=a.find("img")
-        alt=norm(img.get("alt") or "") if img else ""
-        combined=(label+" "+alt).lower()
+        label=norm(a.get_text(" ",strip=True)); img=a.find("img"); alt=norm(img.get("alt") or "") if img else ""; combined=(label+" "+alt).lower()
         bonus=28 if re.search(r"\bphoto\s*1\b",combined,re.I) else 22 if "photo" in combined else 10
         add(a.get("href"),bonus)
     for img in s.find_all("img"):
@@ -116,14 +119,11 @@ def _property_image(s, base):
 
 
 def _hydrate(url, auction_date=None):
-    s = soup(url, use_browser=False)
-    main = s.find("main") or s
-    text = norm(main.get_text(" ", strip=True)); low = text.lower()
+    s = soup(url, use_browser=False); main = s.find("main") or s; text = norm(main.get_text(" ", strip=True)); low = text.lower()
     if "withdrawn" in low or "sold prior" in low: return None
     address = _address(s, text)
     if not address or not is_commercial(text): return None
-    lotm = re.search(r"\bLot\s*(\d+[A-Z]?)\b", text, re.I)
-    rent = parse_rent(text); lp_url, lp_status = legal_pack(s, url)
+    lotm = re.search(r"\bLot\s*(\d+[A-Z]?)\b", text, re.I); rent = parse_rent(text); lp_url, lp_status = legal_pack(s, url)
     title = None
     for tag in s.find_all(["h1", "h2", "h3"]):
         value = norm(tag.get_text(" ", strip=True))
@@ -135,26 +135,40 @@ def _hydrate(url, auction_date=None):
         annual_rent=rent,tenure=parse_tenure(text),vat_status=parse_vat(text),legal_pack_status=lp_status,
         legal_pack_url=lp_url,description=text[:6500],occupation="Tenanted" if rent else ("Vacant / vacant possession" if re.search(r"vacant possession|\bvacant\b", text, re.I) else None),
         property_type=title,development_potential=True if re.search(r"development potential|redevelopment|subject to planning|stpp", text, re.I) else None,
-        fri=True if re.search(r"\bFRI\b|full repairing and insuring", text, re.I) else None).finalise()
+        fri=True if re.search(r"\bFRI\b|full repairing and insuring", text, re.I) else None,status="CURRENT").finalise()
 
 
 def collect():
     try:
-        listing = soup(CURRENT, use_browser=False); listing_text = norm(listing.get_text(" ", strip=True)); auction_date = _parse_date(listing_text); targets = _discover(listing)
-        if not targets:
-            fallback=_fallback_rows(listing,auction_date)
-            if fallback:
-                return SourceResult(SOURCE,"DEGRADED",fallback,f"Barnett Ross current catalogue exposed no detail URLs; recovered {len(fallback)} live commercial catalogue rows from the authoritative current-lots table. Detail enrichment will resume automatically when first-party detail links are exposed.",expected_count=len(fallback),discovered_count=len(fallback),authoritative_snapshot=True,scope_dates=tuple(sorted({x.auction_date for x in fallback if x.auction_date})))
-            return SourceResult(SOURCE, "FAILED", [], "Barnett Ross current catalogue was published but neither detail links nor parseable catalogue rows were discovered.", discovered_count=0)
-        lots=[]; failures=0
+        listing = soup(CURRENT, use_browser=False); listing_text = norm(listing.get_text(" ", strip=True)); auction_date = _parse_date(listing_text)
+        table_rows=_catalogue_rows(listing,auction_date); table_by_lot={x.lot_number:x for x in table_rows}; targets = _discover(listing)
+        if not table_rows:
+            return SourceResult(SOURCE,"FAILED",[],"Barnett Ross current catalogue was published but no authoritative catalogue rows were parsed.",discovered_count=0)
+
+        hydrated_by_lot={}; failures=0
         with ThreadPoolExecutor(max_workers=10) as ex:
             futures={ex.submit(_hydrate,url,auction_date):url for url in targets}
             for future in as_completed(futures):
                 try:
                     lot=future.result()
-                    if lot: lots.append(lot)
+                    if lot and lot.lot_number: hydrated_by_lot[lot.lot_number]=lot
                 except Exception: failures+=1
-        lots=list({x.url:x for x in lots}.values()); status="LIVE" if lots and failures==0 else "DEGRADED" if lots else "FAILED"
-        return SourceResult(SOURCE,status,lots,f"Barnett Ross collector: {len(targets)} catalogue detail pages discovered; {len(lots)} commercial/mixed-use lots published; {failures} detail failures.",discovered_count=len(targets),authoritative_snapshot=False,scope_dates=tuple(sorted({x.auction_date for x in lots if x.auction_date})))
+
+        lots=[]; live_fallbacks=0
+        for table_lot in table_rows:
+            if table_lot.status in {"SOLD PRIOR","WITHDRAWN"}:
+                lots.append(table_lot)
+            elif table_lot.lot_number in hydrated_by_lot:
+                lots.append(hydrated_by_lot[table_lot.lot_number])
+            else:
+                lots.append(table_lot); live_fallbacks+=1
+
+        represented=len(lots); expected=len(table_rows); complete=(represented==expected and failures==0 and live_fallbacks==0)
+        status="LIVE" if complete else "DEGRADED"
+        terminal=sum(1 for x in lots if x.status in {"SOLD PRIOR","WITHDRAWN"})
+        current=sum(1 for x in lots if x.status not in {"SOLD PRIOR","WITHDRAWN"})
+        return SourceResult(SOURCE,status,lots,
+            f"Barnett Ross authoritative current catalogue: {expected} total rows reconciled; {current} live commercial lots; {terminal} sold-prior/withdrawn retained as market history; {len(hydrated_by_lot)} exact detail pages hydrated; {live_fallbacks} live table-only fallbacks; {failures} detail failures.",
+            expected_count=expected,discovered_count=expected,authoritative_snapshot=complete,scope_dates=tuple(sorted({x.auction_date for x in lots if x.auction_date})))
     except Exception as exc:
         return SourceResult(SOURCE, "FAILED", [], f"Barnett Ross collection failed: {exc}")
