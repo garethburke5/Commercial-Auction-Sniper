@@ -145,13 +145,7 @@ def _lease_details(text):
 
 
 def _tenancy_details(text):
-    """Extract explicit current tenant and lease facts from Auction Estates prose.
-
-    Avoid nearby-occupier and historic references by requiring the tenant to be tied
-    to `let to` / `property let to` wording, and require a concrete lease phrase for
-    term/start extraction. These fields are useful market facts and should not be left
-    blank when the auctioneer states them plainly.
-    """
+    """Extract explicit current tenant and lease facts from Auction Estates prose."""
     value = norm(text)
     tenant = None
     for pat in (
@@ -181,27 +175,35 @@ def _tenancy_details(text):
 
 
 def _terminal_status_near_title(s):
+    """Read the current lot's availability status without scanning unrelated cards.
+
+    Auction Estates prints SoldPrior near the title, while Postponed can replace the
+    guide-price value. Keep the probe bounded to the header/summary area and stop at
+    Key Features/auction particulars so statuses on recommended lots cannot leak in.
+    """
     h1 = s.find("h1")
     if not h1:
         return None
     parts = [norm(h1.get_text(" ", strip=True))]
-    for node in h1.find_all_next(limit=24):
+    for node in h1.find_all_next(limit=40):
         name = getattr(node, "name", None)
         if name not in {"div", "span", "p", "strong", "h2", "h3", "dt", "dd"}:
             continue
         text = norm(node.get_text(" ", strip=True))
         if not text:
             continue
-        if re.search(r"\bGuide\s*price\b|\bProperty\s*Type\b|\bKey\s*Features\b", text, re.I):
+        if re.search(r"\bKey\s*Features\b|\bPart of the\b|\bDetails\b", text, re.I):
             break
         parts.append(text)
-        if len(" ".join(parts)) > 1200:
+        if len(" ".join(parts)) > 1800:
             break
     probe = norm(" ".join(parts))
     if re.search(r"\bSold\s*Prior\b|\bSoldPrior\b", probe, re.I):
         return "SOLD PRIOR"
     if re.search(r"\bWithdrawn\b", probe, re.I):
         return "WITHDRAWN"
+    if re.search(r"\bPostponed\b", probe, re.I):
+        return "POSTPONED"
     return None
 
 
@@ -289,20 +291,21 @@ def collect():
         if not all_links:
             return SourceResult(SOURCE, "CATALOGUE PENDING", [], f"Next auction {auction_date} is published but currently has no lot pages.", scope_dates=(auction_date,))
         lots, failures, terminal = [], 0, 0
+        terminal_statuses = {"SOLD PRIOR", "WITHDRAWN", "POSTPONED"}
         for href, card in all_links.items():
             try:
                 lot = _detail(href, card, auction_date)
                 if lot:
                     lots.append(lot)
-                    if lot.status in {"SOLD PRIOR", "WITHDRAWN"}:
+                    if lot.status in terminal_statuses:
                         terminal += 1
             except Exception as exc:
                 failures += 1
                 print("AUCTION_ESTATES_DETAIL_FAIL", href, repr(exc))
         status = "LIVE" if failures == 0 else "DEGRADED"
-        live_count = sum(1 for x in lots if x.status not in {"SOLD PRIOR", "WITHDRAWN"})
+        live_count = sum(1 for x in lots if x.status not in terminal_statuses)
         return SourceResult(SOURCE, status, lots,
-            f"Current Auction Estates {auction_date} catalogue: {len(all_links)} total lot pages inspected; {live_count} live commercial/mixed-use lots; {terminal} sold-prior/withdrawn lots preserved for archive; {failures} detail failures.",
+            f"Current Auction Estates {auction_date} catalogue: {len(all_links)} total lot pages inspected; {live_count} live commercial/mixed-use lots; {terminal} sold-prior/withdrawn/postponed lots preserved for archive; {failures} detail failures.",
             discovered_count=len(lots), authoritative_snapshot=bool(status == "LIVE"), scope_dates=(auction_date,))
     except Exception as exc:
         return SourceResult(SOURCE, "FAILED", [], f"Auction Estates collection failed: {type(exc).__name__}: {exc}")
