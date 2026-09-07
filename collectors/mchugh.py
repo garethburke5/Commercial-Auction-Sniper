@@ -62,9 +62,16 @@ def _auction_date(card):
 
 
 def _terminal_status(text):
+    """Read explicit per-lot result labels only.
+
+    Every McHugh bidding page contains generic help text headed 'Withdrawn,
+    Postponed and Sold Prior Lots'. Bare phrase matching would therefore mark every
+    live lot terminal. The catalogue uses explicit 'Result Sold Prior/Withdrawn'
+    labels for actual lot lifecycle changes, so require that evidence.
+    """
     probe=norm(text)
-    if re.search(r"\bResult\s+Sold\s+Prior\b|\bSold\s+Prior\b",probe,re.I): return "SOLD PRIOR"
-    if re.search(r"\bWithdrawn(?:\s+Prior)?\b|\bResult\s+Withdrawn\b",probe,re.I): return "WITHDRAWN"
+    if re.search(r"\bResult\s*:?\s*Sold\s+Prior\b",probe,re.I): return "SOLD PRIOR"
+    if re.search(r"\bResult\s*:?\s*Withdrawn(?:\s+Prior)?\b",probe,re.I): return "WITHDRAWN"
     return None
 
 
@@ -87,11 +94,6 @@ def collect():
                 if m: lot_no="Lot "+m.group(1)
                 auction_date=_auction_date(card) or "2026-09-16"
                 scope_dates.add(auction_date)
-                # The catalogue card is authoritative for guide, tenure/use and
-                # lifecycle. McHugh's exact bidding page puts Guide Price before
-                # the label (e.g. £10,000+ Guide Price), which the shared parser
-                # deliberately does not guess. Preserve the local card as seed so
-                # exact-page detail and catalogue facts complement each other.
                 lot=detail_lot(
                     SOURCE,href,seed=card,lot_number=lot_no,auction_date=auction_date,
                     force_commercial=True,use_browser=False,strict_commercial=False,
