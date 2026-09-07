@@ -4,7 +4,7 @@ from datetime import date, datetime
 from urllib.parse import urljoin, urlparse, parse_qs
 
 from .core import SourceResult, Lot, norm, is_commercial, parse_guide, parse_rent, parse_tenure, parse_vat
-from .utils import soup, detail_lot, nearest_card, image_from_soup, enrich_common_fields
+from .utils import soup, detail_lot, image_from_soup, enrich_common_fields
 
 SOURCE = "Future Property Auctions Scotland"
 BASE = "https://www.futurepropertyauctions.co.uk"
@@ -15,9 +15,7 @@ DETAIL_WORKERS = 12
 
 
 def _parse_date(text):
-    """Parse Future's auction dates in both long and abbreviated month formats."""
-    value=norm(text)
-    m=re.search(r"\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})\s+(20\d{2})\b",value,re.I)
+    value=norm(text); m=re.search(r"\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})\s+(20\d{2})\b",value,re.I)
     if not m:return None
     raw=f"{m.group(1)} {m.group(2)} {m.group(3)}"
     for fmt in ("%d %B %Y","%d %b %Y"):
@@ -45,8 +43,28 @@ def _detail_href(raw):
     return href if parsed.netloc.lower().endswith("futurepropertyauctions.co.uk") and parsed.path.lower().endswith("/property_details.asp") and parse_qs(parsed.query).get("id") else None
 
 
+def _listing_card(anchor,max_chars=1800):
+    """Return exactly one Future catalogue card.
+
+    Generic nearest-card traversal can reach a page wrapper containing neighbouring
+    listings. A residential card beside a commercial card would then inherit the
+    commercial wording and enter the feed. Stop as soon as a parent contains more
+    than one distinct property_details link.
+    """
+    node=anchor; best=norm(anchor.get_text(" ",strip=True))
+    for _ in range(8):
+        node=getattr(node,"parent",None)
+        if node is None:break
+        text=norm(node.get_text(" ",strip=True))
+        if not text or len(text)>max_chars:break
+        detail_ids={_detail_href(a.get("href")) for a in node.find_all("a",href=True)}
+        detail_ids.discard(None)
+        if len(detail_ids)>1:break
+        if len(text)>len(best):best=text
+    return best
+
+
 def _page_urls(s,current_url):
-    """Follow catalogue pagination exposed by the source, currently ?offset=N."""
     out=[]
     for a in s.find_all("a",href=True):
         href=urljoin(current_url,a.get("href") or "").split("#",1)[0]; p=urlparse(href)
@@ -66,6 +84,8 @@ def _card_image(anchor,page_url):
         if node is None:break
         text=norm(node.get_text(" ",strip=True))
         if len(text)>2200:break
+        detail_ids={_detail_href(a.get("href")) for a in node.find_all("a",href=True)}; detail_ids.discard(None)
+        if len(detail_ids)>1:break
         try:
             img=image_from_soup(node,page_url)
             if img:return img
@@ -77,6 +97,8 @@ def _card_address(anchor,card):
     node=anchor
     for _ in range(6):
         if node is None:break
+        detail_ids={_detail_href(a.get("href")) for a in node.find_all("a",href=True)}; detail_ids.discard(None)
+        if len(detail_ids)>1:break
         for a in node.find_all("a",href=True):
             if "maps.google" in (a.get("href") or "").lower():
                 val=norm(a.get_text(" ",strip=True))
@@ -103,7 +125,6 @@ def _fallback_lot(href,card,anchor,auction_date,page_url):
 
 
 def _discover(fetcher=_fetch,today=None):
-    """Crawl every published page; future entries are interleaved with historical stock."""
     today=today or date.today(); targets={}; dates_seen=set(); future_urls=set(); pages_read=0
     queue=[CATALOGUE]; queued={CATALOGUE}; fallback_offset=0
     while queue and pages_read<MAX_PAGES:
@@ -111,7 +132,7 @@ def _discover(fetcher=_fetch,today=None):
         for a in s.find_all("a",href=True):
             href=_detail_href(a.get("href"))
             if not href:continue
-            detail_found+=1; card=nearest_card(a,1800) or norm(a.get_text(" ",strip=True)); auction_date=_parse_date(card)
+            detail_found+=1; card=_listing_card(a); auction_date=_parse_date(card)
             if not auction_date or auction_date<today:continue
             future_urls.add(href); dates_seen.add(auction_date.isoformat())
             if not _commercialish(card):continue
@@ -126,12 +147,10 @@ def _discover(fetcher=_fetch,today=None):
 
 
 def _hydrate_target(href,payload):
-    """Hydrate one target; fall back to its authoritative first-party catalogue card."""
     card,lot_number,auction_date,anchor,page_url=payload; lot=None
     for use_browser in (False,True):
         try:
-            lot=detail_lot(SOURCE,href,seed=card,lot_number=lot_number,auction_date=auction_date,
-                           force_commercial=True,use_browser=use_browser,suppress_prior=True)
+            lot=detail_lot(SOURCE,href,seed=card,lot_number=lot_number,auction_date=auction_date,force_commercial=True,use_browser=use_browser,suppress_prior=True)
             if lot:break
         except Exception:pass
     if lot:
@@ -144,16 +163,12 @@ def _hydrate_target(href,payload):
 def collect():
     try:
         targets,scope_dates,discovered_future,pages_read=_discover(); lots=[]; failures=0; fallbacks=0
-        # A single Future catalogue can contain hundreds of target lots. Sequential
-        # detail hydration would exceed the production workflow budget, so bounded
-        # concurrency is part of collector correctness, not merely an optimisation.
         with ThreadPoolExecutor(max_workers=DETAIL_WORKERS) as ex:
             futures={ex.submit(_hydrate_target,href,payload):href for href,payload in targets.items()}
             for future in as_completed(futures):
                 try:
                     lot,used_fallback=future.result()
-                    if lot:
-                        lots.append(lot); fallbacks+=int(used_fallback)
+                    if lot:lots.append(lot);fallbacks+=int(used_fallback)
                     else:failures+=1
                 except Exception:failures+=1
         expected=len(targets)
@@ -165,5 +180,4 @@ def collect():
         if discovered_future:
             return SourceResult(SOURCE,"CATALOGUE PENDING",[],f"Future Property Auctions catalogue inspected across {pages_read} pages; {discovered_future} unique future lots encountered across dates {scope_dates}, but none classified commercial/mixed-use.",expected_count=0,discovered_count=0,authoritative_snapshot=True,scope_dates=scope_dates)
         return SourceResult(SOURCE,"CATALOGUE PENDING",[],f"Future Property Auctions catalogue inspected across {pages_read} pages; no published future lots were discovered.",discovered_count=0,authoritative_snapshot=False,scope_dates=scope_dates)
-    except Exception as exc:
-        return SourceResult(SOURCE,"FAILED",[],f"Future Property Auctions collection failed: {type(exc).__name__}: {exc}")
+    except Exception as exc:return SourceResult(SOURCE,"FAILED",[],f"Future Property Auctions collection failed: {type(exc).__name__}: {exc}")
