@@ -25,17 +25,31 @@ class SymondsSampsonCollectorTests(unittest.TestCase):
         self.assertEqual(events["https://auctions.symondsandsampson.co.uk/event/property-auction-sep2026-memorialhall"], "2026-09-24")
         self.assertEqual(events["https://auctions.symondsandsampson.co.uk/event/property-auction-oct2026-guildhall"], "2026-10-08")
 
-    def test_property_links_only_take_property_pages(self):
+    def test_property_links_only_take_auction_microsite_property_pages(self):
         html = """
         <html><body>
           <a href='/property/dwr0007b9/dt6/bridport/st-andrews-road/other/studio'>For Sale St Andrews Road Guide Price £300,000</a>
           <a href='/property/dwr0007a9/dt9/sherborne/long-street/flat/3-bedrooms'>For Sale Long Street Guide Price £150,000</a>
+          <a href='https://www.symondsandsampson.co.uk/property/ordinary-agency-house'>Property for sale</a>
+          <a href='https://commercial.symondsandsampson.co.uk/property/general-search'>Commercial property search</a>
           <a href='/events/property-auction/foo'>Other event</a>
         </body></html>
         """
         found = _property_links(BeautifulSoup(html, "lxml"), "2026-09-24")
         self.assertEqual(len(found), 2)
         self.assertTrue(all(value[1] == "2026-09-24" for value in found.values()))
+        self.assertTrue(all(url.startswith("https://auctions.symondsandsampson.co.uk/property/") for url in found))
+
+    def test_empty_future_event_footer_property_links_do_not_create_catalogue(self):
+        html = """
+        <html><body><main><h1>December Property Auction</h1><p>Lots are usually listed approximately 6 weeks prior.</p></main>
+          <footer>
+            <a href='https://www.symondsandsampson.co.uk/property/for-sale'>Property for sale</a>
+            <a href='https://commercial.symondsandsampson.co.uk/property/search'>Commercial Property</a>
+          </footer>
+        </body></html>
+        """
+        self.assertEqual(_property_links(BeautifulSoup(html, "lxml"), "2026-12-11"), {})
 
     def test_image_prefers_real_property_gallery_over_branding(self):
         html = '''
