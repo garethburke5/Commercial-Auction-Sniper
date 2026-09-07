@@ -10,10 +10,18 @@ class AuctionHouseRegionalRouteTests(unittest.TestCase):
         self.assertTrue(_is_event_href('/national/auction/2026/9/15', 'national'))
         self.assertFalse(_is_event_href('/cumbria/auction/2026/9/10', 'wales'))
 
-    def test_canonical_and_legacy_lot_routes_are_accepted(self):
+    def test_canonical_legacy_and_uuid_lot_routes_are_accepted(self):
         self.assertTrue(_is_lot_href('/cumbria/auction/lot/151250', 'cumbria'))
         self.assertTrue(_is_lot_href('https://wales.auctionhouse.co.uk/lot/redirect/360843', 'wales'))
         self.assertTrue(_is_lot_href('https://wales.auctionhouse.co.uk/lot/360843', 'wales'))
+        self.assertTrue(_is_lot_href(
+            'https://wales.auctionhouse.co.uk/lot/details/47af6e89-d594-4cd6-b56c-a7b9deee6b4e',
+            'wales',
+        ))
+        self.assertFalse(_is_lot_href(
+            'https://cumbria.auctionhouse.co.uk/lot/details/47af6e89-d594-4cd6-b56c-a7b9deee6b4e',
+            'wales',
+        ))
         self.assertFalse(_is_lot_href('https://cumbria.auctionhouse.co.uk/lot/360843', 'wales'))
 
     def test_mixed_use_card_is_commercial(self):
