@@ -1,0 +1,212 @@
+"""Lifecycle-safe Auction House regional collectors.
+
+The legacy regional collector deliberately suppressed Sold Prior / Withdrawn cards.
+That is correct for a live-only board but wrong for Auction Sniper's permanent market
+history: a current-sale commercial lot that becomes Sold Prior is valuable evidence
+and must leave the active board without disappearing from the dataset.
+
+This collector uses the same first-party event discovery and parsers, but treats
+terminal lifecycle as structured data. Every explicitly commercial/mixed-use lot in
+every published future regional event is emitted; terminal lots carry their status
+and are archived by run_collectors.py.
+"""
+from __future__ import annotations
+
+import re
+from urllib.parse import urljoin
+
+from .core import SourceResult, norm
+from .utils import detail_lot
+from . import auction_house_regions as base
+
+
+# Auction House uses these explicit category labels on cards/detail pages. Keep this
+# slightly broader than the legacy commercialish test so categories such as
+# "Hospitality" and "Heavy Industrial" are not silently lost.
+EXPLICIT_TARGET = re.compile(
+    r"\b(?:commercial\s+(?:property|premises|building|investment|development|unit)|"
+    r"mixed[- ]use|retail\s+(?:property|investment|unit)|shop(?:\s+and\s+(?:upper|residential))?|"
+    r"office(?:s|\s+building|\s+investment|\s+property)?|industrial(?:\s+property)?|"
+    r"heavy\s+industrial|light\s+industrial|warehouse|workshop|storage|hospitality|hotel|"
+    r"restaurant|takeaway|public\s+house|pub|business\s+premises|garage\s+block|"
+    r"development\s+site)\b",
+    re.I,
+)
+
+
+def _terminal_status(text):
+    value = norm(text)
+    if re.search(r"\bSold\s*Prior\b|\bSoldPrior\b", value, re.I):
+        return "SOLD PRIOR"
+    if re.search(r"\bWithdrawn(?:\s+Prior)?\b|\bLot\s+Withdrawn\b", value, re.I):
+        return "WITHDRAWN"
+    if re.search(r"\bPostponed\b", value, re.I):
+        return "POSTPONED"
+    return None
+
+
+def _is_target_card(text):
+    value = norm(text)
+    return bool(base._commercialish(value) or EXPLICIT_TARGET.search(value))
+
+
+def _collect_region(slug):
+    source, auctioneer_label = base.REGIONS[slug]
+    try:
+        events = base._future_events(slug, auctioneer_label)
+        if not events:
+            return SourceResult(
+                source, "CATALOGUE PENDING", [],
+                "Future auction diary checked; no currently published branch catalogue with viewable lots.",
+                discovered_count=0, authoritative_snapshot=False,
+            )
+
+        targets = {}
+        scope_dates = set()
+        discovery_failures = 0
+        for event_url, auction_date in events.items():
+            scope_dates.add(auction_date)
+            try:
+                page = base._fetch(event_url)
+            except Exception as exc:
+                discovery_failures += 1
+                print("AUCTION_HOUSE_EVENT_FAIL", source, event_url, repr(exc))
+                continue
+
+            for a in page.find_all("a", href=True):
+                raw_href = a.get("href") or ""
+                if not base._is_lot_href(raw_href, slug):
+                    continue
+                href = urljoin(event_url, raw_href).split("?")[0]
+                card = base._local_card(a)
+                if not _is_target_card(card):
+                    continue
+                m = re.search(r"\bLot\s+(\d+[A-Z]?)\b", card, re.I)
+                label = norm(a.get_text(" ", strip=True))
+                targets[href] = (
+                    card,
+                    label,
+                    f"Lot {m.group(1)}" if m else None,
+                    auction_date,
+                    base._card_image(a, event_url),
+                    _terminal_status(card),
+                )
+
+        lots = []
+        detail_failures = 0
+        catalogue_fallbacks = 0
+        direct_recoveries = 0
+        terminal_count = 0
+
+        for href, (card, label, lot_number, auction_date, card_image, card_status) in targets.items():
+            lot = None
+            for use_browser in (False, True):
+                try:
+                    # Do NOT suppress Sold Prior / Withdrawn. Lifecycle is evidence;
+                    # run_collectors.py will keep it out of the active board.
+                    lot = detail_lot(
+                        source, href, seed=card, lot_number=lot_number,
+                        auction_date=auction_date, force_commercial=True,
+                        use_browser=use_browser, suppress_prior=False,
+                    )
+                    if lot:
+                        break
+                except Exception:
+                    pass
+
+            if lot:
+                if not lot.image_url and card_image:
+                    lot.image_url = card_image
+                lifecycle = _terminal_status(card + " " + (lot.description or "")) or card_status or "CURRENT"
+                lot.status = lifecycle
+                lots.append(lot.finalise())
+                terminal_count += int(lifecycle != "CURRENT")
+                continue
+
+            # The modern UUID branch pages need the dedicated first-party parser.
+            # Its legacy implementation suppresses terminal pages, so use it only
+            # for non-terminal cards; terminal cards fall back to the authoritative
+            # catalogue record if exact-page hydration fails.
+            if not card_status:
+                lot = base._direct_first_party_lot(
+                    source, href, card, label, lot_number, auction_date, card_image
+                )
+            if lot:
+                lifecycle = _terminal_status(card + " " + (lot.description or "")) or "CURRENT"
+                lot.status = lifecycle
+                lots.append(lot.finalise())
+                direct_recoveries += 1
+                terminal_count += int(lifecycle != "CURRENT")
+                continue
+
+            fallback = base._fallback_catalogue_lot(
+                source, href, card, label, lot_number, auction_date, card_image
+            )
+            if fallback:
+                lifecycle = card_status or _terminal_status(card) or "CURRENT"
+                fallback.status = lifecycle
+                lots.append(fallback.finalise())
+                catalogue_fallbacks += 1
+                terminal_count += int(lifecycle != "CURRENT")
+            else:
+                detail_failures += 1
+
+        expected = len(targets)
+        failures = discovery_failures + detail_failures
+        if expected == 0 and failures == 0:
+            return SourceResult(
+                source, "CATALOGUE PENDING", [],
+                f"{len(events)} published future branch event(s) inspected; none currently contains a commercial/mixed-use lot.",
+                expected_count=0, discovered_count=0, authoritative_snapshot=True,
+                scope_dates=tuple(sorted(scope_dates)),
+            )
+        if not lots and failures:
+            return SourceResult(
+                source, "FAILED", [],
+                f"Branch catalogue discovery/detail parsing failed ({failures} failure(s)); refusing a false zero result.",
+                expected_count=expected or None, discovered_count=expected,
+                authoritative_snapshot=False, scope_dates=tuple(sorted(scope_dates)),
+            )
+
+        status = "LIVE" if failures == 0 and len(lots) == expected else "DEGRADED"
+        live_count = sum(1 for x in lots if _terminal_status(x.status) is None and str(x.status).upper() == "CURRENT")
+        message = (
+            f"Auction House all-future lifecycle-safe sweep: {len(events)} event(s), "
+            f"{expected} commercial/mixed-use lot page(s), {live_count} available, "
+            f"{terminal_count} sold-prior/withdrawn/postponed retained as history; "
+            f"{direct_recoveries} direct recoveries; {catalogue_fallbacks} catalogue fallbacks; "
+            f"{failures} failure(s)."
+        )
+        return SourceResult(
+            source, status, lots, message,
+            expected_count=expected, discovered_count=expected,
+            authoritative_snapshot=(status == "LIVE"),
+            scope_dates=tuple(sorted(scope_dates)),
+        )
+    except Exception as exc:
+        return SourceResult(
+            source, "FAILED", [],
+            f"Auction House lifecycle-safe branch collector failed: {type(exc).__name__}: {exc}",
+        )
+
+
+def collect_east_anglia(): return _collect_region("eastanglia")
+def collect_west_yorkshire(): return _collect_region("westyorkshire")
+def collect_sussex_hampshire(): return _collect_region("sussexandhampshire")
+def collect_south_west(): return _collect_region("southwest")
+def collect_wales(): return _collect_region("wales")
+def collect_cumbria(): return _collect_region("cumbria")
+def collect_north_east(): return _collect_region("northeast")
+def collect_north_west(): return _collect_region("northwest")
+def collect_lincolnshire(): return _collect_region("lincolnshire")
+def collect_manchester(): return _collect_region("manchester")
+def collect_chesterfield(): return _collect_region("chesterfieldandnorthderbyshire")
+def collect_coventry_warwickshire(): return _collect_region("coventryandwarwickshire")
+def collect_scotland(): return _collect_region("scotland")
+def collect_hull_east_yorkshire(): return _collect_region("hullandeastyorkshire")
+def collect_birmingham_black_country(): return _collect_region("birmingham")
+def collect_northants_beds_bucks(): return _collect_region("northantsbedsandbucks")
+def collect_beds_bucks(): return _collect_region("bedsandbucks")
+def collect_leicestershire(): return _collect_region("leicestershire")
+def collect_tees_valley(): return _collect_region("teesvalley")
+def collect_national_online(): return _collect_region("national")
