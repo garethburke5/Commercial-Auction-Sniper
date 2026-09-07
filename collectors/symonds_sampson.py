@@ -1,7 +1,11 @@
 import re
 from datetime import date
+from io import BytesIO
 from urllib.parse import urljoin
 
+from pypdf import PdfReader
+
+from .browser import get_bytes
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
 from .utils import soup, legal_pack, image_from_soup
 
@@ -106,7 +110,6 @@ def _image(s,base):
                     if u:add(u,alt)
     raw=str(s).replace("\\/","/")
     for u in re.findall(r'https?://[^"\'<>\s]+?\.(?:jpe?g|png|webp)(?:\?[^"\'<>\s]*)?',raw,re.I):add(u)
-    # Webdadi galleries also serialize relative image paths into script/JSON blobs.
     for u in re.findall(r'["\']([^"\']+?\.(?:jpe?g|png|webp)(?:\?[^"\']*)?)["\']',raw,re.I): add(u)
     if candidates:
         best={}
@@ -123,22 +126,50 @@ def _main_property_text(s):
     for node in [h]+list(h.find_all_next(limit=220)):
         if getattr(node,"name",None) in {"h1","h2","h3","h4","p","li","dt","dd"}:
             v=norm(node.get_text(" ",strip=True))
-            if any(v.lower()==m.lower() or v.lower().startswith(m.lower()+" ") for m in CHROME_MARKERS):
-                break
+            if any(v.lower()==m.lower() or v.lower().startswith(m.lower()+" ") for m in CHROME_MARKERS): break
             if v and v not in pieces:pieces.append(v)
         if len(" ".join(pieces))>14000:break
     return _classification_text(norm(" ".join(pieces))[:14000])
 
 
-def _classification_text(text):
-    """Remove agent/site chrome before deciding whether the asset itself is commercial.
+def _brochure_links(s,base):
+    """Find first-party particulars/brochure documents linked from a lot page."""
+    scored=[]
+    for a in s.find_all("a",href=True):
+        href=urljoin(base,a.get("href") or "").split("#",1)[0]
+        label=norm(a.get_text(" ",strip=True)+" "+href).lower()
+        score=0
+        if "brochure" in label: score+=10
+        if "particular" in label: score+=9
+        if href.lower().split("?")[0].endswith(".pdf"): score+=5
+        if score and href.startswith("http"): scored.append((score,href))
+    out=[]
+    for _score,u in sorted(scored,key=lambda x:-x[0]):
+        if u not in out:out.append(u)
+    return out[:3]
 
-    Symonds residential pages contain 'Office Details' and phrases such as
-    'shopping facilities' below the actual particulars. Broad substring matching
-    therefore admitted ordinary houses and flats as commercial auction lots.
-    """
-    value=norm(text)
-    lowered=value.lower(); cuts=[]
+
+def _brochure_text(s,base,binary_fetcher=get_bytes):
+    """Extract public brochure text when the teaser HTML says 'refer to brochure'."""
+    chunks=[]
+    for href in _brochure_links(s,base):
+        try:
+            raw=binary_fetcher(href)
+            if not raw.startswith(b"%PDF"): continue
+            reader=PdfReader(BytesIO(raw))
+            for page in reader.pages[:24]:
+                try:
+                    t=page.extract_text() or ""
+                    if t: chunks.append(t)
+                except Exception: pass
+                if sum(len(x) for x in chunks)>24000: break
+            if chunks: break
+        except Exception: continue
+    return norm(" ".join(chunks))[:24000]
+
+
+def _classification_text(text):
+    value=norm(text); lowered=value.lower(); cuts=[]
     for marker in CHROME_MARKERS:
         p=lowered.find(marker.lower())
         if p>0: cuts.append(p)
@@ -147,10 +178,8 @@ def _classification_text(text):
 
 
 def _is_target(text):
-    clean=_classification_text(text)
-    low=" "+clean.lower()+" "
+    clean=_classification_text(text); low=" "+clean.lower()+" "
     if COMMERCIAL_SIGNAL.search(clean): return True
-    # Explicit development land/sites are relevant even without an existing commercial use.
     if DEVELOPMENT_SIGNAL.search(clean): return True
     if any(x in low for x in RESIDENTIAL_STRONG) or re.search(r"\b\d+\s+bedroom\s+house\b",low): return False
     return False
@@ -170,10 +199,16 @@ def _address(s,url):
 
 def _area(text):
     sqft=sqm=acres=None
-    m=re.search(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)\b",text,re.I)
-    if m:sqft=float(m.group(1).replace(",",""))
-    m=re.search(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*m|sqm|m²)\b",text,re.I)
-    if m:sqm=float(m.group(1).replace(",",""))
+    vals=[]
+    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²|square feet)\b",text,re.I):
+        v=float(m.group(1).replace(",",""))
+        if 50<=v<=2_000_000: vals.append(v)
+    if vals: sqft=max(vals)
+    vals=[]
+    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*m|sqm|m²|square metres)\b",text,re.I):
+        v=float(m.group(1).replace(",",""))
+        if 5<=v<=200_000: vals.append(v)
+    if vals: sqm=max(vals)
     m=re.search(r"([\d.]+)\s*acres?\b",text,re.I)
     if m:acres=float(m.group(1))
     return sqft,sqm,acres
@@ -184,8 +219,7 @@ def _has_residential_component(text):
     return any(x in low for x in RESIDENTIAL_COMPONENT) or bool(re.search(r"\b(?:two|three|four|five|\d+)\s+(?:existing\s+|vacant\s+)?flats?\b",low))
 
 
-def _has_commercial_component(text):
-    return bool(COMMERCIAL_SIGNAL.search(_classification_text(text)))
+def _has_commercial_component(text): return bool(COMMERCIAL_SIGNAL.search(_classification_text(text)))
 
 
 def _property_type(text):
@@ -205,27 +239,33 @@ def _property_type(text):
 
 
 def _current_rent(text):
-    """Current passing rent only; never substitute potential/ERV income."""
     patterns=(
         r"(?:total\s+)?current\s+(?:rent(?:al)?|income)\s*(?:reserved\s*)?(?:of\s*)?£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|pa|per annum)",
         r"generat(?:e|es|ing)\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:rent(?:al)?\s*)?(?:p\.?a\.?|pa|per annum)",
-        r"(?:shop|retail unit|commercial unit|restaurant|office)[^.;]{0,80}?\blet\s+(?:at|for)\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|pa|per annum)",
+        r"(?:shop|retail unit|commercial unit|restaurant|office)[^.;]{0,100}?\blet\s+(?:at|for|by way of[^.;]{0,60}?at)\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|pa|per annum)",
         r"\blet\s+(?:at|for)\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|pa|per annum)",
+        r"annual\s+rent\s+(?:of\s+)?£\s*([\d,]+(?:\.\d+)?)",
     )
     for pat in patterns:
         for m in re.finditer(pat,text,re.I):
-            prefix=text[max(0,m.start()-90):m.start()]
-            if re.search(r"potential(?:ly)?|could\s+generate|estimated|when\s+let|fully[- ]let|further\s*$",prefix,re.I):continue
+            prefix=text[max(0,m.start()-100):m.start()]
+            if re.search(r"potential(?:ly)?|could\s+generate|estimated|when\s+let|fully[- ]let|further\s*$|erv\b",prefix,re.I):continue
             return float(m.group(1).replace(",",""))
     return None
 
 
-def _detail(url,seed,event_date,fetcher=_fetch):
-    s=fetcher(url);text=_main_property_text(s);combined=norm(seed+" "+text)
+def _detail(url,seed,event_date,fetcher=_fetch,brochure_reader=_brochure_text):
+    s=fetcher(url); page_text=_main_property_text(s)
+    brochure=""
+    if len(page_text)<5000 or re.search(r"refer to (?:the )?brochure|further information",page_text,re.I):
+        try: brochure=brochure_reader(s,url)
+        except Exception: brochure=""
+    text=norm(page_text+" "+brochure)[:24000]
+    combined=norm(seed+" "+text)
     if not _is_target(combined):return None
-    guide=parse_guide(combined)
+    guide=parse_guide(norm(seed+" "+page_text))
     if guide is None:
-        m=re.search(r"Guide(?: Price)?\s*[:\-]?\s*£+\s*([\d,]+(?:\.\d+)?)",combined,re.I)
+        m=re.search(r"Guide(?: Price)?\s*[:\-]?\s*£+\s*([\d,]+(?:\.\d+)?)",norm(seed+" "+page_text),re.I)
         if m:guide=float(m.group(1).replace(",",""))
     rent=_current_rent(combined)
     if rent is None:
@@ -234,18 +274,32 @@ def _detail(url,seed,event_date,fetcher=_fetch):
     lp_url,lp_status=legal_pack(s,url)
     lot=Lot(source=SOURCE,url=url,address=_address(s,url),auction_date=event_date,image_url=_image(s,url),guide_price=guide,annual_rent=rent,tenure=parse_tenure(combined),vat_status=parse_vat(combined),legal_pack_status=lp_status,legal_pack_url=lp_url,property_type=_property_type(combined),description=text)
     lot.area_sqft,lot.area_sqm,lot.site_area_acres=_area(combined)
-    has_vacant=bool(re.search(r"\bvacant\b|vacant possession",combined,re.I));has_income=bool(rent or re.search(r"\blet to\b|\blet at\b|\btenant\b|\btenanted\b|\bproducing\s+£|\brental income\b|generat(?:e|es|ing)\s+£",combined,re.I))
+    has_vacant=bool(re.search(r"\bvacant\b|vacant possession",combined,re.I)); has_income=bool(rent or re.search(r"\blet to\b|\blet at\b|\btenant\b|\btenanted\b|\bproducing\s+£|\brental income\b|generat(?:e|es|ing)\s+£|annual rent of £",combined,re.I))
     if has_vacant and has_income:lot.occupation="Part let / part vacant"
     elif has_vacant:lot.occupation="Vacant"
     elif has_income:lot.occupation="Tenanted"
     if re.search(r"redevelopment potential|development potential|development opportunity|subject to planning|planning permission|building plot",combined,re.I):lot.development_potential=True
-    if re.search(r"in need of (?:some |comprehensive )?renovation|refurbish|refurbishment",combined,re.I):lot.refurbishment=True
-    if _has_residential_component(combined) and re.search(r"convert|conversion|redevelop|development",combined,re.I):lot.residential_conversion=True
+    if re.search(r"in need of (?:some |comprehensive )?renovation|partly[- ]refurbished|refurbish|refurbishment|modernisation",combined,re.I):lot.refurbishment=True
+    if _has_residential_component(combined) and re.search(r"convert|conversion|redevelop|development|refurbish",combined,re.I):lot.residential_conversion=True
     if _has_residential_component(combined) and _has_commercial_component(combined):lot.asset_management=True
     if re.search(r"Grade\s+II\*?\s+Listed",combined,re.I):lot.listed_status="Grade II Listed"
     pm=re.search(r"parking for\s+(\d+)\s+(?:cars|vehicles)",combined,re.I)
     if pm:lot.parking=f"Parking for {pm.group(1)} vehicles"
-    elif re.search(r"\bcar park\b|\bparking\b|garage/workshop/store",combined,re.I):lot.parking="Car park / parking / garage mentioned"
+    elif re.search(r"multi[- ](?:vehicle|car) garage|\bcar park\b|\bparking\b|garage/workshop/store",combined,re.I):lot.parking="Car park / parking / garage mentioned"
+    erv=re.search(r"(?:ERV|estimated rental value)[^£]{0,90}£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?a\.?|pa|per annum)?",combined,re.I)
+    if erv:lot.erv=float(erv.group(1).replace(",",""))
+    lm=re.search(r"(?:commercial )?lease(?: for)?\s+(?:a\s+)?(\d+(?:\.\d+)?)\s*year\s+term\s+from\s+(\d{1,2}\s+[A-Za-z]+\s+20\d{2})",combined,re.I)
+    if lm:
+        lot.lease_term=lm.group(1)+" years"; lot.lease_start=lm.group(2)
+    if re.search(r"no remaining tenant break clauses?|without (?:a )?break",combined,re.I):lot.break_status="No remaining tenant break"
+    rr=re.search(r"(?:five|5)\s+year\s+rent review",combined,re.I)
+    if rr:lot.rent_review="5-year rent review"
+    if re.search(r"internal repairing and insuring",combined,re.I):lot.fri=False
+    elif re.search(r"full repairing and insuring|\bFRI\b",combined,re.I):lot.fri=True
+    rv=re.search(r"(?:Business Rates:?\s*)?RV\s*£\s*([\d,]+)",combined,re.I)
+    if rv:lot.rateable_value=float(rv.group(1).replace(",",""))
+    epc=re.search(r"(?:Ground Floor Restaurant|Commercial|Shop|Office)[^.;]{0,80}?\b([A-G])\s*\((\d{1,3})\)",combined,re.I)
+    if epc:lot.epc=f"{epc.group(1).upper()} ({epc.group(2)})"
     return lot.finalise()
 
 
@@ -267,6 +321,6 @@ def collect():
                 if lot:lots.append(lot)
             except Exception as exc:detail_failures+=1;print("SYMONDS_DETAIL_FAIL",href,repr(exc))
         status="DEGRADED" if event_failures and lots else "FAILED" if event_failures else "LIVE" if lots or published else "CATALOGUE PENDING"
-        msg=f"All-future Symonds & Sampson sweep: {len(events)} future event(s); {len(published)} published catalogue(s), {len(pending)} pending; {len(candidates)} property pages inspected; {len(lots)} explicit commercial/mixed-use/development lots published after chrome-safe classification; {detail_failures} detail failures; {event_failures} event failures."
+        msg=f"All-future Symonds & Sampson sweep: {len(events)} future event(s); {len(published)} published catalogue(s), {len(pending)} pending; {len(candidates)} property pages inspected; {len(lots)} explicit commercial/mixed-use/development lots published after chrome-safe classification and brochure enrichment; {detail_failures} detail failures; {event_failures} event failures."
         return SourceResult(SOURCE,status,lots,msg,discovered_count=len(lots),authoritative_snapshot=bool(status=="LIVE" and not detail_failures and published),scope_dates=tuple(sorted(published)))
     except Exception as exc:return SourceResult(SOURCE,"FAILED",[],f"Symonds & Sampson collection failed: {type(exc).__name__}: {exc}")
