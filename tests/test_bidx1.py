@@ -30,10 +30,7 @@ class BidX1CollectorTests(unittest.TestCase):
             """,
             "https://bidx1.com/en/united-kingdom?page=3": "<html><body>No lots</body></html>",
         }
-
-        def fetcher(url):
-            return BeautifulSoup(pages[url], "lxml")
-
+        def fetcher(url): return BeautifulSoup(pages[url], "lxml")
         targets, dates, pages_read, complete = _discover(fetcher=fetcher, today=date(2026, 9, 6))
         self.assertTrue(complete)
         self.assertEqual(pages_read, 3)
@@ -50,10 +47,16 @@ class BidX1CollectorTests(unittest.TestCase):
               <img src='https://images-prd.bidx1.com/agent/simon.jpg' alt='Agent'>
             </body></html>
         """, "lxml")
-        self.assertEqual(
-            _image_from_detail(s, "https://bidx1.com/en/en-gb/auction/property/108626"),
-            "https://images-prd.bidx1.com/properties/108626/front.jpg",
-        )
+        self.assertEqual(_image_from_detail(s, "https://bidx1.com/en/en-gb/auction/property/108626"), "https://images-prd.bidx1.com/properties/108626/front.jpg")
+
+    def test_image_selector_recovers_extensionless_js_gallery_url(self):
+        s = BeautifulSoup("""
+            <html><body>
+              <script>window.__PROPERTY__={"gallery":[{"imageUrl":"https://images-prd.bidx1.com/property/108626/hero/large?width=1600"}]};</script>
+              <img src='https://images-prd.bidx1.com/profile/team/surveyor' alt='Agent'>
+            </body></html>
+        """, "lxml")
+        self.assertEqual(_image_from_detail(s, "https://bidx1.com/en/en-gb/auction/property/108626"), "https://images-prd.bidx1.com/property/108626/hero/large?width=1600")
 
 
 if __name__ == "__main__":
