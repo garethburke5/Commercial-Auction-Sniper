@@ -124,8 +124,6 @@ def _rich_lot(href, card):
     if re.search(r"VAT is not applicable|VAT free investment|VAT-free investment",combined,re.I): lot.vat_status="NOT APPLICABLE"
     elif re.search(r"VAT is applicable|elected for VAT",combined,re.I): lot.vat_status="APPLICABLE"
 
-    # Occupancy is a primary card fact. Derive it from explicit evidence, not only
-    # from one Acuitus table heading, so cards do not lose obvious tenancy status.
     if rent is not None:
         lot.occupation="Part-let / part-vacant" if re.search(r"\bpart(?:ly)?[- ]vacant|vacant (?:unit|floor|part)",combined,re.I) else "Tenanted"
     elif re.search(r"\bvacant(?: possession)?\b|offered with vacant possession",combined[:4500],re.I):
@@ -188,7 +186,12 @@ def collect():
             try: lots.append(_rich_lot(href,card))
             except Exception as e:
                 failures+=1;print("ACUITUS_DETAIL_FAIL",href,repr(e))
-        status="LIVE" if lots else "FAILED"
-        return SourceResult(SOURCE,status,lots,f"17 Sep source-labelled commercial/mixed-use: {len(targets)} candidates; {len(lots)} enriched; {failures} failures")
+        status="LIVE" if lots and failures==0 else "DEGRADED" if lots else "FAILED"
+        return SourceResult(
+            SOURCE,status,lots,
+            f"17 Sep source-labelled commercial/mixed-use: {len(targets)} candidates; {len(lots)} enriched; {failures} failures",
+            expected_count=len(targets),discovered_count=len(targets),
+            authoritative_snapshot=bool(status=="LIVE" and failures==0),scope_dates=(AUCTION_DATE,),
+        )
     except Exception as e:
         return SourceResult(SOURCE,"FAILED",[],str(e))
