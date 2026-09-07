@@ -1,6 +1,6 @@
 import re
 from datetime import date, datetime
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 from .core import SourceResult, norm
 from .utils import soup, detail_lot
@@ -10,6 +10,11 @@ REGIONS = {
     "eastanglia": "Auction House East Anglia",
     "westyorkshire": "Auction House West Yorkshire",
     "sussexandhampshire": "Auction House Sussex & Hampshire",
+    "southwest": "Auction House South West",
+    "wales": "Auction House Wales",
+    "cumbria": "Auction House Cumbria",
+    "northeast": "Auction House North East",
+    "northwest": "Auction House North West",
 }
 
 
@@ -37,14 +42,7 @@ def _fetch(url):
 
 
 def _local_card(anchor, max_chars=1800):
-    """Return the nearest useful lot card, never a whole catalogue section.
-
-    The old nearest_card() call deliberately chose the largest ancestor under a
-    generous size cap. On some Auction House catalogues that ancestor contained
-    several neighbouring lots and site navigation, so a single occurrence of
-    'Commercial' caused every lot in the event to be classified as commercial.
-    Prefer the first close ancestor with enough property text to describe one lot.
-    """
+    """Return the nearest useful single-lot/event card, never a whole catalogue."""
     node = anchor
     fallback = norm(anchor.get_text(" ", strip=True))
     for _ in range(7):
@@ -55,8 +53,6 @@ def _local_card(anchor, max_chars=1800):
         if len(text) > max_chars:
             break
         if 20 <= len(text) <= max_chars:
-            # A genuine single-lot card normally contains at most one explicit
-            # "Lot N" marker. Multiple different markers indicate a shared wrapper.
             lot_markers = set(re.findall(r"\bLot\s+\d+[A-Z]?\b", text, re.I))
             if len(lot_markers) <= 1:
                 return text
@@ -66,12 +62,7 @@ def _local_card(anchor, max_chars=1800):
 
 
 def _commercialish(text):
-    """Classify from property-use phrases, not a bare word in an address.
-
-    In particular, an address such as 'Commercial Road' must not turn a flat into
-    a commercial lot. Auction House cards publish an explicit use/type label for
-    genuine non-residential and mixed-use stock, so require one of those signals.
-    """
+    """Classify from property-use phrases, not a bare word in an address."""
     low = norm(text).lower()
     return bool(re.search(
         r"\b(?:commercial\s+(?:property|premises|building|investment|development)|"
@@ -87,18 +78,46 @@ def _prior_or_withdrawn(text):
     return bool(re.search(r"\b(?:sold\s+prior|withdrawn(?:\s+prior)?|lot\s+withdrawn)\b", text or "", re.I))
 
 
+def _is_event_href(href, slug):
+    """Accept both Auction House event URL formats currently in use.
+
+    Regional diaries can link to /auction/lots/<event-id> or the date-based
+    /auction/YYYY/M/D route. Older branch pages and redirects use both forms.
+    """
+    parsed = urlparse(urljoin(BASE, href or ""))
+    path = parsed.path.rstrip("/").lower()
+    prefix = f"/{slug}/auction/"
+    if not path.startswith(prefix):
+        return False
+    tail = path[len(prefix):]
+    return bool(re.fullmatch(r"lots/\d+", tail) or re.fullmatch(r"20\d{2}/\d{1,2}/\d{1,2}", tail))
+
+
+def _is_lot_href(href, slug):
+    """Accept canonical lot pages plus legacy regional redirect links."""
+    parsed = urlparse(urljoin(BASE, href or ""))
+    host = (parsed.hostname or "").lower()
+    path = parsed.path.rstrip("/").lower()
+    if re.fullmatch(rf"/{re.escape(slug)}/auction/lot/\d+", path):
+        return True
+    if host == f"{slug}.auctionhouse.co.uk" and re.fullmatch(r"/lot/(?:redirect/)?\d+", path):
+        return True
+    return False
+
+
 def _future_events(slug, source):
     diary = f"{BASE}/{slug}/auction/future-auction-dates"
     s = _fetch(diary)
     today = date.today()
     events = {}
-    prefix = f"/{slug}/auction/lots/"
+    source_key = source.lower().replace("&", "and")
     for a in s.find_all("a", href=True):
         href = a.get("href") or ""
-        if prefix not in href:
+        if not _is_event_href(href, slug):
             continue
         row = _local_card(a, 1400)
-        if source.lower().replace("&", "and") not in row.lower().replace("&", "and"):
+        row_key = row.lower().replace("&", "and")
+        if source_key not in row_key:
             continue
         auction_date = _parse_date(row)
         if not auction_date or auction_date < today:
@@ -131,9 +150,10 @@ def _collect_region(slug):
                 continue
             event_targets = set()
             for a in s.find_all("a", href=True):
-                href = urljoin(BASE, a.get("href") or "").split("?")[0]
-                if f"/{slug}/auction/lot/" not in href:
+                raw_href = a.get("href") or ""
+                if not _is_lot_href(raw_href, slug):
                     continue
+                href = urljoin(event_url, raw_href).split("?")[0]
                 card = _local_card(a)
                 if _prior_or_withdrawn(card) or not _commercialish(card):
                     continue
@@ -151,7 +171,7 @@ def _collect_region(slug):
                     lot = detail_lot(
                         source, href, seed=card, lot_number=lot_number,
                         auction_date=auction_date, force_commercial=True,
-                        use_browser=use_browser, suppress_prior=False,
+                        use_browser=use_browser, suppress_prior=True,
                     )
                     if lot:
                         break
@@ -190,13 +210,11 @@ def _collect_region(slug):
         return SourceResult(source, "FAILED", [], f"Regional Auction House collector failed: {type(exc).__name__}: {exc}")
 
 
-def collect_east_anglia():
-    return _collect_region("eastanglia")
-
-
-def collect_west_yorkshire():
-    return _collect_region("westyorkshire")
-
-
-def collect_sussex_hampshire():
-    return _collect_region("sussexandhampshire")
+def collect_east_anglia(): return _collect_region("eastanglia")
+def collect_west_yorkshire(): return _collect_region("westyorkshire")
+def collect_sussex_hampshire(): return _collect_region("sussexandhampshire")
+def collect_south_west(): return _collect_region("southwest")
+def collect_wales(): return _collect_region("wales")
+def collect_cumbria(): return _collect_region("cumbria")
+def collect_north_east(): return _collect_region("northeast")
+def collect_north_west(): return _collect_region("northwest")
