@@ -165,7 +165,7 @@ def _remove_duplicate_images(active):
 
 
 def _collector_name(fn):
-    module=getattr(fn,"__module__,"")
+    module=getattr(fn,"__module__","")
     leaf=module.rsplit(".",1)[-1].replace("_v2","").replace("_"," ").strip()
     return leaf.title() or getattr(fn,"__name__","Unknown collector")
 def _run_collector_safely(fn):
