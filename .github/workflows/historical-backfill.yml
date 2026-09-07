@@ -4,6 +4,14 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '23 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/historical-backfill.yml'
+      - 'historical_backfill.py'
+      - 'history_database.py'
+      - 'historical_evidence.py'
+      - 'tests/test_history_database.py'
 
 permissions:
   contents: write
