@@ -31,14 +31,7 @@ def _session() -> requests.Session:
 
 
 def _curl_http11(url: str, timeout_ms: int) -> str | None:
-    """Last-resort public HTTP fetch for servers that reset Python/HTTP2 clients.
-
-    Several UK auction platforms intermittently close TLS connections from GitHub
-    runners or fail Chromium with ERR_HTTP2_PROTOCOL_ERROR while still serving the
-    same public page over HTTP/1.1. Curl is present on GitHub's Ubuntu runners and
-    gives us a protocol-distinct fallback without bypassing authentication or bot
-    challenges.
-    """
+    """Last-resort public HTTP fetch for servers that reset Python/HTTP2 clients."""
     timeout_s = max(10, int(timeout_ms / 1000))
     try:
         proc = subprocess.run(
@@ -64,12 +57,6 @@ def _curl_http11(url: str, timeout_ms: int) -> str | None:
 
 
 def _urllib_fetch(url: str, timeout_ms: int) -> str | None:
-    """Protocol-independent stdlib fallback for public pages.
-
-    Some legacy EIG-hosted auction sites behave differently with urllib/OpenSSL
-    than with requests/curl on GitHub runners. This remains a normal unauthenticated
-    GET and intentionally does not weaken TLS verification or bypass challenges.
-    """
     timeout_s = max(10, int(timeout_ms / 1000))
     try:
         req = Request(url, headers={
@@ -85,6 +72,37 @@ def _urllib_fetch(url: str, timeout_ms: int) -> str | None:
             return raw.decode(charset, errors="replace")
     except Exception:
         return None
+
+
+def get_bytes(url: str, timeout_ms: int = 30000, max_bytes: int = 15_000_000) -> bytes:
+    """Fetch a public binary document with the same retry philosophy as get_html.
+
+    Used for auction brochures/legal PDFs where important tenancy, area and income
+    particulars are intentionally omitted from the teaser HTML. This never bypasses
+    authentication or challenges and caps downloads to protect the production run.
+    """
+    try:
+        r = _session().get(url, headers=HEADERS, timeout=(15, 30), allow_redirects=True)
+        r.raise_for_status()
+        data = r.content
+        if 500 <= len(data) <= max_bytes:
+            return data
+    except Exception:
+        pass
+    timeout_s = max(10, int(timeout_ms / 1000))
+    try:
+        req = Request(url, headers={
+            "User-Agent": HEADERS["User-Agent"],
+            "Accept-Language": HEADERS["Accept-Language"],
+            "Accept": "application/pdf,application/octet-stream,*/*;q=0.8",
+        })
+        with urlopen(req, timeout=timeout_s, context=ssl.create_default_context()) as response:
+            data = response.read(max_bytes + 1)
+            if 500 <= len(data) <= max_bytes:
+                return data
+    except Exception:
+        pass
+    raise RuntimeError(f"No usable binary document returned for {url}")
 
 
 def get_html(url: str, use_browser: bool = False, timeout_ms: int = 30000) -> str:
