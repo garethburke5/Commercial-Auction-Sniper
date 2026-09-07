@@ -74,12 +74,7 @@ def _amount(patterns, text):
 
 
 def _floor_area_sqft(text):
-    """Return the whole-property floor area, not the first room/unit measurement.
-
-    Pugh particulars commonly list several unit/room areas followed by an Overall/Total
-    NIA/GIA. Taking the first bare sq-ft mention silently shrank multi-let properties.
-    Prefer explicitly labelled totals; otherwise use the largest plausible sq-ft value.
-    """
+    """Return the whole-property floor area, not the first room/unit measurement."""
     labelled = (
         r"(?:overall|total)(?:\s+(?:floor|internal|gross|net))?\s*(?:area|nia|gia)?\s*[:\-]?\s*([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)",
         r"(?:overall|total)\s+(?:nia|gia)\s*[:\-]?\s*([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)",
@@ -107,12 +102,29 @@ def _floor_area_sqft(text):
     return max(vals) if vals else None
 
 
+def _pugh_property_type(text):
+    """Infer use from the whole composition before narrower retail markers."""
+    low = " " + norm(text).lower() + " "
+    commercial = any(x in low for x in (
+        "retail", "shop", "commercial unit", "commercial units", "office", "warehouse", "workshop", "industrial",
+    ))
+    residential = bool(re.search(r"\b(?:apartment|apartments|flat|flats|bedsit|bedsits|residential accommodation)\b", low))
+    if "mixed use" in low or "mixed-use" in low or (commercial and residential):
+        return "Mixed Use"
+    if any(x in low for x in ("industrial", "warehouse", "workshop")):
+        return "Industrial"
+    if any(x in low for x in ("retail premises", "retail units", "retail unit", "retail property", " shop ")):
+        return "Retail"
+    if "office" in low:
+        return "Office"
+    return None
+
+
 def _apply_pugh_particulars(lot, page_soup):
     if not lot or page_soup is None:
         return lot
     main = page_soup.find("main") or page_soup
     text = norm(main.get_text(" ", strip=True))
-    low = text.lower()
     lot.description = text[:7000]
 
     rent = _amount((
@@ -157,13 +169,13 @@ def _apply_pugh_particulars(lot, page_soup):
 
     if re.search(r"development opportunity|development potential|potential to develop|redevelop", text, re.I):
         lot.development_potential = True
-    if re.search(r"bedsits?|residential accommodation|residential conversion|convert(?:ed|ing)? to residential", text, re.I):
-        lot.residential_conversion = True
+    if re.search(r"bedsits?|apartments?|flats?|residential accommodation|residential conversion|convert(?:ed|ing)? to residential", text, re.I):
+        if re.search(r"convert|conversion|develop|upper floors?|apartments?|flats?|bedsits?", text, re.I):
+            lot.residential_conversion = bool(re.search(r"convert|conversion|develop|upper floors?|vacant", text, re.I)) or lot.residential_conversion
 
-    if any(x in low for x in ("retail premises", "retail units", "retail property", "shop")):
-        lot.property_type = "Mixed Use" if any(x in low for x in ("residential accommodation", "bedsit", "flat above", "upper flat")) else "Retail"
-    elif any(x in low for x in ("industrial", "warehouse", "workshop")):
-        lot.property_type = "Industrial"
+    inferred = _pugh_property_type(text)
+    if inferred:
+        lot.property_type = inferred
 
     return lot.finalise()
 
