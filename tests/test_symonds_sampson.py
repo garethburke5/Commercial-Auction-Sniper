@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 from collectors.symonds_sampson import (
     _event_links, _is_target, _property_links, _parse_date, _image,
-    _current_rent, _detail, _property_type, _brochure_links,
+    _current_rent, _detail, _property_type, _brochure_links, _event_card_image,
 )
 
 
@@ -13,160 +13,93 @@ class SymondsSampsonCollectorTests(unittest.TestCase):
         self.assertEqual(_parse_date("Thursday, 24 September 2026 2:00 PM - 5:00 PM"), "2026-09-24")
 
     def test_event_discovery_keeps_all_future_events(self):
-        html = """
-        <html><body>
+        html = """<html><body>
           <div><h3>Digby Hall</h3><p>Thursday, 24 September 2026 2:00 PM - 5:00 PM</p><a href='/event/property-auction-sep2026-memorialhall'>View Event</a></div>
           <div><h3>Guildhall</h3><p>Thursday, 08 October 2026 2:00 PM - 5:00 PM</p><a href='/event/property-auction-oct2026-guildhall'>View Event</a></div>
           <div><h3>Old Auction</h3><p>Wednesday, 26 August 2026 2:00 PM - 5:00 PM</p><a href='/event/property-auction-aug2026'>View Event</a></div>
-        </body></html>
-        """
+        </body></html>"""
         events = _event_links(BeautifulSoup(html, "lxml"), today=date(2026, 9, 6))
         self.assertEqual(len(events), 2)
         self.assertEqual(events["https://auctions.symondsandsampson.co.uk/event/property-auction-sep2026-memorialhall"], "2026-09-24")
         self.assertEqual(events["https://auctions.symondsandsampson.co.uk/event/property-auction-oct2026-guildhall"], "2026-10-08")
 
     def test_property_links_only_take_auction_microsite_property_pages(self):
-        html = """
-        <html><body>
+        html = """<html><body>
           <a href='/property/dwr0007b9/dt6/bridport/st-andrews-road/other/studio'>For Sale St Andrews Road Guide Price £300,000</a>
           <a href='/property/dwr0007a9/dt9/sherborne/long-street/flat/3-bedrooms'>For Sale Long Street Guide Price £150,000</a>
           <a href='https://www.symondsandsampson.co.uk/property/ordinary-agency-house'>Property for sale</a>
           <a href='https://commercial.symondsandsampson.co.uk/property/general-search'>Commercial property search</a>
           <a href='/events/property-auction/foo'>Other event</a>
-        </body></html>
-        """
+        </body></html>"""
         found = _property_links(BeautifulSoup(html, "lxml"), "2026-09-24")
         self.assertEqual(len(found), 2)
         self.assertTrue(all(value[1] == "2026-09-24" for value in found.values()))
         self.assertTrue(all(url.startswith("https://auctions.symondsandsampson.co.uk/property/") for url in found))
 
+    def test_event_card_image_is_bound_to_one_property(self):
+        html='''<body>
+        <article><img src="https://cdn.webdadi.net/property/a/front.jpg" alt="Property exterior"><a href="/property/dwr000aaa/ex13/a/other">A</a></article>
+        <article><img src="https://cdn.webdadi.net/property/b/front.jpg" alt="Property exterior"><a href="/property/dwr000bbb/ex13/b/other">B</a></article>
+        </body>'''
+        s=BeautifulSoup(html,'lxml');anchor=s.find('a',href=lambda h:h and 'dwr000aaa' in h)
+        self.assertIn('/property/a/front.jpg',_event_card_image(anchor,'https://auctions.symondsandsampson.co.uk/event/foo'))
+
     def test_empty_future_event_footer_property_links_do_not_create_catalogue(self):
-        html = """
-        <html><body><main><h1>December Property Auction</h1><p>Lots are usually listed approximately 6 weeks prior.</p></main>
-          <footer>
-            <a href='https://www.symondsandsampson.co.uk/property/for-sale'>Property for sale</a>
-            <a href='https://commercial.symondsandsampson.co.uk/property/search'>Commercial Property</a>
-          </footer>
-        </body></html>
-        """
+        html = """<html><body><main><h1>December Property Auction</h1><p>Lots are usually listed approximately 6 weeks prior.</p></main><footer><a href='https://www.symondsandsampson.co.uk/property/for-sale'>Property for sale</a><a href='https://commercial.symondsandsampson.co.uk/property/search'>Commercial Property</a></footer></body></html>"""
         self.assertEqual(_property_links(BeautifulSoup(html, "lxml"), "2026-12-11"), {})
 
     def test_image_prefers_real_property_gallery_over_branding(self):
-        html = '''
-        <html><head><meta property="og:image" content="https://cdn.webdadi.net/assets/logo.png"></head>
-        <body>
-          <img src="https://cdn.webdadi.net/static/office-team.jpg" alt="office" />
-          <img data-src="https://cdn.webdadi.net/2a8d27ce-3e62-4d24-bf5e-97cb3f7f4a91/property-main.webp" alt="Property image" />
-        </body></html>
-        '''
+        html = '''<html><head><meta property="og:image" content="https://cdn.webdadi.net/assets/logo.png"></head><body><img src="https://cdn.webdadi.net/static/office-team.jpg" alt="office" /><img data-src="https://cdn.webdadi.net/2a8d27ce-3e62-4d24-bf5e-97cb3f7f4a91/property-main.webp" alt="Property image" /></body></html>'''
         image = _image(BeautifulSoup(html, "lxml"), "https://auctions.symondsandsampson.co.uk/property/example")
         self.assertEqual(image, "https://cdn.webdadi.net/2a8d27ce-3e62-4d24-bf5e-97cb3f7f4a91/property-main.webp")
 
     def test_image_rejects_site_plan_when_exterior_exists(self):
-        html='''<body>
-          <img src="https://cdn.webdadi.net/property/beer/site-plan.jpg" alt="Site plan">
-          <img src="https://cdn.webdadi.net/property/beer/front-exterior.jpg" alt="Property exterior">
-        </body>'''
+        html='''<body><img src="https://cdn.webdadi.net/property/beer/site-plan.jpg" alt="Site plan"><img src="https://cdn.webdadi.net/property/beer/front-exterior.jpg" alt="Property exterior"></body>'''
         image=_image(BeautifulSoup(html,'lxml'),'https://auctions.symondsandsampson.co.uk/property/beer')
         self.assertIn('front-exterior',image)
 
-    def test_commercial_and_mixed_use_are_kept_but_plain_house_is_rejected(self):
+    def test_commercial_and_mixed_use_are_kept_but_plain_residential_development_is_rejected(self):
         self.assertTrue(_is_target("Grade II Listed public house with living accommodation upstairs and redevelopment potential"))
         self.assertTrue(_is_target("Mixed use retail and residential investment property"))
         self.assertTrue(_is_target("Commercial office building with parking"))
-        self.assertTrue(_is_target("Development site with planning permission"))
+        self.assertFalse(_is_target("Development site with planning permission for four houses"))
+        self.assertFalse(_is_target("Building plot with outline planning permission"))
         self.assertFalse(_is_target("Detached house with four bedrooms and garden requiring modernisation"))
         self.assertFalse(_is_target("Three bedroom flat for sale by auction"))
         self.assertFalse(_is_target("3 Bedroom House For Sale. Incredibly versatile residential refurbishment and redevelopment opportunity with large garage and extensive grounds."))
         self.assertFalse(_is_target("Four bedroom family home with redevelopment potential subject to planning"))
 
     def test_residential_page_chrome_does_not_create_false_commercial_signal(self):
-        text=("1 Bedroom House For Sale. Semi-detached cottage with garden and parking. "
-              "Shopping facilities are available in the nearby town. Office Details "
-              "Our Sherborne office handles commercial property, shops and investment sales.")
+        text=("1 Bedroom House For Sale. Semi-detached cottage with garden and parking. Shopping facilities are available in the nearby town. Office Details Our Sherborne office handles commercial property, shops and investment sales.")
         self.assertFalse(_is_target(text))
 
     def test_current_income_is_not_replaced_by_potential_flat_income(self):
-        text=("Mixed-use investment property. Ground-floor commercial unit generating £22,500 rent pa. "
-              "Three vacant flats above with potential further income of £24,000 pa. Guide Price £295,000.")
+        text=("Mixed-use investment property. Ground-floor commercial unit generating £22,500 rent pa. Three vacant flats above with potential further income of £24,000 pa. Guide Price £295,000.")
         self.assertEqual(_current_rent(text),22500.0)
 
     def test_commercial_plus_existing_flats_is_mixed_use_without_literal_label(self):
-        text="Two existing flats and a shop let at £5,400 pa with garage/workshop/store and extensive grounds."
-        self.assertEqual(_property_type(text),"Mixed Use")
+        self.assertEqual(_property_type("Two existing flats and a shop let at £5,400 pa with garage/workshop/store and extensive grounds."),"Mixed Use")
 
     def test_brochure_link_discovery_prefers_particulars_pdf(self):
-        html='''<main><a href="/media/floorplan.jpg">Floorplan</a>
-        <a href="/media/axminster-particulars.pdf">View Brochure</a></main>'''
+        html='''<main><a href="/media/floorplan.jpg">Floorplan</a><a href="/media/axminster-particulars.pdf">View Brochure</a></main>'''
         links=_brochure_links(BeautifulSoup(html,'lxml'),'https://auctions.symondsandsampson.co.uk/property/foo')
         self.assertEqual(links,['https://auctions.symondsandsampson.co.uk/media/axminster-particulars.pdf'])
 
     def test_beer_particulars_capture_guide_current_rent_and_development(self):
-        html='''
-        <html><head><title>Fore Street, Beer, Seaton, Devon EX12 | Symonds</title></head><body><main>
-        <h1>Fore Street, Beer, Seaton, Devon EX12</h1>
-        <p>Guide Price £295,000</p><p>Tenure Freehold</p>
-        <p>Incredibly versatile residential refurbishment and redevelopment opportunity.</p>
-        <p>Multiple elements including two existing flats and a shop let at £5,400 pa.</p>
-        <p>Multi-vehicle garage/workshop/store. Extensive grounds. 125m from the seafront at Beer.</p>
-        <img src="https://cdn.webdadi.net/property/beer/front-exterior.jpg" alt="Property exterior">
-        <img src="https://cdn.webdadi.net/property/beer/site-plan.jpg" alt="Site plan">
-        </main></body></html>'''
-        def fetcher(_): return BeautifulSoup(html,'lxml')
-        lot=_detail('https://auctions.symondsandsampson.co.uk/property/beer','3 Bedroom House For Sale shop and flats','2026-10-08',fetcher=fetcher)
-        self.assertIsNotNone(lot)
-        self.assertEqual(lot.guide_price,295000.0)
-        self.assertEqual(lot.annual_rent,5400.0)
-        self.assertEqual(lot.tenure,'Freehold')
-        self.assertEqual(lot.property_type,'Mixed Use')
-        self.assertTrue(lot.development_potential)
-        self.assertTrue(lot.refurbishment)
-        self.assertTrue(lot.asset_management)
-        self.assertIn('front-exterior',lot.image_url)
+        html='''<html><head><title>Fore Street, Beer, Seaton, Devon EX12 | Symonds</title></head><body><main><h1>Fore Street, Beer, Seaton, Devon EX12</h1><p>Guide Price £295,000</p><p>Tenure Freehold</p><p>Incredibly versatile residential refurbishment and redevelopment opportunity.</p><p>Multiple elements including two existing flats and a shop let at £5,400 pa.</p><p>Multi-vehicle garage/workshop/store. Extensive grounds. 125m from the seafront at Beer.</p><img src="https://cdn.webdadi.net/property/beer/front-exterior.jpg" alt="Property exterior"><img src="https://cdn.webdadi.net/property/beer/site-plan.jpg" alt="Site plan"></main></body></html>'''
+        lot=_detail('https://auctions.symondsandsampson.co.uk/property/beer','3 Bedroom House For Sale shop and flats','2026-10-08',fetcher=lambda _:BeautifulSoup(html,'lxml'))
+        self.assertIsNotNone(lot);self.assertEqual(lot.guide_price,295000.0);self.assertEqual(lot.annual_rent,5400.0);self.assertEqual(lot.tenure,'Freehold');self.assertEqual(lot.property_type,'Mixed Use');self.assertTrue(lot.development_potential);self.assertTrue(lot.refurbishment);self.assertTrue(lot.asset_management);self.assertIn('front-exterior',lot.image_url)
 
     def test_axminster_particulars_keep_current_income(self):
-        html='''<main><h1>West Street, Axminster, Devon EX13</h1>
-        <p>Guide Price £295,000. Freehold mixed-use investment property in central Axminster.</p>
-        <p>Ground-floor restaurant generating £22,500 rent pa and three vacant flats above with potential further £24,000 pa.</p>
-        <p>Corner town-centre position. Grade II Listed. New roof.</p>
-        <img src="https://cdn.webdadi.net/property/axminster/exterior.jpg" alt="Property exterior">
-        </main>'''
-        def fetcher(_): return BeautifulSoup(html,'lxml')
-        lot=_detail('https://auctions.symondsandsampson.co.uk/property/axminster','Mixed-use investment','2026-10-08',fetcher=fetcher)
-        self.assertEqual(lot.guide_price,295000.0)
-        self.assertEqual(lot.annual_rent,22500.0)
-        self.assertEqual(lot.property_type,'Mixed Use')
-        self.assertEqual(lot.occupation,'Part let / part vacant')
-        self.assertEqual(lot.listed_status,'Grade II Listed')
-        self.assertAlmostEqual(lot.gross_yield,7.63,places=2)
+        html='''<main><h1>West Street, Axminster, Devon EX13</h1><p>Guide Price £295,000. Freehold mixed-use investment property in central Axminster.</p><p>Ground-floor restaurant generating £22,500 rent pa and three vacant flats above with potential further £24,000 pa.</p><p>Corner town-centre position. Grade II Listed. New roof.</p><img src="https://cdn.webdadi.net/property/axminster/exterior.jpg" alt="Property exterior"></main>'''
+        lot=_detail('https://auctions.symondsandsampson.co.uk/property/axminster','Mixed-use investment','2026-10-08',fetcher=lambda _:BeautifulSoup(html,'lxml'))
+        self.assertEqual(lot.guide_price,295000.0);self.assertEqual(lot.annual_rent,22500.0);self.assertEqual(lot.property_type,'Mixed Use');self.assertEqual(lot.occupation,'Part let / part vacant');self.assertEqual(lot.listed_status,'Grade II Listed');self.assertAlmostEqual(lot.gross_yield,7.63,places=2)
 
     def test_sparse_axminster_teaser_is_enriched_from_brochure_without_overwriting_guide(self):
-        html='''<main><h1>West Street Axminster, Devon, EX13</h1>
-        <p>Guide Price £295,000</p><p>4 Bedroom Other For Sale</p>
-        <p>A mixed use Investment property in central Axminster comprising ground floor restaurant and 3 flats above. Please refer to the brochure for further information.</p>
-        <a href="/media/axminster.pdf">View Brochure</a>
-        <img src="https://cdn.webdadi.net/property/axminster/exterior.jpg" alt="Property exterior"></main>'''
-        brochure=("The restaurant is let by way of a commercial lease for a 10 year term from 10 May 2023 "
-                  "at an annual rent of £22,500 on an internal repairing and insuring basis. There are no remaining tenant break clauses "
-                  "and a five year rent review mechanism. Flats 1, 2 and 3 are sold with vacant possession and require modernisation. "
-                  "The ERV of the apartments is estimated to be £24,000 per annum. Grade II Listed. Business Rates: RV £16,000. "
-                  "Energy Performance Certificates Ground Floor Restaurant - C (67). Total floor area 4,806 sq ft.")
-        lot=_detail('https://auctions.symondsandsampson.co.uk/property/axminster','Guide Price £295,000 Mixed use','2026-10-08',
-                    fetcher=lambda _:BeautifulSoup(html,'lxml'), brochure_reader=lambda _s,_u:brochure)
-        self.assertEqual(lot.guide_price,295000.0)
-        self.assertEqual(lot.annual_rent,22500.0)
-        self.assertAlmostEqual(lot.gross_yield,7.63,places=2)
-        self.assertEqual(lot.area_sqft,4806.0)
-        self.assertEqual(lot.erv,24000.0)
-        self.assertEqual(lot.lease_term,'10 years')
-        self.assertEqual(lot.lease_start,'10 May 2023')
-        self.assertEqual(lot.break_status,'No remaining tenant break')
-        self.assertEqual(lot.rent_review,'5-year rent review')
-        self.assertFalse(lot.fri)
-        self.assertEqual(lot.rateable_value,16000.0)
-        self.assertEqual(lot.epc,'C (67)')
-        self.assertEqual(lot.occupation,'Part let / part vacant')
+        html='''<main><h1>West Street Axminster, Devon, EX13</h1><p>Guide Price £295,000</p><p>4 Bedroom Other For Sale</p><p>A mixed use Investment property in central Axminster comprising ground floor restaurant and 3 flats above. Please refer to the brochure for further information.</p><a href="/media/axminster.pdf">View Brochure</a><img src="https://cdn.webdadi.net/property/axminster/exterior.jpg" alt="Property exterior"></main>'''
+        brochure=("The restaurant is let by way of a commercial lease for a 10 year term from 10 May 2023 at an annual rent of £22,500 on an internal repairing and insuring basis. There are no remaining tenant break clauses and a five year rent review mechanism. Flats 1, 2 and 3 are sold with vacant possession and require modernisation. The ERV of the apartments is estimated to be £24,000 per annum. Grade II Listed. Business Rates: RV £16,000. Energy Performance Certificates Ground Floor Restaurant - C (67). Total floor area 4,806 sq ft.")
+        lot=_detail('https://auctions.symondsandsampson.co.uk/property/axminster','Guide Price £295,000 Mixed use','2026-10-08',fetcher=lambda _:BeautifulSoup(html,'lxml'),brochure_reader=lambda _s,_u:brochure)
+        self.assertEqual(lot.guide_price,295000.0);self.assertEqual(lot.annual_rent,22500.0);self.assertAlmostEqual(lot.gross_yield,7.63,places=2);self.assertEqual(lot.area_sqft,4806.0);self.assertEqual(lot.erv,24000.0);self.assertEqual(lot.lease_term,'10 years');self.assertEqual(lot.lease_start,'10 May 2023');self.assertEqual(lot.break_status,'No remaining tenant break');self.assertEqual(lot.rent_review,'5-year rent review');self.assertFalse(lot.fri);self.assertEqual(lot.rateable_value,16000.0);self.assertEqual(lot.epc,'C (67)');self.assertEqual(lot.occupation,'Part let / part vacant')
 
 
-if __name__ == "__main__":
-    unittest.main()
+if __name__ == "__main__": unittest.main()
