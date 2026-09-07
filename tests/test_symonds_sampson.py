@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 from collectors.symonds_sampson import (
     _event_links, _is_target, _property_links, _parse_date, _image,
-    _current_rent, _detail, _property_type,
+    _current_rent, _detail, _property_type, _brochure_links,
 )
 
 
@@ -81,6 +81,12 @@ class SymondsSampsonCollectorTests(unittest.TestCase):
         text="Two existing flats and a shop let at £5,400 pa with garage/workshop/store and extensive grounds."
         self.assertEqual(_property_type(text),"Mixed Use")
 
+    def test_brochure_link_discovery_prefers_particulars_pdf(self):
+        html='''<main><a href="/media/floorplan.jpg">Floorplan</a>
+        <a href="/media/axminster-particulars.pdf">View Brochure</a></main>'''
+        links=_brochure_links(BeautifulSoup(html,'lxml'),'https://auctions.symondsandsampson.co.uk/property/foo')
+        self.assertEqual(links,['https://auctions.symondsandsampson.co.uk/media/axminster-particulars.pdf'])
+
     def test_beer_particulars_capture_guide_current_rent_and_development(self):
         html='''
         <html><head><title>Fore Street, Beer, Seaton, Devon EX12 | Symonds</title></head><body><main>
@@ -119,6 +125,33 @@ class SymondsSampsonCollectorTests(unittest.TestCase):
         self.assertEqual(lot.occupation,'Part let / part vacant')
         self.assertEqual(lot.listed_status,'Grade II Listed')
         self.assertAlmostEqual(lot.gross_yield,7.63,places=2)
+
+    def test_sparse_axminster_teaser_is_enriched_from_brochure_without_overwriting_guide(self):
+        html='''<main><h1>West Street Axminster, Devon, EX13</h1>
+        <p>Guide Price £295,000</p><p>4 Bedroom Other For Sale</p>
+        <p>A mixed use Investment property in central Axminster comprising ground floor restaurant and 3 flats above. Please refer to the brochure for further information.</p>
+        <a href="/media/axminster.pdf">View Brochure</a>
+        <img src="https://cdn.webdadi.net/property/axminster/exterior.jpg" alt="Property exterior"></main>'''
+        brochure=("The restaurant is let by way of a commercial lease for a 10 year term from 10 May 2023 "
+                  "at an annual rent of £22,500 on an internal repairing and insuring basis. There are no remaining tenant break clauses "
+                  "and a five year rent review mechanism. Flats 1, 2 and 3 are sold with vacant possession and require modernisation. "
+                  "The ERV of the apartments is estimated to be £24,000 per annum. Grade II Listed. Business Rates: RV £16,000. "
+                  "Energy Performance Certificates Ground Floor Restaurant - C (67). Total floor area 4,806 sq ft.")
+        lot=_detail('https://auctions.symondsandsampson.co.uk/property/axminster','Guide Price £295,000 Mixed use','2026-10-08',
+                    fetcher=lambda _:BeautifulSoup(html,'lxml'), brochure_reader=lambda _s,_u:brochure)
+        self.assertEqual(lot.guide_price,295000.0)
+        self.assertEqual(lot.annual_rent,22500.0)
+        self.assertAlmostEqual(lot.gross_yield,7.63,places=2)
+        self.assertEqual(lot.area_sqft,4806.0)
+        self.assertEqual(lot.erv,24000.0)
+        self.assertEqual(lot.lease_term,'10 years')
+        self.assertEqual(lot.lease_start,'10 May 2023')
+        self.assertEqual(lot.break_status,'No remaining tenant break')
+        self.assertEqual(lot.rent_review,'5-year rent review')
+        self.assertFalse(lot.fri)
+        self.assertEqual(lot.rateable_value,16000.0)
+        self.assertEqual(lot.epc,'C (67)')
+        self.assertEqual(lot.occupation,'Part let / part vacant')
 
 
 if __name__ == "__main__":
