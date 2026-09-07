@@ -9,6 +9,7 @@ on:
     paths:
       - '.github/workflows/auction-sniper-scan.yml'
       - 'run_collectors.py'
+      - 'run_collectors_resilient.py'
       - 'history_database.py'
       - 'source_manifest.py'
       - 'config/target_sources.json'
@@ -53,7 +54,7 @@ jobs:
 
       - name: Compile production code
         run: |
-          python -m py_compile app.py run_collectors.py history_database.py source_manifest.py collectors/*.py tests/*.py scripts/update_history_database.py
+          python -m py_compile app.py run_collectors.py run_collectors_resilient.py history_database.py source_manifest.py collectors/*.py tests/*.py scripts/update_history_database.py
 
       - name: Run collector regression tests
         run: python -m unittest discover -s tests -p 'test_*.py' -v
@@ -62,7 +63,7 @@ jobs:
         env:
           SAVILLS_EMAIL: ${{ secrets.SAVILLS_EMAIL }}
           SAVILLS_PASSWORD: ${{ secrets.SAVILLS_PASSWORD }}
-        run: python run_collectors.py
+        run: python run_collectors_resilient.py
 
       - name: Validate candidate snapshot before publish
         run: |
@@ -173,6 +174,11 @@ jobs:
           cp data/property_history.json /tmp/auction-sniper-property-history.json
           cp app.py /tmp/auction-sniper-app.py
           git restore data/properties.json app.py
+          if git ls-files --error-unmatch data/property_history.json >/dev/null 2>&1; then
+            git restore data/property_history.json
+          else
+            rm -f data/property_history.json
+          fi
           git pull --rebase origin main
           cp /tmp/auction-sniper-properties.json data/properties.json
           cp /tmp/auction-sniper-property-history.json data/property_history.json
