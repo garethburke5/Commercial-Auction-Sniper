@@ -144,6 +144,42 @@ def _lease_details(text):
     return expiry, holding_over
 
 
+def _tenancy_details(text):
+    """Extract explicit current tenant and lease facts from Auction Estates prose.
+
+    Avoid nearby-occupier and historic references by requiring the tenant to be tied
+    to `let to` / `property let to` wording, and require a concrete lease phrase for
+    term/start extraction. These fields are useful market facts and should not be left
+    blank when the auctioneer states them plainly.
+    """
+    value = norm(text)
+    tenant = None
+    for pat in (
+        r"(?:investment property|commercial property|retail investment property|property|unit|premises)\s+let\s+to\s+([^.;]{2,100}?)(?=\s+(?:located|in the|on a|at a|for a|with a|current rent|rent reserved)|[.;])",
+        r"\blet\s+to\s+([^.;]{2,100}?)(?=\s+(?:on a|at a|for a|current rent|rent reserved)|[.;])",
+    ):
+        m = re.search(pat, value, re.I)
+        if m:
+            candidate = norm(m.group(1)).strip(" ,:-")
+            if candidate and not re.search(r"nearby occupiers|former tenant|previous tenant", candidate, re.I):
+                tenant = candidate[:100]
+                break
+
+    term = start = None
+    m = re.search(r"\blet\s+on\s+a\s+(\d+(?:\.\d+)?)\s+year\s+lease\s+from\s+(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20\d{2})", value, re.I)
+    if not m:
+        m = re.search(r"\blease\s+(?:for|of)\s+(\d+(?:\.\d+)?)\s+years?\s+from\s+(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20\d{2})", value, re.I)
+    if m:
+        years = float(m.group(1))
+        term = f"{years:g} years"
+        start = norm(re.sub(r"(\d{1,2})(?:st|nd|rd|th)", r"\1", m.group(2), flags=re.I))
+
+    fri = True if re.search(r"\bFRI\b|full repairing and insuring", value, re.I) else None
+    no_break = bool(re.search(r"\bno break\b|without (?:a )?break|no break clause", value, re.I))
+    break_clause = "No break" if no_break else None
+    return tenant, term, start, fri, break_clause
+
+
 def _terminal_status_near_title(s):
     h1 = s.find("h1")
     if not h1:
@@ -197,6 +233,13 @@ def _detail(url, card, auction_date, fetcher=_fetch):
               status=terminal_status or "CURRENT")
     lot.area_sqft, lot.area_sqm, lot.site_area_acres = _area(combined)
 
+    tenant, lease_term, lease_start, fri, break_clause = _tenancy_details(combined)
+    if tenant: lot.tenant = tenant
+    if lease_term: lot.lease_term = lease_term
+    if lease_start: lot.lease_start = lease_start
+    if fri is not None: lot.fri = fri
+    if break_clause: lot.break_clause = break_clause
+
     has_vacant = bool(re.search(r"\bvacant possession\b|\bvacant\b", combined, re.I))
     has_let = bool(re.search(r"\blet on a lease\b|\blet to\b|\btenant\b|\btenanted\b|\bcurrent rent\b|\brent reserved\b", combined, re.I))
     if has_vacant and has_let: lot.occupation = "Part Vacant / Part Let"
@@ -206,13 +249,13 @@ def _detail(url, card, auction_date, fetcher=_fetch):
     expiry, holding_over = _lease_details(combined)
     if expiry: lot.lease_expiry = expiry
     if holding_over:
-        lot.lease_term = "Holding over"
+        lot.lease_term = "Holding over" if not lot.lease_term else lot.lease_term + " · holding over"
         lot.break_status = "Holding over"
 
     if re.search(r"scope for conversion of (?:the )?uppers? to residential|conversion of upper floors? to residential|residential conversion|subject to planning|\bSTP\b", combined, re.I):
         lot.residential_conversion = True
         lot.development_potential = True
-    elif re.search(r"development potential|redevelopment|scope for .*development|potential for future development|future development", combined, re.I):
+    elif re.search(r"development potential|redevelopment|scope for .*development|potential for future development|future development|full planning permission", combined, re.I):
         lot.development_potential = True
     if re.search(r"refurbish|refurbishment|requires restoration|in need of renovation", combined, re.I):
         lot.refurbishment = True
@@ -222,8 +265,12 @@ def _detail(url, card, auction_date, fetcher=_fetch):
         lot.pitch = "Prominent/central commercial location"
     if re.search(r"secure car park", combined, re.I):
         lot.parking = "Secure car park"
-    elif re.search(r"\bcar park\b|\bparking\b", combined, re.I):
-        lot.parking = "Parking mentioned"
+    else:
+        pm = re.search(r"\b(\d+)\s+(?:allocated\s+)?(?:car\s+)?parking spaces?\b|\b(\d+)\s+space car park\b", combined, re.I)
+        if pm:
+            lot.parking = f"{pm.group(1) or pm.group(2)} parking spaces"
+        elif re.search(r"\bcar park\b|\bparking\b", combined, re.I):
+            lot.parking = "Parking mentioned"
     near = re.search(r"(?:Adjacent to|Nearby occupiers?:?)\s+(.+?)(?:\.|Close to|$)", combined, re.I)
     if near: lot.nearby_occupiers = norm(near.group(1))[:300]
     return lot.finalise()
