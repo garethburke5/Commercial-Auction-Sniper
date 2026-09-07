@@ -44,21 +44,13 @@ def _detail_href(raw):
 
 
 def _listing_card(anchor,max_chars=1800):
-    """Return exactly one Future catalogue card.
-
-    Generic nearest-card traversal can reach a page wrapper containing neighbouring
-    listings. A residential card beside a commercial card would then inherit the
-    commercial wording and enter the feed. Stop as soon as a parent contains more
-    than one distinct property_details link.
-    """
     node=anchor; best=norm(anchor.get_text(" ",strip=True))
     for _ in range(8):
         node=getattr(node,"parent",None)
         if node is None:break
         text=norm(node.get_text(" ",strip=True))
         if not text or len(text)>max_chars:break
-        detail_ids={_detail_href(a.get("href")) for a in node.find_all("a",href=True)}
-        detail_ids.discard(None)
+        detail_ids={_detail_href(a.get("href")) for a in node.find_all("a",href=True)}; detail_ids.discard(None)
         if len(detail_ids)>1:break
         if len(text)>len(best):best=text
     return best
@@ -77,20 +69,58 @@ def _page_urls(s,current_url):
     return out
 
 
+def _is_property_photo_url(raw):
+    """Future Auctions exposes genuine lot photos as linked /upload/... assets.
+
+    The image can be the href of a gallery anchor rather than an img src, which the
+    generic image helper intentionally does not assume. Accept only first-party
+    upload/image assets and reject obvious branding/floorplan material.
+    """
+    if not raw:return False
+    u=urljoin(BASE,str(raw)); p=urlparse(u); low=u.lower()
+    if not (p.hostname or "").lower().endswith("futurepropertyauctions.co.uk"):return False
+    if not any(x in p.path.lower() for x in ("/upload/","/uploads/","/property_images/","/property-images/")):return False
+    if any(x in low for x in ("logo","icon","sprite","placeholder","floorplan","floor-plan","map","epc","social")):return False
+    return bool(re.search(r"\.(?:jpe?g|png|webp)(?:\?|$)",low))
+
+
 def _card_image(anchor,page_url):
     node=anchor
-    for _ in range(6):
+    for _ in range(7):
         node=getattr(node,"parent",None)
         if node is None:break
         text=norm(node.get_text(" ",strip=True))
-        if len(text)>2200:break
+        if len(text)>2600:break
         detail_ids={_detail_href(a.get("href")) for a in node.find_all("a",href=True)}; detail_ids.discard(None)
         if len(detail_ids)>1:break
+        # First-party catalogue markup commonly wraps the actual photo in an anchor:
+        # /upload/small_<asset>_<property-id>_IMG_00.jpg. Prefer that evidence.
+        linked=[]
+        for a in node.find_all("a",href=True):
+            if _is_property_photo_url(a.get("href")):
+                linked.append(urljoin(page_url,a.get("href")))
+        if linked:
+            linked.sort(key=lambda u:("_img_00" in u.lower(),"small_" not in u.lower(),len(u)),reverse=True)
+            return linked[0]
         try:
             img=image_from_soup(node,page_url)
-            if img:return img
+            if img and _is_property_photo_url(img):return img
         except Exception:pass
     return None
+
+
+def _detail_image(s,detail_url):
+    """Recover gallery image from detail-page linked uploads before generic fallback."""
+    candidates=[]
+    for a in s.find_all("a",href=True):
+        if _is_property_photo_url(a.get("href")):candidates.append(urljoin(detail_url,a.get("href")))
+    for img in s.find_all("img"):
+        for attr in ("data-src","data-lazy-src","data-original","src"):
+            if _is_property_photo_url(img.get(attr)):candidates.append(urljoin(detail_url,img.get(attr)))
+    if candidates:
+        candidates=list(dict.fromkeys(candidates)); candidates.sort(key=lambda u:("_img_00" in u.lower(),"small_" not in u.lower(),len(u)),reverse=True); return candidates[0]
+    generic=image_from_soup(s,detail_url)
+    return generic if generic and _is_property_photo_url(generic) else None
 
 
 def _card_address(anchor,card):
@@ -118,9 +148,7 @@ def _fallback_lot(href,card,anchor,auction_date,page_url):
     if not address:return None
     m=re.search(r"\bLot\s+(\d+[A-Z]?)\b",card,re.I); low=card.lower()
     ptype=("Mixed Use" if "mixed use" in low or "mixed-use" in low else "Retail Investment" if "retail investment" in low else "Commercial Investment" if "commercial investment" in low else "Commercial")
-    lot=Lot(source=SOURCE,url=href,address=address,lot_number=f"Lot {m.group(1)}" if m else None,
-            auction_date=auction_date,image_url=_card_image(anchor,page_url),guide_price=parse_guide(card),annual_rent=parse_rent(card),
-            tenure=parse_tenure(card),vat_status=parse_vat(card),property_type=ptype,description=card,status="CURRENT")
+    lot=Lot(source=SOURCE,url=href,address=address,lot_number=f"Lot {m.group(1)}" if m else None,auction_date=auction_date,image_url=_card_image(anchor,page_url),guide_price=parse_guide(card),annual_rent=parse_rent(card),tenure=parse_tenure(card),vat_status=parse_vat(card),property_type=ptype,description=card,status="CURRENT")
     return enrich_common_fields(lot,card).finalise()
 
 
@@ -154,7 +182,11 @@ def _hydrate_target(href,payload):
             if lot:break
         except Exception:pass
     if lot:
-        if not lot.image_url:lot.image_url=_card_image(anchor,page_url)
+        if not lot.image_url:
+            lot.image_url=_card_image(anchor,page_url)
+            if not lot.image_url:
+                try:lot.image_url=_detail_image(_fetch(href),href)
+                except Exception:pass
         return lot.finalise(),False
     fallback=_fallback_lot(href,card,anchor,auction_date,page_url)
     return fallback,True if fallback else False
@@ -174,10 +206,8 @@ def collect():
         expected=len(targets)
         if expected:
             status="LIVE" if failures==0 and len(lots)==expected else "DEGRADED"
-            return SourceResult(SOURCE,status,lots,
-                f"All-future Future Property Auctions sweep: {pages_read} catalogue pages inspected; {discovered_future} unique future catalogue lots encountered across dates {scope_dates}; {expected} commercial/mixed-use targets discovered; {len(lots)} captured; {fallbacks} authoritative catalogue-card fallbacks; {failures} unrecovered detail failures.",
-                expected_count=expected,discovered_count=expected,authoritative_snapshot=bool(status=="LIVE"),scope_dates=scope_dates)
-        if discovered_future:
-            return SourceResult(SOURCE,"CATALOGUE PENDING",[],f"Future Property Auctions catalogue inspected across {pages_read} pages; {discovered_future} unique future lots encountered across dates {scope_dates}, but none classified commercial/mixed-use.",expected_count=0,discovered_count=0,authoritative_snapshot=True,scope_dates=scope_dates)
+            images=sum(1 for x in lots if x.image_url)
+            return SourceResult(SOURCE,status,lots,f"All-future Future Property Auctions sweep: {pages_read} catalogue pages inspected; {discovered_future} unique future catalogue lots encountered across dates {scope_dates}; {expected} commercial/mixed-use targets discovered; {len(lots)} captured; property images {images}/{len(lots)}; {fallbacks} authoritative catalogue-card fallbacks; {failures} unrecovered detail failures.",expected_count=expected,discovered_count=expected,authoritative_snapshot=bool(status=="LIVE"),scope_dates=scope_dates)
+        if discovered_future:return SourceResult(SOURCE,"CATALOGUE PENDING",[],f"Future Property Auctions catalogue inspected across {pages_read} pages; {discovered_future} unique future lots encountered across dates {scope_dates}, but none classified commercial/mixed-use.",expected_count=0,discovered_count=0,authoritative_snapshot=True,scope_dates=scope_dates)
         return SourceResult(SOURCE,"CATALOGUE PENDING",[],f"Future Property Auctions catalogue inspected across {pages_read} pages; no published future lots were discovered.",discovered_count=0,authoritative_snapshot=False,scope_dates=scope_dates)
     except Exception as exc:return SourceResult(SOURCE,"FAILED",[],f"Future Property Auctions collection failed: {type(exc).__name__}: {exc}")
