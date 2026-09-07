@@ -4,7 +4,7 @@ import re
 p = Path('app.py')
 s = p.read_text(encoding='utf-8')
 
-s = re.sub(r'BUILD = "[^"]+"', 'BUILD = "V6.75-CANONICAL-HEALTH"', s, count=1)
+s = re.sub(r'BUILD = "[^"]+"', 'BUILD = "V6.76-UNAVAILABLE-LIFECYCLE"', s, count=1)
 
 if 'from property_summary import build_opportunity_summary' not in s:
     anchor = 'from collector_enrichment import extract_particulars, merge_enrichment'
@@ -46,6 +46,7 @@ def _market_lifecycle(r):
     status=str(r.get("status") or "").strip().upper().replace("_"," ")
     desc=str(r.get("desc") or "")
     if re.search(r"\\bSOLD\\s*PRIOR\\b|\\bSOLDPRIOR\\b", status+" "+desc, re.I): return "SOLD PRIOR"
+    if re.search(r"\\bPOSTPONED\\b", status+" "+desc, re.I): return "POSTPONED / NOT AVAILABLE"
     if re.search(r"\\bWITHDRAWN(?:\\s+PRIOR)?\\b", status+" "+desc, re.I): return "WITHDRAWN"
     d=str(r.get("date") or "").strip()
     if status in {"ARCHIVED","AUCTION ENDED","COMPLETED"} or (re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}",d) and d < _today): return "AUCTION ENDED / HISTORIC"
@@ -53,9 +54,13 @@ def _market_lifecycle(r):
     return "CURRENT"
 
 _sold_prior_rows=[r for r in _all_snapshot_rows if _market_lifecycle(r)=="SOLD PRIOR"]
-_historic_rows=[r for r in _all_snapshot_rows if _market_lifecycle(r) in {"WITHDRAWN","AUCTION ENDED / HISTORIC","SOURCE UNAVAILABLE / VERIFY"}]'''
+_historic_rows=[r for r in _all_snapshot_rows if _market_lifecycle(r) in {"POSTPONED / NOT AVAILABLE","WITHDRAWN","AUCTION ENDED / HISTORIC","SOURCE UNAVAILABLE / VERIFY"}]'''
 if needle in s:
     s=s.replace(needle,repl,1)
+
+# Main board must reject every known terminal/unavailable lifecycle.
+s=s.replace('status in {"archived","sold prior","withdrawn","withdrawn prior","auction ended","completed"}',
+            'status in {"archived","sold prior","withdrawn","withdrawn prior","postponed","auction ended","completed"}')
 
 if '.lifecycleBanner{' not in s:
     css_anchor='.cards{display:grid;'
@@ -116,20 +121,16 @@ if 'with sold_tab:' not in s:
     _render_market_history_cards(_sold_prior_rows,sold_prior=True)
 
 with history_tab:
-    st.markdown('<div class="historyIntro"><b>Historical auction intelligence.</b> Completed, withdrawn and otherwise unavailable catalogue records are retained for comparable evidence. Status describes what we know; it does not imply a sale unless explicitly marked Sold Prior.</div>',unsafe_allow_html=True)
+    st.markdown('<div class="historyIntro"><b>Historical auction intelligence.</b> Completed, withdrawn, postponed and otherwise unavailable catalogue records are retained for comparable evidence. Status describes what we know; it does not imply a sale unless explicitly marked Sold Prior.</div>',unsafe_allow_html=True)
     _render_market_history_cards(_historic_rows,sold_prior=False)
 
 '''
     if anchor not in s: raise SystemExit('source health anchor missing')
     s=s.replace(anchor,sections+anchor,1)
 
-# The old presentation layer carried Aug/Sep hard-coded minimum counts. They are
-# stale by definition once new catalogues publish and can falsely mark healthy current
-# sources as missing. Production collector telemetry is now the only count authority.
+# The old presentation layer carried Aug/Sep hard-coded minimum counts. They are stale by definition.
 s=re.sub(r'EXPECTED_CURRENT_COUNTS\s*=\s*\{.*?\}\n\n', 'EXPECTED_CURRENT_COUNTS = {}\n\n', s, count=1, flags=re.S)
 
-# Replace the stale capture audit with a canonical active-board audit. Count
-# reconciliation itself is enforced in CI against source_health.expected_count.
 audit_pattern=r'''\s*st\.info\("INTERMEDIATE BUILD — live catalogue enrichment is enabled; source audit below should be checked after Refresh market\."\)\n\s*st\.markdown\("#### Capture audit"\)\n\s*st\.caption\("Expected counts are minimum independently verified current commercial/mixed-use lots\. Falling below them is a release failure\."\)\n\s*audit_rows=\[\]\n\s*for src,a in sorted\(source_audit\.items\(\)\):.*?\n\s*if audit_rows:\n\s*st\.dataframe\(audit_rows,use_container_width=True,hide_index=True\)'''
 audit_replacement='''
     st.markdown("#### Production capture audit")
@@ -160,8 +161,6 @@ s,n=re.subn(audit_pattern,audit_replacement,s,count=1,flags=re.S)
 if n==0 and 'INTERMEDIATE BUILD — live catalogue enrichment is enabled' in s:
     raise SystemExit('canonical source audit replacement failed')
 
-# Snapshot source-health dictionaries use `message`, not legacy `note`. Render both
-# safely and show the collector's own count reconciliation rather than a stale UI map.
 health_pattern=r'''\s*actual_counts=\{\}\n\s*for p in rows:\n\s*actual_counts\[p\["source"\]\]=actual_counts\.get\(p\["source"\],0\)\+1\n\s*for h in health:.*?st\.markdown\(f'<div class="statusrow">\{icon\} <b>\{html\.escape\(h\["source"\]\)\}</b> — \{html\.escape\(h\["status"\]\)\}<br><small>\{html\.escape\(h\["note"\]\)\}</small></div>',unsafe_allow_html=True\)'''
 health_replacement='''
     actual_counts={}
