@@ -1,5 +1,5 @@
 import re
-from datetime import datetime
+from datetime import date, datetime
 from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
@@ -28,6 +28,36 @@ def _parse_current_date(text):
         except Exception:
             pass
     return None
+
+
+def _parse_detail_auction_date(text, fallback=None):
+    """Return the lot's actual advertised auction date.
+
+    Strettons can leave a rescheduled lot inside the current catalogue while the lot
+    card still carries the old date. An explicit 'to be offered in our <date> auction'
+    therefore outranks the generic page date, followed by the lot-page date itself.
+    """
+    text = norm(text)
+    patterns = (
+        (r"to be offered in our\s+(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)(?:\s+(20\d{2}))?\s+auction", True),
+        (r"to be auctioned[^\d]{0,80}(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})", False),
+        (r"\b(?:Mon|Tue|Tues|Wed|Thu|Thur|Thurs|Fri|Sat|Sun)[a-z]*\s+(\d{1,2})\s+([A-Za-z]{3,9})\s+(20\d{2})\b", False),
+        (r"\b(\d{1,2})\s+([A-Za-z]{3})\s+(\d{2})\s*-\s*Lot\b", False),
+    )
+    fallback_year = str(fallback or "")[:4] if fallback else str(date.today().year)
+    for pat, may_omit_year in patterns:
+        m = re.search(pat, text, re.I)
+        if not m:
+            continue
+        day, month, year = m.groups()
+        year = year or fallback_year if may_omit_year else year
+        for fmt in ("%d %B %Y", "%d %b %Y", "%d %b %y"):
+            try:
+                raw = f"{day} {month} {year}"
+                return datetime.strptime(raw, fmt).date().isoformat()
+            except Exception:
+                pass
+    return fallback
 
 
 def _expected(text):
@@ -61,14 +91,6 @@ def _targets(s):
 
 
 def _fully_rendered_commercial():
-    """Render and exhaust Strettons' lazy-loaded commercial results.
-
-    The public page advertises the authoritative commercial count but initially
-    renders only the first batch of cards. A plain HTTP/browser snapshot therefore
-    under-counts the catalogue. Click Load More until exhausted so discovered links
-    can be reconciled to the source-advertised total rather than silently publishing
-    a partial catalogue.
-    """
     try:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
@@ -104,20 +126,18 @@ def _fully_rendered_commercial():
 
 def collect():
     try:
+        today = date.today().isoformat()
         try:
             current_s = soup(CURRENT, use_browser=False)
         except Exception:
             current_s = soup(CURRENT, use_browser=True)
         current_text = norm(current_s.get_text(" ", strip=True))
-        auction_date = _parse_current_date(current_text)
-        if not auction_date:
+        current_auction_date = _parse_current_date(current_text)
+        if not current_auction_date:
             return SourceResult(SOURCE, "FAILED", [], "Could not discover Strettons next/current auction date.")
 
         expected = None
         targets = {}
-
-        # Start cheaply, then exhaust the JS 'Load More' catalogue whenever the
-        # advertised count proves the initial DOM is incomplete.
         for use_browser in (False, True):
             try:
                 candidate = soup(COMMERCIAL, use_browser=use_browser)
@@ -141,9 +161,9 @@ def collect():
         if not targets:
             return SourceResult(
                 SOURCE, "FAILED", [],
-                f"Discovered current auction {auction_date}, but index returned no commercial detail links after static+rendered retrieval.",
+                f"Discovered current auction {current_auction_date}, but index returned no commercial detail links after static+rendered retrieval.",
                 expected_count=expected, discovered_count=0,
-                authoritative_snapshot=False, scope_dates=(auction_date,),
+                authoritative_snapshot=False, scope_dates=(current_auction_date,),
             )
 
         lots = []
@@ -152,9 +172,15 @@ def collect():
             lot = None
             for use_browser in (False, True):
                 try:
+                    ds = soup(href, use_browser=use_browser)
+                    detail_text = norm((ds.find("main") or ds).get_text(" ", strip=True))
+                    lot_date = _parse_detail_auction_date(detail_text + " " + card, current_auction_date)
+                    if not lot_date or lot_date < today:
+                        lot = None
+                        break
                     lot = detail_lot(
                         SOURCE, href, seed=card, lot_number=lot_no,
-                        auction_date=auction_date, force_commercial=True,
+                        auction_date=lot_date, force_commercial=True,
                         use_browser=use_browser, suppress_prior=True,
                     )
                     if lot:
@@ -163,25 +189,27 @@ def collect():
                     if use_browser:
                         failures += 1
                         print("STRETTONS_DETAIL_FAIL", href, repr(exc))
-            if lot and str(lot.auction_date or "")[:10] == auction_date:
+            if lot and str(lot.auction_date or "")[:10] >= today:
                 lots.append(lot)
 
         if not lots:
             return SourceResult(
                 SOURCE, "FAILED", [],
-                f"Discovered current auction {auction_date} and {len(targets)} commercial detail links, but no valid current lots parsed.",
+                f"Discovered current auction {current_auction_date} and {len(targets)} commercial detail links, but no valid current/future lots parsed.",
                 expected_count=expected, discovered_count=len(targets),
-                authoritative_snapshot=False, scope_dates=(auction_date,),
+                authoritative_snapshot=False, scope_dates=(current_auction_date,),
             )
 
-        status = "LIVE" if expected and len(lots) == expected and failures == 0 else "DEGRADED"
+        scope_dates = tuple(sorted({str(x.auction_date)[:10] for x in lots if x.auction_date}))
+        current_date_lots = [x for x in lots if str(x.auction_date)[:10] == current_auction_date]
+        status = "LIVE" if expected and len(current_date_lots) == expected and failures == 0 else "DEGRADED"
         return SourceResult(
             SOURCE, status, lots,
-            f"Dynamic current auction {auction_date}: expected {expected if expected else 'unknown'}; {len(targets)} exact commercial links discovered; {len(lots)} published; {failures} failures.",
+            f"Dynamic catalogue: current auction {current_auction_date}; expected {expected if expected else 'unknown'} current commercial lots; {len(targets)} exact links discovered; {len(current_date_lots)} current-auction lots plus {len(lots)-len(current_date_lots)} explicitly rescheduled future lot(s); {failures} failures.",
             expected_count=expected,
             discovered_count=len(targets),
             authoritative_snapshot=(status == "LIVE"),
-            scope_dates=(auction_date,),
+            scope_dates=scope_dates,
         )
     except Exception as exc:
         return SourceResult(SOURCE, "FAILED", [], f"Strettons discovery failed: {exc}")
