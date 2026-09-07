@@ -11,6 +11,10 @@ from collectors.auction_house_london_v2 import collect as ahl
 from collectors.auction_house_regions import (
     collect_east_anglia, collect_west_yorkshire, collect_sussex_hampshire,
     collect_south_west, collect_wales, collect_cumbria, collect_north_east, collect_north_west,
+    collect_lincolnshire, collect_manchester, collect_chesterfield, collect_coventry_warwickshire,
+    collect_scotland, collect_hull_east_yorkshire, collect_birmingham_black_country,
+    collect_northants_beds_bucks, collect_beds_bucks, collect_leicestershire, collect_tees_valley,
+    collect_national_online,
 )
 from collectors.savills_all_future import collect as savills
 from collectors.bond_wolfe_v2 import collect as bond_wolfe
@@ -36,8 +40,13 @@ from source_manifest import append_missing_health, manifest_coverage
 DATA=Path("data")
 DATA.mkdir(exist_ok=True)
 COLLECTORS=[
-    ahl, collect_east_anglia, collect_west_yorkshire, collect_sussex_hampshire,
+    ahl,
+    collect_east_anglia, collect_west_yorkshire, collect_sussex_hampshire,
     collect_south_west, collect_wales, collect_cumbria, collect_north_east, collect_north_west,
+    collect_lincolnshire, collect_manchester, collect_chesterfield, collect_coventry_warwickshire,
+    collect_scotland, collect_hull_east_yorkshire, collect_birmingham_black_country,
+    collect_northants_beds_bucks, collect_beds_bucks, collect_leicestershire, collect_tees_valley,
+    collect_national_online,
     savills, bond_wolfe, pugh, strettons, lsh, pattinson, mchugh, allsop, acuitus,
     clive_emson, barnard_marcus, barnett_ross, harman_healy, knight_frank, town_country,
     future_property, bidx1, symonds_sampson, auction_estates,
@@ -156,7 +165,9 @@ def _remove_duplicate_images(active):
 
 
 def _collector_name(fn):
-    module=getattr(fn,"__module__",""); leaf=module.rsplit(".",1)[-1].replace("_v2","").replace("_"," ").strip(); return leaf.title() or getattr(fn,"__name__","Unknown collector")
+    module=getattr(fn,"__module__,""") if False else getattr(fn,"__module__","")
+    leaf=module.rsplit(".",1)[-1].replace("_v2","").replace("_"," ").strip()
+    return leaf.title() or getattr(fn,"__name__","Unknown collector")
 def _run_collector_safely(fn):
     try: return fn()
     except Exception as exc:
