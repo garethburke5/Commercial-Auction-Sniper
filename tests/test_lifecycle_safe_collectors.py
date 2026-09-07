@@ -11,7 +11,7 @@ class AuctionHouseLondonLifecycleTests(unittest.TestCase):
     def test_sold_prior_commercial_lot_is_retained_with_terminal_status(self):
         index = BeautifulSoup('''
         <html><body>
-          <h1>2nd September 2026 - 30th September 2026</h1>
+          <h1>30th September 2026</h1>
           <article>
             <div>LOT 12 Sold Prior Retail Property 1 High Street, London SW1A 1AA</div>
             <a href="/lot/retail-property-12">View lot</a>
