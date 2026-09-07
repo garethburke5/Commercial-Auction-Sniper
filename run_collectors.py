@@ -8,7 +8,10 @@ from urllib.parse import urlparse, unquote
 from collectors.core import Lot, SourceResult, clean_description
 from collectors.utils import enrich_common_fields
 from collectors.auction_house_london_v2 import collect as ahl
-from collectors.auction_house_regions import collect_east_anglia, collect_west_yorkshire, collect_sussex_hampshire
+from collectors.auction_house_regions import (
+    collect_east_anglia, collect_west_yorkshire, collect_sussex_hampshire,
+    collect_south_west, collect_wales, collect_cumbria, collect_north_east, collect_north_west,
+)
 from collectors.savills_all_future import collect as savills
 from collectors.bond_wolfe_v2 import collect as bond_wolfe
 from collectors.pugh import collect as pugh
@@ -32,7 +35,13 @@ from source_manifest import append_missing_health, manifest_coverage
 
 DATA=Path("data")
 DATA.mkdir(exist_ok=True)
-COLLECTORS=[ahl,collect_east_anglia,collect_west_yorkshire,collect_sussex_hampshire,savills,bond_wolfe,pugh,strettons,lsh,pattinson,mchugh,allsop,acuitus,clive_emson,barnard_marcus,barnett_ross,harman_healy,knight_frank,town_country,future_property,bidx1,symonds_sampson,auction_estates]
+COLLECTORS=[
+    ahl, collect_east_anglia, collect_west_yorkshire, collect_sussex_hampshire,
+    collect_south_west, collect_wales, collect_cumbria, collect_north_east, collect_north_west,
+    savills, bond_wolfe, pugh, strettons, lsh, pattinson, mchugh, allsop, acuitus,
+    clive_emson, barnard_marcus, barnett_ross, harman_healy, knight_frank, town_country,
+    future_property, bidx1, symonds_sampson, auction_estates,
+]
 PUBLISHABLE={"LIVE","DEGRADED"}
 TERMINAL_STATUSES={"SOLD PRIOR","WITHDRAWN","WITHDRAWN PRIOR","AUCTION ENDED","COMPLETED","ARCHIVED"}
 BAD_ADDRESS=re.compile(r"(?:login|log in|sign in|register to bid|book a viewing|arrange a viewing|viewing appointment|cancel proxy bid|your bid|remove from wishlist|add to wishlist|connecting to auction|please wait|full details|legal pack available)",re.I)
