@@ -66,7 +66,6 @@ def _nearest_lot_card(a):
         if node is None: break
         text=norm(node.get_text(" ",strip=True))
         if len(text)>len(best) and len(text)<=5000: best=text
-        # A complete EIG lot card normally has an end time/date, postcode and guide.
         if DATE_RE.search(text) and POSTCODE_RE.search(text) and ("guide" in text.lower() or "minimum opening bid" in text.lower()):
             return text
         if len(text)>5000: break
@@ -74,13 +73,7 @@ def _nearest_lot_card(a):
 
 
 def _discover_from_page(base, s, today=None):
-    """Discover only current/future commercial or mixed-use catalogue cards.
-
-    The old collector admitted every residential card (nearly 1,000 URLs) then tried
-    to classify the detail page. Besides being slow, EIG detail-page chrome contains
-    neighbouring closed lots, so whole-page status checks could reject every live
-    commercial lot. Classify and date-scope the authoritative catalogue card first.
-    """
+    """Discover only current/future commercial or mixed-use catalogue cards."""
     today=today or datetime.now(timezone.utc).date().isoformat()
     found = {}
     for a in s.find_all("a", href=True):
@@ -112,10 +105,6 @@ def _future_catalogue_links(base, s):
         d=_named_date(text)
         if d and d < today: continue
         if href not in found: found.append(href)
-    # Several regional EIG sites expose the active catalogue at the generic route
-    # rather than an ID-specific URL. It is authoritative and should always be tried.
-    generic=base+"/future-auctions/"
-    if generic not in found: found.append(generic)
     return found
 
 
@@ -123,14 +112,20 @@ def _discover_region(base):
     found={}; errors=[]
     try:
         diary=soup(base+"/auction",use_browser=False)
-        for url in _future_catalogue_links(base,diary):
+        catalogue_urls=_future_catalogue_links(base,diary)
+        for url in catalogue_urls:
             try: found.update(_discover_from_page(base,soup(url,use_browser=False)))
             except Exception as exc: errors.append(f"{url}: {type(exc).__name__}")
+        # Some EIG regions advertise the auction date/link in the diary but publish
+        # the actual lot grid only at the generic future-auctions route. Try that
+        # only when the advertised routes yielded no qualifying cards.
+        generic=base+"/future-auctions/"
+        if not found and generic not in catalogue_urls:
+            try: found.update(_discover_from_page(base,soup(generic,use_browser=False)))
+            except Exception as exc: errors.append(f"{generic}: {type(exc).__name__}")
         if found: return found
     except Exception as exc:
         errors.append(f"{base}/auction: {type(exc).__name__}")
-    # Fallback is deliberately bounded and card-filtered. Never hydrate the entire
-    # residential agency inventory merely because /search is paginated.
     repeated = 0
     for page in range(1, 21):
         url = base + "/search" + (f"?page={page}" if page > 1 else "")
@@ -173,7 +168,6 @@ def _detail_status_near_title(s):
 
 
 def _hydrate(url, summary=""):
-    # The catalogue summary is authoritative for admission and current auction date.
     if PAST_MARKERS.search(summary): return None
     auction_date = _date(summary)
     if auction_date and auction_date < datetime.now(timezone.utc).date().isoformat(): return None
