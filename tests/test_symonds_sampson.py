@@ -66,6 +66,12 @@ class SymondsSampsonCollectorTests(unittest.TestCase):
         self.assertFalse(_is_target("3 Bedroom House For Sale. Incredibly versatile residential refurbishment and redevelopment opportunity with large garage and extensive grounds."))
         self.assertFalse(_is_target("Four bedroom family home with redevelopment potential subject to planning"))
 
+    def test_residential_page_chrome_does_not_create_false_commercial_signal(self):
+        text=("1 Bedroom House For Sale. Semi-detached cottage with garden and parking. "
+              "Shopping facilities are available in the nearby town. Office Details "
+              "Our Sherborne office handles commercial property, shops and investment sales.")
+        self.assertFalse(_is_target(text))
+
     def test_current_income_is_not_replaced_by_potential_flat_income(self):
         text=("Mixed-use investment property. Ground-floor commercial unit generating £22,500 rent pa. "
               "Three vacant flats above with potential further income of £24,000 pa. Guide Price £295,000.")
