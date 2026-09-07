@@ -38,26 +38,14 @@ def _fetch(url):
 
 
 def _catalogue_soup():
-    """Resolve the live catalogue through stable first-party McHugh surfaces.
-
-    The direct future-auction URL can occasionally reset hosted-runner connections.
-    The auctions/home pages advertise and link the same current catalogue, so use
-    them to rediscover its canonical URL rather than treating a route outage as an
-    empty or failed auction.
-    """
-    errors=[]
-    seen=set()
-    queue=list(LANDING_URLS)
+    errors=[]; seen=set(); queue=list(LANDING_URLS)
     while queue:
         url=queue.pop(0)
-        if url in seen:
-            continue
+        if url in seen: continue
         seen.add(url)
-        try:
-            s=_fetch(url)
+        try: s=_fetch(url)
         except Exception as exc:
-            errors.append(f"{url}: {type(exc).__name__}: {exc}")
-            continue
+            errors.append(f"{url}: {type(exc).__name__}: {exc}"); continue
         if any("/lot/details/" in (a.get("href") or "").lower() for a in s.find_all("a",href=True)):
             return s,url
         for a in s.find_all("a",href=True):
@@ -68,9 +56,15 @@ def _catalogue_soup():
 
 
 def _auction_date(card):
-    m=re.search(r"(?:End Time\s*-\s*)?(\d{1,2})/(\d{1,2})/(20\d{2})",card or "")
-    if m:
-        return f"{m.group(3)}-{int(m.group(2)):02d}-{int(m.group(1)):02d}"
+    m=re.search(r"(?:End Time\s*-\s*|Auction Ended\s*-\s*)?(\d{1,2})/(\d{1,2})/(20\d{2})",card or "")
+    if m: return f"{m.group(3)}-{int(m.group(2)):02d}-{int(m.group(1)):02d}"
+    return None
+
+
+def _terminal_status(text):
+    probe=norm(text)
+    if re.search(r"\bResult\s+Sold\s+Prior\b|\bSold\s+Prior\b",probe,re.I): return "SOLD PRIOR"
+    if re.search(r"\bWithdrawn(?:\s+Prior)?\b|\bResult\s+Withdrawn\b",probe,re.I): return "WITHDRAWN"
     return None
 
 
@@ -80,51 +74,44 @@ def collect():
         targets = {}
         for a in s.find_all("a", href=True):
             href = urljoin(BASE, a.get("href") or "")
-            if "/lot/details/" not in href.lower():
-                continue
+            if "/lot/details/" not in href.lower(): continue
             card = nearest_card(a, 3200)
-            if not card or not is_commercial(card):
-                continue
+            if not card or not is_commercial(card): continue
             targets[href] = card
 
-        lots = []
-        failures = 0
-        rejected = 0
-        scope_dates=set()
+        lots=[]; failures=0; rejected=0; scope_dates=set(); terminal_count=0
         for href, card in targets.items():
             try:
-                lot_no = None
-                m = re.search(r"\bLot\s+(\d+[A-Z]?)\b", card, re.I)
-                if m:
-                    lot_no = "Lot " + m.group(1)
+                lot_no=None
+                m=re.search(r"\bLot\s+(\d+[A-Z]?)\b",card,re.I)
+                if m: lot_no="Lot "+m.group(1)
                 auction_date=_auction_date(card) or "2026-09-16"
                 scope_dates.add(auction_date)
-                lot = detail_lot(
-                    SOURCE,
-                    href,
-                    seed="",
-                    lot_number=lot_no,
-                    auction_date=auction_date,
-                    force_commercial=True,
-                    use_browser=False,
-                    strict_commercial=False,
+                # The catalogue card is authoritative for guide, tenure/use and
+                # lifecycle. McHugh's exact bidding page puts Guide Price before
+                # the label (e.g. £10,000+ Guide Price), which the shared parser
+                # deliberately does not guess. Preserve the local card as seed so
+                # exact-page detail and catalogue facts complement each other.
+                lot=detail_lot(
+                    SOURCE,href,seed=card,lot_number=lot_no,auction_date=auction_date,
+                    force_commercial=True,use_browser=False,strict_commercial=False,
                     suppress_prior=False,
                 )
                 if lot:
+                    terminal=_terminal_status(card+" "+str(lot.description or ""))
+                    if terminal:
+                        lot.status=terminal; terminal_count+=1
+                    else:
+                        lot.status="CURRENT"
                     lots.append(lot)
-                else:
-                    rejected += 1
+                else: rejected+=1
             except Exception as e:
-                failures += 1
-                print("MCHUGH_DETAIL_FAIL", href, repr(e))
+                failures+=1; print("MCHUGH_DETAIL_FAIL",href,repr(e))
 
         return SourceResult(
-            SOURCE,
-            "LIVE" if lots and failures == 0 else "DEGRADED" if lots else "FAILED",
-            lots,
-            f"Current McHugh catalogue via {catalogue_url}: commercial/mixed-use candidates {len(targets)}; {len(lots)} published; {rejected} rejected; {failures} detail failures",
-            discovered_count=len(targets),
-            scope_dates=tuple(sorted(scope_dates or {"2026-09-16","2026-09-17"})),
+            SOURCE,"LIVE" if lots and failures==0 else "DEGRADED" if lots else "FAILED",lots,
+            f"Current McHugh catalogue via {catalogue_url}: commercial/mixed-use candidates {len(targets)}; {len(lots)} published including {terminal_count} terminal-history lot(s); {rejected} rejected; {failures} detail failures",
+            discovered_count=len(targets),scope_dates=tuple(sorted(scope_dates or {"2026-09-16","2026-09-17"})),
         )
     except Exception as e:
-        return SourceResult(SOURCE, "FAILED", [], f"McHugh catalogue failed after first-party route and transport fallbacks: {e}")
+        return SourceResult(SOURCE,"FAILED",[],f"McHugh catalogue failed after first-party route and transport fallbacks: {e}")
