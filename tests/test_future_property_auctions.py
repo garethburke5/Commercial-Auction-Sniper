@@ -2,7 +2,7 @@ import unittest
 from datetime import date
 from bs4 import BeautifulSoup
 
-from collectors.future_property_auctions import _parse_date, _discover, _page_urls, _commercialish, _card_image, _detail_image
+from collectors.future_property_auctions import _parse_date, _discover, _page_urls, _commercialish, _card_image, _detail_image, _is_property_photo_url
 
 
 class FuturePropertyAuctionsTests(unittest.TestCase):
@@ -27,6 +27,29 @@ class FuturePropertyAuctionsTests(unittest.TestCase):
         s=BeautifulSoup('''<article>
           <a href="property_details.asp?id=14516980">Lot 2 £1,290,000 Commercial Investment Timed Online Auction - 10 Sep 2026</a>
           <a class="gallery" href="/upload/small_43917_14516980_IMG_00.jpg"><img src="/images/camera-icon.png"></a>
+        </article>''','lxml')
+        anchor=s.find('a',href=lambda h:h and 'property_details' in h)
+        self.assertEqual(_card_image(anchor,"https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp"),"https://www.futurepropertyauctions.co.uk/upload/small_43917_14516980_IMG_00.jpg")
+
+    def test_shared_upload_artwork_is_not_accepted_as_lot_photo(self):
+        self.assertFalse(_is_property_photo_url(
+            "https://www.futurepropertyauctions.co.uk/upload/shared-auction-banner.jpg",
+            expected_id="14516980",
+        ))
+        self.assertFalse(_is_property_photo_url(
+            "https://www.futurepropertyauctions.co.uk/upload/small_43917_99999999_IMG_00.jpg",
+            expected_id="14516980",
+        ))
+        self.assertTrue(_is_property_photo_url(
+            "https://www.futurepropertyauctions.co.uk/upload/small_43917_14516980_IMG_00.jpg",
+            expected_id="14516980",
+        ))
+
+    def test_card_image_ignores_other_lot_upload_in_same_markup(self):
+        s=BeautifulSoup('''<article>
+          <a href="property_details.asp?id=14516980">Lot 2 £1,290,000 Commercial Investment Timed Online Auction - 10 Sep 2026</a>
+          <a class="gallery" href="/upload/small_43917_99999999_IMG_00.jpg">Other image</a>
+          <a class="gallery" href="/upload/small_43917_14516980_IMG_00.jpg">Correct image</a>
         </article>''','lxml')
         anchor=s.find('a',href=lambda h:h and 'property_details' in h)
         self.assertEqual(_card_image(anchor,"https://www.futurepropertyauctions.co.uk/catalogue_viewall.asp"),"https://www.futurepropertyauctions.co.uk/upload/small_43917_14516980_IMG_00.jpg")
