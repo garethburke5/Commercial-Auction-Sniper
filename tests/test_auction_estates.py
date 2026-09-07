@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 from collectors.auction_estates import (
     _auction_date, _is_target, _lot_links, _property_type, _image,
-    _terminal_status_near_title,
+    _terminal_status_near_title, _tenancy_details,
 )
 
 
@@ -68,6 +68,28 @@ class AuctionEstatesCollectorTests(unittest.TestCase):
         </body></html>
         ''', "lxml")
         self.assertIsNone(_terminal_status_near_title(s))
+
+    def test_extracts_named_tenant_term_and_start_from_current_lease(self):
+        text = (
+            "An opportunity to acquire a retail investment property let to D & D Security Midland Limited "
+            "located in the heart of Ilkeston town centre. Current Rent Reserved of £9,999.96 pa. "
+            "The property is let on a 9 year lease from 14th April 2017."
+        )
+        tenant, term, start, fri, break_clause = _tenancy_details(text)
+        self.assertEqual(tenant, "D & D Security Midland Limited")
+        self.assertEqual(term, "9 years")
+        self.assertEqual(start, "14 April 2017")
+        self.assertIsNone(fri)
+        self.assertIsNone(break_clause)
+
+    def test_extracts_fri_and_no_break_without_inventing_tenant(self):
+        text = "The unit is occupied under a 10 year FRI lease. There is no break clause. Nearby occupiers: Tesco, Boots."
+        tenant, term, start, fri, break_clause = _tenancy_details(text)
+        self.assertIsNone(tenant)
+        self.assertIsNone(term)
+        self.assertIsNone(start)
+        self.assertTrue(fri)
+        self.assertEqual(break_clause, "No break")
 
 
 if __name__ == "__main__":
