@@ -19,9 +19,7 @@ def _parse_date(text):
 
 
 def _discover(s):
-    """Discover Barnett Ross exact lot-detail pages from any first-party attribute."""
-    links = {}
-    detail_re = re.compile(r"(?:/)?property\.php\?id=\d+", re.I)
+    links = {}; detail_re = re.compile(r"(?:/)?property\.php\?id=\d+", re.I)
     for a in s.find_all("a", href=True):
         href = urljoin(BASE, a.get("href") or "")
         if detail_re.search(href): links[href] = norm(a.get_text(" ", strip=True))
@@ -30,43 +28,31 @@ def _discover(s):
             values=value if isinstance(value,list) else [value]
             for raw in values:
                 m=detail_re.search(str(raw or ""))
-                if m:
-                    href=urljoin(BASE,m.group(0)); links[href]=norm(tag.get_text(" ",strip=True))
+                if m: links[urljoin(BASE,m.group(0))]=norm(tag.get_text(" ",strip=True))
     return links
 
 
 def _row_status(text):
     if re.search(r"\bsold\s+prior\b", text or "", re.I): return "SOLD PRIOR"
-    if re.search(r"\bwithdrawn(?:\s*-\s*refer)?\b", text or "", re.I): return "WITHDRAWN"
-    if re.search(r"\bpostponed\b", text or "", re.I): return "WITHDRAWN"
+    if re.search(r"\bwithdrawn(?:\s*-\s*refer)?\b|\bpostponed\b", text or "", re.I): return "WITHDRAWN"
     return "CURRENT"
 
 
 def _catalogue_rows(s, auction_date):
-    """Parse the authoritative all-property catalogue table for reconciliation only.
-
-    Barnett Ross mixes residential and commercial lots in one table. A bare table row
-    contains address/guide but no reliable use classification, so it must never be
-    promoted into the commercial feed on its own. Exact lot particulars are used below
-    to decide commercial/mixed-use inclusion. Terminal rows remain available for
-    reconciliation and can be retained only when their exact particulars prove target use.
-    """
     lots=[]
     for tr in s.find_all("tr"):
         cells=[norm(td.get_text(" ",strip=True)) for td in tr.find_all(["td","th"])]
         if len(cells)<3: continue
-        lot_cell,address=cells[0],cells[1]
-        lotm=re.fullmatch(r"\s*(\d+[A-Z]?)\s*",lot_cell,re.I)
+        lot_cell,address=cells[0],cells[1]; lotm=re.fullmatch(r"\s*(\d+[A-Z]?)\s*",lot_cell,re.I)
         if not lotm or len(address)<8: continue
-        row_text=norm(" | ".join(cells)); lot_no=lotm.group(1); status=_row_status(row_text)
-        lots.append(Lot(source=SOURCE,url=f"{CURRENT}#lot-{lot_no}",address=address,
-            lot_number=f"Lot {lot_no}",auction_date=auction_date,guide_price=parse_guide(row_text),
-            description=row_text,property_type="Unclassified catalogue row",status=status).finalise())
+        row_text=norm(" | ".join(cells)); lot_no=lotm.group(1)
+        lots.append(Lot(source=SOURCE,url=f"{CURRENT}#lot-{lot_no}",address=address,lot_number=f"Lot {lot_no}",
+            auction_date=auction_date,guide_price=parse_guide(row_text),description=row_text,
+            property_type="Unclassified catalogue row",status=_row_status(row_text)).finalise())
     return lots
 
 
-def _fallback_rows(s, auction_date):
-    return _catalogue_rows(s, auction_date)
+def _fallback_rows(s, auction_date): return _catalogue_rows(s, auction_date)
 
 
 def _address(s, text):
@@ -77,9 +63,28 @@ def _address(s, text):
     return norm(m.group(1)) if m else None
 
 
+def _target_detail(text):
+    """Classify exact particulars, including mixed commercial/residential wording.
+
+    core.is_commercial intentionally fails closed when residential wording is present.
+    Barnett Ross often labels genuine mixed-use stock 'Commercial / Residential
+    Investment', so explicit mixed/commercial-use evidence must outrank residential
+    component words, while ordinary houses/flats still remain excluded.
+    """
+    low=norm(text).lower()
+    explicit=(
+        "mixed use","mixed-use","commercial / residential","commercial/residential",
+        "commercial and residential","retail and residential","shop and flat","shop with flat",
+        "commercial investment","retail investment","ground floor retail","ground-floor retail",
+        "commercial unit","retail unit","shop premises","office investment","industrial investment",
+        "warehouse","public house","business premises",
+    )
+    if any(x in low for x in explicit): return True
+    return is_commercial(text)
+
+
 def _property_image(s, base):
-    bad=("logo","icon","linkedin","facebook","twitter","staff","team","avatar","ombudsman","rics","cookie","sprite","placeholder")
-    candidates=[]
+    bad=("logo","icon","linkedin","facebook","twitter","staff","team","avatar","ombudsman","rics","cookie","sprite","placeholder"); candidates=[]
     def add(raw,bonus=0):
         if not raw: return
         u=urljoin(base,str(raw).replace("\\/","/").strip(' "\'')); low=u.lower()
@@ -95,8 +100,7 @@ def _property_image(s, base):
         if t and t.get("content"): add(t.get("content"),15)
     for a in s.find_all("a",href=True):
         label=norm(a.get_text(" ",strip=True)); img=a.find("img"); alt=norm(img.get("alt") or "") if img else ""; combined=(label+" "+alt).lower()
-        bonus=28 if re.search(r"\bphoto\s*1\b",combined,re.I) else 22 if "photo" in combined else 10
-        add(a.get("href"),bonus)
+        add(a.get("href"),28 if re.search(r"\bphoto\s*1\b",combined,re.I) else 22 if "photo" in combined else 10)
     for img in s.find_all("img"):
         alt=norm(img.get("alt") or "").lower()
         if any(x in alt for x in bad): continue
@@ -114,70 +118,46 @@ def _property_image(s, base):
         best={}
         for score,u in candidates: best[u]=max(score,best.get(u,-999))
         winner=max(best.items(),key=lambda kv:(kv[1],-len(kv[0])))
-        if winner[1]>0: return winner[0]
+        if winner[1]>0:return winner[0]
     generic=image_from_soup(s,base)
-    if generic and not any(x in generic.lower() for x in bad): return generic
-    return None
+    return generic if generic and not any(x in generic.lower() for x in bad) else None
 
 
 def _hydrate(url, auction_date=None):
-    """Hydrate and classify one exact Barnett Ross lot page.
-
-    Pure houses/flats are rejected by core.is_commercial; mixed-use and explicit
-    commercial properties are retained. Sold-prior/withdrawn target properties are
-    kept with their terminal lifecycle instead of being silently discarded.
-    """
-    s = soup(url, use_browser=False); main = s.find("main") or s; text = norm(main.get_text(" ", strip=True)); low = text.lower()
-    address = _address(s, text)
-    if not address or not is_commercial(text): return None
-    status=_row_status(text)
-    lotm = re.search(r"\bLot\s*(\d+[A-Z]?)\b", text, re.I); rent = parse_rent(text); lp_url, lp_status = legal_pack(s, url)
-    title = None
-    for tag in s.find_all(["h1", "h2", "h3"]):
-        value = norm(tag.get_text(" ", strip=True))
-        if value and value != address and len(value) <= 220:
-            title = value
-            if any(k in value.lower() for k in ("shop", "office", "commercial", "public house", "warehouse", "investment", "mixed", "retail")): break
+    s=soup(url,use_browser=False); main=s.find("main") or s; text=norm(main.get_text(" ",strip=True)); address=_address(s,text)
+    if not address or not _target_detail(text): return None
+    status=_row_status(text); lotm=re.search(r"\bLot\s*(\d+[A-Z]?)\b",text,re.I); rent=parse_rent(text); lp_url,lp_status=legal_pack(s,url); title=None
+    for tag in s.find_all(["h1","h2","h3"]):
+        value=norm(tag.get_text(" ",strip=True))
+        if value and value!=address and len(value)<=220:
+            title=value
+            if any(k in value.lower() for k in ("shop","office","commercial","public house","warehouse","investment","mixed","retail")):break
     return Lot(source=SOURCE,url=url,address=address,lot_number=f"Lot {lotm.group(1)}" if lotm else None,
-        auction_date=_parse_date(text) or auction_date,image_url=_property_image(s,url),guide_price=parse_guide(text),
-        annual_rent=rent,tenure=parse_tenure(text),vat_status=parse_vat(text),legal_pack_status=lp_status,
-        legal_pack_url=lp_url,description=text[:6500],occupation="Tenanted" if rent else ("Vacant / vacant possession" if re.search(r"vacant possession|\bvacant\b", text, re.I) else None),
-        property_type=title,development_potential=True if re.search(r"development potential|redevelopment|subject to planning|stpp", text, re.I) else None,
-        fri=True if re.search(r"\bFRI\b|full repairing and insuring", text, re.I) else None,status=status).finalise()
+        auction_date=_parse_date(text) or auction_date,image_url=_property_image(s,url),guide_price=parse_guide(text),annual_rent=rent,
+        tenure=parse_tenure(text),vat_status=parse_vat(text),legal_pack_status=lp_status,legal_pack_url=lp_url,description=text[:6500],
+        occupation="Tenanted" if rent else ("Vacant / vacant possession" if re.search(r"vacant possession|\bvacant\b",text,re.I) else None),
+        property_type=title,development_potential=True if re.search(r"development potential|redevelopment|subject to planning|stpp",text,re.I) else None,
+        fri=True if re.search(r"\bFRI\b|full repairing and insuring",text,re.I) else None,status=status).finalise()
 
 
 def collect():
     try:
-        listing = soup(CURRENT, use_browser=False); listing_text = norm(listing.get_text(" ", strip=True)); auction_date = _parse_date(listing_text)
-        table_rows=_catalogue_rows(listing,auction_date); targets = _discover(listing)
-        if not table_rows:
-            return SourceResult(SOURCE,"FAILED",[],"Barnett Ross current catalogue was published but no authoritative catalogue rows were parsed.",discovered_count=0)
-        if not targets:
-            return SourceResult(SOURCE,"FAILED",[],f"Barnett Ross published {len(table_rows)} catalogue rows but no exact lot-detail pages were discovered; refusing to classify bare mixed residential/commercial table rows.",discovered_count=0)
-
+        listing=soup(CURRENT,use_browser=False); listing_text=norm(listing.get_text(" ",strip=True)); auction_date=_parse_date(listing_text)
+        table_rows=_catalogue_rows(listing,auction_date); targets=_discover(listing)
+        if not table_rows:return SourceResult(SOURCE,"FAILED",[],"Barnett Ross current catalogue was published but no authoritative catalogue rows were parsed.",discovered_count=0)
+        if not targets:return SourceResult(SOURCE,"FAILED",[],f"Barnett Ross published {len(table_rows)} catalogue rows but no exact lot-detail pages were discovered; refusing to classify bare mixed residential/commercial table rows.",discovered_count=0)
         hydrated=[]; failures=0
         with ThreadPoolExecutor(max_workers=10) as ex:
             futures={ex.submit(_hydrate,url,auction_date):url for url in targets}
             for future in as_completed(futures):
                 try:
                     lot=future.result()
-                    if lot: hydrated.append(lot)
-                except Exception: failures+=1
-
-        # Barnett Ross's table is an all-property catalogue. Exact particulars are
-        # the classification boundary: non-detail rows are not assumed commercial.
-        lots=sorted(hydrated,key=lambda x:(x.lot_number or "",x.address))
-        terminal=sum(1 for x in lots if x.status in {"SOLD PRIOR","WITHDRAWN"})
-        current=sum(1 for x in lots if x.status not in {"SOLD PRIOR","WITHDRAWN"})
-        non_target_or_opaque=len(table_rows)-len(lots)
-        if failures:
-            status="DEGRADED"
-        elif not lots:
-            status="FAILED"
-        else:
-            status="LIVE"
+                    if lot:hydrated.append(lot)
+                except Exception:failures+=1
+        lots=sorted(hydrated,key=lambda x:(x.lot_number or "",x.address)); terminal=sum(1 for x in lots if x.status in {"SOLD PRIOR","WITHDRAWN"}); current=len(lots)-terminal; excluded=len(table_rows)-len(lots)
+        status="DEGRADED" if failures else "FAILED" if not lots else "LIVE"
         return SourceResult(SOURCE,status,lots,
-            f"Barnett Ross authoritative mixed catalogue: {len(table_rows)} total catalogue rows reconciled; {len(targets)} exact lot-detail pages inspected; {current} live commercial/mixed-use lots; {terminal} sold-prior/withdrawn target lots retained; {non_target_or_opaque} residential/non-target or non-detail rows excluded rather than mislabelled; {failures} detail failures.",
+            f"Barnett Ross authoritative mixed catalogue: {len(table_rows)} total catalogue rows reconciled; {len(targets)} exact lot-detail pages inspected; {current} live commercial/mixed-use lots; {terminal} sold-prior/withdrawn target lots retained; {excluded} residential/non-target or non-detail rows excluded rather than mislabelled; {failures} detail failures.",
             expected_count=len(lots) if status=="LIVE" else None,discovered_count=len(lots),authoritative_snapshot=bool(status=="LIVE"),scope_dates=tuple(sorted({x.auction_date for x in lots if x.auction_date})))
     except Exception as exc:
-        return SourceResult(SOURCE, "FAILED", [], f"Barnett Ross collection failed: {exc}")
+        return SourceResult(SOURCE,"FAILED",[],f"Barnett Ross collection failed: {exc}")
