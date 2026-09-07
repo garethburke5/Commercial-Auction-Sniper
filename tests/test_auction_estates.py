@@ -94,11 +94,11 @@ class AuctionEstatesCollectorTests(unittest.TestCase):
         self.assertIsNone(fri)
         self.assertIsNone(break_clause)
 
-    def test_extracts_fri_and_no_break_without_inventing_tenant(self):
+    def test_extracts_explicit_fri_term_and_no_break_without_inventing_tenant(self):
         text = "The unit is occupied under a 10 year FRI lease. There is no break clause. Nearby occupiers: Tesco, Boots."
         tenant, term, start, fri, break_clause = _tenancy_details(text)
         self.assertIsNone(tenant)
-        self.assertIsNone(term)
+        self.assertEqual(term, "10 years")
         self.assertIsNone(start)
         self.assertTrue(fri)
         self.assertEqual(break_clause, "No break")
