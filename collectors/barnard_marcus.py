@@ -6,13 +6,32 @@ from urllib.parse import urljoin, urlparse
 import requests
 from bs4 import BeautifulSoup
 
-from .core import Lot, SourceResult, norm, parse_guide, parse_rent, parse_tenure, parse_vat, is_commercial
+from .core import Lot, SourceResult, norm, parse_guide, parse_rent, parse_tenure, parse_vat
 from .utils import soup, image_from_soup, legal_pack
 
 SOURCE = "Barnard Marcus"
 BASE = "https://www.barnardmarcusauctions.co.uk"
 UPCOMING = BASE + "/auctions/upcoming/"
 LOT_RE = re.compile(r"/auctions/(\d{1,2}-[a-z]+-20\d{2})/(\d+)/?", re.I)
+
+# Barnard Marcus residential pages routinely mention nearby shops, bars,
+# restaurants and commercial centres in the Location paragraph. Classification
+# must therefore be based on the actual sale particulars before Location, not the
+# whole page. These are explicit asset/use signals, not neighbourhood prose.
+TARGET_SIGNALS = re.compile(
+    r"\b(?:mixed[- ]use|commercial\s+(?:property|unit|premises|building|investment|element)|"
+    r"ground[- ]floor\s+(?:shop|retail|commercial)|shop(?:\s+unit)?|retail\s+(?:unit|investment|premises)|"
+    r"office(?:s|\s+unit|\s+building|\s+investment)?|warehouse|industrial(?:\s+unit|\s+property)?|"
+    r"workshop|public house|pub\b|restaurant\s+(?:premises|unit|investment)|takeaway|"
+    r"care home|hotel|commercial freehold|freehold commercial|ground rent investment)\b",
+    re.I,
+)
+RESIDENTIAL_ONLY_SUMMARY = re.compile(
+    r"\b(?:long leasehold|leasehold|freehold)?\s*(?:one|two|three|four|five|six|\d+)[- ]bed(?:room)?\s+"
+    r"(?:flat|maisonette|house|bungalow)|\b(?:second|first|ground|third|fourth) floor flat\b|"
+    r"\b(?:detached|semi-detached|terraced) house\b|\bresidential flat\b",
+    re.I,
+)
 
 
 def _slug_date(slug):
@@ -58,7 +77,6 @@ def _upcoming_dates():
             iso = _slug_date(m.group(1))
             if iso and iso >= date.today().isoformat():
                 dates.add(iso)
-    # The current auction page is sometimes linked as /auctions/current/, so also parse visible dates.
     text = norm(s.get_text(" ", strip=True))
     for m in re.finditer(r"(\d{1,2})(?:st|nd|rd|th)?\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(20\d{2})", text, re.I):
         try:
@@ -83,6 +101,29 @@ def _discover():
     return urls, future_dates
 
 
+def _sale_summary(text):
+    """Return the listing's asset/tenancy summary, excluding neighbourhood prose."""
+    value = norm(text)
+    # The site consistently introduces locality prose with Location:. Anything
+    # after that is unsafe for property-use classification because it mentions
+    # shops/restaurants/retail transport nodes for ordinary flats and houses.
+    m = re.search(r"\bLocation\s*:\s*", value, re.I)
+    if m:
+        value = value[:m.start()]
+    # Ignore header/menu boilerplate before the substantive order/description.
+    return value[-3500:]
+
+
+def _is_target_particulars(text):
+    summary = _sale_summary(text)
+    if TARGET_SIGNALS.search(summary):
+        return True
+    # Never rescue a clearly residential-only summary from later locality words.
+    if RESIDENTIAL_ONLY_SUMMARY.search(summary):
+        return False
+    return False
+
+
 def _hydrate(url):
     s = soup(url, use_browser=False)
     main = s.find("main") or s
@@ -91,7 +132,7 @@ def _hydrate(url):
         return None
     h1 = s.find("h1")
     address = norm(h1.get_text(" ", strip=True)) if h1 else None
-    if not address or len(address) < 8 or not is_commercial(text):
+    if not address or len(address) < 8 or not _is_target_particulars(text):
         return None
     m = LOT_RE.search(urlparse(url).path)
     auction_date = _slug_date(m.group(1)) if m else None
@@ -101,11 +142,18 @@ def _hydrate(url):
         lotm = re.search(r"^\s*(\d{1,3}[A-Z]?),\s*Auction", title, re.I)
     rent = parse_rent(text)
     lp_url, lp_status = legal_pack(s, url)
+    summary = _sale_summary(text)
     property_type = None
-    for tag in s.find_all(["h2", "h3", "strong", "p", "div"]):
-        value = norm(tag.get_text(" ", strip=True))
-        if 12 <= len(value) <= 260 and any(k in value.lower() for k in ("mixed-use", "mixed use", "shop", "commercial", "office", "warehouse", "public house", "retail")):
-            property_type = value
+    for label, pattern in (
+        ("Mixed Use", r"mixed[- ]use"),
+        ("Retail", r"\bshop\b|\bretail\b"),
+        ("Office", r"\boffice(?:s)?\b"),
+        ("Industrial", r"\bwarehouse\b|\bindustrial\b|\bworkshop\b"),
+        ("Public House", r"\bpublic house\b|\bpub\b"),
+        ("Commercial", r"\bcommercial\b"),
+    ):
+        if re.search(pattern, summary, re.I):
+            property_type = label
             break
     return Lot(
         source=SOURCE,
@@ -121,10 +169,10 @@ def _hydrate(url):
         legal_pack_status=lp_status,
         legal_pack_url=lp_url,
         description=text[:6500],
-        occupation="Tenanted" if rent else ("Vacant / vacant possession" if re.search(r"full vacant possession|\bvacant\b", text, re.I) else None),
-        property_type=property_type,
-        development_potential=True if re.search(r"development potential|redevelopment|subject to consents|stpp", text, re.I) else None,
-        residential_conversion=True if re.search(r"residential conversion|conversion to residential", text, re.I) else None,
+        occupation="Tenanted" if rent else ("Vacant / vacant possession" if re.search(r"full vacant possession|\bvacant\b", summary, re.I) else None),
+        property_type=property_type or "Commercial",
+        development_potential=True if re.search(r"development potential|redevelopment|subject to consents|stpp", summary, re.I) else None,
+        residential_conversion=True if re.search(r"residential conversion|conversion to residential", summary, re.I) else None,
         fri=True if re.search(r"\bFRI\b|full repairing and insuring", text, re.I) else None,
     ).finalise()
 
@@ -151,7 +199,7 @@ def collect():
         status = "LIVE" if lots and failures == 0 else "DEGRADED" if lots else "FAILED"
         return SourceResult(
             SOURCE, status, lots,
-            f"Barnard Marcus collector: {len(targets)} future lot pages discovered from the first-party sitemap; {len(lots)} commercial/mixed-use lots published; {failures} detail failures.",
+            f"Barnard Marcus collector: {len(targets)} future lot pages inspected from the first-party sitemap; {len(lots)} explicit commercial/mixed-use lots published after sale-particular classification; {failures} detail failures.",
             discovered_count=len(targets), authoritative_snapshot=False,
             scope_dates=tuple(sorted(future_dates)),
         )
