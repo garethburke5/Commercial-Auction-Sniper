@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from collectors.allsop import (
     _card_is_target, _extract_targets, _address_from_soup, _header_auction_date,
     _live_status_probe, _page_auction_dates, _date_for_card, _teaser_address,
-    _teaser_lot, _allsop_image, _main_identity, _hydrate,
+    _teaser_lot, _allsop_image, _main_identity, _hydrate, _exact_auction_date,
 )
 
 
@@ -29,6 +29,11 @@ class AllsopCollectorTests(unittest.TestCase):
         self.assertEqual(lot.address,"7 Kenway Road, Earls Court, London, SW5 0RP")
         self.assertEqual(lot.annual_rent,45000.0)
         self.assertEqual(lot.occupation,"Part vacant / part let")
+
+    def test_second_day_lot_specific_date_outranks_multi_day_header(self):
+        text=("Residential - 16th & 17th Sept 2026 - Live Stream. "
+              "Auction Date This Lot will be offered on Thursday 17th September.")
+        self.assertEqual(_exact_auction_date(text,"2026-09-16"),"2026-09-17")
 
     def test_extracts_lot_overview_from_canonical_landing_markup(self):
         html='''<section><p>Next commercial auction 7th October 2026</p><article><div>Commercial LOT - Oct 2026</div><div>FEATURED LOT</div><h3>Sheffield S10</h3><p>Substantial Freehold Retail, Supermarket &amp; Car Park Investment</p><img src="/media/auction/lot-44.jpg" alt="Sheffield investment" /><a href="/lot-overview/substantial-freehold-retail-supermarket-car-park-investment-in-sheffield/c261001-044">View lot</a></article></section>'''
