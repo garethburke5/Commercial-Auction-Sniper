@@ -39,15 +39,29 @@ def _header_auction_date(text):
 
 
 def _exact_auction_date(text, fallback=None):
-    # Allsop exact lot pages publish a canonical `Commercial/Residential - <date>`
-    # line. It outranks search-card month labels and date-like URL identifiers.
-    exact = _header_auction_date(text)
-    if exact: return exact
-    m = re.search(r"(?:offered on|auction(?:ed)?(?: on)?|auction date\.?)[^\d]{0,35}(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)(?:\s+(20\d{2}))?", text or "", re.I)
-    if not m: return fallback
-    year = m.group(3) or (fallback[:4] if fallback else str(date.today().year))
-    mm = MONTH_NAMES.get(m.group(2).lower())
-    return f"{year}-{mm}-{int(m.group(1)):02d}" if mm else fallback
+    """Return the actual day this lot is offered.
+
+    Allsop residential auctions often span two days. The generic header says, for
+    example, `Residential - 16th & 17th Sept 2026`, while each lot states `This Lot
+    will be offered on Thursday 17th September`. The lot-specific statement must
+    outrank the multi-day header or day-two lots disappear from the live board a day
+    early. A year omitted from the lot-specific sentence is inherited from the
+    catalogue header/fallback.
+    """
+    raw_text = text or ""
+    header = _header_auction_date(raw_text)
+    m = re.search(
+        r"(?:this\s+lot\s+will\s+be\s+)?offered\s+on(?:\s+[A-Za-z]+)?\s+(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)(?:\s+(20\d{2}))?",
+        raw_text, re.I,
+    )
+    if not m:
+        m = re.search(r"(?:auction(?:ed)?(?: on)?|auction date\.?)[^\d]{0,35}(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)(?:\s+(20\d{2}))?", raw_text, re.I)
+    if m:
+        year = m.group(3) or (header[:4] if header else fallback[:4] if fallback else str(date.today().year))
+        mm = MONTH_NAMES.get(m.group(2).lower())
+        if mm: return f"{year}-{mm}-{int(m.group(1)):02d}"
+    if header: return header
+    return fallback
 
 
 def _page_auction_dates(s, today=None):
