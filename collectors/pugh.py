@@ -73,13 +73,41 @@ def _amount(patterns, text):
     return None
 
 
-def _apply_pugh_particulars(lot, page_soup):
-    """Extract decision-useful facts from the exact Pugh/BTG particulars page.
+def _floor_area_sqft(text):
+    """Return the whole-property floor area, not the first room/unit measurement.
 
-    Pugh often places the most valuable information in Description and General/Tenancy,
-    not in the search card. Keep enough source text for the UI opportunity summary and
-    populate the structured fields so the card does not throw away disclosed facts.
+    Pugh particulars commonly list several unit/room areas followed by an Overall/Total
+    NIA/GIA. Taking the first bare sq-ft mention silently shrank multi-let properties.
+    Prefer explicitly labelled totals; otherwise use the largest plausible sq-ft value.
     """
+    labelled = (
+        r"(?:overall|total)(?:\s+(?:floor|internal|gross|net))?\s*(?:area|nia|gia)?\s*[:\-]?\s*([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)",
+        r"(?:overall|total)\s+(?:nia|gia)\s*[:\-]?\s*([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)",
+        r"(?:extending|extends|approximately|approx\.?|circa)\s*(?:to\s*)?([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)",
+    )
+    for pat in labelled:
+        vals=[]
+        for m in re.finditer(pat, text or "", re.I):
+            try:
+                value=float(m.group(1).replace(",", ""))
+                if 20 <= value <= 5_000_000:
+                    vals.append(value)
+            except Exception:
+                pass
+        if vals:
+            return max(vals)
+    vals=[]
+    for m in re.finditer(r"\b([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)\b", text or "", re.I):
+        try:
+            value=float(m.group(1).replace(",", ""))
+            if 20 <= value <= 5_000_000:
+                vals.append(value)
+        except Exception:
+            pass
+    return max(vals) if vals else None
+
+
+def _apply_pugh_particulars(lot, page_soup):
     if not lot or page_soup is None:
         return lot
     main = page_soup.find("main") or page_soup
@@ -95,10 +123,7 @@ def _apply_pugh_particulars(lot, page_soup):
     if rent is not None:
         lot.annual_rent = rent
 
-    sqft = _amount((
-        r"(?:extending|extends|approximately|approx\.?|circa)\s*(?:to\s*)?([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)",
-        r"\b([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)\b",
-    ), text)
+    sqft = _floor_area_sqft(text)
     if sqft:
         lot.area_sqft = sqft
         lot.area_sqm = sqft / 10.7639
@@ -114,10 +139,8 @@ def _apply_pugh_particulars(lot, page_soup):
 
     if re.search(r"no break clauses?|without (?:a )?break", text, re.I):
         lot.break_clause = "No break clauses stated"
-
     if re.search(r"personal guarantor|guarantor is secured|guaranteed by", text, re.I):
         lot.guarantors = "Personal guarantor stated"
-
     m = re.search(r"tenant in situ\s*\(([^)]+)\)", text, re.I)
     if m:
         lot.tenant = norm(m.group(1))[:120]
@@ -161,7 +184,6 @@ def collect():
             except Exception as exc:
                 print("PUGH_INDEX_FAIL", page, repr(exc))
                 continue
-
             pages_seen += 1
             cards = _property_cards(s)
             page_ids = set(cards)
@@ -172,79 +194,46 @@ def collect():
                     break
                 previous_ids = page_ids
                 continue
-
             dates = sorted({d for d in (_auction_date(card) for card in cards.values()) if d})
             has_future = any(d >= today for d in dates)
             if has_future:
-                future_pages_seen += 1
-                past_only_streak = 0
+                future_pages_seen += 1; past_only_streak = 0
             elif dates and max(dates) < today:
                 past_only_streak += 1
             else:
                 past_only_streak = 0
-
             targets.update(_page_targets(s, today))
             if future_pages_seen and past_only_streak >= 2:
                 break
             previous_ids = page_ids
 
         if not targets:
-            return SourceResult(
-                SOURCE, "FAILED" if future_pages_seen else "CATALOGUE PENDING", [],
-                (
-                    f"Pugh future inventory was visible across {future_pages_seen} page(s) but no commercial/mixed-use lots were captured."
-                    if future_pages_seen else
-                    f"Newest-first Pugh search scanned {pages_seen} page(s); no future catalogue inventory identified."
-                ),
-                discovered_count=0,
-            )
+            return SourceResult(SOURCE, "FAILED" if future_pages_seen else "CATALOGUE PENDING", [],
+                f"Pugh future inventory was visible across {future_pages_seen} page(s) but no commercial/mixed-use lots were captured." if future_pages_seen else f"Newest-first Pugh search scanned {pages_seen} page(s); no future catalogue inventory identified.", discovered_count=0)
 
-        lots = []
-        failures = 0
-
+        lots=[]; failures=0
         def hydrate(item):
-            href, (card, lotno, auction_date) = item
-            lot = detail_lot(
-                SOURCE, href, seed=card,
-                lot_number=lotno,
-                auction_date=auction_date,
-                force_commercial=False,
-                strict_commercial=True,
-                suppress_prior=True,
-            )
-            if not lot:
-                return None
+            href,(card,lotno,auction_date)=item
+            lot=detail_lot(SOURCE,href,seed=card,lot_number=lotno,auction_date=auction_date,force_commercial=False,strict_commercial=True,suppress_prior=True)
+            if not lot: return None
             try:
-                ds = soup(href, use_browser=False)
-                lot = _apply_pugh_particulars(lot, ds)
+                lot=_apply_pugh_particulars(lot,soup(href,use_browser=False))
             except Exception as exc:
-                print("PUGH_RICH_DETAIL_FAIL", href, repr(exc))
+                print("PUGH_RICH_DETAIL_FAIL",href,repr(exc))
             return lot
-
         with ThreadPoolExecutor(max_workers=10) as ex:
-            futures = {ex.submit(hydrate, item): item[0] for item in targets.items()}
+            futures={ex.submit(hydrate,item):item[0] for item in targets.items()}
             for f in as_completed(futures):
                 try:
-                    lot = f.result()
-                    if lot and str(lot.auction_date or "")[:10] >= today:
-                        lots.append(lot)
+                    lot=f.result()
+                    if lot and str(lot.auction_date or "")[:10] >= today: lots.append(lot)
                 except Exception as exc:
-                    failures += 1
-                    print("PUGH_DETAIL_FAIL", futures[f], repr(exc))
-
-        dedup = {}
-        for lot in lots:
-            dedup[lot.url or (norm(lot.address).lower(), lot.auction_date)] = lot
-        lots = list(dedup.values())
-        scope_dates = tuple(sorted({str(x.auction_date)[:10] for x in lots if x.auction_date}))
-
-        status = "LIVE" if lots and failures == 0 else "DEGRADED" if lots else "FAILED"
-        return SourceResult(
-            SOURCE, status, lots,
-            f"Newest-first all-future sweep: {pages_seen} page(s); {len(targets)} commercial/mixed candidates; {len(lots)} published across {len(scope_dates)} future auction date(s); {failures} detail failures.",
-            discovered_count=len(targets),
-            authoritative_snapshot=False,
-            scope_dates=scope_dates,
-        )
+                    failures+=1; print("PUGH_DETAIL_FAIL",futures[f],repr(exc))
+        dedup={}
+        for lot in lots: dedup[lot.url or (norm(lot.address).lower(),lot.auction_date)]=lot
+        lots=list(dedup.values())
+        scope_dates=tuple(sorted({str(x.auction_date)[:10] for x in lots if x.auction_date}))
+        status="LIVE" if lots and failures==0 else "DEGRADED" if lots else "FAILED"
+        return SourceResult(SOURCE,status,lots,f"Newest-first all-future sweep: {pages_seen} page(s); {len(targets)} commercial/mixed candidates; {len(lots)} published across {len(scope_dates)} future auction date(s); {failures} detail failures.",discovered_count=len(targets),authoritative_snapshot=False,scope_dates=scope_dates)
     except Exception as exc:
         return SourceResult(SOURCE, "FAILED", [], f"Pugh discovery failed: {exc}")
