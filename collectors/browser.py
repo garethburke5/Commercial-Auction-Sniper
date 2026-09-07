@@ -15,151 +15,89 @@ HEADERS = {
 
 def _session() -> requests.Session:
     session = requests.Session()
-    retry = Retry(
-        total=3,
-        connect=3,
-        read=3,
-        status=3,
-        backoff_factor=0.8,
-        status_forcelist=(408, 425, 429, 500, 502, 503, 504),
-        allowed_methods=frozenset({"GET", "HEAD"}),
-        raise_on_status=False,
-    )
-    session.mount("https://", HTTPAdapter(max_retries=retry))
-    session.mount("http://", HTTPAdapter(max_retries=retry))
+    retry = Retry(total=3,connect=3,read=3,status=3,backoff_factor=0.8,status_forcelist=(408,425,429,500,502,503,504),allowed_methods=frozenset({"GET","HEAD"}),raise_on_status=False)
+    session.mount("https://", HTTPAdapter(max_retries=retry)); session.mount("http://", HTTPAdapter(max_retries=retry))
     return session
 
 
 def _curl_http11(url: str, timeout_ms: int) -> str | None:
-    """Last-resort public HTTP fetch for servers that reset Python/HTTP2 clients."""
-    timeout_s = max(10, int(timeout_ms / 1000))
+    timeout_s=max(10,int(timeout_ms/1000))
     try:
-        proc = subprocess.run(
-            [
-                "curl", "--http1.1", "--location", "--silent", "--show-error",
-                "--fail-with-body", "--retry", "2", "--retry-all-errors",
-                "--connect-timeout", "12", "--max-time", str(timeout_s),
-                "-A", HEADERS["User-Agent"],
-                "-H", f"Accept-Language: {HEADERS['Accept-Language']}",
-                url,
-            ],
-            capture_output=True,
-            text=True,
-            timeout=timeout_s + 5,
-            check=False,
-        )
-        text = proc.stdout or ""
-        if proc.returncode == 0 and len(text) > 1000:
-            return text
-    except (OSError, subprocess.SubprocessError):
-        pass
+        proc=subprocess.run(["curl","--http1.1","--location","--silent","--show-error","--fail-with-body","--retry","2","--retry-all-errors","--connect-timeout","12","--max-time",str(timeout_s),"-A",HEADERS["User-Agent"],"-H",f"Accept-Language: {HEADERS['Accept-Language']}","-H","Connection: close",url],capture_output=True,text=True,timeout=timeout_s+5,check=False)
+        text=proc.stdout or ""
+        if proc.returncode==0 and len(text)>1000: return text
+    except (OSError,subprocess.SubprocessError): pass
     return None
 
 
 def _urllib_fetch(url: str, timeout_ms: int) -> str | None:
-    timeout_s = max(10, int(timeout_ms / 1000))
+    timeout_s=max(10,int(timeout_ms/1000))
     try:
-        req = Request(url, headers={
-            "User-Agent": HEADERS["User-Agent"],
-            "Accept-Language": HEADERS["Accept-Language"],
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        })
-        with urlopen(req, timeout=timeout_s, context=ssl.create_default_context()) as response:
-            raw = response.read()
-            if len(raw) <= 1000:
-                return None
-            charset = response.headers.get_content_charset() or "utf-8"
-            return raw.decode(charset, errors="replace")
-    except Exception:
-        return None
+        req=Request(url,headers={"User-Agent":HEADERS["User-Agent"],"Accept-Language":HEADERS["Accept-Language"],"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Connection":"close"})
+        with urlopen(req,timeout=timeout_s,context=ssl.create_default_context()) as response:
+            raw=response.read()
+            if len(raw)<=1000:return None
+            charset=response.headers.get_content_charset() or "utf-8"
+            return raw.decode(charset,errors="replace")
+    except Exception:return None
 
 
 def get_bytes(url: str, timeout_ms: int = 30000, max_bytes: int = 15_000_000) -> bytes:
-    """Fetch a public binary document with the same retry philosophy as get_html.
-
-    Used for auction brochures/legal PDFs where important tenancy, area and income
-    particulars are intentionally omitted from the teaser HTML. This never bypasses
-    authentication or challenges and caps downloads to protect the production run.
-    """
     try:
-        r = _session().get(url, headers=HEADERS, timeout=(15, 30), allow_redirects=True)
-        r.raise_for_status()
-        data = r.content
-        if 500 <= len(data) <= max_bytes:
-            return data
-    except Exception:
-        pass
-    timeout_s = max(10, int(timeout_ms / 1000))
+        r=_session().get(url,headers=HEADERS,timeout=(15,30),allow_redirects=True); r.raise_for_status(); data=r.content
+        if 500<=len(data)<=max_bytes:return data
+    except Exception:pass
+    timeout_s=max(10,int(timeout_ms/1000))
     try:
-        req = Request(url, headers={
-            "User-Agent": HEADERS["User-Agent"],
-            "Accept-Language": HEADERS["Accept-Language"],
-            "Accept": "application/pdf,application/octet-stream,*/*;q=0.8",
-        })
-        with urlopen(req, timeout=timeout_s, context=ssl.create_default_context()) as response:
-            data = response.read(max_bytes + 1)
-            if 500 <= len(data) <= max_bytes:
-                return data
-    except Exception:
-        pass
+        req=Request(url,headers={"User-Agent":HEADERS["User-Agent"],"Accept-Language":HEADERS["Accept-Language"],"Accept":"application/pdf,application/octet-stream,*/*;q=0.8","Connection":"close"})
+        with urlopen(req,timeout=timeout_s,context=ssl.create_default_context()) as response:
+            data=response.read(max_bytes+1)
+            if 500<=len(data)<=max_bytes:return data
+    except Exception:pass
     raise RuntimeError(f"No usable binary document returned for {url}")
 
 
-def get_html(url: str, use_browser: bool = False, timeout_ms: int = 30000) -> str:
-    """Fetch source HTML through independent transports before declaring failure.
+def _browser_launch_args():
+    """Keep the final browser transport independent of broken HTTP/2 negotiation.
 
-    Order is requests/urllib3, explicit HTTP/1.1 curl, stdlib urllib/OpenSSL, then
-    Chromium. This prevents a transient protocol-specific failure from turning an
-    otherwise public live catalogue into a FAILED collector. Hard authentication
-    or bot challenges are not bypassed; source-specific collectors must use another
-    legitimate public route where one exists.
+    Several UK auction hosts work normally from consumer networks/search crawlers but
+    intermittently return ERR_HTTP2_PROTOCOL_ERROR to Azure/GitHub-hosted Chromium.
+    Chromium's --disable-http2 forces HTTP/1.1 for this last-resort public fetch and
+    complements the existing curl --http1.1 path rather than bypassing access controls.
     """
+    return ["--disable-http2"]
+
+
+def get_html(url: str, use_browser: bool = False, timeout_ms: int = 30000) -> str:
     if not use_browser:
         try:
-            r = _session().get(url, headers=HEADERS, timeout=(15, 30))
-            r.raise_for_status()
-            text = r.text
-            if len(text) > 1000:
-                return text
-        except Exception:
-            pass
-
-        text = _curl_http11(url, timeout_ms)
-        if text:
-            return text
-
-        text = _urllib_fetch(url, timeout_ms)
-        if text:
-            return text
+            r=_session().get(url,headers={**HEADERS,"Connection":"close"},timeout=(15,30)); r.raise_for_status(); text=r.text
+            if len(text)>1000:return text
+        except Exception:pass
+        text=_curl_http11(url,timeout_ms)
+        if text:return text
+        text=_urllib_fetch(url,timeout_ms)
+        if text:return text
 
     from playwright.sync_api import sync_playwright
-    last_exc = None
+    last_exc=None
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser=p.chromium.launch(headless=True,args=_browser_launch_args())
         try:
             for attempt in range(2):
-                page = browser.new_page(user_agent=HEADERS["User-Agent"])
+                page=browser.new_page(user_agent=HEADERS["User-Agent"],extra_http_headers={"Accept-Language":HEADERS["Accept-Language"],"Connection":"close"})
                 try:
-                    response = page.goto(url, wait_until="domcontentloaded", timeout=timeout_ms)
-                    if response and response.status >= 500 and attempt == 0:
-                        page.close()
-                        time.sleep(1.0)
-                        continue
-                    try:
-                        page.wait_for_load_state("networkidle", timeout=7000)
-                    except Exception:
-                        pass
-                    html = page.content()
-                    if len(html) > 1000:
-                        return html
-                except Exception as exc:
-                    last_exc = exc
+                    response=page.goto(url,wait_until="domcontentloaded",timeout=timeout_ms)
+                    if response and response.status>=500 and attempt==0:
+                        page.close(); time.sleep(1.0); continue
+                    try:page.wait_for_load_state("networkidle",timeout=7000)
+                    except Exception:pass
+                    html=page.content()
+                    if len(html)>1000:return html
+                except Exception as exc:last_exc=exc
                 finally:
-                    if not page.is_closed():
-                        page.close()
+                    if not page.is_closed():page.close()
                 time.sleep(1.0)
-        finally:
-            browser.close()
-    if last_exc:
-        raise last_exc
+        finally:browser.close()
+    if last_exc:raise last_exc
     raise RuntimeError(f"No usable HTML returned for {url}")
