@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import json
 from playwright.sync_api import sync_playwright
 
-URL = "https://www.allsop.co.uk/property-search?auction_id=771b1f0e-119b-11f1-82cb-0242ac110002&page=1&view=list"
+AUCTION_ID = "771b1f0e-119b-11f1-82cb-0242ac110002"
+URL = f"https://www.allsop.co.uk/property-search?auction_id={AUCTION_ID}&page=1&view=list"
 
 
 def main():
@@ -14,18 +16,24 @@ def main():
             page.wait_for_load_state("networkidle", timeout=15000)
         except Exception:
             pass
-        page.wait_for_timeout(2000)
+        payload = page.evaluate("""async ({auctionId}) => {
+          const r = await fetch(`/api/search?auction_id=${auctionId}&page=1&view=list&react`);
+          return await r.json();
+        }""", {"auctionId": AUCTION_ID})
+        data = payload.get("data") or {}
+        results = data.get("results") or []
         print("PAGE_STATUS", response.status if response else None)
-        print("TITLE", page.title())
-        print("DETAIL_LINKS")
-        count = 0
-        for a in page.locator("a[href]").all():
-            text = (a.inner_text() or "").strip().replace("\n", " ")
-            href = a.get_attribute("href") or ""
-            if "View Lot Details" in text or "lot" in href.lower():
-                print(text[:100], "=>", href)
-                count += 1
-        print("MATCHING_LINK_COUNT", count)
+        print("DATA_KEYS", sorted(data.keys()))
+        print("RESULT_COUNT", len(results))
+        for key, value in data.items():
+            if key != "results":
+                print("META", key, json.dumps(value, ensure_ascii=False, default=str)[:3000])
+        if results:
+            first = results[0]
+            print("FIRST_KEYS", sorted(first.keys()))
+            print("URL_FIELDS", json.dumps({k:v for k,v in first.items() if any(x in k.lower() for x in ("url","href","slug","link"))}, ensure_ascii=False, default=str))
+            print("ID_FIELDS", json.dumps({k:v for k,v in first.items() if "id" in k.lower() or "reference" in k.lower() or "lotnumber" in k.lower()}, ensure_ascii=False, default=str))
+            print("FIRST", json.dumps(first, ensure_ascii=False, default=str)[:12000])
         browser.close()
 
 
