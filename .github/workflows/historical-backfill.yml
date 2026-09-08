@@ -1,6 +1,6 @@
 name: Auction Sniper Historical Backfill
 
-# Manual rerun trigger: 2026-09-07T11:51Z
+# Manual rerun trigger: 2026-09-08T21:12Z
 on:
   workflow_dispatch:
   schedule:
@@ -68,12 +68,16 @@ jobs:
           progress=json.loads(p.read_text(encoding='utf-8'))
           assert isinstance(db.get('properties'),list)
           assert isinstance(db.get('auction_events'),list)
+          assert db['auction_events'], 'historical database contains zero auction events'
           assert all(e.get('source') and e.get('address_as_published') for e in db['auction_events'])
           missing_urls=[e for e in db['auction_events'] if not (e.get('source_evidence') or {}).get('listing_url')]
           assert not missing_urls, f'{len(missing_urls)} history events missing listing URL evidence'
           allsop=(progress.get('sources') or {}).get('Allsop Commercial') or {}
           assert allsop, 'Allsop progress telemetry missing'
           assert allsop.get('auctions_discovered',0) > 0, 'No Allsop historical auctions discovered'
+          assert allsop.get('auctions_completed',0) > 0, 'No Allsop historical auctions completed'
+          assert allsop.get('last_run_rows',0) > 0, 'Latest historical batch wrote zero rows'
+          assert allsop.get('lots_captured',0) > 0, 'Allsop telemetry reports zero captured lots'
           print('HISTORY',len(db['properties']),'properties',len(db['auction_events']),'events')
           print('ALLSOP',allsop)
           PY
