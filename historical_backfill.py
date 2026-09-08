@@ -88,7 +88,6 @@ def discover_allsop_commercial_auctions():
                 "results_url": href,
                 "source_index_url": ALLSOP_RESULTS_INDEX,
             })
-    # The markup can nest the label around the link. Recover labels from nearby text if needed.
     dedup = {}
     for item in anchors:
         dedup[item["auction_id"]] = item
@@ -174,6 +173,36 @@ def _hydrate_allsop_historical(url, card, fallback_date=None, result_page_url=No
     return lot
 
 
+def _discover_allsop_result_lots(results_url):
+    """Discover lot links from a historical results page.
+
+    Allsop's property-search results are JS-rendered. A normal HTTP response can
+    therefore be a valid 200 page with zero lot cards. Try the cheap static path
+    first, but require actual lot links; if none are present, render the page in
+    Chromium and extract again.
+    """
+    found = {}
+    static_error = None
+    try:
+        rs = soup(results_url, use_browser=False)
+        allsop._extract_targets(rs, found, include_all_auction_lots=True)
+    except Exception as exc:
+        static_error = exc
+    if found:
+        return found, "static"
+
+    browser_found = {}
+    try:
+        rs = soup(results_url, use_browser=True)
+        allsop._extract_targets(rs, browser_found, include_all_auction_lots=True)
+    except Exception as exc:
+        detail = f"static={type(static_error).__name__}: {static_error}; " if static_error else ""
+        raise RuntimeError(f"Allsop historical results could not be rendered ({detail}browser={type(exc).__name__}: {exc})") from exc
+    if not browser_found:
+        raise RuntimeError("Allsop historical results rendered but contained zero lot links")
+    return browser_found, "browser"
+
+
 def backfill_allsop(max_auctions=6, oldest_year=None):
     progress = load_progress()
     state = progress["sources"].setdefault("Allsop Commercial", {
@@ -193,14 +222,16 @@ def backfill_allsop(max_auctions=6, oldest_year=None):
         if len(selected) >= max_auctions:
             break
     state["status"] = "RUNNING" if selected else "CAUGHT UP"
+    state["last_run_auctions_selected"] = len(selected)
     save_progress(progress)
 
     all_rows = []
+    failed_this_run = 0
     for auction in selected:
+        state["last_attempt"] = {"auction_id": auction["auction_id"], "label": auction.get("label"), "at": now_iso()}
+        save_progress(progress)
         try:
-            rs = soup(auction["results_url"], use_browser=False)
-            found = {}
-            allsop._extract_targets(rs, found, include_all_auction_lots=True)
+            found, discovery_mode = _discover_allsop_result_lots(auction["results_url"])
             fallback = f"{auction['month']}-01" if auction.get("month") else None
             rows = []
             for href, meta in found.items():
@@ -210,13 +241,17 @@ def backfill_allsop(max_auctions=6, oldest_year=None):
                 )
                 if row:
                     rows.append(row)
-            if rows:
-                update_history_database(rows, path=HISTORY_PATH)
-                all_rows.extend(rows)
+            if not rows:
+                raise RuntimeError(f"Allsop auction yielded zero historical rows from {len(found)} discovered lot links")
+
+            update_history_database(rows, path=HISTORY_PATH)
+            all_rows.extend(rows)
             completed.add(auction["auction_id"])
             state["completed_auction_ids"] = sorted(completed)
             state["auctions_completed"] = len(completed)
             state["lots_captured"] = int(state.get("lots_captured") or 0) + len(rows)
+            state["last_success_rows"] = len(rows)
+            state["last_discovery_mode"] = discovery_mode
             if auction.get("month"):
                 earliest = state.get("earliest_month_reached")
                 state["earliest_month_reached"] = min(filter(None, [earliest, auction["month"]])) if earliest else auction["month"]
@@ -224,15 +259,21 @@ def backfill_allsop(max_auctions=6, oldest_year=None):
             state["status"] = "RUNNING"
             save_progress(progress)
         except Exception as exc:
+            failed_this_run += 1
             failures = state.setdefault("failures", [])
-            failures.append({"auction_id": auction["auction_id"], "label": auction.get("label"), "error": f"{type(exc).__name__}: {exc}", "at": now_iso()})
+            failure = {"auction_id": auction["auction_id"], "label": auction.get("label"), "error": f"{type(exc).__name__}: {exc}", "at": now_iso()}
+            failures.append(failure)
+            state["last_failure"] = failure
             state["status"] = "DEGRADED"
             save_progress(progress)
 
     remaining = [a for a in auctions if a["auction_id"] not in completed]
     if not remaining:
         state["status"] = "CAUGHT UP"
+    elif failed_this_run:
+        state["status"] = "DEGRADED"
     state["last_run_rows"] = len(all_rows)
+    state["last_run_failures"] = failed_this_run
     state["last_run"] = now_iso()
     save_progress(progress)
     return {"source": "Allsop Commercial", "rows": len(all_rows), "state": state}
@@ -249,6 +290,8 @@ def main():
     else:
         raise SystemExit("unsupported source")
     print(json.dumps(result, indent=2, ensure_ascii=False))
+    if result["state"].get("last_run_auctions_selected") and result.get("rows", 0) == 0:
+        raise SystemExit("Historical backfill selected auctions but captured zero rows; refusing false success")
 
 
 if __name__ == "__main__":
