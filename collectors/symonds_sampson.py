@@ -57,12 +57,7 @@ def _event_card_text(a):
 
 
 def _event_links(s,today=None):
-    """Discover current/future event URLs while preserving undated candidates.
-
-    A dated card that is explicitly in the past can be rejected immediately.
-    Undated event URLs are retained because the exact event page can supply the
-    authoritative date later in _discover_events.
-    """
+    """Discover current/future event URLs while preserving undated candidates."""
     found={};today_iso=(today or date.today()).isoformat()
     for a in s.find_all("a",href=True):
         href=urljoin(BASE,a.get("href") or "").split("#",1)[0]
@@ -74,7 +69,6 @@ def _event_links(s,today=None):
 
 
 def _event_page_date(s):
-    """Read the exact event date from the authoritative event page."""
     root=s.find("main") or s
     text=norm(root.get_text(" ",strip=True))
     m=re.search(r"Event\s+Date\s*&\s*Time\s*:?[\s|\-]*(.{0,180})",text,re.I)
@@ -128,17 +122,23 @@ def _property_links(s,auction_date):
     return out
 
 
+def _strip_chrome(text):
+    text=norm(text)
+    low=text.lower()
+    cut=len(text)
+    for marker in CHROME_MARKERS:
+        i=low.find(marker.lower())
+        if 0<i<cut:cut=i
+    return text[:cut].strip()
+
+
 def _property_text(s):
     root=s.find("main") or s
-    text=norm(root.get_text(" ",strip=True))
-    for marker in CHROME_MARKERS:
-        i=text.find(marker)
-        if i>0:text=text[:i]
-    return text
+    return _strip_chrome(root.get_text(" ",strip=True))
 
 
 def _is_target(text):
-    low=norm(text).lower()
+    low=_strip_chrome(text).lower()
     commercial=bool(COMMERCIAL_SIGNAL.search(low))
     if commercial:return True
     if DEVELOPMENT_SIGNAL.search(low):return False
@@ -147,7 +147,7 @@ def _is_target(text):
 
 
 def _property_type(text):
-    low=norm(text).lower()
+    low=_strip_chrome(text).lower()
     if "mixed use" in low or "mixed-use" in low or (COMMERCIAL_SIGNAL.search(low) and any(x in low for x in RESIDENTIAL_COMPONENT)):return "Mixed Use"
     if "retail" in low or "shop" in low:return "Retail"
     if "office" in low:return "Office"
@@ -156,12 +156,26 @@ def _property_type(text):
     return "Commercial"
 
 
+def _money_value(raw):
+    try:return float(raw.replace("£","").replace(",",""))
+    except Exception:return None
+
+
 def _current_rent(text):
-    matches=[]
-    for m in re.finditer(r"(?:current(?: gross)? income|current rent|producing|generating|let at)\s*(?:of|is|:)?\s*(£[\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)\b",text or "",re.I):
-        v=parse_rent(m.group(0))
-        if v:matches.append(v)
-    return matches[0] if matches else parse_rent(text)
+    """Prefer explicit current passing rent and never substitute ERV/potential income."""
+    text=text or ""
+    patterns=(
+        r"(?:current(?: gross)? income|current rent|rent reserved)\s*(?:of|is|:)?\s*(£[\d,]+(?:\.\d+)?)\s*(?:rent\s*)?(?:per annum|p\.?a\.?|pa)\b",
+        r"(?:producing|generating|let at)\s*(?:of|is|:)?\s*(£[\d,]+(?:\.\d+)?)\s*(?:rent\s*)?(?:per annum|p\.?a\.?|pa)\b",
+        r"annual rent\s*(?:of|is|:)?\s*(£[\d,]+(?:\.\d+)?)\b",
+        r"rent\s*(?:of|is|:)?\s*(£[\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)\b",
+    )
+    for pat in patterns:
+        m=re.search(pat,text,re.I)
+        if m:
+            v=_money_value(m.group(1))
+            if v:return v
+    return parse_rent(text)
 
 
 def _image(s,url):
@@ -196,21 +210,29 @@ def _pdf_text(url):
     return norm(" ".join((p.extract_text() or "") for p in r.pages))
 
 
-def _detail(url,seed,auction_date,image_hint=None):
-    s=_fetch(url);text=_property_text(s)
+def _detail(url,seed,auction_date,image_hint=None,fetcher=None,brochure_reader=None):
+    fetcher=fetcher or _fetch
+    s=fetcher(url);text=_property_text(s)
     if not _is_target(text):return None
     enriched=text
     if len(text)<900:
-        for pdf in _brochure_links(s,url):
+        if brochure_reader is not None:
             try:
-                ptext=_pdf_text(pdf)
-                if len(ptext)>len(enriched):enriched=ptext
+                ptext=norm(brochure_reader(s,url))
+                if ptext:enriched=norm(text+" "+ptext)
             except Exception:pass
+        else:
+            for pdf in _brochure_links(s,url):
+                try:
+                    ptext=_pdf_text(pdf)
+                    if ptext:enriched=norm(text+" "+ptext)
+                except Exception:pass
     h=s.find("h1");address=norm(h.get_text(" ",strip=True)) if h else seed or url
     ml=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
     lp_url,lp_status=legal_pack(s,url)
     rent=_current_rent(enriched)
-    return Lot(source=SOURCE,url=url,address=address,lot_number=("Lot "+ml.group(1) if ml else None),auction_date=auction_date,image_url=_image(s,url) or image_hint,guide_price=parse_guide(enriched),annual_rent=rent,tenure=parse_tenure(enriched),vat_status=parse_vat(enriched),legal_pack_status=lp_status,legal_pack_url=lp_url,status="Live",description=enriched[:1200],property_type=_property_type(enriched)).finalise()
+    guide=parse_guide(text) or parse_guide(enriched)
+    return Lot(source=SOURCE,url=url,address=address,lot_number=("Lot "+ml.group(1) if ml else None),auction_date=auction_date,image_url=_image(s,url) or image_hint,guide_price=guide,annual_rent=rent,tenure=parse_tenure(enriched),vat_status=parse_vat(enriched),legal_pack_status=lp_status,legal_pack_url=lp_url,status="Live",description=enriched[:1200],property_type=_property_type(enriched)).finalise()
 
 
 def collect():
