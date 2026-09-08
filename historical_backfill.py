@@ -2,13 +2,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin, urlparse, parse_qs
+from urllib.request import Request, urlopen
 
-from collectors.core import Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
-from collectors.utils import soup, legal_pack
+from collectors.core import Lot, norm, parse_vat
+from collectors.utils import soup
 from collectors import allsop
 from history_database import update_history_database
 
@@ -17,6 +19,7 @@ ALLSOP_RESULTS_INDEX = BASE + "/auctions/all-past-auction-results/"
 DATA = Path("data")
 PROGRESS_PATH = DATA / "historical_backfill_progress.json"
 HISTORY_PATH = DATA / "property_history.json"
+API_PAGE_SIZE = 20
 
 MONTHS = {
     "january": 1, "february": 2, "march": 3, "april": 4, "may": 5, "june": 6,
@@ -53,6 +56,13 @@ def _auction_month(label):
     return f"{int(m.group(2)):04d}-{MONTHS[m.group(1).lower()]:02d}"
 
 
+def _canonical_results_url(auction_id, page=1):
+    # Allsop currently returns 404 for /property-search/?... but 200 for
+    # /property-search?... . Construct the canonical route instead of trusting
+    # historical href formatting from the archive index.
+    return f"{BASE}/property-search?auction_id={auction_id}&page={int(page)}&view=list"
+
+
 def discover_allsop_commercial_auctions():
     s = soup(ALLSOP_RESULTS_INDEX, use_browser=False)
     anchors = []
@@ -85,7 +95,7 @@ def discover_allsop_commercial_auctions():
                 "auction_id": auction_id,
                 "label": label,
                 "month": month_key,
-                "results_url": href,
+                "results_url": _canonical_results_url(auction_id),
                 "source_index_url": ALLSOP_RESULTS_INDEX,
             })
     dedup = {}
@@ -94,113 +104,168 @@ def discover_allsop_commercial_auctions():
     return sorted(dedup.values(), key=lambda x: x.get("month") or "", reverse=True)
 
 
-def _sold_price(text):
-    text = norm(text)
-    patterns = (
-        r"\bSold(?:\s+Prior)?(?:\s+for|\s+at)?\s*£\s*([\d,]+(?:\.\d{1,2})?)",
-        r"\bSale Price\s*£\s*([\d,]+(?:\.\d{1,2})?)",
-        r"\bResult\s*£\s*([\d,]+(?:\.\d{1,2})?)",
-    )
-    for p in patterns:
-        m = re.search(p, text, re.I)
-        if m:
-            try:
-                return float(m.group(1).replace(",", ""))
-            except ValueError:
-                pass
-    return None
+def _api_json(url):
+    req = Request(url, headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140 Safari/537.36",
+        "Accept": "application/json, text/plain, */*",
+        "Referer": BASE + "/property-search",
+    })
+    with urlopen(req, timeout=35) as response:
+        if response.status != 200:
+            raise RuntimeError(f"Allsop API HTTP {response.status} for {url}")
+        return json.loads(response.read().decode("utf-8"))
 
 
-def _status_from_text(text):
-    t = norm(text)
-    if re.search(r"\bsold\s*prior\b", t, re.I):
-        return "SOLD PRIOR"
-    if re.search(r"\bsold\b", t, re.I):
-        return "SOLD"
-    if re.search(r"\bwithdrawn(?:\s+prior)?\b", t, re.I):
-        return "WITHDRAWN"
-    if re.search(r"\bpostponed\b", t, re.I):
-        return "POSTPONED"
-    if re.search(r"\bunsold\b|\bnot sold\b", t, re.I):
-        return "UNSOLD"
-    return "ARCHIVED"
+def _api_search_page(auction_id, page):
+    url = f"{BASE}/api/search?auction_id={auction_id}&page={int(page)}&view=list&react"
+    payload = _api_json(url)
+    data = payload.get("data") or {}
+    rows = data.get("results")
+    total = data.get("total")
+    if not isinstance(rows, list) or not isinstance(total, int):
+        raise RuntimeError(f"Unexpected Allsop search API contract on page {page}")
+    return rows, total, url
 
 
-def _hydrate_allsop_historical(url, card, fallback_date=None, result_page_url=None):
+def _float(value):
     try:
-        s = soup(url, use_browser=False)
-    except Exception:
-        try:
-            s = soup(url, use_browser=True)
-        except Exception:
+        if value in (None, ""):
             return None
-    lot_number, address, main = allsop._main_identity(s)
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _auction_date_from_api(value, fallback_month=None):
+    try:
+        # The API publishes auction_date as epoch milliseconds. UTC date matches
+        # Allsop's visible catalogue date for midnight-local records.
+        return datetime.fromtimestamp(float(value) / 1000.0, tz=timezone.utc).date().isoformat()
+    except (TypeError, ValueError, OSError, OverflowError):
+        return f"{fallback_month}-01" if fallback_month else None
+
+
+def _status_from_api(item):
+    value = norm(str(item.get("lot_status") or item.get("lotStatus") or item.get("allsop_lotstatus") or ""))
+    low = value.lower()
+    if "sold prior" in low:
+        return "SOLD PRIOR"
+    if "sold" in low:
+        return "SOLD"
+    if "withdraw" in low:
+        return "WITHDRAWN"
+    if "postpon" in low:
+        return "POSTPONED"
+    if "unsold" in low or "not sold" in low:
+        return "UNSOLD"
+    return value.upper() if value else "ARCHIVED"
+
+
+def _description_from_api(item):
+    bits = []
+    for key in ("property_byline", "main_byline", "allsop_propertybyline"):
+        value = norm(str(item.get(key) or ""))
+        if value and value not in bits:
+            bits.append(value)
+    features = item.get("features") or []
+    if isinstance(features, list):
+        bits.extend(norm(str(x)) for x in features if norm(str(x)))
+    for key in ("live_addendum", "rent_notes"):
+        value = norm(str(item.get(key) or ""))
+        if value:
+            bits.append(value)
+    return norm(" ".join(bits))[:6500]
+
+
+def _row_from_api(item, auction, page):
+    if item.get("is_commercial") is False and str(item.get("catalogue_type") or "").lower() != "commercial":
+        return None
+    address = norm(str(item.get("full_address") or item.get("allsop_address") or ""))
     if not address:
-        return None
-    text = norm(main.get_text(" ", strip=True))
-    combined = norm(card + " " + text)
-    if not allsop._detail_is_target(combined):
-        return None
-    auction_date = allsop._exact_auction_date(text, fallback_date)
-    if not auction_date and fallback_date:
-        auction_date = fallback_date
-    status = _status_from_text(combined)
-    image = allsop._allsop_image(main, url)
-    lp_url, lp_status = legal_pack(s, url)
-    rent = parse_rent(combined)
-    guide = parse_guide(combined)
-    title = norm((main.find("h1") or s.find("h1")).get_text(" ", strip=True)) if (main.find("h1") or s.find("h1")) else None
+        raise RuntimeError(f"Allsop lot {item.get('allsop_lotid') or item.get('reference')} has no published address")
+    lot_id = norm(str(item.get("allsop_lotid") or ""))
+    if not lot_id:
+        raise RuntimeError(f"Allsop lot {item.get('reference')} has no stable lot id")
+    lot_number_raw = item.get("lot_number") if item.get("lot_number") is not None else item.get("allsop_lotnumber")
+    lot_number = f"Lot {lot_number_raw}" if lot_number_raw not in (None, "") else None
+    description = _description_from_api(item)
+    result_url = _canonical_results_url(auction["auction_id"], page=page)
+    image_id = norm(str(item.get("image_file_id") or item.get("featured_image_file_id") or ""))
+    image_url = f"{BASE}/api/image/{image_id}/600/450" if image_id else None
+    annual_rent = _float(item.get("income"))
+    if annual_rent is None:
+        annual_rent = _float(item.get("current_rent_per_annum"))
+    guide = _float(item.get("guide_price_lower"))
+    if guide is None:
+        guide = _float(item.get("website_price_lower"))
+    property_type = norm(str(item.get("property_byline") or item.get("main_byline") or item.get("allsop_propertybyline") or "")) or None
+    occupation = norm(str(item.get("property_tenancy") or item.get("allsop_propertytenancy") or "")) or None
+    tenant = None
+    raw_tenant = item.get("tenant")
+    if isinstance(raw_tenant, str) and raw_tenant.strip():
+        try:
+            tenant_data = json.loads(raw_tenant)
+            names = [norm(str(r.get("lessee") or "")) for r in (tenant_data.get("rows") or []) if norm(str(r.get("lessee") or ""))]
+            tenant = "; ".join(dict.fromkeys(names)) or None
+        except Exception:
+            tenant = None
     lot = Lot(
         source=allsop.SOURCE,
-        url=url,
+        url=result_url,
         address=address,
         lot_number=lot_number,
-        auction_date=auction_date,
-        image_url=image,
+        auction_date=_auction_date_from_api(item.get("auction_date"), auction.get("month")),
+        image_url=image_url,
         guide_price=guide,
-        annual_rent=rent,
-        tenure=parse_tenure(combined),
-        vat_status=parse_vat(combined),
-        legal_pack_status=lp_status,
-        legal_pack_url=lp_url,
-        description=combined[:6500],
-        property_type=title[:180] if title else None,
-        status=status,
+        annual_rent=annual_rent,
+        gross_yield=_float(item.get("net_yield")) or _float(item.get("yield")),
+        tenure=norm(str(item.get("property_tenure") or item.get("allsop_propertytenure") or "")) or None,
+        vat_status=parse_vat(description),
+        legal_pack_status="AVAILABLE" if item.get("legal_pack_approved_by") else "UNKNOWN",
+        description=description,
+        property_type=property_type,
+        occupation=occupation,
+        tenant=tenant,
+        status=_status_from_api(item),
     ).finalise().to_dict()
-    lot["sale_price"] = _sold_price(combined)
-    lot["result_page_url"] = result_page_url
-    lot["evidence_url"] = url
+    lot["sale_price"] = _float(item.get("sale_price"))
+    lot["source_id"] = lot_id
+    lot["result_page_url"] = result_url
+    lot["evidence_url"] = result_url
     return lot
 
 
-def _discover_allsop_result_lots(results_url):
-    """Discover lot links from a historical results page.
+def _fetch_allsop_auction_api(auction):
+    first_rows, total, _ = _api_search_page(auction["auction_id"], 1)
+    if total <= 0:
+        raise RuntimeError("Allsop API reports zero historical lots")
+    pages = max(1, math.ceil(total / API_PAGE_SIZE))
+    raw_rows = list(first_rows)
+    for page in range(2, pages + 1):
+        page_rows, page_total, _ = _api_search_page(auction["auction_id"], page)
+        if page_total != total:
+            raise RuntimeError(f"Allsop API total changed during pagination: {total} -> {page_total}")
+        raw_rows.extend(page_rows)
+    by_id = {}
+    for item in raw_rows:
+        lot_id = norm(str(item.get("allsop_lotid") or ""))
+        if lot_id:
+            by_id[lot_id] = item
+    if len(by_id) != total:
+        raise RuntimeError(f"Allsop API pagination incomplete: expected {total} unique lots, got {len(by_id)}")
 
-    Allsop's property-search results are JS-rendered. A normal HTTP response can
-    therefore be a valid 200 page with zero lot cards. Try the cheap static path
-    first, but require actual lot links; if none are present, render the page in
-    Chromium and extract again.
-    """
-    found = {}
-    static_error = None
-    try:
-        rs = soup(results_url, use_browser=False)
-        allsop._extract_targets(rs, found, include_all_auction_lots=True)
-    except Exception as exc:
-        static_error = exc
-    if found:
-        return found, "static"
-
-    browser_found = {}
-    try:
-        rs = soup(results_url, use_browser=True)
-        allsop._extract_targets(rs, browser_found, include_all_auction_lots=True)
-    except Exception as exc:
-        detail = f"static={type(static_error).__name__}: {static_error}; " if static_error else ""
-        raise RuntimeError(f"Allsop historical results could not be rendered ({detail}browser={type(exc).__name__}: {exc})") from exc
-    if not browser_found:
-        raise RuntimeError("Allsop historical results rendered but contained zero lot links")
-    return browser_found, "browser"
+    rows = []
+    for item in by_id.values():
+        # Determine the page only for the human-verifiable evidence URL. The
+        # stable Allsop lot id is also stored as source_id.
+        idx = raw_rows.index(item)
+        page = (idx // API_PAGE_SIZE) + 1
+        row = _row_from_api(item, auction, page)
+        if row:
+            rows.append(row)
+    if not rows:
+        raise RuntimeError(f"Allsop API returned {total} lots but zero commercial historical rows")
+    return rows, total, pages
 
 
 def backfill_allsop(max_auctions=6, oldest_year=None):
@@ -231,19 +296,7 @@ def backfill_allsop(max_auctions=6, oldest_year=None):
         state["last_attempt"] = {"auction_id": auction["auction_id"], "label": auction.get("label"), "at": now_iso()}
         save_progress(progress)
         try:
-            found, discovery_mode = _discover_allsop_result_lots(auction["results_url"])
-            fallback = f"{auction['month']}-01" if auction.get("month") else None
-            rows = []
-            for href, meta in found.items():
-                row = _hydrate_allsop_historical(
-                    href, meta.get("card") or "", meta.get("auction_date") or fallback,
-                    result_page_url=auction["results_url"],
-                )
-                if row:
-                    rows.append(row)
-            if not rows:
-                raise RuntimeError(f"Allsop auction yielded zero historical rows from {len(found)} discovered lot links")
-
+            rows, expected_lots, pages = _fetch_allsop_auction_api(auction)
             update_history_database(rows, path=HISTORY_PATH)
             all_rows.extend(rows)
             completed.add(auction["auction_id"])
@@ -251,7 +304,9 @@ def backfill_allsop(max_auctions=6, oldest_year=None):
             state["auctions_completed"] = len(completed)
             state["lots_captured"] = int(state.get("lots_captured") or 0) + len(rows)
             state["last_success_rows"] = len(rows)
-            state["last_discovery_mode"] = discovery_mode
+            state["last_expected_lots"] = expected_lots
+            state["last_api_pages"] = pages
+            state["last_discovery_mode"] = "allsop-json-api"
             if auction.get("month"):
                 earliest = state.get("earliest_month_reached")
                 state["earliest_month_reached"] = min(filter(None, [earliest, auction["month"]])) if earliest else auction["month"]
@@ -285,13 +340,12 @@ def main():
     ap.add_argument("--max-auctions", type=int, default=6)
     ap.add_argument("--oldest-year", type=int, default=None)
     args = ap.parse_args()
-    if args.source == "allsop":
-        result = backfill_allsop(max_auctions=args.max_auctions, oldest_year=args.oldest_year)
-    else:
-        raise SystemExit("unsupported source")
+    result = backfill_allsop(max_auctions=args.max_auctions, oldest_year=args.oldest_year)
     print(json.dumps(result, indent=2, ensure_ascii=False))
     if result["state"].get("last_run_auctions_selected") and result.get("rows", 0) == 0:
         raise SystemExit("Historical backfill selected auctions but captured zero rows; refusing false success")
+    if result["state"].get("last_run_failures"):
+        raise SystemExit("Historical backfill had one or more auction failures; refusing partial success")
 
 
 if __name__ == "__main__":
