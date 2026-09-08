@@ -187,8 +187,14 @@ def _structured(text):
     if m:out["listed_status"]=norm(m.group(1)).replace("grade","Grade")
     m=re.search(r"\b(?:Total\s+floor\s+area\s*)?([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft\b",t,re.I)
     if m:out["area_sqft"]=_money_value(m.group(1))
-    m=re.search(r"\b(?:ERV(?:\s+of)?|estimated rental value(?:\s+of)?|potential further(?: income)? of?)\s*£?\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)?\b",t,re.I)
-    if m:out["erv"]=_money_value(m.group(1))
+    for pat in (
+        r"\b(?:ERV(?:\s+of)?|estimated rental value(?:\s+of)?|potential further(?: income)? of?)\s*£?\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)?\b",
+        r"\bERV\s+of\s+(?:the\s+)?(?:apartments?|flats?|units?)\s+is\s+(?:estimated\s+to\s+be\s+)?£\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)\b",
+        r"\bestimated rental value\s+of\s+(?:the\s+)?(?:apartments?|flats?|units?)\s+(?:is\s+)?£\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)\b",
+    ):
+        m=re.search(pat,t,re.I)
+        if m:
+            out["erv"]=_money_value(m.group(1));break
     m=re.search(r"\b(?:lease|tenancy)\s+for\s+(?:a\s+)?(?:term\s+of\s+)?(\d+(?:\.\d+)?\s+years?)\b",t,re.I)
     if m:out["lease_term"]=norm(m.group(1))
     m=re.search(r"\b(?:from|commencing|commenced)\s+(\d{1,2}\s+[A-Za-z]+\s+20\d{2})\b",t,re.I)
