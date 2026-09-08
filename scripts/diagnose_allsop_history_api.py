@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 import json
-from urllib.parse import urlparse
 
 from playwright.sync_api import sync_playwright
 
-URL = "https://www.allsop.co.uk/property-search/?auction_id=771b1f0e-119b-11f1-82cb-0242ac110002&view=table"
+URL = "https://www.allsop.co.uk/property-search?auction_id=771b1f0e-119b-11f1-82cb-0242ac110002&page=1&view=list"
 
 
 def main():
@@ -52,8 +51,7 @@ def main():
             page.wait_for_load_state("networkidle", timeout=15000)
         except Exception as exc:
             print("NETWORKIDLE", type(exc).__name__, str(exc)[:300])
-        page.wait_for_timeout(5000)
-
+        page.wait_for_timeout(3000)
         print("FINAL_URL", page.url)
         print("TITLE", page.title())
         print("HTML_LENGTH", len(page.content()))
