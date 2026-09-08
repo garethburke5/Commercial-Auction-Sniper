@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-08T21:22:38.411480+00:00",
+  "sources": {
+    "Allsop Commercial": {
+      "status": "RUNNING",
+      "auctions_discovered": 100,
+      "auctions_completed": 8,
+      "lots_captured": 782,
+      "earliest_month_reached": "2025-09",
+      "completed_auction_ids": [
+        "4c5d617a-7117-11f0-bb92-0242ac110002",
+        "771b1f0e-119b-11f1-82cb-0242ac110002",
+        "9511c0da-b589-11f0-b0f6-0242ac110002",
+        "ac5a0860-c47f-11f0-836b-0242ac110002",
+        "bc13087c-7116-11f0-93f5-0242ac110002",
+        "d8f13938-f220-11f0-a09f-0242ac110002",
+        "df9b4068-1b97-11f0-b562-0242ac110002",
+        "eb91d024-f848-11f0-a7b9-0242ac110002"
+      ],
+      "failures": [],
+      "last_run_auctions_selected": 8,
+      "last_attempt": {
+        "auction_id": "df9b4068-1b97-11f0-b562-0242ac110002",
+        "label": "September 2025",
+        "at": "2026-09-08T21:22:29.179022+00:00"
+      },
+      "last_success_rows": 185,
+      "last_expected_lots": 185,
+      "last_api_pages": 10,
+      "last_discovery_mode": "allsop-json-api",
+      "last_success": "2026-09-08T21:22:38.411234+00:00",
+      "last_run_rows": 782,
+      "last_run_failures": 0,
+      "last_run": "2026-09-08T21:22:38.411462+00:00"
+    }
+  }
+}
