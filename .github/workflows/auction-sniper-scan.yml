@@ -15,9 +15,9 @@ on:
       - 'config/target_sources.json'
       - 'collectors/**'
       - 'tests/**'
-      - 'scripts/repair_app_canonical.py'
       - 'scripts/update_history_database.py'
       - 'property_summary.py'
+      - 'app.py'
 
 permissions:
   contents: write
@@ -48,9 +48,6 @@ jobs:
           pip install -r requirements.txt
           pip install playwright
           python -m playwright install chromium
-
-      - name: Repair presentation to canonical collector snapshot
-        run: python scripts/repair_app_canonical.py
 
       - name: Compile production code
         run: |
@@ -172,8 +169,7 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           cp data/properties.json /tmp/auction-sniper-properties.json
           cp data/property_history.json /tmp/auction-sniper-property-history.json
-          cp app.py /tmp/auction-sniper-app.py
-          git restore data/properties.json app.py
+          git restore data/properties.json
           if git ls-files --error-unmatch data/property_history.json >/dev/null 2>&1; then
             git restore data/property_history.json
           else
@@ -182,8 +178,7 @@ jobs:
           git pull --rebase origin main
           cp /tmp/auction-sniper-properties.json data/properties.json
           cp /tmp/auction-sniper-property-history.json data/property_history.json
-          cp /tmp/auction-sniper-app.py app.py
-          git add data/properties.json data/property_history.json app.py
+          git add data/properties.json data/property_history.json
           if ! git diff --cached --quiet; then
             git commit -m 'Refresh canonical Auction Sniper production state'
             git push origin main
