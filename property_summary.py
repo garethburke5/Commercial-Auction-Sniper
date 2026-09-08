@@ -22,8 +22,6 @@ def _text(row):
 
 
 def _property_kind(low):
-    if "ground rent" in low or "ground rents" in low:
-        return "GROUND RENT"
     if any(x in low for x in ("industrial", "warehouse", "workshop", "factory")):
         return "INDUSTRIAL"
     if any(x in low for x in ("public house", " pub ", "drinking establishment")):
@@ -45,19 +43,74 @@ def _has_upper_development(low):
     )
 
 
+def _has_planning_consent(low):
+    return bool(
+        re.search(r"planning permission (?:has been |was )?granted", low)
+        or re.search(r"(?:full|outline) planning permission", low)
+        or re.search(r"benefits? from (?:an? )?(?:existing )?planning (?:permission|consent)", low)
+        or re.search(r"\bconsented\b", low)
+    )
+
+
+def _is_rooftop_development(low):
+    return bool(
+        re.search(r"\b(?:roof ?space|airspace|rooftop)\b", low)
+        and (
+            _has_planning_consent(low)
+            or any(x in low for x in ("development opportunity", "development potential", "additional storey", "extra storey"))
+        )
+    )
+
+
+def _is_ground_rent_investment(row, low, development):
+    """Identify the asset being sold, not an incidental ground-rent clause.
+
+    A peppercorn ground rent attached to a long lease is a title constraint.
+    It must not turn a vacant/development lot into a ground-rent investment.
+    """
+    primary = _norm(row.get("property_type")).lower()
+    explicit = bool(
+        re.search(r"\bground rents? investment\b|\bground rent portfolio\b", primary)
+        or re.search(r"\b(?:freehold|residential|commercial) ground rents? investment\b|\bground rent portfolio\b", low)
+    )
+    nominal = bool(
+        re.search(r"(?:peppercorn|nil|nill|nominal)(?: annual)? (?:ground )?rent", low)
+        or re.search(r"ground rent.{0,45}(?:peppercorn|nil|nill|nominal)", low)
+    )
+    operative_interest = bool(
+        development
+        or _is_rooftop_development(low)
+        or re.search(r"\b(?:roof ?space|airspace)\b", low)
+        or "vacant possession" in low
+    )
+    if nominal and operative_interest:
+        return False
+    if development:
+        return False
+    return explicit
+
+
 def _title(row, low):
     rent = row.get("rent") if row.get("rent") is not None else row.get("annual_rent")
     occupation = _norm(row.get("occupation")).lower()
     kind = _property_kind(" " + low + " ")
-
-    if "ground rent" in low or "ground rents" in low:
-        return "GROUND RENT INVESTMENT"
     mixed = any(x in low for x in ("mixed use", "mixed-use", "retail and residential", "shop and flat", "shop with flat"))
     upper_dev = _has_upper_development(low)
-    development = upper_dev or any(x in low for x in ("development opportunity", "redevelopment opportunity", "development potential"))
+    rooftop_dev = _is_rooftop_development(low)
+    consented = _has_planning_consent(low)
+    development = rooftop_dev or upper_dev or any(
+        x in low for x in ("development opportunity", "redevelopment opportunity", "development potential")
+    )
     vacant = "vacant" in low or occupation.startswith("vacant")
     nominal = bool(re.search(r"(?:nil|nill|peppercorn)\s+rent", low))
 
+    # The operative opportunity outranks incidental tenure wording. For example,
+    # a roofspace with permission remains a development asset even where the
+    # existing building is sold off at a peppercorn ground rent.
+    if rooftop_dev and consented:
+        return "CONSENTED ROOFTOP RESIDENTIAL DEVELOPMENT"
+    if consented and development and any(x in low for x in ("residential", "flat", "dwelling")):
+        return "CONSENTED RESIDENTIAL DEVELOPMENT"
     if mixed and development and rent:
         return "MIXED-USE INVESTMENT + DEVELOPMENT"
     if mixed and rent:
@@ -68,6 +121,8 @@ def _title(row, low):
         return "RETAIL INVESTMENT + UPPER-FLOOR DEVELOPMENT"
     if kind == "RETAIL" and development:
         return "RETAIL + DEVELOPMENT OPPORTUNITY"
+    if _is_ground_rent_investment(row, low, development):
+        return "GROUND RENT INVESTMENT"
     if nominal:
         return f"{kind} OPPORTUNITY · NOMINAL INCOME"
     if rent:
@@ -77,7 +132,6 @@ def _title(row, low):
     if development:
         return f"{kind} DEVELOPMENT OPPORTUNITY"
     return f"{kind} OPPORTUNITY"
-
 
 def _extract_units(low):
     m = re.search(r"comprising\s+(two|three|four|five|\d+)\s+adjoining\s+ground floor retail units", low)
