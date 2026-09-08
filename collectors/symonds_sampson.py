@@ -57,7 +57,6 @@ def _event_card_text(a):
 
 
 def _event_links(s,today=None):
-    """Discover current/future event URLs while preserving undated candidates."""
     found={};today_iso=(today or date.today()).isoformat()
     for a in s.find_all("a",href=True):
         href=urljoin(BASE,a.get("href") or "").split("#",1)[0]
@@ -123,9 +122,7 @@ def _property_links(s,auction_date):
 
 
 def _strip_chrome(text):
-    text=norm(text)
-    low=text.lower()
-    cut=len(text)
+    text=norm(text);low=text.lower();cut=len(text)
     for marker in CHROME_MARKERS:
         i=low.find(marker.lower())
         if 0<i<cut:cut=i
@@ -139,8 +136,7 @@ def _property_text(s):
 
 def _is_target(text):
     low=_strip_chrome(text).lower()
-    commercial=bool(COMMERCIAL_SIGNAL.search(low))
-    if commercial:return True
+    if COMMERCIAL_SIGNAL.search(low):return True
     if DEVELOPMENT_SIGNAL.search(low):return False
     if any(x in low for x in RESIDENTIAL_STRONG):return False
     return False
@@ -162,7 +158,6 @@ def _money_value(raw):
 
 
 def _current_rent(text):
-    """Prefer explicit current passing rent and never substitute ERV/potential income."""
     text=text or ""
     patterns=(
         r"(?:current(?: gross)? income|current rent|rent reserved)\s*(?:of|is|:)?\s*(£[\d,]+(?:\.\d+)?)\s*(?:rent\s*)?(?:per annum|p\.?a\.?|pa)\b",
@@ -176,6 +171,37 @@ def _current_rent(text):
             v=_money_value(m.group(1))
             if v:return v
     return parse_rent(text)
+
+
+def _structured(text):
+    t=norm(text);low=t.lower();out={}
+    both_vacant=bool(re.search(r"\bvacant(?: possession)?\b",low))
+    both_let=bool(re.search(r"\b(?:let|leased)\b|\bgenerating\s+£|\bannual rent\b",low))
+    if both_vacant and both_let:out["occupation"]="Part let / part vacant"
+    elif both_vacant:out["occupation"]="Vacant"
+    elif both_let:out["occupation"]="Let"
+    out["development_potential"] = True if re.search(r"\b(?:redevelopment|development potential|development opportunity)\b",low) else None
+    out["refurbishment"] = True if re.search(r"\b(?:refurbishment|modernisation|modernization)\b",low) else None
+    out["asset_management"] = True if re.search(r"\b(?:mixed[- ]use|shop\b|restaurant\b).{0,120}\b(?:flats?|apartments?)\b|\b(?:flats?|apartments?)\b.{0,120}\b(?:shop|restaurant)\b",low) else None
+    m=re.search(r"\b(Grade\s+(?:I|II\*?|III)\s+Listed)\b",t,re.I)
+    if m:out["listed_status"]=norm(m.group(1)).replace("grade","Grade")
+    m=re.search(r"\b(?:Total\s+floor\s+area\s*)?([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft\b",t,re.I)
+    if m:out["area_sqft"]=_money_value(m.group(1))
+    m=re.search(r"\b(?:ERV(?:\s+of)?|estimated rental value(?:\s+of)?|potential further(?: income)? of?)\s*£?\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)?\b",t,re.I)
+    if m:out["erv"]=_money_value(m.group(1))
+    m=re.search(r"\b(?:lease|tenancy)\s+for\s+(?:a\s+)?(?:term\s+of\s+)?(\d+(?:\.\d+)?\s+years?)\b",t,re.I)
+    if m:out["lease_term"]=norm(m.group(1))
+    m=re.search(r"\b(?:from|commencing|commenced)\s+(\d{1,2}\s+[A-Za-z]+\s+20\d{2})\b",t,re.I)
+    if m:out["lease_start"]=norm(m.group(1))
+    if re.search(r"\bno remaining tenant break clauses?\b",low):out["break_status"]="No remaining tenant break"
+    if re.search(r"\bfive year rent review\b|\b5[- ]year rent review\b",low):out["rent_review"]="5-year rent review"
+    if re.search(r"\binternal repairing and insuring\b",low):out["fri"]=False
+    elif re.search(r"\bfull repairing and insuring\b|\bFRI\b",t,re.I):out["fri"]=True
+    m=re.search(r"\b(?:Business Rates:\s*)?RV\s*£?\s*([\d,]+(?:\.\d+)?)\b",t,re.I)
+    if m:out["rateable_value"]=_money_value(m.group(1))
+    m=re.search(r"\b(?:EPC|Energy Performance Certificate)[^A-G]{0,40}([A-G]\s*\(\s*\d{1,3}\s*\))",t,re.I)
+    if m:out["epc"]=re.sub(r"\s+"," ",m.group(1)).replace("( ","(").replace(" )",")").upper()
+    return out
 
 
 def _image(s,url):
@@ -205,8 +231,7 @@ def _brochure_links(s,url):
 
 
 def _pdf_text(url):
-    raw=get_bytes(url)
-    r=PdfReader(BytesIO(raw))
+    raw=get_bytes(url);r=PdfReader(BytesIO(raw))
     return norm(" ".join((p.extract_text() or "") for p in r.pages))
 
 
@@ -230,9 +255,8 @@ def _detail(url,seed,auction_date,image_hint=None,fetcher=None,brochure_reader=N
     h=s.find("h1");address=norm(h.get_text(" ",strip=True)) if h else seed or url
     ml=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
     lp_url,lp_status=legal_pack(s,url)
-    rent=_current_rent(enriched)
-    guide=parse_guide(text) or parse_guide(enriched)
-    return Lot(source=SOURCE,url=url,address=address,lot_number=("Lot "+ml.group(1) if ml else None),auction_date=auction_date,image_url=_image(s,url) or image_hint,guide_price=guide,annual_rent=rent,tenure=parse_tenure(enriched),vat_status=parse_vat(enriched),legal_pack_status=lp_status,legal_pack_url=lp_url,status="Live",description=enriched[:1200],property_type=_property_type(enriched)).finalise()
+    rent=_current_rent(enriched);guide=parse_guide(text) or parse_guide(enriched);facts=_structured(enriched)
+    return Lot(source=SOURCE,url=url,address=address,lot_number=("Lot "+ml.group(1) if ml else None),auction_date=auction_date,image_url=_image(s,url) or image_hint,guide_price=guide,annual_rent=rent,tenure=parse_tenure(enriched),vat_status=parse_vat(enriched),legal_pack_status=lp_status,legal_pack_url=lp_url,status="Live",description=enriched[:1200],property_type=_property_type(enriched),occupation=facts.get("occupation"),area_sqft=facts.get("area_sqft"),erv=facts.get("erv"),lease_term=facts.get("lease_term"),lease_start=facts.get("lease_start"),break_status=facts.get("break_status"),rent_review=facts.get("rent_review"),fri=facts.get("fri"),rateable_value=facts.get("rateable_value"),epc=facts.get("epc"),development_potential=facts.get("development_potential"),refurbishment=facts.get("refurbishment"),asset_management=facts.get("asset_management"),listed_status=facts.get("listed_status")).finalise()
 
 
 def collect():
@@ -247,4 +271,4 @@ def collect():
                 except Exception:continue
         except Exception as exc:failures.append((event_url,exc))
     note="; ".join(f"{u}: {e}" for u,e in failures[:4]) if failures else ""
-    return SourceResult(source=SOURCE,status=("LIVE" if lots else "FAILED"),lots=lots,message=note,lots_seen=len(lots),expected_count=None)
+    return SourceResult(source=SOURCE,status=("LIVE" if lots else "FAILED"),lots=lots,message=note,discovered_count=len(lots),expected_count=None)
