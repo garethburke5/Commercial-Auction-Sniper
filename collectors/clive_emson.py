@@ -11,6 +11,82 @@ CURRENT = BASE + "/properties/"
 COMMERCIAL = BASE + "/properties/commerical-property-auctions/"
 
 
+def _money_value(raw):
+    m = re.search(r"£\s*([\d,]+(?:\.\d{1,2})?)", raw or "")
+    return float(m.group(1).replace(",", "")) if m else None
+
+
+def _parse_passing_rent(text, guide_price=None):
+    """Extract Clive Emson's passing rent without confusing price/fee boilerplate for rent.
+
+    Prefer an explicit total current-rent statement. If that is absent, aggregate clearly
+    labelled monthly tenancy rents. Only then fall back to the shared parser, rejecting an
+    exact guide-price collision because that is almost always page-chrome contamination.
+    """
+    value = norm(text)
+
+    explicit_patterns = [
+        r"\bCurrently\s+let\s+at\s+(£\s*[\d,]+(?:\.\d{1,2})?)\s*(?:per annum|p\.?a\.?|pa)\b",
+        r"\bCurrent(?:ly)?\s+(?:gross\s+)?(?:rent|rental income|income)\s*(?:is|of|at|:)\s*"
+        r"(£\s*[\d,]+(?:\.\d{1,2})?)\s*(?:per annum|p\.?a\.?|pa)\b",
+        r"\bTotal\s+(?:current\s+)?(?:rent|rental income|income)\s*(?:is|of|at|:)\s*"
+        r"(£\s*[\d,]+(?:\.\d{1,2})?)\s*(?:per annum|p\.?a\.?|pa)\b",
+    ]
+    for pat in explicit_patterns:
+        m = re.search(pat, value, re.I)
+        if m:
+            rent = _money_value(m.group(1))
+            if rent and 500 <= rent <= 5_000_000:
+                return rent
+
+    monthly = []
+    monthly_patterns = [
+        r"\bLet\b[^.]{0,180}?\bat\s+(£\s*[\d,]+(?:\.\d{1,2})?)\s+per calendar month\b",
+        r"\bcurrent rental of\s+(£\s*[\d,]+(?:\.\d{1,2})?)\s+per calendar month\b",
+        r"\blicen[cs]e agreement\s+at\s+(£\s*[\d,]+(?:\.\d{1,2})?)\s+per calendar month\b",
+    ]
+    seen_spans = set()
+    for pat in monthly_patterns:
+        for m in re.finditer(pat, value, re.I):
+            # Avoid counting the same sentence twice when two patterns overlap.
+            sentence_start = value.rfind(".", 0, m.start()) + 1
+            sentence_end = value.find(".", m.end())
+            if sentence_end < 0:
+                sentence_end = len(value)
+            key = norm(value[sentence_start:sentence_end]).lower()
+            if key in seen_spans:
+                continue
+            seen_spans.add(key)
+            amount = _money_value(m.group(1))
+            if amount and 40 <= amount <= 100_000:
+                monthly.append(amount)
+    if monthly:
+        return round(sum(monthly) * 12, 2)
+
+    fallback = parse_rent(value)
+    if fallback and guide_price and abs(fallback - guide_price) < 0.01:
+        return None
+    return fallback
+
+
+def _parse_occupation(text):
+    value = norm(text).lower()
+    has_let = bool(re.search(
+        r"\bcurrently let\b|\bseparately let\b|\blet on (?:a|the)\b|\blet to\b|"
+        r"\blicen[cs]e agreement at\b|\bcurrent rental of\b",
+        value,
+        re.I,
+    ))
+    has_vacant = bool(re.search(r"\bvacant(?: possession)?\b", value, re.I))
+    if "part vacant possession" in value or (has_let and has_vacant):
+        return "Part Vacant / Part Let"
+    if has_let:
+        return "Let"
+    if has_vacant or "category vacant commercial" in value:
+        return "Vacant"
+    return None
+
+
 def _discover_current_auction():
     s = soup(CURRENT, use_browser=False)
     text = norm(s.get_text(" ", strip=True))
@@ -76,12 +152,15 @@ def _parse_detail(url, seed, auction_date):
     if not address:
         address = seed or url
 
-    mdate = re.search(r"Auction Date:\s*(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})", text, re.I)
+    mdate = re.search(r"Auction (?:Date|Ends):\s*(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})", text, re.I)
     if mdate:
         auction_date = datetime.strptime(" ".join(mdate.groups()), "%d %B %Y").date().isoformat()
 
+    guide_price = parse_guide(text) or parse_guide(seed)
+    annual_rent = _parse_passing_rent(text, guide_price=guide_price)
+    occupation = _parse_occupation(text)
+
     lp_url, lp_status = legal_pack(s, url)
-    occ = "Vacant" if "vacant possession" in low or "category vacant commercial" in low else None
     return Lot(
         source=SOURCE,
         url=url,
@@ -89,16 +168,16 @@ def _parse_detail(url, seed, auction_date):
         lot_number=lot_number,
         auction_date=auction_date,
         image_url=image_from_soup(s, url),
-        guide_price=parse_guide(text) or parse_guide(seed),
-        annual_rent=parse_rent(text),
+        guide_price=guide_price,
+        annual_rent=annual_rent,
         tenure=parse_tenure(text),
         vat_status=parse_vat(text),
         legal_pack_status=lp_status,
         legal_pack_url=lp_url,
         status="Live",
-        description=text[:1200],
+        description=text[:4000],
         property_type=category or "Commercial / Mixed Use",
-        occupation=occ,
+        occupation=occupation,
     ).finalise()
 
 
