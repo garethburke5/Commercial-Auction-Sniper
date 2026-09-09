@@ -11,10 +11,43 @@ import html as _html
 import re as _re
 from urllib.parse import parse_qs as _parse_qs, unquote_plus as _unquote_plus, urlparse as _urlparse
 
+import streamlit as st
 from history_v2 import find_history as _find_history
 
 _ORIGINAL_ESCAPE = _html.escape
 _HISTORY_GOOGLE_PREFIX = "https://www.google.com/search?q="
+
+# Make the page scrollbar easy to grab on desktop. Chromium/WebKit uses the
+# pseudo-elements below; Firefox honours scrollbar-width.
+st.markdown(
+    """
+    <style>
+      html, body, [data-testid="stAppViewContainer"] {
+        scrollbar-width: auto;
+      }
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar,
+      [data-testid="stAppViewContainer"]::-webkit-scrollbar {
+        width: 16px;
+        height: 16px;
+      }
+      html::-webkit-scrollbar-thumb,
+      body::-webkit-scrollbar-thumb,
+      [data-testid="stAppViewContainer"]::-webkit-scrollbar-thumb {
+        min-height: 52px;
+        border: 3px solid transparent;
+        background-clip: padding-box;
+        border-radius: 10px;
+      }
+      html::-webkit-scrollbar-track,
+      body::-webkit-scrollbar-track,
+      [data-testid="stAppViewContainer"]::-webkit-scrollbar-track {
+        border-radius: 10px;
+      }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 
 def _history_address_from_google_url(value: str):
