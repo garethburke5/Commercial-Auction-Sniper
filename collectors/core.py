@@ -215,6 +215,16 @@ class SourceResult:
     authoritative_snapshot: bool = False
     scope_dates: tuple[str, ...] = ()
 
+    def __post_init__(self):
+        # A collector that explicitly declares its snapshot authoritative is saying
+        # that its returned lot set is complete for scope_dates. Give that claim an
+        # exact expected count when the collector omitted one, so stale rows from an
+        # older snapshot can actually be pruned instead of surviving indefinitely.
+        if self.authoritative_snapshot and self.expected_count is None:
+            self.expected_count = len(self.lots)
+        if self.discovered_count is None:
+            self.discovered_count = len(self.lots)
+
     @property
     def coverage_pct(self):
         if not self.expected_count:
@@ -241,8 +251,6 @@ def parse_money(text):
 
 def parse_guide(text):
     money = r"((?:£\s*)+[\d,]+(?:\.\d+)?)"
-    # Auctioneers commonly decorate labels as "Guide Price*: £...", "Guide Price: £..."
-    # or "Guide**: £...". Keep free whitespace valid too, including duplicated £ markers.
     separator = r"\s*(?:[:*+\-–—|.]\s*)*"
     for pat in [
         rf"Guide Price{separator}{money}",
@@ -288,7 +296,7 @@ def parse_tenure(text):
 
 def parse_vat(text):
     t = (text or "").lower()
-    if any(x in t for x in ["vat is not applicable","vat-free","vat free","no vat"]):
+    if any(x in t for x in ["not elected for vat","vat is not applicable","vat-free","vat free","no vat"]):
         return "NOT APPLICABLE"
     if any(x in t for x in ["elected for vat","elected to charge vat","vat applicable","vat is applicable"]):
         return "APPLICABLE"
