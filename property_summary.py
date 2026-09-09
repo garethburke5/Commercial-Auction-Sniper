@@ -63,16 +63,11 @@ def _is_rooftop_development(low):
 
 
 def _is_ground_rent_investment(row, low, development):
-    """Identify the asset being sold, not an incidental ground-rent clause.
-
-    A peppercorn ground rent attached to a long lease is a title constraint.
-    It must not turn a vacant/development lot into a ground-rent investment.
-    """
+    """Only classify the asset itself as ground rent, never an incidental lease cost."""
     primary = _norm(row.get("property_type")).lower()
-    explicit = bool(
-        re.search(r"\bground rents? investment\b|\bground rent portfolio\b", primary)
-        or re.search(r"\b(?:freehold|residential|commercial) ground rents? investment\b|\bground rent portfolio\b", low)
-    )
+    opening = low[:260]
+    explicit_primary = bool(re.search(r"\bground rents? investment\b|\bground rent portfolio\b", primary))
+    explicit_headline = bool(re.search(r"\b(?:freehold|residential|commercial)?\s*ground rents? investment\b|\bground rent portfolio\b", opening))
     nominal = bool(
         re.search(r"(?:peppercorn|nil|nill|nominal)(?: annual)? (?:ground )?rent", low)
         or re.search(r"ground rent.{0,45}(?:peppercorn|nil|nill|nominal)", low)
@@ -87,7 +82,7 @@ def _is_ground_rent_investment(row, low, development):
         return False
     if development:
         return False
-    return explicit
+    return explicit_primary or explicit_headline
 
 
 def _title(row, low):
@@ -102,11 +97,11 @@ def _title(row, low):
         x in low for x in ("development opportunity", "redevelopment opportunity", "development potential")
     )
     vacant = "vacant" in low or occupation.startswith("vacant")
+    part_vacant = "part vacant" in occupation or "part let" in occupation or bool(
+        rent and re.search(r"\b(?:plus\s+)?[\d,]+\s*sq\.?\s*ft[^.]{0,45}\bvacant\b", low)
+    )
     nominal = bool(re.search(r"(?:nil|nill|peppercorn)\s+rent", low))
 
-    # The operative opportunity outranks incidental tenure wording. For example,
-    # a roofspace with permission remains a development asset even where the
-    # existing building is sold off at a peppercorn ground rent.
     if rooftop_dev and consented:
         return "CONSENTED ROOFTOP RESIDENTIAL DEVELOPMENT"
     if consented and development and any(x in low for x in ("residential", "flat", "dwelling")):
@@ -125,6 +120,8 @@ def _title(row, low):
         return "GROUND RENT INVESTMENT"
     if nominal:
         return f"{kind} OPPORTUNITY · NOMINAL INCOME"
+    if kind == "OFFICE" and rent and part_vacant:
+        return "PART-LET OFFICE INVESTMENT + VACANCY"
     if rent:
         return f"{kind} INVESTMENT"
     if vacant:
@@ -132,6 +129,7 @@ def _title(row, low):
     if development:
         return f"{kind} DEVELOPMENT OPPORTUNITY"
     return f"{kind} OPPORTUNITY"
+
 
 def _extract_units(low):
     m = re.search(r"comprising\s+(two|three|four|five|\d+)\s+adjoining\s+ground floor retail units", low)
@@ -187,17 +185,11 @@ def _lease_highlight(row, text):
 
 
 def build_opportunity_summary(row):
-    """Return (headline, highlights) using only evidence already captured from the listing.
-
-    The output is deliberately compact for the card surface. It never invents a tenant,
-    lease term, area or development angle; every highlight must be evidenced in the row.
-    """
     text = _text(row)
     low = text.lower()
     headline = _title(row, low)
     highlights = []
 
-    rent = row.get("rent") if row.get("rent") is not None else row.get("annual_rent")
     if re.search(r"(?:nil|nill|peppercorn)\s+rent", low):
         highlights.append("Tenant in situ · nil rent")
 
@@ -211,6 +203,11 @@ def build_opportunity_summary(row):
     if area:
         highlights.append(area)
 
+    vacancy = re.search(r"([\d,]+)\s*sq\.?\s*ft[^.]{0,55}\b(?:currently\s+)?vacant\b|(?:plus\s+)([\d,]+)\s*sq\.?\s*ft\s+vacant", text, re.I)
+    if vacancy:
+        value = vacancy.group(1) or vacancy.group(2)
+        highlights.append(f"{value} sq ft vacant / reletting opportunity")
+
     former = _extract_former_use(text)
     if former:
         highlights.append(former)
@@ -222,6 +219,10 @@ def build_opportunity_summary(row):
     lease = _lease_highlight(row, text)
     if lease:
         highlights.append(lease)
+
+    parking = _norm(row.get("parking"))
+    if parking:
+        highlights.append(parking[:90])
 
     if _has_upper_development(low):
         m = re.search(r"(?:previously|formerly)\s+(?:been\s+)?utili[sz]ed as\s+(\d+)\s+bedsits", low)
@@ -235,7 +236,6 @@ def build_opportunity_summary(row):
     if "large frontage" in low or "substantial frontage" in low:
         highlights.append("Large frontage")
 
-    # Keep the surface concise and unique. Financial metrics already have their own boxes.
     unique = []
     for item in highlights:
         item = _norm(item)
