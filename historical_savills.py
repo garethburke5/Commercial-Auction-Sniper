@@ -46,32 +46,43 @@ def _auction_id(href):
     return m.group(1) if m else None
 
 
-def _auction_month(start):
-    return start.strftime("%Y-%m") if start else None
+def _catalogue_anchors(doc):
+    out = []
+    for a in doc.find_all("a", href=True):
+        href = urljoin(savills.BASE, a.get("href") or "").split("?")[0].rstrip("/")
+        if _auction_id(href):
+            out.append((a, href))
+    return out
 
 
-def discover_past_auctions(max_pages=20):
-    """Discover Savills' own past-auction catalogue URLs, newest first.
+def _archive_page(url):
+    """Use cheap HTTP first; browser-render only when Savills returns an empty JS shell."""
+    doc = soup(url, use_browser=False)
+    anchors = _catalogue_anchors(doc)
+    if anchors:
+        return doc, anchors, "http"
+    doc = soup(url, use_browser=True)
+    return doc, _catalogue_anchors(doc), "browser"
 
-    Discovery is bounded but does not hard-code auction IDs.  We stop once the
-    archive pager yields no auction catalogue links.  Exact archive/catalogue URLs
-    are retained for provenance and later verification.
-    """
+
+def discover_past_auctions(max_pages=14):
+    """Discover the complete currently-published Savills past-auction archive."""
     found = {}
     pages_scanned = 0
+    browser_pages = 0
+    empty_pages = 0
     for page in range(1, max_pages + 1):
         archive_url = ARCHIVE if page == 1 else f"{ARCHIVE}/page-{page}"
-        try:
-            doc = soup(archive_url, use_browser=False)
-        except Exception:
-            doc = soup(archive_url, use_browser=True)
+        doc, anchors, mode = _archive_page(archive_url)
         pages_scanned += 1
-        page_found = 0
-        for a in doc.find_all("a", href=True):
-            href = urljoin(savills.BASE, a.get("href") or "").split("?")[0].rstrip("/")
+        browser_pages += int(mode == "browser")
+        if not anchors:
+            empty_pages += 1
+            if page > 1:
+                break
+            continue
+        for a, href in anchors:
             aid = _auction_id(href)
-            if not aid:
-                continue
             card = savills.nearest_card(a, 2500) if hasattr(savills, "nearest_card") else norm(a.get_text(" ", strip=True))
             card = card or norm(a.get_text(" ", strip=True))
             start, end = savills._auction_dates(card, href)
@@ -92,20 +103,20 @@ def discover_past_auctions(max_pages=20):
                 "start": start,
                 "end": end,
                 "label": card,
-                "month": _auction_month(start),
+                "month": start.strftime("%Y-%m"),
                 "source_index_url": archive_url,
             }
-            page_found += 1
-        if page_found == 0 and page > 1:
-            break
+    if not found:
+        raise RuntimeError(
+            f"Savills archive discovery returned zero dated past auctions after {pages_scanned} pages "
+            f"({browser_pages} browser fallbacks); refusing false caught-up state"
+        )
     auctions = sorted(found.values(), key=lambda x: (x["start"], int(x["auction_id"])), reverse=True)
-    return auctions, pages_scanned
+    return auctions, {"pages_scanned": pages_scanned, "browser_pages": browser_pages, "empty_pages": empty_pages}
 
 
 def _money(text):
-    if not text:
-        return None
-    m = re.search(r"(?:Hammer\s*Price|Sold(?:\s+Prior|\s+Post)?(?:\s+for)?)\s*£\s*([\d,]+(?:\.\d+)?)", text, re.I)
+    m = re.search(r"(?:Hammer\s*Price|Sold(?:\s+Prior|\s+Post)?(?:\s+for)?)\s*£\s*([\d,]+(?:\.\d+)?)", text or "", re.I)
     if not m:
         return None
     try:
@@ -133,7 +144,6 @@ def fetch_auction(auction):
     feed, targets = savills._discover_commercial_feed(auction)
     if not feed or not targets:
         raise RuntimeError("Savills commercial section could not be resolved from historical catalogue")
-
     rows = []
     failures = []
     for href, meta in targets.items():
@@ -146,15 +156,12 @@ def fetch_auction(auction):
             row["status"] = _status(card, row.get("description"))
             row["sale_price"] = _money(card)
             row["source_id"] = urlparse(href).path.rstrip("/").split("-")[-1]
-            # The exact lot page is deliberately the primary History V2 evidence.
-            # The filtered commercial catalogue is retained separately as result evidence.
             row["url"] = href
             row["evidence_url"] = href
             row["result_page_url"] = feed
             rows.append(row)
         except Exception as exc:
             failures.append({"url": href, "error": f"{type(exc).__name__}: {exc}"})
-
     if failures:
         raise RuntimeError(f"{len(failures)} Savills detail pages failed; refusing partial auction persistence: {failures[:2]}")
     if not rows:
@@ -164,21 +171,17 @@ def fetch_auction(auction):
     return rows, len(targets), feed
 
 
-def backfill(max_auctions=4, oldest_year=None):
+def backfill(max_auctions=1, oldest_year=None):
     progress = load_progress()
     state = progress["sources"].setdefault(SOURCE_KEY, {
-        "status": "NOT STARTED",
-        "auctions_discovered": 0,
-        "auctions_completed": 0,
-        "lots_captured": 0,
-        "earliest_month_reached": None,
-        "completed_auction_ids": [],
-        "failures": [],
+        "status": "NOT STARTED", "auctions_discovered": 0, "auctions_completed": 0,
+        "lots_captured": 0, "earliest_month_reached": None, "completed_auction_ids": [], "failures": [],
     })
-
-    auctions, archive_pages = discover_past_auctions()
+    auctions, discovery = discover_past_auctions()
     state["auctions_discovered"] = len(auctions)
-    state["archive_pages_scanned"] = archive_pages
+    state["archive_pages_scanned"] = discovery["pages_scanned"]
+    state["archive_browser_pages"] = discovery["browser_pages"]
+    state["archive_empty_pages"] = discovery["empty_pages"]
     completed = set(str(x) for x in (state.get("completed_auction_ids") or []))
     selected = []
     for auction in auctions:
@@ -189,7 +192,6 @@ def backfill(max_auctions=4, oldest_year=None):
         selected.append(auction)
         if len(selected) >= max_auctions:
             break
-
     state["status"] = "RUNNING" if selected else "CAUGHT UP"
     state["last_run_auctions_selected"] = len(selected)
     save_progress(progress)
@@ -197,16 +199,11 @@ def backfill(max_auctions=4, oldest_year=None):
     run_rows = 0
     run_failures = 0
     for auction in selected:
-        state["last_attempt"] = {
-            "auction_id": auction["auction_id"],
-            "label": auction.get("label"),
-            "catalogue_url": auction["catalogue"],
-            "at": now_iso(),
-        }
+        state["last_attempt"] = {"auction_id": auction["auction_id"], "label": auction.get("label"), "catalogue_url": auction["catalogue"], "at": now_iso()}
         save_progress(progress)
         try:
             rows, expected, feed = fetch_auction(auction)
-            result = update_history_database(rows, path=HISTORY_PATH)
+            db = update_history_database(rows, path=HISTORY_PATH)
             run_rows += len(rows)
             completed.add(auction["auction_id"])
             state["completed_auction_ids"] = sorted(completed, key=lambda x: int(x) if str(x).isdigit() else str(x))
@@ -215,7 +212,7 @@ def backfill(max_auctions=4, oldest_year=None):
             state["last_success_rows"] = len(rows)
             state["last_expected_lots"] = expected
             state["last_commercial_feed"] = feed
-            state["last_history_update"] = result
+            state["last_history_event_count"] = len(db.get("auction_events") or [])
             state["last_discovery_mode"] = "savills-first-party-archive"
             month = auction.get("month")
             if month:
@@ -226,12 +223,7 @@ def backfill(max_auctions=4, oldest_year=None):
             save_progress(progress)
         except Exception as exc:
             run_failures += 1
-            failure = {
-                "auction_id": auction["auction_id"],
-                "catalogue_url": auction["catalogue"],
-                "error": f"{type(exc).__name__}: {exc}",
-                "at": now_iso(),
-            }
+            failure = {"auction_id": auction["auction_id"], "catalogue_url": auction["catalogue"], "error": f"{type(exc).__name__}: {exc}", "at": now_iso()}
             state.setdefault("failures", []).append(failure)
             state["last_failure"] = failure
             state["status"] = "DEGRADED"
@@ -251,7 +243,7 @@ def backfill(max_auctions=4, oldest_year=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--max-auctions", type=int, default=4)
+    ap.add_argument("--max-auctions", type=int, default=1)
     ap.add_argument("--oldest-year", type=int, default=None)
     args = ap.parse_args()
     result = backfill(max_auctions=args.max_auctions, oldest_year=args.oldest_year)
