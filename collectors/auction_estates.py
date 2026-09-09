@@ -281,6 +281,6 @@ def collect():
             except Exception as exc:
                 failures+=1;print("AUCTION_ESTATES_DETAIL_FAIL",href,repr(exc))
         status="LIVE" if failures==0 else "DEGRADED";live_count=sum(1 for x in lots if x.status not in terminal_statuses)
-        return SourceResult(SOURCE,status,lots,f"Current Auction Estates {auction_date} catalogue: {len(all_links)} total lot pages inspected; {live_count} live commercial/mixed-use lots; {terminal} sold-prior/withdrawn/postponed lots preserved for archive; {failures} detail failures.",discovered_count=len(lots),authoritative_snapshot=bool(status=="LIVE"),scope_dates=(auction_date,))
+        return SourceResult(SOURCE,status,lots,f"Current Auction Estates {auction_date} catalogue: {len(all_links)} total lot pages inspected; {live_count} live commercial/mixed-use lots; {terminal} sold-prior/withdrawn/postponed lots preserved for archive; {failures} detail failures.",expected_count=(len(lots) if status=="LIVE" else None),discovered_count=len(lots),authoritative_snapshot=bool(status=="LIVE"),scope_dates=(auction_date,))
     except Exception as exc:
         return SourceResult(SOURCE,"FAILED",[],f"Auction Estates collector failed: {exc}")
