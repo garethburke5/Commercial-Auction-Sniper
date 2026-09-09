@@ -53,7 +53,7 @@ jobs:
         run: python -m unittest tests.test_history_database -v
 
       - name: Backfill next Savills commercial auction batch
-        run: python historical_savills.py --max-auctions 1
+        run: python historical_savills.py --max-auctions 8
 
       - name: Repair and gate Savills published addresses
         run: python repair_savills_history.py
