@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 from collectors.auction_estates import (
     _auction_date, _is_target, _lot_links, _property_type, _image,
-    _terminal_status_near_title, _tenancy_details,
+    _terminal_status_near_title, _tenancy_details, _detail,
 )
 
 
@@ -44,6 +44,46 @@ class AuctionEstatesCollectorTests(unittest.TestCase):
         self.assertTrue(_is_target(mixed))
         self.assertTrue(_is_target(investment))
         self.assertFalse(_is_target(residential))
+
+    def test_exact_residential_tavistock_flat_is_rejected(self):
+        html = '''
+        <html><body>
+          <h1>36 Tavistock Court, Nottingham, NG5 2EH</h1>
+          <div>Guide price £30,000+</div>
+          <div>Property Type Residential</div>
+          <div>Reception Rooms 1 Bedrooms 1 Bathrooms 1</div>
+          <h3>Key Features</h3>
+          <p>An opportunity to acquire a one-bedroom apartment let on an AST at £6,540 pa.</p>
+          <p>Long Leasehold one-bedroom apartment. Ideal for investors.</p>
+        </body></html>
+        '''
+        fetcher = lambda url: BeautifulSoup(html, "lxml")
+        self.assertIsNone(_detail(
+            "https://www.auctionestates.co.uk/property/36-tavistock-court-nottingham-ng5-2eh-364189",
+            "36 Tavistock Court Guide price £30,000+",
+            "2026-10-08",
+            fetcher=fetcher,
+        ))
+
+    def test_exact_residential_bluecoat_house_is_rejected(self):
+        html = '''
+        <html><body>
+          <h1>26 Bluecoat Close, Nottingham, NG1 4DP</h1>
+          <div>Guide price £125,000+</div>
+          <div>Property Type Residential</div>
+          <div>Bedrooms 3 Bathrooms 1</div>
+          <h3>Key Features</h3>
+          <p>A well presented 3 bedroom house with garage and allocated parking space.</p>
+          <p>Freehold, offered with full vacant possession.</p>
+        </body></html>
+        '''
+        fetcher = lambda url: BeautifulSoup(html, "lxml")
+        self.assertIsNone(_detail(
+            "https://www.auctionestates.co.uk/property/26-bluecoat-close-nottingham-ng1-4dp-364585",
+            "26 Bluecoat Close Guide price £125,000+",
+            "2026-10-08",
+            fetcher=fetcher,
+        ))
 
     def test_terminal_status_is_read_from_current_lot_header(self):
         s = BeautifulSoup('''
