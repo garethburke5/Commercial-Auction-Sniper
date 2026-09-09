@@ -5,7 +5,7 @@ import json
 import re
 from datetime import date, datetime, timezone
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, urlunparse
 
 from collectors import savills
 from collectors.core import norm
@@ -140,6 +140,17 @@ def _status(card, detail_text=""):
     return "ARCHIVED"
 
 
+def _canonical_evidence_url(href):
+    """Keep the exact Savills listing path/query but normalize first-party HTTP links to HTTPS."""
+    parsed = urlparse(href or "")
+    host = (parsed.hostname or "").lower()
+    if host != "savills.co.uk" and not host.endswith(".savills.co.uk"):
+        raise RuntimeError(f"Refusing non-Savills historical evidence URL: {href}")
+    if parsed.scheme not in {"http", "https"}:
+        raise RuntimeError(f"Refusing unsupported Savills evidence URL scheme: {href}")
+    return urlunparse(parsed._replace(scheme="https", fragment=""))
+
+
 def fetch_auction(auction):
     feed, targets = savills._discover_commercial_feed(auction)
     if not feed or not targets:
@@ -148,6 +159,7 @@ def fetch_auction(auction):
     failures = []
     for href, meta in targets.items():
         try:
+            evidence_href = _canonical_evidence_url(href)
             lot = savills._detail(href, auction, source_commercial=True)
             if not lot:
                 continue
@@ -155,10 +167,10 @@ def fetch_auction(auction):
             card = norm(str((meta or {}).get("card") or ""))
             row["status"] = _status(card, row.get("description"))
             row["sale_price"] = _money(card)
-            row["source_id"] = urlparse(href).path.rstrip("/").split("-")[-1]
-            row["url"] = href
-            row["evidence_url"] = href
-            row["result_page_url"] = feed
+            row["source_id"] = urlparse(evidence_href).path.rstrip("/").split("-")[-1]
+            row["url"] = evidence_href
+            row["evidence_url"] = evidence_href
+            row["result_page_url"] = _canonical_evidence_url(feed)
             rows.append(row)
         except Exception as exc:
             failures.append({"url": href, "error": f"{type(exc).__name__}: {exc}"})
@@ -168,7 +180,7 @@ def fetch_auction(auction):
         raise RuntimeError(f"Savills commercial feed exposed {len(targets)} lots but zero rows were normalised")
     if len(rows) != len(targets):
         raise RuntimeError(f"Savills historical auction incomplete: discovered {len(targets)}, normalised {len(rows)}")
-    return rows, len(targets), feed
+    return rows, len(targets), _canonical_evidence_url(feed)
 
 
 def backfill(max_auctions=1, oldest_year=None):
