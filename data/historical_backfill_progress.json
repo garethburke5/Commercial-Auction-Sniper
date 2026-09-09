@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-09T07:47:28.237890+00:00",
+  "updated_at": "2026-09-09T07:55:27.163769+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -129,10 +129,11 @@
     "Savills Auctions": {
       "status": "RUNNING",
       "auctions_discovered": 70,
-      "auctions_completed": 2,
-      "lots_captured": 38,
+      "auctions_completed": 3,
+      "lots_captured": 107,
       "earliest_month_reached": "2026-07",
       "completed_auction_ids": [
+        "227",
         "240",
         "241"
       ],
@@ -142,23 +143,24 @@
       "archive_empty_pages": 1,
       "last_run_auctions_selected": 1,
       "last_attempt": {
-        "auction_id": "240",
+        "auction_id": "227",
         "label": "Past Auctions 1 2 3 4 5 ... 14 Next 2 September 2026 Wednesday 2nd September 2026 Remote bidding only - bid online, over the telephone or submit proxy bids in advance. Offered Sold Success Raised 107 74 69% £24,190,555 18 August 2026 Tuesday 18th August 2026 Remote bidding only - bid online, over the telephone or submit proxy bids in advance. Offered Sold Success Raised 162 135 83% £32,135,950 28 & 29 July 2026 Wednesday 29th July 2026 Remote bidding only - bid online, over the telephone or submit proxy bids in advance. Offered Sold Success Raised 199 139 70% £41,783,250 14 & 15 July 2026 Tuesday 14th July 2026 Remote bidding only - bid online, over the telephone or submit proxy bids in advance. Offered Sold Success Raised 202 146 72% £43,248,500 23 June 2026 Tuesday 23rd June 2026 Remote bidding only - bid online, over the telephone or submit proxy bids in advance. Offered Sold Success Raised 158 117 74% £37,455,000 9 June 2026 Tuesday 9th June 2026 Remote bidding only - bid online, over the telephone or submit proxy bids in advance. Offered Sold Success Raised 183 133 73% £42,538,499 20 May 2026 Wednesday 20th May 2026 Remote bidding only - bid online, over the telephone or submit proxy bids in advance. Offered Sold Success Raised 207 155 75% £49,444,250 6 May 2026 Wednesday 6th May 2026 Remote bidding only - bid online, over the telephone or submit proxy bids in advance. Offered Sold Success Raised 143 104 73% £29,466,000 21 & 22 April 2026 Wednesday 22nd April 2026 Remote bidding only - bid online, over the telephone or submit proxy bids in advance. Offered Sold Success Raised 236 171 72% £56,565,000 31 March 2026 Tuesday 31st March 2026 Remote bidding only - bid online, over the telephone or submit proxy bids in advance. Offered Sold Success Raised 128 96 75% £24,419,749 1 2 3 4 5 ... 14 Next",
-        "catalogue_url": "https://auctions.savills.co.uk/auctions/18-august-2026-240",
-        "at": "2026-09-09T07:46:03.838564+00:00"
+        "catalogue_url": "https://auctions.savills.co.uk/auctions/28--29-july-2026-227",
+        "at": "2026-09-09T07:50:42.955080+00:00"
       },
-      "last_success_rows": 10,
-      "last_expected_lots": 10,
-      "last_commercial_feed": "https://auctions.savills.co.uk/auctions/18-august-2026-240/page-1/quantity-10/property_type-253/sort-by-0",
-      "last_history_event_count": 13830,
+      "last_success_rows": 69,
+      "last_expected_lots": 69,
+      "last_commercial_feed": "https://auctions.savills.co.uk/auctions/28-july-2026-227/page-1/quantity-100/property_type-253/sort-by-0",
+      "last_history_event_count": 13899,
       "last_discovery_mode": "savills-first-party-archive",
-      "last_success": "2026-09-09T07:46:41.118313+00:00",
-      "last_run_rows": 10,
+      "last_success": "2026-09-09T07:54:07.930244+00:00",
+      "last_run_rows": 69,
       "last_run_failures": 0,
-      "last_run": "2026-09-09T07:46:41.118692+00:00",
-      "last_address_repairs": 38,
-      "address_quality_checked": 38,
-      "last_quality_check": "2026-09-09T07:47:28.237875+00:00"
+      "last_run": "2026-09-09T07:54:07.930666+00:00",
+      "last_address_repairs": 69,
+      "address_quality_checked": 107,
+      "last_quality_check": "2026-09-09T07:55:27.163752+00:00",
+      "last_unit_split_repairs": 3
     }
   }
 }
