@@ -54,7 +54,7 @@ jobs:
 
       # Keep every Savills batch bounded so repair, exact-evidence, canonical-count, and persistence gates run before the next checkpoint.
       - name: Backfill next Savills commercial auction batch
-        run: python historical_savills.py --max-auctions 12
+        run: python historical_savills.py --max-auctions 8
 
       - name: Repair and gate Savills published addresses
         run: python repair_savills_history.py
