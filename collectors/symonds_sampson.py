@@ -205,7 +205,7 @@ def _structured(text):
     elif re.search(r"\bfull repairing and insuring\b|\bFRI\b",t,re.I):out["fri"]=True
     m=re.search(r"\b(?:Business Rates:\s*)?RV\s*£?\s*([\d,]+(?:\.\d+)?)\b",t,re.I)
     if m:out["rateable_value"]=_money_value(m.group(1))
-    m=re.search(r"\b(?:EPC|Energy Performance Certificate)[^A-G]{0,40}([A-G]\s*\(\s*\d{1,3}\s*\))",t,re.I)
+    m=re.search(r"\b(?:EPC|Energy Performance Certificates?)(?:\s+[A-Za-z][A-Za-z0-9/&'().,-]*){0,8}\s*(?:[-:–—]\s*)?([A-G]\s*\(\s*\d{1,3}\s*\))",t,re.I)
     if m:out["epc"]=re.sub(r"\s+"," ",m.group(1)).replace("( ","(").replace(" )",")").upper()
     return out
 
