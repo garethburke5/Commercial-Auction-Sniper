@@ -39,15 +39,6 @@ def _header_auction_date(text):
 
 
 def _exact_auction_date(text, fallback=None):
-    """Return the actual day this lot is offered.
-
-    Allsop residential auctions often span two days. The generic header says, for
-    example, `Residential - 16th & 17th Sept 2026`, while each lot states `This Lot
-    will be offered on Thursday 17th September`. The lot-specific statement must
-    outrank the multi-day header or day-two lots disappear from the live board a day
-    early. A year omitted from the lot-specific sentence is inherited from the
-    catalogue header/fallback.
-    """
     raw_text = text or ""
     header = _header_auction_date(raw_text)
     m = re.search(
@@ -109,7 +100,7 @@ def _allsop_image(s,base):
         if not raw:return
         u=urljoin(base,str(raw).replace("\\/","/").strip(' "\''));low=u.lower()
         if any(x in low for x in bad):return
-        score=bonus+(4 if "allsop" in low else 0)+(5 if any(x in low for x in ("lot","property","auction","media","image","photo","upload")) else 0)+(2 if re.search(r"\.(?:jpe?g|webp)(?:\?|$)",low) else 0)
+        score=bonus+(4 if "allsop" in low else 0)+(5 if any(x in low for x in ("lot","property","auction","media","image","photo","upload")) else 0)+(2 if re.search(r"\.(?:jpe?g|png|webp)(?:\?|$)",low) else 0)
         if any(x in low for x in ("thumb","thumbnail","small","100x","150x")):score-=3
         candidates.append((score,u))
     for attrs in ({"property":"og:image"},{"name":"twitter:image"},{"property":"twitter:image"},{"itemprop":"image"}):
@@ -126,6 +117,10 @@ def _allsop_image(s,base):
                 for part in raw.split(","):add(part.strip().split(" ")[0],bonus)
     raw=str(s).replace("\\/","/")
     for u in re.findall(r'https?://[^"\'<>\s]+?\.(?:jpe?g|png|webp)(?:\?[^"\'<>\s]*)?',raw,re.I):add(u,4)
+    # Current Allsop catalogue/detail pages also place genuine lot photos in
+    # CSS background-image declarations and relative /media/... values.
+    for u in re.findall(r'url\(\s*["\']?([^"\')]+)["\']?\s*\)',raw,re.I):add(u,12)
+    for u in re.findall(r'["\']((?:/|\.\./|\./)?(?:media|uploads|images)/[^"\']+?\.(?:jpe?g|png|webp)(?:\?[^"\']*)?)["\']',raw,re.I):add(u,8)
     if candidates:
         best={}
         for score,u in candidates:best[u]=max(score,best.get(u,-999))
@@ -218,7 +213,6 @@ def _candidate_is_current_or_future(card,today=None,exact_date=None):
 
 
 def _live_status_probe(s,card=""):
-    # Never search footer/related-lot chrome for lifecycle state.
     main=s.find("main") or s; bits=[]
     for tag in main.find_all(["h1","h2","h3","p","strong"],limit=18):
         t=norm(tag.get_text(" ",strip=True))
@@ -280,8 +274,6 @@ def _hydrate(item,today=None):
         except Exception:return _teaser_lot(url,card,teaser_image,teaser_date) if card_target else None
     lot_number,address,main=_main_identity(s)
     text=norm(main.get_text(" ",strip=True)); auction_date=_exact_auction_date(text,teaser_date)
-    # Exact page date is authoritative. Search results routinely expose historic
-    # lots alongside future stock; never let a contaminated card make them live.
     if auction_date:
         try:
             if date.fromisoformat(auction_date[:10])<today:return None
@@ -295,7 +287,7 @@ def _hydrate(item,today=None):
     title_tag=main.find("h1") or s.find("h1"); opportunity=norm(title_tag.get_text(" ",strip=True)) if title_tag else ""
     combined=norm(opportunity+" "+text)
     if not _detail_is_target(combined):return None
-    image=_allsop_image(main,url) or teaser_image
+    image=_allsop_image(main,url) or _allsop_image(s,url) or teaser_image
     lp_url,lp_status=legal_pack(s,url);rent=parse_rent(combined);guide=parse_guide(combined);tenure=parse_tenure(combined)
     has_vacant=bool(re.search(r"\bvacant\b|vacant possession",combined,re.I));occupation="Part vacant / part let" if has_vacant and rent else "Vacant / vacant possession" if has_vacant else "Tenanted" if rent else None
     return Lot(source=SOURCE,url=url,address=address,lot_number=lot_number,auction_date=auction_date,image_url=image,guide_price=guide,annual_rent=rent,tenure=tenure,vat_status=parse_vat(combined),legal_pack_status=lp_status,legal_pack_url=lp_url,description=combined[:6500],occupation=occupation,property_type=opportunity[:180] if opportunity else None,status=terminal or "CURRENT",development_potential=True if re.search(r"development|redevelopment|planning potential",combined,re.I) else None,asset_management=True if re.search(r"asset management|part vacant|reversion|reconfigure",combined,re.I) else None,residential_conversion=True if re.search(r"conversion to residential|residential conversion",combined,re.I) else None,fri=True if re.search(r"\bFRI\b|full repairing and insuring",combined,re.I) else None).finalise()
