@@ -1,6 +1,5 @@
 name: Auction Sniper Historical Backfill
 
-# Manual rerun trigger: 2026-09-09T05:47Z
 on:
   workflow_dispatch:
   schedule:
@@ -10,6 +9,7 @@ on:
     paths:
       - '.github/workflows/historical-backfill.yml'
       - 'historical_backfill.py'
+      - 'historical_savills.py'
       - 'history_database.py'
       - 'historical_evidence.py'
       - 'tests/test_history_database.py'
@@ -47,13 +47,13 @@ jobs:
 
       - name: Compile history code
         run: |
-          python -m py_compile historical_backfill.py history_database.py historical_evidence.py collectors/allsop.py
+          python -m py_compile historical_backfill.py historical_savills.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py
 
       - name: Run history regression tests
         run: python -m unittest tests.test_history_database -v
 
-      - name: Backfill next Allsop commercial auction batch
-        run: python historical_backfill.py --source allsop --max-auctions 16
+      - name: Backfill next Savills commercial auction batch
+        run: python historical_savills.py --max-auctions 4
 
       - name: Validate premium history database
         run: |
@@ -73,13 +73,20 @@ jobs:
           missing_urls=[e for e in db['auction_events'] if not (e.get('source_evidence') or {}).get('listing_url')]
           assert not missing_urls, f'{len(missing_urls)} history events missing listing URL evidence'
           allsop=(progress.get('sources') or {}).get('Allsop Commercial') or {}
-          assert allsop, 'Allsop progress telemetry missing'
-          assert allsop.get('auctions_discovered',0) > 0, 'No Allsop historical auctions discovered'
-          assert allsop.get('auctions_completed',0) > 0, 'No Allsop historical auctions completed'
-          assert allsop.get('last_run_rows',0) > 0, 'Latest historical batch wrote zero rows'
-          assert allsop.get('lots_captured',0) > 0, 'Allsop telemetry reports zero captured lots'
+          assert allsop.get('status') == 'CAUGHT UP', f'Allsop should be caught up before Savills: {allsop.get("status")}'
+          savills=(progress.get('sources') or {}).get('Savills Auctions') or {}
+          assert savills, 'Savills progress telemetry missing'
+          assert savills.get('auctions_discovered',0) > 0, 'No Savills historical auctions discovered'
+          assert savills.get('auctions_completed',0) > 0, 'No Savills historical auctions completed'
+          if savills.get('status') != 'CAUGHT UP':
+              assert savills.get('last_run_rows',0) > 0, 'Latest Savills batch wrote zero rows while source is not caught up'
+          assert savills.get('lots_captured',0) > 0, 'Savills telemetry reports zero captured lots'
+          sav_events=[e for e in db['auction_events'] if e.get('source') == 'Savills Auctions']
+          assert sav_events, 'Savills telemetry advanced but canonical History V2 has no Savills events'
+          assert all((e.get('source_evidence') or {}).get('listing_url','').startswith('https://auctions.savills.co.uk/') for e in sav_events)
           print('HISTORY',len(db['properties']),'properties',len(db['auction_events']),'events')
-          print('ALLSOP',allsop)
+          print('SAVILLS_EVENTS',len(sav_events))
+          print('SAVILLS',savills)
           PY
 
       - name: Publish historical database and progress
@@ -88,6 +95,6 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add data/property_history.json data/historical_backfill_progress.json
           if ! git diff --cached --quiet; then
-            git commit -m 'Backfill premium auction history'
+            git commit -m 'Backfill Savills auction history'
             git push origin main
           fi
