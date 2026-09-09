@@ -78,7 +78,7 @@ jobs:
           missing_urls=[e for e in events if not (e.get('source_evidence') or {}).get('listing_url')]
           assert not missing_urls, f'{len(missing_urls)} history events missing listing URL evidence'
           allsop=(progress.get('sources') or {}).get('Allsop Commercial') or {}
-          assert allsop.get('status') == 'CAUGHT_UP', f'Allsop should be caught up before Savills: {allsop.get("status")}'
+          assert allsop.get('status') == 'CAUGHT UP', f'Allsop should be caught up before Savills: {allsop.get("status")}'
           sav=(progress.get('sources') or {}).get('Savills Auctions') or {}
           assert sav.get('auctions_discovered',0) > 0, 'No Savills historical auctions discovered'
           assert sav.get('auctions_completed',0) > 0, 'No Savills historical auctions completed'
