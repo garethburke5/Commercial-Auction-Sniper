@@ -10,13 +10,6 @@ from .savills import SOURCE, BASE, UPCOMING, _auction_dates, _discover_commercia
 
 
 def _calendar_html(timeout=30):
-    """Read the Savills auction calendar from independent first-party routes.
-
-    The dedicated /upcoming-auctions endpoint intermittently stalls from hosted
-    runners even when the Savills home page is healthy and contains the same
-    current/future catalogue links. Do not let one route/protocol failure erase
-    an otherwise public catalogue.
-    """
     errors=[]
     for url in (UPCOMING, BASE + "/", BASE + "/home", BASE + "/index.php"):
         try:
@@ -57,13 +50,6 @@ def _discover_all_future_auctions(html=None):
 
 
 def _normalise_savills_asset(value, href):
-    """Normalise first-party Savills lot-image representations into usable URLs.
-
-    Savills currently emits genuine gallery photos inside script data as
-    /images/lots/<auction>/<lot>/<hash>.jpeg. Older/current variants also use
-    /assets/images/lots/ and dedicated lot-image routes. All accepted patterns
-    are lot-scoped; brand, map and generic auction assets are deliberately excluded.
-    """
     if not value:
         return None
     value = str(value).replace("\\/", "/").replace("&amp;", "&").strip("\"' ")
@@ -121,7 +107,6 @@ def _savills_property_image_from_html(raw, href):
 
 
 def _savills_property_image(href):
-    """Return a real Savills lot photograph, never a brand/placeholder tile."""
     try:
         raw = get_html(href, use_browser=False, timeout_ms=20000)
     except Exception:
@@ -133,7 +118,6 @@ def _savills_property_image(href):
 
 
 def _catalogue_images(feed):
-    """Map detail URLs to the image in their catalogue card."""
     if not feed:
         return {}
     try:
@@ -168,8 +152,69 @@ def _catalogue_images(feed):
     return out
 
 
+def _money(raw):
+    try:
+        return float(str(raw).replace("£", "").replace(",", ""))
+    except Exception:
+        return None
+
+
+def _enhance_savills_lot(lot):
+    """Capture material facts Savills publishes in prose, without inventing them."""
+    text = norm(lot.description or "")
+    low = text.lower()
+
+    total_area_patterns = (
+        r"Total Floor Area\s+([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft",
+        r"Comprising\s+([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft\s+in Total",
+        r"office of\s+([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft",
+    )
+    for pattern in total_area_patterns:
+        m = re.search(pattern, text, re.I)
+        if m:
+            lot.area_sqft = _money(m.group(1))
+            if lot.area_sqft:
+                lot.area_sqm = round(lot.area_sqft / 10.7639, 2)
+            break
+
+    if re.search(r"\bLong Leasehold\b", text, re.I):
+        lot.tenure = "Long Leasehold"
+
+    m = re.search(r"term of\s+(\d+)\s+years\s+from\s+(\d{1,2}\.\d{1,2}\.\d{4})", text, re.I)
+    if m:
+        unexpired = re.search(r"approximately\s+(\d+)\s+years\s+unexpired", text, re.I)
+        lot.lease_term = f"{m.group(1)} years" + (f" (approx. {unexpired.group(1)} years unexpired)" if unexpired else "")
+        lot.lease_start = m.group(2)
+
+    m = re.search(r"(?:fixed annual )?ground rent of\s*£\s*([\d,]+(?:\.\d+)?)", text, re.I)
+    if m:
+        lot.ground_rent = _money(m.group(1))
+
+    m = re.search(r"\bEPC Rating\s+([A-G](?:\s*\(\s*\d{1,3}\s*\))?)", text, re.I)
+    if m:
+        lot.epc = norm(m.group(1)).upper()
+
+    vacancy = re.search(r"([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft\s+(?:is\s+)?currently\s+vacant|Plus\s+([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft\s+Vacant", text, re.I)
+    if vacancy and lot.annual_rent:
+        lot.occupation = "Part Vacant / Part Let"
+
+    if re.search(r"comprehensively refurbished|\brefurbished\b", low):
+        lot.refurbishment = True
+
+    parking = re.search(r"surface parking for\s+(\d+)\s+cars(?:\s+with\s+(\d+)\s+EV charging points)?", text, re.I)
+    if parking:
+        lot.parking = f"Parking for {parking.group(1)} cars" + (f" · {parking.group(2)} EV charging points" if parking.group(2) else "")
+        cycles = re.search(r"cycle storage\s*\((\d+)\s+spaces\)", text, re.I)
+        if cycles:
+            lot.parking += f" · {cycles.group(1)} cycle spaces"
+
+    if re.search(r"\bmulti[- ]let office\b|\boffices?\b", low):
+        lot.property_type = "Office"
+
+    return lot.finalise()
+
+
 def _repair_from_catalogue(lot, meta, href):
-    """Preserve first-party catalogue evidence when detail HTML is partially hydrated."""
     card = norm((meta or {}).get("card") or "")
     if not lot.guide_price:
         lot.guide_price = parse_guide(card)
@@ -191,7 +236,7 @@ def _repair_from_catalogue(lot, meta, href):
             marker in low for marker in ("/images/lots/", "/assets/images/lots/", "/lot-images/", "/lot-image/")
         ):
             lot.image_url = None
-    return lot.finalise()
+    return _enhance_savills_lot(lot)
 
 
 def collect():
