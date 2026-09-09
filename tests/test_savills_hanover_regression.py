@@ -66,7 +66,8 @@ class SavillsHanoverRegressionTests(unittest.TestCase):
             "description": "Office investment let at £183,908 pa. Long leasehold at a fixed annual ground rent of £1.",
         }
         headline, _ = build_opportunity_summary(row)
-        self.assertEqual(headline, "OFFICE INVESTMENT")
+        self.assertEqual(headline, "PART-LET OFFICE INVESTMENT + VACANCY")
+        self.assertNotEqual(headline, "GROUND RENT INVESTMENT")
 
 
 if __name__ == "__main__":
