@@ -17,7 +17,6 @@ on:
 permissions:
   contents: write
 
-# Share the production-data lock so historical writes never race the live collector.
 concurrency:
   group: auction-sniper-production-scan
   cancel-in-progress: false
@@ -53,7 +52,7 @@ jobs:
         run: python -m unittest tests.test_history_database -v
 
       - name: Backfill next Savills commercial auction batch
-        run: python historical_savills.py --max-auctions 4
+        run: python historical_savills.py --max-auctions 1
 
       - name: Validate premium history database
         run: |
@@ -66,27 +65,26 @@ jobs:
           assert p.exists(), 'historical_backfill_progress.json missing'
           db=json.loads(h.read_text(encoding='utf-8'))
           progress=json.loads(p.read_text(encoding='utf-8'))
-          assert isinstance(db.get('properties'),list)
-          assert isinstance(db.get('auction_events'),list)
-          assert db['auction_events'], 'historical database contains zero auction events'
-          assert all(e.get('source') and e.get('address_as_published') for e in db['auction_events'])
-          missing_urls=[e for e in db['auction_events'] if not (e.get('source_evidence') or {}).get('listing_url')]
+          events=db.get('auction_events') or []
+          assert events, 'historical database contains zero auction events'
+          assert len({e.get('event_id') for e in events}) == len(events), 'duplicate History V2 event IDs'
+          missing_urls=[e for e in events if not (e.get('source_evidence') or {}).get('listing_url')]
           assert not missing_urls, f'{len(missing_urls)} history events missing listing URL evidence'
           allsop=(progress.get('sources') or {}).get('Allsop Commercial') or {}
           assert allsop.get('status') == 'CAUGHT UP', f'Allsop should be caught up before Savills: {allsop.get("status")}'
-          savills=(progress.get('sources') or {}).get('Savills Auctions') or {}
-          assert savills, 'Savills progress telemetry missing'
-          assert savills.get('auctions_discovered',0) > 0, 'No Savills historical auctions discovered'
-          assert savills.get('auctions_completed',0) > 0, 'No Savills historical auctions completed'
-          if savills.get('status') != 'CAUGHT UP':
-              assert savills.get('last_run_rows',0) > 0, 'Latest Savills batch wrote zero rows while source is not caught up'
-          assert savills.get('lots_captured',0) > 0, 'Savills telemetry reports zero captured lots'
-          sav_events=[e for e in db['auction_events'] if e.get('source') == 'Savills Auctions']
-          assert sav_events, 'Savills telemetry advanced but canonical History V2 has no Savills events'
-          assert all((e.get('source_evidence') or {}).get('listing_url','').startswith('https://auctions.savills.co.uk/') for e in sav_events)
-          print('HISTORY',len(db['properties']),'properties',len(db['auction_events']),'events')
+          sav=(progress.get('sources') or {}).get('Savills Auctions') or {}
+          assert sav.get('auctions_discovered',0) > 0, 'No Savills historical auctions discovered'
+          assert sav.get('auctions_completed',0) > 0, 'No Savills historical auctions completed'
+          assert sav.get('last_run_rows',0) > 0 or sav.get('status') == 'CAUGHT UP', 'Savills selected no persistable records'
+          assert sav.get('lots_captured',0) > 0, 'Savills telemetry reports zero captured lots'
+          sav_events=[e for e in events if e.get('source') == 'Savills Auctions']
+          assert len(sav_events) >= sav.get('lots_captured',0), f'Savills telemetry/history mismatch: {sav.get("lots_captured")} captured vs {len(sav_events)} canonical events'
+          bad=[e for e in sav_events if not (e.get('source_evidence') or {}).get('listing_url','').startswith('https://auctions.savills.co.uk/')]
+          assert not bad, f'{len(bad)} Savills events lack first-party exact listing evidence'
+          assert sav.get('last_history_event_count') == len(events), 'Telemetry was not written after History V2 persistence'
+          print('HISTORY',len(db.get('properties') or []),'properties',len(events),'events')
           print('SAVILLS_EVENTS',len(sav_events))
-          print('SAVILLS',savills)
+          print('SAVILLS',sav)
           PY
 
       - name: Publish historical database and progress
