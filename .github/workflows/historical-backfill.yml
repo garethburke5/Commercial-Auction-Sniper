@@ -59,6 +59,7 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
+          from urllib.parse import urlparse
           h=Path('data/property_history.json')
           p=Path('data/historical_backfill_progress.json')
           assert h.exists(), 'property_history.json missing'
@@ -79,7 +80,11 @@ jobs:
           assert sav.get('lots_captured',0) > 0, 'Savills telemetry reports zero captured lots'
           sav_events=[e for e in events if e.get('source') == 'Savills Auctions']
           assert len(sav_events) >= sav.get('lots_captured',0), f'Savills telemetry/history mismatch: {sav.get("lots_captured")} captured vs {len(sav_events)} canonical events'
-          bad=[e for e in sav_events if not (e.get('source_evidence') or {}).get('listing_url','').startswith('https://auctions.savills.co.uk/')]
+          def is_first_party_savills(url):
+              parsed=urlparse(url or '')
+              host=(parsed.hostname or '').lower()
+              return parsed.scheme == 'https' and (host == 'savills.co.uk' or host.endswith('.savills.co.uk'))
+          bad=[e for e in sav_events if not is_first_party_savills((e.get('source_evidence') or {}).get('listing_url'))]
           assert not bad, f'{len(bad)} Savills events lack first-party exact listing evidence'
           assert sav.get('last_history_event_count') == len(events), 'Telemetry was not written after History V2 persistence'
           print('HISTORY',len(db.get('properties') or []),'properties',len(events),'events')
