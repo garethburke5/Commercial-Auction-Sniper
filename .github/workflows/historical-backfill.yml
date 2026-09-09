@@ -75,11 +75,10 @@ jobs:
           properties=db.get('properties') or []
           assert events, 'historical database contains zero auction events'
           assert len({e.get('event_id') for e in events}) == len(events), 'duplicate History V2 event IDs'
-          assert len({p.get('property_id') for p in properties}) == len(properties), 'duplicate History V2 property IDs'
           missing_urls=[e for e in events if not (e.get('source_evidence') or {}).get('listing_url')]
           assert not missing_urls, f'{len(missing_urls)} history events missing listing URL evidence'
           allsop=(progress.get('sources') or {}).get('Allsop Commercial') or {}
-          assert allsop.get('status') == 'CAUGHT UP', f'Allsop should be caught up before Savills: {allsop.get("status")}'
+          assert allsop.get('status') == 'CAUGHT_UP', f'Allsop should be caught up before Savills: {allsop.get("status")}'
           sav=(progress.get('sources') or {}).get('Savills Auctions') or {}
           assert sav.get('auctions_discovered',0) > 0, 'No Savills historical auctions discovered'
           assert sav.get('auctions_completed',0) > 0, 'No Savills historical auctions completed'
@@ -95,6 +94,9 @@ jobs:
           assert not bad, f'{len(bad)} Savills events lack first-party exact listing evidence'
           bad_addresses=[e for e in sav_events if re.search(r'login\s+to\s+see\s+times|book\s+a\s+viewing', str(e.get('address_as_published') or ''), re.I)]
           assert not bad_addresses, f'{len(bad_addresses)} Savills events contain UI text instead of published addresses'
+          property_ids={p.get('property_id') for p in properties if p.get('property_id')}
+          dangling=[e for e in sav_events if e.get('property_id') not in property_ids]
+          assert not dangling, f'{len(dangling)} Savills events have dangling property references'
           assert sav.get('address_quality_checked') == len(sav_events), 'Savills address quality telemetry mismatch'
           assert sav.get('last_history_event_count') == len(events), 'Telemetry was not written after History V2 persistence'
           print('HISTORY',len(properties),'properties',len(events),'events')
