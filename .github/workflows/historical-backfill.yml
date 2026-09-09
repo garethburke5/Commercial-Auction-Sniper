@@ -112,5 +112,23 @@ jobs:
           git add data/property_history.json data/historical_backfill_progress.json
           if ! git diff --cached --quiet; then
             git commit -m 'Backfill Savills auction history'
-            git push origin main
+            # Other production workflows can legitimately advance main while a
+            # historical crawl is running. Rebase the validated history commit
+            # onto the latest production head instead of losing the whole batch
+            # to a non-fast-forward rejection. Never force-push history.
+            for attempt in 1 2 3; do
+              git fetch origin main
+              if ! git rebase origin/main; then
+                git rebase --abort || true
+                echo 'Historical publish could not be safely rebased; refusing to overwrite production.' >&2
+                exit 1
+              fi
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+              echo "Concurrent main update during publish; retrying ($attempt/3)." >&2
+              sleep $((attempt * 3))
+            done
+            echo 'Historical publish exhausted safe push retries.' >&2
+            exit 1
           fi
