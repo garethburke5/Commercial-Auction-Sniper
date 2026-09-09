@@ -182,6 +182,13 @@ def repair():
     state["last_unit_split_repairs"] = unit_splits
     state["address_quality_checked"] = len(sav_events)
     state["last_quality_check"] = now_iso()
+    # `historical_savills` counts every raw row it successfully normalises. A Savills
+    # listing can legitimately resolve to an already-known canonical event, so that
+    # raw cumulative count can exceed History V2's persisted source-event count.
+    # Completeness telemetry must describe what actually persisted, not attempted rows.
+    state["lots_captured"] = len(sav_events)
+    state["last_history_event_count"] = len(events)
+    state["last_canonical_source_event_count"] = len(sav_events)
     progress["updated_at"] = now_iso()
     PROGRESS_PATH.write_text(json.dumps(progress, indent=2, ensure_ascii=False), encoding="utf-8")
 
