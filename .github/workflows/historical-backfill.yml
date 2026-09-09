@@ -52,6 +52,7 @@ jobs:
       - name: Run history regression tests
         run: python -m unittest tests.test_history_database -v
 
+      # Keep the batch bounded so every checkpoint must pass repair, evidence, and persistence gates.
       - name: Backfill next Savills commercial auction batch
         run: python historical_savills.py --max-auctions 12
 
