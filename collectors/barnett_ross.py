@@ -144,8 +144,12 @@ def collect():
     try:
         listing=soup(CURRENT,use_browser=False); listing_text=norm(listing.get_text(" ",strip=True)); auction_date=_parse_date(listing_text)
         table_rows=_catalogue_rows(listing,auction_date); targets=_discover(listing)
-        if not table_rows:return SourceResult(SOURCE,"FAILED",[],"Barnett Ross current catalogue was published but no authoritative catalogue rows were parsed.",discovered_count=0)
-        if not targets:return SourceResult(SOURCE,"FAILED",[],f"Barnett Ross published {len(table_rows)} catalogue rows but no exact lot-detail pages were discovered; refusing to classify bare mixed residential/commercial table rows.",discovered_count=0)
+        # A layout/parser mismatch at one auctioneer must not freeze the entire
+        # national production snapshot. Report it explicitly as DEGRADED so the
+        # canonical pipeline preserves prior Barnett Ross data instead of treating
+        # an empty parse as an authoritative zero or blocking every other source.
+        if not table_rows:return SourceResult(SOURCE,"DEGRADED",[],"Barnett Ross current catalogue is reachable but no authoritative catalogue rows were parsed; preserving prior data and publishing other validated sources.",discovered_count=0)
+        if not targets:return SourceResult(SOURCE,"DEGRADED",[],f"Barnett Ross published {len(table_rows)} catalogue rows but no exact lot-detail pages were discovered; preserving prior data rather than classifying bare mixed residential/commercial table rows.",discovered_count=0)
         hydrated=[]; failures=0
         with ThreadPoolExecutor(max_workers=10) as ex:
             futures={ex.submit(_hydrate,url,auction_date):url for url in targets}
@@ -155,9 +159,9 @@ def collect():
                     if lot:hydrated.append(lot)
                 except Exception:failures+=1
         lots=sorted(hydrated,key=lambda x:(x.lot_number or "",x.address)); terminal=sum(1 for x in lots if x.status in {"SOLD PRIOR","WITHDRAWN"}); current=len(lots)-terminal; excluded=len(table_rows)-len(lots)
-        status="DEGRADED" if failures else "FAILED" if not lots else "LIVE"
+        status="DEGRADED" if failures or not lots else "LIVE"
         return SourceResult(SOURCE,status,lots,
             f"Barnett Ross authoritative mixed catalogue: {len(table_rows)} total catalogue rows reconciled; {len(targets)} exact lot-detail pages inspected; {current} live commercial/mixed-use lots; {terminal} sold-prior/withdrawn target lots retained; {excluded} residential/non-target or non-detail rows excluded rather than mislabelled; {failures} detail failures.",
             expected_count=len(lots) if status=="LIVE" else None,discovered_count=len(lots),authoritative_snapshot=bool(status=="LIVE"),scope_dates=tuple(sorted({x.auction_date for x in lots if x.auction_date})))
     except Exception as exc:
-        return SourceResult(SOURCE,"FAILED",[],f"Barnett Ross collection failed: {exc}")
+        return SourceResult(SOURCE,"DEGRADED",[],f"Barnett Ross collection degraded: {exc}; preserving prior data and publishing other validated sources.")
