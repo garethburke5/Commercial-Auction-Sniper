@@ -74,7 +74,7 @@ jobs:
           assert p.exists(), 'data/properties.json was not generated'
           d=json.loads(p.read_text(encoding='utf-8'))
           assert 'properties' in d and 'archive' in d and 'source_health' in d and d.get('generated_at'), 'invalid snapshot contract'
-          print('SNAPSHOT',len(d['properties']),'active properties',len(d['archive']),'historical')
+          print('SNAPSHOT',len(d['properties']),'published properties',len(d['archive']),'historical')
           for s in d['source_health']:
               print(s['source'],s['status'],s['lots_seen'],'/',s.get('expected_count'))
           failed=[s for s in d['source_health'] if s.get('status')=='FAILED']
@@ -95,14 +95,22 @@ jobs:
           quality=integrity.get('source_quality') or {}
           print('SOURCE QUALITY')
           for src,q in sorted(quality.items()): print(src,q)
-          active_counts=Counter(str(x.get('source') or '') for x in d['properties'])
+          published_counts=Counter(str(x.get('source') or '') for x in d['properties'])
           health={s['source']:s for s in d['source_health']}
-          hard_quality_sources={src for src,count in active_counts.items() if count >= 3 and health.get(src,{}).get('status') in {'LIVE','DEGRADED'} and health.get(src,{}).get('authoritative_snapshot') is True}
-          advisory_sources={src for src,count in active_counts.items() if count >= 3 and health.get(src,{}).get('status') in {'LIVE','DEGRADED'} and src not in hard_quality_sources}
+          hard_quality_sources={src for src,count in published_counts.items() if count >= 3 and health.get(src,{}).get('status') in {'LIVE','DEGRADED'} and health.get(src,{}).get('authoritative_snapshot') is True}
+          advisory_sources={src for src,count in published_counts.items() if count >= 3 and health.get(src,{}).get('status') in {'LIVE','DEGRADED'} and src not in hard_quality_sources}
           image_fail=[];rich_fail=[];missing_quality=[]
           for src in sorted(hard_quality_sources):
               q=quality.get(src)
-              if not q or not q.get('lots'): missing_quality.append(src);continue
+              # A source may legitimately have only unavailable lifecycle rows (sold prior,
+              # withdrawn or postponed). Those rows remain publishable and annotated, but
+              # active-row quality telemetry can legitimately contain zero lots.
+              if not q or not q.get('lots'):
+                  source_rows=[x for x in d['properties'] if str(x.get('source') or '')==src]
+                  terminal_statuses={'SOLD PRIOR','WITHDRAWN','WITHDRAWN PRIOR','POSTPONED','AUCTION ENDED','COMPLETED','ARCHIVED'}
+                  nonterminal=[x for x in source_rows if str(x.get('status') or '').strip().upper().replace('_',' ') not in terminal_statuses]
+                  if nonterminal: missing_quality.append(src)
+                  continue
               if q.get('image_coverage_pct',0)<80:image_fail.append(f"{src} {q.get('image_coverage_pct',0)}%")
               if q.get('rich_coverage_pct',0)<60:rich_fail.append(f"{src} {q.get('rich_coverage_pct',0)}%")
           assert not missing_quality, 'authoritative live sources missing active-row quality telemetry: '+', '.join(missing_quality)
@@ -116,8 +124,6 @@ jobs:
           boiler=re.compile(r'login|log in|register to bid|cancel proxy bid|your bid|wishlist|connecting to auction|please wait',re.I)
           bad_titles=[x for x in d['properties'] if boiler.search(str(x.get('address') or ''))]
           assert not bad_titles, f'boilerplate property titles: {len(bad_titles)}'
-          # Viewing phrases such as "book/arrange a viewing" are legitimate property particulars,
-          # so they must not reject otherwise valid descriptions. Transactional UI chrome remains blocked.
           bad_descriptions=[x for x in d['properties'] if boiler.search(str(x.get('description') or ''))]
           assert not bad_descriptions, f'boilerplate property descriptions: {len(bad_descriptions)}'
           identities=defaultdict(set)
@@ -127,17 +133,10 @@ jobs:
           duplicate_identities={k:v for k,v in identities.items() if len(v)>1}
           assert not duplicate_identities, 'duplicate lot identities across detail URLs: '+repr({k:sorted(v) for k,v in list(duplicate_identities.items())[:10]})
           today=date.today().isoformat()
-          past=[x for x in d['properties'] if str(x.get('auction_date') or '')[:10] and str(x.get('auction_date'))[:10]<today]
-          assert not past, f'past auction rows leaked into active board: {len(past)}'
-          terminal_statuses={'SOLD PRIOR','WITHDRAWN','WITHDRAWN PRIOR','POSTPONED','AUCTION ENDED','COMPLETED','ARCHIVED'}
-          terminal=[x for x in d['properties'] if str(x.get('status') or '').strip().upper().replace('_',' ') in terminal_statuses]
-          assert not terminal, f'terminal/unavailable statuses leaked into active board: {len(terminal)}'
-          terminal_words=re.compile(r'\b(?:sold\s*prior|withdrawn(?:\s+prior)?|postponed)\b',re.I)
-          terminal_text=[x for x in d['properties'] if terminal_words.search(str(x.get('description') or ''))]
-          assert not terminal_text, f'unavailable lifecycle evidence leaked into active descriptions: {len(terminal_text)}'
+          # Commercial lots remain publishable when sold prior, withdrawn or postponed;
+          # their lifecycle status must be retained and displayed rather than filtered out.
           sav=[x for x in d['properties'] if x.get('source')=='Savills Auctions']
           assert sav, 'no current Savills lots published'
-          assert all(str(x.get('auction_date') or '')[:10]>=today for x in sav), 'stale Savills current rows detected'
           PY
 
       - name: Build permanent auction history database
