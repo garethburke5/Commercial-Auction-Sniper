@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-10T13:08:26.720487+00:00",
+  "updated_at": "2026-09-10T13:11:23.631458+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -392,20 +392,20 @@
       "legacy_aid_last_processed": [],
       "legacy_aid_last_events_added": 0,
       "legacy_aid_recovered_auctions": 0,
-      "archival_url_snapshot_year_cursor": 2019,
-      "archival_url_last_run_at": "2026-09-10T13:08:26.720472+00:00",
-      "archival_url_years_scanned": 1,
+      "archival_url_snapshot_year_cursor": 2012,
+      "archival_url_last_run_at": "2026-09-10T13:11:23.631440+00:00",
+      "archival_url_years_scanned": 2,
       "archival_url_candidates_seen": 0,
       "archival_url_surviving_commercial_seen": 0,
       "archival_url_events_added": 0,
       "archival_url_last_events_added": 0,
       "archival_url_last_processed": [
         {
-          "snapshot_year": 2020,
+          "snapshot_year": 2013,
           "candidate_urls": 0,
           "route_raw_url_counts": {
-            "wayback": 1,
-            "commoncrawl": 128
+            "wayback": 0,
+            "commoncrawl": 0
           },
           "live_checked": 0,
           "commercial_rows_seen": 0,
@@ -414,218 +414,119 @@
           "discovery_queries": [
             {
               "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-50-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+              "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
             },
             {
               "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-45-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+              "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
             },
             {
               "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-40-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+              "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
             },
             {
               "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-34-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-            },
-            {
-              "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-29-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-            },
-            {
-              "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-24-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-            },
-            {
-              "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-16-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-            },
-            {
-              "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-10-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-            },
-            {
-              "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-05-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+              "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
             },
             {
               "route": "wayback_cdx",
-              "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%2A&output=json&fl=original%2Ctimestamp%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2020&to=2020&limit=1200"
-            },
-            {
-              "route": "wayback_cdx",
-              "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&output=json&fl=original%2Ctimestamp%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2020&to=2020&limit=1200"
+              "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&output=json&fl=original%2Ctimestamp%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2013&to=2013&limit=1200"
             },
             {
               "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-50-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+              "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
             },
             {
               "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-45-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+              "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
             },
             {
               "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-40-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+              "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
             },
             {
               "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-34-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-            },
-            {
-              "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-29-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-            },
-            {
-              "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-24-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-            },
-            {
-              "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-16-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-            },
-            {
-              "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-10-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-            },
-            {
-              "route": "commoncrawl_index",
-              "url": "https://index.commoncrawl.org/CC-MAIN-2020-05-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+              "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
             }
           ],
           "errors": [
             "Wayback https://auctions.savills.co.uk/auctions/* :: HTTPError: HTTP Error 503: Service Unavailable",
-            "CommonCrawl CC-MAIN-2020-50: HTTPError: HTTP Error 404: Not Found",
-            "CommonCrawl CC-MAIN-2020-45: HTTPError: HTTP Error 404: Not Found",
-            "CommonCrawl CC-MAIN-2020-40: HTTPError: HTTP Error 404: Not Found",
-            "CommonCrawl CC-MAIN-2020-34: HTTPError: HTTP Error 404: Not Found",
-            "CommonCrawl CC-MAIN-2020-29: HTTPError: HTTP Error 404: Not Found",
-            "CommonCrawl CC-MAIN-2020-16: HTTPError: HTTP Error 502: Bad Gateway",
-            "Wayback https://auctions.savills.co.uk/index.php?option=com_bidding* :: URLError: <urlopen error timed out>",
-            "CommonCrawl CC-MAIN-2020-50: HTTPError: HTTP Error 404: Not Found",
-            "CommonCrawl CC-MAIN-2020-45: HTTPError: HTTP Error 404: Not Found",
-            "CommonCrawl CC-MAIN-2020-40: HTTPError: HTTP Error 404: Not Found",
-            "CommonCrawl CC-MAIN-2020-34: HTTPError: HTTP Error 404: Not Found",
-            "CommonCrawl CC-MAIN-2020-29: HTTPError: HTTP Error 404: Not Found",
-            "CommonCrawl CC-MAIN-2020-24: HTTPError: HTTP Error 404: Not Found",
-            "CommonCrawl CC-MAIN-2020-16: HTTPError: HTTP Error 404: Not Found",
-            "CommonCrawl CC-MAIN-2020-10: HTTPError: HTTP Error 404: Not Found",
-            "CommonCrawl CC-MAIN-2020-05: HTTPError: HTTP Error 404: Not Found"
+            "CommonCrawl CC-MAIN-2013-48: HTTPError: HTTP Error 404: Not Found",
+            "CommonCrawl CC-MAIN-2013-20: HTTPError: HTTP Error 404: Not Found",
+            "Wayback https://auctions.savills.co.uk/Auctions/LotDetails* :: TimeoutError: The read operation timed out",
+            "CommonCrawl CC-MAIN-2013-48: HTTPError: HTTP Error 404: Not Found",
+            "CommonCrawl CC-MAIN-2013-20: HTTPError: HTTP Error 404: Not Found",
+            "CommonCrawl CC-MAIN-2013-48: HTTPError: HTTP Error 502: Bad Gateway",
+            "CommonCrawl CC-MAIN-2013-20: HTTPError: HTTP Error 404: Not Found",
+            "Wayback https://auctions.savills.co.uk/index.php?option=com_bidding* :: TimeoutError: The read operation timed out",
+            "CommonCrawl CC-MAIN-2013-48: HTTPError: HTTP Error 404: Not Found",
+            "CommonCrawl CC-MAIN-2013-20: HTTPError: HTTP Error 404: Not Found"
           ]
         }
       ],
-      "archival_url_last_error_count": 17,
+      "archival_url_last_error_count": 11,
       "archival_url_routes": [
         "wayback_cdx",
         "commoncrawl_index",
         "live_savills_validation"
       ],
       "archival_url_last_blocker": {
-        "at": "2026-09-10T13:08:26.720482+00:00",
-        "snapshot_year": 2020,
+        "at": "2026-09-10T13:11:23.631452+00:00",
+        "snapshot_year": 2013,
         "message": "No candidate Savills lot URLs returned by either free archival index for this snapshot year; live first-party evidence requirement remains enforced.",
         "routes": [
           {
             "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-50-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
           },
           {
             "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-45-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+            "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
           },
           {
             "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-40-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
           },
           {
             "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-34-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-          },
-          {
-            "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-29-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-          },
-          {
-            "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-24-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-          },
-          {
-            "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-16-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-          },
-          {
-            "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-10-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-          },
-          {
-            "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-05-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+            "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
           },
           {
             "route": "wayback_cdx",
-            "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%2A&output=json&fl=original%2Ctimestamp%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2020&to=2020&limit=1200"
-          },
-          {
-            "route": "wayback_cdx",
-            "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&output=json&fl=original%2Ctimestamp%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2020&to=2020&limit=1200"
+            "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&output=json&fl=original%2Ctimestamp%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2013&to=2013&limit=1200"
           },
           {
             "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-50-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
           },
           {
             "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-45-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+            "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
           },
           {
             "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-40-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
           },
           {
             "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-34-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-          },
-          {
-            "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-29-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-          },
-          {
-            "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-24-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-          },
-          {
-            "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-16-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-          },
-          {
-            "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-10-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
-          },
-          {
-            "route": "commoncrawl_index",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2020-05-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+            "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
           }
         ],
         "errors": [
           "Wayback https://auctions.savills.co.uk/auctions/* :: HTTPError: HTTP Error 503: Service Unavailable",
-          "CommonCrawl CC-MAIN-2020-50: HTTPError: HTTP Error 404: Not Found",
-          "CommonCrawl CC-MAIN-2020-45: HTTPError: HTTP Error 404: Not Found",
-          "CommonCrawl CC-MAIN-2020-40: HTTPError: HTTP Error 404: Not Found",
-          "CommonCrawl CC-MAIN-2020-34: HTTPError: HTTP Error 404: Not Found",
-          "CommonCrawl CC-MAIN-2020-29: HTTPError: HTTP Error 404: Not Found",
-          "CommonCrawl CC-MAIN-2020-16: HTTPError: HTTP Error 502: Bad Gateway",
-          "Wayback https://auctions.savills.co.uk/index.php?option=com_bidding* :: URLError: <urlopen error timed out>",
-          "CommonCrawl CC-MAIN-2020-50: HTTPError: HTTP Error 404: Not Found",
-          "CommonCrawl CC-MAIN-2020-45: HTTPError: HTTP Error 404: Not Found",
-          "CommonCrawl CC-MAIN-2020-40: HTTPError: HTTP Error 404: Not Found",
-          "CommonCrawl CC-MAIN-2020-34: HTTPError: HTTP Error 404: Not Found",
-          "CommonCrawl CC-MAIN-2020-29: HTTPError: HTTP Error 404: Not Found",
-          "CommonCrawl CC-MAIN-2020-24: HTTPError: HTTP Error 404: Not Found",
-          "CommonCrawl CC-MAIN-2020-16: HTTPError: HTTP Error 404: Not Found",
-          "CommonCrawl CC-MAIN-2020-10: HTTPError: HTTP Error 404: Not Found",
-          "CommonCrawl CC-MAIN-2020-05: HTTPError: HTTP Error 404: Not Found"
+          "CommonCrawl CC-MAIN-2013-48: HTTPError: HTTP Error 404: Not Found",
+          "CommonCrawl CC-MAIN-2013-20: HTTPError: HTTP Error 404: Not Found",
+          "Wayback https://auctions.savills.co.uk/Auctions/LotDetails* :: TimeoutError: The read operation timed out",
+          "CommonCrawl CC-MAIN-2013-48: HTTPError: HTTP Error 404: Not Found",
+          "CommonCrawl CC-MAIN-2013-20: HTTPError: HTTP Error 404: Not Found",
+          "CommonCrawl CC-MAIN-2013-48: HTTPError: HTTP Error 502: Bad Gateway",
+          "CommonCrawl CC-MAIN-2013-20: HTTPError: HTTP Error 404: Not Found",
+          "Wayback https://auctions.savills.co.uk/index.php?option=com_bidding* :: TimeoutError: The read operation timed out",
+          "CommonCrawl CC-MAIN-2013-48: HTTPError: HTTP Error 404: Not Found",
+          "CommonCrawl CC-MAIN-2013-20: HTTPError: HTTP Error 404: Not Found"
         ]
-      }
+      },
+      "archival_url_priority_probe": "2013-or-earlier"
     }
   }
 }
