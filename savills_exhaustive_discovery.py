@@ -3,9 +3,11 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import xml.etree.ElementTree as ET
 from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
+from urllib.request import Request, urlopen
 
 from collectors import savills
 from collectors.core import norm
@@ -17,6 +19,10 @@ PROGRESS_PATH = DATA / "historical_backfill_progress.json"
 HISTORY_PATH = DATA / "property_history.json"
 SOURCE_KEY = "Savills Auctions"
 INDEX_BASE = "https://auctionradar.co.uk"
+SAVILLS_HOST = "auctions.savills.co.uk"
+ARCHIVE = f"https://{SAVILLS_HOST}/past-auctions/archive"
+SITEMAP = f"https://{SAVILLS_HOST}/sitemap.xml"
+UA = "Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)"
 
 
 def now_iso():
@@ -33,6 +39,21 @@ def load_progress():
 def save_progress(progress):
     progress["updated_at"] = now_iso()
     PROGRESS_PATH.write_text(json.dumps(progress, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def _source_event_count(db):
+    return sum(1 for e in (db.get("auction_events") or []) if e.get("source") == SOURCE_KEY)
+
+
+def _read_url(url, timeout=30):
+    req = Request(url, headers={"User-Agent": UA, "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"})
+    with urlopen(req, timeout=timeout) as r:
+        return r.read()
+
+
+def _first_party(url):
+    host = (urlparse(url or "").hostname or "").lower()
+    return host == SAVILLS_HOST or host.endswith("." + SAVILLS_HOST)
 
 
 def month_sequence(start="2021-12", floor_year=2002):
@@ -54,6 +75,154 @@ def previous_month(value):
     return f"{y:04d}-{m:02d}"
 
 
+def _date_from_text(text):
+    months = "January February March April May June July August September October November December"
+    pat = rf"\b(\d{{1,2}})(?:st|nd|rd|th)?\s+({months.replace(' ', '|')})\s+(20\d{{2}})\b"
+    out = []
+    for m in re.finditer(pat, text or "", re.I):
+        try:
+            out.append(date(int(m.group(3)), savills.MONTHS[m.group(2).lower()], int(m.group(1))))
+        except Exception:
+            pass
+    return min(out) if out else None
+
+
+def scan_first_party_archive(max_pages=30):
+    """Enumerate every surviving Savills archive page independent of catalogue links.
+
+    Old archive cards can retain auction dates and results after their catalogue hrefs have
+    disappeared.  This records a truthful first-party discovery boundary without pretending
+    that the underlying lots have been recovered.
+    """
+    pages = []
+    dates = []
+    consecutive_empty = 0
+    for page in range(1, max_pages + 1):
+        url = ARCHIVE if page == 1 else f"{ARCHIVE}/page-{page}"
+        try:
+            doc = soup(url, use_browser=False)
+            text = norm(doc.get_text(" ", strip=True))
+        except Exception as exc:
+            pages.append({"page": page, "url": url, "error": f"{type(exc).__name__}: {exc}"})
+            consecutive_empty += 1
+            if consecutive_empty >= 2 and page > 14:
+                break
+            continue
+        page_dates = []
+        months = "January|February|March|April|May|June|July|August|September|October|November|December"
+        for m in re.finditer(rf"\b(\d{{1,2}})(?:st|nd|rd|th)?\s+({months})\s+(20\d{{2}})\b", text, re.I):
+            try:
+                d = date(int(m.group(3)), savills.MONTHS[m.group(2).lower()], int(m.group(1)))
+                if d < date.today():
+                    page_dates.append(d)
+            except Exception:
+                pass
+        # Month-labelled auctions sometimes expose the precise date elsewhere; this deliberately
+        # stores only exact dates parsed from the first-party page.
+        if page_dates:
+            dates.extend(page_dates)
+            consecutive_empty = 0
+            pages.append({"page": page, "url": url, "auction_dates_found": len(set(page_dates)), "earliest": min(page_dates).isoformat(), "latest": max(page_dates).isoformat()})
+        else:
+            consecutive_empty += 1
+            pages.append({"page": page, "url": url, "auction_dates_found": 0})
+            if page >= 14 and consecutive_empty >= 2:
+                break
+    return pages, (min(dates) if dates else None), (max(dates) if dates else None)
+
+
+def _xml_locs(raw):
+    try:
+        root = ET.fromstring(raw)
+    except ET.ParseError:
+        return []
+    return [n.text.strip() for n in root.iter() if n.tag.lower().endswith("loc") and n.text and n.text.strip()]
+
+
+def discover_sitemap_urls(max_sitemaps=50):
+    """Read Savills' public first-party sitemap/index recursively and return historical lot URLs."""
+    queue = [SITEMAP]
+    seen_maps = set()
+    urls = set()
+    failures = []
+    while queue and len(seen_maps) < max_sitemaps:
+        sm = queue.pop(0)
+        if sm in seen_maps:
+            continue
+        seen_maps.add(sm)
+        try:
+            locs = _xml_locs(_read_url(sm))
+        except Exception as exc:
+            failures.append({"url": sm, "error": f"{type(exc).__name__}: {exc}"})
+            continue
+        for loc in locs:
+            if not _first_party(loc):
+                continue
+            low = loc.lower()
+            if low.endswith(".xml") or "sitemap" in low:
+                if loc not in seen_maps:
+                    queue.append(loc)
+                continue
+            if "/auctions/" in low or "/component/bidding/" in low or ("index.php" in low and "option=com_bidding" in low):
+                urls.add(loc.split("#")[0])
+    return sorted(urls), {"sitemaps_scanned": len(seen_maps), "failures": failures}
+
+
+def _auction_key(url):
+    path = urlparse(url or "").path.rstrip("/")
+    m = re.search(r"/(?:auctions|component/bidding)/([^/]+-\d+)(?:/|$)", path, re.I)
+    return m.group(1).lower() if m else None
+
+
+def recover_first_party_sitemap(max_urls=500, before_year=2023):
+    """Recover surviving historical first-party lots directly from Savills' own sitemap.
+
+    Sitemap URLs are evidence, not inferred facts: exact auction date still has to resolve from
+    the surviving lot page.  Detail parsing/classification remains in the production Savills parser.
+    """
+    urls, meta = discover_sitemap_urls()
+    candidates = []
+    for u in urls:
+        key = _auction_key(u)
+        if not key:
+            continue
+        ym = re.search(r"\b(20\d{2})\b", key)
+        if ym and int(ym.group(1)) >= before_year:
+            continue
+        # A catalogue root is useful discovery but not a property event.
+        tail = urlparse(u).path.rstrip("/").split("/")[-1]
+        if tail == key or re.match(r"^(?:page|quantity|sort-by|property_type)-", tail, re.I):
+            continue
+        candidates.append(u)
+    candidates = candidates[:max_urls]
+    rows = []
+    failures = []
+    exact_dates = []
+    for href in candidates:
+        try:
+            doc = soup(href, use_browser=False)
+            text = norm(doc.get_text(" ", strip=True))
+            start, end = savills._auction_dates(text, href)
+            auction_day = end or start or _date_from_text(text)
+            if not auction_day or auction_day.year >= before_year:
+                continue
+            auction = {"start": auction_day, "end": auction_day, "catalogue": href, "label": f"Savills first-party sitemap recovery {auction_day.isoformat()}"}
+            lot = savills._detail(href, auction, source_commercial=False)
+            if not lot:
+                continue
+            row = lot.finalise().to_dict()
+            row["url"] = href
+            row["evidence_url"] = href
+            row["result_page_url"] = href
+            row["discovery_index_url"] = SITEMAP
+            rows.append(row)
+            exact_dates.append(auction_day)
+        except Exception as exc:
+            failures.append({"url": href, "error": f"{type(exc).__name__}: {exc}"})
+    meta.update({"urls_discovered": len(urls), "historical_lot_candidates": len(candidates), "lot_failures": failures, "earliest_recovered_date": min(exact_dates).isoformat() if exact_dates else None})
+    return rows, meta
+
+
 def _auction_date(text, month):
     patterns = [
         r"Auction\s*Date\s*:?\s*(\d{1,2})\s+([A-Za-z]+)[, ]+(20\d{2})",
@@ -69,8 +238,6 @@ def _auction_date(text, month):
                 return date(int(m.group(3)), savills.MONTHS[name], int(m.group(1)))
             except ValueError:
                 pass
-    y, mo = [int(x) for x in month.split("-")]
-    # Never invent a day from month-only index evidence.
     return None
 
 
@@ -83,15 +250,12 @@ def _first_party_link(doc):
     choices = []
     for a in doc.find_all("a", href=True):
         href = urljoin(INDEX_BASE, a.get("href") or "")
-        host = (urlparse(href).hostname or "").lower()
-        if host == "auctions.savills.co.uk" or host.endswith(".auctions.savills.co.uk"):
-            if "/auctions/" in href or ("index.php" in href and "id=" in href):
-                choices.append(href.split("#")[0])
+        if _first_party(href) and ("/auctions/" in href or "/component/bidding/" in href or ("index.php" in href and "id=" in href)):
+            choices.append(href.split("#")[0])
     return choices[0] if choices else None
 
 
 def discover_month(month, max_lot_pages=300):
-    """Use AuctionRadar only as a candidate URL index; canonical evidence must be Savills."""
     index_url = f"{INDEX_BASE}/results/{month}"
     doc = soup(index_url, use_browser=False)
     lot_urls = []
@@ -101,11 +265,9 @@ def discover_month(month, max_lot_pages=300):
         if not re.search(r"auctionradar\.co\.uk/lot/\d+$", href, re.I) or href in seen:
             continue
         card = norm(a.parent.get_text(" ", strip=True) if a.parent else a.get_text(" ", strip=True))
-        # Prefer obvious Savills cards; if markup is compact the lot page is the final check.
         if "savills" in card.lower():
             seen.add(href)
             lot_urls.append(href)
-    # Some archive layouts do not put the auctioneer in the immediate anchor parent.
     if not lot_urls:
         for a in doc.find_all("a", href=True):
             href = urljoin(INDEX_BASE, a.get("href") or "").split("?")[0].rstrip("/")
@@ -136,7 +298,6 @@ def recover_month(month, max_lot_pages=300):
             surviving += 1
             auction_day = _auction_date(text, month)
             if not auction_day:
-                # The surviving first-party page normally carries an exact sale date.
                 sd = soup(evidence_url, use_browser=False)
                 st = norm(sd.get_text(" ", strip=True))
                 start, end = savills._auction_dates(st, evidence_url)
@@ -165,11 +326,49 @@ def recover_month(month, max_lot_pages=300):
 def run(months=2, floor_year=2002, max_lot_pages=300):
     progress = load_progress()
     state = progress.setdefault("sources", {}).setdefault(SOURCE_KEY, {})
-    # The modern archive route being exhausted is not historical completeness.
     state["historically_complete"] = False
     state["discovery_exhausted"] = False
     if state.get("status") == "CAUGHT UP":
         state["status"] = "DISCOVERY EXPANSION"
+
+    # Route 1: exhaustively enumerate the surviving first-party archive itself.  This is run on
+    # every expansion pass because its pagination can grow or old cards can be restored.
+    archive_pages, archive_earliest, archive_latest = scan_first_party_archive()
+    state["first_party_archive_pages_scanned"] = len(archive_pages)
+    state["first_party_archive_scan"] = archive_pages
+    state["first_party_archive_earliest_date"] = archive_earliest.isoformat() if archive_earliest else None
+    state["first_party_archive_latest_date"] = archive_latest.isoformat() if archive_latest else None
+
+    # Route 2: use Savills' own sitemap to discover surviving lot pages that the archive cards no
+    # longer link.  This is stronger evidence than a third-party index and is tried first.
+    sitemap_rows, sitemap_meta = recover_first_party_sitemap(max_urls=max_lot_pages * 2, before_year=2023)
+    state["first_party_sitemap"] = sitemap_meta
+    if sitemap_rows:
+        before_db = json.loads(HISTORY_PATH.read_text(encoding="utf-8")) if HISTORY_PATH.exists() else {"auction_events": []}
+        before_count = _source_event_count(before_db)
+        db = update_history_database(sitemap_rows, path=HISTORY_PATH)
+        after_count = _source_event_count(db)
+        added = max(0, after_count - before_count)
+        state["legacy_commercial_rows_captured"] = int(state.get("legacy_commercial_rows_captured") or 0) + added
+        state["lots_captured"] = after_count
+        state["last_history_event_count"] = len(db.get("auction_events") or [])
+        dates = [r.get("auction_date") for r in sitemap_rows if r.get("auction_date")]
+        if dates:
+            earliest = min(dates)
+            prev = state.get("earliest_date_reached")
+            state["earliest_date_reached"] = min(prev, earliest) if prev else earliest
+            em = earliest[:7]
+            prevm = state.get("earliest_month_reached")
+            state["earliest_month_reached"] = min(prevm, em) if prevm else em
+        state["last_first_party_sitemap_rows_seen"] = len(sitemap_rows)
+        state["last_first_party_sitemap_events_added"] = added
+    else:
+        state["last_first_party_sitemap_rows_seen"] = 0
+        state["last_first_party_sitemap_events_added"] = 0
+    save_progress(progress)
+
+    # Route 3: third-party public result index is discovery-only.  It may reveal surviving Savills
+    # detail URLs omitted from the current first-party sitemap; only the Savills page is evidence.
     cursor = state.get("legacy_discovery_cursor") or "2021-12"
     processed = []
     total_rows = 0
@@ -177,16 +376,23 @@ def run(months=2, floor_year=2002, max_lot_pages=300):
     for month in month_sequence(cursor, floor_year=floor_year):
         rows, meta = recover_month(month, max_lot_pages=max_lot_pages)
         if rows:
+            before_db = json.loads(HISTORY_PATH.read_text(encoding="utf-8")) if HISTORY_PATH.exists() else {"auction_events": []}
+            before_count = _source_event_count(before_db)
             db = update_history_database(rows, path=HISTORY_PATH)
-            total_rows += len(rows)
+            after_count = _source_event_count(db)
+            added = max(0, after_count - before_count)
+            total_rows += added
             state["last_history_event_count"] = len(db.get("auction_events") or [])
+            state["lots_captured"] = after_count
+        else:
+            added = 0
         total_failures += len(meta["failures"])
-        processed.append({"month": month, **meta, "commercial_rows": len(rows)})
+        processed.append({"month": month, **meta, "commercial_rows_seen": len(rows), "canonical_events_added": added})
         state["legacy_discovery_cursor"] = previous_month(month)
         state["legacy_months_scanned"] = int(state.get("legacy_months_scanned") or 0) + 1
         state["legacy_candidate_lot_pages"] = int(state.get("legacy_candidate_lot_pages") or 0) + meta["savills_candidates"]
         state["legacy_surviving_first_party"] = int(state.get("legacy_surviving_first_party") or 0) + meta["surviving_first_party"]
-        state["legacy_commercial_rows_captured"] = int(state.get("legacy_commercial_rows_captured") or 0) + len(rows)
+        state["legacy_commercial_rows_captured"] = int(state.get("legacy_commercial_rows_captured") or 0) + added
         state["last_legacy_month"] = month
         state["last_legacy_index_url"] = meta["index_url"]
         state["last_legacy_run_at"] = now_iso()
@@ -198,7 +404,6 @@ def run(months=2, floor_year=2002, max_lot_pages=300):
                 em = earliest[:7]
                 prevm = state.get("earliest_month_reached")
                 state["earliest_month_reached"] = min(prevm, em) if prevm else em
-            state["lots_captured"] = int(state.get("lots_captured") or 0) + len(rows)
         save_progress(progress)
         if len(processed) >= months:
             break
@@ -209,6 +414,8 @@ def run(months=2, floor_year=2002, max_lot_pages=300):
     if processed and int(processed[-1]["month"][:4]) <= floor_year:
         state["discovery_exhausted"] = True
         state["status"] = "DISCOVERY EXHAUSTED"
+    # Even when every known route is exhausted this flag stays false unless separately proven.
+    state["historically_complete"] = False
     save_progress(progress)
     print(json.dumps({"source": SOURCE_KEY, "rows": total_rows, "processed": processed, "state": state}, indent=2, ensure_ascii=False, default=str))
     return total_rows
