@@ -9,6 +9,7 @@ on:
     paths:
       - '.github/workflows/savills-archival-url-backfill.yml'
       - 'savills_archival_url_discovery.py'
+      - 'savills_commoncrawl_legacy_probe.py'
       - 'collectors/savills.py'
       - 'history_database.py'
 
@@ -43,7 +44,7 @@ jobs:
           python -m playwright install chromium
 
       - name: Compile archival discovery
-        run: python -m py_compile savills_archival_url_discovery.py collectors/savills.py history_database.py
+        run: python -m py_compile savills_archival_url_discovery.py savills_commoncrawl_legacy_probe.py collectors/savills.py history_database.py
 
       - name: Pin archival cursor to overriding 2013 priority when still newer
         run: |
@@ -63,6 +64,20 @@ jobs:
 
       - name: Discover archived Savills URLs and validate surviving first-party pages
         run: python savills_archival_url_discovery.py --snapshot-years 1 --start-year 2013 --floor-year 2008 --cdx-limit 1200 --max-live-checks 240
+
+      - name: Retry same legacy year with documented Common Crawl host-path queries
+        run: |
+          YEAR=$(python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
+          s=(p.get('sources') or {}).get('Savills Auctions') or {}
+          rows=s.get('archival_url_last_processed') or []
+          print(rows[-1].get('snapshot_year', 2013) if rows else 2013)
+          PY
+          )
+          echo "COMMON_CRAWL_RETRY_YEAR=$YEAR"
+          python savills_commoncrawl_legacy_probe.py --year "$YEAR" --limit 2000 --max-live-checks 300
 
       - name: Validate Savills History V2 evidence and completeness semantics
         run: |
