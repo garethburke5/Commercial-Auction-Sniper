@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-10T18:04:57.138645+00:00",
+  "updated_at": "2026-09-10T18:41:24.423258+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "LIVE ARCHIVE BLOCKED",
+      "status": "DISCOVERY EXPANSION",
       "auctions_discovered": 70,
       "auctions_completed": 70,
       "lots_captured": 2842,
@@ -219,7 +219,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 16634,
-      "last_discovery_mode": "commoncrawl-exact-year-prefix-to-live-savills-first-party",
+      "last_discovery_mode": "savills-first-party-legacy-aid",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -386,9 +386,9 @@
       },
       "last_first_party_sitemap_rows_seen": 0,
       "last_first_party_sitemap_events_added": 0,
-      "legacy_aid_cursor": 966,
-      "legacy_aids_scanned": 160,
-      "legacy_aid_last_run_at": "2026-09-10T15:08:59.853364+00:00",
+      "legacy_aid_cursor": 886,
+      "legacy_aids_scanned": 240,
+      "legacy_aid_last_run_at": "2026-09-10T18:41:24.423229+00:00",
       "legacy_aid_last_processed": [],
       "legacy_aid_last_events_added": 0,
       "legacy_aid_recovered_auctions": 0,
