@@ -1,0 +1,88 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-10T18:04:47.480682+00:00",
+  "stage": "live-first-party-latent-route-repair",
+  "archive_page": 14,
+  "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "dates_seen": [
+    "2014-04-24",
+    "2014-05-07",
+    "2014-06-16",
+    "2014-07-22",
+    "2014-09-15",
+    "2014-10-28",
+    "2014-12-08",
+    "2015-02-17",
+    "2015-03-31",
+    "2015-05-11"
+  ],
+  "fetch_mode": "http",
+  "latent_candidate_count": 2,
+  "candidates": [
+    {
+      "url": "https://auctions.savills.co.uk/assets/images/auctions/archived-auction-image.jpg",
+      "origins": [
+        {
+          "tag": "img",
+          "attr": "src",
+          "value": "/assets/images/auctions/archived-auction-image.jpg",
+          "context": ""
+        },
+        {
+          "tag": "img",
+          "attr": "src",
+          "value": "/assets/images/auctions/archived-auction-image.jpg",
+          "context": ""
+        },
+        {
+          "tag": "img",
+          "attr": "src",
+          "value": "/assets/images/auctions/archived-auction-image.jpg",
+          "context": ""
+        },
+        {
+          "tag": "img",
+          "attr": "src",
+          "value": "/assets/images/auctions/archived-auction-image.jpg",
+          "context": ""
+        }
+      ],
+      "result": "first-party-candidate-not-yet-catalogue-shaped"
+    },
+    {
+      "url": "https://auctions.savills.co.uk/auctions/archived-auction-image.jpg",
+      "origins": [
+        {
+          "tag": "div",
+          "attr": "style",
+          "value": "background-image: url(/assets/images/auctions/archived-auction-image.jpg)",
+          "context": ""
+        },
+        {
+          "tag": "img",
+          "attr": "src",
+          "value": "/assets/images/auctions/archived-auction-image.jpg",
+          "context": ""
+        },
+        {
+          "tag": "div",
+          "attr": "style",
+          "value": "background-image: url(/assets/images/auctions/archived-auction-image.jpg)",
+          "context": ""
+        },
+        {
+          "tag": "img",
+          "attr": "src",
+          "value": "/assets/images/auctions/archived-auction-image.jpg",
+          "context": ""
+        }
+      ],
+      "result": "first-party-candidate-not-yet-catalogue-shaped"
+    }
+  ],
+  "rows_seen": 0,
+  "history_v2_events_added": 0,
+  "counted_as_complete": false,
+  "blocker": "Oldest live Savills archive page exposes first-party URL-like latent attributes/scripts, but none resolved to a recoverable commercial catalogue in this pass.",
+  "next_probe": "Probe the concrete surviving first-party candidate routes recorded below, including their query/form semantics, before any broader archive-index search."
+}
