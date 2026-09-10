@@ -6,6 +6,7 @@ from pathlib import Path
 
 import historical_savills as hs
 from history_database import update_history_database
+from savills_history_quality import correct_rows, repair_database
 
 DATA = Path('data')
 HISTORY = DATA / 'property_history.json'
@@ -51,9 +52,20 @@ def main() -> None:
     progress = hs.load_progress()
     state = progress.setdefault('sources', {}).setdefault(SOURCE, {})
     state['historically_complete'] = False
+
+    # Repair the bad first-H1 behaviour discovered on surviving legacy Savills pages
+    # before deciding a completed seed needs no further work. This keeps the canonical
+    # event identity while moving it away from modal boilerplate such as
+    # "Login to see times and book a viewing" and onto the address proven by the
+    # surviving first-party Savills page title.
+    repaired = repair_database(HISTORY)
+    state['legacy_address_repair_last_run_at'] = now_iso()
+    state['legacy_addresses_repaired_last_run'] = repaired
+
     completed = {str(x) for x in (state.get('completed_auction_ids') or [])}
     attempts = []
     total_added = 0
+    total_row_addresses_corrected = 0
 
     for seed in SEEDS:
         aid = seed['auction_id']
@@ -71,6 +83,11 @@ def main() -> None:
         }
         try:
             rows, expected, feed = hs.fetch_auction(auction)
+            rows, corrected = correct_rows(rows)
+            total_row_addresses_corrected += corrected
+            bad = [r for r in rows if not str(r.get('address') or '').strip() or 'login to see times and book a viewing' in str(r.get('address') or '').lower()]
+            if bad:
+                raise RuntimeError(f'{len(bad)} Savills rows still have invalid legacy addresses after first-party title recovery')
             before = json.loads(HISTORY.read_text(encoding='utf-8')) if HISTORY.exists() else {'auction_events': []}
             before_n = source_count(before)
             db = update_history_database(rows, path=HISTORY)
@@ -78,7 +95,14 @@ def main() -> None:
             added = max(0, after_n - before_n)
             total_added += added
             completed.add(aid)
-            attempt.update({'status': 'persisted', 'rows_normalised': len(rows), 'canonical_events_added': added, 'expected': expected, 'feed': feed})
+            attempt.update({
+                'status': 'persisted',
+                'rows_normalised': len(rows),
+                'row_addresses_corrected': corrected,
+                'canonical_events_added': added,
+                'expected': expected,
+                'feed': feed,
+            })
             state['lots_captured'] = after_n
             state['last_history_event_count'] = len(db.get('auction_events') or [])
             month = seed['start'].strftime('%Y-%m')
@@ -97,10 +121,22 @@ def main() -> None:
     state['surviving_catalogue_last_run_at'] = now_iso()
     state['surviving_catalogue_last_attempts'] = attempts
     state['surviving_catalogue_last_events_added'] = total_added
+    state['surviving_catalogue_row_addresses_corrected'] = total_row_addresses_corrected
     state['last_discovery_mode'] = 'savills-surviving-first-party-catalogue-seeds'
-    state['status'] = 'SURVIVING CATALOGUE INGESTING' if total_added else 'SURVIVING CATALOGUE PROBE BLOCKED'
+    if total_added:
+        state['status'] = 'SURVIVING CATALOGUE INGESTING'
+    elif repaired:
+        state['status'] = 'DISCOVERY EXPANSION'
+    else:
+        state['status'] = 'SURVIVING CATALOGUE PROBE BLOCKED'
     hs.save_progress(progress)
-    print(json.dumps({'events_added': total_added, 'attempts': attempts, 'state': state}, indent=2, default=str))
+    print(json.dumps({
+        'events_added': total_added,
+        'legacy_addresses_repaired': repaired,
+        'row_addresses_corrected': total_row_addresses_corrected,
+        'attempts': attempts,
+        'state': state,
+    }, indent=2, default=str))
 
 
 if __name__ == '__main__':
