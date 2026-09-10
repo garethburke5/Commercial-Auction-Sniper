@@ -159,10 +159,28 @@ def _money(raw):
         return None
 
 
+def _savills_total_rent(text):
+    """Return Savills' stated whole-investment rent, not a component-unit rent."""
+    text = norm(text or "")
+    patterns = (
+        r"Investment\s+(?:Part\s+)?Let\s+at\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)\b",
+        r"(?:Total\s+)?Rent\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)\b",
+    )
+    for pattern in patterns:
+        m = re.search(pattern, text, re.I)
+        if m:
+            return _money(m.group(1))
+    return None
+
+
 def _enhance_savills_lot(lot):
     """Capture material facts Savills publishes in prose, without inventing them."""
     text = norm(lot.description or "")
     low = text.lower()
+
+    total_rent = _savills_total_rent(text)
+    if total_rent:
+        lot.annual_rent = total_rent
 
     total_area_patterns = (
         r"Total Floor Area\s+([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft",
