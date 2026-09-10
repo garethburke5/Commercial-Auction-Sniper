@@ -1,0 +1,27 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-10T20:03:40.762653+00:00",
+  "stage": "live-first-party-latent-route-repair",
+  "archive_page": 14,
+  "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "dates_seen": [
+    "2014-04-24",
+    "2014-05-07",
+    "2014-06-16",
+    "2014-07-22",
+    "2014-09-15",
+    "2014-10-28",
+    "2014-12-08",
+    "2015-02-17",
+    "2015-03-31",
+    "2015-05-11"
+  ],
+  "fetch_mode": "http",
+  "latent_candidate_count": 0,
+  "candidates": [],
+  "rows_seen": 0,
+  "history_v2_events_added": 0,
+  "counted_as_complete": false,
+  "blocker": "Savills live archive page 14 exposes dated auction summaries down to 24 April 2014 but no catalogue route in href, data/form/onclick attributes, or embedded script URL strings after static archive artwork is excluded.",
+  "next_probe": "Use the exact page-14 auction dates and any surviving first-party form/query semantics from the live page to recover catalogue/result routes; do not create property events from summary cards and do not move to archival indexes while a live route remains unresolved."
+}

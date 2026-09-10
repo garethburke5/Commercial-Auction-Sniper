@@ -1,0 +1,25 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-10T20:03:49.600999+00:00",
+  "stage": "live-first-party-archive-ingestion",
+  "archive_page": 14,
+  "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "dates_seen": [
+    "2014-04-24",
+    "2014-05-07",
+    "2014-06-16",
+    "2014-07-22",
+    "2014-09-15",
+    "2014-10-28",
+    "2014-12-08",
+    "2015-02-17",
+    "2015-03-31",
+    "2015-05-11"
+  ],
+  "catalogue_anchor_count": 0,
+  "history_v2_events_added": 0,
+  "counted_as_complete": false,
+  "error": null,
+  "blocker": "Live Savills archive page contains dated auction summaries but exposes no resolvable lot catalogue anchors.",
+  "next_probe": "Inspect latent first-party href/data attributes and surviving Savills legacy catalogue endpoints for these exact live archive dates before any third-party archival discovery."
+}
