@@ -39,7 +39,7 @@ jobs:
           python -m playwright install chromium
       - name: Compile live-first repair
         run: python -m py_compile savills_live_archive_backfill.py savills_live_archive_latent_probe.py historical_savills.py savills_legacy_aid_discovery.py history_database.py collectors/savills.py
-      - name: Probe oldest live page latent first-party routes
+      - name: Probe oldest concrete live page latent first-party routes
         id: latent
         continue-on-error: true
         run: python savills_live_archive_latent_probe.py
@@ -55,22 +55,22 @@ jobs:
           state=progress.setdefault('sources',{}).setdefault('Savills Auctions',{})
           state['historically_complete']=False
           state['status']='LIVE ARCHIVE DEGRADED'
-          state['live_archive_latent_probe_url']='https://auctions.savills.co.uk/past-auctions/archive/page-14'
-          state['live_archive_latent_probe_error']='Page-14 latent-route probe failed before extraction; auxiliary probe is now non-blocking so the canonical oldest-first live archive ingestion continues in the same run.'
+          state['live_archive_latent_probe_url']='https://auctions.savills.co.uk/past-auctions/archive/page-13'
+          state['live_archive_latent_probe_error']='Page-13 live latent-route probe failed before extraction; the auxiliary probe remains non-blocking so canonical oldest-first live archive ingestion continues in the same run.'
           state['live_archive_latent_probe_failed_at']=datetime.now(timezone.utc).isoformat()
           diags=Path('data/source_diagnostics'); diags.mkdir(parents=True, exist_ok=True)
           stamp=datetime.now(timezone.utc).strftime('%Y-%m-%dT%H%MZ')
-          diag=diags/f'savills_live_archive_page14_latent_timeout_{stamp}.json'
+          diag=diags/f'savills_live_archive_page13_latent_timeout_{stamp}.json'
           diag.write_text(json.dumps({
             'source':'Savills Auctions',
             'recorded_at':datetime.now(timezone.utc).isoformat(),
             'stage':'live-first-party-latent-route-probe',
-            'archive_page':14,
-            'archive_url':'https://auctions.savills.co.uk/past-auctions/archive/page-14',
-            'error':'Latent-route probe failed before extraction (previous production failure was Playwright Page.goto timeout after HTTP fallback failed).',
+            'archive_page':13,
+            'archive_url':'https://auctions.savills.co.uk/past-auctions/archive/page-13',
+            'error':'Page-13 latent-route probe failed before extraction.',
             'counted_as_complete':False,
-            'repair':'Treat latent route archaeology as non-blocking and continue savills_live_archive_backfill.py oldest-first in this same run.',
-            'next_probe':'Persist whatever canonical live-page/catalogue records or exact per-page blocker the oldest-first collector produces; retry latent route extraction separately.'
+            'repair':'Keep the page-13 latent probe non-blocking and continue savills_live_archive_backfill.py oldest-first in this same run.',
+            'next_probe':'Persist whatever canonical live-page/catalogue records or exact per-page blocker the oldest-first collector produces; retry the concrete page-13 first-party route separately before broad archive-index discovery.'
           },indent=2),encoding='utf-8')
           state['last_live_archive_latent_diagnostic']=str(diag)
           progress['updated_at']=datetime.now(timezone.utc).isoformat()
