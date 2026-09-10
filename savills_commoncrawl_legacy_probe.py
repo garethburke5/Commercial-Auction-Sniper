@@ -22,15 +22,24 @@ PROGRESS_PATH = DATA / "historical_backfill_progress.json"
 HISTORY_PATH = DATA / "property_history.json"
 UA = "Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)"
 
-# Historical Savills pages were not necessarily hosted on today's dedicated auction
-# subdomain.  Query first-party Savills UK host families as domains, then apply strict
-# auction-path filtering locally.  Common Crawl remains discovery evidence only: a
-# candidate must still resolve to a live Savills first-party page before ingestion.
 CC_HOSTS = (
     "auctions.savills.co.uk",
     "www.savills.co.uk",
     "savills.co.uk",
 )
+
+# Prefixes deliberately target legacy first-party auction applications.  Domain-wide
+# queries against the 2013 indexes can return tens of thousands of Savills rows and
+# time out at the index gateway before any auction URLs are returned.
+CC_PREFIXES = (
+    "/auctions/",
+    "/auction/",
+    "/property-auctions/",
+    "/Auctions/",
+    "/component/bidding/",
+    "/index.php",
+)
+
 AUCTION_PATH_HINTS = (
     "/auctions/",
     "/auction/",
@@ -79,14 +88,12 @@ def looks_like_auction_url(url: str) -> bool:
     low = joined.lower()
     if not any(h.lower() in low for h in AUCTION_PATH_HINTS):
         return False
-    # Reject obvious static assets and search/filter chrome.
     if re.search(r"\.(?:jpg|jpeg|png|gif|svg|css|js|ico|pdf)(?:$|\?)", low):
         return False
     return True
 
 
 def normalise_candidate(url: str):
-    """Preserve the discovered Savills UK host/path but canonicalise scheme/fragment."""
     try:
         p = urlparse(url)
     except Exception:
@@ -97,13 +104,9 @@ def normalise_candidate(url: str):
     return urlunparse(p._replace(scheme="https", netloc=host, fragment=""))
 
 
-def query_index_domain(api: str, host: str, limit: int):
-    # Domain matching avoids relying on wildcard semantics that differ across old CDX
-    # indexes.  Filtering to auction paths/status/mime happens client-side.
-    query = api + "?" + urlencode({"url": host, "matchType": "domain", "output": "json"})
+def _parse_index_rows(text: str, limit: int):
     out = []
     raw_seen = 0
-    text = request_text(query)
     for line in text.splitlines():
         line = line.strip()
         if not line:
@@ -120,11 +123,25 @@ def query_index_domain(api: str, host: str, limit: int):
         if mime and "html" not in mime:
             continue
         original = str(row.get("url") or row.get("original") or "").strip()
-        if not original or not looks_like_auction_url(original):
-            continue
-        out.append(original)
-        if len(out) >= limit:
-            break
+        if original and looks_like_auction_url(original):
+            out.append(original)
+            if len(out) >= limit:
+                break
+    return out, raw_seen
+
+
+def query_index_prefix(api: str, host: str, prefix: str, limit: int):
+    target = host + prefix
+    query = api + "?" + urlencode({"url": target, "matchType": "prefix", "output": "json"})
+    text = request_text(query, timeout=45)
+    out, raw_seen = _parse_index_rows(text, limit)
+    return out, raw_seen, query
+
+
+def query_index_domain(api: str, host: str, limit: int):
+    query = api + "?" + urlencode({"url": host, "matchType": "domain", "output": "json"})
+    text = request_text(query, timeout=60)
+    out, raw_seen = _parse_index_rows(text, limit)
     return out, raw_seen, query
 
 
@@ -146,30 +163,49 @@ def run(year: int, limit: int = 2000, max_live_checks: int = 300):
         collections = _commoncrawl_collections(year)
     except Exception as exc:
         collections = []
-        errors.append(
-            f"collection discovery {CC_COLLECTIONS} :: {type(exc).__name__}: {exc}"
-        )
+        errors.append(f"collection discovery {CC_COLLECTIONS} :: {type(exc).__name__}: {exc}")
 
     if not collections:
-        errors.append(f"No usable Common Crawl collection listed for {year} at {CC_COLLECTIONS}")
+        errors.append(f"No exact Common Crawl collection listed for {year} at {CC_COLLECTIONS}")
 
     for ident, api in collections:
+        collection_hits = 0
+        # First use compact prefix routes.  This is the primary repair for legacy 2013
+        # domain queries which previously returned 504 before useful rows were emitted.
         for host in CC_HOSTS:
-            try:
-                originals, raw_seen, query = query_index_domain(api, host, limit)
-                queries.append({"collection": ident, "host": host, "url": query})
-                raw_count += raw_seen
-                filtered_count += len(originals)
-                if len(samples) < 30:
-                    samples.extend(originals[: 30 - len(samples)])
-                for original in originals:
-                    candidate = normalise_candidate(original)
-                    if candidate:
-                        candidates.setdefault(candidate, query)
-            except Exception as exc:
-                # A legacy index/host failure is diagnostic data, not a reason to discard
-                # successful probes from other collections/hosts or abort publication.
-                errors.append(f"{ident} {host} :: {type(exc).__name__}: {exc}")
+            for prefix in CC_PREFIXES:
+                try:
+                    originals, raw_seen, query = query_index_prefix(api, host, prefix, limit)
+                    queries.append({"collection": ident, "host": host, "prefix": prefix, "match_type": "prefix", "url": query})
+                    raw_count += raw_seen
+                    filtered_count += len(originals)
+                    collection_hits += len(originals)
+                    if len(samples) < 30:
+                        samples.extend(originals[: 30 - len(samples)])
+                    for original in originals:
+                        candidate = normalise_candidate(original)
+                        if candidate:
+                            candidates.setdefault(candidate, query)
+                except Exception as exc:
+                    errors.append(f"{ident} {host}{prefix} prefix :: {type(exc).__name__}: {exc}")
+
+        # Only fall back to broad domain matching when every compact prefix was empty.
+        # A failure here is diagnostic and cannot erase successful prefix results.
+        if collection_hits == 0:
+            for host in CC_HOSTS:
+                try:
+                    originals, raw_seen, query = query_index_domain(api, host, limit)
+                    queries.append({"collection": ident, "host": host, "match_type": "domain-fallback", "url": query})
+                    raw_count += raw_seen
+                    filtered_count += len(originals)
+                    if len(samples) < 30:
+                        samples.extend(originals[: 30 - len(samples)])
+                    for original in originals:
+                        candidate = normalise_candidate(original)
+                        if candidate:
+                            candidates.setdefault(candidate, query)
+                except Exception as exc:
+                    errors.append(f"{ident} {host} domain fallback :: {type(exc).__name__}: {exc}")
 
     rows = []
     rejected = []
@@ -178,10 +214,10 @@ def run(year: int, limit: int = 2000, max_live_checks: int = 300):
             row, reason = recover_live(candidate, discovery_url)
             if row:
                 rows.append(row)
-            elif len(rejected) < 40:
+            elif len(rejected) < 60:
                 rejected.append({"url": candidate, "reason": reason})
         except Exception as exc:
-            if len(rejected) < 40:
+            if len(rejected) < 60:
                 rejected.append({"url": candidate, "reason": f"{type(exc).__name__}: {exc}"})
 
     before = json.loads(HISTORY_PATH.read_text(encoding="utf-8")) if HISTORY_PATH.exists() else {"auction_events": []}
@@ -205,9 +241,10 @@ def run(year: int, limit: int = 2000, max_live_checks: int = 300):
     diagnostic = {
         "at": now_iso(),
         "snapshot_year": year,
-        "query_mode": "commoncrawl-domain-match-legacy-savills-hosts-client-filter",
+        "query_mode": "commoncrawl-exact-year-prefix-routes-with-domain-fallback",
         "collections": [x[0] for x in collections],
         "hosts_probed": list(CC_HOSTS),
+        "prefixes_probed": list(CC_PREFIXES),
         "raw_index_rows_seen": raw_count,
         "auction_path_urls_seen": filtered_count,
         "normalised_candidate_urls": len(candidates),
@@ -219,12 +256,14 @@ def run(year: int, limit: int = 2000, max_live_checks: int = 300):
         "queries": queries,
         "raw_url_samples": samples,
         "rejected_samples": rejected,
-        "errors": errors[:60],
+        "errors": errors[:100],
     }
     state["commoncrawl_legacy_last_probe"] = diagnostic
     state["commoncrawl_legacy_last_run_at"] = diagnostic["at"]
     state["commoncrawl_legacy_events_added"] = int(state.get("commoncrawl_legacy_events_added") or 0) + added
-    state["last_discovery_mode"] = "commoncrawl-domain-match-legacy-hosts-to-live-savills-first-party"
+    state["commoncrawl_legacy_priority_year"] = year
+    state["commoncrawl_legacy_exact_collections"] = [x[0] for x in collections]
+    state["last_discovery_mode"] = "commoncrawl-exact-year-prefix-to-live-savills-first-party"
     if added == 0:
         state["commoncrawl_legacy_last_blocker"] = diagnostic
     else:
