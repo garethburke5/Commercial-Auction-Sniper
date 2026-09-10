@@ -1,0 +1,97 @@
+name: Auction Sniper Publish Now
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/auction-sniper-publish-now.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish-now:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install playwright
+          python -m playwright install chromium
+
+      - name: Compile and test
+        run: |
+          python -m py_compile app.py run_collectors.py run_collectors_resilient.py history_database.py source_manifest.py collectors/*.py tests/*.py scripts/update_history_database.py
+          python -m unittest discover -s tests -p 'test_*.py' -v
+
+      - name: Run complete production scrape
+        env:
+          SAVILLS_EMAIL: ${{ secrets.SAVILLS_EMAIL }}
+          SAVILLS_PASSWORD: ${{ secrets.SAVILLS_PASSWORD }}
+        run: python run_collectors_resilient.py
+
+      - name: Validate publishable snapshot
+        run: |
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+          p=Path('data/properties.json')
+          assert p.exists(), 'properties snapshot missing'
+          d=json.loads(p.read_text(encoding='utf-8'))
+          assert d.get('integrity',{}).get('acceptance_ready') is True, 'source universe not acceptance-ready'
+          assert not d.get('integrity',{}).get('quality_rejections'), 'quality rejections remain'
+          failed=[s['source'] for s in d.get('source_health',[]) if s.get('status')=='FAILED']
+          assert not failed, 'failed collectors: '+', '.join(failed)
+          boiler=re.compile(r'login|log in|register to bid|cancel proxy bid|your bid|wishlist|connecting to auction|please wait',re.I)
+          contaminated=[x for x in d.get('properties',[]) if boiler.search(str(x.get('description') or ''))]
+          assert not contaminated, f'boilerplate remains in {len(contaminated)} descriptions'
+          terminal={'SOLD PRIOR','WITHDRAWN','WITHDRAWN PRIOR','POSTPONED'}
+          published_terminal=[x for x in d.get('properties',[]) if str(x.get('status') or '').strip().upper().replace('_',' ') in terminal]
+          print('READY TO PUBLISH',len(d.get('properties',[])),'properties;',len(published_terminal),'published terminal-status lots')
+          PY
+
+      - name: Build and validate permanent history
+        run: |
+          python scripts/update_history_database.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/property_history.json')
+          assert p.exists(), 'property history database missing'
+          d=json.loads(p.read_text(encoding='utf-8'))
+          assert d.get('schema_version') == 1
+          assert isinstance(d.get('properties'),list) and isinstance(d.get('auction_events'),list)
+          stats=d.get('stats') or {}
+          assert stats.get('auction_event_count',0)==len(d['auction_events'])
+          assert stats.get('events_with_source_url',0)==len(d['auction_events'])
+          print('HISTORY READY',stats)
+          PY
+
+      - name: Publish refreshed production data
+        run: |
+          git config user.name 'Auction Sniper Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          cp data/properties.json /tmp/auction-sniper-properties.json
+          cp data/property_history.json /tmp/auction-sniper-property-history.json
+          git restore data/properties.json
+          if git ls-files --error-unmatch data/property_history.json >/dev/null 2>&1; then git restore data/property_history.json; else rm -f data/property_history.json; fi
+          git pull --rebase origin main
+          cp /tmp/auction-sniper-properties.json data/properties.json
+          cp /tmp/auction-sniper-property-history.json data/property_history.json
+          git add data/properties.json data/property_history.json
+          git commit -m 'Refresh canonical Auction Sniper production state'
+          git push origin main
