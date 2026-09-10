@@ -1,0 +1,35 @@
+{
+  "source": "Savills Auctions",
+  "target_period": "2013-or-earlier",
+  "observed_at": "2026-09-10T14:01:00Z",
+  "historically_complete": false,
+  "discovery_exhausted": false,
+  "verified_savills_events_before_repair": 2842,
+  "verified_lot_level_earliest_before_repair": "2023-03",
+  "known_first_party_archive_boundary": "2014-04-24",
+  "failed_workflow_run": "https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/34481473380",
+  "failed_step": "Retry same legacy year with documented Common Crawl host-path queries",
+  "failed_source_route": {
+    "provider": "Common Crawl Index API",
+    "collection_discovery": "https://index.commoncrawl.org/collinfo.json",
+    "target_collection_family": "2013",
+    "query_family_before_repair": [
+      "https://index.commoncrawl.org/<2013-collection>-index?url=auctions.savills.co.uk%2F%2A&output=json",
+      "https://index.commoncrawl.org/<2013-collection>-index?url=auctions.savills.co.uk%2Fauctions%2F%2A&output=json",
+      "https://index.commoncrawl.org/<2013-collection>-index?url=auctions.savills.co.uk%2FAuctions%2FLotDetails%2A&output=json",
+      "https://index.commoncrawl.org/<2013-collection>-index?url=auctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&output=json"
+    ],
+    "failure_scope": "The GitHub job completed the primary archive scan but terminated in the Common Crawl retry step before validation or publication, so no unverified partial history was counted. The Actions job metadata does not expose the underlying stderr/request URL; the probe has therefore been changed so provider/host exceptions are captured into production telemetry instead of aborting the workflow."
+  },
+  "repair": {
+    "commit": "d4744e973b30cc898fd958036acd60815ff30da2",
+    "changes": [
+      "Catch Common Crawl collection-discovery and per-host request failures and persist them as source diagnostics instead of terminating the job.",
+      "Replace wildcard-only host/path requests with domain matching plus client-side auction-path filtering to avoid legacy CDX wildcard incompatibilities.",
+      "Probe auctions.savills.co.uk, www.savills.co.uk and savills.co.uk so pre-dedicated-subdomain Savills UK auction URLs can be discovered.",
+      "Continue requiring a surviving live Savills UK first-party page before any candidate is admitted to canonical History V2."
+    ],
+    "rerun": "https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/34486374479",
+    "rerun_state_when_recorded": "in_progress"
+  }
+}
