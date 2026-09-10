@@ -45,8 +45,24 @@ jobs:
       - name: Compile archival discovery
         run: python -m py_compile savills_archival_url_discovery.py collectors/savills.py history_database.py
 
+      - name: Pin archival cursor to overriding 2013 priority when still newer
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path=Path('data/historical_backfill_progress.json')
+          p=json.loads(path.read_text(encoding='utf-8'))
+          s=p.setdefault('sources',{}).setdefault('Savills Auctions',{})
+          cursor=s.get('archival_url_snapshot_year_cursor')
+          if cursor is None or int(cursor) > 2013:
+              s['archival_url_snapshot_year_cursor']=2013
+              s['archival_url_priority_probe']='2013-or-earlier'
+              path.write_text(json.dumps(p,indent=2,ensure_ascii=False),encoding='utf-8')
+          print('ARCHIVE_CURSOR',s.get('archival_url_snapshot_year_cursor'))
+          PY
+
       - name: Discover archived Savills URLs and validate surviving first-party pages
-        run: python savills_archival_url_discovery.py --snapshot-years 1 --start-year 2020 --floor-year 2008 --cdx-limit 1200 --max-live-checks 240
+        run: python savills_archival_url_discovery.py --snapshot-years 1 --start-year 2013 --floor-year 2008 --cdx-limit 1200 --max-live-checks 240
 
       - name: Validate Savills History V2 evidence and completeness semantics
         run: |
