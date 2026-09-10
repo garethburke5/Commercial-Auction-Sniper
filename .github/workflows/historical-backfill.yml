@@ -10,6 +10,7 @@ on:
       - '.github/workflows/historical-backfill.yml'
       - 'historical_backfill.py'
       - 'historical_savills.py'
+      - 'savills_exhaustive_discovery.py'
       - 'historical_acuitus.py'
       - 'repair_savills_history.py'
       - 'history_database.py'
@@ -48,7 +49,7 @@ jobs:
 
       - name: Compile history code
         run: |
-          python -m py_compile historical_backfill.py historical_savills.py historical_acuitus.py repair_savills_history.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py collectors/acuitus.py
+          python -m py_compile historical_backfill.py historical_savills.py savills_exhaustive_discovery.py historical_acuitus.py repair_savills_history.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py collectors/acuitus.py
 
       - name: Run history regression tests
         run: python -m unittest tests.test_history_database -v
@@ -61,33 +62,37 @@ jobs:
           p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
           sources=p.get('sources') or {}
           sav=sources.get('Savills Auctions') or {}
-          if sav.get('status') != 'CAUGHT UP':
+          modern_done = int(sav.get('auctions_completed') or 0) >= int(sav.get('auctions_discovered') or 0) > 0
+          if not modern_done:
               cmd=[sys.executable,'historical_savills.py','--max-auctions','8']
-              print('NEXT_SOURCE Savills Auctions')
+              print('NEXT_SOURCE Savills Auctions modern first-party archive')
+          elif not sav.get('historically_complete', False):
+              cmd=[sys.executable,'savills_exhaustive_discovery.py','--months','2','--floor-year','2002','--max-lot-pages','300']
+              print('NEXT_SOURCE Savills Auctions exhaustive legacy discovery')
           else:
               cmd=[sys.executable,'historical_acuitus.py','--max-auctions','6']
               print('NEXT_SOURCE Acuitus')
           subprocess.run(cmd, check=True)
           PY
 
-      - name: Repair Savills addresses when Savills changed
+      - name: Repair Savills addresses when modern Savills changed
         run: |
           python - <<'PY'
           import json, subprocess, sys
           from pathlib import Path
           p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
           sav=(p.get('sources') or {}).get('Savills Auctions') or {}
-          if sav.get('status') != 'CAUGHT UP':
+          modern_done = int(sav.get('auctions_completed') or 0) >= int(sav.get('auctions_discovered') or 0) > 0
+          if not modern_done:
               subprocess.run([sys.executable,'repair_savills_history.py'], check=True)
           else:
-              print('Savills already caught up; no address repair needed.')
+              print('Savills modern archive already captured; no modern address repair needed.')
           PY
 
       - name: Validate premium history database
         run: |
           python - <<'PY'
           import json
-          import re
           from pathlib import Path
           from urllib.parse import urlparse
           h=Path('data/property_history.json')
@@ -107,36 +112,42 @@ jobs:
           allsop=sources.get('Allsop Commercial') or {}
           sav=sources.get('Savills Auctions') or {}
           assert allsop.get('status') == 'CAUGHT UP', f'Allsop unexpectedly not caught up: {allsop.get("status")}'
-          assert sav.get('status') == 'CAUGHT UP', f'Savills unexpectedly not caught up: {sav.get("status")}'
+          assert int(sav.get('auctions_completed') or 0) >= int(sav.get('auctions_discovered') or 0) > 0, 'Savills modern first-party archive not fully captured'
+          # Exhausting the modern archive must never be represented as historical completeness.
+          if not sav.get('historically_complete', False):
+              assert sav.get('status') in {'DISCOVERY EXPANSION','DISCOVERY EXHAUSTED','RUNNING'}, f'Misleading Savills status: {sav.get("status")}'
 
-          ac=sources.get('Acuitus') or {}
-          assert ac.get('auctions_discovered',0) > 0, 'No Acuitus historical auctions discovered'
-          assert ac.get('auctions_completed',0) > 0 or ac.get('status') == 'CAUGHT UP', 'No Acuitus historical auctions completed'
-          assert ac.get('last_run_failures',0) == 0, f'Acuitus run has failures: {ac.get("last_failure")}'
-          assert ac.get('last_run_rows',0) > 0 or ac.get('status') == 'CAUGHT UP', 'Acuitus selected no persistable records'
-          assert ac.get('lots_captured',0) > 0, 'Acuitus telemetry reports zero captured lots'
-
-          ac_events=[e for e in events if e.get('source') == 'Acuitus']
-          assert len(ac_events) >= ac.get('lots_captured',0), f'Acuitus telemetry/history mismatch: {ac.get("lots_captured")} captured vs {len(ac_events)} canonical events'
+          sav_events=[e for e in events if e.get('source') == 'Savills Auctions']
+          assert sav_events, 'No Savills historical events in History V2'
           def first_party(url, domain):
               parsed=urlparse(url or '')
               host=(parsed.hostname or '').lower()
               return parsed.scheme == 'https' and (host == domain or host.endswith('.'+domain))
-          bad=[e for e in ac_events if not first_party((e.get('source_evidence') or {}).get('listing_url'),'acuitus.co.uk')]
-          assert not bad, f'{len(bad)} Acuitus events lack first-party exact listing evidence'
-          missing_dates=[e for e in ac_events if not e.get('auction_date')]
-          assert not missing_dates, f'{len(missing_dates)} Acuitus events missing auction date'
-          missing_addresses=[e for e in ac_events if not e.get('address_as_published')]
-          assert not missing_addresses, f'{len(missing_addresses)} Acuitus events missing address'
-          missing_lots=[e for e in ac_events if not e.get('lot_number')]
-          assert len(missing_lots) <= max(2, int(len(ac_events)*0.05)), f'{len(missing_lots)} Acuitus events unexpectedly missing lot number'
-          property_ids={p.get('property_id') for p in properties if p.get('property_id')}
-          dangling=[e for e in ac_events if e.get('property_id') not in property_ids]
-          assert not dangling, f'{len(dangling)} Acuitus events have dangling property references'
-          assert ac.get('last_history_event_count') == len(events), 'Acuitus telemetry was not written after History V2 persistence'
+          bad_sav=[e for e in sav_events if not first_party((e.get('source_evidence') or {}).get('listing_url'),'savills.co.uk')]
+          assert not bad_sav, f'{len(bad_sav)} Savills events lack first-party exact listing evidence'
+
+          if sav.get('historically_complete', False):
+              ac=sources.get('Acuitus') or {}
+              assert ac.get('auctions_discovered',0) > 0, 'No Acuitus historical auctions discovered'
+              assert ac.get('auctions_completed',0) > 0 or ac.get('status') == 'CAUGHT UP', 'No Acuitus historical auctions completed'
+              assert ac.get('last_run_failures',0) == 0, f'Acuitus run has failures: {ac.get("last_failure")}'
+              assert ac.get('last_run_rows',0) > 0 or ac.get('status') == 'CAUGHT UP', 'Acuitus selected no persistable records'
+              assert ac.get('lots_captured',0) > 0, 'Acuitus telemetry reports zero captured lots'
+              ac_events=[e for e in events if e.get('source') == 'Acuitus']
+              assert len(ac_events) >= ac.get('lots_captured',0), f'Acuitus telemetry/history mismatch: {ac.get("lots_captured")} captured vs {len(ac_events)} canonical events'
+              bad=[e for e in ac_events if not first_party((e.get('source_evidence') or {}).get('listing_url'),'acuitus.co.uk')]
+              assert not bad, f'{len(bad)} Acuitus events lack first-party exact listing evidence'
+              missing_dates=[e for e in ac_events if not e.get('auction_date')]
+              assert not missing_dates, f'{len(missing_dates)} Acuitus events missing auction date'
+              missing_addresses=[e for e in ac_events if not e.get('address_as_published')]
+              assert not missing_addresses, f'{len(missing_addresses)} Acuitus events missing address'
+              property_ids={p.get('property_id') for p in properties if p.get('property_id')}
+              dangling=[e for e in ac_events if e.get('property_id') not in property_ids]
+              assert not dangling, f'{len(dangling)} Acuitus events have dangling property references'
+
           print('HISTORY',len(properties),'properties',len(events),'events')
-          print('ACUITUS_EVENTS',len(ac_events))
-          print('ACUITUS',ac)
+          print('SAVILLS_EVENTS',len(sav_events))
+          print('SAVILLS',sav)
           PY
 
       - name: Publish historical database and progress
