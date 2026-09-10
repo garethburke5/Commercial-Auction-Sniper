@@ -1,0 +1,23 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-10T19:00:55Z",
+  "severity": "material",
+  "stage": "live-first-party-archive-ingestion",
+  "archive_page": 13,
+  "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+  "verified_live_dates": [
+    "2014-12-08",
+    "2014-10-28",
+    "2014-09-15",
+    "2014-07-22",
+    "2014-06-16",
+    "2014-05-07",
+    "2014-04-24"
+  ],
+  "history_v2_events_added": 0,
+  "counted_as_complete": false,
+  "exact_blocker": "The live-first latent-route repair was hard-coded to /past-auctions/archive/page-14 even though the surviving first-party page-13 route currently exposes the oldest directly verifiable dated auction-result cards (down to 24 April 2014). As a result, a page-14 fetch/Playwright timeout could consume the latent-probe step without inspecting the concrete live page-13 HTML for catalogue/form/data/script routes.",
+  "repair": "Retarget the latent first-party route probe to the concrete surviving page-13 archive route and run it before any Common Crawl or broad legacy-ID archaeology. Keep archive-summary cards non-ingestable unless a surviving Savills lot/catalogue endpoint is recovered.",
+  "next_probe": "Inspect page-13 href, data-*, form action, onclick and embedded script URL values; resolve any surviving first-party catalogue/commission/LotList route and ingest commercial or mixed-use lots into History V2. If none exist, persist that exact page-13 route exhaustion before moving to the next live page/first-party bridge.",
+  "evidence_policy": "No property event may be created from the aggregate archive card alone; canonical History V2 requires lot-level surviving Savills evidence."
+}
