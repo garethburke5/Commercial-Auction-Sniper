@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-10T19:06:38.443212+00:00",
+  "updated_at": "2026-09-10T19:23:41.946639+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "LIVE ARCHIVE BLOCKED",
+      "status": "DISCOVERY EXPANSION",
       "auctions_discovered": 70,
       "auctions_completed": 70,
       "lots_captured": 2842,
@@ -219,7 +219,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 16634,
-      "last_discovery_mode": "savills-first-party-legacy-aid",
+      "last_discovery_mode": "commoncrawl-exact-year-prefix-to-live-savills-first-party",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -392,16 +392,16 @@
       "legacy_aid_last_processed": [],
       "legacy_aid_last_events_added": 0,
       "legacy_aid_recovered_auctions": 0,
-      "archival_url_snapshot_year_cursor": 2009,
-      "archival_url_last_run_at": "2026-09-10T16:45:17.037743+00:00",
-      "archival_url_years_scanned": 5,
+      "archival_url_snapshot_year_cursor": 2008,
+      "archival_url_last_run_at": "2026-09-10T19:20:51.861361+00:00",
+      "archival_url_years_scanned": 6,
       "archival_url_candidates_seen": 0,
       "archival_url_surviving_commercial_seen": 0,
       "archival_url_events_added": 0,
       "archival_url_last_events_added": 0,
       "archival_url_last_processed": [
         {
-          "snapshot_year": 2010,
+          "snapshot_year": 2009,
           "candidate_urls": 0,
           "route_raw_url_counts": {
             "wayback": 0,
@@ -413,12 +413,20 @@
           "rejected_or_dead": 0,
           "discovery_queries": [
             {
+              "route": "wayback_cdx",
+              "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&fl=original%2Ctimestamp%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2009&to=2009&limit=1200"
+            },
+            {
               "route": "commoncrawl_index",
               "url": "https://index.commoncrawl.org/CC-MAIN-2009-2010-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
             },
             {
+              "route": "commoncrawl_index",
+              "url": "https://index.commoncrawl.org/CC-MAIN-2008-2009-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+            },
+            {
               "route": "wayback_cdx",
-              "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%2A&output=json&fl=original%2Ctimestamp%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2010&to=2010&limit=1200"
+              "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%2A&output=json&fl=original%2Ctimestamp%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2009&to=2009&limit=1200"
             },
             {
               "route": "commoncrawl_index",
@@ -426,42 +434,65 @@
             },
             {
               "route": "commoncrawl_index",
+              "url": "https://index.commoncrawl.org/CC-MAIN-2008-2009-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+            },
+            {
+              "route": "commoncrawl_index",
               "url": "https://index.commoncrawl.org/CC-MAIN-2009-2010-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
             },
             {
               "route": "commoncrawl_index",
+              "url": "https://index.commoncrawl.org/CC-MAIN-2008-2009-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+            },
+            {
+              "route": "commoncrawl_index",
               "url": "https://index.commoncrawl.org/CC-MAIN-2009-2010-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+            },
+            {
+              "route": "commoncrawl_index",
+              "url": "https://index.commoncrawl.org/CC-MAIN-2008-2009-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
             }
           ],
           "errors": [
-            "Wayback https://auctions.savills.co.uk/auctions/* :: TimeoutError: The read operation timed out",
-            "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 504: Gateway Time-out",
             "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 404: Not Found",
+            "CommonCrawl CC-MAIN-2008-2009: HTTPError: HTTP Error 504: Gateway Time-out",
+            "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 404: Not Found",
+            "CommonCrawl CC-MAIN-2008-2009: HTTPError: HTTP Error 504: Gateway Time-out",
             "Wayback https://auctions.savills.co.uk/component/bidding/* :: URLError: <urlopen error timed out>",
-            "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 404: Not Found",
+            "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 504: Gateway Time-out",
+            "CommonCrawl CC-MAIN-2008-2009: HTTPError: HTTP Error 404: Not Found",
             "Wayback https://auctions.savills.co.uk/index.php?option=com_bidding* :: URLError: <urlopen error timed out>",
-            "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 404: Not Found"
+            "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 404: Not Found",
+            "CommonCrawl CC-MAIN-2008-2009: HTTPError: HTTP Error 504: Gateway Time-out"
           ]
         }
       ],
-      "archival_url_last_error_count": 7,
+      "archival_url_last_error_count": 10,
       "archival_url_routes": [
         "wayback_cdx",
         "commoncrawl_index",
         "live_savills_validation"
       ],
       "archival_url_last_blocker": {
-        "at": "2026-09-10T16:45:17.037757+00:00",
-        "snapshot_year": 2010,
+        "at": "2026-09-10T19:20:51.861372+00:00",
+        "snapshot_year": 2009,
         "message": "No candidate Savills lot URLs returned by either free archival index for this snapshot year; live first-party evidence requirement remains enforced.",
         "routes": [
+          {
+            "route": "wayback_cdx",
+            "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&fl=original%2Ctimestamp%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2009&to=2009&limit=1200"
+          },
           {
             "route": "commoncrawl_index",
             "url": "https://index.commoncrawl.org/CC-MAIN-2009-2010-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
           },
           {
+            "route": "commoncrawl_index",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2008-2009-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fauctions%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+          },
+          {
             "route": "wayback_cdx",
-            "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%2A&output=json&fl=original%2Ctimestamp%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2010&to=2010&limit=1200"
+            "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%2A&output=json&fl=original%2Ctimestamp%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2009&to=2009&limit=1200"
           },
           {
             "route": "commoncrawl_index",
@@ -469,26 +500,41 @@
           },
           {
             "route": "commoncrawl_index",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2008-2009-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+          },
+          {
+            "route": "commoncrawl_index",
             "url": "https://index.commoncrawl.org/CC-MAIN-2009-2010-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
           },
           {
             "route": "commoncrawl_index",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2008-2009-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+          },
+          {
+            "route": "commoncrawl_index",
             "url": "https://index.commoncrawl.org/CC-MAIN-2009-2010-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
+          },
+          {
+            "route": "commoncrawl_index",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2008-2009-index?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidding%2A&output=json&filter=status%3A200&filter=mime%3Atext%2Fhtml&collapse=urlkey"
           }
         ],
         "errors": [
-          "Wayback https://auctions.savills.co.uk/auctions/* :: TimeoutError: The read operation timed out",
-          "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 504: Gateway Time-out",
           "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 404: Not Found",
+          "CommonCrawl CC-MAIN-2008-2009: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 404: Not Found",
+          "CommonCrawl CC-MAIN-2008-2009: HTTPError: HTTP Error 504: Gateway Time-out",
           "Wayback https://auctions.savills.co.uk/component/bidding/* :: URLError: <urlopen error timed out>",
-          "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 404: Not Found",
+          "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CommonCrawl CC-MAIN-2008-2009: HTTPError: HTTP Error 404: Not Found",
           "Wayback https://auctions.savills.co.uk/index.php?option=com_bidding* :: URLError: <urlopen error timed out>",
-          "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 404: Not Found"
+          "CommonCrawl CC-MAIN-2009-2010: HTTPError: HTTP Error 404: Not Found",
+          "CommonCrawl CC-MAIN-2008-2009: HTTPError: HTTP Error 504: Gateway Time-out"
         ]
       },
       "archival_url_priority_probe": "2013-or-earlier",
       "commoncrawl_legacy_last_probe": {
-        "at": "2026-09-10T16:50:36.164686+00:00",
+        "at": "2026-09-10T19:23:41.946581+00:00",
         "snapshot_year": 2013,
         "query_mode": "commoncrawl-exact-year-prefix-routes-with-domain-fallback",
         "collections": [
@@ -508,7 +554,7 @@
           "/component/bidding/",
           "/index.php"
         ],
-        "raw_index_rows_seen": 1807,
+        "raw_index_rows_seen": 1941,
         "auction_path_urls_seen": 0,
         "normalised_candidate_urls": 0,
         "live_checked": 0,
@@ -519,15 +565,21 @@
         "queries": [
           {
             "collection": "CC-MAIN-2013-48",
+            "host": "auctions.savills.co.uk",
+            "match_type": "domain-fallback",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=auctions.savills.co.uk&matchType=domain&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2013-48",
+            "host": "www.savills.co.uk",
+            "match_type": "domain-fallback",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=www.savills.co.uk&matchType=domain&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2013-48",
             "host": "savills.co.uk",
             "match_type": "domain-fallback",
             "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=savills.co.uk&matchType=domain&output=json"
-          },
-          {
-            "collection": "CC-MAIN-2013-20",
-            "host": "auctions.savills.co.uk",
-            "match_type": "domain-fallback",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=auctions.savills.co.uk&matchType=domain&output=json"
           },
           {
             "collection": "CC-MAIN-2013-20",
@@ -545,50 +597,49 @@
         "raw_url_samples": [],
         "rejected_samples": [],
         "errors": [
-          "CC-MAIN-2013-48 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-48 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2013-48 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2013-48 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2013-48 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2013-48 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
           "CC-MAIN-2013-48 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2013-48 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
           "CC-MAIN-2013-48 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-48 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
-          "CC-MAIN-2013-48 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2013-48 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-48 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-48 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2013-48 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
           "CC-MAIN-2013-48 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2013-48 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-48 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2013-48 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-48 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk domain fallback :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
-          "CC-MAIN-2013-48 www.savills.co.uk domain fallback :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2013-20 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-20 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/Auctions/ prefix :: TimeoutError: The read operation timed out",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/component/bidding/ prefix :: URLError: <urlopen error timed out>",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/index.php prefix :: URLError: <urlopen error timed out>",
-          "CC-MAIN-2013-20 www.savills.co.uk/auctions/ prefix :: URLError: <urlopen error timed out>",
-          "CC-MAIN-2013-20 www.savills.co.uk/auction/ prefix :: URLError: <urlopen error timed out>",
-          "CC-MAIN-2013-20 www.savills.co.uk/property-auctions/ prefix :: URLError: <urlopen error timed out>",
-          "CC-MAIN-2013-20 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2013-20 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2013-20 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 502: Bad Gateway",
           "CC-MAIN-2013-20 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-20 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-20 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-20 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-20 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found"
+          "CC-MAIN-2013-20 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 auctions.savills.co.uk domain fallback :: HTTPError: HTTP Error 502: Bad Gateway"
         ]
       },
-      "commoncrawl_legacy_last_run_at": "2026-09-10T16:50:36.164686+00:00",
+      "commoncrawl_legacy_last_run_at": "2026-09-10T19:23:41.946581+00:00",
       "commoncrawl_legacy_events_added": 0,
       "commoncrawl_legacy_last_blocker": {
-        "at": "2026-09-10T16:50:36.164686+00:00",
+        "at": "2026-09-10T19:23:41.946581+00:00",
         "snapshot_year": 2013,
         "query_mode": "commoncrawl-exact-year-prefix-routes-with-domain-fallback",
         "collections": [
@@ -608,7 +659,7 @@
           "/component/bidding/",
           "/index.php"
         ],
-        "raw_index_rows_seen": 1807,
+        "raw_index_rows_seen": 1941,
         "auction_path_urls_seen": 0,
         "normalised_candidate_urls": 0,
         "live_checked": 0,
@@ -619,15 +670,21 @@
         "queries": [
           {
             "collection": "CC-MAIN-2013-48",
+            "host": "auctions.savills.co.uk",
+            "match_type": "domain-fallback",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=auctions.savills.co.uk&matchType=domain&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2013-48",
+            "host": "www.savills.co.uk",
+            "match_type": "domain-fallback",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=www.savills.co.uk&matchType=domain&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2013-48",
             "host": "savills.co.uk",
             "match_type": "domain-fallback",
             "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=savills.co.uk&matchType=domain&output=json"
-          },
-          {
-            "collection": "CC-MAIN-2013-20",
-            "host": "auctions.savills.co.uk",
-            "match_type": "domain-fallback",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=auctions.savills.co.uk&matchType=domain&output=json"
           },
           {
             "collection": "CC-MAIN-2013-20",
@@ -645,44 +702,43 @@
         "raw_url_samples": [],
         "rejected_samples": [],
         "errors": [
-          "CC-MAIN-2013-48 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-48 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2013-48 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2013-48 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2013-48 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2013-48 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
           "CC-MAIN-2013-48 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2013-48 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
           "CC-MAIN-2013-48 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-48 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
-          "CC-MAIN-2013-48 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2013-48 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-48 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-48 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2013-48 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
           "CC-MAIN-2013-48 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2013-48 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-48 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2013-48 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-48 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk domain fallback :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
-          "CC-MAIN-2013-48 www.savills.co.uk domain fallback :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2013-20 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-20 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/Auctions/ prefix :: TimeoutError: The read operation timed out",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/component/bidding/ prefix :: URLError: <urlopen error timed out>",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/index.php prefix :: URLError: <urlopen error timed out>",
-          "CC-MAIN-2013-20 www.savills.co.uk/auctions/ prefix :: URLError: <urlopen error timed out>",
-          "CC-MAIN-2013-20 www.savills.co.uk/auction/ prefix :: URLError: <urlopen error timed out>",
-          "CC-MAIN-2013-20 www.savills.co.uk/property-auctions/ prefix :: URLError: <urlopen error timed out>",
-          "CC-MAIN-2013-20 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2013-20 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2013-20 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 502: Bad Gateway",
           "CC-MAIN-2013-20 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-20 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-20 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-20 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2013-20 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found"
+          "CC-MAIN-2013-20 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2013-20 auctions.savills.co.uk domain fallback :: HTTPError: HTTP Error 502: Bad Gateway"
         ]
       },
       "commoncrawl_legacy_priority_year": 2013,
