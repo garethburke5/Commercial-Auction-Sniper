@@ -1,0 +1,24 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-10T16:00:00Z",
+  "severity": "material",
+  "stage": "live-first-party-archive-ingestion",
+  "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+  "finding": "The live first-party archive page exposes historical auction result cards but the cards do not expose resolvable /auctions/<slug>-<id> catalogue links; the existing historical_savills discovery only records modern catalogue anchors and stops when an older archive page has none.",
+  "verified_live_archive_dates": [
+    "2014-12-08",
+    "2014-10-28",
+    "2014-09-15",
+    "2014-07-22",
+    "2014-06-16",
+    "2014-05-07",
+    "2014-04-24"
+  ],
+  "oldest_verified_live_archive_date": "2014-04-24",
+  "archive_summary_only": true,
+  "history_v2_events_added_from_this_page": 0,
+  "counted_as_complete": false,
+  "exact_blocker": "Archive cards link only to the generic archived-auction image/navigation rather than a lot catalogue/result route, so lot-level evidence cannot yet be normalised without locating a surviving first-party catalogue or lot endpoint.",
+  "next_safe_repair": "Scan all 14 live archive pages even when modern catalogue anchors are absent; persist unlinked auction-date cards as unresolved live-first-party candidates; probe latent first-party href/data attributes and surviving Savills legacy endpoints for those exact dates before any Common Crawl or speculative archaeology; never mark Savills historically complete while unresolved live archive candidates remain.",
+  "evidence_policy": "Do not create property events from archive-summary cards alone. A canonical History V2 property event still requires a surviving Savills first-party lot/listing evidence URL."
+}
