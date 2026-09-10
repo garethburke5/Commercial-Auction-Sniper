@@ -1,0 +1,15 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-10T18:00:00Z",
+  "stage": "live-first-party-archive-ingestion",
+  "archive_page": 14,
+  "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "failed_route": "Playwright page.goto(https://auctions.savills.co.uk/past-auctions/archive/page-14, wait_until=domcontentloaded, timeout=30000)",
+  "failure": "playwright._impl._errors.TimeoutError: Page.goto: Timeout 30000ms exceeded after the HTTP fetch path had already fallen back to browser mode.",
+  "history_v2_events_added": 0,
+  "counted_as_complete": false,
+  "historically_complete": false,
+  "repair_commit": "d4376d8fdf28e9d5f74f1447a465ae18e522fb63",
+  "repair": "The auxiliary latent-route probe is now non-blocking. Its failure is persisted, then savills_live_archive_backfill.py continues in the same workflow from page 14 through the live archive rather than skipping canonical ingestion.",
+  "next_probe": "Run the repaired live-first workflow; accept progress only if canonical Savills History V2 events persist, otherwise retain the exact oldest live page/catalogue blocker produced by the canonical collector."
+}
