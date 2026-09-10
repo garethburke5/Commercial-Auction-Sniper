@@ -1,0 +1,92 @@
+name: Savills Archival URL Backfill
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '47 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/savills-archival-url-backfill.yml'
+      - 'savills_archival_url_discovery.py'
+      - 'collectors/savills.py'
+      - 'history_database.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auction-sniper-history
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - name: Checkout production branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install playwright
+          python -m playwright install chromium
+
+      - name: Compile archival discovery
+        run: python -m py_compile savills_archival_url_discovery.py collectors/savills.py history_database.py
+
+      - name: Discover archived Savills URLs and validate surviving first-party pages
+        run: python savills_archival_url_discovery.py --snapshot-years 1 --start-year 2020 --floor-year 2008 --cdx-limit 1200 --max-live-checks 240
+
+      - name: Validate Savills History V2 evidence and completeness semantics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from urllib.parse import urlparse
+          db=json.loads(Path('data/property_history.json').read_text(encoding='utf-8'))
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
+          events=[e for e in (db.get('auction_events') or []) if e.get('source')=='Savills Auctions']
+          assert events, 'No Savills history events'
+          assert len({e.get('event_id') for e in events}) == len(events), 'Duplicate Savills event IDs'
+          for e in events:
+              u=(e.get('source_evidence') or {}).get('listing_url') or ''
+              host=(urlparse(u).hostname or '').lower()
+              assert host=='savills.co.uk' or host.endswith('.savills.co.uk'), f'Non-first-party Savills evidence: {u}'
+              assert e.get('auction_date'), f'Savills event missing auction date: {e.get("event_id")}'
+              assert e.get('address_as_published'), f'Savills event missing address: {e.get("event_id")}'
+          s=(p.get('sources') or {}).get('Savills Auctions') or {}
+          assert s.get('historically_complete') is False, 'Archival discovery must not imply historical completeness'
+          assert 'archival_url_snapshot_year_cursor' in s, 'Archival URL cursor missing'
+          print('SAVILLS_EVENTS',len(events),'EARLIEST',s.get('earliest_date_reached') or s.get('earliest_month_reached'),'ARCHIVE_CURSOR',s.get('archival_url_snapshot_year_cursor'))
+          PY
+
+      - name: Publish verified archival history
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/property_history.json data/historical_backfill_progress.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Backfill Savills history from archival URL discovery'
+            for attempt in 1 2 3; do
+              git fetch origin main
+              if ! git rebase origin/main; then
+                git rebase --abort || true
+                echo 'Savills archival publish could not be safely rebased; refusing overwrite.' >&2
+                exit 1
+              fi
+              if git push origin HEAD:main; then exit 0; fi
+              sleep $((attempt * 3))
+            done
+            exit 1
+          fi
