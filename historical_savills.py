@@ -56,7 +56,6 @@ def _catalogue_anchors(doc):
 
 
 def _archive_page(url):
-    """Use cheap HTTP first; browser-render only when Savills returns an empty JS shell."""
     doc = soup(url, use_browser=False)
     anchors = _catalogue_anchors(doc)
     if anchors:
@@ -66,11 +65,8 @@ def _archive_page(url):
 
 
 def discover_past_auctions(max_pages=14):
-    """Discover the complete currently-published Savills past-auction archive."""
     found = {}
-    pages_scanned = 0
-    browser_pages = 0
-    empty_pages = 0
+    pages_scanned = browser_pages = empty_pages = 0
     for page in range(1, max_pages + 1):
         archive_url = ARCHIVE if page == 1 else f"{ARCHIVE}/page-{page}"
         doc, anchors, mode = _archive_page(archive_url)
@@ -141,7 +137,6 @@ def _status(card, detail_text=""):
 
 
 def _canonical_evidence_url(href):
-    """Keep the exact Savills listing path/query but normalize first-party HTTP links to HTTPS."""
     parsed = urlparse(href or "")
     host = (parsed.hostname or "").lower()
     if host != "savills.co.uk" and not host.endswith(".savills.co.uk"):
@@ -151,17 +146,62 @@ def _canonical_evidence_url(href):
     return urlunparse(parsed._replace(scheme="https", fragment=""))
 
 
+def _legacy_catalogue_targets(auction, max_pages=25):
+    """Discover lots in older mixed Savills catalogues that lack a commercial-section filter.
+
+    These catalogues are scanned unfiltered, then each detail page is classified by
+    Savills' existing commercial classifier. Pagination stops when a page contributes
+    no new lot links, so a missing modern property_type-253 route cannot create a false
+    empty auction.
+    """
+    catalogue = auction["catalogue"].rstrip("/")
+    targets = {}
+    feeds = []
+    for page in range(1, max_pages + 1):
+        feed = f"{catalogue}/page-{page}/quantity-100/sort-by-0"
+        try:
+            ds = soup(feed, use_browser=False)
+        except Exception:
+            try:
+                ds = soup(feed, use_browser=True)
+            except Exception:
+                if page == 1:
+                    raise
+                break
+        before = len(targets)
+        for a in ds.find_all("a", href=True):
+            href = savills._detail_href(a)
+            if not href:
+                continue
+            card = savills._card_block(a)
+            lot_no = savills._lot_no(card)
+            if lot_no in {None, 0}:
+                continue
+            targets[href] = {"source_commercial": False, "card": card, "lot_no": lot_no}
+        if len(targets) == before:
+            break
+        feeds.append(feed)
+    if not targets:
+        return None, {}
+    return feeds[0] if feeds else catalogue, targets
+
+
 def fetch_auction(auction):
     feed, targets = savills._discover_commercial_feed(auction)
+    explicit_commercial_section = bool(feed and targets)
+    if not explicit_commercial_section:
+        feed, targets = _legacy_catalogue_targets(auction)
     if not feed or not targets:
-        raise RuntimeError("Savills commercial section could not be resolved from historical catalogue")
+        raise RuntimeError("Savills catalogue exposed no resolvable lot inventory")
+
     rows = []
     failures = []
     for href, meta in targets.items():
         try:
             evidence_href = _canonical_evidence_url(href)
-            lot = savills._detail(href, auction, source_commercial=True)
+            lot = savills._detail(href, auction, source_commercial=explicit_commercial_section)
             if not lot:
+                # Expected for residential lots in legacy mixed catalogues.
                 continue
             row = lot.finalise().to_dict()
             card = norm(str((meta or {}).get("card") or ""))
@@ -174,13 +214,15 @@ def fetch_auction(auction):
             rows.append(row)
         except Exception as exc:
             failures.append({"url": href, "error": f"{type(exc).__name__}: {exc}"})
+
     if failures:
         raise RuntimeError(f"{len(failures)} Savills detail pages failed; refusing partial auction persistence: {failures[:2]}")
     if not rows:
-        raise RuntimeError(f"Savills commercial feed exposed {len(targets)} lots but zero rows were normalised")
-    if len(rows) != len(targets):
+        mode = "commercial feed" if explicit_commercial_section else "legacy mixed catalogue"
+        raise RuntimeError(f"Savills {mode} exposed {len(targets)} lots but zero commercial rows were normalised")
+    if explicit_commercial_section and len(rows) != len(targets):
         raise RuntimeError(f"Savills historical auction incomplete: discovered {len(targets)}, normalised {len(rows)}")
-    return rows, len(targets), _canonical_evidence_url(feed)
+    return rows, len(rows) if not explicit_commercial_section else len(targets), _canonical_evidence_url(feed)
 
 
 def backfill(max_auctions=1, oldest_year=None):
@@ -211,7 +253,10 @@ def backfill(max_auctions=1, oldest_year=None):
     run_rows = 0
     run_failures = 0
     for auction in selected:
-        state["last_attempt"] = {"auction_id": auction["auction_id"], "label": auction.get("label"), "catalogue_url": auction["catalogue"], "at": now_iso()}
+        state["last_attempt"] = {
+            "auction_id": auction["auction_id"], "label": auction.get("label"),
+            "catalogue_url": auction["catalogue"], "at": now_iso(),
+        }
         save_progress(progress)
         try:
             rows, expected, feed = fetch_auction(auction)
@@ -235,7 +280,10 @@ def backfill(max_auctions=1, oldest_year=None):
             save_progress(progress)
         except Exception as exc:
             run_failures += 1
-            failure = {"auction_id": auction["auction_id"], "catalogue_url": auction["catalogue"], "error": f"{type(exc).__name__}: {exc}", "at": now_iso()}
+            failure = {
+                "auction_id": auction["auction_id"], "catalogue_url": auction["catalogue"],
+                "error": f"{type(exc).__name__}: {exc}", "at": now_iso(),
+            }
             state.setdefault("failures", []).append(failure)
             state["last_failure"] = failure
             state["status"] = "DEGRADED"
