@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-10T15:08:59.853386+00:00",
+  "updated_at": "2026-09-10T16:05:04.246578+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "DISCOVERY EXPANSION",
+      "status": "LIVE ARCHIVE BLOCKED",
       "auctions_discovered": 70,
       "auctions_completed": 70,
       "lots_captured": 2842,
@@ -532,7 +532,145 @@
         ]
       },
       "commoncrawl_legacy_priority_year": 2011,
-      "commoncrawl_legacy_exact_collections": []
+      "commoncrawl_legacy_exact_collections": [],
+      "live_archive_pages_scanned": 14,
+      "live_archive_browser_pages": 0,
+      "live_archive_scan_errors": [],
+      "live_archive_oldest_date_seen": "2014-04-24",
+      "live_archive_latest_date_seen": "2026-09-02",
+      "live_archive_unresolved": [
+        {
+          "page": 14,
+          "url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+          "dates": [
+            "2014-04-24",
+            "2014-05-07",
+            "2014-06-16",
+            "2014-07-22",
+            "2014-09-15",
+            "2014-10-28",
+            "2014-12-08",
+            "2015-02-17",
+            "2015-03-31",
+            "2015-05-11"
+          ]
+        },
+        {
+          "page": 13,
+          "url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+          "dates": [
+            "2015-06-22",
+            "2015-07-28",
+            "2015-09-21",
+            "2015-11-02",
+            "2015-12-14",
+            "2016-02-16",
+            "2016-03-02",
+            "2016-05-09",
+            "2016-06-20",
+            "2016-07-25"
+          ]
+        },
+        {
+          "page": 12,
+          "url": "https://auctions.savills.co.uk/past-auctions/archive/page-12",
+          "dates": [
+            "2016-09-19",
+            "2016-11-01",
+            "2016-12-12",
+            "2017-02-13",
+            "2017-03-29",
+            "2017-05-09",
+            "2017-06-19",
+            "2017-07-24",
+            "2017-09-25",
+            "2017-11-06"
+          ]
+        },
+        {
+          "page": 11,
+          "url": "https://auctions.savills.co.uk/past-auctions/archive/page-11",
+          "dates": [
+            "2017-12-11",
+            "2018-02-13",
+            "2018-03-26",
+            "2018-05-09",
+            "2018-06-18",
+            "2018-07-24",
+            "2018-09-26",
+            "2018-11-26",
+            "2018-12-11",
+            "2019-02-19"
+          ]
+        },
+        {
+          "page": 10,
+          "url": "https://auctions.savills.co.uk/past-auctions/archive/page-10",
+          "dates": [
+            "2019-04-02",
+            "2019-05-29",
+            "2019-07-17",
+            "2019-09-23",
+            "2019-11-04",
+            "2019-12-16",
+            "2020-02-12",
+            "2020-03-26",
+            "2020-05-12",
+            "2020-06-24"
+          ]
+        },
+        {
+          "page": 9,
+          "url": "https://auctions.savills.co.uk/past-auctions/archive/page-9",
+          "dates": [
+            "2020-07-29",
+            "2020-08-25",
+            "2020-09-24",
+            "2020-11-03",
+            "2020-12-16",
+            "2021-02-09",
+            "2021-03-02",
+            "2021-04-14",
+            "2021-06-02",
+            "2021-07-07"
+          ]
+        },
+        {
+          "page": 8,
+          "url": "https://auctions.savills.co.uk/past-auctions/archive/page-8",
+          "dates": [
+            "2021-08-04",
+            "2021-09-01",
+            "2021-10-05",
+            "2021-11-10",
+            "2021-12-15",
+            "2022-02-09",
+            "2022-03-02",
+            "2022-04-05",
+            "2022-05-10",
+            "2022-06-14"
+          ]
+        }
+      ],
+      "live_archive_discovery_exhausted": true,
+      "last_live_archive_rows": 0,
+      "last_live_archive_ingested": [],
+      "last_live_archive_failures": [],
+      "last_live_archive_run": "2026-09-10T16:05:04.246290+00:00",
+      "live_archive_blocker_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+      "live_archive_blocker_dates": [
+        "2014-04-24",
+        "2014-05-07",
+        "2014-06-16",
+        "2014-07-22",
+        "2014-09-15",
+        "2014-10-28",
+        "2014-12-08",
+        "2015-02-17",
+        "2015-03-31",
+        "2015-05-11"
+      ],
+      "last_live_archive_diagnostic": "data/source_diagnostics/savills_live_archive_page14_480121e4_2026-09-10T1605Z.json"
     }
   }
 }
