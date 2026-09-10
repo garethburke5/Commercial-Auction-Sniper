@@ -40,7 +40,42 @@ jobs:
       - name: Compile live-first repair
         run: python -m py_compile savills_live_archive_backfill.py savills_live_archive_latent_probe.py historical_savills.py savills_legacy_aid_discovery.py history_database.py collectors/savills.py
       - name: Probe oldest live page latent first-party routes
+        id: latent
+        continue-on-error: true
         run: python savills_live_archive_latent_probe.py
+      - name: Persist exact latent-probe blocker without aborting live ingestion
+        if: steps.latent.outcome == 'failure'
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          progress_path=Path('data/historical_backfill_progress.json')
+          progress=json.loads(progress_path.read_text())
+          state=progress.setdefault('sources',{}).setdefault('Savills Auctions',{})
+          state['historically_complete']=False
+          state['status']='LIVE ARCHIVE DEGRADED'
+          state['live_archive_latent_probe_url']='https://auctions.savills.co.uk/past-auctions/archive/page-14'
+          state['live_archive_latent_probe_error']='Page-14 latent-route probe failed before extraction; auxiliary probe is now non-blocking so the canonical oldest-first live archive ingestion continues in the same run.'
+          state['live_archive_latent_probe_failed_at']=datetime.now(timezone.utc).isoformat()
+          diags=Path('data/source_diagnostics'); diags.mkdir(parents=True, exist_ok=True)
+          stamp=datetime.now(timezone.utc).strftime('%Y-%m-%dT%H%MZ')
+          diag=diags/f'savills_live_archive_page14_latent_timeout_{stamp}.json'
+          diag.write_text(json.dumps({
+            'source':'Savills Auctions',
+            'recorded_at':datetime.now(timezone.utc).isoformat(),
+            'stage':'live-first-party-latent-route-probe',
+            'archive_page':14,
+            'archive_url':'https://auctions.savills.co.uk/past-auctions/archive/page-14',
+            'error':'Latent-route probe failed before extraction (previous production failure was Playwright Page.goto timeout after HTTP fallback failed).',
+            'counted_as_complete':False,
+            'repair':'Treat latent route archaeology as non-blocking and continue savills_live_archive_backfill.py oldest-first in this same run.',
+            'next_probe':'Persist whatever canonical live-page/catalogue records or exact per-page blocker the oldest-first collector produces; retry latent route extraction separately.'
+          },indent=2),encoding='utf-8')
+          state['last_live_archive_latent_diagnostic']=str(diag)
+          progress['updated_at']=datetime.now(timezone.utc).isoformat()
+          progress_path.write_text(json.dumps(progress,indent=2),encoding='utf-8')
+          PY
       - name: Exhaust live Savills archive oldest-first
         run: python savills_live_archive_backfill.py
       - name: Validate canonical persistence
@@ -53,14 +88,13 @@ jobs:
           s=(p.get('sources') or {}).get('Savills Auctions') or {}
           assert s.get('live_archive_pages_scanned',0) > 0
           assert s.get('historically_complete') is False
-          assert s.get('live_archive_latent_probe_url') == 'https://auctions.savills.co.uk/past-auctions/archive/page-14'
           events=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
           assert events
           if s.get('last_live_archive_rows',0) or s.get('live_archive_latent_events_added',0):
               assert s.get('last_live_archive_ingested') or s.get('last_live_archive_latent_diagnostic'), 'Rows claimed without live-archive evidence'
-          elif s.get('status')=='LIVE ARCHIVE BLOCKED':
-              assert s.get('live_archive_blocker_url'), 'Blocker status missing exact live URL'
-              assert s.get('last_live_archive_diagnostic') or s.get('last_live_archive_latent_diagnostic'), 'Blocker status missing persisted diagnostic'
+          elif s.get('status') in ('LIVE ARCHIVE BLOCKED','LIVE ARCHIVE DEGRADED'):
+              assert s.get('live_archive_blocker_url') or s.get('live_archive_latent_probe_url'), 'Blocker/degraded status missing exact live URL'
+              assert s.get('last_live_archive_diagnostic') or s.get('last_live_archive_latent_diagnostic'), 'Blocker/degraded status missing persisted diagnostic'
           print('SAVILLS_EVENTS',len(events))
           print('LIVE_ARCHIVE_STATUS',s.get('status'))
           print('OLDEST_LIVE_DATE',s.get('live_archive_oldest_date_seen'))
