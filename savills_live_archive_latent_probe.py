@@ -17,10 +17,11 @@ DATA = Path('data')
 HISTORY = DATA / 'property_history.json'
 DIAGS = DATA / 'source_diagnostics'
 SOURCE = 'Savills Auctions'
-# Page 13 is the oldest currently verifiable live first-party archive route.
-# Do not burn the live-first probe on page 14 when that route times out before extraction.
-ARCHIVE_PAGE = 13
-ARCHIVE_URL = savills.BASE + '/past-auctions/archive/page-13'
+# Page 14 is the oldest live first-party Savills archive page currently exposed.
+# The canonical live-first collector confirms this page is HTTP-readable and contains
+# dated auction cards down to 24 April 2014, so every latent-route repair must start here.
+ARCHIVE_PAGE = 14
+ARCHIVE_URL = savills.BASE + '/past-auctions/archive/page-14'
 DATE_RE = re.compile(r'\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s+(\d{1,2})(?:st|nd|rd|th)?\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(20\d{2})\b', re.I)
 MONTHS = {m: i for i, m in enumerate(['January','February','March','April','May','June','July','August','September','October','November','December'], 1)}
 URLISH_RE = re.compile(r'''(?:(?:https?:)?//[^\s"'<>]+|/(?:Auctions|auctions|component|index\.php)[^\s"'<>]*)''', re.I)
@@ -62,6 +63,12 @@ def normalise_candidate(raw):
     if host != 'savills.co.uk' and not host.endswith('.savills.co.uk'):
         return None
     low = url.lower()
+    # Archive-card placeholder artwork contains '/auctions/' in its asset path but is
+    # not evidence of a catalogue. Reject static assets before route-shape testing.
+    if any(low.endswith(ext) or f'{ext}?' in low for ext in ('.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.css', '.js')):
+        return None
+    if '/assets/' in low or '/images/' in low:
+        return None
     if not any(k in low for k in ('/auctions/', 'lotlist', 'view=commission', 'option=com_bidding', '/component/bidding')):
         return None
     return url
@@ -103,8 +110,6 @@ def auction_from_modern(url, doc):
     aid = hs._auction_id(url.split('?')[0].rstrip('/'))
     if not aid:
         return None
-    # Prefer date text adjacent to the latent URL; if it is not recoverable, fetch the
-    # surviving first-party catalogue title rather than infer a date.
     try:
         cat = soup(url, use_browser=False)
     except Exception:
@@ -214,11 +219,11 @@ def main():
     next_probe = None
     if not events_added:
         if candidates:
-            blocker = 'Oldest concrete live Savills archive page exposes first-party URL-like latent attributes/scripts, but none resolved to a recoverable commercial catalogue in this pass.'
+            blocker = 'Oldest live Savills archive page 14 exposes first-party URL-like attributes/scripts, but none resolved to a recoverable commercial catalogue in this pass.'
             next_probe = 'Probe the concrete surviving first-party candidate routes recorded below, including their query/form semantics, before any broader archive-index search.'
         else:
-            blocker = 'Savills live archive page 13 exposes dated 2014 auction summaries but no catalogue route in href, data/form/onclick attributes, or embedded script URL strings.'
-            next_probe = 'Use the exact page-13 auction dates to probe surviving first-party Savills catalogue/LotList/commission endpoint semantics; do not create property events from summary cards.'
+            blocker = 'Savills live archive page 14 exposes dated auction summaries down to 24 April 2014 but no catalogue route in href, data/form/onclick attributes, or embedded script URL strings after static archive artwork is excluded.'
+            next_probe = 'Use the exact page-14 auction dates and any surviving first-party form/query semantics from the live page to recover catalogue/result routes; do not create property events from summary cards and do not move to archival indexes while a live route remains unresolved.'
     payload = {
         'source': SOURCE,
         'recorded_at': now_iso(),
