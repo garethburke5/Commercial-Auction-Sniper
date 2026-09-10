@@ -43,7 +43,6 @@ def normalize_address(address):
 
 def building_tokens(address):
     value = normalize_address(address)
-    # Keep numeric building identifiers including 33a and ranges such as 54-58.
     raw = re.findall(r"\b\d+[a-z]?\b", value)
     return set(raw[:6])
 
@@ -79,7 +78,6 @@ def match_score(address_a, address_b):
     if ba and bb:
         overlap = len(ba & bb) / max(1, min(len(ba), len(bb)))
         if overlap == 0 and pa and pb:
-            # Same postcode but clearly different numbered premises.
             return min(score, 0.55)
         score += 0.25 * overlap
 
@@ -96,8 +94,6 @@ def _property_id(address):
 
 
 def _event_id(item):
-    # Source URL is normally the strongest stable identity. Auction date/lot number
-    # protect against auctioneers reusing generic catalogue URLs.
     seed = "|".join(
         _text(item.get(k)).lower()
         for k in ("source", "url", "auction_date", "lot_number")
@@ -148,6 +144,7 @@ def _observation(item, observed_at):
         "observed_at": observed_at,
         "status": _text(item.get("status")) or None,
         "guide_price": item.get("guide_price"),
+        "sale_price": item.get("sale_price"),
         "annual_rent": item.get("annual_rent"),
         "gross_yield": item.get("gross_yield"),
         "tenure": item.get("tenure"),
@@ -158,7 +155,7 @@ def _observation(item, observed_at):
 
 
 def _material_observation_changed(previous, current):
-    keys = ("status", "guide_price", "annual_rent", "gross_yield", "tenure", "tenant", "lease_term", "occupation")
+    keys = ("status", "guide_price", "sale_price", "annual_rent", "gross_yield", "tenure", "tenant", "lease_term", "occupation")
     return any(previous.get(k) != current.get(k) for k in keys)
 
 
@@ -166,7 +163,7 @@ def update_history_database(items, path="data/property_history.json", observed_a
     """Append current/archive auction facts into the permanent historical database.
 
     Existing events are updated, never discarded. Material status/fact changes become
-    observations, preserving transitions such as CURRENT -> SOLD PRIOR.
+    observations, preserving transitions such as CURRENT -> SOLD PRIOR and sold prices.
     """
     observed_at = observed_at or _now()
     db = load_database(path)
@@ -184,7 +181,6 @@ def update_history_database(items, path="data/property_history.json", observed_a
         prop, confidence = _find_property(properties, address)
         if prop is None:
             pid = _property_id(address)
-            # Hash collisions are extraordinarily unlikely; still protect against one.
             existing_ids = {p.get("property_id") for p in properties}
             if pid in existing_ids:
                 pid = hashlib.sha1(f"{pid}|{address}".encode()).hexdigest()[:20]
@@ -227,6 +223,7 @@ def update_history_database(items, path="data/property_history.json", observed_a
                 "address_as_published": address,
                 "status": current_obs["status"],
                 "guide_price": item.get("guide_price"),
+                "sale_price": item.get("sale_price"),
                 "annual_rent": item.get("annual_rent"),
                 "gross_yield": item.get("gross_yield"),
                 "tenure": item.get("tenure"),
@@ -248,9 +245,8 @@ def update_history_database(items, path="data/property_history.json", observed_a
             added_events += 1
         else:
             event["last_seen"] = observed_at
-            # Preserve the latest explicit facts while never replacing a fact with blank.
             for key in (
-                "status", "guide_price", "annual_rent", "gross_yield", "tenure", "property_type",
+                "status", "guide_price", "sale_price", "annual_rent", "gross_yield", "tenure", "property_type",
                 "tenant", "lease_term", "lease_start", "lease_expiry", "occupation", "area_sqft", "description",
             ):
                 value = current_obs.get(key) if key in current_obs else item.get(key)
@@ -275,6 +271,7 @@ def update_history_database(items, path="data/property_history.json", observed_a
         "auction_event_count": len(events),
         "sold_prior_count": sum(1 for e in events if _text(e.get("status")).upper() == "SOLD PRIOR"),
         "events_with_guide": sum(1 for e in events if e.get("guide_price") is not None),
+        "events_with_sale_price": sum(1 for e in events if e.get("sale_price") is not None),
         "events_with_source_url": sum(1 for e in events if (e.get("source_evidence") or {}).get("listing_url")),
         "added_properties_last_run": added_properties,
         "added_events_last_run": added_events,
