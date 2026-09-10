@@ -7,6 +7,7 @@ on:
     paths:
       - '.github/workflows/savills-live-archive-backfill.yml'
       - 'savills_live_archive_backfill.py'
+      - 'savills_live_archive_latent_probe.py'
       - 'historical_savills.py'
   schedule:
     - cron: '8 * * * *'
@@ -37,7 +38,9 @@ jobs:
           pip install playwright
           python -m playwright install chromium
       - name: Compile live-first repair
-        run: python -m py_compile savills_live_archive_backfill.py historical_savills.py history_database.py collectors/savills.py
+        run: python -m py_compile savills_live_archive_backfill.py savills_live_archive_latent_probe.py historical_savills.py savills_legacy_aid_discovery.py history_database.py collectors/savills.py
+      - name: Probe oldest live page latent first-party routes
+        run: python savills_live_archive_latent_probe.py
       - name: Exhaust live Savills archive oldest-first
         run: python savills_live_archive_backfill.py
       - name: Validate canonical persistence
@@ -50,17 +53,20 @@ jobs:
           s=(p.get('sources') or {}).get('Savills Auctions') or {}
           assert s.get('live_archive_pages_scanned',0) > 0
           assert s.get('historically_complete') is False
+          assert s.get('live_archive_latent_probe_url') == 'https://auctions.savills.co.uk/past-auctions/archive/page-14'
           events=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
           assert events
-          if s.get('last_live_archive_rows',0):
-              assert s.get('last_live_archive_ingested'), 'Rows claimed without ingested-auction evidence'
+          if s.get('last_live_archive_rows',0) or s.get('live_archive_latent_events_added',0):
+              assert s.get('last_live_archive_ingested') or s.get('last_live_archive_latent_diagnostic'), 'Rows claimed without live-archive evidence'
           elif s.get('status')=='LIVE ARCHIVE BLOCKED':
               assert s.get('live_archive_blocker_url'), 'Blocker status missing exact live URL'
-              assert s.get('last_live_archive_diagnostic'), 'Blocker status missing persisted diagnostic'
+              assert s.get('last_live_archive_diagnostic') or s.get('last_live_archive_latent_diagnostic'), 'Blocker status missing persisted diagnostic'
           print('SAVILLS_EVENTS',len(events))
           print('LIVE_ARCHIVE_STATUS',s.get('status'))
           print('OLDEST_LIVE_DATE',s.get('live_archive_oldest_date_seen'))
           print('ROWS_ADDED',s.get('last_live_archive_rows'))
+          print('LATENT_EVENTS_ADDED',s.get('live_archive_latent_events_added'))
+          print('LATENT_CANDIDATES',s.get('live_archive_latent_candidate_count'))
           PY
       - name: Publish live archive records or blocker
         run: |
