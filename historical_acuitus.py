@@ -68,6 +68,7 @@ def discover_auctions(session):
     r = _get(session, RESULTS_URL)
     s = BeautifulSoup(r.text, "lxml")
     candidates = []
+    chosen = None
     for select in s.find_all("select"):
         opts = []
         for opt in select.find_all("option"):
@@ -78,10 +79,34 @@ def discover_auctions(session):
         if len(opts) > len(candidates):
             candidates = opts
             chosen = select
-    if not candidates:
+    if not candidates or chosen is None:
         # Acuitus currently renders the auction selector server-side. Refuse to
         # guess or mark caught-up if that first-party archive disappears.
         raise RuntimeError("Acuitus results page exposed no historical auction-date selector")
+
+    # Acuitus represents the newest completed sale with a special "Last Auction"
+    # option rather than a dated option. Derive that date only from the
+    # authoritative results currently rendered on the same first-party page,
+    # then bind it to the site's actual selector value. This prevents the newest
+    # completed auction from being silently omitted from historical coverage.
+    last_opt = next(
+        (opt for opt in chosen.find_all("option") if norm(opt.get_text(" ", strip=True)).lower() == "last auction"),
+        None,
+    )
+    if last_opt is not None:
+        rendered_dates = []
+        for text in s.stripped_strings:
+            clean = norm(text)
+            if "Auction" not in clean:
+                continue
+            dt = iso_date(clean)
+            if dt:
+                rendered_dates.append(dt)
+        if rendered_dates:
+            last_date = max(rendered_dates)
+            if all(dt != last_date for dt, _, _ in candidates):
+                candidates.append((last_date, last_opt.get("value"), "Last Auction"))
+
     form = chosen.find_parent("form")
     if form is None or not chosen.get("name"):
         raise RuntimeError("Acuitus auction selector has no submit form/name")
