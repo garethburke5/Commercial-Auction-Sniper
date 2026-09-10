@@ -17,8 +17,10 @@ DATA = Path('data')
 HISTORY = DATA / 'property_history.json'
 DIAGS = DATA / 'source_diagnostics'
 SOURCE = 'Savills Auctions'
-ARCHIVE_PAGE = 14
-ARCHIVE_URL = savills.BASE + '/past-auctions/archive/page-14'
+# Page 13 is the oldest currently verifiable live first-party archive route.
+# Do not burn the live-first probe on page 14 when that route times out before extraction.
+ARCHIVE_PAGE = 13
+ARCHIVE_URL = savills.BASE + '/past-auctions/archive/page-13'
 DATE_RE = re.compile(r'\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s+(\d{1,2})(?:st|nd|rd|th)?\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(20\d{2})\b', re.I)
 MONTHS = {m: i for i, m in enumerate(['January','February','March','April','May','June','July','August','September','October','November','December'], 1)}
 URLISH_RE = re.compile(r'''(?:(?:https?:)?//[^\s"'<>]+|/(?:Auctions|auctions|component|index\.php)[^\s"'<>]*)''', re.I)
@@ -60,7 +62,7 @@ def normalise_candidate(raw):
     if host != 'savills.co.uk' and not host.endswith('.savills.co.uk'):
         return None
     low = url.lower()
-    if not any(k in low for k in ('/auctions/', '/auctions/', 'lotlist', 'view=commission', 'option=com_bidding', '/component/bidding')):
+    if not any(k in low for k in ('/auctions/', 'lotlist', 'view=commission', 'option=com_bidding', '/component/bidding')):
         return None
     return url
 
@@ -134,7 +136,6 @@ def main():
     failures = []
 
     for url, meta in sorted(candidates.items()):
-        low = url.lower()
         entry = {'url': url, 'origins': meta['origins'][:4]}
         try:
             modern = auction_from_modern(url, doc)
@@ -208,16 +209,16 @@ def main():
 
     DIAGS.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H%MZ')
-    diag_path = DIAGS / f'savills_live_archive_page14_latent_routes_{stamp}.json'
+    diag_path = DIAGS / f'savills_live_archive_page{ARCHIVE_PAGE}_latent_routes_{stamp}.json'
     blocker = None
     next_probe = None
     if not events_added:
         if candidates:
-            blocker = 'Oldest live Savills archive page exposes first-party URL-like latent attributes/scripts, but none resolved to a recoverable commercial catalogue in this pass.'
+            blocker = 'Oldest concrete live Savills archive page exposes first-party URL-like latent attributes/scripts, but none resolved to a recoverable commercial catalogue in this pass.'
             next_probe = 'Probe the concrete surviving first-party candidate routes recorded below, including their query/form semantics, before any broader archive-index search.'
         else:
-            blocker = 'Oldest live Savills archive page exposes dated 2014 auction summaries but no catalogue route in href, data/form/onclick attributes, or embedded script URL strings.'
-            next_probe = 'Use the exact live page-14 auction dates to probe surviving first-party Savills legacy LotList/commission endpoint semantics; do not create property events from summary cards.'
+            blocker = 'Savills live archive page 13 exposes dated 2014 auction summaries but no catalogue route in href, data/form/onclick attributes, or embedded script URL strings.'
+            next_probe = 'Use the exact page-13 auction dates to probe surviving first-party Savills catalogue/LotList/commission endpoint semantics; do not create property events from summary cards.'
     payload = {
         'source': SOURCE,
         'recorded_at': now_iso(),
