@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-10T10:02:49.879391+00:00",
+  "updated_at": "2026-09-10T11:04:57.563364+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -219,7 +219,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 16634,
-      "last_discovery_mode": "savills-first-party-archive",
+      "last_discovery_mode": "savills-first-party-legacy-aid",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -385,7 +385,13 @@
         "earliest_recovered_date": null
       },
       "last_first_party_sitemap_rows_seen": 0,
-      "last_first_party_sitemap_events_added": 0
+      "last_first_party_sitemap_events_added": 0,
+      "legacy_aid_cursor": 1046,
+      "legacy_aids_scanned": 80,
+      "legacy_aid_last_run_at": "2026-09-10T11:04:57.563341+00:00",
+      "legacy_aid_last_processed": [],
+      "legacy_aid_last_events_added": 0,
+      "legacy_aid_recovered_auctions": 0
     }
   }
 }
