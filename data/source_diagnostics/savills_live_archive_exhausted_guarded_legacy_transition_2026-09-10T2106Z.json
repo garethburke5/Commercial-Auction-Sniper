@@ -1,0 +1,16 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-10T21:06:00Z",
+  "stage": "live-first-party-exhaustion-to-legacy-transition",
+  "exact_blocker_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "oldest_live_date_seen": "2014-04-24",
+  "live_pages_required": 14,
+  "live_pages_last_verified_scanned": 14,
+  "live_discovery_exhausted": true,
+  "history_v2_events_added_by_last_live_page_pass": 0,
+  "blocker": "All 14 live Savills /past-auctions archive pages were scanned oldest-first. The oldest page is live and exposes dated auction summary cards down to 24 April 2014, but page 14 exposes no resolvable catalogue/lot route in anchors, data/form/onclick attributes or embedded script URL strings after static artwork exclusion. The live first-party enumeration layer therefore cannot itself provide lot-level evidence for the unresolved 2014 cards.",
+  "counted_as_historically_complete": false,
+  "repair_implemented": "The Savills live-archive workflow now gates the first-party legacy LotList?aid= bridge behind proof that exactly 14 live pages were successfully scanned, live_archive_discovery_exhausted is true, and there are no live page scan errors. The stale failure diagnostic that still referenced page 13 was corrected to the actual oldest unresolved page 14. Common Crawl and third-party indexes remain later fallbacks, not the next step.",
+  "repair_commit": "7e2cb2e293d05f0f567034a2fd8cdc74ad546f1d",
+  "next_safe_probe": "Run the guarded first-party Savills legacy LotList ID scan immediately after the live gate; ingest any surviving commercial/mixed-use lot pages into canonical History V2 and verify the committed event count/earliest date before claiming progress."
+}
