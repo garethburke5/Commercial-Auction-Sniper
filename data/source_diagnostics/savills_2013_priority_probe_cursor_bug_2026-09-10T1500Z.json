@@ -1,0 +1,34 @@
+{
+  "source": "Savills Auctions",
+  "target_period": "2013-or-earlier",
+  "observed_at": "2026-09-10T15:00:00Z",
+  "historically_complete": false,
+  "discovery_exhausted": false,
+  "verified_savills_events_before_repair": 2842,
+  "known_first_party_archive_boundary": "2014-04-24",
+  "failed_workflow_run": "https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/34486374479",
+  "blocker": {
+    "type": "priority-year cursor drift plus broad-index gateway failure",
+    "observed_execution": "The workflow labelled as the overriding 2013 priority probe actually consumed archival_url_last_processed and retried snapshot_year 2012 because the deep cursor had already advanced below 2013.",
+    "exact_failed_routes": [
+      "https://index.commoncrawl.org/CC-MAIN-2012-index?url=auctions.savills.co.uk&matchType=domain&output=json",
+      "https://index.commoncrawl.org/CC-MAIN-2012-index?url=www.savills.co.uk&matchType=domain&output=json"
+    ],
+    "exact_failures": [
+      "CC-MAIN-2012 auctions.savills.co.uk :: HTTPError: HTTP Error 504: Gateway Time-out",
+      "CC-MAIN-2012 www.savills.co.uk :: HTTPError: HTTP Error 504: Gateway Time-out"
+    ],
+    "useful_2012_observation": "The savills.co.uk domain query returned 13,793 raw index rows but only one auction-path candidate, http://www.savills.co.uk/auctions/resicatrequest/PreRegistration.aspx, whose live HTTPS Savills URL now returns 404 and therefore was correctly rejected as evidence."
+  },
+  "repair": {
+    "collector_commit": "b469dc5f2c90c0649f6557f4013adecf03eb8a53",
+    "workflow_commit": "c8079095d3fd90e90b09d4d4d3755fc111308151",
+    "changes": [
+      "The Common Crawl retry now enumerates the exact collection IDs returned by Common Crawl for the requested year; for 2013 these are expected to include CC-MAIN-2013-48 and CC-MAIN-2013-20 rather than a synthesized collection name.",
+      "It probes compact first-party Savills auction path prefixes with matchType=prefix before any broad domain fallback, reducing legacy index gateway timeouts.",
+      "The workflow now always runs an explicit --year 2013 priority probe while allowing the independent deeper archival cursor to continue into 2012, 2011 and earlier years.",
+      "Validation now asserts that the Common Crawl priority probe actually executed snapshot_year 2013 before publication.",
+      "All archive/index URLs remain discovery-only; a candidate still requires surviving live Savills UK first-party evidence before History V2 ingestion."
+    ]
+  }
+}
