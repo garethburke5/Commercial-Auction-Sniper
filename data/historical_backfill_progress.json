@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-10T22:01:27.098105+00:00",
+  "updated_at": "2026-09-10T22:07:30.209610+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -128,11 +128,14 @@
     },
     "Savills Auctions": {
       "status": "DISCOVERY EXPANSION",
-      "auctions_discovered": 70,
-      "auctions_completed": 70,
-      "lots_captured": 2842,
-      "earliest_month_reached": "2023-03",
+      "auctions_discovered": 73,
+      "auctions_completed": 73,
+      "lots_captured": 2850,
+      "earliest_month_reached": "2020-09",
       "completed_auction_ids": [
+        "10",
+        "11",
+        "12",
         "95",
         "96",
         "97",
@@ -218,8 +221,8 @@
       "last_success_rows": 5,
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
-      "last_history_event_count": 16634,
-      "last_discovery_mode": "commoncrawl-exact-year-prefix-to-live-savills-first-party",
+      "last_history_event_count": 16642,
+      "last_discovery_mode": "savills-first-party-legacy-aid",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -386,9 +389,9 @@
       },
       "last_first_party_sitemap_rows_seen": 0,
       "last_first_party_sitemap_events_added": 0,
-      "legacy_aid_cursor": 806,
-      "legacy_aids_scanned": 320,
-      "legacy_aid_last_run_at": "2026-09-10T21:51:57.366208+00:00",
+      "legacy_aid_cursor": 726,
+      "legacy_aids_scanned": 400,
+      "legacy_aid_last_run_at": "2026-09-10T22:07:30.209588+00:00",
       "legacy_aid_last_processed": [],
       "legacy_aid_last_events_added": 0,
       "legacy_aid_recovered_auctions": 0,
@@ -823,7 +826,42 @@
       "live_archive_latent_rows_seen": 0,
       "live_archive_latent_events_added": 0,
       "live_archive_latent_failures": [],
-      "last_live_archive_latent_diagnostic": "data/source_diagnostics/savills_live_archive_page14_latent_routes_2026-09-10T2003Z.json"
+      "last_live_archive_latent_diagnostic": "data/source_diagnostics/savills_live_archive_page14_latent_routes_2026-09-10T2003Z.json",
+      "earliest_date_reached": "2020-09-24",
+      "surviving_catalogue_last_run_at": "2026-09-10T22:06:27.449868+00:00",
+      "surviving_catalogue_last_attempts": [
+        {
+          "auction_id": "10",
+          "auction_date": "2020-09-24",
+          "catalogue_url": "https://auctions.savills.co.uk/auctions/september-2020-10",
+          "status": "persisted",
+          "rows_normalised": 2,
+          "canonical_events_added": 2,
+          "expected": 2,
+          "feed": "https://auctions.savills.co.uk/auctions/september-2020-10/page-1/quantity-100/property_type-253/sort-by-0"
+        },
+        {
+          "auction_id": "11",
+          "auction_date": "2020-11-03",
+          "catalogue_url": "https://auctions.savills.co.uk/auctions/november-2020-11",
+          "status": "persisted",
+          "rows_normalised": 5,
+          "canonical_events_added": 5,
+          "expected": 5,
+          "feed": "https://auctions.savills.co.uk/auctions/november-2020-11/page-1/quantity-100/property_type-253/sort-by-0"
+        },
+        {
+          "auction_id": "12",
+          "auction_date": "2020-12-16",
+          "catalogue_url": "https://auctions.savills.co.uk/auctions/december-2020-12",
+          "status": "persisted",
+          "rows_normalised": 1,
+          "canonical_events_added": 1,
+          "expected": 1,
+          "feed": "https://auctions.savills.co.uk/auctions/december-2020-12/page-1/quantity-100/property_type-253/sort-by-0"
+        }
+      ],
+      "surviving_catalogue_last_events_added": 8
     }
   }
 }
