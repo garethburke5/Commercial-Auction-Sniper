@@ -1,0 +1,38 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-10T22:08:00Z",
+  "stage": "historical-lot-recovery",
+  "historically_complete": false,
+  "next_oldest_known_archive_date": "2014-04-24",
+  "next_oldest_known_archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "blocker": "The oldest live archive page proves dated auctions back to 24 April 2014 but exposes no resolvable modern catalogue anchor. Blind first-party /Auctions/LotList?aid= probing has scanned 320 IDs down to cursor 806 without recovering a live catalogue, so continuing that route alone is not productive.",
+  "failed_legacy_seed": {
+    "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1126",
+    "known_event_date": "2020-03-26",
+    "reason": "First-party historical route no longer yields a recoverable dated lot inventory to the production collector."
+  },
+  "implemented_next_recovery_path": {
+    "strategy": "Seed surviving modern-style first-party catalogue URLs from the missing historical interval and ingest them through the canonical Savills historical parser before any further Common Crawl work.",
+    "catalogues": [
+      {
+        "auction_id": "10",
+        "date": "2020-09-24",
+        "url": "https://auctions.savills.co.uk/auctions/september-2020-10"
+      },
+      {
+        "auction_id": "11",
+        "date": "2020-11-03",
+        "url": "https://auctions.savills.co.uk/auctions/november-2020-11"
+      },
+      {
+        "auction_id": "12",
+        "date": "2020-12-16",
+        "url": "https://auctions.savills.co.uk/auctions/december-2020-12"
+      }
+    ],
+    "production_script": "savills_surviving_catalogue_backfill.py",
+    "production_workflow": ".github/workflows/savills-legacy-aid-backfill.yml"
+  },
+  "counted_as_ingested": false,
+  "note": "No new events are counted until data/property_history.json and data/historical_backfill_progress.json are both published to main and verified."
+}
