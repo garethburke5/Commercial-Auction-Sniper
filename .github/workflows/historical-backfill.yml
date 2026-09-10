@@ -10,6 +10,7 @@ on:
       - '.github/workflows/historical-backfill.yml'
       - 'historical_backfill.py'
       - 'historical_savills.py'
+      - 'historical_acuitus.py'
       - 'repair_savills_history.py'
       - 'history_database.py'
       - 'historical_evidence.py'
@@ -47,17 +48,40 @@ jobs:
 
       - name: Compile history code
         run: |
-          python -m py_compile historical_backfill.py historical_savills.py repair_savills_history.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py
+          python -m py_compile historical_backfill.py historical_savills.py historical_acuitus.py repair_savills_history.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py collectors/acuitus.py
 
       - name: Run history regression tests
         run: python -m unittest tests.test_history_database -v
 
-      # Keep every Savills batch bounded so repair, exact-evidence, canonical-count, and persistence gates run before the next checkpoint.
-      - name: Backfill next Savills commercial auction batch
-        run: python historical_savills.py --max-auctions 8
+      - name: Backfill next incomplete premium commercial source
+        run: |
+          python - <<'PY'
+          import json, subprocess, sys
+          from pathlib import Path
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
+          sources=p.get('sources') or {}
+          sav=sources.get('Savills Auctions') or {}
+          if sav.get('status') != 'CAUGHT UP':
+              cmd=[sys.executable,'historical_savills.py','--max-auctions','8']
+              print('NEXT_SOURCE Savills Auctions')
+          else:
+              cmd=[sys.executable,'historical_acuitus.py','--max-auctions','6']
+              print('NEXT_SOURCE Acuitus')
+          subprocess.run(cmd, check=True)
+          PY
 
-      - name: Repair and gate Savills published addresses
-        run: python repair_savills_history.py
+      - name: Repair Savills addresses when Savills changed
+        run: |
+          python - <<'PY'
+          import json, subprocess, sys
+          from pathlib import Path
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
+          sav=(p.get('sources') or {}).get('Savills Auctions') or {}
+          if sav.get('status') != 'CAUGHT UP':
+              subprocess.run([sys.executable,'repair_savills_history.py'], check=True)
+          else:
+              print('Savills already caught up; no address repair needed.')
+          PY
 
       - name: Validate premium history database
         run: |
@@ -78,31 +102,41 @@ jobs:
           assert len({e.get('event_id') for e in events}) == len(events), 'duplicate History V2 event IDs'
           missing_urls=[e for e in events if not (e.get('source_evidence') or {}).get('listing_url')]
           assert not missing_urls, f'{len(missing_urls)} history events missing listing URL evidence'
-          allsop=(progress.get('sources') or {}).get('Allsop Commercial') or {}
-          assert allsop.get('status') == 'CAUGHT UP', f'Allsop should be caught up before Savills: {allsop.get("status")}'
-          sav=(progress.get('sources') or {}).get('Savills Auctions') or {}
-          assert sav.get('auctions_discovered',0) > 0, 'No Savills historical auctions discovered'
-          assert sav.get('auctions_completed',0) > 0, 'No Savills historical auctions completed'
-          assert sav.get('last_run_rows',0) > 0 or sav.get('status') == 'CAUGHT UP', 'Savills selected no persistable records'
-          assert sav.get('lots_captured',0) > 0, 'Savills telemetry reports zero captured lots'
-          sav_events=[e for e in events if e.get('source') == 'Savills Auctions']
-          assert len(sav_events) >= sav.get('lots_captured',0), f'Savills telemetry/history mismatch: {sav.get("lots_captured")} captured vs {len(sav_events)} canonical events'
-          def is_first_party_savills(url):
+
+          sources=progress.get('sources') or {}
+          allsop=sources.get('Allsop Commercial') or {}
+          sav=sources.get('Savills Auctions') or {}
+          assert allsop.get('status') == 'CAUGHT UP', f'Allsop unexpectedly not caught up: {allsop.get("status")}'
+          assert sav.get('status') == 'CAUGHT UP', f'Savills unexpectedly not caught up: {sav.get("status")}'
+
+          ac=sources.get('Acuitus') or {}
+          assert ac.get('auctions_discovered',0) > 0, 'No Acuitus historical auctions discovered'
+          assert ac.get('auctions_completed',0) > 0 or ac.get('status') == 'CAUGHT UP', 'No Acuitus historical auctions completed'
+          assert ac.get('last_run_failures',0) == 0, f'Acuitus run has failures: {ac.get("last_failure")}'
+          assert ac.get('last_run_rows',0) > 0 or ac.get('status') == 'CAUGHT UP', 'Acuitus selected no persistable records'
+          assert ac.get('lots_captured',0) > 0, 'Acuitus telemetry reports zero captured lots'
+
+          ac_events=[e for e in events if e.get('source') == 'Acuitus']
+          assert len(ac_events) >= ac.get('lots_captured',0), f'Acuitus telemetry/history mismatch: {ac.get("lots_captured")} captured vs {len(ac_events)} canonical events'
+          def first_party(url, domain):
               parsed=urlparse(url or '')
               host=(parsed.hostname or '').lower()
-              return parsed.scheme == 'https' and (host == 'savills.co.uk' or host.endswith('.savills.co.uk'))
-          bad=[e for e in sav_events if not is_first_party_savills((e.get('source_evidence') or {}).get('listing_url'))]
-          assert not bad, f'{len(bad)} Savills events lack first-party exact listing evidence'
-          bad_addresses=[e for e in sav_events if re.search(r'login\s+to\s+see\s+times|book\s+a\s+viewing', str(e.get('address_as_published') or ''), re.I)]
-          assert not bad_addresses, f'{len(bad_addresses)} Savills events contain UI text instead of published addresses'
+              return parsed.scheme == 'https' and (host == domain or host.endswith('.'+domain))
+          bad=[e for e in ac_events if not first_party((e.get('source_evidence') or {}).get('listing_url'),'acuitus.co.uk')]
+          assert not bad, f'{len(bad)} Acuitus events lack first-party exact listing evidence'
+          missing_dates=[e for e in ac_events if not e.get('auction_date')]
+          assert not missing_dates, f'{len(missing_dates)} Acuitus events missing auction date'
+          missing_addresses=[e for e in ac_events if not e.get('address_as_published')]
+          assert not missing_addresses, f'{len(missing_addresses)} Acuitus events missing address'
+          missing_lots=[e for e in ac_events if not e.get('lot_number')]
+          assert len(missing_lots) <= max(2, int(len(ac_events)*0.05)), f'{len(missing_lots)} Acuitus events unexpectedly missing lot number'
           property_ids={p.get('property_id') for p in properties if p.get('property_id')}
-          dangling=[e for e in sav_events if e.get('property_id') not in property_ids]
-          assert not dangling, f'{len(dangling)} Savills events have dangling property references'
-          assert sav.get('address_quality_checked') == len(sav_events), 'Savills address quality telemetry mismatch'
-          assert sav.get('last_history_event_count') == len(events), 'Telemetry was not written after History V2 persistence'
+          dangling=[e for e in ac_events if e.get('property_id') not in property_ids]
+          assert not dangling, f'{len(dangling)} Acuitus events have dangling property references'
+          assert ac.get('last_history_event_count') == len(events), 'Acuitus telemetry was not written after History V2 persistence'
           print('HISTORY',len(properties),'properties',len(events),'events')
-          print('SAVILLS_EVENTS',len(sav_events))
-          print('SAVILLS',sav)
+          print('ACUITUS_EVENTS',len(ac_events))
+          print('ACUITUS',ac)
           PY
 
       - name: Publish historical database and progress
@@ -111,11 +145,7 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add data/property_history.json data/historical_backfill_progress.json
           if ! git diff --cached --quiet; then
-            git commit -m 'Backfill Savills auction history'
-            # Other production workflows can legitimately advance main while a
-            # historical crawl is running. Rebase the validated history commit
-            # onto the latest production head instead of losing the whole batch
-            # to a non-fast-forward rejection. Never force-push history.
+            git commit -m 'Backfill next UK commercial auction history source'
             for attempt in 1 2 3; do
               git fetch origin main
               if ! git rebase origin/main; then
