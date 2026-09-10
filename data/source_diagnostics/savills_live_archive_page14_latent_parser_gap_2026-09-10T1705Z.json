@@ -1,0 +1,18 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-10T17:05:00Z",
+  "severity": "material",
+  "stage": "live-first-party-archive-ingestion",
+  "archive_page": 14,
+  "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "verified_live_archive_oldest_date": "2014-04-24",
+  "history_v2_events_added_by_diagnostic": 0,
+  "counted_as_complete": false,
+  "discovery_exhausted": false,
+  "historically_complete": false,
+  "exact_blocker": "The production live archive collector only passed ordinary <a href> values through historical_savills._catalogue_anchors(). On page 14 that returned zero catalogue anchors, so legacy first-party routes potentially stored in data-* attributes, form actions, onclick handlers or embedded script strings were never inspected before declaring the page blocked.",
+  "repair_implemented": "Added savills_live_archive_latent_probe.py and wired it ahead of the standard oldest-first live archive pass. It scans all tag attributes and embedded scripts on the live page for first-party Savills auction/LotList/com_bidding routes; modern catalogue candidates are fetched through historical_savills, aid= legacy catalogues through the existing legacy first-party recovery path, and no property event is created unless a surviving Savills first-party lot/catalogue supports it.",
+  "repair_commit": "6a469ca74d1c856103ce3c1b0a8e5019148729de",
+  "next_safe_probe_if_zero": "Use the exact unresolved page-14 auction dates to test concrete surviving first-party LotList/commission endpoint semantics before any Common Crawl or broad archival-index discovery.",
+  "evidence_policy": "Archive summary cards alone are not sufficient for History V2 property events; property-level evidence must remain a surviving Savills first-party URL."
+}
