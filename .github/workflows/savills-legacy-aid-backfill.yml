@@ -1,0 +1,89 @@
+name: Savills Legacy ID Backfill
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/savills-legacy-aid-backfill.yml'
+      - 'savills_legacy_aid_discovery.py'
+      - 'collectors/savills.py'
+      - 'history_database.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auction-sniper-production-scan
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - name: Checkout production branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install playwright
+          python -m playwright install chromium
+
+      - name: Compile legacy discovery
+        run: python -m py_compile savills_legacy_aid_discovery.py collectors/savills.py history_database.py
+
+      - name: Probe legacy first-party Savills auction IDs
+        run: python savills_legacy_aid_discovery.py --probe-ids 80 --max-auctions 4 --floor-aid 1
+
+      - name: Validate Savills History V2 evidence
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from urllib.parse import urlparse
+          db=json.loads(Path('data/property_history.json').read_text(encoding='utf-8'))
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
+          events=[e for e in (db.get('auction_events') or []) if e.get('source')=='Savills Auctions']
+          assert events, 'No Savills history events'
+          assert len({e.get('event_id') for e in events}) == len(events), 'Duplicate Savills event IDs'
+          for e in events:
+              u=(e.get('source_evidence') or {}).get('listing_url') or ''
+              host=(urlparse(u).hostname or '').lower()
+              assert host=='savills.co.uk' or host.endswith('.savills.co.uk'), f'Non-first-party Savills evidence: {u}'
+          s=(p.get('sources') or {}).get('Savills Auctions') or {}
+          assert s.get('historically_complete') is False, 'Legacy ID scan must not imply historical completeness'
+          print('SAVILLS_EVENTS',len(events),'EARLIEST',s.get('earliest_date_reached') or s.get('earliest_month_reached'),'AID_CURSOR',s.get('legacy_aid_cursor'))
+          PY
+
+      - name: Publish verified legacy history
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/property_history.json data/historical_backfill_progress.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Backfill legacy Savills auction IDs'
+            for attempt in 1 2 3; do
+              git fetch origin main
+              if ! git rebase origin/main; then
+                git rebase --abort || true
+                echo 'Legacy Savills publish could not be safely rebased; refusing overwrite.' >&2
+                exit 1
+              fi
+              if git push origin HEAD:main; then exit 0; fi
+              sleep $((attempt * 3))
+            done
+            exit 1
+          fi
