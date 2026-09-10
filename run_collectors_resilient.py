@@ -5,6 +5,12 @@ collectors that need durable production-specific resilience.
 """
 from __future__ import annotations
 
+import json
+import re
+from collections import Counter
+from datetime import date
+from pathlib import Path
+
 import run_collectors as pipeline
 from collectors import auction_house_regions_resilient as regional
 from collectors import auction_house_london_resilient as london
@@ -36,6 +42,97 @@ _REPLACEMENTS = {
     "collect_national_online": regional.collect_national_online,
 }
 
+# Genuine commercial lots with these lifecycle states remain on the published board.
+# ARCHIVED/COMPLETED rows remain history only.
+_PUBLISHED_TERMINAL = {"SOLD PRIOR", "WITHDRAWN", "WITHDRAWN PRIOR", "POSTPONED"}
+_WORKFLOW_BOILERPLATE = re.compile(
+    r"(?:login|log in|register to bid|cancel proxy bid|your bid|wishlist|connecting to auction|please wait)",
+    re.I,
+)
+
+
+def _normal_status(value):
+    return str(value or "").strip().upper().replace("_", " ")
+
+
+def _clean_site_chrome(text):
+    """Remove residual interactive-site chrome that can survive source parsers."""
+    value = pipeline.clean_description(str(text or ""))
+    match = _WORKFLOW_BOILERPLATE.search(value)
+    if not match:
+        return value
+    # Chrome normally trails the particulars. Preserve the property prose and cut
+    # the UI tail wholesale when there is a meaningful particulars prefix.
+    if match.start() >= 120:
+        value = value[: match.start()].strip(" :-|")
+    else:
+        value = _WORKFLOW_BOILERPLATE.sub(" ", value)
+    return re.sub(r"\s+", " ", value).strip(" :-|")
+
+
+def _auction_day(item):
+    raw = str(item.get("auction_date") or "").strip()[:10]
+    try:
+        return date.fromisoformat(raw)
+    except Exception:
+        return None
+
+
+def _finalize_published_snapshot(path=Path("data/properties.json"), today=None):
+    """Apply publication semantics after the canonical collector pipeline.
+
+    The canonical pipeline historically placed every non-CURRENT row in archive.
+    For the live product, sold-prior/withdrawn/postponed commercial lots belonging
+    to a current or future auction must remain visible with their exact status.
+    """
+    today = today or date.today()
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    properties = list(data.get("properties") or [])
+    archive = list(data.get("archive") or [])
+
+    for item in properties + archive:
+        item["description"] = _clean_site_chrome(item.get("description"))
+
+    moved = []
+    retained_archive = []
+    for item in archive:
+        status = _normal_status(item.get("status"))
+        auction_day = _auction_day(item)
+        if status in _PUBLISHED_TERMINAL and auction_day and auction_day >= today:
+            item["status"] = status
+            moved.append(item)
+        else:
+            retained_archive.append(item)
+
+    # Source URL is the canonical lot identity used by the production pipeline.
+    by_key = {}
+    for item in properties + moved:
+        key = (str(item.get("source") or "").strip(), str(item.get("url") or "").strip())
+        by_key[key] = item
+    properties = list(by_key.values())
+    properties.sort(
+        key=lambda x: (
+            str(x.get("auction_date") or ""),
+            str(x.get("source") or ""),
+            str(x.get("lot_number") or ""),
+            str(x.get("address") or ""),
+        ),
+        reverse=True,
+    )
+
+    data["properties"] = properties
+    data["archive"] = retained_archive
+    integrity = data.setdefault("integrity", {})
+    integrity["published_property_count"] = len(properties)
+    integrity["historical_property_count"] = len(retained_archive)
+    integrity["published_lifecycle_counts"] = dict(
+        Counter(_normal_status(x.get("status")) for x in properties)
+    )
+    integrity["terminal_rows_restored_to_publication"] = len(moved)
+
+    Path(path).write_text(json.dumps(data, indent=2), encoding="utf-8")
+    return len(moved)
+
 
 def _install_replacements():
     upgraded = []
@@ -60,6 +157,8 @@ def _install_replacements():
 def run():
     _install_replacements()
     pipeline.run()
+    moved = _finalize_published_snapshot()
+    print(f"PUBLICATION FINALIZER restored {moved} sold-prior/withdrawn/postponed lot(s) to the published board")
 
 
 if __name__ == "__main__":
