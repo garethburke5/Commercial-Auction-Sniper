@@ -13,6 +13,8 @@ on:
       - 'savills_surviving_catalogue_backfill.py'
       - 'savills_first_party_legacy_date_recovery.py'
       - 'savills_commoncrawl_legacy_probe.py'
+      - 'savills_legacy_pid_wayback_recovery.py'
+      - 'savills_public_index_frontier_recovery.py'
       - 'savills_exhaustive_discovery.py'
       - 'historical_acuitus.py'
       - 'repair_savills_history.py'
@@ -54,7 +56,7 @@ jobs:
 
       - name: Compile history code
         run: |
-          python -m py_compile historical_backfill.py historical_savills.py savills_surviving_catalogue_backfill.py savills_first_party_legacy_date_recovery.py savills_commoncrawl_legacy_probe.py savills_exhaustive_discovery.py historical_acuitus.py repair_savills_history.py savills_history_quality.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py collectors/acuitus.py
+          python -m py_compile historical_backfill.py historical_savills.py savills_surviving_catalogue_backfill.py savills_first_party_legacy_date_recovery.py savills_commoncrawl_legacy_probe.py savills_legacy_pid_wayback_recovery.py savills_public_index_frontier_recovery.py savills_exhaustive_discovery.py historical_acuitus.py repair_savills_history.py savills_history_quality.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py collectors/acuitus.py
 
       - name: Run history regression tests
         run: python -m unittest tests.test_history_database -v
@@ -67,7 +69,6 @@ jobs:
           from pathlib import Path
 
           progress_path = Path('data/historical_backfill_progress.json')
-          history_path = Path('data/property_history.json')
 
           def load_progress():
               return json.loads(progress_path.read_text(encoding='utf-8'))
@@ -109,24 +110,28 @@ jobs:
           elif not sav.get('historically_complete', False):
               earliest = str(sav.get('earliest_month_reached') or '9999-99')
               if earliest <= '2019-12':
-                  # We have already harvested surviving catalogues through Dec-2019.
-                  # Never rerun the whole catalogue sweep here: it can consume the
-                  # complete job window without publishing. Attack only the five
-                  # proven, unresolved 2019 archive dates, oldest-first.
+                  # The current verified lot-level frontier is Dec-2019. Attack the five
+                  # proven older 2019 archive dates with genuinely distinct bounded routes.
                   print('NEXT_SOURCE Savills Auctions exact 2019 frontier', flush=True)
                   bounded(
                       [sys.executable, 'savills_first_party_legacy_date_recovery.py'],
-                      300,
+                      240,
                       'savills-first-party-sitemap-date-match-2019',
                   )
-                  # Always move to a distinct recovery route if first-party sitemap
-                  # matching added nothing OR timed out. Common Crawl is discovery
-                  # only; recover_live must resolve every candidate to a live Savills
-                  # first-party page before History V2 persistence.
                   bounded(
                       [sys.executable, 'savills_commoncrawl_legacy_probe.py', '--year', '2019', '--limit', '400', '--max-live-checks', '80'],
-                      600,
+                      360,
                       'commoncrawl-2019-prefix-index-to-live-savills-validation',
+                  )
+                  bounded(
+                      [sys.executable, 'savills_legacy_pid_wayback_recovery.py', '--max-pids', '80', '--max-live-checks', '120'],
+                      300,
+                      'wayback-cdx-exact-legacy-pid-to-live-savills',
+                  )
+                  bounded(
+                      [sys.executable, 'savills_public_index_frontier_recovery.py', '--max-results-per-query', '20', '--max-pages', '80', '--max-live-checks', '120'],
+                      420,
+                      'public-search-index-pdf-reference-to-live-savills',
                   )
               else:
                   print('NEXT_SOURCE Savills Auctions surviving first-party historical catalogues', flush=True)
