@@ -1,0 +1,32 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T21:02:00Z",
+  "frontier_date": "2014-04-24",
+  "historically_complete": false,
+  "discovery_exhausted": false,
+  "blocker": "The oldest live Savills archive sale remains 24 April 2014. Existing live archive cards expose the date but no directly resolvable lot catalogue anchors. Legacy LotList aid enumeration, archived aid/pid capture recovery, public-index discovery, first-party CDX capture recovery and adjacent numeric-ID reconstruction have not yet produced a trustworthy commercial lot for this date.",
+  "integrity_finding": "A previously counted 24 April 2014 event was produced by a public-address fallback whose clue was Savills plc's registered office (33 Margaret Street, London W1G 0JD). That route can classify a generic Savills page as commercial and inherit the frontier date even when it is not an auction lot. This event must not be treated as verified historical coverage.",
+  "exact_failed_routes": [
+    "https://auctions.savills.co.uk/past-auctions/archive/page-14 -> dated auction summaries but no resolvable lot catalogue anchors",
+    "legacy https://auctions.savills.co.uk/Auctions/LotList?aid=<id> enumeration -> no verified 24-Apr-2014 commercial lot recovered",
+    "Common Crawl/WARC aid/pid mapping -> no persistable first-party-validated 24-Apr-2014 commercial lot",
+    "Wayback/CDX first-party lot capture prefixes and adjacent ID reconstruction -> no new verified 24-Apr-2014 event",
+    "generic public address/search fallback -> unsafe false-positive path identified and now rejected"
+  ],
+  "repair_implemented_same_run": [
+    {
+      "file": "savills_history_integrity_repair.py",
+      "purpose": "Remove any 24-Apr-2014 Savills event whose evidence URL is not a lot-specific auctions.savills.co.uk route, recalculate Savills canonical counts/earliest date, and prevent the generic-page false advance from surviving production validation."
+    },
+    {
+      "file": "savills_result_document_frontier_recovery.py",
+      "purpose": "Attack a distinct recovery path: find date-specific Savills result/catalogue documents (including legacy PDF assets/Wayback originals), require the exact frontier date inside the document, extract property/postcode clues, resolve only lot-specific Savills Auctions URLs, and persist only when the surviving first-party lot page itself exposes the same auction date and passes commercial/mixed-use classification."
+    },
+    {
+      "file": ".github/workflows/savills-live-archive-backfill.yml",
+      "purpose": "Run integrity repair before discovery, then run the result-document recovery after the existing live/legacy/CDX routes, and fail validation if non-lot 24-Apr-2014 evidence remains."
+    }
+  ],
+  "next_safe_probe": "Run the date-specific result-document route for 24 April 2014. If it yields exact-date Savills result documents but no surviving dated lot page, use the recovered document postcodes/addresses as keys in Common Crawl/CDX legacy LotDetails/LotList snapshots and require an exact archived catalogue-date mapping before accepting any undated surviving lot page.",
+  "success_condition": "Either a genuine commercial/mixed-use lot from 24 April 2014 is persisted with lot-specific first-party Savills evidence, or the result-document route records its exact exhausted document/candidate set and advances to postcode/address-keyed archived LotDetails recovery."
+}
