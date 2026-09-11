@@ -1,0 +1,33 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T23:05:00Z",
+  "frontier_date": "2014-05-07",
+  "frontier_basis": "Oldest dated Savills live-archive auction in the persisted manifest without a canonical Savills lot event after 2014-04-24 became verified in History V2.",
+  "canonical_state_before_repair": {
+    "savills_events": 3251,
+    "earliest_verified_lot_date": "2014-04-24",
+    "history_file": "data/property_history.json",
+    "progress_file": "data/historical_backfill_progress.json"
+  },
+  "failed_route": {
+    "route": "wayback-cdx-wildcard-oldest-manifest-date-to-live-savills-validation",
+    "target_date": "2014-05-07",
+    "result": "No candidate capture was returned because the CDX wildcard request failed with HTTP 503 Service Unavailable; zero canonical events were added.",
+    "evidence_progress_key": "wayback_frontier_wildcard_last_run"
+  },
+  "additional_root_cause": {
+    "route": ".github/workflows/historical-backfill.yml historical frontier selector",
+    "result": "The hourly historical workflow used earliest_month_reached <= 2019-12 as a branch condition and therefore kept entering a fixed 2019 recovery block even after canonical coverage had advanced to 2014-04-24. This prevented the scheduled run from targeting the actual next unresolved live-manifest auction, 2014-05-07.",
+    "classification": "arbitrary historical cutoff / stale frontier routing"
+  },
+  "implemented_next_probe": {
+    "route": "public-result-address-to-surviving-savills-oldest-manifest-date",
+    "implementation": "savills_manifest_public_address_recovery.py -> savills_public_address_frontier_recovery.py",
+    "workflow_commit": "2970175f05bc3f632f3e7958254530d764579063",
+    "method": "Compute the oldest unresolved auction date directly from the persisted Savills live archive manifest minus canonical Savills auction dates; query free public result indexes for exact address/postcode clues; search Savills/Wayback result URLs for the corresponding first-party original; accept only a surviving Savills first-party lot page whose auction date and commercial/mixed-use classification validate before History V2 persistence.",
+    "fixed_year_cutoff_removed": true
+  },
+  "next_success_condition": "Persist one or more verified commercial/mixed-use Savills lot events for 2014-05-07 (or otherwise materially increase canonical events for that frontier) with a first-party Savills listing URL; if the public-address route yields zero, persist its exact query/address/candidate blocker and advance to postcode/address-led legacy pid/slug enumeration rather than rerunning the 2019-only routes.",
+  "historically_complete": false,
+  "discovery_exhausted": false
+}
