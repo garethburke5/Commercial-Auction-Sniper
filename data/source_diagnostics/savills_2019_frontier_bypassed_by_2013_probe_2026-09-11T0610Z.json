@@ -1,0 +1,31 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T06:10:00Z",
+  "status": "BLOCKER_REPAIRED_NEXT_ROUTE_IMPLEMENTED",
+  "verified_lot_level_frontier_before_repair": "2019-12-16",
+  "verified_savills_history_events_before_repair": 3250,
+  "unresolved_first_party_auction_dates": [
+    "2019-11-04",
+    "2019-09-23",
+    "2019-07-17",
+    "2019-05-29",
+    "2019-04-02"
+  ],
+  "exact_known_dead_migrated_routes": [
+    "https://auctions.savills.co.uk/auctions/november-2019-2",
+    "https://auctions.savills.co.uk/auctions/september-2019-1"
+  ],
+  "blocker": "The Savills archival URL workflow was hard-coded to probe Common Crawl 2013 and to continue the 2013 deep cursor even while the verified lot-level frontier remained 16 December 2019 and five dated 2019 first-party archive auctions were unresolved. Its 2026-09-11 05:49Z production run returned zero candidates and zero added events, then committed only progress telemetry. That execution order bypassed the nearest unresolved historical gap and did not meet the History V2 success criterion.",
+  "repair_implemented": {
+    "commit": "c386b5a55ebbeaa2c3906d35c606eaf3a5140d44",
+    "workflow": ".github/workflows/savills-archival-url-backfill.yml",
+    "behaviour": [
+      "Resolve the current Savills historical frontier from persisted progress before choosing an archival year.",
+      "While the five known 2019 auction dates remain unresolved, rerun first-party exact-date recovery first.",
+      "Then probe Common Crawl collections for 2019 rather than jumping to 2013.",
+      "Do not continue the 2013-or-earlier deep cursor until the nearer 2019 frontier is cleared.",
+      "Keep all accepted property evidence restricted to surviving Savills first-party URLs."
+    ]
+  },
+  "next_required_outcome": "Either recover and persist commercial/mixed-use lot events for an auction before 2019-12-16, or retain this exact 2019 frontier blocker and move to a different dated-2019 archival/index reconstruction route; do not count a zero-addition 2013 telemetry run as progress."
+}
