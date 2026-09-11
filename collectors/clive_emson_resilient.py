@@ -31,12 +31,20 @@ def _clive_facts(text, headline=""):
     head = norm(headline or "")
     facts = {}
 
-    # Prefer the marketed use in the lot headline over broad catalogue categories
-    # such as "Vacant Commercial".
-    if re.search(r"\boffices?\b", head, re.I) or re.search(r"previously been used as offices", t, re.I):
+    # Prefer the marketed use in the lot headline / particulars over broad
+    # catalogue categories such as "Vacant Commercial" or "Commercial Investment".
+    if re.search(r"mixed residential and commercial|mixed commercial/residential|mixed[- ]use", t, re.I):
+        facts["property_type"] = "Mixed Use"
+    elif re.search(r"\boffices?\b", head, re.I) or re.search(r"previously been used as offices", t, re.I):
         facts["property_type"] = "Office"
+    elif re.search(r"ground floor corner unit comprises a retail shop|\bretail shop\b|\bretail accommodation\b", t, re.I):
+        facts["property_type"] = "Retail"
     elif re.search(r"\bretail\b|\bshop\b", head, re.I):
         facts["property_type"] = "Retail"
+
+    # Preserve exact tenure wording where it carries material value.
+    if re.search(r"\bTenure\s+Share of Freehold\b|\bshare of freehold\b", t, re.I):
+        facts["tenure"] = "Share of Freehold"
 
     sqm = re.search(r"Total Floor Area\s*([\d,]+(?:\.\d+)?)\s*sq\.?m\.?", t, re.I)
     if sqm:
@@ -50,7 +58,8 @@ def _clive_facts(text, headline=""):
 
     residential = bool(re.search(
         r"residential conversion|convert .*?residential|single residential dwelling|"
-        r"house of multiple occupation|\bHMO\b|self-contained residential units",
+        r"house of multiple occupation|\bHMO\b|self-contained residential units|"
+        r"potential for reconfiguration, conversion or alternative uses",
         t, re.I,
     ))
     if residential:
@@ -60,17 +69,38 @@ def _clive_facts(text, headline=""):
     if re.search(r"subject to all necessary consents|subject to .*?consents", t, re.I):
         facts["development_potential"] = True
 
+    # Occupational lease facts.
+    m = re.search(r"commercial lease expiring\s+(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20\d{2})", t, re.I)
+    if m:
+        facts["lease_expiry"] = norm(m.group(1))
+        facts["occupation"] = "Let"
+    if re.search(r"\bCurrently let at\b|\bcurrent rental of\b|\bheld under the terms of a commercial lease\b", t, re.I):
+        facts["occupation"] = "Let"
+
+    m = re.search(r"Remainder of a\s+(\d+)\s*[- ]year lease from\s+(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+\d{4})", t, re.I)
+    if m:
+        facts["lease_term"] = f"{m.group(1)} years"
+        facts["lease_start"] = norm(m.group(2))
+
     highlights = []
     if re.search(r"basement has separate access|basement \(separate access\)|direct rear access into the basement", t, re.I):
         highlights.append("Basement with separate access")
     if re.search(r"courtyard garden|rear courtyard|yard to rear", t, re.I):
         highlights.append("Rear courtyard / yard")
+    if re.search(r"roof terrace", t, re.I):
+        highlights.append("Roof terrace")
     if re.search(r"old town location|adjacent to .*?old town", t, re.I):
         highlights.append("Old Town location")
     if re.search(r"close to seafront|short distance of the seafront", t, re.I):
         highlights.append("Close to seafront")
     if re.search(r"main roof has been replaced within the last 12 months", t, re.I):
         highlights.append("Main roof replaced within last 12 months")
+    if re.search(r"popular village location|centre of yarmouth", t, re.I):
+        highlights.append("Central Yarmouth / popular village pitch")
+    if re.search(r"wightlink car ferry terminal|significant tourist footfall", t, re.I):
+        highlights.append("Wightlink ferry / significant tourist footfall")
+    if re.search(r"share of freehold transferrable on completion", t, re.I):
+        highlights.append("Share of freehold transfers on completion")
     if highlights:
         facts["pitch"] = " · ".join(highlights)
 
@@ -110,6 +140,7 @@ def _parse_detail(url, seed, auction_date):
     occ = "Vacant" if "vacant possession" in low or "category vacant commercial" in low else None
     lifecycle = _terminal_status(seed + " " + text) or "CURRENT"
     facts = _clive_facts(text, h1_text)
+    occ = facts.get("occupation") or occ
 
     return Lot(
         source=SOURCE,
@@ -120,7 +151,7 @@ def _parse_detail(url, seed, auction_date):
         image_url=image_from_soup(page, url),
         guide_price=parse_guide(text) or parse_guide(seed),
         annual_rent=parse_rent(text),
-        tenure=parse_tenure(text),
+        tenure=facts.get("tenure") or parse_tenure(text),
         vat_status=parse_vat(text),
         legal_pack_status=lp_status,
         legal_pack_url=lp_url,
@@ -131,6 +162,9 @@ def _parse_detail(url, seed, auction_date):
         area_sqft=facts.get("area_sqft"),
         area_sqm=facts.get("area_sqm"),
         epc=facts.get("epc"),
+        lease_term=facts.get("lease_term"),
+        lease_start=facts.get("lease_start"),
+        lease_expiry=facts.get("lease_expiry"),
         development_potential=facts.get("development_potential"),
         residential_conversion=facts.get("residential_conversion"),
         pitch=facts.get("pitch"),
