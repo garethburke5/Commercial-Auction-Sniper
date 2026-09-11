@@ -17,6 +17,7 @@ from collectors import auction_house_london_resilient as london
 from collectors import clive_emson_resilient as clive
 from collectors import symonds_sampson_resilient as symonds
 from collectors import future_property_auctions_resilient as future_property
+from collectors import bidx1 as bidx1_collector
 
 
 _REPLACEMENTS = {
@@ -47,6 +48,8 @@ _WORKFLOW_BOILERPLATE = re.compile(
     r"(?:login|log in|register to bid|cancel proxy bid|your bid|wishlist|connecting to auction|please wait)",
     re.I,
 )
+_RESERVE_RE = re.compile(r"\bReserve\s*£\s*([\d,]+(?:\.\d+)?)\b", re.I)
+_GUIDE_RE = re.compile(r"\bGuide(?:\s+Price)?\s*£\s*[\d,]+(?:\.\d+)?\b", re.I)
 
 
 def _normal_status(value):
@@ -55,6 +58,36 @@ def _normal_status(value):
 
 def _normal_token(value):
     return re.sub(r"[^a-z0-9]+", " ", str(value or "").lower()).strip()
+
+
+def _apply_bidx1_reserve_proxy(result):
+    """Use a published BidX1 reserve only when no guide is published.
+
+    The reserve is explicitly labelled as a price/yield proxy in the description so
+    downstream UI cannot mistake it for a true guide price.
+    """
+    if not result or str(getattr(result, "source", "")).strip().lower() != "bidx1":
+        return result
+    for lot in getattr(result, "lots", []) or []:
+        if getattr(lot, "guide_price", None) is not None:
+            continue
+        text = str(getattr(lot, "description", "") or "")
+        if _GUIDE_RE.search(text):
+            continue
+        match = _RESERVE_RE.search(text)
+        if not match:
+            continue
+        reserve = float(match.group(1).replace(",", ""))
+        lot.guide_price = reserve
+        note = f"Reserve £{reserve:,.0f} used as price/yield proxy; no guide price published."
+        if "price/yield proxy" not in text.lower():
+            lot.description = (text.rstrip(" .") + ". " + note).strip()
+        lot.finalise()
+    return result
+
+
+def _collect_bidx1_with_reserve_proxy():
+    return _apply_bidx1_reserve_proxy(bidx1_collector.collect())
 
 
 def _lot_identity(item):
@@ -176,6 +209,8 @@ def _install_replacements():
             upgraded.append(symonds.collect)
         elif module == "collectors.future_property_auctions" and name == "collect":
             upgraded.append(future_property.collect)
+        elif module == "collectors.bidx1" and name == "collect":
+            upgraded.append(_collect_bidx1_with_reserve_proxy)
         else:
             upgraded.append(collector)
     pipeline.COLLECTORS = upgraded
