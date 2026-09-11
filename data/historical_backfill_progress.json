@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-11T18:01:12.824982+00:00",
+  "updated_at": "2026-09-11T18:04:24.256192+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -393,9 +393,9 @@
       },
       "last_first_party_sitemap_rows_seen": 0,
       "last_first_party_sitemap_events_added": 0,
-      "legacy_aid_cursor": 0,
-      "legacy_aids_scanned": 2252,
-      "legacy_aid_last_run_at": "2026-09-11T18:00:38.967398+00:00",
+      "legacy_aid_cursor": 526,
+      "legacy_aids_scanned": 2852,
+      "legacy_aid_last_run_at": "2026-09-11T18:03:57.819947+00:00",
       "legacy_aid_last_processed": [],
       "legacy_aid_last_events_added": 0,
       "legacy_aid_recovered_auctions": 0,
@@ -1680,7 +1680,7 @@
       "last_live_archive_rows": 0,
       "last_live_archive_ingested": [],
       "last_live_archive_failures": [],
-      "last_live_archive_run": "2026-09-11T18:00:20.962741+00:00",
+      "last_live_archive_run": "2026-09-11T18:03:37.154558+00:00",
       "live_archive_blocker_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
       "live_archive_blocker_dates": [
         "2014-04-24",
@@ -1694,7 +1694,7 @@
         "2015-03-31",
         "2015-05-11"
       ],
-      "last_live_archive_diagnostic": "data/source_diagnostics/savills_live_archive_page14_480121e4_2026-09-11T1800Z.json",
+      "last_live_archive_diagnostic": "data/source_diagnostics/savills_live_archive_page14_480121e4_2026-09-11T1803Z.json",
       "live_archive_latent_probe_at": "2026-09-10T20:03:40.762542+00:00",
       "live_archive_latent_probe_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
       "live_archive_latent_probe_mode": "http",
@@ -2246,7 +2246,7 @@
         "next_safe_route": "Mine public auction-result aggregators only for exact 2019 Savills property addresses/lot references, then search the surviving live Savills property namespace by exact address and persist only when a first-party Savills lot page validates the auction date/property."
       },
       "legacy_aid_capture_last_run": {
-        "at": "2026-09-11T18:01:02.233674+00:00",
+        "at": "2026-09-11T18:04:15.855552+00:00",
         "year": 2014,
         "route": "commoncrawl-warc-aid-to-date-to-live-savills",
         "frontier_dates": [
@@ -2287,8 +2287,8 @@
         "rejected_samples": [],
         "query_urls": [],
         "errors": [
-          "CC-MAIN-2014-52 LotList prefix :: HTTPError: HTTP Error 502: Bad Gateway",
-          "CC-MAIN-2014-49 LotList prefix :: HTTPError: HTTP Error 400: Bad Request",
+          "CC-MAIN-2014-52 LotList prefix :: HTTPError: HTTP Error 400: Bad Request",
+          "CC-MAIN-2014-49 LotList prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2014-42 LotList prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2014-41 LotList prefix :: HTTPError: HTTP Error 404: Not Found",
           "CC-MAIN-2014-35 LotList prefix :: HTTPError: HTTP Error 404: Not Found",
@@ -2298,7 +2298,7 @@
         ]
       },
       "legacy_aid_capture_last_blocker": {
-        "at": "2026-09-11T18:01:02.233674+00:00",
+        "at": "2026-09-11T18:04:15.855552+00:00",
         "message": "Legacy Savills aid/pid URLs are now recovered, but no older canonical event was persistable from this route.",
         "unmapped_aids": [
           "1071",
@@ -3069,10 +3069,10 @@
       "live_archive_stop_reason": "empty-archive-page:15",
       "live_archive_manifest": "data/source_diagnostics/savills_live_archive_manifest.json",
       "legacy_aid_fast_last_probe": {
-        "at": "2026-09-11T18:00:38.967430+00:00",
-        "cursor_start": 526,
-        "cursor_end": 0,
-        "ids_scanned": 526,
+        "at": "2026-09-11T18:03:57.819976+00:00",
+        "cursor_start": 1126,
+        "cursor_end": 526,
+        "ids_scanned": 600,
         "candidates_found": 0,
         "events_added": 0,
         "workers": 24,
@@ -3080,13 +3080,13 @@
       },
       "legacy_aid_discovery_exhausted": true,
       "legacy_aid_fast_last_blocker": {
-        "at": "2026-09-11T18:00:38.967438+00:00",
-        "route": "live-savills-LotList-aid-526-down-to-1",
+        "at": "2026-09-11T18:03:57.819983+00:00",
+        "route": "live-savills-LotList-aid-1126-down-to-527",
         "message": "Concurrent first-party scan found 0 candidate legacy auction IDs but added no canonical commercial events.",
         "next_safe_route": "Use the persisted live archive manifest dates with Common Crawl WARC aid/pid captures, then validate any surviving Savills lot page before History V2 persistence."
       },
       "public_index_last_run": {
-        "at": "2026-09-11T18:01:12.824944+00:00",
+        "at": "2026-09-11T18:04:24.256150+00:00",
         "route": "public-search-index-to-surviving-savills-first-party",
         "year": 2014,
         "target_dates": [
@@ -3108,7 +3108,7 @@
         "search_errors": []
       },
       "public_index_last_blocker": {
-        "at": "2026-09-11T18:01:12.824944+00:00",
+        "at": "2026-09-11T18:04:24.256150+00:00",
         "route": "public-search-index-to-surviving-savills-first-party",
         "message": "Public search indexes yielded no new persistable Savills commercial lot for the oldest manifest dates.",
         "next_safe_route": "Mine indexed historical Savills auction PDFs/catalogue extracts and reputable auction-result pages for exact addresses/lot numbers, then resolve those exact addresses back into the surviving Savills auction namespace before persistence."
