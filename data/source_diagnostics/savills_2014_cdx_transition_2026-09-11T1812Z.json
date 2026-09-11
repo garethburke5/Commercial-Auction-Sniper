@@ -1,0 +1,41 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T18:12:00Z",
+  "frontier_kind": "oldest-known-live-archive-auction",
+  "target_auction_date": "2014-04-24",
+  "live_archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "canonical_savills_events_at_transition": 3250,
+  "canonical_earliest_lot_level_month_at_transition": "2019-02",
+  "historically_complete": false,
+  "discovery_exhausted": false,
+  "concrete_blocker": "The 24 April 2014 Savills auction remains visible in the surviving first-party archive but has no canonical lot-level History V2 events. The live legacy LotList aid space, first-party sitemap inventory, manifest-driven 2014 Common Crawl LotList recovery, and exact-date public-index-to-live-Savills recovery have not yielded a validated commercial lot for this date.",
+  "failed_or_exhausted_routes": [
+    {
+      "route": "live-first-party-LotList-aid-enumeration",
+      "result": "aid=1126 down through aid=1 exhausted; no canonical commercial event recovered"
+    },
+    {
+      "route": "first-party-sitemaps",
+      "result": "20653 URLs discovered; zero historical lot candidates"
+    },
+    {
+      "route": "manifest-driven-Common-Crawl-WARC-LotList-aid-pid-recovery",
+      "target_year": 2014,
+      "result": "zero mapped lot URLs/canonical events for the 2014 frontier; historical Common Crawl prefix queries included 404/503 responses"
+    },
+    {
+      "route": "public-search-index-exact-date-to-surviving-Savills-first-party",
+      "target_date": "2014-04-24",
+      "result": "no older canonical Savills commercial event persisted; production Savills count remained 3250"
+    }
+  ],
+  "next_safe_repair_implemented_this_run": {
+    "route": "Wayback-CDX-original-Savills-capture-direct-first-party-parse",
+    "implementation": "savills_cdx_first_party_capture_recovery.py",
+    "implementation_commit": "a4f51455e3af69508d9847b1208d8bf0356a16e6",
+    "workflow_wiring_commit": "615d27fa5d75e0da2153b619ee1aa40c5a6fd0af",
+    "method": "Enumerate archived captures of original auctions.savills.co.uk LotDetails, migrated /auctions/ pages, LotList pages and historical Savills auction paths via the free Internet Archive CDX index for 2014-2016. Prefer a surviving live Savills page; otherwise parse the archived original Savills HTML itself as first-party-authored evidence. Require exactly one known 2014 Savills auction date in the captured page, a reliable property address/postcode, and the existing commercial/mixed-use classifier before canonical History V2 persistence.",
+    "evidence_policy": "Archive/index hosts are discovery/storage only; canonical facts must come from original Savills-authored HTML, with original_first_party_url and archived_first_party_url both retained when live Savills no longer resolves."
+  },
+  "next_success_condition": "Persist one or more verified 2014 commercial/mixed-use Savills lot events with original/archived first-party evidence, or persist the exact CDX response/blocker and implement an adjacent-ID/slug archived Savills recovery path rather than repeating prior routes."
+}
