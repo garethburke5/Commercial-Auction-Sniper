@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-11T01:22:24.917533+00:00",
+  "updated_at": "2026-09-11T03:11:22.641577+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -393,9 +393,9 @@
       },
       "last_first_party_sitemap_rows_seen": 0,
       "last_first_party_sitemap_events_added": 0,
-      "legacy_aid_cursor": 646,
-      "legacy_aids_scanned": 480,
-      "legacy_aid_last_run_at": "2026-09-11T01:22:24.917511+00:00",
+      "legacy_aid_cursor": 566,
+      "legacy_aids_scanned": 560,
+      "legacy_aid_last_run_at": "2026-09-11T03:11:22.641555+00:00",
       "legacy_aid_last_processed": [],
       "legacy_aid_last_events_added": 0,
       "legacy_aid_recovered_auctions": 0,
@@ -764,18 +764,26 @@
       "live_archive_latent_failures": [],
       "last_live_archive_latent_diagnostic": "data/source_diagnostics/savills_live_archive_page14_latent_routes_2026-09-10T2003Z.json",
       "earliest_date_reached": "2019-12-16",
-      "surviving_catalogue_last_run_at": "2026-09-11T01:21:39.798108+00:00",
+      "surviving_catalogue_last_run_at": "2026-09-11T03:10:19.902928+00:00",
       "surviving_catalogue_last_attempts": [
         {
+          "auction_id": "1",
+          "auction_date": "2019-09-23",
+          "catalogue_url": "https://auctions.savills.co.uk/auctions/september-2019-1",
+          "status": "blocked",
+          "error": "RuntimeError: Savills catalogue exposed no resolvable lot inventory"
+        },
+        {
+          "auction_id": "2",
+          "auction_date": "2019-11-04",
+          "catalogue_url": "https://auctions.savills.co.uk/auctions/november-2019-2",
+          "status": "blocked",
+          "error": "RuntimeError: Savills catalogue exposed no resolvable lot inventory"
+        },
+        {
           "auction_id": "3",
-          "auction_date": "2019-12-16",
           "catalogue_url": "https://auctions.savills.co.uk/auctions/december-2019-3",
-          "status": "persisted",
-          "rows_normalised": 110,
-          "row_addresses_corrected": 110,
-          "canonical_events_added": 110,
-          "expected": 110,
-          "feed": "https://auctions.savills.co.uk/auctions/december-2019-3/page-1/quantity-100/sort-by-0"
+          "status": "already-complete"
         },
         {
           "auction_id": "5",
@@ -786,36 +794,18 @@
         },
         {
           "auction_id": "6",
-          "auction_date": "2020-03-26",
           "catalogue_url": "https://auctions.savills.co.uk/auctions/march-2020-6",
-          "status": "persisted",
-          "rows_normalised": 114,
-          "row_addresses_corrected": 114,
-          "canonical_events_added": 114,
-          "expected": 114,
-          "feed": "https://auctions.savills.co.uk/auctions/march-2020-6/page-1/quantity-100/sort-by-0"
+          "status": "already-complete"
         },
         {
           "auction_id": "7",
-          "auction_date": "2020-05-12",
           "catalogue_url": "https://auctions.savills.co.uk/auctions/may-2020-7",
-          "status": "persisted",
-          "rows_normalised": 54,
-          "row_addresses_corrected": 54,
-          "canonical_events_added": 54,
-          "expected": 54,
-          "feed": "https://auctions.savills.co.uk/auctions/may-2020-7/page-1/quantity-100/sort-by-0"
+          "status": "already-complete"
         },
         {
           "auction_id": "9",
-          "auction_date": "2020-07-29",
           "catalogue_url": "https://auctions.savills.co.uk/auctions/july-2020-9",
-          "status": "persisted",
-          "rows_normalised": 122,
-          "row_addresses_corrected": 122,
-          "canonical_events_added": 122,
-          "expected": 122,
-          "feed": "https://auctions.savills.co.uk/auctions/july-2020-9/page-1/quantity-100/sort-by-0"
+          "status": "already-complete"
         },
         {
           "auction_id": "10",
@@ -833,12 +823,12 @@
           "status": "already-complete"
         }
       ],
-      "surviving_catalogue_last_events_added": 400,
-      "legacy_address_repair_last_run_at": "2026-09-11T01:03:16.130930+00:00",
+      "surviving_catalogue_last_events_added": 0,
+      "legacy_address_repair_last_run_at": "2026-09-11T03:03:39.567291+00:00",
       "legacy_addresses_repaired_last_run": 0,
-      "surviving_catalogue_row_addresses_corrected": 572,
+      "surviving_catalogue_row_addresses_corrected": 172,
       "archival_url_discovery_exhausted": true,
-      "surviving_catalogue_parser_revision": 2
+      "surviving_catalogue_parser_revision": 3
     }
   }
 }
