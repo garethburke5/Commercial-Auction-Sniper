@@ -24,6 +24,59 @@ def _terminal_status(text):
     return None
 
 
+def _clive_facts(text, headline=""):
+    """Extract decision-useful facts that Clive Emson publishes explicitly."""
+    t = norm(text or "")
+    low = t.lower()
+    head = norm(headline or "")
+    facts = {}
+
+    # Prefer the marketed use in the lot headline over broad catalogue categories
+    # such as "Vacant Commercial".
+    if re.search(r"\boffices?\b", head, re.I) or re.search(r"previously been used as offices", t, re.I):
+        facts["property_type"] = "Office"
+    elif re.search(r"\bretail\b|\bshop\b", head, re.I):
+        facts["property_type"] = "Retail"
+
+    sqm = re.search(r"Total Floor Area\s*([\d,]+(?:\.\d+)?)\s*sq\.?m\.?", t, re.I)
+    if sqm:
+        value = float(sqm.group(1).replace(",", ""))
+        facts["area_sqm"] = value
+        facts["area_sqft"] = round(value * 10.7639, 1)
+
+    epc = re.search(r"EPC Rating\s*([A-G])\s*\(\s*(\d{1,3})\s*\)", t, re.I)
+    if epc:
+        facts["epc"] = f"{epc.group(1).upper()} ({epc.group(2)})"
+
+    residential = bool(re.search(
+        r"residential conversion|convert .*?residential|single residential dwelling|"
+        r"house of multiple occupation|\bHMO\b|self-contained residential units",
+        t, re.I,
+    ))
+    if residential:
+        facts["residential_conversion"] = True
+        facts["development_potential"] = True
+
+    if re.search(r"subject to all necessary consents|subject to .*?consents", t, re.I):
+        facts["development_potential"] = True
+
+    highlights = []
+    if re.search(r"basement has separate access|basement \(separate access\)|direct rear access into the basement", t, re.I):
+        highlights.append("Basement with separate access")
+    if re.search(r"courtyard garden|rear courtyard|yard to rear", t, re.I):
+        highlights.append("Rear courtyard / yard")
+    if re.search(r"old town location|adjacent to .*?old town", t, re.I):
+        highlights.append("Old Town location")
+    if re.search(r"close to seafront|short distance of the seafront", t, re.I):
+        highlights.append("Close to seafront")
+    if re.search(r"main roof has been replaced within the last 12 months", t, re.I):
+        highlights.append("Main roof replaced within last 12 months")
+    if highlights:
+        facts["pitch"] = " · ".join(highlights)
+
+    return facts
+
+
 def _parse_detail(url, seed, auction_date):
     page = soup(url, use_browser=False)
     text = norm(page.get_text(" ", strip=True))
@@ -35,9 +88,10 @@ def _parse_detail(url, seed, auction_date):
         return None
 
     h1 = page.find("h1")
+    h1_text = norm(h1.get_text(" ", strip=True)) if h1 else ""
     lot_number = None
     if h1:
-        ml = re.search(r"Lot\s+(\d+[A-Z]?)", norm(h1.get_text(" ", strip=True)), re.I)
+        ml = re.search(r"Lot\s+(\d+[A-Z]?)", h1_text, re.I)
         if ml:
             lot_number = "Lot " + ml.group(1)
     if not lot_number:
@@ -47,7 +101,7 @@ def _parse_detail(url, seed, auction_date):
     h2 = page.find("h2")
     address = norm(h2.get_text(" ", strip=True)) if h2 else (seed or url)
 
-    mdate = re.search(r"Auction Date:\s*(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})", text, re.I)
+    mdate = re.search(r"Auction (?:Ends|Date):\s*(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})", text, re.I)
     if mdate:
         auction_date = datetime.strptime(" ".join(mdate.groups()), "%d %B %Y").date().isoformat()
 
@@ -55,6 +109,8 @@ def _parse_detail(url, seed, auction_date):
     low = text.lower()
     occ = "Vacant" if "vacant possession" in low or "category vacant commercial" in low else None
     lifecycle = _terminal_status(seed + " " + text) or "CURRENT"
+    facts = _clive_facts(text, h1_text)
+
     return Lot(
         source=SOURCE,
         url=url,
@@ -69,9 +125,15 @@ def _parse_detail(url, seed, auction_date):
         legal_pack_status=lp_status,
         legal_pack_url=lp_url,
         status=lifecycle,
-        description=text[:5000],
-        property_type=category or "Commercial / Mixed Use",
+        description=text[:7000],
+        property_type=facts.get("property_type") or category or "Commercial / Mixed Use",
         occupation=occ,
+        area_sqft=facts.get("area_sqft"),
+        area_sqm=facts.get("area_sqm"),
+        epc=facts.get("epc"),
+        development_potential=facts.get("development_potential"),
+        residential_conversion=facts.get("residential_conversion"),
+        pitch=facts.get("pitch"),
     ).finalise()
 
 
