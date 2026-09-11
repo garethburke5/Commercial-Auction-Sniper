@@ -1,0 +1,31 @@
+{
+  "source": "Savills Auctions",
+  "frontier": "2019",
+  "verified_history_v2_events_before_repair": 3250,
+  "verified_lot_level_boundary_before_repair": "2019-12-16",
+  "blocker": {
+    "route": "commoncrawl-warc-aid-date-to-live-savills-first-party",
+    "message": "Archived Savills LotList WARC captures successfully map legacy auction IDs to exact 2019 auction dates, but the existing recovery produced no usable lot URLs because pid-bearing LotDetails links are embedded in the archived catalogue HTML rather than guaranteed to appear as Common Crawl index-row URLs.",
+    "failing_live_legacy_routes": [
+      "https://auctions.savills.co.uk/Auctions/LotList?aid=1087",
+      "https://auctions.savills.co.uk/Auctions/LotList?aid=1088",
+      "https://auctions.savills.co.uk/Auctions/LotList?aid=1089",
+      "https://auctions.savills.co.uk/Auctions/LotList?aid=1090"
+    ],
+    "known_unresolved_dates": [
+      "2019-11-04",
+      "2019-09-23",
+      "2019-07-17",
+      "2019-05-29",
+      "2019-04-02"
+    ]
+  },
+  "repair_implemented_same_run": {
+    "script": "savills_legacy_catalogue_capture_link_recovery.py",
+    "workflow": ".github/workflows/savills-2019-frontier-resilient.yml",
+    "route": "Parse archived Savills LotList WARC capture bodies for exact LotDetails?aid=...&pid=... links, then validate each candidate against a surviving first-party Savills page before canonical History V2 persistence.",
+    "fallback_if_zero": "Query exact legacy LotDetails URL prefixes by recovered aid across deterministic 2019 Common Crawl indexes, then validate surviving first-party Savills pages before persistence."
+  },
+  "historically_complete": false,
+  "discovery_exhausted": false
+}
