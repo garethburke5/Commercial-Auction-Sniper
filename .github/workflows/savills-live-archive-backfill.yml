@@ -9,6 +9,7 @@ on:
       - 'savills_live_archive_backfill.py'
       - 'savills_live_archive_latent_probe.py'
       - 'savills_legacy_aid_discovery.py'
+      - 'savills_legacy_aid_fast_discovery.py'
       - 'savills_legacy_aid_capture_recovery.py'
       - 'savills_manifest_aid_capture_recovery.py'
       - 'historical_savills.py'
@@ -41,7 +42,7 @@ jobs:
           pip install playwright
           python -m playwright install chromium
       - name: Compile live-first repair
-        run: python -m py_compile savills_live_archive_backfill.py savills_live_archive_latent_probe.py historical_savills.py savills_legacy_aid_discovery.py savills_legacy_aid_capture_recovery.py savills_manifest_aid_capture_recovery.py history_database.py collectors/savills.py
+        run: python -m py_compile savills_live_archive_backfill.py savills_live_archive_latent_probe.py historical_savills.py savills_legacy_aid_discovery.py savills_legacy_aid_fast_discovery.py savills_legacy_aid_capture_recovery.py savills_manifest_aid_capture_recovery.py history_database.py collectors/savills.py
       - name: Exhaust complete live Savills archive dynamically
         run: python savills_live_archive_backfill.py
       - name: Guard transition beyond live archive
@@ -68,7 +69,7 @@ jobs:
           PY
       - name: Bridge unresolved live dates through first-party legacy LotList IDs
         if: steps.livegate.outputs.legacy_allowed == 'true'
-        run: python savills_legacy_aid_discovery.py --probe-ids 500 --max-auctions 12 --floor-aid 1
+        run: python savills_legacy_aid_fast_discovery.py --probe-ids 600 --max-auctions 16 --floor-aid 1 --workers 24 --timeout 7
       - name: Recover oldest unresolved manifest year through archived aid captures
         if: steps.livegate.outputs.legacy_allowed == 'true'
         continue-on-error: true
