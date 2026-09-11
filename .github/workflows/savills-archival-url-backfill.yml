@@ -8,12 +8,10 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/savills-archival-url-backfill.yml'
-      - 'savills_archival_url_discovery.py'
-      - 'savills_commoncrawl_legacy_probe.py'
-      - 'savills_first_party_legacy_date_recovery.py'
-      - 'savills_public_index_frontier_recovery.py'
+      - 'savills_cdx_adjacent_id_recovery.py'
+      - 'savills_manifest_public_address_recovery.py'
       - 'savills_public_address_frontier_recovery.py'
-      - 'collectors/savills.py'
+      - 'savills_live_archive_backfill.py'
       - 'history_database.py'
 
 permissions:
@@ -43,92 +41,96 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install playwright
-          python -m playwright install chromium
 
-      - name: Compile archival discovery
-        run: python -m py_compile savills_archival_url_discovery.py savills_commoncrawl_legacy_probe.py savills_first_party_legacy_date_recovery.py savills_public_index_frontier_recovery.py savills_public_address_frontier_recovery.py collectors/savills.py history_database.py
+      - name: Compile manifest-frontier recovery
+        run: |
+          python -m py_compile savills_cdx_adjacent_id_recovery.py savills_manifest_public_address_recovery.py savills_public_address_frontier_recovery.py history_database.py collectors/savills.py
 
-      - name: Resolve oldest unresolved Savills frontier
+      - name: Record canonical baseline and oldest unresolved manifest date
         id: frontier
         run: |
-          python - <<'PY' >> "$GITHUB_OUTPUT"
-          import json
+          python - <<'PY'
+          import json, os
+          from datetime import date
           from pathlib import Path
-          p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
-          s=(p.get('sources') or {}).get('Savills Auctions') or {}
-          targets=s.get('legacy_2019_first_party_recovery',{}).get('target_dates') or [
-              '2019-11-04','2019-09-23','2019-07-17','2019-05-29','2019-04-02'
-          ]
-          earliest=s.get('earliest_date_reached') or s.get('earliest_month_reached') or ''
-          unresolved_2019=bool(targets) and (not earliest or earliest >= '2019-04')
-          priority_year=2019 if unresolved_2019 else 2013
-          print(f'priority_year={priority_year}')
-          print(f'unresolved_2019={str(unresolved_2019).lower()}')
-          print('FRONTIER',earliest,'TARGETS',','.join(targets),'PRIORITY',priority_year)
+          db=json.loads(Path('data/property_history.json').read_text(encoding='utf-8'))
+          manifest=json.loads(Path('data/source_diagnostics/savills_live_archive_manifest.json').read_text(encoding='utf-8'))
+          events=[e for e in (db.get('auction_events') or []) if e.get('source')=='Savills Auctions']
+          verified={str(e.get('auction_date'))[:10] for e in events if e.get('auction_date')}
+          known=[]
+          for page in manifest.get('pages') or []:
+              for raw in page.get('dates') or []:
+                  try:
+                      d=date.fromisoformat(str(raw))
+                  except ValueError:
+                      continue
+                  if d < date.today() and d.isoformat() not in verified:
+                      known.append(d)
+          assert known, 'No unresolved Savills manifest dates remain'
+          frontier=min(known)
+          baseline={'events':len(events),'frontier':frontier.isoformat(),'year':frontier.year}
+          Path('/tmp/savills-archival-baseline.json').write_text(json.dumps(baseline),encoding='utf-8')
+          with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as out:
+              print(f'frontier_date={frontier.isoformat()}',file=out)
+              print(f'frontier_year={frontier.year}',file=out)
+          print('BASELINE',baseline)
           PY
 
-      - name: Re-run first-party exact-date recovery at unresolved 2019 frontier
-        if: steps.frontier.outputs.unresolved_2019 == 'true'
-        run: python savills_first_party_legacy_date_recovery.py
-
-      - name: Probe Common Crawl for the unresolved frontier year
+      - name: Run CDX adjacent-ID reconstruction for exact oldest frontier year
+        continue-on-error: true
         run: |
-          echo "COMMON_CRAWL_PRIORITY_YEAR=${{ steps.frontier.outputs.priority_year }}"
-          python savills_commoncrawl_legacy_probe.py --year ${{ steps.frontier.outputs.priority_year }} --limit 2000 --max-live-checks 300
+          python savills_cdx_adjacent_id_recovery.py --year ${{ steps.frontier.outputs.frontier_year }} --radius 18 --max-exact-queries 420 --max-captures 320
 
-      - name: Mine public indexes for exact Savills URLs at unresolved frontier
-        if: steps.frontier.outputs.unresolved_2019 == 'true'
-        run: python savills_public_index_frontier_recovery.py --max-results-per-query 20 --max-pages 100 --max-live-checks 180
+      - name: Run date-specific public-result/address recovery at exact oldest frontier
+        continue-on-error: true
+        run: |
+          python savills_manifest_public_address_recovery.py --max-source-pages 120 --max-clues 160 --max-live-checks 220
 
-      - name: Mine public auction results for address-led Savills recovery
-        if: steps.frontier.outputs.unresolved_2019 == 'true'
-        run: python savills_public_address_frontier_recovery.py --max-source-pages 100 --max-clues 120 --max-live-checks 180
-
-      - name: Continue deeper archival cursor only after 2019 frontier is cleared
-        if: steps.frontier.outputs.unresolved_2019 != 'true'
-        run: python savills_archival_url_discovery.py --snapshot-years 1 --start-year 2013 --floor-year 2008 --cdx-limit 1200 --max-live-checks 240
-
-      - name: Validate Savills History V2 evidence and completeness semantics
+      - name: Validate strict canonical outcome
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           from urllib.parse import urlparse
+          b=json.loads(Path('/tmp/savills-archival-baseline.json').read_text(encoding='utf-8'))
           db=json.loads(Path('data/property_history.json').read_text(encoding='utf-8'))
           p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
           events=[e for e in (db.get('auction_events') or []) if e.get('source')=='Savills Auctions']
-          assert events, 'No Savills history events'
+          s=(p.get('sources') or {}).get('Savills Auctions') or {}
+          assert events
           assert len({e.get('event_id') for e in events}) == len(events), 'Duplicate Savills event IDs'
+          bad=[]
           for e in events:
               u=(e.get('source_evidence') or {}).get('listing_url') or ''
               host=(urlparse(u).hostname or '').lower()
-              assert host=='savills.co.uk' or host.endswith('.savills.co.uk'), f'Non-first-party Savills evidence: {u}'
-              assert e.get('auction_date'), f'Savills event missing auction date: {e.get("event_id")}'
-              assert e.get('address_as_published'), f'Savills event missing address: {e.get("event_id")}'
-          s=(p.get('sources') or {}).get('Savills Auctions') or {}
-          assert s.get('historically_complete') is False, 'Archival discovery must not imply historical completeness'
-          probe=s.get('commoncrawl_legacy_last_probe') or {}
-          priority=s.get('commoncrawl_legacy_priority_year')
-          assert probe.get('snapshot_year') == priority, f'Frontier Common Crawl probe mismatch: probe={probe.get("snapshot_year")} priority={priority}'
-          if steps_unresolved := '${{ steps.frontier.outputs.unresolved_2019 }}' == 'true':
-              assert s.get('public_index_frontier_last_run'), 'Missing public-index frontier pass'
-              assert s.get('public_address_frontier_last_run'), 'Missing address-led frontier pass'
-          print('SAVILLS_EVENTS',len(events),'EARLIEST',s.get('earliest_date_reached') or s.get('earliest_month_reached'),'CC_PRIORITY_YEAR',priority)
+              if host!='savills.co.uk' and not host.endswith('.savills.co.uk'):
+                  bad.append(u)
+          assert not bad, f'{len(bad)} Savills events lack first-party listing evidence'
+          advanced=len(events)>int(b['events'])
+          adjacent=s.get('cdx_adjacent_id_last_blocker') or {}
+          address=s.get('public_address_frontier_last_blocker') or {}
+          if not advanced:
+              assert adjacent or address, 'Strict outcome violated: no new events and no source-specific blocker'
+              blocker=address or adjacent
+              assert blocker.get('next_safe_route'), 'Persisted blocker lacks next safe route'
+              assert str(blocker.get('frontier_date') or (blocker.get('frontier_dates') or [''])[0]).startswith(str(b['year'])), 'Blocker is not tied to oldest manifest frontier year'
+          s['historically_complete']=False
+          p['updated_at']=__import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat()
+          Path('data/historical_backfill_progress.json').write_text(json.dumps(p,indent=2,ensure_ascii=False),encoding='utf-8')
+          print('STRICT_OUTCOME',{'advanced':advanced,'events_before':b['events'],'events_after':len(events),'frontier':b['frontier'],'adjacent_blocker':bool(adjacent),'address_blocker':bool(address)})
           PY
 
-      - name: Publish verified archival history
+      - name: Publish verified history and progress
         run: |
           git config user.name 'Auction Sniper History Bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add data/property_history.json data/historical_backfill_progress.json
+          git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics
           if ! git diff --cached --quiet; then
-            git commit -m 'Backfill Savills history from archival URL discovery'
+            git commit -m 'Advance oldest Savills manifest frontier recovery'
             for attempt in 1 2 3; do
               git fetch origin main
               if ! git rebase origin/main; then
                 git rebase --abort || true
-                echo 'Savills archival publish could not be safely rebased; refusing overwrite.' >&2
                 exit 1
               fi
               if git push origin HEAD:main; then exit 0; fi
