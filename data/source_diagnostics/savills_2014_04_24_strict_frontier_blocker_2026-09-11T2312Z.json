@@ -1,0 +1,42 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T23:12:00Z",
+  "frontier_date": "2014-04-24",
+  "canonical_state": {
+    "savills_events": 3250,
+    "earliest_verified_lot_date": "2019-12-16",
+    "invalid_event_removed": {
+      "address": "Put your home in expert hands",
+      "listing_url": "https://www.savills.co.uk/",
+      "auction_date": "2014-04-24"
+    }
+  },
+  "integrity_rule": "A canonical Savills auction event must use a lot-specific https://auctions.savills.co.uk listing URL. Generic corporate, search, or property pages cannot inherit an auction date from discovery context.",
+  "failed_routes": [
+    {
+      "route": "public-auction-result-address-plus-archive-url-to-live-savills-validation",
+      "frontier_date": "2014-04-24",
+      "result": "Three exact-date public-result queries returned zero source pages, zero address clues, zero candidate Savills URLs, and zero canonical events."
+    },
+    {
+      "route": "bing-rss-date-address-to-strict-savills-lot-oldest-manifest-date",
+      "frontier_date": "2014-04-24",
+      "result": "Bing RSS returned 30 mostly irrelevant result URLs, zero address clues, zero Savills lot candidates, zero live checks, and zero canonical events after strict lot-specific evidence validation was enabled."
+    }
+  ],
+  "root_cause_repaired": {
+    "issue": "The shared historical recover_candidate path previously allowed generic savills.co.uk pages with no embedded auction date to inherit the target date and be parsed as commercial history.",
+    "repair_commit": "d06901abb1432e220fe367d45ba7c3a34732e885",
+    "integrity_repair_commit": "c790d1d52e00a64fcf8169abda93e4b2e21c1a3f",
+    "workflow_commit": "3bd737172335d7ec52ae7b804b8cfbafd870cc31"
+  },
+  "implemented_next_probe": {
+    "route": "commoncrawl-exact-date-legacy-lot-url-reconstruction",
+    "implementation_commit": "a1c9c46cc4ac665bedbf2e491abc136e4261eec4",
+    "workflow_commit": "d61741fed1936a17a9694280d3638714be5707fb",
+    "method": "Query free Common Crawl indexes for historical Savills legacy/current lot URL families around the target year, inspect bounded WARC captures for the exact 24 April 2014 auction date, reconstruct original Savills URLs, and persist only when a surviving lot-specific auctions.savills.co.uk page validates the date and commercial/mixed-use classification."
+  },
+  "next_success_condition": "Persist one or more lot-specific first-party-validated commercial/mixed-use Savills events for 24 April 2014; otherwise persist the exact Common Crawl capture/URL blocker and advance to archived Savills PastAuctions/Venue catalogue-body aid recovery.",
+  "historically_complete": false,
+  "discovery_exhausted": false
+}
