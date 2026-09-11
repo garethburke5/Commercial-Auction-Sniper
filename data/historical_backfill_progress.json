@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-11T08:11:46.345450+00:00",
+  "updated_at": "2026-09-11T08:26:55.888689+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "DISCOVERY EXPANSION",
+      "status": "LIVE ARCHIVE BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3250,
@@ -2039,6 +2039,12 @@
           "CC-MAIN-2019-51 aid=1090 Venue http :: URLError: <urlopen error timed out>"
         ],
         "next_safe_route": "Query exact archived LotDetails captures for the already-known pid GUIDs, use archived body metadata to recover property/date context, then validate the surviving live Savills property page without any catalogue-prefix query."
+      },
+      "legacy_pid_wayback_runtime_blocker": {
+        "at": "2026-09-11T08:26:55.888689+00:00",
+        "route": "wayback-cdx-exact-legacy-pid-to-live-savills",
+        "message": "Independent Wayback exact-pid recovery failed at runtime. The already-persisted Common Crawl 2019 outage is intentionally not being re-probed in this invocation.",
+        "next_safe_route": "Use surviving Savills first-party archive dates plus public search-engine indexed snippets/PDF catalogue references to map the already-known legacy aid/pid IDs; validate every lot on the surviving Savills first-party page before persistence."
       }
     }
   }
