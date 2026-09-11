@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-11T23:07:51.668883+00:00",
+  "updated_at": "2026-09-11T23:09:12.230601+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -130,8 +130,8 @@
       "status": "LIVE ARCHIVE BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
-      "lots_captured": 3251,
-      "earliest_month_reached": "2014-04",
+      "lots_captured": 3250,
+      "earliest_month_reached": "2019-12",
       "completed_auction_ids": [
         "3",
         "6",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "public-address-archive-url-to-live-savills-first-party",
+      "last_discovery_mode": "bing-rss-date-address-to-live-savills-validation",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -1703,7 +1703,7 @@
       "live_archive_latent_events_added": 0,
       "live_archive_latent_failures": [],
       "last_live_archive_latent_diagnostic": "data/source_diagnostics/savills_live_archive_page14_latent_routes_2026-09-10T2003Z.json",
-      "earliest_date_reached": "2014-04-24",
+      "earliest_date_reached": "2019-12-16",
       "surviving_catalogue_last_run_at": "2026-09-11T03:10:19.902928+00:00",
       "surviving_catalogue_last_attempts": [
         {
@@ -3224,10 +3224,10 @@
         "next_safe_route": "Use archive-summary sale totals and date-specific public result pages to recover exact property addresses/lot numbers for the frontier sale, then resolve those addresses against archived Savills first-party captures before persistence."
       },
       "public_address_frontier_last_run": {
-        "at": "2026-09-11T23:07:51.668826+00:00",
+        "at": "2026-09-11T23:08:44.416228+00:00",
         "route": "public-auction-result-address-plus-archive-url-to-live-savills-validation",
         "frontier_dates": [
-          "2014-05-07"
+          "2014-04-24"
         ],
         "source_queries_attempted": 3,
         "source_pages_examined": 0,
@@ -3237,24 +3237,24 @@
         "live_checked": 0,
         "commercial_rows_seen": 0,
         "canonical_events_added": 0,
-        "savills_events_before": 3251,
-        "savills_events_after": 3251,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
         "query_hits": [
           {
-            "auction_date": "2014-05-07",
-            "query": "\"Savills\" \"7 May 2014\" \"auction results\" property",
+            "auction_date": "2014-04-24",
+            "query": "\"Savills\" \"24 April 2014\" \"auction results\" property",
             "results": 0,
             "sample_urls": []
           },
           {
-            "auction_date": "2014-05-07",
-            "query": "\"Savills Auctions\" \"7 May 2014\" lot",
+            "auction_date": "2014-04-24",
+            "query": "\"Savills Auctions\" \"24 April 2014\" lot",
             "results": 0,
             "sample_urls": []
           },
           {
-            "auction_date": "2014-05-07",
-            "query": "\"7 May 2014\" Savills \"sold\" \"lot\" property",
+            "auction_date": "2014-04-24",
+            "query": "\"24 April 2014\" Savills \"sold\" \"lot\" property",
             "results": 0,
             "sample_urls": []
           }
@@ -3266,11 +3266,11 @@
         "lookup_errors": []
       },
       "public_address_frontier_last_blocker": {
-        "at": "2026-09-11T23:07:51.668826+00:00",
+        "at": "2026-09-11T23:08:44.416228+00:00",
         "route": "public-auction-result-address-plus-archive-url-to-live-savills-validation",
         "message": "Address-led recovery produced no older validated Savills History V2 event. Direct postcode search and historical/Wayback URL extraction were attempted; no candidate is accepted unless a surviving first-party Savills page validates the auction date and property.",
         "frontier_dates": [
-          "2014-05-07"
+          "2014-04-24"
         ],
         "address_clues": 0,
         "candidate_live_or_archived_savills_urls": 0,
@@ -3278,7 +3278,7 @@
         "next_safe_route": "Use any recovered exact address/postcode clues to enumerate historical Savills legacy pid/slug candidates through free CDX/index snapshots and validate the originals against surviving Savills first-party pages before persistence."
       },
       "bing_rss_frontier_last_run": {
-        "at": "2026-09-11T22:10:39.087515+00:00",
+        "at": "2026-09-11T23:09:12.230556+00:00",
         "route": "bing-rss-date-address-to-live-savills-validation",
         "frontier_date": "2014-04-24",
         "queries": [
@@ -3286,22 +3286,22 @@
             "query": "\"Savills\" \"24 April 2014\" \"auction results\" property UK",
             "results": 10,
             "sample": [
-              "https://www.savills.com/",
-              "https://www.savills.us/",
-              "https://en.wikipedia.org/wiki/Savills",
-              "https://www.savills.us/why-savills/",
-              "https://www.savills.co.uk/"
+              "https://www.themodern.org/",
+              "https://www.themodern.org/about-modern",
+              "https://en.wikipedia.org/wiki/Modern_Art_Museum_of_Fort_Worth",
+              "https://www.fortworth.com/listing/modern-art-museum-of-fort-worth/4178/",
+              "https://www.fortworth.com/listing/modern-art-museum-of-fort-worth/4436/"
             ]
           },
           {
             "query": "\"Savills Auctions\" \"24 April 2014\" lot property",
             "results": 10,
             "sample": [
-              "https://www.savills.com/",
-              "https://www.savills.us/",
-              "https://en.wikipedia.org/wiki/Savills",
-              "https://www.savills.us/why-savills/",
-              "https://www.savills.co.uk/"
+              "https://forum.donanimhaber.com/watsap-web-hk--116201168",
+              "https://forum.donanimhaber.com/whatsapp-web-e-sifre-koyma--135338161",
+              "https://answers.microsoft.com/en-us/msoffice/forum/all/file-did-not-get-saved-on-one-drive/59024bed-1dca-46ff-a4ab-dc0d1db704aa",
+              "https://answers.microsoft.com/en-us/msteams/forum/all/assignment-notifications-dont-occur-in-a-teams/30905e6b-adeb-4e92-848e-1d36efcc3a13",
+              "https://forum.donanimhaber.com/iphone-whatsapp-donma-sorunu--156726426"
             ]
           },
           {
@@ -3311,8 +3311,8 @@
               "https://en.wikipedia.org/wiki/24_(TV_series)",
               "https://www.imdb.com/title/tt0285331/",
               "https://www.disneyplus.com/browse/entity-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
-              "https://www.hulu.com/series/24-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
-              "https://www.amazon.com/24-Season-1/dp/B000HPF85A"
+              "https://en.wikipedia.org/wiki/List_of_24_characters",
+              "https://www.cp24.com/video/live/"
             ]
           },
           {
@@ -3322,54 +3322,31 @@
               "https://en.wikipedia.org/wiki/24_(TV_series)",
               "https://www.imdb.com/title/tt0285331/",
               "https://www.disneyplus.com/browse/entity-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
-              "https://www.hulu.com/series/24-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
-              "https://www.amazon.com/24-Season-1/dp/B000HPF85A"
+              "https://en.wikipedia.org/wiki/List_of_24_characters",
+              "https://www.cp24.com/video/live/"
             ]
           }
         ],
-        "unique_result_urls": 20,
-        "source_pages_examined": 18,
-        "address_clues": 3,
-        "candidate_savills_urls": 2,
-        "live_checked": 2,
-        "commercial_rows_seen": 1,
-        "canonical_events_added": 1,
+        "unique_result_urls": 30,
+        "source_pages_examined": 30,
+        "address_clues": 0,
+        "candidate_savills_urls": 0,
+        "live_checked": 0,
+        "commercial_rows_seen": 0,
+        "canonical_events_added": 0,
         "savills_events_before": 3250,
-        "savills_events_after": 3251,
-        "clue_samples": [
-          {
-            "postcode": "W1G 0JD",
-            "context": "copyright Savills. All rights reserved. Savills plc, incorporated and registered in England and Wales. Registered office: 33 Margaret Street, London, W1G 0JD. Registered number: 2122174. Savills plc is",
-            "source_url": "https://www.savills.com/",
-            "source_title": "Savills | Global Real Estate Services"
-          },
-          {
-            "postcode": "W1G 0JD",
-            "context": "copyright Savills. All rights reserved. Savills plc, incorporated and registered in England and Wales. Registered office: 33 Margaret Street, London, W1G 0JD. Registered number: 2122174. Savills plc is",
-            "source_url": "https://www.savills.com/find-a-property/",
-            "source_title": "Savills | Find a Property"
-          },
-          {
-            "postcode": "W1G 0JD",
-            "context": "erty Leasing, Commercial Research, Residential Research, International Property, and Commercial Property Locations Primary 33 Margaret Street London, W1G 0JD, GB Get directions Employees at Savills Jeff",
-            "source_url": "https://www.linkedin.com/company/savills",
-            "source_title": "Savills - LinkedIn"
-          }
-        ],
-        "rejected_samples": [
-          {
-            "url": "https://www.savills.co.uk/find-a-property/",
-            "reason": "live page date 2026-09-10 conflicts with archived catalogue date 2014-04-24",
-            "discovery_url": "https://www.savills.co.uk/find-a-property/"
-          }
-        ],
+        "savills_events_after": 3250,
+        "clue_samples": [],
+        "rejected_samples": [],
         "errors": [
-          "https://www.britannica.com/topic/24-television-series :: HTTPError: HTTP Error 403: Forbidden"
+          "https://www.tripadvisor.com/Attraction_Review-g55857-d531661-Reviews-Modern_Art_Museum_of_Fort_Worth-Fort_Worth_Texas.html :: HTTPError: HTTP Error 403: Forbidden",
+          "https://www.yelp.com/biz/modern-art-museum-of-fort-worth-fort-worth :: HTTPError: HTTP Error 403: Forbidden",
+          "https://kiefersutherland.com/24/ :: HTTPError: HTTP Error 403: Forbidden"
         ]
       },
       "history_integrity_last_run": {
-        "at": "2026-09-11T21:16:15.404098+00:00",
-        "route": "canonical-savills-lot-url-integrity-repair",
+        "at": "2026-09-11T23:08:41.649965+00:00",
+        "route": "canonical-savills-lot-url-integrity-repair-all-events",
         "removed_events": [
           {
             "event_id": "16d36b26c5015ef491bcb18f",
@@ -3381,7 +3358,7 @@
         "removed_count": 1,
         "savills_events_after": 3250,
         "earliest_verified_after": "2019-12-16",
-        "rule": "A historical Savills frontier event is not canonical unless its evidence listing URL is a lot-specific auctions.savills.co.uk route; generic Savills corporate/search/property pages cannot inherit an auction date from discovery context."
+        "rule": "Every canonical Savills auction event must carry a lot-specific auctions.savills.co.uk listing URL. Generic Savills corporate/search/property pages cannot inherit an auction date from discovery context."
       },
       "result_document_frontier_last_run": {
         "at": "2026-09-11T21:16:17.436089+00:00",
@@ -3498,6 +3475,16 @@
         "route": "wayback-cdx-wildcard-oldest-manifest-date-to-live-savills-validation",
         "message": "Wayback wildcard enumeration did not produce a surviving first-party Savills commercial lot page that can be safely persisted.",
         "next_safe_route": "Use exact addresses/lot references recovered from public auction-result indexes for this target date, then search the surviving Savills first-party namespace by address/slug before any persistence."
+      },
+      "bing_rss_frontier_last_blocker": {
+        "at": "2026-09-11T23:09:12.230556+00:00",
+        "route": "bing-rss-date-address-to-live-savills-validation",
+        "frontier_date": "2014-04-24",
+        "message": "Bing RSS date/address discovery produced no new first-party-validated commercial Savills event.",
+        "result_urls": 30,
+        "address_clues": 0,
+        "candidate_savills_urls": 0,
+        "next_safe_route": "Query free Common Crawl indexes for postcode/address tokens recovered here (or exact auction-date snippets if no address is recovered), reconstruct archived Savills pid/slug originals, then validate against surviving Savills first-party pages before persistence."
       }
     }
   }
