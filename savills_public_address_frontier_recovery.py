@@ -22,6 +22,7 @@ from savills_legacy_aid_capture_recovery import (
 UA = "Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)"
 DDG = "https://html.duckduckgo.com/html/?q="
 POSTCODE_RE = re.compile(r"\b(?:GIR\s?0AA|(?:(?:[A-PR-UWYZ][0-9][0-9A-HJKSTUW]?|[A-PR-UWYZ][A-HK-Y][0-9][0-9ABEHMNPRV-Y]?)\s?[0-9][ABD-HJLNP-UW-Z]{2}))\b", re.I)
+WAYBACK_ORIGINAL_RE = re.compile(r"https?://web\.archive\.org/web/(?:\d{1,14}(?:[a-z_]{0,8})?/)?(https?://[^\s\"'<>]+)", re.I)
 
 
 def fetch_text(url: str, timeout: int = 20) -> str:
@@ -80,14 +81,59 @@ def date_phrase(d: date) -> str:
     return d.strftime("%-d %B %Y")
 
 
-def live_savills_urls(search_page: str) -> list[str]:
-    out = []
+def is_savills_url(u: str) -> bool:
+    host = (urlparse(u).hostname or "").lower()
+    return host == "savills.co.uk" or host.endswith(".savills.co.uk")
+
+
+def original_savills_from_wayback(u: str) -> str | None:
+    m = WAYBACK_ORIGINAL_RE.match(html_lib.unescape(u or ""))
+    if not m:
+        return None
+    original = unquote(m.group(1)).rstrip(".,);]")
+    if is_savills_url(original):
+        return original
+    return None
+
+
+def candidate_savills_urls(search_page: str) -> list[tuple[str, str]]:
+    """Return (candidate first-party URL, discovery URL), including originals exposed by Wayback results."""
+    out: list[tuple[str, str]] = []
+    seen = set()
     for u in result_urls(search_page):
-        host = (urlparse(u).hostname or "").lower()
-        if host == "savills.co.uk" or host.endswith(".savills.co.uk"):
-            if u not in out:
-                out.append(u)
+        candidate = None
+        if is_savills_url(u):
+            candidate = u
+        else:
+            candidate = original_savills_from_wayback(u)
+        if not candidate:
+            continue
+        key = candidate.rstrip("/")
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append((candidate, u))
+    # Search snippets sometimes contain archive URLs without them appearing as hrefs.
+    for raw in WAYBACK_ORIGINAL_RE.findall(html_lib.unescape(search_page or "")):
+        original = unquote(raw).rstrip(".,);]")
+        if not is_savills_url(original):
+            continue
+        key = original.rstrip("/")
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append((original, "wayback-search-snippet"))
     return out
+
+
+def compact_address_fragment(context: str, postcode: str) -> str:
+    """Prefer words immediately preceding postcode; these are usually the street/locality rather than result boilerplate."""
+    pos = context.upper().find(postcode.upper())
+    left = context[:pos] if pos >= 0 else context
+    words = re.findall(r"[A-Za-z0-9'-]+", left)
+    noise = {"savills", "auction", "auctions", "lot", "sold", "sale", "property", "guide", "price", "results", "result"}
+    words = [w for w in words if w.lower() not in noise]
+    return " ".join(words[-14:])
 
 
 def run(max_source_pages: int = 100, max_clues: int = 120, max_live_checks: int = 180) -> int:
@@ -147,16 +193,18 @@ def run(max_source_pages: int = 100, max_clues: int = 120, max_live_checks: int 
 
     candidates: dict[str, dict] = {}
     lookup_errors = []
+    archive_candidates = 0
     for clue in clues:
         d = clue["auction_date"]
         context = clue["context"]
-        # Postcode is the stable anchor; add a short context fragment to reduce collisions.
-        words = re.findall(r"[A-Za-z0-9'-]+", context)
-        fragment = " ".join(words[-18:])
+        fragment = compact_address_fragment(context, clue["postcode"])
         queries = [
             f'site:auctions.savills.co.uk "{clue["postcode"]}"',
             f'site:savills.co.uk "{clue["postcode"]}" "{date_phrase(d)}"',
             f'site:auctions.savills.co.uk "{clue["postcode"]}" "{fragment}"',
+            f'"{clue["postcode"]}" "{fragment}" "auctions.savills.co.uk/Auctions/LotDetails"',
+            f'"{clue["postcode"]}" "{fragment}" "auctions.savills.co.uk/auctions/"',
+            f'site:web.archive.org/web "{clue["postcode"]}" "auctions.savills.co.uk" "{fragment}"',
         ]
         for q in queries:
             try:
@@ -165,10 +213,14 @@ def run(max_source_pages: int = 100, max_clues: int = 120, max_live_checks: int 
                 if len(lookup_errors) < 80:
                     lookup_errors.append(f"{q} :: {type(exc).__name__}: {exc}")
                 continue
-            for u in live_savills_urls(page):
-                rec = candidates.setdefault(u, {"auction_date": d, "discovery_urls": [], "postcodes": [], "contexts": []})
+            for candidate, found_via in candidate_savills_urls(page):
+                if "web.archive.org" in found_via:
+                    archive_candidates += 1
+                rec = candidates.setdefault(candidate, {"auction_date": d, "discovery_urls": [], "postcodes": [], "contexts": [], "search_result_urls": []})
                 if clue["source_url"] not in rec["discovery_urls"]:
                     rec["discovery_urls"].append(clue["source_url"])
+                if found_via not in rec["search_result_urls"]:
+                    rec["search_result_urls"].append(found_via)
                 if clue["postcode"] not in rec["postcodes"]:
                     rec["postcodes"].append(clue["postcode"])
                 if context not in rec["contexts"]:
@@ -180,11 +232,12 @@ def run(max_source_pages: int = 100, max_clues: int = 120, max_live_checks: int 
         if checked >= max_live_checks:
             break
         checked += 1
-        discovery = meta["discovery_urls"][0] if meta["discovery_urls"] else candidate
+        discovery = meta["search_result_urls"][0] if meta["search_result_urls"] else (meta["discovery_urls"][0] if meta["discovery_urls"] else candidate)
         row, reason = recover_candidate(candidate, meta["auction_date"], discovery)
         if row:
             row["archival_discovery_url"] = discovery
             row["public_address_discovery_urls"] = meta["discovery_urls"][:8]
+            row["public_address_search_result_urls"] = meta["search_result_urls"][:8]
             row["public_address_postcodes"] = meta["postcodes"][:4]
             recovered.append(row)
         elif len(rejected) < 100:
@@ -209,12 +262,13 @@ def run(max_source_pages: int = 100, max_clues: int = 120, max_live_checks: int 
 
     diagnostic = {
         "at": now_iso(),
-        "route": "public-auction-result-address-to-live-savills-validation",
+        "route": "public-auction-result-address-plus-archive-url-to-live-savills-validation",
         "frontier_dates": [d.isoformat() for d in targets],
         "source_queries_attempted": len(source_queries),
         "source_pages_examined": len(source_pages),
         "address_clues": len(clues),
-        "candidate_live_savills_urls": len(candidates),
+        "candidate_live_or_archived_savills_urls": len(candidates),
+        "archive_original_candidates": archive_candidates,
         "live_checked": checked,
         "commercial_rows_seen": len(recovered),
         "canonical_events_added": added,
@@ -228,16 +282,17 @@ def run(max_source_pages: int = 100, max_clues: int = 120, max_live_checks: int 
         "lookup_errors": lookup_errors[:80],
     }
     state["public_address_frontier_last_run"] = diagnostic
-    state["last_discovery_mode"] = "public-address-to-live-savills-first-party"
+    state["last_discovery_mode"] = "public-address-archive-url-to-live-savills-first-party"
     if added == 0:
         state["public_address_frontier_last_blocker"] = {
             "at": diagnostic["at"],
             "route": diagnostic["route"],
-            "message": "Address-led public-result recovery produced no older validated Savills History V2 event. Public pages may reveal addresses, but no candidate is accepted unless a surviving first-party Savills page validates the auction date and property.",
+            "message": "Address-led recovery produced no older validated Savills History V2 event. Direct postcode search and historical/Wayback URL extraction were attempted; no candidate is accepted unless a surviving first-party Savills page validates the auction date and property.",
             "frontier_dates": diagnostic["frontier_dates"],
             "address_clues": len(clues),
-            "candidate_live_savills_urls": len(candidates),
-            "next_safe_route": "Use recovered address/postcode clues to query free web archives/indexes for historical Savills property URL slugs or legacy pid references, then revalidate any surviving Savills URL before persistence."
+            "candidate_live_or_archived_savills_urls": len(candidates),
+            "archive_original_candidates": archive_candidates,
+            "next_safe_route": "Use any recovered exact address/postcode clues to enumerate historical Savills legacy pid/slug candidates through free CDX/index snapshots and validate the originals against surviving Savills first-party pages before persistence."
         }
         state["status"] = "LIVE ARCHIVE BLOCKED"
     else:
