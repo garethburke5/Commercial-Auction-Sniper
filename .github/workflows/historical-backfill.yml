@@ -24,12 +24,12 @@ permissions:
 
 concurrency:
   group: auction-sniper-production-scan
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   backfill:
     runs-on: ubuntu-latest
-    timeout-minutes: 55
+    timeout-minutes: 35
     steps:
       - name: Checkout production branch
         uses: actions/checkout@v4
@@ -66,15 +66,14 @@ jobs:
           sav=sources.get('Savills Auctions') or {}
           modern_done = int(sav.get('auctions_completed') or 0) >= 70
           if not modern_done:
-              cmd=[sys.executable,'historical_savills.py','--max-auctions','8']
               print('NEXT_SOURCE Savills Auctions modern first-party archive')
-              subprocess.run(cmd, check=True)
+              subprocess.run([sys.executable,'historical_savills.py','--max-auctions','8'], check=True)
           elif not sav.get('historically_complete', False):
+              # Hard ordering rule: harvest and publish concrete surviving first-party
+              # catalogues before any sitemap/Common Crawl/legacy archaeology. This
+              # prevents a slow discovery pass from delaying known historical records.
               print('NEXT_SOURCE Savills Auctions surviving first-party historical catalogues')
               subprocess.run([sys.executable,'savills_surviving_catalogue_backfill.py'], check=True)
-              # Continue discovery in the same run after harvesting every currently-known
-              # surviving catalogue. This must not replace the first-party harvest.
-              subprocess.run([sys.executable,'savills_exhaustive_discovery.py','--months','2','--floor-year','2002','--max-lot-pages','300'], check=True)
           else:
               print('NEXT_SOURCE Acuitus')
               subprocess.run([sys.executable,'historical_acuitus.py','--max-auctions','6'], check=True)
@@ -118,7 +117,6 @@ jobs:
           sav=sources.get('Savills Auctions') or {}
           assert allsop.get('status') == 'CAUGHT UP', f'Allsop unexpectedly not caught up: {allsop.get("status")}'
           assert int(sav.get('auctions_completed') or 0) >= 70, 'Savills modern first-party archive not fully captured'
-          # Exhausting modern or one legacy route must never be represented as historical completeness.
           if not sav.get('historically_complete', False):
               allowed={'DISCOVERY EXPANSION','DISCOVERY EXHAUSTED','RUNNING','SURVIVING CATALOGUE INGESTING','SURVIVING CATALOGUE PROBE BLOCKED','LIVE ARCHIVE BLOCKED','LIVE ARCHIVE DEGRADED'}
               assert sav.get('status') in allowed, f'Misleading Savills status: {sav.get("status")}'
