@@ -1,0 +1,136 @@
+name: Savills Wayback Frontier Repair
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'savills_wayback_frontier_catalogue_discovery.py'
+      - '.github/workflows/savills-wayback-frontier-repair.yml'
+      - 'savills_manifest_aid_capture_recovery.py'
+      - 'savills_legacy_aid_capture_recovery.py'
+      - 'history_database.py'
+      - 'collectors/savills.py'
+  schedule:
+    - cron: '41 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auction-sniper-production-scan
+  cancel-in-progress: false
+
+jobs:
+  savills-wayback-frontier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout production main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install playwright
+          python -m playwright install chromium
+
+      - name: Compile Savills wildcard frontier route
+        run: |
+          python -m py_compile savills_wayback_frontier_catalogue_discovery.py savills_manifest_aid_capture_recovery.py savills_legacy_aid_capture_recovery.py history_database.py collectors/savills.py
+
+      - name: Record canonical Savills state before recovery
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          h=json.loads(Path('data/property_history.json').read_text())
+          s=(p.get('sources') or {}).get('Savills Auctions') or {}
+          events=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
+          Path('/tmp/savills-before.json').write_text(json.dumps({
+            'events':len(events),
+            'earliest_month':s.get('earliest_month_reached'),
+            'earliest_date':s.get('earliest_date_reached')
+          }))
+          print('SAVILLS_BEFORE',len(events),s.get('earliest_date_reached'),s.get('earliest_month_reached'))
+          PY
+
+      - name: Enumerate Wayback namespace for oldest unresolved manifest date
+        run: python savills_wayback_frontier_catalogue_discovery.py --max-captures 220 --max-live-checks 160
+
+      - name: Enforce canonical-or-blocker outcome
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          p_path=Path('data/historical_backfill_progress.json')
+          h_path=Path('data/property_history.json')
+          p=json.loads(p_path.read_text())
+          h=json.loads(h_path.read_text())
+          before=json.loads(Path('/tmp/savills-before.json').read_text())
+          s=(p.get('sources') or {}).get('Savills Auctions') or {}
+          events=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
+          run=s.get('wayback_frontier_wildcard_last_run') or {}
+          blocker=s.get('wayback_frontier_wildcard_last_blocker') or {}
+          advanced=(len(events)>int(before['events']) or
+                    (s.get('earliest_date_reached') and s.get('earliest_date_reached') != before.get('earliest_date')) or
+                    (s.get('earliest_month_reached') and s.get('earliest_month_reached') < str(before.get('earliest_month') or '9999-99')))
+          if not advanced:
+              assert blocker, 'No new Savills events and no persisted route-specific blocker'
+              assert blocker.get('target_date'), 'Blocker missing exact target date'
+              assert blocker.get('route') == 'wayback-cdx-wildcard-oldest-manifest-date-to-live-savills-validation'
+              assert blocker.get('next_safe_route'), 'Blocker missing next distinct recovery path'
+          s['historically_complete']=False
+          s['discovery_exhausted']=False
+          p['updated_at']=datetime.now(timezone.utc).isoformat()
+          p_path.write_text(json.dumps(p,indent=2,ensure_ascii=False))
+          print('SAVILLS_AFTER',len(events),s.get('earliest_date_reached'),s.get('earliest_month_reached'))
+          print('EVENTS_ADDED',run.get('canonical_events_added',0))
+          print('BLOCKER',blocker if not advanced else None)
+          PY
+
+      - name: Validate exact first-party evidence
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from urllib.parse import urlparse
+          h=json.loads(Path('data/property_history.json').read_text())
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          s=(p.get('sources') or {}).get('Savills Auctions') or {}
+          assert s.get('historically_complete') is False
+          events=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
+          assert events
+          for e in events:
+              u=((e.get('source_evidence') or {}).get('listing_url') or '')
+              host=(urlparse(u).hostname or '').lower()
+              assert u.startswith('https://') and (host=='savills.co.uk' or host.endswith('.savills.co.uk')), u
+          print('VERIFIED_SAVILLS_EVENTS',len(events))
+          PY
+
+      - name: Publish canonical history or exact blocker
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics || true
+          if ! git diff --cached --quiet; then
+            git commit -m 'Advance Savills oldest archive frontier via Wayback wildcard'
+            for attempt in 1 2 3; do
+              git fetch origin main
+              if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
+              if git push origin HEAD:main; then exit 0; fi
+              sleep $((attempt * 3))
+            done
+            exit 1
+          fi
