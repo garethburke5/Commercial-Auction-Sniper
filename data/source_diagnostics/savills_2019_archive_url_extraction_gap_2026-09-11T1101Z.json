@@ -1,0 +1,32 @@
+{
+  "at": "2026-09-11T11:01:00Z",
+  "source": "Savills Auctions",
+  "frontier": "2019",
+  "verified_earliest_lot_level_date_before_repair": "2019-12-16",
+  "blocked_auction_dates": [
+    "2019-11-04",
+    "2019-09-23",
+    "2019-07-17",
+    "2019-05-29",
+    "2019-04-02"
+  ],
+  "exact_known_dead_routes": [
+    "https://auctions.savills.co.uk/auctions/november-2019-2",
+    "https://auctions.savills.co.uk/auctions/september-2019-1"
+  ],
+  "blocker": "The address-led frontier stage could discover public property/address clues, but its candidate extraction accepted only currently indexed savills.co.uk URLs. Historical Savills lot URLs surfaced inside web.archive.org search results or snippets were discarded before first-party revalidation, so the persisted next_safe_route (use address/postcode clues against free archives/indexes to recover old Savills slugs/PIDs) was not actually executable.",
+  "repair": {
+    "commit": "066f05ac408de0c05eb4059ac2c5b4b860bba8d6",
+    "file": "savills_public_address_frontier_recovery.py",
+    "changes": [
+      "extract original Savills URLs embedded in Wayback result URLs and snippets",
+      "search exact postcode plus compact street/locality fragments against legacy LotDetails and migrated /auctions/ paths",
+      "query Wayback-indexed Savills results explicitly",
+      "send recovered originals through the existing recover_candidate first-party validation gate before any History V2 persistence",
+      "record archive candidate counts and a distinct next route when no validated event is added"
+    ]
+  },
+  "acceptance_rule": "Archived/public-index evidence is discovery-only. Canonical History V2 persistence still requires a surviving Savills-owned page whose auction date and commercial/mixed-use classification validate.",
+  "historically_complete": false,
+  "discovery_exhausted": false
+}
