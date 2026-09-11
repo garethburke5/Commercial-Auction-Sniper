@@ -1,0 +1,33 @@
+{
+  "at": "2026-09-11T15:05:00Z",
+  "source": "Savills Auctions",
+  "historically_complete": false,
+  "discovery_exhausted": false,
+  "verified_frontier_before_repair": "2019-12-16",
+  "known_unresolved_auction_dates": [
+    "2019-11-04",
+    "2019-09-23",
+    "2019-07-17",
+    "2019-05-29",
+    "2019-04-02"
+  ],
+  "blocker": {
+    "route": "commoncrawl-warc-catalogue-html-lotdetails-links-to-live-savills",
+    "message": "Archived Savills LotList WARC captures can map legacy auction IDs to 2019 dates, but the catalogue-body parser recovered zero usable PID-bearing LotDetails links, so no older canonical lot can safely be persisted from this route.",
+    "exact_failing_live_legacy_routes": [
+      "https://auctions.savills.co.uk/Auctions/LotList?aid=1087",
+      "https://auctions.savills.co.uk/Auctions/LotList?aid=1088",
+      "https://auctions.savills.co.uk/Auctions/LotList?aid=1089",
+      "https://auctions.savills.co.uk/Auctions/LotList?aid=1090"
+    ],
+    "last_observed_pid_links_from_catalogue_bodies": 0
+  },
+  "repair_implemented_same_run": {
+    "script": "savills_legacy_lotdetails_prefix_recovery.py",
+    "workflow": ".github/workflows/savills-2019-frontier-resilient.yml",
+    "route": "commoncrawl-bounded-lotdetails-aid-prefix-to-live-savills",
+    "method": "Query deterministic 2019 Common Crawl indexes only for the legacy LotDetails namespace restricted to already date-mapped aid values; accept only rows containing real pid values; then pass each candidate through surviving first-party Savills validation before History V2 persistence.",
+    "safety": "No PID, address, auction fact, or property fact is invented. The route is bounded to mapped legacy aids and retains the live Savills evidence gate.",
+    "next_path_if_empty": "Use only exact PID-bearing LotDetails URLs already observed in persisted Common Crawl samples/captures and retrieve those archived bodies individually; do not repeat broad /Auctions/ or LotList catalogue scans."
+  }
+}
