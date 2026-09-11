@@ -1,0 +1,43 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T16:28:00Z",
+  "frontier_kind": "first-party-live-archive-to-legacy-bridge",
+  "next_oldest_known_live_archive_date": "2014-04-24",
+  "live_archive_page": 14,
+  "live_archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "live_archive_end_probe_url": "https://auctions.savills.co.uk/past-auctions/archive/page-15",
+  "observed_live_archive_pages": 14,
+  "observed_oldest_live_archive_date": "2014-04-24",
+  "observed_end_condition": "page 15 returned no dated auction records or catalogue anchors",
+  "blocker": "The surviving first-party Savills archive proves the dated auctions on page 14 but exposes no resolvable lot catalogue anchors for the oldest archive pages, so the summary cards alone cannot safely become property-level History V2 events.",
+  "failed_or_insufficient_routes": [
+    {
+      "route": "live-past-auctions-card-to-catalogue-anchor",
+      "url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+      "result": "dated auction summaries present; zero directly resolvable catalogue anchors for this frontier"
+    },
+    {
+      "route": "sequential-live-LotList-aid-scan",
+      "range_already_scanned_before_this repair": "aid=1126 down through aid=567",
+      "result": "560 IDs scanned with no recovered auction/property events; the sequential transport is too slow because dead IDs can trigger retry/browser fallback"
+    }
+  ],
+  "implemented_next_routes": [
+    {
+      "route": "concurrent-live-Savills-LotList-aid-enumeration",
+      "implementation": "savills_legacy_aid_fast_discovery.py",
+      "commit": "428542fcdbf9c2f4860bd0eca47627d65be43ab2",
+      "method": "bounded concurrent first-party HTTP probes; only IDs exposing an auction date or lot links are sent to the commercial/mixed-use detail parser"
+    },
+    {
+      "route": "manifest-driven-Common-Crawl-WARC-aid-pid-to-live-Savills-validation",
+      "implementation": "savills_manifest_aid_capture_recovery.py",
+      "commit": "c48917d5b4c2df33eb096bf70330bbebfc2d3045",
+      "method": "derive exact target dates from the persisted Savills live archive manifest for any year, recover legacy aid/pid URLs and archived date evidence, then require a surviving Savills first-party lot page and commercial/mixed-use classification before History V2 persistence"
+    }
+  ],
+  "workflow_wiring_commit": "544cafa47e8e2e8a34a2a99e52e514697d3b9e97",
+  "historically_complete": false,
+  "discovery_exhausted": false,
+  "success_condition_next_run": "Persist property-level events for 2014 or another unresolved pre-2019 Savills auction with first-party listing evidence, or persist the exact exhausted legacy-ID/WARC blocker and advance to the next distinct archival route."
+}
