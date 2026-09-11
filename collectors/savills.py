@@ -95,7 +95,6 @@ def _auction_dates(text, href=""):
     if m and m.group(2).lower() in MONTHS:
         d = date(int(m.group(3)), MONTHS[m.group(2).lower()], int(m.group(1)))
         return d, d
-    # URL fallback: /auctions/29-september-2026-243
     m = re.search(r"/auctions/(\d{1,2})-([a-z]+)-(20\d{2})-\d+", href or "", re.I)
     if m and m.group(2).lower() in MONTHS:
         d = date(int(m.group(3)), MONTHS[m.group(2).lower()], int(m.group(1)))
@@ -104,11 +103,6 @@ def _auction_dates(text, href=""):
 
 
 def _discover_next_auction():
-    """
-    Discover the active/next Savills auction from Savills' own auction calendar.
-    No catalogue date or auction id is hard-coded. The earliest sale whose end date
-    is today or later wins, so the collector rolls forward automatically after a sale.
-    """
     try:
         us = soup(UPCOMING, use_browser=False)
     except Exception:
@@ -123,7 +117,6 @@ def _discover_next_auction():
         card = nearest_card(a, 2500) or norm(a.get_text(" ", strip=True))
         start, end = _auction_dates(card, href)
         if not start:
-            # Fetch the catalogue title only when the calendar card omitted its date.
             try:
                 cs = soup(href, use_browser=False)
                 title = norm((cs.find("h1") or cs.find("title")).get_text(" ", strip=True))
@@ -141,7 +134,6 @@ def _discover_next_auction():
 
 
 def _discover_commercial_feed(auction):
-    """Resolve the commercial-only feed from the selected auction itself."""
     catalogue = auction["catalogue"]
     try:
         cs = soup(catalogue, use_browser=False)
@@ -155,8 +147,6 @@ def _discover_commercial_feed(auction):
         if "property_type-253" in href or "commercial section" in label:
             feed_candidates.append(href)
 
-    # Generic filtered route works on Savills catalogues when the explicit
-    # Commercial Section link is not exposed in static markup.
     feed_candidates.append(catalogue + "/page-1/quantity-100/property_type-253/sort-by-0")
 
     seen = set()
@@ -188,7 +178,6 @@ def _discover_commercial_feed(auction):
 
 
 def _offered_date(text, auction):
-    """Prefer the actual day stated on the lot page, else sale end date."""
     m = re.search(r"To be offered on\s+(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)?\s*(\d{1,2})\s+([A-Za-z]+)", text or "", re.I)
     if m and m.group(2).lower() in MONTHS:
         try:
@@ -248,18 +237,19 @@ def _detail(href, auction, source_commercial=False):
     desc = " ".join(key_features[:4]) or _first([r"Description\s+(.{20,500}?)(?:Additional information|Tenure|Accommodation|Tenancy|Planning|Rent|Local information)"], text)
     image = image_from_soup(ds, BASE)
 
+    # Lot.source_id is now a derived property of source+URL. Historical Savills
+    # must use the current canonical Lot field names rather than the pre-refactor
+    # constructor aliases; otherwise every surviving 2019/2020 detail page fails.
     return Lot(
         source=SOURCE,
-        source_id=urljoin(BASE, href).rstrip("/").split("-")[-1],
         address=address,
         url=href,
-        image=image,
+        image_url=image,
         auction_date=_offered_date(text, auction),
-        auction_house=SOURCE,
         lot_number=lot_number,
         property_type="Commercial / Mixed Use",
         guide_price=guide,
-        rent_pa=rent,
+        annual_rent=rent,
         tenure=tenure,
         vat_status=vat,
         area_sqft=area_sqft,
@@ -268,8 +258,8 @@ def _detail(href, auction, source_commercial=False):
         lease_term=lease_term,
         break_clause=break_clause,
         rent_review=review_clause,
-        description=desc,
-        status="LIVE",
+        description=desc or "",
+        status="Live",
     )
 
 
