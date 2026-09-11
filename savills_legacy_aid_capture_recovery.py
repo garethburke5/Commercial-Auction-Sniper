@@ -166,6 +166,31 @@ def live_first_party(candidate: str, timeout: int = 20) -> str | None:
     return urlunparse(p._replace(scheme="https", fragment=""))
 
 
+def is_lot_specific_savills_url(url: str) -> bool:
+    """Require an exact Savills auction lot route before historical persistence.
+
+    Discovery providers may return generic Savills corporate/property pages. Those
+    pages must never inherit the target auction date merely because their prose
+    contains commercial-property words. Both surviving legacy PID routes and the
+    current auction-slug/lot-id routes are accepted.
+    """
+    if not url:
+        return False
+    p = urlparse(str(url))
+    if (p.hostname or "").lower() != "auctions.savills.co.uk":
+        return False
+    path = p.path or ""
+    low = path.lower()
+    q = parse_qs(p.query)
+    if ("lotdetails" in low or "index.php" in low) and (
+        q.get("pid") or (q.get("view") == ["commission"] and q.get("id"))
+    ):
+        return True
+    if re.search(r"/auctions/[^/?#]+-\d+/(?:[^/?#]+-)?\d+/?$", path, re.I):
+        return True
+    return False
+
+
 def sale_price(text: str):
     for pat in (r"Hammer\s*Price\s*£\s*([\d,]+(?:\.\d+)?)", r"Sold(?:\s+Prior|\s+Post)?(?:\s+for)?\s*£\s*([\d,]+(?:\.\d+)?)"):
         m = re.search(pat, text or "", re.I)
@@ -195,6 +220,8 @@ def recover_candidate(candidate: str, auction_day: date, discovery_url: str):
     live = live_first_party(candidate)
     if not live:
         return None, "no surviving Savills first-party page"
+    if not is_lot_specific_savills_url(live):
+        return None, "surviving Savills page is not lot-specific auction evidence"
     try:
         doc = soup(live, use_browser=False)
         main = doc.find("main") or doc
@@ -269,7 +296,6 @@ def run(year: int = 2019, max_live_checks: int = 180) -> int:
     aid_dates: dict[str, date] = {}
     aid_date_evidence: dict[str, dict] = {}
     for aid in sorted(aids, key=lambda x: int(x)):
-        # Prefer catalogue-only captures because they are much more likely to contain the auction heading/date.
         candidates = sorted(rows_by_aid.get(aid) or [], key=lambda r: str(r.get("timestamp") or ""), reverse=True)
         catalogue_only = [r for r in candidates if not parse_qs(urlparse(str(r.get("url") or "")).query).get("pid")]
         for row in (catalogue_only + candidates)[:8]:
