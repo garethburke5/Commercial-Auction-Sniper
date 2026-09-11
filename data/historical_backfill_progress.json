@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-11T15:10:52.044661+00:00",
+  "updated_at": "2026-09-11T16:11:59.640528+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "commoncrawl-bounded-lotdetails-aid-prefix-to-live-savills",
+      "last_discovery_mode": "commoncrawl-exact-persisted-pid-warc-to-live-savills",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -1770,27 +1770,33 @@
       "archival_url_discovery_exhausted": true,
       "surviving_catalogue_parser_revision": 3,
       "last_runtime_blocker": {
-        "at": "2026-09-11T15:10:52.044661+00:00",
-        "route": "commoncrawl-bounded-lotdetails-aid-prefix-to-live-savills",
-        "message": "Archived Savills LotList WARC bodies exposed zero usable PID links. The distinct repair now queries the bounded legacy LotDetails namespace for each already date-mapped aid instead of repeating catalogue scans.",
+        "at": "2026-09-11T16:11:59.640438+00:00",
+        "route": "commoncrawl-exact-persisted-pid-warc-to-live-savills",
+        "message": "Bounded aid-first LotDetails prefixes returned zero URLs. Exact PID-bearing Savills LotDetails URLs already persisted from Common Crawl evidence were therefore fetched individually; no validated older History V2 event was recovered in this pass.",
         "failing_live_legacy_routes": [
-          "https://auctions.savills.co.uk/Auctions/LotList?aid=1087",
-          "https://auctions.savills.co.uk/Auctions/LotList?aid=1088",
-          "https://auctions.savills.co.uk/Auctions/LotList?aid=1089",
-          "https://auctions.savills.co.uk/Auctions/LotList?aid=1090"
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=850a8c42-855e-40a9-b67a-93ef4f472d13",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=8e704cd3-24d6-441d-9125-85bc3aee0602",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=98773615-2198-417f-9fbc-be53740a7548",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=9e411e65-ed0e-4faa-9b17-42ddb34c154d",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=a0a8097f-0f19-4b68-891a-31fba10f1e29",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=a539bf2e-c9a6-4fbc-a900-321d2289b442",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=b649230d-cd1b-43d5-a40d-34725d812215",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=b6a7330a-071c-4bde-ad27-fbb5b1caf0c5",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=e1594bc6-4864-4898-9c54-efa67baa6367",
+          "https://auctions.savills.co.uk/Auctions/LotDetails?pid=ec196e8e-5b80-4c5f-a25b-70cb6f0e65bb"
         ],
-        "previous_catalogue_body_pid_links_found": 0,
-        "direct_lotdetails_urls_found": 0,
-        "repair": "savills_legacy_lotdetails_prefix_recovery.py",
-        "repair_route": "Common Crawl prefix query restricted to LotDetails?aid=<already-mapped-aid>, followed by surviving first-party Savills validation before History V2 persistence.",
-        "next_safe_route": "If aid-first LotDetails prefixes are empty, enumerate only exact PID-bearing LotDetails URLs already observed in persisted Common Crawl samples/captures and fetch their archived bodies individually; do not return to broad catalogue scans.",
-        "known_unresolved_dates": [
-          "2019-11-04",
-          "2019-09-23",
-          "2019-07-17",
-          "2019-05-29",
-          "2019-04-02"
-        ]
+        "persisted_exact_pids": 17,
+        "pids_with_capture_evidence": 17,
+        "resolved_pid_dates": {},
+        "repair": "savills_legacy_exact_pid_capture_recovery.py",
+        "next_safe_route": "If exact persisted PID WARC bodies do not resolve the remaining 2019 dates, query the already-persisted exact LotList?aid=<aid>&pid=<pid> URLs individually and fetch those WARC bodies; use only independently mapped aid dates and surviving first-party Savills lot pages for History V2 persistence."
       },
       "legacy_exact_parallel_last_run": {
         "at": "2026-09-11T15:10:50.873242+00:00",
@@ -2379,6 +2385,575 @@
         "rejected_samples": [],
         "errors": [],
         "next_safe_route": "If aid-first LotDetails prefixes are empty, enumerate only exact PID-bearing LotDetails URLs already observed in persisted Common Crawl samples/captures and fetch their archived bodies individually; do not return to broad catalogue scans."
+      },
+      "legacy_exact_pid_capture_last_run": {
+        "at": "2026-09-11T16:11:59.640438+00:00",
+        "year": 2019,
+        "route": "commoncrawl-exact-persisted-pid-warc-to-live-savills",
+        "frontier_dates": [],
+        "persisted_exact_pids": 17,
+        "pids_probed": 17,
+        "query_hits": [
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "0311042b-de8c-44e1-92d7-daa999044319",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D0311042b-de8c-44e1-92d7-daa999044319&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "0311042b-de8c-44e1-92d7-daa999044319",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D0311042b-de8c-44e1-92d7-daa999044319&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "228a1cda-4707-4305-a763-b1a29300af76",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D228a1cda-4707-4305-a763-b1a29300af76&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "228a1cda-4707-4305-a763-b1a29300af76",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D228a1cda-4707-4305-a763-b1a29300af76&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-47",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-47-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-47",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-47-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-35",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-35-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-35",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-35-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-30",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-30",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-30-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-13",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-13-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-13",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-13-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-04",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-04-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-04",
+            "pid": "2feb5ec0-bf39-44db-b6e5-970770265205",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-04-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D2feb5ec0-bf39-44db-b6e5-970770265205&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-47",
+            "pid": "35587416-a4af-4215-907c-7d2fa4627a36",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-47-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D35587416-a4af-4215-907c-7d2fa4627a36&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-47",
+            "pid": "35587416-a4af-4215-907c-7d2fa4627a36",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-47-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D35587416-a4af-4215-907c-7d2fa4627a36&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-30",
+            "pid": "35587416-a4af-4215-907c-7d2fa4627a36",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D35587416-a4af-4215-907c-7d2fa4627a36&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-30",
+            "pid": "35587416-a4af-4215-907c-7d2fa4627a36",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-30-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D35587416-a4af-4215-907c-7d2fa4627a36&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-22",
+            "pid": "35587416-a4af-4215-907c-7d2fa4627a36",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-22-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D35587416-a4af-4215-907c-7d2fa4627a36&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-22",
+            "pid": "35587416-a4af-4215-907c-7d2fa4627a36",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-22-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D35587416-a4af-4215-907c-7d2fa4627a36&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "37cfacdb-090c-475a-aa18-86e18b2fa554",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D37cfacdb-090c-475a-aa18-86e18b2fa554&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "37cfacdb-090c-475a-aa18-86e18b2fa554",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D37cfacdb-090c-475a-aa18-86e18b2fa554&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "39c02c83-4803-4c1b-847f-b55acf800d32",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D39c02c83-4803-4c1b-847f-b55acf800d32&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "39c02c83-4803-4c1b-847f-b55acf800d32",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D39c02c83-4803-4c1b-847f-b55acf800d32&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "39c02c83-4803-4c1b-847f-b55acf800d32",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D39c02c83-4803-4c1b-847f-b55acf800d32&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "76c28a68-008f-4b6c-94ad-6d2a86a41d6c",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D76c28a68-008f-4b6c-94ad-6d2a86a41d6c&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "76c28a68-008f-4b6c-94ad-6d2a86a41d6c",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D76c28a68-008f-4b6c-94ad-6d2a86a41d6c&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "76c28a68-008f-4b6c-94ad-6d2a86a41d6c",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D76c28a68-008f-4b6c-94ad-6d2a86a41d6c&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "76c28a68-008f-4b6c-94ad-6d2a86a41d6c",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D76c28a68-008f-4b6c-94ad-6d2a86a41d6c&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "850a8c42-855e-40a9-b67a-93ef4f472d13",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=850a8c42-855e-40a9-b67a-93ef4f472d13",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D850a8c42-855e-40a9-b67a-93ef4f472d13&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "850a8c42-855e-40a9-b67a-93ef4f472d13",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=850a8c42-855e-40a9-b67a-93ef4f472d13",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D850a8c42-855e-40a9-b67a-93ef4f472d13&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "8e704cd3-24d6-441d-9125-85bc3aee0602",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=8e704cd3-24d6-441d-9125-85bc3aee0602",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D8e704cd3-24d6-441d-9125-85bc3aee0602&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "8e704cd3-24d6-441d-9125-85bc3aee0602",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=8e704cd3-24d6-441d-9125-85bc3aee0602",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D8e704cd3-24d6-441d-9125-85bc3aee0602&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "8e704cd3-24d6-441d-9125-85bc3aee0602",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=8e704cd3-24d6-441d-9125-85bc3aee0602",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D8e704cd3-24d6-441d-9125-85bc3aee0602&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "8e704cd3-24d6-441d-9125-85bc3aee0602",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=8e704cd3-24d6-441d-9125-85bc3aee0602",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D8e704cd3-24d6-441d-9125-85bc3aee0602&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "98773615-2198-417f-9fbc-be53740a7548",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=98773615-2198-417f-9fbc-be53740a7548",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D98773615-2198-417f-9fbc-be53740a7548&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "98773615-2198-417f-9fbc-be53740a7548",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=98773615-2198-417f-9fbc-be53740a7548",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D98773615-2198-417f-9fbc-be53740a7548&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "9e411e65-ed0e-4faa-9b17-42ddb34c154d",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=9e411e65-ed0e-4faa-9b17-42ddb34c154d",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D9e411e65-ed0e-4faa-9b17-42ddb34c154d&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "9e411e65-ed0e-4faa-9b17-42ddb34c154d",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=9e411e65-ed0e-4faa-9b17-42ddb34c154d",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3D9e411e65-ed0e-4faa-9b17-42ddb34c154d&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "a0a8097f-0f19-4b68-891a-31fba10f1e29",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=a0a8097f-0f19-4b68-891a-31fba10f1e29",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Da0a8097f-0f19-4b68-891a-31fba10f1e29&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "a0a8097f-0f19-4b68-891a-31fba10f1e29",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=a0a8097f-0f19-4b68-891a-31fba10f1e29",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Da0a8097f-0f19-4b68-891a-31fba10f1e29&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "a0a8097f-0f19-4b68-891a-31fba10f1e29",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=a0a8097f-0f19-4b68-891a-31fba10f1e29",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Da0a8097f-0f19-4b68-891a-31fba10f1e29&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "a539bf2e-c9a6-4fbc-a900-321d2289b442",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=a539bf2e-c9a6-4fbc-a900-321d2289b442",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Da539bf2e-c9a6-4fbc-a900-321d2289b442&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "a539bf2e-c9a6-4fbc-a900-321d2289b442",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=a539bf2e-c9a6-4fbc-a900-321d2289b442",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Da539bf2e-c9a6-4fbc-a900-321d2289b442&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "a539bf2e-c9a6-4fbc-a900-321d2289b442",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=a539bf2e-c9a6-4fbc-a900-321d2289b442",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Da539bf2e-c9a6-4fbc-a900-321d2289b442&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "a539bf2e-c9a6-4fbc-a900-321d2289b442",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=a539bf2e-c9a6-4fbc-a900-321d2289b442",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Da539bf2e-c9a6-4fbc-a900-321d2289b442&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "b649230d-cd1b-43d5-a40d-34725d812215",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=b649230d-cd1b-43d5-a40d-34725d812215",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Db649230d-cd1b-43d5-a40d-34725d812215&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "b649230d-cd1b-43d5-a40d-34725d812215",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=b649230d-cd1b-43d5-a40d-34725d812215",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Db649230d-cd1b-43d5-a40d-34725d812215&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "b6a7330a-071c-4bde-ad27-fbb5b1caf0c5",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=b6a7330a-071c-4bde-ad27-fbb5b1caf0c5",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Db6a7330a-071c-4bde-ad27-fbb5b1caf0c5&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "b6a7330a-071c-4bde-ad27-fbb5b1caf0c5",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=b6a7330a-071c-4bde-ad27-fbb5b1caf0c5",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Db6a7330a-071c-4bde-ad27-fbb5b1caf0c5&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "b6a7330a-071c-4bde-ad27-fbb5b1caf0c5",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=b6a7330a-071c-4bde-ad27-fbb5b1caf0c5",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Db6a7330a-071c-4bde-ad27-fbb5b1caf0c5&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "e1594bc6-4864-4898-9c54-efa67baa6367",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=e1594bc6-4864-4898-9c54-efa67baa6367",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3De1594bc6-4864-4898-9c54-efa67baa6367&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "e1594bc6-4864-4898-9c54-efa67baa6367",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=e1594bc6-4864-4898-9c54-efa67baa6367",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3De1594bc6-4864-4898-9c54-efa67baa6367&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "ec196e8e-5b80-4c5f-a25b-70cb6f0e65bb",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=ec196e8e-5b80-4c5f-a25b-70cb6f0e65bb",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Dec196e8e-5b80-4c5f-a25b-70cb6f0e65bb&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-51",
+            "pid": "ec196e8e-5b80-4c5f-a25b-70cb6f0e65bb",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=ec196e8e-5b80-4c5f-a25b-70cb6f0e65bb",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Dec196e8e-5b80-4c5f-a25b-70cb6f0e65bb&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "ec196e8e-5b80-4c5f-a25b-70cb6f0e65bb",
+            "url": "http://auctions.savills.co.uk/Auctions/LotDetails?pid=ec196e8e-5b80-4c5f-a25b-70cb6f0e65bb",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Dec196e8e-5b80-4c5f-a25b-70cb6f0e65bb&matchType=exact&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "pid": "ec196e8e-5b80-4c5f-a25b-70cb6f0e65bb",
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=ec196e8e-5b80-4c5f-a25b-70cb6f0e65bb",
+            "rows": 1,
+            "query": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FAuctions%2FLotDetails%3Fpid%3Dec196e8e-5b80-4c5f-a25b-70cb6f0e65bb&matchType=exact&output=json"
+          }
+        ],
+        "pids_with_capture_evidence": 17,
+        "resolved_pid_dates": {},
+        "resolved_date_sources": {},
+        "live_checked": 0,
+        "commercial_rows_seen": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "rejected_samples": [],
+        "errors": [
+          "CC-MAIN-2019-47 pid=0311042b-de8c-44e1-92d7-daa999044319 http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 pid=0311042b-de8c-44e1-92d7-daa999044319 https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=0311042b-de8c-44e1-92d7-daa999044319 http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=0311042b-de8c-44e1-92d7-daa999044319 https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-39 pid=0311042b-de8c-44e1-92d7-daa999044319 http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 pid=0311042b-de8c-44e1-92d7-daa999044319 https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 pid=0311042b-de8c-44e1-92d7-daa999044319 http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 pid=0311042b-de8c-44e1-92d7-daa999044319 https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 pid=0311042b-de8c-44e1-92d7-daa999044319 http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 pid=0311042b-de8c-44e1-92d7-daa999044319 https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-26 pid=0311042b-de8c-44e1-92d7-daa999044319 http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-26 pid=0311042b-de8c-44e1-92d7-daa999044319 https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-22 pid=0311042b-de8c-44e1-92d7-daa999044319 http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-22 pid=0311042b-de8c-44e1-92d7-daa999044319 https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-18 pid=0311042b-de8c-44e1-92d7-daa999044319 http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-18 pid=0311042b-de8c-44e1-92d7-daa999044319 https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-13 pid=0311042b-de8c-44e1-92d7-daa999044319 http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-13 pid=0311042b-de8c-44e1-92d7-daa999044319 https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-09 pid=0311042b-de8c-44e1-92d7-daa999044319 http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-09 pid=0311042b-de8c-44e1-92d7-daa999044319 https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-04 pid=0311042b-de8c-44e1-92d7-daa999044319 http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-04 pid=0311042b-de8c-44e1-92d7-daa999044319 https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 pid=228a1cda-4707-4305-a763-b1a29300af76 http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 pid=228a1cda-4707-4305-a763-b1a29300af76 https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=228a1cda-4707-4305-a763-b1a29300af76 http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=228a1cda-4707-4305-a763-b1a29300af76 https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 pid=228a1cda-4707-4305-a763-b1a29300af76 http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 pid=228a1cda-4707-4305-a763-b1a29300af76 https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 pid=228a1cda-4707-4305-a763-b1a29300af76 http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 pid=228a1cda-4707-4305-a763-b1a29300af76 https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 pid=228a1cda-4707-4305-a763-b1a29300af76 http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 pid=228a1cda-4707-4305-a763-b1a29300af76 https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-26 pid=228a1cda-4707-4305-a763-b1a29300af76 http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-26 pid=228a1cda-4707-4305-a763-b1a29300af76 https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-22 pid=228a1cda-4707-4305-a763-b1a29300af76 http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-22 pid=228a1cda-4707-4305-a763-b1a29300af76 https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-18 pid=228a1cda-4707-4305-a763-b1a29300af76 http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-18 pid=228a1cda-4707-4305-a763-b1a29300af76 https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-13 pid=228a1cda-4707-4305-a763-b1a29300af76 http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-13 pid=228a1cda-4707-4305-a763-b1a29300af76 https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-09 pid=228a1cda-4707-4305-a763-b1a29300af76 http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-09 pid=228a1cda-4707-4305-a763-b1a29300af76 https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-04 pid=228a1cda-4707-4305-a763-b1a29300af76 http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-04 pid=228a1cda-4707-4305-a763-b1a29300af76 https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=2feb5ec0-bf39-44db-b6e5-970770265205 http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=2feb5ec0-bf39-44db-b6e5-970770265205 https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-26 pid=2feb5ec0-bf39-44db-b6e5-970770265205 http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-26 pid=2feb5ec0-bf39-44db-b6e5-970770265205 https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-22 pid=2feb5ec0-bf39-44db-b6e5-970770265205 http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-22 pid=2feb5ec0-bf39-44db-b6e5-970770265205 https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-18 pid=2feb5ec0-bf39-44db-b6e5-970770265205 http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-18 pid=2feb5ec0-bf39-44db-b6e5-970770265205 https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-09 pid=2feb5ec0-bf39-44db-b6e5-970770265205 http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-09 pid=2feb5ec0-bf39-44db-b6e5-970770265205 https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 pid=35587416-a4af-4215-907c-7d2fa4627a36 http://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 pid=35587416-a4af-4215-907c-7d2fa4627a36 https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=35587416-a4af-4215-907c-7d2fa4627a36 http://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=35587416-a4af-4215-907c-7d2fa4627a36 https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 pid=35587416-a4af-4215-907c-7d2fa4627a36 http://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 pid=35587416-a4af-4215-907c-7d2fa4627a36 https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 pid=35587416-a4af-4215-907c-7d2fa4627a36 http://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 pid=35587416-a4af-4215-907c-7d2fa4627a36 https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-26 pid=35587416-a4af-4215-907c-7d2fa4627a36 http://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-26 pid=35587416-a4af-4215-907c-7d2fa4627a36 https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 400: Bad Request",
+          "CC-MAIN-2019-18 pid=35587416-a4af-4215-907c-7d2fa4627a36 http://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-18 pid=35587416-a4af-4215-907c-7d2fa4627a36 https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-13 pid=35587416-a4af-4215-907c-7d2fa4627a36 http://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-13 pid=35587416-a4af-4215-907c-7d2fa4627a36 https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-09 pid=35587416-a4af-4215-907c-7d2fa4627a36 http://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-09 pid=35587416-a4af-4215-907c-7d2fa4627a36 https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-04 pid=35587416-a4af-4215-907c-7d2fa4627a36 http://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-04 pid=35587416-a4af-4215-907c-7d2fa4627a36 https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-26 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-26 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-22 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-22 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-18 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-18 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-13 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-13 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2019-09 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-09 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-04 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-04 pid=37cfacdb-090c-475a-aa18-86e18b2fa554 https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 pid=39c02c83-4803-4c1b-847f-b55acf800d32 http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 pid=39c02c83-4803-4c1b-847f-b55acf800d32 https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=39c02c83-4803-4c1b-847f-b55acf800d32 http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=39c02c83-4803-4c1b-847f-b55acf800d32 https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 pid=39c02c83-4803-4c1b-847f-b55acf800d32 http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-35 pid=39c02c83-4803-4c1b-847f-b55acf800d32 http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 pid=39c02c83-4803-4c1b-847f-b55acf800d32 https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 pid=39c02c83-4803-4c1b-847f-b55acf800d32 http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 pid=39c02c83-4803-4c1b-847f-b55acf800d32 https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2019-26 pid=39c02c83-4803-4c1b-847f-b55acf800d32 http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-26 pid=39c02c83-4803-4c1b-847f-b55acf800d32 https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-22 pid=39c02c83-4803-4c1b-847f-b55acf800d32 http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-22 pid=39c02c83-4803-4c1b-847f-b55acf800d32 https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-18 pid=39c02c83-4803-4c1b-847f-b55acf800d32 http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-18 pid=39c02c83-4803-4c1b-847f-b55acf800d32 https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-13 pid=39c02c83-4803-4c1b-847f-b55acf800d32 http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-13 pid=39c02c83-4803-4c1b-847f-b55acf800d32 https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-09 pid=39c02c83-4803-4c1b-847f-b55acf800d32 http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-09 pid=39c02c83-4803-4c1b-847f-b55acf800d32 https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-04 pid=39c02c83-4803-4c1b-847f-b55acf800d32 http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-04 pid=39c02c83-4803-4c1b-847f-b55acf800d32 https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32 :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c http://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c https://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c http://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c https://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c http://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c :: HTTPError: HTTP Error 404: Not Found"
+        ],
+        "next_safe_route": "If exact persisted PID WARC bodies do not resolve the remaining 2019 dates, query the already-persisted exact LotList?aid=<aid>&pid=<pid> URLs individually and fetch those WARC bodies; use only independently mapped aid dates and surviving first-party Savills lot pages for History V2 persistence."
       }
     }
   }
