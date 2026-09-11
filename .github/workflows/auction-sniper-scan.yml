@@ -18,6 +18,8 @@ on:
       - 'scripts/update_history_database.py'
       - 'property_summary.py'
       - 'app.py'
+      - 'legacy_app.py'
+      - 'pagination.py'
 
 permissions:
   contents: write
@@ -51,7 +53,7 @@ jobs:
 
       - name: Compile production code
         run: |
-          python -m py_compile app.py run_collectors.py run_collectors_resilient.py history_database.py source_manifest.py collectors/*.py tests/*.py scripts/update_history_database.py
+          python -m py_compile app.py legacy_app.py pagination.py run_collectors.py run_collectors_resilient.py history_database.py source_manifest.py collectors/*.py tests/*.py scripts/update_history_database.py
 
       - name: Run collector regression tests
         run: python -m unittest discover -s tests -p 'test_*.py' -v
@@ -93,8 +95,6 @@ jobs:
           assert integrity.get('acceptance_ready') is True, 'snapshot integrity does not certify target acceptance'
           assert not integrity.get('quality_rejections'), f"quality gate rejected {integrity.get('quality_rejections')} records: {integrity.get('quality_rejection_reasons')}"
           quality=integrity.get('source_quality') or {}
-          print('SOURCE QUALITY')
-          for src,q in sorted(quality.items()): print(src,q)
           published_counts=Counter(str(x.get('source') or '') for x in d['properties'])
           health={s['source']:s for s in d['source_health']}
           hard_quality_sources={src for src,count in published_counts.items() if count >= 3 and health.get(src,{}).get('status') in {'LIVE','DEGRADED'} and health.get(src,{}).get('authoritative_snapshot') is True}
@@ -102,9 +102,6 @@ jobs:
           image_fail=[];rich_fail=[];missing_quality=[]
           for src in sorted(hard_quality_sources):
               q=quality.get(src)
-              # A source may legitimately have only unavailable lifecycle rows (sold prior,
-              # withdrawn or postponed). Those rows remain publishable and annotated, but
-              # active-row quality telemetry can legitimately contain zero lots.
               if not q or not q.get('lots'):
                   source_rows=[x for x in d['properties'] if str(x.get('source') or '')==src]
                   terminal_statuses={'SOLD PRIOR','WITHDRAWN','WITHDRAWN PRIOR','POSTPONED','AUCTION ENDED','COMPLETED','ARCHIVED'}
@@ -132,9 +129,6 @@ jobs:
               if lot and lot not in {'LOT TBC','TBC'} and address and day and url: identities[(str(x.get('source') or ''),day,lot,address)].add(url)
           duplicate_identities={k:v for k,v in identities.items() if len(v)>1}
           assert not duplicate_identities, 'duplicate lot identities across detail URLs: '+repr({k:sorted(v) for k,v in list(duplicate_identities.items())[:10]})
-          today=date.today().isoformat()
-          # Commercial lots remain publishable when sold prior, withdrawn or postponed;
-          # their lifecycle status must be retained and displayed rather than filtered out.
           sav=[x for x in d['properties'] if x.get('source')=='Savills Auctions']
           assert sav, 'no current Savills lots published'
           PY
