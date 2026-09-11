@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-10T23:02:37.416935+00:00",
+  "updated_at": "2026-09-11T00:03:42.808424+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "DISCOVERY EXPANSION",
+      "status": "SURVIVING CATALOGUE PROBE BLOCKED",
       "auctions_discovered": 73,
       "auctions_completed": 73,
       "lots_captured": 2850,
@@ -828,8 +828,43 @@
       "live_archive_latent_failures": [],
       "last_live_archive_latent_diagnostic": "data/source_diagnostics/savills_live_archive_page14_latent_routes_2026-09-10T2003Z.json",
       "earliest_date_reached": "2020-09-24",
-      "surviving_catalogue_last_run_at": "2026-09-10T23:02:37.416853+00:00",
+      "surviving_catalogue_last_run_at": "2026-09-11T00:03:42.808343+00:00",
       "surviving_catalogue_last_attempts": [
+        {
+          "auction_id": "3",
+          "auction_date": "2019-12-16",
+          "catalogue_url": "https://auctions.savills.co.uk/auctions/december-2019-3",
+          "status": "blocked",
+          "error": "RuntimeError: Savills catalogue exposed no resolvable lot inventory"
+        },
+        {
+          "auction_id": "5",
+          "auction_date": "2020-02-12",
+          "catalogue_url": "https://auctions.savills.co.uk/auctions/february-2020-5",
+          "status": "blocked",
+          "error": "RuntimeError: Savills catalogue exposed no resolvable lot inventory"
+        },
+        {
+          "auction_id": "6",
+          "auction_date": "2020-03-26",
+          "catalogue_url": "https://auctions.savills.co.uk/auctions/march-2020-6",
+          "status": "blocked",
+          "error": "RuntimeError: Savills catalogue exposed no resolvable lot inventory"
+        },
+        {
+          "auction_id": "7",
+          "auction_date": "2020-05-12",
+          "catalogue_url": "https://auctions.savills.co.uk/auctions/may-2020-7",
+          "status": "blocked",
+          "error": "RuntimeError: Savills catalogue exposed no resolvable lot inventory"
+        },
+        {
+          "auction_id": "9",
+          "auction_date": "2020-07-29",
+          "catalogue_url": "https://auctions.savills.co.uk/auctions/july-2020-9",
+          "status": "blocked",
+          "error": "RuntimeError: Savills catalogue exposed no resolvable lot inventory"
+        },
         {
           "auction_id": "10",
           "catalogue_url": "https://auctions.savills.co.uk/auctions/september-2020-10",
@@ -847,8 +882,8 @@
         }
       ],
       "surviving_catalogue_last_events_added": 0,
-      "legacy_address_repair_last_run_at": "2026-09-10T23:02:37.416712+00:00",
-      "legacy_addresses_repaired_last_run": 8,
+      "legacy_address_repair_last_run_at": "2026-09-11T00:03:27.940805+00:00",
+      "legacy_addresses_repaired_last_run": 0,
       "surviving_catalogue_row_addresses_corrected": 0
     }
   }
