@@ -1,0 +1,23 @@
+{
+  "source": "Savills Auctions",
+  "frontier": "2019 lot-level recovery before 2019-12-16",
+  "known_unresolved_auction_dates": [
+    "2019-11-04",
+    "2019-09-23",
+    "2019-07-17",
+    "2019-05-29",
+    "2019-04-02"
+  ],
+  "verified_history_frontier_before_run": "2019-12-16",
+  "failing_route": "https://index.commoncrawl.org/collinfo.json",
+  "recovery_stage": "commoncrawl-warc-known-aid-to-auction-date-to-live-savills",
+  "failure": "TimeoutError: The read operation timed out while resolving Common Crawl collection metadata before any WARC capture query could run.",
+  "effect": "The WARC recovery subprocess exited non-zero before it could persist its own diagnostic or advance to a distinct route.",
+  "repair_implemented_same_run": {
+    "script": "savills_legacy_aid_capture_recovery_resilient.py",
+    "strategy": "Bypass collinfo.json for 2019 and query Common Crawl's published CC-MAIN-2019-04 through CC-MAIN-2019-51 index endpoints directly. Archived captures remain discovery/date evidence only; ingestion still requires a surviving first-party Savills page.",
+    "next_distinct_fallback": "savills_legacy_venue_capture_recovery.py followed by savills_legacy_exact_parallel_recovery.py if deterministic Common Crawl WARC recovery adds no older canonical events."
+  },
+  "historically_complete": false,
+  "discovery_exhausted": false
+}
