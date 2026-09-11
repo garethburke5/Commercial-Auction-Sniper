@@ -8,8 +8,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/savills-legacy-aid-recovery.yml'
-      - 'savills_legacy_exact_parallel_recovery.py'
       - 'savills_legacy_pid_wayback_recovery.py'
+      - 'savills_legacy_exact_parallel_recovery.py'
       - 'savills_legacy_aid_capture_recovery.py'
       - 'savills_legacy_aid_exact_recovery.py'
 
@@ -23,7 +23,7 @@ concurrency:
 jobs:
   recover:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 22
     steps:
       - name: Checkout production branch
         uses: actions/checkout@v4
@@ -43,7 +43,7 @@ jobs:
 
       - name: Compile focused recovery code
         run: |
-          python -m py_compile savills_legacy_exact_parallel_recovery.py savills_legacy_pid_wayback_recovery.py savills_legacy_aid_capture_recovery.py savills_legacy_aid_exact_recovery.py savills_archival_url_discovery.py collectors/savills.py history_database.py
+          python -m py_compile savills_legacy_pid_wayback_recovery.py savills_legacy_aid_capture_recovery.py savills_archival_url_discovery.py collectors/savills.py history_database.py
 
       - name: Record baseline
         run: |
@@ -58,27 +58,10 @@ jobs:
           print('BASELINE',n,s.get('earliest_date_reached'))
           PY
 
-      - name: Exact parallel recovery for known legacy aid IDs
-        id: commoncrawl
-        continue-on-error: true
-        run: timeout 700s python savills_legacy_exact_parallel_recovery.py --max-live-checks 220
-
-      - name: Switch provider to Wayback exact pid recovery when no advance
+      - name: Recover known legacy lot IDs through independent Wayback archive
         id: wayback
         continue-on-error: true
-        run: |
-          python - <<'PY'
-          import json, subprocess, sys
-          from pathlib import Path
-          b=json.loads(Path('/tmp/savills-baseline.json').read_text())
-          db=json.loads(Path('data/property_history.json').read_text(encoding='utf-8'))
-          n=sum(1 for e in (db.get('auction_events') or []) if e.get('source')=='Savills Auctions')
-          if n <= int(b['events']):
-              print('NO_COMMONCRAWL_ADVANCE; switching to independent Wayback CDX exact-pid route', flush=True)
-              subprocess.run(['timeout','700s',sys.executable,'savills_legacy_pid_wayback_recovery.py','--max-pids','80','--max-live-checks','120'], check=True)
-          else:
-              print('COMMONCRAWL_ADVANCED_HISTORY', n-int(b['events']))
-          PY
+        run: timeout 700s python savills_legacy_pid_wayback_recovery.py --max-pids 80 --max-live-checks 120
 
       - name: Persist unexpected runtime blocker
         if: steps.wayback.outcome != 'success'
@@ -96,7 +79,7 @@ jobs:
           s['legacy_pid_wayback_runtime_blocker']={
               'at':now,
               'route':'wayback-cdx-exact-legacy-pid-to-live-savills',
-              'message':'Independent Wayback exact-pid fallback failed at runtime after the Common Crawl 2019 index outage.',
+              'message':'Independent Wayback exact-pid recovery failed at runtime. The already-persisted Common Crawl 2019 outage is intentionally not being re-probed in this invocation.',
               'next_safe_route':'Use surviving Savills first-party archive dates plus public search-engine indexed snippets/PDF catalogue references to map the already-known legacy aid/pid IDs; validate every lot on the surviving Savills first-party page before persistence.'
           }
           p['updated_at']=now
@@ -124,8 +107,8 @@ jobs:
                   bad.append(u)
           assert not bad, f'{len(bad)} Savills events lack first-party exact evidence'
           advanced=len(events)>int(b['events']) or (s.get('earliest_date_reached') and (not b.get('earliest') or s.get('earliest_date_reached') < b.get('earliest')))
-          blocker=(s.get('legacy_pid_wayback_last_blocker') or s.get('legacy_pid_wayback_runtime_blocker') or s.get('legacy_exact_parallel_last_blocker'))
-          assert advanced or blocker, 'Strict run outcome violated: neither older events nor a concrete blocker was persisted'
+          blocker=(s.get('legacy_pid_wayback_last_blocker') or s.get('legacy_pid_wayback_runtime_blocker'))
+          assert advanced or blocker, 'Strict run outcome violated: neither older events nor a concrete new blocker was persisted'
           if not advanced:
               assert blocker.get('next_safe_route'), 'Persisted blocker lacks next safe route'
           print('STRICT_OUTCOME',{'advanced':advanced,'events_before':b['events'],'events_after':len(events),'earliest_before':b.get('earliest'),'earliest_after':s.get('earliest_date_reached'),'blocker':blocker if not advanced else None})
@@ -137,7 +120,7 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add data/property_history.json data/historical_backfill_progress.json
           if ! git diff --cached --quiet; then
-            git commit -m 'Advance legacy Savills pid archive recovery'
+            git commit -m 'Advance Wayback Savills pid frontier recovery'
             for attempt in 1 2 3; do
               git fetch origin main
               if ! git rebase origin/main; then
