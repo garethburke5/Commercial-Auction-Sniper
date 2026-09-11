@@ -9,25 +9,48 @@ import savills_legacy_aid_capture_recovery as legacy
 
 PROGRESS = Path('data/historical_backfill_progress.json')
 HISTORY = Path('data/property_history.json')
+MANIFEST = Path('data/source_diagnostics/savills_live_archive_manifest.json')
 SOURCE = 'Savills Auctions'
 
 
+def _add_date(found: set[date], raw) -> None:
+    if not raw:
+        return
+    try:
+        found.add(date.fromisoformat(str(raw)[:10]))
+    except ValueError:
+        pass
+
+
 def manifest_dates(state: dict) -> set[date]:
-    """Return every exact dated auction exposed by the surviving Savills archive."""
+    """Return every exact dated auction exposed by the surviving Savills archive.
+
+    Prefer the persisted first-party manifest itself.  Progress has changed shape
+    during the backfill and cannot be assumed to carry a complete flat date list.
+    """
     found: set[date] = set()
-    for raw in state.get('live_archive_dates_discovered') or []:
+    if MANIFEST.exists():
         try:
-            found.add(date.fromisoformat(str(raw)))
-        except ValueError:
+            manifest = json.loads(MANIFEST.read_text(encoding='utf-8'))
+            for page in manifest.get('pages') or []:
+                for raw in page.get('dates') or []:
+                    _add_date(found, raw)
+        except Exception:
             pass
-    if not found:
-        # Older progress snapshots used the detailed first-party archive scan.
-        for page in state.get('live_archive_unresolved') or []:
-            for raw in page.get('dates') or []:
-                try:
-                    found.add(date.fromisoformat(str(raw)))
-                except ValueError:
-                    pass
+    if found:
+        return found
+
+    for raw in state.get('live_archive_dates_discovered') or []:
+        _add_date(found, raw)
+    if found:
+        return found
+
+    # Compatibility with older progress snapshots.  This is deliberately last
+    # because page-level unresolved state can omit missing auctions on a partly
+    # linked page.
+    for page in state.get('live_archive_unresolved') or []:
+        for raw in page.get('dates') or []:
+            _add_date(found, raw)
     return found
 
 
@@ -42,24 +65,12 @@ def canonical_savills_dates() -> set[date]:
     for event in db.get('auction_events') or []:
         if event.get('source') != SOURCE:
             continue
-        raw = event.get('auction_date')
-        if not raw:
-            continue
-        try:
-            found.add(date.fromisoformat(str(raw)[:10]))
-        except ValueError:
-            pass
+        _add_date(found, event.get('auction_date'))
     return found
 
 
 def unresolved_manifest_dates(state: dict) -> set[date]:
-    """Use canonical History V2 itself as the coverage test.
-
-    A live archive page can contain some resolvable catalogue anchors and still have
-    other auctions completely absent from canonical lot-level history.  Page-level
-    'unresolved' flags therefore understate the real gap.  The authoritative target
-    is every first-party manifest date for which History V2 has no Savills event.
-    """
+    """Every first-party manifest date absent from canonical lot-level history."""
     return manifest_dates(state) - canonical_savills_dates()
 
 
@@ -85,14 +96,12 @@ def main() -> int:
     if args.year is not None:
         target_year = args.year
     elif missing:
-        # Oldest missing canonical auction first, regardless of whether another
-        # auction on the same archive page happened to expose a catalogue anchor.
         target_year = min(d.year for d in missing)
     else:
         print(json.dumps({
             'source': SOURCE,
             'events_added': 0,
-            'reason': 'Every dated auction in the current Savills live manifest has at least one canonical History V2 event.',
+            'reason': 'Every dated auction in the persisted Savills live manifest has at least one canonical History V2 event.',
             'available_manifest_years': available_years,
         }, indent=2))
         return 0
@@ -107,6 +116,13 @@ def main() -> int:
             'available_manifest_years': available_years,
         }, indent=2))
         return 0
+
+    print(json.dumps({
+        'source': SOURCE,
+        'target_year': target_year,
+        'target_dates': sorted(d.isoformat() for d in targets),
+        'manifest_years': available_years,
+    }, indent=2))
 
     original_frontier_dates = legacy.frontier_dates
     try:
