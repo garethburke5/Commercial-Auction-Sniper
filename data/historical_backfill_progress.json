@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-11T05:57:48.838421+00:00",
+  "updated_at": "2026-09-11T07:13:31.010058+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -415,12 +415,22 @@
       ],
       "archival_url_priority_probe": "2013-or-earlier",
       "commoncrawl_legacy_last_probe": {
-        "at": "2026-09-11T05:57:48.838369+00:00",
-        "snapshot_year": 2013,
+        "at": "2026-09-11T07:13:31.009995+00:00",
+        "snapshot_year": 2019,
         "query_mode": "commoncrawl-exact-year-prefix-routes-with-domain-fallback",
         "collections": [
-          "CC-MAIN-2013-48",
-          "CC-MAIN-2013-20"
+          "CC-MAIN-2019-51",
+          "CC-MAIN-2019-47",
+          "CC-MAIN-2019-43",
+          "CC-MAIN-2019-39",
+          "CC-MAIN-2019-35",
+          "CC-MAIN-2019-30",
+          "CC-MAIN-2019-26",
+          "CC-MAIN-2019-22",
+          "CC-MAIN-2019-18",
+          "CC-MAIN-2019-13",
+          "CC-MAIN-2019-09",
+          "CC-MAIN-2019-04"
         ],
         "hosts_probed": [
           "auctions.savills.co.uk",
@@ -435,97 +445,557 @@
           "/component/bidding/",
           "/index.php"
         ],
-        "raw_index_rows_seen": 1119,
-        "auction_path_urls_seen": 0,
-        "normalised_candidate_urls": 0,
-        "live_checked": 0,
+        "raw_index_rows_seen": 1770,
+        "auction_path_urls_seen": 1059,
+        "normalised_candidate_urls": 220,
+        "live_checked": 80,
         "commercial_rows_seen": 0,
         "canonical_events_added": 0,
         "savills_events_before": 3250,
         "savills_events_after": 3250,
         "queries": [
           {
-            "collection": "CC-MAIN-2013-48",
-            "host": "auctions.savills.co.uk",
-            "match_type": "domain-fallback",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=auctions.savills.co.uk&matchType=domain&output=json"
-          },
-          {
-            "collection": "CC-MAIN-2013-48",
+            "collection": "CC-MAIN-2019-51",
             "host": "www.savills.co.uk",
             "match_type": "domain-fallback",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=www.savills.co.uk&matchType=domain&output=json"
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=www.savills.co.uk&matchType=domain&output=json"
           },
           {
-            "collection": "CC-MAIN-2013-48",
+            "collection": "CC-MAIN-2019-51",
             "host": "savills.co.uk",
             "match_type": "domain-fallback",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=savills.co.uk&matchType=domain&output=json"
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=savills.co.uk&matchType=domain&output=json"
           },
           {
-            "collection": "CC-MAIN-2013-20",
+            "collection": "CC-MAIN-2019-47",
             "host": "auctions.savills.co.uk",
-            "match_type": "domain-fallback",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=auctions.savills.co.uk&matchType=domain&output=json"
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-47-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
           },
           {
-            "collection": "CC-MAIN-2013-20",
-            "host": "savills.co.uk",
-            "match_type": "domain-fallback",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=savills.co.uk&matchType=domain&output=json"
+            "collection": "CC-MAIN-2019-47",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-47-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-43",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-43-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-35",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-35-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-30",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-30-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-30",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-30-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-26",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-26-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-26",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-26-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-22",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-22-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-22",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-22-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-18",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-18-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-18",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-18-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-13",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-13-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-13",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-13-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-09",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-09-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-04",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-04-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-04",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-04-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
           }
         ],
-        "raw_url_samples": [],
-        "rejected_samples": [],
+        "raw_url_samples": [
+          "http://auctions.savills.co.uk/Auctions/Accessibility",
+          "http://auctions.savills.co.uk/Auctions/AmlNotice",
+          "http://auctions.savills.co.uk/Auctions/BuyingProperty",
+          "http://auctions.savills.co.uk/Auctions/CatalogueAlerts",
+          "https://auctions.savills.co.uk/Auctions/CatalogueAlerts",
+          "http://auctions.savills.co.uk/Auctions/Contacts",
+          "http://auctions.savills.co.uk/Auctions/FAQs",
+          "http://auctions.savills.co.uk/Auctions/Finance",
+          "http://auctions.savills.co.uk/Auctions/FutureAuctions",
+          "http://auctions.savills.co.uk/Auctions/GuidePrices",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=850a8c42-855e-40a9-b67a-93ef4f472d13",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=8e704cd3-24d6-441d-9125-85bc3aee0602",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=98773615-2198-417f-9fbc-be53740a7548",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=9e411e65-ed0e-4faa-9b17-42ddb34c154d",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=a0a8097f-0f19-4b68-891a-31fba10f1e29",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=a539bf2e-c9a6-4fbc-a900-321d2289b442",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=b649230d-cd1b-43d5-a40d-34725d812215",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=b6a7330a-071c-4bde-ad27-fbb5b1caf0c5",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=e1594bc6-4864-4898-9c54-efa67baa6367",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=ec196e8e-5b80-4c5f-a25b-70cb6f0e65bb",
+          "http://auctions.savills.co.uk/Auctions/LotList?aid=1071",
+          "http://auctions.savills.co.uk/Auctions/LotList?aid=1072",
+          "http://auctions.savills.co.uk/Auctions/LotList?aid=1089",
+          "http://auctions.savills.co.uk/Auctions/LotList?aid=1092"
+        ],
+        "rejected_samples": [
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Accessibility",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/AmlNotice",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/BuyingProperty",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/CatalogueAlerts",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Contacts",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/FAQs",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Finance",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/FutureAuctions",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/GuidePrices",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=850a8c42-855e-40a9-b67a-93ef4f472d13",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=8e704cd3-24d6-441d-9125-85bc3aee0602",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=98773615-2198-417f-9fbc-be53740a7548",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=9e411e65-ed0e-4faa-9b17-42ddb34c154d",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=a0a8097f-0f19-4b68-891a-31fba10f1e29",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=a539bf2e-c9a6-4fbc-a900-321d2289b442",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=b649230d-cd1b-43d5-a40d-34725d812215",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=b6a7330a-071c-4bde-ad27-fbb5b1caf0c5",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=e1594bc6-4864-4898-9c54-efa67baa6367",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=ec196e8e-5b80-4c5f-a25b-70cb6f0e65bb",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1071",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1072",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1089",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=0311042b-de8c-44e1-92d7-daa999044319",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=228a1cda-4707-4305-a763-b1a29300af76",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=37cfacdb-090c-475a-aa18-86e18b2fa554",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=850a8c42-855e-40a9-b67a-93ef4f472d13",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=98773615-2198-417f-9fbc-be53740a7548",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=9e411e65-ed0e-4faa-9b17-42ddb34c154d",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=b649230d-cd1b-43d5-a40d-34725d812215",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=e1594bc6-4864-4898-9c54-efa67baa6367",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/PastAuctions",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Privacy",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/RemoteBidding",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/RssFeeds",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/SellingProperty",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Terms",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1071",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1090",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1092",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1086",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1091",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1091&us=y",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/PastAuctionsAvailable",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/SurveyMortgage",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1124",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1125",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1126",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1127",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1128",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1129",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1130",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1131",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          }
+        ],
         "errors": [
-          "CC-MAIN-2013-48 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk domain fallback :: HTTPError: HTTP Error 503: Service Temporarily Unavailable"
+          "CC-MAIN-2019-51 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2019-51 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-51 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2019-51 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-51 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2019-51 auctions.savills.co.uk domain fallback :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2019-47 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-47 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-47 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-47 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-43 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-39 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-39 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-39 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-39 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-39 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-35 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-35 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found"
         ]
       },
-      "commoncrawl_legacy_last_run_at": "2026-09-11T05:57:48.838369+00:00",
+      "commoncrawl_legacy_last_run_at": "2026-09-11T07:13:31.009995+00:00",
       "commoncrawl_legacy_events_added": 0,
       "commoncrawl_legacy_last_blocker": {
-        "at": "2026-09-11T05:57:48.838369+00:00",
-        "snapshot_year": 2013,
+        "at": "2026-09-11T07:13:31.009995+00:00",
+        "snapshot_year": 2019,
         "query_mode": "commoncrawl-exact-year-prefix-routes-with-domain-fallback",
         "collections": [
-          "CC-MAIN-2013-48",
-          "CC-MAIN-2013-20"
+          "CC-MAIN-2019-51",
+          "CC-MAIN-2019-47",
+          "CC-MAIN-2019-43",
+          "CC-MAIN-2019-39",
+          "CC-MAIN-2019-35",
+          "CC-MAIN-2019-30",
+          "CC-MAIN-2019-26",
+          "CC-MAIN-2019-22",
+          "CC-MAIN-2019-18",
+          "CC-MAIN-2019-13",
+          "CC-MAIN-2019-09",
+          "CC-MAIN-2019-04"
         ],
         "hosts_probed": [
           "auctions.savills.co.uk",
@@ -540,92 +1010,552 @@
           "/component/bidding/",
           "/index.php"
         ],
-        "raw_index_rows_seen": 1119,
-        "auction_path_urls_seen": 0,
-        "normalised_candidate_urls": 0,
-        "live_checked": 0,
+        "raw_index_rows_seen": 1770,
+        "auction_path_urls_seen": 1059,
+        "normalised_candidate_urls": 220,
+        "live_checked": 80,
         "commercial_rows_seen": 0,
         "canonical_events_added": 0,
         "savills_events_before": 3250,
         "savills_events_after": 3250,
         "queries": [
           {
-            "collection": "CC-MAIN-2013-48",
-            "host": "auctions.savills.co.uk",
-            "match_type": "domain-fallback",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=auctions.savills.co.uk&matchType=domain&output=json"
-          },
-          {
-            "collection": "CC-MAIN-2013-48",
+            "collection": "CC-MAIN-2019-51",
             "host": "www.savills.co.uk",
             "match_type": "domain-fallback",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=www.savills.co.uk&matchType=domain&output=json"
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=www.savills.co.uk&matchType=domain&output=json"
           },
           {
-            "collection": "CC-MAIN-2013-48",
+            "collection": "CC-MAIN-2019-51",
             "host": "savills.co.uk",
             "match_type": "domain-fallback",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2013-48-index?url=savills.co.uk&matchType=domain&output=json"
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=savills.co.uk&matchType=domain&output=json"
           },
           {
-            "collection": "CC-MAIN-2013-20",
+            "collection": "CC-MAIN-2019-47",
             "host": "auctions.savills.co.uk",
-            "match_type": "domain-fallback",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=auctions.savills.co.uk&matchType=domain&output=json"
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-47-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
           },
           {
-            "collection": "CC-MAIN-2013-20",
-            "host": "savills.co.uk",
-            "match_type": "domain-fallback",
-            "url": "https://index.commoncrawl.org/CC-MAIN-2013-20-index?url=savills.co.uk&matchType=domain&output=json"
+            "collection": "CC-MAIN-2019-47",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-47-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-43",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-43-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-39",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-35",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-35-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-30",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-30-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-30",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-30-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-26",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-26-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-26",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-26-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-22",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-22-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-22",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-22-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-18",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-18-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-18",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-18-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-13",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-13-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-13",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-13-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-09",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-09-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-04",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-04-index?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&output=json"
+          },
+          {
+            "collection": "CC-MAIN-2019-04",
+            "host": "auctions.savills.co.uk",
+            "prefix": "/Auctions/",
+            "match_type": "prefix",
+            "url": "https://index.commoncrawl.org/CC-MAIN-2019-04-index?url=auctions.savills.co.uk%2FAuctions%2F&matchType=prefix&output=json"
           }
         ],
-        "raw_url_samples": [],
-        "rejected_samples": [],
+        "raw_url_samples": [
+          "http://auctions.savills.co.uk/Auctions/Accessibility",
+          "http://auctions.savills.co.uk/Auctions/AmlNotice",
+          "http://auctions.savills.co.uk/Auctions/BuyingProperty",
+          "http://auctions.savills.co.uk/Auctions/CatalogueAlerts",
+          "https://auctions.savills.co.uk/Auctions/CatalogueAlerts",
+          "http://auctions.savills.co.uk/Auctions/Contacts",
+          "http://auctions.savills.co.uk/Auctions/FAQs",
+          "http://auctions.savills.co.uk/Auctions/Finance",
+          "http://auctions.savills.co.uk/Auctions/FutureAuctions",
+          "http://auctions.savills.co.uk/Auctions/GuidePrices",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=850a8c42-855e-40a9-b67a-93ef4f472d13",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=8e704cd3-24d6-441d-9125-85bc3aee0602",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=98773615-2198-417f-9fbc-be53740a7548",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=9e411e65-ed0e-4faa-9b17-42ddb34c154d",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=a0a8097f-0f19-4b68-891a-31fba10f1e29",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=a539bf2e-c9a6-4fbc-a900-321d2289b442",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=b649230d-cd1b-43d5-a40d-34725d812215",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=b6a7330a-071c-4bde-ad27-fbb5b1caf0c5",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=e1594bc6-4864-4898-9c54-efa67baa6367",
+          "http://auctions.savills.co.uk/Auctions/LotDetails?pid=ec196e8e-5b80-4c5f-a25b-70cb6f0e65bb",
+          "http://auctions.savills.co.uk/Auctions/LotList?aid=1071",
+          "http://auctions.savills.co.uk/Auctions/LotList?aid=1072",
+          "http://auctions.savills.co.uk/Auctions/LotList?aid=1089",
+          "http://auctions.savills.co.uk/Auctions/LotList?aid=1092"
+        ],
+        "rejected_samples": [
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Accessibility",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/AmlNotice",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/BuyingProperty",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/CatalogueAlerts",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Contacts",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/FAQs",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Finance",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/FutureAuctions",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/GuidePrices",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=0311042b-de8c-44e1-92d7-daa999044319",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=228a1cda-4707-4305-a763-b1a29300af76",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=2feb5ec0-bf39-44db-b6e5-970770265205",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=37cfacdb-090c-475a-aa18-86e18b2fa554",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=39c02c83-4803-4c1b-847f-b55acf800d32",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=76c28a68-008f-4b6c-94ad-6d2a86a41d6c",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=850a8c42-855e-40a9-b67a-93ef4f472d13",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=8e704cd3-24d6-441d-9125-85bc3aee0602",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=98773615-2198-417f-9fbc-be53740a7548",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=9e411e65-ed0e-4faa-9b17-42ddb34c154d",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=a0a8097f-0f19-4b68-891a-31fba10f1e29",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=a539bf2e-c9a6-4fbc-a900-321d2289b442",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=b649230d-cd1b-43d5-a40d-34725d812215",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=b6a7330a-071c-4bde-ad27-fbb5b1caf0c5",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=e1594bc6-4864-4898-9c54-efa67baa6367",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=ec196e8e-5b80-4c5f-a25b-70cb6f0e65bb",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1071",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1072",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1089",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=0311042b-de8c-44e1-92d7-daa999044319",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=228a1cda-4707-4305-a763-b1a29300af76",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=37cfacdb-090c-475a-aa18-86e18b2fa554",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=850a8c42-855e-40a9-b67a-93ef4f472d13",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=98773615-2198-417f-9fbc-be53740a7548",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=9e411e65-ed0e-4faa-9b17-42ddb34c154d",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=b649230d-cd1b-43d5-a40d-34725d812215",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1092&pid=e1594bc6-4864-4898-9c54-efa67baa6367",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/PastAuctions",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Privacy",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/RemoteBidding",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/RssFeeds",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/SellingProperty",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Terms",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1071",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1090",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1092",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotDetails?pid=35587416-a4af-4215-907c-7d2fa4627a36",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1086",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1091",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1091&us=y",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/PastAuctionsAvailable",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/SurveyMortgage",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1124",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1125",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1126",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1127",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1128",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1129",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1130",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/Venue?aid=1131",
+            "reason": "exact historical auction date unresolved from live Savills page"
+          }
+        ],
         "errors": [
-          "CC-MAIN-2013-48 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-48 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
-          "CC-MAIN-2013-20 www.savills.co.uk domain fallback :: HTTPError: HTTP Error 503: Service Temporarily Unavailable"
+          "CC-MAIN-2019-51 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2019-51 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-51 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2019-51 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-51 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-51 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2019-51 auctions.savills.co.uk domain fallback :: HTTPError: HTTP Error 504: Gateway Time-out",
+          "CC-MAIN-2019-47 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-47 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-47 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-47 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-47 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 auctions.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-43 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-43 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-39 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-39 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-39 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-39 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-39 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-39 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-35 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 auctions.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+          "CC-MAIN-2019-35 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-35 savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 auctions.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 auctions.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 auctions.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 auctions.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 www.savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 www.savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 www.savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 www.savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 www.savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 www.savills.co.uk/index.php prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 savills.co.uk/auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 savills.co.uk/auction/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 savills.co.uk/property-auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 savills.co.uk/Auctions/ prefix :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2019-30 savills.co.uk/component/bidding/ prefix :: HTTPError: HTTP Error 404: Not Found"
         ]
       },
-      "commoncrawl_legacy_priority_year": 2013,
+      "commoncrawl_legacy_priority_year": 2019,
       "commoncrawl_legacy_exact_collections": [
-        "CC-MAIN-2013-48",
-        "CC-MAIN-2013-20"
+        "CC-MAIN-2019-51",
+        "CC-MAIN-2019-47",
+        "CC-MAIN-2019-43",
+        "CC-MAIN-2019-39",
+        "CC-MAIN-2019-35",
+        "CC-MAIN-2019-30",
+        "CC-MAIN-2019-26",
+        "CC-MAIN-2019-22",
+        "CC-MAIN-2019-18",
+        "CC-MAIN-2019-13",
+        "CC-MAIN-2019-09",
+        "CC-MAIN-2019-04"
       ],
       "live_archive_pages_scanned": 14,
       "live_archive_browser_pages": 0,
@@ -838,7 +1768,14 @@
       "legacy_addresses_repaired_last_run": 0,
       "surviving_catalogue_row_addresses_corrected": 172,
       "archival_url_discovery_exhausted": true,
-      "surviving_catalogue_parser_revision": 3
+      "surviving_catalogue_parser_revision": 3,
+      "last_runtime_blocker": {
+        "at": "2026-09-11T07:05:34.048415+00:00",
+        "route": "savills-first-party-sitemap-date-match-2019",
+        "timeout_seconds": 300,
+        "message": "Bounded frontier recovery timed out: TimeoutExpired: Command '['/opt/hostedtoolcache/Python/3.11.16/x64/bin/python', 'savills_first_party_legacy_date_recovery.py']' timed out after 299.99998811800003 seconds",
+        "next_safe_route": "Advance to the next distinct 2019 frontier recovery route instead of rerunning the timed-out route in the same invocation."
+      }
     }
   }
 }
