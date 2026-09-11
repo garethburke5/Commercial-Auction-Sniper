@@ -12,6 +12,7 @@ on:
       - 'savills_legacy_aid_fast_discovery.py'
       - 'savills_legacy_aid_capture_recovery.py'
       - 'savills_manifest_aid_capture_recovery.py'
+      - 'savills_public_index_discovery.py'
       - 'historical_savills.py'
   schedule:
     - cron: '8 * * * *'
@@ -42,7 +43,7 @@ jobs:
           pip install playwright
           python -m playwright install chromium
       - name: Compile live-first repair
-        run: python -m py_compile savills_live_archive_backfill.py savills_live_archive_latent_probe.py historical_savills.py savills_legacy_aid_discovery.py savills_legacy_aid_fast_discovery.py savills_legacy_aid_capture_recovery.py savills_manifest_aid_capture_recovery.py history_database.py collectors/savills.py
+        run: python -m py_compile savills_live_archive_backfill.py savills_live_archive_latent_probe.py historical_savills.py savills_legacy_aid_discovery.py savills_legacy_aid_fast_discovery.py savills_legacy_aid_capture_recovery.py savills_manifest_aid_capture_recovery.py savills_public_index_discovery.py history_database.py collectors/savills.py
       - name: Exhaust complete live Savills archive dynamically
         run: python savills_live_archive_backfill.py
       - name: Guard transition beyond live archive
@@ -74,6 +75,10 @@ jobs:
         if: steps.livegate.outputs.legacy_allowed == 'true'
         continue-on-error: true
         run: python savills_manifest_aid_capture_recovery.py --max-live-checks 240
+      - name: Recover exact manifest dates through public search indexes
+        if: steps.livegate.outputs.legacy_allowed == 'true'
+        continue-on-error: true
+        run: python savills_public_index_discovery.py --year 2014 --max-dates 8 --max-candidates 180
       - name: Validate canonical persistence
         run: |
           python - <<'PY'
@@ -87,8 +92,8 @@ jobs:
           assert Path(s.get('live_archive_manifest') or 'data/source_diagnostics/savills_live_archive_manifest.json').exists(), 'Savills live archive manifest missing'
           events=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
           assert events
-          if s.get('last_live_archive_rows',0) or s.get('legacy_aid_last_events_added',0) or ((s.get('legacy_aid_capture_last_run') or {}).get('canonical_events_added',0)):
-              assert s.get('last_live_archive_ingested') or s.get('legacy_aid_last_processed') or s.get('legacy_aid_capture_last_run'), 'Rows claimed without Savills evidence trail'
+          if s.get('last_live_archive_rows',0) or s.get('legacy_aid_last_events_added',0) or ((s.get('legacy_aid_capture_last_run') or {}).get('canonical_events_added',0)) or ((s.get('public_index_last_run') or {}).get('canonical_events_added',0)):
+              assert s.get('last_live_archive_ingested') or s.get('legacy_aid_last_processed') or s.get('legacy_aid_capture_last_run') or s.get('public_index_last_run'), 'Rows claimed without Savills evidence trail'
           elif s.get('status') in ('LIVE ARCHIVE BLOCKED','LIVE ARCHIVE DEGRADED','DISCOVERY EXPANSION'):
               assert s.get('live_archive_blocker_url') or s.get('live_archive_stop_reason'), 'Blocker/degraded state missing exact live archive evidence'
           print('SAVILLS_EVENTS',len(events))
@@ -98,6 +103,7 @@ jobs:
           print('ROWS_ADDED',s.get('last_live_archive_rows'))
           print('LEGACY_EVENTS_ADDED',s.get('legacy_aid_last_events_added'))
           print('ARCHIVED_AID_EVENTS_ADDED',(s.get('legacy_aid_capture_last_run') or {}).get('canonical_events_added'))
+          print('PUBLIC_INDEX_EVENTS_ADDED',(s.get('public_index_last_run') or {}).get('canonical_events_added'))
           print('STOP_REASON',s.get('live_archive_stop_reason'))
           PY
       - name: Publish live archive records or blocker
