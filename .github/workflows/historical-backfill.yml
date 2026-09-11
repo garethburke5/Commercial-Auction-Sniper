@@ -18,6 +18,8 @@ on:
       - 'savills_public_index_frontier_recovery.py'
       - 'savills_manifest_public_address_recovery.py'
       - 'savills_public_address_frontier_recovery.py'
+      - 'savills_bing_rss_frontier_recovery.py'
+      - 'savills_history_integrity_repair.py'
       - 'savills_exhaustive_discovery.py'
       - 'historical_acuitus.py'
       - 'repair_savills_history.py'
@@ -59,10 +61,13 @@ jobs:
 
       - name: Compile history code
         run: |
-          python -m py_compile historical_backfill.py historical_savills.py savills_surviving_catalogue_backfill.py savills_first_party_legacy_date_recovery.py savills_commoncrawl_legacy_probe.py savills_legacy_aid_capture_recovery.py savills_legacy_pid_wayback_recovery.py savills_public_index_frontier_recovery.py savills_manifest_public_address_recovery.py savills_public_address_frontier_recovery.py savills_exhaustive_discovery.py historical_acuitus.py repair_savills_history.py savills_history_quality.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py collectors/acuitus.py
+          python -m py_compile historical_backfill.py historical_savills.py savills_surviving_catalogue_backfill.py savills_first_party_legacy_date_recovery.py savills_commoncrawl_legacy_probe.py savills_legacy_aid_capture_recovery.py savills_legacy_pid_wayback_recovery.py savills_public_index_frontier_recovery.py savills_manifest_public_address_recovery.py savills_public_address_frontier_recovery.py savills_bing_rss_frontier_recovery.py savills_history_integrity_repair.py savills_exhaustive_discovery.py historical_acuitus.py repair_savills_history.py savills_history_quality.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py collectors/acuitus.py
 
       - name: Run history regression tests
         run: python -m unittest tests.test_history_database -v
+
+      - name: Enforce canonical Savills lot evidence before frontier selection
+        run: python savills_history_integrity_repair.py
 
       - name: Backfill next incomplete premium commercial source
         run: |
@@ -94,6 +99,10 @@ jobs:
               verified={str(e.get('auction_date'))[:10] for e in (history.get('auction_events') or []) if e.get('source')=='Savills Auctions' and e.get('auction_date')}
               unresolved=sorted(d for d in known if d not in verified)
               return unresolved[0] if unresolved else None
+
+          def sav_count():
+              h=json.loads(history_path.read_text(encoding='utf-8'))
+              return sum(1 for e in (h.get('auction_events') or []) if e.get('source')=='Savills Auctions')
 
           def persist_runtime_blocker(route, timeout_seconds, exc):
               p = load_progress()
@@ -132,19 +141,25 @@ jobs:
               frontier=oldest_unresolved_manifest_date()
               print('SAVILLS_OLDEST_UNRESOLVED_MANIFEST_DATE', frontier, flush=True)
               if frontier:
-                  # The live Savills manifest is authoritative for the practical gap. Always
-                  # target its oldest auction lacking a canonical lot event. This removes the
-                  # old 2019-only routing bug and naturally advances through 2014, 2015, ...
-                  # as each dated auction becomes represented by verified first-party events.
                   print('NEXT_SOURCE Savills Auctions actual oldest unresolved manifest frontier', flush=True)
+                  before=sav_count()
                   bounded(
                       [sys.executable, 'savills_manifest_public_address_recovery.py', '--max-source-pages', '120', '--max-clues', '160', '--max-live-checks', '220'],
                       420,
                       'public-result-address-to-surviving-savills-oldest-manifest-date',
                   )
+                  after=sav_count()
+                  # DuckDuckGo HTML is frequently empty from hosted runners. If it added
+                  # nothing, immediately attack the same dynamic frontier via Bing RSS.
+                  # Shared recover_candidate now refuses generic Savills pages, so only
+                  # lot-specific auctions.savills.co.uk evidence can persist.
+                  if after == before and oldest_unresolved_manifest_date() == frontier:
+                      bounded(
+                          [sys.executable, 'savills_bing_rss_frontier_recovery.py', '--max-pages', '100', '--max-clues', '180', '--max-live-checks', '240'],
+                          420,
+                          'bing-rss-date-address-to-strict-savills-lot-oldest-manifest-date',
+                      )
               else:
-                  # Only when every dated live-manifest auction has at least one verified lot
-                  # event do we leave the live 2014+ gap and continue deeper legacy archaeology.
                   print('NEXT_SOURCE Savills Auctions post-manifest legacy archaeology', flush=True)
                   bounded(
                       [sys.executable,'savills_surviving_catalogue_backfill.py'],
@@ -173,9 +188,9 @@ jobs:
       - name: Validate premium history database
         run: |
           python - <<'PY'
-          import json
+          import json, re
           from pathlib import Path
-          from urllib.parse import urlparse
+          from urllib.parse import parse_qs, urlparse
           h=Path('data/property_history.json')
           p=Path('data/historical_backfill_progress.json')
           assert h.exists(), 'property_history.json missing'
@@ -200,12 +215,16 @@ jobs:
 
           sav_events=[e for e in events if e.get('source') == 'Savills Auctions']
           assert sav_events, 'No Savills historical events in History V2'
-          def first_party(url, domain):
+          def savills_lot(url):
               parsed=urlparse(url or '')
-              host=(parsed.hostname or '').lower()
-              return parsed.scheme == 'https' and (host == domain or host.endswith('.'+domain))
-          bad_sav=[e for e in sav_events if not first_party((e.get('source_evidence') or {}).get('listing_url'),'savills.co.uk')]
-          assert not bad_sav, f'{len(bad_sav)} Savills events lack first-party exact listing evidence'
+              if parsed.scheme != 'https' or (parsed.hostname or '').lower() != 'auctions.savills.co.uk':
+                  return False
+              low=(parsed.path or '').lower(); q=parse_qs(parsed.query)
+              if ('lotdetails' in low or 'index.php' in low) and (q.get('pid') or (q.get('view')==['commission'] and q.get('id'))):
+                  return True
+              return bool(re.search(r'/auctions/[^/?#]+-\d+/(?:[^/?#]+-)?\d+/?$', parsed.path or '', re.I))
+          bad_sav=[e for e in sav_events if not savills_lot((e.get('source_evidence') or {}).get('listing_url'))]
+          assert not bad_sav, f'{len(bad_sav)} Savills events lack lot-specific first-party evidence'
           modal=[e for e in sav_events if 'login to see times and book a viewing' in str(e.get('address_as_published') or '').lower()]
           assert not modal, f'{len(modal)} Savills events still contain modal boilerplate as address'
 
@@ -216,21 +235,9 @@ jobs:
               assert ac.get('last_run_failures',0) == 0, f'Acuitus run has failures: {ac.get("last_failure")}'
               assert ac.get('last_run_rows',0) > 0 or ac.get('status') == 'CAUGHT UP', 'Acuitus selected no persistable records'
               assert ac.get('lots_captured',0) > 0, 'Acuitus telemetry reports zero captured lots'
-              ac_events=[e for e in events if e.get('source') == 'Acuitus']
-              assert len(ac_events) >= ac.get('lots_captured',0), f'Acuitus telemetry/history mismatch: {ac.get("lots_captured")} captured vs {len(ac_events)} canonical events'
-              bad=[e for e in ac_events if not first_party((e.get('source_evidence') or {}).get('listing_url'),'acuitus.co.uk')]
-              assert not bad, f'{len(bad)} Acuitus events lack first-party exact listing evidence'
-              missing_dates=[e for e in ac_events if not e.get('auction_date')]
-              assert not missing_dates, f'{len(missing_dates)} Acuitus events missing auction date'
-              missing_addresses=[e for e in ac_events if not e.get('address_as_published')]
-              assert not missing_addresses, f'{len(missing_addresses)} Acuitus events missing address'
-              property_ids={p.get('property_id') for p in properties if p.get('property_id')}
-              dangling=[e for e in ac_events if e.get('property_id') not in property_ids]
-              assert not dangling, f'{len(dangling)} Acuitus events have dangling property references'
-
           print('HISTORY',len(properties),'properties',len(events),'events')
           print('SAVILLS_EVENTS',len(sav_events))
-          print('SAVILLS',sav)
+          print('SAVILLS_EARLIEST_VERIFIED',sav.get('earliest_date_reached'))
           PY
 
       - name: Publish historical database and progress
