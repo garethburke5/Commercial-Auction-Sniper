@@ -1,0 +1,38 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T17:57:00Z",
+  "frontier_kind": "oldest-known-live-archive-auction",
+  "target_auction_date": "2014-04-24",
+  "live_archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "canonical_savills_events_before_this_repair": 3250,
+  "historically_complete": false,
+  "discovery_exhausted": false,
+  "failed_routes": [
+    {
+      "route": "concurrent-live-Savills-LotList-aid-enumeration",
+      "exact_range": "aid=1126 down through aid=527 in latest fast probe; 1726 legacy IDs scanned cumulatively",
+      "result": "0 candidate legacy auction IDs and 0 canonical events added"
+    },
+    {
+      "route": "manifest-driven-Common-Crawl-WARC-LotList-aid-pid-recovery",
+      "target_year": 2014,
+      "target_date": "2014-04-24",
+      "result": "0 archive capture rows, 0 mapped aid dates, 0 legacy lot URLs, 0 live Savills validations and 0 canonical events added",
+      "observed_errors": [
+        "CC-MAIN-2014-23 LotList prefix returned HTTP 404",
+        "CC-MAIN-2014-15 LotList prefix returned HTTP 503",
+        "CC-MAIN-2014-10 LotList prefix returned HTTP 404"
+      ]
+    }
+  ],
+  "blocker": "The oldest visible Savills archive auction (24 April 2014) is still only represented by first-party auction-summary evidence. Neither the surviving legacy LotList aid namespace nor the 2014 Common Crawl LotList-prefix captures have yielded resolvable lot URLs that can be validated against a surviving first-party Savills property page.",
+  "implemented_next_route": {
+    "route": "public-search-index-exact-date-to-surviving-Savills-first-party",
+    "implementation": "savills_public_index_discovery.py",
+    "implementation_commit": "70f52af662fc08ece135c86c0656c732262f4665",
+    "workflow_wiring_commit": "b038c7c5dac22e925e1d102f4518401049cefaaf",
+    "method": "Query multiple free public search indexes for exact unresolved Savills auction dates; extract only candidate auctions.savills.co.uk URLs; require the candidate to resolve to Savills first-party HTML, reject conflicting auction dates, pass the existing commercial/mixed-use classifier, and only then normalize/persist to canonical History V2.",
+    "safety": "Third-party/search results are discovery-only. No third-party facts are persisted as canonical property facts without a surviving first-party Savills evidence page."
+  },
+  "next_success_condition": "Persist one or more verified commercial/mixed-use lots for 24 April 2014 or another unresolved 2014 Savills auction with first-party evidence, or persist the exact public-index failure and implement the next distinct address/lot-number-to-Savills namespace recovery route."
+}
