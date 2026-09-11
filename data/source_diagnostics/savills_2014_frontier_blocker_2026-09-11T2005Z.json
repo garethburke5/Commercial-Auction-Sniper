@@ -1,0 +1,41 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T20:05:00Z",
+  "frontier_date": "2014-04-24",
+  "frontier_source": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "canonical_savills_events_before": 3250,
+  "canonical_savills_events_after": 3250,
+  "historically_complete": false,
+  "outcome": "BLOCKED_WITH_DIFFERENT_NEXT_PATH_IMPLEMENTED",
+  "failing_routes": [
+    {
+      "route": "wayback-cdx-adjacent-aid-and-numeric-url-reconstruction",
+      "year": 2014,
+      "result": "No broad CDX seed rows for LotList, LotDetails, or /auctions/ across 2012-2016; therefore no adjacent IDs or captures could be reconstructed.",
+      "broad_seed_rows": 0,
+      "exact_queries_run": 0,
+      "lot_candidates": 0,
+      "canonical_events_added": 0
+    },
+    {
+      "route": "duckduckgo-public-auction-result-address-to-live-savills-validation",
+      "frontier_date": "2014-04-24",
+      "result": "All three exact-date public-result queries returned zero result URLs from the hosted runner; no address clues or Savills candidates were available for validation.",
+      "queries_attempted": 3,
+      "source_pages_examined": 0,
+      "address_clues": 0,
+      "candidate_savills_urls": 0,
+      "canonical_events_added": 0
+    }
+  ],
+  "next_safe_repair": {
+    "route": "bing-rss-date-address-to-live-savills-validation",
+    "implementation": "savills_bing_rss_frontier_recovery.py",
+    "implementation_commit": "d7381a4b43c38a76724b5e82bc06a96fefe3988e",
+    "workflow_wiring_commit": "75977285cc588a017f2c687b5eaa689abc37769d",
+    "method": "Use Bing's free public RSS search as an independent index for exact 24 April 2014 Savills result/address discovery, then require the existing surviving first-party Savills page and commercial/mixed-use classifier before canonical History V2 persistence.",
+    "acceptance_rule": "Bing/public pages are discovery evidence only; no lot is persisted unless recover_candidate validates a surviving Savills first-party URL and the auction date/property classification."
+  },
+  "discovery_exhausted": false,
+  "user_action_required": false
+}
