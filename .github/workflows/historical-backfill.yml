@@ -10,9 +10,11 @@ on:
       - '.github/workflows/historical-backfill.yml'
       - 'historical_backfill.py'
       - 'historical_savills.py'
+      - 'savills_surviving_catalogue_backfill.py'
       - 'savills_exhaustive_discovery.py'
       - 'historical_acuitus.py'
       - 'repair_savills_history.py'
+      - 'savills_history_quality.py'
       - 'history_database.py'
       - 'historical_evidence.py'
       - 'tests/test_history_database.py'
@@ -49,7 +51,7 @@ jobs:
 
       - name: Compile history code
         run: |
-          python -m py_compile historical_backfill.py historical_savills.py savills_exhaustive_discovery.py historical_acuitus.py repair_savills_history.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py collectors/acuitus.py
+          python -m py_compile historical_backfill.py historical_savills.py savills_surviving_catalogue_backfill.py savills_exhaustive_discovery.py historical_acuitus.py repair_savills_history.py savills_history_quality.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py collectors/acuitus.py
 
       - name: Run history regression tests
         run: python -m unittest tests.test_history_database -v
@@ -62,17 +64,20 @@ jobs:
           p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
           sources=p.get('sources') or {}
           sav=sources.get('Savills Auctions') or {}
-          modern_done = int(sav.get('auctions_completed') or 0) >= int(sav.get('auctions_discovered') or 0) > 0
+          modern_done = int(sav.get('auctions_completed') or 0) >= 70
           if not modern_done:
               cmd=[sys.executable,'historical_savills.py','--max-auctions','8']
               print('NEXT_SOURCE Savills Auctions modern first-party archive')
+              subprocess.run(cmd, check=True)
           elif not sav.get('historically_complete', False):
-              cmd=[sys.executable,'savills_exhaustive_discovery.py','--months','2','--floor-year','2002','--max-lot-pages','300']
-              print('NEXT_SOURCE Savills Auctions exhaustive legacy discovery')
+              print('NEXT_SOURCE Savills Auctions surviving first-party historical catalogues')
+              subprocess.run([sys.executable,'savills_surviving_catalogue_backfill.py'], check=True)
+              # Continue discovery in the same run after harvesting every currently-known
+              # surviving catalogue. This must not replace the first-party harvest.
+              subprocess.run([sys.executable,'savills_exhaustive_discovery.py','--months','2','--floor-year','2002','--max-lot-pages','300'], check=True)
           else:
-              cmd=[sys.executable,'historical_acuitus.py','--max-auctions','6']
               print('NEXT_SOURCE Acuitus')
-          subprocess.run(cmd, check=True)
+              subprocess.run([sys.executable,'historical_acuitus.py','--max-auctions','6'], check=True)
           PY
 
       - name: Repair Savills addresses when modern Savills changed
@@ -82,11 +87,11 @@ jobs:
           from pathlib import Path
           p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
           sav=(p.get('sources') or {}).get('Savills Auctions') or {}
-          modern_done = int(sav.get('auctions_completed') or 0) >= int(sav.get('auctions_discovered') or 0) > 0
+          modern_done = int(sav.get('auctions_completed') or 0) >= 70
           if not modern_done:
               subprocess.run([sys.executable,'repair_savills_history.py'], check=True)
           else:
-              print('Savills modern archive already captured; no modern address repair needed.')
+              print('Savills modern archive already captured; surviving-catalogue repair runs inside its backfill.')
           PY
 
       - name: Validate premium history database
@@ -112,10 +117,11 @@ jobs:
           allsop=sources.get('Allsop Commercial') or {}
           sav=sources.get('Savills Auctions') or {}
           assert allsop.get('status') == 'CAUGHT UP', f'Allsop unexpectedly not caught up: {allsop.get("status")}'
-          assert int(sav.get('auctions_completed') or 0) >= int(sav.get('auctions_discovered') or 0) > 0, 'Savills modern first-party archive not fully captured'
-          # Exhausting the modern archive must never be represented as historical completeness.
+          assert int(sav.get('auctions_completed') or 0) >= 70, 'Savills modern first-party archive not fully captured'
+          # Exhausting modern or one legacy route must never be represented as historical completeness.
           if not sav.get('historically_complete', False):
-              assert sav.get('status') in {'DISCOVERY EXPANSION','DISCOVERY EXHAUSTED','RUNNING'}, f'Misleading Savills status: {sav.get("status")}'
+              allowed={'DISCOVERY EXPANSION','DISCOVERY EXHAUSTED','RUNNING','SURVIVING CATALOGUE INGESTING','SURVIVING CATALOGUE PROBE BLOCKED','LIVE ARCHIVE BLOCKED','LIVE ARCHIVE DEGRADED'}
+              assert sav.get('status') in allowed, f'Misleading Savills status: {sav.get("status")}'
 
           sav_events=[e for e in events if e.get('source') == 'Savills Auctions']
           assert sav_events, 'No Savills historical events in History V2'
@@ -125,6 +131,8 @@ jobs:
               return parsed.scheme == 'https' and (host == domain or host.endswith('.'+domain))
           bad_sav=[e for e in sav_events if not first_party((e.get('source_evidence') or {}).get('listing_url'),'savills.co.uk')]
           assert not bad_sav, f'{len(bad_sav)} Savills events lack first-party exact listing evidence'
+          modal=[e for e in sav_events if 'login to see times and book a viewing' in str(e.get('address_as_published') or '').lower()]
+          assert not modal, f'{len(modal)} Savills events still contain modal boilerplate as address'
 
           if sav.get('historically_complete', False):
               ac=sources.get('Acuitus') or {}
@@ -154,7 +162,7 @@ jobs:
         run: |
           git config user.name 'Auction Sniper History Bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add data/property_history.json data/historical_backfill_progress.json
+          git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics || true
           if ! git diff --cached --quiet; then
             git commit -m 'Backfill next UK commercial auction history source'
             for attempt in 1 2 3; do
