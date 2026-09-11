@@ -11,15 +11,30 @@ from savills_history_quality import correct_rows, repair_database
 DATA = Path('data')
 HISTORY = DATA / 'property_history.json'
 SOURCE = 'Savills Auctions'
-# Bump when the shared Savills parser changes in a way that should force these
-# known surviving catalogues back through production.
-PARSER_REVISION = 2
+# Bump when the shared Savills parser or known surviving catalogue set changes in a
+# way that should force these routes back through production.
+PARSER_REVISION = 3
 
-# Surviving first-party catalogue routes independently verified on auctions.savills.co.uk.
-# These bypass the obsolete /Auctions/LotList?aid= route and materially close the
-# known 2014-2022 lot-level gap using canonical Savills evidence pages.
-# Keep these oldest-first so each run attacks the historical boundary before newer gaps.
+# Surviving/migrated first-party catalogue routes. Keep these oldest-first so every
+# production pass attacks the historical boundary before newer gaps. The September
+# and November 2019 routes are deliberately treated as candidates: fetch_auction()
+# must expose a real lot inventory and commercial rows before they can be marked
+# complete, so an invalid/redirected route can never create false history.
 SEEDS = [
+    {
+        'auction_id': '1',
+        'catalogue': 'https://auctions.savills.co.uk/auctions/september-2019-1',
+        'start': date(2019, 9, 23),
+        'end': date(2019, 9, 23),
+        'label': 'September 2019: Monday 23 September 2019',
+    },
+    {
+        'auction_id': '2',
+        'catalogue': 'https://auctions.savills.co.uk/auctions/november-2019-2',
+        'start': date(2019, 11, 4),
+        'end': date(2019, 11, 4),
+        'label': 'November 2019: Monday 4 November 2019',
+    },
     {
         'auction_id': '3',
         'catalogue': 'https://auctions.savills.co.uk/auctions/december-2019-3',
@@ -118,6 +133,8 @@ def main() -> None:
         }
         try:
             rows, expected, feed = hs.fetch_auction(auction)
+            if not rows or not expected:
+                raise RuntimeError('Savills candidate catalogue yielded no verified lot-level rows')
             rows, corrected = correct_rows(rows)
             total_row_addresses_corrected += corrected
             bad = [r for r in rows if not str(r.get('address') or '').strip() or 'login to see times and book a viewing' in str(r.get('address') or '').lower()]
