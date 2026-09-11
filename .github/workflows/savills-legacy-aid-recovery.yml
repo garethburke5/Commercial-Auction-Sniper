@@ -2,12 +2,15 @@ name: Savills Legacy Aid Recovery
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '41 * * * *'
   push:
     branches: [main]
     paths:
       - '.github/workflows/savills-legacy-aid-recovery.yml'
+      - 'savills_legacy_exact_parallel_recovery.py'
       - 'savills_legacy_aid_capture_recovery.py'
-      - 'savills_legacy_venue_capture_recovery.py'
+      - 'savills_legacy_aid_exact_recovery.py'
 
 permissions:
   contents: write
@@ -37,9 +40,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Compile recovery code
+      - name: Compile focused recovery code
         run: |
-          python -m py_compile savills_legacy_aid_capture_recovery.py savills_legacy_venue_capture_recovery.py savills_archival_url_discovery.py collectors/savills.py history_database.py
+          python -m py_compile savills_legacy_exact_parallel_recovery.py savills_legacy_aid_capture_recovery.py savills_legacy_aid_exact_recovery.py savills_archival_url_discovery.py collectors/savills.py history_database.py
 
       - name: Record baseline
         run: |
@@ -54,25 +57,35 @@ jobs:
           print('BASELINE',n,s.get('earliest_date_reached'))
           PY
 
-      - name: Recover aid dates from archived LotList captures
-        run: timeout 780s python savills_legacy_aid_capture_recovery.py --year 2019 --max-live-checks 180
+      - name: Exact parallel recovery for known legacy aid IDs
+        id: recovery
+        continue-on-error: true
+        run: timeout 1000s python savills_legacy_exact_parallel_recovery.py --max-live-checks 220
 
-      - name: Run distinct Venue and PastAuctions fallback if needed
+      - name: Persist unexpected runtime blocker
+        if: steps.recovery.outcome != 'success'
         run: |
           python - <<'PY'
-          import json, subprocess, sys
+          import json
+          from datetime import datetime, timezone
           from pathlib import Path
-          b=json.loads(Path('/tmp/savills-baseline.json').read_text())
-          db=json.loads(Path('data/property_history.json').read_text(encoding='utf-8'))
-          n=sum(1 for e in (db.get('auction_events') or []) if e.get('source')=='Savills Auctions')
-          if n <= int(b['events']):
-              print('NO_AID_EVENT_ADVANCE; executing distinct Venue/PastAuctions WARC route', flush=True)
-              subprocess.run(['timeout','780s',sys.executable,'savills_legacy_venue_capture_recovery.py','--year','2019','--max-live-checks','180'], check=True)
-          else:
-              print('AID_ROUTE_ADVANCED_HISTORY', n-int(b['events']))
+          path=Path('data/historical_backfill_progress.json')
+          p=json.loads(path.read_text(encoding='utf-8'))
+          s=p.setdefault('sources',{}).setdefault('Savills Auctions',{})
+          now=datetime.now(timezone.utc).isoformat()
+          s['status']='LIVE ARCHIVE BLOCKED'
+          s['historically_complete']=False
+          s['legacy_exact_parallel_runtime_blocker']={
+              'at':now,
+              'route':'commoncrawl-fixed-collection-parallel-exact-venue-lotlist-warc',
+              'message':'Focused exact-aid recovery failed at runtime; the broad 2019 Common Crawl prefix route remains unavailable with 503/504 and is not being retried.',
+              'next_safe_route':'Query exact archived LotDetails captures for already-known pid GUIDs and join archived pid evidence back to the known aid/date frontier before live Savills validation.'
+          }
+          p['updated_at']=now
+          path.write_text(json.dumps(p,indent=2,ensure_ascii=False),encoding='utf-8')
           PY
 
-      - name: Validate outcome
+      - name: Validate strict outcome
         run: |
           python - <<'PY'
           import json
@@ -87,16 +100,17 @@ jobs:
           bad=[]
           for e in events:
               u=(e.get('source_evidence') or {}).get('listing_url') or ''
-              host=(urlparse(u).hostname or '').lower()
-              if urlparse(u).scheme!='https' or not (host=='savills.co.uk' or host.endswith('.savills.co.uk')):
+              parsed=urlparse(u)
+              host=(parsed.hostname or '').lower()
+              if parsed.scheme!='https' or not (host=='savills.co.uk' or host.endswith('.savills.co.uk')):
                   bad.append(u)
-          assert not bad, f'{len(bad)} Savills events lack first-party evidence'
+          assert not bad, f'{len(bad)} Savills events lack first-party exact evidence'
           advanced=len(events)>int(b['events']) or (s.get('earliest_date_reached') and (not b.get('earliest') or s.get('earliest_date_reached') < b.get('earliest')))
-          blocker=s.get('legacy_venue_capture_last_blocker') or s.get('legacy_aid_capture_last_blocker')
-          assert advanced or blocker, 'Neither older Savills history nor a concrete persisted blocker was produced'
+          blocker=(s.get('legacy_exact_parallel_last_blocker') or s.get('legacy_exact_parallel_runtime_blocker'))
+          assert advanced or blocker, 'Strict run outcome violated: neither older events nor a concrete blocker was persisted'
           if not advanced:
-              assert blocker.get('next_safe_route'), 'Blocker lacks next safe route'
-          print('OUTCOME', {'advanced':advanced,'events_before':b['events'],'events_after':len(events),'earliest_before':b.get('earliest'),'earliest_after':s.get('earliest_date_reached'),'blocker':blocker if not advanced else None})
+              assert blocker.get('next_safe_route'), 'Persisted blocker lacks next safe route'
+          print('STRICT_OUTCOME',{'advanced':advanced,'events_before':b['events'],'events_after':len(events),'earliest_before':b.get('earliest'),'earliest_after':s.get('earliest_date_reached'),'blocker':blocker if not advanced else None})
           PY
 
       - name: Publish canonical history and progress
@@ -105,7 +119,7 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add data/property_history.json data/historical_backfill_progress.json
           if ! git diff --cached --quiet; then
-            git commit -m 'Recover older Savills history from legacy aid captures'
+            git commit -m 'Advance exact legacy Savills frontier recovery'
             for attempt in 1 2 3; do
               git fetch origin main
               if ! git rebase origin/main; then
