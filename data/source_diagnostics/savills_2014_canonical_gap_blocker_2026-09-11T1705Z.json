@@ -1,0 +1,40 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T17:05:00Z",
+  "frontier_date": "2014-04-24",
+  "frontier_archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "canonical_savills_events_before_repair": 3250,
+  "canonical_earliest_month_before_repair": "2019-02",
+  "historically_complete": false,
+  "discovery_exhausted": false,
+  "concrete_blocker": "The current Savills archive proves auctions back to 24 April 2014, but the oldest archive pages do not expose enough surviving catalogue anchors to create lot-level History V2 events. The entire live legacy LotList aid range from 1126 down through 1 has now been scanned without recovering a canonical commercial event, and the first-party sitemap inventory produced no historical lot candidates.",
+  "exhausted_or_failed_routes": [
+    {
+      "route": "live-first-party-archive-pagination",
+      "evidence": "14 populated archive pages; page 15 has no dated auction records; oldest visible date 2014-04-24",
+      "result": "auction-level dates survive, but the oldest page does not yield sufficient direct lot catalogue anchors"
+    },
+    {
+      "route": "live-first-party-LotList-aid-enumeration",
+      "url_pattern": "https://auctions.savills.co.uk/Auctions/LotList?aid={aid}",
+      "aid_range_scanned": "1126 down through 1",
+      "ids_scanned": 1126,
+      "canonical_events_added": 0,
+      "result": "live legacy aid space exhausted without a recoverable commercial auction"
+    },
+    {
+      "route": "first-party-sitemaps",
+      "urls_discovered": 20653,
+      "historical_lot_candidates": 0,
+      "canonical_events_added": 0
+    }
+  ],
+  "root_cause_found_this_run": "The manifest-driven WARC recovery wrapper previously treated only archive pages labelled unresolved as targets. That can silently skip a missing auction when another auction on the same page has a surviving catalogue anchor. Page-level completeness is therefore not a valid proxy for canonical lot-level coverage.",
+  "next_safe_repair_implemented": {
+    "route": "full-manifest canonical-date-gap to Common Crawl WARC aid/pid recovery, followed by surviving Savills first-party validation",
+    "implementation": "savills_manifest_aid_capture_recovery.py",
+    "commit": "110fcd5b9e8d2a5af798c5973708f18ef7dad54c",
+    "change": "Targets every dated Savills live-manifest auction absent from canonical History V2, oldest missing year first, rather than only dates on zero-anchor pages. Candidate archive URLs still require a surviving Savills first-party lot page and commercial/mixed-use classification before persistence.",
+    "success_condition": "Persist one or more 2014 lot-level Savills events with evidence URLs, or persist the exact WARC/index blocker for the oldest missing manifest date and move to a different archival recovery route."
+  }
+}
