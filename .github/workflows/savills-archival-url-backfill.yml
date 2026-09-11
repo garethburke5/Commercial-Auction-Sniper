@@ -11,6 +11,7 @@ on:
       - 'savills_cdx_adjacent_id_recovery.py'
       - 'savills_manifest_public_address_recovery.py'
       - 'savills_public_address_frontier_recovery.py'
+      - 'savills_bing_rss_frontier_recovery.py'
       - 'savills_live_archive_backfill.py'
       - 'history_database.py'
 
@@ -44,7 +45,7 @@ jobs:
 
       - name: Compile manifest-frontier recovery
         run: |
-          python -m py_compile savills_cdx_adjacent_id_recovery.py savills_manifest_public_address_recovery.py savills_public_address_frontier_recovery.py history_database.py collectors/savills.py
+          python -m py_compile savills_cdx_adjacent_id_recovery.py savills_manifest_public_address_recovery.py savills_public_address_frontier_recovery.py savills_bing_rss_frontier_recovery.py history_database.py collectors/savills.py
 
       - name: Record canonical baseline and oldest unresolved manifest date
         id: frontier
@@ -81,10 +82,15 @@ jobs:
         run: |
           python savills_cdx_adjacent_id_recovery.py --year ${{ steps.frontier.outputs.frontier_year }} --radius 18 --max-exact-queries 420 --max-captures 320
 
-      - name: Run date-specific public-result/address recovery at exact oldest frontier
+      - name: Run DuckDuckGo public-result/address recovery at exact oldest frontier
         continue-on-error: true
         run: |
           python savills_manifest_public_address_recovery.py --max-source-pages 120 --max-clues 160 --max-live-checks 220
+
+      - name: Run independent Bing RSS fallback at exact oldest frontier
+        continue-on-error: true
+        run: |
+          python savills_bing_rss_frontier_recovery.py --max-pages 80 --max-clues 160 --max-live-checks 220
 
       - name: Validate strict canonical outcome
         run: |
@@ -107,17 +113,21 @@ jobs:
                   bad.append(u)
           assert not bad, f'{len(bad)} Savills events lack first-party listing evidence'
           advanced=len(events)>int(b['events'])
-          adjacent=s.get('cdx_adjacent_id_last_blocker') or {}
-          address=s.get('public_address_frontier_last_blocker') or {}
+          blockers=[
+              s.get('bing_rss_frontier_last_blocker') or {},
+              s.get('public_address_frontier_last_blocker') or {},
+              s.get('cdx_adjacent_id_last_blocker') or {},
+          ]
+          blockers=[x for x in blockers if x]
           if not advanced:
-              assert adjacent or address, 'Strict outcome violated: no new events and no source-specific blocker'
-              blocker=address or adjacent
+              assert blockers, 'Strict outcome violated: no new events and no source-specific blocker'
+              blocker=blockers[0]
               assert blocker.get('next_safe_route'), 'Persisted blocker lacks next safe route'
               assert str(blocker.get('frontier_date') or (blocker.get('frontier_dates') or [''])[0]).startswith(str(b['year'])), 'Blocker is not tied to oldest manifest frontier year'
           s['historically_complete']=False
           p['updated_at']=__import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat()
           Path('data/historical_backfill_progress.json').write_text(json.dumps(p,indent=2,ensure_ascii=False),encoding='utf-8')
-          print('STRICT_OUTCOME',{'advanced':advanced,'events_before':b['events'],'events_after':len(events),'frontier':b['frontier'],'adjacent_blocker':bool(adjacent),'address_blocker':bool(address)})
+          print('STRICT_OUTCOME',{'advanced':advanced,'events_before':b['events'],'events_after':len(events),'frontier':b['frontier'],'blockers':[x.get('route') for x in blockers]})
           PY
 
       - name: Publish verified history and progress
