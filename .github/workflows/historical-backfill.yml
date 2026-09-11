@@ -17,6 +17,7 @@ on:
       - 'savills_history_quality.py'
       - 'history_database.py'
       - 'historical_evidence.py'
+      - 'collectors/savills.py'
       - 'tests/test_history_database.py'
 
 permissions:
