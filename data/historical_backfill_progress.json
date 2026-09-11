@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-11T20:07:02.738445+00:00",
+  "updated_at": "2026-09-11T21:16:17.436145+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,11 +127,11 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "DISCOVERY EXPANSION",
+      "status": "LIVE ARCHIVE BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
-      "lots_captured": 3251,
-      "earliest_month_reached": "2014-04",
+      "lots_captured": 3250,
+      "earliest_month_reached": "2019-12",
       "completed_auction_ids": [
         "3",
         "6",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "bing-rss-date-address-to-live-savills-validation",
+      "last_discovery_mode": "date-specific-savills-result-document-to-strict-live-lot",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -1703,7 +1703,7 @@
       "live_archive_latent_events_added": 0,
       "live_archive_latent_failures": [],
       "last_live_archive_latent_diagnostic": "data/source_diagnostics/savills_live_archive_page14_latent_routes_2026-09-10T2003Z.json",
-      "earliest_date_reached": "2014-04-24",
+      "earliest_date_reached": "2019-12-16",
       "surviving_catalogue_last_run_at": "2026-09-11T03:10:19.902928+00:00",
       "surviving_catalogue_last_attempts": [
         {
@@ -3358,6 +3358,112 @@
           }
         ],
         "errors": []
+      },
+      "history_integrity_last_run": {
+        "at": "2026-09-11T21:16:15.404098+00:00",
+        "route": "canonical-savills-lot-url-integrity-repair",
+        "removed_events": [
+          {
+            "event_id": "16d36b26c5015ef491bcb18f",
+            "address": "Put your home in expert hands",
+            "listing_url": "https://www.savills.co.uk/",
+            "auction_date": "2014-04-24"
+          }
+        ],
+        "removed_count": 1,
+        "savills_events_after": 3250,
+        "earliest_verified_after": "2019-12-16",
+        "rule": "A historical Savills frontier event is not canonical unless its evidence listing URL is a lot-specific auctions.savills.co.uk route; generic Savills corporate/search/property pages cannot inherit an auction date from discovery context."
+      },
+      "result_document_frontier_last_run": {
+        "at": "2026-09-11T21:16:17.436089+00:00",
+        "route": "date-specific-savills-result-document-to-strict-live-lot",
+        "frontier_date": "2014-04-24",
+        "queries": [
+          {
+            "query": "\"Savills\" \"24 April 2014\" auction results pdf",
+            "results": 10,
+            "sample": [
+              "https://www.savills.com/",
+              "https://www.savills.us/",
+              "https://en.wikipedia.org/wiki/Savills",
+              "https://www.savills.us/why-savills/",
+              "https://www.savills.co.uk/",
+              "https://www.savills.com/find-a-property/"
+            ]
+          },
+          {
+            "query": "\"Savills Auctions\" \"24 April 2014\" catalogue pdf",
+            "results": 10,
+            "sample": [
+              "https://www.savills.com/",
+              "https://www.savills.us/",
+              "https://en.wikipedia.org/wiki/Savills",
+              "https://www.savills.us/why-savills/",
+              "https://www.savills.co.uk/",
+              "https://www.savills.com/find-a-property/"
+            ]
+          },
+          {
+            "query": "site:pdf.euro.savills.co.uk \"24 April 2014\" auction",
+            "results": 10,
+            "sample": [
+              "https://en.wikipedia.org/wiki/24_(TV_series)",
+              "https://www.imdb.com/title/tt0285331/",
+              "https://www.disneyplus.com/browse/entity-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
+              "https://www.hulu.com/series/24-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
+              "https://www.amazon.com/24-Season-1/dp/B000HPF85A",
+              "https://en.wikipedia.org/wiki/List_of_24_characters"
+            ]
+          },
+          {
+            "query": "site:auctions.savills.co.uk \"24 April 2014\" pdf",
+            "results": 10,
+            "sample": [
+              "https://en.wikipedia.org/wiki/24_(TV_series)",
+              "https://www.imdb.com/title/tt0285331/",
+              "https://www.disneyplus.com/browse/entity-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
+              "https://www.hulu.com/series/24-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
+              "https://www.amazon.com/24-Season-1/dp/B000HPF85A",
+              "https://en.wikipedia.org/wiki/List_of_24_characters"
+            ]
+          },
+          {
+            "query": "\"24 April 2014\" Savills property auction results filetype:pdf",
+            "results": 10,
+            "sample": [
+              "https://en.wikipedia.org/wiki/24_(TV_series)",
+              "https://www.imdb.com/title/tt0285331/",
+              "https://www.disneyplus.com/browse/entity-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
+              "https://www.hulu.com/series/24-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
+              "https://www.amazon.com/24-Season-1/dp/B000HPF85A",
+              "https://en.wikipedia.org/wiki/List_of_24_characters"
+            ]
+          }
+        ],
+        "documents_discovered": 0,
+        "documents_with_exact_date": 0,
+        "accepted_documents": [],
+        "document_rejections": [],
+        "address_postcode_clues": 0,
+        "lot_specific_candidates": 0,
+        "live_checked": 0,
+        "commercial_rows_seen": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "rejected_lot_samples": [],
+        "errors": []
+      },
+      "result_document_frontier_last_blocker": {
+        "at": "2026-09-11T21:16:17.436089+00:00",
+        "route": "date-specific-savills-result-document-to-strict-live-lot",
+        "frontier_date": "2014-04-24",
+        "message": "Date-specific Savills result/catalogue document discovery did not yield a first-party lot page that explicitly carries the same auction date and passes commercial/mixed-use classification.",
+        "documents_discovered": 0,
+        "documents_with_exact_date": 0,
+        "lot_specific_candidates": 0,
+        "next_safe_route": "Query Common Crawl/CDX specifically for the accepted result-document postcodes plus legacy Savills LotDetails/LotList path patterns, then require an exact archived catalogue-date mapping before allowing an undated surviving lot page."
       }
     }
   }
