@@ -1,0 +1,35 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T00:58:18Z",
+  "historically_complete": false,
+  "discovery_exhausted": false,
+  "boundary_target": {
+    "auction_date": "2019-12-16",
+    "auction_id": "3",
+    "catalogue_url": "https://auctions.savills.co.uk/auctions/december-2019-3"
+  },
+  "blocker": {
+    "type": "Lot constructor schema mismatch",
+    "error": "TypeError: Lot.__init__() got an unexpected keyword argument 'source_id'",
+    "detail_pages_failed": 110,
+    "meaning": "The early Savills catalogue and lot URLs are now being resolved correctly, but the shared Savills detail parser still used pre-refactor Lot constructor fields, preventing every 2019 detail page from normalising."
+  },
+  "also_affected": [
+    {"auction_date": "2020-02-12", "auction_id": "5", "detail_pages_failed": 173},
+    {"auction_date": "2020-03-26", "auction_id": "6", "detail_pages_failed": 114},
+    {"auction_date": "2020-05-12", "auction_id": "7", "detail_pages_failed": 54},
+    {"auction_date": "2020-07-29", "auction_id": "9", "detail_pages_failed": 122}
+  ],
+  "repair_implemented": {
+    "commit": "6ee47b775e9965b5e13d9099cc712aaa9deaa1fa",
+    "file": "collectors/savills.py",
+    "changes": [
+      "Removed source_id constructor argument because Lot.source_id is derived from source and URL.",
+      "Mapped legacy image to canonical image_url.",
+      "Mapped legacy rent_pa to canonical annual_rent.",
+      "Removed obsolete auction_house constructor argument.",
+      "Kept exact first-party Savills detail URL as the canonical evidence URL input."
+    ]
+  },
+  "next_run": "Re-run the surviving first-party catalogue backfill oldest-first beginning with 16 December 2019. Refuse partial persistence if any detail page still fails, and only advance earliest verified coverage after both property_history.json and historical_backfill_progress.json are committed to production main."
+}
