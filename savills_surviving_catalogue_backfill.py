@@ -15,7 +15,43 @@ SOURCE = 'Savills Auctions'
 # Surviving first-party catalogue routes independently verified on auctions.savills.co.uk.
 # These bypass the obsolete /Auctions/LotList?aid= route and materially close the
 # known 2014-2022 lot-level gap using canonical Savills evidence pages.
+# Keep these oldest-first so each run attacks the historical boundary before newer gaps.
 SEEDS = [
+    {
+        'auction_id': '3',
+        'catalogue': 'https://auctions.savills.co.uk/auctions/december-2019-3',
+        'start': date(2019, 12, 16),
+        'end': date(2019, 12, 16),
+        'label': 'December 2019: Monday 16 December 2019',
+    },
+    {
+        'auction_id': '5',
+        'catalogue': 'https://auctions.savills.co.uk/auctions/february-2020-5',
+        'start': date(2020, 2, 12),
+        'end': date(2020, 2, 12),
+        'label': 'February 2020: Wednesday 12 February 2020',
+    },
+    {
+        'auction_id': '6',
+        'catalogue': 'https://auctions.savills.co.uk/auctions/march-2020-6',
+        'start': date(2020, 3, 26),
+        'end': date(2020, 3, 26),
+        'label': 'March 2020: Thursday 26 March 2020',
+    },
+    {
+        'auction_id': '7',
+        'catalogue': 'https://auctions.savills.co.uk/auctions/may-2020-7',
+        'start': date(2020, 5, 12),
+        'end': date(2020, 5, 12),
+        'label': 'May 2020: Tuesday 12 May 2020',
+    },
+    {
+        'auction_id': '9',
+        'catalogue': 'https://auctions.savills.co.uk/auctions/july-2020-9',
+        'start': date(2020, 7, 29),
+        'end': date(2020, 7, 29),
+        'label': 'July 2020: Wednesday 29 July 2020',
+    },
     {
         'auction_id': '10',
         'catalogue': 'https://auctions.savills.co.uk/auctions/september-2020-10',
