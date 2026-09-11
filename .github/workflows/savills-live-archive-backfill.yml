@@ -15,6 +15,8 @@ on:
       - 'savills_public_index_discovery.py'
       - 'savills_cdx_first_party_capture_recovery.py'
       - 'savills_cdx_adjacent_id_recovery.py'
+      - 'savills_history_integrity_repair.py'
+      - 'savills_result_document_frontier_recovery.py'
       - 'historical_savills.py'
   schedule:
     - cron: '8 * * * *'
@@ -45,7 +47,9 @@ jobs:
           pip install playwright
           python -m playwright install chromium
       - name: Compile live-first repair
-        run: python -m py_compile savills_live_archive_backfill.py savills_live_archive_latent_probe.py historical_savills.py savills_legacy_aid_discovery.py savills_legacy_aid_fast_discovery.py savills_legacy_aid_capture_recovery.py savills_manifest_aid_capture_recovery.py savills_public_index_discovery.py savills_cdx_first_party_capture_recovery.py savills_cdx_adjacent_id_recovery.py history_database.py collectors/savills.py
+        run: python -m py_compile savills_live_archive_backfill.py savills_live_archive_latent_probe.py historical_savills.py savills_legacy_aid_discovery.py savills_legacy_aid_fast_discovery.py savills_legacy_aid_capture_recovery.py savills_manifest_aid_capture_recovery.py savills_public_index_discovery.py savills_cdx_first_party_capture_recovery.py savills_cdx_adjacent_id_recovery.py savills_history_integrity_repair.py savills_result_document_frontier_recovery.py history_database.py collectors/savills.py
+      - name: Remove non-lot Savills frontier false positives
+        run: python savills_history_integrity_repair.py
       - name: Exhaust complete live Savills archive dynamically
         run: python savills_live_archive_backfill.py
       - name: Guard transition beyond live archive
@@ -89,6 +93,10 @@ jobs:
         if: steps.livegate.outputs.legacy_allowed == 'true'
         continue-on-error: true
         run: python savills_cdx_adjacent_id_recovery.py --year 2014 --radius 12 --max-exact-queries 320 --max-captures 260
+      - name: Recover date-specific Savills result and catalogue documents
+        if: steps.livegate.outputs.legacy_allowed == 'true'
+        continue-on-error: true
+        run: python savills_result_document_frontier_recovery.py --max-documents 100 --max-live-checks 220
       - name: Validate canonical persistence
         run: |
           python - <<'PY'
@@ -102,33 +110,42 @@ jobs:
           assert Path(s.get('live_archive_manifest') or 'data/source_diagnostics/savills_live_archive_manifest.json').exists(), 'Savills live archive manifest missing'
           events=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
           assert events
+          # Generic Savills corporate/property pages must never stand as historical auction evidence.
+          for e in events:
+              if str(e.get('auction_date') or '')[:10] == '2014-04-24':
+                  u=((e.get('source_evidence') or {}).get('listing_url') or '')
+                  assert 'auctions.savills.co.uk' in u and ('/auctions/' in u.lower() or 'lotdetails' in u.lower()), f'Non-lot 2014 frontier evidence survived integrity repair: {u}'
           evidence_routes=(
               s.get('last_live_archive_ingested') or s.get('legacy_aid_last_processed') or
               s.get('legacy_aid_capture_last_run') or s.get('public_index_last_run') or
-              s.get('cdx_first_party_capture_last_run') or s.get('cdx_adjacent_id_last_run')
+              s.get('cdx_first_party_capture_last_run') or s.get('cdx_adjacent_id_last_run') or
+              s.get('result_document_frontier_last_run')
           )
           added=(
               int(s.get('last_live_archive_rows') or 0) + int(s.get('legacy_aid_last_events_added') or 0) +
               int((s.get('legacy_aid_capture_last_run') or {}).get('canonical_events_added') or 0) +
               int((s.get('public_index_last_run') or {}).get('canonical_events_added') or 0) +
               int((s.get('cdx_first_party_capture_last_run') or {}).get('canonical_events_added') or 0) +
-              int((s.get('cdx_adjacent_id_last_run') or {}).get('canonical_events_added') or 0)
+              int((s.get('cdx_adjacent_id_last_run') or {}).get('canonical_events_added') or 0) +
+              int((s.get('result_document_frontier_last_run') or {}).get('canonical_events_added') or 0)
           )
           if added:
               assert evidence_routes, 'Rows claimed without Savills evidence trail'
           elif s.get('status') in ('LIVE ARCHIVE BLOCKED','LIVE ARCHIVE DEGRADED','DISCOVERY EXPANSION'):
               assert s.get('live_archive_blocker_url') or s.get('live_archive_stop_reason'), 'Blocker/degraded state missing exact live archive evidence'
-              assert s.get('cdx_adjacent_id_last_blocker') or s.get('cdx_first_party_capture_last_blocker') or s.get('legacy_aid_fast_last_blocker'), 'No concrete source-specific blocker persisted for the frontier'
+              assert s.get('result_document_frontier_last_blocker') or s.get('cdx_adjacent_id_last_blocker') or s.get('cdx_first_party_capture_last_blocker') or s.get('legacy_aid_fast_last_blocker'), 'No concrete source-specific blocker persisted for the frontier'
           print('SAVILLS_EVENTS',len(events))
           print('LIVE_ARCHIVE_STATUS',s.get('status'))
           print('LIVE_PAGES_SCANNED',s.get('live_archive_pages_scanned'))
           print('OLDEST_LIVE_DATE',s.get('live_archive_oldest_date_seen'))
+          print('INTEGRITY_REMOVED',(s.get('history_integrity_last_run') or {}).get('removed_count'))
           print('ROWS_ADDED',s.get('last_live_archive_rows'))
           print('LEGACY_EVENTS_ADDED',s.get('legacy_aid_last_events_added'))
           print('ARCHIVED_AID_EVENTS_ADDED',(s.get('legacy_aid_capture_last_run') or {}).get('canonical_events_added'))
           print('PUBLIC_INDEX_EVENTS_ADDED',(s.get('public_index_last_run') or {}).get('canonical_events_added'))
           print('CDX_FIRST_PARTY_EVENTS_ADDED',(s.get('cdx_first_party_capture_last_run') or {}).get('canonical_events_added'))
           print('CDX_ADJACENT_EVENTS_ADDED',(s.get('cdx_adjacent_id_last_run') or {}).get('canonical_events_added'))
+          print('RESULT_DOCUMENT_EVENTS_ADDED',(s.get('result_document_frontier_last_run') or {}).get('canonical_events_added'))
           print('STOP_REASON',s.get('live_archive_stop_reason'))
           PY
       - name: Publish live archive records or blocker
