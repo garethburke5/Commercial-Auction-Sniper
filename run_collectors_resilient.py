@@ -17,6 +17,7 @@ from collectors import auction_house_london_resilient as london
 from collectors import clive_emson_resilient as clive
 from collectors import symonds_sampson_resilient as symonds
 from collectors import future_property_auctions_resilient as future_property
+from collectors import bidx1
 
 
 _REPLACEMENTS = {
@@ -49,6 +50,7 @@ _WORKFLOW_BOILERPLATE = re.compile(
     r"(?:login|log in|register to bid|cancel proxy bid|your bid|wishlist|connecting to auction|please wait)",
     re.I,
 )
+_RESERVE_RE = re.compile(r"\bReserve(?:\s+Price)?\s*[:\-]?\s*£\s*([\d,]+(?:\.\d+)?)\b", re.I)
 
 
 def _normal_status(value):
@@ -61,13 +63,40 @@ def _clean_site_chrome(text):
     match = _WORKFLOW_BOILERPLATE.search(value)
     if not match:
         return value
-    # Chrome normally trails the particulars. Preserve the property prose and cut
-    # the UI tail wholesale when there is a meaningful particulars prefix.
     if match.start() >= 120:
         value = value[: match.start()].strip(" :-|")
     else:
         value = _WORKFLOW_BOILERPLATE.sub(" ", value)
     return re.sub(r"\s+", " ", value).strip(" :-|")
+
+
+def _apply_bidx1_reserve_proxy(result):
+    """Use a clearly-labelled BidX1 reserve only when no guide price is published.
+
+    The reserve is useful as a price proxy for filtering and yield maths, but it is
+    not a guide price. Preserve that distinction prominently in the description so
+    the live card's opportunity facts / investment details can qualify the figure.
+    """
+    for lot in getattr(result, "lots", []) or []:
+        if getattr(lot, "guide_price", None):
+            continue
+        text = str(getattr(lot, "description", "") or "")
+        m = _RESERVE_RE.search(text)
+        if not m:
+            continue
+        reserve = float(m.group(1).replace(",", ""))
+        if reserve <= 0:
+            continue
+        lot.guide_price = reserve
+        qualifier = f"Reserve £{reserve:,.0f} used as price/yield proxy; no guide price published."
+        if qualifier.lower() not in text.lower():
+            lot.description = qualifier + " " + text
+        lot.finalise()
+    return result
+
+
+def _collect_bidx1_with_reserve_proxy():
+    return _apply_bidx1_reserve_proxy(bidx1.collect())
 
 
 def _auction_day(item):
@@ -79,12 +108,7 @@ def _auction_day(item):
 
 
 def _finalize_published_snapshot(path=Path("data/properties.json"), today=None):
-    """Apply publication semantics after the canonical collector pipeline.
-
-    The canonical pipeline historically placed every non-CURRENT row in archive.
-    For the live product, sold-prior/withdrawn/postponed commercial lots belonging
-    to a current or future auction must remain visible with their exact status.
-    """
+    """Apply publication semantics after the canonical collector pipeline."""
     today = today or date.today()
     data = json.loads(Path(path).read_text(encoding="utf-8"))
     properties = list(data.get("properties") or [])
@@ -104,7 +128,6 @@ def _finalize_published_snapshot(path=Path("data/properties.json"), today=None):
         else:
             retained_archive.append(item)
 
-    # Source URL is the canonical lot identity used by the production pipeline.
     by_key = {}
     for item in properties + moved:
         key = (str(item.get("source") or "").strip(), str(item.get("url") or "").strip())
@@ -149,6 +172,8 @@ def _install_replacements():
             upgraded.append(symonds.collect)
         elif module == "collectors.future_property_auctions" and name == "collect":
             upgraded.append(future_property.collect)
+        elif module == "collectors.bidx1" and name == "collect":
+            upgraded.append(_collect_bidx1_with_reserve_proxy)
         else:
             upgraded.append(collector)
     pipeline.COLLECTORS = upgraded
