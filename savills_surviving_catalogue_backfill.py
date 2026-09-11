@@ -5,6 +5,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 
 import historical_savills as hs
+import savills_commoncrawl_legacy_probe as commoncrawl_legacy
 import savills_first_party_legacy_date_recovery as legacy_date_recovery
 from history_database import update_history_database
 from savills_history_quality import correct_rows, repair_database
@@ -14,7 +15,7 @@ HISTORY = DATA / 'property_history.json'
 SOURCE = 'Savills Auctions'
 # Bump when the shared Savills parser or known surviving catalogue set changes in a
 # way that should force these routes back through production.
-PARSER_REVISION = 4
+PARSER_REVISION = 5
 
 # Surviving/migrated first-party catalogue routes. Keep these oldest-first so every
 # production pass attacks the historical boundary before newer gaps. The September
@@ -103,6 +104,12 @@ def source_count(db: dict) -> int:
     return sum(1 for e in (db.get('auction_events') or []) if e.get('source') == SOURCE)
 
 
+def current_source_count() -> int:
+    if not HISTORY.exists():
+        return 0
+    return source_count(json.loads(HISTORY.read_text(encoding='utf-8')))
+
+
 def main() -> None:
     progress = hs.load_progress()
     state = progress.setdefault('sources', {}).setdefault(SOURCE, {})
@@ -184,14 +191,23 @@ def main() -> None:
         state['status'] = 'SURVIVING CATALOGUE PROBE BLOCKED'
     hs.save_progress(progress)
 
-    # The modern-style September/November 2019 catalogue guesses are now a proven
-    # dead end. Escalate in the same production pass to a materially different,
-    # still-first-party route: Savills sitemap/legacy URLs matched to the exact live
-    # archive dates. This prevents an hourly run from repeatedly rediscovering the
-    # same blocker without advancing the recovery strategy.
+    # The modern-style September/November 2019 catalogue guesses are a proven dead
+    # end. Escalate in the SAME production run first to Savills-owned sitemap/legacy
+    # URLs matched by exact auction date. If that first-party discovery adds nothing,
+    # immediately take the next materially different free path: query the 2019 Common
+    # Crawl URL indexes, then require every candidate to resolve to a live first-party
+    # Savills page before it can enter History V2. This prevents repeated hourly runs
+    # from stopping at the same blocker or spending a whole run on telemetry.
     blocked_old = [a for a in attempts if a.get('auction_id') in {'1', '2'} and a.get('status') == 'blocked']
+    first_party_added = 0
+    commoncrawl_added = 0
     if total_added == 0 and blocked_old:
+        before_legacy = current_source_count()
         legacy_date_recovery.main()
+        after_legacy = current_source_count()
+        first_party_added = max(0, after_legacy - before_legacy)
+        if first_party_added == 0:
+            commoncrawl_added = commoncrawl_legacy.run(year=2019, limit=3000, max_live_checks=600)
 
     print(json.dumps({
         'events_added': total_added,
@@ -200,6 +216,8 @@ def main() -> None:
         'attempts': attempts,
         'state': state,
         'legacy_date_recovery_escalated': bool(total_added == 0 and blocked_old),
+        'first_party_legacy_events_added': first_party_added,
+        'commoncrawl_2019_events_added': commoncrawl_added,
     }, indent=2, default=str))
 
 
