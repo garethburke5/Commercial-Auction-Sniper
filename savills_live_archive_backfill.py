@@ -16,10 +16,12 @@ DATA = Path('data')
 PROGRESS = DATA / 'historical_backfill_progress.json'
 HISTORY = DATA / 'property_history.json'
 DIAGS = DATA / 'source_diagnostics'
+MANIFEST = DIAGS / 'savills_live_archive_manifest.json'
 SOURCE = 'Savills Auctions'
 ARCHIVE_ROOT = savills.BASE + '/past-auctions/archive'
 DATE_RE = re.compile(r'\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s+(\d{1,2})(?:st|nd|rd|th)?\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(20\d{2})\b', re.I)
 MONTHS = {m: i for i, m in enumerate(['January','February','March','April','May','June','July','August','September','October','November','December'], 1)}
+MAX_PAGE_GUARD = 100  # runaway guard only; reaching it is never treated as historical exhaustion.
 
 
 def now_iso():
@@ -85,7 +87,7 @@ def diagnostic(page, url, dates, anchor_count, error=None):
         'counted_as_complete': False,
         'error': error,
         'blocker': 'Live Savills archive page contains dated auction summaries but exposes no resolvable lot catalogue anchors.' if dates and not anchor_count else None,
-        'next_probe': 'Inspect latent first-party href/data attributes and surviving Savills legacy catalogue endpoints for these exact live archive dates before any third-party archival discovery.'
+        'next_probe': 'Resolve these exact dated auctions through surviving Savills first-party catalogue/lot routes, then legacy aid/pid routes, before third-party archival discovery.'
     }
     key = hashlib.sha1(url.encode()).hexdigest()[:8]
     path = DIAGS / f'savills_live_archive_page{page}_{key}_{stamp}.json'
@@ -103,38 +105,93 @@ def main():
     unresolved = []
     browser_pages = 0
     scan_errors = []
+    seen_signatures = {}
+    end_observed = False
+    stop_reason = None
+    consecutive_errors = 0
 
-    # Strict live-first order: inspect the oldest live page first and walk forward.
-    for page in range(14, 0, -1):
+    # Discover the real first-party archive depth. Page 14 is not a boundary.
+    for page in range(1, MAX_PAGE_GUARD + 1):
         url = archive_url(page)
         try:
             doc, mode = page_doc(url)
+            consecutive_errors = 0
             browser_pages += int(mode == 'browser')
             dates = dates_in_doc(doc)
             auctions = catalogue_auctions(doc, url)
+            date_strings = [d.isoformat() for d in dates]
+            signature = hashlib.sha1(('|'.join(date_strings) + '|' + '|'.join(sorted(a['catalogue'] for a in auctions))).encode()).hexdigest()
+
+            # Savills may redirect an out-of-range archive page to a previously seen page.
+            if page > 1 and signature in seen_signatures:
+                end_observed = True
+                stop_reason = f'repeated-page-signature:{seen_signatures[signature]}->{page}'
+                break
+
+            if not dates and not auctions:
+                end_observed = True
+                stop_reason = f'empty-archive-page:{page}'
+                break
+
+            seen_signatures[signature] = page
             linked.extend(auctions)
-            pages.append({'page': page, 'url': url, 'dates': [d.isoformat() for d in dates], 'catalogue_anchors': len(auctions), 'mode': mode})
+            page_row = {
+                'page': page,
+                'url': url,
+                'dates': date_strings,
+                'catalogues': [a['catalogue'] for a in auctions],
+                'catalogue_anchors': len(auctions),
+                'mode': mode,
+            }
+            pages.append(page_row)
             if dates and not auctions:
-                unresolved.append({'page': page, 'url': url, 'dates': [d.isoformat() for d in dates]})
+                unresolved.append({'page': page, 'url': url, 'dates': date_strings})
         except Exception as exc:
+            consecutive_errors += 1
             scan_errors.append({'page': page, 'url': url, 'error': f'{type(exc).__name__}: {exc}'})
+            if consecutive_errors >= 2 and pages:
+                stop_reason = f'consecutive-fetch-errors-after-page:{page - 2}'
+                break
+
+    if not stop_reason and len(pages) >= MAX_PAGE_GUARD:
+        stop_reason = f'safety-guard-hit:{MAX_PAGE_GUARD}'
 
     all_dates = sorted({d for p in pages for d in p['dates']})
+    DIAGS.mkdir(parents=True, exist_ok=True)
+    manifest = {
+        'source': SOURCE,
+        'recorded_at': now_iso(),
+        'archive_root': ARCHIVE_ROOT,
+        'pages_scanned': len(pages),
+        'oldest_date_seen': all_dates[0] if all_dates else None,
+        'latest_date_seen': all_dates[-1] if all_dates else None,
+        'dated_auctions_seen': len(all_dates),
+        'end_observed': end_observed,
+        'stop_reason': stop_reason,
+        'scan_errors': scan_errors,
+        'pages': pages,
+        'unresolved': unresolved,
+    }
+    MANIFEST.write_text(json.dumps(manifest, indent=2), encoding='utf-8')
+
     state['live_archive_pages_scanned'] = len(pages)
     state['live_archive_browser_pages'] = browser_pages
     state['live_archive_scan_errors'] = scan_errors
     state['live_archive_oldest_date_seen'] = all_dates[0] if all_dates else None
     state['live_archive_latest_date_seen'] = all_dates[-1] if all_dates else None
+    state['live_archive_dates_discovered'] = all_dates
     state['live_archive_unresolved'] = unresolved
-    state['live_archive_discovery_exhausted'] = len(pages) == 14 and not scan_errors
+    state['live_archive_stop_reason'] = stop_reason
+    state['live_archive_manifest'] = str(MANIFEST)
+    state['live_archive_discovery_exhausted'] = bool(end_observed and not scan_errors)
     state['historically_complete'] = False
 
-    # Ingest oldest linked, not-yet-completed live catalogue(s) first.
+    # Ingest oldest linked, not-yet-completed live catalogues first.
     candidates = sorted((a for a in linked if a['auction_id'] not in completed), key=lambda a: a['start'])
     rows_added = 0
     ingested = []
     failures = []
-    for auction in candidates[:2]:
+    for auction in candidates[:4]:
         try:
             rows, expected, feed = hs.fetch_auction(auction)
             db = update_history_database(rows, path=HISTORY)
@@ -143,7 +200,7 @@ def main():
             ingested.append({'auction_id': auction['auction_id'], 'date': auction['start'].isoformat(), 'catalogue_url': auction['catalogue'], 'rows': len(rows), 'expected': expected, 'feed': feed})
             state['last_history_event_count'] = len(db.get('auction_events') or [])
             state['last_success'] = now_iso()
-            state['last_discovery_mode'] = 'savills-live-first-party-archive-oldest-first'
+            state['last_discovery_mode'] = 'savills-live-first-party-archive-dynamic-manifest'
             month = auction['start'].strftime('%Y-%m')
             previous = state.get('earliest_month_reached')
             state['earliest_month_reached'] = min(previous, month) if previous else month
@@ -168,7 +225,6 @@ def main():
         f = failures[0]
         diag_path = diagnostic(0, f['catalogue_url'], [], 1, f['error'])
     elif unresolved:
-        # Oldest unresolved page is the concrete blocker for this run.
         target = sorted(unresolved, key=lambda x: min(x['dates']) if x['dates'] else '9999')[0]
         state['status'] = 'LIVE ARCHIVE BLOCKED'
         state['live_archive_blocker_url'] = target['url']
@@ -180,7 +236,16 @@ def main():
     if diag_path:
         state['last_live_archive_diagnostic'] = diag_path
     hs.save_progress(progress)
-    print(json.dumps({'rows_added': rows_added, 'ingested': ingested, 'unresolved_pages': len(unresolved), 'scan_errors': scan_errors, 'diagnostic': diag_path, 'state': state}, indent=2, default=str))
+    print(json.dumps({
+        'rows_added': rows_added,
+        'ingested': ingested,
+        'pages_scanned': len(pages),
+        'oldest_date_seen': all_dates[0] if all_dates else None,
+        'stop_reason': stop_reason,
+        'unresolved_pages': len(unresolved),
+        'scan_errors': scan_errors,
+        'diagnostic': diag_path,
+    }, indent=2, default=str))
 
 
 if __name__ == '__main__':
