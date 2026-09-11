@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-11T00:13:47.114225+00:00",
+  "updated_at": "2026-09-11T00:22:35.835368+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "DISCOVERY EXPANSION",
+      "status": "SURVIVING CATALOGUE PROBE BLOCKED",
       "auctions_discovered": 73,
       "auctions_completed": 73,
       "lots_captured": 2850,
@@ -222,7 +222,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 16642,
-      "last_discovery_mode": "commoncrawl-exact-year-prefix-to-live-savills-first-party",
+      "last_discovery_mode": "savills-surviving-first-party-catalogue-seeds",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -718,42 +718,42 @@
       "live_archive_latent_failures": [],
       "last_live_archive_latent_diagnostic": "data/source_diagnostics/savills_live_archive_page14_latent_routes_2026-09-10T2003Z.json",
       "earliest_date_reached": "2020-09-24",
-      "surviving_catalogue_last_run_at": "2026-09-11T00:11:12.051374+00:00",
+      "surviving_catalogue_last_run_at": "2026-09-11T00:22:35.835295+00:00",
       "surviving_catalogue_last_attempts": [
         {
           "auction_id": "3",
           "auction_date": "2019-12-16",
           "catalogue_url": "https://auctions.savills.co.uk/auctions/december-2019-3",
           "status": "blocked",
-          "error": "RuntimeError: Savills catalogue exposed no resolvable lot inventory"
+          "error": "RuntimeError: 110 Savills detail pages failed; refusing partial auction persistence: [{'url': 'http://auctions.savills.co.uk/auctions/december-2019-3/24c-queensborough-terrace-bayswater-london-w2-3ss-11', 'error': \"TypeError: Lot.__init__() got an unexpected keyword argument 'source_id'\"}, {'url': 'http://auctions.savills.co.uk/auctions/december-2019-3/7c-penfold-street-marylebone-london-nw1-6ru--17', 'error': \"TypeError: Lot.__init__() got an unexpected keyword argument 'source_id'\"}]"
         },
         {
           "auction_id": "5",
           "auction_date": "2020-02-12",
           "catalogue_url": "https://auctions.savills.co.uk/auctions/february-2020-5",
           "status": "blocked",
-          "error": "RuntimeError: Savills catalogue exposed no resolvable lot inventory"
+          "error": "RuntimeError: 173 Savills detail pages failed; refusing partial auction persistence: [{'url': 'http://auctions.savills.co.uk/auctions/february-2020-5/19c-thurleigh-roadbalhamlondonsw12-8ub-173', 'error': \"TypeError: Lot.__init__() got an unexpected keyword argument 'source_id'\"}, {'url': 'http://auctions.savills.co.uk/auctions/february-2020-5/44d-gloucester-gardenspaddingtonlondonw2-6bn-183', 'error': \"TypeError: Lot.__init__() got an unexpected keyword argument 'source_id'\"}]"
         },
         {
           "auction_id": "6",
           "auction_date": "2020-03-26",
           "catalogue_url": "https://auctions.savills.co.uk/auctions/march-2020-6",
           "status": "blocked",
-          "error": "RuntimeError: Savills catalogue exposed no resolvable lot inventory"
+          "error": "RuntimeError: 114 Savills detail pages failed; refusing partial auction persistence: [{'url': 'http://auctions.savills.co.uk/auctions/march-2020-6/75-mexfield-road-putney-london-sw15-2rg-374', 'error': \"TypeError: Lot.__init__() got an unexpected keyword argument 'source_id'\"}, {'url': 'http://auctions.savills.co.uk/auctions/march-2020-6/29-abercrombie-street-battersea-london-sw11-2jb-373', 'error': \"TypeError: Lot.__init__() got an unexpected keyword argument 'source_id'\"}]"
         },
         {
           "auction_id": "7",
           "auction_date": "2020-05-12",
           "catalogue_url": "https://auctions.savills.co.uk/auctions/may-2020-7",
           "status": "blocked",
-          "error": "RuntimeError: Savills catalogue exposed no resolvable lot inventory"
+          "error": "RuntimeError: 54 Savills detail pages failed; refusing partial auction persistence: [{'url': 'http://auctions.savills.co.uk/auctions/may-2020-7/6b-heslop-road-balham-london-sw12-8eg-507', 'error': \"TypeError: Lot.__init__() got an unexpected keyword argument 'source_id'\"}, {'url': 'http://auctions.savills.co.uk/auctions/may-2020-7/23a-atherton-street-clapham-london-sw11-2je-519', 'error': \"TypeError: Lot.__init__() got an unexpected keyword argument 'source_id'\"}]"
         },
         {
           "auction_id": "9",
           "auction_date": "2020-07-29",
           "catalogue_url": "https://auctions.savills.co.uk/auctions/july-2020-9",
           "status": "blocked",
-          "error": "RuntimeError: Savills catalogue exposed no resolvable lot inventory"
+          "error": "RuntimeError: 122 Savills detail pages failed; refusing partial auction persistence: [{'url': 'http://auctions.savills.co.uk/auctions/july-2020-9/224a-gloucester-terrace-paddington-london-w2-6hu-752', 'error': \"TypeError: Lot.__init__() got an unexpected keyword argument 'source_id'\"}, {'url': 'http://auctions.savills.co.uk/auctions/july-2020-9/48a-goldney-road-maida-vale-london-w9-2au-754', 'error': \"TypeError: Lot.__init__() got an unexpected keyword argument 'source_id'\"}]"
         },
         {
           "auction_id": "10",
@@ -772,10 +772,11 @@
         }
       ],
       "surviving_catalogue_last_events_added": 0,
-      "legacy_address_repair_last_run_at": "2026-09-11T00:10:58.893163+00:00",
+      "legacy_address_repair_last_run_at": "2026-09-11T00:14:28.095298+00:00",
       "legacy_addresses_repaired_last_run": 0,
       "surviving_catalogue_row_addresses_corrected": 0,
-      "archival_url_discovery_exhausted": true
+      "archival_url_discovery_exhausted": true,
+      "surviving_catalogue_parser_revision": 2
     }
   }
 }
