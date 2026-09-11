@@ -26,7 +26,7 @@ def _parse_passing_rent(text, guide_price=None):
     value = norm(text)
 
     explicit_patterns = [
-        r"\bCurrently\s+let\s+at\s+(£\s*[\d,]+(?:\.\d{1,2})?)\s*(?:per annum|p\.?a\.?|pa)\b",
+        r"\bCurrently\s+(?:part\s+)?let\s+at\s+(£\s*[\d,]+(?:\.\d{1,2})?)\s*(?:per annum|p\.?a\.?|pa)\b",
         r"\bCurrent(?:ly)?\s+(?:gross\s+)?(?:rent|rental income|income)\s*(?:is|of|at|:)\s*"
         r"(£\s*[\d,]+(?:\.\d{1,2})?)\s*(?:per annum|p\.?a\.?|pa)\b",
         r"\bTotal\s+(?:current\s+)?(?:rent|rental income|income)\s*(?:is|of|at|:)\s*"

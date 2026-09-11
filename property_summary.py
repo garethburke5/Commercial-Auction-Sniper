@@ -138,8 +138,8 @@ def _title(row, low):
         return "GROUND RENT INVESTMENT"
     if nominal:
         return f"{kind} OPPORTUNITY · NOMINAL INCOME"
-    if kind == "OFFICE" and rent and part_vacant:
-        return "PART-LET OFFICE INVESTMENT + VACANCY"
+    if rent and part_vacant:
+        return f"PART-LET {kind} INVESTMENT + VACANCY"
     if kind == "OFFICE" and development and vacant:
         return "VACANT OFFICE + RESIDENTIAL CONVERSION OPPORTUNITY"
     if rent:
@@ -211,6 +211,41 @@ def _extract_area(row, text):
     return None
 
 
+def _rental_value_highlights(text):
+    out = []
+    m = re.search(r"Estimated Rental Value\s*(?:is|of|:)?\s*£\s*([\d,]+)(?:\.\d{1,2})?\s*(?:per annum|p\.?a\.?|pa)", text, re.I)
+    if m:
+        out.append(f"ERV £{int(m.group(1).replace(',', '')):,} p.a.")
+    m = re.search(r"vacant ground floor[^.]{0,140}?estimated rental value of\s*£\s*([\d,]+)(?:\.\d{1,2})?\s*(?:per annum|p\.?a\.?|pa)", text, re.I)
+    if m:
+        out.append(f"Vacant ground floor ERV £{int(m.group(1).replace(',', '')):,} p.a.")
+    return out
+
+
+def _asset_management_highlight(low):
+    if "asset management potential" in low or any(x in low for x in ("re-letting", "reletting", "subdivision", "owner occupation")):
+        actions=[]
+        if "re-let" in low or "re-letting" in low or "reletting" in low:
+            actions.append("re-let")
+        if "subdivision" in low or "subdivide" in low:
+            actions.append("subdivide")
+        if "owner occupation" in low or "owner-occupation" in low:
+            actions.append("owner-occupy")
+        return "Asset management" + (": " + " / ".join(dict.fromkeys(actions)) if actions else " potential")
+    return None
+
+
+def _epc_highlight(text, low):
+    if "epc rating" not in low:
+        return None
+    ratings=[]
+    for grade, score in re.findall(r"\b([A-G])\s*\(\s*(\d{1,3})\s*\)", text, re.I):
+        token=f"{grade.upper()} ({int(score)})"
+        if token not in ratings:
+            ratings.append(token)
+    return "EPC " + " · ".join(ratings[:3]) if ratings else None
+
+
 def _lease_highlight(row, text):
     parts = []
     if row.get("lease_term"):
@@ -246,6 +281,17 @@ def build_opportunity_summary(row):
     area = _extract_area(row, text)
     if area:
         highlights.append(area)
+
+    # Surface the commercial decision facts that generic cards otherwise hide.
+    highlights.extend(_rental_value_highlights(text))
+    asset_management = _asset_management_highlight(low)
+    if asset_management:
+        highlights.append(asset_management)
+    if "co-op/somerfield" in low or ("somerfield" in low and "argos" in low):
+        highlights.append("Former Co-op/Somerfield + Argos accommodation")
+    epc = _epc_highlight(text, low)
+    if epc:
+        highlights.append(epc)
 
     vacancy = re.search(r"([\d,]+)\s*sq\.?\s*ft[^.]{0,55}\b(?:currently\s+)?vacant\b|(?:plus\s+)([\d,]+)\s*sq\.?\s*ft\s+vacant", text, re.I)
     if vacancy:
