@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-11T21:16:17.436145+00:00",
+  "updated_at": "2026-09-11T22:10:39.465393+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,11 +127,11 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "LIVE ARCHIVE BLOCKED",
+      "status": "DISCOVERY EXPANSION",
       "auctions_discovered": 77,
       "auctions_completed": 77,
-      "lots_captured": 3250,
-      "earliest_month_reached": "2019-12",
+      "lots_captured": 3251,
+      "earliest_month_reached": "2014-04",
       "completed_auction_ids": [
         "3",
         "6",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "date-specific-savills-result-document-to-strict-live-lot",
+      "last_discovery_mode": "bing-rss-date-address-to-live-savills-validation",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -1703,7 +1703,7 @@
       "live_archive_latent_events_added": 0,
       "live_archive_latent_failures": [],
       "last_live_archive_latent_diagnostic": "data/source_diagnostics/savills_live_archive_page14_latent_routes_2026-09-10T2003Z.json",
-      "earliest_date_reached": "2019-12-16",
+      "earliest_date_reached": "2014-04-24",
       "surviving_catalogue_last_run_at": "2026-09-11T03:10:19.902928+00:00",
       "surviving_catalogue_last_attempts": [
         {
@@ -3163,7 +3163,7 @@
         "next_safe_route": "Use exact 2014 archive-summary statistics/date plus any CDX-discovered Savills original URLs to enumerate adjacent historical URL IDs/slugs and archived captures, then require exact auction-date evidence and commercial classification."
       },
       "cdx_adjacent_id_last_run": {
-        "at": "2026-09-11T20:06:45.999765+00:00",
+        "at": "2026-09-11T22:10:25.851263+00:00",
         "year": 2014,
         "route": "wayback-cdx-adjacent-aid-and-numeric-url-reconstruction",
         "target_dates": [
@@ -3179,6 +3179,11 @@
         "seed_aids": [],
         "seed_modern_adjacent_urls": 0,
         "broad_queries": [
+          {
+            "pattern": "auctions.savills.co.uk/Auctions/LotList",
+            "query": "https://web.archive.org/cdx/search/cdx?url=auctions.savills.co.uk%2FAuctions%2FLotList&matchType=prefix&from=2012&to=2016&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&limit=5000",
+            "rows": 0
+          },
           {
             "pattern": "auctions.savills.co.uk/Auctions/LotDetails",
             "query": "https://web.archive.org/cdx/search/cdx?url=auctions.savills.co.uk%2FAuctions%2FLotDetails&matchType=prefix&from=2012&to=2016&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&limit=5000",
@@ -3201,19 +3206,17 @@
         "savills_events_before": 3250,
         "savills_events_after": 3250,
         "rejected_samples": [],
-        "errors": [
-          "auctions.savills.co.uk/Auctions/LotList :: HTTPError: HTTP Error 503: Service Unavailable"
-        ]
+        "errors": []
       },
       "cdx_adjacent_id_last_blocker": {
-        "at": "2026-09-11T20:06:45.999765+00:00",
+        "at": "2026-09-11T22:10:25.851263+00:00",
         "route": "wayback-cdx-adjacent-aid-and-numeric-url-reconstruction",
         "frontier_date": "2014-04-24",
         "message": "Adjacent legacy aid/numeric URL reconstruction produced no new verified commercial History V2 events.",
         "next_safe_route": "Use archive-summary sale totals and date-specific public result pages to recover exact property addresses/lot numbers for the frontier sale, then resolve those addresses against archived Savills first-party captures before persistence."
       },
       "public_address_frontier_last_run": {
-        "at": "2026-09-11T20:06:46.981651+00:00",
+        "at": "2026-09-11T22:10:26.907094+00:00",
         "route": "public-auction-result-address-plus-archive-url-to-live-savills-validation",
         "frontier_dates": [
           "2014-04-24"
@@ -3255,7 +3258,7 @@
         "lookup_errors": []
       },
       "public_address_frontier_last_blocker": {
-        "at": "2026-09-11T20:06:46.981651+00:00",
+        "at": "2026-09-11T22:10:26.907094+00:00",
         "route": "public-auction-result-address-plus-archive-url-to-live-savills-validation",
         "message": "Address-led recovery produced no older validated Savills History V2 event. Direct postcode search and historical/Wayback URL extraction were attempted; no candidate is accepted unless a surviving first-party Savills page validates the auction date and property.",
         "frontier_dates": [
@@ -3267,7 +3270,7 @@
         "next_safe_route": "Use any recovered exact address/postcode clues to enumerate historical Savills legacy pid/slug candidates through free CDX/index snapshots and validate the originals against surviving Savills first-party pages before persistence."
       },
       "bing_rss_frontier_last_run": {
-        "at": "2026-09-11T20:07:02.324551+00:00",
+        "at": "2026-09-11T22:10:39.087515+00:00",
         "route": "bing-rss-date-address-to-live-savills-validation",
         "frontier_date": "2014-04-24",
         "queries": [
@@ -3276,10 +3279,10 @@
             "results": 10,
             "sample": [
               "https://www.savills.com/",
-              "https://en.wikipedia.org/wiki/Savills",
               "https://www.savills.us/",
-              "https://www.savills.co.uk/",
-              "https://www.savills.co.uk/find-a-property/"
+              "https://en.wikipedia.org/wiki/Savills",
+              "https://www.savills.us/why-savills/",
+              "https://www.savills.co.uk/"
             ]
           },
           {
@@ -3287,18 +3290,18 @@
             "results": 10,
             "sample": [
               "https://www.savills.com/",
-              "https://en.wikipedia.org/wiki/Savills",
               "https://www.savills.us/",
-              "https://www.savills.co.uk/",
-              "https://www.savills.co.uk/find-a-property/"
+              "https://en.wikipedia.org/wiki/Savills",
+              "https://www.savills.us/why-savills/",
+              "https://www.savills.co.uk/"
             ]
           },
           {
             "query": "\"24 April 2014\" Savills auction sold lot commercial",
             "results": 10,
             "sample": [
-              "https://en.m.wikipedia.org/wiki/24_(TV_series)",
-              "https://m.imdb.com/title/tt0285331/",
+              "https://en.wikipedia.org/wiki/24_(TV_series)",
+              "https://www.imdb.com/title/tt0285331/",
               "https://www.disneyplus.com/browse/entity-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
               "https://www.hulu.com/series/24-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
               "https://www.amazon.com/24-Season-1/dp/B000HPF85A"
@@ -3308,8 +3311,8 @@
             "query": "\"24 April 2014\" \"auctions.savills.co.uk\"",
             "results": 10,
             "sample": [
-              "https://en.m.wikipedia.org/wiki/24_(TV_series)",
-              "https://m.imdb.com/title/tt0285331/",
+              "https://en.wikipedia.org/wiki/24_(TV_series)",
+              "https://www.imdb.com/title/tt0285331/",
               "https://www.disneyplus.com/browse/entity-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
               "https://www.hulu.com/series/24-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
               "https://www.amazon.com/24-Season-1/dp/B000HPF85A"
@@ -3317,10 +3320,10 @@
           }
         ],
         "unique_result_urls": 20,
-        "source_pages_examined": 17,
+        "source_pages_examined": 18,
         "address_clues": 3,
-        "candidate_savills_urls": 3,
-        "live_checked": 3,
+        "candidate_savills_urls": 2,
+        "live_checked": 2,
         "commercial_rows_seen": 1,
         "canonical_events_added": 1,
         "savills_events_before": 3250,
@@ -3350,14 +3353,11 @@
             "url": "https://www.savills.co.uk/find-a-property/",
             "reason": "live page date 2026-09-10 conflicts with archived catalogue date 2014-04-24",
             "discovery_url": "https://www.savills.co.uk/find-a-property/"
-          },
-          {
-            "url": "https://auctions.savills.co.uk/",
-            "reason": "live page date 2026-09-16 conflicts with archived catalogue date 2014-04-24",
-            "discovery_url": "https://auctions.savills.co.uk/"
           }
         ],
-        "errors": []
+        "errors": [
+          "https://www.britannica.com/topic/24-television-series :: HTTPError: HTTP Error 403: Forbidden"
+        ]
       },
       "history_integrity_last_run": {
         "at": "2026-09-11T21:16:15.404098+00:00",
