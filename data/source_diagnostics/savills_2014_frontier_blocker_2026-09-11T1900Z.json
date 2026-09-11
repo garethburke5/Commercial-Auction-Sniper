@@ -1,0 +1,40 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T19:00:00Z",
+  "frontier_date": "2014-04-24",
+  "frontier_archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "canonical_savills_events": 3250,
+  "earliest_verified_lot_level_month": "2019-02",
+  "historically_complete": false,
+  "discovery_exhausted": false,
+  "failing_routes": [
+    {
+      "route": "live-first-party-archive-summary-to-catalogue",
+      "result": "Page 14 contains the dated 24 April 2014 auction summary but exposes no resolvable lot catalogue anchors."
+    },
+    {
+      "route": "live-savills-LotList-aid-526-down-to-1",
+      "result": "526 legacy aid IDs scanned concurrently; 0 candidate auction IDs and 0 canonical events. The live legacy aid namespace is exhausted for this range."
+    },
+    {
+      "route": "commoncrawl-warc-aid-to-date-to-live-savills",
+      "result": "2014 manifest dates queried; no recoverable legacy lot URLs produced a verified commercial History V2 event."
+    },
+    {
+      "route": "public-search-index-to-surviving-savills-first-party",
+      "result": "Exact 2014 target dates produced no candidate live Savills URLs and 0 canonical events."
+    },
+    {
+      "route": "wayback-cdx-original-savills-capture-direct-first-party-parse",
+      "result": "Direct CDX enumeration/parsing of archived original Savills captures produced 0 verified commercial History V2 events."
+    }
+  ],
+  "next_safe_repair": {
+    "route": "wayback-cdx-adjacent-aid-and-numeric-url-reconstruction",
+    "implementation": "savills_cdx_adjacent_id_recovery.py",
+    "implementation_commit": "2d2c32d463fa15bd2f02674c3ac4bfe3e25aa046",
+    "workflow_wiring_commit": "90b0fc04a70ebc05d5fb18c58339e92eb0cd09ee",
+    "method": "Use 2012-2016 CDX Savills originals as seeds; extract legacy aid values and numeric modern auction/lot IDs; enumerate bounded neighbouring identifiers; query those exact historical URLs in CDX; fetch matched captures; require an exact 2014 manifest auction date plus commercial/mixed-use classification; preserve surviving Savills first-party or archived Savills capture evidence before canonical persistence."
+  },
+  "success_condition": "Persist at least one verified commercial/mixed-use lot from 24 April 2014 or another unresolved 2014 Savills auction, or persist the exact exhausted adjacency blocker and implement the next distinct address/lot-number recovery route."
+}
