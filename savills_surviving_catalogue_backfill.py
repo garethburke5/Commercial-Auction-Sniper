@@ -5,6 +5,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 
 import historical_savills as hs
+import savills_first_party_legacy_date_recovery as legacy_date_recovery
 from history_database import update_history_database
 from savills_history_quality import correct_rows, repair_database
 
@@ -13,7 +14,7 @@ HISTORY = DATA / 'property_history.json'
 SOURCE = 'Savills Auctions'
 # Bump when the shared Savills parser or known surviving catalogue set changes in a
 # way that should force these routes back through production.
-PARSER_REVISION = 3
+PARSER_REVISION = 4
 
 # Surviving/migrated first-party catalogue routes. Keep these oldest-first so every
 # production pass attacks the historical boundary before newer gaps. The September
@@ -182,12 +183,23 @@ def main() -> None:
     else:
         state['status'] = 'SURVIVING CATALOGUE PROBE BLOCKED'
     hs.save_progress(progress)
+
+    # The modern-style September/November 2019 catalogue guesses are now a proven
+    # dead end. Escalate in the same production pass to a materially different,
+    # still-first-party route: Savills sitemap/legacy URLs matched to the exact live
+    # archive dates. This prevents an hourly run from repeatedly rediscovering the
+    # same blocker without advancing the recovery strategy.
+    blocked_old = [a for a in attempts if a.get('auction_id') in {'1', '2'} and a.get('status') == 'blocked']
+    if total_added == 0 and blocked_old:
+        legacy_date_recovery.main()
+
     print(json.dumps({
         'events_added': total_added,
         'legacy_addresses_repaired': repaired,
         'row_addresses_corrected': total_row_addresses_corrected,
         'attempts': attempts,
         'state': state,
+        'legacy_date_recovery_escalated': bool(total_added == 0 and blocked_old),
     }, indent=2, default=str))
 
 
