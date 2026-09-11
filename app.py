@@ -17,16 +17,12 @@ from history_v2 import find_history as _find_history
 # pagination experiment replaced st.markdown/st.caption at module level; simply
 # deleting that code does not restore those functions in an already-running
 # process. Always rebind them to Streamlit's canonical main DeltaGenerator before
-# emitting any UI. This also removes the obsolete pagination controls/state that
-# were swallowing the property-card HTML on subsequent reruns.
+# emitting any UI. Do not clear board_page/session state here: pagination is now
+# implemented correctly inside legacy_app.py at the filtered data-list layer.
 _main_dg = getattr(st, "_main", None)
 if _main_dg is not None:
     st.markdown = _main_dg.markdown
     st.caption = _main_dg.caption
-for _key in (
-    "board_page", "board_page_size", "board_page_size_prev", "board_total_prev",
-):
-    st.session_state.pop(_key, None)
 
 _ORIGINAL_ESCAPE = _html.escape
 _HISTORY_GOOGLE_PREFIX = "https://www.google.com/search?q="
@@ -38,11 +34,11 @@ st.markdown(
       html, body, [data-testid="stAppViewContainer"] { scrollbar-width: auto; }
       html::-webkit-scrollbar,
       body::-webkit-scrollbar,
-      [data-testid="stAppViewContainer"]::-webkit-scrollbar { width: 18px; height: 18px; }
+      [data-testid="stAppViewContainer"]::-webkit-scrollbar { width: 22px; height: 22px; }
       html::-webkit-scrollbar-thumb,
       body::-webkit-scrollbar-thumb,
       [data-testid="stAppViewContainer"]::-webkit-scrollbar-thumb {
-        min-height: 58px; border: 3px solid transparent; background-clip: padding-box; border-radius: 10px;
+        min-height: 62px; border: 3px solid transparent; background-clip: padding-box; border-radius: 10px;
       }
 
       /* Remove redundant explanatory furniture. */
