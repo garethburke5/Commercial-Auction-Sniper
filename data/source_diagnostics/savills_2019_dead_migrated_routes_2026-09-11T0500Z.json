@@ -1,0 +1,29 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T04:00:00Z",
+  "historically_complete": false,
+  "verified_history_boundary": "2019-12-16",
+  "live_archive_evidence_url": "https://auctions.savills.co.uk/past-auctions/archive/page-10",
+  "known_older_live_archive_auctions": [
+    {"auction_date": "2019-11-04", "offered": 106, "sold": 82, "success_pct": 77, "raised_gbp": 25745000},
+    {"auction_date": "2019-09-23", "offered": 139, "sold": 97, "success_pct": 70, "raised_gbp": 34157000},
+    {"auction_date": "2019-07-17", "offered": 131, "sold": 89, "success_pct": 68, "raised_gbp": 30052000},
+    {"auction_date": "2019-05-29", "offered": 146, "sold": 106, "success_pct": 73, "raised_gbp": 34809000},
+    {"auction_date": "2019-04-02", "offered": 114, "sold": 81, "success_pct": 71, "raised_gbp": 21055000}
+  ],
+  "exact_blocker": {
+    "routes": [
+      "https://auctions.savills.co.uk/auctions/november-2019-2",
+      "https://auctions.savills.co.uk/auctions/september-2019-1"
+    ],
+    "error": "RuntimeError: Savills catalogue exposed no resolvable lot inventory",
+    "conclusion": "The live archive dates are real, but the modern-style migrated catalogue slugs for auction IDs 1 and 2 are not usable inventory sources. Repeating those probes cannot advance History V2."
+  },
+  "repair_implemented": {
+    "script_commit": "7f26654ee36d14ff3ff77f67027eb84447e4832f",
+    "escalation_commit": "585fb333b341130afe85ad8a8d4776adfcbf5089",
+    "strategy": "Before any further Common Crawl or blind legacy-ID descent, recursively inspect Savills first-party sitemap URLs, retain surviving legacy auction/detail route shapes, parse each live page for an exact auction date, and recover only commercial/mixed-use lots matching the known live archive dates. The existing surviving-catalogue pass now escalates automatically to this different route whenever the September/November 2019 migrated catalogue guesses remain blocked.",
+    "target_dates_oldest_first": ["2019-04-02", "2019-05-29", "2019-07-17", "2019-09-23", "2019-11-04"],
+    "evidence_policy": "Only a live auctions.savills.co.uk property page can become History V2 source evidence. Sitemap or later archival indexes are discovery only."
+  }
+}
