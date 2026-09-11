@@ -1,0 +1,49 @@
+{
+  "source": "Savills Auctions",
+  "at": "2026-09-11T09:04:00Z",
+  "status": "LIVE ARCHIVE BLOCKED",
+  "verified_history_v2_frontier": {
+    "earliest_lot_level_date": "2019-12-16",
+    "savills_events": 3250
+  },
+  "first_party_archive_evidence": {
+    "url": "https://auctions.savills.co.uk/past-auctions/archive/page-10",
+    "unresolved_dates": [
+      "2019-11-04",
+      "2019-09-23",
+      "2019-07-17",
+      "2019-05-29",
+      "2019-04-02"
+    ],
+    "note": "Savills first-party archive still proves these five auctions exist, but their old catalogue/lot routing is no longer exposed from the archive cards."
+  },
+  "blocked_routes": [
+    {
+      "route": "savills-first-party-sitemap-date-match-2019",
+      "result": "No persistable older canonical History V2 event."
+    },
+    {
+      "route": "commoncrawl-2019-prefix-and-exact-aid-index",
+      "result": "Repeated 503/504/timeouts against the relevant 2019 collections; no persistable older canonical event."
+    },
+    {
+      "route": "wayback-cdx-exact-legacy-pid-to-live-savills",
+      "result": "Runtime failure/no persistable older canonical event from the already-known legacy pid set."
+    }
+  ],
+  "exact_blocker": "The next five Savills auctions are proven by the surviving first-party archive, but their historical catalogue-to-lot mapping is not recoverable through the already-attempted live sitemap, Common Crawl legacy aid/pid, or exact Wayback pid routes.",
+  "implemented_next_route": {
+    "route": "public-search-index-and-pdf-reference-to-live-savills",
+    "script": "savills_public_index_frontier_recovery.py",
+    "implementation_commit": "4442471fe882a7a626cf8207cb748ef30fb201ea",
+    "workflow_wiring_commit": "c90970dbaebe9081881534a1436b854b5ce9f984",
+    "method": "Query free public search-index HTML for each exact unresolved 2019 auction date, inspect indexed pages/PDF references for legacy Savills LotDetails or migrated auction URLs, map each candidate to exactly one known auction date, and call the existing recover_candidate validator. A property may enter canonical History V2 only if the surviving live first-party Savills lot page validates it."
+  },
+  "safety": {
+    "third_party_evidence_is_discovery_only": true,
+    "first_party_savills_listing_required_for_persistence": true,
+    "historically_complete": false,
+    "discovery_exhausted": false
+  },
+  "next_if_public_index_yields_zero": "Mine public auction-result aggregators only for exact 2019 Savills property addresses/lot references, then search the surviving Savills live property namespace by exact address and persist only when first-party Savills evidence validates the event."
+}
