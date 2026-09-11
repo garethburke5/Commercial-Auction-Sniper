@@ -1,0 +1,27 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T03:00:00Z",
+  "historically_complete": false,
+  "verified_history_boundary_before_repair": "2019-12-16",
+  "next_older_known_auction": {
+    "auction_date": "2019-11-04",
+    "live_archive_evidence": "https://auctions.savills.co.uk/past-auctions/archive",
+    "problem": "The surviving Savills archive proves the dated auction but current canonical History V2 has no lot-level events for it and the archive card does not provide a usable catalogue href to the existing collector."
+  },
+  "dead_route_evidence": {
+    "legacy_aid_seed": 1126,
+    "legacy_aid_cursor_after_scan": 646,
+    "legacy_aids_scanned": 480,
+    "events_recovered": 0,
+    "conclusion": "Do not spend another run continuing the blind LotList?aid= descent while migrated first-party catalogue routes remain testable."
+  },
+  "repair_implemented": {
+    "commit": "75f5a8a758696e75c0a1b38eb9a133374195fdd6",
+    "file": "savills_surviving_catalogue_backfill.py",
+    "strategy": "Probe the migrated first-party November 2019 catalogue route and the still older September 2019 route through the proven fetch_auction/History V2 path. A candidate cannot be marked complete unless it exposes a real lot inventory and at least one normalised commercial row; redirects/empty pages remain blockers rather than false completions.",
+    "candidate_routes": [
+      "https://auctions.savills.co.uk/auctions/november-2019-2",
+      "https://auctions.savills.co.uk/auctions/september-2019-1"
+    ]
+  }
+}
