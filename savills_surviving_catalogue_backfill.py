@@ -11,6 +11,9 @@ from savills_history_quality import correct_rows, repair_database
 DATA = Path('data')
 HISTORY = DATA / 'property_history.json'
 SOURCE = 'Savills Auctions'
+# Bump when the shared Savills parser changes in a way that should force these
+# known surviving catalogues back through production.
+PARSER_REVISION = 2
 
 # Surviving first-party catalogue routes independently verified on auctions.savills.co.uk.
 # These bypass the obsolete /Auctions/LotList?aid= route and materially close the
@@ -89,14 +92,10 @@ def main() -> None:
     state = progress.setdefault('sources', {}).setdefault(SOURCE, {})
     state['historically_complete'] = False
 
-    # Repair the bad first-H1 behaviour discovered on surviving legacy Savills pages
-    # before deciding a completed seed needs no further work. This keeps the canonical
-    # event identity while moving it away from modal boilerplate such as
-    # "Login to see times and book a viewing" and onto the address proven by the
-    # surviving first-party Savills page title.
     repaired = repair_database(HISTORY)
     state['legacy_address_repair_last_run_at'] = now_iso()
     state['legacy_addresses_repaired_last_run'] = repaired
+    state['surviving_catalogue_parser_revision'] = PARSER_REVISION
 
     completed = {str(x) for x in (state.get('completed_auction_ids') or [])}
     attempts = []
