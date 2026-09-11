@@ -62,6 +62,19 @@ def _is_rooftop_development(low):
     )
 
 
+def _has_conversion_potential(low):
+    return bool(
+        any(x in low for x in (
+            "development opportunity", "redevelopment opportunity", "development potential",
+            "residential conversion", "conversion potential", "alternative use",
+            "alternative uses", "potential for reconfiguration", "potential for conversion",
+            "scope for reconfiguration", "scope for conversion",
+        ))
+        or re.search(r"potential for (?:permitted development to )?convert", low)
+        or re.search(r"potential for .*?(?:hmo|house of multiple occupation|self-contained residential units|boutique hotel)", low)
+    )
+
+
 def _is_ground_rent_investment(row, low, development):
     """Only classify the asset itself as ground rent, never an incidental lease cost."""
     primary = _norm(row.get("property_type")).lower()
@@ -89,13 +102,14 @@ def _title(row, low):
     rent = row.get("rent") if row.get("rent") is not None else row.get("annual_rent")
     occupation = _norm(row.get("occupation")).lower()
     kind = _property_kind(" " + low + " ")
-    mixed = any(x in low for x in ("mixed use", "mixed-use", "retail and residential", "shop and flat", "shop with flat"))
+    mixed = any(x in low for x in (
+        "mixed use", "mixed-use", "mixed commercial/residential", "mixed commercial / residential",
+        "mixed residential and commercial", "retail and residential", "shop and flat", "shop with flat",
+    ))
     upper_dev = _has_upper_development(low)
     rooftop_dev = _is_rooftop_development(low)
     consented = _has_planning_consent(low)
-    development = rooftop_dev or upper_dev or any(
-        x in low for x in ("development opportunity", "redevelopment opportunity", "development potential")
-    )
+    development = rooftop_dev or upper_dev or _has_conversion_potential(low)
     vacant = "vacant" in low or occupation.startswith("vacant")
     part_vacant = "part vacant" in occupation or "part let" in occupation or bool(
         rent and re.search(r"\b(?:plus\s+)?[\d,]+\s*sq\.?\s*ft[^.]{0,45}\bvacant\b", low)
@@ -108,6 +122,10 @@ def _title(row, low):
         return "CONSENTED RESIDENTIAL DEVELOPMENT"
     if mixed and development and rent:
         return "MIXED-USE INVESTMENT + DEVELOPMENT"
+    if mixed and development and vacant:
+        return "VACANT MIXED-USE + CONVERSION OPPORTUNITY"
+    if mixed and development:
+        return "MIXED-USE + CONVERSION OPPORTUNITY"
     if mixed and rent:
         return "MIXED-USE INVESTMENT"
     if mixed:
@@ -122,6 +140,8 @@ def _title(row, low):
         return f"{kind} OPPORTUNITY · NOMINAL INCOME"
     if kind == "OFFICE" and rent and part_vacant:
         return "PART-LET OFFICE INVESTMENT + VACANCY"
+    if kind == "OFFICE" and development and vacant:
+        return "VACANT OFFICE + RESIDENTIAL CONVERSION OPPORTUNITY"
     if rent:
         return f"{kind} INVESTMENT"
     if vacant:
@@ -138,6 +158,26 @@ def _extract_units(low):
     m = re.search(r"comprising\s+(two|three|four|five|\d+)\s+(?:ground floor )?retail units", low)
     if m:
         return f"{m.group(1).title()} retail units"
+    return None
+
+
+def _mixed_use_composition(text, low):
+    if not any(x in low for x in (
+        "mixed use", "mixed-use", "mixed commercial/residential", "mixed commercial / residential",
+        "mixed residential and commercial", "retail and residential", "shop and flat", "shop with flat",
+    )):
+        return None
+    if "ground floor retail" in low and "maisonette" in low:
+        beds = re.search(r"Bedrooms\s*x\s*(\d+)", text, re.I)
+        baths = re.search(r"Bathrooms\s*x\s*(\d+)", text, re.I)
+        detail = "Ground-floor retail + upper-floor maisonette"
+        if beds:
+            detail += f" · {beds.group(1)} beds"
+        if baths:
+            detail += f" / {baths.group(1)} baths"
+        return detail
+    if "ground floor retail" in low and any(x in low for x in ("flat", "residential accommodation", "upper floors")):
+        return "Ground-floor retail + residential upper parts"
     return None
 
 
@@ -193,6 +233,10 @@ def build_opportunity_summary(row):
     if re.search(r"(?:nil|nill|peppercorn)\s+rent", low):
         highlights.append("Tenant in situ · nil rent")
 
+    composition = _mixed_use_composition(text, low)
+    if composition:
+        highlights.append(composition)
+
     units = _extract_units(low)
     if units:
         if "vacant first and second floors" in low or "vacant upper floors" in low:
@@ -224,6 +268,10 @@ def build_opportunity_summary(row):
     if parking:
         highlights.append(parking[:90])
 
+    pitch = _norm(row.get("pitch"))
+    if pitch:
+        highlights.append(pitch[:120])
+
     if _has_upper_development(low):
         m = re.search(r"(?:previously|formerly)\s+(?:been\s+)?utili[sz]ed as\s+(\d+)\s+bedsits", low)
         if m:
@@ -231,6 +279,18 @@ def build_opportunity_summary(row):
         else:
             highlights.append("Upper-floor residential/development potential")
 
+    if _has_conversion_potential(low):
+        if any(x in low for x in ("hmo", "house of multiple occupation", "self-contained residential units", "boutique hotel")):
+            highlights.append("Reconfiguration / residential / HMO / alternative-use potential STC")
+        else:
+            highlights.append("Reconfiguration / conversion / alternative-use potential STC")
+
+    if "basement accommodation" in low or "basement room" in low:
+        highlights.append("Basement accommodation")
+    if "rear yard" in low or "rear courtyard" in low or "courtyard garden" in low:
+        highlights.append("Rear yard / courtyard")
+    if "roof terrace" in low:
+        highlights.append("Roof terrace")
     if re.search(r"rear loading (?:bay|access)", low):
         highlights.append("Rear loading bay")
     if "large frontage" in low or "substantial frontage" in low:
