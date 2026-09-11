@@ -58,7 +58,10 @@ def _detail_href(a):
     href = urljoin(BASE, a.get("href") or "")
     if "savills.co.uk" not in href:
         return None
-    if re.search(r"/auctions/.+-\d{4,6}/?$", href, re.I):
+    # Early Savills catalogues use short numeric lot IDs (for example the
+    # December 2019 first-party route ends in -11). Restricting this suffix to
+    # 4-6 digits silently discarded every valid early lot link.
+    if re.search(r"/auctions/.+-\d{1,6}/?$", href, re.I):
         return href.split("?")[0].rstrip("/")
     if "index.php" in href and "id=" in href and "view=commission" in href:
         return href
@@ -220,92 +223,77 @@ def _detail(href, auction, source_commercial=False):
     m = re.search(r"([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft", text, re.I)
     if m:
         area_sqft = _money(m.group(1))
-        area_sqm = round(area_sqft / 10.7639, 2) if area_sqft else None
-    else:
-        m = re.search(r"([\d,]+(?:\.\d+)?)\s*sq\.?\s*m", text, re.I)
-        if m:
-            area_sqm = _money(m.group(1))
-            area_sqft = round(area_sqm * 10.7639, 2) if area_sqm else None
+    m = re.search(r"([\d,]+(?:\.\d+)?)\s*sq\.?\s*m", text, re.I)
+    if m:
+        area_sqm = _money(m.group(1))
 
     tenant = _first([
-        r"(?:property|unit) is let to\s+(.+?)\s+on\s+(?:a|an)\s+[^.]{0,140}?lease",
-        r"Let to\s+(.+?)\s+on\s+(?:a|an)\s+[^.]{0,140}?lease",
+        r"(?:let|leased)\s+to\s+([^.;]{2,120})",
+        r"tenant\s*[:\-]\s*([^.;]{2,120})",
     ], text)
-    lease_term = _first([r"on\s+(?:a|an)\s+(\d+\s+year)\s+(?:FR&I\s+)?lease", r"(\d+\s+year)\s+lease"], text)
-    lease_expiry = _first([r"(?:expiry|expiring|reversion)\s+(?:in\s+)?(20\d{2})", r"until\s+(\d{1,2}\s+[A-Za-z]+\s+20\d{2})"], text)
-    break_clause = _first([r"(break (?:option|clause)[^.]{0,120})", r"(mutual tenant and landlord break option[^.]{0,120})"], text)
-    rent_review = _first([r"(rent review[^.]{0,140})"], text)
-    fri = True if re.search(r"full repairing and insuring|\bFR&I\b|\bFRI\b", text, re.I) else None
+    lease_term = _first([
+        r"(?:for|on)\s+a\s+(\d+\s*(?:year|month)s?[^.;]{0,100})",
+        r"lease\s+(?:for|of)\s+(\d+\s*(?:year|month)s?[^.;]{0,100})",
+    ], text)
+    break_clause = _first([r"(?:tenant(?:'s)?\s+)?break(?:\s+option)?\s*[:\-]?\s*([^.;]{2,100})"], text)
+    review_clause = _first([r"rent\s+review(?:s)?\s*[:\-]?\s*([^.;]{2,100})"], text)
 
-    occupation = None
-    if re.search(r"full vacant possession|\bvacant\b", text, re.I) and not rent:
-        occupation = "Vacant"
-    elif tenant or rent:
-        occupation = "Tenanted"
+    key_features = []
+    k = ds.find(lambda tag: getattr(tag, "name", None) in {"h2", "h3"} and "key features" in tag.get_text(" ", strip=True).lower())
+    if k:
+        ul = k.find_next("ul")
+        if ul:
+            key_features = [norm(li.get_text(" ", strip=True)) for li in ul.find_all("li") if norm(li.get_text(" ", strip=True))]
 
-    property_type = None
-    for pat, label in [
-        (r"mixed[- ]use", "Mixed use"), (r"industrial|warehouse|light industrial|rail arches|workshop", "Industrial"),
-        (r"retail|shop\b|market\b|betting office|showroom", "Retail"), (r"office\b|business centre", "Office"),
-        (r"hotel\b", "Hotel"), (r"public house|\bpub\b", "Pub"), (r"care (?:home|facility)", "Care facility"),
-        (r"petrol station", "Petrol station"), (r"veterinary", "Veterinary"), (r"leisure", "Leisure")
-    ]:
-        if re.search(pat, text, re.I):
-            property_type = label
-            break
-    if source_commercial and not property_type:
-        property_type = "Commercial"
+    desc = " ".join(key_features[:4]) or _first([r"Description\s+(.{20,500}?)(?:Additional information|Tenure|Accommodation|Tenancy|Planning|Rent|Local information)"], text)
+    image = image_from_soup(ds, BASE)
 
     return Lot(
-        source=SOURCE, url=href, address=address, lot_number=lot_number,
-        auction_date=_offered_date(text, auction), image_url=image_from_soup(ds, href),
-        guide_price=guide, annual_rent=rent, tenure=tenure, vat_status=vat,
-        legal_pack_status="LOGIN REQUIRED", legal_pack_url=href,
-        description=text[:5000], area_sqft=area_sqft, area_sqm=area_sqm,
-        tenant=tenant, lease_term=lease_term, lease_expiry=lease_expiry,
-        break_clause=break_clause, rent_review=rent_review, fri=fri,
-        property_type=property_type, occupation=occupation,
-        development_potential=True if re.search(r"development potential|conversion potential", text, re.I) else None,
-        asset_management=True if re.search(r"asset management potential", text, re.I) else None,
-        residential_conversion=True if re.search(r"residential conversion|conversion to residential", text, re.I) else None,
-    ).finalise()
+        source=SOURCE,
+        source_id=urljoin(BASE, href).rstrip("/").split("-")[-1],
+        address=address,
+        url=href,
+        image=image,
+        auction_date=_offered_date(text, auction),
+        auction_house=SOURCE,
+        lot_number=lot_number,
+        property_type="Commercial / Mixed Use",
+        guide_price=guide,
+        rent_pa=rent,
+        tenure=tenure,
+        vat_status=vat,
+        area_sqft=area_sqft,
+        area_sqm=area_sqm,
+        tenant=tenant,
+        lease_term=lease_term,
+        break_clause=break_clause,
+        rent_review=review_clause,
+        description=desc,
+        status="LIVE",
+    )
 
 
 def collect():
     auction = _discover_next_auction()
     if not auction:
-        return SourceResult(SOURCE, "FAILED", [], "Could not discover the next Savills auction from the auction calendar")
-
-    feed, targets = _discover_commercial_feed(auction)
-    if not targets:
-        scope = tuple(d.isoformat() for d in ({auction['start'], auction['end']}))
-        return SourceResult(
-            SOURCE, "CATALOGUE PENDING", [],
-            f"Next auction discovered automatically: {auction['start'].isoformat()} to {auction['end'].isoformat()}; commercial section not published yet",
-            authoritative_snapshot=False, scope_dates=scope,
-        )
-
-    expected = len(targets)
-    lots = []
-    rejected = failures = 0
-    for href, meta in targets.items():
-        try:
-            lot = _detail(href, auction, source_commercial=True)
-            if lot:
-                lots.append(lot)
-            else:
-                rejected += 1
-        except Exception as exc:
-            failures += 1
-            print("SAVILLS_DETAIL_FAIL", href, repr(exc))
-
-    status = "LIVE" if lots and len(lots) == expected else "DEGRADED" if lots else "FAILED"
-    scope = tuple(sorted({auction["start"].isoformat(), auction["end"].isoformat()}))
-    return SourceResult(
-        SOURCE, status, lots,
-        f"Auto-selected next Savills auction {auction['start'].isoformat()} to {auction['end'].isoformat()}; commercial feed {feed}; {len(targets)} discovered; {len(lots)} published; {rejected} rejected; {failures} detail failures",
-        expected_count=expected,
-        discovered_count=len(targets),
-        authoritative_snapshot=(status == "LIVE"),
-        scope_dates=scope,
-    )
+        return SourceResult(SOURCE, [], "Upcoming auction catalogue unavailable", complete=False)
+    try:
+        feed, targets = _discover_commercial_feed(auction)
+        if not feed:
+            return SourceResult(SOURCE, [], "Commercial section unavailable", complete=False)
+        rows = []
+        failed = []
+        for href in targets:
+            try:
+                lot = _detail(href, auction, source_commercial=True)
+                if lot:
+                    rows.append(lot)
+            except Exception as e:
+                failed.append(f"{href}: {type(e).__name__}: {e}")
+        complete = not failed and len(rows) == len(targets)
+        note = f"catalogue {auction['start'].isoformat()} to {auction['end'].isoformat()} commercial {len(rows)}/{len(targets)}"
+        if failed:
+            note += f"; {len(failed)} detail failures"
+        return SourceResult(SOURCE, rows, note, complete=complete)
+    except Exception as e:
+        return SourceResult(SOURCE, [], f"Catalogue fetch failed: {type(e).__name__}: {e}", complete=False)
