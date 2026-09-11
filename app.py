@@ -17,8 +17,9 @@ from history_v2 import find_history as _find_history
 _ORIGINAL_ESCAPE = _html.escape
 _HISTORY_GOOGLE_PREFIX = "https://www.google.com/search?q="
 
-# Make the page scrollbar easy to grab on desktop. Chromium/WebKit uses the
-# pseudo-elements below; Firefox honours scrollbar-width.
+# Make the page scrollbar easier to grab on desktop without making it visually
+# intrusive. Chromium/WebKit uses the pseudo-elements below; Firefox honours
+# scrollbar-width.
 st.markdown(
     """
     <style>
@@ -28,21 +29,21 @@ st.markdown(
       html::-webkit-scrollbar,
       body::-webkit-scrollbar,
       [data-testid="stAppViewContainer"]::-webkit-scrollbar {
-        width: 16px;
-        height: 16px;
+        width: 22px;
+        height: 22px;
       }
       html::-webkit-scrollbar-thumb,
       body::-webkit-scrollbar-thumb,
       [data-testid="stAppViewContainer"]::-webkit-scrollbar-thumb {
-        min-height: 52px;
-        border: 3px solid transparent;
+        min-height: 64px;
+        border: 4px solid transparent;
         background-clip: padding-box;
-        border-radius: 10px;
+        border-radius: 12px;
       }
       html::-webkit-scrollbar-track,
       body::-webkit-scrollbar-track,
       [data-testid="stAppViewContainer"]::-webkit-scrollbar-track {
-        border-radius: 10px;
+        border-radius: 12px;
       }
     </style>
     """,
