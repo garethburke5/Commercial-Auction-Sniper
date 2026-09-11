@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-11T18:13:42.796169+00:00",
+  "updated_at": "2026-09-11T20:04:30.882486+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "wayback-cdx-original-savills-capture-direct-first-party-parse",
+      "last_discovery_mode": "public-address-archive-url-to-live-savills-first-party",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -3161,6 +3161,113 @@
         "frontier_date": "2014-04-24",
         "message": "CDX enumeration and direct parsing of archived original Savills first-party captures yielded no new canonical commercial events.",
         "next_safe_route": "Use exact 2014 archive-summary statistics/date plus any CDX-discovered Savills original URLs to enumerate adjacent historical URL IDs/slugs and archived captures, then require exact auction-date evidence and commercial classification."
+      },
+      "cdx_adjacent_id_last_run": {
+        "at": "2026-09-11T20:04:29.490699+00:00",
+        "year": 2014,
+        "route": "wayback-cdx-adjacent-aid-and-numeric-url-reconstruction",
+        "target_dates": [
+          "2014-04-24",
+          "2014-05-07",
+          "2014-06-16",
+          "2014-07-22",
+          "2014-09-15",
+          "2014-10-28",
+          "2014-12-08"
+        ],
+        "broad_seed_rows": 0,
+        "seed_aids": [],
+        "seed_modern_adjacent_urls": 0,
+        "broad_queries": [
+          {
+            "pattern": "auctions.savills.co.uk/Auctions/LotList",
+            "query": "https://web.archive.org/cdx/search/cdx?url=auctions.savills.co.uk%2FAuctions%2FLotList&matchType=prefix&from=2012&to=2016&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&limit=5000",
+            "rows": 0
+          },
+          {
+            "pattern": "auctions.savills.co.uk/Auctions/LotDetails",
+            "query": "https://web.archive.org/cdx/search/cdx?url=auctions.savills.co.uk%2FAuctions%2FLotDetails&matchType=prefix&from=2012&to=2016&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&limit=5000",
+            "rows": 0
+          },
+          {
+            "pattern": "auctions.savills.co.uk/auctions/",
+            "query": "https://web.archive.org/cdx/search/cdx?url=auctions.savills.co.uk%2Fauctions%2F&matchType=prefix&from=2012&to=2016&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&limit=5000",
+            "rows": 0
+          }
+        ],
+        "exact_queries_run": 0,
+        "exact_query_hits": 0,
+        "exact_capture_rows": 0,
+        "captures_checked": 0,
+        "captures_matching_exact_auction_date": 0,
+        "lot_candidates": 0,
+        "commercial_rows_seen": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "rejected_samples": [],
+        "errors": []
+      },
+      "cdx_adjacent_id_last_blocker": {
+        "at": "2026-09-11T20:04:29.490699+00:00",
+        "route": "wayback-cdx-adjacent-aid-and-numeric-url-reconstruction",
+        "frontier_date": "2014-04-24",
+        "message": "Adjacent legacy aid/numeric URL reconstruction produced no new verified commercial History V2 events.",
+        "next_safe_route": "Use archive-summary sale totals and date-specific public result pages to recover exact property addresses/lot numbers for the frontier sale, then resolve those addresses against archived Savills first-party captures before persistence."
+      },
+      "public_address_frontier_last_run": {
+        "at": "2026-09-11T20:04:30.483766+00:00",
+        "route": "public-auction-result-address-plus-archive-url-to-live-savills-validation",
+        "frontier_dates": [
+          "2014-04-24"
+        ],
+        "source_queries_attempted": 3,
+        "source_pages_examined": 0,
+        "address_clues": 0,
+        "candidate_live_or_archived_savills_urls": 0,
+        "archive_original_candidates": 0,
+        "live_checked": 0,
+        "commercial_rows_seen": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "query_hits": [
+          {
+            "auction_date": "2014-04-24",
+            "query": "\"Savills\" \"24 April 2014\" \"auction results\" property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2014-04-24",
+            "query": "\"Savills Auctions\" \"24 April 2014\" lot",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2014-04-24",
+            "query": "\"24 April 2014\" Savills \"sold\" \"lot\" property",
+            "results": 0,
+            "sample_urls": []
+          }
+        ],
+        "clue_samples": [],
+        "rejected_samples": [],
+        "search_errors": [],
+        "page_errors": [],
+        "lookup_errors": []
+      },
+      "public_address_frontier_last_blocker": {
+        "at": "2026-09-11T20:04:30.483766+00:00",
+        "route": "public-auction-result-address-plus-archive-url-to-live-savills-validation",
+        "message": "Address-led recovery produced no older validated Savills History V2 event. Direct postcode search and historical/Wayback URL extraction were attempted; no candidate is accepted unless a surviving first-party Savills page validates the auction date and property.",
+        "frontier_dates": [
+          "2014-04-24"
+        ],
+        "address_clues": 0,
+        "candidate_live_or_archived_savills_urls": 0,
+        "archive_original_candidates": 0,
+        "next_safe_route": "Use any recovered exact address/postcode clues to enumerate historical Savills legacy pid/slug candidates through free CDX/index snapshots and validate the originals against surviving Savills first-party pages before persistence."
       }
     }
   }
