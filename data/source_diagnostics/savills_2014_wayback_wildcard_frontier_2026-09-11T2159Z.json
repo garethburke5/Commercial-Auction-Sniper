@@ -1,0 +1,38 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T21:59:00Z",
+  "historically_complete": false,
+  "discovery_exhausted": false,
+  "next_oldest_known_auction_date": "2014-04-24",
+  "first_party_manifest_url": "https://auctions.savills.co.uk/past-auctions/archive/page-14",
+  "live_archive_end": "https://auctions.savills.co.uk/past-auctions/archive/page-15",
+  "canonical_savills_events": 3250,
+  "canonical_earliest_lot_level_month": "2019-12",
+  "blocker": "The surviving Savills page-14 archive proves the 24 April 2014 auction but exposes no directly resolvable lot catalogue anchors, and the completed legacy recovery routes have not yet produced a surviving first-party commercial lot page for that date.",
+  "failed_routes": [
+    {
+      "route": "live Savills archive page -> catalogue anchor",
+      "result": "page 14 dated auction summaries visible; oldest date 2014-04-24; no resolvable lot catalogue anchors for the oldest unresolved page"
+    },
+    {
+      "route": "live sequential/concurrent legacy LotList aid enumeration",
+      "result": "aid space down to 1 exhausted; latest fast scan covered aid 526 down to 1, 526 IDs, 0 candidates, 0 canonical events"
+    },
+    {
+      "route": "Common Crawl/WARC manifest-driven aid/pid recovery for 2014",
+      "result": "target date 2014-04-24 checked; no persistable surviving first-party commercial lot page; canonical Savills count remained 3250"
+    },
+    {
+      "route": "exact-known-PID Wayback CDX",
+      "result": "previous exact PID route is dependent on already discovered legacy PIDs and therefore does not enumerate the missing 2014 namespace"
+    }
+  ],
+  "implemented_next_probe": {
+    "route": "Wayback CDX wildcard enumeration for the oldest unresolved Savills manifest year/date",
+    "implementation": "savills_wayback_frontier_catalogue_discovery.py",
+    "commit": "bdc9e60ad094ef3e23001544c64d16ee0746696a",
+    "method": "Enumerate archived Savills /Auctions/* URLs for 2014 without assuming aid/pid, fetch bounded archived bodies, require the exact 24 April 2014 date, extract legacy LotDetails/current auction candidates, and persist only when a surviving Savills first-party page validates as commercial/mixed-use.",
+    "safety": "Archived sources are discovery provenance only; canonical listing evidence remains a surviving Savills first-party URL. No missing facts are invented."
+  },
+  "next_if_empty": "Use exact addresses/lot references from reputable public auction-result indexes for 24 April 2014, then search the surviving Savills first-party namespace by exact address/slug before persistence."
+}
