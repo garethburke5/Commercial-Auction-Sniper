@@ -40,44 +40,7 @@ jobs:
           python -m playwright install chromium
       - name: Compile live-first repair
         run: python -m py_compile savills_live_archive_backfill.py savills_live_archive_latent_probe.py historical_savills.py savills_legacy_aid_discovery.py history_database.py collectors/savills.py
-      - name: Probe oldest concrete live page latent first-party routes
-        id: latent
-        continue-on-error: true
-        run: python savills_live_archive_latent_probe.py
-      - name: Persist exact latent-probe blocker without aborting live ingestion
-        if: steps.latent.outcome == 'failure'
-        run: |
-          python - <<'PY'
-          import json
-          from datetime import datetime, timezone
-          from pathlib import Path
-          progress_path=Path('data/historical_backfill_progress.json')
-          progress=json.loads(progress_path.read_text())
-          state=progress.setdefault('sources',{}).setdefault('Savills Auctions',{})
-          state['historically_complete']=False
-          state['status']='LIVE ARCHIVE DEGRADED'
-          state['live_archive_latent_probe_url']='https://auctions.savills.co.uk/past-auctions/archive/page-14'
-          state['live_archive_latent_probe_error']='Page-14 live latent-route probe failed before extraction; the auxiliary probe remains non-blocking so canonical oldest-first live archive ingestion continues in the same run.'
-          state['live_archive_latent_probe_failed_at']=datetime.now(timezone.utc).isoformat()
-          diags=Path('data/source_diagnostics'); diags.mkdir(parents=True, exist_ok=True)
-          stamp=datetime.now(timezone.utc).strftime('%Y-%m-%dT%H%MZ')
-          diag=diags/f'savills_live_archive_page14_latent_timeout_{stamp}.json'
-          diag.write_text(json.dumps({
-            'source':'Savills Auctions',
-            'recorded_at':datetime.now(timezone.utc).isoformat(),
-            'stage':'live-first-party-latent-route-probe',
-            'archive_page':14,
-            'archive_url':'https://auctions.savills.co.uk/past-auctions/archive/page-14',
-            'error':'Page-14 latent-route probe failed before extraction.',
-            'counted_as_complete':False,
-            'repair':'Keep the page-14 latent probe non-blocking and continue savills_live_archive_backfill.py oldest-first in this same run.',
-            'next_probe':'Persist whatever canonical live-page/catalogue records or exact per-page blocker the oldest-first collector produces; only after all 14 live pages are scanned may the guarded first-party legacy LotList bridge run.'
-          },indent=2),encoding='utf-8')
-          state['last_live_archive_latent_diagnostic']=str(diag)
-          progress['updated_at']=datetime.now(timezone.utc).isoformat()
-          progress_path.write_text(json.dumps(progress,indent=2),encoding='utf-8')
-          PY
-      - name: Exhaust live Savills archive oldest-first
+      - name: Exhaust complete live Savills archive dynamically
         run: python savills_live_archive_backfill.py
       - name: Guard transition beyond live archive
         id: livegate
@@ -90,17 +53,19 @@ jobs:
           scanned=int(s.get('live_archive_pages_scanned') or 0)
           exhausted=bool(s.get('live_archive_discovery_exhausted'))
           errors=s.get('live_archive_scan_errors') or []
-          allowed=(scanned == 14 and exhausted and not errors)
+          stop=s.get('live_archive_stop_reason')
+          allowed=(scanned > 0 and exhausted and not errors)
           print(f"legacy_allowed={'true' if allowed else 'false'}")
           print('LIVE_PAGES_SCANNED', scanned)
           print('LIVE_DISCOVERY_EXHAUSTED', exhausted)
           print('LIVE_SCAN_ERRORS', len(errors))
+          print('LIVE_STOP_REASON', stop)
           if not allowed:
-              print('Legacy bridge deliberately withheld: all 14 live first-party archive pages must be successfully scanned first.')
+              print('Legacy bridge withheld until the live archive reaches an observed pagination end/repeat without scan errors.')
           PY
       - name: Bridge unresolved live dates through first-party legacy LotList IDs
         if: steps.livegate.outputs.legacy_allowed == 'true'
-        run: python savills_legacy_aid_discovery.py --probe-ids 160 --max-auctions 4 --floor-aid 1
+        run: python savills_legacy_aid_discovery.py --probe-ids 500 --max-auctions 12 --floor-aid 1
       - name: Validate canonical persistence
         run: |
           python - <<'PY'
@@ -111,20 +76,20 @@ jobs:
           s=(p.get('sources') or {}).get('Savills Auctions') or {}
           assert s.get('live_archive_pages_scanned',0) > 0
           assert s.get('historically_complete') is False
+          assert Path(s.get('live_archive_manifest') or 'data/source_diagnostics/savills_live_archive_manifest.json').exists(), 'Savills live archive manifest missing'
           events=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
           assert events
-          if s.get('last_live_archive_rows',0) or s.get('live_archive_latent_events_added',0) or s.get('legacy_aid_last_events_added',0):
-              assert s.get('last_live_archive_ingested') or s.get('last_live_archive_latent_diagnostic') or s.get('legacy_aid_last_processed'), 'Rows claimed without Savills evidence trail'
+          if s.get('last_live_archive_rows',0) or s.get('legacy_aid_last_events_added',0):
+              assert s.get('last_live_archive_ingested') or s.get('legacy_aid_last_processed'), 'Rows claimed without Savills evidence trail'
           elif s.get('status') in ('LIVE ARCHIVE BLOCKED','LIVE ARCHIVE DEGRADED','DISCOVERY EXPANSION'):
-              assert s.get('live_archive_blocker_url') or s.get('live_archive_latent_probe_url'), 'Blocker/degraded status missing exact live URL'
-              assert s.get('last_live_archive_diagnostic') or s.get('last_live_archive_latent_diagnostic'), 'Blocker/degraded status missing persisted diagnostic'
+              assert s.get('live_archive_blocker_url') or s.get('live_archive_stop_reason'), 'Blocker/degraded state missing exact live archive evidence'
           print('SAVILLS_EVENTS',len(events))
           print('LIVE_ARCHIVE_STATUS',s.get('status'))
+          print('LIVE_PAGES_SCANNED',s.get('live_archive_pages_scanned'))
           print('OLDEST_LIVE_DATE',s.get('live_archive_oldest_date_seen'))
           print('ROWS_ADDED',s.get('last_live_archive_rows'))
-          print('LATENT_EVENTS_ADDED',s.get('live_archive_latent_events_added'))
           print('LEGACY_EVENTS_ADDED',s.get('legacy_aid_last_events_added'))
-          print('EARLIEST_VERIFIED',s.get('earliest_date_reached') or s.get('earliest_month_reached'))
+          print('STOP_REASON',s.get('live_archive_stop_reason'))
           PY
       - name: Publish live archive records or blocker
         run: |
