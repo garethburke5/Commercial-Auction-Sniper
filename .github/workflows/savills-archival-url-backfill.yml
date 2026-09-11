@@ -10,6 +10,7 @@ on:
       - '.github/workflows/savills-archival-url-backfill.yml'
       - 'savills_archival_url_discovery.py'
       - 'savills_commoncrawl_legacy_probe.py'
+      - 'savills_first_party_legacy_date_recovery.py'
       - 'collectors/savills.py'
       - 'history_database.py'
 
@@ -44,31 +45,40 @@ jobs:
           python -m playwright install chromium
 
       - name: Compile archival discovery
-        run: python -m py_compile savills_archival_url_discovery.py savills_commoncrawl_legacy_probe.py collectors/savills.py history_database.py
+        run: python -m py_compile savills_archival_url_discovery.py savills_commoncrawl_legacy_probe.py savills_first_party_legacy_date_recovery.py collectors/savills.py history_database.py
 
-      - name: Preserve overriding 2013 priority marker without rewinding deep cursor
+      - name: Resolve oldest unresolved Savills frontier
+        id: frontier
         run: |
-          python - <<'PY'
+          python - <<'PY' >> "$GITHUB_OUTPUT"
           import json
           from pathlib import Path
-          path=Path('data/historical_backfill_progress.json')
-          p=json.loads(path.read_text(encoding='utf-8'))
-          s=p.setdefault('sources',{}).setdefault('Savills Auctions',{})
-          if s.get('archival_url_snapshot_year_cursor') is None:
-              s['archival_url_snapshot_year_cursor']=2013
-          s['archival_url_priority_probe']='2013-or-earlier'
-          s['historically_complete']=False
-          path.write_text(json.dumps(p,indent=2,ensure_ascii=False),encoding='utf-8')
-          print('DEEP_ARCHIVE_CURSOR',s.get('archival_url_snapshot_year_cursor'),'PRIORITY_YEAR',2013)
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
+          s=(p.get('sources') or {}).get('Savills Auctions') or {}
+          targets=s.get('legacy_2019_first_party_recovery',{}).get('target_dates') or [
+              '2019-11-04','2019-09-23','2019-07-17','2019-05-29','2019-04-02'
+          ]
+          completed=set(str(x) for x in (s.get('completed_auction_ids') or []))
+          earliest=s.get('earliest_date_reached') or s.get('earliest_month_reached') or ''
+          unresolved_2019=bool(targets) and (not earliest or earliest >= '2019-04')
+          priority_year=2019 if unresolved_2019 else 2013
+          print(f'priority_year={priority_year}')
+          print(f'unresolved_2019={str(unresolved_2019).lower()}')
+          print('FRONTIER',earliest,'TARGETS',','.join(targets),'PRIORITY',priority_year)
           PY
 
-      - name: Continue deeper archival cursor
-        run: python savills_archival_url_discovery.py --snapshot-years 1 --start-year 2013 --floor-year 2008 --cdx-limit 1200 --max-live-checks 240
+      - name: Re-run first-party exact-date recovery at unresolved 2019 frontier
+        if: steps.frontier.outputs.unresolved_2019 == 'true'
+        run: python savills_first_party_legacy_date_recovery.py
 
-      - name: Explicitly probe 2013 with exact Common Crawl prefix routes
+      - name: Probe Common Crawl for the unresolved frontier year
         run: |
-          echo "COMMON_CRAWL_PRIORITY_YEAR=2013"
-          python savills_commoncrawl_legacy_probe.py --year 2013 --limit 2000 --max-live-checks 300
+          echo "COMMON_CRAWL_PRIORITY_YEAR=${{ steps.frontier.outputs.priority_year }}"
+          python savills_commoncrawl_legacy_probe.py --year ${{ steps.frontier.outputs.priority_year }} --limit 2000 --max-live-checks 300
+
+      - name: Continue deeper archival cursor only after 2019 frontier is cleared
+        if: steps.frontier.outputs.unresolved_2019 != 'true'
+        run: python savills_archival_url_discovery.py --snapshot-years 1 --start-year 2013 --floor-year 2008 --cdx-limit 1200 --max-live-checks 240
 
       - name: Validate Savills History V2 evidence and completeness semantics
         run: |
@@ -89,10 +99,10 @@ jobs:
               assert e.get('address_as_published'), f'Savills event missing address: {e.get("event_id")}'
           s=(p.get('sources') or {}).get('Savills Auctions') or {}
           assert s.get('historically_complete') is False, 'Archival discovery must not imply historical completeness'
-          assert 'archival_url_snapshot_year_cursor' in s, 'Archival URL cursor missing'
           probe=s.get('commoncrawl_legacy_last_probe') or {}
-          assert probe.get('snapshot_year') == 2013, '2013 priority probe did not run'
-          print('SAVILLS_EVENTS',len(events),'EARLIEST',s.get('earliest_date_reached') or s.get('earliest_month_reached'),'ARCHIVE_CURSOR',s.get('archival_url_snapshot_year_cursor'),'CC_PRIORITY_YEAR',probe.get('snapshot_year'))
+          priority=s.get('commoncrawl_legacy_priority_year')
+          assert probe.get('snapshot_year') == priority, f'Frontier Common Crawl probe mismatch: probe={probe.get("snapshot_year")} priority={priority}'
+          print('SAVILLS_EVENTS',len(events),'EARLIEST',s.get('earliest_date_reached') or s.get('earliest_month_reached'),'CC_PRIORITY_YEAR',priority)
           PY
 
       - name: Publish verified archival history
