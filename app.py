@@ -13,6 +13,21 @@ from urllib.parse import parse_qs as _parse_qs, unquote_plus as _unquote_plus, u
 import streamlit as st
 from history_v2 import find_history as _find_history
 
+# Streamlit Cloud keeps the Python process alive across script edits. An earlier
+# pagination experiment replaced st.markdown/st.caption at module level; simply
+# deleting that code does not restore those functions in an already-running
+# process. Always rebind them to Streamlit's canonical main DeltaGenerator before
+# emitting any UI. This also removes the obsolete pagination controls/state that
+# were swallowing the property-card HTML on subsequent reruns.
+_main_dg = getattr(st, "_main", None)
+if _main_dg is not None:
+    st.markdown = _main_dg.markdown
+    st.caption = _main_dg.caption
+for _key in (
+    "board_page", "board_page_size", "board_page_size_prev", "board_total_prev",
+):
+    st.session_state.pop(_key, None)
+
 _ORIGINAL_ESCAPE = _html.escape
 _HISTORY_GOOGLE_PREFIX = "https://www.google.com/search?q="
 
