@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-11T08:26:55.888689+00:00",
+  "updated_at": "2026-09-11T09:19:11.256472+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "commoncrawl-fixed-collection-parallel-exact-aid-warc-to-live-savills",
+      "last_discovery_mode": "public-index-to-live-savills-first-party",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -1770,10 +1770,10 @@
       "archival_url_discovery_exhausted": true,
       "surviving_catalogue_parser_revision": 3,
       "last_runtime_blocker": {
-        "at": "2026-09-11T07:05:34.048415+00:00",
-        "route": "savills-first-party-sitemap-date-match-2019",
+        "at": "2026-09-11T09:19:07.154781+00:00",
+        "route": "wayback-cdx-exact-legacy-pid-to-live-savills",
         "timeout_seconds": 300,
-        "message": "Bounded frontier recovery timed out: TimeoutExpired: Command '['/opt/hostedtoolcache/Python/3.11.16/x64/bin/python', 'savills_first_party_legacy_date_recovery.py']' timed out after 299.99998811800003 seconds",
+        "message": "Bounded frontier recovery timed out: TimeoutExpired: Command '['/opt/hostedtoolcache/Python/3.11.16/x64/bin/python', 'savills_legacy_pid_wayback_recovery.py', '--max-pids', '80', '--max-live-checks', '120']' timed out after 299.999981716 seconds",
         "next_safe_route": "Advance to the next distinct 2019 frontier recovery route instead of rerunning the timed-out route in the same invocation."
       },
       "legacy_exact_parallel_last_run": {
@@ -2045,6 +2045,190 @@
         "route": "wayback-cdx-exact-legacy-pid-to-live-savills",
         "message": "Independent Wayback exact-pid recovery failed at runtime. The already-persisted Common Crawl 2019 outage is intentionally not being re-probed in this invocation.",
         "next_safe_route": "Use surviving Savills first-party archive dates plus public search-engine indexed snippets/PDF catalogue references to map the already-known legacy aid/pid IDs; validate every lot on the surviving Savills first-party page before persistence."
+      },
+      "public_index_frontier_last_run": {
+        "at": "2026-09-11T09:19:11.256431+00:00",
+        "route": "public-search-index-and-pdf-reference-to-live-savills",
+        "frontier_dates": [
+          "2019-02-19",
+          "2019-04-02",
+          "2019-05-29",
+          "2019-07-17",
+          "2019-09-23",
+          "2019-11-04"
+        ],
+        "queries_attempted": 24,
+        "query_hits": [
+          {
+            "auction_date": "2019-02-19",
+            "query": "\"Savills\" \"19 February 2019\" auction London National",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-02-19",
+            "query": "\"19 February 2019\" \"auctions.savills.co.uk\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-02-19",
+            "query": "\"19 February 2019\" Savills auction catalogue pdf",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-02-19",
+            "query": "\"19 February 2019\" Savills auction LotDetails",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-04-02",
+            "query": "\"Savills\" \"2 April 2019\" auction London National",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-04-02",
+            "query": "\"2 April 2019\" \"auctions.savills.co.uk\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-04-02",
+            "query": "\"2 April 2019\" Savills auction catalogue pdf",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-04-02",
+            "query": "\"2 April 2019\" Savills auction LotDetails",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-05-29",
+            "query": "\"Savills\" \"29 May 2019\" auction London National",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-05-29",
+            "query": "\"29 May 2019\" \"auctions.savills.co.uk\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-05-29",
+            "query": "\"29 May 2019\" Savills auction catalogue pdf",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-05-29",
+            "query": "\"29 May 2019\" Savills auction LotDetails",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-07-17",
+            "query": "\"Savills\" \"17 July 2019\" auction London National",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-07-17",
+            "query": "\"17 July 2019\" \"auctions.savills.co.uk\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-07-17",
+            "query": "\"17 July 2019\" Savills auction catalogue pdf",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-07-17",
+            "query": "\"17 July 2019\" Savills auction LotDetails",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-09-23",
+            "query": "\"Savills\" \"23 September 2019\" auction London National",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-09-23",
+            "query": "\"23 September 2019\" \"auctions.savills.co.uk\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-09-23",
+            "query": "\"23 September 2019\" Savills auction catalogue pdf",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-09-23",
+            "query": "\"23 September 2019\" Savills auction LotDetails",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-11-04",
+            "query": "\"Savills\" \"4 November 2019\" auction London National",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-11-04",
+            "query": "\"4 November 2019\" \"auctions.savills.co.uk\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-11-04",
+            "query": "\"4 November 2019\" Savills auction catalogue pdf",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-11-04",
+            "query": "\"4 November 2019\" Savills auction LotDetails",
+            "results": 0,
+            "sample_urls": []
+          }
+        ],
+        "discovered_public_pages": 0,
+        "candidate_live_savills_urls": 0,
+        "live_checked": 0,
+        "commercial_rows_seen": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "rejected_samples": [],
+        "search_errors": [],
+        "page_errors": []
+      },
+      "public_index_frontier_last_blocker": {
+        "at": "2026-09-11T09:19:11.256431+00:00",
+        "route": "public-search-index-and-pdf-reference-to-live-savills",
+        "message": "The five proven 2019 Savills archive dates remain unresolved after first-party sitemap, Common Crawl, exact Wayback PID, and public search-index/PDF-reference discovery; no candidate could be validated into an older canonical History V2 event.",
+        "frontier_dates": [
+          "2019-02-19",
+          "2019-04-02",
+          "2019-05-29",
+          "2019-07-17",
+          "2019-09-23",
+          "2019-11-04"
+        ],
+        "candidate_live_savills_urls": 0,
+        "next_safe_route": "Mine public auction-result aggregators only for exact 2019 Savills property addresses/lot references, then search the surviving live Savills property namespace by exact address and persist only when a first-party Savills lot page validates the auction date/property."
       }
     }
   }
