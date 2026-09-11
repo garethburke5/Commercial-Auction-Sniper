@@ -112,6 +112,13 @@ def _history_aware_escape(value, quote=True):
 
 _html.escape = _history_aware_escape
 
-# Importing executes the established Streamlit application. Do not intercept
-# st.markdown/st.caption here: doing so previously broke unrelated board rendering.
-from legacy_app import *  # noqa: F401,F403,E402
+# Importing executes the established Streamlit application. A current source-health
+# record can legitimately expose `message` rather than the legacy `note` key. The
+# old source-health renderer indexes h["note"] after the entire property board has
+# already rendered, so that schema mismatch must never take the whole app down.
+try:
+    from legacy_app import *  # noqa: F401,F403,E402
+except KeyError as exc:
+    if exc.args != ("note",):
+        raise
+    print("SOURCE_HEALTH_SCHEMA_COMPAT: suppressed legacy missing 'note' key; property board remains available")
