@@ -17,7 +17,6 @@ from collectors import auction_house_london_resilient as london
 from collectors import clive_emson_resilient as clive
 from collectors import symonds_sampson_resilient as symonds
 from collectors import future_property_auctions_resilient as future_property
-from collectors import bidx1
 
 
 _REPLACEMENTS = {
@@ -43,22 +42,50 @@ _REPLACEMENTS = {
     "collect_national_online": regional.collect_national_online,
 }
 
-# Genuine commercial lots with these lifecycle states remain on the published board.
-# ARCHIVED/COMPLETED rows remain history only.
 _PUBLISHED_TERMINAL = {"SOLD PRIOR", "WITHDRAWN", "WITHDRAWN PRIOR", "POSTPONED"}
 _WORKFLOW_BOILERPLATE = re.compile(
     r"(?:login|log in|register to bid|cancel proxy bid|your bid|wishlist|connecting to auction|please wait)",
     re.I,
 )
-_RESERVE_RE = re.compile(r"\bReserve(?:\s+Price)?\s*[:\-]?\s*£\s*([\d,]+(?:\.\d+)?)\b", re.I)
 
 
 def _normal_status(value):
     return str(value or "").strip().upper().replace("_", " ")
 
 
+def _normal_token(value):
+    return re.sub(r"[^a-z0-9]+", " ", str(value or "").lower()).strip()
+
+
+def _lot_identity(item):
+    """Stable identity for one auction lot even when the auctioneer exposes URL variants."""
+    source = _normal_token(item.get("source"))
+    day = str(item.get("auction_date") or "")[:10]
+    lot = _normal_token(item.get("lot_number"))
+    address = _normal_token(item.get("address"))
+    if source and day and lot and lot not in {"lot tbc", "tbc"} and address:
+        return ("lot", source, day, lot, address)
+    if source and day and address:
+        return ("address", source, day, address)
+    return ("url", source, str(item.get("url") or "").strip())
+
+
+def _record_score(item):
+    """Prefer the richer duplicate instead of whichever URL happened to be seen last."""
+    fields = (
+        "image_url", "guide_price", "annual_rent", "tenure", "vat_status", "property_type",
+        "occupation", "area_sqft", "area_sqm", "epc", "tenant", "lease_term",
+        "legal_pack_url", "legal_pack_status", "description",
+    )
+    score = sum(1 for f in fields if item.get(f) not in (None, "", "UNKNOWN", "NOT FOUND"))
+    score += min(len(str(item.get("description") or "")) // 500, 8)
+    if item.get("image_url"): score += 4
+    if item.get("guide_price") is not None: score += 2
+    if item.get("annual_rent") is not None: score += 2
+    return score
+
+
 def _clean_site_chrome(text):
-    """Remove residual interactive-site chrome that can survive source parsers."""
     value = pipeline.clean_description(str(text or ""))
     match = _WORKFLOW_BOILERPLATE.search(value)
     if not match:
@@ -70,35 +97,6 @@ def _clean_site_chrome(text):
     return re.sub(r"\s+", " ", value).strip(" :-|")
 
 
-def _apply_bidx1_reserve_proxy(result):
-    """Use a clearly-labelled BidX1 reserve only when no guide price is published.
-
-    The reserve is useful as a price proxy for filtering and yield maths, but it is
-    not a guide price. Preserve that distinction prominently in the description so
-    the live card's opportunity facts / investment details can qualify the figure.
-    """
-    for lot in getattr(result, "lots", []) or []:
-        if getattr(lot, "guide_price", None):
-            continue
-        text = str(getattr(lot, "description", "") or "")
-        m = _RESERVE_RE.search(text)
-        if not m:
-            continue
-        reserve = float(m.group(1).replace(",", ""))
-        if reserve <= 0:
-            continue
-        lot.guide_price = reserve
-        qualifier = f"Reserve £{reserve:,.0f} used as price/yield proxy; no guide price published."
-        if qualifier.lower() not in text.lower():
-            lot.description = qualifier + " " + text
-        lot.finalise()
-    return result
-
-
-def _collect_bidx1_with_reserve_proxy():
-    return _apply_bidx1_reserve_proxy(bidx1.collect())
-
-
 def _auction_day(item):
     raw = str(item.get("auction_date") or "").strip()[:10]
     try:
@@ -108,7 +106,6 @@ def _auction_day(item):
 
 
 def _finalize_published_snapshot(path=Path("data/properties.json"), today=None):
-    """Apply publication semantics after the canonical collector pipeline."""
     today = today or date.today()
     data = json.loads(Path(path).read_text(encoding="utf-8"))
     properties = list(data.get("properties") or [])
@@ -129,9 +126,17 @@ def _finalize_published_snapshot(path=Path("data/properties.json"), today=None):
             retained_archive.append(item)
 
     by_key = {}
+    duplicate_count = 0
     for item in properties + moved:
-        key = (str(item.get("source") or "").strip(), str(item.get("url") or "").strip())
-        by_key[key] = item
+        key = _lot_identity(item)
+        existing = by_key.get(key)
+        if existing is None:
+            by_key[key] = item
+            continue
+        duplicate_count += 1
+        if _record_score(item) > _record_score(existing):
+            by_key[key] = item
+
     properties = list(by_key.values())
     properties.sort(
         key=lambda x: (
@@ -148,10 +153,9 @@ def _finalize_published_snapshot(path=Path("data/properties.json"), today=None):
     integrity = data.setdefault("integrity", {})
     integrity["published_property_count"] = len(properties)
     integrity["historical_property_count"] = len(retained_archive)
-    integrity["published_lifecycle_counts"] = dict(
-        Counter(_normal_status(x.get("status")) for x in properties)
-    )
+    integrity["published_lifecycle_counts"] = dict(Counter(_normal_status(x.get("status")) for x in properties))
     integrity["terminal_rows_restored_to_publication"] = len(moved)
+    integrity["duplicate_lot_rows_removed"] = duplicate_count
 
     Path(path).write_text(json.dumps(data, indent=2), encoding="utf-8")
     return len(moved)
@@ -172,8 +176,6 @@ def _install_replacements():
             upgraded.append(symonds.collect)
         elif module == "collectors.future_property_auctions" and name == "collect":
             upgraded.append(future_property.collect)
-        elif module == "collectors.bidx1" and name == "collect":
-            upgraded.append(_collect_bidx1_with_reserve_proxy)
         else:
             upgraded.append(collector)
     pipeline.COLLECTORS = upgraded
