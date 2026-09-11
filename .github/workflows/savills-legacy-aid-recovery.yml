@@ -1,0 +1,121 @@
+name: Savills Legacy Aid Recovery
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/savills-legacy-aid-recovery.yml'
+      - 'savills_legacy_aid_capture_recovery.py'
+      - 'savills_legacy_venue_capture_recovery.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auction-sniper-production-scan
+  cancel-in-progress: true
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout production branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Compile recovery code
+        run: |
+          python -m py_compile savills_legacy_aid_capture_recovery.py savills_legacy_venue_capture_recovery.py savills_archival_url_discovery.py collectors/savills.py history_database.py
+
+      - name: Record baseline
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          db=json.loads(Path('data/property_history.json').read_text(encoding='utf-8'))
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
+          n=sum(1 for e in (db.get('auction_events') or []) if e.get('source')=='Savills Auctions')
+          s=(p.get('sources') or {}).get('Savills Auctions') or {}
+          Path('/tmp/savills-baseline.json').write_text(json.dumps({'events':n,'earliest':s.get('earliest_date_reached')}))
+          print('BASELINE',n,s.get('earliest_date_reached'))
+          PY
+
+      - name: Recover aid dates from archived LotList captures
+        run: timeout 780s python savills_legacy_aid_capture_recovery.py --year 2019 --max-live-checks 180
+
+      - name: Run distinct Venue and PastAuctions fallback if needed
+        run: |
+          python - <<'PY'
+          import json, subprocess, sys
+          from pathlib import Path
+          b=json.loads(Path('/tmp/savills-baseline.json').read_text())
+          db=json.loads(Path('data/property_history.json').read_text(encoding='utf-8'))
+          n=sum(1 for e in (db.get('auction_events') or []) if e.get('source')=='Savills Auctions')
+          if n <= int(b['events']):
+              print('NO_AID_EVENT_ADVANCE; executing distinct Venue/PastAuctions WARC route', flush=True)
+              subprocess.run(['timeout','780s',sys.executable,'savills_legacy_venue_capture_recovery.py','--year','2019','--max-live-checks','180'], check=True)
+          else:
+              print('AID_ROUTE_ADVANCED_HISTORY', n-int(b['events']))
+          PY
+
+      - name: Validate outcome
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from urllib.parse import urlparse
+          b=json.loads(Path('/tmp/savills-baseline.json').read_text())
+          db=json.loads(Path('data/property_history.json').read_text(encoding='utf-8'))
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
+          events=[e for e in (db.get('auction_events') or []) if e.get('source')=='Savills Auctions']
+          s=(p.get('sources') or {}).get('Savills Auctions') or {}
+          assert events
+          bad=[]
+          for e in events:
+              u=(e.get('source_evidence') or {}).get('listing_url') or ''
+              host=(urlparse(u).hostname or '').lower()
+              if urlparse(u).scheme!='https' or not (host=='savills.co.uk' or host.endswith('.savills.co.uk')):
+                  bad.append(u)
+          assert not bad, f'{len(bad)} Savills events lack first-party evidence'
+          advanced=len(events)>int(b['events']) or (s.get('earliest_date_reached') and (not b.get('earliest') or s.get('earliest_date_reached') < b.get('earliest')))
+          blocker=s.get('legacy_venue_capture_last_blocker') or s.get('legacy_aid_capture_last_blocker')
+          assert advanced or blocker, 'Neither older Savills history nor a concrete persisted blocker was produced'
+          if not advanced:
+              assert blocker.get('next_safe_route'), 'Blocker lacks next safe route'
+          print('OUTCOME', {'advanced':advanced,'events_before':b['events'],'events_after':len(events),'earliest_before':b.get('earliest'),'earliest_after':s.get('earliest_date_reached'),'blocker':blocker if not advanced else None})
+          PY
+
+      - name: Publish canonical history and progress
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/property_history.json data/historical_backfill_progress.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Recover older Savills history from legacy aid captures'
+            for attempt in 1 2 3; do
+              git fetch origin main
+              if ! git rebase origin/main; then
+                git rebase --abort || true
+                exit 1
+              fi
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+              sleep $((attempt * 3))
+            done
+            exit 1
+          fi
