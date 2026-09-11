@@ -11,6 +11,8 @@ on:
       - 'savills_archival_url_discovery.py'
       - 'savills_commoncrawl_legacy_probe.py'
       - 'savills_first_party_legacy_date_recovery.py'
+      - 'savills_public_index_frontier_recovery.py'
+      - 'savills_public_address_frontier_recovery.py'
       - 'collectors/savills.py'
       - 'history_database.py'
 
@@ -45,7 +47,7 @@ jobs:
           python -m playwright install chromium
 
       - name: Compile archival discovery
-        run: python -m py_compile savills_archival_url_discovery.py savills_commoncrawl_legacy_probe.py savills_first_party_legacy_date_recovery.py collectors/savills.py history_database.py
+        run: python -m py_compile savills_archival_url_discovery.py savills_commoncrawl_legacy_probe.py savills_first_party_legacy_date_recovery.py savills_public_index_frontier_recovery.py savills_public_address_frontier_recovery.py collectors/savills.py history_database.py
 
       - name: Resolve oldest unresolved Savills frontier
         id: frontier
@@ -58,7 +60,6 @@ jobs:
           targets=s.get('legacy_2019_first_party_recovery',{}).get('target_dates') or [
               '2019-11-04','2019-09-23','2019-07-17','2019-05-29','2019-04-02'
           ]
-          completed=set(str(x) for x in (s.get('completed_auction_ids') or []))
           earliest=s.get('earliest_date_reached') or s.get('earliest_month_reached') or ''
           unresolved_2019=bool(targets) and (not earliest or earliest >= '2019-04')
           priority_year=2019 if unresolved_2019 else 2013
@@ -75,6 +76,14 @@ jobs:
         run: |
           echo "COMMON_CRAWL_PRIORITY_YEAR=${{ steps.frontier.outputs.priority_year }}"
           python savills_commoncrawl_legacy_probe.py --year ${{ steps.frontier.outputs.priority_year }} --limit 2000 --max-live-checks 300
+
+      - name: Mine public indexes for exact Savills URLs at unresolved frontier
+        if: steps.frontier.outputs.unresolved_2019 == 'true'
+        run: python savills_public_index_frontier_recovery.py --max-results-per-query 20 --max-pages 100 --max-live-checks 180
+
+      - name: Mine public auction results for address-led Savills recovery
+        if: steps.frontier.outputs.unresolved_2019 == 'true'
+        run: python savills_public_address_frontier_recovery.py --max-source-pages 100 --max-clues 120 --max-live-checks 180
 
       - name: Continue deeper archival cursor only after 2019 frontier is cleared
         if: steps.frontier.outputs.unresolved_2019 != 'true'
@@ -102,6 +111,9 @@ jobs:
           probe=s.get('commoncrawl_legacy_last_probe') or {}
           priority=s.get('commoncrawl_legacy_priority_year')
           assert probe.get('snapshot_year') == priority, f'Frontier Common Crawl probe mismatch: probe={probe.get("snapshot_year")} priority={priority}'
+          if steps_unresolved := '${{ steps.frontier.outputs.unresolved_2019 }}' == 'true':
+              assert s.get('public_index_frontier_last_run'), 'Missing public-index frontier pass'
+              assert s.get('public_address_frontier_last_run'), 'Missing address-led frontier pass'
           print('SAVILLS_EVENTS',len(events),'EARLIEST',s.get('earliest_date_reached') or s.get('earliest_month_reached'),'CC_PRIORITY_YEAR',priority)
           PY
 
