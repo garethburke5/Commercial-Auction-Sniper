@@ -45,8 +45,8 @@ jobs:
       - name: Guard transition beyond live archive
         id: livegate
         run: |
-          python - <<'PY' >> "$GITHUB_OUTPUT"
-          import json
+          python - <<'PY'
+          import json, os
           from pathlib import Path
           p=json.loads(Path('data/historical_backfill_progress.json').read_text())
           s=(p.get('sources') or {}).get('Savills Auctions') or {}
@@ -55,7 +55,8 @@ jobs:
           errors=s.get('live_archive_scan_errors') or []
           stop=s.get('live_archive_stop_reason')
           allowed=(scanned > 0 and exhausted and not errors)
-          print(f"legacy_allowed={'true' if allowed else 'false'}")
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as out:
+              print(f"legacy_allowed={'true' if allowed else 'false'}", file=out)
           print('LIVE_PAGES_SCANNED', scanned)
           print('LIVE_DISCOVERY_EXHAUSTED', exhausted)
           print('LIVE_SCAN_ERRORS', len(errors))
