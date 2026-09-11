@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-11T11:51:47.128751+00:00",
+  "updated_at": "2026-09-11T13:04:56.847023+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,11 +127,11 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "LIVE ARCHIVE BLOCKED",
+      "status": "DISCOVERY EXPANSION",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3250,
-      "earliest_month_reached": "2019-12",
+      "earliest_month_reached": "2019-02",
       "completed_auction_ids": [
         "3",
         "6",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "public-index-to-live-savills-first-party",
+      "last_discovery_mode": "commoncrawl-warc-aid-date-to-live-savills-first-party",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -1703,7 +1703,7 @@
       "live_archive_latent_events_added": 0,
       "live_archive_latent_failures": [],
       "last_live_archive_latent_diagnostic": "data/source_diagnostics/savills_live_archive_page14_latent_routes_2026-09-10T2003Z.json",
-      "earliest_date_reached": "2019-12-16",
+      "earliest_date_reached": "2019-02-19",
       "surviving_catalogue_last_run_at": "2026-09-11T03:10:19.902928+00:00",
       "surviving_catalogue_last_attempts": [
         {
@@ -1770,11 +1770,18 @@
       "archival_url_discovery_exhausted": true,
       "surviving_catalogue_parser_revision": 3,
       "last_runtime_blocker": {
-        "at": "2026-09-11T11:51:42.491787+00:00",
-        "route": "wayback-cdx-exact-legacy-pid-to-live-savills",
-        "timeout_seconds": 300,
-        "message": "Bounded frontier recovery timed out: TimeoutExpired: Command '['/opt/hostedtoolcache/Python/3.11.16/x64/bin/python', 'savills_legacy_pid_wayback_recovery.py', '--max-pids', '80', '--max-live-checks', '120']' timed out after 299.999981853 seconds",
-        "next_safe_route": "Advance to the next distinct 2019 frontier recovery route instead of rerunning the timed-out route in the same invocation."
+        "at": "2026-09-11T13:04:56.847023+00:00",
+        "route": "https://index.commoncrawl.org/collinfo.json",
+        "message": "The Common Crawl collection-directory request timed out before WARC recovery. The repaired path bypasses that directory using the published deterministic 2019 collection IDs.",
+        "repair": "savills_legacy_aid_capture_recovery_resilient.py",
+        "next_safe_route": "savills_legacy_exact_parallel_recovery.py queries exact known aid endpoints directly across published 2019 Common Crawl indexes if the deterministic WARC prefix route does not advance History V2.",
+        "known_unresolved_dates": [
+          "2019-11-04",
+          "2019-09-23",
+          "2019-07-17",
+          "2019-05-29",
+          "2019-04-02"
+        ]
       },
       "legacy_exact_parallel_last_run": {
         "at": "2026-09-11T08:11:46.345393+00:00",
@@ -2229,6 +2236,157 @@
         ],
         "candidate_live_savills_urls": 0,
         "next_safe_route": "Mine public auction-result aggregators only for exact 2019 Savills property addresses/lot references, then search the surviving live Savills property namespace by exact address and persist only when a first-party Savills lot page validates the auction date/property."
+      },
+      "legacy_aid_capture_last_run": {
+        "at": "2026-09-11T13:04:56.709673+00:00",
+        "year": 2019,
+        "route": "commoncrawl-warc-aid-to-date-to-live-savills",
+        "frontier_dates": [
+          "2019-02-19",
+          "2019-04-02",
+          "2019-05-29",
+          "2019-07-17",
+          "2019-09-23",
+          "2019-11-04"
+        ],
+        "aids_seen": [
+          "1017",
+          "1019",
+          "1043",
+          "1044",
+          "1045",
+          "1046",
+          "1047",
+          "1066",
+          "1067",
+          "1068",
+          "1069",
+          "1070",
+          "1071",
+          "1072",
+          "1073",
+          "1084",
+          "1085",
+          "1086",
+          "1087",
+          "1088",
+          "1089",
+          "1090",
+          "1091",
+          "1092",
+          "1124",
+          "1125",
+          "1126",
+          "1127",
+          "1128",
+          "1129",
+          "1130",
+          "1131"
+        ],
+        "aid_dates": {
+          "1086": "2019-02-19",
+          "1087": "2019-04-02",
+          "1088": "2019-05-29",
+          "1089": "2019-07-17",
+          "1090": "2019-09-23"
+        },
+        "aid_date_evidence": {
+          "1086": {
+            "auction_date": "2019-02-19",
+            "archived_url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1086",
+            "capture_timestamp": "20190920082258",
+            "warc_filename": "crawl-data/CC-MAIN-2019-39/segments/1568514573908.70/warc/CC-MAIN-20190920071824-20190920093824-00204.warc.gz"
+          },
+          "1087": {
+            "auction_date": "2019-04-02",
+            "archived_url": "http://auctions.savills.co.uk/Auctions/LotList?aid=1087",
+            "capture_timestamp": "20190625093217",
+            "warc_filename": "crawl-data/CC-MAIN-2019-26/segments/1560627999817.30/warc/CC-MAIN-20190625092324-20190625114324-00126.warc.gz"
+          },
+          "1088": {
+            "auction_date": "2019-05-29",
+            "archived_url": "http://auctions.savills.co.uk/Auctions/LotList?aid=1088",
+            "capture_timestamp": "20190920073217",
+            "warc_filename": "crawl-data/CC-MAIN-2019-39/segments/1568514573908.70/warc/CC-MAIN-20190920071824-20190920093824-00127.warc.gz"
+          },
+          "1089": {
+            "auction_date": "2019-07-17",
+            "archived_url": "http://auctions.savills.co.uk/Auctions/LotList?aid=1089",
+            "capture_timestamp": "20191213080149",
+            "warc_filename": "crawl-data/CC-MAIN-2019-51/segments/1575540551267.14/warc/CC-MAIN-20191213071155-20191213095155-00128.warc.gz"
+          },
+          "1090": {
+            "auction_date": "2019-09-23",
+            "archived_url": "http://auctions.savills.co.uk/Auctions/LotList?aid=1090",
+            "capture_timestamp": "20191017231423",
+            "warc_filename": "crawl-data/CC-MAIN-2019-43/segments/1570986677230.18/warc/CC-MAIN-20191017222820-20191018010320-00150.warc.gz"
+          }
+        },
+        "archive_capture_rows": 106,
+        "legacy_lot_urls": 39,
+        "live_checked": 25,
+        "commercial_rows_seen": 25,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "rejected_samples": [],
+        "query_urls": [
+          "https://index.commoncrawl.org/CC-MAIN-2019-51-index?url=auctions.savills.co.uk%2FAuctions%2FLotList&matchType=prefix&output=json",
+          "https://index.commoncrawl.org/CC-MAIN-2019-43-index?url=auctions.savills.co.uk%2FAuctions%2FLotList&matchType=prefix&output=json",
+          "https://index.commoncrawl.org/CC-MAIN-2019-39-index?url=auctions.savills.co.uk%2FAuctions%2FLotList&matchType=prefix&output=json",
+          "https://index.commoncrawl.org/CC-MAIN-2019-35-index?url=auctions.savills.co.uk%2FAuctions%2FLotList&matchType=prefix&output=json",
+          "https://index.commoncrawl.org/CC-MAIN-2019-30-index?url=auctions.savills.co.uk%2FAuctions%2FLotList&matchType=prefix&output=json",
+          "https://index.commoncrawl.org/CC-MAIN-2019-26-index?url=auctions.savills.co.uk%2FAuctions%2FLotList&matchType=prefix&output=json",
+          "https://index.commoncrawl.org/CC-MAIN-2019-18-index?url=auctions.savills.co.uk%2FAuctions%2FLotList&matchType=prefix&output=json",
+          "https://index.commoncrawl.org/CC-MAIN-2019-13-index?url=auctions.savills.co.uk%2FAuctions%2FLotList&matchType=prefix&output=json",
+          "https://index.commoncrawl.org/CC-MAIN-2019-09-index?url=auctions.savills.co.uk%2FAuctions%2FLotList&matchType=prefix&output=json",
+          "https://index.commoncrawl.org/CC-MAIN-2019-04-index?url=auctions.savills.co.uk%2FAuctions%2FLotList&matchType=prefix&output=json"
+        ],
+        "errors": [
+          "CC-MAIN-2019-47 LotList prefix :: HTTPError: HTTP Error 502: Bad Gateway",
+          "CC-MAIN-2019-22 LotList prefix :: HTTPError: HTTP Error 504: Gateway Time-out"
+        ]
+      },
+      "legacy_aid_capture_last_blocker": {
+        "at": "2026-09-11T13:04:56.709673+00:00",
+        "message": "Legacy Savills aid/pid URLs are now recovered, but no older canonical event was persistable from this route.",
+        "unmapped_aids": [
+          "1017",
+          "1019",
+          "1043",
+          "1044",
+          "1045",
+          "1046",
+          "1047",
+          "1066",
+          "1067",
+          "1068",
+          "1069",
+          "1070",
+          "1071",
+          "1072",
+          "1073",
+          "1084",
+          "1085",
+          "1091",
+          "1092",
+          "1124",
+          "1125",
+          "1126",
+          "1127",
+          "1128",
+          "1129",
+          "1130",
+          "1131"
+        ],
+        "mapped_aids": {
+          "1086": "2019-02-19",
+          "1087": "2019-04-02",
+          "1088": "2019-05-29",
+          "1089": "2019-07-17",
+          "1090": "2019-09-23"
+        },
+        "next_safe_route": "Use archived PastAuctions/Venue capture bodies to map any remaining aid IDs to exact first-party auction dates, then reuse the recovered pid inventory against live Savills pages."
       }
     }
   }
