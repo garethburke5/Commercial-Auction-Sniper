@@ -1,0 +1,35 @@
+{
+  "at": "2026-09-11T10:08:00Z",
+  "source": "Savills Auctions",
+  "frontier": "2019",
+  "verified_earliest_lot_level_date_before_repair": "2019-12-16",
+  "blocked_auction_dates": [
+    "2019-11-04",
+    "2019-09-23",
+    "2019-07-17",
+    "2019-05-29",
+    "2019-04-02"
+  ],
+  "exact_known_dead_routes": [
+    "https://auctions.savills.co.uk/auctions/november-2019-2",
+    "https://auctions.savills.co.uk/auctions/september-2019-1"
+  ],
+  "blocker": "The persisted public-index frontier pass exhausted exact-date public search/PDF-reference discovery with zero candidate live Savills URLs. Its next_safe_route explicitly required mining public auction-result sources for exact property address/postcode clues, but no executable address-led recovery stage existed and the archival workflow did not run the existing public-index recovery stage either. Therefore an hourly pass could terminate after first-party/Common Crawl probing without executing the persisted next route.",
+  "evidence_in_progress": "sources['Savills Auctions'].public_index_frontier_last_blocker",
+  "repair": {
+    "address_recovery_file": "savills_public_address_frontier_recovery.py",
+    "address_recovery_commit": "bf8dcf96905a48d15132b01a0400c59e65c7af07",
+    "workflow_commit": "6d95660ca1f5650a9dc4966169ce6499ff1e125a",
+    "execution_chain": [
+      "first-party exact-date recovery",
+      "Common Crawl unresolved-frontier recovery",
+      "public search-index/PDF-reference recovery",
+      "public auction-result address/postcode recovery",
+      "live Savills first-party validation",
+      "canonical History V2 persistence"
+    ],
+    "acceptance_rule": "No public/aggregator page is accepted as canonical evidence. It may only supply an address/postcode or historical reference used to discover a candidate; recover_candidate must validate a surviving Savills-owned page, auction date and commercial/mixed-use eligibility before persistence."
+  },
+  "historically_complete": false,
+  "discovery_exhausted": false
+}
