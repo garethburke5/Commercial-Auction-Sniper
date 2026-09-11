@@ -16,6 +16,8 @@ on:
       - 'savills_legacy_aid_capture_recovery.py'
       - 'savills_legacy_pid_wayback_recovery.py'
       - 'savills_public_index_frontier_recovery.py'
+      - 'savills_manifest_public_address_recovery.py'
+      - 'savills_public_address_frontier_recovery.py'
       - 'savills_exhaustive_discovery.py'
       - 'historical_acuitus.py'
       - 'repair_savills_history.py'
@@ -57,7 +59,7 @@ jobs:
 
       - name: Compile history code
         run: |
-          python -m py_compile historical_backfill.py historical_savills.py savills_surviving_catalogue_backfill.py savills_first_party_legacy_date_recovery.py savills_commoncrawl_legacy_probe.py savills_legacy_aid_capture_recovery.py savills_legacy_pid_wayback_recovery.py savills_public_index_frontier_recovery.py savills_exhaustive_discovery.py historical_acuitus.py repair_savills_history.py savills_history_quality.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py collectors/acuitus.py
+          python -m py_compile historical_backfill.py historical_savills.py savills_surviving_catalogue_backfill.py savills_first_party_legacy_date_recovery.py savills_commoncrawl_legacy_probe.py savills_legacy_aid_capture_recovery.py savills_legacy_pid_wayback_recovery.py savills_public_index_frontier_recovery.py savills_manifest_public_address_recovery.py savills_public_address_frontier_recovery.py savills_exhaustive_discovery.py historical_acuitus.py repair_savills_history.py savills_history_quality.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py collectors/acuitus.py
 
       - name: Run history regression tests
         run: python -m unittest tests.test_history_database -v
@@ -70,6 +72,8 @@ jobs:
           from pathlib import Path
 
           progress_path = Path('data/historical_backfill_progress.json')
+          manifest_path = Path('data/source_diagnostics/savills_live_archive_manifest.json')
+          history_path = Path('data/property_history.json')
 
           def load_progress():
               return json.loads(progress_path.read_text(encoding='utf-8'))
@@ -77,18 +81,34 @@ jobs:
           def sav_state():
               return (load_progress().get('sources') or {}).get('Savills Auctions') or {}
 
+          def oldest_unresolved_manifest_date():
+              if not manifest_path.exists() or not history_path.exists():
+                  return None
+              manifest=json.loads(manifest_path.read_text(encoding='utf-8'))
+              history=json.loads(history_path.read_text(encoding='utf-8'))
+              known=set()
+              for page in manifest.get('pages') or []:
+                  for raw in page.get('dates') or []:
+                      if raw:
+                          known.add(str(raw)[:10])
+              verified={str(e.get('auction_date'))[:10] for e in (history.get('auction_events') or []) if e.get('source')=='Savills Auctions' and e.get('auction_date')}
+              unresolved=sorted(d for d in known if d not in verified)
+              return unresolved[0] if unresolved else None
+
           def persist_runtime_blocker(route, timeout_seconds, exc):
               p = load_progress()
               state = p.setdefault('sources', {}).setdefault('Savills Auctions', {})
               now = datetime.now(timezone.utc).isoformat()
+              frontier=oldest_unresolved_manifest_date()
               state['status'] = 'LIVE ARCHIVE BLOCKED'
               state['historically_complete'] = False
               state['last_runtime_blocker'] = {
                   'at': now,
                   'route': route,
+                  'frontier_date': frontier,
                   'timeout_seconds': timeout_seconds,
                   'message': f'Bounded frontier recovery timed out: {type(exc).__name__}: {exc}',
-                  'next_safe_route': 'Advance to the next distinct 2019 frontier recovery route instead of rerunning the timed-out route in the same invocation.'
+                  'next_safe_route': 'Advance to a distinct evidence route for the same oldest unresolved Savills manifest date; never fall back to a fixed historical year.'
               }
               p['updated_at'] = now
               progress_path.write_text(json.dumps(p, indent=2, ensure_ascii=False), encoding='utf-8')
@@ -109,45 +129,23 @@ jobs:
               print('NEXT_SOURCE Savills Auctions modern first-party archive', flush=True)
               subprocess.run([sys.executable,'historical_savills.py','--max-auctions','8'], check=True)
           elif not sav.get('historically_complete', False):
-              earliest = str(sav.get('earliest_month_reached') or '9999-99')
-              if earliest <= '2019-12':
-                  # The current verified lot-level frontier is Dec-2019. Attack the proven
-                  # older 2019 dates with distinct bounded routes. Crucially, after the broad
-                  # Common Crawl index discovers concrete legacy aid/pid URLs, mine those
-                  # exact archived WARC captures for the auction date before falling back to
-                  # Wayback or public-search discovery.
-                  print('NEXT_SOURCE Savills Auctions exact 2019 frontier', flush=True)
+              frontier=oldest_unresolved_manifest_date()
+              print('SAVILLS_OLDEST_UNRESOLVED_MANIFEST_DATE', frontier, flush=True)
+              if frontier:
+                  # The live Savills manifest is authoritative for the practical gap. Always
+                  # target its oldest auction lacking a canonical lot event. This removes the
+                  # old 2019-only routing bug and naturally advances through 2014, 2015, ...
+                  # as each dated auction becomes represented by verified first-party events.
+                  print('NEXT_SOURCE Savills Auctions actual oldest unresolved manifest frontier', flush=True)
                   bounded(
-                      [sys.executable, 'savills_first_party_legacy_date_recovery.py'],
-                      180,
-                      'savills-first-party-sitemap-date-match-2019',
-                  )
-                  bounded(
-                      [sys.executable, 'savills_commoncrawl_legacy_probe.py', '--year', '2019', '--limit', '400', '--max-live-checks', '80'],
-                      300,
-                      'commoncrawl-2019-prefix-index-to-live-savills-validation',
-                  )
-                  bounded(
-                      [sys.executable, 'savills_legacy_aid_capture_recovery.py', '--year', '2019', '--max-live-checks', '180'],
+                      [sys.executable, 'savills_manifest_public_address_recovery.py', '--max-source-pages', '120', '--max-clues', '160', '--max-live-checks', '220'],
                       420,
-                      'commoncrawl-warc-known-aid-to-auction-date-to-live-savills',
+                      'public-result-address-to-surviving-savills-oldest-manifest-date',
                   )
-                  # Only continue to slower providers if the WARC route did not advance the
-                  # verified frontier. Every route records its own blocker/diagnostic.
-                  sav_after_warc = sav_state()
-                  if str(sav_after_warc.get('earliest_month_reached') or '9999-99') >= '2019-12':
-                      bounded(
-                          [sys.executable, 'savills_legacy_pid_wayback_recovery.py', '--max-pids', '40', '--max-live-checks', '80'],
-                          180,
-                          'wayback-cdx-exact-legacy-pid-to-live-savills',
-                      )
-                      bounded(
-                          [sys.executable, 'savills_public_index_frontier_recovery.py', '--max-results-per-query', '20', '--max-pages', '80', '--max-live-checks', '120'],
-                          300,
-                          'public-search-index-pdf-reference-to-live-savills',
-                      )
               else:
-                  print('NEXT_SOURCE Savills Auctions surviving first-party historical catalogues', flush=True)
+                  # Only when every dated live-manifest auction has at least one verified lot
+                  # event do we leave the live 2014+ gap and continue deeper legacy archaeology.
+                  print('NEXT_SOURCE Savills Auctions post-manifest legacy archaeology', flush=True)
                   bounded(
                       [sys.executable,'savills_surviving_catalogue_backfill.py'],
                       900,
