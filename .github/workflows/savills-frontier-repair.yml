@@ -1,0 +1,106 @@
+name: Savills 2014 Frontier Repair
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/savills-frontier-repair.yml'
+      - 'savills_history_integrity_repair.py'
+      - 'savills_result_document_frontier_recovery.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: savills-frontier-repair
+  cancel-in-progress: false
+
+jobs:
+  frontier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install focused dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 lxml pypdf
+      - name: Compile frontier repair
+        run: python -m py_compile savills_history_integrity_repair.py savills_result_document_frontier_recovery.py history_database.py collectors/savills.py collectors/core.py collectors/utils.py
+      - name: Repair canonical Savills integrity
+        run: python savills_history_integrity_repair.py
+      - name: Attack oldest unresolved date via Savills result documents
+        id: resultdocs
+        continue-on-error: true
+        run: python savills_result_document_frontier_recovery.py --max-documents 100 --max-live-checks 220
+      - name: Persist result-document execution failure as exact blocker
+        if: steps.resultdocs.outcome == 'failure'
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          p=Path('data/historical_backfill_progress.json')
+          d=json.loads(p.read_text())
+          s=d.setdefault('sources',{}).setdefault('Savills Auctions',{})
+          s['historically_complete']=False
+          s['discovery_exhausted']=False
+          s['status']='LIVE ARCHIVE BLOCKED'
+          s['result_document_frontier_last_blocker']={
+            'at':datetime.now(timezone.utc).isoformat(),
+            'route':'date-specific-savills-result-document-to-strict-live-lot',
+            'frontier_date':'2014-04-24',
+            'message':'The focused result-document recovery process failed before completing its candidate set. The failure is recorded as a processing blocker, not historical exhaustion.',
+            'next_safe_route':'Use the persisted exact 24-Apr-2014 frontier and address/postcode-keyed Common Crawl/CDX LotDetails/LotList discovery; require archived exact-date mapping plus a lot-specific Savills evidence URL.'
+          }
+          d['updated_at']=datetime.now(timezone.utc).isoformat()
+          p.write_text(json.dumps(d,indent=2,ensure_ascii=False),encoding='utf-8')
+          PY
+      - name: Verify hard outcome B or genuine A
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          h=json.loads(Path('data/property_history.json').read_text())
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          s=(p.get('sources') or {}).get('Savills Auctions') or {}
+          events=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
+          assert events
+          for e in events:
+              if str(e.get('auction_date') or '')[:10]=='2014-04-24':
+                  u=((e.get('source_evidence') or {}).get('listing_url') or '')
+                  assert 'auctions.savills.co.uk' in u and ('/auctions/' in u.lower() or 'lotdetails' in u.lower()), f'unsafe 2014 evidence: {u}'
+          integrity=s.get('history_integrity_last_run') or {}
+          assert 'removed_count' in integrity
+          added=int((s.get('result_document_frontier_last_run') or {}).get('canonical_events_added') or 0)
+          if added==0:
+              blocker=s.get('result_document_frontier_last_blocker') or {}
+              assert blocker.get('frontier_date')=='2014-04-24'
+              assert blocker.get('next_safe_route')
+          print('SAVILLS_EVENTS',len(events))
+          print('EARLIEST_VERIFIED',s.get('earliest_date_reached') or s.get('earliest_month_reached'))
+          print('INTEGRITY_REMOVED',integrity.get('removed_count'))
+          print('RESULT_DOCUMENT_EVENTS_ADDED',added)
+          PY
+      - name: Publish canonical repair and blocker/results
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics
+          if ! git diff --cached --quiet; then
+            git commit -m 'Repair Savills 2014 frontier integrity'
+            for attempt in 1 2 3; do
+              git fetch origin main
+              if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
+              if git push origin HEAD:main; then exit 0; fi
+              sleep $((attempt * 3))
+            done
+            exit 1
+          fi
