@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-11T09:19:11.256472+00:00",
+  "updated_at": "2026-09-11T11:51:47.128751+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -1770,10 +1770,10 @@
       "archival_url_discovery_exhausted": true,
       "surviving_catalogue_parser_revision": 3,
       "last_runtime_blocker": {
-        "at": "2026-09-11T09:19:07.154781+00:00",
+        "at": "2026-09-11T11:51:42.491787+00:00",
         "route": "wayback-cdx-exact-legacy-pid-to-live-savills",
         "timeout_seconds": 300,
-        "message": "Bounded frontier recovery timed out: TimeoutExpired: Command '['/opt/hostedtoolcache/Python/3.11.16/x64/bin/python', 'savills_legacy_pid_wayback_recovery.py', '--max-pids', '80', '--max-live-checks', '120']' timed out after 299.999981716 seconds",
+        "message": "Bounded frontier recovery timed out: TimeoutExpired: Command '['/opt/hostedtoolcache/Python/3.11.16/x64/bin/python', 'savills_legacy_pid_wayback_recovery.py', '--max-pids', '80', '--max-live-checks', '120']' timed out after 299.999981853 seconds",
         "next_safe_route": "Advance to the next distinct 2019 frontier recovery route instead of rerunning the timed-out route in the same invocation."
       },
       "legacy_exact_parallel_last_run": {
@@ -2047,7 +2047,7 @@
         "next_safe_route": "Use surviving Savills first-party archive dates plus public search-engine indexed snippets/PDF catalogue references to map the already-known legacy aid/pid IDs; validate every lot on the surviving Savills first-party page before persistence."
       },
       "public_index_frontier_last_run": {
-        "at": "2026-09-11T09:19:11.256431+00:00",
+        "at": "2026-09-11T11:51:47.128705+00:00",
         "route": "public-search-index-and-pdf-reference-to-live-savills",
         "frontier_dates": [
           "2019-02-19",
@@ -2216,7 +2216,7 @@
         "page_errors": []
       },
       "public_index_frontier_last_blocker": {
-        "at": "2026-09-11T09:19:11.256431+00:00",
+        "at": "2026-09-11T11:51:47.128705+00:00",
         "route": "public-search-index-and-pdf-reference-to-live-savills",
         "message": "The five proven 2019 Savills archive dates remain unresolved after first-party sitemap, Common Crawl, exact Wayback PID, and public search-index/PDF-reference discovery; no candidate could be validated into an older canonical History V2 event.",
         "frontier_dates": [
