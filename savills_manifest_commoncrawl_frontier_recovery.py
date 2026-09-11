@@ -30,6 +30,14 @@ from savills_legacy_aid_capture_recovery import (
 
 DATA = Path('data')
 MANIFEST = DATA / 'source_diagnostics' / 'savills_live_archive_manifest.json'
+CC_INDEX = 'https://index.commoncrawl.org/'
+# Documented Common Crawl crawl IDs. These are a transport fallback when the
+# live collinfo endpoint is unavailable; they are not historical cutoffs.
+STATIC_COLLECTIONS = {
+    2013: ['CC-MAIN-2013-20', 'CC-MAIN-2013-48'],
+    2014: ['CC-MAIN-2014-10', 'CC-MAIN-2014-15', 'CC-MAIN-2014-23', 'CC-MAIN-2014-35', 'CC-MAIN-2014-41', 'CC-MAIN-2014-42', 'CC-MAIN-2014-49', 'CC-MAIN-2014-52'],
+    2015: ['CC-MAIN-2015-06', 'CC-MAIN-2015-11', 'CC-MAIN-2015-14', 'CC-MAIN-2015-18', 'CC-MAIN-2015-22', 'CC-MAIN-2015-27', 'CC-MAIN-2015-32', 'CC-MAIN-2015-35', 'CC-MAIN-2015-40', 'CC-MAIN-2015-48'],
+}
 
 
 def verified_dates() -> set[date]:
@@ -73,6 +81,20 @@ def canonical_live_candidate(original: str) -> str | None:
     return urlunparse(p._replace(scheme='https', netloc='auctions.savills.co.uk', fragment=''))
 
 
+def static_collections(year: int) -> list[tuple[str, str]]:
+    return [(ident, f'{CC_INDEX}{ident}-index') for ident in STATIC_COLLECTIONS.get(year, [])]
+
+
+def collections_for_year(year: int, errors: list[str]) -> list[tuple[str, str]]:
+    try:
+        found = _commoncrawl_collections(year)
+        if found:
+            return found
+    except Exception as exc:
+        errors.append(f'collinfo {year} :: {type(exc).__name__}: {exc}; using documented static crawl IDs')
+    return static_collections(year)
+
+
 def run(max_capture_rows: int = 360, max_warc_checks: int = 180, max_live_checks: int = 80) -> int:
     progress = load_progress()
     state = progress.setdefault('sources', {}).setdefault(SOURCE_KEY, {})
@@ -89,16 +111,38 @@ def run(max_capture_rows: int = 360, max_warc_checks: int = 180, max_live_checks
         save_progress(progress)
         return 0
 
-    # Query multiple known historical Savills lot URL families. Search the target
-    # year collections first, then adjacent-year collections because crawl capture
-    # time can lag the auction date.
+    errors: list[str] = []
     collections = []
     seen_api = set()
     for y in (frontier.year, frontier.year + 1, frontier.year - 1):
-        for ident, api in _commoncrawl_collections(y):
+        for ident, api in collections_for_year(y, errors):
             if api not in seen_api:
                 seen_api.add(api)
                 collections.append((ident, api))
+
+    if not collections:
+        diagnostic = {
+            'at': now_iso(),
+            'route': 'commoncrawl-exact-date-legacy-lot-url-reconstruction',
+            'frontier_date': frontier.isoformat(),
+            'collections_considered': [],
+            'capture_rows_seen': 0,
+            'warc_checked': 0,
+            'canonical_events_added': 0,
+            'errors': errors,
+        }
+        state['manifest_commoncrawl_frontier_last_run'] = diagnostic
+        state['manifest_commoncrawl_frontier_last_blocker'] = {
+            'at': diagnostic['at'],
+            'route': diagnostic['route'],
+            'frontier_date': frontier.isoformat(),
+            'message': 'Neither Common Crawl collinfo nor the documented static crawl-ID fallback yielded a usable collection for this year.',
+            'next_safe_route': 'Use archived Savills PastAuctions/Venue catalogue bodies for the exact frontier date to recover auction aid IDs.'
+        }
+        state['status'] = 'LIVE ARCHIVE BLOCKED'
+        save_progress(progress)
+        print(json.dumps(diagnostic, indent=2, ensure_ascii=False))
+        return 0
 
     prefixes = [
         'auctions.savills.co.uk/Auctions/LotDetails',
@@ -107,7 +151,6 @@ def run(max_capture_rows: int = 360, max_warc_checks: int = 180, max_live_checks
     ]
     capture_rows = []
     queries = []
-    errors = []
     seen_capture = set()
     for ident, api in collections:
         for prefix in prefixes:
@@ -130,7 +173,6 @@ def run(max_capture_rows: int = 360, max_warc_checks: int = 180, max_live_checks
         if len(capture_rows) >= max_capture_rows:
             break
 
-    # Prefer captures whose crawl timestamp is closest to the auction year.
     def capture_rank(row: dict):
         ts = str(row.get('timestamp') or '')
         year = int(ts[:4]) if len(ts) >= 4 and ts[:4].isdigit() else 9999
@@ -155,7 +197,6 @@ def run(max_capture_rows: int = 360, max_warc_checks: int = 180, max_live_checks
         if candidate:
             matching.append({'candidate': candidate, 'archived_url': row.get('url'), 'timestamp': row.get('timestamp')})
 
-    # Deduplicate original URLs and validate only surviving exact Savills lot pages.
     unique = {}
     for item in matching:
         unique.setdefault(item['candidate'], item)
