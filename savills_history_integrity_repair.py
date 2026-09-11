@@ -27,7 +27,6 @@ def is_lot_specific_savills_url(url: str) -> bool:
     q = parse_qs(p.query)
     if ('lotdetails' in low or 'index.php' in low) and (q.get('pid') or (q.get('view') == ['commission'] and q.get('id'))):
         return True
-    # Current Savills lot pages are nested below an auction slug/id and end in a lot id.
     if re.search(r'/auctions/[^/?#]+-\d+/(?:[^/?#]+-)?\d+/?$', path, re.I):
         return True
     return False
@@ -55,9 +54,11 @@ def run() -> int:
     removed = []
     kept = []
     for event in events:
+        if event.get('source') != SOURCE:
+            kept.append(event)
+            continue
         listing = (event.get('source_evidence') or {}).get('listing_url') or ''
-        suspicious_frontier = event.get('source') == SOURCE and str(event.get('auction_date') or '')[:10] == '2014-04-24'
-        if suspicious_frontier and not is_lot_specific_savills_url(listing):
+        if not is_lot_specific_savills_url(listing):
             removed.append({
                 'event_id': event.get('event_id'),
                 'address': event.get('address_as_published'),
@@ -94,12 +95,12 @@ def run() -> int:
         state.pop('earliest_month_reached', None)
     state['history_integrity_last_run'] = {
         'at': now_iso(),
-        'route': 'canonical-savills-lot-url-integrity-repair',
-        'removed_events': removed,
+        'route': 'canonical-savills-lot-url-integrity-repair-all-events',
+        'removed_events': removed[:100],
         'removed_count': len(removed),
         'savills_events_after': len(savills),
         'earliest_verified_after': dates[0] if dates else None,
-        'rule': 'A historical Savills frontier event is not canonical unless its evidence listing URL is a lot-specific auctions.savills.co.uk route; generic Savills corporate/search/property pages cannot inherit an auction date from discovery context.',
+        'rule': 'Every canonical Savills auction event must carry a lot-specific auctions.savills.co.uk listing URL. Generic Savills corporate/search/property pages cannot inherit an auction date from discovery context.',
     }
     state['historically_complete'] = False
     progress['updated_at'] = now_iso()
