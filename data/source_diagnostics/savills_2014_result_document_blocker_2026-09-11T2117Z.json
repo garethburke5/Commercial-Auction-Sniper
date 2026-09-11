@@ -1,0 +1,38 @@
+{
+  "source": "Savills Auctions",
+  "recorded_at": "2026-09-11T21:17:00Z",
+  "frontier_date": "2014-04-24",
+  "historically_complete": false,
+  "discovery_exhausted": false,
+  "canonical_savills_events_after_integrity_repair": 3250,
+  "earliest_verified_lot_level_date_after_integrity_repair": "2019-12-16",
+  "integrity_correction": {
+    "removed_event_id": "16d36b26c5015ef491bcb18f",
+    "removed_address": "Put your home in expert hands",
+    "removed_evidence_url": "https://www.savills.co.uk/",
+    "reason": "Generic Savills corporate/home page was not a lot-specific auction evidence URL and could not legitimately carry the inherited 24-Apr-2014 auction date."
+  },
+  "exact_failed_route": {
+    "route": "date-specific-savills-result-document-to-strict-live-lot",
+    "target": "24 April 2014",
+    "documents_discovered": 0,
+    "documents_with_exact_date": 0,
+    "lot_specific_candidates": 0,
+    "canonical_events_added": 0,
+    "blocker": "Free exact-date result/catalogue document discovery did not surface a usable Savills result document or a lot-specific surviving Savills page carrying the 24-Apr-2014 date. Search results were generic Savills pages or irrelevant matches, so none were accepted as auction evidence."
+  },
+  "next_safe_repair_implemented_same_run": {
+    "file": "savills_strict_public_result_frontier_recovery.py",
+    "commit": "768145f0fe8ea2e6e6db4c6b9ec646489e7bc39b",
+    "route": "exact-date-public-result-clues-to-lot-specific-savills-only",
+    "method": "Search exact-date public auction-result pages for property/postcode/lot clues; public pages are discovery-only. A row can persist only if the clue resolves to a lot-specific auctions.savills.co.uk URL and that Savills lot page itself carries the same frontier auction date and passes commercial/mixed-use classification. Generic Savills pages are categorically rejected.",
+    "following_route_if_empty": "Use any exact-date public address/lot clues as literal keys in Common Crawl WARC indexes for legacy Savills LotDetails/LotList captures, requiring the archived Savills capture itself to bind the clue to 24-Apr-2014 before persistence."
+  },
+  "production_verification": {
+    "history_v2_file": "data/property_history.json",
+    "history_v2_blob_sha_after_repair": "47ac210c7918d5388b937393ee5902c60616bd34",
+    "progress_file": "data/historical_backfill_progress.json",
+    "progress_blob_sha_after_repair": "5570082f18e6c38c2bfd7104dbf15235d5f683f6",
+    "production_main_commit_with_repair": "534b7aeadea37ee009018a46f307bb298d9eccb1"
+  }
+}
