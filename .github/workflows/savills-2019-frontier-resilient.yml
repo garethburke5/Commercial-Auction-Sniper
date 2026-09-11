@@ -7,6 +7,8 @@ on:
       - '.github/workflows/savills-2019-frontier-resilient.yml'
       - 'savills_legacy_aid_capture_recovery_resilient.py'
       - 'savills_legacy_catalogue_capture_link_recovery.py'
+      - 'savills_legacy_exact_parallel_recovery.py'
+      - 'savills_legacy_lotdetails_prefix_recovery.py'
   workflow_dispatch:
 
 permissions:
@@ -39,59 +41,49 @@ jobs:
 
       - name: Compile recovery routes
         run: |
-          python -m py_compile savills_legacy_aid_capture_recovery_resilient.py savills_legacy_aid_capture_recovery.py savills_legacy_catalogue_capture_link_recovery.py savills_legacy_exact_parallel_recovery.py history_database.py collectors/savills.py
+          python -m py_compile savills_legacy_aid_capture_recovery_resilient.py savills_legacy_aid_capture_recovery.py savills_legacy_catalogue_capture_link_recovery.py savills_legacy_exact_parallel_recovery.py savills_legacy_lotdetails_prefix_recovery.py history_database.py collectors/savills.py
 
       - name: Attack exact 2019 frontier with distinct bounded routes
         shell: bash
         run: |
           set +e
-          BEFORE=$(python - <<'PY'
+          snapshot() {
+            python - <<'PY'
           import json
           from pathlib import Path
           p=json.loads(Path('data/historical_backfill_progress.json').read_text())
           s=(p.get('sources') or {}).get('Savills Auctions') or {}
           print(str(s.get('earliest_date_reached') or '')+'|'+str(s.get('lots_captured') or 0))
           PY
-          )
+          }
+
+          BEFORE=$(snapshot)
           echo "BEFORE=$BEFORE"
 
-          timeout 360s python savills_legacy_aid_capture_recovery_resilient.py --year 2019 --max-live-checks 180
-          AID_RC=$?
-          echo "AID_ROUTE_RC=$AID_RC"
+          timeout 330s python savills_legacy_aid_capture_recovery_resilient.py --year 2019 --max-live-checks 180
+          echo "AID_ROUTE_RC=$?"
+          CURRENT=$(snapshot)
 
-          MID=$(python - <<'PY'
-          import json
-          from pathlib import Path
-          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
-          s=(p.get('sources') or {}).get('Savills Auctions') or {}
-          print(str(s.get('earliest_date_reached') or '')+'|'+str(s.get('lots_captured') or 0))
-          PY
-          )
-          echo "MID=$MID"
-
-          if [ "$MID" = "$BEFORE" ]; then
-            echo 'WARC aid/date route did not persist lots; extracting LotDetails links from archived catalogue capture bodies.'
-            timeout 420s python savills_legacy_catalogue_capture_link_recovery.py --year 2019 --max-live-checks 260
-            BODY_RC=$?
-            echo "CATALOGUE_BODY_LINK_RC=$BODY_RC"
+          if [ "$CURRENT" = "$BEFORE" ]; then
+            timeout 360s python savills_legacy_catalogue_capture_link_recovery.py --year 2019 --max-live-checks 260
+            echo "CATALOGUE_BODY_LINK_RC=$?"
+            CURRENT=$(snapshot)
           fi
 
-          AFTER_BODY=$(python - <<'PY'
-          import json
-          from pathlib import Path
-          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
-          s=(p.get('sources') or {}).get('Savills Auctions') or {}
-          print(str(s.get('earliest_date_reached') or '')+'|'+str(s.get('lots_captured') or 0))
-          PY
-          )
-          echo "AFTER_BODY=$AFTER_BODY"
-
-          if [ "$AFTER_BODY" = "$BEFORE" ]; then
-            echo 'Catalogue-body extraction did not advance; attacking exact known aid endpoints as a distinct final route.'
-            timeout 300s python savills_legacy_exact_parallel_recovery.py --max-live-checks 220
-            EXACT_RC=$?
-            echo "EXACT_PARALLEL_RC=$EXACT_RC"
+          if [ "$CURRENT" = "$BEFORE" ]; then
+            timeout 260s python savills_legacy_exact_parallel_recovery.py --max-live-checks 220
+            echo "EXACT_PARALLEL_RC=$?"
+            CURRENT=$(snapshot)
           fi
+
+          if [ "$CURRENT" = "$BEFORE" ]; then
+            echo 'LotList/capture-body routes did not advance. Querying bounded LotDetails prefixes for already date-mapped legacy aids.'
+            timeout 360s python savills_legacy_lotdetails_prefix_recovery.py --year 2019 --max-live-checks 260
+            echo "LOTDETAILS_PREFIX_RC=$?"
+            CURRENT=$(snapshot)
+          fi
+
+          echo "AFTER=$CURRENT"
 
           python - <<'PY'
           import json
@@ -104,23 +96,26 @@ jobs:
           s['discovery_exhausted']=False
           s['status']='DISCOVERY EXPANSION'
           now=datetime.now(timezone.utc).isoformat()
+          prefix=s.get('legacy_lotdetails_prefix_last_run') or {}
           body=s.get('legacy_catalogue_capture_link_last_run') or {}
-          s['last_runtime_blocker']={
-            'at': now,
-            'route': 'commoncrawl-warc-aid-date-to-live-savills-first-party',
-            'message': '2019 legacy aid/date recovery mapped archived Savills LotList aid captures to exact auction dates but exposed zero usable lot URLs because pid-bearing LotDetails links are inside catalogue capture HTML rather than necessarily present as Common Crawl index-row URLs.',
-            'failing_live_legacy_routes': [
-              'https://auctions.savills.co.uk/Auctions/LotList?aid=1087',
-              'https://auctions.savills.co.uk/Auctions/LotList?aid=1088',
-              'https://auctions.savills.co.uk/Auctions/LotList?aid=1089',
-              'https://auctions.savills.co.uk/Auctions/LotList?aid=1090'
-            ],
-            'repair': 'savills_legacy_catalogue_capture_link_recovery.py',
-            'repair_route': 'Parse archived Savills LotList WARC capture bodies for exact LotDetails?aid=...&pid=... links, then require a surviving first-party Savills page before canonical History V2 persistence.',
-            'repair_last_lot_links_found': body.get('legacy_lot_links_found'),
-            'next_safe_route': body.get('next_safe_route') or 'Query exact legacy LotDetails URL prefixes by recovered aid across deterministic 2019 Common Crawl indexes, then validate surviving first-party Savills pages before persistence.',
-            'known_unresolved_dates': ['2019-11-04','2019-09-23','2019-07-17','2019-05-29','2019-04-02']
-          }
+          if int(prefix.get('canonical_events_added') or 0) == 0:
+              s['last_runtime_blocker']={
+                'at': now,
+                'route': 'commoncrawl-bounded-lotdetails-aid-prefix-to-live-savills',
+                'message': 'Archived Savills LotList WARC bodies exposed zero usable PID links. The distinct repair now queries the bounded legacy LotDetails namespace for each already date-mapped aid instead of repeating catalogue scans.',
+                'failing_live_legacy_routes': [
+                  'https://auctions.savills.co.uk/Auctions/LotList?aid=1087',
+                  'https://auctions.savills.co.uk/Auctions/LotList?aid=1088',
+                  'https://auctions.savills.co.uk/Auctions/LotList?aid=1089',
+                  'https://auctions.savills.co.uk/Auctions/LotList?aid=1090'
+                ],
+                'previous_catalogue_body_pid_links_found': body.get('legacy_lot_links_found'),
+                'direct_lotdetails_urls_found': prefix.get('legacy_lotdetails_urls'),
+                'repair': 'savills_legacy_lotdetails_prefix_recovery.py',
+                'repair_route': 'Common Crawl prefix query restricted to LotDetails?aid=<already-mapped-aid>, followed by surviving first-party Savills validation before History V2 persistence.',
+                'next_safe_route': prefix.get('next_safe_route') or 'Use only exact PID-bearing LotDetails URLs already observed in persisted archive samples and fetch their archived bodies individually.',
+                'known_unresolved_dates': ['2019-11-04','2019-09-23','2019-07-17','2019-05-29','2019-04-02']
+              }
           p['updated_at']=now
           pp.write_text(json.dumps(p,indent=2,ensure_ascii=False),encoding='utf-8')
           PY
@@ -155,7 +150,7 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics || true
           if ! git diff --cached --quiet; then
-            git commit -m 'Recover Savills 2019 lots from archived catalogue bodies'
+            git commit -m 'Probe bounded Savills 2019 LotDetails frontier'
             for attempt in 1 2 3; do
               git fetch origin main
               if ! git rebase origin/main; then
