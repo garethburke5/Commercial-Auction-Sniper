@@ -11,6 +11,8 @@ on:
       - 'historical_backfill.py'
       - 'historical_savills.py'
       - 'savills_surviving_catalogue_backfill.py'
+      - 'savills_first_party_legacy_date_recovery.py'
+      - 'savills_commoncrawl_legacy_probe.py'
       - 'savills_exhaustive_discovery.py'
       - 'historical_acuitus.py'
       - 'repair_savills_history.py'
@@ -52,7 +54,7 @@ jobs:
 
       - name: Compile history code
         run: |
-          python -m py_compile historical_backfill.py historical_savills.py savills_surviving_catalogue_backfill.py savills_exhaustive_discovery.py historical_acuitus.py repair_savills_history.py savills_history_quality.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py collectors/acuitus.py
+          python -m py_compile historical_backfill.py historical_savills.py savills_surviving_catalogue_backfill.py savills_first_party_legacy_date_recovery.py savills_commoncrawl_legacy_probe.py savills_exhaustive_discovery.py historical_acuitus.py repair_savills_history.py savills_history_quality.py history_database.py historical_evidence.py collectors/allsop.py collectors/savills.py collectors/acuitus.py
 
       - name: Run history regression tests
         run: python -m unittest tests.test_history_database -v
@@ -61,22 +63,80 @@ jobs:
         run: |
           python - <<'PY'
           import json, subprocess, sys
+          from datetime import datetime, timezone
           from pathlib import Path
-          p=json.loads(Path('data/historical_backfill_progress.json').read_text(encoding='utf-8'))
-          sources=p.get('sources') or {}
-          sav=sources.get('Savills Auctions') or {}
+
+          progress_path = Path('data/historical_backfill_progress.json')
+          history_path = Path('data/property_history.json')
+
+          def load_progress():
+              return json.loads(progress_path.read_text(encoding='utf-8'))
+
+          def sav_state():
+              return (load_progress().get('sources') or {}).get('Savills Auctions') or {}
+
+          def persist_runtime_blocker(route, timeout_seconds, exc):
+              p = load_progress()
+              state = p.setdefault('sources', {}).setdefault('Savills Auctions', {})
+              now = datetime.now(timezone.utc).isoformat()
+              state['status'] = 'LIVE ARCHIVE BLOCKED'
+              state['historically_complete'] = False
+              state['last_runtime_blocker'] = {
+                  'at': now,
+                  'route': route,
+                  'timeout_seconds': timeout_seconds,
+                  'message': f'Bounded frontier recovery timed out: {type(exc).__name__}: {exc}',
+                  'next_safe_route': 'Advance to the next distinct 2019 frontier recovery route instead of rerunning the timed-out route in the same invocation.'
+              }
+              p['updated_at'] = now
+              progress_path.write_text(json.dumps(p, indent=2, ensure_ascii=False), encoding='utf-8')
+
+          def bounded(cmd, seconds, route):
+              print('FRONTIER_ROUTE', route, 'TIMEOUT', seconds, 'CMD', ' '.join(cmd), flush=True)
+              try:
+                  subprocess.run(cmd, check=True, timeout=seconds)
+                  return True
+              except subprocess.TimeoutExpired as exc:
+                  persist_runtime_blocker(route, seconds, exc)
+                  print('FRONTIER_ROUTE_TIMEOUT', route, flush=True)
+                  return False
+
+          sav = sav_state()
           modern_done = int(sav.get('auctions_completed') or 0) >= 70
           if not modern_done:
-              print('NEXT_SOURCE Savills Auctions modern first-party archive')
+              print('NEXT_SOURCE Savills Auctions modern first-party archive', flush=True)
               subprocess.run([sys.executable,'historical_savills.py','--max-auctions','8'], check=True)
           elif not sav.get('historically_complete', False):
-              # Hard ordering rule: harvest and publish concrete surviving first-party
-              # catalogues before any sitemap/Common Crawl/legacy archaeology. This
-              # prevents a slow discovery pass from delaying known historical records.
-              print('NEXT_SOURCE Savills Auctions surviving first-party historical catalogues')
-              subprocess.run([sys.executable,'savills_surviving_catalogue_backfill.py'], check=True)
+              earliest = str(sav.get('earliest_month_reached') or '9999-99')
+              if earliest <= '2019-12':
+                  # We have already harvested surviving catalogues through Dec-2019.
+                  # Never rerun the whole catalogue sweep here: it can consume the
+                  # complete job window without publishing. Attack only the five
+                  # proven, unresolved 2019 archive dates, oldest-first.
+                  print('NEXT_SOURCE Savills Auctions exact 2019 frontier', flush=True)
+                  bounded(
+                      [sys.executable, 'savills_first_party_legacy_date_recovery.py'],
+                      300,
+                      'savills-first-party-sitemap-date-match-2019',
+                  )
+                  # Always move to a distinct recovery route if first-party sitemap
+                  # matching added nothing OR timed out. Common Crawl is discovery
+                  # only; recover_live must resolve every candidate to a live Savills
+                  # first-party page before History V2 persistence.
+                  bounded(
+                      [sys.executable, 'savills_commoncrawl_legacy_probe.py', '--year', '2019', '--limit', '400', '--max-live-checks', '80'],
+                      600,
+                      'commoncrawl-2019-prefix-index-to-live-savills-validation',
+                  )
+              else:
+                  print('NEXT_SOURCE Savills Auctions surviving first-party historical catalogues', flush=True)
+                  bounded(
+                      [sys.executable,'savills_surviving_catalogue_backfill.py'],
+                      900,
+                      'savills-surviving-catalogue-bounded',
+                  )
           else:
-              print('NEXT_SOURCE Acuitus')
+              print('NEXT_SOURCE Acuitus', flush=True)
               subprocess.run([sys.executable,'historical_acuitus.py','--max-auctions','6'], check=True)
           PY
 
@@ -91,7 +151,7 @@ jobs:
           if not modern_done:
               subprocess.run([sys.executable,'repair_savills_history.py'], check=True)
           else:
-              print('Savills modern archive already captured; surviving-catalogue repair runs inside its backfill.')
+              print('Savills modern archive already captured; historical recovery owns legacy repairs.')
           PY
 
       - name: Validate premium history database
