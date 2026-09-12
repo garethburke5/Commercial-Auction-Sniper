@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T16:03:39.096825+00:00",
+  "updated_at": "2026-09-12T17:01:17.979940+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "date-specific-savills-result-document-to-strict-live-lot",
+      "last_discovery_mode": "bing-rss-propertyauctions-exact-date-to-first-party-savills-validation",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -4178,6 +4178,56 @@
         "exact_date_captures": 0,
         "candidate_original_urls": 0,
         "next_safe_route": "If direct CDX exposed URLs but live pages no longer validate, persist archived Savills lot bodies as first-party evidence after extending the strict validator to accept immutable Common Crawl WARC evidence with exact lot URL and auction date. If no CDX rows were exposed, probe Savills-owned archived PDF/catalogue namespaces using the same direct index-file method."
+      },
+      "bing_rss_index_last_run": {
+        "at": "2026-09-12T17:01:17.979909+00:00",
+        "route": "bing-rss-propertyauctions-exact-date-to-first-party-savills-validation",
+        "dates": [
+          "2026-09-02",
+          "2026-08-18",
+          "2026-06-23",
+          "2026-06-09",
+          "2026-05-20",
+          "2026-05-06",
+          "2026-03-31",
+          "2026-03-17",
+          "2026-02-11",
+          "2026-01-28",
+          "2025-12-10",
+          "2025-11-25"
+        ],
+        "indexed_listing_urls": 0,
+        "matched_savills_pages": 0,
+        "image_id_clues": 0,
+        "candidate_first_party_urls": 0,
+        "live_checked": 0,
+        "commercial_rows_seen": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "search_errors": [],
+        "matched_samples": [],
+        "rejected_samples": []
+      },
+      "bing_rss_index_last_blocker": {
+        "at": "2026-09-12T17:01:17.979909+00:00",
+        "route": "bing-rss-propertyauctions-exact-date-to-first-party-savills-validation",
+        "dates": [
+          "2026-09-02",
+          "2026-08-18",
+          "2026-06-23",
+          "2026-06-09",
+          "2026-05-20",
+          "2026-05-06",
+          "2026-03-31",
+          "2026-03-17",
+          "2026-02-11",
+          "2026-01-28",
+          "2025-12-10",
+          "2025-11-25"
+        ],
+        "message": "Bing RSS exact-date indexing did not yield a first-party Savills lot page valid for persistence.",
+        "next_safe_route": "Enumerate PropertyAuctions Savills listing URLs from its publicly exposed auctioneer/filter application routes or page data rather than search-engine indexes, then validate any recovered first-party Savills source URLs."
       }
     }
   }
