@@ -4,8 +4,8 @@ from concurrent.futures import ThreadPoolExecutor,as_completed
 from datetime import datetime,timezone,date
 from pathlib import Path
 from urllib.parse import quote_plus
+from xml.etree import ElementTree as ET
 import requests
-from bs4 import BeautifulSoup
 from history_database import update_history_database
 from savills_archival_url_discovery import source_count
 from savills_legacy_aid_capture_recovery import recover_candidate
@@ -28,8 +28,14 @@ def probe_doc(aid,ds,name):
 def rss(q):
  u='https://www.bing.com/search?format=rss&count=50&q='+quote_plus(q)
  try:
-  r=get(u,10); r.raise_for_status(); soup=BeautifulSoup(r.text,'xml')
-  return q,[x.get_text(strip=True) for x in soup.find_all('link') if 'auctions.savills.co.uk' in x.get_text(strip=True).lower()],None
+  r=get(u,10); r.raise_for_status()
+  root=ET.fromstring(r.content)
+  links=[]
+  for node in root.iter():
+   if node.tag.rsplit('}',1)[-1].lower()!='link': continue
+   value=(node.text or '').strip()
+   if 'auctions.savills.co.uk' in value.lower() and value not in links: links.append(value)
+  return q,links,None
  except Exception as e:return q,[],f'{type(e).__name__}: {e}'
 
 def run():
@@ -69,10 +75,10 @@ def run():
   db=update_history_database(recovered,path=H); after=source_count(db); added=max(0,after-before); s['lots_captured']=after
   if added:
    ed=min(str(x.get('auction_date')) for x in recovered if x.get('auction_date')); s['earliest_date_reached']=min(s.get('earliest_date_reached') or ed,ed); s['earliest_month_reached']=s['earliest_date_reached'][:7]
- diag={'at':now(),'route':'propertyauctions-parallel-structured-documents-plus-exact-tuple-first-party','seed_catalogues':len(auctions),'seed_commercial_clues':len(clues),'document_requests':len(auctions)*len(DOC_NAMES),'structured_documents_found':len(docs),'document_samples':sorted(docs,key=lambda x:int(x['aid']),reverse=True)[:80],'tuple_search_queries':len(queries),'candidate_first_party_urls':len(candidates),'first_party_urls':candidates[:80],'validated_rows_seen':len(recovered),'canonical_events_added':added,'savills_events_before':before,'savills_events_after':after,'search_errors':serr,'document_errors':derr,'rejected_samples':rejected}
+ diag={'at':now(),'route':'propertyauctions-stdlib-rss-repair-plus-structured-documents','seed_catalogues':len(auctions),'seed_commercial_clues':len(clues),'document_requests':len(auctions)*len(DOC_NAMES),'structured_documents_found':len(docs),'document_samples':sorted(docs,key=lambda x:int(x['aid']),reverse=True)[:80],'tuple_search_queries':len(queries),'candidate_first_party_urls':len(candidates),'first_party_urls':candidates[:80],'validated_rows_seen':len(recovered),'canonical_events_added':added,'savills_events_before':before,'savills_events_after':after,'search_errors':serr,'document_errors':derr,'rejected_samples':rejected}
  s['historically_complete']=False; s['discovery_exhausted']=False; s['last_discovery_mode']=diag['route']; s['propertyauctions_tuple_document_last_run']=diag
  if added: s['status']='LIVE ARCHIVE PARTIAL'; s.pop('propertyauctions_tuple_document_last_blocker',None)
  else:
-  s['status']='LIVE ARCHIVE BLOCKED'; s['propertyauctions_tuple_document_last_blocker']={'at':diag['at'],'route':diag['route'],'failing_url_or_route':'https://www.propertyauctions.com/Data/Auctions/<AID>/Documents/<Catalogue|Results|GuidePrices|OrderOfSale>.pdf + exact date/lot/location first-party index fingerprints','message':f'Parallel recovery executed {len(auctions)*len(DOC_NAMES)} structured-document probes and {len(queries)} exact tuple searches. It found {len(docs)} surviving document(s) and {len(candidates)} first-party Savills candidate URL(s), but +0 canonical rows passed strict validation.' if not added else 'Rows were recovered and persisted.','next_safe_route':'Advance the persisted PropertyAuctions AID cursor below next_aid, retain newly recovered Savills catalogues, then apply the same structured-document evidence route to those older AIDs and extract lot-address evidence from any surviving PDFs before first-party validation.'}
+  s['status']='LIVE ARCHIVE BLOCKED'; s['propertyauctions_tuple_document_last_blocker']={'at':diag['at'],'route':diag['route'],'failing_url_or_route':'https://www.propertyauctions.com/Data/Auctions/<AID>/Documents/<Catalogue|Results|GuidePrices|OrderOfSale>.pdf + Bing RSS exact date/lot/location first-party fingerprints','message':f'Parser-repaired recovery genuinely executed {len(auctions)*len(DOC_NAMES)} structured-document probes and {len(queries)} exact tuple searches with {len(serr)} search error(s). It found {len(docs)} surviving document(s) and {len(candidates)} first-party Savills candidate URL(s), but +0 canonical rows passed strict validation.' if not added else 'Rows were recovered and persisted.','next_safe_route':'Advance the persisted PropertyAuctions AID cursor below next_aid to obtain a fresh older catalogue tranche, then mine those catalogue rows for exact lot/location/result fingerprints and any surviving document/address evidence before first-party Savills validation.'}
  p['updated_at']=now(); P.write_text(json.dumps(p,indent=2,ensure_ascii=False)); D.parent.mkdir(parents=True,exist_ok=True); D.write_text(json.dumps(diag,indent=2,ensure_ascii=False)); print(json.dumps({k:v for k,v in diag.items() if k not in ('document_samples','first_party_urls','rejected_samples')},indent=2))
 if __name__=='__main__': run()
