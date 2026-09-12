@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T10:20:19.967842+00:00",
+  "updated_at": "2026-09-12T10:26:15.666074+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "sale-statistics-fingerprint-to-address-to-first-party",
+      "last_discovery_mode": "legacy-index-commission-catalogue-id-scan",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -7535,6 +7535,351 @@
         "unique_result_urls": 0,
         "address_candidates": 0,
         "next_safe_route": "Use newspaper/property-trade archive indexes and contemporary Savills press/news domains by exact sale fingerprints and property postcodes, then validate any discovered addresses against surviving Savills first-party detail pages."
+      },
+      "legacy_catalogue_id_last_run": {
+        "at": "2026-09-12T10:26:15.666026+00:00",
+        "route": "legacy-index-commission-catalogue-id-scan",
+        "frontier_date": "2014-04-24",
+        "id_start": 1,
+        "id_end": 3000,
+        "ids_checked": 3000,
+        "workers": 48,
+        "frontier_catalogue_hits": [],
+        "other_valid_catalogue_samples": [],
+        "probe_errors": [
+          {
+            "id": 7,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=7 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3dbe0750>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 29,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca692d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 46,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=46 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3cabab90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 15,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=15 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca0f490>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 38,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=38 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca9a2d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 24,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=24 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca46850>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 11,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=11 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3dbfd250>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 12,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=12 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca04910>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 41,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=41 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3caa9490>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 35,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=35 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca885d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 40,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=40 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca9ee90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 13,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=13 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca07050>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 36,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=36 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca89710>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 6,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=6 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3dbda490>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 2,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=2 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3dbe0b10>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 9,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=9 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3dbf0fd0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 42,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=42 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3caacf90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 21,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=21 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca383d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 32,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=32 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca73f50>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 30,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=30 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca6b4d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 28,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=28 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca5f090>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 39,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=39 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca9c8d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 26,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=26 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca5c190>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 10,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=10 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3dbf3410>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 3,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=3 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3dbda0d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 37,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=37 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca8bcd0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 27,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=27 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca5d1d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 8,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=8 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3dbe2e10>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 19,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=19 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca23d10>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 44,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=44 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3cac0ad0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 34,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=34 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca7ea10>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 16,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=16 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca196d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 45,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=45 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3cabbb10>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 5,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=5 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca04cd0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 4,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=4 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3dbfdf90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 18,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=18 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca21b10>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 14,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=14 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca0d4d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 17,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=17 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca1b8d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 48,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=48 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c658b90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 22,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca3a610>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 47,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=47 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3cad0d10>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 33,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=33 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca7ba90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 43,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=43 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3cac12d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 25,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=25 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca50a90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 1,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3dbceb10>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 31,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=31 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca71cd0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 23,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=23 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca44610>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 20,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca2a190>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 79,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=79 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c4dd0d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 88,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=88 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c514110>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 77,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=77 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c4eaa90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 81,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=81 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c4f4890>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 61,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=61 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c658d50>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 49,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=49 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c4f74d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 91,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=91 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c51e390>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 96,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=96 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c534b50>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 60,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=60 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c68be90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 78,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=78 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3dbe1c10>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 94,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=94 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c52d450>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 74,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=74 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c4dce10>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 66,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=66 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3dbcf350>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 65,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=65 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c4d0f50>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 76,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=76 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c4e8bd0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 69,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=69 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c4bebd0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 93,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=93 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c52aed0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 50,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=50 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c52b450>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 71,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=71 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c4d2f10>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 72,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=72 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca5ef90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 68,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=68 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c4bcc90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 85,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=85 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c5032d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 82,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=82 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c4f66d0>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 58,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=58 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c67fc50>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 52,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=52 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c67bf50>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 83,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=83 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3dbbbd90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 80,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=80 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca5d010>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 53,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=53 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c69b150>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 57,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=57 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3ca5fe90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 67,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=67 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c4aed10>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 64,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=64 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c69ab90>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          },
+          {
+            "id": 92,
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /index.php?option=com_bidding&view=commission&layout=catalogue&id=92 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f6d3c528210>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=4)'))"
+          }
+        ],
+        "commercial_rows_seen": 0,
+        "detail_errors": [],
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250
+      },
+      "legacy_catalogue_id_last_blocker": {
+        "at": "2026-09-12T10:26:15.666026+00:00",
+        "frontier_date": "2014-04-24",
+        "message": "Exhaustive concurrent scan of legacy commission catalogue IDs 1-3000 found no newly persistable 24 April 2014 commercial event.",
+        "frontier_catalogue_hits": [],
+        "next_safe_route": "Expand the legacy commission catalogue ID namespace beyond the scanned range only if valid dated catalogues indicate the frontier can lie outside it; otherwise pivot to exact-address recovery from contemporary trade/news/catalogue evidence."
       }
     }
   }
