@@ -2,13 +2,6 @@ name: Savills Aggregator Reference Recovery
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'savills_aggregator_reference_recovery.py'
-      - '.github/workflows/savills-aggregator-reference-recovery.yml'
-  schedule:
-    - cron: '47 * * * *'
 
 permissions:
   contents: write
