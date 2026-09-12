@@ -2,12 +2,6 @@ name: Pattinson Collector Diagnostic
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'collectors/pattinson.py'
-      - 'tests/test_pattinson.py'
-      - '.github/workflows/pattinson-diagnostic.yml'
 
 permissions:
   contents: read
