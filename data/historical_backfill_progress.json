@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T23:00:45.694445+00:00",
+  "updated_at": "2026-09-12T23:02:00.441293+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "propertyauctions-resumable-aid-cursor",
+      "last_discovery_mode": "propertyauctions-strict-host-rss-plus-structured-documents",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -9624,11 +9624,11 @@
         "next_safe_route": "Use recovered AID/date/lot/location/result tuples as exact public-index fingerprints and probe legacy PropertyAuctions detail parameter namespaces (PID/propertyid/lotid), retaining only candidates that match the catalogue tuple and can be cross-validated to Savills-owned evidence."
       },
       "propertyauctions_tuple_document_last_run": {
-        "at": "2026-09-12T21:06:54.329954+00:00",
+        "at": "2026-09-12T23:02:00.441257+00:00",
         "route": "propertyauctions-strict-host-rss-plus-structured-documents",
-        "seed_catalogues": 33,
+        "seed_catalogues": 7,
         "seed_commercial_clues": 40,
-        "document_requests": 132,
+        "document_requests": 28,
         "structured_documents_found": 0,
         "document_samples": [],
         "tuple_search_queries": 60,
@@ -9643,10 +9643,10 @@
         "rejected_samples": []
       },
       "propertyauctions_tuple_document_last_blocker": {
-        "at": "2026-09-12T21:06:54.329954+00:00",
+        "at": "2026-09-12T23:02:00.441257+00:00",
         "route": "propertyauctions-strict-host-rss-plus-structured-documents",
         "failing_url_or_route": "https://www.propertyauctions.com/Data/Auctions/<AID>/Documents/<Catalogue|Results|GuidePrices|OrderOfSale>.pdf + Bing RSS item links with actual host auctions.savills.co.uk",
-        "message": "Strict-host parser recovery genuinely executed 132 structured-document probes and 60 exact tuple searches with 0 search error(s). It found 0 surviving document(s) and 0 genuine Savills-host candidate URL(s), but +0 canonical rows passed strict validation.",
+        "message": "Strict-host parser recovery genuinely executed 28 structured-document probes and 60 exact tuple searches with 0 search error(s). It found 0 surviving document(s) and 0 genuine Savills-host candidate URL(s), but +0 canonical rows passed strict validation.",
         "next_safe_route": "Advance the persisted PropertyAuctions AID cursor below next_aid to obtain a fresh older catalogue tranche; retain each Savills AID/date/lot/location/result tuple, then apply address/detail-namespace and archival-index recovery to that newly exposed tranche."
       }
     }
