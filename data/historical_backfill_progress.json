@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T10:26:15.666074+00:00",
+  "updated_at": "2026-09-12T10:59:51.724687+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "legacy-index-commission-catalogue-id-scan",
+      "last_discovery_mode": "bing-rss-date-address-to-live-savills-validation",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -3224,7 +3224,7 @@
         "next_safe_route": "Use archive-summary sale totals and date-specific public result pages to recover exact property addresses/lot numbers for the frontier sale, then resolve those addresses against archived Savills first-party captures before persistence."
       },
       "public_address_frontier_last_run": {
-        "at": "2026-09-12T05:59:01.892288+00:00",
+        "at": "2026-09-12T10:59:43.615872+00:00",
         "route": "public-auction-result-address-plus-archive-url-to-live-savills-validation",
         "frontier_dates": [
           "2014-04-24"
@@ -3266,7 +3266,7 @@
         "lookup_errors": []
       },
       "public_address_frontier_last_blocker": {
-        "at": "2026-09-12T05:59:01.892288+00:00",
+        "at": "2026-09-12T10:59:43.615872+00:00",
         "route": "public-auction-result-address-plus-archive-url-to-live-savills-validation",
         "message": "Address-led recovery produced no older validated Savills History V2 event. Direct postcode search and historical/Wayback URL extraction were attempted; no candidate is accepted unless a surviving first-party Savills page validates the auction date and property.",
         "frontier_dates": [
@@ -3278,7 +3278,7 @@
         "next_safe_route": "Use any recovered exact address/postcode clues to enumerate historical Savills legacy pid/slug candidates through free CDX/index snapshots and validate the originals against surviving Savills first-party pages before persistence."
       },
       "bing_rss_frontier_last_run": {
-        "at": "2026-09-12T05:59:17.541213+00:00",
+        "at": "2026-09-12T10:59:51.724639+00:00",
         "route": "bing-rss-date-address-to-live-savills-validation",
         "frontier_date": "2014-04-24",
         "queries": [
@@ -3287,9 +3287,9 @@
             "results": 10,
             "sample": [
               "https://www.savills.com/",
+              "https://en.m.wikipedia.org/wiki/Savills",
               "https://www.savills.us/",
-              "https://en.wikipedia.org/wiki/Savills",
-              "https://www.savills.us/why-savills/",
+              "https://www.savills.co.uk/find-a-property/",
               "https://www.savills.co.uk/"
             ]
           },
@@ -3298,9 +3298,9 @@
             "results": 10,
             "sample": [
               "https://www.savills.com/",
+              "https://en.m.wikipedia.org/wiki/Savills",
               "https://www.savills.us/",
-              "https://en.wikipedia.org/wiki/Savills",
-              "https://www.savills.us/why-savills/",
+              "https://www.savills.co.uk/find-a-property/",
               "https://www.savills.co.uk/"
             ]
           },
@@ -3312,7 +3312,7 @@
               "https://m.imdb.com/title/tt0285331/",
               "https://www.disneyplus.com/browse/entity-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
               "https://www.hulu.com/series/24-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
-              "https://www.amazon.com/24-Season-1/dp/B000HPF85A"
+              "https://en.m.wikipedia.org/wiki/List_of_24_characters"
             ]
           },
           {
@@ -3323,15 +3323,15 @@
               "https://m.imdb.com/title/tt0285331/",
               "https://www.disneyplus.com/browse/entity-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
               "https://www.hulu.com/series/24-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
-              "https://www.amazon.com/24-Season-1/dp/B000HPF85A"
+              "https://en.m.wikipedia.org/wiki/List_of_24_characters"
             ]
           }
         ],
         "unique_result_urls": 20,
-        "source_pages_examined": 18,
+        "source_pages_examined": 17,
         "address_clues": 3,
-        "candidate_savills_urls": 2,
-        "live_checked": 2,
+        "candidate_savills_urls": 3,
+        "live_checked": 3,
         "commercial_rows_seen": 0,
         "canonical_events_added": 0,
         "savills_events_before": 3250,
@@ -3351,21 +3351,26 @@
           },
           {
             "postcode": "W1G 0JD",
-            "context": "sign in, you agree to LinkedIn’s User Agreement , Privacy Policy , and Cookie Policy . See all employees Locations Primary 33 Margaret Street London, W1G 0JD, GB Get directions Updates Savills 557,683 f",
+            "context": "sign in, you agree to LinkedIn’s User Agreement , Privacy Policy , and Cookie Policy . See all employees Locations Primary 33 Margaret Street London, W1G 0JD, GB Get directions Updates Savills 557,708 f",
             "source_url": "https://www.linkedin.com/company/savills",
             "source_title": "Savills - LinkedIn"
           }
         ],
         "rejected_samples": [
           {
+            "url": "https://www.savills.co.uk/find-a-property/",
+            "reason": "surviving Savills page is not lot-specific auction evidence",
+            "discovery_url": "https://www.savills.co.uk/find-a-property/"
+          },
+          {
             "url": "https://www.savills.co.uk/",
             "reason": "surviving Savills page is not lot-specific auction evidence",
             "discovery_url": "https://www.savills.co.uk/"
           },
           {
-            "url": "https://www.savills.co.uk/find-a-property/",
+            "url": "https://auctions.savills.co.uk/",
             "reason": "surviving Savills page is not lot-specific auction evidence",
-            "discovery_url": "https://www.savills.co.uk/find-a-property/"
+            "discovery_url": "https://auctions.savills.co.uk/"
           }
         ],
         "errors": [
@@ -3373,7 +3378,7 @@
         ]
       },
       "history_integrity_last_run": {
-        "at": "2026-09-12T06:31:47.790269+00:00",
+        "at": "2026-09-12T10:59:41.951022+00:00",
         "route": "canonical-savills-lot-url-integrity-repair-all-events",
         "removed_events": [],
         "removed_count": 0,
@@ -3501,13 +3506,13 @@
         "next_safe_route": "Use exact addresses/lot references recovered from public auction-result indexes for this target date, then search the surviving Savills first-party namespace by address/slug before any persistence."
       },
       "bing_rss_frontier_last_blocker": {
-        "at": "2026-09-12T05:59:17.541213+00:00",
+        "at": "2026-09-12T10:59:51.724639+00:00",
         "route": "bing-rss-date-address-to-live-savills-validation",
         "frontier_date": "2014-04-24",
         "message": "Bing RSS date/address discovery produced no new first-party-validated commercial Savills event.",
         "result_urls": 20,
         "address_clues": 3,
-        "candidate_savills_urls": 2,
+        "candidate_savills_urls": 3,
         "next_safe_route": "Query free Common Crawl indexes for postcode/address tokens recovered here (or exact auction-date snippets if no address is recovered), reconstruct archived Savills pid/slug originals, then validate against surviving Savills first-party pages before persistence."
       },
       "manifest_commoncrawl_frontier_last_run": {
