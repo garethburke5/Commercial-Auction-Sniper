@@ -1,6 +1,10 @@
 name: Savills PropertyAuctions Detail Identifier Recovery
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'savills_propertyauctions_detail_identifier_recovery.py'
+      - '.github/workflows/savills-propertyauctions-detail-identifiers.yml'
 permissions:
   contents: write
 concurrency:
@@ -9,7 +13,7 @@ concurrency:
 jobs:
   recover:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
@@ -20,15 +24,15 @@ jobs:
           python-version: '3.11'
       - run: pip install requests beautifulsoup4
       - run: python -m py_compile savills_propertyauctions_detail_identifier_recovery.py
-      - name: Mine legacy detail identifiers
+      - name: Replay legacy ASP.NET postbacks and mine detail identifiers
         run: python savills_propertyauctions_detail_identifier_recovery.py
-      - name: Publish identifier evidence or exact blocker
+      - name: Publish recovery evidence or exact blocker
         run: |
           git config user.name 'Auction Sniper History Bot'
           git config user.email 'actions@users.noreply.github.com'
           git add data/historical_backfill_progress.json data/source_diagnostics || true
           if ! git diff --cached --quiet; then
-            git commit -m 'Mine Savills legacy detail identifiers'
+            git commit -m 'Replay Savills legacy catalogue postbacks'
             for attempt in 1 2 3; do
               git fetch origin main
               if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
