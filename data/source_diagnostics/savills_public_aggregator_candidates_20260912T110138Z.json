@@ -1,0 +1,651 @@
+{
+  "at": "2026-09-12T11:01:38.339871+00:00",
+  "route": "public-propertyauctions-index-to-first-party-savills-validation",
+  "public_index": "https://propertyauctions.io/auctioneers/savills",
+  "public_index_reported_past_lots": 21587,
+  "public_index_reported_total_lots": 23563,
+  "target_dates": [
+    "2014-04-24",
+    "2014-05-07",
+    "2014-06-16",
+    "2014-07-22",
+    "2014-09-15",
+    "2014-10-28",
+    "2014-12-08",
+    "2015-02-17"
+  ],
+  "discovered_listing_urls_by_date": {
+    "2014-04-24": [],
+    "2014-05-07": [
+      "https://propertyauctions.io/listings/058a0f53aec6ac2e15c3ca32a5ddf67a",
+      "https://propertyauctions.io/listings/15a2b01e55428e4ed58d13d52e63bfe1",
+      "https://propertyauctions.io/listings/2d63e5b66e86190e4db24a44a32c5be8",
+      "https://propertyauctions.io/listings/3504b553db1f32840871e5475cad8f59",
+      "https://propertyauctions.io/listings/38e2a43d30bba6f594ee7dca62cafb0e",
+      "https://propertyauctions.io/listings/516e7277284e310b47893c2c6ce408ed",
+      "https://propertyauctions.io/listings/5ac50470c7866ba00c92a20be7e71b00",
+      "https://propertyauctions.io/listings/78b77cfeac4606d857e8f8cdba798f95",
+      "https://propertyauctions.io/listings/8ae2538691a99c09e3e2935ac9c60d42",
+      "https://propertyauctions.io/listings/bf099e31eca7c3ac1e0d07094b75e1b4",
+      "https://propertyauctions.io/listings/fcdda48a05ffb4aa6f52695671d77bf3"
+    ],
+    "2014-06-16": [
+      "https://propertyauctions.io/listings/02c7daebc24c0304184a58d89fa5a547",
+      "https://propertyauctions.io/listings/08a985c652c51676b0664e3336d67af1",
+      "https://propertyauctions.io/listings/40f959e2fed3fd665a513fcfb9de9963",
+      "https://propertyauctions.io/listings/47cbcecef13d265b3a81cba492e8cd69",
+      "https://propertyauctions.io/listings/594e6e2d7fe26f2b8f8d5317f48aa042",
+      "https://propertyauctions.io/listings/5c786a12bbcd043f56c03dc187a2809d",
+      "https://propertyauctions.io/listings/637a446cd829a3fb573a97c64ca1890c",
+      "https://propertyauctions.io/listings/8c11d3d971b1be4b932da30530eb79ad"
+    ],
+    "2014-07-22": [],
+    "2014-09-15": [],
+    "2014-10-28": [],
+    "2014-12-08": [],
+    "2015-02-17": []
+  },
+  "candidate_rows": [],
+  "verified_first_party_rows": 0,
+  "canonical_events_added": 0,
+  "savills_events_before": 3250,
+  "savills_events_after": 3250,
+  "rejected_samples": [
+    {
+      "url": "https://propertyauctions.io/listings/058a0f53aec6ac2e15c3ca32a5ddf67a",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/058a0f53aec6ac2e15c3ca32a5ddf67a"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/15a2b01e55428e4ed58d13d52e63bfe1",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/15a2b01e55428e4ed58d13d52e63bfe1"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/2d63e5b66e86190e4db24a44a32c5be8",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/2d63e5b66e86190e4db24a44a32c5be8"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/3504b553db1f32840871e5475cad8f59",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/3504b553db1f32840871e5475cad8f59"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/38e2a43d30bba6f594ee7dca62cafb0e",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/38e2a43d30bba6f594ee7dca62cafb0e"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/516e7277284e310b47893c2c6ce408ed",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/516e7277284e310b47893c2c6ce408ed"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/5ac50470c7866ba00c92a20be7e71b00",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/5ac50470c7866ba00c92a20be7e71b00"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/78b77cfeac4606d857e8f8cdba798f95",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/78b77cfeac4606d857e8f8cdba798f95"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/8ae2538691a99c09e3e2935ac9c60d42",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/8ae2538691a99c09e3e2935ac9c60d42"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/bf099e31eca7c3ac1e0d07094b75e1b4",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/bf099e31eca7c3ac1e0d07094b75e1b4"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/fcdda48a05ffb4aa6f52695671d77bf3",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/fcdda48a05ffb4aa6f52695671d77bf3"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/02c7daebc24c0304184a58d89fa5a547",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/02c7daebc24c0304184a58d89fa5a547"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/08a985c652c51676b0664e3336d67af1",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/08a985c652c51676b0664e3336d67af1"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/40f959e2fed3fd665a513fcfb9de9963",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/40f959e2fed3fd665a513fcfb9de9963"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/47cbcecef13d265b3a81cba492e8cd69",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/47cbcecef13d265b3a81cba492e8cd69"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/594e6e2d7fe26f2b8f8d5317f48aa042",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/594e6e2d7fe26f2b8f8d5317f48aa042"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/5c786a12bbcd043f56c03dc187a2809d",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/5c786a12bbcd043f56c03dc187a2809d"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/637a446cd829a3fb573a97c64ca1890c",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/637a446cd829a3fb573a97c64ca1890c"
+    },
+    {
+      "url": "https://propertyauctions.io/listings/8c11d3d971b1be4b932da30530eb79ad",
+      "reason": "candidate fetch: HTTPError: 403 Client Error: Forbidden for url: https://propertyauctions.io/listings/8c11d3d971b1be4b932da30530eb79ad"
+    }
+  ],
+  "search_diagnostics": [
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"24 April 2014\" Commercial",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+Commercial"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"24 April 2014\" Commercial",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+Commercial"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"24 April 2014\" Commercial",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+Commercial",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"24 April 2014\" \"Mixed Use\"",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"24 April 2014\" \"Mixed Use\"",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"24 April 2014\" \"Mixed Use\"",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"24 April 2014\" auction",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+auction",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+auction"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"24 April 2014\" auction",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+auction",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+auction"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"24 April 2014\" auction",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2224+April+2014%22+auction",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"7 May 2014\" Commercial",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%227+May+2014%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%227+May+2014%22+Commercial"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"7 May 2014\" Commercial",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%227+May+2014%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/_bv/v.gif?orig=%2Fsearch%3Fp%3Dsite%253Apropertyauctions.io%252Flistings%2BSavills%2B%25227%2BMay%2B2014%2522%2BCommercial&_bvc=1.d81224ec1307cb0d592316e88fc95adda512cb7497a53619ab51538bd7c11be3"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"7 May 2014\" Commercial",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%227+May+2014%22+Commercial",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"7 May 2014\" \"Mixed Use\"",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%227+May+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%227+May+2014%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"7 May 2014\" \"Mixed Use\"",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%227+May+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%227+May+2014%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"7 May 2014\" \"Mixed Use\"",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%227+May+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"7 May 2014\" auction",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%227+May+2014%22+auction",
+      "hits": 11,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"16 June 2014\" Commercial",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2216+June+2014%22+Commercial",
+      "hits": 8,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"16 June 2014\" \"Mixed Use\"",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2216+June+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2216+June+2014%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"16 June 2014\" \"Mixed Use\"",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2216+June+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2216+June+2014%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"16 June 2014\" \"Mixed Use\"",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2216+June+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"16 June 2014\" auction",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2216+June+2014%22+auction",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2216+June+2014%22+auction"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"16 June 2014\" auction",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2216+June+2014%22+auction",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2216+June+2014%22+auction"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"16 June 2014\" auction",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2216+June+2014%22+auction",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"22 July 2014\" Commercial",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+Commercial"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"22 July 2014\" Commercial",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/_bv/v.gif?orig=%2Fsearch%3Fp%3Dsite%253Apropertyauctions.io%252Flistings%2BSavills%2B%252222%2BJuly%2B2014%2522%2BCommercial&_bvc=1.c010a92242089afb79e1580e9797f002d6a64f43ef56883e969a7bfb430817a4"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"22 July 2014\" Commercial",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+Commercial",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"22 July 2014\" \"Mixed Use\"",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"22 July 2014\" \"Mixed Use\"",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"22 July 2014\" \"Mixed Use\"",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"22 July 2014\" auction",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+auction",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+auction"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"22 July 2014\" auction",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+auction",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+auction"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"22 July 2014\" auction",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2222+July+2014%22+auction",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"15 September 2014\" Commercial",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+Commercial"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"15 September 2014\" Commercial",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/_bv/v.gif?orig=%2Fsearch%3Fp%3Dsite%253Apropertyauctions.io%252Flistings%2BSavills%2B%252215%2BSeptember%2B2014%2522%2BCommercial&_bvc=1.3d4aa974cda9ad6c2b9223801c15f3564426ae046a9348bb049ab77971d779e3"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"15 September 2014\" Commercial",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+Commercial",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"15 September 2014\" \"Mixed Use\"",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"15 September 2014\" \"Mixed Use\"",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"15 September 2014\" \"Mixed Use\"",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"15 September 2014\" auction",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+auction",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+auction"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"15 September 2014\" auction",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+auction",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+auction"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"15 September 2014\" auction",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2215+September+2014%22+auction",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"28 October 2014\" Commercial",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+Commercial"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"28 October 2014\" Commercial",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+Commercial"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"28 October 2014\" Commercial",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+Commercial",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"28 October 2014\" \"Mixed Use\"",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"28 October 2014\" \"Mixed Use\"",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"28 October 2014\" \"Mixed Use\"",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"28 October 2014\" auction",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+auction",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+auction"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"28 October 2014\" auction",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+auction",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+auction"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"28 October 2014\" auction",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2228+October+2014%22+auction",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"8 December 2014\" Commercial",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%228+December+2014%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%228+December+2014%22+Commercial"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"8 December 2014\" Commercial",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%228+December+2014%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/_bv/v.gif?orig=%2Fsearch%3Fp%3Dsite%253Apropertyauctions.io%252Flistings%2BSavills%2B%25228%2BDecember%2B2014%2522%2BCommercial&_bvc=1.b539d29ec9e2f9505066501ab91838ec9dd65f18c722a66389e415a3ac4d582f"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"8 December 2014\" Commercial",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%228+December+2014%22+Commercial",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"8 December 2014\" \"Mixed Use\"",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%228+December+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%228+December+2014%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"8 December 2014\" \"Mixed Use\"",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%228+December+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%228+December+2014%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"8 December 2014\" \"Mixed Use\"",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%228+December+2014%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"8 December 2014\" auction",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%228+December+2014%22+auction",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%228+December+2014%22+auction"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"8 December 2014\" auction",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%228+December+2014%22+auction",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/_bv/v.gif?orig=%2Fsearch%3Fp%3Dsite%253Apropertyauctions.io%252Flistings%2BSavills%2B%25228%2BDecember%2B2014%2522%2Bauction&_bvc=1.d0e15d125de5cdb0cdcaf41adda60142618e87afdeea40232d7cefb5ef741099"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"8 December 2014\" auction",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%228+December+2014%22+auction",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"17 February 2015\" Commercial",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2217+February+2015%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2217+February+2015%22+Commercial"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"17 February 2015\" Commercial",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2217+February+2015%22+Commercial",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/_bv/v.gif?orig=%2Fsearch%3Fp%3Dsite%253Apropertyauctions.io%252Flistings%2BSavills%2B%252217%2BFebruary%2B2015%2522%2BCommercial&_bvc=1.b85d4758203712a8a38de1d9fcffab7743179cbd6071f8e23dd87b95eeb70fd3"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"17 February 2015\" Commercial",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2217+February+2015%22+Commercial",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"17 February 2015\" \"Mixed Use\"",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2217+February+2015%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2217+February+2015%22+%22Mixed+Use%22"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"17 February 2015\" \"Mixed Use\"",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2217+February+2015%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 500 Server Error: INKApi Error for url: https://search.yahoo.com/_bv/v.gif?orig=%2Fsearch%3Fp%3Dsite%253Apropertyauctions.io%252Flistings%2BSavills%2B%252217%2BFebruary%2B2015%2522%2B%2522Mixed%2BUse%2522&_bvc=1.e3f7ea4af4981797d36c3d4971c4040ad766a37c5500cda1e00c9b9845ffbff8"
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"17 February 2015\" \"Mixed Use\"",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2217+February+2015%22+%22Mixed+Use%22",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "brave",
+      "query": "site:propertyauctions.io/listings Savills \"17 February 2015\" auction",
+      "url": "https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2217+February+2015%22+auction",
+      "hits": 0,
+      "ok": false,
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://search.brave.com/search?q=site%3Apropertyauctions.io%2Flistings+Savills+%2217+February+2015%22+auction"
+    },
+    {
+      "engine": "yahoo",
+      "query": "site:propertyauctions.io/listings Savills \"17 February 2015\" auction",
+      "url": "https://search.yahoo.com/search?p=site%3Apropertyauctions.io%2Flistings+Savills+%2217+February+2015%22+auction",
+      "hits": 0,
+      "ok": true
+    },
+    {
+      "engine": "duckduckgo-lite",
+      "query": "site:propertyauctions.io/listings Savills \"17 February 2015\" auction",
+      "url": "https://lite.duckduckgo.com/lite/?q=site%3Apropertyauctions.io%2Flistings+Savills+%2217+February+2015%22+auction",
+      "hits": 0,
+      "ok": true
+    }
+  ]
+}
