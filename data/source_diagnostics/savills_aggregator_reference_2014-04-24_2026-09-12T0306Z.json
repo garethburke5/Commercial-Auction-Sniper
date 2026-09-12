@@ -1,0 +1,101 @@
+{
+  "at": "2026-09-12T03:06:59.689336+00:00",
+  "route": "auction-reference-index-address-lot-to-legacy-savills-replay",
+  "target_date": "2014-04-24",
+  "reference_domains": [
+    "auctionlotwatch.co.uk",
+    "eigpropertyauctions.co.uk",
+    "propertyweek.com",
+    "estatesgazette.com",
+    "egi.co.uk"
+  ],
+  "discovery_queries": [
+    "site:auctionlotwatch.co.uk \"Savills\" \"24 April 2014\" auction",
+    "site:auctionlotwatch.co.uk \"Savills Auctions\" \"April 2014\" lot",
+    "site:eigpropertyauctions.co.uk \"Savills\" \"24 April 2014\" auction",
+    "site:eigpropertyauctions.co.uk \"Savills Auctions\" \"April 2014\" lot",
+    "site:propertyweek.com \"Savills\" \"24 April 2014\" auction",
+    "site:propertyweek.com \"Savills Auctions\" \"April 2014\" lot",
+    "site:estatesgazette.com \"Savills\" \"24 April 2014\" auction",
+    "site:estatesgazette.com \"Savills Auctions\" \"April 2014\" lot",
+    "site:egi.co.uk \"Savills\" \"24 April 2014\" auction",
+    "site:egi.co.uk \"Savills Auctions\" \"April 2014\" lot"
+  ],
+  "reference_urls_seen": [],
+  "address_or_postcode_terms": [
+    "G08HR",
+    "N957TR",
+    "U96FT"
+  ],
+  "lot_references": [],
+  "replay_queries": [
+    {
+      "term": "G08HR",
+      "lot": null,
+      "query": "site:auctions.savills.co.uk \"G08HR\" \"24 April 2014\"",
+      "savills_url_hits": 0
+    },
+    {
+      "term": "G08HR",
+      "lot": null,
+      "query": "\"auctions.savills.co.uk/index.php\" \"G08HR\" \"view=commission\"",
+      "savills_url_hits": 0
+    },
+    {
+      "term": "G08HR",
+      "lot": null,
+      "query": "\"auctions.savills.co.uk/Auctions/LotDetails\" \"G08HR\"",
+      "savills_url_hits": 0
+    },
+    {
+      "term": "N957TR",
+      "lot": null,
+      "query": "site:auctions.savills.co.uk \"N957TR\" \"24 April 2014\"",
+      "savills_url_hits": 0
+    },
+    {
+      "term": "N957TR",
+      "lot": null,
+      "query": "\"auctions.savills.co.uk/index.php\" \"N957TR\" \"view=commission\"",
+      "savills_url_hits": 0
+    },
+    {
+      "term": "N957TR",
+      "lot": null,
+      "query": "\"auctions.savills.co.uk/Auctions/LotDetails\" \"N957TR\"",
+      "savills_url_hits": 0
+    },
+    {
+      "term": "U96FT",
+      "lot": null,
+      "query": "site:auctions.savills.co.uk \"U96FT\" \"24 April 2014\"",
+      "savills_url_hits": 0
+    },
+    {
+      "term": "U96FT",
+      "lot": null,
+      "query": "\"auctions.savills.co.uk/index.php\" \"U96FT\" \"view=commission\"",
+      "savills_url_hits": 0
+    },
+    {
+      "term": "U96FT",
+      "lot": null,
+      "query": "\"auctions.savills.co.uk/Auctions/LotDetails\" \"U96FT\"",
+      "savills_url_hits": 0
+    }
+  ],
+  "savills_candidates_seen": 0,
+  "checked": [],
+  "canonical_events_added": 0,
+  "savills_events_before": 3250,
+  "savills_events_after": 3250,
+  "errors": [
+    "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+    "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+    "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+    "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+    "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+    "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+    "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests"
+  ]
+}

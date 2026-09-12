@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T03:04:32.134600+00:00",
+  "updated_at": "2026-09-12T03:06:59.689786+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "PUBLIC INDEX BLOCKED",
+      "status": "AGGREGATOR REFERENCE BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3250,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "public-index-address-to-live-savills-first-party",
+      "last_discovery_mode": "auction-reference-index-address-lot-to-legacy-savills-replay",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -4077,7 +4077,121 @@
         "savills_events_before": 3250,
         "savills_events_after": 3250
       },
-      "public_index_address_last_diagnostic": "data/source_diagnostics/savills_public_index_address_recovery_2026-09-12T0304Z.json"
+      "public_index_address_last_diagnostic": "data/source_diagnostics/savills_public_index_address_recovery_2026-09-12T0304Z.json",
+      "aggregator_reference_last_run": {
+        "at": "2026-09-12T03:06:59.689336+00:00",
+        "route": "auction-reference-index-address-lot-to-legacy-savills-replay",
+        "target_date": "2014-04-24",
+        "reference_domains": [
+          "auctionlotwatch.co.uk",
+          "eigpropertyauctions.co.uk",
+          "propertyweek.com",
+          "estatesgazette.com",
+          "egi.co.uk"
+        ],
+        "discovery_queries": [
+          "site:auctionlotwatch.co.uk \"Savills\" \"24 April 2014\" auction",
+          "site:auctionlotwatch.co.uk \"Savills Auctions\" \"April 2014\" lot",
+          "site:eigpropertyauctions.co.uk \"Savills\" \"24 April 2014\" auction",
+          "site:eigpropertyauctions.co.uk \"Savills Auctions\" \"April 2014\" lot",
+          "site:propertyweek.com \"Savills\" \"24 April 2014\" auction",
+          "site:propertyweek.com \"Savills Auctions\" \"April 2014\" lot",
+          "site:estatesgazette.com \"Savills\" \"24 April 2014\" auction",
+          "site:estatesgazette.com \"Savills Auctions\" \"April 2014\" lot",
+          "site:egi.co.uk \"Savills\" \"24 April 2014\" auction",
+          "site:egi.co.uk \"Savills Auctions\" \"April 2014\" lot"
+        ],
+        "reference_urls_seen": [],
+        "address_or_postcode_terms": [
+          "G08HR",
+          "N957TR",
+          "U96FT"
+        ],
+        "lot_references": [],
+        "replay_queries": [
+          {
+            "term": "G08HR",
+            "lot": null,
+            "query": "site:auctions.savills.co.uk \"G08HR\" \"24 April 2014\"",
+            "savills_url_hits": 0
+          },
+          {
+            "term": "G08HR",
+            "lot": null,
+            "query": "\"auctions.savills.co.uk/index.php\" \"G08HR\" \"view=commission\"",
+            "savills_url_hits": 0
+          },
+          {
+            "term": "G08HR",
+            "lot": null,
+            "query": "\"auctions.savills.co.uk/Auctions/LotDetails\" \"G08HR\"",
+            "savills_url_hits": 0
+          },
+          {
+            "term": "N957TR",
+            "lot": null,
+            "query": "site:auctions.savills.co.uk \"N957TR\" \"24 April 2014\"",
+            "savills_url_hits": 0
+          },
+          {
+            "term": "N957TR",
+            "lot": null,
+            "query": "\"auctions.savills.co.uk/index.php\" \"N957TR\" \"view=commission\"",
+            "savills_url_hits": 0
+          },
+          {
+            "term": "N957TR",
+            "lot": null,
+            "query": "\"auctions.savills.co.uk/Auctions/LotDetails\" \"N957TR\"",
+            "savills_url_hits": 0
+          },
+          {
+            "term": "U96FT",
+            "lot": null,
+            "query": "site:auctions.savills.co.uk \"U96FT\" \"24 April 2014\"",
+            "savills_url_hits": 0
+          },
+          {
+            "term": "U96FT",
+            "lot": null,
+            "query": "\"auctions.savills.co.uk/index.php\" \"U96FT\" \"view=commission\"",
+            "savills_url_hits": 0
+          },
+          {
+            "term": "U96FT",
+            "lot": null,
+            "query": "\"auctions.savills.co.uk/Auctions/LotDetails\" \"U96FT\"",
+            "savills_url_hits": 0
+          }
+        ],
+        "savills_candidates_seen": 0,
+        "checked": [],
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "errors": [
+          "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests"
+        ]
+      },
+      "aggregator_reference_last_blocker": {
+        "at": "2026-09-12T03:06:59.689336+00:00",
+        "target_date": "2014-04-24",
+        "route": "auction-reference-index-address-lot-to-legacy-savills-replay",
+        "message": "Historical auction-reference indexes yielded no candidate that resolved to a validated first-party Savills commercial lot for the next oldest known auction date.",
+        "exact_failure": {
+          "reference_urls_seen": 0,
+          "reference_terms_seen": 3,
+          "savills_candidates_seen": 0
+        },
+        "next_safe_route": "Use the exact 24 April 2014 Savills auction date to mine archived Savills brochure/catalogue PDFs and WARC response bodies for lot addresses and pid/id references, then persist only archived/live Savills first-party lot evidence."
+      },
+      "aggregator_reference_last_diagnostic": "data/source_diagnostics/savills_aggregator_reference_2014-04-24_2026-09-12T0306Z.json"
     }
   }
 }
