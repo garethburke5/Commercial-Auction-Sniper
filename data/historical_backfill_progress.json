@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T15:02:13.179726+00:00",
+  "updated_at": "2026-09-12T16:03:39.096825+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "commoncrawl-direct-cluster-cdx-range-recovery",
+      "last_discovery_mode": "date-specific-savills-result-document-to-strict-live-lot",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -3382,7 +3382,7 @@
         "rule": "Every canonical Savills auction event must carry a lot-specific auctions.savills.co.uk listing URL. Generic Savills corporate/search/property pages cannot inherit an auction date from discovery context."
       },
       "result_document_frontier_last_run": {
-        "at": "2026-09-11T21:16:17.436089+00:00",
+        "at": "2026-09-12T16:03:39.096773+00:00",
         "route": "date-specific-savills-result-document-to-strict-live-lot",
         "frontier_date": "2014-04-24",
         "queries": [
@@ -3414,36 +3414,36 @@
             "query": "site:pdf.euro.savills.co.uk \"24 April 2014\" auction",
             "results": 10,
             "sample": [
-              "https://en.wikipedia.org/wiki/24_(TV_series)",
-              "https://www.imdb.com/title/tt0285331/",
+              "https://en.m.wikipedia.org/wiki/24_(TV_series)",
+              "https://m.imdb.com/title/tt0285331/",
               "https://www.disneyplus.com/browse/entity-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
+              "https://en.m.wikipedia.org/wiki/List_of_24_characters",
               "https://www.hulu.com/series/24-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
-              "https://www.amazon.com/24-Season-1/dp/B000HPF85A",
-              "https://en.wikipedia.org/wiki/List_of_24_characters"
+              "https://www.amazon.com/24-Season-1/dp/B000HPF85A"
             ]
           },
           {
             "query": "site:auctions.savills.co.uk \"24 April 2014\" pdf",
             "results": 10,
             "sample": [
-              "https://en.wikipedia.org/wiki/24_(TV_series)",
-              "https://www.imdb.com/title/tt0285331/",
+              "https://en.m.wikipedia.org/wiki/24_(TV_series)",
+              "https://m.imdb.com/title/tt0285331/",
               "https://www.disneyplus.com/browse/entity-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
+              "https://en.m.wikipedia.org/wiki/List_of_24_characters",
               "https://www.hulu.com/series/24-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
-              "https://www.amazon.com/24-Season-1/dp/B000HPF85A",
-              "https://en.wikipedia.org/wiki/List_of_24_characters"
+              "https://www.amazon.com/24-Season-1/dp/B000HPF85A"
             ]
           },
           {
             "query": "\"24 April 2014\" Savills property auction results filetype:pdf",
             "results": 10,
             "sample": [
-              "https://en.wikipedia.org/wiki/24_(TV_series)",
-              "https://www.imdb.com/title/tt0285331/",
+              "https://en.m.wikipedia.org/wiki/24_(TV_series)",
+              "https://m.imdb.com/title/tt0285331/",
               "https://www.disneyplus.com/browse/entity-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
+              "https://en.m.wikipedia.org/wiki/List_of_24_characters",
               "https://www.hulu.com/series/24-9e3bdada-bf2e-491e-aa0a-0f4c97f520d6",
-              "https://www.amazon.com/24-Season-1/dp/B000HPF85A",
-              "https://en.wikipedia.org/wiki/List_of_24_characters"
+              "https://www.amazon.com/24-Season-1/dp/B000HPF85A"
             ]
           }
         ],
@@ -3462,7 +3462,7 @@
         "errors": []
       },
       "result_document_frontier_last_blocker": {
-        "at": "2026-09-11T21:16:17.436089+00:00",
+        "at": "2026-09-12T16:03:39.096773+00:00",
         "route": "date-specific-savills-result-document-to-strict-live-lot",
         "frontier_date": "2014-04-24",
         "message": "Date-specific Savills result/catalogue document discovery did not yield a first-party lot page that explicitly carries the same auction date and passes commercial/mixed-use classification.",
@@ -4008,7 +4008,7 @@
         "next_safe_route": "Use manually discoverable public-web historical auction/date evidence as seed addresses, then search only public indexes for exact address + Savills combinations and validate any reconstructed lot strictly against first-party Savills URLs; do not automate extraction from third-party sites that prohibit scraping."
       },
       "commoncrawl_direct_cdx_last_run": {
-        "at": "2026-09-12T15:00:31.315974+00:00",
+        "at": "2026-09-12T16:02:00.869440+00:00",
         "route": "commoncrawl-direct-cluster-cdx-range-recovery",
         "frontier_date": "2014-04-24",
         "collections_considered": [
@@ -4166,17 +4166,10 @@
         "savills_events_after": 3250,
         "matching_samples": [],
         "rejected_samples": [],
-        "errors": [
-          "CC-MAIN-2014-23 cdx-00296.gz@87614561+191324 :: URLError: <urlopen error [Errno 104] Connection reset by peer>",
-          "CC-MAIN-2014-23 cdx-00296.gz@90299626+280884 :: URLError: <urlopen error [Errno 104] Connection reset by peer>",
-          "CC-MAIN-2014-35 cdx-00296.gz@289949232+191499 :: URLError: <urlopen error [Errno 104] Connection reset by peer>",
-          "CC-MAIN-2014-52 cdx-00296.gz@344374297+216392 :: URLError: <urlopen error [Errno 104] Connection reset by peer>",
-          "CC-MAIN-2015-35 cdx-00296.gz@285819969+209714 :: URLError: <urlopen error [Errno 104] Connection reset by peer>",
-          "CC-MAIN-2015-48 cdx-00296.gz@277856538+229134 :: URLError: <urlopen error [Errno 104] Connection reset by peer>"
-        ]
+        "errors": []
       },
       "commoncrawl_direct_cdx_last_blocker": {
-        "at": "2026-09-12T15:00:31.315974+00:00",
+        "at": "2026-09-12T16:02:00.869440+00:00",
         "route": "commoncrawl-direct-cluster-cdx-range-recovery",
         "frontier_date": "2014-04-24",
         "message": "Direct Common Crawl cluster/CDX range recovery added no validated Savills event.",
