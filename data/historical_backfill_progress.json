@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T19:02:38.480943+00:00",
+  "updated_at": "2026-09-12T19:03:30.743247+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "propertyauctions-legacy-html-detail-identifier-mining",
+      "last_discovery_mode": "propertyauctions-aspnet-postback-replay",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -8201,6 +8201,325 @@
         "failing_url_or_route": "Recovered Savills AID catalogue HTML from propertyauctions.com/Results/LotList.aspx?AID=...",
         "message": "Mined 33 live Savills catalogue pages: no direct legacy detail URL was exposed; found 165 ASP.NET postback targets and 11 identifier-like inputs.",
         "next_safe_route": "Replay lot-row ASP.NET postbacks where identifiable and search exact AID + lot number + location/result fingerprints for archived PID/LotDetails URLs, then validate first-party Savills evidence before canonical insertion."
+      },
+      "propertyauctions_postback_last_run": {
+        "at": "2026-09-12T19:03:30.743218+00:00",
+        "route": "propertyauctions-aspnet-postback-replay",
+        "seed_catalogues": 33,
+        "catalogues_fetched": 33,
+        "postbacks_replayed": 0,
+        "materially_changed_responses": 0,
+        "redirected_responses": 0,
+        "direct_detail_urls_exposed": 0,
+        "detail_urls_recovered_after_postback": 0,
+        "detail_url_samples": [],
+        "pages": [
+          {
+            "aid": 1116,
+            "date": "2019-03-08",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1092,
+            "date": "2019-12-16",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1091,
+            "date": "2019-11-04",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1090,
+            "date": "2019-09-23",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1089,
+            "date": "2019-07-17",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1088,
+            "date": "2019-05-29",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1087,
+            "date": "2019-04-02",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1086,
+            "date": "2019-02-19",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1086",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1085,
+            "date": "2018-11-29",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1084,
+            "date": "2018-09-27",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1083,
+            "date": "2018-08-01",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1082,
+            "date": "2018-06-07",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1081,
+            "date": "2018-04-12",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1080,
+            "date": "2018-02-14",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1073,
+            "date": "2018-12-11",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1072,
+            "date": "2018-11-26",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1071,
+            "date": "2018-09-26",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1070,
+            "date": "2018-07-24",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1069,
+            "date": "2018-06-18",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1068,
+            "date": "2018-05-09",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1067,
+            "date": "2018-03-26",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1066,
+            "date": "2018-02-13",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1047,
+            "date": "2017-12-11",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1046,
+            "date": "2017-11-06",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1045,
+            "date": "2017-09-25",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1045",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1044,
+            "date": "2017-07-24",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1044",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1043,
+            "date": "2017-06-19",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1043",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1037,
+            "date": "2017-11-30",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1037",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1036,
+            "date": "2017-09-21",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1036",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1035,
+            "date": "2017-07-27",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1035",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1034,
+            "date": "2017-06-08",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1034",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1033,
+            "date": "2017-04-27",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1033",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          },
+          {
+            "aid": 1032,
+            "date": "2017-02-16",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1032",
+            "direct_detail_urls": [],
+            "postbacks_identified": 0,
+            "postbacks_replayed": 0,
+            "replays": []
+          }
+        ],
+        "errors": []
+      },
+      "propertyauctions_postback_last_blocker": {
+        "at": "2026-09-12T19:03:30.743218+00:00",
+        "route": "propertyauctions-aspnet-postback-replay",
+        "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=<recovered Savills AID> ASP.NET __doPostBack replay",
+        "message": "Replayed 0 non-login ASP.NET controls across 33 recovered Savills catalogues; 0 responses changed materially, 0 redirected, but 0 PID/LotDetails/property-detail URLs were exposed.",
+        "next_safe_route": "Use the recovered AID/date/lot/location/result tuples as exact public-index fingerprints and probe legacy PropertyAuctions detail URL parameter namespaces (PID/propertyid/lotid) without arbitrary numeric cutoffs, retaining only candidates that validate back to the same catalogue tuple and first-party Savills evidence."
       }
     }
   }

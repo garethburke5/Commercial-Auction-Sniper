@@ -1,1855 +1,311 @@
 {
-  "at": "2026-09-12T19:02:38.480874+00:00",
-  "route": "propertyauctions-legacy-html-detail-identifier-mining",
+  "at": "2026-09-12T19:03:30.743218+00:00",
+  "route": "propertyauctions-aspnet-postback-replay",
   "seed_catalogues": 33,
   "catalogues_fetched": 33,
-  "detail_urls_exposed": 0,
-  "postback_targets_exposed": 165,
-  "identifier_inputs_exposed": 11,
+  "postbacks_replayed": 0,
+  "materially_changed_responses": 0,
+  "redirected_responses": 0,
+  "direct_detail_urls_exposed": 0,
+  "detail_urls_recovered_after_postback": 0,
   "detail_url_samples": [],
-  "postback_samples": [
-    {
-      "aid": 1116,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1116,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1116,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1116,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1116,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1092,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1092,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1092,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1092,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1092,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1091,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1091,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1091,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1091,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1091,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1090,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1090,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1090,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1090,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1090,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1089,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1089,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1089,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1089,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1089,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1088,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1088,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1088,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1088,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1088,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1087,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1087,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1087,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1087,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1087,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1086,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1086,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1086,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1086,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1086,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1085,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1085,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1085,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1085,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1085,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1084,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1084,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1084,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1084,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1084,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1083,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1083,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1083,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1083,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1083,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1082,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1082,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1082,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1082,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1082,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1081,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1081,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1081,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1081,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1081,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1080,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1080,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1080,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1080,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1080,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1073,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1073,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1073,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1073,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1073,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1072,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1072,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1072,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1072,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1072,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1071,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1071,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1071,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1071,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1071,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1070,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1070,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1070,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1070,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1070,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1069,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1069,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1069,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1069,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1069,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1068,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1068,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1068,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1068,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1068,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1067,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1067,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1067,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1067,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1067,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1066,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1066,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1066,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1066,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1066,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1047,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1047,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1047,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1047,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1047,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1046,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1046,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1046,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1046,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1046,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1045,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1045,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1045,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1045,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1045,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1044,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1044,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1044,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1044,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1044,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1043,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1043,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1043,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1043,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1043,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1037,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1037,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1037,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1037,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1037,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1036,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1036,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1036,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1036,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1036,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    },
-    {
-      "aid": 1035,
-      "target": "ctl00$loginStatus1$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1035,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-      "argument": ""
-    },
-    {
-      "aid": 1035,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-      "argument": ""
-    },
-    {
-      "aid": 1035,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-      "argument": ""
-    },
-    {
-      "aid": 1035,
-      "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-      "argument": ""
-    }
-  ],
-  "identifier_input_samples": [
-    {
-      "aid": 1091,
-      "name": "__VIEWSTATE",
-      "value": "0iJ1GY58fLu2aqQrkngbJGYL5yQgG9Rt+z+NS8fp3VGMPxvsf9an0AKt/EWB4X/R3QiXbmjhjl8Qx6VkwrEuXrm5vPwOl+a/H+yQevbzYKWfebGvkEOJ3SP/O5S+v6lDvJf77e3PKHqu2zzSHV1rpTxBoEy9eRooWPDoJ0d4tDSZiLWuq8hFOudRKFLz4y7rDEz0cW2CJ8tAMmuh3DHF3Her64Ia3U+QjX/uWbFggBm+LzpbUThPUrRaWyZK2ASm8g4dYuL3fdTkZABMKj8wVDXH2WCcurij/r8uKNIdjywR",
-      "type": "hidden"
-    },
-    {
-      "aid": 1087,
-      "name": "__VIEWSTATE",
-      "value": "tcfF5TXhAugVjPA2eOClUISJZWxuxQ7m8BSINfI3zdIO9LefZs60191YNkACxFJza2DGbagK/rSblLBWBqKxNtzv0kqE52ne/QfFavBG6GbeeHJbkVucTbZjf/RdQTZuhzu4I3gDsf7AYutXISvhuaqeVN0kknC3607+uGZ5tjshghtJIf9b2AEj4AL1Rm5vl8/qKza+p7LB5pna+Vl8CD5k1qxo/J0Z36SiT+XQXzFPLUlkjSMay1UK2uDH70Axs6bRuQ6zyWMNYQBo4uiipCuhsoxzVBpi81GEIU0d2F/Q",
-      "type": "hidden"
-    },
-    {
-      "aid": 1086,
-      "name": "__VIEWSTATE",
-      "value": "t8OEvAbLPDRWJG0ZkoYjxhYS3t1Uxm5XZfRVGpVKspTLfsdT09ZNnDvHLthjCU95nf/SNiaQZ4776MgG1lxAuUx5LE48wkN+Oi6YCUJ5VSVwLTk7gU0yeXyhxBVo6bPS8NrmUHd21S9W5B06JuXxZp+tMgYluRPnZsAndNr/jHsTblm9LLHsTkYydOkDqbuFR6rXBeUMt+zC8o8FxucvsmcqUgpoHShDoP77YYWY6cnduyFS1j62FUTbIxwCL7+VWecpY8IRiQOsdv9fE2ZDJl3NVAvAT5PMTHwDbouCVmjZ",
-      "type": "hidden"
-    },
-    {
-      "aid": 1081,
-      "name": "__VIEWSTATE",
-      "value": "KU3RbRI32cmh6jeZALi775vz5Z6waNyz5SLzwc7g6rc4gJZNBQ1pCfLWvA9IhaVWFNjjlMGs1LigBzUjQydPuXnaZsk71fE3dYygRgrzE/3/6rrD9NfGBBFGgKKbCJH7v5x+jZE4WG8kJTwJuvQWxbVgp34NLWAopSlymYEMyqqklRWG0mgd1NMgsC0YDNqVsc+iN8pUpiNp8chjulLgGOO6E1VDoMCKblJsMfp8ZHFUlkvLY2iyIUkgly+Ksl3u4qLE6NtBfvZBTYBQADapbt6anel6ISV+4K1EzIQXBDOe",
-      "type": "hidden"
-    },
-    {
-      "aid": 1080,
-      "name": "__VIEWSTATE",
-      "value": "+tIdyPT/wKZ+YlEP3nn4m0xtttvZ559DpkXzxeZrr9tChG8OtKvM6KIP9rW3zPOD+ZK+V6ktX9MxvBffi9CRTMmCnKTEt9RiLbJHGTMEFRpMkzh0bwijSNmLmJxDVSb8H3EKXrCLKoJ5cjecT92aT6bawYRysfQvoS2wO/qku1amL1ojLpoGQ4wd9NOBs64CHACp/V9VGN5KO6EguEdJedCh4ORatUxl006KKY3ICmJAHAUS5KaBLmgpMSGP48J1lF52Nt41V3+kRNL4w7NNBBm+fvbWfQVlEn9iQk9TcDF7",
-      "type": "hidden"
-    },
-    {
-      "aid": 1072,
-      "name": "__VIEWSTATE",
-      "value": "CSdDOL5ZVjW/U2z1cbQG2r3ky7GB5bW/FJgEn6pq9YauMMjb0paeePLbIhA4hy5evjduaIvLfJ7aws+OtMwnFeANIG2KB+c1qX7feaEG5HtJJtJiFeYpNmaMYMDOteDNPQ221h5pnYRhAs4oOuR7KlhEoSBgxiYF2MOtWc/Xm5HD2I/5hcOM9bDa1Q4+FuhXgFfrS0hy3khblUEStiHqj+v4O/x9dyiU/6bopnShtJPhC8jcF7TqPXa5Y2B0YPdgn/L+4iyYcyn2XRazjBX/5Wht/rxrT26rSylokretvqUH",
-      "type": "hidden"
-    },
-    {
-      "aid": 1071,
-      "name": "__VIEWSTATE",
-      "value": "DLfoi1CRv5KFACsdnFzjKA865dXc27qFW2KgSDcCAHE95AgV1X+kBYx1vgA0DgE2G6Icx9yFw08+lmMoa4m1ugMxuCzUMTTugO8uZ97hNTn7HbeNha/qgPoh8kHRoa7MV3DxP5sbFrhJVDOOyIiIMZCPh2cYRXODoFAwgfuZ2efoIajzJjMnhmuIKMukSh04vxSUh0T7Qa4W4n8YJSGXirNf+7jW/ZlSL3mY9dW7eo1ClkPo23wsx21ASeQC1h7pSbdY+mNN/uEhY64LHRzOIYhAJkauTucIL9kaKAtlWxgi",
-      "type": "hidden"
-    },
-    {
-      "aid": 1067,
-      "name": "__VIEWSTATE",
-      "value": "AzMBAoyZrj7DUx35qjorImbHxfK7U/BzI6i/2VuZVer2zNB/+2smfAjVowqmvRW80uV4dFqC8JqZ9862IRdlQ9o42OR41ojWOR1T7MJAnhInpaPl2yE0NwRVZlo3Psfh3MxiFHgSHwF0UBjkh0zG88pmhAAt34Zp8k/LXvcd69oroKd7lJktEY76T6eEaEqDHs3OcrTAv+dSSaGQBupqqnJZaQjViKSvhTdXV27Wr8KSqwF90fy+IrbKgBQX9jIVQehK59OOo9m72rn+uM6aka9vUj6hYl/xFqdQan9gc3oU",
-      "type": "hidden"
-    },
-    {
-      "aid": 1066,
-      "name": "__VIEWSTATE",
-      "value": "J8kzkXuIet0Z9RZxD9sLhE7FhQ0EeK1kHFkpkAqiluL/VimRGdlxqX2+fxYDLo4feM4mXI6T9Yywz+3+SZRAKvXGDARfbe4d+FlaCLasXNt63jVdKEzd/TO1OXSR4LqXZgn6Z/Gg11UU+vGgZNqBPFw8HoAcmmAVltXfXN1GJNoLVWel3N83ydAjjMjSDv8z/WD9OBbz+rr0f2giHMJMWKvPlampfEUiNLFY+MtqujTButz1fLNh55BmEpwtOpIIBPDesVGxzR3pI/iPOMZ9Z7utJvOLQ03oorUaVtkONQbq",
-      "type": "hidden"
-    },
-    {
-      "aid": 1045,
-      "name": "__VIEWSTATE",
-      "value": "5u6DN4zTWd67xa8T5oDMUboLf1cuWnA6yu4UQlVTcLIcbB2ixdopoiFvdP61m+ykmfvcpf/PJxhhXyHCmZftJpJekHjU34MtqgMoacAOc8nm6KsF0RlJvbIReinMQxuhkyclrT0BudtJScjVOO4BaF/DbfMrba1/JHf/n/rgRHlcJ4KMFs6lBCFgQR24/Ax8PcIsYJ5Yw+AN2wXqpzvAV3gvfQB/K6tEy2VCZTLhSY8C8a7TiYtIDGYNQ6Wo4LTHS9pKh284AScTTu6mDWqOSCpIUMXETKoCz3oa89LMrJ66",
-      "type": "hidden"
-    },
-    {
-      "aid": 1044,
-      "name": "__VIEWSTATE",
-      "value": "ikEq7sjxUe0xlmw4TimjbG+ur6So6V17HhmvAfgCvBv+xQWA8TLXj6UgjAco5z0DFrgZr36Dq0X8G2E11XIX1kHcSKBrUQwDAik9lVtvmOTHSbvkrniHPIawqYyVTLI1IVJ30eUZkkCZzPg2L7m8+G68gLyU+xQY6baDFggNbET1lEKhME3T5i4jmakCW8MNR9jYSpVcsypWAf+UEaoY2r9TFR9/IXDtPIl4/O9DlTQ0ej7dyfreqNWub9ZibF1QyYx2wtiovlF3S+yM0HN3M89Zh8mkuyJrMlpk/JuBkZz4",
-      "type": "hidden"
-    }
-  ],
   "pages": [
     {
       "aid": 1116,
       "date": "2019-03-08",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1092,
       "date": "2019-12-16",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1091,
       "date": "2019-11-04",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": [
-        {
-          "name": "__VIEWSTATE",
-          "value": "0iJ1GY58fLu2aqQrkngbJGYL5yQgG9Rt+z+NS8fp3VGMPxvsf9an0AKt/EWB4X/R3QiXbmjhjl8Qx6VkwrEuXrm5vPwOl+a/H+yQevbzYKWfebGvkEOJ3SP/O5S+v6lDvJf77e3PKHqu2zzSHV1rpTxBoEy9eRooWPDoJ0d4tDSZiLWuq8hFOudRKFLz4y7rDEz0cW2CJ8tAMmuh3DHF3Her64Ia3U+QjX/uWbFggBm+LzpbUThPUrRaWyZK2ASm8g4dYuL3fdTkZABMKj8wVDXH2WCcurij/r8uKNIdjywR",
-          "type": "hidden"
-        }
-      ]
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1090,
       "date": "2019-09-23",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1089,
       "date": "2019-07-17",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1088,
       "date": "2019-05-29",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1087,
       "date": "2019-04-02",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": [
-        {
-          "name": "__VIEWSTATE",
-          "value": "tcfF5TXhAugVjPA2eOClUISJZWxuxQ7m8BSINfI3zdIO9LefZs60191YNkACxFJza2DGbagK/rSblLBWBqKxNtzv0kqE52ne/QfFavBG6GbeeHJbkVucTbZjf/RdQTZuhzu4I3gDsf7AYutXISvhuaqeVN0kknC3607+uGZ5tjshghtJIf9b2AEj4AL1Rm5vl8/qKza+p7LB5pna+Vl8CD5k1qxo/J0Z36SiT+XQXzFPLUlkjSMay1UK2uDH70Axs6bRuQ6zyWMNYQBo4uiipCuhsoxzVBpi81GEIU0d2F/Q",
-          "type": "hidden"
-        }
-      ]
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1086,
       "date": "2019-02-19",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1086",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": [
-        {
-          "name": "__VIEWSTATE",
-          "value": "t8OEvAbLPDRWJG0ZkoYjxhYS3t1Uxm5XZfRVGpVKspTLfsdT09ZNnDvHLthjCU95nf/SNiaQZ4776MgG1lxAuUx5LE48wkN+Oi6YCUJ5VSVwLTk7gU0yeXyhxBVo6bPS8NrmUHd21S9W5B06JuXxZp+tMgYluRPnZsAndNr/jHsTblm9LLHsTkYydOkDqbuFR6rXBeUMt+zC8o8FxucvsmcqUgpoHShDoP77YYWY6cnduyFS1j62FUTbIxwCL7+VWecpY8IRiQOsdv9fE2ZDJl3NVAvAT5PMTHwDbouCVmjZ",
-          "type": "hidden"
-        }
-      ]
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1085,
       "date": "2018-11-29",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1084,
       "date": "2018-09-27",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1083,
       "date": "2018-08-01",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1082,
       "date": "2018-06-07",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1081,
       "date": "2018-04-12",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": [
-        {
-          "name": "__VIEWSTATE",
-          "value": "KU3RbRI32cmh6jeZALi775vz5Z6waNyz5SLzwc7g6rc4gJZNBQ1pCfLWvA9IhaVWFNjjlMGs1LigBzUjQydPuXnaZsk71fE3dYygRgrzE/3/6rrD9NfGBBFGgKKbCJH7v5x+jZE4WG8kJTwJuvQWxbVgp34NLWAopSlymYEMyqqklRWG0mgd1NMgsC0YDNqVsc+iN8pUpiNp8chjulLgGOO6E1VDoMCKblJsMfp8ZHFUlkvLY2iyIUkgly+Ksl3u4qLE6NtBfvZBTYBQADapbt6anel6ISV+4K1EzIQXBDOe",
-          "type": "hidden"
-        }
-      ]
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1080,
       "date": "2018-02-14",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": [
-        {
-          "name": "__VIEWSTATE",
-          "value": "+tIdyPT/wKZ+YlEP3nn4m0xtttvZ559DpkXzxeZrr9tChG8OtKvM6KIP9rW3zPOD+ZK+V6ktX9MxvBffi9CRTMmCnKTEt9RiLbJHGTMEFRpMkzh0bwijSNmLmJxDVSb8H3EKXrCLKoJ5cjecT92aT6bawYRysfQvoS2wO/qku1amL1ojLpoGQ4wd9NOBs64CHACp/V9VGN5KO6EguEdJedCh4ORatUxl006KKY3ICmJAHAUS5KaBLmgpMSGP48J1lF52Nt41V3+kRNL4w7NNBBm+fvbWfQVlEn9iQk9TcDF7",
-          "type": "hidden"
-        }
-      ]
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1073,
       "date": "2018-12-11",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1072,
       "date": "2018-11-26",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": [
-        {
-          "name": "__VIEWSTATE",
-          "value": "CSdDOL5ZVjW/U2z1cbQG2r3ky7GB5bW/FJgEn6pq9YauMMjb0paeePLbIhA4hy5evjduaIvLfJ7aws+OtMwnFeANIG2KB+c1qX7feaEG5HtJJtJiFeYpNmaMYMDOteDNPQ221h5pnYRhAs4oOuR7KlhEoSBgxiYF2MOtWc/Xm5HD2I/5hcOM9bDa1Q4+FuhXgFfrS0hy3khblUEStiHqj+v4O/x9dyiU/6bopnShtJPhC8jcF7TqPXa5Y2B0YPdgn/L+4iyYcyn2XRazjBX/5Wht/rxrT26rSylokretvqUH",
-          "type": "hidden"
-        }
-      ]
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1071,
       "date": "2018-09-26",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": [
-        {
-          "name": "__VIEWSTATE",
-          "value": "DLfoi1CRv5KFACsdnFzjKA865dXc27qFW2KgSDcCAHE95AgV1X+kBYx1vgA0DgE2G6Icx9yFw08+lmMoa4m1ugMxuCzUMTTugO8uZ97hNTn7HbeNha/qgPoh8kHRoa7MV3DxP5sbFrhJVDOOyIiIMZCPh2cYRXODoFAwgfuZ2efoIajzJjMnhmuIKMukSh04vxSUh0T7Qa4W4n8YJSGXirNf+7jW/ZlSL3mY9dW7eo1ClkPo23wsx21ASeQC1h7pSbdY+mNN/uEhY64LHRzOIYhAJkauTucIL9kaKAtlWxgi",
-          "type": "hidden"
-        }
-      ]
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1070,
       "date": "2018-07-24",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1069,
       "date": "2018-06-18",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1068,
       "date": "2018-05-09",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1067,
       "date": "2018-03-26",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": [
-        {
-          "name": "__VIEWSTATE",
-          "value": "AzMBAoyZrj7DUx35qjorImbHxfK7U/BzI6i/2VuZVer2zNB/+2smfAjVowqmvRW80uV4dFqC8JqZ9862IRdlQ9o42OR41ojWOR1T7MJAnhInpaPl2yE0NwRVZlo3Psfh3MxiFHgSHwF0UBjkh0zG88pmhAAt34Zp8k/LXvcd69oroKd7lJktEY76T6eEaEqDHs3OcrTAv+dSSaGQBupqqnJZaQjViKSvhTdXV27Wr8KSqwF90fy+IrbKgBQX9jIVQehK59OOo9m72rn+uM6aka9vUj6hYl/xFqdQan9gc3oU",
-          "type": "hidden"
-        }
-      ]
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1066,
       "date": "2018-02-13",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": [
-        {
-          "name": "__VIEWSTATE",
-          "value": "J8kzkXuIet0Z9RZxD9sLhE7FhQ0EeK1kHFkpkAqiluL/VimRGdlxqX2+fxYDLo4feM4mXI6T9Yywz+3+SZRAKvXGDARfbe4d+FlaCLasXNt63jVdKEzd/TO1OXSR4LqXZgn6Z/Gg11UU+vGgZNqBPFw8HoAcmmAVltXfXN1GJNoLVWel3N83ydAjjMjSDv8z/WD9OBbz+rr0f2giHMJMWKvPlampfEUiNLFY+MtqujTButz1fLNh55BmEpwtOpIIBPDesVGxzR3pI/iPOMZ9Z7utJvOLQ03oorUaVtkONQbq",
-          "type": "hidden"
-        }
-      ]
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1047,
       "date": "2017-12-11",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1046,
       "date": "2017-11-06",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1045,
       "date": "2017-09-25",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1045",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": [
-        {
-          "name": "__VIEWSTATE",
-          "value": "5u6DN4zTWd67xa8T5oDMUboLf1cuWnA6yu4UQlVTcLIcbB2ixdopoiFvdP61m+ykmfvcpf/PJxhhXyHCmZftJpJekHjU34MtqgMoacAOc8nm6KsF0RlJvbIReinMQxuhkyclrT0BudtJScjVOO4BaF/DbfMrba1/JHf/n/rgRHlcJ4KMFs6lBCFgQR24/Ax8PcIsYJ5Yw+AN2wXqpzvAV3gvfQB/K6tEy2VCZTLhSY8C8a7TiYtIDGYNQ6Wo4LTHS9pKh284AScTTu6mDWqOSCpIUMXETKoCz3oa89LMrJ66",
-          "type": "hidden"
-        }
-      ]
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1044,
       "date": "2017-07-24",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1044",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": [
-        {
-          "name": "__VIEWSTATE",
-          "value": "ikEq7sjxUe0xlmw4TimjbG+ur6So6V17HhmvAfgCvBv+xQWA8TLXj6UgjAco5z0DFrgZr36Dq0X8G2E11XIX1kHcSKBrUQwDAik9lVtvmOTHSbvkrniHPIawqYyVTLI1IVJ30eUZkkCZzPg2L7m8+G68gLyU+xQY6baDFggNbET1lEKhME3T5i4jmakCW8MNR9jYSpVcsypWAf+UEaoY2r9TFR9/IXDtPIl4/O9DlTQ0ej7dyfreqNWub9ZibF1QyYx2wtiovlF3S+yM0HN3M89Zh8mkuyJrMlpk/JuBkZz4",
-          "type": "hidden"
-        }
-      ]
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1043,
       "date": "2017-06-19",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1043",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1037,
       "date": "2017-11-30",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1037",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1036,
       "date": "2017-09-21",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1036",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1035,
       "date": "2017-07-27",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1035",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1034,
       "date": "2017-06-08",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1034",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1033,
       "date": "2017-04-27",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1033",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     },
     {
       "aid": 1032,
       "date": "2017-02-16",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1032",
-      "detail_urls": [],
-      "postbacks": [
-        {
-          "target": "ctl00$loginStatus1$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-          "argument": ""
-        },
-        {
-          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
-          "argument": ""
-        }
-      ],
-      "identifier_inputs": []
+      "direct_detail_urls": [],
+      "postbacks_identified": 0,
+      "postbacks_replayed": 0,
+      "replays": []
     }
   ],
   "errors": []
