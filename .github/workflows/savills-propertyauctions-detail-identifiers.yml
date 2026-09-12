@@ -1,10 +1,5 @@
 name: Savills PropertyAuctions Detail Identifier Recovery
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'savills_propertyauctions_detail_identifier_recovery.py'
-      - '.github/workflows/savills-propertyauctions-detail-identifiers.yml'
   workflow_dispatch:
 permissions:
   contents: write
