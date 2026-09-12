@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T11:44:19.849092+00:00",
+  "updated_at": "2026-09-12T12:01:00.672963+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "LIVE ARCHIVE BLOCKED",
+      "status": "DISCOVERY EXPANSION",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3250,
@@ -4520,7 +4520,7 @@
         "address_clues_seen": 0,
         "next_safe_route": "Use any recovered catalogue address/lot clues to query archived Savills LotDetails/index.php URL captures by exact address fragments and legacy pid/id, then validate against the first-party Savills lot page or archived lot body before persistence."
       },
-      "next_frontier_repair": "savills_public_address_frontier_recovery.py",
+      "next_frontier_repair": "savills_archive_card_identifier_recovery.py",
       "next_frontier_repair_reason": "Mine free web-index results for exact 2014 Savills lot-address snippets and postcode clues without requiring an embedded Savills URL, then use those clues to query archived LotDetails/index.php capture indexes by address and validate any recovered original Savills lot body/page.",
       "newsroom_frontier_last_run": {
         "at": "2026-09-12T11:05:07.173676+00:00",
@@ -8643,6 +8643,93 @@
         "public_index": "https://propertyauctions.io/auctioneers/savills",
         "candidate_count": 0,
         "next_safe_route": "Use discovered public candidate addresses/postcodes to query archived Savills PDFs, cached search documents, and Common Crawl captures address-by-address rather than by dead legacy numeric namespaces."
+      },
+      "hidden_catalogue_id_frontier_last_run": {
+        "at": "2026-09-12T12:01:00.672939+00:00",
+        "route": "current-savills-hidden-catalogue-slug-plus-numeric-id-scan",
+        "dates_attempted": [
+          "2019-11-04",
+          "2019-09-23",
+          "2019-07-17",
+          "2019-05-29",
+          "2019-04-02",
+          "2019-02-19",
+          "2018-12-11",
+          "2018-11-26"
+        ],
+        "max_id": 260,
+        "http_probes": 8,
+        "catalogue_hits": [
+          {
+            "date": "2019-11-04",
+            "auction_id": 1,
+            "catalogue": "https://auctions.savills.co.uk/auctions/4-november-2019-1",
+            "lot_urls": 0
+          },
+          {
+            "date": "2019-09-23",
+            "auction_id": 1,
+            "catalogue": "https://auctions.savills.co.uk/auctions/23-september-2019-1",
+            "lot_urls": 0
+          },
+          {
+            "date": "2019-07-17",
+            "auction_id": 1,
+            "catalogue": "https://auctions.savills.co.uk/auctions/17-july-2019-1",
+            "lot_urls": 0
+          },
+          {
+            "date": "2019-05-29",
+            "auction_id": 1,
+            "catalogue": "https://auctions.savills.co.uk/auctions/29-may-2019-1",
+            "lot_urls": 0
+          },
+          {
+            "date": "2019-04-02",
+            "auction_id": 1,
+            "catalogue": "https://auctions.savills.co.uk/auctions/2-april-2019-1",
+            "lot_urls": 0
+          },
+          {
+            "date": "2019-02-19",
+            "auction_id": 1,
+            "catalogue": "https://auctions.savills.co.uk/auctions/19-february-2019-1",
+            "lot_urls": 0
+          },
+          {
+            "date": "2018-12-11",
+            "auction_id": 1,
+            "catalogue": "https://auctions.savills.co.uk/auctions/11-december-2018-1",
+            "lot_urls": 0
+          },
+          {
+            "date": "2018-11-26",
+            "auction_id": 1,
+            "catalogue": "https://auctions.savills.co.uk/auctions/26-november-2018-1",
+            "lot_urls": 0
+          }
+        ],
+        "commercial_rows_seen": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "errors": []
+      },
+      "hidden_catalogue_id_frontier_last_blocker": {
+        "at": "2026-09-12T12:01:00.672939+00:00",
+        "frontier_dates": [
+          "2019-11-04",
+          "2019-09-23",
+          "2019-07-17",
+          "2019-05-29",
+          "2019-04-02",
+          "2019-02-19",
+          "2018-12-11",
+          "2018-11-26"
+        ],
+        "route": "current-savills-hidden-catalogue-slug-plus-numeric-id-scan",
+        "message": "No unresolved historical date resolved to a surviving current Savills catalogue in the bounded slug+numeric-ID namespace.",
+        "next_safe_route": "Recover archived HTML of the date-index cards and inspect form/action/data attributes for historical catalogue identifiers, then replay any discovered current or legacy first-party routes."
       }
     }
   }
