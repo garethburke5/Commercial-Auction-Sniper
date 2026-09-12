@@ -2,13 +2,6 @@ name: Savills PDF Catalogue Frontier Recovery
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'savills_pdf_catalogue_frontier_recovery.py'
-      - '.github/workflows/savills-pdf-catalogue-frontier-recovery.yml'
-  schedule:
-    - cron: '53 * * * *'
 
 permissions:
   contents: write
