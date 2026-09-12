@@ -1,0 +1,67 @@
+name: Savills Newsroom Frontier Recovery
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'savills_newsroom_frontier_recovery.py'
+      - '.github/workflows/savills-newsroom-frontier.yml'
+  schedule:
+    - cron: '28 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: savills-newsroom-frontier
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Compile
+        run: python -m py_compile savills_newsroom_frontier_recovery.py
+      - name: Recover exact Savills newsroom frontier
+        run: python savills_newsroom_frontier_recovery.py
+      - name: Validate canonical state
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          h=json.loads(Path('data/property_history.json').read_text())
+          s=p['sources']['Savills Auctions']
+          assert s.get('historically_complete') is False
+          assert s.get('newsroom_frontier_last_run'), 'newsroom diagnostic missing'
+          assert any(e.get('source')=='Savills Auctions' for e in h.get('auction_events',[]))
+          print('SAVILLS_EVENTS',sum(1 for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions'))
+          print('NEWSROOM_ADDED',(s.get('newsroom_frontier_last_run') or {}).get('canonical_events_added'))
+          print('FRONTIER',(s.get('newsroom_frontier_last_run') or {}).get('frontier_date'))
+          PY
+      - name: Publish result or exact blocker
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics
+          if ! git diff --cached --quiet; then
+            git commit -m 'Probe Savills newsroom history frontier'
+            for attempt in 1 2 3; do
+              git fetch origin main
+              if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
+              if git push origin HEAD:main; then exit 0; fi
+              sleep $((attempt * 3))
+            done
+            exit 1
+          fi
