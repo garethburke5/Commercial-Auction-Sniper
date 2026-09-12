@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T12:39:31.347668+00:00",
+  "updated_at": "2026-09-12T13:05:13.318213+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "commoncrawl-exact-date-legacy-lot-url-reconstruction",
+      "last_discovery_mode": "wayback-cdx-wildcard-oldest-manifest-date-to-live-savills-validation",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -3444,7 +3444,7 @@
         "next_safe_route": "Query Common Crawl/CDX specifically for the accepted result-document postcodes plus legacy Savills LotDetails/LotList path patterns, then require an exact archived catalogue-date mapping before allowing an undated surviving lot page."
       },
       "wayback_frontier_wildcard_last_run": {
-        "at": "2026-09-12T12:16:37.466001+00:00",
+        "at": "2026-09-12T13:05:13.004306+00:00",
         "route": "wayback-cdx-wildcard-oldest-manifest-date-to-live-savills-validation",
         "target_date": "2014-04-24",
         "target_year": 2014,
@@ -3466,7 +3466,7 @@
         "errors": []
       },
       "wayback_frontier_wildcard_last_blocker": {
-        "at": "2026-09-12T12:16:37.466001+00:00",
+        "at": "2026-09-12T13:05:13.004306+00:00",
         "target_date": "2014-04-24",
         "route": "wayback-cdx-wildcard-oldest-manifest-date-to-live-savills-validation",
         "message": "Wayback wildcard enumeration did not produce a surviving first-party Savills commercial lot page that can be safely persisted.",
