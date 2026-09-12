@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T02:06:52.627114+00:00",
+  "updated_at": "2026-09-12T03:04:32.134600+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "LIVE ARCHIVE BLOCKED",
+      "status": "PUBLIC INDEX BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3250,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "wayback-cdx-pastauctions-venue-lotlist-to-live-savills",
+      "last_discovery_mode": "public-index-address-to-live-savills-first-party",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -4026,7 +4026,58 @@
           "errors": []
         },
         "next_safe_route": "Query public web indexes for legacy Savills pid/aid URL mentions by adjacent dated-auction labels and known old endpoint signatures, then resolve candidate pid URLs directly against surviving Savills first-party pages."
-      }
+      },
+      "public_index_address_last_blocker": {
+        "at": "2026-09-12T03:04:27.799067+00:00",
+        "target_date": "2014-04-24",
+        "message": "Public search indexes did not yield a Savills first-party commercial lot page that could be safely validated for the next oldest known auction date.",
+        "exact_route": "date-scoped public result snippets -> address/postcode extraction -> site:auctions.savills.co.uk exact-term discovery -> live Savills validation",
+        "next_safe_route": "Query historical UK auction-result aggregators by exact auction date for lot/address references, then replay those references against archived Savills pid/index.php URLs and surviving Savills detail pages; never persist third-party facts without first-party validation."
+      },
+      "public_index_address_last_run": {
+        "at": "2026-09-12T03:04:27.799067+00:00",
+        "route": "public-search-index-address-to-live-savills-validation",
+        "target_dates": [
+          "2014-04-24",
+          "2014-05-07"
+        ],
+        "date_runs": [
+          {
+            "date": "2014-04-24",
+            "queries": [
+              "\"24 April 2014\" \"Savills\" auction property UK",
+              "\"Savills Auctions\" \"24 April 2014\" lot",
+              "\"Savills\" \"24 April 2014\" \"guide price\" auction"
+            ],
+            "public_results": 0,
+            "address_or_postcode_terms": [],
+            "direct_savills_candidates": 0,
+            "checked": [],
+            "errors": [],
+            "evidence_samples": [],
+            "secondary_index_results": []
+          },
+          {
+            "date": "2014-05-07",
+            "queries": [
+              "\"7 May 2014\" \"Savills\" auction property UK",
+              "\"Savills Auctions\" \"7 May 2014\" lot",
+              "\"Savills\" \"7 May 2014\" \"guide price\" auction"
+            ],
+            "public_results": 0,
+            "address_or_postcode_terms": [],
+            "direct_savills_candidates": 0,
+            "checked": [],
+            "errors": [],
+            "evidence_samples": [],
+            "secondary_index_results": []
+          }
+        ],
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250
+      },
+      "public_index_address_last_diagnostic": "data/source_diagnostics/savills_public_index_address_recovery_2026-09-12T0304Z.json"
     }
   }
 }
