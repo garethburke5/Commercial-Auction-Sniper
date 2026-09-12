@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T10:15:24.944711+00:00",
+  "updated_at": "2026-09-12T10:17:44.176859+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "live-archive-hidden-form-script-postback-id-recovery",
+      "last_discovery_mode": "archive-browser-network-api-auction-id-recovery",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -6072,6 +6072,93 @@
         "candidate_ids_probed": 0,
         "frontier_catalogues_matched": [],
         "next_safe_route": "Use dated Savills auction summary text and sale statistics as fingerprints against indexed third-party trade/news documents, extract exact property addresses/lot numbers, then locate surviving first-party Savills detail pages by address/postcode rather than catalogue ID."
+      },
+      "archive_network_api_last_run": {
+        "at": "2026-09-12T10:17:44.176804+00:00",
+        "route": "archive-browser-network-api-auction-id-recovery",
+        "frontier_date": "2014-04-24",
+        "network_requests_captured": 5,
+        "network_urls": [
+          {
+            "url": "https://kit.fontawesome.com/d5f8826c15/72566876/kit-upload.css",
+            "status": 200,
+            "type": "fetch",
+            "content_type": "text/css"
+          },
+          {
+            "url": "https://ka-p.fontawesome.com/releases/v6.7.2/css/pro-v4-font-face.min.css?token=d5f8826c15",
+            "status": 200,
+            "type": "fetch",
+            "content_type": "text/css"
+          },
+          {
+            "url": "https://ka-p.fontawesome.com/releases/v6.7.2/css/pro-v4-shims.min.css?token=d5f8826c15",
+            "status": 200,
+            "type": "fetch",
+            "content_type": "text/css"
+          },
+          {
+            "url": "https://ka-p.fontawesome.com/releases/v6.7.2/css/pro.min.css?token=d5f8826c15",
+            "status": 200,
+            "type": "fetch",
+            "content_type": "text/css"
+          },
+          {
+            "url": "https://ka-p.fontawesome.com/releases/v6.7.2/css/pro-v5-font-face.min.css?token=d5f8826c15",
+            "status": 200,
+            "type": "fetch",
+            "content_type": "text/css"
+          }
+        ],
+        "frontier_payload_matches": [],
+        "script_urls": [
+          "https://auctions.savills.co.uk/templates/savills/js/jquery.min.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/vue.prod.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/vuex.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/vue-resource.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/websocket-wrapper.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/lodash.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/moment-timezone.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/touchpunch.js",
+          "https://auctions.savills.co.uk/templates/savills/js/slick.min.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/moment.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/jqueryui.js",
+          "https://auctions.savills.co.uk/templates/savills/js/savills-core-v1.5.js",
+          "https://www.googletagmanager.com/gtag/js?id=G-M0D61N4Y4X&cx=c&gtm=4e6992",
+          "https://www.googletagmanager.com/gtag/js?id=G-DH58YLS8J6&cx=c&gtm=4e6992",
+          "https://www.googletagmanager.com/gtm.js?id=GTM-5MMKRB5",
+          "https://kit.fontawesome.com/d5f8826c15.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/vue.prod.js",
+          "https://auctions.savills.co.uk/templates/savills/js/jquery.min.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/vuex.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/vue-resource.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/moment.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/moment-timezone.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/websocket-wrapper.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/lodash.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/jqueryui.js",
+          "https://auctions.savills.co.uk/libraries/vuejs/touchpunch.js",
+          "https://auctions.savills.co.uk/templates/savills/js/slick.min.js",
+          "https://auctions.savills.co.uk/templates/savills/js/savills-core-v1.5.js"
+        ],
+        "script_clues": [],
+        "candidate_endpoints": [],
+        "endpoint_frontier_matches": [],
+        "candidate_auction_ids": [],
+        "validated_frontier_catalogues": [],
+        "commercial_rows_seen": 0,
+        "detail_errors": [],
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250
+      },
+      "archive_network_api_last_blocker": {
+        "at": "2026-09-12T10:17:44.176804+00:00",
+        "frontier_date": "2014-04-24",
+        "message": "Browser network/API and JavaScript asset inspection exposed no auction ID that validated to a new 24 April 2014 commercial lot event.",
+        "network_requests_captured": 5,
+        "candidate_auction_ids": [],
+        "next_safe_route": "Use the exact 24 April 2014 sale fingerprint (174 offered, 157 sold, 90%, £37,851,000) plus other 2014 sale statistics to discover indexed third-party contemporary result/campaign pages, extract property addresses/lot numbers, then re-resolve each address against surviving first-party Savills detail URLs."
       }
     }
   }
