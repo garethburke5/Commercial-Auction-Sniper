@@ -2,10 +2,6 @@ name: Auction Sniper Publish Now
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/auction-sniper-publish-now.yml'
 
 permissions:
   contents: write
