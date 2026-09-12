@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T17:02:28.986062+00:00",
+  "updated_at": "2026-09-12T18:00:23.112918+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "bing-rss-propertyauctions-exact-date-to-first-party-savills-validation",
+      "last_discovery_mode": "propertyauctions-resumable-aid-cursor",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -4229,6 +4229,2115 @@
         ],
         "message": "Bing RSS exact-date indexing over unresolved dates immediately older than the verified frontier did not yield a first-party Savills lot page valid for persistence.",
         "next_safe_route": "Enumerate PropertyAuctions Savills listing URLs from its publicly exposed auctioneer/filter application routes or embedded page data rather than search-engine indexes, then validate any recovered first-party Savills source URLs."
+      },
+      "propertyauctions_cursor_state": {
+        "last_run_at": "2026-09-12T18:00:22.742999+00:00",
+        "last_range": {
+          "start": 1116,
+          "end": 1027
+        },
+        "next_aid": 1026,
+        "namespace_floor": 1,
+        "namespace_exhausted": false
+      },
+      "propertyauctions_cursor_last_run": {
+        "at": "2026-09-12T18:00:23.112836+00:00",
+        "route": "propertyauctions-resumable-aid-cursor",
+        "range_scanned": {
+          "start": 1116,
+          "end": 1027
+        },
+        "requests_attempted": 90,
+        "savills_auctions_found": 39,
+        "commercial_mixed_lot_clues": 742,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "savills_auctions": [
+          {
+            "aid": 1116,
+            "date": "2019-03-08",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116",
+            "commercial_mixed_lots": 5,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 8 MAR 2019 - SAVILLS NOT"
+          },
+          {
+            "aid": 1111,
+            "date": "2025-10-30",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1111",
+            "commercial_mixed_lots": 0,
+            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
+          },
+          {
+            "aid": 1110,
+            "date": "2025-10-30",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1110",
+            "commercial_mixed_lots": 0,
+            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
+          },
+          {
+            "aid": 1105,
+            "date": "2025-10-30",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1105",
+            "commercial_mixed_lots": 0,
+            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
+          },
+          {
+            "aid": 1104,
+            "date": "2025-10-30",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1104",
+            "commercial_mixed_lots": 0,
+            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
+          },
+          {
+            "aid": 1103,
+            "date": "2025-10-30",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1103",
+            "commercial_mixed_lots": 0,
+            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
+          },
+          {
+            "aid": 1093,
+            "date": "2025-10-30",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1093",
+            "commercial_mixed_lots": 0,
+            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
+          },
+          {
+            "aid": 1092,
+            "date": "2019-12-16",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092",
+            "commercial_mixed_lots": 18,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 16 DEC 2019 - SAVILLS LO"
+          },
+          {
+            "aid": 1091,
+            "date": "2019-11-04",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091",
+            "commercial_mixed_lots": 28,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 4 NOV 2019 - SAVILLS LON"
+          },
+          {
+            "aid": 1090,
+            "date": "2019-09-23",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090",
+            "commercial_mixed_lots": 50,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 23 SEP 2019 - SAVILLS LO"
+          },
+          {
+            "aid": 1089,
+            "date": "2019-07-17",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089",
+            "commercial_mixed_lots": 34,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 17 JUL 2019 - SAVILLS LO"
+          },
+          {
+            "aid": 1088,
+            "date": "2019-05-29",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088",
+            "commercial_mixed_lots": 37,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 29 MAY 2019 - SAVILLS LO"
+          },
+          {
+            "aid": 1087,
+            "date": "2019-04-02",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087",
+            "commercial_mixed_lots": 34,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 2 APR 2019 - SAVILLS LON"
+          },
+          {
+            "aid": 1086,
+            "date": "2019-02-19",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1086",
+            "commercial_mixed_lots": 27,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 19 FEB 2019 - SAVILLS LO"
+          },
+          {
+            "aid": 1085,
+            "date": "2018-11-29",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+            "commercial_mixed_lots": 13,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 29 NOV 2018 - SAVILLS NO"
+          },
+          {
+            "aid": 1084,
+            "date": "2018-09-27",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+            "commercial_mixed_lots": 10,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 SEP 2018 - SAVILLS NO"
+          },
+          {
+            "aid": 1083,
+            "date": "2018-08-01",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+            "commercial_mixed_lots": 9,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 1 AUG 2018 - SAVILLS NOT"
+          },
+          {
+            "aid": 1082,
+            "date": "2018-06-07",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+            "commercial_mixed_lots": 8,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 7 JUN 2018 - SAVILLS NOT"
+          },
+          {
+            "aid": 1081,
+            "date": "2018-04-12",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+            "commercial_mixed_lots": 7,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 12 APR 2018 - SAVILLS NO"
+          },
+          {
+            "aid": 1080,
+            "date": "2018-02-14",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+            "commercial_mixed_lots": 6,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 14 FEB 2018 - SAVILLS NO"
+          },
+          {
+            "aid": 1073,
+            "date": "2018-12-11",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+            "commercial_mixed_lots": 4,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 11 DEC 2018 - SAVILLS LO"
+          },
+          {
+            "aid": 1072,
+            "date": "2018-11-26",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+            "commercial_mixed_lots": 35,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 NOV 2018 - SAVILLS LO"
+          },
+          {
+            "aid": 1071,
+            "date": "2018-09-26",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+            "commercial_mixed_lots": 37,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 SEP 2018 - SAVILLS LO"
+          },
+          {
+            "aid": 1070,
+            "date": "2018-07-24",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+            "commercial_mixed_lots": 29,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 24 JUL 2018 - SAVILLS LO"
+          },
+          {
+            "aid": 1069,
+            "date": "2018-06-18",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+            "commercial_mixed_lots": 22,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 18 JUN 2018 - SAVILLS LO"
+          },
+          {
+            "aid": 1068,
+            "date": "2018-05-09",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+            "commercial_mixed_lots": 22,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 9 MAY 2018 - SAVILLS LON"
+          },
+          {
+            "aid": 1067,
+            "date": "2018-03-26",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+            "commercial_mixed_lots": 47,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 MAR 2018 - SAVILLS LO"
+          },
+          {
+            "aid": 1066,
+            "date": "2018-02-13",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+            "commercial_mixed_lots": 47,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 13 FEB 2018 - SAVILLS LO"
+          },
+          {
+            "aid": 1047,
+            "date": "2017-12-11",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047",
+            "commercial_mixed_lots": 33,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 11 DEC 2017 - SAVILLS LO"
+          },
+          {
+            "aid": 1046,
+            "date": "2017-11-06",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046",
+            "commercial_mixed_lots": 33,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 6 NOV 2017 - SAVILLS LON"
+          },
+          {
+            "aid": 1045,
+            "date": "2017-09-25",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1045",
+            "commercial_mixed_lots": 38,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 25 SEP 2017 - SAVILLS LO"
+          },
+          {
+            "aid": 1044,
+            "date": "2017-07-24",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1044",
+            "commercial_mixed_lots": 22,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 24 JUL 2017 - SAVILLS LO"
+          },
+          {
+            "aid": 1043,
+            "date": "2017-06-19",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1043",
+            "commercial_mixed_lots": 37,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 19 JUN 2017 - SAVILLS LO"
+          },
+          {
+            "aid": 1037,
+            "date": "2017-11-30",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1037",
+            "commercial_mixed_lots": 5,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 30 NOV 2017 - SAVILLS NO"
+          },
+          {
+            "aid": 1036,
+            "date": "2017-09-21",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1036",
+            "commercial_mixed_lots": 11,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 21 SEP 2017 - SAVILLS NO"
+          },
+          {
+            "aid": 1035,
+            "date": "2017-07-27",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1035",
+            "commercial_mixed_lots": 5,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 JUL 2017 - SAVILLS NO"
+          },
+          {
+            "aid": 1034,
+            "date": "2017-06-08",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1034",
+            "commercial_mixed_lots": 15,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 8 JUN 2017 - SAVILLS NOT"
+          },
+          {
+            "aid": 1033,
+            "date": "2017-04-27",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1033",
+            "commercial_mixed_lots": 9,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 APR 2017 - SAVILLS NO"
+          },
+          {
+            "aid": 1032,
+            "date": "2017-02-16",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1032",
+            "commercial_mixed_lots": 5,
+            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 16 FEB 2017 - SAVILLS NO"
+          }
+        ],
+        "commercial_clue_samples": [
+          {
+            "aid": 1116,
+            "auction_date": "2019-03-08",
+            "lot_number": "7",
+            "property_type": "Vacant Freehold Commercial",
+            "location": "Hull, Humberside",
+            "result": "Available",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116"
+          },
+          {
+            "aid": 1116,
+            "auction_date": "2019-03-08",
+            "lot_number": "18",
+            "property_type": "Part Vacant Freehold Land",
+            "location": "Cumnock, East Ayrshire",
+            "result": "£15,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116"
+          },
+          {
+            "aid": 1116,
+            "auction_date": "2019-03-08",
+            "lot_number": "17",
+            "property_type": "Part Vacant Freehold Apartment",
+            "location": "Mapperley Park, Nottingham",
+            "result": "£80,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116"
+          },
+          {
+            "aid": 1116,
+            "auction_date": "2019-03-08",
+            "lot_number": "11",
+            "property_type": "Investment Freehold House",
+            "location": "Kegworth, Leicestershire",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116"
+          },
+          {
+            "aid": 1116,
+            "auction_date": "2019-03-08",
+            "lot_number": "1",
+            "property_type": "Investment Freehold Terraced House",
+            "location": "Forest Fields, Nottingham",
+            "result": "Sold Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "95",
+            "property_type": "Vacant Freehold Building",
+            "location": "London SW6",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "92",
+            "property_type": "Investment Freehold Detached House",
+            "location": "Ruddington, Nr Nottingham",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "89",
+            "property_type": "Investment Freehold Building",
+            "location": "London E13",
+            "result": "Sold Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "88",
+            "property_type": "Investment Freehold House",
+            "location": "Southam, Warwickshire",
+            "result": "£59,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "86",
+            "property_type": "Vacant Freehold Retail",
+            "location": "London W13",
+            "result": "£1.245M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "81",
+            "property_type": "Investment Freehold Semi-Detached House",
+            "location": "Croydon, Surrey",
+            "result": "Sold Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "69",
+            "property_type": "Part Vacant Freehold Retail",
+            "location": "London SE25",
+            "result": "Available at £320,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "68",
+            "property_type": "Freehold Building",
+            "location": "London SW16",
+            "result": "Sold Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "61",
+            "property_type": "Investment Freehold Building",
+            "location": "Selsdon, Surrey",
+            "result": "£310,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "57",
+            "property_type": "Investment Freehold Leisure",
+            "location": "Fareham, Hampshire",
+            "result": "Available at £600,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "56",
+            "property_type": "Investment Freehold Flat",
+            "location": "London N8",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "50",
+            "property_type": "Part Vacant Freehold Building",
+            "location": "London SW11",
+            "result": "Available at £740,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "48",
+            "property_type": "Vacant Freehold Building",
+            "location": "London NW2",
+            "result": "No Longer Available",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "29",
+            "property_type": "Investment Freehold Building",
+            "location": "London E5",
+            "result": "£995,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "103",
+            "property_type": "Investment Freehold Building",
+            "location": "London W14",
+            "result": "£10,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "102",
+            "property_type": "Investment Freehold Detached House",
+            "location": "Beckenham, Kent",
+            "result": "£35,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "101",
+            "property_type": "Investment Freehold Building",
+            "location": "London N3",
+            "result": "£10,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1092,
+            "auction_date": "2019-12-16",
+            "lot_number": "10",
+            "property_type": "Vacant Freehold Building",
+            "location": "Romford, Essex",
+            "result": "£286,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "98",
+            "property_type": "Vacant Freehold Building",
+            "location": "Selby, North Yorkshire",
+            "result": "£95,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "94",
+            "property_type": "Investment Leasehold Flat",
+            "location": "Harrow, Middlesex",
+            "result": "£154,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "90",
+            "property_type": "Investment Freehold Building",
+            "location": "Whyteleafe, Surrey",
+            "result": "£318,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "89",
+            "property_type": "Part Vacant Freehold Building",
+            "location": "London SW11",
+            "result": "Available at £800,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "87",
+            "property_type": "Investment Freehold House",
+            "location": "Southam, Warwickshire",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "85",
+            "property_type": "Part Vacant Freehold Site",
+            "location": "Canvey Island, Essex",
+            "result": "Available at £2M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "79",
+            "property_type": "Vacant Freehold Building",
+            "location": "London N17",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "70A",
+            "property_type": "Vacant Leasehold Commercial",
+            "location": "Southampton",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "70",
+            "property_type": "Vacant Leasehold Commercial",
+            "location": "Southampton",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "67",
+            "property_type": "Vacant Freehold Office",
+            "location": "Pitsford, Nr Northampton",
+            "result": "£322,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "66",
+            "property_type": "Part Vacant Freehold House",
+            "location": "Uxbridge, Middlesex",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "64",
+            "property_type": "Investment Leasehold Studio",
+            "location": "Croydon, Surrey",
+            "result": "£94,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "60",
+            "property_type": "Investment Freehold Retail",
+            "location": "London SE25",
+            "result": "Available at £325,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "53",
+            "property_type": "Vacant Freehold Building",
+            "location": "London N16",
+            "result": "Available at £1.295M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "51",
+            "property_type": "Vacant Freehold Building",
+            "location": "London SE13",
+            "result": "£564,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "49",
+            "property_type": "Vacant Freehold Building",
+            "location": "London N13",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "44",
+            "property_type": "Vacant Freehold Building",
+            "location": "London NW2",
+            "result": "Available at £1.75M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "43",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London E12",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "42",
+            "property_type": "Investment Leasehold Flat",
+            "location": "Barking, Essex",
+            "result": "£177,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "38",
+            "property_type": "Vacant Freehold Building",
+            "location": "London NW10",
+            "result": "Available at £430,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "35A",
+            "property_type": "Vacant Freehold Office",
+            "location": "Telford, Shropshire",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "34",
+            "property_type": "Vacant Leasehold Office",
+            "location": "London SW14",
+            "result": "Sold Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "33",
+            "property_type": "Part Vacant Freehold Building",
+            "location": "Richmond, Surrey",
+            "result": "£1.055M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "29",
+            "property_type": "Investment Freehold Building",
+            "location": "London WC1A",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "26",
+            "property_type": "Part Vacant Freehold Building",
+            "location": "London SW6",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "110",
+            "property_type": "Investment Freehold Semi-Detached House",
+            "location": "London SE23",
+            "result": "£45,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "109",
+            "property_type": "Investment Leasehold Building",
+            "location": "London E4",
+            "result": "£4,750",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1091,
+            "auction_date": "2019-11-04",
+            "lot_number": "108",
+            "property_type": "Investment Freehold Building",
+            "location": "London W3",
+            "result": "£41,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "96",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London NW3",
+            "result": "£1.07M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "92",
+            "property_type": "Investment Freehold Building",
+            "location": "Clacton-on-Sea, Essex",
+            "result": "£60,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "89B",
+            "property_type": "Investment Freehold Building",
+            "location": "London SE25",
+            "result": "Available at £400,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "89",
+            "property_type": "Vacant Leasehold Office",
+            "location": "Telford, Shropshire",
+            "result": "Available at £3M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "88",
+            "property_type": "Vacant Freehold Building",
+            "location": "Southampton, Hampshire",
+            "result": "Available at £410,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "82A",
+            "property_type": "Part Vacant Freehold Block of Flats",
+            "location": "Croydon, Surrey",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "77",
+            "property_type": "Investment Freehold Land",
+            "location": "Poplar, London E14",
+            "result": "£900,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "73",
+            "property_type": "Investment Freehold Building",
+            "location": "London SW6",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "7",
+            "property_type": "Vacant Freehold Building",
+            "location": "Basildon, Essex",
+            "result": "£450,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "68",
+            "property_type": "Vacant Freehold Retail",
+            "location": "London SW2",
+            "result": "£625,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "66",
+            "property_type": "Part Vacant Freehold Site",
+            "location": "Hounslow, Middlesex",
+            "result": "Available at £1.35M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "65",
+            "property_type": "Vacant Freehold Building",
+            "location": "London SW16",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "64",
+            "property_type": "Vacant Freehold Building",
+            "location": "Hampton Hill, Surrey",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "61",
+            "property_type": "Part Vacant Freehold Building",
+            "location": "London SW14",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "58",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London E12",
+            "result": "Available at £225,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "57",
+            "property_type": "Investment Leasehold Flat",
+            "location": "Barking, Essex",
+            "result": "Available at £190,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "55",
+            "property_type": "Investment Freehold Semi-Detached House",
+            "location": "Croydon, Surrey",
+            "result": "£500,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "53",
+            "property_type": "Vacant Freehold Building",
+            "location": "London SE13",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "51",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London W6",
+            "result": "Available at £525,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "45",
+            "property_type": "Investment Freehold Block of Flats",
+            "location": "Winkfield, Berkshire",
+            "result": "£2.05M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "34",
+            "property_type": "Vacant Freehold Building",
+            "location": "London W8",
+            "result": "£2.05M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "33",
+            "property_type": "Vacant Freehold Building",
+            "location": "London NW4",
+            "result": "£875,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "28",
+            "property_type": "Investment Freehold Retail",
+            "location": "Tonbridge, Kent",
+            "result": "Available at £110,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "21",
+            "property_type": "Part Vacant Freehold Flat",
+            "location": "Thornton Heath, Surrey",
+            "result": "£196,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "162",
+            "property_type": "Investment Leasehold Ground Rent",
+            "location": "London E4",
+            "result": "£5,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "161",
+            "property_type": "Investment Freehold Retail",
+            "location": "Greenford, Middlesex",
+            "result": "£2,600",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "160",
+            "property_type": "Investment Freehold Retail",
+            "location": "London W7",
+            "result": "£2,100",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "159",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "Woodford Green, Essex",
+            "result": "£35,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "158",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "Woodford Green, Essex",
+            "result": "£29,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "157",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "Woodford Green, Essex",
+            "result": "£11,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "156",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "Woodford Green, Essex",
+            "result": "£74,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "155",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "Woodford Green, Essex",
+            "result": "£62,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "154",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "Woodford Green, Essex",
+            "result": "£70,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "153",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "London NW1",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "152",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "London SE19",
+            "result": "£13,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "151",
+            "property_type": "Investment Freehold Semi-Detached House",
+            "location": "Maidenhead, Berkshire",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "150",
+            "property_type": "Investment Freehold House",
+            "location": "Dartford, Kent",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "149",
+            "property_type": "Investment Freehold House",
+            "location": "Dartford, Kent",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "143",
+            "property_type": "Part Vacant Freehold Building",
+            "location": "South Shields, Tyne and Wear",
+            "result": "£23,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "142",
+            "property_type": "Investment Freehold House",
+            "location": "Hull",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "141",
+            "property_type": "Investment Freehold House",
+            "location": "Hull",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "140",
+            "property_type": "Investment Freehold House",
+            "location": "Hull",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "139",
+            "property_type": "Investment Leasehold Flat",
+            "location": "Hull",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "138",
+            "property_type": "Investment Freehold House",
+            "location": "Barton-upon-Humber, Lincolnshire",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "137",
+            "property_type": "Investment Freehold House",
+            "location": "Barton-upon-Humber, Lincolnshire",
+            "result": "Available at £75,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "128",
+            "property_type": "Vacant Freehold Hotel",
+            "location": "Skegness, Lincolnshire",
+            "result": "£180,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "123",
+            "property_type": "Investment Freehold Building",
+            "location": "Sheffield, South Yorkshire",
+            "result": "£120,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "122",
+            "property_type": "Investment Freehold Building",
+            "location": "Sheffield, South Yorkshire",
+            "result": "£120,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "110",
+            "property_type": "Investment Freehold Building",
+            "location": "London NW6",
+            "result": "£1.73M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1090,
+            "auction_date": "2019-09-23",
+            "lot_number": "107",
+            "property_type": "Part Vacant Freehold Building",
+            "location": "London SW11",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "98",
+            "property_type": "Vacant Freehold Building",
+            "location": "Bridlington, Yorkshire",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "96C",
+            "property_type": "Vacant Freehold Building",
+            "location": "Hampton Hill, Surrey",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "96",
+            "property_type": "Investment Leasehold Block of Flats",
+            "location": "Solihull, West Midlands",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "95",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London NW3",
+            "result": "Available at £890,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "93",
+            "property_type": "Part Vacant Freehold House",
+            "location": "London SW15",
+            "result": "£460,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "92",
+            "property_type": "Part Vacant Freehold Building",
+            "location": "Hayes, Middlesex",
+            "result": "£569,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "89",
+            "property_type": "Part Vacant Freehold Building",
+            "location": "South Shields, Tyne & Wear",
+            "result": "£24,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "87",
+            "property_type": "Vacant Freehold Building",
+            "location": "Enfield, Middlesex",
+            "result": "£120,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "86",
+            "property_type": "Vacant Freehold Office",
+            "location": "London N18",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "80",
+            "property_type": "Investment Freehold House",
+            "location": "London SW15",
+            "result": "£368,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "76",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London NW3",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "73",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London W1W",
+            "result": "Available at £775,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "72",
+            "property_type": "Investment Freehold Semi-Detached House",
+            "location": "Peterborough, Cambridgeshire",
+            "result": "Available at £125,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "70",
+            "property_type": "Investment Freehold Building",
+            "location": "Hayes, Middlesex",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "66",
+            "property_type": "Investment Freehold Building",
+            "location": "London E9",
+            "result": "Available at £1.7M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "58",
+            "property_type": "Vacant Freehold Building",
+            "location": "Fareham, Hampshire",
+            "result": "£525,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "55",
+            "property_type": "Investment Leasehold Building",
+            "location": "Chatham, Kent",
+            "result": "£19,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "54",
+            "property_type": "Vacant Freehold Building",
+            "location": "London N17",
+            "result": "Available at £110,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "49",
+            "property_type": "Investment Freehold Semi-Detached House",
+            "location": "Croydon, Surrey",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "47",
+            "property_type": "Vacant Freehold Building",
+            "location": "Uxbridge, Middlesex",
+            "result": "£255,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "43",
+            "property_type": "Investment Freehold Semi-Detached House",
+            "location": "Uxbridge, Middlesex",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "41",
+            "property_type": "Investment Freehold Building",
+            "location": "London SW2",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "40",
+            "property_type": "Investment Freehold Semi-Detached House",
+            "location": "Croydon, Surrey",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "37",
+            "property_type": "Vacant Freehold Building",
+            "location": "Fareham, Hampshire",
+            "result": "Available at £450,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "34",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London SE18",
+            "result": "£112,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "130",
+            "property_type": "Investment Freehold Semi-Detached House",
+            "location": "London N12",
+            "result": "Available at £20,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "126",
+            "property_type": "Investment Freehold Detached Bungalow",
+            "location": "Headley, Surrey",
+            "result": "Sold Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "118",
+            "property_type": "Vacant Freehold Office",
+            "location": "Nateby, Lancashire",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "112",
+            "property_type": "Vacant Freehold Retail Warehouse",
+            "location": "Kirkby-in-Ashfield, Nottinghamshire",
+            "result": "Available at £350,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "111B",
+            "property_type": "Investment Freehold Building",
+            "location": "London SE22",
+            "result": "£26,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "110",
+            "property_type": "Part Vacant Freehold Retail",
+            "location": "London E17",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "104",
+            "property_type": "Part Vacant Leasehold Building",
+            "location": "Surbiton, Surrey",
+            "result": "Available at £280,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "103",
+            "property_type": "Investment Freehold House",
+            "location": "London NW8",
+            "result": "£1.9M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1089,
+            "auction_date": "2019-07-17",
+            "lot_number": "102",
+            "property_type": "Vacant Freehold Building",
+            "location": "Middletown,, Nr Welshpool",
+            "result": "£500,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "95",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London SE3",
+            "result": "Available at £270,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "94",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London SE3",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "93",
+            "property_type": "Investment Leasehold Studio",
+            "location": "London SE3",
+            "result": "Available at £215,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "92",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London NW8",
+            "result": "Available at £1.15m",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "90",
+            "property_type": "Vacant Freehold Office",
+            "location": "Wootton, Kent",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "82",
+            "property_type": "Investment Leasehold Block of Flats",
+            "location": "Weybridge, Surrey",
+            "result": "Available at £400,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "81",
+            "property_type": "Vacant Freehold Building",
+            "location": "Chesham, Buckinghamshire",
+            "result": "Sold Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "80",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London N18",
+            "result": "£114,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "76A",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London NW3",
+            "result": "£1.17M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "76",
+            "property_type": "Investment Freehold Building",
+            "location": "Cheadle, Greater Manchester",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "74",
+            "property_type": "Investment Freehold Building",
+            "location": "London E16",
+            "result": "Available at £40,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "65",
+            "property_type": "Part Vacant Freehold Semi-Detached House",
+            "location": "New Barnet, Hertfordshire",
+            "result": "£550,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "54",
+            "property_type": "Vacant Freehold Building",
+            "location": "London W9",
+            "result": "£2.525M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "53",
+            "property_type": "Vacant Freehold Building",
+            "location": "Romford, Essex",
+            "result": "£1.4M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "48",
+            "property_type": "Part Vacant Freehold Building",
+            "location": "London SE18",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "40",
+            "property_type": "Investment Freehold Building",
+            "location": "London SE23",
+            "result": "Withdrawn Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "32",
+            "property_type": "Vacant Freehold Building",
+            "location": "Addlestone, Surrey",
+            "result": "£235,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "28",
+            "property_type": "Part Vacant Freehold House",
+            "location": "London SW15",
+            "result": "Available at £450,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "161",
+            "property_type": "Investment Leasehold House",
+            "location": "London NW8",
+            "result": "Available at £1.9M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "16",
+            "property_type": "Vacant Freehold Building",
+            "location": "Reading, Berkshire",
+            "result": "£512,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "158",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "London N7",
+            "result": "Available at £22,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "157",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "London SW20",
+            "result": "Withdrawn Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "156",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "London SW20",
+            "result": "£17,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "155",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "London SW20",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "154",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "London SW20",
+            "result": "Available at £3,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "153",
+            "property_type": "Investment Freehold Ground Rent",
+            "location": "London SW17",
+            "result": "£38,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "147",
+            "property_type": "Part Vacant Freehold Building",
+            "location": "South Shields, Tyne & Wear",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "144",
+            "property_type": "Investment Freehold House",
+            "location": "Blackpool, Lancashire",
+            "result": "Available at £75,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "141",
+            "property_type": "Investment Freehold Building",
+            "location": "London W5",
+            "result": "£20,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "139",
+            "property_type": "Vacant Freehold Building",
+            "location": "London NW5",
+            "result": "Sold Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "122",
+            "property_type": "Vacant Freehold Building",
+            "location": "Bishop Auckland, County Durham",
+            "result": "Available at £420,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "120",
+            "property_type": "Vacant Freehold Building",
+            "location": "London N16",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "113",
+            "property_type": "Investment Freehold Building",
+            "location": "St Albans, Hertfordshire",
+            "result": "Available at £715,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "11",
+            "property_type": "Investment Freehold House",
+            "location": "London SE18",
+            "result": "£344,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "103",
+            "property_type": "Investment Freehold Leisure",
+            "location": "Newport, Wales",
+            "result": "Available at £495,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "101",
+            "property_type": "Investment Freehold Terraced House",
+            "location": "London SE22",
+            "result": "Sold Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1088,
+            "auction_date": "2019-05-29",
+            "lot_number": "100",
+            "property_type": "Investment Freehold Building",
+            "location": "Thornton Heath, Surrey",
+            "result": "Sold Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "90",
+            "property_type": "Vacant Freehold Retail",
+            "location": "London SW1P",
+            "result": "£1.58M",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "89",
+            "property_type": "Vacant Freehold Building",
+            "location": "Alderley Edge, Cheshire",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "86",
+            "property_type": "Investment Freehold House",
+            "location": "Manchester",
+            "result": "Available at £60,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "84",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London SE3",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "83",
+            "property_type": "Investment Leasehold Flat",
+            "location": "London SE3",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "82",
+            "property_type": "Investment Leasehold Retail",
+            "location": "London SE1",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "81",
+            "property_type": "Vacant Leasehold Retail",
+            "location": "London SE1",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "80",
+            "property_type": "Vacant Leasehold Retail",
+            "location": "London SE1",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "79",
+            "property_type": "Investment Leasehold Retail",
+            "location": "London SE1",
+            "result": "Withdrawn Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "78",
+            "property_type": "Vacant Leasehold Retail",
+            "location": "London SE1",
+            "result": "Available at £240,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "77",
+            "property_type": "Investment Leasehold Studio",
+            "location": "London SE3",
+            "result": "£212,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "76",
+            "property_type": "Investment Leasehold Studio",
+            "location": "London SE3",
+            "result": "Available at £220,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "72",
+            "property_type": "Vacant Freehold Building",
+            "location": "Gillingham, Kent",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "71",
+            "property_type": "Part Vacant Freehold Building",
+            "location": "Gillingham, Kent",
+            "result": "Refer to Auctioneer",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "70",
+            "property_type": "Part Vacant Freehold Building",
+            "location": "London E3",
+            "result": "£450,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "66",
+            "property_type": "Investment Freehold House",
+            "location": "London SW9",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "43",
+            "property_type": "Investment Freehold Building",
+            "location": "London SW6",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "42",
+            "property_type": "Investment Freehold Building",
+            "location": "London W4",
+            "result": "Sold Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "32",
+            "property_type": "Vacant Freehold Retail",
+            "location": "London NW2",
+            "result": "£950,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "31",
+            "property_type": "Vacant Freehold Building",
+            "location": "Cosham, Nr Portsmouth",
+            "result": "£283,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "30A",
+            "property_type": "Vacant Freehold Building",
+            "location": "London N16",
+            "result": "Withdrawn Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "24",
+            "property_type": "Vacant Freehold Building",
+            "location": "London N4",
+            "result": "Withdrawn",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "19",
+            "property_type": "Vacant Freehold Office",
+            "location": "London W6",
+            "result": "Available at £575,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "14",
+            "property_type": "Investment Freehold Site",
+            "location": "Thornton Heath, Surrey",
+            "result": "Sold Post",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "133",
+            "property_type": "Investment Leasehold Building",
+            "location": "Peacehaven, East Sussex",
+            "result": "Withdrawn Prior",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "132",
+            "property_type": "Investment Freehold Building",
+            "location": "High Wycombe, Buckinghamshire",
+            "result": "£12,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "130",
+            "property_type": "Investment Leasehold Flat",
+            "location": "Leicester, Leicestershire",
+            "result": "Available at £190,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          },
+          {
+            "aid": 1087,
+            "auction_date": "2019-04-02",
+            "lot_number": "129",
+            "property_type": "Vacant Freehold Mixed Use",
+            "location": "Cheltenham, Gloucestershire",
+            "result": "£440,000",
+            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087"
+          }
+        ],
+        "errors": []
+      },
+      "propertyauctions_cursor_last_blocker": {
+        "at": "2026-09-12T18:00:23.112836+00:00",
+        "route": "propertyauctions-resumable-aid-cursor",
+        "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116 down to AID=1027",
+        "message": "Resumable scan completed without unsafe promotion: 39 Savills catalogues and 742 commercial/mixed lot clues recovered; legacy catalogue rows lack full-address/first-party Savills detail evidence required for canonical insertion.",
+        "next_safe_route": "Use recovered AID/date/lot/location tuples to enumerate legacy form actions, __doPostBack targets and PID/detail identifiers, then validate against Savills-owned evidence before insertion."
       }
     }
   }
