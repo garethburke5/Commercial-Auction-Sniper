@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T08:06:53.974392+00:00",
+  "updated_at": "2026-09-12T08:16:53.809696+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "LIVE ARCHIVE BLOCKED",
+      "status": "AGGREGATOR REFERENCE BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3250,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "wayback-broader-savills-domain-pdf-catalogue-clue-recovery",
+      "last_discovery_mode": "auction-reference-index-address-lot-to-legacy-savills-replay",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -4075,7 +4075,7 @@
       },
       "public_index_address_last_diagnostic": "data/source_diagnostics/savills_public_index_address_recovery_2026-09-12T0304Z.json",
       "aggregator_reference_last_run": {
-        "at": "2026-09-12T03:06:59.689336+00:00",
+        "at": "2026-09-12T08:16:53.809272+00:00",
         "route": "auction-reference-index-address-lot-to-legacy-savills-replay",
         "target_date": "2014-04-24",
         "reference_domains": [
@@ -4099,64 +4099,64 @@
         ],
         "reference_urls_seen": [],
         "address_or_postcode_terms": [
-          "G08HR",
-          "N957TR",
-          "U96FT"
+          "CK68TJ",
+          "N41FP",
+          "R8K1AZ"
         ],
         "lot_references": [],
         "replay_queries": [
           {
-            "term": "G08HR",
+            "term": "CK68TJ",
             "lot": null,
-            "query": "site:auctions.savills.co.uk \"G08HR\" \"24 April 2014\"",
+            "query": "site:auctions.savills.co.uk \"CK68TJ\" \"24 April 2014\"",
             "savills_url_hits": 0
           },
           {
-            "term": "G08HR",
+            "term": "CK68TJ",
             "lot": null,
-            "query": "\"auctions.savills.co.uk/index.php\" \"G08HR\" \"view=commission\"",
+            "query": "\"auctions.savills.co.uk/index.php\" \"CK68TJ\" \"view=commission\"",
             "savills_url_hits": 0
           },
           {
-            "term": "G08HR",
+            "term": "CK68TJ",
             "lot": null,
-            "query": "\"auctions.savills.co.uk/Auctions/LotDetails\" \"G08HR\"",
+            "query": "\"auctions.savills.co.uk/Auctions/LotDetails\" \"CK68TJ\"",
             "savills_url_hits": 0
           },
           {
-            "term": "N957TR",
+            "term": "N41FP",
             "lot": null,
-            "query": "site:auctions.savills.co.uk \"N957TR\" \"24 April 2014\"",
+            "query": "site:auctions.savills.co.uk \"N41FP\" \"24 April 2014\"",
             "savills_url_hits": 0
           },
           {
-            "term": "N957TR",
+            "term": "N41FP",
             "lot": null,
-            "query": "\"auctions.savills.co.uk/index.php\" \"N957TR\" \"view=commission\"",
+            "query": "\"auctions.savills.co.uk/index.php\" \"N41FP\" \"view=commission\"",
             "savills_url_hits": 0
           },
           {
-            "term": "N957TR",
+            "term": "N41FP",
             "lot": null,
-            "query": "\"auctions.savills.co.uk/Auctions/LotDetails\" \"N957TR\"",
+            "query": "\"auctions.savills.co.uk/Auctions/LotDetails\" \"N41FP\"",
             "savills_url_hits": 0
           },
           {
-            "term": "U96FT",
+            "term": "R8K1AZ",
             "lot": null,
-            "query": "site:auctions.savills.co.uk \"U96FT\" \"24 April 2014\"",
+            "query": "site:auctions.savills.co.uk \"R8K1AZ\" \"24 April 2014\"",
             "savills_url_hits": 0
           },
           {
-            "term": "U96FT",
+            "term": "R8K1AZ",
             "lot": null,
-            "query": "\"auctions.savills.co.uk/index.php\" \"U96FT\" \"view=commission\"",
+            "query": "\"auctions.savills.co.uk/index.php\" \"R8K1AZ\" \"view=commission\"",
             "savills_url_hits": 0
           },
           {
-            "term": "U96FT",
+            "term": "R8K1AZ",
             "lot": null,
-            "query": "\"auctions.savills.co.uk/Auctions/LotDetails\" \"U96FT\"",
+            "query": "\"auctions.savills.co.uk/Auctions/LotDetails\" \"R8K1AZ\"",
             "savills_url_hits": 0
           }
         ],
@@ -4166,17 +4166,39 @@
         "savills_events_before": 3250,
         "savills_events_after": 3250,
         "errors": [
+          "https://html.duckduckgo.com/html/ :: RemoteDisconnected: Remote end closed connection without response",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
           "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
           "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
           "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
           "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
           "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
           "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
+          "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
+          "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
+          "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests",
+          "https://html.duckduckgo.com/html/ :: URLError: <urlopen error timed out>",
           "https://www.google.com/search :: HTTPError: HTTP Error 429: Too Many Requests"
         ]
       },
       "aggregator_reference_last_blocker": {
-        "at": "2026-09-12T03:06:59.689336+00:00",
+        "at": "2026-09-12T08:16:53.809272+00:00",
         "target_date": "2014-04-24",
         "route": "auction-reference-index-address-lot-to-legacy-savills-replay",
         "message": "Historical auction-reference indexes yielded no candidate that resolved to a validated first-party Savills commercial lot for the next oldest known auction date.",
@@ -4187,7 +4209,7 @@
         },
         "next_safe_route": "Use the exact 24 April 2014 Savills auction date to mine archived Savills brochure/catalogue PDFs and WARC response bodies for lot addresses and pid/id references, then persist only archived/live Savills first-party lot evidence."
       },
-      "aggregator_reference_last_diagnostic": "data/source_diagnostics/savills_aggregator_reference_2014-04-24_2026-09-12T0306Z.json",
+      "aggregator_reference_last_diagnostic": "data/source_diagnostics/savills_aggregator_reference_2014-04-24_2026-09-12T0816Z.json",
       "exact_2014_warc_probe_last_run": {
         "at": "2026-09-12T04:03:16.429335+00:00",
         "route": "bounded-commoncrawl-2014-pastauctions-venue-lotlist-body-probe",
