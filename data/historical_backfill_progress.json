@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T13:06:28.631363+00:00",
+  "updated_at": "2026-09-12T14:02:17.501121+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "propertyauctions-indexed-savills-image-id-to-first-party-lot-reconstruction",
+      "last_discovery_mode": "propertyauctions-unresolved-date-chronology-mapping-to-first-party-savills-validation",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -3625,6 +3625,159 @@
         "route": "propertyauctions-indexed-savills-image-id-to-first-party-lot-reconstruction",
         "message": "Indexed PropertyAuctions Savills clues did not yet yield a lot-specific first-party Savills page valid for canonical persistence.",
         "next_safe_route": "Expand the same ID-clue extraction across later unresolved 2014-2019 manifest dates to learn historical Savills auction-id/date mappings, then replay those mappings backward against the oldest unresolved date."
+      },
+      "propertyauctions_chronology_last_run": {
+        "at": "2026-09-12T14:02:17.501091+00:00",
+        "route": "propertyauctions-unresolved-date-chronology-mapping-to-first-party-savills-validation",
+        "dates_considered": 12,
+        "dates_scanned": 12,
+        "date_runs": [
+          {
+            "target_date": "2019-11-04",
+            "indexed_listing_urls": 0,
+            "matched_target_pages": 0,
+            "image_clues": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "learned_auction_ids": [],
+            "errors": [],
+            "rejected_candidate_samples": []
+          },
+          {
+            "target_date": "2019-09-23",
+            "indexed_listing_urls": 0,
+            "matched_target_pages": 0,
+            "image_clues": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "learned_auction_ids": [],
+            "errors": [],
+            "rejected_candidate_samples": []
+          },
+          {
+            "target_date": "2019-07-17",
+            "indexed_listing_urls": 0,
+            "matched_target_pages": 0,
+            "image_clues": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "learned_auction_ids": [],
+            "errors": [],
+            "rejected_candidate_samples": []
+          },
+          {
+            "target_date": "2019-05-29",
+            "indexed_listing_urls": 0,
+            "matched_target_pages": 0,
+            "image_clues": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "learned_auction_ids": [],
+            "errors": [],
+            "rejected_candidate_samples": []
+          },
+          {
+            "target_date": "2019-04-02",
+            "indexed_listing_urls": 0,
+            "matched_target_pages": 0,
+            "image_clues": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "learned_auction_ids": [],
+            "errors": [],
+            "rejected_candidate_samples": []
+          },
+          {
+            "target_date": "2019-02-19",
+            "indexed_listing_urls": 0,
+            "matched_target_pages": 0,
+            "image_clues": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "learned_auction_ids": [],
+            "errors": [],
+            "rejected_candidate_samples": []
+          },
+          {
+            "target_date": "2018-12-11",
+            "indexed_listing_urls": 0,
+            "matched_target_pages": 0,
+            "image_clues": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "learned_auction_ids": [],
+            "errors": [],
+            "rejected_candidate_samples": []
+          },
+          {
+            "target_date": "2018-11-26",
+            "indexed_listing_urls": 0,
+            "matched_target_pages": 0,
+            "image_clues": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "learned_auction_ids": [],
+            "errors": [],
+            "rejected_candidate_samples": []
+          },
+          {
+            "target_date": "2018-09-26",
+            "indexed_listing_urls": 0,
+            "matched_target_pages": 0,
+            "image_clues": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "learned_auction_ids": [],
+            "errors": [],
+            "rejected_candidate_samples": []
+          },
+          {
+            "target_date": "2018-07-24",
+            "indexed_listing_urls": 0,
+            "matched_target_pages": 0,
+            "image_clues": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "learned_auction_ids": [],
+            "errors": [],
+            "rejected_candidate_samples": []
+          },
+          {
+            "target_date": "2018-06-18",
+            "indexed_listing_urls": 0,
+            "matched_target_pages": 0,
+            "image_clues": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "learned_auction_ids": [],
+            "errors": [],
+            "rejected_candidate_samples": []
+          },
+          {
+            "target_date": "2018-05-09",
+            "indexed_listing_urls": 0,
+            "matched_target_pages": 0,
+            "image_clues": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "learned_auction_ids": [],
+            "errors": [],
+            "rejected_candidate_samples": []
+          }
+        ],
+        "learned_auction_ids_by_date": {},
+        "live_checked": 0,
+        "commercial_rows_seen": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250
+      },
+      "propertyauctions_chronology_last_blocker": {
+        "at": "2026-09-12T14:02:17.501091+00:00",
+        "route": "propertyauctions-unresolved-date-chronology-mapping-to-first-party-savills-validation",
+        "message": "Sweeping later unresolved 2014-2019 dates did not yet produce a lot-specific first-party Savills page valid for canonical persistence.",
+        "learned_auction_ids_by_date": {},
+        "next_safe_route": "Bypass search engines entirely: crawl PropertyAuctions robots/sitemaps or listing pagination directly, extract Savills image auction/lot IDs at scale, build an auction-id/date chronology, then validate reconstructed lots only against first-party Savills pages."
       }
     }
   }
