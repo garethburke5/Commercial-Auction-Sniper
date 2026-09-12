@@ -14,7 +14,7 @@ import json
 import re
 from datetime import date, datetime, timezone
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 from xml.etree import ElementTree as ET
 
@@ -35,7 +35,6 @@ ROOTS = [
 NEWS_MARKERS = ('/insight-and-opinion/savills-news/', '/research_articles/')
 COMMERCIAL = re.compile(r'commercial|retail|shop\b|office\b|industrial|warehouse|investment|pub\b|public house|hotel|restaurant|cafe|development site|mixed[- ]use', re.I)
 LOT = re.compile(r'\bLot\s*(?:#|No\.?\s*)?(\d{1,4}[A-Za-z]?)\b', re.I)
-MONEY = re.compile(r'£\s*([\d,]+(?:\.\d+)?)')
 POSTCODE = re.compile(r'\b(?:GIR ?0AA|[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2})\b', re.I)
 
 
@@ -66,7 +65,6 @@ def sitemap_urls(url: str, seen: set[str], out: set[str], errors: list[str], dep
         return
     locs = [el.text.strip() for el in root.iter() if el.tag.lower().endswith('loc') and el.text]
     if root.tag.lower().endswith('sitemapindex'):
-        # News/article sitemaps first; broad child maps are still bounded by depth.
         locs.sort(key=lambda x: ('news' not in x.lower() and 'article' not in x.lower(), x))
         for child in locs[:120]:
             sitemap_urls(child, seen, out, errors, depth + 1)
@@ -90,7 +88,6 @@ def article_text(url: str):
 
 
 def address_window(text: str, lot_match: re.Match) -> str | None:
-    # Prefer a postcode-bearing phrase close to the lot marker; never manufacture one.
     start = max(0, lot_match.start() - 180)
     end = min(len(text), lot_match.end() + 520)
     window = text[start:end]
@@ -150,15 +147,13 @@ def rows_from_article(url: str, text: str, target: date) -> list[dict]:
 def run() -> int:
     progress = load_progress()
     state = progress.setdefault('sources', {}).setdefault(SOURCE_KEY, {})
-    target = oldest_unresolved_date(state)
+    target = oldest_unresolved_date()
     if not target:
         target = date(2014, 4, 24)
     urls, seen, errors = set(), set(), []
     for root in ROOTS:
         sitemap_urls(root, seen, urls, errors)
 
-    # Focus on period-relevant URLs first, but allow undated newsroom slugs because old Savills URLs
-    # often contain numeric article IDs rather than dates.
     candidates = sorted(urls, key=lambda u: (str(target.year) not in u, u))[:2500]
     matched_articles, rows = [], []
     for url in candidates:
