@@ -1,0 +1,24 @@
+{
+  "at": "2026-09-12T13:06:28.631326+00:00",
+  "route": "propertyauctions-indexed-savills-image-id-to-first-party-lot-reconstruction",
+  "target_date": "2014-04-24",
+  "queries": [
+    "site:propertyauctions.io/listings \"Savills\" \"Auction Date\" \"24 April 2014\"",
+    "site:propertyauctions.io/listings \"Savills plc\" \"24 April 2014\"",
+    "site:propertyauctions.io/listings \"Savills Auctions\" \"24 April 2014\" commercial",
+    "site:propertyauctions.io/listings \"Savills\" \"24 April 2014\" \"Mixed Use\""
+  ],
+  "indexed_listing_urls": 0,
+  "matched_savills_target_pages": 0,
+  "first_party_image_clues": 0,
+  "candidate_first_party_urls": 0,
+  "live_checked": 0,
+  "commercial_rows_seen": 0,
+  "canonical_events_added": 0,
+  "savills_events_before": 3250,
+  "savills_events_after": 3250,
+  "matching_samples": [],
+  "rejected_page_samples": [],
+  "rejected_candidate_samples": [],
+  "errors": []
+}
