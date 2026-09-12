@@ -1,10 +1,5 @@
 name: Savills PropertyAuctions Cursor Recovery
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'savills_propertyauctions_cursor_recovery.py'
-      - '.github/workflows/savills-propertyauctions-cursor.yml'
   workflow_dispatch:
 permissions:
   contents: write
