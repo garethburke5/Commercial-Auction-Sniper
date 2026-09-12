@@ -1,10 +1,12 @@
 {
-  "at": "2026-09-12T19:03:30.743218+00:00",
-  "route": "propertyauctions-aspnet-postback-replay",
+  "at": "2026-09-12T19:06:45.054749+00:00",
+  "route": "propertyauctions-persisted-aspnet-postback-replay",
   "seed_catalogues": 33,
   "catalogues_fetched": 33,
-  "postbacks_replayed": 0,
-  "materially_changed_responses": 0,
+  "persisted_postback_targets_seeded": 132,
+  "postbacks_attempted": 132,
+  "postbacks_replayed": 132,
+  "materially_changed_responses": 98,
   "redirected_responses": 0,
   "direct_detail_urls_exposed": 0,
   "detail_urls_recovered_after_postback": 0,
@@ -15,297 +17,1551 @@
       "date": "2019-03-08",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 8 MAR 2019 - SAVILLS NOTTINGHAM Offered: 20 Sold: 12 Sold %: 60 Total disclosed value: £1.344M Lot Type Location Result 1 Investment Freehold Terraced House Forest Fields, Nottingham Sold Prior 2 Vacant Freehold Land March, Cambridgeshire Sold Prior 3 Vacant Freehold Land Swadlincote, Leicestershire Sol"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 8 MAR 2019 - SAVILLS NOTTINGHAM Offered: 20 Sold: 12 Sold %: 60 Total disclosed value: £1.344M Lot Type Location Result 11 Investment Freehold House Kegworth, Leicestershire Sold Post 9 Vacant Freehold Semi-Detached House Carrington, Nottingham Available 12 Vacant Freehold Semi-Detached House Wilford Vi"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 8 MAR 2019 - SAVILLS NOTTINGHAM Offered: 20 Sold: 12 Sold %: 60 Total disclosed value: £1.344M Lot Type Location Result 4 Vacant Freehold Flat 325 Woodborough Road, Nottingham Sold Post 21 Vacant Freehold Land Attleborough, Norfolk £200,000 20 Vacant Freehold Semi-Detached House Blidworth, Nottinghamshi"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1116",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 8 MAR 2019 - SAVILLS NOTTINGHAM Offered: 20 Sold: 12 Sold %: 60 Total disclosed value: £1.344M Lot Type Location Result 5 Vacant Freehold Detached Bungalow Carlton, Nottingham Available 7 Vacant Freehold Commercial Hull, Humberside Available 8 Vacant Freehold Flat Eastwood, Nottinghamshire Available 9 V"
+        }
+      ]
     },
     {
       "aid": 1092,
       "date": "2019-12-16",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 16 DEC 2019 - SAVILLS LONDON & NATIONAL Offered: 85 Sold: 69 Sold %: 81.18 Total disclosed value: £21.681M Lot Type Location Result 1 Vacant Leasehold Flat London W2 £412,000 2 Vacant Leasehold Flat London NW1 Withdrawn 3 Vacant Leasehold Flat London SW17 £361,000 4 Vacant Leasehold Flat London E12 £213"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 16 DEC 2019 - SAVILLS LONDON & NATIONAL Offered: 85 Sold: 69 Sold %: 81.18 Total disclosed value: £21.681M Lot Type Location Result 5 Vacant Freehold House Taunton, Somerset £120,000 8 Vacant Freehold House Welling, Kent £315,000 12 Vacant Freehold House Slough, Berkshire £244,000 15 Vacant Freehold Hou"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 16 DEC 2019 - SAVILLS LONDON & NATIONAL Offered: 85 Sold: 69 Sold %: 81.18 Total disclosed value: £21.681M Lot Type Location Result 82 Vacant Freehold Semi-Detached Bungalow Ashtead, Surrey Withdrawn 38 Vacant Freehold Semi-Detached House Barnet, Hertfordshire Withdrawn 55 Vacant Freehold Villa Barringt"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1092",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 16 DEC 2019 - SAVILLS LONDON & NATIONAL Offered: 85 Sold: 69 Sold %: 81.18 Total disclosed value: £21.681M Lot Type Location Result 9 Vacant Leasehold Flat London SE1 No Longer Available 11 Vacant Freehold Site Shepperton, Middlesex No Longer Available 48 Vacant Freehold Building London NW2 No Longer Av"
+        }
+      ]
     },
     {
       "aid": 1091,
       "date": "2019-11-04",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 4 NOV 2019 - SAVILLS LONDON & NATIONAL Offered: 106 Sold: 82 Sold %: 77.36 Total disclosed value: £25.745M Lot Type Location Result 1 Vacant Leasehold Studio London W2 £430,000 2 Vacant Leasehold Flat Teddington, Middlesex £415,000 3 Vacant Leasehold Flat London W9 £385,000 4 Vacant Freehold House Morde"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 4 NOV 2019 - SAVILLS LONDON & NATIONAL Offered: 106 Sold: 82 Sold %: 77.36 Total disclosed value: £25.745M Lot Type Location Result 4 Vacant Freehold House Morden, Surrey £332,500 6 Vacant Freehold House London SE13 £519,000 8 Vacant Freehold House Cambridge, Cambridgeshire £326,000 10 Vacant Freehold H"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 4 NOV 2019 - SAVILLS LONDON & NATIONAL Offered: 106 Sold: 82 Sold %: 77.36 Total disclosed value: £25.745M Lot Type Location Result 91 Vacant Freehold Site Abingdon, Oxfordshire Available at £10,000 42 Investment Leasehold Flat Barking, Essex £177,000 19 Vacant Freehold House Barrington, Nr Cambridge £1"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1091",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 4 NOV 2019 - SAVILLS LONDON & NATIONAL Offered: 106 Sold: 82 Sold %: 77.36 Total disclosed value: £25.745M Lot Type Location Result 32 Vacant Leasehold Flat London NW10 Refer to Auctioneer 114 Vacant Leasehold Flat Bridlington, East Riding of Yorkshire Sold Prior 26 Part Vacant Freehold Building London "
+        }
+      ]
     },
     {
       "aid": 1090,
       "date": "2019-09-23",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 23 SEP 2019 - SAVILLS LONDON & NATIONAL Offered: 139 Sold: 97 Sold %: 69.78 Total disclosed value: £34.157M Lot Type Location Result 1 Vacant Leasehold Flat London W9 £615,000 2 Vacant Freehold House London SE24 Available at £670,000 3 Vacant Freehold Semi-Detached House Surbiton, Surrey Sold Post 4 Vac"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 23 SEP 2019 - SAVILLS LONDON & NATIONAL Offered: 139 Sold: 97 Sold %: 69.78 Total disclosed value: £34.157M Lot Type Location Result 2 Vacant Freehold House London SE24 Available at £670,000 9 Vacant Freehold House Morden, Surrey Withdrawn 11 Vacant Freehold House Ilford, Essex £389,000 15 Vacant Freeho"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 23 SEP 2019 - SAVILLS LONDON & NATIONAL Offered: 139 Sold: 97 Sold %: 69.78 Total disclosed value: £34.157M Lot Type Location Result 133 Vacant Freehold Leisure 2-4 Cobden Avenue, Southampton Sold Prior 97 Vacant Freehold Site Abingdon, Oxfordshire £11,500 67 Vacant Freehold Bungalow Ashford, Middlesex "
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1090",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 23 SEP 2019 - SAVILLS LONDON & NATIONAL Offered: 139 Sold: 97 Sold %: 69.78 Total disclosed value: £34.157M Lot Type Location Result 5 Vacant Leasehold Flat London W9 Refer to Auctioneer 50 Vacant Leasehold Flat London SE4 Refer to Auctioneer 52 Vacant Leasehold House Ottershaw, Surrey Refer to Auctione"
+        }
+      ]
     },
     {
       "aid": 1089,
       "date": "2019-07-17",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 17 JUL 2019 - SAVILLS LONDON & NATIONAL Offered: 131 Sold: 89 Sold %: 67.94 Total disclosed value: £30.052M Lot Type Location Result 1 Vacant Leasehold Flat London SW12 Withdrawn 2 Vacant Leasehold Flat London SW15 £590,000 3 Vacant Leasehold Flat London SW17 £495,000 4 Vacant Freehold House London SE21"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 17 JUL 2019 - SAVILLS LONDON & NATIONAL Offered: 131 Sold: 89 Sold %: 67.94 Total disclosed value: £30.052M Lot Type Location Result 4 Vacant Freehold House London SE21 £660,000 8 Vacant Freehold House London SE20 £410,000 11 Vacant Freehold House High Wycombe, Buckinghamshire £190,000 13 Vacant Freehol"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 17 JUL 2019 - SAVILLS LONDON & NATIONAL Offered: 131 Sold: 89 Sold %: 67.94 Total disclosed value: £30.052M Lot Type Location Result 50 Vacant Freehold Site Abingdon, Oxfordshire Available at £25,000 61 Vacant Leasehold Flat Aylesbury, Buckinghamshire Withdrawn 73C Vacant Leasehold Flat Bedford, Bedford"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1089",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 17 JUL 2019 - SAVILLS LONDON & NATIONAL Offered: 131 Sold: 89 Sold %: 67.94 Total disclosed value: £30.052M Lot Type Location Result 10 Vacant Leasehold Building London NW10 Refer to Auctioneer 40 Investment Freehold Semi-Detached House Croydon, Surrey Refer to Auctioneer 43 Investment Freehold Semi-Det"
+        }
+      ]
     },
     {
       "aid": 1088,
       "date": "2019-05-29",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 29 MAY 2019 - SAVILLS LONDON & NATIONAL Offered: 146 Sold: 106 Sold %: 72.6 Total disclosed value: £34.809M Lot Type Location Result 1 Vacant Leasehold Flat London SW12 Withdrawn 2 Vacant Leasehold Flat London SW11 £530,000 3 Vacant Freehold House London SW15 £900,000 4 Vacant Leasehold Maisonette Londo"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 29 MAY 2019 - SAVILLS LONDON & NATIONAL Offered: 146 Sold: 106 Sold %: 72.6 Total disclosed value: £34.809M Lot Type Location Result 3 Vacant Freehold House London SW15 £900,000 6 Vacant Freehold House London N17 £456,000 7 Vacant Freehold House London E6 £351,000 9 Vacant Freehold House London SE2 £375"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 29 MAY 2019 - SAVILLS LONDON & NATIONAL Offered: 146 Sold: 106 Sold %: 72.6 Total disclosed value: £34.809M Lot Type Location Result 129 Vacant Freehold Site Abberton, Nr Colchester £40,000 56 Vacant Freehold Site Abingdon, Oxfordshire Available at £10,000 32 Vacant Freehold Building Addlestone, Surrey "
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1088",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 29 MAY 2019 - SAVILLS LONDON & NATIONAL Offered: 146 Sold: 106 Sold %: 72.6 Total disclosed value: £34.809M Lot Type Location Result 72 Vacant Freehold House Andover, Hampshire Refer to Auctioneer 145 Vacant Freehold Semi-Detached House Wigan, Lancashire Refer to Auctioneer 147 Part Vacant Freehold Buil"
+        }
+      ]
     },
     {
       "aid": 1087,
       "date": "2019-04-02",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 2 APR 2019 - SAVILLS LONDON & NATIONAL Offered: 114 Sold: 81 Sold %: 71.05 Total disclosed value: £21.055M Lot Type Location Result 1 Vacant Leasehold Flat London SW18 £420,000 2 Vacant Leasehold Flat London SW12 Withdrawn 3 Vacant Freehold House London E6 £355,000 4 Vacant Leasehold Flat London SW15 £4"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 2 APR 2019 - SAVILLS LONDON & NATIONAL Offered: 114 Sold: 81 Sold %: 71.05 Total disclosed value: £21.055M Lot Type Location Result 3 Vacant Freehold House London E6 £355,000 5 Vacant Freehold House London E17 Available at £475,000 6 Vacant Freehold House Ilford, Essex Available at £390,000 7 Vacant Fre"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 2 APR 2019 - SAVILLS LONDON & NATIONAL Offered: 114 Sold: 81 Sold %: 71.05 Total disclosed value: £21.055M Lot Type Location Result 89 Vacant Freehold Building Alderley Edge, Cheshire Refer to Auctioneer 69 Vacant Freehold Site Aldershot, Hampshire £26,000 36 Vacant Leasehold Maisonette Barnet, Hertford"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1087",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 2 APR 2019 - SAVILLS LONDON & NATIONAL Offered: 114 Sold: 81 Sold %: 71.05 Total disclosed value: £21.055M Lot Type Location Result 52 Vacant Leasehold Flat London E14 Refer to Auctioneer 60 Vacant Leasehold Flat London N1 Refer to Auctioneer 71 Part Vacant Freehold Building Gillingham, Kent Refer to Au"
+        }
+      ]
     },
     {
       "aid": 1086,
       "date": "2019-02-19",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1086",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1086",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 19 FEB 2019 - SAVILLS LONDON & NATIONAL Offered: 126 Sold: 97 Sold %: 76.98 Total disclosed value: £30.517M Lot Type Location Result 1 Vacant Leasehold Flat London N1 Available at £380,000 2 Vacant Leasehold Flat London SW11 £442,000 3 Vacant Leasehold Flat Greenford, Middlesex £287,000 4 Vacant Leaseho"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1086",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 19 FEB 2019 - SAVILLS LONDON & NATIONAL Offered: 126 Sold: 97 Sold %: 76.98 Total disclosed value: £30.517M Lot Type Location Result 7 Vacant Freehold House London E17 £447,000 8 Vacant Freehold House Ilford, Essex £395,000 10 Vacant Freehold House London W9 £574,000 11 Vacant Freehold House Ilford, Ess"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1086",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 19 FEB 2019 - SAVILLS LONDON & NATIONAL Offered: 126 Sold: 97 Sold %: 76.98 Total disclosed value: £30.517M Lot Type Location Result 13 Vacant Freehold Semi-Detached House Aylesford, Kent £272,000 36 Vacant Freehold Site Aylesford, Kent Withdrawn Prior 103 Investment Freehold Garage Basingstoke, Hampshi"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1086",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 19 FEB 2019 - SAVILLS LONDON & NATIONAL Offered: 126 Sold: 97 Sold %: 76.98 Total disclosed value: £30.517M Lot Type Location Result 38 Vacant Freehold Building Croydon, Surrey Withdrawn 53 Vacant Freehold Site Wembley, Middlesex Withdrawn 54 Vacant Freehold House London W7 Withdrawn 55 Part Vacant Leas"
+        }
+      ]
     },
     {
       "aid": 1085,
       "date": "2018-11-29",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 29 NOV 2018 - SAVILLS NOTTINGHAM Offered: 27 Sold: 18 Sold %: 66.67 Total disclosed value: £2.321M Lot Type Location Result 1 Vacant Freehold Semi-Detached House Mansfield, Nottinghamshire £69,000 2 Investment Freehold Terraced House Nottingham Sold Prior 3 Vacant Freehold Terraced House Nottingham £42,"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 29 NOV 2018 - SAVILLS NOTTINGHAM Offered: 27 Sold: 18 Sold %: 66.67 Total disclosed value: £2.321M Lot Type Location Result 13 Vacant Freehold House Sneinton, Nottingham £57,000 1 Vacant Freehold Semi-Detached House Mansfield, Nottinghamshire £69,000 23 Vacant Freehold Semi-Detached House Mansfield, Not"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 29 NOV 2018 - SAVILLS NOTTINGHAM Offered: 27 Sold: 18 Sold %: 66.67 Total disclosed value: £2.321M Lot Type Location Result 8 Vacant Freehold Land Blyth, Northumberland £145,000 20 Vacant Freehold Building Brigg, North Lincolnshire £65,000 6 Vacant Leasehold Land Cannock, Staffordshire £10,000 22 Vacant"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 29 NOV 2018 - SAVILLS NOTTINGHAM Offered: 27 Sold: 18 Sold %: 66.67 Total disclosed value: £2.321M Lot Type Location Result 5 Investment Freehold Building Eastwood, Nottinghamshire Available 10 Vacant Freehold Cottage Kimberley, Nottingham Available 12 Investment Freehold Terraced House Kirkby in Ashfie"
+        }
+      ]
     },
     {
       "aid": 1084,
       "date": "2018-09-27",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 SEP 2018 - SAVILLS NOTTINGHAM Offered: 15 Sold: 9 Sold %: 60 Total disclosed value: £1.663M Lot Type Location Result 1 Vacant Freehold Semi-Detached House Warsop, Nottinghamshire £76,500 2 Vacant Freehold Building Sneinton, Nottingham Available 3 Vacant Freehold Building Radford, Nottingham £200,000 "
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 SEP 2018 - SAVILLS NOTTINGHAM Offered: 15 Sold: 9 Sold %: 60 Total disclosed value: £1.663M Lot Type Location Result 1 Vacant Freehold Semi-Detached House Warsop, Nottinghamshire £76,500 4 Vacant Freehold Semi-Detached House Mansfield, Nottinghamshire Sold Post 6 Vacant Freehold Semi-Detached House C"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 SEP 2018 - SAVILLS NOTTINGHAM Offered: 15 Sold: 9 Sold %: 60 Total disclosed value: £1.663M Lot Type Location Result 10 Part Vacant Freehold Building Carlton, Nottingham Withdrawn 6 Vacant Freehold Semi-Detached House Clifton, Nottingham £96,000 8 Vacant Freehold Flat Eastwood, Nottingham Withdrawn 5"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 SEP 2018 - SAVILLS NOTTINGHAM Offered: 15 Sold: 9 Sold %: 60 Total disclosed value: £1.663M Lot Type Location Result 2 Vacant Freehold Building Sneinton, Nottingham Available 5 Vacant Freehold Land Elton, Nottinghamshire Available 7 Investment Leasehold Apartment Mansfield Road, Nottingham Available "
+        }
+      ]
     },
     {
       "aid": 1083,
       "date": "2018-08-01",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 1 AUG 2018 - SAVILLS NOTTINGHAM Offered: 24 Sold: 18 Sold %: 75 Total disclosed value: £2.05M Lot Type Location Result 1 Vacant Freehold Semi-Detached House Nottingham £78,000 2 Vacant Freehold Building Hucknall, Nottingham £23,000 3 Investment Leasehold Apartment Mansfield Road, Nottingham Available 4 "
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 1 AUG 2018 - SAVILLS NOTTINGHAM Offered: 24 Sold: 18 Sold %: 75 Total disclosed value: £2.05M Lot Type Location Result 5 Investment Freehold House Carlton, Nottingham £65,000 14 Vacant Freehold House Nottingham £240,000 19 Vacant Freehold Detached House Mansfield, Nottinghamsh £81,000 1 Vacant Freehold "
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 1 AUG 2018 - SAVILLS NOTTINGHAM Offered: 24 Sold: 18 Sold %: 75 Total disclosed value: £2.05M Lot Type Location Result 8 Vacant Leasehold Flat Beeston, Nottingham £70,500 16 Vacant Freehold Cottage Bottesford, Nottinghamshire £131,000 4 Vacant Freehold Terraced House Bulwell, Nottingham £74,500 11 Vacan"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 1 AUG 2018 - SAVILLS NOTTINGHAM Offered: 24 Sold: 18 Sold %: 75 Total disclosed value: £2.05M Lot Type Location Result 3 Investment Leasehold Apartment Mansfield Road, Nottingham Available 7 Vacant Freehold Cottage Southwell, Nottinghamshire Available 12 Vacant Freehold Semi-Detached House Mansfield, No"
+        }
+      ]
     },
     {
       "aid": 1082,
       "date": "2018-06-07",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 7 JUN 2018 - SAVILLS NOTTINGHAM Offered: 27 Sold: 19 Sold %: 70.37 Total disclosed value: £2.042M Lot Type Location Result 1 Vacant Freehold Terraced House Hyson Green, Nottingham £88,000 2 Vacant Freehold Site Lincolnshire £40,000 3 Vacant Freehold Terraced House Sutton-in-Ashfield, Nottinghamshire £67"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 7 JUN 2018 - SAVILLS NOTTINGHAM Offered: 27 Sold: 19 Sold %: 70.37 Total disclosed value: £2.042M Lot Type Location Result 11 Vacant Freehold House Forest Fields, Nottingham £87,500 13 End of Terrace House The Meadows, Nottingham £106,000 16 Vacant Freehold Detached House Southwell, Nottinghamshire Avai"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 7 JUN 2018 - SAVILLS NOTTINGHAM Offered: 27 Sold: 19 Sold %: 70.37 Total disclosed value: £2.042M Lot Type Location Result 20 Vacant Freehold Semi-Detached House 47 Vale Crescent North, Nottingham Withdrawn 23 Investment Leasehold Building 56 Ebury Road, Nottingham Available 24 Investment Leasehold Buil"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 7 JUN 2018 - SAVILLS NOTTINGHAM Offered: 27 Sold: 19 Sold %: 70.37 Total disclosed value: £2.042M Lot Type Location Result 5 Vacant Freehold Site Bulwell, Nottingham Available 7 Vacant Freehold Terraced House Radford, Nottingham Available 10 Vacant Freehold Site Newark, Nottinghamshire Available 16 Vaca"
+        }
+      ]
     },
     {
       "aid": 1081,
       "date": "2018-04-12",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 12 APR 2018 - SAVILLS NOTTINGHAM Offered: 22 Sold: 15 Sold %: 68.18 Total disclosed value: £1.895M Lot Type Location Result 1 Vacant Freehold Semi-Detached House Worksop, Nottinghamshire £85,000 2 Vacant Freehold Development Hucknall, Nottingham £76,000 3 Investment Freehold Terraced House Forest Fields"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 12 APR 2018 - SAVILLS NOTTINGHAM Offered: 22 Sold: 15 Sold %: 68.18 Total disclosed value: £1.895M Lot Type Location Result 22 Vacant Freehold House Woodthorpe, Nottingham Sold Post 8 Vacant Freehold Detached House Nottingham £230,000 12A Vacant Freehold Detached House Mapperley, Nottingham £226,000 1 V"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 12 APR 2018 - SAVILLS NOTTINGHAM Offered: 22 Sold: 15 Sold %: 68.18 Total disclosed value: £1.895M Lot Type Location Result 12 Vacant Freehold Semi-Detached House Basford, Nottingham Sold Prior 18 Vacant Leasehold Flat Bath Street, Nottingham Sold Post 11 Two Vacant Freehold Semi-Detached Properties Bre"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 12 APR 2018 - SAVILLS NOTTINGHAM Offered: 22 Sold: 15 Sold %: 68.18 Total disclosed value: £1.895M Lot Type Location Result 4 Vacant Freehold Semi-Detached House Long Eaton, Nottingham Available 5 Vacant Freehold Retail Netherfield, Nottingham Available 10 Vacant Freehold Terraced House Radford, Notting"
+        }
+      ]
     },
     {
       "aid": 1080,
       "date": "2018-02-14",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 14 FEB 2018 - SAVILLS NOTTINGHAM Offered: 25 Sold: 18 Sold %: 72 Total disclosed value: £2.675M Lot Type Location Result 1 Vacant Freehold Semi-Detached House Newark, Nottinghamshire £63,000 2 Vacant Freehold Site Nettleton, Nr Market Rasen Available 2A Investment Freehold Commercial Debdale Lane, Mansf"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 14 FEB 2018 - SAVILLS NOTTINGHAM Offered: 25 Sold: 18 Sold %: 72 Total disclosed value: £2.675M Lot Type Location Result 8 Vacant Freehold Detached House Atherstone, Warwickshire £410,000 12 Vacant Freehold Detached House Mapperley, Nottingham Sold Post 14 Vacant Freehold Detached House Sherwood, Nottin"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 14 FEB 2018 - SAVILLS NOTTINGHAM Offered: 25 Sold: 18 Sold %: 72 Total disclosed value: £2.675M Lot Type Location Result 24 Vacant Freehold Semi-Detached House 52 Bedale Road, Nottingham £135,000 8 Vacant Freehold Detached House Atherstone, Warwickshire £410,000 7 Investment Freehold Building Basford, N"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 14 FEB 2018 - SAVILLS NOTTINGHAM Offered: 25 Sold: 18 Sold %: 72 Total disclosed value: £2.675M Lot Type Location Result 2 Vacant Freehold Site Nettleton, Nr Market Rasen Available 2A Investment Freehold Commercial Debdale Lane, Mansfield Woodhouse Available 4 Vacant Freehold Building Blackpool, Lancash"
+        }
+      ]
     },
     {
       "aid": 1073,
       "date": "2018-12-11",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 11 DEC 2018 - SAVILLS LONDON & NATIONAL Offered: 4 Sold: 3 Sold %: 75 Total disclosed value: £5.05M Lot Type Location Result 1 Investment Freehold Ground Rent London W8 £1.31M 2 Investment  Apartment London W8 £1.97M 3 Investment  Apartment London W8 £1.77M 4 Investment Leasehold Block of Flats Ventnor,"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 11 DEC 2018 - SAVILLS LONDON & NATIONAL Offered: 4 Sold: 3 Sold %: 75 Total disclosed value: £5.05M Lot Type Location Result 2 Investment  Apartment London W8 £1.97M 3 Investment  Apartment London W8 £1.77M 4 Investment Leasehold Block of Flats Ventnor, Isle of Wight Available at £450,000 1 Investment F"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 11 DEC 2018 - SAVILLS LONDON & NATIONAL Offered: 4 Sold: 3 Sold %: 75 Total disclosed value: £5.05M Lot Type Location Result 1 Investment Freehold Ground Rent London W8 £1.31M 2 Investment  Apartment London W8 £1.97M 3 Investment  Apartment London W8 £1.77M 4 Investment Leasehold Block of Flats Ventnor,"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 11 DEC 2018 - SAVILLS LONDON & NATIONAL Offered: 4 Sold: 3 Sold %: 75 Total disclosed value: £5.05M Lot Type Location Result 4 Investment Leasehold Block of Flats Ventnor, Isle of Wight Available at £450,000 1 Investment Freehold Ground Rent London W8 £1.31M 3 Investment  Apartment London W8 £1.77M 2 In"
+        }
+      ]
     },
     {
       "aid": 1072,
       "date": "2018-11-26",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 NOV 2018 - SAVILLS LONDON & NATIONAL Offered: 127 Sold: 99 Sold %: 77.95 Total disclosed value: £29.661M Lot Type Location Result 1 Vacant Leasehold Flat London SW11 £422,000 2 Vacant Leasehold Flat London SW11 £490,000 3 Vacant Freehold House London SW11 £900,000 4 Vacant Leasehold Flat London SW19 "
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 NOV 2018 - SAVILLS LONDON & NATIONAL Offered: 127 Sold: 99 Sold %: 77.95 Total disclosed value: £29.661M Lot Type Location Result 3 Vacant Freehold House London SW11 £900,000 5 Vacant Freehold House London E16 £382,000 6 Vacant Freehold House Pinner, Middlesex Sold Post 7 Vacant Freehold House London"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 NOV 2018 - SAVILLS LONDON & NATIONAL Offered: 127 Sold: 99 Sold %: 77.95 Total disclosed value: £29.661M Lot Type Location Result 8 Vacant Leasehold Maisonette Ashtead, Surrey £194,000 9 Vacant Freehold Garage Ashtead, Surrey £14,000 157 Vacant Freehold House Axminster, Devon Withdrawn 158 Vacant Fre"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 NOV 2018 - SAVILLS LONDON & NATIONAL Offered: 127 Sold: 99 Sold %: 77.95 Total disclosed value: £29.661M Lot Type Location Result 41 Vacant Freehold House Stanmore, Middlesex Refer to Auctioneer 160 Vacant Freehold House Liverpool, Merseyside Refer to Auctioneer 175 Part Vacant Freehold Building Lond"
+        }
+      ]
     },
     {
       "aid": 1071,
       "date": "2018-09-26",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 SEP 2018 - SAVILLS LONDON & NATIONAL Offered: 147 Sold: 98 Sold %: 66.67 Total disclosed value: £35.983M Lot Type Location Result 1 Vacant Freehold House Great Dunmow, Essex Withdrawn 2 Vacant Freehold Semi-Detached Bungalow Dorking, Surrey £268,000 3 Vacant Leasehold Maisonette Langley Park Road, Su"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 SEP 2018 - SAVILLS LONDON & NATIONAL Offered: 147 Sold: 98 Sold %: 66.67 Total disclosed value: £35.983M Lot Type Location Result 1 Vacant Freehold House Great Dunmow, Essex Withdrawn 6 Vacant Freehold House Enfield, Middlesex Available at £305,000 9 Vacant Freehold House London E6 £272,000 11 Vacant"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 SEP 2018 - SAVILLS LONDON & NATIONAL Offered: 147 Sold: 98 Sold %: 66.67 Total disclosed value: £35.983M Lot Type Location Result 138 Vacant Freehold Land and Newton-le-Willows, North Yorkshire £150,000 50 Vacant Leasehold Flat Ashtead, Surrey Withdrawn 152 Vacant Leasehold Studio Aylesbury, Buckingh"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 SEP 2018 - SAVILLS LONDON & NATIONAL Offered: 147 Sold: 98 Sold %: 66.67 Total disclosed value: £35.983M Lot Type Location Result 39 Freehold Leisure London SW19 Available 86 Vacant Leasehold House Ivybridge, Devon Refer 149 Vacant Freehold Semi-Detached House St Austell, Cornwall Refer 61 Vacant Fre"
+        }
+      ]
     },
     {
       "aid": 1070,
       "date": "2018-07-24",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 24 JUL 2018 - SAVILLS LONDON & NATIONAL Offered: 96 Sold: 68 Sold %: 70.83 Total disclosed value: £23.843M Lot Type Location Result 1 Vacant Freehold House London N18 £402,000 2 Vacant Freehold House Thornton Heath, Surrey £328,000 3 Vacant Leasehold Maisonette Thornton Heath, Surrey £230,000 4 Vacant L"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 24 JUL 2018 - SAVILLS LONDON & NATIONAL Offered: 96 Sold: 68 Sold %: 70.83 Total disclosed value: £23.843M Lot Type Location Result 1 Vacant Freehold House London N18 £402,000 2 Vacant Freehold House Thornton Heath, Surrey £328,000 10 Vacant Freehold House London SW6 £890,000 11 Vacant Freehold House Ho"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 24 JUL 2018 - SAVILLS LONDON & NATIONAL Offered: 96 Sold: 68 Sold %: 70.83 Total disclosed value: £23.843M Lot Type Location Result 16 Vacant Leasehold Flat Available at £410,000 25 Vacant Freehold Building £252,000 98 Vacant Freehold Cottage Amersham, Buckinghamshire £350,000 48 Vacant Freehold Buildin"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 24 JUL 2018 - SAVILLS LONDON & NATIONAL Offered: 96 Sold: 68 Sold %: 70.83 Total disclosed value: £23.843M Lot Type Location Result 35 Investment Freehold Building London E2 Refer to Auctioneer 28 Part Vacant Freehold Building Shirley, Surrey Withdrawn 40 Investment Freehold Retail Rotherham, South York"
+        }
+      ]
     },
     {
       "aid": 1069,
       "date": "2018-06-18",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 18 JUN 2018 - SAVILLS LONDON & NATIONAL Offered: 150 Sold: 101 Sold %: 67.33 Total disclosed value: £24.412M Lot Type Location Result 1 Vacant Leasehold Flat London W8 Available at £500,000 2 Vacant Leasehold Flat London W3 £320,000 3 Vacant Freehold House London SW12 £960,000 4 Vacant Leasehold Flat Lo"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 18 JUN 2018 - SAVILLS LONDON & NATIONAL Offered: 150 Sold: 101 Sold %: 67.33 Total disclosed value: £24.412M Lot Type Location Result 3 Vacant Freehold House London SW12 £960,000 6 Vacant Freehold House London SW18 £835,000 9 Vacant Freehold House New Malden, Surrey Available at £275,000 12 Vacant Freeh"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 18 JUN 2018 - SAVILLS LONDON & NATIONAL Offered: 150 Sold: 101 Sold %: 67.33 Total disclosed value: £24.412M Lot Type Location Result 41D Vacant Leasehold Retail Ascot, Berkshire £152,000 58 Vacant Freehold Semi-Detached House Barking, Essex £268,000 162 Vacant Freehold Site Barnehurst, Kent £40,000 91 "
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 18 JUN 2018 - SAVILLS LONDON & NATIONAL Offered: 150 Sold: 101 Sold %: 67.33 Total disclosed value: £24.412M Lot Type Location Result 129 Vacant Leasehold Flat London SE16 Available at £225,000 5 Vacant Leasehold Flat London SE5 Available at £365,000 41C Vacant Freehold House London NW6 Refer to Auction"
+        }
+      ]
     },
     {
       "aid": 1068,
       "date": "2018-05-09",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 9 MAY 2018 - SAVILLS LONDON & NATIONAL Offered: 148 Sold: 111 Sold %: 75 Total disclosed value: £29.938M Lot Type Location Result 1 Vacant Leasehold Flat London SW19 £475,000 2 Vacant Leasehold Flat London SW11 Withdrawn 3 Vacant Leasehold Flat Ruislip, Middlesex £290,000 4 Vacant Leasehold Flat Sutton,"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 9 MAY 2018 - SAVILLS LONDON & NATIONAL Offered: 148 Sold: 111 Sold %: 75 Total disclosed value: £29.938M Lot Type Location Result 5 Vacant Freehold House London N2 Available at £575,000 6 Vacant Freehold House London SE25 £318,000 11 Vacant Freehold House Ilford, Essex £391,000 12 Vacant Freehold House "
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 9 MAY 2018 - SAVILLS LONDON & NATIONAL Offered: 148 Sold: 111 Sold %: 75 Total disclosed value: £29.938M Lot Type Location Result 107 Vacant Freehold House Anfield, Liverpool £40,000 20 Vacant Leasehold Maisonette Ashford, Middlesex £201,000 47 Vacant Freehold House Barking, Essex £302,000 111 Vacant Fr"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 9 MAY 2018 - SAVILLS LONDON & NATIONAL Offered: 148 Sold: 111 Sold %: 75 Total disclosed value: £29.938M Lot Type Location Result 39 Other Withdrawn 100 Vacant Freehold House London N2 Refer to Auctioneer 58 Vacant Freehold Commercial London SE15 Sold Prior 2 Vacant Leasehold Flat London SW11 Withdrawn "
+        }
+      ]
     },
     {
       "aid": 1067,
       "date": "2018-03-26",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 MAR 2018 - SAVILLS LONDON & NATIONAL Offered: 186 Sold: 139 Sold %: 74.73 Total disclosed value: £43.087M Lot Type Location Result 1 Vacant Freehold House London SW15 £730,000 2 Vacant Freehold House Morden, Surrey £323,000 3 Vacant Freehold House London SW18 £824,000 4 Vacant Leasehold Flat London S"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 MAR 2018 - SAVILLS LONDON & NATIONAL Offered: 186 Sold: 139 Sold %: 74.73 Total disclosed value: £43.087M Lot Type Location Result 1 Vacant Freehold House London SW15 £730,000 2 Vacant Freehold House Morden, Surrey £323,000 3 Vacant Freehold House London SW18 £824,000 7 Vacant Freehold House London S"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 MAR 2018 - SAVILLS LONDON & NATIONAL Offered: 186 Sold: 139 Sold %: 74.73 Total disclosed value: £43.087M Lot Type Location Result 51 Vacant Freehold Detached House Addlestone, Surrey £288,000 28 Part Vacant Freehold Garage Aldershot, Hampshire £220,000 29 Part Vacant Freehold Garage Aldershot, Hamps"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 26 MAR 2018 - SAVILLS LONDON & NATIONAL Offered: 186 Sold: 139 Sold %: 74.73 Total disclosed value: £43.087M Lot Type Location Result 73 Vacant Freehold Building London NW1 Refer to Auctioneer 95 Vacant Freehold House Tunbridge Wells, Kent Refer to Auctioneer 121 Vacant Freehold Building London SW6 Refe"
+        }
+      ]
     },
     {
       "aid": 1066,
       "date": "2018-02-13",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 13 FEB 2018 - SAVILLS LONDON & NATIONAL Offered: 234 Sold: 167 Sold %: 71.37 Total disclosed value: £55.652M Lot Type Location Result 1 Vacant Freehold House Isleworth, Middlesex £365,000 2 Vacant Leasehold Maisonette Thornton Heath, Surrey £216,000 3 Vacant Freehold Terraced House London SW15 Refer to "
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 13 FEB 2018 - SAVILLS LONDON & NATIONAL Offered: 234 Sold: 167 Sold %: 71.37 Total disclosed value: £55.652M Lot Type Location Result 1 Vacant Freehold House Isleworth, Middlesex £365,000 4 Vacant Freehold House London E15 £360,000 10 Vacant Freehold House London E6 £369,000 11 Vacant Freehold House Tho"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 13 FEB 2018 - SAVILLS LONDON & NATIONAL Offered: 234 Sold: 167 Sold %: 71.37 Total disclosed value: £55.652M Lot Type Location Result 227 Vacant Freehold Detached Bungalow Addlestone, Surrey Available at £450,000 257 Vacant Freehold Bungalow Addlestone, Surrey Sold Prior 31 Vacant Freehold House Barking"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 13 FEB 2018 - SAVILLS LONDON & NATIONAL Offered: 234 Sold: 167 Sold %: 71.37 Total disclosed value: £55.652M Lot Type Location Result 38 Vacant Leasehold Flat London E6 Available 49 Vacant Leasehold Flat London NW8 Available 3 Vacant Freehold Terraced House London SW15 Refer to Auctioneer 52 Vacant Free"
+        }
+      ]
     },
     {
       "aid": 1047,
       "date": "2017-12-11",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 11 DEC 2017 - SAVILLS LONDON & NATIONAL Offered: 127 Sold: 91 Sold %: 71.65 Total disclosed value: £23.693M Lot Type Location Result 1 Vacant Freehold House London SW9 £725,000 2 Vacant Freehold Semi-Detached House Slough, Berkshire £331,000 3 Vacant Leasehold Flat London NW6 £289,000 4 Vacant Leasehold"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 11 DEC 2017 - SAVILLS LONDON & NATIONAL Offered: 127 Sold: 91 Sold %: 71.65 Total disclosed value: £23.693M Lot Type Location Result 1 Vacant Freehold House London SW9 £725,000 8 Vacant Freehold House London E17 Available at £520,000 12 Vacant Freehold House London SE6 £422,000 13 Vacant Freehold House "
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 11 DEC 2017 - SAVILLS LONDON & NATIONAL Offered: 127 Sold: 91 Sold %: 71.65 Total disclosed value: £23.693M Lot Type Location Result 144 Vacant Freehold Bungalow Addlestone, Surrey Available at £450,000 151 Vacant Freehold Bungalow Addlestone, Surrey £510,000 137 Vacant Leasehold Flat Aldershot, Hampshi"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 11 DEC 2017 - SAVILLS LONDON & NATIONAL Offered: 127 Sold: 91 Sold %: 71.65 Total disclosed value: £23.693M Lot Type Location Result 99 Vacant Freehold Building London SE14 Refer to Auctioneer 22 Vacant Leasehold Flat London E12 Withdrawn 34 Investment Freehold Cottage Sindlesham, Nr Reading Withdrawn 6"
+        }
+      ]
     },
     {
       "aid": 1046,
       "date": "2017-11-06",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 6 NOV 2017 - SAVILLS LONDON & NATIONAL Offered: 178 Sold: 135 Sold %: 75.84 Total disclosed value: £38.669M Lot Type Location Result 1 Vacant Freehold Site London SE15 £530,000 2 Vacant Freehold Land Harrow, Middlesex Withdrawn 3 Vacant Leasehold Flat London W9 Sold Prior 4 Vacant Leasehold Flat London "
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 6 NOV 2017 - SAVILLS LONDON & NATIONAL Offered: 178 Sold: 135 Sold %: 75.84 Total disclosed value: £38.669M Lot Type Location Result 7 Vacant Freehold House London E9 £905,000 10 Vacant Freehold House London E6 £406,000 11 Vacant Freehold House London E7 £320,000 15 Vacant Freehold House London SE9 £344"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 6 NOV 2017 - SAVILLS LONDON & NATIONAL Offered: 178 Sold: 135 Sold %: 75.84 Total disclosed value: £38.669M Lot Type Location Result 151 Vacant Leasehold Flat Withdrawn 47 Vacant Leasehold Flat Barking, Essex £160,000 102 Vacant Leasehold Flat Barking, Essex £124,000 182 Vacant Freehold Other Barking, E"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 6 NOV 2017 - SAVILLS LONDON & NATIONAL Offered: 178 Sold: 135 Sold %: 75.84 Total disclosed value: £38.669M Lot Type Location Result 27 Vacant Leasehold Flat London NW10 Refer to Auctioneer 28 Vacant Leasehold Flat London NW10 Refer to Auctioneer 72 Vacant Leasehold Garage London N14 Refer to Auctioneer"
+        }
+      ]
     },
     {
       "aid": 1045,
       "date": "2017-09-25",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1045",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1045",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 25 SEP 2017 - SAVILLS LONDON & NATIONAL Offered: 212 Sold: 161 Sold %: 75.94 Total disclosed value: £51.686M Lot Type Location Result 1 Vacant Leasehold Flat London N16 £400,000 2 Vacant Leasehold Flat London N16 £605,000 3 Vacant Freehold House London SE15 £520,000 4 Vacant Freehold House Ilford, Essex"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1045",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 25 SEP 2017 - SAVILLS LONDON & NATIONAL Offered: 212 Sold: 161 Sold %: 75.94 Total disclosed value: £51.686M Lot Type Location Result 3 Vacant Freehold House London SE15 £520,000 4 Vacant Freehold House Ilford, Essex £260,000 10 Vacant Freehold House London N13 Sold Post 14 Vacant Freehold House London "
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1045",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 25 SEP 2017 - SAVILLS LONDON & NATIONAL Offered: 212 Sold: 161 Sold %: 75.94 Total disclosed value: £51.686M Lot Type Location Result 225 Vacant Freehold House 68 Dannett Street, Leicester £115,000 169 Investment Freehold House A Portfolio of 18 Properties, County Durham Refer to Auctioneer 167 Vacant F"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1045",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 25 SEP 2017 - SAVILLS LONDON & NATIONAL Offered: 212 Sold: 161 Sold %: 75.94 Total disclosed value: £51.686M Lot Type Location Result 175 Vacant Leasehold Flat London NW1 64 Vacant Freehold House London SW11 Refer to Auctioneer 151 Vacant Leasehold Flat London E5 Refer to Auctioneer 169 Investment Freeh"
+        }
+      ]
     },
     {
       "aid": 1044,
       "date": "2017-07-24",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1044",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1044",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 24 JUL 2017 - SAVILLS LONDON & NATIONAL Offered: 118 Sold: 98 Sold %: 83.05 Total disclosed value: £33.421M Lot Type Location Result 1 Vacant Leasehold Flat London E8 £387,000 2 Vacant Leasehold Flat London W9 £265,000 3 Vacant Freehold House Romford, Essex Available at £305,000 4 Vacant Freehold Semi-D"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1044",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 24 JUL 2017 - SAVILLS LONDON & NATIONAL Offered: 118 Sold: 98 Sold %: 83.05 Total disclosed value: £33.421M Lot Type Location Result 3 Vacant Freehold House Romford, Essex Available at £305,000 5 Vacant Freehold House London SE18 £335,000 6 Vacant Freehold House London SE2 £270,000 10 Vacant Freehold Ho"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1044",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 24 JUL 2017 - SAVILLS LONDON & NATIONAL Offered: 118 Sold: 98 Sold %: 83.05 Total disclosed value: £33.421M Lot Type Location Result 44 Vacant Freehold House Akenham, Nr Ipswich £225,000 47 Vacant Freehold Semi-Detached House Aldershot, Hampshire £246,000 125 Vacant Freehold Land Amersham, Buckinghamshi"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1044",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 24 JUL 2017 - SAVILLS LONDON & NATIONAL Offered: 118 Sold: 98 Sold %: 83.05 Total disclosed value: £33.421M Lot Type Location Result 126 Vacant Leasehold Flat Redhill, Surrey 15 Vacant Leasehold Flat London W14 Withdrawn 16 Vacant Leasehold Flat London E11 Withdrawn 27 Vacant Leasehold Flat Bromley, Ken"
+        }
+      ]
     },
     {
       "aid": 1043,
       "date": "2017-06-19",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1043",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1043",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 19 JUN 2017 - SAVILLS LONDON & NATIONAL Offered: 164 Sold: 115 Sold %: 70.12 Total disclosed value: £29.944M Lot Type Location Result 1 Vacant Freehold Semi-Detached House London SE4 £538,000 2 Vacant Freehold Terraced House London SE17 £867,000 3 Vacant Leasehold Maisonette Dartford, Kent £166,000 4 Va"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1043",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 19 JUN 2017 - SAVILLS LONDON & NATIONAL Offered: 164 Sold: 115 Sold %: 70.12 Total disclosed value: £29.944M Lot Type Location Result 11 Vacant Freehold House Croydon, Surrey Withdrawn 17 Vacant Freehold House London SW16 £397,000 19 Vacant Leasehold House Romford, Essex £170,000 22 Vacant Freehold Hous"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1043",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 19 JUN 2017 - SAVILLS LONDON & NATIONAL Offered: 164 Sold: 115 Sold %: 70.12 Total disclosed value: £29.944M Lot Type Location Result 8 Vacant Leasehold Flat Barking, Essex £148,000 155 Vacant Freehold Land Barking, Essex £100 71 Vacant Leasehold Flat Barnet, Hertfordshire £277,000 149 Investment Leaseh"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1043",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 19 JUN 2017 - SAVILLS LONDON & NATIONAL Offered: 164 Sold: 115 Sold %: 70.12 Total disclosed value: £29.944M Lot Type Location Result 140 Vacant Freehold Office Edenbridge, Kent Available at £420,000 99 Vacant Leasehold Flat London SW7 Available at £775,000 53 Vacant Freehold House London SE22 Refer to "
+        }
+      ]
     },
     {
       "aid": 1037,
       "date": "2017-11-30",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1037",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1037",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 30 NOV 2017 - SAVILLS NOTTINGHAM Offered: 25 Sold: 15 Sold %: 60 Total disclosed value: £1.611M Lot Type Location Result 1 Vacant Freehold Semi-Detached House Newark, Nottinghamshire £69,500 2 Vacant Freehold Land Immingham, Lincolnshire Withdrawn 3 Vacant Freehold Site Stoughton, Leicester £179,000 4 V"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1037",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 30 NOV 2017 - SAVILLS NOTTINGHAM Offered: 25 Sold: 15 Sold %: 60 Total disclosed value: £1.611M Lot Type Location Result 25 Vacant Freehold House Brinsley, Nottingham Sold Post 8 Vacant Freehold Detached House Mapperley, Nottingham Available 20 Vacant Freehold Detached House Nottingham, Nottinghamshire "
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1037",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 30 NOV 2017 - SAVILLS NOTTINGHAM Offered: 25 Sold: 15 Sold %: 60 Total disclosed value: £1.611M Lot Type Location Result 22 Vacant Freehold Land Attleborough, Norfolk Available 10 Investment Freehold Building Basford, Nottingham Available 27 Vacant Freehold Land Braintree, Essex £55,000 14 Vacant Freeho"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1037",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 30 NOV 2017 - SAVILLS NOTTINGHAM Offered: 25 Sold: 15 Sold %: 60 Total disclosed value: £1.611M Lot Type Location Result 7 Vacant Freehold Semi-Detached House Brigg, Lincolnshire Available 8 Vacant Freehold Detached House Mapperley, Nottingham Available 10 Investment Freehold Building Basford, Nottingha"
+        }
+      ]
     },
     {
       "aid": 1036,
       "date": "2017-09-21",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1036",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1036",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 21 SEP 2017 - SAVILLS NOTTINGHAM Offered: 22 Sold: 17 Sold %: 77.27 Total disclosed value: £2.091M Lot Type Location Result 1 Vacant Freehold Semi-Detached House Newark, Nottinghamshire £68,000 2 Vacant Freehold Terraced House Sneinton, Nottingham £65,000 3 Vacant Freehold House Clifton, Nottingham £79,"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1036",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 21 SEP 2017 - SAVILLS NOTTINGHAM Offered: 22 Sold: 17 Sold %: 77.27 Total disclosed value: £2.091M Lot Type Location Result 3 Vacant Freehold House Clifton, Nottingham £79,500 8 Vacant Freehold Detached House Nottingham Available 22 Vacant Freehold Detached House West Bridgford, Nottingham Available 1 V"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1036",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 21 SEP 2017 - SAVILLS NOTTINGHAM Offered: 22 Sold: 17 Sold %: 77.27 Total disclosed value: £2.091M Lot Type Location Result 21 Vacant Freehold Land Bishop's Stortford, Hertfordshire £172,000 6 Vacant Freehold Semi-Detached House Bramcote Hill, Nottingham £99,000 17 Vacant Freehold Detached Bungalow Carl"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1036",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 21 SEP 2017 - SAVILLS NOTTINGHAM Offered: 22 Sold: 17 Sold %: 77.27 Total disclosed value: £2.091M Lot Type Location Result 8 Vacant Freehold Detached House Nottingham Available 10 Vacant Freehold Cottage Newark, Nottinghamshire Available 13 Freehold Industrial Oldham Road, Manchester Available 18 Vacan"
+        }
+      ]
     },
     {
       "aid": 1035,
       "date": "2017-07-27",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1035",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1035",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 JUL 2017 - SAVILLS NOTTINGHAM Offered: 17 Sold: 13 Sold %: 76.47 Total disclosed value: £1.778M Lot Type Location Result 1 Vacant Freehold Semi-Detached House Sutton-in-Ashfield, Nottinghamshire £97,500 2 Investment Freehold Retail Nottingham Available 3 Vacant Freehold Development Manby, Lincolnshir"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1035",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 JUL 2017 - SAVILLS NOTTINGHAM Offered: 17 Sold: 13 Sold %: 76.47 Total disclosed value: £1.778M Lot Type Location Result 14 Vacant Freehold Detached House St Helens £300,000 20 Vacant Freehold Detached House Woodborough, Nottinghamshire Sold Post 1 Vacant Freehold Semi-Detached House Sutton-in-Ashfie"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1035",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 JUL 2017 - SAVILLS NOTTINGHAM Offered: 17 Sold: 13 Sold %: 76.47 Total disclosed value: £1.778M Lot Type Location Result 10 Vacant Leasehold Apartment Beeston, Nottingham £66,000 6 Vacant Freehold Land Chatham, Kent £750 19 Vacant Leasehold Retail Clifton, Nottingham Available 12 Vacant Freehold Land"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1035",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 JUL 2017 - SAVILLS NOTTINGHAM Offered: 17 Sold: 13 Sold %: 76.47 Total disclosed value: £1.778M Lot Type Location Result 2 Investment Freehold Retail Nottingham Available 3 Vacant Freehold Development Manby, Lincolnshire Available 7 Vacant Freehold Semi-Detached House Radford, Nottingham Available 19"
+        }
+      ]
     },
     {
       "aid": 1034,
       "date": "2017-06-08",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1034",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1034",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 8 JUN 2017 - SAVILLS NOTTINGHAM Offered: 33 Sold: 26 Sold %: 78.79 Total disclosed value: £2.626M Lot Type Location Result 1 Vacant Freehold Semi-Detached House Bilsthorpe, Nottinghamshire £77,000 2 Investment Freehold Industrial Mansfield, Nottinghamshire £220,000 3 Vacant Freehold Terraced House Notti"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1034",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 8 JUN 2017 - SAVILLS NOTTINGHAM Offered: 33 Sold: 26 Sold %: 78.79 Total disclosed value: £2.626M Lot Type Location Result 1 Vacant Freehold Semi-Detached House Bilsthorpe, Nottinghamshire £77,000 9 Vacant Freehold Semi-Detached House Nottingham Withdrawn 19 Vacant Freehold Semi-Detached House Mansfield"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1034",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 8 JUN 2017 - SAVILLS NOTTINGHAM Offered: 33 Sold: 26 Sold %: 78.79 Total disclosed value: £2.626M Lot Type Location Result 26 Vacant Freehold Land Bedford £3,000 10 Vacant Leasehold Apartment Beeston, Nottingham Available 1 Vacant Freehold Semi-Detached House Bilsthorpe, Nottinghamshire £77,000 24 Vacan"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1034",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 8 JUN 2017 - SAVILLS NOTTINGHAM Offered: 33 Sold: 26 Sold %: 78.79 Total disclosed value: £2.626M Lot Type Location Result 4 Vacant Freehold Land Chatham, Kent Available 10 Vacant Leasehold Apartment Beeston, Nottingham Available 12 Vacant Freehold Land Shirebrook Available 15 Vacant Freehold Land Oswes"
+        }
+      ]
     },
     {
       "aid": 1033,
       "date": "2017-04-27",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1033",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1033",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 APR 2017 - SAVILLS NOTTINGHAM Offered: 24 Sold: 18 Sold %: 75 Total disclosed value: £1.788M Lot Type Location Result 1 Vacant Freehold Terraced House Kirkby in Ashfield, Nottinghamshire £65,000 2 Vacant Freehold Terraced House Forest Fields, Nottingham £67,500 3 Vacant Freehold Retail Netherfield, N"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1033",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 APR 2017 - SAVILLS NOTTINGHAM Offered: 24 Sold: 18 Sold %: 75 Total disclosed value: £1.788M Lot Type Location Result 7 Vacant Freehold Detached House Bolsover, Nottinghamshire £81,000 4 Vacant Freehold Semi-Detached House Mansfield, Nottinghamshire £76,000 13 Vacant Freehold Semi-Detached House Wilf"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1033",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 APR 2017 - SAVILLS NOTTINGHAM Offered: 24 Sold: 18 Sold %: 75 Total disclosed value: £1.788M Lot Type Location Result 9 Vacant Freehold Land Bedford Available 7 Vacant Freehold Detached House Bolsover, Nottinghamshire £81,000 29 Vacant Freehold Land Burton-on-Trent, Staffordshire £4,000 23 Vacant Fre"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1033",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 27 APR 2017 - SAVILLS NOTTINGHAM Offered: 24 Sold: 18 Sold %: 75 Total disclosed value: £1.788M Lot Type Location Result 3 Vacant Freehold Retail Netherfield, Nottingham Available 6 Investment Freehold Commercial Nottingham Available 8 Vacant Freehold Land Meir, Stoke-on-Trent Available 9 Vacant Freehol"
+        }
+      ]
     },
     {
       "aid": 1032,
       "date": "2017-02-16",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1032",
       "direct_detail_urls": [],
-      "postbacks_identified": 0,
-      "postbacks_replayed": 0,
-      "replays": []
+      "live_postbacks_identified": 0,
+      "persisted_postbacks_seeded": 4,
+      "postbacks_replayed": 4,
+      "replays": [
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1032",
+          "materially_changed": false,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 16 FEB 2017 - SAVILLS NOTTINGHAM Offered: 19 Sold: 16 Sold %: 84.21 Total disclosed value: £1.036M Lot Type Location Result 1 Vacant Freehold Terraced House Mansfield, Nottinghamshire Sold Post 2 Other Withdrawn Withdrawn 3 Vacant Freehold Terraced House Radford, Nottingham £56,500 4 Investment Freehold"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1032",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 16 FEB 2017 - SAVILLS NOTTINGHAM Offered: 19 Sold: 16 Sold %: 84.21 Total disclosed value: £1.036M Lot Type Location Result 17 Vacant Freehold House Mansfield, Nottinghamshire £77,750 12 Vacant Freehold Detached House Bolsover, Nottinghamshire Available 16 Vacant Freehold Detached House Mansfield, Notti"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1032",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 16 FEB 2017 - SAVILLS NOTTINGHAM Offered: 19 Sold: 16 Sold %: 84.21 Total disclosed value: £1.036M Lot Type Location Result 14 Vacant Freehold Development Ammanford, Carmarthenshire Sold After 15 Investment Freehold Retail Arnold, Nottingham Sold Prior 12 Vacant Freehold Detached House Bolsover, Notting"
+        },
+        {
+          "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03",
+          "argument": "",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1032",
+          "materially_changed": true,
+          "detail_urls": [],
+          "response_text_sample": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 16 FEB 2017 - SAVILLS NOTTINGHAM Offered: 19 Sold: 16 Sold %: 84.21 Total disclosed value: £1.036M Lot Type Location Result 7 Vacant Freehold Site Eastwood, Nottingham Available 12 Vacant Freehold Detached House Bolsover, Nottinghamshire Available 19 Vacant Freehold Semi-Detached House Newark, Nottingha"
+        }
+      ]
     }
   ],
   "errors": []
