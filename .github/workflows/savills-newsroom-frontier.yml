@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - 'savills_newsroom_frontier_recovery.py'
+      - 'savills_archived_newsroom_frontier_recovery.py'
       - '.github/workflows/savills-newsroom-frontier.yml'
   schedule:
     - cron: '28 * * * *'
@@ -32,9 +33,22 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Compile
-        run: python -m py_compile savills_newsroom_frontier_recovery.py
-      - name: Recover exact Savills newsroom frontier
+        run: python -m py_compile savills_newsroom_frontier_recovery.py savills_archived_newsroom_frontier_recovery.py
+      - name: Recover surviving Savills newsroom frontier
         run: python savills_newsroom_frontier_recovery.py
+      - name: Recover archived Savills newsroom frontier
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          s=p['sources']['Savills Auctions']
+          added=int((s.get('newsroom_frontier_last_run') or {}).get('canonical_events_added') or 0)
+          if added == 0:
+              subprocess.run(['python','savills_archived_newsroom_frontier_recovery.py'], check=True)
+          else:
+              print('Surviving newsroom route added events; archived route not needed this run.')
+          PY
       - name: Validate canonical state
         run: |
           python - <<'PY'
@@ -48,6 +62,7 @@ jobs:
           assert any(e.get('source')=='Savills Auctions' for e in h.get('auction_events',[]))
           print('SAVILLS_EVENTS',sum(1 for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions'))
           print('NEWSROOM_ADDED',(s.get('newsroom_frontier_last_run') or {}).get('canonical_events_added'))
+          print('ARCHIVED_NEWSROOM_ADDED',(s.get('archived_newsroom_frontier_last_run') or {}).get('canonical_events_added'))
           print('FRONTIER',(s.get('newsroom_frontier_last_run') or {}).get('frontier_date'))
           PY
       - name: Publish result or exact blocker
