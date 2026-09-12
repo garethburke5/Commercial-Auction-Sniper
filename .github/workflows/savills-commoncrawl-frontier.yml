@@ -2,82 +2,9 @@ name: Savills Common Crawl Frontier Recovery
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/savills-commoncrawl-frontier.yml'
-      - 'savills_manifest_commoncrawl_frontier_recovery.py'
-      - 'savills_legacy_aid_capture_recovery.py'
-      - 'savills_history_integrity_repair.py'
-  schedule:
-    - cron: '41 * * * *'
-
-permissions:
-  contents: write
-
-concurrency:
-  group: auction-sniper-production-scan
-  cancel-in-progress: false
 
 jobs:
-  recover:
+  paused:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install playwright
-          python -m playwright install chromium
-      - name: Compile strict frontier recovery
-        run: python -m py_compile savills_manifest_commoncrawl_frontier_recovery.py savills_legacy_aid_capture_recovery.py savills_history_integrity_repair.py history_database.py collectors/savills.py
-      - name: Enforce lot-specific canonical evidence
-        run: python savills_history_integrity_repair.py
-      - name: Recover oldest unresolved Savills manifest date from Common Crawl
-        run: python savills_manifest_commoncrawl_frontier_recovery.py --max-capture-rows 420 --max-warc-checks 220 --max-live-checks 100
-      - name: Validate strict Savills evidence
-        run: |
-          python - <<'PY'
-          import json,re
-          from pathlib import Path
-          from urllib.parse import parse_qs,urlparse
-          h=json.loads(Path('data/property_history.json').read_text())
-          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
-          s=(p.get('sources') or {}).get('Savills Auctions') or {}
-          events=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
-          def exact(url):
-              q=urlparse(url or '')
-              if q.scheme!='https' or (q.hostname or '').lower()!='auctions.savills.co.uk': return False
-              low=(q.path or '').lower(); args=parse_qs(q.query)
-              if ('lotdetails' in low or 'index.php' in low) and (args.get('pid') or (args.get('view')==['commission'] and args.get('id'))): return True
-              return bool(re.search(r'/auctions/[^/?#]+-\d+/(?:[^/?#]+-)?\d+/?$',q.path or '',re.I))
-          bad=[e for e in events if not exact((e.get('source_evidence') or {}).get('listing_url'))]
-          assert not bad, f'{len(bad)} Savills events lack lot-specific evidence'
-          assert s.get('historically_complete') is False
-          print('SAVILLS_EVENTS',len(events))
-          print('EARLIEST_VERIFIED',s.get('earliest_date_reached'))
-          print('COMMONCRAWL_FRONTIER',s.get('manifest_commoncrawl_frontier_last_run'))
-          PY
-      - name: Publish canonical history or exact blocker
-        run: |
-          git config user.name 'Auction Sniper History Bot'
-          git config user.email 'actions@users.noreply.github.com'
-          git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics || true
-          if ! git diff --cached --quiet; then
-            git commit -m 'Probe Savills frontier through Common Crawl'
-            for attempt in 1 2 3; do
-              git fetch origin main
-              if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
-              if git push origin HEAD:main; then exit 0; fi
-              sleep $((attempt * 3))
-            done
-            exit 1
-          fi
+      - run: echo "Savills frontier recovery is temporarily manual-only while production deployment is stabilised."
