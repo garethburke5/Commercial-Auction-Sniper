@@ -1,0 +1,65 @@
+name: Savills Hidden Form ID Frontier Recovery
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'savills_archived_form_id_recovery.py'
+      - '.github/workflows/savills-archived-form-id-recovery.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: savills-hidden-form-id-frontier-recovery
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Compile
+        run: python -m py_compile savills_archived_form_id_recovery.py collectors/savills.py history_database.py
+      - name: Recover hidden auction identifiers
+        run: python savills_archived_form_id_recovery.py
+      - name: Verify and publish
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          h=json.loads(Path('data/property_history.json').read_text())
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          ev=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
+          dates=sorted(e.get('auction_date') for e in ev if e.get('auction_date'))
+          s=(p.get('sources') or {}).get('Savills Auctions') or {}
+          assert s.get('historically_complete') is False
+          r=s.get('archive_hidden_id_last_run') or {}
+          print('SAVILLS',len(ev),dates[0] if dates else None)
+          print('CANDIDATES',r.get('candidate_ids_probed'))
+          print('MATCHED',r.get('frontier_catalogues_matched'))
+          print('ADDED',r.get('canonical_events_added'))
+          PY
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics
+          if ! git diff --cached --quiet; then
+            git commit -m 'Advance Savills frontier through hidden archive IDs'
+            for attempt in 1 2 3; do
+              git fetch origin main
+              if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
+              if git push origin HEAD:main; then exit 0; fi
+              sleep $((attempt*3))
+            done
+            exit 1
+          fi
