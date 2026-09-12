@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse, json, re
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.parse import quote_plus
 import requests
@@ -51,7 +51,9 @@ def inspect_listing(url, target):
 def run(max_dates=12,max_live=220):
     p=json.loads(PROGRESS.read_text()); s=p.setdefault('sources',{}).setdefault(SOURCE_KEY,{})
     s['historically_complete']=False; s['discovery_exhausted']=False; s['status']='DISCOVERY EXPANSION'
-    dates=sorted(unresolved_manifest_dates(s), reverse=True)[:max_dates]
+    frontier=date.fromisoformat(s.get('earliest_date_reached') or '9999-12-31')
+    older=[d for d in unresolved_manifest_dates(s) if d < frontier]
+    dates=sorted(older, reverse=True)[:max_dates]
     before=source_count(json.loads(HISTORY.read_text()))
     discovered=[]; matched=[]; search_errors=[]; rejected=[]
     for d in dates:
@@ -81,10 +83,10 @@ def run(max_dates=12,max_live=220):
         if added:
             ed=min(str(r.get('auction_date')) for r in recovered if r.get('auction_date'))
             s['earliest_date_reached']=min(s.get('earliest_date_reached') or ed,ed); s['earliest_month_reached']=s['earliest_date_reached'][:7]
-    diag={'at':now(),'route':'bing-rss-propertyauctions-exact-date-to-first-party-savills-validation','dates':[d.isoformat() for d in dates],'indexed_listing_urls':len(discovered),'matched_savills_pages':len(matched),'image_id_clues':sum(len(x['image_clues']) for x in matched),'candidate_first_party_urls':len(seen),'live_checked':checked,'commercial_rows_seen':len(recovered),'canonical_events_added':added,'savills_events_before':before,'savills_events_after':after,'search_errors':search_errors[:80],'matched_samples':matched[:25],'rejected_samples':rejected[:40]}
+    diag={'at':now(),'route':'bing-rss-propertyauctions-exact-date-to-first-party-savills-validation','verified_frontier_before':frontier.isoformat(),'dates':[d.isoformat() for d in dates],'indexed_listing_urls':len(discovered),'matched_savills_pages':len(matched),'image_id_clues':sum(len(x['image_clues']) for x in matched),'candidate_first_party_urls':len(seen),'live_checked':checked,'commercial_rows_seen':len(recovered),'canonical_events_added':added,'savills_events_before':before,'savills_events_after':after,'search_errors':search_errors[:80],'matched_samples':matched[:25],'rejected_samples':rejected[:40]}
     s['bing_rss_index_last_run']=diag; s['last_discovery_mode']=diag['route']
     if added==0:
-        s['status']='LIVE ARCHIVE BLOCKED'; s['bing_rss_index_last_blocker']={'at':diag['at'],'route':diag['route'],'dates':diag['dates'],'message':'Bing RSS exact-date indexing did not yield a first-party Savills lot page valid for persistence.','next_safe_route':'Enumerate PropertyAuctions Savills listing URLs from its publicly exposed auctioneer/filter application routes or page data rather than search-engine indexes, then validate any recovered first-party Savills source URLs.'}
+        s['status']='LIVE ARCHIVE BLOCKED'; s['bing_rss_index_last_blocker']={'at':diag['at'],'route':diag['route'],'dates':diag['dates'],'message':'Bing RSS exact-date indexing over unresolved dates immediately older than the verified frontier did not yield a first-party Savills lot page valid for persistence.','next_safe_route':'Enumerate PropertyAuctions Savills listing URLs from its publicly exposed auctioneer/filter application routes or embedded page data rather than search-engine indexes, then validate any recovered first-party Savills source URLs.'}
     else: s.pop('bing_rss_index_last_blocker',None)
     p['updated_at']=now(); PROGRESS.write_text(json.dumps(p,indent=2,ensure_ascii=False)); DIAG.parent.mkdir(parents=True,exist_ok=True); DIAG.write_text(json.dumps(diag,indent=2,ensure_ascii=False)); print(json.dumps(diag,indent=2,ensure_ascii=False)); return added
 
