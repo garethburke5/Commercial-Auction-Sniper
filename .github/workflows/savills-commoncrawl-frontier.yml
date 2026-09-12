@@ -8,6 +8,7 @@ on:
       - '.github/workflows/savills-commoncrawl-frontier.yml'
       - 'savills_manifest_commoncrawl_frontier_recovery.py'
       - 'savills_legacy_aid_capture_recovery.py'
+      - 'savills_wayback_venue_frontier_recovery.py'
       - 'savills_history_integrity_repair.py'
   schedule:
     - cron: '41 * * * *'
@@ -38,11 +39,14 @@ jobs:
           pip install playwright
           python -m playwright install chromium
       - name: Compile strict frontier recovery
-        run: python -m py_compile savills_manifest_commoncrawl_frontier_recovery.py savills_legacy_aid_capture_recovery.py savills_history_integrity_repair.py history_database.py collectors/savills.py
+        run: python -m py_compile savills_manifest_commoncrawl_frontier_recovery.py savills_legacy_aid_capture_recovery.py savills_wayback_venue_frontier_recovery.py savills_history_integrity_repair.py history_database.py collectors/savills.py
       - name: Enforce lot-specific canonical evidence
         run: python savills_history_integrity_repair.py
       - name: Recover oldest unresolved Savills manifest date from Common Crawl
-        run: python savills_manifest_commoncrawl_frontier_recovery.py --max-capture-rows 420 --max-warc-checks 220 --max-live-checks 100
+        continue-on-error: true
+        run: python savills_manifest_commoncrawl_frontier_recovery.py --max-capture-rows 180 --max-warc-checks 80 --max-live-checks 50
+      - name: Recover frontier from Wayback PastAuctions and Venue bodies
+        run: python savills_wayback_venue_frontier_recovery.py --max-captures 140 --max-live-checks 120
       - name: Validate strict Savills evidence
         run: |
           python - <<'PY'
@@ -62,9 +66,14 @@ jobs:
           bad=[e for e in events if not exact((e.get('source_evidence') or {}).get('listing_url'))]
           assert not bad, f'{len(bad)} Savills events lack lot-specific evidence'
           assert s.get('historically_complete') is False
+          wayback=s.get('wayback_venue_frontier_last_run') or {}
+          assert wayback, 'Wayback frontier route did not record an outcome'
+          if not wayback.get('canonical_events_added'):
+              blocker=s.get('wayback_venue_frontier_last_blocker') or {}
+              assert blocker.get('frontier_date') and blocker.get('route') and blocker.get('next_safe_route'), 'Zero-event run missing concrete source-specific blocker and next route'
           print('SAVILLS_EVENTS',len(events))
           print('EARLIEST_VERIFIED',s.get('earliest_date_reached'))
-          print('COMMONCRAWL_FRONTIER',s.get('manifest_commoncrawl_frontier_last_run'))
+          print('WAYBACK_FRONTIER',wayback)
           PY
       - name: Publish canonical history or exact blocker
         run: |
@@ -72,7 +81,7 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics || true
           if ! git diff --cached --quiet; then
-            git commit -m 'Probe Savills frontier through Common Crawl'
+            git commit -m 'Advance Savills frontier through Wayback venue archives'
             for attempt in 1 2 3; do
               git fetch origin main
               if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
