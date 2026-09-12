@@ -1,11 +1,6 @@
 name: Savills Bing RSS Index Recovery
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'savills_bing_rss_index_recovery.py'
-      - '.github/workflows/savills-bing-rss-index-recovery.yml'
   workflow_dispatch:
 
 permissions:
