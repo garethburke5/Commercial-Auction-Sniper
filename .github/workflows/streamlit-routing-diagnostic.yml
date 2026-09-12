@@ -1,0 +1,49 @@
+name: Streamlit routing diagnostic
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/streamlit-routing-diagnostic.yml'
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Probe Streamlit routes
+        shell: bash
+        run: |
+          set -x
+          for url in \
+            'https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app/' \
+            'https://commercial-auction-sniper.streamlit.app/' \
+            'https://share.streamlit.io/garethburke5/commercial-auction-sniper/main/app.py'; do
+            echo "===== $url ====="
+            python - "$url" <<'PY'
+import sys, urllib.request, urllib.error, socket
+url=sys.argv[1]
+host=urllib.request.urlparse(url).hostname
+try:
+    print('DNS', socket.gethostbyname_ex(host))
+except Exception as e:
+    print('DNS_ERROR', repr(e))
+req=urllib.request.Request(url, headers={'User-Agent':'Mozilla/5.0'})
+try:
+    with urllib.request.urlopen(req, timeout=20) as r:
+        body=r.read(20000).decode('utf-8','replace')
+        print('FINAL_URL', r.geturl())
+        print('STATUS', r.status)
+        print('HEADERS', dict(r.headers))
+        print('BODY', body[:5000])
+except urllib.error.HTTPError as e:
+    body=e.read(20000).decode('utf-8','replace')
+    print('HTTP_ERROR', e.code)
+    print('FINAL_URL', e.geturl())
+    print('HEADERS', dict(e.headers))
+    print('BODY', body[:5000])
+except Exception as e:
+    print('ERROR', repr(e))
+PY
+          done
