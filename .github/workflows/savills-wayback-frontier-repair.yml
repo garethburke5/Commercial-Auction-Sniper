@@ -5,10 +5,8 @@ on:
   push:
     branches: [main]
     paths:
-      - 'savills_wayback_frontier_catalogue_discovery.py'
+      - 'savills_multisearch_frontier_recovery.py'
       - '.github/workflows/savills-wayback-frontier-repair.yml'
-      - 'savills_manifest_aid_capture_recovery.py'
-      - 'savills_legacy_aid_capture_recovery.py'
       - 'history_database.py'
       - 'collectors/savills.py'
   schedule:
@@ -44,9 +42,9 @@ jobs:
           pip install playwright
           python -m playwright install chromium
 
-      - name: Compile Savills wildcard frontier route
+      - name: Compile Savills multi-search frontier route
         run: |
-          python -m py_compile savills_wayback_frontier_catalogue_discovery.py savills_manifest_aid_capture_recovery.py savills_legacy_aid_capture_recovery.py history_database.py collectors/savills.py
+          python -m py_compile savills_multisearch_frontier_recovery.py history_database.py collectors/savills.py
 
       - name: Record canonical Savills state before recovery
         run: |
@@ -65,8 +63,8 @@ jobs:
           print('SAVILLS_BEFORE',len(events),s.get('earliest_date_reached'),s.get('earliest_month_reached'))
           PY
 
-      - name: Enumerate Wayback namespace for oldest unresolved manifest date
-        run: python savills_wayback_frontier_catalogue_discovery.py --max-captures 220 --max-live-checks 160
+      - name: Triangulate oldest frontier through independent public search surfaces
+        run: python savills_multisearch_frontier_recovery.py --max-candidates 180
 
       - name: Enforce canonical-or-blocker outcome
         run: |
@@ -81,15 +79,15 @@ jobs:
           before=json.loads(Path('/tmp/savills-before.json').read_text())
           s=(p.get('sources') or {}).get('Savills Auctions') or {}
           events=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
-          run=s.get('wayback_frontier_wildcard_last_run') or {}
-          blocker=s.get('wayback_frontier_wildcard_last_blocker') or {}
+          run=s.get('multisearch_frontier_last_run') or {}
+          blocker=s.get('multisearch_frontier_last_blocker') or {}
           advanced=(len(events)>int(before['events']) or
                     (s.get('earliest_date_reached') and s.get('earliest_date_reached') != before.get('earliest_date')) or
                     (s.get('earliest_month_reached') and s.get('earliest_month_reached') < str(before.get('earliest_month') or '9999-99')))
           if not advanced:
               assert blocker, 'No new Savills events and no persisted route-specific blocker'
-              assert blocker.get('target_date'), 'Blocker missing exact target date'
-              assert blocker.get('route') == 'wayback-cdx-wildcard-oldest-manifest-date-to-live-savills-validation'
+              assert blocker.get('frontier_date'), 'Blocker missing exact target date'
+              assert blocker.get('route') == 'duckduckgo-yahoo-exact-date-address-to-first-party-savills'
               assert blocker.get('next_safe_route'), 'Blocker missing next distinct recovery path'
           s['historically_complete']=False
           s['discovery_exhausted']=False
@@ -125,7 +123,7 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics || true
           if ! git diff --cached --quiet; then
-            git commit -m 'Advance Savills oldest archive frontier via Wayback wildcard'
+            git commit -m 'Advance Savills frontier through independent multi-search recovery'
             for attempt in 1 2 3; do
               git fetch origin main
               if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
