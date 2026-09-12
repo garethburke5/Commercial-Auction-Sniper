@@ -18,3 +18,5 @@ Savills credentials:
 - Add `SAVILLS_PASSWORD`
 
 The credentials are reserved for legal-document authentication. Public lot discovery does not depend on them.
+
+<!-- Streamlit redeploy nudge: 2026-09-12 -->
