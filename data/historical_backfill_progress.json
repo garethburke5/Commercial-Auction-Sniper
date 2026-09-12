@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T11:06:57.336004+00:00",
+  "updated_at": "2026-09-12T11:36:54.876026+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -3952,7 +3952,7 @@
         "next_safe_route": "Enumerate archived search-engine/index captures for legacy Savills URL strings by exact frontier date plus any discovered town/postcode tokens, then retrieve the archived Savills capture body itself rather than depending on the current live page."
       },
       "public_search_frontier_last_run": {
-        "at": "2026-09-12T07:10:07.644678+00:00",
+        "at": "2026-09-12T11:36:54.875984+00:00",
         "route": "public-search-engine-index-to-live-savills-lot-validation",
         "frontier_date": "2014-04-24",
         "queries": [
@@ -4018,7 +4018,7 @@
         "errors": []
       },
       "public_search_frontier_last_blocker": {
-        "at": "2026-09-12T07:10:07.644678+00:00",
+        "at": "2026-09-12T11:36:54.875984+00:00",
         "frontier_date": "2014-04-24",
         "route": "public-search-engine-index-to-live-savills-lot-validation",
         "message": "Public search-engine indexes exposed no validated live Savills commercial lot page for the oldest known archive date.",
