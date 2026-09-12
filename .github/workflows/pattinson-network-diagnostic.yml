@@ -1,9 +1,6 @@
 name: Pattinson Network Diagnostic
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/pattinson-network-diagnostic.yml'
 jobs:
   inspect:
     runs-on: ubuntu-latest
