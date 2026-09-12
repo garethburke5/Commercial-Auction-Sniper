@@ -15,12 +15,12 @@ permissions:
 
 concurrency:
   group: savills-newsroom-frontier
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   recover:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
