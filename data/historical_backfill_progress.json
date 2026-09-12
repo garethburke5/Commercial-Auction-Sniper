@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T05:59:17.541266+00:00",
+  "updated_at": "2026-09-12T06:05:56.964532+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "LIVE ARCHIVE BLOCKED",
+      "status": "NEWSROOM FRONTIER BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3250,
@@ -4395,7 +4395,31 @@
         "next_safe_route": "Use any recovered catalogue address/lot clues to query archived Savills LotDetails/index.php URL captures by exact address fragments and legacy pid/id, then validate against the first-party Savills lot page or archived lot body before persistence."
       },
       "next_frontier_repair": "savills_public_address_frontier_recovery.py",
-      "next_frontier_repair_reason": "Use exact catalogue address/lot clues and legacy pid/id capture discovery after archived catalogue/brochure WARC recovery produced no canonical event."
+      "next_frontier_repair_reason": "Use exact catalogue address/lot clues and legacy pid/id capture discovery after archived catalogue/brochure WARC recovery produced no canonical event.",
+      "newsroom_frontier_last_run": {
+        "at": "2026-09-12T06:05:56.964185+00:00",
+        "route": "first-party-savills-newsroom-sitemap-frontier",
+        "frontier_date": "2014-04-24",
+        "sitemaps_checked": [
+          "https://www.savills.co.uk/sitemap.xml",
+          "https://www.savills.com/sitemap.xml"
+        ],
+        "news_urls_discovered": 4,
+        "news_urls_checked": 4,
+        "matched_exact_date_auction_articles": [],
+        "commercial_rows_seen": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "errors": [],
+        "evidence_rule": "Only savills.com/savills.co.uk pages can become evidence URLs; mirrored corporate releases are discovery-only."
+      },
+      "newsroom_frontier_last_diagnostic": "data/source_diagnostics/savills_newsroom_frontier_2014-04-24_20260912T060556.json",
+      "newsroom_frontier_last_blocker": {
+        "frontier_date": "2014-04-24",
+        "route": "first-party-savills-newsroom-sitemap-frontier",
+        "message": "No exact-date commercial lot event was recoverable from surviving first-party Savills newsroom pages.",
+        "next_safe_route": "Use article IDs/titles from neighboring historical Savills auction newsroom releases to enumerate old newsroom ID adjacency and recover deleted/unindexed exact-frontier releases through public web archives."
+      }
     }
   }
 }
