@@ -1,0 +1,61 @@
+name: Savills PropertyAuctions Cursor Recovery
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'savills_propertyauctions_cursor_recovery.py'
+      - '.github/workflows/savills-propertyauctions-cursor.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: savills-propertyauctions-cursor
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install minimal dependencies
+        run: pip install requests beautifulsoup4
+      - name: Compile
+        run: python -m py_compile savills_propertyauctions_cursor_recovery.py
+      - name: Recover resumable AID slice
+        run: python savills_propertyauctions_cursor_recovery.py --chunk 90 --workers 24
+      - name: Verify canonical and cursor state
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          h=json.loads(Path('data/property_history.json').read_text())
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          s=p['sources']['Savills Auctions']
+          ev=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
+          print('SAVILLS_EVENTS',len(ev))
+          print('EARLIEST_VERIFIED',s.get('earliest_date_reached'))
+          print('CURSOR',json.dumps(s.get('propertyauctions_cursor_state',{})))
+          print('LAST_RUN',json.dumps({k:(s.get('propertyauctions_cursor_last_run') or {}).get(k) for k in ('range_scanned','savills_auctions_found','commercial_mixed_lot_clues','canonical_events_added')}))
+          assert s.get('historically_complete') is False
+          PY
+      - name: Publish exact recovery evidence or blocker
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics || true
+          if ! git diff --cached --quiet; then
+            git commit -m 'Advance Savills resumable legacy archive cursor'
+            for attempt in 1 2 3; do
+              git fetch origin main
+              if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
+              if git push origin HEAD:main; then exit 0; fi
+              sleep $((attempt * 3))
+            done
+            exit 1
+          fi
