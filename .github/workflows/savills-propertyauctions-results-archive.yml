@@ -1,11 +1,6 @@
 name: Savills PropertyAuctions Results Archive Recovery
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'savills_propertyauctions_results_archive_recovery.py'
-      - '.github/workflows/savills-propertyauctions-results-archive.yml'
   workflow_dispatch:
 
 permissions:
