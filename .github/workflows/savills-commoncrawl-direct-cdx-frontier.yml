@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'savills_commoncrawl_direct_cdx_frontier_recovery.py'
+      - 'savills_result_document_frontier_recovery.py'
       - '.github/workflows/savills-commoncrawl-direct-cdx-frontier.yml'
   workflow_dispatch:
 
@@ -31,10 +32,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Compile recovery
-        run: python -m py_compile savills_commoncrawl_direct_cdx_frontier_recovery.py
+      - name: Compile recovery routes
+        run: |
+          python -m py_compile savills_commoncrawl_direct_cdx_frontier_recovery.py
+          python -m py_compile savills_result_document_frontier_recovery.py
       - name: Recover Savills through direct Common Crawl index files
         run: python savills_commoncrawl_direct_cdx_frontier_recovery.py --max-blocks-per-collection 14 --max-rows 600 --max-warc-checks 240 --max-live-checks 110
+      - name: Recover Savills through date-specific result documents
+        run: python savills_result_document_frontier_recovery.py --max-documents 100 --max-live-checks 220
       - name: Verify canonical Savills state
         run: |
           python - <<'PY'
@@ -48,6 +53,7 @@ jobs:
           print('SAVILLS_EVENTS',len(events))
           print('EARLIEST_VERIFIED',s.get('earliest_date_reached'))
           print('DIRECT_CDX',json.dumps(s.get('commoncrawl_direct_cdx_last_run'),ensure_ascii=False))
+          print('RESULT_DOCUMENTS',json.dumps(s.get('result_document_frontier_last_run'),ensure_ascii=False))
           PY
       - name: Publish canonical history or exact blocker
         run: |
@@ -55,7 +61,7 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics || true
           if ! git diff --cached --quiet; then
-            git commit -m 'Probe Savills frontier through direct Common Crawl CDX files'
+            git commit -m 'Probe Savills frontier through CDX and result documents'
             for attempt in 1 2 3; do
               git fetch origin main
               if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
