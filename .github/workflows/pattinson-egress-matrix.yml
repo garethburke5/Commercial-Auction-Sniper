@@ -1,10 +1,7 @@
 name: Pattinson Free Egress Matrix
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/pattinson-egress-matrix.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read
