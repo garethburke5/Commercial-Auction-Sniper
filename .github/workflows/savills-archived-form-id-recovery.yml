@@ -27,8 +27,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Install dependencies and browser fallback
+        run: |
+          pip install -r requirements.txt
+          pip install playwright
+          python -m playwright install chromium
       - name: Compile
         run: python -m py_compile savills_archived_form_id_recovery.py collectors/savills.py history_database.py
       - name: Recover hidden auction identifiers
