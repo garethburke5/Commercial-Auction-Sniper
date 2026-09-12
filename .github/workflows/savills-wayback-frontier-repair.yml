@@ -17,7 +17,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: auction-sniper-production-scan
+  group: savills-frontier-recovery
   cancel-in-progress: false
 
 jobs:
