@@ -1,72 +1,10 @@
 name: Savills Indexed Aggregator Clue Recovery
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'savills_propertyauctions_clue_recovery.py'
-      - '.github/workflows/savills-propertyauctions-clue-recovery.yml'
   workflow_dispatch:
 
-permissions:
-  contents: write
-
-concurrency:
-  group: savills-propertyauctions-clue-recovery
-  cancel-in-progress: false
-
 jobs:
-  recover:
+  paused:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
     steps:
-      - name: Checkout production main
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Compile targeted clue route
-        run: python -m py_compile savills_propertyauctions_clue_recovery.py
-      - name: Recover Savills IDs from indexed PropertyAuctions pages
-        run: python savills_propertyauctions_clue_recovery.py --max-search-results 100 --max-live-checks 220
-      - name: Validate canonical state
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          h=json.loads(Path('data/property_history.json').read_text())
-          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
-          s=(p.get('sources') or {}).get('Savills Auctions') or {}
-          events=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
-          assert s.get('historically_complete') is False
-          run=s.get('propertyauctions_clue_last_run') or {}
-          assert run.get('route')=='propertyauctions-indexed-savills-image-id-to-first-party-lot-reconstruction'
-          assert run.get('target_date')
-          if int(run.get('canonical_events_added') or 0)==0:
-              blocker=s.get('propertyauctions_clue_last_blocker') or {}
-              assert blocker.get('next_safe_route')
-          print('SAVILLS_EVENTS',len(events))
-          print('EARLIEST_VERIFIED',s.get('earliest_date_reached'))
-          print('CLUE_ROUTE',json.dumps(run,ensure_ascii=False))
-          PY
-      - name: Publish canonical history or exact blocker
-        run: |
-          git config user.name 'Auction Sniper History Bot'
-          git config user.email 'actions@users.noreply.github.com'
-          git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics/savills_propertyauctions_clue_recovery.json
-          if ! git diff --cached --quiet; then
-            git commit -m 'Probe Savills history via indexed auction-result clues'
-            for attempt in 1 2 3; do
-              git fetch origin main
-              if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
-              if git push origin HEAD:main; then exit 0; fi
-              sleep $((attempt * 3))
-            done
-            exit 1
-          fi
+      - run: echo "Savills indexed aggregator clue recovery is manual-only while production is stabilised."
