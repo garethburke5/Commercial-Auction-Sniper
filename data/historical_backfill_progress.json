@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T11:36:54.876026+00:00",
+  "updated_at": "2026-09-12T11:39:02.034916+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "ARCHIVED NEWSROOM BLOCKED",
+      "status": "LIVE ARCHIVE BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3250,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "public-propertyauctions-index-to-first-party-savills-validation",
+      "last_discovery_mode": "public-address-archive-url-to-live-savills-first-party",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -3224,12 +3224,17 @@
         "next_safe_route": "Use archive-summary sale totals and date-specific public result pages to recover exact property addresses/lot numbers for the frontier sale, then resolve those addresses against archived Savills first-party captures before persistence."
       },
       "public_address_frontier_last_run": {
-        "at": "2026-09-12T10:59:43.615872+00:00",
+        "at": "2026-09-12T11:39:02.034865+00:00",
         "route": "public-auction-result-address-plus-archive-url-to-live-savills-validation",
         "frontier_dates": [
-          "2014-04-24"
+          "2019-02-19",
+          "2019-04-02",
+          "2019-05-29",
+          "2019-07-17",
+          "2019-09-23",
+          "2019-11-04"
         ],
-        "source_queries_attempted": 3,
+        "source_queries_attempted": 18,
         "source_pages_examined": 0,
         "address_clues": 0,
         "candidate_live_or_archived_savills_urls": 0,
@@ -3241,20 +3246,110 @@
         "savills_events_after": 3250,
         "query_hits": [
           {
-            "auction_date": "2014-04-24",
-            "query": "\"Savills\" \"24 April 2014\" \"auction results\" property",
+            "auction_date": "2019-02-19",
+            "query": "\"Savills\" \"19 February 2019\" \"auction results\" property",
             "results": 0,
             "sample_urls": []
           },
           {
-            "auction_date": "2014-04-24",
-            "query": "\"Savills Auctions\" \"24 April 2014\" lot",
+            "auction_date": "2019-02-19",
+            "query": "\"Savills Auctions\" \"19 February 2019\" lot",
             "results": 0,
             "sample_urls": []
           },
           {
-            "auction_date": "2014-04-24",
-            "query": "\"24 April 2014\" Savills \"sold\" \"lot\" property",
+            "auction_date": "2019-02-19",
+            "query": "\"19 February 2019\" Savills \"sold\" \"lot\" property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-04-02",
+            "query": "\"Savills\" \"2 April 2019\" \"auction results\" property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-04-02",
+            "query": "\"Savills Auctions\" \"2 April 2019\" lot",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-04-02",
+            "query": "\"2 April 2019\" Savills \"sold\" \"lot\" property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-05-29",
+            "query": "\"Savills\" \"29 May 2019\" \"auction results\" property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-05-29",
+            "query": "\"Savills Auctions\" \"29 May 2019\" lot",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-05-29",
+            "query": "\"29 May 2019\" Savills \"sold\" \"lot\" property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-07-17",
+            "query": "\"Savills\" \"17 July 2019\" \"auction results\" property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-07-17",
+            "query": "\"Savills Auctions\" \"17 July 2019\" lot",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-07-17",
+            "query": "\"17 July 2019\" Savills \"sold\" \"lot\" property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-09-23",
+            "query": "\"Savills\" \"23 September 2019\" \"auction results\" property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-09-23",
+            "query": "\"Savills Auctions\" \"23 September 2019\" lot",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-09-23",
+            "query": "\"23 September 2019\" Savills \"sold\" \"lot\" property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-11-04",
+            "query": "\"Savills\" \"4 November 2019\" \"auction results\" property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-11-04",
+            "query": "\"Savills Auctions\" \"4 November 2019\" lot",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "auction_date": "2019-11-04",
+            "query": "\"4 November 2019\" Savills \"sold\" \"lot\" property",
             "results": 0,
             "sample_urls": []
           }
@@ -3266,11 +3361,16 @@
         "lookup_errors": []
       },
       "public_address_frontier_last_blocker": {
-        "at": "2026-09-12T10:59:43.615872+00:00",
+        "at": "2026-09-12T11:39:02.034865+00:00",
         "route": "public-auction-result-address-plus-archive-url-to-live-savills-validation",
         "message": "Address-led recovery produced no older validated Savills History V2 event. Direct postcode search and historical/Wayback URL extraction were attempted; no candidate is accepted unless a surviving first-party Savills page validates the auction date and property.",
         "frontier_dates": [
-          "2014-04-24"
+          "2019-02-19",
+          "2019-04-02",
+          "2019-05-29",
+          "2019-07-17",
+          "2019-09-23",
+          "2019-11-04"
         ],
         "address_clues": 0,
         "candidate_live_or_archived_savills_urls": 0,
