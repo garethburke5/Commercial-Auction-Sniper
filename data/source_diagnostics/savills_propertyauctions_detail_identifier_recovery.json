@@ -1,220 +1,381 @@
 {
-  "at": "2026-09-12T20:04:13.047663+00:00",
-  "route": "propertyauctions-parallel-structured-documents-plus-exact-tuple-first-party",
+  "at": "2026-09-12T21:00:09.329560+00:00",
+  "route": "propertyauctions-stdlib-rss-repair-plus-structured-documents",
   "seed_catalogues": 33,
   "seed_commercial_clues": 40,
   "document_requests": 132,
   "structured_documents_found": 0,
   "document_samples": [],
   "tuple_search_queries": 60,
-  "candidate_first_party_urls": 0,
-  "first_party_urls": [],
+  "candidate_first_party_urls": 60,
+  "first_party_urls": [
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+18%22+%22Cumnock%2c+East+Ayrshire%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+7%22+%22Hull%2c+Humberside%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Hull%2c+Humberside%22+%22Savills%22+%227%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+SW6%22+%22Savills%22+%2295%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+92%22+%22Ruddington%2c+Nr+Nottingham%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Ruddington%2c+Nr+Nottingham%22+%22Savills%22+%2292%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+17%22+%22Mapperley+Park%2c+Nottingham%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Forest+Fields%2c+Nottingham%22+%22Savills%22+%221%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+89%22+%22London+E13%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+11%22+%22Kegworth%2c+Leicestershire%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Kegworth%2c+Leicestershire%22+%22Savills%22+%2211%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+1%22+%22Forest+Fields%2c+Nottingham%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+E13%22+%22Savills%22+%2289%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Cumnock%2c+East+Ayrshire%22+%22Savills%22+%2218%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Mapperley+Park%2c+Nottingham%22+%22Savills%22+%2217%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+86%22+%22London+W13%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+95%22+%22London+SW6%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Southam%2c+Warwickshire%22+%22Savills%22+%2288%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+W13%22+%22Savills%22+%2286%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+SW16%22+%22Savills%22+%2268%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+61%22+%22Selsdon%2c+Surrey%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+68%22+%22London+SW16%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+57%22+%22Fareham%2c+Hampshire%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Croydon%2c+Surrey%22+%22Savills%22+%2281%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+69%22+%22London+SE25%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+SE25%22+%22Savills%22+%2269%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+81%22+%22Croydon%2c+Surrey%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+56%22+%22London+N8%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Selsdon%2c+Surrey%22+%22Savills%22+%2261%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+88%22+%22Southam%2c+Warwickshire%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+SW11%22+%22Savills%22+%2250%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Fareham%2c+Hampshire%22+%22Savills%22+%2257%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+N8%22+%22Savills%22+%2256%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+48%22+%22London+NW2%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+NW2%22+%22Savills%22+%2248%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+29%22+%22London+E5%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+50%22+%22London+SW11%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+E5%22+%22Savills%22+%2229%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+W14%22+%22Savills%22+%22103%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Beckenham%2c+Kent%22+%22Savills%22+%22102%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+102%22+%22Beckenham%2c+Kent%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Romford%2c+Essex%22+%22Savills%22+%2210%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Selby%2c+North+Yorkshire%22+%22Savills%22+%2298%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+10%22+%22Romford%2c+Essex%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+103%22+%22London+W14%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%224+November+2019%22+%22Lot+98%22+%22Selby%2c+North+Yorkshire%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+101%22+%22London+N3%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+N3%22+%22Savills%22+%22101%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Whyteleafe%2c+Surrey%22+%22Savills%22+%2290%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%224+November+2019%22+%22Lot+90%22+%22Whyteleafe%2c+Surrey%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Harrow%2c+Middlesex%22+%22Savills%22+%2294%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%224+November+2019%22+%22Lot+89%22+%22London+SW11%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+SW11%22+%22Savills%22+%2289%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Southam%2c+Warwickshire%22+%22Savills%22+%2287%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%224+November+2019%22+%22Lot+94%22+%22Harrow%2c+Middlesex%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%224+November+2019%22+%22Lot+85%22+%22Canvey+Island%2c+Essex%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%224+November+2019%22+%22Lot+87%22+%22Southam%2c+Warwickshire%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Canvey+Island%2c+Essex%22+%22Savills%22+%2285%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%224+November+2019%22+%22Lot+79%22+%22London+N17%22",
+    "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+N17%22+%22Savills%22+%2279%22"
+  ],
   "validated_rows_seen": 0,
   "canonical_events_added": 0,
   "savills_events_before": 3250,
   "savills_events_after": 3250,
-  "search_errors": [
-    {
-      "query": "site:auctions.savills.co.uk \"8 March 2019\" \"Lot 7\" \"Hull, Humberside\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 92\" \"Ruddington, Nr Nottingham\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"8 March 2019\" \"Lot 1\" \"Forest Fields, Nottingham\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Ruddington, Nr Nottingham\" \"Savills\" \"92\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Mapperley Park, Nottingham\" \"Savills\" \"17\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"London E13\" \"Savills\" \"89\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"8 March 2019\" \"Lot 11\" \"Kegworth, Leicestershire\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 89\" \"London E13\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Kegworth, Leicestershire\" \"Savills\" \"11\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Cumnock, East Ayrshire\" \"Savills\" \"18\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Forest Fields, Nottingham\" \"Savills\" \"1\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Hull, Humberside\" \"Savills\" \"7\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"London SW6\" \"Savills\" \"95\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 95\" \"London SW6\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"8 March 2019\" \"Lot 18\" \"Cumnock, East Ayrshire\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"8 March 2019\" \"Lot 17\" \"Mapperley Park, Nottingham\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 88\" \"Southam, Warwickshire\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Southam, Warwickshire\" \"Savills\" \"88\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"London W13\" \"Savills\" \"86\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Croydon, Surrey\" \"Savills\" \"81\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 86\" \"London W13\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 69\" \"London SE25\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 81\" \"Croydon, Surrey\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Selsdon, Surrey\" \"Savills\" \"61\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"London SE25\" \"Savills\" \"69\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"London N8\" \"Savills\" \"56\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 61\" \"Selsdon, Surrey\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 68\" \"London SW16\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 56\" \"London N8\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"London SW16\" \"Savills\" \"68\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 50\" \"London SW11\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Fareham, Hampshire\" \"Savills\" \"57\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 57\" \"Fareham, Hampshire\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"London SW11\" \"Savills\" \"50\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"London NW2\" \"Savills\" \"48\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 103\" \"London W14\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"London E5\" \"Savills\" \"29\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 29\" \"London E5\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 48\" \"London NW2\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 102\" \"Beckenham, Kent\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"London W14\" \"Savills\" \"103\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Beckenham, Kent\" \"Savills\" \"102\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"London N3\" \"Savills\" \"101\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 101\" \"London N3\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Romford, Essex\" \"Savills\" \"10\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"16 December 2019\" \"Lot 10\" \"Romford, Essex\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Selby, North Yorkshire\" \"Savills\" \"98\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"4 November 2019\" \"Lot 98\" \"Selby, North Yorkshire\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"Harrow, Middlesex\" \"Savills\" \"94\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    },
-    {
-      "query": "site:auctions.savills.co.uk \"4 November 2019\" \"Lot 90\" \"Whyteleafe, Surrey\"",
-      "error": "FeatureNotFound: Couldn't find a tree builder with the features you requested: xml. Do you need to install a parser library?"
-    }
-  ],
+  "search_errors": [],
   "document_errors": [],
-  "rejected_samples": []
+  "rejected_samples": [
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+18%22+%22Cumnock%2c+East+Ayrshire%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+18%22+%22Cumnock%2c+East+Ayrshire%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+18%22+%22Cumnock%2c+East+Ayrshire%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+7%22+%22Hull%2c+Humberside%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+7%22+%22Hull%2c+Humberside%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+7%22+%22Hull%2c+Humberside%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Hull%2c+Humberside%22+%22Savills%22+%227%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Hull%2c+Humberside%22+%22Savills%22+%227%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Hull%2c+Humberside%22+%22Savills%22+%227%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+SW6%22+%22Savills%22+%2295%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+SW6%22+%22Savills%22+%2295%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+SW6%22+%22Savills%22+%2295%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+92%22+%22Ruddington%2c+Nr+Nottingham%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+92%22+%22Ruddington%2c+Nr+Nottingham%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+92%22+%22Ruddington%2c+Nr+Nottingham%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Ruddington%2c+Nr+Nottingham%22+%22Savills%22+%2292%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Ruddington%2c+Nr+Nottingham%22+%22Savills%22+%2292%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Ruddington%2c+Nr+Nottingham%22+%22Savills%22+%2292%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+17%22+%22Mapperley+Park%2c+Nottingham%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+17%22+%22Mapperley+Park%2c+Nottingham%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+17%22+%22Mapperley+Park%2c+Nottingham%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Forest+Fields%2c+Nottingham%22+%22Savills%22+%221%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Forest+Fields%2c+Nottingham%22+%22Savills%22+%221%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Forest+Fields%2c+Nottingham%22+%22Savills%22+%221%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+89%22+%22London+E13%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+89%22+%22London+E13%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+89%22+%22London+E13%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+11%22+%22Kegworth%2c+Leicestershire%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+11%22+%22Kegworth%2c+Leicestershire%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+11%22+%22Kegworth%2c+Leicestershire%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Kegworth%2c+Leicestershire%22+%22Savills%22+%2211%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Kegworth%2c+Leicestershire%22+%22Savills%22+%2211%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Kegworth%2c+Leicestershire%22+%22Savills%22+%2211%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+1%22+%22Forest+Fields%2c+Nottingham%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+1%22+%22Forest+Fields%2c+Nottingham%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%228+March+2019%22+%22Lot+1%22+%22Forest+Fields%2c+Nottingham%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+E13%22+%22Savills%22+%2289%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+E13%22+%22Savills%22+%2289%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+E13%22+%22Savills%22+%2289%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Cumnock%2c+East+Ayrshire%22+%22Savills%22+%2218%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Cumnock%2c+East+Ayrshire%22+%22Savills%22+%2218%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Cumnock%2c+East+Ayrshire%22+%22Savills%22+%2218%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Mapperley+Park%2c+Nottingham%22+%22Savills%22+%2217%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Mapperley+Park%2c+Nottingham%22+%22Savills%22+%2217%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Mapperley+Park%2c+Nottingham%22+%22Savills%22+%2217%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+86%22+%22London+W13%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+86%22+%22London+W13%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+86%22+%22London+W13%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+95%22+%22London+SW6%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+95%22+%22London+SW6%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%2216+December+2019%22+%22Lot+95%22+%22London+SW6%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Southam%2c+Warwickshire%22+%22Savills%22+%2288%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Southam%2c+Warwickshire%22+%22Savills%22+%2288%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22Southam%2c+Warwickshire%22+%22Savills%22+%2288%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+W13%22+%22Savills%22+%2286%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+W13%22+%22Savills%22+%2286%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+W13%22+%22Savills%22+%2286%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+SW16%22+%22Savills%22+%2268%22",
+      "date": "2019-12-16",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+SW16%22+%22Savills%22+%2268%22",
+      "date": "2019-11-04",
+      "reason": "no surviving Savills first-party page"
+    },
+    {
+      "url": "http://www.bing.com:80/search?q=site%3aauctions.savills.co.uk+%22London+SW16%22+%22Savills%22+%2268%22",
+      "date": "2019-03-08",
+      "reason": "no surviving Savills first-party page"
+    }
+  ]
 }
