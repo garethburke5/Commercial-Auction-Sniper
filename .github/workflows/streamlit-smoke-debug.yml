@@ -1,0 +1,46 @@
+name: Streamlit smoke debug
+
+on:
+  push:
+    paths:
+      - '.github/workflows/streamlit-smoke-debug.yml'
+      - 'app.py'
+      - 'legacy_app.py'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install app dependencies
+        run: pip install -r requirements.txt
+      - name: Start Streamlit and probe health
+        shell: bash
+        run: |
+          set -o pipefail
+          streamlit run app.py --server.headless true --server.port 8501 > /tmp/streamlit.log 2>&1 &
+          pid=$!
+          ok=0
+          for i in {1..45}; do
+            if curl -fsS http://127.0.0.1:8501/_stcore/health; then
+              ok=1
+              break
+            fi
+            if ! kill -0 "$pid" 2>/dev/null; then
+              break
+            fi
+            sleep 2
+          done
+          echo '--- Streamlit log ---'
+          cat /tmp/streamlit.log || true
+          if [ "$ok" -ne 1 ]; then
+            echo 'STREAMLIT_HEALTH_FAILED'
+            exit 1
+          fi
+          echo
+          echo 'STREAMLIT_HEALTH_OK'
+          curl -fsS http://127.0.0.1:8501/ | head -c 4000
