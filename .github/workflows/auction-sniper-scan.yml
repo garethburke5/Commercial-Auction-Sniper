@@ -7,19 +7,13 @@ on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/auction-sniper-scan.yml'
       - 'run_collectors.py'
       - 'run_collectors_resilient.py'
       - 'history_database.py'
       - 'source_manifest.py'
       - 'config/target_sources.json'
       - 'collectors/**'
-      - 'tests/**'
       - 'scripts/update_history_database.py'
-      - 'property_summary.py'
-      - 'app.py'
-      - 'legacy_app.py'
-      - 'pagination.py'
 
 permissions:
   contents: write
