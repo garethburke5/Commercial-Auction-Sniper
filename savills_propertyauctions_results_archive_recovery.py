@@ -27,7 +27,7 @@ DATE_RE = re.compile(r'\b(\d{1,2})\s+([A-Z]{3})\s+(20\d{2}|19\d{2})\b', re.I)
 
 def now(): return datetime.now(timezone.utc).isoformat()
 
-def fetch_aid(aid: int, timeout=15):
+def fetch_aid(aid: int, timeout=12):
     url=f'{BASE}/Results/LotList.aspx?AID={aid}'
     try:
         r=requests.get(url,headers={'User-Agent':UA,'Accept-Language':'en-GB,en;q=0.8'},timeout=timeout)
@@ -81,7 +81,7 @@ def parse_rows(soup: BeautifulSoup, aid: int, auction_date: str, evidence_url: s
 
 def enrich_detail(url, target_date, lot_number):
     try:
-        r=requests.get(url,headers={'User-Agent':UA},timeout=15); r.raise_for_status(); text=r.text
+        r=requests.get(url,headers={'User-Agent':UA},timeout=12); r.raise_for_status(); text=r.text
     except Exception as e: return None, f'{type(e).__name__}: {e}'
     soup=BeautifulSoup(text,'html.parser'); plain=' '.join(soup.stripped_strings)
     if target_date and target_date[:4] not in plain: return None,'date/year absent'
@@ -120,21 +120,32 @@ def run(workers=28, max_details=500):
             heading=' '.join((soup.find('body') or soup).stripped_strings)[:800]
             d=parse_date(heading)
             if not d: continue
-            title_match=re.search(r'(?i)\b\d{1,2}\s+[A-Z]{3}\s+\d{4}\s*-\s*([^\n|]{2,100}?SAVILLS[^\n|]{0,100}|SAVILLS[^\n|]{0,100})',plain)
             if 'savills' not in plain[:1200].lower(): continue
             auction={'aid':aid,'date':d,'url':url,'title':plain[:220]}
             savills_auctions.append(auction)
             commercial_clues.extend(parse_rows(soup,aid,d,url))
             for du in candidate_detail_urls(soup):
                 if len(details)<max_details: details.append((du,d,None,aid))
-    # Try any detail links actually exposed by legacy HTML. Only full-address detail pages can enter canonical history.
-    recovered=[]; rejected=[]; seen=set()
-    for du,d,lot,aid in details[:max_details]:
-        if du in seen: continue
-        seen.add(du)
-        item,reason=enrich_detail(du,d,lot or '')
-        if item: recovered.append(item)
-        elif len(rejected)<80: rejected.append({'url':du,'reason':reason})
+
+    # De-duplicate first, then fetch detail pages concurrently. The previous sequential
+    # 500-page loop could consume the entire 20-minute Actions budget and lose all work.
+    unique_details=[]; seen=set()
+    for item in details[:max_details]:
+        if item[0] in seen: continue
+        seen.add(item[0]); unique_details.append(item)
+
+    recovered=[]; rejected=[]
+    def detail_job(item):
+        du,d,lot,aid=item
+        found,reason=enrich_detail(du,d,lot or '')
+        return du,found,reason
+    with ThreadPoolExecutor(max_workers=max(4,min(workers,32))) as ex:
+        futs=[ex.submit(detail_job,item) for item in unique_details]
+        for fut in as_completed(futs):
+            du,item,reason=fut.result()
+            if item: recovered.append(item)
+            elif len(rejected)<80: rejected.append({'url':du,'reason':reason})
+
     after=before; added=0
     if recovered:
         db=update_history_database(recovered,path=HISTORY); after=source_count(db); added=max(0,after-before); s['lots_captured']=after
