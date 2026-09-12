@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T06:37:22.496388+00:00",
+  "updated_at": "2026-09-12T07:04:31.345687+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "wayback-cdx-pastauctions-venue-lotlist-to-live-savills",
+      "last_discovery_mode": "public-reference-legacy-savills-pid-aid-signature-replay",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -4394,7 +4394,7 @@
         "next_safe_route": "Use any recovered catalogue address/lot clues to query archived Savills LotDetails/index.php URL captures by exact address fragments and legacy pid/id, then validate against the first-party Savills lot page or archived lot body before persistence."
       },
       "next_frontier_repair": "savills_public_address_frontier_recovery.py",
-      "next_frontier_repair_reason": "Use exact catalogue address/lot clues and legacy pid/id capture discovery after archived catalogue/brochure WARC recovery produced no canonical event.",
+      "next_frontier_repair_reason": "Mine free web-index results for exact 2014 Savills lot-address snippets and postcode clues without requiring an embedded Savills URL, then use those clues to query archived LotDetails/index.php capture indexes by address and validate any recovered original Savills lot body/page.",
       "newsroom_frontier_last_run": {
         "at": "2026-09-12T06:10:16.869698+00:00",
         "route": "first-party-savills-newsroom-sitemap-frontier",
@@ -4522,6 +4522,180 @@
         "route": "commoncrawl-first-party-savills-newsroom-warc",
         "message": "Archived Savills-owned newsroom WARC bodies yielded no canonical commercial lot event for the exact frontier date.",
         "next_safe_route": "Use surviving 2013/2014 Savills newsroom article numeric IDs and archived URL inventories to probe bounded adjacent article-ID ranges, then parse only Savills-owned archived bodies with the exact frontier auction date."
+      },
+      "legacy_pid_reference_frontier_last_run": {
+        "at": "2026-09-12T07:04:31.345642+00:00",
+        "frontier_date": "2014-04-24",
+        "route": "public-reference-legacy-savills-pid-aid-signature-replay",
+        "queries_attempted": 28,
+        "external_result_pages_examined": 0,
+        "candidate_lot_urls_seen": 0,
+        "candidate_kinds": {},
+        "candidates_checked_against_savills": 0,
+        "commercial_rows_seen": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "accepted_evidence_urls": [],
+        "search_rows": [
+          {
+            "query": "\"24 April 2014\" \"auctions.savills.co.uk/Auctions/LotDetails?pid=\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24 April 2014\" \"LotDetails?pid=\" Savills property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24 April 2014\" \"auctions.savills.co.uk\" \"pid=\" auction",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24 April 2014\" \"auctions.savills.co.uk/Auctions/LotList?aid=\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24 April 2014\" \"view=commission\" \"auctions.savills.co.uk\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24 Apr 2014\" \"auctions.savills.co.uk/Auctions/LotDetails?pid=\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24 Apr 2014\" \"LotDetails?pid=\" Savills property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24 Apr 2014\" \"auctions.savills.co.uk\" \"pid=\" auction",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24 Apr 2014\" \"auctions.savills.co.uk/Auctions/LotList?aid=\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24 Apr 2014\" \"view=commission\" \"auctions.savills.co.uk\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24/04/2014\" \"auctions.savills.co.uk/Auctions/LotDetails?pid=\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24/04/2014\" \"LotDetails?pid=\" Savills property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24/04/2014\" \"auctions.savills.co.uk\" \"pid=\" auction",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24/04/2014\" \"auctions.savills.co.uk/Auctions/LotList?aid=\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"24/04/2014\" \"view=commission\" \"auctions.savills.co.uk\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"2014-04-24\" \"auctions.savills.co.uk/Auctions/LotDetails?pid=\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"2014-04-24\" \"LotDetails?pid=\" Savills property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"2014-04-24\" \"auctions.savills.co.uk\" \"pid=\" auction",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"2014-04-24\" \"auctions.savills.co.uk/Auctions/LotList?aid=\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"2014-04-24\" \"view=commission\" \"auctions.savills.co.uk\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"April 2014\" \"auctions.savills.co.uk/Auctions/LotDetails?pid=\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"April 2014\" \"LotDetails?pid=\" Savills property",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"April 2014\" \"auctions.savills.co.uk\" \"pid=\" auction",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"April 2014\" \"auctions.savills.co.uk/Auctions/LotList?aid=\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"April 2014\" \"view=commission\" \"auctions.savills.co.uk\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"April 2014\" \"LotDetails?pid=\" \"Savills\" commercial",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"April 2014\" \"LotList?aid=\" \"Savills Auctions\"",
+            "results": 0,
+            "sample_urls": []
+          },
+          {
+            "query": "\"April 2014\" \"view=commission\" \"Savills Auctions\" property",
+            "results": 0,
+            "sample_urls": []
+          }
+        ],
+        "rejected_samples": [],
+        "search_errors": [],
+        "page_errors": [],
+        "evidence_rule": "External references are discovery only; canonical persistence requires the candidate to resolve to a Savills-owned first-party lot page classified commercial/mixed-use and consistent with the exact frontier auction date."
+      },
+      "legacy_pid_reference_frontier_last_blocker": {
+        "at": "2026-09-12T07:04:31.345642+00:00",
+        "frontier_date": "2014-04-24",
+        "route": "public-reference-legacy-savills-pid-aid-signature-replay",
+        "message": "Legacy Savills pid/aid endpoint-reference mining produced no validated commercial lot event for the exact next-oldest auction date.",
+        "exact_failure": {
+          "candidate_lot_urls_seen": 0,
+          "candidates_checked": 0,
+          "candidate_kinds": {},
+          "errors": []
+        },
+        "next_safe_route": "Mine free web-index results for exact 2014 Savills lot-address snippets and postcode clues without requiring an embedded Savills URL, then use those clues to query archived LotDetails/index.php capture indexes by address and validate any recovered original Savills lot body/page."
       }
     }
   }
