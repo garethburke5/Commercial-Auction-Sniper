@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T09:44:33.826104+00:00",
+  "updated_at": "2026-09-12T10:09:44.265492+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "ARCHIVED CATALOGUE BLOCKED",
+      "status": "LIVE ARCHIVE BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3250,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "archived-savills-catalogue-brochure-warc",
+      "last_discovery_mode": "repository-diagnostic-evidence-revalidation",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -5269,6 +5269,757 @@
         "candidate_lot_urls": 0,
         "address_clues_seen": 0,
         "next_safe_route": "Use any first-party address clues recovered here to search archived Savills LotDetails/index.php captures by exact postcode/address fragments and validate the archived lot body directly when no live page survives."
+      },
+      "diagnostic_evidence_last_run": {
+        "at": "2026-09-12T10:09:44.265461+00:00",
+        "route": "repository-diagnostic-evidence-revalidation",
+        "frontier_date": "2014-04-24",
+        "diagnostic_files_scanned": 70,
+        "diagnostic_strings_seen": 2430,
+        "savills_lot_url_candidates": 86,
+        "frontier_context_samples": [
+          {
+            "file": "savills_2013_commoncrawl_2026-09-10T1401Z.json",
+            "context": "2014-04-24"
+          },
+          {
+            "file": "savills_2013_priority_probe_cursor_bug_2026-09-10T1500Z.json",
+            "context": "2014-04-24"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 2026-09-12T01:08:47.903255+00:00"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 duckduckgo-yahoo-exact-date-address-to-first-party-savills"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 2014-04-24"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 duckduckgo"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 \"Savills\" \"24 April 2014\" auction lot guide"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 yahoo"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 \"Savills\" \"24 April 2014\" auction lot guide"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 HTTPError: HTTP Error 500: INKApi Error"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 duckduckgo"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 \"Savills Auctions\" \"24 April 2014\" property results"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 yahoo"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 \"Savills Auctions\" \"24 April 2014\" property results"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 HTTPError: HTTP Error 500: INKApi Error"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 duckduckgo"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 \"Savills\" \"24 April 2014\" commercial investment auction"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 yahoo"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 \"Savills\" \"24 April 2014\" commercial investment auction"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 HTTPError: HTTP Error 500: INKApi Error"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 duckduckgo"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 \"Savills\" \"24 April 2014\" lot freehold leasehold"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 yahoo"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 \"Savills\" \"24 April 2014\" lot freehold leasehold"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 HTTPError: HTTP Error 500: INKApi Error"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 duckduckgo"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 \"Savills\" \"24/04/2014\" auction lot"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 yahoo"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 \"Savills\" \"24/04/2014\" auction lot"
+          },
+          {
+            "file": "savills_2014-04-24_multisearch_blocker.json",
+            "context": "2014-04-24 HTTPError: HTTP Error 500: INKApi Error"
+          }
+        ],
+        "live_candidates_checked": 86,
+        "commercial_rows_seen": 2,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "rejected_samples": [
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1087",
+            "files": [
+              "savills_2019_catalogue_body_pid_blocker_2026-09-11T1402Z.json",
+              "savills_2019_lotdetails_prefix_repair_2026-09-11T1505Z.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1088",
+            "files": [
+              "savills_2019_catalogue_body_pid_blocker_2026-09-11T1402Z.json",
+              "savills_2019_lotdetails_prefix_repair_2026-09-11T1505Z.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1089",
+            "files": [
+              "savills_2019_catalogue_body_pid_blocker_2026-09-11T1402Z.json",
+              "savills_2019_lotdetails_prefix_repair_2026-09-11T1505Z.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1090",
+            "files": [
+              "savills_2019_catalogue_body_pid_blocker_2026-09-11T1402Z.json",
+              "savills_2019_lotdetails_prefix_repair_2026-09-11T1505Z.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/Auctions/LotList?aid=1126",
+            "files": [
+              "savills_2014_gap_recovery_redirect_2026-09-10T2208Z.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/assets/images/auctions/archived-auction-image.jpg",
+            "files": [
+              "savills_live_archive_page13_latent_routes_2026-09-10T1904Z.json",
+              "savills_live_archive_page13_latent_routes_2026-09-10T1906Z.json",
+              "savills_live_archive_page14_latent_routes_2026-09-10T1804Z.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/1-march-2023-112",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2023-03-01"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/1-november-2023-134",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2023-11-01"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/1-october-2025-194",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-10-01"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/1-september-2023-130",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2023-09-01"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/10--11-february-2026-217",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-02-11"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/10-may-2023-114",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2023-05-10"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/10-october-2023-133",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2023-10-10"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/11-december-2024-159",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-12-11"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/12-february-2025-178",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-02-12"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/13--14-may-2025-187",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-05-14"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/13-december-2023-136",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2023-12-13"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/14--15-july-2026-226",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-07-15"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/15--16-april-2024-148",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-04-16"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/16-september-2025-193",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-09-16"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/17--18-june-2025-189",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-06-18"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/17-march-2026-219",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-03-17"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/18--19-march-2025-184",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-03-19"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/18-august-2026-240",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-08-18"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/18-june-2024-151",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-06-18"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/19--26-november-2024-158",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-11-26"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/19-august-2025-211",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-08-19"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/19-march-2024-147",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-03-19"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/2-july-2024-152",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-07-02"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/2-july-2025-190",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-07-02"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/2-september-2025-192",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-09-02"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/2-september-2026-241",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-09-02"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/20-may-2026-223",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-05-20"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/20-september-2023-132",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2023-09-20"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/21--22-april-2026-221",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-04-22"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/21--22-october-2025-195",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-10-22"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/21-november-2023-135",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2023-11-21"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/22--23-july-2025-191",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-07-23"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/23--24-july-2024-153",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-07-24"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/23-april-2025-186",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-04-23"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/23-june-2026-225",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-06-23"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/24--25-february-2026-218",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-02-25"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/24--25-november-2025-197",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-11-25"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/24--25-september-2024-155",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-09-25"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/24-january-2024-144",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-01-24"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/24-november-2022-118",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2022-11-24"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/26--27-february-2025-179",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-02-27"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/26-27-and-28-january-2026-216",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-01-28"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/27--28-february-2024-146",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-02-28"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/28--29-july-2026-227",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-07-29"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/28-january-2025-177",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-01-28"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/28-march-2023-121",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2023-03-28"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/28-may-2025-188",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-05-28"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/29--30-may-2024-150",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-05-30"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/29--30-october-2024-157",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-10-30"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/3--4-september-2024-154",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-09-04"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/30-july-2025-213",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-07-30"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/31-march-2026-220",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-03-31"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/31-may-2023-122",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2023-05-31"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/5--6-november-2025-196",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-11-06"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/6-february-2024-145",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-02-06"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/6-may-2026-222",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-05-06"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/8--9-may-2024-149",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-05-09"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/8-april-2025-185",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-04-08"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/8-november-2022-98",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2022-11-08"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/8-october-2024-156",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2024-10-08"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/9--10-december-2025-198",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2025-12-10"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/9-june-2026-224",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "date-mismatch:2026-06-09"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/april-2023-113",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/archived-auction-image.jpg",
+            "files": [
+              "savills_live_archive_page13_latent_routes_2026-09-10T1904Z.json",
+              "savills_live_archive_page13_latent_routes_2026-09-10T1906Z.json",
+              "savills_live_archive_page14_latent_routes_2026-09-10T1804Z.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/december-2019-3",
+            "files": [
+              "savills_2019_lot_model_schema_blocker_2026-09-11T0058Z.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/december-2020-12",
+            "files": [
+              "savills_2014_gap_recovery_redirect_2026-09-10T2208Z.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/december-2022-102",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/february-2023-111",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/july-2022-95",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/july-2023-116",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/june-2023-115",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/november-2019-2",
+            "files": [
+              "savills_2019_address_fallback_missing_2026-09-11T1008Z.json",
+              "savills_2019_archive_url_extraction_gap_2026-09-11T1101Z.json",
+              "savills_2019_dead_migrated_routes_2026-09-11T0500Z.json",
+              "savills_2019_frontier_broad_pass_timeout_2026-09-11T0757Z.json",
+              "savills_2019_frontier_bypassed_by_2013_probe_2026-09-11T0610Z.json",
+              "savills_2019_migrated_catalogue_gap_2026-09-11T0300Z.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/november-2020-11",
+            "files": [
+              "savills_2014_gap_recovery_redirect_2026-09-10T2208Z.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/october-2022-97",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/september-2019-1",
+            "files": [
+              "savills_2019_address_fallback_missing_2026-09-11T1008Z.json",
+              "savills_2019_archive_url_extraction_gap_2026-09-11T1101Z.json",
+              "savills_2019_dead_migrated_routes_2026-09-11T0500Z.json",
+              "savills_2019_frontier_broad_pass_timeout_2026-09-11T0757Z.json",
+              "savills_2019_frontier_bypassed_by_2013_probe_2026-09-11T0610Z.json",
+              "savills_2019_migrated_catalogue_gap_2026-09-11T0300Z.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/september-2020-10",
+            "files": [
+              "savills_2014_gap_recovery_redirect_2026-09-10T2208Z.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://auctions.savills.co.uk/auctions/september-2022-96",
+            "files": [
+              "savills_live_archive_manifest.json"
+            ],
+            "reason": "no-frontier-date-binding"
+          },
+          {
+            "url": "https://www.savills.co.uk/auctions/resicatrequest/PreRegistration.aspx",
+            "files": [
+              "savills_2013_priority_probe_cursor_bug_2026-09-10T1500Z.json"
+            ],
+            "reason": "live-fetch: ModuleNotFoundError: No module named 'playwright'"
+          }
+        ]
+      },
+      "diagnostic_evidence_last_blocker": {
+        "at": "2026-09-12T10:09:44.265461+00:00",
+        "frontier_date": "2014-04-24",
+        "message": "Accumulated Savills diagnostics yielded no newly persistable commercial lot for the exact 24 April 2014 frontier after first-party revalidation.",
+        "candidates_seen": 86,
+        "live_checked": 86,
+        "next_safe_route": "Mine archived Savills PastAuctions page bodies for hidden form/select/JavaScript auction identifiers and POST-back values rather than URL anchors, then resolve those IDs to lot/catalogue routes."
       }
     }
   }
