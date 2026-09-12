@@ -1,0 +1,18 @@
+{
+  "at": "2026-09-12T04:03:16.429335+00:00",
+  "route": "bounded-commoncrawl-2014-pastauctions-venue-lotlist-body-probe",
+  "frontier_date": "2014-04-24",
+  "queries": [],
+  "capture_rows_seen": 0,
+  "warc_checked": 0,
+  "exact_frontier_bodies": [],
+  "errors": [
+    "CC-MAIN-2014-15 auctions.savills.co.uk/Auctions/Venue :: HTTPError: HTTP Error 404: Not Found",
+    "CC-MAIN-2014-15 auctions.savills.co.uk/Auctions/LotList :: HTTPError: HTTP Error 404: Not Found",
+    "CC-MAIN-2014-15 auctions.savills.co.uk/PastAuctions :: HTTPError: HTTP Error 404: Not Found",
+    "CC-MAIN-2014-23 auctions.savills.co.uk/Auctions/Venue :: HTTPError: HTTP Error 404: Not Found",
+    "CC-MAIN-2014-23 auctions.savills.co.uk/Auctions/LotList :: HTTPError: HTTP Error 404: Not Found",
+    "CC-MAIN-2014-23 auctions.savills.co.uk/PastAuctions :: HTTPError: HTTP Error 404: Not Found"
+  ],
+  "canonical_events_added": 0
+}

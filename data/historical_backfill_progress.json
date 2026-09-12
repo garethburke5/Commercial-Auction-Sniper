@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T03:06:59.689786+00:00",
+  "updated_at": "2026-09-12T04:03:16.429875+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "AGGREGATOR REFERENCE BLOCKED",
+      "status": "EXACT 2014 WARC BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3250,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "auction-reference-index-address-lot-to-legacy-savills-replay",
+      "last_discovery_mode": "bounded-commoncrawl-2014-pastauctions-venue-lotlist-body-probe",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -4191,7 +4191,36 @@
         },
         "next_safe_route": "Use the exact 24 April 2014 Savills auction date to mine archived Savills brochure/catalogue PDFs and WARC response bodies for lot addresses and pid/id references, then persist only archived/live Savills first-party lot evidence."
       },
-      "aggregator_reference_last_diagnostic": "data/source_diagnostics/savills_aggregator_reference_2014-04-24_2026-09-12T0306Z.json"
+      "aggregator_reference_last_diagnostic": "data/source_diagnostics/savills_aggregator_reference_2014-04-24_2026-09-12T0306Z.json",
+      "exact_2014_warc_probe_last_run": {
+        "at": "2026-09-12T04:03:16.429335+00:00",
+        "route": "bounded-commoncrawl-2014-pastauctions-venue-lotlist-body-probe",
+        "frontier_date": "2014-04-24",
+        "queries": [],
+        "capture_rows_seen": 0,
+        "warc_checked": 0,
+        "exact_frontier_bodies": [],
+        "errors": [
+          "CC-MAIN-2014-15 auctions.savills.co.uk/Auctions/Venue :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2014-15 auctions.savills.co.uk/Auctions/LotList :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2014-15 auctions.savills.co.uk/PastAuctions :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2014-23 auctions.savills.co.uk/Auctions/Venue :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2014-23 auctions.savills.co.uk/Auctions/LotList :: HTTPError: HTTP Error 404: Not Found",
+          "CC-MAIN-2014-23 auctions.savills.co.uk/PastAuctions :: HTTPError: HTTP Error 404: Not Found"
+        ],
+        "canonical_events_added": 0
+      },
+      "exact_2014_warc_probe_last_diagnostic": "data/source_diagnostics/savills_2014_exact_warc_probe_2026-09-12T040316.429335+0000.json",
+      "exact_2014_warc_probe_last_blocker": {
+        "at": "2026-09-12T04:03:16.429335+00:00",
+        "frontier_date": "2014-04-24",
+        "route": "bounded-commoncrawl-2014-pastauctions-venue-lotlist-body-probe",
+        "message": "The bounded exact-date Common Crawl probe of historical Savills PastAuctions/Venue/LotList bodies produced no persistable lot-specific commercial event for the next oldest known auction.",
+        "capture_rows_seen": 0,
+        "warc_checked": 0,
+        "exact_frontier_bodies": 0,
+        "next_safe_route": "Run savills_archived_catalogue_frontier_recovery.py to mine archived first-party Savills catalogue/brochure PDF bodies plus embedded aid/pid/detail URLs for the same 24 April 2014 frontier."
+      }
     }
   }
 }
