@@ -1,0 +1,36 @@
+{
+  "at": "2026-09-12T08:06:53.974357+00:00",
+  "year": 2014,
+  "route": "wayback-broader-savills-domain-pdf-catalogue-clue-recovery",
+  "target_dates": [
+    "2014-04-24",
+    "2014-05-07",
+    "2014-06-16",
+    "2014-07-22",
+    "2014-09-15",
+    "2014-10-28",
+    "2014-12-08"
+  ],
+  "queries": [
+    {
+      "pattern": "www.savills.co.uk/*",
+      "query": "https://web.archive.org/cdx/search/cdx?url=www.savills.co.uk%2F%2A&matchType=prefix&from=2013&to=2015&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=urlkey&limit=12000",
+      "rows": 0
+    },
+    {
+      "pattern": "savills.co.uk/*",
+      "query": "https://web.archive.org/cdx/search/cdx?url=savills.co.uk%2F%2A&matchType=prefix&from=2013&to=2015&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=urlkey&limit=12000",
+      "rows": 0
+    },
+    {
+      "pattern": "pdf.euro.savills.co.uk/*",
+      "query": "https://web.archive.org/cdx/search/cdx?url=pdf.euro.savills.co.uk%2F%2A&matchType=prefix&from=2013&to=2015&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=urlkey&limit=12000",
+      "rows": 0
+    }
+  ],
+  "pdf_candidates": 0,
+  "pdf_checked": 0,
+  "documents_with_exact_date_clues": 0,
+  "clues": [],
+  "errors": []
+}
