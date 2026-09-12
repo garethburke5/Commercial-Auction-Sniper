@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T00:35:03.901618+00:00",
+  "updated_at": "2026-09-12T01:08:48.211590+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "wayback-cdx-wildcard-oldest-manifest-date-to-live-savills-validation",
+      "last_discovery_mode": "duckduckgo-yahoo-exact-date-address-to-first-party-savills",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -3624,6 +3624,86 @@
         "route": "wayback-cdx-pastauctions-venue-lotlist-to-live-savills",
         "message": "Wayback PastAuctions/Venue/LotList capture recovery did not yield a persistable lot-specific live Savills commercial event.",
         "next_safe_route": "Use reputable public auction-result aggregators only to discover exact frontier-date Savills commercial addresses/lot references, then search the surviving Savills lot namespace by exact address and persist only when a lot-specific first-party Savills page validates it."
+      },
+      "multisearch_frontier_last_run": {
+        "at": "2026-09-12T01:08:47.903255+00:00",
+        "route": "duckduckgo-yahoo-exact-date-address-to-first-party-savills",
+        "frontier_date": "2014-04-24",
+        "queries": [
+          {
+            "engine": "duckduckgo",
+            "query": "\"Savills\" \"24 April 2014\" auction lot guide",
+            "results": 0,
+            "sample": []
+          },
+          {
+            "engine": "yahoo",
+            "query": "\"Savills\" \"24 April 2014\" auction lot guide",
+            "error": "HTTPError: HTTP Error 500: INKApi Error"
+          },
+          {
+            "engine": "duckduckgo",
+            "query": "\"Savills Auctions\" \"24 April 2014\" property results",
+            "results": 0,
+            "sample": []
+          },
+          {
+            "engine": "yahoo",
+            "query": "\"Savills Auctions\" \"24 April 2014\" property results",
+            "error": "HTTPError: HTTP Error 500: INKApi Error"
+          },
+          {
+            "engine": "duckduckgo",
+            "query": "\"Savills\" \"24 April 2014\" commercial investment auction",
+            "results": 0,
+            "sample": []
+          },
+          {
+            "engine": "yahoo",
+            "query": "\"Savills\" \"24 April 2014\" commercial investment auction",
+            "error": "HTTPError: HTTP Error 500: INKApi Error"
+          },
+          {
+            "engine": "duckduckgo",
+            "query": "\"Savills\" \"24 April 2014\" lot freehold leasehold",
+            "results": 0,
+            "sample": []
+          },
+          {
+            "engine": "yahoo",
+            "query": "\"Savills\" \"24 April 2014\" lot freehold leasehold",
+            "error": "HTTPError: HTTP Error 500: INKApi Error"
+          },
+          {
+            "engine": "duckduckgo",
+            "query": "\"Savills\" \"24/04/2014\" auction lot",
+            "results": 0,
+            "sample": []
+          },
+          {
+            "engine": "yahoo",
+            "query": "\"Savills\" \"24/04/2014\" auction lot",
+            "error": "HTTPError: HTTP Error 500: INKApi Error"
+          }
+        ],
+        "search_results": 0,
+        "postcode_clues": 0,
+        "lot_specific_candidates": 0,
+        "commercial_rows_seen": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "rejected_samples": []
+      },
+      "multisearch_frontier_last_blocker": {
+        "at": "2026-09-12T01:08:47.903255+00:00",
+        "frontier_date": "2014-04-24",
+        "route": "duckduckgo-yahoo-exact-date-address-to-first-party-savills",
+        "message": "Independent DuckDuckGo/Yahoo exact-date discovery did not resolve the frontier sale to a lot-specific surviving Savills page carrying the same date.",
+        "search_results": 0,
+        "postcode_clues": 0,
+        "lot_specific_candidates": 0,
+        "next_safe_route": "Use targeted historical newspaper/property-trade archives and downloadable 2014 auction result/catalogue PDFs to recover exact Savills lot addresses or legacy IDs, then bind each clue back to an archived or surviving Savills first-party lot page before persistence."
       }
     }
   }
