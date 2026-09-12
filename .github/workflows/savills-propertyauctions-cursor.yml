@@ -1,6 +1,10 @@
 name: Savills PropertyAuctions Cursor Recovery
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'savills_propertyauctions_cursor_recovery.py'
+      - '.github/workflows/savills-propertyauctions-cursor.yml'
 permissions:
   contents: write
 concurrency:
@@ -23,7 +27,7 @@ jobs:
       - name: Compile
         run: python -m py_compile savills_propertyauctions_cursor_recovery.py
       - name: Recover resumable AID slice
-        run: python savills_propertyauctions_cursor_recovery.py --chunk 90 --workers 24
+        run: python savills_propertyauctions_cursor_recovery.py --chunk 120 --workers 24
       - name: Verify canonical and cursor state
         run: |
           python - <<'PY'
