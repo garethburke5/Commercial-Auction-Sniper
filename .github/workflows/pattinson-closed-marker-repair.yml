@@ -1,8 +1,5 @@
 name: Pattinson Closed Status Repair
 on:
-  push:
-    paths:
-      - '.github/workflows/pattinson-closed-marker-repair.yml'
   workflow_dispatch:
 permissions:
   contents: write
