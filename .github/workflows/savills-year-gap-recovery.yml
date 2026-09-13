@@ -5,7 +5,7 @@ on:
   push:
     paths:
       - '.github/workflows/savills-year-gap-recovery.yml'
-      - 'savills_first_party_host_archive_recovery.py'
+      - 'savills_catalogue_chronology_map.py'
 
 permissions:
   contents: write
@@ -17,7 +17,7 @@ concurrency:
 jobs:
   recover:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,10 +27,10 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install requests
-      - name: Compile first-party Savills archive route
-        run: python -m py_compile savills_first_party_host_archive_recovery.py
-      - name: Enumerate archived first-party Savills property pages
-        run: python savills_first_party_host_archive_recovery.py
+      - name: Compile chronological Savills catalogue mapper
+        run: python -m py_compile savills_catalogue_chronology_map.py
+      - name: Map and reconcile Savills 2018-2010 auction catalogues
+        run: python savills_catalogue_chronology_map.py
       - name: Verify generated state
         run: |
           python - <<'PY'
@@ -38,25 +38,26 @@ jobs:
           from pathlib import Path
           h=json.loads(Path('data/property_history.json').read_text())
           p=json.loads(Path('data/historical_backfill_progress.json').read_text())
-          s=p['sources']['Savills Auctions']; r=s.get('savills_year_gap_savills_host_last_run') or {}
+          d=json.loads(Path('data/source_diagnostics/savills_2018_2010_catalogue_map.json').read_text())
+          s=p['sources']['Savills Auctions']; r=s.get('savills_catalogue_map_last_run') or {}
           count=sum(1 for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions')
           dates=sorted(str(e.get('auction_date')) for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions' and e.get('auction_date'))
           print('SAVILLS_EVENTS',count)
           print('OLDEST_VERIFIED',dates[0] if dates else None)
-          print('UNIQUE_FIRST_PARTY_URLS',r.get('unique_first_party_urls'))
-          print('ARCHIVE_SURFACES_REPLAYED',r.get('archive_surfaces_replayed'))
-          print('SUCCESSFUL_ARCHIVE_SURFACES',r.get('successful_archive_surfaces'))
-          print('STRICT_FIRST_PARTY_CANDIDATES',r.get('strict_first_party_candidates'))
+          print('AUCTION_DATES_MAPPED',r.get('auction_dates_mapped'))
+          print('YEAR_COUNTS',r.get('year_counts'))
+          print('CATALOGUE_SURFACES_CHECKED',r.get('catalogue_surfaces_checked'))
+          print('CATALOGUES_WITH_LOT_OR_CHILD_EVIDENCE',r.get('catalogues_with_lot_or_child_evidence'))
           assert s.get('historically_complete') is False
           assert s.get('discovery_exhausted') is False
-          assert r.get('route')=='savills-2018-first-party-savills-host-wayback-full-parallel-enumeration'
-          assert int(r.get('archive_surfaces_replayed') or 0) == int(r.get('unique_first_party_urls') or 0)
+          assert r.get('route')=='savills-2018-2010-chronological-catalogue-manifest-and-surface-reconciliation'
+          assert d.get('manifest') is not None
           PY
       - name: Preserve generated files
         run: |
           cp data/property_history.json /tmp/savills_gap_history.json
           cp data/historical_backfill_progress.json /tmp/savills_gap_progress.json
-          cp data/source_diagnostics/savills_year_gap_recovery.json /tmp/savills_gap_diag.json
+          cp data/source_diagnostics/savills_2018_2010_catalogue_map.json /tmp/savills_catalogue_map.json
       - name: Publish conflict-safe
         run: |
           git config user.name 'Auction Sniper History Bot'
@@ -65,7 +66,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             cp /tmp/savills_gap_history.json data/property_history.json
-            cp /tmp/savills_gap_diag.json data/source_diagnostics/savills_year_gap_recovery.json
+            cp /tmp/savills_catalogue_map.json data/source_diagnostics/savills_2018_2010_catalogue_map.json
             python - <<'PY'
           import json
           from pathlib import Path
@@ -74,16 +75,16 @@ jobs:
           recovered=json.loads(Path('/tmp/savills_gap_progress.json').read_text())
           fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{})
           rs=recovered['sources']['Savills Auctions']
-          for key in ('savills_year_gap_savills_host_last_run','savills_year_gap_last_blocker','savills_year_gap_focus','last_history_event_count','lots_captured','earliest_date_reached','earliest_month_reached','last_discovery_mode','status'):
+          for key in ('savills_catalogue_map_last_run','savills_catalogue_map_year_counts','savills_year_gap_last_blocker','savills_year_gap_focus','last_history_event_count','lots_captured','earliest_date_reached','earliest_month_reached','last_discovery_mode','status'):
               if key in rs: fs[key]=rs[key]
           fs['historically_complete']=False
           fs['discovery_exhausted']=False
           fresh['updated_at']=recovered.get('updated_at',fresh.get('updated_at'))
           fp.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
           PY
-            git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics/savills_year_gap_recovery.json
+            git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics/savills_2018_2010_catalogue_map.json
             if git diff --cached --quiet; then exit 0; fi
-            git commit -m 'Persist Savills first-party host archive recovery'
+            git commit -m 'Persist Savills 2018-2010 chronological catalogue map'
             if git push origin HEAD:main; then exit 0; fi
             git reset --hard HEAD~1
             sleep $((attempt*3))
