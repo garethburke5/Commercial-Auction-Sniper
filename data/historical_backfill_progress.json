@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T01:04:26.008584+00:00",
+  "updated_at": "2026-09-13T02:05:13.835232+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "propertyauctions-oldest-catalogue-surface-probe",
+      "last_discovery_mode": "savills-confirmed-2010-archival-index-sweep",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -4261,11 +4261,11 @@
         "errors": []
       },
       "propertyauctions_cursor_last_blocker": {
-        "at": "2026-09-13T01:04:26.008548+00:00",
-        "route": "propertyauctions-oldest-catalogue-surface-probe",
+        "at": "2026-09-13T02:05:13.835193+00:00",
+        "route": "savills-confirmed-2010-archival-index-sweep",
         "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
-        "message": "Numeric AID namespace is fully swept to 1. Oldest validated catalogue remains 2010-05-10 (AID 678); surface probe found 42 interesting URL(s), 1 form(s), 7 relevant/hidden control(s), and 33 same-host follow-up(s), but +0 canonical rows have sufficient full property identity plus Savills-owned evidence.",
-        "next_safe_route": "Resolve any surviving catalogue-linked document/detail endpoints found by this probe; then use archival URL indexes/Wayback/Common Crawl against the confirmed 10 May 2010 Savills auction tuple and reconcile recovered property addresses to first-party Savills evidence before insertion."
+        "message": "Archival index sweep found 252 Wayback capture row(s) and 0 Common Crawl exact-URL hit(s) for the confirmed 2010-05-10 Savills catalogue, but no canonical rows were promoted before WARC/snapshot content is fetched and reconciled to first-party Savills evidence.",
+        "next_safe_route": "Fetch the discovered archived snapshots/WARC records, extract lot-detail URLs/full addresses, then reconcile each candidate to the confirmed Savills catalogue and Savills-owned evidence before History V2 insertion."
       },
       "propertyauctions_detail_identifier_last_run": {
         "at": "2026-09-12T19:02:38.480874+00:00",
