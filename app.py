@@ -57,7 +57,7 @@ with st.expander("Filters",expanded=False):
 if _old_toolbar in _source:
     _source = _source.replace(_old_toolbar, _new_toolbar, 1)
 
-# Replace the numbered radio pager with a compact single-row toolbar.
+# Replace the numbered radio pager with a genuinely compact single-row toolbar.
 _old_pager = '''    pager_size, pager_summary = st.columns([1.0,4.0], vertical_alignment="bottom")
     with pager_size:
         page_choice=st.selectbox(
@@ -98,12 +98,16 @@ _old_pager = '''    pager_size, pager_summary = st.columns([1.0,4.0], vertical_a
                 st.session_state["board_page"] = current_page+1
                 st.rerun()
 '''
-_new_pager = '''    # One compact pagination toolbar. Keep controls grouped instead of stretching
-    # Previous/Next across the full desktop width.
-    page_choice=st.selectbox(
-        "Lots per page", ["10","50","100","All"], index=1,
-        key="board_page_size", help="Properties per page",
+_new_pager = '''    # Compact board toolbar: page-size selector, result count and navigation all
+    # live in one row so no control stretches pointlessly across the page.
+    size_col, count_col, prev_col, page_col, next_col, pager_space = st.columns(
+        [1.05,1.45,.72,.82,.72,2.95], vertical_alignment="bottom", gap="small"
     )
+    with size_col:
+        page_choice=st.selectbox(
+            "Lots per page", ["10","50","100","All"], index=1,
+            key="board_page_size", help="Properties per page",
+        )
     if st.session_state.get("board_page_size_prev") != page_choice:
         st.session_state["board_page_size_prev"] = page_choice
         st.session_state["board_page"] = 1
@@ -114,15 +118,17 @@ _new_pager = '''    # One compact pagination toolbar. Keep controls grouped inst
     st.session_state["board_page"] = current_page
     first=(start+1 if total_lots else 0)
 
-    count_col, prev_col, page_col, next_col, pager_space = st.columns([1.55,.72,.86,.72,3.15], vertical_alignment="bottom", gap="small")
     with count_col:
-        st.markdown(f'<div class="pagerCount">Showing <b>{first}–{end}</b> of <b>{total_lots}</b>{" · filtered" if apply_filters else ""}</div>', unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="pagerCount">Showing <b>{first}–{end}</b> of <b>{total_lots}</b>{" · filtered" if apply_filters else ""}</div>',
+            unsafe_allow_html=True,
+        )
     with prev_col:
         if st.button("‹ Previous", key="board_prev", disabled=current_page<=1, use_container_width=True):
             st.session_state["board_page"] = current_page-1
             st.rerun()
     with page_col:
-        st.markdown(f'<div class="pagerStatus">Page <b>{current_page}</b> of <b>{pages}</b></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="pagerStatus"><b>{current_page}</b> / <b>{pages}</b></div>', unsafe_allow_html=True)
     with next_col:
         if st.button("Next ›", key="board_next", disabled=current_page>=pages, use_container_width=True):
             st.session_state["board_page"] = current_page+1
@@ -131,23 +137,25 @@ _new_pager = '''    # One compact pagination toolbar. Keep controls grouped inst
 if _old_pager in _source:
     _source = _source.replace(_old_pager, _new_pager, 1)
 
-# Small responsive CSS override. This removes oversized controls without changing
-# the existing card design or desktop data presentation.
+# Responsive toolbar polish. Structural sizing is handled by Streamlit columns;
+# CSS only trims height/spacing and avoids the oversized blank gaps seen in production.
 _source = _source.replace(
     "</style>\n\"\"\",unsafe_allow_html=True)",
-    '''\n/* V6.75 compact board toolbar */
-.pagerStatus,.pagerCount{height:38px;display:flex;align-items:center;color:#aebbc9;font-size:.68rem;white-space:nowrap}
+    '''\n/* V6.76 compact board navigation */
+.pagerStatus,.pagerCount{height:38px;display:flex;align-items:center;color:#aebbc9;font-size:.66rem;white-space:nowrap}
 .pagerStatus{justify-content:center}.pagerCount{justify-content:flex-start}
-.pagerStatus b,.pagerCount b{color:#eef4fb;margin:0 3px}
-/* Keep the page-size control visually compact on wide screens. */
-div[data-testid="stSelectbox"]:has(select[aria-label="Lots per page"]){max-width:210px!important;margin-bottom:-4px!important}
+.pagerStatus b,.pagerCount b{color:#eef4fb;margin:0 2px}
+@media(min-width:651px){
+  div[data-testid="stSelectbox"]:has(input[aria-label="Lots per page"]),
+  div[data-testid="stSelectbox"]:has(select[aria-label="Lots per page"]){margin-bottom:0!important}
+}
 @media(max-width:650px){
   .block-container{padding-top:.55rem!important}
-  .hero{margin-bottom:7px!important}
-  div[data-testid="stExpander"]{margin-bottom:7px!important}
-  .pagerStatus,.pagerCount{height:32px;font-size:.58rem;justify-content:flex-start}
+  .hero{margin-bottom:6px!important}
+  div[data-testid="stExpander"]{margin-bottom:6px!important}
+  .pagerStatus,.pagerCount{height:31px;font-size:.56rem;justify-content:flex-start}
   div[data-testid="stSelectbox"]{margin-bottom:0!important}
-  div[data-testid="stSelectbox"] label p{font-size:.58rem!important}
+  div[data-testid="stSelectbox"] label p{font-size:.56rem!important}
 }
 </style>\n\"\"\",unsafe_allow_html=True)''',
     1,
