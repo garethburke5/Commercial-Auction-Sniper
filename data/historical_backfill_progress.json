@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T12:10:43.213370+00:00",
+  "updated_at": "2026-09-13T13:06:56.857230+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-year-gap-persisted-aid-evidence-to-live-catalogue-to-lot-tuple-to-first-party-validation",
+      "last_discovery_mode": "savills-2018-exact-catalogue-tuple-direct-first-party-index-search",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -39253,7 +39253,7 @@
         "recoveries": []
       },
       "savills_year_gap_last_run": {
-        "at": "2026-09-13T12:10:43.213370+00:00",
+        "at": "2026-09-13T13:00:59.501822+00:00",
         "route": "savills-year-gap-persisted-aid-evidence-to-live-catalogue-to-lot-tuple-to-first-party-validation",
         "target_year": 2018,
         "master_manifest_dates": [
@@ -39276,105 +39276,105 @@
           "2018-11-26",
           "2018-12-11"
         ],
-        "catalogue_manifest_source": "nested-persisted-diagnostic-state",
+        "catalogue_manifest_source": "flattened-validated-manifest",
         "catalogue_candidates_recovered": [
           {
             "aid": 1066,
             "date": "2018-02-13",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 14
           },
           {
             "aid": 1080,
             "date": "2018-02-14",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 2
           },
           {
             "aid": 1067,
             "date": "2018-03-26",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 25
           },
           {
             "aid": 1081,
             "date": "2018-04-12",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 2
           },
           {
             "aid": 1068,
             "date": "2018-05-09",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 13
           },
           {
             "aid": 1082,
             "date": "2018-06-07",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 1
           },
           {
             "aid": 1069,
             "date": "2018-06-18",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 10
           },
           {
             "aid": 1070,
             "date": "2018-07-24",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 5
           },
           {
             "aid": 1083,
             "date": "2018-08-01",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 2
           },
           {
             "aid": 1071,
             "date": "2018-09-26",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 6
           },
           {
             "aid": 1084,
             "date": "2018-09-27",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 1
           },
           {
             "aid": 1072,
             "date": "2018-11-26",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 11
           },
           {
             "aid": 1085,
             "date": "2018-11-29",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 2
           },
           {
             "aid": 1073,
             "date": "2018-12-11",
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
-            "title": "",
-            "validation": "recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated"
+            "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+            "strict_commercial_mixed_lots_on_initial_grid": 0
           }
         ],
         "revalidated_propertyauctions_catalogues": [
@@ -39605,8 +39605,8 @@
             "commercial_mixed_clues": 0
           }
         ],
-        "commercial_mixed_clues": 6,
-        "clues_processed": 6,
+        "commercial_mixed_clues": 20,
+        "clues_processed": 20,
         "live_first_party_checks": 0,
         "canonical_events_added": 0,
         "savills_events_before": 3254,
@@ -39701,38 +39701,700 @@
             "accepted_first_party_rows": 0,
             "search_errors": [],
             "rejected_samples": []
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "168",
+            "property_type": "Investment Freehold Garage",
+            "location": "St Albans, Hertfordshire",
+            "result": "£141,000",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [],
+            "rejected_samples": []
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "169",
+            "property_type": "Vacant Freehold Garage",
+            "location": "Southam, Warwickshire",
+            "result": "£34,000",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [],
+            "rejected_samples": []
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "171",
+            "property_type": "Vacant Freehold Garage",
+            "location": "Watford, Hertfordshire",
+            "result": "£57,000",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [],
+            "rejected_samples": []
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "174",
+            "property_type": "Vacant Freehold Office",
+            "location": "Ewell, Surrey",
+            "result": "Sold Prior",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [],
+            "rejected_samples": []
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "175",
+            "property_type": "Investment Freehold Garage",
+            "location": "Barnet, Hertfordshire",
+            "result": "Available at £150,000",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [],
+            "rejected_samples": []
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "176",
+            "property_type": "Vacant Freehold Garage",
+            "location": "Buntingford, Hertfordshire",
+            "result": "Withdrawn",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [],
+            "rejected_samples": []
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "252",
+            "property_type": "Vacant Freehold Office",
+            "location": "Oldbury, West Midlands",
+            "result": "Withdrawn",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [],
+            "rejected_samples": []
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "258",
+            "property_type": "Vacant Freehold Garage",
+            "location": "Westbury, Wiltshire",
+            "result": "Available at £6,000",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [],
+            "rejected_samples": []
+          },
+          {
+            "aid": 1080,
+            "auction_date": "2018-02-14",
+            "lot_number": "2A",
+            "property_type": "Investment Freehold Commercial",
+            "location": "Debdale Lane, Mansfield Woodhouse",
+            "result": "Available",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [],
+            "rejected_samples": []
+          },
+          {
+            "aid": 1080,
+            "auction_date": "2018-02-14",
+            "lot_number": "9",
+            "property_type": "Investment Freehold Retail Warehouse",
+            "location": "Immingham, Lincolnshire",
+            "result": "Available",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [],
+            "rejected_samples": []
+          },
+          {
+            "aid": 1067,
+            "auction_date": "2018-03-26",
+            "lot_number": "26",
+            "property_type": "Part Vacant Freehold Garage",
+            "location": "Farnborough, Hampshire",
+            "result": "£144,000",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [],
+            "rejected_samples": []
+          },
+          {
+            "aid": 1067,
+            "auction_date": "2018-03-26",
+            "lot_number": "27",
+            "property_type": "Part Vacant Freehold Garage",
+            "location": "Farnborough, Hampshire",
+            "result": "£120,000",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [
+              "site:propertyauctions.io/listings \"Savills\" \"Farnborough, Hampshire\" \"26 March 2018\" :: duckduckgo :: HTTPError: 403 Client Error: Forbidden for url: https://html.duckduckgo.com/html/?q=site%3Apropertyauctions.io%2Flistings+%22Savills%22+%22Farnborough%2C+Hampshire%22+%2226+March+2018%22",
+              "site:propertyauctions.io/listings \"Savills\" \"Farnborough, Hampshire\" \"Part Vacant Freehold Garage\" :: duckduckgo :: HTTPError: 403 Client Error: Forbidden for url: https://html.duckduckgo.com/html/?q=site%3Apropertyauctions.io%2Flistings+%22Savills%22+%22Farnborough%2C+Hampshire%22+%22Part+Vacant+Freehold+Garage%22",
+              "site:propertyauctions.io/listings \"Savills\" \"Farnborough, Hampshire\" \"Lot 27\" :: duckduckgo :: HTTPError: 403 Client Error: Forbidden for url: https://html.duckduckgo.com/html/?q=site%3Apropertyauctions.io%2Flistings+%22Savills%22+%22Farnborough%2C+Hampshire%22+%22Lot+27%22"
+            ],
+            "rejected_samples": []
+          },
+          {
+            "aid": 1067,
+            "auction_date": "2018-03-26",
+            "lot_number": "28",
+            "property_type": "Part Vacant Freehold Garage",
+            "location": "Aldershot, Hampshire",
+            "result": "£220,000",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [
+              "site:propertyauctions.io/listings \"Savills\" \"Aldershot, Hampshire\" \"26 March 2018\" :: duckduckgo :: HTTPError: 403 Client Error: Forbidden for url: https://html.duckduckgo.com/html/?q=site%3Apropertyauctions.io%2Flistings+%22Savills%22+%22Aldershot%2C+Hampshire%22+%2226+March+2018%22",
+              "site:propertyauctions.io/listings \"Savills\" \"Aldershot, Hampshire\" \"Part Vacant Freehold Garage\" :: duckduckgo :: HTTPError: 403 Client Error: Forbidden for url: https://html.duckduckgo.com/html/?q=site%3Apropertyauctions.io%2Flistings+%22Savills%22+%22Aldershot%2C+Hampshire%22+%22Part+Vacant+Freehold+Garage%22",
+              "site:propertyauctions.io/listings \"Savills\" \"Aldershot, Hampshire\" \"Lot 28\" :: duckduckgo :: HTTPError: 403 Client Error: Forbidden for url: https://html.duckduckgo.com/html/?q=site%3Apropertyauctions.io%2Flistings+%22Savills%22+%22Aldershot%2C+Hampshire%22+%22Lot+28%22"
+            ],
+            "rejected_samples": []
+          },
+          {
+            "aid": 1067,
+            "auction_date": "2018-03-26",
+            "lot_number": "29",
+            "property_type": "Part Vacant Freehold Garage",
+            "location": "Aldershot, Hampshire",
+            "result": "£120,000",
+            "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+            "indexed_listing_urls": 0,
+            "matched_listing_pages": 0,
+            "candidate_first_party_urls": 0,
+            "accepted_first_party_rows": 0,
+            "search_errors": [
+              "site:propertyauctions.io/listings \"Savills\" \"Aldershot, Hampshire\" \"26 March 2018\" :: duckduckgo :: HTTPError: 403 Client Error: Forbidden for url: https://html.duckduckgo.com/html/?q=site%3Apropertyauctions.io%2Flistings+%22Savills%22+%22Aldershot%2C+Hampshire%22+%2226+March+2018%22",
+              "site:propertyauctions.io/listings \"Savills\" \"Aldershot, Hampshire\" \"Part Vacant Freehold Garage\" :: duckduckgo :: HTTPError: 403 Client Error: Forbidden for url: https://html.duckduckgo.com/html/?q=site%3Apropertyauctions.io%2Flistings+%22Savills%22+%22Aldershot%2C+Hampshire%22+%22Part+Vacant+Freehold+Garage%22",
+              "site:propertyauctions.io/listings \"Savills\" \"Aldershot, Hampshire\" \"Lot 29\" :: duckduckgo :: HTTPError: 403 Client Error: Forbidden for url: https://html.duckduckgo.com/html/?q=site%3Apropertyauctions.io%2Flistings+%22Savills%22+%22Aldershot%2C+Hampshire%22+%22Lot+29%22"
+            ],
+            "rejected_samples": []
           }
         ]
       },
       "savills_year_gap_last_blocker": {
-        "at": "2026-09-13T12:10:43.213370+00:00",
-        "route": "savills-year-gap-persisted-aid-evidence-to-live-catalogue-to-lot-tuple-to-first-party-validation",
-        "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
-        "message": "Year 2018 reconciliation recovered 14 persisted AID catalogue candidate(s), revalidated 14 as explicit dated Savills catalogue(s), and extracted 6 strict commercial/mixed-use lot clue(s), but no clue completed the indexed-detail plus first-party Savills validation chain required for a new canonical History V2 event.",
-        "next_safe_route": "Use the exact revalidated AID/lot/type/location/result tuples from this diagnostic to enumerate PropertyAuctions listing pagination/sitemaps and image asset IDs directly (no date-only search), then reconcile any full-address hit back to the catalogue tuple and first-party Savills evidence.",
-        "catalogue_urls": [
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
-          "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073"
-        ]
+        "at": "2026-09-13T13:06:56.857230+00:00",
+        "route": "savills-2018-exact-catalogue-tuple-direct-first-party-index-search",
+        "failing_url_or_route": "site:auctions.savills.co.uk \"Rotherham, South Yorkshire\" \"13 February 2018\"",
+        "message": "Exact tuple search processed 20 2018 catalogue lot clues, discovered 0 first-party Savills URL(s), and performed 0 strict live checks, but no new canonical History V2 event satisfied full-address plus explicit commercial/mixed-use plus auction-result validation.",
+        "next_safe_route": "Enumerate the live PropertyAuctions catalogue ASP.NET pagination/postback state for each revalidated 2018 AID, capture every page of commercial/mixed-use lot tuples, and mine page HTML/image/script identifiers for property/detail IDs before retrying first-party Savills reconstruction."
       },
       "savills_year_gap_focus": {
         "year": 2018,
         "master_dates": 8,
         "revalidated_legacy_catalogues": 14,
-        "commercial_mixed_clues": 6,
+        "commercial_mixed_clues": 20,
         "canonical_events_added": 0
+      },
+      "savills_year_gap_direct_index_last_run": {
+        "at": "2026-09-13T13:06:56.857230+00:00",
+        "route": "savills-2018-exact-catalogue-tuple-direct-first-party-index-search",
+        "clues_processed": 20,
+        "savills_urls_found": 0,
+        "live_first_party_checks": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3254,
+        "savills_events_after": 3254,
+        "runs": [
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "119",
+            "property_type": "Investment Freehold Retail",
+            "location": "Rotherham, South Yorkshire",
+            "result": "Refer to Auctioneer",
+            "queries": [
+              "site:auctions.savills.co.uk \"Rotherham, South Yorkshire\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"Rotherham, South Yorkshire\" \"Lot 119\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Rotherham, South Yorkshire\" \"Investment Freehold Retail\" \"2018\"",
+              "site:auctions.savills.co.uk \"Rotherham, South Yorkshire\" \"Refer to Auctioneer\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": []
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "131",
+            "property_type": "Investment Leasehold Garage",
+            "location": "South Croydon, Surrey",
+            "result": "£126,000",
+            "queries": [
+              "site:auctions.savills.co.uk \"South Croydon, Surrey\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"South Croydon, Surrey\" \"Lot 131\" \"Savills\"",
+              "site:auctions.savills.co.uk \"South Croydon, Surrey\" \"Investment Leasehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"South Croydon, Surrey\" \"£126,000\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": []
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "132",
+            "property_type": "Vacant Freehold Garage",
+            "location": "Stoke-on-Trent, Staffordshire",
+            "result": "£45,000",
+            "queries": [
+              "site:auctions.savills.co.uk \"Stoke-on-Trent, Staffordshire\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"Stoke-on-Trent, Staffordshire\" \"Lot 132\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Stoke-on-Trent, Staffordshire\" \"Vacant Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"Stoke-on-Trent, Staffordshire\" \"£45,000\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": []
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "149",
+            "property_type": "Vacant Freehold Garage",
+            "location": "London SE9",
+            "result": "Sold Post",
+            "queries": [
+              "site:auctions.savills.co.uk \"London SE9\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"London SE9\" \"Lot 149\" \"Savills\"",
+              "site:auctions.savills.co.uk \"London SE9\" \"Vacant Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"London SE9\" \"Sold Post\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"London SE9\" \"Lot 149\" \"Savills\" :: ddg: ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",
+              "site:auctions.savills.co.uk \"London SE9\" \"Vacant Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22London+SE9%22+%22Vacant+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4e45150>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"London SE9\" \"Sold Post\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22London+SE9%22+%22Sold+Post%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4dd34d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "150",
+            "property_type": "Vacant Freehold Garage",
+            "location": "Luton, Bedfordshire",
+            "result": "Available at £90,000",
+            "queries": [
+              "site:auctions.savills.co.uk \"Luton, Bedfordshire\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"Luton, Bedfordshire\" \"Lot 150\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Luton, Bedfordshire\" \"Vacant Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"Luton, Bedfordshire\" \"Available at £90,000\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Luton, Bedfordshire\" \"13 February 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Luton%2C+Bedfordshire%22+%2213+February+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4eb7990>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Luton, Bedfordshire\" \"Lot 150\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Luton%2C+Bedfordshire%22+%22Lot+150%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4d0f010>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Luton, Bedfordshire\" \"Vacant Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Luton%2C+Bedfordshire%22+%22Vacant+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4d0c390>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Luton, Bedfordshire\" \"Available at £90,000\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Luton%2C+Bedfordshire%22+%22Available+at+%C2%A390%2C000%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4db0bd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "166",
+            "property_type": "Vacant Freehold Garage",
+            "location": "Newport, Isle of Wight",
+            "result": "Available at £20,000",
+            "queries": [
+              "site:auctions.savills.co.uk \"Newport, Isle of Wight\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"Newport, Isle of Wight\" \"Lot 166\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Newport, Isle of Wight\" \"Vacant Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"Newport, Isle of Wight\" \"Available at £20,000\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Newport, Isle of Wight\" \"13 February 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Newport%2C+Isle+of+Wight%22+%2213+February+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4b21850>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Newport, Isle of Wight\" \"Lot 166\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Newport%2C+Isle+of+Wight%22+%22Lot+166%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4b10e10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Newport, Isle of Wight\" \"Vacant Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Newport%2C+Isle+of+Wight%22+%22Vacant+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4da1890>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Newport, Isle of Wight\" \"Available at £20,000\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Newport%2C+Isle+of+Wight%22+%22Available+at+%C2%A320%2C000%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4ca4950>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "168",
+            "property_type": "Investment Freehold Garage",
+            "location": "St Albans, Hertfordshire",
+            "result": "£141,000",
+            "queries": [
+              "site:auctions.savills.co.uk \"St Albans, Hertfordshire\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"St Albans, Hertfordshire\" \"Lot 168\" \"Savills\"",
+              "site:auctions.savills.co.uk \"St Albans, Hertfordshire\" \"Investment Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"St Albans, Hertfordshire\" \"£141,000\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"St Albans, Hertfordshire\" \"13 February 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22St+Albans%2C+Hertfordshire%22+%2213+February+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4cd7e50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"St Albans, Hertfordshire\" \"Lot 168\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22St+Albans%2C+Hertfordshire%22+%22Lot+168%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4a5f5d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"St Albans, Hertfordshire\" \"Investment Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22St+Albans%2C+Hertfordshire%22+%22Investment+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4a6e290>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"St Albans, Hertfordshire\" \"£141,000\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22St+Albans%2C+Hertfordshire%22+%22%C2%A3141%2C000%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4afac50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "169",
+            "property_type": "Vacant Freehold Garage",
+            "location": "Southam, Warwickshire",
+            "result": "£34,000",
+            "queries": [
+              "site:auctions.savills.co.uk \"Southam, Warwickshire\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"Southam, Warwickshire\" \"Lot 169\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Southam, Warwickshire\" \"Vacant Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"Southam, Warwickshire\" \"£34,000\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Southam, Warwickshire\" \"13 February 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Southam%2C+Warwickshire%22+%2213+February+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4ca7d50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Southam, Warwickshire\" \"Lot 169\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Southam%2C+Warwickshire%22+%22Lot+169%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d491f990>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Southam, Warwickshire\" \"Vacant Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Southam%2C+Warwickshire%22+%22Vacant+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4d5f8d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Southam, Warwickshire\" \"£34,000\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Southam%2C+Warwickshire%22+%22%C2%A334%2C000%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4cd4310>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "171",
+            "property_type": "Vacant Freehold Garage",
+            "location": "Watford, Hertfordshire",
+            "result": "£57,000",
+            "queries": [
+              "site:auctions.savills.co.uk \"Watford, Hertfordshire\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"Watford, Hertfordshire\" \"Lot 171\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Watford, Hertfordshire\" \"Vacant Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"Watford, Hertfordshire\" \"£57,000\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Watford, Hertfordshire\" \"13 February 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Watford%2C+Hertfordshire%22+%2213+February+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4bd9750>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Watford, Hertfordshire\" \"Lot 171\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Watford%2C+Hertfordshire%22+%22Lot+171%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d482fed0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Watford, Hertfordshire\" \"Vacant Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Watford%2C+Hertfordshire%22+%22Vacant+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4b22ad0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Watford, Hertfordshire\" \"£57,000\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Watford%2C+Hertfordshire%22+%22%C2%A357%2C000%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4b05c90>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "174",
+            "property_type": "Vacant Freehold Office",
+            "location": "Ewell, Surrey",
+            "result": "Sold Prior",
+            "queries": [
+              "site:auctions.savills.co.uk \"Ewell, Surrey\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"Ewell, Surrey\" \"Lot 174\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Ewell, Surrey\" \"Vacant Freehold Office\" \"2018\"",
+              "site:auctions.savills.co.uk \"Ewell, Surrey\" \"Sold Prior\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Ewell, Surrey\" \"13 February 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Ewell%2C+Surrey%22+%2213+February+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4845550>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Ewell, Surrey\" \"Lot 174\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Ewell%2C+Surrey%22+%22Lot+174%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4836d90>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Ewell, Surrey\" \"Vacant Freehold Office\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Ewell%2C+Surrey%22+%22Vacant+Freehold+Office%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4819fd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Ewell, Surrey\" \"Sold Prior\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Ewell%2C+Surrey%22+%22Sold+Prior%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d49d8190>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "175",
+            "property_type": "Investment Freehold Garage",
+            "location": "Barnet, Hertfordshire",
+            "result": "Available at £150,000",
+            "queries": [
+              "site:auctions.savills.co.uk \"Barnet, Hertfordshire\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"Barnet, Hertfordshire\" \"Lot 175\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Barnet, Hertfordshire\" \"Investment Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"Barnet, Hertfordshire\" \"Available at £150,000\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Barnet, Hertfordshire\" \"13 February 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Barnet%2C+Hertfordshire%22+%2213+February+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4911e50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Barnet, Hertfordshire\" \"Lot 175\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Barnet%2C+Hertfordshire%22+%22Lot+175%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4b23710>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Barnet, Hertfordshire\" \"Investment Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Barnet%2C+Hertfordshire%22+%22Investment+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4c89c90>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Barnet, Hertfordshire\" \"Available at £150,000\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Barnet%2C+Hertfordshire%22+%22Available+at+%C2%A3150%2C000%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d503fb50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "176",
+            "property_type": "Vacant Freehold Garage",
+            "location": "Buntingford, Hertfordshire",
+            "result": "Withdrawn",
+            "queries": [
+              "site:auctions.savills.co.uk \"Buntingford, Hertfordshire\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"Buntingford, Hertfordshire\" \"Lot 176\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Buntingford, Hertfordshire\" \"Vacant Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"Buntingford, Hertfordshire\" \"Withdrawn\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Buntingford, Hertfordshire\" \"13 February 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Buntingford%2C+Hertfordshire%22+%2213+February+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d51ac0d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Buntingford, Hertfordshire\" \"Lot 176\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Buntingford%2C+Hertfordshire%22+%22Lot+176%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d5199710>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Buntingford, Hertfordshire\" \"Vacant Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Buntingford%2C+Hertfordshire%22+%22Vacant+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d501fdd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Buntingford, Hertfordshire\" \"Withdrawn\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Buntingford%2C+Hertfordshire%22+%22Withdrawn%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4db3210>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "252",
+            "property_type": "Vacant Freehold Office",
+            "location": "Oldbury, West Midlands",
+            "result": "Withdrawn",
+            "queries": [
+              "site:auctions.savills.co.uk \"Oldbury, West Midlands\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"Oldbury, West Midlands\" \"Lot 252\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Oldbury, West Midlands\" \"Vacant Freehold Office\" \"2018\"",
+              "site:auctions.savills.co.uk \"Oldbury, West Midlands\" \"Withdrawn\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Oldbury, West Midlands\" \"13 February 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Oldbury%2C+West+Midlands%22+%2213+February+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d5049010>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Oldbury, West Midlands\" \"Lot 252\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Oldbury%2C+West+Midlands%22+%22Lot+252%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4a5ef10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Oldbury, West Midlands\" \"Vacant Freehold Office\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Oldbury%2C+West+Midlands%22+%22Vacant+Freehold+Office%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4b0a310>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Oldbury, West Midlands\" \"Withdrawn\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Oldbury%2C+West+Midlands%22+%22Withdrawn%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d505a550>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1066,
+            "auction_date": "2018-02-13",
+            "lot_number": "258",
+            "property_type": "Vacant Freehold Garage",
+            "location": "Westbury, Wiltshire",
+            "result": "Available at £6,000",
+            "queries": [
+              "site:auctions.savills.co.uk \"Westbury, Wiltshire\" \"13 February 2018\"",
+              "site:auctions.savills.co.uk \"Westbury, Wiltshire\" \"Lot 258\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Westbury, Wiltshire\" \"Vacant Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"Westbury, Wiltshire\" \"Available at £6,000\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Westbury, Wiltshire\" \"13 February 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Westbury%2C+Wiltshire%22+%2213+February+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4b0be10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Westbury, Wiltshire\" \"Lot 258\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Westbury%2C+Wiltshire%22+%22Lot+258%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d51b0890>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Westbury, Wiltshire\" \"Vacant Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Westbury%2C+Wiltshire%22+%22Vacant+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d51649d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Westbury, Wiltshire\" \"Available at £6,000\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Westbury%2C+Wiltshire%22+%22Available+at+%C2%A36%2C000%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d51bf510>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1080,
+            "auction_date": "2018-02-14",
+            "lot_number": "2A",
+            "property_type": "Investment Freehold Commercial",
+            "location": "Debdale Lane, Mansfield Woodhouse",
+            "result": "Available",
+            "queries": [
+              "site:auctions.savills.co.uk \"Debdale Lane, Mansfield Woodhouse\" \"14 February 2018\"",
+              "site:auctions.savills.co.uk \"Debdale Lane, Mansfield Woodhouse\" \"Lot 2A\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Debdale Lane, Mansfield Woodhouse\" \"Investment Freehold Commercial\" \"2018\"",
+              "site:auctions.savills.co.uk \"Debdale Lane, Mansfield Woodhouse\" \"Available\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Debdale Lane, Mansfield Woodhouse\" \"14 February 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Debdale+Lane%2C+Mansfield+Woodhouse%22+%2214+February+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4cfd910>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Debdale Lane, Mansfield Woodhouse\" \"Lot 2A\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Debdale+Lane%2C+Mansfield+Woodhouse%22+%22Lot+2A%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d482e890>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Debdale Lane, Mansfield Woodhouse\" \"Investment Freehold Commercial\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Debdale+Lane%2C+Mansfield+Woodhouse%22+%22Investment+Freehold+Commercial%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d51b5810>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Debdale Lane, Mansfield Woodhouse\" \"Available\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Debdale+Lane%2C+Mansfield+Woodhouse%22+%22Available%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4b9b9d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1080,
+            "auction_date": "2018-02-14",
+            "lot_number": "9",
+            "property_type": "Investment Freehold Retail Warehouse",
+            "location": "Immingham, Lincolnshire",
+            "result": "Available",
+            "queries": [
+              "site:auctions.savills.co.uk \"Immingham, Lincolnshire\" \"14 February 2018\"",
+              "site:auctions.savills.co.uk \"Immingham, Lincolnshire\" \"Lot 9\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Immingham, Lincolnshire\" \"Investment Freehold Retail Warehouse\" \"2018\"",
+              "site:auctions.savills.co.uk \"Immingham, Lincolnshire\" \"Available\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Immingham, Lincolnshire\" \"14 February 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Immingham%2C+Lincolnshire%22+%2214+February+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4ed1910>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Immingham, Lincolnshire\" \"Lot 9\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Immingham%2C+Lincolnshire%22+%22Lot+9%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d506f150>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Immingham, Lincolnshire\" \"Investment Freehold Retail Warehouse\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Immingham%2C+Lincolnshire%22+%22Investment+Freehold+Retail+Warehouse%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4e95ed0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Immingham, Lincolnshire\" \"Available\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Immingham%2C+Lincolnshire%22+%22Available%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d47fe4d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1067,
+            "auction_date": "2018-03-26",
+            "lot_number": "26",
+            "property_type": "Part Vacant Freehold Garage",
+            "location": "Farnborough, Hampshire",
+            "result": "£144,000",
+            "queries": [
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"26 March 2018\"",
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"Lot 26\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"Part Vacant Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"£144,000\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"26 March 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Farnborough%2C+Hampshire%22+%2226+March+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4c97d50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"Lot 26\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Farnborough%2C+Hampshire%22+%22Lot+26%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4e0dd50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"Part Vacant Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Farnborough%2C+Hampshire%22+%22Part+Vacant+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4f39f10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"£144,000\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Farnborough%2C+Hampshire%22+%22%C2%A3144%2C000%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4facb50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1067,
+            "auction_date": "2018-03-26",
+            "lot_number": "27",
+            "property_type": "Part Vacant Freehold Garage",
+            "location": "Farnborough, Hampshire",
+            "result": "£120,000",
+            "queries": [
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"26 March 2018\"",
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"Lot 27\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"Part Vacant Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"£120,000\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"26 March 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Farnborough%2C+Hampshire%22+%2226+March+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d487b9d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"Lot 27\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Farnborough%2C+Hampshire%22+%22Lot+27%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4878d90>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"Part Vacant Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Farnborough%2C+Hampshire%22+%22Part+Vacant+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4e80a50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Farnborough, Hampshire\" \"£120,000\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Farnborough%2C+Hampshire%22+%22%C2%A3120%2C000%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4e23210>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1067,
+            "auction_date": "2018-03-26",
+            "lot_number": "28",
+            "property_type": "Part Vacant Freehold Garage",
+            "location": "Aldershot, Hampshire",
+            "result": "£220,000",
+            "queries": [
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"26 March 2018\"",
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"Lot 28\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"Part Vacant Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"£220,000\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"26 March 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Aldershot%2C+Hampshire%22+%2226+March+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4df4a90>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"Lot 28\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Aldershot%2C+Hampshire%22+%22Lot+28%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4f3f490>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"Part Vacant Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Aldershot%2C+Hampshire%22+%22Part+Vacant+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4c015d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"£220,000\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Aldershot%2C+Hampshire%22+%22%C2%A3220%2C000%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4820dd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          },
+          {
+            "aid": 1067,
+            "auction_date": "2018-03-26",
+            "lot_number": "29",
+            "property_type": "Part Vacant Freehold Garage",
+            "location": "Aldershot, Hampshire",
+            "result": "£120,000",
+            "queries": [
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"26 March 2018\"",
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"Lot 29\" \"Savills\"",
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"Part Vacant Freehold Garage\" \"2018\"",
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"£120,000\" \"Savills\""
+            ],
+            "savills_urls_found": [],
+            "accepted": [],
+            "rejected_samples": [],
+            "errors": [
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"26 March 2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Aldershot%2C+Hampshire%22+%2226+March+2018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d5179690>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"Lot 29\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Aldershot%2C+Hampshire%22+%22Lot+29%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4974950>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"Part Vacant Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Aldershot%2C+Hampshire%22+%22Part+Vacant+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4862fd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
+              "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"£120,000\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Aldershot%2C+Hampshire%22+%22%C2%A3120%2C000%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d51c2350>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          }
+        ]
       }
     }
   }
