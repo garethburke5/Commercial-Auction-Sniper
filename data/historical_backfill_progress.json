@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T10:13:06.026910+00:00",
+  "updated_at": "2026-09-13T11:03:41.779382+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-bounded-parent-capture-timestamp-lot-replay",
+      "last_discovery_mode": "savills-legacy-document-basket-namespace-cdx-replay",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -4261,11 +4261,11 @@
         "errors": []
       },
       "propertyauctions_cursor_last_blocker": {
-        "at": "2026-09-13T10:13:06.026910+00:00",
-        "route": "savills-bounded-parent-capture-timestamp-lot-replay",
-        "failing_url_or_route": "oldest replayable pre-2010 Savills lot URLs beginning 2005-12-12 Auc=419",
-        "message": "Bounded direct replay tested 80 lot URLs across the four oldest replayable first-party grids, starting 2005-12-12 Auc=419, with zero strict full-address+commercial+result pages.",
-        "next_safe_route": "Switch to archived legal-pack/document-basket and indexed title surfaces for oldest Auc=419 to recover full addresses, then join only explicit lot/date/result tuples from the surviving first-party grid."
+        "at": "2026-09-13T11:03:41.779382+00:00",
+        "route": "savills-legacy-document-basket-namespace-cdx-replay",
+        "failing_url_or_route": "Wayback CDX legacy Savills /commercial/* document-basket/legal/download/title namespace",
+        "message": "Legacy commercial namespace CDX discovered 117 unique archived URLs, 55 document/title-hint URLs, replayed 32 prioritised candidates with 17 HTTP-200 recoveries, but zero pages supplied the strict known-auction full-address+commercial+result bundle.",
+        "next_safe_route": "Switch next to external free index discovery keyed by explicit oldest first-party grid tuples (Auc=419, 2005-12-12, lot/type/location/result), harvesting historical Savills lot-title URLs then reconciling back to first-party grid evidence; do not infer addresses from town/location alone."
       },
       "propertyauctions_detail_identifier_last_run": {
         "at": "2026-09-12T19:02:38.480874+00:00",
@@ -36539,6 +36539,1070 @@
               {
                 "url": "https://web.archive.org/web/20090701020310/https://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?auc=451&pos=19",
                 "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090701020310/https://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?auc=451&pos=19 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          }
+        ]
+      },
+      "savills_legacy_document_surface_last_run": {
+        "at": "2026-09-13T11:03:41.779382+00:00",
+        "route": "savills-legacy-document-basket-namespace-cdx-replay",
+        "oldest_target": {
+          "auction_date": "2005-12-12",
+          "auc": 419
+        },
+        "cdx_patterns": [
+          "auctions.savills.co.uk/commercial/*",
+          "www.auctions.savills.co.uk/commercial/*",
+          "auctions.savills.co.uk:80/commercial/*"
+        ],
+        "cdx_unique_urls": 117,
+        "document_hint_urls": 55,
+        "known_auc_document_candidates": 32,
+        "replay_http_200": 17,
+        "strict_pages": 0,
+        "canonical_events_before": 3254,
+        "canonical_events_after": 3254,
+        "canonical_events_added": 0,
+        "cdx_errors": [
+          {
+            "pattern": "auctions.savills.co.uk/commercial/*",
+            "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)"
+          },
+          {
+            "pattern": "www.auctions.savills.co.uk/commercial/*",
+            "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)"
+          },
+          {
+            "pattern": "www.auctions.savills.co.uk/commercial/*",
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.auctions.savills.co.uk%2Fcommercial%2F%2A&from=2004&to=2010&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f28d3503a10>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+          },
+          {
+            "pattern": "www.auctions.savills.co.uk/commercial/*",
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.auctions.savills.co.uk%2Fcommercial%2F%2A&from=2004&to=2010&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f28d34fc390>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+          },
+          {
+            "pattern": "www.auctions.savills.co.uk/commercial/*",
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.auctions.savills.co.uk%2Fcommercial%2F%2A&from=2004&to=2010&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f28d34d2f50>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+          },
+          {
+            "pattern": "auctions.savills.co.uk:80/commercial/*",
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=auctions.savills.co.uk%3A80%2Fcommercial%2F%2A&from=2004&to=2010&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f28d34e4ad0>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+          },
+          {
+            "pattern": "auctions.savills.co.uk:80/commercial/*",
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=auctions.savills.co.uk%3A80%2Fcommercial%2F%2A&from=2004&to=2010&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f28d350f050>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+          },
+          {
+            "pattern": "auctions.savills.co.uk:80/commercial/*",
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=auctions.savills.co.uk%3A80%2Fcommercial%2F%2A&from=2004&to=2010&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f28d85e8a10>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+          },
+          {
+            "pattern": "auctions.savills.co.uk:80/commercial/*",
+            "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=auctions.savills.co.uk%3A80%2Fcommercial%2F%2A&from=2004&to=2010&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f28d34e4710>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+          }
+        ],
+        "sample_candidate_urls": [
+          "http://auctions.savills.co.uk:80/commercial/comm_legalpacks.asp",
+          "http://auctions.savills.co.uk:80/commercial/basket.asp?",
+          "http://auctions.savills.co.uk:80/commercial/basket.asp?action=viewcart&item=",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=B",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=F",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=L",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=N",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=1",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=10",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=11",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=13",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=14",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=15",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=19",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=2",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=20",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=23",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=24",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=3",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=4",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=5",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=6",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=7",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=8",
+          "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=9"
+        ],
+        "replay_results": [
+          {
+            "ok": false,
+            "timestamp": "20090624084433",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084433id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084433id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090624084433/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084433/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20090624084436",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084436id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084436id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090624084436/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084436/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20090701003040",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=L",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090701003040id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=L",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090701003040id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=L (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090701003040/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=L",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090701003040/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=L (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20090624084411",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084411id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084411id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090624084411/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084411/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20090624084441",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084441id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084441id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090624084441/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084441/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20090624084512",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=4",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084512id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=4",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084512id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=4 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090624084512/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=4",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084512/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=4 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20090624084501",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=3",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084501id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=3",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084501id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=3 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090624084501/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=3",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084501/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=3 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20101130101215",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=24",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20101130101215id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=24",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20101130101215id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=24 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              },
+              {
+                "url": "https://web.archive.org/web/20101130101215/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=24",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20101130101215/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=24 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20090624084523",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=6",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084523id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=6",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084523id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=6 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090624084523/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=6",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084523/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=6 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20090624084517",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=5",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084517id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=5",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084517id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=5 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090624084517/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=5",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084517/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=5 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20090624084538",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=9",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084538id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=9",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084538id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=9 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090624084538/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=9",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084538/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=9 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20090624084533",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=8",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084533id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=8",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084533id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=8 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090624084533/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=8",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084533/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=8 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20090624084528",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=7",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084528id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=7",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084528id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=7 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090624084528/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=7",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084528/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=7 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090624084356",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=1",
+            "replay_url": "https://web.archive.org/web/20090624084356id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=1",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket Lot 1 35 Bull Ring, Ludlow, Shropshire Guide Price £350,000-£375,000 Tenancy & Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC02 Ludlow 35 Bull Ring, Ludlow, Shropshire SY8  1AA •   Freehold Retail Investment •   Let  to The Edinburgh Woollen Mill Limited until 2020 •   Current  Rent Reserved: £26,000  pa Location Ludlow,  with a population of 10,500, is a historic and attractive market town, located close  to the Welsh boarder along the River Teme, approximately 42 miles west of Birmingham,  23 miles north of Hereford and 26 miles south of Shrewsbury. The town is served  by the A49 providing access to the A5 and M54 (Junction 7) approximately 28 miles  to the north and the M50 (Junction 4) to the south. Nearby rail services from Ludlow  to London (Paddington) via Newport have a journey time of 3 hours 15 minutes. The  property is situated on the east side of Bull Ring close to its junction with King  Street and Old Street in a busy retailing area. Nearby occupiers include Boots the  Chemist, HSBC, Specsavers, Coral and NatWest. Description The  property comprises an attractive building arranged over cellar, ground and three  upper floors. The ground and part first floor are used for retail and the other  space is a mix of staff accommodation and storage. The cellar and third floor have  restricted access. Tenure Freehold. VAT Value  Added Tax is applicable to this lot. Contact Oliver Childs +44 (0) 20 7877 4517. E-mail: ochilds@savills.com Toby  Ogilvie Smals +44 (0) 20 7877 4515. E-mail: tosmals@savills.com Seller's    Solicitors Wedlake  Bell (Ms G McCourt) 52 Bedford Row, London WC1R 4LR E-mail: gmccourt@wedlakebell.com Tel:  (020) 7395 3000 Fax: (020) 7395 3100 Six    Week Completion Available Document Basket Lot # Remove View and Download Powered by PropertyAuctions.com Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc1.pdf')",
+              "comm_login.asp",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=SY8 1AA&GridE=&GridN=&scale=10000&title=Wednesday 15th July 2009 Lot 1 - 35 Bull Ring, Ludlow, Shropshire &cat=h',width=480,height=385)",
+              "basket.asp?action=viewcart&item=",
+              "http://www.propertyauctions.com",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084356id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=1",
+                "status": 200,
+                "bytes": 15303,
+                "final": "https://web.archive.org/web/20090624084356id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=1"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090630000510",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?",
+            "replay_url": "https://web.archive.org/web/20090630000510id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket Lot 1 35 Bull Ring, Ludlow, Shropshire Guide Price £350,000-£375,000 Tenancy & Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC02 Ludlow 35 Bull Ring, Ludlow, Shropshire SY8  1AA •   Freehold Retail Investment •   Let  to The Edinburgh Woollen Mill Limited until 2020 •   Current  Rent Reserved: £26,000  pa Location Ludlow,  with a population of 10,500, is a historic and attractive market town, located close  to the Welsh boarder along the River Teme, approximately 42 miles west of Birmingham,  23 miles north of Hereford and 26 miles south of Shrewsbury. The town is served  by the A49 providing access to the A5 and M54 (Junction 7) approximately 28 miles  to the north and the M50 (Junction 4) to the south. Nearby rail services from Ludlow  to London (Paddington) via Newport have a journey time of 3 hours 15 minutes. The  property is situated on the east side of Bull Ring close to its junction with King  Street and Old Street in a busy retailing area. Nearby occupiers include Boots the  Chemist, HSBC, Specsavers, Coral and NatWest. Description The  property comprises an attractive building arranged over cellar, ground and three  upper floors. The ground and part first floor are used for retail and the other  space is a mix of staff accommodation and storage. The cellar and third floor have  restricted access. Tenure Freehold. VAT Value  Added Tax is applicable to this lot. Contact Oliver Childs +44 (0) 20 7877 4517. E-mail: ochilds@savills.com Toby  Ogilvie Smals +44 (0) 20 7877 4515. E-mail: tosmals@savills.com Seller's    Solicitors Wedlake  Bell (Ms G McCourt) 52 Bedford Row, London WC1R 4LR E-mail: gmccourt@wedlakebell.com Tel:  (020) 7395 3000 Fax: (020) 7395 3100 Six    Week Completion Available Document Basket Lot # Remove View and Download Powered by PropertyAuctions.com Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc1.pdf')",
+              "comm_login.asp",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=SY8 1AA&GridE=&GridN=&scale=10000&title=Wednesday 15th July 2009 Lot 1 - 35 Bull Ring, Ludlow, Shropshire &cat=h',width=480,height=385)",
+              "basket.asp?action=viewcart&item=",
+              "http://www.propertyauctions.com",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090630000510id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?",
+                "status": 200,
+                "bytes": 15303,
+                "final": "https://web.archive.org/web/20090630000510id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090624084421",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=14",
+            "replay_url": "https://web.archive.org/web/20090624084421id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=14",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket Lot 14 Land at Moor Lane, Rickmansworth, Hertfordshire Guide Price £100,000+ Please log in to view Legal Pack and Special Conditions Map SC10 Rickmansworth 2pg Land at Moor Lane, Rickmansworth, Hertfordshire  WD3 1LQ •   18.62 Hectares (46    Acres) Freehold Agricultural Land within the M25 •   Currently    let to Secure Agricultural Tenant Producing: £1,035    pa •   Attractive Riverside  Location •   Designated  as Greenbelt and a 'Wildlife Site' On Instructions    from Tarmac Location Rickmansworth,    with a population of approximately 15,000, is an affluent commuter town in the Three    Rivers district of Hertfordshire. The town is served by excellent transport links    with the M25 (Junctions 17 and 18) being approximately 3 miles away, via the A4145,    A404 and A412. Direct rail links to London (Marylebone) are provided by Chiltern    Railways, with journey times of approximately 20 minutes. The    property is situated to the north of Moor Lane (A4145), to the south of the River    Colne and adjacent to the Grand Union Canal. Several residential properties are    located along the frontage of Moor Lane, where it runs adjacent to the property,    and Rickmansworth Public Golf Course is situated just to the south. The exclusive    Moor Park residential estate and Golf Course is situated to the south. Description The    property comprises an irregular shaped parcel of rough pasture land of approximately    18.62 hectares (46 acres). The site also contains two concrete pillboxes which are    part of a 'stop line' constructed all along the Colne Valley after the evacuation    from Dunkirk in World War II. The site area has been taken from Promap. Tenure Freehold. Planning The    site is designated as Greenbelt and a 'Local Wildlife Site', the latter being defined    as a site of 'substantive nature conservation importance'. For further information    please contact the Three Rivers District Council on Tel: (01923) 776611 or visit    their website at www.threerivers.gov.uk Tenancy    & Accommodation The    property is offered subject to a written tenancy agreement under the Agricultural    Holdings Act (1986) which gives the tenant security of tenure (1). The tenant is    Mr Brazier, a local farmer and the current rent reserved is £1,035 per annum.    The fishing rights to the river are reserved by Kodak Angling Society into perpetuity. The    land will be sold with restrictions on future use, please have regard to the Special    Conditions of Sale for further information. Note (1) Prospective purchasers are    advised to seek independent legal advice with regard to the Agricultural Holdings    Act (1986). VAT Value    Added Tax is not applicable to this lot. Contact Toby Ogilvie    Smals +44 (0) 20 7877 4515. E-mail: tosmals@savills.com James  Boadle +44 (0) 20 7877 4511. E-mail: jboadle@savills.com Seller's    Solicitors Tarmac Limited    (Mrs B Whitehouse) Millfields Road, Ettingshall, Wolverhampton, West Midlands    WV4 6JP E-mail: beverley.whitehouse@tarmac.co.uk Tel: (01902) 353522 Fax:  (01902) 353920 Six    Week Completion Available Document Basket Lot # Remove View and Download Powered by PropertyAuctions.com Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "comm_login.asp",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=WD3 1LQ&GridE=&GridN=&scale=10000&title=Wednesday 15th July 2009 Lot 14 - Land at Moor Lane, Rickmansworth, Hertfordshire &cat=h',width=480,height=385)",
+              "basket.asp?action=viewcart&item=",
+              "http://www.propertyauctions.com",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084421id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=14",
+                "status": 200,
+                "bytes": 17572,
+                "final": "https://web.archive.org/web/20090624084421id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=14"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090624084446",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=19",
+            "replay_url": "https://web.archive.org/web/20090624084446id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=19",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket Lot 19 50, 52, 54 & 56 Nash Close, off Gainsborough Road, Corby, Northamptonshire Guide Price £20,000-£30,000 Tenancy & Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC11 Corby 50, 52, 54 & 56 Nash Close,  off Gainsborough Road, Corby, Northamptonshire NN18 0QU •   Freehold Residential    Ground Rent Investment •   4 Houses  Let on 125 Year Leases •   5 Yearly  Reviews to RPI or HPI •   Current  Rent Reserved: £2,196  pa On    Instructions from Park James Properties Location Corby,  with a population of 49,222, is located approximately 25 miles south-east of Leicester  and 28 miles north-east of Northampton. The town is located on the A43, A427 and  A6003 and is 6 miles from the A14 at Kettering. Rail services are provided by East  Midlands Trains from Corby Station which provides a link to London (St Pancras International)  with a journey time of approximately 1 hour 10 minutes. The  property is situated on Nash Close to the south of Gainsborough Road in a new residential  development 2 miles to the west of the town centre. The Promap (opposite) is for  identification purposes only. We would refer you to the legal documentation for  further clarification. Description The  property comprises an attractive recently completed development of 4 two bedroom  houses with parking. The plan is for identification purposes only. We would refer  you to the legal documentation for further clarification. Tenure Freehold. VAT Value  Added Tax is not applicable to this lot. Contact Toby  Ogilvie Smals +44 (0) 20 7877 4515. E-mail: tosmals@savills.com Seller's    Solicitors Freeth Cartwright  LLP (Ms C Tomkins) 80 Mount Street, Nottingham NG1 6HH E-mail: claire.tomkins@freethcartwright.co.uk Tel: (0115) 901 5566 Fax: (0115) 859 9648 Six    Week Completion Available Document Basket Lot # Remove View and Download Powered by PropertyAuctions.com Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc19.pdf')",
+              "comm_login.asp",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=NN18 0QU&GridE=&GridN=&scale=10000&title=Wednesday 15th July 2009 Lot 19 - 50, 52, 54 & 56 Nash Close, off Gainsborough Road, Corby, Northamptonshire &cat=h',width=480,height=385)",
+              "basket.asp?action=viewcart&item=",
+              "http://www.propertyauctions.com",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084446id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=19",
+                "status": 200,
+                "bytes": 15542,
+                "final": "https://web.archive.org/web/20090624084446id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=19"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090624084416",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=13",
+            "replay_url": "https://web.archive.org/web/20090624084416id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=13",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket Lot 13 62-84 (Even) Manorhouse Close, Lord Street, Walsall Guide Price £20,000-£30,000 Tenancy & Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC04 Walsall 2pg 62-84 (Even) Manorhouse Close, Lord Street, Walsall WS1 4DS •   48    Ground Rent Flats •   To be    Offered as 4 Separate Lots •   Combined    Ground Rent: £11,388    pa •   Attractive Cul de  Sac Location •   4 Recently    Completed Developments of 12 Flats •   On-Site  Parking On    Instructions from Park James Properties Ltd Location Walsall,    with a resident population of circa 170,000, is located approximately 10 miles north    of Birmingham city centre and 8 miles east of Wolverhampton. The town benefits from    excellent road communications, being within 2 miles of the intersection between    the M5 and M6 Motorways. Rail services to London (Euston) are available in approximately    2 hours 20 minutes. The    flats are located in Manorhouse Close, a cul de sac off Lord Street, which runs    off Broadway West, the A4148, approximately 2 miles north of Walsall town centre    and 0.5 miles from the M6 Motorway (Junction 9). Description The    properties comprise four ground rent investments on 48 flats arranged as four separate    recently built blocks of twelve flats in a small cul de sac. The rest of the estate    is made up of 22 houses. Each of the flats have been sold off on long leases and    benefit from 1 parking space per flat. Tenure Freehold    subject to a headlease to Walton Property Management Limited (WPM). The headlease    contains an obligation on WPM to collect and hold the ground rents in trust for    the Freeholder and to pay all sums to the Freeholder on receipt. The ground rent    on the head lease is a peppercorn. VAT Value    Added Tax is not applicable to this lot. Contact Simon Parker +44 (0) 20 7877 4513. E-mail: sparker@savills.com Toby  Ogilvie Smals +44 (0) 20 7877 4515. E-mail: tosmals@savills.com Seller's    Solicitors Freeth Cartwright    LLP (Ms C Tomkins) 80 Mount Street, Nottingham NG1 6HH E-mail: claire.tomkins@freethcartwright.co.uk Tel:    (0115) 901 5566 Fax: (0115) 859 9648 Six    Week Completion Available Document Basket Lot # Remove View and Download Powered by PropertyAuctions.com Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc13.pdf')",
+              "comm_login.asp",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=WS1 4DS&GridE=&GridN=&scale=10000&title=Wednesday 15th July 2009 Lot 13 - 62-84 (Even) Manorhouse Close, Lord Street, Walsall &cat=h',width=480,height=385)",
+              "basket.asp?action=viewcart&item=",
+              "http://www.propertyauctions.com",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084416id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=13",
+                "status": 200,
+                "bytes": 16413,
+                "final": "https://web.archive.org/web/20090624084416id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=13"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090624084451",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=2",
+            "replay_url": "https://web.archive.org/web/20090624084451id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=2",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket Lot 2 Q-Matic House, The Crossway, Uxbridge, Middlesex Guide Price £200,000-£250,000 Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC06 Uxbridge Q-Matic House,  The Crossway, Uxbridge, Middlesex UB10 0JH •   Attractive Freehold  Office Building •   Net  Internal Area  287.91 sq m (3,098 sq ft) •   Suitable  for Office or Residential Use (Subject to Consents) •   Full  Vacant Possession Location Uxbridge,  with a population of 243,100, is an old market town located within the London Borough  of Hillingdon, and less than 17 miles west of Central London. The town is well located  for access to Central London being within close proximity to the A40 Western Avenue,  also providing access to the M25 (Junction 16). Public transport is provided by  a number of local bus routes and London Underground stations situated at Uxbridge  and Hillingdon (Metropolitan and Piccadilly Lines). The  property is situated on the east side of The Crossway, which runs northwards from  Hillingdon Hill (A4020), in a predominantly residential area. Description The  property comprises a 1980's predominantly brick built, detached building (previously  known as Gillan House) arranged over ground, first and second floors of B1 office  accommodation totalling 287.91 sq m (3,098 sq ft). The second floor has a large  kitchen and shower room and would easily suit conversion to residential use. The  property benefits from 5 car parking spaces. Planning The  property may be suitable for change of use subject to the necessary consents. For  further enquiries please contact The London Borough of Hillingdon on Tel: (01895)  250111 or visit their website at www.hillingdon.gov.uk Tenure Freehold. VAT Value  Added Tax is not applicable to this lot. Contact Michael  Mallie +44 (0) 20 7409 8199. E-mail: mmallie@savills.com Simon  Parker +44 (0) 20 7877 4513. E-mail: sparker@savills.com Seller's    Solicitors Geldards  LLP (Mrs S Smyth) Number One, Pride Place, Pride Park, Derby DE24 8QR E-mail:  siobhan.smyth@geldards.com Tel: (01332) 331631 Fax: (01332) 380602 90    Day Completion Document Basket Lot # Remove View and Download Powered by PropertyAuctions.com Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/july2009/shedacc2.pdf')",
+              "comm_login.asp",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=UB10 0JH&GridE=&GridN=&scale=10000&title=Wednesday 15th July 2009 Lot 2 - Q-Matic House, The Crossway, Uxbridge, Middlesex &cat=h',width=480,height=385)",
+              "basket.asp?action=viewcart&item=",
+              "http://www.propertyauctions.com",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084451id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=2",
+                "status": 200,
+                "bytes": 15941,
+                "final": "https://web.archive.org/web/20090624084451id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=2"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090701003014",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=B",
+            "replay_url": "https://web.archive.org/web/20090701003014id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=B",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket Lot 1 35 Bull Ring, Ludlow, Shropshire Guide Price £350,000-£375,000 Tenancy & Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC02 Ludlow 35 Bull Ring, Ludlow, Shropshire SY8  1AA •   Freehold Retail Investment •   Let  to The Edinburgh Woollen Mill Limited until 2020 •   Current  Rent Reserved: £26,000  pa Location Ludlow,  with a population of 10,500, is a historic and attractive market town, located close  to the Welsh boarder along the River Teme, approximately 42 miles west of Birmingham,  23 miles north of Hereford and 26 miles south of Shrewsbury. The town is served  by the A49 providing access to the A5 and M54 (Junction 7) approximately 28 miles  to the north and the M50 (Junction 4) to the south. Nearby rail services from Ludlow  to London (Paddington) via Newport have a journey time of 3 hours 15 minutes. The  property is situated on the east side of Bull Ring close to its junction with King  Street and Old Street in a busy retailing area. Nearby occupiers include Boots the  Chemist, HSBC, Specsavers, Coral and NatWest. Description The  property comprises an attractive building arranged over cellar, ground and three  upper floors. The ground and part first floor are used for retail and the other  space is a mix of staff accommodation and storage. The cellar and third floor have  restricted access. Tenure Freehold. VAT Value  Added Tax is applicable to this lot. Contact Oliver Childs +44 (0) 20 7877 4517. E-mail: ochilds@savills.com Toby  Ogilvie Smals +44 (0) 20 7877 4515. E-mail: tosmals@savills.com Seller's    Solicitors Wedlake  Bell (Ms G McCourt) 52 Bedford Row, London WC1R 4LR E-mail: gmccourt@wedlakebell.com Tel:  (020) 7395 3000 Fax: (020) 7395 3100 Six    Week Completion Available Document Basket Lot # Remove View and Download Powered by PropertyAuctions.com Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc1.pdf')",
+              "comm_login.asp",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=SY8 1AA&GridE=&GridN=&scale=10000&title=Wednesday 15th July 2009 Lot 1 - 35 Bull Ring, Ludlow, Shropshire &cat=h',width=480,height=385)",
+              "basket.asp?action=viewcart&item=",
+              "http://www.propertyauctions.com",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090701003014id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=B",
+                "status": 200,
+                "bytes": 15303,
+                "final": "https://web.archive.org/web/20090701003014id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=B"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090624084401",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=10",
+            "replay_url": "https://web.archive.org/web/20090624084401id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=10",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket Lot 10 Flats 1-25 (Odd) Manorhouse Close, Lord Street, Walsall Guide Price £80,000-£90,000 Tenancy & Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC04 Walsall 2pg Flats 1-25 (Odd)  Manorhouse Close, Lord Street, Walsall WS1 4DS •   48    Ground Rent Flats •   To be    Offered as 4 Separate Lots •   Combined    Ground Rent: £11,388    pa •   Attractive Cul de    Sac Location •   4 Recently    Completed Developments of 12 Flats •   On-Site    Parking On      Instructions from Park James Properties Ltd Location Walsall,    with a resident population of circa 170,000, is located approximately 10 miles north    of Birmingham city centre and 8 miles east of Wolverhampton. The town benefits from    excellent road communications, being within 2 miles of the intersection between    the M5 and M6 Motorways. Rail services to London (Euston) are available in approximately    2 hours 20 minutes. The    flats are located in Manorhouse Close, a cul de sac off Lord Street, which runs    off Broadway West, the A4148, approximately 2 miles north of Walsall town centre    and 0.5 miles from the M6 Motorway (Junction 9). Description The    properties comprise four ground rent investments on 48 flats arranged as four separate    recently built blocks of twelve flats in a small cul de sac. The rest of the estate    is made up of 22 houses. Each of the flats have been sold off on long leases and    benefit from 1 parking space per flat. Tenure Freehold    subject to a headlease to Walton Property Management Limited (WPM). The headlease    contains an obligation on WPM to collect and hold the ground rents in trust for    the Freeholder and to pay all sums to the Freeholder on receipt. The ground rent    on the head lease is a peppercorn. VAT Value    Added Tax is not applicable to this lot. Contact Simon Parker +44 (0) 20 7877 4513. E-mail: sparker@savills.com Toby  Ogilvie Smals +44 (0) 20 7877 4515. E-mail: tosmals@savills.com Seller's    Solicitors Freeth Cartwright    LLP (Ms C Tomkins) 80 Mount Street, Nottingham NG1 6HH E-mail: claire.tomkins@freethcartwright.co.uk Tel:    (0115) 901 5566 Fax: (0115) 859 9648 Six    Week Completion Available Document Basket Lot # Remove View and Download Powered by PropertyAuctions.com Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc10.pdf')",
+              "comm_login.asp",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=WS1 4DS&GridE=&GridN=&scale=10000&title=Wednesday 15th July 2009 Lot 10 - Flats 1-25 (Odd) Manorhouse Close, Lord Street, Walsall &cat=h',width=480,height=385)",
+              "basket.asp?action=viewcart&item=",
+              "http://www.propertyauctions.com",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084401id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=10",
+                "status": 200,
+                "bytes": 16442,
+                "final": "https://web.archive.org/web/20090624084401id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=10"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090624084426",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=15",
+            "replay_url": "https://web.archive.org/web/20090624084426id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=15",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket Lot 15 Woodlands, Leckwith Road, Leckwith, Cardiff Guide Price £500,000-£600,000 Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC05 Cardiff Woodlands, Leckwith Road, Leckwith, Cardiff  CF11 8AS •   Freehold Former Care    Home Use Class C2 •   37 Bedrooms  with Gross Internal Area 1,384.52 sq m (14,903 sq ft) •   Site  Area about 2.12 Hectares (5.24 Acres) •   Suitable  for Alternative Use (Subject to Consents) Location Cardiff,  with a population of 270,000, is the capital of Wales and the commercial and financial  centre for South Wales. The city benefits from excellent transport links to the  rest of the UK via the M4 motorway. Nearby rail services are provided by Cardiff  Mainline Station to London (Paddington) with a fastest journey time of 1 hour 50  minutes. Cardiff International Airport is approximately 12 miles west. Leckwith  is situated about 3 miles south-west of Cardiff city centre. The property is situated  in an elevated position, set back and to the west of Leckwith Road. It is accessed  via a private drive from Leckwith Road. Description The  property comprises a substantial former care home on a site of about 2.12 hectares  (5.24 acres), with stone elevations beneath multi-pitched slate roofs. The property  is believed to date from the 18th century with a purpose built modern extension  added we understand in the 1980s. There are in total 37 bedrooms (5 with en-suite  facilities) arranged over ground and first floors. The accommodation also includes  two lounges, two dining rooms, a family room/conservatory and a laundry, store and  ironing room in the basement. The site area has been taken from Promap. Planning The  property may be suitable for alternative use, subject to the necessary consents.  For further enquiries contact Cardiff Council on Tel: (029) 2087 1134 or visit their  website at www.cardiff.gov.uk Tenure Freehold. VAT Value  Added Tax is not applicable to this lot. Contact Sandy Hamilton +44 (0) 20 7877 4518. E-mail: shamilton@savills.com James  Boadle +44 (0) 20 7877 4511. E-mail: jboadle@savills.com Seller's    Solicitors Pinsent  Masons (T Eastwood Esq) 3 Colmore Circus, Birmingham B4 6BH E-mail: tom.eastwood@pinsentmasons.com Tel:  (0121) 200 1050 Fax: (0121) 626 1040 Document Basket Lot # Remove View and Download Powered by PropertyAuctions.com Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/july2009/shedacc15.pdf')",
+              "comm_login.asp",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=CF11 8AS&GridE=&GridN=&scale=10000&title=Wednesday 15th July 2009 Lot 15 - Woodlands, Leckwith Road, Leckwith, Cardiff &cat=h',width=480,height=385)",
+              "basket.asp?action=viewcart&item=",
+              "http://www.propertyauctions.com",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084426id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=15",
+                "status": 200,
+                "bytes": 15930,
+                "final": "https://web.archive.org/web/20090624084426id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=15"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090701002550",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=F",
+            "replay_url": "https://web.archive.org/web/20090701002550id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=F",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket Lot 1 35 Bull Ring, Ludlow, Shropshire Guide Price £350,000-£375,000 Tenancy & Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC02 Ludlow 35 Bull Ring, Ludlow, Shropshire SY8  1AA •   Freehold Retail Investment •   Let  to The Edinburgh Woollen Mill Limited until 2020 •   Current  Rent Reserved: £26,000  pa Location Ludlow,  with a population of 10,500, is a historic and attractive market town, located close  to the Welsh boarder along the River Teme, approximately 42 miles west of Birmingham,  23 miles north of Hereford and 26 miles south of Shrewsbury. The town is served  by the A49 providing access to the A5 and M54 (Junction 7) approximately 28 miles  to the north and the M50 (Junction 4) to the south. Nearby rail services from Ludlow  to London (Paddington) via Newport have a journey time of 3 hours 15 minutes. The  property is situated on the east side of Bull Ring close to its junction with King  Street and Old Street in a busy retailing area. Nearby occupiers include Boots the  Chemist, HSBC, Specsavers, Coral and NatWest. Description The  property comprises an attractive building arranged over cellar, ground and three  upper floors. The ground and part first floor are used for retail and the other  space is a mix of staff accommodation and storage. The cellar and third floor have  restricted access. Tenure Freehold. VAT Value  Added Tax is applicable to this lot. Contact Oliver Childs +44 (0) 20 7877 4517. E-mail: ochilds@savills.com Toby  Ogilvie Smals +44 (0) 20 7877 4515. E-mail: tosmals@savills.com Seller's    Solicitors Wedlake  Bell (Ms G McCourt) 52 Bedford Row, London WC1R 4LR E-mail: gmccourt@wedlakebell.com Tel:  (020) 7395 3000 Fax: (020) 7395 3100 Six    Week Completion Available Document Basket Lot # Remove View and Download Powered by PropertyAuctions.com Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc1.pdf')",
+              "comm_login.asp",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=SY8 1AA&GridE=&GridN=&scale=10000&title=Wednesday 15th July 2009 Lot 1 - 35 Bull Ring, Ludlow, Shropshire &cat=h',width=480,height=385)",
+              "basket.asp?action=viewcart&item=",
+              "http://www.propertyauctions.com",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090701002550id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=F",
+                "status": 200,
+                "bytes": 15303,
+                "final": "https://web.archive.org/web/20090701002550id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=F"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090624084456",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=20",
+            "replay_url": "https://web.archive.org/web/20090624084456id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=20",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket Lot 20 277 New North Road, Hainault, Ilford, Essex Guide Price Sold Prior Result Sold Prior Tenancy & Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC16 Hainault 277 New North Road,  Hainault, Ilford, Essex IG6 3AP •   Freehold Retail/Residential    Part Vacant Investment •   Flat  Let on an AST (Holding Over) •   Current  Rent Reserved: £6,900  pa Plus  Vacant Shop On    Instructions from Ladbrokes Location Hainault  forms part of The London Borough of Redbridge, with a resident population of 241,000,  and lies 15 miles to the north-east of Central London. The property is located approximately  9 miles to the west of Brentwood and 3 miles to the east of the M11 Motorway (Junction  5). The A406 North Circular Road is accessible 3.5 miles to the south, with  the M25 Motorway (Junction 27) situated approximately 4 miles to the north. Nearby  rail services are provided by Hainault underground station (Central Line). The  property is situated on the north side of New North Road at its junction with Beech  Grove, in a predominantly residential area. An office building occupied by Maersk  is situated just to the south-east of the property with a large area of allotments  situated to the southern side of the road. Description The  property comprises an end of terrace ground floor retail unit (A1 and A2 uses) with  a separately accessed one bedroom flat on the first floor arranged as two rooms,  kitchen, bathroom and WC. The first floor flat is let on an Assured Shorthold Tenancy  but the tenant is currently holding over on a monthly basis. The property benefits  from a rear garden. Planning The  property offers the potential for development. The ground floor could be converted  to residential use subject to planning permission creating two separate flats or  one dwelling over two floors. For further enquiries please contact The London Borough  of Redbridge on Tel: (020) 8554 5000 or visit their website at www.redbridge.gov.uk Tenure Freehold. VAT Value  Added Tax is not applicable to this lot. Contact James  Boadle +44 (0) 20 7877 4511. E-mail: jboadle@savills.com Michael  Mallie +44 (0) 20 7409  8199. E-mail: mmallie@savills.com Seller's    Solicitors Harold  Benjamin (Mrs S Paul) Hill  House, 67/71 Lowlands Road, Harrow HA1 3EQ E-mail:  sarah.paul@haroldbenjamin.com Tel:  (020) 8422 5678 Fax: (020) 8864 7530 Six    Week Completion Available Document Basket Lot # Remove View and Download Powered by PropertyAuctions.com Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc20.pdf')",
+              "comm_login.asp",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=IG6 3AP&GridE=&GridN=&scale=10000&title=Wednesday 15th July 2009 Lot 20 - 277 New North Road, Hainault, Ilford, Essex&cat=h',width=480,height=385)",
+              "basket.asp?action=viewcart&item=",
+              "http://www.propertyauctions.com",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084456id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=20",
+                "status": 200,
+                "bytes": 16188,
+                "final": "https://web.archive.org/web/20090624084456id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=20"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20101130101205",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21",
+            "replay_url": "https://web.archive.org/web/20101130101205id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Lot 21 1-11 Hurrell Court, Hurrell Lane, Thornton-Le-Dale, Pickering, North Yorkshire Guide Price £700,000-£800,000 Current Income Reserved £46,252 P.A. Tenancy & Accommodation (PDF) Download Legal Documents Map 21 1-11 Hurrell Court,  Hurrell Lane, Thornton-Le-Dale, Pickering, North Yorkshire YO18 7QR •   Eleven Freehold Retirement  Homes •   Typical  Gross Internal Area about 60.04 sq m (646 sq ft) •   Total  Current Rent Reserved: £46,252.50  pa Plus 6  Vacant Bungalows Location The  ancient market town of Pickering, with a population of almost 7,000, is located  at the foot of the picturesque North Yorkshire Moors approximately 27 miles north-east  of York, 16 miles west of Scarborough and 32 miles north-west of Bridlington.  The A170 provides access to Scarborough to the east and York to the south-west,  via Malton Road (A169) and the A64 respectively. The town has proven popular with  tourists over recent years and local trade is boosted over the summer months with  tourism-related activities. Rail services from York Mainline Station to London (Kings  Cross) have a journey time of about 2 hours 10 minutes. Thornton-Le-Dale  is located about 2 miles to the east of Pickering, the property being situated on  the east side of Hurrell Lane, close to the junction with South Lane in an attractive  residential area. Description A  portfolio of eleven x two bedroom retirement bungalows, of traditional construction,  in a sheltered housing development. It is an attractive rural location with open  aspect to The Vale of Rydale. Tenure Freehold. VAT Value  Added Tax is not applicable to this lot. Contact Oliver Childs +44 (0) 20 7877 4517. E-mail: ochilds@savills.com Sandy  Hamilton +44 (0) 20 7877 4517. E-mail: shamilton@savills.com Seller's  Solicitors Shoosmiths  Solicitors (Ms B Grundy) 7th Floor, 125 Colmore Row, Birmingham B3 3SH E-mail:  beth.grundy@shoosmiths.co.uk Tel: (03700) 864134 Fax: (03700) 864001 Auctions 2010 Current Auction Forthcoming Auctions Legal Documents Results of previous auctions Auction venue Auction office Auction information Catalogue Request",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/dec2010/shedtenacc21.pdf')",
+              "http://www.eigroup.co.uk/legal/default.aspx?auctioneercode=sca&auctiondate=20101213&lotnumber=21",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=YO18 7QR&GridE=&GridN=&scale=10000&title=Monday 13th December 2010 Lot 21 - 1-11 Hurrell Court, Hurrell Lane, Thornton-Le-Dale, Pickering, North Yorkshire &cat=h',width=480,height=385)",
+              "commdocs/comm_addendum.pdf",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "http://www.eigroup.co.uk/auctioneer-templates/guides.aspx?a=342&c=sca",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20101130101205id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21",
+                "status": 200,
+                "bytes": 15014,
+                "final": "https://web.archive.org/web/20101130101205id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090624084406",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=11",
+            "replay_url": "https://web.archive.org/web/20090624084406id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=11",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket Lot 11 14-36 (Even) Manorhouse Close, Lord Street, Walsall Guide Price £20,000-£30,000 Tenancy & Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC04 Walsall 2pg 14-36 (Even)  Manorhouse Close, Lord Street, Walsall WS1 4DS •   48    Ground Rent Flats •   To be    Offered as 4 Separate Lots •   Combined    Ground Rent: £11,388    pa •   Attractive Cul de  Sac Location •   4 Recently    Completed Developments of 12 Flats •   On-Site    Parking On    Instructions from Park James Properties Ltd Location Walsall,    with a resident population of circa 170,000, is located approximately 10 miles north    of Birmingham city centre and 8 miles east of Wolverhampton. The town benefits from    excellent road communications, being within 2 miles of the intersection between    the M5 and M6 Motorways. Rail services to London (Euston) are available in approximately    2 hours 20 minutes. The    flats are located in Manorhouse Close, a cul de sac off Lord Street, which runs    off Broadway West, the A4148, approximately 2 miles north of Walsall town centre    and 0.5 miles from the M6 Motorway (Junction 9). Description The    properties comprise four ground rent investments on 48 flats arranged as four separate    recently built blocks of twelve flats in a small cul de sac. The rest of the estate    is made up of 22 houses. Each of the flats have been sold off on long leases and    benefit from 1 parking space per flat. Tenure Freehold    subject to a headlease to Walton Property Management Limited (WPM). The headlease    contains an obligation on WPM to collect and hold the ground rents in trust for    the Freeholder and to pay all sums to the Freeholder on receipt. The ground rent    on the head lease is a peppercorn. VAT Value    Added Tax is not applicable to this lot. Contact Simon Parker +44 (0) 20 7877 4513. E-mail: sparker@savills.com Toby  Ogilvie Smals +44 (0) 20 7877 4515. E-mail: tosmals@savills.com Seller's    Solicitors Freeth Cartwright    LLP (Ms C Tomkins) 80 Mount Street, Nottingham NG1 6HH E-mail: claire.tomkins@freethcartwright.co.uk Tel:  (0115) 901 5566 Fax: (0115) 859 9648 Six    Week Completion Available Document Basket Lot # Remove View and Download Powered by PropertyAuctions.com Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc11.pdf')",
+              "comm_login.asp",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=WS1 4DS&GridE=&GridN=&scale=10000&title=Wednesday 15th July 2009 Lot 11 - 14-36 (Even) Manorhouse Close, Lord Street, Walsall &cat=h',width=480,height=385)",
+              "basket.asp?action=viewcart&item=",
+              "http://www.propertyauctions.com",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084406id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=11",
+                "status": 200,
+                "bytes": 16423,
+                "final": "https://web.archive.org/web/20090624084406id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=11"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090624074731",
+            "original": "http://auctions.savills.co.uk:80/commercial/basket.asp?action=viewcart&item=",
+            "replay_url": "https://web.archive.org/web/20090624074731id_/http://auctions.savills.co.uk:80/commercial/basket.asp?action=viewcart&item=",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket London Commercial Your Basket Lot # Description Remove Continue Shopping Download This service is provided by Plus Art Ltd . Registration Name: Plus Art Ltd • Registered at: 15 Foster Avenue, Beeston, Nottingham, NG9 1AE • Registered Office Address: Unit 2, Manor House Road, Long Eaton, Nottingham, NG10 1LR • Registered Number: 1200684 • Telephone Number: +44(0)1159836718 (office hours 9-5 Monday to Friday) • Email Address: WorldPay@plusart.co.uk Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "default.asp",
+              "basket.asp?action=checkout&item=",
+              "http://www.plusart.co.uk",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624074731id_/http://auctions.savills.co.uk:80/commercial/basket.asp?action=viewcart&item=",
+                "status": 200,
+                "bytes": 10453,
+                "final": "https://web.archive.org/web/20090624074731id_/http://auctions.savills.co.uk:80/commercial/basket.asp?action=viewcart&item="
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20101003012009",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22",
+            "replay_url": "https://web.archive.org/web/20101003012009id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Lot 22 Car Parking Space No. 8, Bryanston Mews West, Marylebone, London Guide Price £40,000-£50,000 Tenancy & Accommodation (PDF) Download Legal Documents Map 22 Car Parking Space No. 8, Bryanston  Mews West, Marylebone,  London W1H 2DX •   Long  Leasehold Car Parking Space •   Secure  Underground Car Park •   Within  the Congestion Charging Zone •   Available  as a Single Lot or Separately •   5 Minutes  from Oxford Street •   Estimated  Rental Value Per Space of £5,000-£6,000 per annum (1) Location Marylebone,  in The London Borough of Westminster, is located just to the north of Oxford Street  and within a few minutes of the shopping, entertainment and business districts of  London's West End. Bryanston Mews West is moments by car from the Marylebone Road  which forms part of London's inner ring road and the A40 Westway for access to the  motorway network. There are tube stations nearby at Marble Arch, Baker Street, Edgware  Road and Paddington stations for the Heathrow Express. Description The  car parking spaces form part of a secure, gated, underground car park accessed from  Bryanston Mews. The car park has 78 spaces in total and the 10 spaces in question  are Nos 8, 25, 27, 37, 40, 42, 45, 49, 75 and 76. They are located beneath Nos 33,  34 and 35 on the west side of Bryanston Square, an exclusive London address with  private residents' gardens. Tenure Leasehold.  Each space will be offered on a new long lease for a term of approximately 74 years  from the date of completion. VAT Value  Added Tax is not applicable to these lots. (1) Rental values based on recent  lettings within the Bryanston Mews West car park. Contact Sandy Hamilton +44 (0) 20 7877 4518. E-mail: shamilton@savills.com Hannah  Prideaux +44 (0) 20 7877 4515. E-mail: hprideaux@savills.com The seller  reserves the right to offer the properties as one lot, individually or in any combination.  Buyers are advised to indicate their interest early. Seller's Solicitors Lawrence  Stephens Solicitors (D Seal Esq) Morley House, 26 Holborn Viaduct, London EC1A  2AT E-mail: dseal@lawstep.co.uk Tel: (020) 7563 1552 Fax: (020) 7935 1213 Auctions 2010 Current Auction Forthcoming Auctions Legal Documents Results of previous auctions Auction venue Auction office Auction information Catalogue Request",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/oct2010/shedtenacc22.pdf')",
+              "http://www.eigroup.co.uk/legal/default.aspx?auctioneercode=sca&auctiondate=20101011&lotnumber=22",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=W1H 2DX&GridE=&GridN=&scale=10000&title=Monday 11th October 2010 Lot 22 - Car Parking Space No. 8, Bryanston Mews West, Marylebone, London&cat=h',width=480,height=385)",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "http://www.eigroup.co.uk/auctioneer-templates/guides.aspx?a=342&c=sca",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20101003012009id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22",
+                "status": 200,
+                "bytes": 16204,
+                "final": "https://web.archive.org/web/20101003012009id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20101130101210",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=23",
+            "replay_url": "https://web.archive.org/web/20101130101210id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=23",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Lot 23 Claremont, 37 Scalford Road, Melton Mowbray, Leicestershire Guide Price £170,000-£190,000 Download Legal Documents Map 23 'Claremont', 37  Scalford Road, Melton  Mowbray, Leicestershire LE13 1JY •   Freehold  Care Home Use Class C2 •   Potential  for Residential Conversion (Subject to Consents) •   Gross  Internal Area 406.42 sq m  (4,375 sq ft) •   Vacant  Possession on Completion Location Melton  Mowbray is an attractive market town located 19 miles south-east of Nottingham and  14 miles north-east of Leicester. It has good road communications being located  at the intersection of the A606 and the A607. The A1 trunk road is 18 miles south-east.  Rail services are provided by Crosscountry and East Midlands Trains for London (St  Pancras) via Leicester, with a fastest journey time of approximately 1 hour 32 minutes.  East Midlands International Airport is approximately 19 miles west. 'Claremont'  is situated on the west side of Scalford Road opposite Elgin Drive, approximately  0.5 miles north of the town centre in a predominantly residential area near to the  town's livestock market. Description The  property comprises a large semi-detached house formerly used as a care home. Originally  constructed around 1900, it has a more recent addition to the rear and accommodation  comprises twelve residents' bedrooms, two living rooms, dining room, kitchen, laundry,  cellar, three bathrooms, shower room, office, a garden to the rear and off-street  parking to the front. Planning The  property may be suitable for residential conversion or for continued use as a care  home subject to obtaining the necessary consents and licences. For further details  please contact Melton Borough Council on Tel: (01664) 502504 or visit their website  www.melton.gov.uk Tenure Freehold. VAT Value  Added Tax is not applicable to this lot. Contact Sandy Hamilton +44 (0) 20 7877 4518. E-mail: shamilton@savills.com Rebecca  Garnett +44 (0) 20 7409 8199. E-mail: rgarnett@savills.com Seller's  Solicitors Pinsent  Masons LLP (A Dhillon Esq) 3 Colmore Circus, Birmingham, B4 6BH E-mail:  arminder.dhillon@pinsentmasons.com Tel: (0121) 200 1050 Fax: (0121) 626 1040 Auctions 2010 Current Auction Forthcoming Auctions Legal Documents Results of previous auctions Auction venue Auction office Auction information Catalogue Request",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "http://www.eigroup.co.uk/legal/default.aspx?auctioneercode=sca&auctiondate=20101213&lotnumber=23",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=LE13 1JY&GridE=&GridN=&scale=10000&title=Monday 13th December 2010 Lot 23 - Claremont, 37 Scalford Road, Melton Mowbray, Leicestershire &cat=h',width=480,height=385)",
+              "commdocs/comm_addendum.pdf",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "http://www.eigroup.co.uk/auctioneer-templates/guides.aspx?a=342&c=sca",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20101130101210id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=23",
+                "status": 200,
+                "bytes": 15242,
+                "final": "https://web.archive.org/web/20101130101210id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=23"
+              }
+            ]
+          },
+          {
+            "ok": true,
+            "timestamp": "20090701002555",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=N",
+            "replay_url": "https://web.archive.org/web/20090701002555id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=N",
+            "content_type": "text/html",
+            "text": "Savills Auctions Home Commercial Residential Nottingham Leeds Login / Register View Document Basket Lot 2 Q-Matic House, The Crossway, Uxbridge, Middlesex Guide Price £200,000-£250,000 Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC06 Uxbridge Q-Matic House,  The Crossway, Uxbridge, Middlesex UB10 0JH •   Attractive Freehold  Office Building •   Net  Internal Area  287.91 sq m (3,098 sq ft) •   Suitable  for Office or Residential Use (Subject to Consents) •   Full  Vacant Possession Location Uxbridge,  with a population of 243,100, is an old market town located within the London Borough  of Hillingdon, and less than 17 miles west of Central London. The town is well located  for access to Central London being within close proximity to the A40 Western Avenue,  also providing access to the M25 (Junction 16). Public transport is provided by  a number of local bus routes and London Underground stations situated at Uxbridge  and Hillingdon (Metropolitan and Piccadilly Lines). The  property is situated on the east side of The Crossway, which runs northwards from  Hillingdon Hill (A4020), in a predominantly residential area. Description The  property comprises a 1980's predominantly brick built, detached building (previously  known as Gillan House) arranged over ground, first and second floors of B1 office  accommodation totalling 287.91 sq m (3,098 sq ft). The second floor has a large  kitchen and shower room and would easily suit conversion to residential use. The  property benefits from 5 car parking spaces. Planning The  property may be suitable for change of use subject to the necessary consents. For  further enquiries please contact The London Borough of Hillingdon on Tel: (01895)  250111 or visit their website at www.hillingdon.gov.uk Tenure Freehold. VAT Value  Added Tax is not applicable to this lot. Contact Michael  Mallie +44 (0) 20 7409 8199. E-mail: mmallie@savills.com Simon  Parker +44 (0) 20 7877 4513. E-mail: sparker@savills.com Seller's    Solicitors Geldards  LLP (Mrs S Smyth) Number One, Pride Place, Pride Park, Derby DE24 8QR E-mail:  siobhan.smyth@geldards.com Tel: (01332) 331631 Fax: (01332) 380602 90    Day Completion Document Basket Lot # Remove View and Download Powered by PropertyAuctions.com Auctions 2009 Current Auction Forthcoming Auctions Results of previous auctions Auction venue Auction office Auction information Catalogue Request Legal Packs",
+            "links": [
+              "../default.asp",
+              "comm_current_auction.asp",
+              "../lond_Current_auction.asp",
+              "../Nottingham.asp",
+              "../Leeds.asp",
+              "comm_login.asp",
+              "basket.asp?action=viewcart&item=",
+              "http://www.savills.co.uk/",
+              "#",
+              "comm_current_auction_lot.asp?Dir=F",
+              "comm_current_auction_lot.asp?Dir=B",
+              "comm_current_auction_lot.asp?Dir=N",
+              "comm_current_auction_lot.asp?Dir=L",
+              "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/july2009/shedacc2.pdf')",
+              "comm_login.asp",
+              "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=UB10 0JH&GridE=&GridN=&scale=10000&title=Wednesday 15th July 2009 Lot 2 - Q-Matic House, The Crossway, Uxbridge, Middlesex &cat=h',width=480,height=385)",
+              "basket.asp?action=viewcart&item=",
+              "http://www.propertyauctions.com",
+              "comm_auctions.asp",
+              "comm_current_auction.asp",
+              "comm_forthcoming_auctions.asp",
+              "comm_previous_auctions.asp",
+              "comm_venue.asp",
+              "comm_office_address.asp",
+              "comm_info.asp",
+              "#",
+              "comm_legalpacks.asp"
+            ],
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090701002555id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=N",
+                "status": 200,
+                "bytes": 15941,
+                "final": "https://web.archive.org/web/20090701002555id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=N"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20090711092734",
+            "original": "http://auctions.savills.co.uk:80/commercial/basket.asp?",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090711092734id_/http://auctions.savills.co.uk:80/commercial/basket.asp?",
+                "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090711092734id_/http://auctions.savills.co.uk:80/commercial/basket.asp (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f28d8acced0>, 'Connection to web.archive.org timed out. (connect timeout=4)'))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090711092734/http://auctions.savills.co.uk:80/commercial/basket.asp?",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090711092734/http://auctions.savills.co.uk:80/commercial/basket.asp (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+              }
+            ]
+          },
+          {
+            "ok": false,
+            "timestamp": "20090624084554",
+            "original": "http://auctions.savills.co.uk:80/commercial/comm_legalpacks.asp",
+            "attempts": [
+              {
+                "url": "https://web.archive.org/web/20090624084554id_/http://auctions.savills.co.uk:80/commercial/comm_legalpacks.asp",
+                "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084554id_/http://auctions.savills.co.uk:80/commercial/comm_legalpacks.asp (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f28d351f550>, 'Connection to web.archive.org timed out. (connect timeout=4)'))"
+              },
+              {
+                "url": "https://web.archive.org/web/20090624084554/http://auctions.savills.co.uk:80/commercial/comm_legalpacks.asp",
+                "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084554/http://auctions.savills.co.uk:80/commercial/comm_legalpacks.asp (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
               }
             ]
           }
