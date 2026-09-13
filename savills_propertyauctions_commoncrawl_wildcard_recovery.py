@@ -19,7 +19,7 @@ INDEXES=['CC-MAIN-2018-51','CC-MAIN-2018-43','CC-MAIN-2018-34','CC-MAIN-2018-22'
 def norm_lot(v): return re.sub(r'[^A-Z0-9]','',str(v or '').upper())
 
 def query(session,index,target):
-    r=session.get(f'https://index.commoncrawl.org/{index}-index',params={'url':target,'output':'json','filter':'status:200','matchType':'prefix'},timeout=(4,10))
+    r=session.get(f'https://index.commoncrawl.org/{index}-index',params={'url':target,'output':'json','filter':'status:200'},timeout=(4,8))
     if r.status_code==404: return []
     r.raise_for_status(); out=[]
     for line in r.text.splitlines():
@@ -30,7 +30,7 @@ def query(session,index,target):
 def warc(session,rec):
     if not all(rec.get(k) is not None for k in ('filename','offset','length')): return None
     start=int(rec['offset']); end=start+int(rec['length'])-1
-    r=session.get('https://data.commoncrawl.org/'+rec['filename'],headers={'Range':f'bytes={start}-{end}'},timeout=(5,15))
+    r=session.get('https://data.commoncrawl.org/'+rec['filename'],headers={'Range':f'bytes={start}-{end}'},timeout=(5,12))
     if r.status_code not in (200,206): return None
     raw=r.content
     try: raw=gzip.decompress(raw)
@@ -48,24 +48,24 @@ def main():
     runs=[]; candidates=[]; fetched=[]; matches=[]; errors=[]
     for cat in cats:
         aid=str(cat.get('aid')); date=str(cat.get('date') or '')[:10]
-        target='www.propertyauctions.com/'
-        seen=set(); rr={'auction_date':date,'aid':aid,'records_found':0,'candidate_urls':[]}
+        targets=[f'www.propertyauctions.com/*AID={aid}*',f'propertyauctions.com/*AID={aid}*',f'www.propertyauctions.com/*aid={aid}*']
+        seen=set(); rr={'auction_date':date,'aid':aid,'targets':targets,'records_found':0,'candidate_urls':[]}
         for idx in INDEXES:
-            try: hits=query(ses,idx,target)
-            except Exception as e:
-                errors.append({'aid':aid,'index':idx,'error':f'{type(e).__name__}: {e}'}); continue
-            for h in hits:
-                u=str(h.get('url') or '')
-                if f'AID={aid}' not in u and f'aid={aid}' not in u: continue
-                if u in seen: continue
-                seen.add(u); rr['records_found']+=1
-                if INTERESTING_RE.search(u):
-                    rec={k:h.get(k) for k in ('url','timestamp','status','mime','filename','offset','length','digest')}; rec.update({'index':idx,'aid':aid,'auction_date':date}); candidates.append(rec); rr['candidate_urls'].append(u)
+            for target in targets:
+                try: hits=query(ses,idx,target)
+                except Exception as e:
+                    errors.append({'aid':aid,'index':idx,'target':target,'error':f'{type(e).__name__}: {e}'}); continue
+                for h in hits[:50]:
+                    u=str(h.get('url') or '')
+                    if u in seen: continue
+                    seen.add(u); rr['records_found']+=1
+                    if INTERESTING_RE.search(u):
+                        rec={k:h.get(k) for k in ('url','timestamp','status','mime','filename','offset','length','digest')}; rec.update({'index':idx,'aid':aid,'auction_date':date}); candidates.append(rec); rr['candidate_urls'].append(u)
+                    if len(rr['candidate_urls'])>=25: break
                 if len(rr['candidate_urls'])>=25: break
             if len(rr['candidate_urls'])>=25: break
         runs.append(rr)
-    # Prefer non-LotList query variants/document/detail surfaces first.
-    candidates.sort(key=lambda x:(('LotList.aspx' in str(x.get('url'))) , str(x.get('url'))))
+    candidates.sort(key=lambda x:(('LotList.aspx' in str(x.get('url'))),str(x.get('url'))))
     for rec in candidates[:120]:
         item={k:rec.get(k) for k in ('auction_date','aid','index','url','timestamp')}
         try:
@@ -79,7 +79,8 @@ def main():
                 if (rec['auction_date'],lot) in clue_keys and pcs and item['commercial_signal']:
                     matches.append({'auction_date':rec['auction_date'],'aid':rec['aid'],'lot_number':lot,'postcodes':pcs[:8],'source_url':rec.get('url'),'commoncrawl_index':rec.get('index')})
             fetched.append(item)
-        except Exception as e: item['fetch_error']=f'{type(e).__name__}: {e}'; fetched.append(item)
+        except Exception as e:
+            item['fetch_error']=f'{type(e).__name__}: {e}'; fetched.append(item)
     at=datetime.now(timezone.utc).isoformat()
     diag={'at':at,'route':'savills-2018-propertyauctions-commoncrawl-wildcard-aid-query-variant-recovery','target_year':2018,'catalogues_attempted':len(cats),'wildcard_candidate_records':len(candidates),'warc_candidates_fetched':len(fetched),'deterministic_date_lot_postcode_commercial_matches':len(matches),'canonical_events_added':0,'runs':runs,'fetches':fetched[:120],'matches':matches[:120],'error_samples':errors[:50]}
     s['savills_year_gap_commoncrawl_wildcard_last_run']=diag; s['last_discovery_mode']=diag['route']; s['historically_complete']=False; s['discovery_exhausted']=False
@@ -89,7 +90,7 @@ def main():
     else:
         msg=f"Wildcard Common Crawl AID/query-variant recovery found {len(candidates)} archived candidate records across {len(cats)} master-manifest catalogues, fetched {len(fetched)} candidates, but recovered 0 deterministic date+lot+postcode+commercial identities."
         nxt='Probe archived PropertyAuctions image/file/document asset paths and first-party Savills PDF/catalogue namespaces keyed by exact AID+lot, then reconcile any explicit full-address evidence to the result tuple.'
-    s['savills_year_gap_last_blocker']={'at':at,'route':diag['route'],'failing_url_or_route':'www.propertyauctions.com/*?AID=<2018 catalogue AID>*','message':msg,'next_safe_route':nxt}
+    s['savills_year_gap_last_blocker']={'at':at,'route':diag['route'],'failing_url_or_route':'www.propertyauctions.com/*AID=<2018 catalogue AID>*','message':msg,'next_safe_route':nxt}
     p['updated_at']=at; PROGRESS.write_text(json.dumps(p,indent=2,ensure_ascii=False))
     d=json.loads(DIAG.read_text()) if DIAG.exists() else {}; d['commoncrawl_wildcard_run']=diag; DIAG.write_text(json.dumps(d,indent=2,ensure_ascii=False))
     print(json.dumps({k:v for k,v in diag.items() if k not in ('runs','fetches','matches','error_samples')},indent=2))
