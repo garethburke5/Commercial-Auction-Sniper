@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-13T17:06:56.913767+00:00",
+  "at": "2026-09-13T18:00:18.937018+00:00",
   "route": "savills-year-gap-persisted-aid-evidence-to-live-catalogue-to-lot-tuple-to-first-party-validation",
   "target_year": 2018,
   "master_manifest_dates": [
@@ -672,7 +672,7 @@
     }
   ],
   "postback_pagination_run": {
-    "at": "2026-09-13T17:07:06.610303+00:00",
+    "at": "2026-09-13T18:00:31.201528+00:00",
     "route": "savills-2018-propertyauctions-live-aspnet-pagination-postback-enumeration",
     "target_year": 2018,
     "catalogues_attempted": 14,
@@ -3809,12 +3809,12 @@
     ]
   },
   "url_resolution_run": {
-    "at": "2026-09-13T17:07:14.523961+00:00",
+    "at": "2026-09-13T18:00:40.671335+00:00",
     "route": "savills-2018-propertyauctions-mined-url-direct-resolution",
     "target_year": 2018,
     "candidate_urls_available": 53,
     "candidate_urls_fetched": 53,
-    "http_200": 49,
+    "http_200": 48,
     "pdf_surfaces_found": 0,
     "deterministic_date_lot_postcode_commercial_matches": 0,
     "canonical_events_added": 0,
@@ -4838,14 +4838,9 @@
         "aid": 1066,
         "url": "https://twitter.com/propauctions",
         "priority": 40,
-        "status": 200,
+        "status": 403,
         "final_url": "https://x.com/propauctions",
-        "content_type": "text/html; charset=UTF-8",
-        "kind": "html",
-        "lot_numbers": [],
-        "postcodes": [],
-        "prices": [],
-        "commercial_signal": true
+        "content_type": "text/html; charset=UTF-8"
       },
       {
         "auction_date": "2018-02-13",
@@ -4892,13 +4887,13 @@
     ]
   },
   "wayback_catalogue_replay_run": {
-    "at": "2026-09-13T17:09:56.831916+00:00",
+    "at": "2026-09-13T18:03:09.910441+00:00",
     "route": "savills-2018-propertyauctions-wayback-cdx-catalogue-replay",
     "target_year": 2018,
     "catalogues_attempted": 14,
-    "cdx_captures_found": 1,
-    "archived_pages_replayed_http_200": 1,
-    "archive_candidate_links_found": 16,
+    "cdx_captures_found": 2,
+    "archived_pages_replayed_http_200": 2,
+    "archive_candidate_links_found": 32,
     "archived_document_links_found": 0,
     "deterministic_date_lot_postcode_commercial_matches": 0,
     "canonical_events_added": 0,
@@ -4909,7 +4904,7 @@
         "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
         "captures": [],
         "archive_links": [],
-        "cdx_error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
+        "cdx_capture_count": 0
       },
       {
         "auction_date": "2018-02-14",
@@ -4917,7 +4912,7 @@
         "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
         "captures": [],
         "archive_links": [],
-        "cdx_capture_count": 0
+        "cdx_error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
       },
       {
         "auction_date": "2018-03-26",
@@ -4941,7 +4936,7 @@
         "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
         "captures": [],
         "archive_links": [],
-        "cdx_capture_count": 0
+        "cdx_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20"
       },
       {
         "auction_date": "2018-06-07",
@@ -4957,7 +4952,7 @@
         "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
         "captures": [],
         "archive_links": [],
-        "cdx_capture_count": 0
+        "cdx_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20"
       },
       {
         "auction_date": "2018-07-24",
@@ -5020,9 +5015,58 @@
         "auction_date": "2018-08-01",
         "aid": 1083,
         "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
-        "captures": [],
-        "archive_links": [],
-        "cdx_error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
+        "captures": [
+          {
+            "timestamp": "20190730174016",
+            "original": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+            "mimetype": "text/html",
+            "replay_url": "https://web.archive.org/web/20190730174016id_/http://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+            "status": 200,
+            "lots": [],
+            "postcodes": [],
+            "commercial_signal": true,
+            "text_chars": 1998,
+            "relevant_link_count": 17,
+            "relevant_links_sample": [
+              "http://savills.co.uk/auctions",
+              "http://www.propertyauctions.com/",
+              "http://www.propertyauctions.com/Auctioneers/",
+              "http://www.propertyauctions.com/Catalogue/",
+              "http://www.propertyauctions.com/Contactus.aspx",
+              "http://www.propertyauctions.com/CookiePolicy.aspx",
+              "http://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "http://www.propertyauctions.com/Disclaimer.aspx",
+              "http://www.propertyauctions.com/Guides/",
+              "http://www.propertyauctions.com/News/",
+              "http://www.propertyauctions.com/Privacy.aspx",
+              "http://www.propertyauctions.com/Remote/",
+              "http://www.propertyauctions.com/Results/",
+              "http://www.propertyauctions.com/SearchAdvanced/",
+              "http://www.propertyauctions.com/Sitemap.aspx",
+              "http://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/DataclubMembers/"
+            ]
+          }
+        ],
+        "archive_links": [
+          "http://www.propertyauctions.com/",
+          "http://www.propertyauctions.com/Auctioneers/",
+          "http://www.propertyauctions.com/Catalogue/",
+          "http://www.propertyauctions.com/Contactus.aspx",
+          "http://www.propertyauctions.com/CookiePolicy.aspx",
+          "http://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+          "http://www.propertyauctions.com/Disclaimer.aspx",
+          "http://www.propertyauctions.com/Guides/",
+          "http://www.propertyauctions.com/News/",
+          "http://www.propertyauctions.com/Privacy.aspx",
+          "http://www.propertyauctions.com/Remote/",
+          "http://www.propertyauctions.com/Results/",
+          "http://www.propertyauctions.com/SearchAdvanced/",
+          "http://www.propertyauctions.com/Sitemap.aspx",
+          "http://www.propertyauctions.com/Terms.aspx",
+          "https://www.propertyauctions.com/DataclubMembers/"
+        ],
+        "cdx_capture_count": 1
       },
       {
         "auction_date": "2018-09-26",
@@ -5030,7 +5074,7 @@
         "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
         "captures": [],
         "archive_links": [],
-        "cdx_error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f83246e5890>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+        "cdx_capture_count": 0
       },
       {
         "auction_date": "2018-09-27",
@@ -5054,7 +5098,7 @@
         "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
         "captures": [],
         "archive_links": [],
-        "cdx_capture_count": 0
+        "cdx_error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
       },
       {
         "auction_date": "2018-12-11",
@@ -5062,28 +5106,36 @@
         "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
         "captures": [],
         "archive_links": [],
-        "cdx_capture_count": 0
+        "cdx_error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f0589964ad0>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
       }
     ],
     "archived_documents": [],
     "deterministic_matches": [],
     "cdx_error_samples": [
       {
-        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
         "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
       },
       {
-        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "error": "HTTPError: 503 Server Error: Service Unavailable for url: https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "error": "HTTPError: 503 Server Error: Service Unavailable for url: https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
         "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
       },
       {
-        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f83246e5890>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f0589964ad0>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
       }
     ]
   },
   "commoncrawl_warc_run": {
-    "at": "2026-09-13T17:11:36.537062+00:00",
+    "at": "2026-09-13T18:04:24.758834+00:00",
     "route": "savills-2018-propertyauctions-commoncrawl-index-warc-recovery",
     "target_year": 2018,
     "master_manifest_dates_targeted": [
@@ -5221,6 +5273,26 @@
     "deterministic_matches": [],
     "error_samples": [
       {
+        "aid": 1066,
+        "index": "CC-MAIN-2018-34",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-34-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1066&output=json&filter=status%3A200"
+      },
+      {
+        "aid": 1066,
+        "index": "CC-MAIN-2018-22",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-22-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1066&output=json&filter=status%3A200"
+      },
+      {
+        "aid": 1066,
+        "index": "CC-MAIN-2018-13",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-13-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1066&output=json&filter=status%3A200"
+      },
+      {
+        "aid": 1066,
+        "index": "CC-MAIN-2018-05",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-05-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1066&output=json&filter=status%3A200"
+      },
+      {
         "aid": 1067,
         "index": "CC-MAIN-2018-51",
         "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-51-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200"
@@ -5272,163 +5344,168 @@
       },
       {
         "aid": 1068,
+        "index": "CC-MAIN-2018-13",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-13-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200"
+      },
+      {
+        "aid": 1068,
         "index": "CC-MAIN-2018-05",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-05-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200"
+      },
+      {
+        "aid": 1069,
+        "index": "CC-MAIN-2018-51",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-51-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200"
+      },
+      {
+        "aid": 1069,
+        "index": "CC-MAIN-2018-43",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-43-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200"
+      },
+      {
+        "aid": 1069,
+        "index": "CC-MAIN-2018-34",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-34-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200"
+      },
+      {
+        "aid": 1069,
+        "index": "CC-MAIN-2018-22",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-22-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200"
+      },
+      {
+        "aid": 1069,
+        "index": "CC-MAIN-2018-13",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-13-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200"
+      },
+      {
+        "aid": 1069,
+        "index": "CC-MAIN-2018-05",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-05-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200"
+      },
+      {
+        "aid": 1070,
+        "index": "CC-MAIN-2018-51",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-51-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&filter=status%3A200"
+      },
+      {
+        "aid": 1070,
+        "index": "CC-MAIN-2018-43",
+        "error": "HTTPError: 503 Server Error: Service Temporarily Unavailable for url: https://index.commoncrawl.org/CC-MAIN-2018-43-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&filter=status%3A200"
+      },
+      {
+        "aid": 1070,
+        "index": "CC-MAIN-2018-34",
         "error": "ReadTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Read timed out. (read timeout=6)"
       },
       {
-        "aid": 1069,
-        "index": "CC-MAIN-2018-51",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fab1d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
-      },
-      {
-        "aid": 1069,
-        "index": "CC-MAIN-2018-43",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fb00d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
-      },
-      {
-        "aid": 1069,
-        "index": "CC-MAIN-2018-34",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fb0f90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
-      },
-      {
-        "aid": 1069,
-        "index": "CC-MAIN-2018-22",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fb1e50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
-      },
-      {
-        "aid": 1069,
-        "index": "CC-MAIN-2018-13",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fb2d50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
-      },
-      {
-        "aid": 1069,
-        "index": "CC-MAIN-2018-05",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fb3c10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
-      },
-      {
-        "aid": 1070,
-        "index": "CC-MAIN-2018-51",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fc0bd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
-      },
-      {
-        "aid": 1070,
-        "index": "CC-MAIN-2018-43",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fc1a90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
-      },
-      {
-        "aid": 1070,
-        "index": "CC-MAIN-2018-34",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fc2c50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
-      },
-      {
         "aid": 1070,
         "index": "CC-MAIN-2018-22",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fb3d10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30a8fe90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1070,
         "index": "CC-MAIN-2018-13",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fb2d90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30aace10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1070,
         "index": "CC-MAIN-2018-05",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fb2010>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30aadcd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1071,
         "index": "CC-MAIN-2018-51",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fb0e50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30aaec90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1071,
         "index": "CC-MAIN-2018-43",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fab4d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30aafb50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1071,
         "index": "CC-MAIN-2018-34",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9faad10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30ab8a50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1071,
         "index": "CC-MAIN-2018-22",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fc1350>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30ab9910>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1071,
         "index": "CC-MAIN-2018-13",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fc0e90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30aafc90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1071,
         "index": "CC-MAIN-2018-05",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fc3990>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30aaed90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1072,
         "index": "CC-MAIN-2018-51",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fd4cd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30aadbd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1072,
         "index": "CC-MAIN-2018-43",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fd5f10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30aac950>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1072,
         "index": "CC-MAIN-2018-34",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fd7150>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30a8fcd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1072,
         "index": "CC-MAIN-2018-22",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fc0850>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30ab9d10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1072,
         "index": "CC-MAIN-2018-13",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fc0a90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30aba150>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1072,
         "index": "CC-MAIN-2018-05",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fc1990>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30abb390>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1073,
         "index": "CC-MAIN-2018-51",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9faacd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30ac86d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1073,
         "index": "CC-MAIN-2018-43",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fabcd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30ac9910>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1073,
         "index": "CC-MAIN-2018-34",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fb0f10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30acab50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1073,
         "index": "CC-MAIN-2018-22",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fb29d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30acbd90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1073,
         "index": "CC-MAIN-2018-13",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fb3a90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30a8f490>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       },
       {
         "aid": 1073,
         "index": "CC-MAIN-2018-05",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fdce9fd6210>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9b30abbad0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=3)'))"
       }
     ]
   },
   "commoncrawl_wildcard_run": {
-    "at": "2026-09-13T17:19:11.711099+00:00",
+    "at": "2026-09-13T18:12:50.247036+00:00",
     "route": "savills-2018-propertyauctions-commoncrawl-wildcard-aid-query-variant-recovery",
     "target_year": 2018,
     "catalogues_attempted": 8,
@@ -5533,302 +5610,392 @@
         "aid": "1066",
         "index": "CC-MAIN-2018-51",
         "target": "www.propertyauctions.com/*AID=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cec9250>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9217604350>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-51",
         "target": "propertyauctions.com/*AID=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56ceca7d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f92176059d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-51",
         "target": "www.propertyauctions.com/*aid=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2F%2Aaid%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cecb690>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2F%2Aaid%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9217606890>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-43",
         "target": "www.propertyauctions.com/*AID=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce0590>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9217607750>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-43",
         "target": "propertyauctions.com/*AID=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce1450>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760c650>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-43",
         "target": "www.propertyauctions.com/*aid=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2F%2Aaid%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce2350>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2F%2Aaid%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760d550>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-34",
         "target": "www.propertyauctions.com/*AID=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce3210>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760e410>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-34",
         "target": "propertyauctions.com/*AID=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce8190>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760f350>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-34",
         "target": "www.propertyauctions.com/*aid=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2F%2Aaid%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce9050>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2F%2Aaid%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761c250>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-22",
         "target": "www.propertyauctions.com/*AID=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce9ed0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761d0d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-22",
         "target": "propertyauctions.com/*AID=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cceb090>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760fe90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-22",
         "target": "www.propertyauctions.com/*aid=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2F%2Aaid%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56ccebad0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2F%2Aaid%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760f1d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-13",
         "target": "www.propertyauctions.com/*AID=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce9a50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760e610>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-13",
         "target": "propertyauctions.com/*AID=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce96d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760d590>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-13",
         "target": "www.propertyauctions.com/*aid=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2F%2Aaid%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce8790>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2F%2Aaid%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760c510>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-05",
         "target": "www.propertyauctions.com/*AID=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce36d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f92176077d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-05",
         "target": "propertyauctions.com/*AID=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce2010>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=propertyauctions.com%2F%2AAID%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9217605f10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1066",
         "index": "CC-MAIN-2018-05",
         "target": "www.propertyauctions.com/*aid=1066*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2F%2Aaid%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce2310>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2F%2Aaid%3D1066%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f92175eeb50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-51",
         "target": "www.propertyauctions.com/*AID=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce0750>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761d250>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-51",
         "target": "propertyauctions.com/*AID=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cecb4d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761e050>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-51",
         "target": "www.propertyauctions.com/*aid=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2F%2Aaid%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56ccf41d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2F%2Aaid%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761f210>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-43",
         "target": "www.propertyauctions.com/*AID=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56ccf5290>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9217620490>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-43",
         "target": "propertyauctions.com/*AID=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56ccf64d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f92176216d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-43",
         "target": "www.propertyauctions.com/*aid=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2F%2Aaid%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56ccf7710>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2F%2Aaid%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9217604b50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-34",
         "target": "www.propertyauctions.com/*AID=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cec9850>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9217605f10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-34",
         "target": "propertyauctions.com/*AID=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cecb950>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9217605d90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-34",
         "target": "www.propertyauctions.com/*aid=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2F%2Aaid%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce2d10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2F%2Aaid%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761fdd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-22",
         "target": "www.propertyauctions.com/*AID=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce32d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761eb90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-22",
         "target": "propertyauctions.com/*AID=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce3fd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761df10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-22",
         "target": "www.propertyauctions.com/*aid=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2F%2Aaid%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce1990>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2F%2Aaid%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761db10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-13",
         "target": "www.propertyauctions.com/*AID=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce8a90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760e350>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-13",
         "target": "propertyauctions.com/*AID=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce94d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760e650>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-13",
         "target": "www.propertyauctions.com/*aid=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2F%2Aaid%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56ccea590>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2F%2Aaid%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760fbd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-05",
         "target": "www.propertyauctions.com/*AID=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56ccf6110>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9217620090>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-05",
         "target": "propertyauctions.com/*AID=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56ccf4150>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=propertyauctions.com%2F%2AAID%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f92176228d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1067",
         "index": "CC-MAIN-2018-05",
         "target": "www.propertyauctions.com/*aid=1067*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2F%2Aaid%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cd04950>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=www.propertyauctions.com%2F%2Aaid%3D1067%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f92176060d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-51",
         "target": "www.propertyauctions.com/*AID=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cd05c90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9217607510>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-51",
         "target": "propertyauctions.com/*AID=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce10d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760e810>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-51",
         "target": "www.propertyauctions.com/*aid=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2F%2Aaid%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce1450>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=www.propertyauctions.com%2F%2Aaid%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760e750>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-43",
         "target": "www.propertyauctions.com/*AID=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce1390>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760d450>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-43",
         "target": "propertyauctions.com/*AID=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56ccf5250>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921760d310>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-43",
         "target": "www.propertyauctions.com/*aid=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2F%2Aaid%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56ccf4a50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-43-index?url=www.propertyauctions.com%2F%2Aaid%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761dcd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-34",
         "target": "www.propertyauctions.com/*AID=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56ccf4450>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761c750>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-34",
         "target": "propertyauctions.com/*AID=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cecaa10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761f590>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-34",
         "target": "www.propertyauctions.com/*aid=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2F%2Aaid%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cceb090>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=www.propertyauctions.com%2F%2Aaid%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f92175ef610>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-22",
         "target": "www.propertyauctions.com/*AID=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cceab90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9217622a10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-22",
         "target": "propertyauctions.com/*AID=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce8690>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9217620910>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-22",
         "target": "www.propertyauctions.com/*aid=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2F%2Aaid%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cd043d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-22-index?url=www.propertyauctions.com%2F%2Aaid%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f9217623d50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-13",
         "target": "www.propertyauctions.com/*AID=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cd06e90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=www.propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761f5d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       },
       {
         "aid": "1068",
         "index": "CC-MAIN-2018-13",
         "target": "propertyauctions.com/*AID=1068*",
-        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7fb56cce9190>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=propertyauctions.com%2F%2AAID%3D1068%2A&output=json&filter=status%3A200 (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f921761f190>, 'Connection to index.commoncrawl.org timed out. (connect timeout=4)'))"
       }
     ]
+  },
+  "sitemap_asset_recovery": {
+    "at": "2026-09-13T18:13:00.536333+00:00",
+    "route": "savills-2018-propertyauctions-sitemap-robots-catalogue-asset-identifier-recovery",
+    "target_year": 2018,
+    "catalogues_attempted": 8,
+    "catalogue_asset_runs": [
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+        "status": 200,
+        "linked_assets": 51
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "status": 200,
+        "linked_assets": 51
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "status": 200,
+        "linked_assets": 51
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "status": 200,
+        "linked_assets": 51
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+        "status": 200,
+        "linked_assets": 51
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+        "status": 200,
+        "linked_assets": 51
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "status": 200,
+        "linked_assets": 51
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+        "status": 200,
+        "linked_assets": 51
+      }
+    ],
+    "discovery_surfaces": [
+      {
+        "url": "https://www.propertyauctions.com/robots.txt",
+        "status": 404,
+        "final_url": "https://www.propertyauctions.com/robots.txt",
+        "candidate_urls": 2,
+        "content_type": "text/html"
+      },
+      {
+        "url": "https://www.propertyauctions.com/sitemap.xml",
+        "status": 404,
+        "final_url": "https://www.propertyauctions.com/sitemap.xml",
+        "candidate_urls": 2,
+        "content_type": "text/html"
+      },
+      {
+        "url": "https://www.propertyauctions.com/sitemap_index.xml",
+        "status": 404,
+        "final_url": "https://www.propertyauctions.com/sitemap_index.xml",
+        "candidate_urls": 2,
+        "content_type": "text/html"
+      },
+      {
+        "url": "https://www.savills.co.uk/sitemap.xml",
+        "status": 200,
+        "final_url": "https://www.savills.co.uk/sitemap.xml",
+        "candidate_urls": 2106,
+        "content_type": "text/xml"
+      },
+      {
+        "url": "https://auctions.savills.co.uk/sitemap.xml",
+        "status": 200,
+        "final_url": "https://auctions.savills.co.uk/sitemap.xml",
+        "candidate_urls": 3,
+        "content_type": "text/xml"
+      }
+    ],
+    "unique_urls_mined": 83,
+    "evidence_led_query_identifiers": 0,
+    "identifier_detail_probes": 0,
+    "strict_postcode_commercial_surfaces": 0,
+    "canonical_events_added": 0
   }
 }
