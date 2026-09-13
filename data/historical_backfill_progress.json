@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T11:07:30.852994+00:00",
+  "updated_at": "2026-09-13T12:03:43.256014+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "LIVE ARCHIVE BLOCKED",
+      "status": "YEAR GAP BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3254,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-commoncrawl-legacy-namespace-raw-warc",
+      "last_discovery_mode": "savills-year-gap-propertyauctions-lot-tuple-to-indexed-detail-to-first-party-validation",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -39153,6 +39153,55 @@
         "canonical_events_added": 0,
         "sample_urls": [],
         "recoveries": []
+      },
+      "savills_year_gap_last_run": {
+        "at": "2026-09-13T12:03:43.256014+00:00",
+        "route": "savills-year-gap-propertyauctions-lot-tuple-to-indexed-detail-to-first-party-validation",
+        "target_year": 2018,
+        "master_manifest_dates": [
+          "2018-02-13",
+          "2018-03-26",
+          "2018-05-09",
+          "2018-06-18",
+          "2018-07-24",
+          "2018-09-26",
+          "2018-11-26",
+          "2018-12-11"
+        ],
+        "master_dates_without_preexisting_canonical_event": [
+          "2018-02-13",
+          "2018-03-26",
+          "2018-05-09",
+          "2018-06-18",
+          "2018-07-24",
+          "2018-09-26",
+          "2018-11-26",
+          "2018-12-11"
+        ],
+        "validated_propertyauctions_catalogues": [],
+        "catalogue_runs": [],
+        "commercial_mixed_clues": 0,
+        "clues_processed": 0,
+        "live_first_party_checks": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3254,
+        "savills_events_after": 3254,
+        "clue_runs": []
+      },
+      "savills_year_gap_last_blocker": {
+        "at": "2026-09-13T12:03:43.256014+00:00",
+        "route": "savills-year-gap-propertyauctions-lot-tuple-to-indexed-detail-to-first-party-validation",
+        "failing_url_or_route": "Savills master-manifest year 2018",
+        "message": "Year 2018 reconciliation found 0 validated PropertyAuctions Savills catalogue(s) and 0 strict commercial/mixed-use lot clue(s), but the clue-to-indexed-detail-to-first-party validation chain produced no new canonical History V2 event.",
+        "next_safe_route": "Use the exact recovered AID/lot/type/location/result tuples from this diagnostic to enumerate PropertyAuctions listing pagination/sitemaps and image asset IDs directly (no date-only search), then reconcile any full-address hit back to the catalogue tuple and first-party Savills evidence.",
+        "catalogue_urls": []
+      },
+      "savills_year_gap_focus": {
+        "year": 2018,
+        "master_dates": 8,
+        "validated_legacy_catalogues": 0,
+        "commercial_mixed_clues": 0,
+        "canonical_events_added": 0
       }
     }
   }
