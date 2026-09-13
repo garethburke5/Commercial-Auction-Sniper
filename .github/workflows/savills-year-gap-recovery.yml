@@ -8,6 +8,7 @@ on:
       - 'savills_year_gap_recovery.py'
       - 'savills_propertyauctions_postback_recovery.py'
       - 'savills_propertyauctions_url_resolution.py'
+      - 'savills_propertyauctions_wayback_recovery.py'
 
 permissions:
   contents: write
@@ -30,13 +31,15 @@ jobs:
           python-version: '3.11'
       - run: pip install requests beautifulsoup4
       - name: Compile recovery route
-        run: python -m py_compile savills_year_gap_recovery.py savills_propertyauctions_postback_recovery.py savills_propertyauctions_url_resolution.py savills_propertyauctions_cursor_recovery.py savills_propertyauctions_clue_recovery.py savills_legacy_aid_capture_recovery.py history_database.py
+        run: python -m py_compile savills_year_gap_recovery.py savills_propertyauctions_postback_recovery.py savills_propertyauctions_url_resolution.py savills_propertyauctions_wayback_recovery.py savills_propertyauctions_cursor_recovery.py savills_propertyauctions_clue_recovery.py savills_legacy_aid_capture_recovery.py history_database.py
       - name: Reconcile Savills 2018 gap batch
         run: python savills_year_gap_recovery.py --year 2018 --max-clues 20 --max-search-results 10 --max-live-checks 120
       - name: Enumerate live PropertyAuctions ASP.NET catalogue pagination
         run: python savills_propertyauctions_postback_recovery.py
       - name: Resolve mined catalogue/detail/document URLs directly
         run: python savills_propertyauctions_url_resolution.py
+      - name: Replay archived 2018 PropertyAuctions catalogues via Wayback CDX
+        run: python savills_propertyauctions_wayback_recovery.py
       - name: Verify generated state
         run: |
           python - <<'PY'
@@ -44,7 +47,7 @@ jobs:
           from pathlib import Path
           h=json.loads(Path('data/property_history.json').read_text())
           p=json.loads(Path('data/historical_backfill_progress.json').read_text())
-          s=p['sources']['Savills Auctions'];d=s['savills_year_gap_last_run'];x=s.get('savills_year_gap_postback_last_run') or {};u=s.get('savills_year_gap_url_resolution_last_run') or {}
+          s=p['sources']['Savills Auctions'];d=s['savills_year_gap_last_run'];x=s.get('savills_year_gap_postback_last_run') or {};u=s.get('savills_year_gap_url_resolution_last_run') or {};w=s.get('savills_year_gap_wayback_last_run') or {}
           count=sum(1 for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions')
           dates=sorted(str(e.get('auction_date')) for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions' and e.get('auction_date'))
           print('SAVILLS_EVENTS',count)
@@ -53,13 +56,14 @@ jobs:
           print('REVALIDATED_CATALOGUES',len(d['revalidated_propertyauctions_catalogues']))
           print('CANDIDATE_URLS',x.get('candidate_urls_mined'))
           print('URLS_FETCHED',u.get('candidate_urls_fetched'))
-          print('URL_HTTP_200',u.get('http_200'))
-          print('PDF_SURFACES',u.get('pdf_surfaces_found'))
-          print('DETERMINISTIC_MATCHES',u.get('deterministic_date_lot_postcode_commercial_matches'))
+          print('WAYBACK_CDX_CAPTURES',w.get('cdx_captures_found'))
+          print('WAYBACK_HTTP_200',w.get('archived_pages_replayed_http_200'))
+          print('WAYBACK_DOCUMENT_LINKS',w.get('archived_document_links_found'))
+          print('WAYBACK_DETERMINISTIC_MATCHES',w.get('deterministic_date_lot_postcode_commercial_matches'))
           assert count==s.get('last_history_event_count',count)
           assert s.get('historically_complete') is False
           assert s.get('discovery_exhausted') is False
-          assert u.get('route')=='savills-2018-propertyauctions-mined-url-direct-resolution'
+          assert w.get('route')=='savills-2018-propertyauctions-wayback-cdx-catalogue-replay'
           PY
       - name: Preserve generated files
         run: |
@@ -83,7 +87,7 @@ jobs:
           recovered=json.loads(Path('/tmp/savills_gap_progress.json').read_text())
           fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{})
           rs=recovered['sources']['Savills Auctions']
-          for key in ('savills_year_gap_last_run','savills_year_gap_postback_last_run','savills_year_gap_url_resolution_last_run','savills_year_gap_last_blocker','savills_year_gap_focus','propertyauctions_validated_catalogue_manifest','last_history_event_count','lots_captured','earliest_date_reached','earliest_month_reached','last_discovery_mode','status'):
+          for key in ('savills_year_gap_last_run','savills_year_gap_postback_last_run','savills_year_gap_url_resolution_last_run','savills_year_gap_wayback_last_run','savills_year_gap_last_blocker','savills_year_gap_focus','propertyauctions_validated_catalogue_manifest','last_history_event_count','lots_captured','earliest_date_reached','earliest_month_reached','last_discovery_mode','status'):
               if key in rs: fs[key]=rs[key]
               elif key in fs and key == 'savills_year_gap_last_blocker': fs.pop(key,None)
           fs['historically_complete']=False
@@ -93,7 +97,7 @@ jobs:
           PY
             git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics/savills_year_gap_recovery.json
             if git diff --cached --quiet; then exit 0; fi
-            git commit -m 'Persist Savills 2018 mined URL resolution recovery'
+            git commit -m 'Persist Savills 2018 Wayback catalogue recovery'
             if git push origin HEAD:main; then exit 0; fi
             git reset --hard HEAD~1
             sleep $((attempt*3))
