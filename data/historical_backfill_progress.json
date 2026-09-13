@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T00:02:27.590282+00:00",
+  "updated_at": "2026-09-13T00:04:20.469865+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "propertyauctions-resumable-aid-cursor",
+      "last_discovery_mode": "propertyauctions-strict-resumable-aid-cursor",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -4231,421 +4231,41 @@
         "next_safe_route": "Enumerate PropertyAuctions Savills listing URLs from its publicly exposed auctioneer/filter application routes or embedded page data rather than search-engine indexes, then validate any recovered first-party Savills source URLs."
       },
       "propertyauctions_cursor_state": {
-        "last_run_at": "2026-09-13T00:02:27.287052+00:00",
+        "last_run_at": "2026-09-13T00:04:20.240595+00:00",
         "last_range": {
-          "start": 786,
-          "end": 667
+          "start": 666,
+          "end": 547
         },
-        "next_aid": 666,
+        "next_aid": 546,
         "namespace_floor": 1,
         "namespace_exhausted": false
       },
       "propertyauctions_cursor_last_run": {
-        "at": "2026-09-13T00:02:27.590205+00:00",
-        "route": "propertyauctions-resumable-aid-cursor",
+        "at": "2026-09-13T00:04:20.469812+00:00",
+        "route": "propertyauctions-strict-resumable-aid-cursor",
         "range_scanned": {
-          "start": 786,
-          "end": 667
+          "start": 666,
+          "end": 547
         },
         "requests_attempted": 120,
-        "savills_auctions_found": 30,
-        "commercial_mixed_lot_clues": 19,
+        "validated_savills_catalogues_found": 0,
+        "savills_auctions_found": 0,
+        "commercial_mixed_lot_clues": 0,
+        "site_chrome_false_positives_rejected": 1,
         "canonical_events_added": 0,
         "savills_events_before": 3250,
         "savills_events_after": 3250,
-        "savills_auctions": [
-          {
-            "aid": 780,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=780",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 779,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=779",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 778,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=778",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 777,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=777",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 776,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=776",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 767,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=767",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 750,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=750",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 749,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=749",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 745,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=745",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 739,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=739",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 738,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=738",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 734,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=734",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 732,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=732",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 727,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=727",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 725,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=725",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 722,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=722",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 719,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=719",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 717,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=717",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 707,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=707",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 699,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=699",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 698,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=698",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 697,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=697",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 690,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=690",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 687,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=687",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 686,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=686",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 685,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=685",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 679,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=679",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 678,
-            "date": "2010-05-10",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
-            "commercial_mixed_lots": 19,
-            "title": "Auction Results Lot List | Property Auctions USERNAME * PASSWORD * register my password contact us HOME AUCTIONEERS FUTURE AUCTIONS AUCTION RESULTS DATACLUB LIVE AUCTION TV CATALOGUE REQUEST NEWS 10 MAY 2010 - SAVILLS RE"
-          },
-          {
-            "aid": 672,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=672",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          },
-          {
-            "aid": 670,
-            "date": "2025-10-30",
-            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=670",
-            "commercial_mixed_lots": 0,
-            "title": "Auction Results | Property Auctions This site uses Cookies. By using our website without changing your cookie settings, you agree to our cookie policy . USERNAME * PASSWORD * register my password contact us HOME AUCTIONE"
-          }
-        ],
-        "commercial_clue_samples": [
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "99",
-            "property_type": "Investment  Flat",
-            "location": "London N22",
-            "result": "£105,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "98",
-            "property_type": "Investment  Flat",
-            "location": "London N4",
-            "result": "Available at £130,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "97",
-            "property_type": "Investment  Flat",
-            "location": "London NW3",
-            "result": "£131,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "96",
-            "property_type": "Investment  Other",
-            "location": "Camberley",
-            "result": "£237,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "76",
-            "property_type": "Investment Freehold House",
-            "location": "Watford",
-            "result": "£164,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "73",
-            "property_type": "Office",
-            "location": "Whytleleafe",
-            "result": "£510,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "63",
-            "property_type": "Investment  Flat",
-            "location": "London SW3",
-            "result": "Withdrawn Prior",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "55",
-            "property_type": "Investment  Flat",
-            "location": "Enfield",
-            "result": "£88,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "54",
-            "property_type": "Investment  Flat",
-            "location": "Wembley",
-            "result": "£163,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "53",
-            "property_type": "Investment  Flat",
-            "location": "London E16",
-            "result": "£153,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "52",
-            "property_type": "Investment  Flat",
-            "location": "London E13",
-            "result": "£94,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "50",
-            "property_type": "Office",
-            "location": "Chertse",
-            "result": "Sold Prior",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "121",
-            "property_type": "Industrial",
-            "location": "St Austell",
-            "result": "£32,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "120",
-            "property_type": "Investment  Flat",
-            "location": "London SE26",
-            "result": "Available at £110,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "118",
-            "property_type": "Investment  Flat",
-            "location": "London SE15",
-            "result": "Sold Post",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "117",
-            "property_type": "Investment  Flat",
-            "location": "London SW9",
-            "result": "Available at £110,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "110",
-            "property_type": "Investment  Other",
-            "location": "London SE19",
-            "result": "£110,000",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "108",
-            "property_type": "Investment  Other",
-            "location": "Sutton",
-            "result": "Sold Prior",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          },
-          {
-            "aid": 678,
-            "auction_date": "2010-05-10",
-            "lot_number": "100",
-            "property_type": "Investment  Flat",
-            "location": "London E16",
-            "result": "Sold Post",
-            "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678"
-          }
-        ],
+        "oldest_validated_catalogue_date": "2010-05-10",
+        "savills_auctions": [],
+        "commercial_clue_samples": [],
         "errors": []
       },
       "propertyauctions_cursor_last_blocker": {
-        "at": "2026-09-13T00:02:27.590205+00:00",
-        "route": "propertyauctions-resumable-aid-cursor",
-        "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=786 down to AID=667",
-        "message": "Resumable scan completed without unsafe promotion: 30 Savills catalogues and 19 commercial/mixed lot clues recovered; legacy catalogue rows lack full-address/first-party Savills detail evidence required for canonical insertion.",
-        "next_safe_route": "Use recovered AID/date/lot/location tuples to enumerate legacy form actions, __doPostBack targets and PID/detail identifiers, then validate against Savills-owned evidence before insertion."
+        "at": "2026-09-13T00:04:20.469812+00:00",
+        "route": "propertyauctions-strict-resumable-aid-cursor",
+        "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=547",
+        "message": "Strict scan 666..547 validated 0 true Savills catalogues and 0 clearly commercial/mixed lot clues after rejecting 1 site-chrome false positives. Catalogue rows still lack full property address and first-party Savills lot detail required for canonical History V2 insertion.",
+        "next_safe_route": "For the oldest validated Savills catalogue, recover full property identity through catalogue-specific row links/forms, legacy PID/detail namespaces, surviving PDFs/results and archival indexes; require reconciliation back to the validated Savills auction tuple before insertion."
       },
       "propertyauctions_detail_identifier_last_run": {
         "at": "2026-09-12T19:02:38.480874+00:00",
