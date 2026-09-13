@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-13T09:02:34.754691+00:00",
+  "at": "2026-09-13T09:04:25.397751+00:00",
   "route": "savills-wayback-exact-pagination-replay",
   "pagination_targets": 38,
   "cdx_targets_with_captures": 0,
@@ -11,23 +11,15 @@
   "canonical_events_added": 0,
   "cdx": [
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=12/12/2005&auc=419&sort=type_sub&order=a&page=3",
-      "captures": []
-    },
-    {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=15/05/2006&auc=438&sort=type_sub&order=a&page=2",
-      "captures": []
-    },
-    {
       "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=12/12/2005&auc=419&sort=type_sub&order=a&page=2",
       "captures": []
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=12/07/2006&auc=451&sort=type_sub&order=a&page=2",
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=27/02/2006&auc=428&sort=type_sub&order=a&page=4",
       "captures": []
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=12/07/2006&auc=451&sort=type_sub&order=a&page=3",
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=12/12/2005&auc=419&sort=type_sub&order=a&page=5",
       "captures": []
     },
     {
@@ -35,7 +27,11 @@
       "captures": []
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=27/02/2006&auc=428&sort=type_sub&order=a&page=4",
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=12/07/2006&auc=451&sort=type_sub&order=a&page=3",
+      "captures": []
+    },
+    {
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=15/05/2006&auc=438&sort=type_sub&order=a&page=2",
       "captures": []
     },
     {
@@ -47,23 +43,35 @@
       "captures": []
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=11/12/2006&auc=474&sort=type_sub&order=a&page=2",
-      "captures": []
-    },
-    {
       "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=12/12/2005&auc=419&sort=type_sub&order=a&page=4",
       "captures": []
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=26/02/2007&auc=482&sort=type_sub&order=a&page=3",
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=16/10/2006&auc=463&sort=type_sub&order=a&page=4",
       "captures": []
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=27/02/2006&auc=428&sort=type_sub&order=a&page=3",
-      "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=11/12/2006&auc=474&sort=type_sub&order=a&page=3",
+      "captures": []
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=12/12/2005&auc=419&sort=type_sub&order=a&page=5",
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=12/12/2005&auc=419&sort=type_sub&order=a&page=3",
+      "captures": []
+    },
+    {
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=26/02/2007&auc=482&sort=type_sub&order=a&page=3",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D26%2F02%2F2007%26auc%3D482%26sort%3Dtype_sub%26order%3Da%26page%3D3&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7fce8021e310>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+    },
+    {
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=12/07/2006&auc=451&sort=type_sub&order=a&page=2",
+      "captures": []
+    },
+    {
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=26/02/2007&auc=482&sort=type_sub&order=a&page=4",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D26%2F02%2F2007%26auc%3D482%26sort%3Dtype_sub%26order%3Da%26page%3D4&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7fce8021d350>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+    },
+    {
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=27/02/2006&auc=428&sort=type_sub&order=a&page=3",
       "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
     },
     {
@@ -71,16 +79,8 @@
       "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=26/02/2007&auc=482&sort=type_sub&order=a&page=2",
-      "captures": []
-    },
-    {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=14/05/2007&auc=494&sort=type_sub&order=a&page=6",
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D14%2F05%2F2007%26auc%3D494%26sort%3Dtype_sub%26order%3Da%26page%3D6&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-    },
-    {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=19/07/2007&auc=515&sort=type_sub&order=a&page=2",
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D19%2F07%2F2007%26auc%3D515%26sort%3Dtype_sub%26order%3Da%26page%3D2&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=14/05/2007&auc=494&sort=type_sub&order=a&page=2",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D14%2F05%2F2007%26auc%3D494%26sort%3Dtype_sub%26order%3Da%26page%3D2&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7fce801ee450>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
     },
     {
       "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=19/07/2007&auc=515&sort=type_sub&order=a&page=3",
@@ -95,8 +95,12 @@
       "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D22%2F10%2F2007%26auc%3D523%26sort%3Dtype_sub%26order%3Da%26page%3D3&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=26/02/2007&auc=482&sort=type_sub&order=a&page=4",
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D26%2F02%2F2007%26auc%3D482%26sort%3Dtype_sub%26order%3Da%26page%3D4&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7fbfcad46210>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=22/10/2007&auc=523&sort=type_sub&order=a&page=4",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D22%2F10%2F2007%26auc%3D523%26sort%3Dtype_sub%26order%3Da%26page%3D4&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=11/12/2006&auc=474&sort=type_sub&order=a&page=2",
+      "captures": []
     },
     {
       "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=10/12/2007&auc=532&sort=type_sub&order=a&page=2",
@@ -107,60 +111,56 @@
       "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D10%2F12%2F2007%26auc%3D532%26sort%3Dtype_sub%26order%3Da%26page%3D3&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=03/03/2008&auc=547&sort=type_sub&order=a&page=2",
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D03%2F03%2F2008%26auc%3D547%26sort%3Dtype_sub%26order%3Da%26page%3D2&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-    },
-    {
       "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=12/05/2008&auc=554&sort=type_sub&order=a&page=2",
       "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D12%2F05%2F2008%26auc%3D554%26sort%3Dtype_sub%26order%3Da%26page%3D2&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=14/07/2008&auc=570&sort=type_sub&order=a&page=2",
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D14%2F07%2F2008%26auc%3D570%26sort%3Dtype_sub%26order%3Da%26page%3D2&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=03/03/2008&auc=547&sort=type_sub&order=a&page=2",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D03%2F03%2F2008%26auc%3D547%26sort%3Dtype_sub%26order%3Da%26page%3D2&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
     },
     {
       "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=13/10/2008&auc=579&sort=type_sub&order=a&page=2",
       "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D13%2F10%2F2008%26auc%3D579%26sort%3Dtype_sub%26order%3Da%26page%3D2&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=13/10/2008&auc=579&sort=type_sub&order=a&page=3",
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D13%2F10%2F2008%26auc%3D579%26sort%3Dtype_sub%26order%3Da%26page%3D3&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
-    },
-    {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=11/12/2006&auc=474&sort=type_sub&order=a&page=3",
-      "captures": []
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=14/07/2008&auc=570&sort=type_sub&order=a&page=2",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D14%2F07%2F2008%26auc%3D570%26sort%3Dtype_sub%26order%3Da%26page%3D2&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
     },
     {
       "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=08/12/2008&auc=589&sort=type_sub&order=a&page=2",
       "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D08%2F12%2F2008%26auc%3D589%26sort%3Dtype_sub%26order%3Da%26page%3D2&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
     },
     {
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=13/10/2008&auc=579&sort=type_sub&order=a&page=3",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D13%2F10%2F2008%26auc%3D579%26sort%3Dtype_sub%26order%3Da%26page%3D3&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
       "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=23/02/2009&auc=608&sort=type_sub&order=a&page=2",
       "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D23%2F02%2F2009%26auc%3D608%26sort%3Dtype_sub%26order%3Da%26page%3D2&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=14/05/2007&auc=494&sort=type_sub&order=a&page=2",
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=14/05/2007&auc=494&sort=type_sub&order=a&page=5",
       "captures": []
     },
     {
       "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=14/05/2007&auc=494&sort=type_sub&order=a&page=3",
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D14%2F05%2F2007%26auc%3D494%26sort%3Dtype_sub%26order%3Da%26page%3D3&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7fbfcad47050>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
-    },
-    {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=14/05/2007&auc=494&sort=type_sub&order=a&page=5",
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D14%2F05%2F2007%26auc%3D494%26sort%3Dtype_sub%26order%3Da%26page%3D5&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7fbfcacffc10>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
-    },
-    {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=22/10/2007&auc=523&sort=type_sub&order=a&page=4",
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D22%2F10%2F2007%26auc%3D523%26sort%3Dtype_sub%26order%3Da%26page%3D4&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7fbfc8b65210>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D14%2F05%2F2007%26auc%3D494%26sort%3Dtype_sub%26order%3Da%26page%3D3&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7fce80228410>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
     },
     {
       "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=14/05/2007&auc=494&sort=type_sub&order=a&page=4",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3Fdate%3D14%2F05%2F2007%26auc%3D494%26sort%3Dtype_sub%26order%3Da%26page%3D4&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cdigest&filter=mimetype%3Atext%2Fhtml&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7fce80229990>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+    },
+    {
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=26/02/2007&auc=482&sort=type_sub&order=a&page=2",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
+    },
+    {
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=19/07/2007&auc=515&sort=type_sub&order=a&page=2",
       "captures": []
     },
     {
-      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=16/10/2006&auc=463&sort=type_sub&order=a&page=4",
-      "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=14/05/2007&auc=494&sort=type_sub&order=a&page=6",
+      "captures": []
     }
   ],
   "pages": []
