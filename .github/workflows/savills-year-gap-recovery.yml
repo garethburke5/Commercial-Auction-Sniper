@@ -44,7 +44,8 @@ jobs:
           print('SAVILLS_EVENTS',count)
           print('OLDEST_VERIFIED',dates[0] if dates else None)
           print('TARGET_YEAR',d['target_year'])
-          print('CATALOGUES',len(d['validated_propertyauctions_catalogues']))
+          print('CATALOGUE_CANDIDATES',len(d['catalogue_candidates_recovered']))
+          print('REVALIDATED_CATALOGUES',len(d['revalidated_propertyauctions_catalogues']))
           print('COMMERCIAL_MIXED_CLUES',d['commercial_mixed_clues'])
           print('ADDED',d['canonical_events_added'])
           assert count==d['savills_events_after']
@@ -73,7 +74,7 @@ jobs:
           recovered=json.loads(Path('/tmp/savills_gap_progress.json').read_text())
           fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{})
           rs=recovered['sources']['Savills Auctions']
-          for key in ('savills_year_gap_last_run','savills_year_gap_last_blocker','savills_year_gap_focus','last_history_event_count','lots_captured','earliest_date_reached','earliest_month_reached','last_discovery_mode','status'):
+          for key in ('savills_year_gap_last_run','savills_year_gap_last_blocker','savills_year_gap_focus','propertyauctions_validated_catalogue_manifest','last_history_event_count','lots_captured','earliest_date_reached','earliest_month_reached','last_discovery_mode','status'):
               if key in rs: fs[key]=rs[key]
               elif key in fs and key == 'savills_year_gap_last_blocker': fs.pop(key,None)
           fs['historically_complete']=False
@@ -83,7 +84,7 @@ jobs:
           PY
             git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics/savills_year_gap_recovery.json
             if git diff --cached --quiet; then exit 0; fi
-            git commit -m 'Persist Savills 2018 year-gap recovery'
+            git commit -m 'Persist repaired Savills 2018 year-gap recovery'
             if git push origin HEAD:main; then exit 0; fi
             git reset --hard HEAD~1
             sleep $((attempt*3))
