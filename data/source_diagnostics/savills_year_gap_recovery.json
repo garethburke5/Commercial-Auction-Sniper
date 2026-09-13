@@ -5997,5 +5997,42 @@
     "identifier_detail_probes": 0,
     "strict_postcode_commercial_surfaces": 0,
     "canonical_events_added": 0
+  },
+  "host_archive_recovery": {
+    "at": "2026-09-13T19:03:30.768071+00:00",
+    "route": "savills-2018-propertyauctions-host-wide-wayback-url-enumeration",
+    "target_year": 2018,
+    "cdx_queries": [
+      {
+        "prefix": "www.propertyauctions.com/Results/*",
+        "status": 200,
+        "records": 23,
+        "final_url": "https://web.archive.org/cdx/search/cdx?url=www.propertyauctions.com%2FResults%2F%2A&from=2017&to=2019&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000"
+      },
+      {
+        "prefix": "propertyauctions.com/Results/*",
+        "status": 200,
+        "records": 23,
+        "final_url": "https://web.archive.org/cdx/search/cdx?url=propertyauctions.com%2FResults%2F%2A&from=2017&to=2019&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000"
+      },
+      {
+        "prefix": "www.propertyauctions.com/*Lot*",
+        "status": 200,
+        "records": 0,
+        "final_url": "https://web.archive.org/cdx/search/cdx?url=www.propertyauctions.com%2F%2ALot%2A&from=2017&to=2019&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000"
+      },
+      {
+        "prefix": "propertyauctions.com/*Lot*",
+        "status": 200,
+        "records": 0,
+        "final_url": "https://web.archive.org/cdx/search/cdx?url=propertyauctions.com%2F%2ALot%2A&from=2017&to=2019&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000"
+      }
+    ],
+    "unique_archived_urls": 23,
+    "candidate_archived_surfaces": 1,
+    "archived_surfaces_replayed": 1,
+    "strict_date_lot_postcode_commercial_candidates": 0,
+    "strict_candidates": [],
+    "canonical_events_added": 0
   }
 }
