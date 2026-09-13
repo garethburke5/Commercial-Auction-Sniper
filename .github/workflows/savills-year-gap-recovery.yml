@@ -29,7 +29,7 @@ jobs:
       - run: pip install requests
       - name: Compile new recovery route
         run: python -m py_compile savills_propertyauctions_host_archive_recovery.py
-      - name: Enumerate host-wide archived PropertyAuctions detail URLs
+      - name: Replay all archived Results pages and linked evidence
         run: python savills_propertyauctions_host_archive_recovery.py
       - name: Verify generated state
         run: |
@@ -43,12 +43,14 @@ jobs:
           dates=sorted(str(e.get('auction_date')) for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions' and e.get('auction_date'))
           print('SAVILLS_EVENTS',count)
           print('OLDEST_VERIFIED',dates[0] if dates else None)
-          print('HOST_ARCHIVE_URLS',ha.get('unique_archived_urls'))
-          print('HOST_ARCHIVE_REPLAYED',ha.get('archived_surfaces_replayed'))
-          print('HOST_STRICT_CANDIDATES',ha.get('strict_date_lot_postcode_commercial_candidates'))
+          print('ARCHIVED_RESULTS_REPLAYED',ha.get('archived_results_replayed'))
+          print('LINKED_URLS_DISCOVERED',ha.get('linked_first_party_urls_discovered'))
+          print('LINKED_EVIDENCE_REPLAYED',ha.get('linked_evidence_surfaces_replayed'))
+          print('STRICT_BUNDLES',ha.get('strict_lot_postcode_commercial_bundles'))
           assert s.get('historically_complete') is False
           assert s.get('discovery_exhausted') is False
-          assert ha.get('route')=='savills-2018-propertyauctions-host-wide-wayback-url-enumeration'
+          assert ha.get('route')=='savills-2018-wayback-results-full-replay-and-linked-evidence-graph'
+          assert int(ha.get('archived_results_replayed') or 0) > 1
           PY
       - name: Preserve generated files
         run: |
@@ -81,7 +83,7 @@ jobs:
           PY
             git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics/savills_year_gap_recovery.json
             if git diff --cached --quiet; then exit 0; fi
-            git commit -m 'Persist Savills host archive recovery'
+            git commit -m 'Persist Savills full archive replay recovery'
             if git push origin HEAD:main; then exit 0; fi
             git reset --hard HEAD~1
             sleep $((attempt*3))
