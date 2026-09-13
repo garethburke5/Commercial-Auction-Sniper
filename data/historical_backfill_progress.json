@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T22:00:00.846115+00:00",
+  "updated_at": "2026-09-13T23:07:21.133171+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -39926,8 +39926,8 @@
           }
         ]
       },
-      "savills_year_gap_last_blocker": "Chronological 2018-2010 auction spine is now the recovery master. Remaining blocker is catalogue-by-catalogue lot identity reconciliation where surviving first-party catalogue/result surfaces do not expose a full address.",
-      "savills_year_gap_focus": "Reconcile each mapped auction chronologically from 2018 down to 2010: enumerate every lot, classify residential vs commercial/mixed, and recover full-address evidence for every qualifying lot before moving to the next auction.",
+      "savills_year_gap_last_blocker": "Chronological auction dates are now recovered from the surviving archive-page manifest. Next blocker is catalogue-by-catalogue lot identity reconciliation: recover every commercial/mixed lot full address and facts from first-party catalogue/detail/document evidence before promotion.",
+      "savills_year_gap_focus": "2018 first, auction by auction: account for every catalogue lot, exclude residential-only lots, and promote each validated commercial/mixed event; then proceed chronologically through 2017 to 2010.",
       "savills_year_gap_direct_index_last_run": {
         "at": "2026-09-13T13:06:56.857230+00:00",
         "route": "savills-2018-exact-catalogue-tuple-direct-first-party-index-search",
@@ -45775,31 +45775,47 @@
         "canonical_events_added": 0
       },
       "savills_catalogue_map_last_run": {
-        "at": "2026-09-13T22:00:00.846115+00:00",
+        "at": "2026-09-13T23:07:21.133171+00:00",
         "route": "savills-2018-2010-chronological-catalogue-manifest-and-surface-reconciliation",
-        "termination": "archive pagination continued until three empty/repeated/non-200 pages, or chronology moved below 2010; no historical-completion claim",
-        "pages_scanned": 11,
-        "auction_dates_mapped": 0,
+        "repair_route": "wayback-enumerated-archive-page-manifest-and-replay-fallback",
+        "termination": "historical page discovery is driven by surviving archived page URLs plus live pagination; no fixed historical year/page boundary is treated as completion",
+        "archived_page_numbers_discovered": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          11,
+          12
+        ],
+        "archive_manifest_diagnostic": {
+          "status": 200,
+          "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fpast-auctions%2Farchive%2Fpage-&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&limit=5000&matchType=prefix",
+          "rows": 7
+        },
+        "pages_scanned": 14,
+        "archive_pages_replayed": 5,
+        "auction_dates_mapped": 39,
         "year_counts": {
-          "2018": 0,
-          "2017": 0,
-          "2016": 0,
-          "2015": 0,
-          "2014": 0,
+          "2018": 8,
+          "2017": 8,
+          "2016": 8,
+          "2015": 8,
+          "2014": 7,
           "2013": 0,
           "2012": 0,
           "2011": 0,
           "2010": 0
         },
-        "catalogue_surfaces_checked": 0,
-        "catalogues_with_lot_or_child_evidence": 0
+        "catalogue_surfaces_checked": 156,
+        "catalogues_with_lot_or_child_evidence": 39
       },
       "savills_catalogue_map_year_counts": {
-        "2018": 0,
-        "2017": 0,
-        "2016": 0,
-        "2015": 0,
-        "2014": 0,
+        "2018": 8,
+        "2017": 8,
+        "2016": 8,
+        "2015": 8,
+        "2014": 7,
         "2013": 0,
         "2012": 0,
         "2011": 0,
