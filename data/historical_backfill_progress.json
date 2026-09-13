@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T00:05:13.026755+00:00",
+  "updated_at": "2026-09-13T00:06:32.071533+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -4231,41 +4231,41 @@
         "next_safe_route": "Enumerate PropertyAuctions Savills listing URLs from its publicly exposed auctioneer/filter application routes or embedded page data rather than search-engine indexes, then validate any recovered first-party Savills source URLs."
       },
       "propertyauctions_cursor_state": {
-        "last_run_at": "2026-09-13T00:05:12.649368+00:00",
+        "last_run_at": "2026-09-13T00:06:31.739404+00:00",
         "last_range": {
-          "start": 426,
-          "end": 307
+          "start": 306,
+          "end": 187
         },
-        "next_aid": 306,
+        "next_aid": 186,
         "namespace_floor": 1,
         "namespace_exhausted": false
       },
       "propertyauctions_cursor_last_run": {
-        "at": "2026-09-13T00:05:13.026719+00:00",
+        "at": "2026-09-13T00:06:32.071490+00:00",
         "route": "propertyauctions-strict-resumable-aid-cursor",
         "range_scanned": {
-          "start": 426,
-          "end": 307
+          "start": 306,
+          "end": 187
         },
         "requests_attempted": 120,
         "validated_savills_catalogues_found": 0,
         "savills_auctions_found": 0,
         "commercial_mixed_lot_clues": 0,
-        "site_chrome_false_positives_rejected": 30,
+        "site_chrome_false_positives_rejected": 27,
         "canonical_events_added": 0,
         "savills_events_before": 3250,
         "savills_events_after": 3250,
-        "oldest_validated_catalogue_date": null,
+        "oldest_validated_catalogue_date": "2010-05-10",
         "savills_auctions": [],
         "commercial_clue_samples": [],
         "errors": []
       },
       "propertyauctions_cursor_last_blocker": {
-        "at": "2026-09-13T00:05:13.026719+00:00",
+        "at": "2026-09-13T00:06:32.071490+00:00",
         "route": "propertyauctions-strict-resumable-aid-cursor",
-        "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=307",
-        "message": "Strict scan 426..307 validated 0 true Savills catalogues and 0 clearly commercial/mixed lot clues after rejecting 30 site-chrome false positives. Catalogue rows still lack full property address and first-party Savills lot detail required for canonical History V2 insertion.",
-        "next_safe_route": "For the oldest validated Savills catalogue, recover full property identity through catalogue-specific row links/forms, legacy PID/detail namespaces, surviving PDFs/results and archival indexes; require reconciliation back to the validated Savills auction tuple before insertion."
+        "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "message": "Strict scan 306..187 validated 0 true Savills catalogues and 0 clearly commercial/mixed lot clues after rejecting 27 site-chrome false positives. Oldest validated catalogue evidence is 2010-05-10; its lot-list evidence is not sufficient for canonical History V2 because full property addresses and first-party Savills lot detail are absent.",
+        "next_safe_route": "Continue the numeric archive below AID 186; in parallel, resolve the oldest validated catalogue through catalogue-specific links/forms, legacy PID/detail namespaces, surviving PDFs/results and archival indexes, requiring reconciliation to Savills-owned evidence before insertion."
       },
       "propertyauctions_detail_identifier_last_run": {
         "at": "2026-09-12T19:02:38.480874+00:00",
@@ -7731,11 +7731,20 @@
         "message": "Strict-host parser recovery genuinely executed 28 structured-document probes and 60 exact tuple searches with 0 search error(s). It found 0 surviving document(s) and 0 genuine Savills-host candidate URL(s), but +0 canonical rows passed strict validation.",
         "next_safe_route": "Advance the persisted PropertyAuctions AID cursor below next_aid to obtain a fresh older catalogue tranche; retain each Savills AID/date/lot/location/result tuple, then apply address/detail-namespace and archival-index recovery to that newly exposed tranche."
       },
-      "propertyauctions_validated_catalogue_manifest": [],
+      "propertyauctions_validated_catalogue_manifest": [
+        {
+          "aid": 678,
+          "date": "2010-05-10",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+          "title": "10 MAY 2010 - SAVILLS",
+          "strict_commercial_mixed_lots": null,
+          "validation": "explicit dated Savills auction heading observed in successful live recovery; catalogue identity only"
+        }
+      ],
       "propertyauctions_parser_validation": {
         "catalogue_rule": "explicit dated Savills auction heading required; site chrome ignored",
         "lot_rule": "affirmative commercial/mixed-use descriptor required; generic investment/residential types excluded",
-        "at": "2026-09-13T00:05:13.026719+00:00"
+        "at": "2026-09-13T00:06:32.071490+00:00"
       }
     }
   }
