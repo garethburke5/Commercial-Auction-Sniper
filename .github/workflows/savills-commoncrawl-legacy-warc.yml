@@ -1,0 +1,59 @@
+name: Savills Common Crawl Legacy WARC
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/savills-commoncrawl-legacy-warc.yml'
+      - 'savills_commoncrawl_legacy_warc_recovery.py'
+permissions:
+  contents: write
+concurrency:
+  group: savills-commoncrawl-legacy-warc
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - run: python -m py_compile savills_commoncrawl_legacy_warc_recovery.py
+      - name: Recover legacy Savills HTML from Common Crawl raw WARC
+        run: python savills_commoncrawl_legacy_warc_recovery.py
+      - name: Preserve result
+        run: |
+          cp data/historical_backfill_progress.json /tmp/savills_cc_progress.json
+          cp data/source_diagnostics/savills_commoncrawl_legacy_warc_recovery.json /tmp/savills_cc_diag.json
+      - name: Publish conflict-safe Common Crawl evidence
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          fp=Path('data/historical_backfill_progress.json')
+          fresh=json.loads(fp.read_text()); recovered=json.loads(Path('/tmp/savills_cc_progress.json').read_text())
+          fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{}); rs=recovered['sources']['Savills Auctions']
+          for key in ('savills_commoncrawl_legacy_warc_last_run','propertyauctions_cursor_last_blocker'):
+              if key in rs: fs[key]=rs[key]
+          fs['last_discovery_mode']=rs.get('last_discovery_mode',fs.get('last_discovery_mode')); fs['historically_complete']=False; fs['discovery_exhausted']=False; fs['status']=rs.get('status','LIVE ARCHIVE BLOCKED')
+          fresh['updated_at']=recovered.get('updated_at',fresh.get('updated_at')); fp.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
+          Path('data/source_diagnostics/savills_commoncrawl_legacy_warc_recovery.json').write_text(Path('/tmp/savills_cc_diag.json').read_text())
+          PY
+            git add data/historical_backfill_progress.json data/source_diagnostics/savills_commoncrawl_legacy_warc_recovery.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist Common Crawl Savills legacy WARC evidence'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt * 3))
+          done
+          exit 1
