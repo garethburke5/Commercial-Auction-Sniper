@@ -3,7 +3,7 @@ import argparse,json,re
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from datetime import datetime,timezone
 from pathlib import Path
-from urllib.parse import urljoin,urlparse
+from urllib.parse import urljoin,urlparse,quote
 import requests
 from bs4 import BeautifulSoup
 
@@ -18,9 +18,7 @@ SAVILLS_HEADING=re.compile(r'\b(\d{1,2}\s+[A-Z]{3}\s+(?:19|20)\d{2})\s*[-–—:
 COMMERCIAL=re.compile(r'\b(commercial|retail|office|industrial|warehouse|shop|public house|hotel|mixed(?:[- ]use)?|restaurant|business premises|supermarket|bank|pharmacy|medical centre|care home|garage|workshop)\b',re.I)
 RESIDENTIAL=re.compile(r'\b(flat|apartment|house|maisonette|bungalow|residential)\b',re.I)
 INTERESTING=re.compile(r'(lot|property|detail|pid|aid|auction|result|brochure|catalog|pdf)',re.I)
-KNOWN_VALIDATED={
- '678':{'aid':678,'date':'2010-05-10','url':BASE+'678','title':'10 MAY 2010 - SAVILLS','strict_commercial_mixed_lots':None,'validation':'explicit dated Savills auction heading observed in successful live recovery; catalogue identity only'}
-}
+KNOWN_VALIDATED={'678':{'aid':678,'date':'2010-05-10','url':BASE+'678','title':'10 MAY 2010 - SAVILLS','strict_commercial_mixed_lots':None,'validation':'explicit dated Savills auction heading observed in successful live recovery; catalogue identity only'}}
 
 def now(): return datetime.now(timezone.utc).isoformat()
 def count():
@@ -60,6 +58,64 @@ def salvage_previous_manifest(s,manifest):
   if d:
    aid=str(rec.get('aid')); manifest[aid]={'aid':rec.get('aid'),'date':d,'url':rec.get('url'),'title':title,'strict_commercial_mixed_lots':len(by_aid.get(aid,[])),'validation':'explicit dated Savills auction heading'}
 
+def persist(p,s,diag,blocker):
+ s['propertyauctions_cursor_last_blocker']=blocker
+ s['last_discovery_mode']=diag['route']; s['status']='LIVE ARCHIVE BLOCKED'; s['historically_complete']=False; s['discovery_exhausted']=False
+ p['updated_at']=now(); P.write_text(json.dumps(p,indent=2,ensure_ascii=False)); D.parent.mkdir(parents=True,exist_ok=True); D.write_text(json.dumps(diag,indent=2,ensure_ascii=False)); print(json.dumps(diag,indent=2,ensure_ascii=False))
+
+def archive_index_probe(p,s,manifest):
+ target=min(manifest.values(),key=lambda x:x.get('date','9999-99-99')) if manifest else KNOWN_VALIDATED['678']
+ before=count(); exact=target['url']; wayback=[]; cc=[]; errors=[]
+ # Targeted Wayback queries: exact surviving catalogue plus likely first-party Savills historical surfaces.
+ wb_queries=[
+  ('propertyauctions-exact',exact,'exact'),
+  ('savills-auctions-domain','https://auctions.savills.co.uk/','prefix'),
+  ('savills-uk-auctions','https://www.savills.co.uk/auctions/','prefix'),
+ ]
+ for label,url,match in wb_queries:
+  params={'url':url,'output':'json','fl':'timestamp,original,statuscode,mimetype,digest','filter':'statuscode:200','from':'2009','to':'2011','limit':'250'}
+  if match!='exact': params['matchType']=match
+  try:
+   r=requests.get('https://web.archive.org/cdx/search/cdx',params=params,headers={'User-Agent':UA},timeout=(7,25))
+   rec={'label':label,'request_url':r.url,'status':r.status_code,'bytes':len(r.content),'captures':0,'sample':[]}
+   if r.status_code==200:
+    try:
+     data=r.json(); body=data[1:] if isinstance(data,list) and data and isinstance(data[0],list) else data
+     if isinstance(body,list):
+      rec['captures']=len(body); rec['sample']=body[:40]
+    except Exception as e: rec['parse_error']=f'{type(e).__name__}: {e}'; rec['text_sample']=r.text[:500]
+   wayback.append(rec)
+  except Exception as e: errors.append({'route':'wayback','label':label,'error':f'{type(e).__name__}: {e}'})
+ # Sweep every publicly advertised Common Crawl collection for the exact confirmed AID URL.
+ try:
+  ci=requests.get('https://index.commoncrawl.org/collinfo.json',headers={'User-Agent':UA},timeout=(7,20)); collections=ci.json() if ci.status_code==200 else []
+ except Exception as e:
+  collections=[]; errors.append({'route':'commoncrawl-collinfo','error':f'{type(e).__name__}: {e}'})
+ def qcc(c):
+  api=c.get('cdx-api') or c.get('index')
+  if not api:return {'id':c.get('id'),'error':'no index endpoint'}
+  try:
+   rr=requests.get(api,params={'url':exact,'output':'json','filter':'status:200'},headers={'User-Agent':UA},timeout=(5,14))
+   lines=[x for x in rr.text.splitlines() if x.strip()] if rr.status_code==200 else []
+   return {'id':c.get('id'),'status':rr.status_code,'request_url':rr.url,'matches':len(lines),'sample':lines[:8]}
+  except Exception as e:return {'id':c.get('id'),'error':f'{type(e).__name__}: {e}'}
+ if collections:
+  with ThreadPoolExecutor(max_workers=10) as ex:
+   fut=[ex.submit(qcc,c) for c in collections]
+   for f in as_completed(fut): cc.append(f.result())
+  cc.sort(key=lambda x:str(x.get('id')),reverse=True)
+ wb_caps=sum(int(x.get('captures',0)) for x in wayback); cc_hits=sum(int(x.get('matches',0)) for x in cc)
+ diag={'at':now(),'route':'savills-confirmed-2010-archival-index-sweep','target_aid':target.get('aid'),'target_date':target.get('date'),'target_url':exact,'wayback_queries':wayback,'commoncrawl_collections_scanned':len(cc),'commoncrawl_hits':cc_hits,'wayback_captures':wb_caps,'commoncrawl_hits_detail':[x for x in cc if x.get('matches')][:80],'errors':errors[:80],'canonical_events_added':0,'savills_events_before':before,'savills_events_after':before}
+ s['propertyauctions_archive_index_last_run']=diag
+ if wb_caps or cc_hits:
+  msg=f'Archival index sweep found {wb_caps} Wayback capture row(s) and {cc_hits} Common Crawl exact-URL hit(s) for the confirmed {target.get("date")} Savills catalogue, but no canonical rows were promoted before WARC/snapshot content is fetched and reconciled to first-party Savills evidence.'
+  nxt='Fetch the discovered archived snapshots/WARC records, extract lot-detail URLs/full addresses, then reconcile each candidate to the confirmed Savills catalogue and Savills-owned evidence before History V2 insertion.'
+ else:
+  msg=f'Archival index sweep across targeted Wayback routes and all {len(cc)} advertised Common Crawl collections produced 0 usable captures for the confirmed {target.get("date")} AID {target.get("aid")} catalogue; no canonical rows can be promoted from this route.'
+  nxt='Probe the recovered ASP.NET grid/client-state and JavaScript resources for hidden service/method/detail endpoints, then test legacy PID/property identifier namespaces derived from those endpoints; retain the archival-index failure as evidence.'
+ blocker={'at':diag['at'],'route':diag['route'],'failing_url_or_route':exact,'message':msg,'next_safe_route':nxt}
+ persist(p,s,diag,blocker)
+
 def probe_surface(p,s,manifest):
  target=min(manifest.values(),key=lambda x:x.get('date','9999-99-99')) if manifest else KNOWN_VALIDATED['678']
  url=target['url']; before=count(); err=None; status=None; final_url=None; candidates=[]; forms=[]; inputs=[]; follow=[]
@@ -81,19 +137,16 @@ def probe_surface(p,s,manifest):
      if full in seen: continue
      seen.add(full)
      if INTERESTING.search(raw) or INTERESTING.search(full): candidates.append(full)
-   host=urlparse(r.url).netloc.lower()
-   same=[u for u in candidates if urlparse(u).netloc.lower()==host and u!=r.url and not u.lower().endswith(('.js','.css','.png','.jpg','.gif','.ico'))][:40]
+   host=urlparse(r.url).netloc.lower(); same=[u for u in candidates if urlparse(u).netloc.lower()==host and u!=r.url and not u.lower().endswith(('.js','.css','.png','.jpg','.gif','.ico'))][:40]
    for u in same:
     try:
-     q=requests.get(u,headers={'User-Agent':UA},timeout=(4,8),allow_redirects=True)
-     follow.append({'url':u,'status':q.status_code,'final_url':q.url,'content_type':q.headers.get('content-type'),'bytes':len(q.content)})
+     q=requests.get(u,headers={'User-Agent':UA},timeout=(4,8),allow_redirects=True); follow.append({'url':u,'status':q.status_code,'final_url':q.url,'content_type':q.headers.get('content-type'),'bytes':len(q.content)})
     except Exception as e: follow.append({'url':u,'error':f'{type(e).__name__}: {e}'})
  except Exception as e: err=f'{type(e).__name__}: {e}'
  diag={'at':now(),'route':'propertyauctions-oldest-catalogue-surface-probe','target_aid':target.get('aid'),'target_date':target.get('date'),'target_url':url,'status':status,'final_url':final_url,'candidate_urls':candidates[:120],'forms':forms[:40],'interesting_inputs':inputs[:120],'same_host_followups':follow,'canonical_events_added':0,'savills_events_before':before,'savills_events_after':before,'error':err}
  s['propertyauctions_surface_probe_last_run']=diag
- s['propertyauctions_cursor_last_blocker']={'at':diag['at'],'route':diag['route'],'failing_url_or_route':url,'message':f'Numeric AID namespace is fully swept to 1. Oldest validated catalogue remains {target.get("date")} (AID {target.get("aid")}); surface probe found {len(candidates)} interesting URL(s), {len(forms)} form(s), {len(inputs)} relevant/hidden control(s), and {len(follow)} same-host follow-up(s), but +0 canonical rows have sufficient full property identity plus Savills-owned evidence.','next_safe_route':'Resolve any surviving catalogue-linked document/detail endpoints found by this probe; then use archival URL indexes/Wayback/Common Crawl against the confirmed 10 May 2010 Savills auction tuple and reconcile recovered property addresses to first-party Savills evidence before insertion.'}
- s['last_discovery_mode']=diag['route']; s['status']='LIVE ARCHIVE BLOCKED'; s['historically_complete']=False; s['discovery_exhausted']=False
- p['updated_at']=now(); P.write_text(json.dumps(p,indent=2,ensure_ascii=False)); D.parent.mkdir(parents=True,exist_ok=True); D.write_text(json.dumps(diag,indent=2,ensure_ascii=False)); print(json.dumps(diag,indent=2,ensure_ascii=False))
+ blocker={'at':diag['at'],'route':diag['route'],'failing_url_or_route':url,'message':f'Numeric AID namespace is fully swept to 1. Oldest validated catalogue remains {target.get("date")} (AID {target.get("aid")}); surface probe found {len(candidates)} interesting URL(s), {len(forms)} form(s), {len(inputs)} relevant/hidden control(s), and {len(follow)} same-host follow-up(s), but +0 canonical rows have sufficient full property identity plus Savills-owned evidence.','next_safe_route':'Run archival URL indexes/Wayback/Common Crawl against the confirmed 10 May 2010 Savills auction tuple and reconcile recovered property addresses to first-party Savills evidence before insertion.'}
+ persist(p,s,diag,blocker)
 
 def run(chunk=90,workers=24):
  p=json.loads(P.read_text()); s=p.setdefault('sources',{}).setdefault(SOURCE,{})
@@ -103,6 +156,8 @@ def run(chunk=90,workers=24):
  salvage_previous_manifest(s,manifest); s['propertyauctions_validated_catalogue_manifest']=sorted(manifest.values(),key=lambda x:int(x['aid']),reverse=True)
  st=s.setdefault('propertyauctions_cursor_state',{})
  if st.get('namespace_exhausted') or st.get('next_aid') is None:
+  if s.get('last_discovery_mode')=='propertyauctions-oldest-catalogue-surface-probe': return archive_index_probe(p,s,manifest)
+  if s.get('last_discovery_mode')=='savills-confirmed-2010-archival-index-sweep': return archive_index_probe(p,s,manifest)
   return probe_surface(p,s,manifest)
  start=int(st.get('next_aid',1116)); end=1 if start <= max(250,chunk*2) else max(1,start-chunk+1)
  found=[]; clues=[]; errs=[]; rejected_site_chrome=0
