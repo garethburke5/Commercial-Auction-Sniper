@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T23:07:21.133171+00:00",
+  "updated_at": "2026-09-13T23:30:45.443071+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "YEAR GAP BLOCKED",
+      "status": "YEAR GAP RECOVERY ACTIVE",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3254,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-first-party-savills-host-wayback-full-parallel-enumeration",
+      "last_discovery_mode": "savills-2018-2010-chronology-joined-to-full-propertyauctions-aid-namespace",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -7733,73 +7733,59 @@
       },
       "propertyauctions_validated_catalogue_manifest": [
         {
-          "aid": 1085,
-          "date": "2018-11-29",
-          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
-          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
-          "strict_commercial_mixed_lots_on_initial_grid": 2
-        },
-        {
-          "aid": 1084,
-          "date": "2018-09-27",
-          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
-          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
-          "strict_commercial_mixed_lots_on_initial_grid": 1
-        },
-        {
-          "aid": 1083,
-          "date": "2018-08-01",
-          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
-          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
-          "strict_commercial_mixed_lots_on_initial_grid": 2
-        },
-        {
-          "aid": 1082,
-          "date": "2018-06-07",
-          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
-          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
-          "strict_commercial_mixed_lots_on_initial_grid": 1
-        },
-        {
-          "aid": 1081,
-          "date": "2018-04-12",
-          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
-          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
-          "strict_commercial_mixed_lots_on_initial_grid": 2
-        },
-        {
-          "aid": 1080,
-          "date": "2018-02-14",
-          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
-          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
-          "strict_commercial_mixed_lots_on_initial_grid": 2
-        },
-        {
           "aid": 1073,
           "date": "2018-12-11",
           "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
           "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 4,
           "strict_commercial_mixed_lots_on_initial_grid": 0
+        },
+        {
+          "aid": 1085,
+          "date": "2018-11-29",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 27,
+          "strict_commercial_mixed_lots_on_initial_grid": 2
         },
         {
           "aid": 1072,
           "date": "2018-11-26",
           "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
           "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 179,
           "strict_commercial_mixed_lots_on_initial_grid": 11
+        },
+        {
+          "aid": 1084,
+          "date": "2018-09-27",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 18,
+          "strict_commercial_mixed_lots_on_initial_grid": 1
         },
         {
           "aid": 1071,
           "date": "2018-09-26",
           "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
           "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 167,
           "strict_commercial_mixed_lots_on_initial_grid": 6
+        },
+        {
+          "aid": 1083,
+          "date": "2018-08-01",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 26,
+          "strict_commercial_mixed_lots_on_initial_grid": 2
         },
         {
           "aid": 1070,
           "date": "2018-07-24",
           "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
           "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 118,
           "strict_commercial_mixed_lots_on_initial_grid": 5
         },
         {
@@ -7807,36 +7793,536 @@
           "date": "2018-06-18",
           "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
           "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 178,
           "strict_commercial_mixed_lots_on_initial_grid": 10
+        },
+        {
+          "aid": 1082,
+          "date": "2018-06-07",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 28,
+          "strict_commercial_mixed_lots_on_initial_grid": 1
         },
         {
           "aid": 1068,
           "date": "2018-05-09",
           "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
           "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 159,
           "strict_commercial_mixed_lots_on_initial_grid": 13
+        },
+        {
+          "aid": 1081,
+          "date": "2018-04-12",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 23,
+          "strict_commercial_mixed_lots_on_initial_grid": 2
         },
         {
           "aid": 1067,
           "date": "2018-03-26",
           "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
           "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 213,
           "strict_commercial_mixed_lots_on_initial_grid": 25
+        },
+        {
+          "aid": 1080,
+          "date": "2018-02-14",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 27,
+          "strict_commercial_mixed_lots_on_initial_grid": 2
         },
         {
           "aid": 1066,
           "date": "2018-02-13",
           "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
           "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 262,
           "strict_commercial_mixed_lots_on_initial_grid": 14
+        },
+        {
+          "aid": 1047,
+          "date": "2017-12-11",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 171,
+          "strict_commercial_mixed_lots_on_initial_grid": 8
+        },
+        {
+          "aid": 1037,
+          "date": "2017-11-30",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1037",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 30,
+          "strict_commercial_mixed_lots_on_initial_grid": 2
+        },
+        {
+          "aid": 1046,
+          "date": "2017-11-06",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 193,
+          "strict_commercial_mixed_lots_on_initial_grid": 15
+        },
+        {
+          "aid": 1045,
+          "date": "2017-09-25",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1045",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 233,
+          "strict_commercial_mixed_lots_on_initial_grid": 6
+        },
+        {
+          "aid": 1036,
+          "date": "2017-09-21",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1036",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 25,
+          "strict_commercial_mixed_lots_on_initial_grid": 7
+        },
+        {
+          "aid": 1035,
+          "date": "2017-07-27",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1035",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 21,
+          "strict_commercial_mixed_lots_on_initial_grid": 3
+        },
+        {
+          "aid": 1044,
+          "date": "2017-07-24",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1044",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 131,
+          "strict_commercial_mixed_lots_on_initial_grid": 5
+        },
+        {
+          "aid": 1043,
+          "date": "2017-06-19",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1043",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 183,
+          "strict_commercial_mixed_lots_on_initial_grid": 8
+        },
+        {
+          "aid": 1034,
+          "date": "2017-06-08",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1034",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 36,
+          "strict_commercial_mixed_lots_on_initial_grid": 6
+        },
+        {
+          "aid": 1019,
+          "date": "2017-05-09",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1019",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 180,
+          "strict_commercial_mixed_lots_on_initial_grid": 5
+        },
+        {
+          "aid": 1033,
+          "date": "2017-04-27",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1033",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 31,
+          "strict_commercial_mixed_lots_on_initial_grid": 7
+        },
+        {
+          "aid": 1018,
+          "date": "2017-03-29",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1018",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 182,
+          "strict_commercial_mixed_lots_on_initial_grid": 7
+        },
+        {
+          "aid": 1032,
+          "date": "2017-02-16",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1032",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 23,
+          "strict_commercial_mixed_lots_on_initial_grid": 3
+        },
+        {
+          "aid": 1017,
+          "date": "2017-02-13",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1017",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 239,
+          "strict_commercial_mixed_lots_on_initial_grid": 5
+        },
+        {
+          "aid": 999,
+          "date": "2016-12-15",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=999",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 28,
+          "strict_commercial_mixed_lots_on_initial_grid": 4
+        },
+        {
+          "aid": 1007,
+          "date": "2016-12-12",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1007",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 148,
+          "strict_commercial_mixed_lots_on_initial_grid": 5
+        },
+        {
+          "aid": 1006,
+          "date": "2016-11-01",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1006",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 199,
+          "strict_commercial_mixed_lots_on_initial_grid": 4
+        },
+        {
+          "aid": 998,
+          "date": "2016-10-20",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=998",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 30,
+          "strict_commercial_mixed_lots_on_initial_grid": 6
+        },
+        {
+          "aid": 1005,
+          "date": "2016-09-19",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1005",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 195,
+          "strict_commercial_mixed_lots_on_initial_grid": 0
+        },
+        {
+          "aid": 997,
+          "date": "2016-09-01",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=997",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 29,
+          "strict_commercial_mixed_lots_on_initial_grid": 4
+        },
+        {
+          "aid": 1004,
+          "date": "2016-07-25",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1004",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 156,
+          "strict_commercial_mixed_lots_on_initial_grid": 5
+        },
+        {
+          "aid": 996,
+          "date": "2016-07-07",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=996",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 31,
+          "strict_commercial_mixed_lots_on_initial_grid": 6
+        },
+        {
+          "aid": 1003,
+          "date": "2016-06-20",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1003",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 176,
+          "strict_commercial_mixed_lots_on_initial_grid": 3
+        },
+        {
+          "aid": 995,
+          "date": "2016-05-19",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=995",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 48,
+          "strict_commercial_mixed_lots_on_initial_grid": 14
+        },
+        {
+          "aid": 1002,
+          "date": "2016-05-09",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1002",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 245,
+          "strict_commercial_mixed_lots_on_initial_grid": 8
+        },
+        {
+          "aid": 994,
+          "date": "2016-03-23",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=994",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 37,
+          "strict_commercial_mixed_lots_on_initial_grid": 7
+        },
+        {
+          "aid": 1001,
+          "date": "2016-03-02",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1001",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 173,
+          "strict_commercial_mixed_lots_on_initial_grid": 7
+        },
+        {
+          "aid": 1000,
+          "date": "2016-02-16",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1000",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 252,
+          "strict_commercial_mixed_lots_on_initial_grid": 7
+        },
+        {
+          "aid": 993,
+          "date": "2016-02-04",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=993",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 28,
+          "strict_commercial_mixed_lots_on_initial_grid": 6
+        },
+        {
+          "aid": 973,
+          "date": "2015-11-02",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=973",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 218,
+          "strict_commercial_mixed_lots_on_initial_grid": 3
+        },
+        {
+          "aid": 971,
+          "date": "2015-10-22",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=971",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 39,
+          "strict_commercial_mixed_lots_on_initial_grid": 6
+        },
+        {
+          "aid": 960,
+          "date": "2015-09-03",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=960",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 42,
+          "strict_commercial_mixed_lots_on_initial_grid": 11
+        },
+        {
+          "aid": 959,
+          "date": "2015-07-28",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=959",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 188,
+          "strict_commercial_mixed_lots_on_initial_grid": 10
+        },
+        {
+          "aid": 957,
+          "date": "2015-07-09",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=957",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 43,
+          "strict_commercial_mixed_lots_on_initial_grid": 12
+        },
+        {
+          "aid": 956,
+          "date": "2015-06-22",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=956",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 213,
+          "strict_commercial_mixed_lots_on_initial_grid": 5
+        },
+        {
+          "aid": 954,
+          "date": "2015-05-14",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=954",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 24,
+          "strict_commercial_mixed_lots_on_initial_grid": 4
+        },
+        {
+          "aid": 955,
+          "date": "2015-05-11",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=955",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 166,
+          "strict_commercial_mixed_lots_on_initial_grid": 4
+        },
+        {
+          "aid": 947,
+          "date": "2015-03-31",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=947",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 171,
+          "strict_commercial_mixed_lots_on_initial_grid": 5
+        },
+        {
+          "aid": 945,
+          "date": "2015-03-26",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=945",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 47,
+          "strict_commercial_mixed_lots_on_initial_grid": 11
+        },
+        {
+          "aid": 943,
+          "date": "2015-02-17",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=943",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 218,
+          "strict_commercial_mixed_lots_on_initial_grid": 2
+        },
+        {
+          "aid": 942,
+          "date": "2015-01-29",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=942",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 31,
+          "strict_commercial_mixed_lots_on_initial_grid": 9
+        },
+        {
+          "aid": 939,
+          "date": "2014-12-08",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=939",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 138,
+          "strict_commercial_mixed_lots_on_initial_grid": 2
+        },
+        {
+          "aid": 937,
+          "date": "2014-12-04",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=937",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 34,
+          "strict_commercial_mixed_lots_on_initial_grid": 12
+        },
+        {
+          "aid": 920,
+          "date": "2014-10-28",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=920",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 203,
+          "strict_commercial_mixed_lots_on_initial_grid": 5
+        },
+        {
+          "aid": 921,
+          "date": "2014-10-16",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=921",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 30,
+          "strict_commercial_mixed_lots_on_initial_grid": 13
+        },
+        {
+          "aid": 918,
+          "date": "2014-09-15",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=918",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 218,
+          "strict_commercial_mixed_lots_on_initial_grid": 5
+        },
+        {
+          "aid": 917,
+          "date": "2014-08-28",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=917",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 31,
+          "strict_commercial_mixed_lots_on_initial_grid": 13
+        },
+        {
+          "aid": 914,
+          "date": "2014-07-22",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=914",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 153,
+          "strict_commercial_mixed_lots_on_initial_grid": 5
+        },
+        {
+          "aid": 913,
+          "date": "2014-07-10",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=913",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 41,
+          "strict_commercial_mixed_lots_on_initial_grid": 11
+        },
+        {
+          "aid": 912,
+          "date": "2014-06-16",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=912",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 239,
+          "strict_commercial_mixed_lots_on_initial_grid": 8
+        },
+        {
+          "aid": 908,
+          "date": "2014-05-15",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=908",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 45,
+          "strict_commercial_mixed_lots_on_initial_grid": 21
+        },
+        {
+          "aid": 907,
+          "date": "2014-05-07",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=907",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 222,
+          "strict_commercial_mixed_lots_on_initial_grid": 1
+        },
+        {
+          "aid": 903,
+          "date": "2014-03-27",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=903",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 43,
+          "strict_commercial_mixed_lots_on_initial_grid": 19
+        },
+        {
+          "aid": 902,
+          "date": "2014-03-24",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=902",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 189,
+          "strict_commercial_mixed_lots_on_initial_grid": 5
+        },
+        {
+          "aid": 897,
+          "date": "2014-02-11",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=897",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 277,
+          "strict_commercial_mixed_lots_on_initial_grid": 5
+        },
+        {
+          "aid": 895,
+          "date": "2014-01-30",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=895",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 26,
+          "strict_commercial_mixed_lots_on_initial_grid": 6
+        },
+        {
+          "aid": 892,
+          "date": "2013-12-10",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=892",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 142,
+          "strict_commercial_mixed_lots_on_initial_grid": 6
+        },
+        {
+          "aid": 889,
+          "date": "2013-11-28",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=889",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 32,
+          "strict_commercial_mixed_lots_on_initial_grid": 8
+        },
+        {
+          "aid": 887,
+          "date": "2013-10-28",
+          "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=887",
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 205,
+          "strict_commercial_mixed_lots_on_initial_grid": 0
         },
         {
           "aid": 678,
           "date": "2010-05-10",
           "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
-          "title": "10 MAY 2010 - SAVILLS",
-          "strict_commercial_mixed_lots": null,
-          "validation": "explicit dated Savills auction heading observed in successful live recovery; catalogue identity only"
+          "validation": "live PropertyAuctions page has explicit dated SAVILLS heading",
+          "initial_grid_lot_rows": 138,
+          "strict_commercial_mixed_lots_on_initial_grid": 3
         }
       ],
       "propertyauctions_parser_validation": {
@@ -39926,8 +40412,14 @@
           }
         ]
       },
-      "savills_year_gap_last_blocker": "Chronological auction dates are now recovered from the surviving archive-page manifest. Next blocker is catalogue-by-catalogue lot identity reconciliation: recover every commercial/mixed lot full address and facts from first-party catalogue/detail/document evidence before promotion.",
-      "savills_year_gap_focus": "2018 first, auction by auction: account for every catalogue lot, exclude residential-only lots, and promote each validated commercial/mixed event; then proceed chronologically through 2017 to 2010.",
+      "savills_year_gap_last_blocker": {
+        "at": "2026-09-13T23:30:45.443071+00:00",
+        "route": "savills-2018-2010-chronology-joined-to-full-propertyauctions-aid-namespace",
+        "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+        "message": "2018 chronology is now joined to explicit dated legacy Savills catalogues. The next blocker is catalogue pagination/full identity: https://www.propertyauctions.com/Results/LotList.aspx?AID=1073 exposes 4 initial-grid lot rows and 0 commercial/mixed clues, but the grid rows do not by themselves provide every full property address.",
+        "next_safe_route": "For each 2018 validated AID catalogue, replay every ASP.NET pagination/postback state and enumerate every lot row; then resolve each commercial/mixed AID+lot tuple through surviving detail/document/image/first-party Savills evidence. Do not advance to 2017 until the 2018 catalogue denominator is reconciled."
+      },
+      "savills_year_gap_focus": "2018 first: reconcile every validated catalogue and every lot row, then 2017 through 2010. Do not jump to pre-2010 while this block remains incomplete.",
       "savills_year_gap_direct_index_last_run": {
         "at": "2026-09-13T13:06:56.857230+00:00",
         "route": "savills-2018-exact-catalogue-tuple-direct-first-party-index-search",
@@ -45775,10 +46267,10 @@
         "canonical_events_added": 0
       },
       "savills_catalogue_map_last_run": {
-        "at": "2026-09-13T23:07:21.133171+00:00",
-        "route": "savills-2018-2010-chronological-catalogue-manifest-and-surface-reconciliation",
-        "repair_route": "wayback-enumerated-archive-page-manifest-and-replay-fallback",
-        "termination": "historical page discovery is driven by surviving archived page URLs plus live pagination; no fixed historical year/page boundary is treated as completion",
+        "at": "2026-09-13T23:30:45.443071+00:00",
+        "route": "savills-2018-2010-chronology-joined-to-full-propertyauctions-aid-namespace",
+        "repair_route": "full-AID-1116-to-1-explicit-dated-Savills-heading-scan-and-lot-grid-reconciliation",
+        "termination": "The complete known numeric PropertyAuctions AID namespace 1116..1 is scanned; no year/modern-UI cutoff is treated as historical completion.",
         "archived_page_numbers_discovered": [
           1,
           2,
@@ -45794,9 +46286,9 @@
           "rows": 7
         },
         "pages_scanned": 14,
-        "archive_pages_replayed": 5,
+        "archive_pages_replayed": 4,
         "auction_dates_mapped": 39,
-        "year_counts": {
+        "archive_year_counts": {
           "2018": 8,
           "2017": 8,
           "2016": 8,
@@ -45807,8 +46299,44 @@
           "2011": 0,
           "2010": 0
         },
-        "catalogue_surfaces_checked": 156,
-        "catalogues_with_lot_or_child_evidence": 39
+        "legacy_catalogues_found": 74,
+        "legacy_year_counts": {
+          "2018": 14,
+          "2017": 14,
+          "2016": 15,
+          "2015": 12,
+          "2014": 15,
+          "2013": 3,
+          "2012": 0,
+          "2011": 0,
+          "2010": 1
+        },
+        "initial_grid_lot_rows_by_year": {
+          "2018": 1429,
+          "2017": 1678,
+          "2016": 1775,
+          "2015": 1400,
+          "2014": 1889,
+          "2013": 379,
+          "2012": 0,
+          "2011": 0,
+          "2010": 138
+        },
+        "commercial_mixed_clues_by_year": {
+          "2018": 94,
+          "2017": 87,
+          "2016": 86,
+          "2015": 82,
+          "2014": 131,
+          "2013": 14,
+          "2012": 0,
+          "2011": 0,
+          "2010": 3
+        },
+        "archive_dates_with_exact_aid_catalogue": 36,
+        "archive_dates_without_exact_aid_catalogue": 3,
+        "legacy_catalogues_not_on_archive_date_spine": 38,
+        "aid_scan_errors_sample": []
       },
       "savills_catalogue_map_year_counts": {
         "2018": 8,
@@ -45820,6 +46348,39 @@
         "2012": 0,
         "2011": 0,
         "2010": 0
+      },
+      "savills_legacy_catalogue_year_counts": {
+        "2018": 14,
+        "2017": 14,
+        "2016": 15,
+        "2015": 12,
+        "2014": 15,
+        "2013": 3,
+        "2012": 0,
+        "2011": 0,
+        "2010": 1
+      },
+      "savills_legacy_initial_grid_lots_by_year": {
+        "2018": 1429,
+        "2017": 1678,
+        "2016": 1775,
+        "2015": 1400,
+        "2014": 1889,
+        "2013": 379,
+        "2012": 0,
+        "2011": 0,
+        "2010": 138
+      },
+      "savills_legacy_commercial_mixed_clues_by_year": {
+        "2018": 94,
+        "2017": 87,
+        "2016": 86,
+        "2015": 82,
+        "2014": 131,
+        "2013": 14,
+        "2012": 0,
+        "2011": 0,
+        "2010": 3
       }
     }
   }
