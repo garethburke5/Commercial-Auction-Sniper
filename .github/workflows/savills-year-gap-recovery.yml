@@ -45,10 +45,12 @@ jobs:
           print('OLDEST_VERIFIED',dates[0] if dates else None)
           print('UNIQUE_FIRST_PARTY_URLS',r.get('unique_first_party_urls'))
           print('ARCHIVE_SURFACES_REPLAYED',r.get('archive_surfaces_replayed'))
+          print('SUCCESSFUL_ARCHIVE_SURFACES',r.get('successful_archive_surfaces'))
           print('STRICT_FIRST_PARTY_CANDIDATES',r.get('strict_first_party_candidates'))
           assert s.get('historically_complete') is False
           assert s.get('discovery_exhausted') is False
-          assert r.get('route')=='savills-2018-first-party-savills-host-wayback-enumeration'
+          assert r.get('route')=='savills-2018-first-party-savills-host-wayback-full-parallel-enumeration'
+          assert int(r.get('archive_surfaces_replayed') or 0) == int(r.get('unique_first_party_urls') or 0)
           PY
       - name: Preserve generated files
         run: |
