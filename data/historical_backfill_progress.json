@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T02:06:54.839894+00:00",
+  "updated_at": "2026-09-13T02:08:38.977213+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 17042,
-      "last_discovery_mode": "savills-wayback-first-party-snapshot-followthrough",
+      "last_discovery_mode": "savills-wayback-direct-commercial-lot-pages-auc675",
       "last_success": "2026-09-10T03:16:26.795022+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -4261,11 +4261,11 @@
         "errors": []
       },
       "propertyauctions_cursor_last_blocker": {
-        "at": "2026-09-13T02:06:54.839894+00:00",
-        "route": "savills-wayback-first-party-snapshot-followthrough",
-        "failing_url_or_route": "https://web.archive.org/cdx/search/cdx?url=auctions.savills.co.uk/*",
-        "message": "First-party Wayback follow-through replayed 100 prioritized Savills snapshots; 18 returned HTTP 200, 7 exposed postcode evidence and 18 look like lot/property-detail candidates. No canonical rows were promoted until candidates are reconciled to auction date/lot number and full-address evidence.",
-        "next_safe_route": "Reconcile Wayback detail candidates to the 10 May 2010 PropertyAuctions lot tuples by lot/location/postcode, fetch linked first-party pages/PDFs, and promote only exact commercial/mixed-use matches to History V2."
+        "at": "2026-09-13T02:08:38.977213+00:00",
+        "route": "savills-wayback-direct-commercial-lot-pages-auc675",
+        "failing_url_or_route": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos={1..21}",
+        "message": "Direct first-party Savills archived commercial lot route for Auc=675 / 10 May 2010 probed 21 positions; 0 replayed HTTP 200 but 0 exposed sufficient postcode/address-shaped evidence. No canonical rows can yet be promoted.",
+        "next_safe_route": "Query alternative captures/query-order variants for Auc=675 and parse the archived commercial results grid to recover the session/position mapping before retrying direct lot pages."
       },
       "propertyauctions_detail_identifier_last_run": {
         "at": "2026-09-12T19:02:38.480874+00:00",
@@ -10949,6 +10949,312 @@
         "canonical_events_added": 0,
         "savills_events_before": 3250,
         "savills_events_after": 3250
+      },
+      "savills_wayback_commercial_lot_last_run": {
+        "at": "2026-09-13T02:08:38.977213+00:00",
+        "route": "savills-wayback-direct-commercial-lot-pages-auc675",
+        "auction_date": "2010-05-10",
+        "positions_probed": 21,
+        "positions_with_cdx": 9,
+        "pages_http_200": 0,
+        "pages_with_postcode_and_address_shape": 0,
+        "pages_with_explicit_lot_number": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3250,
+        "savills_events_after": 3250,
+        "page_results": [
+          {
+            "pos": 1,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=1",
+            "cdx_status": 200,
+            "rows": [
+              [
+                "20100522124836",
+                "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=1",
+                "200",
+                "text/html",
+                "ADPTREIN4MSSHFS4GJPTN2TY64KVIFFD"
+              ]
+            ],
+            "capture": [
+              "20100522124836",
+              "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=1",
+              "200",
+              "text/html",
+              "ADPTREIN4MSSHFS4GJPTN2TY64KVIFFD"
+            ],
+            "replay_url": "https://web.archive.org/web/20100522124836id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=1",
+            "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124836id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=1 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+          },
+          {
+            "pos": 2,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=2",
+            "cdx_status": 200,
+            "rows": [
+              [
+                "20100522124932",
+                "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=2",
+                "200",
+                "text/html",
+                "RTI5TYKMS3HURMVNSLYVDETBITPXJMXW"
+              ]
+            ],
+            "capture": [
+              "20100522124932",
+              "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=2",
+              "200",
+              "text/html",
+              "RTI5TYKMS3HURMVNSLYVDETBITPXJMXW"
+            ],
+            "replay_url": "https://web.archive.org/web/20100522124932id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=2",
+            "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124932id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=2 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+          },
+          {
+            "pos": 3,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=3",
+            "cdx_status": 503,
+            "rows": [],
+            "replay_status": null
+          },
+          {
+            "pos": 4,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=4",
+            "cdx_status": 503,
+            "rows": [],
+            "replay_status": null
+          },
+          {
+            "pos": 5,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=5",
+            "cdx_status": 503,
+            "rows": [],
+            "replay_status": null
+          },
+          {
+            "pos": 6,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=6",
+            "cdx_status": 503,
+            "rows": [],
+            "replay_status": null
+          },
+          {
+            "pos": 7,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=7",
+            "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)",
+            "rows": [],
+            "replay_status": null
+          },
+          {
+            "pos": 8,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=8",
+            "cdx_status": 200,
+            "rows": [
+              [
+                "20100522125052",
+                "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=8",
+                "200",
+                "text/html",
+                "TV22R4TI6JWEUK7VCFNUCJQJBLQGRCD4"
+              ]
+            ],
+            "capture": [
+              "20100522125052",
+              "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=8",
+              "200",
+              "text/html",
+              "TV22R4TI6JWEUK7VCFNUCJQJBLQGRCD4"
+            ],
+            "replay_url": "https://web.archive.org/web/20100522125052id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=8",
+            "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522125052id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=8 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+          },
+          {
+            "pos": 9,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=9",
+            "cdx_status": 200,
+            "rows": [
+              [
+                "20100522125113",
+                "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=9",
+                "200",
+                "text/html",
+                "XMF4CAUNRANGRHQMJ53T5NNFU2KVIX3T"
+              ]
+            ],
+            "capture": [
+              "20100522125113",
+              "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=9",
+              "200",
+              "text/html",
+              "XMF4CAUNRANGRHQMJ53T5NNFU2KVIX3T"
+            ],
+            "replay_url": "https://web.archive.org/web/20100522125113id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=9",
+            "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522125113id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=9 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+          },
+          {
+            "pos": 10,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=10",
+            "cdx_status": 200,
+            "rows": [
+              [
+                "20100522124841",
+                "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=10",
+                "200",
+                "text/html",
+                "POXI7OVDX75QQ7A7H57QEQ7YPDCOXI7H"
+              ]
+            ],
+            "capture": [
+              "20100522124841",
+              "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=10",
+              "200",
+              "text/html",
+              "POXI7OVDX75QQ7A7H57QEQ7YPDCOXI7H"
+            ],
+            "replay_url": "https://web.archive.org/web/20100522124841id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=10",
+            "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124841id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=10 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+          },
+          {
+            "pos": 11,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=11",
+            "cdx_status": 200,
+            "rows": [
+              [
+                "20100522124846",
+                "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=11",
+                "200",
+                "text/html",
+                "7FVCC7VDCAIUHLGZHP4SYWOB3TDSITF5"
+              ]
+            ],
+            "capture": [
+              "20100522124846",
+              "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=11",
+              "200",
+              "text/html",
+              "7FVCC7VDCAIUHLGZHP4SYWOB3TDSITF5"
+            ],
+            "replay_url": "https://web.archive.org/web/20100522124846id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=11",
+            "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124846id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=11 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+          },
+          {
+            "pos": 12,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=12",
+            "cdx_status": 503,
+            "rows": [],
+            "replay_status": null
+          },
+          {
+            "pos": 13,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=13",
+            "cdx_status": 503,
+            "rows": [],
+            "replay_status": null
+          },
+          {
+            "pos": 14,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=14",
+            "cdx_status": 503,
+            "rows": [],
+            "replay_status": null
+          },
+          {
+            "pos": 15,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=15",
+            "cdx_status": 200,
+            "rows": [
+              [
+                "20100522124906",
+                "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=15",
+                "200",
+                "text/html",
+                "YATPVCY3MWUWHV4XGYMWZ4RHICECI76R"
+              ]
+            ],
+            "capture": [
+              "20100522124906",
+              "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=15",
+              "200",
+              "text/html",
+              "YATPVCY3MWUWHV4XGYMWZ4RHICECI76R"
+            ],
+            "replay_url": "https://web.archive.org/web/20100522124906id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=15",
+            "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124906id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=15 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+          },
+          {
+            "pos": 16,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=16",
+            "cdx_status": 200,
+            "rows": [
+              [
+                "20100522124911",
+                "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=16",
+                "200",
+                "text/html",
+                "T23NIJMWJQ364WORTFHD5UO5ROGZ2NFG"
+              ]
+            ],
+            "capture": [
+              "20100522124911",
+              "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=16",
+              "200",
+              "text/html",
+              "T23NIJMWJQ364WORTFHD5UO5ROGZ2NFG"
+            ],
+            "replay_url": "https://web.archive.org/web/20100522124911id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=16",
+            "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124911id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=16 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+          },
+          {
+            "pos": 17,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=17",
+            "cdx_status": 503,
+            "rows": [],
+            "replay_status": null
+          },
+          {
+            "pos": 18,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=18",
+            "cdx_status": 503,
+            "rows": [],
+            "replay_status": null
+          },
+          {
+            "pos": 19,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=19",
+            "cdx_status": 200,
+            "rows": [
+              [
+                "20100522124927",
+                "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=19",
+                "200",
+                "text/html",
+                "4WCE4K25ILZYJGEWCHEA7O645AEAONHV"
+              ]
+            ],
+            "capture": [
+              "20100522124927",
+              "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=19",
+              "200",
+              "text/html",
+              "4WCE4K25ILZYJGEWCHEA7O645AEAONHV"
+            ],
+            "replay_url": "https://web.archive.org/web/20100522124927id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=19",
+            "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124927id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=19 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+          },
+          {
+            "pos": 20,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=20",
+            "cdx_status": 503,
+            "rows": [],
+            "replay_status": null
+          },
+          {
+            "pos": 21,
+            "target_url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=21",
+            "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%26pos%3D21&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2010&to=2011&limit=20 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))",
+            "rows": [],
+            "replay_status": null
+          }
+        ]
       }
     }
   }
