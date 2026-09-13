@@ -6023,5 +6023,42 @@
     "strict_lot_postcode_commercial_bundles": 0,
     "strict_candidates": [],
     "canonical_events_added": 0
+  },
+  "savills_first_party_host_archive_recovery": {
+    "at": "2026-09-13T21:11:08.875347+00:00",
+    "route": "savills-2018-first-party-savills-host-wayback-full-parallel-enumeration",
+    "target_year": 2018,
+    "cdx_queries": [
+      {
+        "prefix": "auctions.savills.co.uk/component/bidding/*",
+        "status": null,
+        "records": 0,
+        "final_url": "https://web.archive.org/cdx/search/cdx"
+      },
+      {
+        "prefix": "www.auctions.savills.co.uk/component/bidding/*",
+        "status": 503,
+        "records": 0,
+        "final_url": "https://web.archive.org/cdx/search/cdx?url=www.auctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&from=2017&to=2019&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=10000"
+      },
+      {
+        "prefix": "auctions.savills.co.uk/auctions/*",
+        "status": 200,
+        "records": 239,
+        "final_url": "https://web.archive.org/cdx/search/cdx?url=auctions.savills.co.uk%2Fauctions%2F%2A&from=2017&to=2019&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=10000"
+      },
+      {
+        "prefix": "www.auctions.savills.co.uk/auctions/*",
+        "status": 200,
+        "records": 239,
+        "final_url": "https://web.archive.org/cdx/search/cdx?url=www.auctions.savills.co.uk%2Fauctions%2F%2A&from=2017&to=2019&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=10000"
+      }
+    ],
+    "unique_first_party_urls": 239,
+    "archive_surfaces_replayed": 239,
+    "successful_archive_surfaces": 16,
+    "strict_first_party_candidates": 0,
+    "strict_candidates": [],
+    "canonical_events_added": 0
   }
 }

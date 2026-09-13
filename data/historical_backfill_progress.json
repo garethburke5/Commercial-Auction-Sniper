@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T20:05:06.040547+00:00",
+  "updated_at": "2026-09-13T21:11:08.875347+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-wayback-results-full-replay-and-linked-evidence-graph",
+      "last_discovery_mode": "savills-2018-first-party-savills-host-wayback-full-parallel-enumeration",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -39927,11 +39927,11 @@
         ]
       },
       "savills_year_gap_last_blocker": {
-        "at": "2026-09-13T20:05:06.040547+00:00",
-        "route": "savills-2018-wayback-results-full-replay-and-linked-evidence-graph",
+        "at": "2026-09-13T21:11:08.875347+00:00",
+        "route": "savills-2018-first-party-savills-host-wayback-full-parallel-enumeration",
         "failing_scope": "2018 full-address identity and exact lot reconciliation",
-        "detail": "Replayed all 23 surviving archived Results URLs and 220 linked evidence surfaces; none exposed a deterministic AID/date + lot + postcode + commercial identity bundle safe for promotion.",
-        "next_route": "Use the discovered linked URL corpus to enumerate sibling archived directories/static filenames and PDF/image metadata, keyed by exact AID and lot; separately query first-party Savills document namespaces for matching lot/address evidence."
+        "detail": "Enumerated 239 archived first-party auctions.savills.co.uk URLs from 2017-2019 and replayed the complete discovered corpus (239 surfaces); none produced a strict 2018 date + lot + postcode + commercial evidence bundle.",
+        "next_route": "Enumerate first-party Savills PDF/brochure/static-asset namespaces and archived document filenames around each surviving 2018 auction date, then reconcile exact lot/address evidence to the AID manifest."
       },
       "savills_year_gap_focus": "2018 systematic archive reconciliation; historically incomplete",
       "savills_year_gap_direct_index_last_run": {
@@ -45740,6 +45740,43 @@
         "linked_first_party_urls_discovered": 308,
         "linked_evidence_surfaces_replayed": 220,
         "strict_lot_postcode_commercial_bundles": 0,
+        "strict_candidates": [],
+        "canonical_events_added": 0
+      },
+      "savills_year_gap_savills_host_last_run": {
+        "at": "2026-09-13T21:11:08.875347+00:00",
+        "route": "savills-2018-first-party-savills-host-wayback-full-parallel-enumeration",
+        "target_year": 2018,
+        "cdx_queries": [
+          {
+            "prefix": "auctions.savills.co.uk/component/bidding/*",
+            "status": null,
+            "records": 0,
+            "final_url": "https://web.archive.org/cdx/search/cdx"
+          },
+          {
+            "prefix": "www.auctions.savills.co.uk/component/bidding/*",
+            "status": 503,
+            "records": 0,
+            "final_url": "https://web.archive.org/cdx/search/cdx?url=www.auctions.savills.co.uk%2Fcomponent%2Fbidding%2F%2A&from=2017&to=2019&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=10000"
+          },
+          {
+            "prefix": "auctions.savills.co.uk/auctions/*",
+            "status": 200,
+            "records": 239,
+            "final_url": "https://web.archive.org/cdx/search/cdx?url=auctions.savills.co.uk%2Fauctions%2F%2A&from=2017&to=2019&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=10000"
+          },
+          {
+            "prefix": "www.auctions.savills.co.uk/auctions/*",
+            "status": 200,
+            "records": 239,
+            "final_url": "https://web.archive.org/cdx/search/cdx?url=www.auctions.savills.co.uk%2Fauctions%2F%2A&from=2017&to=2019&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=10000"
+          }
+        ],
+        "unique_first_party_urls": 239,
+        "archive_surfaces_replayed": 239,
+        "successful_archive_surfaces": 16,
+        "strict_first_party_candidates": 0,
         "strict_candidates": [],
         "canonical_events_added": 0
       }
