@@ -1,8 +1,48 @@
 {
-  "at": "2026-09-13T06:04:59.058678+00:00",
+  "at": "2026-09-13T06:05:02.574081+00:00",
   "route": "savills-wayback-direct-first-party-lot-promotion-auc675",
   "auction_date": "2010-05-10",
   "validated_rows": [
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=1",
+      "source_id": "legacy-auc675-pos1",
+      "auction_date": "2010-05-10",
+      "lot_number": "1",
+      "address": "250/252 The Broadway SW19 1SB, Wimbledon, London",
+      "status": "SOLD",
+      "guide_price": 290000,
+      "sale_price": 358000,
+      "annual_rent": 19500,
+      "gross_yield": 5.45,
+      "tenure": "Freehold",
+      "property_type": "Freehold Retail Investment",
+      "tenant": "Manik Miah (t/a Broadway Tandoori)",
+      "lease_term": "until 2018",
+      "lease_expiry": "2018",
+      "occupation": "LET",
+      "description": "Published guide range £290,000-£300,000. Recovered from a first-party Savills Auctions lot page archived by the Internet Archive. Archived replay: http://web.archive.org/web/20100522124836id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=1"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=2",
+      "source_id": "legacy-auc675-pos2",
+      "auction_date": "2010-05-10",
+      "lot_number": "2",
+      "address": "16 Harford Square, Lampeter, Ceredigion SA48 7DU",
+      "status": "SOLD",
+      "guide_price": 220000,
+      "sale_price": 251000,
+      "annual_rent": 14000,
+      "gross_yield": 5.58,
+      "tenure": "Freehold",
+      "property_type": "Freehold Bank Investment",
+      "tenant": "HSBC Bank plc",
+      "lease_term": "until 2023",
+      "lease_expiry": "2023",
+      "occupation": "LET",
+      "description": "Published guide range £220,000-£225,000. Recovered from a first-party Savills Auctions lot page archived by the Internet Archive. Archived replay: https://web.archive.org/web/20100522124932id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=2"
+    },
     {
       "source": "Savills Auctions",
       "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=5",
@@ -22,23 +62,33 @@
       "lease_expiry": "2013",
       "occupation": "LET",
       "description": "Published guide range £110,000-£120,000. Recovered from a first-party Savills Auctions lot page archived by the Internet Archive. Archived replay: http://web.archive.org/web/20100522124953id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=5"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=13",
+      "source_id": "legacy-auc675-pos13",
+      "auction_date": "2010-05-10",
+      "lot_number": "13",
+      "address": "12 Maidenhead Street, Hertford, Hertfordshire SG14 1DR",
+      "status": "SOLD",
+      "guide_price": 250000,
+      "sale_price": 260000,
+      "annual_rent": null,
+      "gross_yield": null,
+      "tenure": "Freehold",
+      "property_type": "Freehold Retail Building",
+      "tenant": null,
+      "lease_term": null,
+      "lease_expiry": null,
+      "occupation": null,
+      "description": "Published guide range £250,000-£260,000. Recovered from a first-party Savills Auctions lot page archived by the Internet Archive. Archived replay: http://web.archive.org/web/20100522124856id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=13"
     }
   ],
   "rejected_rows": [
     {
-      "pos": 1,
-      "lot_number": null,
-      "reason": "not-http-200"
-    },
-    {
-      "pos": 2,
-      "lot_number": null,
-      "reason": "not-http-200"
-    },
-    {
       "pos": 3,
-      "lot_number": null,
-      "reason": "not-http-200"
+      "lot_number": "3",
+      "reason": "missing-explicit-result"
     },
     {
       "pos": 4,
@@ -52,13 +102,13 @@
     },
     {
       "pos": 7,
-      "lot_number": null,
-      "reason": "not-http-200"
+      "lot_number": "7",
+      "reason": "missing-explicit-result"
     },
     {
       "pos": 8,
-      "lot_number": null,
-      "reason": "not-http-200"
+      "lot_number": "8",
+      "reason": "missing-explicit-result"
     },
     {
       "pos": 9,
@@ -72,28 +122,23 @@
     },
     {
       "pos": 11,
-      "lot_number": null,
-      "reason": "not-http-200"
+      "lot_number": "11",
+      "reason": "missing-full-address"
     },
     {
       "pos": 12,
-      "lot_number": null,
-      "reason": "not-http-200"
-    },
-    {
-      "pos": 13,
-      "lot_number": null,
-      "reason": "not-http-200"
+      "lot_number": "12",
+      "reason": "missing-explicit-result"
     },
     {
       "pos": 14,
-      "lot_number": null,
-      "reason": "not-http-200"
+      "lot_number": "14",
+      "reason": "missing-explicit-result"
     },
     {
       "pos": 15,
-      "lot_number": null,
-      "reason": "not-http-200"
+      "lot_number": "15",
+      "reason": "missing-explicit-result"
     },
     {
       "pos": 16,
@@ -102,18 +147,18 @@
     },
     {
       "pos": 17,
-      "lot_number": "17",
-      "reason": "missing-explicit-result"
+      "lot_number": null,
+      "reason": "not-http-200"
     },
     {
       "pos": 18,
-      "lot_number": null,
-      "reason": "not-http-200"
+      "lot_number": "18",
+      "reason": "missing-explicit-result"
     },
     {
       "pos": 19,
-      "lot_number": null,
-      "reason": "not-http-200"
+      "lot_number": "19",
+      "reason": "missing-full-address"
     },
     {
       "pos": 20,
@@ -122,11 +167,11 @@
     },
     {
       "pos": 21,
-      "lot_number": null,
-      "reason": "not-http-200"
+      "lot_number": "21",
+      "reason": "missing-explicit-result"
     }
   ],
   "canonical_events_before": 3250,
-  "canonical_events_after": 3251,
-  "canonical_events_added": 1
+  "canonical_events_after": 3254,
+  "canonical_events_added": 4
 }
