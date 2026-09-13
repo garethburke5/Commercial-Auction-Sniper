@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T13:06:56.857230+00:00",
+  "updated_at": "2026-09-13T14:03:29.647007+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-exact-catalogue-tuple-direct-first-party-index-search",
+      "last_discovery_mode": "savills-2018-propertyauctions-live-aspnet-pagination-postback-enumeration",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -39253,7 +39253,7 @@
         "recoveries": []
       },
       "savills_year_gap_last_run": {
-        "at": "2026-09-13T13:00:59.501822+00:00",
+        "at": "2026-09-13T14:03:15.323453+00:00",
         "route": "savills-year-gap-persisted-aid-evidence-to-live-catalogue-to-lot-tuple-to-first-party-validation",
         "target_year": 2018,
         "master_manifest_dates": [
@@ -39927,11 +39927,11 @@
         ]
       },
       "savills_year_gap_last_blocker": {
-        "at": "2026-09-13T13:06:56.857230+00:00",
-        "route": "savills-2018-exact-catalogue-tuple-direct-first-party-index-search",
-        "failing_url_or_route": "site:auctions.savills.co.uk \"Rotherham, South Yorkshire\" \"13 February 2018\"",
-        "message": "Exact tuple search processed 20 2018 catalogue lot clues, discovered 0 first-party Savills URL(s), and performed 0 strict live checks, but no new canonical History V2 event satisfied full-address plus explicit commercial/mixed-use plus auction-result validation.",
-        "next_safe_route": "Enumerate the live PropertyAuctions catalogue ASP.NET pagination/postback state for each revalidated 2018 AID, capture every page of commercial/mixed-use lot tuples, and mine page HTML/image/script identifiers for property/detail IDs before retrying first-party Savills reconstruction."
+        "at": "2026-09-13T14:03:29.647007+00:00",
+        "route": "savills-2018-propertyauctions-live-aspnet-pagination-postback-enumeration",
+        "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+        "message": "Enumerated all pagination postbacks exposed by 14 revalidated 2018 Savills PropertyAuctions catalogues: 0 pager states, 0 successful replay pages, 0 candidate property/lot identifiers and 714 candidate detail/image URLs mined. No canonical event was promoted because this route is identity-discovery only; 0 rows contained lot+postcode+commercial+price signals and require deterministic reconciliation to the first-party Savills auction evidence before History V2 insertion.",
+        "next_safe_route": "Resolve the mined PropertyAuctions property/lot identifiers and candidate detail/image URLs, then join any recovered full addresses deterministically to the matching Savills date+lot+type+result tuple; validate against surviving first-party Savills evidence before canonical insertion."
       },
       "savills_year_gap_focus": {
         "year": 2018,
@@ -40392,6 +40392,3143 @@
               "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"Lot 29\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Aldershot%2C+Hampshire%22+%22Lot+29%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4974950>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
               "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"Part Vacant Freehold Garage\" \"2018\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Aldershot%2C+Hampshire%22+%22Part+Vacant+Freehold+Garage%22+%222018%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d4862fd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))",
               "site:auctions.savills.co.uk \"Aldershot, Hampshire\" \"£120,000\" \"Savills\" :: ddg: ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Aauctions.savills.co.uk+%22Aldershot%2C+Hampshire%22+%22%C2%A3120%2C000%22+%22Savills%22 (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7f89d51c2350>, 'Connection to html.duckduckgo.com timed out. (connect timeout=5)'))"
+            ]
+          }
+        ]
+      },
+      "savills_year_gap_postback_last_run": {
+        "at": "2026-09-13T14:03:29.647007+00:00",
+        "route": "savills-2018-propertyauctions-live-aspnet-pagination-postback-enumeration",
+        "target_year": 2018,
+        "catalogues_attempted": 14,
+        "initial_http_200": 14,
+        "pagination_postbacks_discovered": 0,
+        "pagination_pages_replayed": 0,
+        "candidate_identifiers_mined": 0,
+        "candidate_urls_mined": 714,
+        "strict_identity_rows_found": 0,
+        "canonical_events_added": 0,
+        "runs": [
+          {
+            "aid": 1066,
+            "date": "2018-02-13",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "78 Investment Freehold House London SW19 £551,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£551,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "117 Investment Freehold Building London EC1N Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "119 Investment Freehold Retail Rotherham, South Yorkshire Refer to Auctioneer",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "120 Investment Leasehold Building Knutsford, Cheshire Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "122 Investment Freehold Building Wantage, Oxfordshire £740,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£740,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "124 Investment Freehold Building London W14 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "131 Investment Leasehold Garage South Croydon, Surrey £126,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£126,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "132 Vacant Freehold Garage Stoke-on-Trent, Staffordshire £45,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£45,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "149 Vacant Freehold Garage London SE9 Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "150 Vacant Freehold Garage Luton, Bedfordshire Available at £90,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£90,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "166 Vacant Freehold Garage Newport, Isle of Wight Available at £20,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£20,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "168 Investment Freehold Garage St Albans, Hertfordshire £141,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£141,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "169 Vacant Freehold Garage Southam, Warwickshire £34,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£34,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "171 Vacant Freehold Garage Watford, Hertfordshire £57,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£57,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "174 Vacant Freehold Office Ewell, Surrey Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "175 Investment Freehold Garage Barnet, Hertfordshire Available at £150,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£150,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "176 Vacant Freehold Garage Buntingford, Hertfordshire Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "212 Investment Freehold House London SW18 £600,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£600,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "213 Investment Freehold Semi-Detached House Brighton, East Sussex £322,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£322,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "219 Investment Leasehold Flat Sutton, Surrey Available at £140,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£140,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "222 Investment Freehold Block of Flats London E3 £287,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£287,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "230 Investment Freehold Ground Rent London SW20 £36,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£36,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "231 Investment Freehold Ground Rent London SW20 £22,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£22,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "232 Investment Freehold Ground Rent London SW20 £18,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£18,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "233 Investment Freehold Ground Rent London SW20 £50,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£50,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "234 Investment Freehold Ground Rent London SW20 £5,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£5,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "235 Investment Freehold Ground Rent London SW20 £25,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£25,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "236 Investment Freehold Ground Rent Morden, Surrey £35,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£35,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "237 Investment Leasehold Flat London SE22 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "239 Investment Freehold Block of Flats London W14 Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "241 Investment Freehold Building Haverfordwest, Pembrokeshire Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "248 Investment Freehold House Ferryhill, County Durham £23,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£23,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "249 Investment Freehold House Ferryhill, County Durham £29,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£29,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "251 Investment Freehold Cottage Pangbourne, Berkshire Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "252 Vacant Freehold Office Oldbury, West Midlands Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "258 Vacant Freehold Garage Westbury, Wiltshire Available at £6,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£6,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "259 Investment Freehold Ground Rent London SW20 £25,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£25,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
+            ]
+          },
+          {
+            "aid": 1080,
+            "date": "2018-02-14",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "2A Investment Freehold Commercial Debdale Lane, Mansfield Woodhouse Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "7 Investment Freehold Building Basford, Nottingham Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "9 Investment Freehold Retail Warehouse Immingham, Lincolnshire Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
+            ]
+          },
+          {
+            "aid": 1067,
+            "date": "2018-03-26",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "26 Part Vacant Freehold Garage Farnborough, Hampshire £144,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£144,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "27 Part Vacant Freehold Garage Farnborough, Hampshire £120,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£120,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "28 Part Vacant Freehold Garage Aldershot, Hampshire £220,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£220,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "29 Part Vacant Freehold Garage Aldershot, Hampshire £120,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£120,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "31 Investment Leasehold Flat London SE25 Available at £180,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£180,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "37 Vacant Freehold Garage London E17 Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "49 Vacant Freehold Retail London E10 Available at £670,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£670,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "52 Investment Freehold House London SW11 £790,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£790,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "53 Investment Freehold House London SW11 £900,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£900,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "54 Investment Freehold Block of Flats Wallington, Surrey £287,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£287,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "55 Investment Freehold Block of Flats Morden, Surrey £860,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£860,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "62 Vacant Freehold Commercial Croydon, Surrey £890,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£890,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "76 Investment Freehold Retail London SW6 Available at £900,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£900,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "102 Investment Freehold Building London E2 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "109 Investment Leasehold Retail London SE25 £74,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£74,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "111 Vacant Freehold Garage Romford, Essex £20,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£20,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "113 Investment Freehold House London SW19 Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "116 Vacant Freehold Garage London SE19 £18,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£18,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "117 Vacant Freehold Garage London SE9 £10,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£10,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "138 Investment Freehold Detached Bungalow Whitchurch-on-Thames, South Oxfordshire £570,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£570,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "144 Vacant Freehold Garage London W8 £380,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£380,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "147 Vacant Leasehold Garage London SW12 £168,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£168,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "148 Investment Freehold Garage Aldershot, Hampshire £105,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£105,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "152 Investment Freehold House Peterborough, Cambridgeshire £165,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£165,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "159 Investment Freehold Building Clacton-on-Sea, Essex £430,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£430,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "163 Investment Leasehold Building Leicester, Leicestershire Refer to Auctioneer",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "164 Investment Leasehold Building Lincoln, Lincolnshire £330,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£330,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "167 Vacant Freehold Garage London N1 Available at £55,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£55,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "171 Vacant Freehold Garage Rochester, Kent £45,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£45,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "172 Vacant Freehold Garage Hilgay, Norfolk £55,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£55,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "175 Investment Freehold Retail London N17 £40,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£40,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "181 Vacant Freehold Retail London SW17 £560,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£560,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "183 Investment Freehold Building Up Holland, West Lancashire Refer to Auctioneer",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "184 Investment Freehold Building Barnsley, South Yorkshire Refer to Auctioneer",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "185 Investment Freehold Building Plymouth, Devon Refer to Auctioneer",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "186 Investment Freehold Building Staines-upon-Thames, Surrey £290,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£290,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "187 Vacant Freehold Garage Farnborough, Hampshire £7,500",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£7,500"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "188 Vacant Freehold Garage Farnborough, Hampshire £7,500",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£7,500"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "189 Vacant Freehold Garage Mitcham, Surrey £46,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£46,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "190 Vacant Freehold Garage Ilford, Essex Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "201 Part Vacant Freehold Retail Immingham, Lincolnshire Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
+            ]
+          },
+          {
+            "aid": 1081,
+            "date": "2018-04-12",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "2 Vacant Freehold Development Hucknall, Nottingham £76,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£76,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "3 Investment Freehold Terraced House Forest Fields, Nottingham Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "5 Vacant Freehold Retail Netherfield, Nottingham Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "14 Investment Freehold Block of Flats St Ann's, Nottingham £358,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£358,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "17 Investment Freehold Semi-Detached House Sherwood, Nottingham Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "19 Vacant Freehold Retail Hucknall, Nottingham Withdrawn Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "20 Vacant Freehold Development St Ann's, Nottingham £42,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£42,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "21 Investment Freehold Terraced House Forest Fields, Nottingham Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
+            ]
+          },
+          {
+            "aid": 1068,
+            "date": "2018-05-09",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "10 Investment Leasehold Flat Harrow, Middlesex £182,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£182,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "52 Vacant Freehold Commercial Maidstone, Kent Available at £790,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£790,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "55 Investment Freehold Office Redcar, North Yorkshire Available at £870,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£870,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "57 Part Vacant Freehold Commercial London SE15 Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "58 Vacant Freehold Commercial London SE15 Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "60 Investment Freehold Office Billingham, North Yorkshire Available at £675,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£675,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "61 Investment Leasehold Building Norwich, Norfolk Available at £1.64M",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£1.64"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "74 Investment Freehold Block of Flats London E3 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "81 Investment Freehold Building London SE17 Withdrawn Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "83 Vacant Freehold Garage Rochester, Kent £66,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£66,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "85A Investment Freehold Building London SE8 £145,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£145,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "106 Investment Freehold House Blackpool, Lancashire £54,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£54,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "121 Investment Freehold House London N17 £362,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£362,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "127 Investment Freehold Semi-Detached House Northolt, Middlesex £430,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£430,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "131 Vacant Freehold Garage New Malden, Surrey Refer to Auctioneer",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "140 Investment Freehold Terraced House Hastings, East Sussex Available at £170,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£170,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "141 Investment Leasehold Flat London W5 £315,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£315,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "142 Investment Freehold Building Morecambe, Lancashire £28,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£28,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "143 Leasehold Garage Ilford, Essex IG4 Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "150 Vacant Freehold Garage Heston, Middlesex Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "151 Vacant Freehold Garage Farnborough, Hampshire Available at £7,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£7,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "153 Vacant Freehold Garage Chatham, Kent £5,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£5,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "154 Vacant Freehold Garage Chatham, Kent £5,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£5,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
+            ]
+          },
+          {
+            "aid": 1082,
+            "date": "2018-06-07",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "4 Investment Freehold Terraced House Nottingham £92,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£92,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "6 Investment Freehold Terraced House Hyson Green, Nottingham £80,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£80,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "9 Investment Leasehold Apartment Mansfield Road, Nottingham £50,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£50,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "12 Investment Freehold Terraced House Hyson Green, Nottingham Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "14 Investment Freehold Land Colwick, Nottingham £167,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£167,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "23 Investment Leasehold Building 56 Ebury Road, Nottingham Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "24 Investment Leasehold Building 58 Ebury Road, Nottingham Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "27 Vacant Leasehold Garage Mansfield Road, Nottingham £11,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£11,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
+            ]
+          },
+          {
+            "aid": 1069,
+            "date": "2018-06-18",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "7 Investment Leasehold Maisonette London SE15 Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "32 Investment Freehold House Rye, East Sussex Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "41D Vacant Leasehold Retail Ascot, Berkshire £152,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£152,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "87 Investment Leasehold Flat Leicester, Leicestershire Refer to Auctioneer",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "88A Part Vacant Freehold Retail Enfield, Middlesex Available at £580,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£580,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "93 Investment Leasehold Flat Folkestone, Kent Available at £45,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£45,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "94 Vacant Freehold Garage Romford, Essex £70,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£70,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "102 Investment Leasehold Flat London NW11 Withdrawn Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "103 Investment Leasehold Flat London NW11 Withdrawn Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "127 Vacant Leasehold Garage London SW12 Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "139 Investment Freehold Building London NW11 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "140 Vacant Freehold Garage London SE9 Available at £10,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£10,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "141 Investment Freehold Other St Albans, Hertfordshire £30,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£30,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "147 Vacant Freehold Garage Chatham, Kent Refer to Auctioneer",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "148 Investment Freehold Garage Chatham, Kent Refer to Auctioneer",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "149 Investment Freehold Building Loudwater, Nr High Wycombe £348,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£348,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "153 Investment Freehold Retail Rotherham, South Yorkshire Available at £130,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£130,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "154 Investment Freehold House Rye, East Sussex Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "161 Vacant Freehold Garage Farnborough, Hampshire Available at £5,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£5,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "164 Part Vacant Freehold Office Immingham, Lincolnshire Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
+            ]
+          },
+          {
+            "aid": 1070,
+            "date": "2018-07-24",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "34 Investment Freehold Retail London N10 £2.95M",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£2.95"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "35 Investment Freehold Building London E2 Refer to Auctioneer",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "36 Investment Freehold Cottage Pangbourne, Berkshire £255,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£255,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "40 Investment Freehold Retail Rotherham, South Yorkshire Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "86 Vacant Freehold Garage London SE9 £60,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£60,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "101 Investment Freehold Building London NW10 £21,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£21,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "103 Investment Freehold Building London SE22 £31,500",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£31,500"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "104 Vacant Freehold Office Teesdale, Stockton-on-Tees Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "106 Investment Freehold Building London SW9 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "107 Investment Freehold House London SW19 £4,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£4,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "108 Investment Freehold Building London SW9 £30,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£30,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "109 Investment Freehold Mixed Use Mid Glamorgan, Wales Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "110 Investment Freehold House Huncoat, Lancashire £600",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£600"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
+            ]
+          },
+          {
+            "aid": 1083,
+            "date": "2018-08-01",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "3 Investment Leasehold Apartment Mansfield Road, Nottingham Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "5 Investment Freehold House Carlton, Nottingham £65,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£65,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "9 Vacant Freehold Commercial Mansfield, Nottinghamshire £176,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£176,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "13 Investment Freehold Commercial Nottingham Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "21 Investment Leasehold Studio Nottingham £35,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£35,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "23 Investment Leasehold Apartment Nottingham Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
+            ]
+          },
+          {
+            "aid": 1071,
+            "date": "2018-09-26",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "27 Part Vacant Freehold Garage London N3 £104,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£104,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "37 Investment Freehold Building London SE18 £203,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£203,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "40 Freehold Industrial London SW19 Available at £2M",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£2"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "62 Investment Leasehold Building Llanelli, Wales Withdrawn Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "67 Vacant Freehold Garage Orpington, Kent £18,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£18,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "78 Investment Freehold Site Hayes, Middlesex Available at £1.05M",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£1.05"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "79A Investment Freehold Building London SE20 £590,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£590,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "81 Investment Leasehold Flat Leicester, Leicestershire Refer to Auctioneer",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "101B Investment Freehold House London SW2 £400,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£400,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "102 Vacant Freehold Retail Worthing, West Sussex Available at £165,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£165,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "104 Investment Freehold Building London NW1 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "106 Investment Freehold Site Sindlesham, Nr Reading £50,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£50,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "110 Vacant Freehold Industrial Bournemouth, Dorset Available at £45,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£45,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "111 Part Vacant Freehold Retail Reigate, Surrey £410,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£410,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "121 Investment Leasehold Flat Reading, Berkshire Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "122 Investment Freehold Building Frome, Somerset Available at £365,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£365,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "123 Investment Freehold Building Frome, Somerset £142,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£142,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "128 Investment Freehold Site Northampton, Northamptonshire Withdrawn Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "135 Investment Leasehold Block of Flats Gloucester, Gloucestershire Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "141 Investment Freehold Block of Flats London N16 £69,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£69,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "144 Investment Freehold Building Wisbech, Cambridgeshire £400,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£400,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "151 Investment Leasehold Studio Chesham, Buckinghamshire Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "154 Investment Freehold Building Impington, Nr Cambridge Available at £40,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£40,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "158 Investment Freehold Ground Rent Crowborough, East Sussex £46,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£46,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "161 Investment Freehold Building London SW9 Refer",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
+            ]
+          },
+          {
+            "aid": 1084,
+            "date": "2018-09-27",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "7 Investment Leasehold Apartment Mansfield Road, Nottingham Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "9 Vacant Freehold Mixed Use Ripley, Derbyshire Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "11 Investment Freehold Building Radcliffe on Trent, Nottingham Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "13 Investment Leasehold Apartment Nottingham Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "14 Investment Freehold Terraced House Radford, Nottingham Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "15 Investment Freehold Building Nottingham £457,500",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£457,500"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "17 Investment Freehold Building Radford, Nottingham Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
+            ]
+          },
+          {
+            "aid": 1072,
+            "date": "2018-11-26",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "9 Vacant Freehold Garage Ashtead, Surrey £14,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£14,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "43 Vacant Freehold Garage London E17 Available at £250,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£250,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "50A Investment Freehold Building London W4 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "82 Investment Freehold Retail Erdington, West Midlands Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "102 Vacant Freehold Retail London N17 Available at £150,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£150,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "108 Vacant Freehold Development Wokingham, Berkshire £111,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£111,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "109 Investment Freehold House London SW18 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "110 Investment Leasehold Flat London SW18 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "111 Investment Freehold Retail London SE15 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "112 Investment Leasehold Flat Sidcup, Kent Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "119 Vacant Freehold Garage Luton, Bedfordshire £70,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£70,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "121 Investment Leasehold Flat Sidcup, Kent Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "122 Investment Leasehold Flat London SE26 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "127 Investment Leasehold Flat London NW1 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "128 Investment Leasehold Flat London SE22 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "132 Investment Leasehold Maisonette Kenley, Surrey Withdrawn Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "135 Investment Freehold Building London W11 Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "136 Investment Freehold Building London WC2N £105,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£105,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "137 Investment Freehold Building London W12 £22,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£22,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "138 Investment Freehold Semi-Detached House Birmingham, West Midlands Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "139 Investment Freehold Building Cardiff, Wales £85,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£85,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "140 Investment Freehold Semi-Detached House Birmingham, West Midlands Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "141 Investment Freehold Semi-Detached House Birmingham, West Midlands Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "142 Investment Freehold Semi-Detached House Solihull, West Midlands £45,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£45,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "143 Investment Leasehold Studio Chesham, Buckinghamshire Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "144 Investment Leasehold Flat Reading, Berkshire Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "147 Vacant Leasehold Garage London W11 £50,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£50,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "148 Vacant Leasehold Garage London W11 £170,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£170,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "153 Investment Leasehold Garage London SE13 £46,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£46,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "162 Investment Leasehold House London NW8 Withdrawn",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "167 Vacant Freehold Garage Grays, Essex Withdrawn Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "172 Investment Leasehold Studio London W2 Available at £260,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£260,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "174 Vacant Freehold Retail London W9 Withdrawn Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
+            ]
+          },
+          {
+            "aid": 1085,
+            "date": "2018-11-29",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "2 Investment Freehold Terraced House Nottingham Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "5 Investment Freehold Building Eastwood, Nottinghamshire Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "7 Investment Freehold Building Lenton, Nottingham Sold Prior",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "9 Vacant Freehold Industrial Ilkeston, Derbyshire £410,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£410,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "12 Investment Freehold Terraced House Kirkby in Ashfield, Nottinghamshire Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "15 Investment Freehold Other Carlton, Nottingham £54,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£54,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "17 Investment Leasehold Apartment Carlton, Nottingham £64,500",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£64,500"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "21 Investment Freehold Terraced House Nottingham £110,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£110,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "25 Vacant Freehold Retail Ilkeston Available",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "26 Investment Freehold Terraced House Sutton-in-Ashfield, Nottinghamshire Sold Post",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
+            ]
+          },
+          {
+            "aid": 1073,
+            "date": "2018-12-11",
+            "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+            "initial_status": 200,
+            "initial_error": null,
+            "pages_replayed": 0,
+            "page_errors": [],
+            "postbacks_seen": [],
+            "candidate_urls": [
+              "https://www.propertyauctions.com/App_Themes/MainTheme/GridDefault.css",
+              "https://www.propertyauctions.com/App_Themes/MainTheme/StyleSheet.css",
+              "https://www.propertyauctions.com/WebResource.axd?d=EFjvvw03I-qWJ1M2kiKip3FHNKL_p1iHnyiD1wjHPQe8p6abEU_LVoiH-1OtgP_mxgqw_FtRnzEIsDypjLNpz2dvurOVlO9IoKBxxH3NtVIH7_agpy0Kz0zZR78A3KVB9vTp3eT7mZnie1r5362RBg2&t=636335372960000000",
+              "https://www.propertyauctions.com/WebResource.axd?d=Nhf6TpUj19KZ9rhEj2xtdR_3gn5-YywBniNNKq3yN-wD3gTjV6b5s6zziyBF95MpdW1zNNFplfMBo3WzZ2UTO4JIutQuXo9f5HT8aFwmQtYP0-pZENFG71z1M84WJHGt0&t=636335372960000000",
+              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+              "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&t=638901572248157332",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&t=ffffffff93d1c106",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&t=5c0e0825",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&t=ffffffff9ebf392d",
+              "https://www.propertyauctions.com/Images/dataclubLogin.png",
+              "https://www.propertyauctions.com/Images/butLogin.png",
+              "https://www.propertyauctions.com/Dataclub/Default.aspx?PW=T",
+              "https://www.propertyauctions.com/Contactus.aspx",
+              "https://www.propertyauctions.com/",
+              "https://www.propertyauctions.com/Auctioneers/",
+              "https://www.propertyauctions.com/Guides/",
+              "https://www.propertyauctions.com/Results/",
+              "https://www.propertyauctions.com/DataclubMembers/",
+              "https://www.propertyauctions.com/Remote/",
+              "https://www.propertyauctions.com/Catalogue/",
+              "https://www.propertyauctions.com/News/",
+              "https://www.propertyauctions.com/Images/titleResultsAuction.png",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
+              "https://www.propertyauctions.com/Images/butSearch.png",
+              "https://www.propertyauctions.com/SearchAdvanced/",
+              "https://www.propertyauctions.com/Images/butAdvancedSearch.png",
+              "https://www.propertyauctions.com/Data/Adverts/advert_8.png",
+              "https://www.propertyauctions.com/Data/Adverts/advertP2_0.png",
+              "https://www.facebook.com/pages/Propertyauctionscom/244403285752699?ref_type=bookmark",
+              "https://www.propertyauctions.com/Images/facebookLogo.png",
+              "https://twitter.com/propauctions",
+              "https://www.propertyauctions.com/Images/twitteLogo.png",
+              "https://www.propertyauctions.com/Privacy.aspx",
+              "https://www.propertyauctions.com/Terms.aspx",
+              "https://www.propertyauctions.com/Disclaimer.aspx",
+              "https://www.propertyauctions.com/CookiePolicy.aspx",
+              "https://www.propertyauctions.com/Sitemap.aspx"
+            ],
+            "candidate_ids": [],
+            "strict_identity_rows": [],
+            "row_samples": [
+              {
+                "text": "1 Investment Freehold Ground Rent London W8 £1.31M",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£1.31"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "2 Investment  Apartment London W8 £1.97M",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£1.97"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "3 Investment  Apartment London W8 £1.77M",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£1.77"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              },
+              {
+                "text": "4 Investment Leasehold Block of Flats Ventnor, Isle of Wight Available at £450,000",
+                "lot_numbers": [],
+                "postcodes": [],
+                "prices": [
+                  "£450,000"
+                ],
+                "commercial_signal": true,
+                "strict_identity_signal": false
+              }
             ]
           }
         ]
