@@ -9,7 +9,7 @@ permissions:
   contents: write
 concurrency:
   group: savills-commoncrawl-legacy-warc
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   recover:
     runs-on: ubuntu-latest
