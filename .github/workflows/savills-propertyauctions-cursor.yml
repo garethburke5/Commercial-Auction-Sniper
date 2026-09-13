@@ -1,6 +1,10 @@
 name: Savills PropertyAuctions Cursor Recovery
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/savills-propertyauctions-cursor.yml'
+      - 'savills_propertyauctions_cursor_recovery.py'
 permissions:
   contents: write
 concurrency:
@@ -39,18 +43,56 @@ jobs:
           print('LAST_RUN',json.dumps({k:(s.get('propertyauctions_cursor_last_run') or {}).get(k) for k in ('range_scanned','savills_auctions_found','commercial_mixed_lot_clues','canonical_events_added')}))
           assert s.get('historically_complete') is False
           PY
-      - name: Publish exact recovery evidence or blocker
+      - name: Preserve generated recovery result
+        run: |
+          cp data/historical_backfill_progress.json /tmp/savills_recovered_progress.json
+          cp data/property_history.json /tmp/savills_recovered_history.json
+          cp data/source_diagnostics/savills_propertyauctions_cursor_recovery.json /tmp/savills_cursor_diag.json
+      - name: Publish conflict-safe Savills recovery evidence
         run: |
           git config user.name 'Auction Sniper History Bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics || true
-          if ! git diff --cached --quiet; then
-            git commit -m 'Advance Savills resumable legacy archive cursor'
-            for attempt in 1 2 3; do
-              git fetch origin main
-              if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
-              if git push origin HEAD:main; then exit 0; fi
-              sleep $((attempt * 3))
-            done
-            exit 1
-          fi
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          fresh_p=Path('data/historical_backfill_progress.json')
+          recovered_p=Path('/tmp/savills_recovered_progress.json')
+          fresh=json.loads(fresh_p.read_text())
+          recovered=json.loads(recovered_p.read_text())
+          fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{})
+          rs=recovered['sources']['Savills Auctions']
+          for key in ('propertyauctions_cursor_state','propertyauctions_cursor_last_run','propertyauctions_cursor_last_blocker'):
+              if key in rs:
+                  fs[key]=rs[key]
+          fs['historically_complete']=False
+          fs['discovery_exhausted']=False
+          fs['last_discovery_mode']=rs.get('last_discovery_mode',fs.get('last_discovery_mode'))
+          fs['status']=rs.get('status','LIVE ARCHIVE BLOCKED')
+          fresh['updated_at']=recovered.get('updated_at',fresh.get('updated_at'))
+          fresh_p.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
+          Path('data/source_diagnostics/savills_propertyauctions_cursor_recovery.json').write_text(Path('/tmp/savills_cursor_diag.json').read_text())
+          # The cursor route currently performs discovery only. Assert it did not silently
+          # add canonical events; a future inserter must use an explicit merge-safe path.
+          fh=json.loads(Path('data/property_history.json').read_text())
+          rh=json.loads(Path('/tmp/savills_recovered_history.json').read_text())
+          fc=sum(1 for e in fh.get('auction_events',[]) if e.get('source')=='Savills Auctions')
+          rc=sum(1 for e in rh.get('auction_events',[]) if e.get('source')=='Savills Auctions')
+          if rc != fc:
+              raise SystemExit(f'cursor publisher refuses implicit canonical merge: fresh={fc} recovered={rc}')
+          print('MERGED_CURSOR',json.dumps(fs.get('propertyauctions_cursor_state',{})))
+          print('SAVILLS_EVENTS',fc)
+          PY
+            git add data/historical_backfill_progress.json data/source_diagnostics/savills_propertyauctions_cursor_recovery.json
+            if git diff --cached --quiet; then
+              echo 'No cursor/progress change to publish'
+              exit 0
+            fi
+            git commit -m 'Advance Savills legacy cursor conflict-safely'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt * 3))
+          done
+          exit 1
