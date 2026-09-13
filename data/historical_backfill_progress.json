@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T19:03:30.768071+00:00",
+  "updated_at": "2026-09-13T20:05:06.040547+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-propertyauctions-host-wide-wayback-url-enumeration",
+      "last_discovery_mode": "savills-2018-wayback-results-full-replay-and-linked-evidence-graph",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -39927,11 +39927,11 @@
         ]
       },
       "savills_year_gap_last_blocker": {
-        "at": "2026-09-13T19:03:30.768071+00:00",
-        "route": "savills-2018-propertyauctions-host-wide-wayback-url-enumeration",
-        "failing_scope": "2018 PropertyAuctions full-address identity recovery",
-        "detail": "Host-wide Wayback URL enumeration found archived detail-like surfaces, but none yet contained a deterministic AID/auction + lot number + postcode + commercial identity bundle safe for History V2 promotion.",
-        "next_route": "For any strict archive candidates, reconcile exact AID/date and lot against the live catalogue tuple and promote only exact matches. If none, enumerate archived static media/PDF namespaces discovered by the host-wide URL corpus and search their filenames/text for AID/lot/address joins."
+        "at": "2026-09-13T20:05:06.040547+00:00",
+        "route": "savills-2018-wayback-results-full-replay-and-linked-evidence-graph",
+        "failing_scope": "2018 full-address identity and exact lot reconciliation",
+        "detail": "Replayed all 23 surviving archived Results URLs and 220 linked evidence surfaces; none exposed a deterministic AID/date + lot + postcode + commercial identity bundle safe for promotion.",
+        "next_route": "Use the discovered linked URL corpus to enumerate sibling archived directories/static filenames and PDF/image metadata, keyed by exact AID and lot; separately query first-party Savills document namespaces for matching lot/address evidence."
       },
       "savills_year_gap_focus": "2018 systematic archive reconciliation; historically incomplete",
       "savills_year_gap_direct_index_last_run": {
@@ -45718,8 +45718,8 @@
         "canonical_events_added": 0
       },
       "savills_year_gap_host_archive_last_run": {
-        "at": "2026-09-13T19:03:30.768071+00:00",
-        "route": "savills-2018-propertyauctions-host-wide-wayback-url-enumeration",
+        "at": "2026-09-13T20:05:06.040547+00:00",
+        "route": "savills-2018-wayback-results-full-replay-and-linked-evidence-graph",
         "target_year": 2018,
         "cdx_queries": [
           {
@@ -45733,24 +45733,13 @@
             "status": 200,
             "records": 23,
             "final_url": "https://web.archive.org/cdx/search/cdx?url=propertyauctions.com%2FResults%2F%2A&from=2017&to=2019&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000"
-          },
-          {
-            "prefix": "www.propertyauctions.com/*Lot*",
-            "status": 200,
-            "records": 0,
-            "final_url": "https://web.archive.org/cdx/search/cdx?url=www.propertyauctions.com%2F%2ALot%2A&from=2017&to=2019&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000"
-          },
-          {
-            "prefix": "propertyauctions.com/*Lot*",
-            "status": 200,
-            "records": 0,
-            "final_url": "https://web.archive.org/cdx/search/cdx?url=propertyauctions.com%2F%2ALot%2A&from=2017&to=2019&output=json&filter=statuscode%3A200&collapse=urlkey&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&limit=5000"
           }
         ],
-        "unique_archived_urls": 23,
-        "candidate_archived_surfaces": 1,
-        "archived_surfaces_replayed": 1,
-        "strict_date_lot_postcode_commercial_candidates": 0,
+        "unique_archived_results_urls": 23,
+        "archived_results_replayed": 23,
+        "linked_first_party_urls_discovered": 308,
+        "linked_evidence_surfaces_replayed": 220,
+        "strict_lot_postcode_commercial_bundles": 0,
         "strict_candidates": [],
         "canonical_events_added": 0
       }
