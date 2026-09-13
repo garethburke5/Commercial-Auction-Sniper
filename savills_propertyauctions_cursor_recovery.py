@@ -74,7 +74,11 @@ def run(chunk=90,workers=24):
  for k,v in KNOWN_VALIDATED.items(): manifest.setdefault(k,v)
  salvage_previous_manifest(s,manifest)
  st=s.setdefault('propertyauctions_cursor_state',{})
- start=int(st.get('next_aid',1116)); end=max(1,start-chunk+1)
+ start=int(st.get('next_aid',1116))
+ # Once the resumable cursor is close to the namespace floor, finish the
+ # remaining numeric namespace in one pass instead of imposing another
+ # arbitrary chunk boundary. This does not mark Savills history complete.
+ end=1 if start <= max(250,chunk*2) else max(1,start-chunk+1)
  found=[]; clues=[]; errs=[]; rejected_site_chrome=0
  with ThreadPoolExecutor(max_workers=workers) as ex:
   fs=[ex.submit(get,a) for a in range(start,end-1,-1)]
