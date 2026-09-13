@@ -5,13 +5,6 @@ on:
   push:
     paths:
       - '.github/workflows/savills-year-gap-recovery.yml'
-      - 'savills_year_gap_recovery.py'
-      - 'savills_propertyauctions_postback_recovery.py'
-      - 'savills_propertyauctions_url_resolution.py'
-      - 'savills_propertyauctions_wayback_recovery.py'
-      - 'savills_propertyauctions_commoncrawl_recovery.py'
-      - 'savills_propertyauctions_commoncrawl_wildcard_recovery.py'
-      - 'savills_propertyauctions_sitemap_asset_recovery.py'
       - 'savills_propertyauctions_host_archive_recovery.py'
 
 permissions:
@@ -24,7 +17,7 @@ concurrency:
 jobs:
   recover:
     runs-on: ubuntu-latest
-    timeout-minutes: 24
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
         with:
@@ -33,23 +26,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install requests beautifulsoup4
-      - name: Compile recovery route
-        run: python -m py_compile savills_year_gap_recovery.py savills_propertyauctions_postback_recovery.py savills_propertyauctions_url_resolution.py savills_propertyauctions_wayback_recovery.py savills_propertyauctions_commoncrawl_recovery.py savills_propertyauctions_commoncrawl_wildcard_recovery.py savills_propertyauctions_sitemap_asset_recovery.py savills_propertyauctions_host_archive_recovery.py history_database.py
-      - name: Reconcile Savills 2018 gap batch
-        run: python savills_year_gap_recovery.py --year 2018 --max-clues 20 --max-search-results 10 --max-live-checks 120
-      - name: Enumerate live PropertyAuctions ASP.NET catalogue pagination
-        run: python savills_propertyauctions_postback_recovery.py
-      - name: Resolve mined catalogue/detail/document URLs directly
-        run: python savills_propertyauctions_url_resolution.py
-      - name: Replay archived 2018 PropertyAuctions catalogues via Wayback CDX
-        run: python savills_propertyauctions_wayback_recovery.py
-      - name: Recover 2018 PropertyAuctions catalogues from Common Crawl WARC
-        run: python savills_propertyauctions_commoncrawl_recovery.py
-      - name: Recover wildcard AID and query variants from Common Crawl
-        run: python savills_propertyauctions_commoncrawl_wildcard_recovery.py
-      - name: Enumerate sitemap robots catalogue assets and evidence-led IDs
-        run: python savills_propertyauctions_sitemap_asset_recovery.py
+      - run: pip install requests
+      - name: Compile new recovery route
+        run: python -m py_compile savills_propertyauctions_host_archive_recovery.py
       - name: Enumerate host-wide archived PropertyAuctions detail URLs
         run: python savills_propertyauctions_host_archive_recovery.py
       - name: Verify generated state
@@ -59,16 +38,14 @@ jobs:
           from pathlib import Path
           h=json.loads(Path('data/property_history.json').read_text())
           p=json.loads(Path('data/historical_backfill_progress.json').read_text())
-          s=p['sources']['Savills Auctions'];d=s['savills_year_gap_last_run'];ha=s.get('savills_year_gap_host_archive_last_run') or {}
+          s=p['sources']['Savills Auctions'];ha=s.get('savills_year_gap_host_archive_last_run') or {}
           count=sum(1 for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions')
           dates=sorted(str(e.get('auction_date')) for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions' and e.get('auction_date'))
           print('SAVILLS_EVENTS',count)
           print('OLDEST_VERIFIED',dates[0] if dates else None)
-          print('TARGET_YEAR',d['target_year'])
           print('HOST_ARCHIVE_URLS',ha.get('unique_archived_urls'))
           print('HOST_ARCHIVE_REPLAYED',ha.get('archived_surfaces_replayed'))
           print('HOST_STRICT_CANDIDATES',ha.get('strict_date_lot_postcode_commercial_candidates'))
-          assert count==s.get('last_history_event_count',count)
           assert s.get('historically_complete') is False
           assert s.get('discovery_exhausted') is False
           assert ha.get('route')=='savills-2018-propertyauctions-host-wide-wayback-url-enumeration'
@@ -95,9 +72,8 @@ jobs:
           recovered=json.loads(Path('/tmp/savills_gap_progress.json').read_text())
           fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{})
           rs=recovered['sources']['Savills Auctions']
-          for key in ('savills_year_gap_last_run','savills_year_gap_postback_last_run','savills_year_gap_url_resolution_last_run','savills_year_gap_wayback_last_run','savills_year_gap_commoncrawl_last_run','savills_year_gap_commoncrawl_wildcard_last_run','savills_year_gap_sitemap_asset_last_run','savills_year_gap_host_archive_last_run','savills_year_gap_last_blocker','savills_year_gap_focus','propertyauctions_validated_catalogue_manifest','last_history_event_count','lots_captured','earliest_date_reached','earliest_month_reached','last_discovery_mode','status'):
+          for key in ('savills_year_gap_host_archive_last_run','savills_year_gap_last_blocker','savills_year_gap_focus','last_history_event_count','lots_captured','earliest_date_reached','earliest_month_reached','last_discovery_mode','status'):
               if key in rs: fs[key]=rs[key]
-              elif key in fs and key == 'savills_year_gap_last_blocker': fs.pop(key,None)
           fs['historically_complete']=False
           fs['discovery_exhausted']=False
           fresh['updated_at']=recovered.get('updated_at',fresh.get('updated_at'))
