@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T00:04:44.775943+00:00",
+  "updated_at": "2026-09-13T00:05:13.026755+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -4231,27 +4231,27 @@
         "next_safe_route": "Enumerate PropertyAuctions Savills listing URLs from its publicly exposed auctioneer/filter application routes or embedded page data rather than search-engine indexes, then validate any recovered first-party Savills source URLs."
       },
       "propertyauctions_cursor_state": {
-        "last_run_at": "2026-09-13T00:04:44.399220+00:00",
+        "last_run_at": "2026-09-13T00:05:12.649368+00:00",
         "last_range": {
-          "start": 546,
-          "end": 427
+          "start": 426,
+          "end": 307
         },
-        "next_aid": 426,
+        "next_aid": 306,
         "namespace_floor": 1,
         "namespace_exhausted": false
       },
       "propertyauctions_cursor_last_run": {
-        "at": "2026-09-13T00:04:44.775877+00:00",
+        "at": "2026-09-13T00:05:13.026719+00:00",
         "route": "propertyauctions-strict-resumable-aid-cursor",
         "range_scanned": {
-          "start": 546,
-          "end": 427
+          "start": 426,
+          "end": 307
         },
         "requests_attempted": 120,
         "validated_savills_catalogues_found": 0,
         "savills_auctions_found": 0,
         "commercial_mixed_lot_clues": 0,
-        "site_chrome_false_positives_rejected": 0,
+        "site_chrome_false_positives_rejected": 30,
         "canonical_events_added": 0,
         "savills_events_before": 3250,
         "savills_events_after": 3250,
@@ -4261,10 +4261,10 @@
         "errors": []
       },
       "propertyauctions_cursor_last_blocker": {
-        "at": "2026-09-13T00:04:44.775877+00:00",
+        "at": "2026-09-13T00:05:13.026719+00:00",
         "route": "propertyauctions-strict-resumable-aid-cursor",
-        "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=427",
-        "message": "Strict scan 546..427 validated 0 true Savills catalogues and 0 clearly commercial/mixed lot clues after rejecting 0 site-chrome false positives. Catalogue rows still lack full property address and first-party Savills lot detail required for canonical History V2 insertion.",
+        "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=307",
+        "message": "Strict scan 426..307 validated 0 true Savills catalogues and 0 clearly commercial/mixed lot clues after rejecting 30 site-chrome false positives. Catalogue rows still lack full property address and first-party Savills lot detail required for canonical History V2 insertion.",
         "next_safe_route": "For the oldest validated Savills catalogue, recover full property identity through catalogue-specific row links/forms, legacy PID/detail namespaces, surviving PDFs/results and archival indexes; require reconciliation back to the validated Savills auction tuple before insertion."
       },
       "propertyauctions_detail_identifier_last_run": {
@@ -7730,6 +7730,12 @@
         "failing_url_or_route": "https://www.propertyauctions.com/Data/Auctions/<AID>/Documents/<Catalogue|Results|GuidePrices|OrderOfSale>.pdf + Bing RSS item links with actual host auctions.savills.co.uk",
         "message": "Strict-host parser recovery genuinely executed 28 structured-document probes and 60 exact tuple searches with 0 search error(s). It found 0 surviving document(s) and 0 genuine Savills-host candidate URL(s), but +0 canonical rows passed strict validation.",
         "next_safe_route": "Advance the persisted PropertyAuctions AID cursor below next_aid to obtain a fresh older catalogue tranche; retain each Savills AID/date/lot/location/result tuple, then apply address/detail-namespace and archival-index recovery to that newly exposed tranche."
+      },
+      "propertyauctions_validated_catalogue_manifest": [],
+      "propertyauctions_parser_validation": {
+        "catalogue_rule": "explicit dated Savills auction heading required; site chrome ignored",
+        "lot_rule": "affirmative commercial/mixed-use descriptor required; generic investment/residential types excluded",
+        "at": "2026-09-13T00:05:13.026719+00:00"
       }
     }
   }
