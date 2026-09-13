@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T21:11:08.875347+00:00",
+  "updated_at": "2026-09-13T22:00:00.846115+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -39926,14 +39926,8 @@
           }
         ]
       },
-      "savills_year_gap_last_blocker": {
-        "at": "2026-09-13T21:11:08.875347+00:00",
-        "route": "savills-2018-first-party-savills-host-wayback-full-parallel-enumeration",
-        "failing_scope": "2018 full-address identity and exact lot reconciliation",
-        "detail": "Enumerated 239 archived first-party auctions.savills.co.uk URLs from 2017-2019 and replayed the complete discovered corpus (239 surfaces); none produced a strict 2018 date + lot + postcode + commercial evidence bundle.",
-        "next_route": "Enumerate first-party Savills PDF/brochure/static-asset namespaces and archived document filenames around each surviving 2018 auction date, then reconcile exact lot/address evidence to the AID manifest."
-      },
-      "savills_year_gap_focus": "2018 systematic archive reconciliation; historically incomplete",
+      "savills_year_gap_last_blocker": "Chronological 2018-2010 auction spine is now the recovery master. Remaining blocker is catalogue-by-catalogue lot identity reconciliation where surviving first-party catalogue/result surfaces do not expose a full address.",
+      "savills_year_gap_focus": "Reconcile each mapped auction chronologically from 2018 down to 2010: enumerate every lot, classify residential vs commercial/mixed, and recover full-address evidence for every qualifying lot before moving to the next auction.",
       "savills_year_gap_direct_index_last_run": {
         "at": "2026-09-13T13:06:56.857230+00:00",
         "route": "savills-2018-exact-catalogue-tuple-direct-first-party-index-search",
@@ -45779,6 +45773,37 @@
         "strict_first_party_candidates": 0,
         "strict_candidates": [],
         "canonical_events_added": 0
+      },
+      "savills_catalogue_map_last_run": {
+        "at": "2026-09-13T22:00:00.846115+00:00",
+        "route": "savills-2018-2010-chronological-catalogue-manifest-and-surface-reconciliation",
+        "termination": "archive pagination continued until three empty/repeated/non-200 pages, or chronology moved below 2010; no historical-completion claim",
+        "pages_scanned": 11,
+        "auction_dates_mapped": 0,
+        "year_counts": {
+          "2018": 0,
+          "2017": 0,
+          "2016": 0,
+          "2015": 0,
+          "2014": 0,
+          "2013": 0,
+          "2012": 0,
+          "2011": 0,
+          "2010": 0
+        },
+        "catalogue_surfaces_checked": 0,
+        "catalogues_with_lot_or_child_evidence": 0
+      },
+      "savills_catalogue_map_year_counts": {
+        "2018": 0,
+        "2017": 0,
+        "2016": 0,
+        "2015": 0,
+        "2014": 0,
+        "2013": 0,
+        "2012": 0,
+        "2011": 0,
+        "2010": 0
       }
     }
   }
