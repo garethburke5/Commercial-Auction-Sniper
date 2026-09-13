@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T00:06:32.071533+00:00",
+  "updated_at": "2026-09-13T01:02:27.608805+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -4231,27 +4231,27 @@
         "next_safe_route": "Enumerate PropertyAuctions Savills listing URLs from its publicly exposed auctioneer/filter application routes or embedded page data rather than search-engine indexes, then validate any recovered first-party Savills source URLs."
       },
       "propertyauctions_cursor_state": {
-        "last_run_at": "2026-09-13T00:06:31.739404+00:00",
+        "last_run_at": "2026-09-13T01:02:27.234996+00:00",
         "last_range": {
-          "start": 306,
-          "end": 187
+          "start": 186,
+          "end": 1
         },
-        "next_aid": 186,
+        "next_aid": null,
         "namespace_floor": 1,
-        "namespace_exhausted": false
+        "namespace_exhausted": true
       },
       "propertyauctions_cursor_last_run": {
-        "at": "2026-09-13T00:06:32.071490+00:00",
+        "at": "2026-09-13T01:02:27.608768+00:00",
         "route": "propertyauctions-strict-resumable-aid-cursor",
         "range_scanned": {
-          "start": 306,
-          "end": 187
+          "start": 186,
+          "end": 1
         },
-        "requests_attempted": 120,
+        "requests_attempted": 186,
         "validated_savills_catalogues_found": 0,
         "savills_auctions_found": 0,
         "commercial_mixed_lot_clues": 0,
-        "site_chrome_false_positives_rejected": 27,
+        "site_chrome_false_positives_rejected": 45,
         "canonical_events_added": 0,
         "savills_events_before": 3250,
         "savills_events_after": 3250,
@@ -4261,11 +4261,11 @@
         "errors": []
       },
       "propertyauctions_cursor_last_blocker": {
-        "at": "2026-09-13T00:06:32.071490+00:00",
+        "at": "2026-09-13T01:02:27.608768+00:00",
         "route": "propertyauctions-strict-resumable-aid-cursor",
         "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
-        "message": "Strict scan 306..187 validated 0 true Savills catalogues and 0 clearly commercial/mixed lot clues after rejecting 27 site-chrome false positives. Oldest validated catalogue evidence is 2010-05-10; its lot-list evidence is not sufficient for canonical History V2 because full property addresses and first-party Savills lot detail are absent.",
-        "next_safe_route": "Continue the numeric archive below AID 186; in parallel, resolve the oldest validated catalogue through catalogue-specific links/forms, legacy PID/detail namespaces, surviving PDFs/results and archival indexes, requiring reconciliation to Savills-owned evidence before insertion."
+        "message": "Strict scan 186..1 validated 0 true Savills catalogues and 0 clearly commercial/mixed lot clues after rejecting 45 site-chrome false positives. Oldest validated catalogue evidence is 2010-05-10; its lot-list evidence is not sufficient for canonical History V2 because full property addresses and first-party Savills lot detail are absent.",
+        "next_safe_route": "Continue the numeric archive below AID 1; in parallel, resolve the oldest validated catalogue through catalogue-specific links/forms, legacy PID/detail namespaces, surviving PDFs/results and archival indexes, requiring reconciliation to Savills-owned evidence before insertion."
       },
       "propertyauctions_detail_identifier_last_run": {
         "at": "2026-09-12T19:02:38.480874+00:00",
@@ -7744,7 +7744,7 @@
       "propertyauctions_parser_validation": {
         "catalogue_rule": "explicit dated Savills auction heading required; site chrome ignored",
         "lot_rule": "affirmative commercial/mixed-use descriptor required; generic investment/residential types excluded",
-        "at": "2026-09-13T00:06:32.071490+00:00"
+        "at": "2026-09-13T01:02:27.608768+00:00"
       }
     }
   }
