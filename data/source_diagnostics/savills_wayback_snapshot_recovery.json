@@ -1,0 +1,3204 @@
+{
+  "at": "2026-09-13T02:06:54.839894+00:00",
+  "route": "savills-wayback-first-party-snapshot-followthrough",
+  "cdx_unique_urls": 423,
+  "cdx_rows": 425,
+  "selected_snapshots": 100,
+  "snapshots_http_200": 18,
+  "pages_with_postcodes": 7,
+  "detail_candidate_pages": 18,
+  "queries": [
+    {
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2009&to=2011&limit=2000&matchType=prefix&collapse=urlkey",
+      "status": 200,
+      "bytes": 66717,
+      "error": null,
+      "rows": 423
+    },
+    {
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=20100415&to=20100615&limit=2000&matchType=prefix&collapse=urlkey",
+      "status": 200,
+      "bytes": 8590,
+      "error": null,
+      "rows": 53
+    }
+  ],
+  "candidate_original_urls": [
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=675&date=10/05/2010",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=&page=1",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=a&page=2",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=a",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=a",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=a",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=a",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=1",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=10",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=11",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=12",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=13",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=14",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=15",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=16",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=17",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=18",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=19",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=2",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=20",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=21",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=3",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=4",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=5",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=6",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=7",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=8",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=9",
+    "http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=678&date=10/05/10",
+    "http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=678&date=10/05/2010",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=11",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=12",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=13",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=14",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=15",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=17",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=18",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=19",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=2",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=20",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=3",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=4",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=5",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=6",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=7",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=8",
+    "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=9",
+    "http://auctions.savills.co.uk:80/commercial/comm_auctions.asp",
+    "http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=673&date=31/03/10",
+    "http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=682&date=21/06/10",
+    "http://auctions.savills.co.uk:80/residocs/Addendum.pdf",
+    "http://auctions.savills.co.uk:80/buying-a-property/",
+    "http://auctions.savills.co.uk:80/buying-a-property/future-auctions.aspx",
+    "http://auctions.savills.co.uk:80/buying-a-property/future-auctions/millennium-hotel.aspx",
+    "http://auctions.savills.co.uk:80/buying-a-property/future-auctions/nottingham-racecourse.aspx",
+    "http://auctions.savills.co.uk:80/buying-a-property/future-auctions/royal-garden-hotel.aspx",
+    "http://auctions.savills.co.uk:80/buying-a-property/telephone-and-proxy-bidding.aspx",
+    "http://auctions.savills.co.uk:80/buying-a-property/terms-and-conditions.aspx",
+    "http://auctions.savills.co.uk:80/buying-a-property/the-process.aspx",
+    "http://auctions.savills.co.uk:80/commercial/comm_auctions.asp",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=632&sort=type_sub&order=a&page=2",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=guide_value&Auc=632&order=a",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=location&Auc=632&order=a",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type&Auc=632&order=a",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type_sub&Auc=632&order=a",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=660&sort=type_sub&order=a&page=2",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=guide_value&Auc=698&order=a",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=location&Auc=698&order=a",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=lot_number&Auc=698&order=a",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type&Auc=698&order=a",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=&page=1",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=guide_value&Auc=719&order=",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=location&Auc=719&order=",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=lot_number&Auc=719&order=",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type&Auc=719&order=",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=a&page=2",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=B",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=F",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=L",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=N",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=1",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=10",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=11",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=13",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=14",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=15",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=19",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=2",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=20",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=23",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=24",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=3",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=4",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=5",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=6",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=7",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=8",
+    "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=9",
+    "http://auctions.savills.co.uk:80/commercial/comm_forthcoming_auctions.asp",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=371&date=16/05/2005",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=401&date=11/07/2005",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=412&date=24/10/2005",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=428&date=27/02/2006",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=438&date=15/05/2006",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=451&date=12/07/2006",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=463&date=16/10/2006",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=474&date=11/12/2006",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=482&date=26/02/2007",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=494&date=14/05/2007",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=515&date=19/07/2007",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=523&date=22/10/2007",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=547&date=03/03/2008",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=554&date=12/05/2008",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=570&date=14/07/2008",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=579&date=13/10/2008",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=632&date=15/07/2009",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=645&date=12/10/2009",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=660&date=07/12/2009",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=668&date=01/03/2010",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=685&date=12/07/2010",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?",
+    "http://auctions.savills.co.uk:80/commercial/comm_previous_auctions.asp",
+    "http://auctions.savills.co.uk:80/forms/catalogue-request.aspx",
+    "http://auctions.savills.co.uk:80/future-auctions/",
+    "http://auctions.savills.co.uk:80/Leeds_Current_auction.asp",
+    "http://auctions.savills.co.uk:80/lond_auctions.asp",
+    "http://auctions.savills.co.uk:80/lond_Current_auction.asp",
+    "http://auctions.savills.co.uk:80/lond_Current_auction.asp?Sort=guide_value&Auc=626",
+    "http://auctions.savills.co.uk:80/lond_Current_auction.asp?Sort=location&Auc=626",
+    "http://auctions.savills.co.uk:80/lond_Current_auction.asp?Sort=type&Auc=626"
+  ],
+  "snapshot_samples": [
+    {
+      "timestamp": "20090616075549",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp",
+      "replay_url": "https://web.archive.org/web/20090616075549id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090616075549id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624060810",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=632&sort=type_sub&order=a&page=2",
+      "replay_url": "https://web.archive.org/web/20090624060810id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=632&sort=type_sub&order=a&page=2",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624060810id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=632&sort=type_sub&order=a&page=2 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084335",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=guide_value&Auc=632&order=a",
+      "replay_url": "https://web.archive.org/web/20090624084335id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=guide_value&Auc=632&order=a",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084335id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=guide_value&Auc=632&order=a (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084341",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=location&Auc=632&order=a",
+      "replay_url": "https://web.archive.org/web/20090624084341id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=location&Auc=632&order=a",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084341id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=location&Auc=632&order=a (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084346",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type&Auc=632&order=a",
+      "replay_url": "https://web.archive.org/web/20090624084346id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type&Auc=632&order=a",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084346id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type&Auc=632&order=a (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084351",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type_sub&Auc=632&order=a",
+      "replay_url": "https://web.archive.org/web/20090624084351id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type_sub&Auc=632&order=a",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084351id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type_sub&Auc=632&order=a (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084356",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=1",
+      "replay_url": "https://web.archive.org/web/20090624084356id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=1",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084356id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=1 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084401",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=10",
+      "replay_url": "https://web.archive.org/web/20090624084401id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=10",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084401id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=10 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084406",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=11",
+      "replay_url": "https://web.archive.org/web/20090624084406id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=11",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084406id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=11 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084411",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12",
+      "replay_url": "https://web.archive.org/web/20090624084411id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084411id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084416",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=13",
+      "replay_url": "https://web.archive.org/web/20090624084416id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=13",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084416id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=13 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084421",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=14",
+      "replay_url": "https://web.archive.org/web/20090624084421id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=14",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084421id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=14 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084426",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=15",
+      "replay_url": "https://web.archive.org/web/20090624084426id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=15",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084426id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=15 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084433",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16",
+      "replay_url": "https://web.archive.org/web/20090624084433id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084433id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084436",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17",
+      "replay_url": "https://web.archive.org/web/20090624084436id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084436id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084441",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18",
+      "replay_url": "https://web.archive.org/web/20090624084441id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084441id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084446",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=19",
+      "replay_url": "https://web.archive.org/web/20090624084446id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=19",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084446id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=19 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084451",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=2",
+      "replay_url": "https://web.archive.org/web/20090624084451id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=2",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084451id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=2 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090624084456",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=20",
+      "replay_url": "https://web.archive.org/web/20090624084456id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=20",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090624084456id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=20 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090630000510",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?",
+      "replay_url": "https://web.archive.org/web/20090630000510id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090630000510id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090701002550",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=F",
+      "replay_url": "https://web.archive.org/web/20090701002550id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=F",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090701002550id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=F (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090701002555",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=N",
+      "replay_url": "https://web.archive.org/web/20090701002555id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=N",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090701002555id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=N (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090701003014",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=B",
+      "replay_url": "https://web.archive.org/web/20090701003014id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=B",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090701003014id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=B (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20090701003040",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=L",
+      "replay_url": "https://web.archive.org/web/20090701003040id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=L",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20090701003040id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?Dir=L (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20091122084328",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=660&sort=type_sub&order=a&page=2",
+      "replay_url": "https://web.archive.org/web/20091122084328id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=660&sort=type_sub&order=a&page=2",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20091122084328id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=660&sort=type_sub&order=a&page=2 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100404073447",
+      "original": "http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=673&date=31/03/10",
+      "replay_url": "https://web.archive.org/web/20100404073447id_/http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=673&date=31/03/10",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100404073447id_/http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=673&date=31/03/10 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100507140152",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_auctions.asp",
+      "replay_url": "https://web.archive.org/web/20100507140152id_/http://auctions.savills.co.uk:80/commercial/comm_auctions.asp",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100507140152id_/http://auctions.savills.co.uk:80/commercial/comm_auctions.asp (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100517024141",
+      "original": "http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=678&date=10/05/10",
+      "replay_url": "https://web.archive.org/web/20100517024141id_/http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=678&date=10/05/10",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100517024141id_/http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=678&date=10/05/10 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100521053023",
+      "original": "http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=678&date=10/05/2010",
+      "replay_url": "https://web.archive.org/web/20100521053023id_/http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=678&date=10/05/2010",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100521053023id_/http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=678&date=10/05/2010 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100521053325",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=675&date=10/05/2010",
+      "replay_url": "https://web.archive.org/web/20100521053325id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=675&date=10/05/2010",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100521053325id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=675&date=10/05/2010",
+      "bytes": 19232,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=a&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=a&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=a",
+          "text": "Lot"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=a",
+          "text": "Type"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=a",
+          "text": "Location"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=a",
+          "text": "Results"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=1",
+          "text": "1"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=2",
+          "text": "2"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=3",
+          "text": "3"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=4",
+          "text": "4"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=5",
+          "text": "5"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=6",
+          "text": "6"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=7",
+          "text": "7"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=8",
+          "text": "8"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=9",
+          "text": "9"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=10",
+          "text": "10"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=11",
+          "text": "11"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=12",
+          "text": "12"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=13",
+          "text": "13"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=14",
+          "text": "14"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=15",
+          "text": "15"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=16",
+          "text": "16"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=17",
+          "text": "17"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=18",
+          "text": "18"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=19",
+          "text": "19"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=20",
+          "text": "20"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=a&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=a&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket London Commercial Previous Auction Previous Commercial Property Auction 10/05/2010 with a total of\t21 Lots. We would advise all interested parties to read the legal documentation before bidding at auction. The pack is subject to change. When registering your interest you will provide us with your up-to-date contact details to allow us to update you during the marketing process.  Although we will make best endeavours to provide this service it is ultimately your responsibility to keep in contact with the auctioneers for any updates.  Some properties may be sold prior or withdrawn from the auction. Where a pack is not yet available the comment under the Legal Pack and Special Conditions headings will read Awaiting documentation - Register here. Please register only once and you will be notified by email when the pack is available. If the information is available we will state 'Add to Download List'. Once registered, interested parties will have free access to the Legal Pack and Special Conditions of Sale. [ 1 ] [ 2 ] Next Page Lot Type Location Results Legal Packs - FREE Special Conditions - FREE 1 Retail Wimbledon, London £358,000 Please log in Please log in 2 Bank Lampeter £251,000 Please log in Please log in 3 Industrial Peterborough Sold Prior Please log in Please log in 4 Bank Liskeard £300,000 Please log in Please log in 5 Retail Consett £149,000 Please log in Please log in 6 Retail Derby Available at £900,000 Please log in Please log in 7 Retail Putney, London Withdrawn Prior "
+    },
+    {
+      "timestamp": "20100521053330",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=a&page=2",
+      "replay_url": "https://web.archive.org/web/20100521053330id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=a&page=2",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100521053330id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=a&page=2",
+      "bytes": 13341,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=&page=1",
+          "text": "Previous Page"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=&page=1",
+          "text": "1"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=",
+          "text": "Lot"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=",
+          "text": "Type"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=",
+          "text": "Location"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=",
+          "text": "Results"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=21",
+          "text": "21"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=&page=1",
+          "text": "Previous Page"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=&page=1",
+          "text": "1"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket London Commercial Previous Auction Previous Commercial Property Auction 10/05/2010 with a total of\t21 Lots. We would advise all interested parties to read the legal documentation before bidding at auction. The pack is subject to change. When registering your interest you will provide us with your up-to-date contact details to allow us to update you during the marketing process.  Although we will make best endeavours to provide this service it is ultimately your responsibility to keep in contact with the auctioneers for any updates.  Some properties may be sold prior or withdrawn from the auction. Where a pack is not yet available the comment under the Legal Pack and Special Conditions headings will read Awaiting documentation - Register here. Please register only once and you will be notified by email when the pack is available. If the information is available we will state 'Add to Download List'. Once registered, interested parties will have free access to the Legal Pack and Special Conditions of Sale. Previous Page [ 1 ] [ 2 ] Lot Type Location Results Legal Packs - FREE Special Conditions - FREE 21 Office Dymchurch Withdrawn Prior Please log in Please log in 21 Lots sorted by Lot Number Previous Page [ 1 ] [ 2 ] Disclaimer: Legal documentation is generally provided by the seller's solicitors.  We have made every effort to upload the documentation correctly and in a timely manner although we cannot guarantee its accuracy.  We would request that if you have any specific legal quie"
+    },
+    {
+      "timestamp": "20100522114436",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=&page=1",
+      "replay_url": "https://web.archive.org/web/20100522114436id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=&page=1",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522114436id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=&page=1",
+      "bytes": 19232,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=a&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=a&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=a",
+          "text": "Lot"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=a",
+          "text": "Type"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=a",
+          "text": "Location"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=a",
+          "text": "Results"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=1",
+          "text": "1"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=2",
+          "text": "2"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=3",
+          "text": "3"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=4",
+          "text": "4"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=5",
+          "text": "5"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=6",
+          "text": "6"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=7",
+          "text": "7"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=8",
+          "text": "8"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=9",
+          "text": "9"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=10",
+          "text": "10"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=11",
+          "text": "11"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=12",
+          "text": "12"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=13",
+          "text": "13"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=14",
+          "text": "14"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=15",
+          "text": "15"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=16",
+          "text": "16"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=17",
+          "text": "17"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=18",
+          "text": "18"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=19",
+          "text": "19"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=20",
+          "text": "20"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=a&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=10/05/2010&auc=675&sort=type_sub&order=a&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket London Commercial Previous Auction Previous Commercial Property Auction 10/05/2010 with a total of\t21 Lots. We would advise all interested parties to read the legal documentation before bidding at auction. The pack is subject to change. When registering your interest you will provide us with your up-to-date contact details to allow us to update you during the marketing process.  Although we will make best endeavours to provide this service it is ultimately your responsibility to keep in contact with the auctioneers for any updates.  Some properties may be sold prior or withdrawn from the auction. Where a pack is not yet available the comment under the Legal Pack and Special Conditions headings will read Awaiting documentation - Register here. Please register only once and you will be notified by email when the pack is available. If the information is available we will state 'Add to Download List'. Once registered, interested parties will have free access to the Legal Pack and Special Conditions of Sale. [ 1 ] [ 2 ] Next Page Lot Type Location Results Legal Packs - FREE Special Conditions - FREE 1 Retail Wimbledon, London £358,000 Please log in Please log in 2 Bank Lampeter £251,000 Please log in Please log in 3 Industrial Peterborough Sold Prior Please log in Please log in 4 Bank Liskeard £300,000 Please log in Please log in 5 Retail Consett £149,000 Please log in Please log in 6 Retail Derby Available at £900,000 Please log in Please log in 7 Retail Putney, London Withdrawn Prior "
+    },
+    {
+      "timestamp": "20100522114441",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=",
+      "replay_url": "https://web.archive.org/web/20100522114441id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522114441id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=",
+      "bytes": 19188,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=location&order=a&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=location&order=a&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=a",
+          "text": "Lot"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=a",
+          "text": "Type"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=a",
+          "text": "Location"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=a",
+          "text": "Results"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=15",
+          "text": "15"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=16",
+          "text": "16"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=14",
+          "text": "14"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=12",
+          "text": "12"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=5",
+          "text": "5"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=10",
+          "text": "10"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=6",
+          "text": "6"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=21",
+          "text": "21"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=13",
+          "text": "13"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=11",
+          "text": "11"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=2",
+          "text": "2"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=18",
+          "text": "18"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=4",
+          "text": "4"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=8",
+          "text": "8"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=20",
+          "text": "20"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=9",
+          "text": "9"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=3",
+          "text": "3"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=7",
+          "text": "7"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=17",
+          "text": "17"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=1",
+          "text": "1"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=location&order=a&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=location&order=a&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket London Commercial Previous Auction Previous Commercial Property Auction  with a total of\t21 Lots. We would advise all interested parties to read the legal documentation before bidding at auction. The pack is subject to change. When registering your interest you will provide us with your up-to-date contact details to allow us to update you during the marketing process.  Although we will make best endeavours to provide this service it is ultimately your responsibility to keep in contact with the auctioneers for any updates.  Some properties may be sold prior or withdrawn from the auction. Where a pack is not yet available the comment under the Legal Pack and Special Conditions headings will read Awaiting documentation - Register here. Please register only once and you will be notified by email when the pack is available. If the information is available we will state 'Add to Download List'. Once registered, interested parties will have free access to the Legal Pack and Special Conditions of Sale. [ 1 ] [ 2 ] Next Page Lot Type Location Results Legal Packs - FREE Special Conditions - FREE 15 Office Battersea, London Refer Please log in Please log in 16 Retail Battersea, London Withdrawn Prior Please log in Please log in 14 Office Bristol Available at £1.6M Please log in Please log in 12 Retail Colindale, London Withdrawn Prior Please log in Please log in 5 Retail Consett £149,000 Please log in Please log in 10 Retail Coventry £1.555M Please log in Please log in 6 Retail Derby Available"
+    },
+    {
+      "timestamp": "20100522114446",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=",
+      "replay_url": "https://web.archive.org/web/20100522114446id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522114446id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=",
+      "bytes": 19210,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=result_value&order=a&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=result_value&order=a&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=a",
+          "text": "Lot"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=a",
+          "text": "Type"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=a",
+          "text": "Location"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=a",
+          "text": "Results"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=3",
+          "text": "3"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=6",
+          "text": "6"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=7",
+          "text": "7"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=8",
+          "text": "8"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=9",
+          "text": "9"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=14",
+          "text": "14"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=15",
+          "text": "15"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=16",
+          "text": "16"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=17",
+          "text": "17"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=18",
+          "text": "18"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=19",
+          "text": "19"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=20",
+          "text": "20"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=21",
+          "text": "21"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=11",
+          "text": "11"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=12",
+          "text": "12"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=5",
+          "text": "5"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=2",
+          "text": "2"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=13",
+          "text": "13"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=4",
+          "text": "4"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=1",
+          "text": "1"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=result_value&order=a&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=result_value&order=a&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket London Commercial Previous Auction Previous Commercial Property Auction  with a total of\t21 Lots. We would advise all interested parties to read the legal documentation before bidding at auction. The pack is subject to change. When registering your interest you will provide us with your up-to-date contact details to allow us to update you during the marketing process.  Although we will make best endeavours to provide this service it is ultimately your responsibility to keep in contact with the auctioneers for any updates.  Some properties may be sold prior or withdrawn from the auction. Where a pack is not yet available the comment under the Legal Pack and Special Conditions headings will read Awaiting documentation - Register here. Please register only once and you will be notified by email when the pack is available. If the information is available we will state 'Add to Download List'. Once registered, interested parties will have free access to the Legal Pack and Special Conditions of Sale. [ 1 ] [ 2 ] Next Page Lot Type Location Results Legal Packs - FREE Special Conditions - FREE 3 Industrial Peterborough Sold Prior Please log in Please log in 6 Retail Derby Available at £900,000 Please log in Please log in 7 Retail Putney, London Withdrawn Prior Please log in Please log in 8 Retail Maida Vale, London Withdrawn Prior Please log in Please log in 9 Leisure Nuneaton Sold Post Please log in Please log in 14 Office Bristol Available at £1.6M Please log in Please log in 15 Office Ba"
+    },
+    {
+      "timestamp": "20100522114451",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=",
+      "replay_url": "https://web.archive.org/web/20100522114451id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522114451id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=",
+      "bytes": 19168,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type&order=a&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type&order=a&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=a",
+          "text": "Lot"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=a",
+          "text": "Type"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=a",
+          "text": "Location"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=a",
+          "text": "Results"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=1",
+          "text": "1"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=5",
+          "text": "5"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=6",
+          "text": "6"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=7",
+          "text": "7"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=8",
+          "text": "8"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=12",
+          "text": "12"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=10",
+          "text": "10"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=16",
+          "text": "16"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=18",
+          "text": "18"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=3",
+          "text": "3"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=13",
+          "text": "13"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=14",
+          "text": "14"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=15",
+          "text": "15"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=19",
+          "text": "19"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=20",
+          "text": "20"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=21",
+          "text": "21"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=4",
+          "text": "4"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=2",
+          "text": "2"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=11",
+          "text": "11"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=17",
+          "text": "17"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type&order=a&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type&order=a&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket London Commercial Previous Auction Previous Commercial Property Auction  with a total of\t21 Lots. We would advise all interested parties to read the legal documentation before bidding at auction. The pack is subject to change. When registering your interest you will provide us with your up-to-date contact details to allow us to update you during the marketing process.  Although we will make best endeavours to provide this service it is ultimately your responsibility to keep in contact with the auctioneers for any updates.  Some properties may be sold prior or withdrawn from the auction. Where a pack is not yet available the comment under the Legal Pack and Special Conditions headings will read Awaiting documentation - Register here. Please register only once and you will be notified by email when the pack is available. If the information is available we will state 'Add to Download List'. Once registered, interested parties will have free access to the Legal Pack and Special Conditions of Sale. [ 1 ] [ 2 ] Next Page Lot Type Location Results Legal Packs - FREE Special Conditions - FREE 1 Retail Wimbledon, London £358,000 Please log in Please log in 5 Retail Consett £149,000 Please log in Please log in 6 Retail Derby Available at £900,000 Please log in Please log in 7 Retail Putney, London Withdrawn Prior Please log in Please log in 8 Retail Maida Vale, London Withdrawn Prior Please log in Please log in 12 Retail Colindale, London Withdrawn Prior Please log in Please log in 10 Retail"
+    },
+    {
+      "timestamp": "20100522114457",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=",
+      "replay_url": "https://web.archive.org/web/20100522114457id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522114457id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=",
+      "bytes": 19182,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type_sub&order=a&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type_sub&order=a&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=a",
+          "text": "Lot"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=a",
+          "text": "Type"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=a",
+          "text": "Location"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=a",
+          "text": "Results"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=1",
+          "text": "1"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=2",
+          "text": "2"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=3",
+          "text": "3"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=4",
+          "text": "4"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=5",
+          "text": "5"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=6",
+          "text": "6"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=7",
+          "text": "7"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=8",
+          "text": "8"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=9",
+          "text": "9"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=10",
+          "text": "10"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=11",
+          "text": "11"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=12",
+          "text": "12"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=13",
+          "text": "13"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=14",
+          "text": "14"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=15",
+          "text": "15"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=16",
+          "text": "16"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=17",
+          "text": "17"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=18",
+          "text": "18"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=19",
+          "text": "19"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=20",
+          "text": "20"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type_sub&order=a&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type_sub&order=a&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket London Commercial Previous Auction Previous Commercial Property Auction  with a total of\t21 Lots. We would advise all interested parties to read the legal documentation before bidding at auction. The pack is subject to change. When registering your interest you will provide us with your up-to-date contact details to allow us to update you during the marketing process.  Although we will make best endeavours to provide this service it is ultimately your responsibility to keep in contact with the auctioneers for any updates.  Some properties may be sold prior or withdrawn from the auction. Where a pack is not yet available the comment under the Legal Pack and Special Conditions headings will read Awaiting documentation - Register here. Please register only once and you will be notified by email when the pack is available. If the information is available we will state 'Add to Download List'. Once registered, interested parties will have free access to the Legal Pack and Special Conditions of Sale. [ 1 ] [ 2 ] Next Page Lot Type Location Results Legal Packs - FREE Special Conditions - FREE 1 Retail Wimbledon, London £358,000 Please log in Please log in 2 Bank Lampeter £251,000 Please log in Please log in 3 Industrial Peterborough Sold Prior Please log in Please log in 4 Bank Liskeard £300,000 Please log in Please log in 5 Retail Consett £149,000 Please log in Please log in 6 Retail Derby Available at £900,000 Please log in Please log in 7 Retail Putney, London Withdrawn Prior Please log"
+    },
+    {
+      "timestamp": "20100522114502",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=21",
+      "replay_url": "https://web.archive.org/web/20100522114502id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=21",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114502id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=21 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114507",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=11",
+      "replay_url": "https://web.archive.org/web/20100522114507id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=11",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114507id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=11 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114513",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=12",
+      "replay_url": "https://web.archive.org/web/20100522114513id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=12",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114513id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=12 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114518",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=13",
+      "replay_url": "https://web.archive.org/web/20100522114518id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=13",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114518id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=13 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114524",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=14",
+      "replay_url": "https://web.archive.org/web/20100522114524id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=14",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114524id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=14 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114529",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=15",
+      "replay_url": "https://web.archive.org/web/20100522114529id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=15",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114529id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=15 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114534",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=17",
+      "replay_url": "https://web.archive.org/web/20100522114534id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=17",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114534id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=17 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114539",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=18",
+      "replay_url": "https://web.archive.org/web/20100522114539id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=18",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114539id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=18 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114544",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=19",
+      "replay_url": "https://web.archive.org/web/20100522114544id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=19",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114544id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=19 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114549",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=2",
+      "replay_url": "https://web.archive.org/web/20100522114549id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=2",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114549id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=2 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114554",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=20",
+      "replay_url": "https://web.archive.org/web/20100522114554id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=20",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114554id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=20 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114559",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=3",
+      "replay_url": "https://web.archive.org/web/20100522114559id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=3",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114559id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=3 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114604",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=4",
+      "replay_url": "https://web.archive.org/web/20100522114604id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=4",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114604id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=4 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114609",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=5",
+      "replay_url": "https://web.archive.org/web/20100522114609id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=5",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114609id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=5 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114614",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=6",
+      "replay_url": "https://web.archive.org/web/20100522114614id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=6",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114614id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=6 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114619",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=7",
+      "replay_url": "https://web.archive.org/web/20100522114619id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=7",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114619id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=7 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114625",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=8",
+      "replay_url": "https://web.archive.org/web/20100522114625id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=8",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114625id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=8 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522114632",
+      "original": "http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=9",
+      "replay_url": "https://web.archive.org/web/20100522114632id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=9",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522114632id_/http://auctions.savills.co.uk:80/lond_previous_auction_lot.asp?pos=9 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522124815",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=a",
+      "replay_url": "https://web.archive.org/web/20100522124815id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=a",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522124815id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=a",
+      "bytes": 19180,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=location&order=&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=location&order=&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=",
+          "text": "Lot"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=",
+          "text": "Type"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=",
+          "text": "Location"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=",
+          "text": "Results"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=15",
+          "text": "15"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=16",
+          "text": "16"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=14",
+          "text": "14"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=12",
+          "text": "12"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=5",
+          "text": "5"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=10",
+          "text": "10"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=6",
+          "text": "6"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=21",
+          "text": "21"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=13",
+          "text": "13"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=11",
+          "text": "11"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=2",
+          "text": "2"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=18",
+          "text": "18"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=4",
+          "text": "4"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=8",
+          "text": "8"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=20",
+          "text": "20"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=9",
+          "text": "9"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=3",
+          "text": "3"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=7",
+          "text": "7"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=17",
+          "text": "17"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=1",
+          "text": "1"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=location&order=&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=location&order=&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket London Commercial Previous Auction Previous Commercial Property Auction  with a total of\t21 Lots. We would advise all interested parties to read the legal documentation before bidding at auction. The pack is subject to change. When registering your interest you will provide us with your up-to-date contact details to allow us to update you during the marketing process.  Although we will make best endeavours to provide this service it is ultimately your responsibility to keep in contact with the auctioneers for any updates.  Some properties may be sold prior or withdrawn from the auction. Where a pack is not yet available the comment under the Legal Pack and Special Conditions headings will read Awaiting documentation - Register here. Please register only once and you will be notified by email when the pack is available. If the information is available we will state 'Add to Download List'. Once registered, interested parties will have free access to the Legal Pack and Special Conditions of Sale. [ 1 ] [ 2 ] Next Page Lot Type Location Results Legal Packs - FREE Special Conditions - FREE 15 Office Battersea, London Refer Please log in Please log in 16 Retail Battersea, London Withdrawn Prior Please log in Please log in 14 Office Bristol Available at £1.6M Please log in Please log in 12 Retail Colindale, London Withdrawn Prior Please log in Please log in 5 Retail Consett £149,000 Please log in Please log in 10 Retail Coventry £1.555M Please log in Please log in 6 Retail Derby Available"
+    },
+    {
+      "timestamp": "20100522124821",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=a",
+      "replay_url": "https://web.archive.org/web/20100522124821id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=a",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522124821id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=a",
+      "bytes": 19202,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=result_value&order=&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=result_value&order=&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=",
+          "text": "Lot"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=",
+          "text": "Type"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=",
+          "text": "Location"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=",
+          "text": "Results"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=3",
+          "text": "3"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=6",
+          "text": "6"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=7",
+          "text": "7"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=8",
+          "text": "8"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=9",
+          "text": "9"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=14",
+          "text": "14"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=15",
+          "text": "15"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=16",
+          "text": "16"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=17",
+          "text": "17"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=18",
+          "text": "18"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=19",
+          "text": "19"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=20",
+          "text": "20"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=21",
+          "text": "21"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=11",
+          "text": "11"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=12",
+          "text": "12"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=5",
+          "text": "5"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=2",
+          "text": "2"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=13",
+          "text": "13"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=4",
+          "text": "4"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=1",
+          "text": "1"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=result_value&order=&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=result_value&order=&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket London Commercial Previous Auction Previous Commercial Property Auction  with a total of\t21 Lots. We would advise all interested parties to read the legal documentation before bidding at auction. The pack is subject to change. When registering your interest you will provide us with your up-to-date contact details to allow us to update you during the marketing process.  Although we will make best endeavours to provide this service it is ultimately your responsibility to keep in contact with the auctioneers for any updates.  Some properties may be sold prior or withdrawn from the auction. Where a pack is not yet available the comment under the Legal Pack and Special Conditions headings will read Awaiting documentation - Register here. Please register only once and you will be notified by email when the pack is available. If the information is available we will state 'Add to Download List'. Once registered, interested parties will have free access to the Legal Pack and Special Conditions of Sale. [ 1 ] [ 2 ] Next Page Lot Type Location Results Legal Packs - FREE Special Conditions - FREE 3 Industrial Peterborough Sold Prior Please log in Please log in 6 Retail Derby Available at £900,000 Please log in Please log in 7 Retail Putney, London Withdrawn Prior Please log in Please log in 8 Retail Maida Vale, London Withdrawn Prior Please log in Please log in 9 Leisure Nuneaton Sold Post Please log in Please log in 14 Office Bristol Available at £1.6M Please log in Please log in 15 Office Ba"
+    },
+    {
+      "timestamp": "20100522124826",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=a",
+      "replay_url": "https://web.archive.org/web/20100522124826id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=a",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522124826id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=a",
+      "bytes": 19160,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type&order=&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type&order=&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=",
+          "text": "Lot"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=",
+          "text": "Type"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=",
+          "text": "Location"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=",
+          "text": "Results"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=1",
+          "text": "1"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=5",
+          "text": "5"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=6",
+          "text": "6"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=7",
+          "text": "7"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=8",
+          "text": "8"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=12",
+          "text": "12"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=10",
+          "text": "10"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=16",
+          "text": "16"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=18",
+          "text": "18"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=3",
+          "text": "3"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=13",
+          "text": "13"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=14",
+          "text": "14"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=15",
+          "text": "15"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=19",
+          "text": "19"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=20",
+          "text": "20"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=21",
+          "text": "21"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=4",
+          "text": "4"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=2",
+          "text": "2"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=11",
+          "text": "11"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=17",
+          "text": "17"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type&order=&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type&order=&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket London Commercial Previous Auction Previous Commercial Property Auction  with a total of\t21 Lots. We would advise all interested parties to read the legal documentation before bidding at auction. The pack is subject to change. When registering your interest you will provide us with your up-to-date contact details to allow us to update you during the marketing process.  Although we will make best endeavours to provide this service it is ultimately your responsibility to keep in contact with the auctioneers for any updates.  Some properties may be sold prior or withdrawn from the auction. Where a pack is not yet available the comment under the Legal Pack and Special Conditions headings will read Awaiting documentation - Register here. Please register only once and you will be notified by email when the pack is available. If the information is available we will state 'Add to Download List'. Once registered, interested parties will have free access to the Legal Pack and Special Conditions of Sale. [ 1 ] [ 2 ] Next Page Lot Type Location Results Legal Packs - FREE Special Conditions - FREE 1 Retail Wimbledon, London £358,000 Please log in Please log in 5 Retail Consett £149,000 Please log in Please log in 6 Retail Derby Available at £900,000 Please log in Please log in 7 Retail Putney, London Withdrawn Prior Please log in Please log in 8 Retail Maida Vale, London Withdrawn Prior Please log in Please log in 12 Retail Colindale, London Withdrawn Prior Please log in Please log in 10 Retail"
+    },
+    {
+      "timestamp": "20100522124831",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=a",
+      "replay_url": "https://web.archive.org/web/20100522124831id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=a",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522124831id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=a",
+      "bytes": 19174,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type_sub&order=&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type_sub&order=&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type_sub&Auc=675&order=",
+          "text": "Lot"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=type&Auc=675&order=",
+          "text": "Type"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=location&Auc=675&order=",
+          "text": "Location"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?sort=result_value&Auc=675&order=",
+          "text": "Results"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=1",
+          "text": "1"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=2",
+          "text": "2"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=3",
+          "text": "3"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=4",
+          "text": "4"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=5",
+          "text": "5"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=6",
+          "text": "6"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=7",
+          "text": "7"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=8",
+          "text": "8"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=9",
+          "text": "9"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=10",
+          "text": "10"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=11",
+          "text": "11"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=12",
+          "text": "12"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=13",
+          "text": "13"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=14",
+          "text": "14"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=15",
+          "text": "15"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=16",
+          "text": "16"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=17",
+          "text": "17"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=18",
+          "text": "18"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=19",
+          "text": "19"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Auc=675&pos=20",
+          "text": "20"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type_sub&order=&page=2",
+          "text": "2"
+        },
+        {
+          "href": "/commercial/comm_previous_auction_detail.asp?date=&auc=675&sort=type_sub&order=&page=2",
+          "text": "Next Page"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket London Commercial Previous Auction Previous Commercial Property Auction  with a total of\t21 Lots. We would advise all interested parties to read the legal documentation before bidding at auction. The pack is subject to change. When registering your interest you will provide us with your up-to-date contact details to allow us to update you during the marketing process.  Although we will make best endeavours to provide this service it is ultimately your responsibility to keep in contact with the auctioneers for any updates.  Some properties may be sold prior or withdrawn from the auction. Where a pack is not yet available the comment under the Legal Pack and Special Conditions headings will read Awaiting documentation - Register here. Please register only once and you will be notified by email when the pack is available. If the information is available we will state 'Add to Download List'. Once registered, interested parties will have free access to the Legal Pack and Special Conditions of Sale. [ 1 ] [ 2 ] Next Page Lot Type Location Results Legal Packs - FREE Special Conditions - FREE 1 Retail Wimbledon, London £358,000 Please log in Please log in 2 Bank Lampeter £251,000 Please log in Please log in 3 Industrial Peterborough Sold Prior Please log in Please log in 4 Bank Liskeard £300,000 Please log in Please log in 5 Retail Consett £149,000 Please log in Please log in 6 Retail Derby Available at £900,000 Please log in Please log in 7 Retail Putney, London Withdrawn Prior Please log"
+    },
+    {
+      "timestamp": "20100522124836",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=1",
+      "replay_url": "https://web.archive.org/web/20100522124836id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=1",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522124836id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=1",
+      "bytes": 16539,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [
+        "SW19 1SB"
+      ],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=F&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=B&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=N&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=L&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/april2010/shedtenacc1.pdf')",
+          "text": "Tenancy & Accommodation (PDF)"
+        },
+        {
+          "href": "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=SW19 1SB&GridE=&GridN=&scale=10000&title=Monday 12th July 2010 Lot 1 - 250/252 The Broadway&cat=h',width=480,height=385)",
+          "text": "Map"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket Lot 1 250/252 The Broadway Guide Price £290,000-£300,000 Result £358,000 Tenancy & Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC15 Wimbledon 250/252 The Broadway SW19 1SB, Wimbledon, London •   Freehold  Retail Investment •   Let  to Manik Miah  (t/a Broadway Tandoori) until 2018 •   Current  Rent Reserved: £19,500  pa Location The  affluent and popular South-West London suburb of Wimbledon is located approximately  9 miles south-west of Central London, 6 miles east of  Kingston-upon-Thames  and 7 miles north-east of Epsom. The town is well served by road communications  including the A238 and A219 both providing access to the A3 to the west and north-west  respectively, whilst the A24 provides a direct link to the M25 (Junction 9) to the  south. Wimbledon Common, Wimbledon Park and The All England Tennis and Croquet Club  are all close by. Wimbledon (District Line) and Wimbledon South (Northern Line)  underground stations are both close by whilst mainline rail services from Wimbledon  Station to London (Waterloo) have a fastest journey time of about 19 minutes. The  property occupies a prominent position on the north side of The Broadway, close  to the junction with Merton Road (A219) in a mixed residential and commercial area  just to the east of Wimbledon town centre. Nearby occupiers include YMCA Wimbledon,  Majestic Wine, Henry J Beans, a number of local shops and restaurants and The Antoinette  Hotel. Description The  property comprises a "
+    },
+    {
+      "timestamp": "20100522124841",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=10",
+      "replay_url": "https://web.archive.org/web/20100522124841id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=10",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522124841id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=10",
+      "bytes": 18684,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [
+        "CV1 3AS",
+        "EC1A 2FG"
+      ],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=F&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=B&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=N&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=L&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=CV1 3AS&GridE=&GridN=&scale=10000&title=Monday 12th July 2010 Lot 10 - Aston Court Hotel, 80-90 Holyhead Road, Coventry, West Midlands &cat=h',width=480,height=385)",
+          "text": "Map"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket Lot 10 Aston Court Hotel, 80-90 Holyhead Road, Coventry, West Midlands Guide Price £800,000-£900,000 Result £1.555M Please log in to view Legal Pack and Special Conditions Map SC05 Coventry 2pg Aston Court Hotel (In Fixed Charge  Receivership), 80-90 Holyhead Road, Coventry, West Midlands CV1 3AS •   Freehold    81 Bedroom Hotel •   Vacant    Possession •   7 Conference    Rooms with Facilities •   Restaurant    with    80 Covers •   Reception  and Bar Area for 20 persons •   Parking    for circa    43 cars •   Prominently    located 300 yards from the Coventry Ring Road (A4053) •   Site    Area 0.30 Hectares (0.75 Acres) On    Instructions from Jonathan Pope and Richard Hill of KPMG LLP as Joint Fixed Charge    Receivers Location Coventry,    with a district population of approximately 300,000, is located 18 miles south-east    of Birmingham and 100 miles north-west of London. Coventry is a major engineering    and service industry centre and sits at the heart of the motorway network close    to the M6 Motorway (Junctions 2 and 3) for the M69, M1 and M42 Motorways. There    are frequent trains from Coventry Mainline Station to London (Euston) with a journey    time of 1 hour    10 minutes. Birmingham International Airport is 12 miles north-west. The    Aston Court Hotel is situated in a prominent position on the corner of Holyhead    Road and Barras Lane some 300 yards from the Coventry Ringway (A4053) in a densely    populated mainly residential area. Description The    hotel com"
+    },
+    {
+      "timestamp": "20100522124846",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=11",
+      "replay_url": "https://web.archive.org/web/20100522124846id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=11",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522124846id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=11",
+      "bytes": 17602,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [
+        "N1 8EG"
+      ],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=F&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=B&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=N&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=L&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/april2010/shedtenacc11.pdf')",
+          "text": "Tenancy & Accommodation (PDF)"
+        },
+        {
+          "href": "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=N1 8EG&GridE=&GridN=&scale=10000&title=Monday 12th July 2010 Lot 11 - 120 Islington High Street, Islington, London &cat=h',width=480,height=385)",
+          "text": "Map"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket Lot 11 120 Islington High Street, Islington, London Guide Price £800,000-£1M Result Available at £1M Tenancy & Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC20 Islington 2pg 120 Islington High Street, Islington, London, N1  8EG •   Freehold Retail/   Residential  Building •   Development  Potential for Conversion to  Two Flats •   Camden  Passage Location •   Two  Retail Units •   Current  Rent Reserved: £28,000  pa  Plus  Vacant Residential and Stores •   Vacant Residential    Upper Parts •   Five  Storey Building •   Popular  Antique Market Location •   Two  Retail Units Location Islington  High Street is just off Upper Street in the London Borough of Islington, which has  a resident population of 174,500 and is situated approximately 4 miles from Central  London. The area benefits from excellent transport links including Angel Underground  Station (Northern Line) and numerous bus routes linking the area to Central and  Outer London. Kings Cross Rail Station is also close providing routes from the north  and east of England. The  property is situated on a thriving location on Islington High Street at the edge  of Camden Passage, where there is an excellent selection of shops, boutiques, bars  and restaurants. Description The  property comprises a five storey building arranged as a ground floor and lower ground  floor retail unit and three upper floors of self-contained residential accommodation.  The residential comprises a reception room with "
+    },
+    {
+      "timestamp": "20100522124851",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=12",
+      "replay_url": "https://web.archive.org/web/20100522124851id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=12",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522124851id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=12",
+      "bytes": 15631,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [
+        "NW9 0HD",
+        "W1G 9JR"
+      ],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=F&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=B&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=N&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=L&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/april2010/shedtenacc12.pdf')",
+          "text": "Tenancy & Accommodation (PDF)"
+        },
+        {
+          "href": "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=NW9 0HD&GridE=&GridN=&scale=10000&title=Monday 12th July 2010 Lot 12 - 3 Carlisle Road, Colindale, London &cat=h',width=480,height=385)",
+          "text": "Map"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket Lot 12 3 Carlisle Road, Colindale, London Guide Price Withdrawn Prior Result Withdrawn Prior Tenancy & Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC23 Colindale 3 Carlisle Road, Colindale, London, NW9 0HD •   Freehold  Commercial Investment •   Let  to The American Dry Cleaning Company Limited  until 2025 •   Current  Rent Reserved: £95,000  pa Location The  North London suburb of Colindale is located 6 miles north of the West End between  Kingsbury and Edgware approximately one mile from the M1 Motorway (Junction 2).  The North Circular Road (A406) is located 2 miles to the south. The  property is located on the north side of Carlisle Road west of Edgware Road (A5)  in a mixed industrial and residential area. Colindale Underground Station (Northern  Line) is situated 0.5 miles to the east of the property. Description The  property comprises an industrial building (forming part of a larger terrace) with  first floor offices used by American Dry Cleaning Company as retail/production and  office. The site benefits from parking for 10 cars at the front and 5 cars to the  rear with associated yard. Tenure Freehold. VAT Value  Added Tax is applicable to this lot. Contact Simon  Parker +44 (0) 20 7877 4513. E-mail: sparker@savills.com Michael  Mallie +44 (0) 20 7409  8199. E-mail: mmallie@savills.com Seller's  Solicitors Alexander  Marks LLP (A Marks Esq) 55 Queen Anne Street, London W1G 9JR E-mail: ajm@amlaw.co.uk Tel:  (020) 7317 1166 Fax: (020) 722"
+    },
+    {
+      "timestamp": "20100522124856",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=13",
+      "replay_url": "https://web.archive.org/web/20100522124856id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=13",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522124856id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=13",
+      "bytes": 16532,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [
+        "SG14 1DR",
+        "WD6 4PJ"
+      ],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=F&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=B&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=N&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=L&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/april2010/shedacc13.pdf')",
+          "text": "Accommodation (PDF)"
+        },
+        {
+          "href": "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=SG14 1DR&GridE=&GridN=&scale=10000&title=Monday 12th July 2010 Lot 13 - 12 Maidenhead Street, Hertford, Hertfordshire &cat=h',width=480,height=385)",
+          "text": "Map"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket Lot 13 12 Maidenhead Street, Hertford, Hertfordshire Guide Price £250,000-£260,000 Result £260,000 Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map sc17 12 Maidenhead Street,  Hertford, Hertfordshire SG14 1DR •   Freehold Retail Building •   Planning  Permission Granted for Conversion/Extension of the Upper Floors  to Create Four  Self-Contained  Studio  Flats •   Full  Vacant Possession Location Hertford,  the affluent county town of Hertfordshire with a district population of 129,000,  is located approximately 20 miles north of Central London on the A10. The A414 links  the town with Hatfield, Welwyn Garden City and the M1 Motorway (Junction 4). Regular  rail services from Hertford East and Hertford West mainline stations to London (Moorgate,  Kings Cross and Liverpool Street) have a fastest journey time of about 42 minutes. The  property occupies a prominent position in the pedestrianised town centre Conservation  Area, on the north side of Maidenhead Street, almost opposite Honey Lane and just  to the west of Salisbury Square. The property is adjacent to the Co-Operative Pharmacy  whilst other nearby occupiers include The Edinburgh Woollen Mill, Stead & Simpson,  Oxfam and Clinton Cards. Description The  property comprises a prominent two storey terraced building arranged as a ground  floor shop with first floor storage accommodation. Planning Permission  was granted on appeal (Ref: 3/08/0644/FP dated 01/04/2008) on 11/06/2009 for alterations  to "
+    },
+    {
+      "timestamp": "20100522124901",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=14",
+      "replay_url": "https://web.archive.org/web/20100522124901id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=14",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522124901id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=14",
+      "bytes": 18819,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [
+        "BS1 1DB",
+        "BS1 4LW",
+        "BS8 1QT"
+      ],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=F&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=B&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=N&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=L&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/april2010/shedtenacc14.pdf')",
+          "text": "Tenancy & Accommodation (PDF)"
+        },
+        {
+          "href": "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=BS1 1DB&GridE=&GridN=&scale=10000&title=Monday 12th July 2010 Lot 14 - Creswicke House, 9-11 Small Street, Bristol, Avon &cat=h',width=480,height=385)",
+          "text": "Map"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket Lot 14 Creswicke House, 9-11 Small Street, Bristol, Avon Guide Price £1.4M-£1.6M Result Available at £1.6M Tenancy & Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC21 Bristol 2pg Creswicke House, 9-11 Small Street,  Bristol, Avon BS1 1DB •   Freehold Office Investment •   Let    to Tenants Including Black Horse Finance Holdings Ltd •   Net    Internal Area 1,129.80 sq m    (12,165 sq ft) •   Current    Combined Rent Reserved: £148,920    pa •   Planning Permission    for Residential/ Commercial Redevelopment •   Plans    for 13 Student Flats •   Proposed    Residential Area 1,035 sq m    (11,141 sq ft) •   Proposed    Commercial Area 230.70 sq m     (2,483 sq ft) Location The    City of Bristol has a population of 380,000 and a catchment population in excess    of 865,000. Bristol is located approximately 120 miles west of London and 40 miles    east of Cardiff and it is the largest commercial centre in the South-West of England    and a major centre for higher education, accommodating over 45,000 students. The    city has excellent communications with the M4/M5 Motorway interchange to the north    and the M4 Motorway (Junction 19) accessed via the M32 Motorway from the city centre.    Trains are provided by First Great Western from Bristol (Temple Meads) to London    (Paddington) in 1 hour 38 minutes. Creswicke    House is in a city centre office location on the corner of Colston Avenue and Small    Street near where they meet with Quay Street. B"
+    },
+    {
+      "timestamp": "20100522124906",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=15",
+      "replay_url": "https://web.archive.org/web/20100522124906id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=15",
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20100522124906id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=15",
+      "bytes": 18860,
+      "content_type": "text/html",
+      "title": "Savills Auctions",
+      "postcodes": [
+        "SW19 5BY",
+        "SW8 3QD"
+      ],
+      "interesting_links": [
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Commercial"
+        },
+        {
+          "href": "../lond_Current_auction.asp",
+          "text": "Residential"
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=F&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=B&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=N&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "comm_previous_auction_lot.asp?Dir=L&Auc=675",
+          "text": ""
+        },
+        {
+          "href": "javascript:newWindowNOToolbar('http://www.propertyauctions.com/data/full_text/savc/april2010/shedacc15.pdf')",
+          "text": "Accommodation (PDF)"
+        },
+        {
+          "href": "javascript:newWindowNOSize('http://www.multimap.com/p/browse.cgi?pc=SW8 3QD&GridE=&GridN=&scale=10000&title=Monday 12th July 2010 Lot 15 - 235 Queenstown Road, Battersea, London &cat=h',width=480,height=385)",
+          "text": "Map"
+        },
+        {
+          "href": "basket.asp?action=viewcart&item=",
+          "text": "View and Download"
+        },
+        {
+          "href": "http://www.propertyauctions.com",
+          "text": "PropertyAuctions.com"
+        },
+        {
+          "href": "comm_auctions.asp",
+          "text": "Auctions 2010"
+        },
+        {
+          "href": "comm_current_auction.asp",
+          "text": "Current Auction"
+        },
+        {
+          "href": "comm_forthcoming_auctions.asp",
+          "text": "Forthcoming Auctions"
+        },
+        {
+          "href": "comm_previous_auctions.asp",
+          "text": "Results of previous auctions"
+        },
+        {
+          "href": "comm_venue.asp",
+          "text": "Auction venue"
+        },
+        {
+          "href": "comm_office_address.asp",
+          "text": "Auction office"
+        },
+        {
+          "href": "comm_info.asp",
+          "text": "Auction information"
+        },
+        {
+          "href": "#",
+          "text": "Catalogue Request"
+        },
+        {
+          "href": "commdocs/comm_addendum.pdf",
+          "text": "Addendum"
+        }
+      ],
+      "text_sample": "Savills Auctions Home Commercial Residential Nottingham Login / Register View Document Basket Lot 15 235 Queenstown Road, Battersea, London Guide Price Refer Result Refer Accommodation (PDF) Please log in to view Legal Pack and Special Conditions Map SC19 Battersea 2pg 235 Queenstown Road, Battersea, London SW8 3QD •   Prominent  Freehold Residential and Office Buildings including  Car Parking •   Substantial  Dilapidated Mixed Use Building of about 383.50 sq m (4,127 sq ft) •   Includes  an Attractive Secluded Cobbled Mews with Two  Self-Contained Office Buildings  of about 348.85 sq m   (3,755 sq ft) •   To  be Offered as  Two Separate Lots •   Potential  for Refurbishment, Extension, Redevelopment or Alternative Use (Subject to Consents) •   Full  Vacant Possession Location The  affluent and popular South-West London suburb of Battersea, located within the London  Borough of Wandsworth, is approximately 3 miles  south-west of Central London  on the south bank of the River Thames close to Chelsea Bridge. The area benefits  from excellent communications being served by Queenstown Road and Battersea Park  Mainline Rail Stations less than 0.5 miles to the north, whilst Clapham Junction  Mainline Station, Britain's busiest railway station, is also close by and provides  regular train services into London (Waterloo) with journey times of only a few minutes. The  properties are conveniently situated in a prominent position on the west side of  Queenstown Road at the junction with Silverthorne Road, in a mainly residential  area, a short walk from the recreational amenities at B"
+    },
+    {
+      "timestamp": "20100522124911",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=16",
+      "replay_url": "https://web.archive.org/web/20100522124911id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=16",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124911id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=16 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522124917",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=17",
+      "replay_url": "https://web.archive.org/web/20100522124917id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=17",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124917id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=17 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522124922",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=18",
+      "replay_url": "https://web.archive.org/web/20100522124922id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=18",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124922id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=18 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522124927",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=19",
+      "replay_url": "https://web.archive.org/web/20100522124927id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=19",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124927id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=19 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522124932",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=2",
+      "replay_url": "https://web.archive.org/web/20100522124932id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=2",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124932id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=2 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522124938",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=20",
+      "replay_url": "https://web.archive.org/web/20100522124938id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=20",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124938id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=20 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522124943",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=3",
+      "replay_url": "https://web.archive.org/web/20100522124943id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=3",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124943id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=3 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522124948",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=4",
+      "replay_url": "https://web.archive.org/web/20100522124948id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=4",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124948id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=4 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522124953",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=5",
+      "replay_url": "https://web.archive.org/web/20100522124953id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=5",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124953id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=5 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522124958",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=6",
+      "replay_url": "https://web.archive.org/web/20100522124958id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=6",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522124958id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=6 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522125003",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=7",
+      "replay_url": "https://web.archive.org/web/20100522125003id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=7",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522125003id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=7 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522125052",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=8",
+      "replay_url": "https://web.archive.org/web/20100522125052id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=8",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522125052id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=8 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100522125113",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=9",
+      "replay_url": "https://web.archive.org/web/20100522125113id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=9",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100522125113id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675&pos=9 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100524103823",
+      "original": "http://auctions.savills.co.uk:80/residocs/Addendum.pdf",
+      "replay_url": "https://web.archive.org/web/20100524103823id_/http://auctions.savills.co.uk:80/residocs/Addendum.pdf",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100524103823id_/http://auctions.savills.co.uk:80/residocs/Addendum.pdf (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100628010854",
+      "original": "http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=682&date=21/06/10",
+      "replay_url": "https://web.archive.org/web/20100628010854id_/http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=682&date=21/06/10",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100628010854id_/http://auctions.savills.co.uk:80/Lond_previous_auction_detail.asp?auc=682&date=21/06/10 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100927200236",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "replay_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100927200241",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=guide_value&Auc=698&order=a",
+      "replay_url": "https://web.archive.org/web/20100927200241id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=guide_value&Auc=698&order=a",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100927200241id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=guide_value&Auc=698&order=a (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100927200245",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=location&Auc=698&order=a",
+      "replay_url": "https://web.archive.org/web/20100927200245id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=location&Auc=698&order=a",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100927200245id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=location&Auc=698&order=a (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100927200250",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=lot_number&Auc=698&order=a",
+      "replay_url": "https://web.archive.org/web/20100927200250id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=lot_number&Auc=698&order=a",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100927200250id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=lot_number&Auc=698&order=a (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20100927200256",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type&Auc=698&order=a",
+      "replay_url": "https://web.archive.org/web/20100927200256id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type&Auc=698&order=a",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20100927200256id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type&Auc=698&order=a (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20101129010404",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=a&page=2",
+      "replay_url": "https://web.archive.org/web/20101129010404id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=a&page=2",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20101129010404id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=a&page=2 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20101130001355",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=&page=1",
+      "replay_url": "https://web.archive.org/web/20101130001355id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=&page=1",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20101130001355id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=&page=1 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20101130101145",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=guide_value&Auc=719&order=",
+      "replay_url": "https://web.archive.org/web/20101130101145id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=guide_value&Auc=719&order=",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20101130101145id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=guide_value&Auc=719&order= (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20101130101150",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=location&Auc=719&order=",
+      "replay_url": "https://web.archive.org/web/20101130101150id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=location&Auc=719&order=",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20101130101150id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=location&Auc=719&order= (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20101130101155",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=lot_number&Auc=719&order=",
+      "replay_url": "https://web.archive.org/web/20101130101155id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=lot_number&Auc=719&order=",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20101130101155id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=lot_number&Auc=719&order= (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20101130101200",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type&Auc=719&order=",
+      "replay_url": "https://web.archive.org/web/20101130101200id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type&Auc=719&order=",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20101130101200id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?sort=type&Auc=719&order= (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20101130101205",
+      "original": "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21",
+      "replay_url": "https://web.archive.org/web/20101130101205id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20101130101205id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21 (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20110528005850",
+      "original": "http://auctions.savills.co.uk:80/buying-a-property/future-auctions.aspx",
+      "replay_url": "https://web.archive.org/web/20110528005850id_/http://auctions.savills.co.uk:80/buying-a-property/future-auctions.aspx",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20110528005850id_/http://auctions.savills.co.uk:80/buying-a-property/future-auctions.aspx (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20110529001513",
+      "original": "http://auctions.savills.co.uk:80/buying-a-property/",
+      "replay_url": "https://web.archive.org/web/20110529001513id_/http://auctions.savills.co.uk:80/buying-a-property/",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20110529001513id_/http://auctions.savills.co.uk:80/buying-a-property/ (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20110529010842",
+      "original": "http://auctions.savills.co.uk:80/buying-a-property/future-auctions/royal-garden-hotel.aspx",
+      "replay_url": "https://web.archive.org/web/20110529010842id_/http://auctions.savills.co.uk:80/buying-a-property/future-auctions/royal-garden-hotel.aspx",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20110529010842id_/http://auctions.savills.co.uk:80/buying-a-property/future-auctions/royal-garden-hotel.aspx (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20110529011018",
+      "original": "http://auctions.savills.co.uk:80/buying-a-property/future-auctions/nottingham-racecourse.aspx",
+      "replay_url": "https://web.archive.org/web/20110529011018id_/http://auctions.savills.co.uk:80/buying-a-property/future-auctions/nottingham-racecourse.aspx",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20110529011018id_/http://auctions.savills.co.uk:80/buying-a-property/future-auctions/nottingham-racecourse.aspx (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20110601205858",
+      "original": "http://auctions.savills.co.uk:80/buying-a-property/future-auctions/millennium-hotel.aspx",
+      "replay_url": "https://web.archive.org/web/20110601205858id_/http://auctions.savills.co.uk:80/buying-a-property/future-auctions/millennium-hotel.aspx",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20110601205858id_/http://auctions.savills.co.uk:80/buying-a-property/future-auctions/millennium-hotel.aspx (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20110620020253",
+      "original": "http://auctions.savills.co.uk:80/buying-a-property/the-process.aspx",
+      "replay_url": "https://web.archive.org/web/20110620020253id_/http://auctions.savills.co.uk:80/buying-a-property/the-process.aspx",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20110620020253id_/http://auctions.savills.co.uk:80/buying-a-property/the-process.aspx (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20110620213413",
+      "original": "http://auctions.savills.co.uk:80/buying-a-property/telephone-and-proxy-bidding.aspx",
+      "replay_url": "https://web.archive.org/web/20110620213413id_/http://auctions.savills.co.uk:80/buying-a-property/telephone-and-proxy-bidding.aspx",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20110620213413id_/http://auctions.savills.co.uk:80/buying-a-property/telephone-and-proxy-bidding.aspx (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "timestamp": "20110621053710",
+      "original": "http://auctions.savills.co.uk:80/buying-a-property/terms-and-conditions.aspx",
+      "replay_url": "https://web.archive.org/web/20110621053710id_/http://auctions.savills.co.uk:80/buying-a-property/terms-and-conditions.aspx",
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20110621053710id_/http://auctions.savills.co.uk:80/buying-a-property/terms-and-conditions.aspx (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    }
+  ],
+  "errors": [],
+  "canonical_events_added": 0,
+  "savills_events_before": 3250,
+  "savills_events_after": 3250
+}
