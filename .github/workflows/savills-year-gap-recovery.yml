@@ -17,7 +17,7 @@ concurrency:
 jobs:
   recover:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,10 +26,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install requests
+      - run: pip install requests beautifulsoup4 lxml
       - name: Compile chronological Savills catalogue mapper
         run: python -m py_compile savills_catalogue_chronology_map.py
-      - name: Map and reconcile Savills 2018-2010 auction catalogues
+      - name: Map Savills 2018-2010 archive dates to legacy AID catalogues and lot grids
         run: python savills_catalogue_chronology_map.py
       - name: Verify generated state
         run: |
@@ -44,14 +44,18 @@ jobs:
           dates=sorted(str(e.get('auction_date')) for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions' and e.get('auction_date'))
           print('SAVILLS_EVENTS',count)
           print('OLDEST_VERIFIED',dates[0] if dates else None)
-          print('AUCTION_DATES_MAPPED',r.get('auction_dates_mapped'))
-          print('YEAR_COUNTS',r.get('year_counts'))
-          print('CATALOGUE_SURFACES_CHECKED',r.get('catalogue_surfaces_checked'))
-          print('CATALOGUES_WITH_LOT_OR_CHILD_EVIDENCE',r.get('catalogues_with_lot_or_child_evidence'))
+          print('ARCHIVE_AUCTION_DATES_MAPPED',r.get('auction_dates_mapped'))
+          print('ARCHIVE_YEAR_COUNTS',r.get('archive_year_counts'))
+          print('LEGACY_CATALOGUES_FOUND',r.get('legacy_catalogues_found'))
+          print('LEGACY_YEAR_COUNTS',r.get('legacy_year_counts'))
+          print('INITIAL_GRID_LOTS_BY_YEAR',r.get('initial_grid_lot_rows_by_year'))
+          print('COMMERCIAL_MIXED_CLUES_BY_YEAR',r.get('commercial_mixed_clues_by_year'))
+          print('ARCHIVE_DATES_WITH_EXACT_AID',r.get('archive_dates_with_exact_aid_catalogue'))
           assert s.get('historically_complete') is False
           assert s.get('discovery_exhausted') is False
-          assert r.get('route')=='savills-2018-2010-chronological-catalogue-manifest-and-surface-reconciliation'
+          assert r.get('route')=='savills-2018-2010-chronology-joined-to-full-propertyauctions-aid-namespace'
           assert d.get('manifest') is not None
+          assert d.get('legacy_catalogues') is not None
           PY
       - name: Preserve generated files
         run: |
@@ -75,7 +79,13 @@ jobs:
           recovered=json.loads(Path('/tmp/savills_gap_progress.json').read_text())
           fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{})
           rs=recovered['sources']['Savills Auctions']
-          for key in ('savills_catalogue_map_last_run','savills_catalogue_map_year_counts','savills_year_gap_last_blocker','savills_year_gap_focus','last_history_event_count','lots_captured','earliest_date_reached','earliest_month_reached','last_discovery_mode','status'):
+          for key in (
+              'savills_catalogue_map_last_run','savills_catalogue_map_year_counts',
+              'savills_legacy_catalogue_year_counts','savills_legacy_initial_grid_lots_by_year',
+              'savills_legacy_commercial_mixed_clues_by_year','propertyauctions_validated_catalogue_manifest',
+              'savills_year_gap_last_blocker','savills_year_gap_focus','last_history_event_count',
+              'lots_captured','earliest_date_reached','earliest_month_reached','last_discovery_mode','status'
+          ):
               if key in rs: fs[key]=rs[key]
           fs['historically_complete']=False
           fs['discovery_exhausted']=False
@@ -84,7 +94,7 @@ jobs:
           PY
             git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics/savills_2018_2010_catalogue_map.json
             if git diff --cached --quiet; then exit 0; fi
-            git commit -m 'Persist Savills 2018-2010 chronological catalogue map'
+            git commit -m 'Persist Savills 2018-2010 catalogue to AID reconciliation'
             if git push origin HEAD:main; then exit 0; fi
             git reset --hard HEAD~1
             sleep $((attempt*3))
