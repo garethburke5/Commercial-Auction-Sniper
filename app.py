@@ -5,7 +5,7 @@ Streamlit session so the UI is not lost to Python's module import cache.
 Keep this entrypoint free of Streamlit commands so legacy_app can call
 st.set_page_config first.
 
-The two replacements below are deliberately narrow UI-only production patches.
+The replacements below are deliberately narrow UI-only production patches.
 They leave collectors, property data, card rendering and Savills history untouched.
 """
 from pathlib import Path
@@ -57,7 +57,7 @@ with st.expander("Filters",expanded=False):
 if _old_toolbar in _source:
     _source = _source.replace(_old_toolbar, _new_toolbar, 1)
 
-# Replace the numbered radio pager with a compact Previous / Page X of Y / Next control.
+# Replace the numbered radio pager with a compact single-row toolbar.
 _old_pager = '''    pager_size, pager_summary = st.columns([1.0,4.0], vertical_alignment="bottom")
     with pager_size:
         page_choice=st.selectbox(
@@ -98,12 +98,12 @@ _old_pager = '''    pager_size, pager_summary = st.columns([1.0,4.0], vertical_a
                 st.session_state["board_page"] = current_page+1
                 st.rerun()
 '''
-_new_pager = '''    pager_size, pager_summary = st.columns([1.25,3.75], vertical_alignment="bottom")
-    with pager_size:
-        page_choice=st.selectbox(
-            "Lots per page", ["10","50","100","All"], index=1,
-            key="board_page_size", help="Properties per page",
-        )
+_new_pager = '''    # One compact pagination toolbar. Keep controls grouped instead of stretching
+    # Previous/Next across the full desktop width.
+    page_choice=st.selectbox(
+        "Lots per page", ["10","50","100","All"], index=1,
+        key="board_page_size", help="Properties per page",
+    )
     if st.session_state.get("board_page_size_prev") != page_choice:
         st.session_state["board_page_size_prev"] = page_choice
         st.session_state["board_page"] = 1
@@ -112,39 +112,41 @@ _new_pager = '''    pager_size, pager_summary = st.columns([1.25,3.75], vertical
     pages=page_count(total_lots,page_size)
     start,end=slice_bounds(total_lots,page_size,current_page)
     st.session_state["board_page"] = current_page
-    with pager_summary:
-        first=(start+1 if total_lots else 0)
-        st.caption(f"Showing {first}–{end} of {total_lots}" + (" · filtered" if apply_filters else ""))
+    first=(start+1 if total_lots else 0)
 
-    if pages>1:
-        prev_col, page_col, next_col = st.columns([1.25,1.5,1.25], vertical_alignment="center")
-        with prev_col:
-            if st.button("‹ Previous", key="board_prev", disabled=current_page<=1, use_container_width=True):
-                st.session_state["board_page"] = current_page-1
-                st.rerun()
-        with page_col:
-            st.markdown(f'<div class="pagerStatus">Page <b>{current_page}</b> of <b>{pages}</b></div>', unsafe_allow_html=True)
-        with next_col:
-            if st.button("Next ›", key="board_next", disabled=current_page>=pages, use_container_width=True):
-                st.session_state["board_page"] = current_page+1
-                st.rerun()
+    count_col, prev_col, page_col, next_col, pager_space = st.columns([1.55,.72,.86,.72,3.15], vertical_alignment="bottom", gap="small")
+    with count_col:
+        st.markdown(f'<div class="pagerCount">Showing <b>{first}–{end}</b> of <b>{total_lots}</b>{" · filtered" if apply_filters else ""}</div>', unsafe_allow_html=True)
+    with prev_col:
+        if st.button("‹ Previous", key="board_prev", disabled=current_page<=1, use_container_width=True):
+            st.session_state["board_page"] = current_page-1
+            st.rerun()
+    with page_col:
+        st.markdown(f'<div class="pagerStatus">Page <b>{current_page}</b> of <b>{pages}</b></div>', unsafe_allow_html=True)
+    with next_col:
+        if st.button("Next ›", key="board_next", disabled=current_page>=pages, use_container_width=True):
+            st.session_state["board_page"] = current_page+1
+            st.rerun()
 '''
 if _old_pager in _source:
     _source = _source.replace(_old_pager, _new_pager, 1)
 
-# Small responsive CSS override. This removes the oversized mobile controls without
-# changing the existing card design or desktop data presentation.
+# Small responsive CSS override. This removes oversized controls without changing
+# the existing card design or desktop data presentation.
 _source = _source.replace(
     "</style>\n\"\"\",unsafe_allow_html=True)",
-    '''\n/* V6.74 concise board controls */
-.pagerStatus{height:38px;display:flex;align-items:center;justify-content:center;color:#aebbc9;font-size:.72rem;white-space:nowrap}
-.pagerStatus b{color:#eef4fb;margin:0 3px}
+    '''\n/* V6.75 compact board toolbar */
+.pagerStatus,.pagerCount{height:38px;display:flex;align-items:center;color:#aebbc9;font-size:.68rem;white-space:nowrap}
+.pagerStatus{justify-content:center}.pagerCount{justify-content:flex-start}
+.pagerStatus b,.pagerCount b{color:#eef4fb;margin:0 3px}
+/* Keep the page-size control visually compact on wide screens. */
+div[data-testid="stSelectbox"]:has(select[aria-label="Lots per page"]){max-width:210px!important;margin-bottom:-4px!important}
 @media(max-width:650px){
   .block-container{padding-top:.55rem!important}
   .hero{margin-bottom:7px!important}
   div[data-testid="stExpander"]{margin-bottom:7px!important}
-  .pagerStatus{height:34px;font-size:.62rem}
-  div[data-testid="stSelectbox"]{margin-bottom:2px!important}
+  .pagerStatus,.pagerCount{height:32px;font-size:.58rem;justify-content:flex-start}
+  div[data-testid="stSelectbox"]{margin-bottom:0!important}
   div[data-testid="stSelectbox"] label p{font-size:.58rem!important}
 }
 </style>\n\"\"\",unsafe_allow_html=True)''',
