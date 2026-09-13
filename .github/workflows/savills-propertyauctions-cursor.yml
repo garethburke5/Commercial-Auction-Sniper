@@ -64,7 +64,7 @@ jobs:
           recovered=json.loads(recovered_p.read_text())
           fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{})
           rs=recovered['sources']['Savills Auctions']
-          for key in ('propertyauctions_cursor_state','propertyauctions_cursor_last_run','propertyauctions_cursor_last_blocker'):
+          for key in ('propertyauctions_cursor_state','propertyauctions_cursor_last_run','propertyauctions_cursor_last_blocker','propertyauctions_validated_catalogue_manifest','propertyauctions_parser_validation'):
               if key in rs:
                   fs[key]=rs[key]
           fs['historically_complete']=False
@@ -74,8 +74,6 @@ jobs:
           fresh['updated_at']=recovered.get('updated_at',fresh.get('updated_at'))
           fresh_p.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
           Path('data/source_diagnostics/savills_propertyauctions_cursor_recovery.json').write_text(Path('/tmp/savills_cursor_diag.json').read_text())
-          # The cursor route currently performs discovery only. Assert it did not silently
-          # add canonical events; a future inserter must use an explicit merge-safe path.
           fh=json.loads(Path('data/property_history.json').read_text())
           rh=json.loads(Path('/tmp/savills_recovered_history.json').read_text())
           fc=sum(1 for e in fh.get('auction_events',[]) if e.get('source')=='Savills Auctions')
@@ -83,6 +81,7 @@ jobs:
           if rc != fc:
               raise SystemExit(f'cursor publisher refuses implicit canonical merge: fresh={fc} recovered={rc}')
           print('MERGED_CURSOR',json.dumps(fs.get('propertyauctions_cursor_state',{})))
+          print('VALIDATED_MANIFEST',len(fs.get('propertyauctions_validated_catalogue_manifest',[])))
           print('SAVILLS_EVENTS',fc)
           PY
             git add data/historical_backfill_progress.json data/source_diagnostics/savills_propertyauctions_cursor_recovery.json
