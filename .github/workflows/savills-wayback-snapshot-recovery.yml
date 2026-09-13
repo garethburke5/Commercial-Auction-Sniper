@@ -1,0 +1,80 @@
+name: Savills Wayback Snapshot Recovery
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/savills-wayback-snapshot-recovery.yml'
+      - 'savills_wayback_snapshot_recovery.py'
+permissions:
+  contents: write
+concurrency:
+  group: savills-wayback-snapshot-recovery
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - run: python -m py_compile savills_wayback_snapshot_recovery.py
+      - name: Follow first-party Savills Wayback captures
+        run: python savills_wayback_snapshot_recovery.py
+      - name: Verify production inputs
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          h=json.loads(Path('data/property_history.json').read_text())
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          s=p['sources']['Savills Auctions']
+          ev=[e for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions']
+          print('SAVILLS_EVENTS',len(ev))
+          print('EARLIEST_VERIFIED',s.get('earliest_date_reached'))
+          print('MODE',s.get('last_discovery_mode'))
+          print('WAYBACK',json.dumps({k:(s.get('savills_wayback_snapshot_last_run') or {}).get(k) for k in ('cdx_rows','selected_snapshots','snapshots_http_200','pages_with_postcodes','detail_candidate_pages','canonical_events_added')}))
+          assert s.get('historically_complete') is False
+          PY
+      - name: Preserve result
+        run: |
+          cp data/historical_backfill_progress.json /tmp/savills_wayback_progress.json
+          cp data/source_diagnostics/savills_wayback_snapshot_recovery.json /tmp/savills_wayback_diag.json
+      - name: Publish conflict-safe Wayback evidence
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          fp=Path('data/historical_backfill_progress.json')
+          fresh=json.loads(fp.read_text())
+          recovered=json.loads(Path('/tmp/savills_wayback_progress.json').read_text())
+          fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{})
+          rs=recovered['sources']['Savills Auctions']
+          for key in ('savills_wayback_snapshot_last_run','propertyauctions_cursor_last_blocker'):
+              if key in rs: fs[key]=rs[key]
+          fs['last_discovery_mode']=rs.get('last_discovery_mode',fs.get('last_discovery_mode'))
+          fs['historically_complete']=False
+          fs['discovery_exhausted']=False
+          fs['status']=rs.get('status','LIVE ARCHIVE BLOCKED')
+          fresh['updated_at']=recovered.get('updated_at',fresh.get('updated_at'))
+          fp.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
+          Path('data/source_diagnostics/savills_wayback_snapshot_recovery.json').write_text(Path('/tmp/savills_wayback_diag.json').read_text())
+          PY
+            git add data/historical_backfill_progress.json data/source_diagnostics/savills_wayback_snapshot_recovery.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist Savills Wayback snapshot recovery evidence'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt * 3))
+          done
+          exit 1
