@@ -12,12 +12,12 @@ permissions:
 
 concurrency:
   group: savills-year-gap-recovery
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   recover:
     runs-on: ubuntu-latest
-    timeout-minutes: 24
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
         with:
@@ -29,8 +29,8 @@ jobs:
       - run: pip install requests beautifulsoup4
       - name: Compile recovery route
         run: python -m py_compile savills_year_gap_recovery.py savills_propertyauctions_cursor_recovery.py savills_propertyauctions_clue_recovery.py savills_legacy_aid_capture_recovery.py history_database.py
-      - name: Reconcile Savills 2018 gaps
-        run: python savills_year_gap_recovery.py --year 2018 --max-clues 220 --max-search-results 15 --max-live-checks 360
+      - name: Reconcile first Savills 2018 gap batch
+        run: python savills_year_gap_recovery.py --year 2018 --max-clues 6 --max-search-results 8 --max-live-checks 80
       - name: Verify generated state
         run: |
           python - <<'PY'
@@ -47,6 +47,7 @@ jobs:
           print('CATALOGUE_CANDIDATES',len(d['catalogue_candidates_recovered']))
           print('REVALIDATED_CATALOGUES',len(d['revalidated_propertyauctions_catalogues']))
           print('COMMERCIAL_MIXED_CLUES',d['commercial_mixed_clues'])
+          print('CLUES_PROCESSED',d['clues_processed'])
           print('ADDED',d['canonical_events_added'])
           assert count==d['savills_events_after']
           assert s.get('historically_complete') is False
@@ -84,7 +85,7 @@ jobs:
           PY
             git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics/savills_year_gap_recovery.json
             if git diff --cached --quiet; then exit 0; fi
-            git commit -m 'Persist repaired Savills 2018 year-gap recovery'
+            git commit -m 'Persist bounded Savills 2018 year-gap batch'
             if git push origin HEAD:main; then exit 0; fi
             git reset --hard HEAD~1
             sleep $((attempt*3))
