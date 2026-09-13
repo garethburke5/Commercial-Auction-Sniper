@@ -1,0 +1,77 @@
+name: Savills Older Auc Recovery
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/savills-wayback-older-auc.yml'
+      - 'savills_wayback_older_auc_recovery.py'
+permissions:
+  contents: write
+concurrency:
+  group: savills-wayback-older-auc
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - run: python -m py_compile savills_wayback_older_auc_recovery.py
+      - name: Enumerate and replay older Savills Auc namespaces
+        run: python savills_wayback_older_auc_recovery.py
+      - name: Verify canonical state remains conservative
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          h=json.loads(Path('data/property_history.json').read_text())
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          s=p['sources']['Savills Auctions']; d=s['savills_wayback_older_auc_last_run']
+          count=sum(1 for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions')
+          print('SAVILLS_EVENTS',count)
+          print('EARLIEST_VERIFIED',s.get('earliest_date_reached'))
+          print('OLDER_AUC_IDS',d.get('unique_older_auc_ids'))
+          print('DATED_DETAIL_PAGES',len(d.get('dated_detail_pages') or []))
+          assert count == d['savills_events_after']
+          assert s.get('historically_complete') is False
+          assert s.get('discovery_exhausted') is False
+          PY
+      - name: Preserve generated recovery evidence
+        run: |
+          cp data/historical_backfill_progress.json /tmp/savills_older_auc_progress.json
+          cp data/source_diagnostics/savills_wayback_older_auc_recovery.json /tmp/savills_older_auc_diag.json
+      - name: Publish blocker/evidence conflict-safe
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/savills_older_auc_diag.json data/source_diagnostics/savills_wayback_older_auc_recovery.json
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          fp=Path('data/historical_backfill_progress.json')
+          fresh=json.loads(fp.read_text()); recovered=json.loads(Path('/tmp/savills_older_auc_progress.json').read_text())
+          fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{}); rs=recovered['sources']['Savills Auctions']
+          for key in ('savills_wayback_older_auc_last_run','propertyauctions_cursor_last_blocker','last_discovery_mode','status'):
+              if key in rs: fs[key]=rs[key]
+          fs['historically_complete']=False; fs['discovery_exhausted']=False
+          fresh['updated_at']=recovered.get('updated_at',fresh.get('updated_at'))
+          fp.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
+          PY
+            git add data/historical_backfill_progress.json data/source_diagnostics/savills_wayback_older_auc_recovery.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist Savills older Auc recovery evidence'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt * 3))
+          done
+          exit 1
