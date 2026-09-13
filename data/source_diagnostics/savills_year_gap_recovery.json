@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-13T15:04:39.922892+00:00",
+  "at": "2026-09-13T16:02:30.469588+00:00",
   "route": "savills-year-gap-persisted-aid-evidence-to-live-catalogue-to-lot-tuple-to-first-party-validation",
   "target_year": 2018,
   "master_manifest_dates": [
@@ -672,7 +672,7 @@
     }
   ],
   "postback_pagination_run": {
-    "at": "2026-09-13T15:04:55.150847+00:00",
+    "at": "2026-09-13T16:02:39.776339+00:00",
     "route": "savills-2018-propertyauctions-live-aspnet-pagination-postback-enumeration",
     "target_year": 2018,
     "catalogues_attempted": 14,
@@ -3809,7 +3809,7 @@
     ]
   },
   "url_resolution_run": {
-    "at": "2026-09-13T15:05:06.398612+00:00",
+    "at": "2026-09-13T16:02:47.497929+00:00",
     "route": "savills-2018-propertyauctions-mined-url-direct-resolution",
     "target_year": 2018,
     "candidate_urls_available": 53,
@@ -4883,6 +4883,192 @@
         "url": "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
         "priority": 40,
         "error": "InvalidSchema: No connection adapters were found for \"javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')\""
+      }
+    ]
+  },
+  "wayback_catalogue_replay_run": {
+    "at": "2026-09-13T16:04:44.092240+00:00",
+    "route": "savills-2018-propertyauctions-wayback-cdx-catalogue-replay",
+    "target_year": 2018,
+    "catalogues_attempted": 14,
+    "cdx_captures_found": 0,
+    "archived_pages_replayed_http_200": 0,
+    "archive_candidate_links_found": 0,
+    "archived_document_links_found": 0,
+    "deterministic_date_lot_postcode_commercial_matches": 0,
+    "canonical_events_added": 0,
+    "runs": [
+      {
+        "auction_date": "2018-02-13",
+        "aid": 1066,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
+      },
+      {
+        "auction_date": "2018-02-14",
+        "aid": 1080,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
+      },
+      {
+        "auction_date": "2018-03-26",
+        "aid": 1067,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1d1bd0>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "auction_date": "2018-04-12",
+        "aid": 1081,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
+      },
+      {
+        "auction_date": "2018-05-09",
+        "aid": 1068,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1d0290>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "auction_date": "2018-06-07",
+        "aid": 1082,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1082&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1d3190>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "auction_date": "2018-06-18",
+        "aid": 1069,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1dc350>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "auction_date": "2018-07-24",
+        "aid": 1070,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1dd590>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "auction_date": "2018-08-01",
+        "aid": 1083,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1083&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1de6d0>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "auction_date": "2018-09-26",
+        "aid": 1071,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1df7d0>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "auction_date": "2018-09-27",
+        "aid": 1084,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1084&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0bfec990>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "auction_date": "2018-11-26",
+        "aid": 1072,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0bfedc90>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "auction_date": "2018-11-29",
+        "aid": 1085,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1085&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0bfef190>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "auction_date": "2018-12-11",
+        "aid": 1073,
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+        "captures": [],
+        "archive_links": [],
+        "cdx_error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0bfef190>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      }
+    ],
+    "archived_documents": [],
+    "deterministic_matches": [],
+    "cdx_error_samples": [
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+        "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+        "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1d1bd0>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+        "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=20)"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1d0290>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1082&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1d3190>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1dc350>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1dd590>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1083&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1de6d0>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0c1df7d0>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1084&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0bfec990>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0bfedc90>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1085&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0bfef190>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
+      },
+      {
+        "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+        "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest&from=2017&to=2019&limit=20 (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f2b0bfef190>, 'Connection to web.archive.org timed out. (connect timeout=5)'))"
       }
     ]
   }
