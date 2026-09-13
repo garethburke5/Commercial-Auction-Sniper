@@ -96,3 +96,5 @@ def main():
     prog['updated_at']=at; P.write_text(json.dumps(prog,indent=2,ensure_ascii=False)); OUT.parent.mkdir(parents=True,exist_ok=True); OUT.write_text(json.dumps(diag,indent=2,ensure_ascii=False))
     print(json.dumps({'savills_events_before':before,'savills_events_after':after,'canonical_events_added':added,'pagination_targets':len(targets),'cdx_targets_with_captures':len(jobs),'pages_http_200':diag['pages_http_200'],'table_rows_extracted':diag['table_rows_extracted'],'strict_rows_validated':len(rows),'earliest_verified':s.get('earliest_date_reached')},indent=2))
 if __name__=='__main__':main()
+
+# trigger: exact pagination recovery route 2026-09-13
