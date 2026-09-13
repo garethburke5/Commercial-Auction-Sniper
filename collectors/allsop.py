@@ -117,8 +117,6 @@ def _allsop_image(s,base):
                 for part in raw.split(","):add(part.strip().split(" ")[0],bonus)
     raw=str(s).replace("\\/","/")
     for u in re.findall(r'https?://[^"\'<>\s]+?\.(?:jpe?g|png|webp)(?:\?[^"\'<>\s]*)?',raw,re.I):add(u,4)
-    # Current Allsop catalogue/detail pages also place genuine lot photos in
-    # CSS background-image declarations and relative /media/... values.
     for u in re.findall(r'url\(\s*["\']?([^"\')]+)["\']?\s*\)',raw,re.I):add(u,12)
     for u in re.findall(r'["\']((?:/|\.\./|\./)?(?:media|uploads|images)/[^"\']+?\.(?:jpe?g|png|webp)(?:\?[^"\']*)?)["\']',raw,re.I):add(u,8)
     if candidates:
@@ -257,12 +255,28 @@ def _teaser_title(card):
     return norm(m.group(1)) if m else None
 
 
+def _postcode(text):
+    m=POSTCODE.search(text or "")
+    return re.sub(r"\s+","",m.group(0)).upper() if m else None
+
+
+def _detail_matches_card(card, detail_lot, detail_address):
+    """Reject stale/reused Allsop links whose detail page is a different property."""
+    teaser_address=_teaser_address(card)
+    teaser_postcode=_postcode(teaser_address)
+    detail_postcode=_postcode(detail_address)
+    if teaser_postcode and detail_postcode and teaser_postcode != detail_postcode:
+        return False
+    teaser_lot=_lot_no(card)
+    if teaser_lot != "Lot TBC" and detail_lot != "Lot TBC" and teaser_lot.lower() != detail_lot.lower():
+        return False
+    return True
+
+
 def _teaser_lot(url,card,image_url=None,auction_date=None):
-    if not _card_is_target(card):return None
-    address=_teaser_address(card)
-    if not address:return None
-    title=_teaser_title(card)
-    return Lot(source=SOURCE,url=url,address=address,lot_number=_lot_no(card),auction_date=auction_date or _month_date(card),guide_price=parse_guide(card),image_url=image_url,property_type=title[:180] if title else "Commercial / mixed-use auction lot",description=card[:3500],status="CURRENT").finalise()
+    # Teaser-only rows are intentionally not publishable: a search-card URL can be
+    # stale or reused and must be verified against the canonical detail page first.
+    return None
 
 
 def _hydrate(item,today=None):
@@ -271,8 +285,9 @@ def _hydrate(item,today=None):
     try:s=soup(url,use_browser=False)
     except Exception:
         try:s=soup(url,use_browser=True)
-        except Exception:return _teaser_lot(url,card,teaser_image,teaser_date) if card_target else None
+        except Exception:return None
     lot_number,address,main=_main_identity(s)
+    if not address or not _detail_matches_card(card,lot_number,address):return None
     text=norm(main.get_text(" ",strip=True)); auction_date=_exact_auction_date(text,teaser_date)
     if auction_date:
         try:
@@ -283,14 +298,20 @@ def _hydrate(item,today=None):
     if re.search(r"sold\s*prior",lifecycle,re.I):terminal="SOLD PRIOR"
     elif re.search(r"withdrawn",lifecycle,re.I):terminal="WITHDRAWN"
     elif re.search(r"postponed",lifecycle,re.I):terminal="POSTPONED"
-    if not address:return _teaser_lot(url,card,teaser_image,auction_date) if card_target and not terminal else None
     title_tag=main.find("h1") or s.find("h1"); opportunity=norm(title_tag.get_text(" ",strip=True)) if title_tag else ""
     combined=norm(opportunity+" "+text)
     if not _detail_is_target(combined):return None
     image=_allsop_image(main,url) or _allsop_image(s,url) or teaser_image
     lp_url,lp_status=legal_pack(s,url);rent=parse_rent(combined);guide=parse_guide(combined);tenure=parse_tenure(combined)
+    if guide is not None and guide < 1000:return None
     has_vacant=bool(re.search(r"\bvacant\b|vacant possession",combined,re.I));occupation="Part vacant / part let" if has_vacant and rent else "Vacant / vacant possession" if has_vacant else "Tenanted" if rent else None
     return Lot(source=SOURCE,url=url,address=address,lot_number=lot_number,auction_date=auction_date,image_url=image,guide_price=guide,annual_rent=rent,tenure=tenure,vat_status=parse_vat(combined),legal_pack_status=lp_status,legal_pack_url=lp_url,description=combined[:6500],occupation=occupation,property_type=opportunity[:180] if opportunity else None,status=terminal or "CURRENT",development_potential=True if re.search(r"development|redevelopment|planning potential",combined,re.I) else None,asset_management=True if re.search(r"asset management|part vacant|reversion|reconfigure",combined,re.I) else None,residential_conversion=True if re.search(r"conversion to residential|residential conversion",combined,re.I) else None,fri=True if re.search(r"\bFRI\b|full repairing and insuring",combined,re.I) else None).finalise()
+
+
+def _identity_key(lot):
+    address=re.sub(r"[^a-z0-9]+"," ",norm(lot.address or "").lower()).strip()
+    lot_no=norm(lot.lot_number or "").lower()
+    return (address, lot.auction_date or "", lot_no)
 
 
 def collect():
@@ -306,8 +327,14 @@ def collect():
                     lot=f.result()
                     if lot:lots.append(lot)
                 except Exception:failures+=1
-        lots=list({x.url:x for x in lots}.values());available=[x for x in lots if x.status=="CURRENT"];terminal=[x for x in lots if x.status!="CURRENT"]
+        by_identity={}
+        for lot in lots:
+            key=_identity_key(lot)
+            prev=by_identity.get(key)
+            if prev is None or (not prev.image_url and lot.image_url):by_identity[key]=lot
+        lots=list(by_identity.values())
+        available=[x for x in lots if x.status=="CURRENT"];terminal=[x for x in lots if x.status!="CURRENT"]
         status="LIVE" if lots and failures==0 else "DEGRADED" if lots else "FAILED" if failures else "CATALOGUE PENDING"
-        msg=f"Allsop exact-page current/future sweep: {len(live_targets)} candidate pages hydrated; {len(available)} available commercial/mixed-use lots; {len(terminal)} unavailable history rows retained; {failures} detail failures. Exact lot page controls identity/date/status."
+        msg=f"Allsop verified-detail current/future sweep: {len(live_targets)} candidate pages inspected; {len(available)} available commercial/mixed-use lots; {len(terminal)} unavailable history rows retained; {failures} detail failures. Stale/mismatched teaser URLs are quarantined and duplicate identities suppressed."
         return SourceResult(SOURCE,status,lots,msg,discovered_count=len(live_targets),authoritative_snapshot=bool(status=="LIVE" and not failures),scope_dates=tuple(sorted({x.auction_date for x in lots if x.auction_date})))
     except Exception as exc:return SourceResult(SOURCE,"FAILED",[],f"Allsop collection failed: {exc}")
