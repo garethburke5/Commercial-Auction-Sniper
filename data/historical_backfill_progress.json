@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-13T07:13:04.213624+00:00",
+  "updated_at": "2026-09-13T08:03:05.829818+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-wayback-direct-older-lot-links",
+      "last_discovery_mode": "savills-wayback-direct-cdx-capture-reuse",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -4261,11 +4261,11 @@
         "errors": []
       },
       "propertyauctions_cursor_last_blocker": {
-        "at": "2026-09-13T07:13:04.213624+00:00",
-        "route": "savills-wayback-direct-older-lot-links",
-        "failing_url_or_route": "archived first-party comm_previous_auction_lot.asp?Auc=<older>&pos=<n> links discovered from recovered result grids",
-        "message": "Direct replay of 358 older first-party Savills lot links yielded 0 HTTP-200 pages but no rows passing full-address, explicit commercial/mixed-use and explicit-result validation.",
-        "next_safe_route": "Use each archived result grid’s pagination links and alternate port/host/case variants to enumerate deeper lot positions; then retry the oldest failed Auc captures and reconcile explicit result-grid tuples to lot-page addresses."
+        "at": "2026-09-13T08:03:05.829818+00:00",
+        "route": "savills-wayback-direct-cdx-capture-reuse",
+        "failing_url_or_route": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=<older>&pos=<n> direct CDX capture rows before 2010-05-10",
+        "message": "Reused 0 actual archived lot capture rows directly from the namespace rather than exact-CDX lookup; 0 replayed HTTP 200 but no new canonical rows passed strict validation.",
+        "next_safe_route": "Probe archived detail/result-grid HTML for pagination, form actions, script variables and document/PDF links, then use those captured originals to recover full-address lot evidence without relying on the failing lot replay path."
       },
       "propertyauctions_detail_identifier_last_run": {
         "at": "2026-09-12T19:02:38.480874+00:00",
@@ -23421,6 +23421,21 @@
             "attempts": []
           }
         ]
+      },
+      "savills_wayback_direct_capture_last_run": {
+        "at": "2026-09-13T08:03:05.829818+00:00",
+        "route": "savills-wayback-direct-cdx-capture-reuse",
+        "namespace_rows": 0,
+        "dated_auc_ids": 21,
+        "direct_captures_attempted": 0,
+        "pages_http_200": 0,
+        "validated_rows": 0,
+        "canonical_events_before": 3254,
+        "canonical_events_after": 3254,
+        "canonical_events_added": 0,
+        "errors": [],
+        "rejected_rows": [],
+        "page_results": []
       }
     }
   }
