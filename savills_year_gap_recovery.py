@@ -10,7 +10,11 @@ from savills_archival_url_discovery import SOURCE_KEY, source_count
 from savills_legacy_aid_capture_recovery import recover_candidate
 from savills_manifest_aid_capture_recovery import manifest_dates
 from savills_propertyauctions_clue_recovery import candidate_urls, parse_listing, search_urls
-from savills_propertyauctions_cursor_recovery import get as fetch_catalogue, rows as catalogue_rows
+from savills_propertyauctions_cursor_recovery import (
+    get as fetch_catalogue,
+    rows as catalogue_rows,
+    valid_heading_date,
+)
 
 PROGRESS = Path('data/historical_backfill_progress.json')
 HISTORY = Path('data/property_history.json')
@@ -39,6 +43,43 @@ def canonical_dates(db: dict) -> set[date]:
     return out
 
 
+def recovered_catalogues_from_state(state: dict, year: int) -> list[dict]:
+    """Recover dated PropertyAuctions AID catalogue evidence already persisted anywhere in Savills state.
+
+    Earlier cursor/postback runs persisted detailed AID evidence in nested diagnostics but did not always
+    carry forward the flattened validated catalogue manifest.  Mine that evidence instead of assuming an
+    in-memory manifest survived the conflict-safe publisher.
+    """
+    found: dict[tuple[int, str], dict] = {}
+
+    def walk(node):
+        if isinstance(node, dict):
+            aid = node.get('aid')
+            raw_date = node.get('date') or node.get('auction_date')
+            url = node.get('url') or node.get('catalogue_url') or node.get('evidence_url')
+            d = iso_day(raw_date)
+            if (
+                d and d.year == year and aid is not None and str(aid).isdigit()
+                and url and 'propertyauctions.com' in str(url).lower() and 'aid=' in str(url).lower()
+            ):
+                key = (int(aid), d.isoformat())
+                found[key] = {
+                    'aid': int(aid),
+                    'date': d.isoformat(),
+                    'url': str(url),
+                    'title': str(node.get('title') or ''),
+                    'validation': 'recovered from persisted Savills PropertyAuctions diagnostic state; live dated Savills heading must be revalidated',
+                }
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(state)
+    return sorted(found.values(), key=lambda x: (x['date'], x['aid']))
+
+
 def queries_for_clue(clue: dict) -> list[str]:
     location = str(clue.get('location') or '').strip()
     ptype = str(clue.get('property_type') or '').strip()
@@ -51,7 +92,6 @@ def queries_for_clue(clue: dict) -> list[str]:
         f'site:propertyauctions.io/listings "Savills" "{location}" "{ptype}"',
         f'site:propertyauctions.io/listings "Savills" "{location}" "Lot {lot}"',
     ]
-    # Preserve order while removing weak/duplicate queries caused by blank fields.
     out = []
     for q in queries:
         if '""' in q or q in out:
@@ -78,33 +118,55 @@ def run(year: int, max_clues: int = 180, max_search_results: int = 12, max_live_
         d = iso_day(item.get('date'))
         if d and d.year == year and item.get('aid') is not None and item.get('url'):
             catalogue_manifest.append(item)
-    catalogue_manifest.sort(key=lambda x: str(x.get('date') or ''))
+    manifest_source = 'flattened-validated-manifest'
+    if not catalogue_manifest:
+        catalogue_manifest = recovered_catalogues_from_state(state, year)
+        manifest_source = 'nested-persisted-diagnostic-state'
+
+    by_aid = {}
+    for item in catalogue_manifest:
+        by_aid[int(item['aid'])] = item
+    catalogue_manifest = sorted(by_aid.values(), key=lambda x: str(x.get('date') or ''))
 
     catalogue_runs = []
     clues: list[dict] = []
+    revalidated_catalogues = []
     for item in catalogue_manifest:
         aid = int(item['aid'])
         returned_aid, url, status, text, error = fetch_catalogue(aid)
         run_rec = {
             'aid': returned_aid,
-            'catalogue_date': item.get('date'),
+            'persisted_date': item.get('date'),
             'url': url,
             'status': status,
             'error': error,
+            'observed_savills_date': None,
             'commercial_mixed_clues': 0,
         }
         if status == 200 and text:
             try:
                 from bs4 import BeautifulSoup
                 soup = BeautifulSoup(text, 'html.parser')
-                parsed = catalogue_rows(soup, aid, str(item.get('date')), url)
-                run_rec['commercial_mixed_clues'] = len(parsed)
-                clues.extend(parsed)
+                plain = ' '.join(soup.stripped_strings)
+                observed = valid_heading_date(plain)
+                run_rec['observed_savills_date'] = observed
+                if observed and str(observed).startswith(f'{year}-'):
+                    parsed = catalogue_rows(soup, aid, observed, url)
+                    run_rec['commercial_mixed_clues'] = len(parsed)
+                    clues.extend(parsed)
+                    revalidated_catalogues.append({
+                        'aid': aid,
+                        'date': observed,
+                        'url': url,
+                        'validation': 'live PropertyAuctions page has explicit dated SAVILLS heading',
+                        'strict_commercial_mixed_lots_on_initial_grid': len(parsed),
+                    })
+                else:
+                    run_rec['validation_failure'] = 'live page lacks explicit dated Savills heading for target year'
             except Exception as exc:
                 run_rec['parse_error'] = f'{type(exc).__name__}: {exc}'
         catalogue_runs.append(run_rec)
 
-    # De-duplicate clue tuples without discarding repeated properties across distinct auction events.
     deduped = {}
     for clue in clues:
         key = (str(clue.get('auction_date')), str(clue.get('aid')), str(clue.get('lot_number')))
@@ -131,7 +193,7 @@ def run(year: int, max_clues: int = 180, max_search_results: int = 12, max_live_
 
         matched = []
         for url in discovered[:max_search_results]:
-            item, reason = parse_listing(url, target)
+            item, _reason = parse_listing(url, target)
             if item:
                 matched.append(item)
 
@@ -148,7 +210,6 @@ def run(year: int, max_clues: int = 180, max_search_results: int = 12, max_live_
             live_checks += 1
             row, reason = recover_candidate(candidate, target, discovery)
             if row:
-                # Keep the exact catalogue clue as corroborating provenance.
                 row['legacy_catalogue_url'] = clue.get('evidence_url')
                 row['legacy_catalogue_aid'] = clue.get('aid')
                 row['legacy_catalogue_lot_number'] = clue.get('lot_number')
@@ -191,14 +252,22 @@ def run(year: int, max_clues: int = 180, max_search_results: int = 12, max_live_
             state['earliest_date_reached'] = min(state.get('earliest_date_reached') or earliest, earliest)
             state['earliest_month_reached'] = min(state.get('earliest_month_reached') or earliest[:7], earliest[:7])
 
+    if revalidated_catalogues:
+        merged = {str(x.get('aid')): x for x in (state.get('propertyauctions_validated_catalogue_manifest') or []) if x.get('aid') is not None}
+        for item in revalidated_catalogues:
+            merged[str(item['aid'])] = item
+        state['propertyauctions_validated_catalogue_manifest'] = sorted(merged.values(), key=lambda x: int(x['aid']), reverse=True)
+
     missing_master_dates = [d.isoformat() for d in master_dates if d not in existing_dates]
     diag = {
         'at': now_iso(),
-        'route': 'savills-year-gap-propertyauctions-lot-tuple-to-indexed-detail-to-first-party-validation',
+        'route': 'savills-year-gap-persisted-aid-evidence-to-live-catalogue-to-lot-tuple-to-first-party-validation',
         'target_year': year,
         'master_manifest_dates': [d.isoformat() for d in master_dates],
         'master_dates_without_preexisting_canonical_event': missing_master_dates,
-        'validated_propertyauctions_catalogues': catalogue_manifest,
+        'catalogue_manifest_source': manifest_source,
+        'catalogue_candidates_recovered': catalogue_manifest,
+        'revalidated_propertyauctions_catalogues': revalidated_catalogues,
         'catalogue_runs': catalogue_runs,
         'commercial_mixed_clues': len(clues),
         'clues_processed': len(clue_runs),
@@ -213,7 +282,7 @@ def run(year: int, max_clues: int = 180, max_search_results: int = 12, max_live_
     state['savills_year_gap_focus'] = {
         'year': year,
         'master_dates': len(master_dates),
-        'validated_legacy_catalogues': len(catalogue_manifest),
+        'revalidated_legacy_catalogues': len(revalidated_catalogues),
         'commercial_mixed_clues': len(clues),
         'canonical_events_added': added,
     }
@@ -226,12 +295,13 @@ def run(year: int, max_clues: int = 180, max_search_results: int = 12, max_live_
             'route': diag['route'],
             'failing_url_or_route': failing,
             'message': (
-                f'Year {year} reconciliation found {len(catalogue_manifest)} validated PropertyAuctions Savills catalogue(s) '
-                f'and {len(clues)} strict commercial/mixed-use lot clue(s), but the clue-to-indexed-detail-to-first-party '
-                'validation chain produced no new canonical History V2 event.'
+                f'Year {year} reconciliation recovered {len(catalogue_manifest)} persisted AID catalogue candidate(s), '
+                f'revalidated {len(revalidated_catalogues)} as explicit dated Savills catalogue(s), and extracted '
+                f'{len(clues)} strict commercial/mixed-use lot clue(s), but no clue completed the indexed-detail plus '
+                'first-party Savills validation chain required for a new canonical History V2 event.'
             ),
             'next_safe_route': (
-                'Use the exact recovered AID/lot/type/location/result tuples from this diagnostic to enumerate '
+                'Use the exact revalidated AID/lot/type/location/result tuples from this diagnostic to enumerate '
                 'PropertyAuctions listing pagination/sitemaps and image asset IDs directly (no date-only search), then '
                 'reconcile any full-address hit back to the catalogue tuple and first-party Savills evidence.'
             ),
