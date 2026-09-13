@@ -1,0 +1,767 @@
+{
+  "at": "2026-09-13T03:14:17.121105+00:00",
+  "route": "savills-commoncrawl-raw-warc-auc675-parallel",
+  "auction_date": "2010-05-10",
+  "commoncrawl_indexes_checked": 127,
+  "index_queries_attempted": 508,
+  "capture_records_found": 0,
+  "warc_records_recovered": 0,
+  "useful_records": 0,
+  "records_with_postcodes": 0,
+  "records_with_explicit_lot_number": 0,
+  "canonical_events_added": 0,
+  "index_errors": [
+    {
+      "index": "CC-MAIN-2026-34",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-34",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-17",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-25",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-21",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-25",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-17",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-30",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-21",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-25",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-17",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-21",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-17",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-21",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-30",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-30",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-25",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-30",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-12",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-12",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-12",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-08",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-08",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-12",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "HTTP 503"
+    },
+    {
+      "index": "CC-MAIN-2026-34",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 404"
+    },
+    {
+      "index": "CC-MAIN-2026-04",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Read timed out. (read timeout=6)"
+    },
+    {
+      "index": "CC-MAIN-2025-47",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-47-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce2ea10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-51",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Read timed out. (read timeout=6)"
+    },
+    {
+      "index": "CC-MAIN-2025-51",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Read timed out. (read timeout=6)"
+    },
+    {
+      "index": "CC-MAIN-2025-51",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Read timed out. (read timeout=6)"
+    },
+    {
+      "index": "CC-MAIN-2026-04",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Read timed out. (read timeout=6)"
+    },
+    {
+      "index": "CC-MAIN-2025-51",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Read timed out. (read timeout=6)"
+    },
+    {
+      "index": "CC-MAIN-2025-43",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-43-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce2fd50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-47",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-47-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce2f8d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-47",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Read timed out. (read timeout=6)"
+    },
+    {
+      "index": "CC-MAIN-2025-43",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-43-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce40cd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-47",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Read timed out. (read timeout=6)"
+    },
+    {
+      "index": "CC-MAIN-2026-34",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "HTTP 404"
+    },
+    {
+      "index": "CC-MAIN-2025-43",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-43-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce40810>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-43",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-43-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce42810>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-38",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-38-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce43fd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-38",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-38-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd70910>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-38",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-38-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce54750>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-33",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-33-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc48910>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-38",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-38-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce56b10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-33",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-33-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce2d090>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-33",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-33-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df600d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-33",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-33-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df6aa50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-30",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df59650>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-30",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df4f410>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-30",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc491d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-30",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc4b490>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-26",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-26-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df37590>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-26",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-26-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd824d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-26",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-26-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd8e110>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-21",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-21-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df61d10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-21",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-21-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce2f410>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-26",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-26-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df47550>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-21",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-21-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce2f0d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-21",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-21-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce55550>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-18",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-18-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc48990>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-18",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-18-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce56b10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-18",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-18-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd70090>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-18",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-18-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce41390>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-13",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-13-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce40f50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-13",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-13-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df7a750>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2026-08",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Read timed out. (read timeout=20)"
+    },
+    {
+      "index": "CC-MAIN-2026-08",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Read timed out. (read timeout=20)"
+    },
+    {
+      "index": "CC-MAIN-2026-04",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Read timed out. (read timeout=20)"
+    },
+    {
+      "index": "CC-MAIN-2026-04",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Read timed out. (read timeout=20)"
+    },
+    {
+      "index": "CC-MAIN-2025-13",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-13-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df6b7d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-08",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-08-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df4dad0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-13",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-13-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df4e550>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-08",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-08-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc502d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-05",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-05-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df781d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-08",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-08-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df62190>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-05",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-05-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df446d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-08",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-08-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df63410>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-05",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-05-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df59450>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2025-05",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2025-05-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df36050>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-51",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd73310>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-51",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd83050>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-51",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df4f390>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-51",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df6a3d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-46",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-46-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce56690>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-46",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-46-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df7ac90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-46",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-46-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce43890>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-46",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-46-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df63b90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-42",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-42-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd68e50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-42",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-42-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df45050>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-42",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-42-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd81a10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-38",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-38-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df21cd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-38",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-38-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce42650>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-38",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-38-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd80ed0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-33",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-33-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc50490>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-33",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-33-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df58610>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-33",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-33-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df6b110>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-38",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-38-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc498d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-30",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df20950>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-33",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-33-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df58d10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-42",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-42-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df7b990>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-30",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd82f50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-30",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df37790>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-30",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df5b850>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-26",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-26-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd71990>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-26",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-26-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df6bb90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-26",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-26-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df638d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-22",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-22-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd81990>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-26",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-26-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df79310>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-18",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-18-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce557d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-22",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-22-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd8c1d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-22",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-22-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce41cd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-18",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-18-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce41b50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-22",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-22-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd6be50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-10",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-10-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df602d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-10",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-10-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd81490>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-10",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-10-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df44990>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-18",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-18-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd6ab10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-18",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-18-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df60cd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2024-10",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2024-10-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df7ad50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-50",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-50-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd80410>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-50",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-50-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd817d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-50",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-50-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce40390>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-50",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-50-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce57290>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-40",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-40-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc51a50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-40",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-40-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc4bb10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-40",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-40-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd9aa10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-14",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-14-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df4df50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-23",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-23-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd8c8d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-14",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-14-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce2f050>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-40",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-40-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd6ba90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-14",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-14-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc48510>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-23",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-23-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce43dd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-06",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-06-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc52e10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-14",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-14-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd68790>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-23",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-23-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df5ba10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-23",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-23-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df61050>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-06",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-06-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc649d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-06",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-06-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce2e7d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2023-06",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2023-06-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df375d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2022-49",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2022-49-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df79f90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2022-49",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2022-49-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce41fd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2022-49",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2022-49-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cd68c90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2022-40",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2022-40-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df14f50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2022-49",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2022-49-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc51b10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2022-40",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2022-40-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1df21150>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2022-40",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2022-40-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce57a50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2022-33",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2022-33-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1ce40e10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2022-33",
+      "target": "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?Auc=675",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2022-33-index?url=http%3A%2F%2Fauctions.savills.co.uk%3A80%2Fcommercial%2Fcomm_previous_auction_detail.asp%3FAuc%3D675&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc67a90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    },
+    {
+      "index": "CC-MAIN-2022-40",
+      "target": "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=675*",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2022-40-index?url=http%3A%2F%2Fauctions.savills.co.uk%2Fcommercial%2Fcomm_previous_auction_lot.asp%3FAuc%3D675%2A&output=json&filter=mime%3Atext%2Fhtml (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f5c1cc67b10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=6)'))"
+    }
+  ],
+  "warc_fetch_errors": [],
+  "records": []
+}
