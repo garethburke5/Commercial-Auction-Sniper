@@ -29,8 +29,123 @@ jobs:
       - run: pip install requests beautifulsoup4
       - name: Compile recovery route
         run: python -m py_compile savills_year_gap_recovery.py savills_propertyauctions_cursor_recovery.py savills_propertyauctions_clue_recovery.py savills_legacy_aid_capture_recovery.py history_database.py
-      - name: Reconcile first Savills 2018 gap batch
-        run: python savills_year_gap_recovery.py --year 2018 --max-clues 6 --max-search-results 8 --max-live-checks 80
+      - name: Reconcile Savills 2018 gap batch
+        run: python savills_year_gap_recovery.py --year 2018 --max-clues 20 --max-search-results 10 --max-live-checks 120
+      - name: Direct exact-tuple Savills index recovery
+        run: |
+          python - <<'PY'
+          import html, json, re
+          from datetime import date, datetime, timezone
+          from pathlib import Path
+          from urllib.parse import quote_plus, unquote, urlparse
+          import requests
+          from bs4 import BeautifulSoup
+          from history_database import update_history_database
+          from savills_archival_url_discovery import source_count
+          from savills_legacy_aid_capture_recovery import recover_candidate
+
+          P=Path('data/historical_backfill_progress.json')
+          H=Path('data/property_history.json')
+          D=Path('data/source_diagnostics/savills_year_gap_recovery.json')
+          UA='Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'
+          p=json.loads(P.read_text())
+          s=p['sources']['Savills Auctions']
+          base_diag=s.get('savills_year_gap_last_run') or {}
+          clues=(base_diag.get('clue_runs') or [])[:20]
+          before=json.loads(H.read_text())
+          before_n=source_count(before)
+          recovered={}
+          runs=[]
+          total_urls=0
+          live_checks=0
+
+          def search(q):
+              urls=[]; errors=[]
+              endpoints=[
+                  ('bing','https://www.bing.com/search?q='+quote_plus(q)+'&count=50'),
+                  ('ddg','https://html.duckduckgo.com/html/?q='+quote_plus(q)),
+              ]
+              for name,u in endpoints:
+                  try:
+                      r=requests.get(u,headers={'User-Agent':UA,'Accept-Language':'en-GB,en;q=0.8'},timeout=(5,18))
+                      text=r.text
+                  except Exception as e:
+                      errors.append(f'{name}: {type(e).__name__}: {e}'); continue
+                  soup=BeautifulSoup(text,'html.parser')
+                  cands=[a.get('href') or '' for a in soup.find_all('a',href=True)]
+                  cands += re.findall(r'https?://(?:www\.)?auctions\.savills\.co\.uk/[^"\'<>\s&]+',text,re.I)
+                  for href in cands:
+                      href=html.unescape(href)
+                      m=re.search(r'[?&]uddg=([^&]+)',href)
+                      if m: href=unquote(m.group(1))
+                      try: host=(urlparse(href).hostname or '').lower()
+                      except Exception: continue
+                      if host not in {'auctions.savills.co.uk','www.auctions.savills.co.uk'}: continue
+                      clean=href.rstrip('.,);]')
+                      if clean not in urls: urls.append(clean)
+              return urls[:20],errors
+
+          for clue in clues:
+              raw_date=str(clue.get('auction_date') or '')[:10]
+              try: target=date.fromisoformat(raw_date)
+              except Exception: continue
+              loc=str(clue.get('location') or '').strip()
+              typ=str(clue.get('property_type') or '').strip()
+              lot=str(clue.get('lot_number') or '').strip()
+              result=str(clue.get('result') or '').strip()
+              date_text=target.strftime('%d %B %Y')
+              queries=[
+                  f'site:auctions.savills.co.uk "{loc}" "{date_text}"',
+                  f'site:auctions.savills.co.uk "{loc}" "Lot {lot}" "Savills"',
+                  f'site:auctions.savills.co.uk "{loc}" "{typ}" "{target.year}"',
+              ]
+              if result:
+                  queries.append(f'site:auctions.savills.co.uk "{loc}" "{result}" "Savills"')
+              found=[]; errors=[]
+              for q in queries:
+                  us,es=search(q); errors.extend([q+' :: '+e for e in es])
+                  for u in us:
+                      if u not in found: found.append(u)
+              total_urls += len(found)
+              accepted=[]; rejected=[]
+              for u in found[:20]:
+                  if live_checks>=120: break
+                  live_checks+=1
+                  row,reason=recover_candidate(u,target,'exact-tuple public index search')
+                  if row:
+                      row['legacy_catalogue_url']=clue.get('catalogue_url')
+                      row['legacy_catalogue_aid']=clue.get('aid')
+                      row['legacy_catalogue_lot_number']=lot
+                      key=(str(row.get('auction_date')),str(row.get('lot_number')),str(row.get('source_url') or row.get('url')))
+                      recovered[key]=row; accepted.append(u)
+                  elif len(rejected)<8:
+                      rejected.append({'url':u,'reason':reason})
+              runs.append({'aid':clue.get('aid'),'auction_date':raw_date,'lot_number':lot,'property_type':typ,'location':loc,'result':result,'queries':queries,'savills_urls_found':found[:20],'accepted':accepted,'rejected_samples':rejected,'errors':errors[:6]})
+              if live_checks>=120: break
+
+          rows=list(recovered.values())
+          after_n=before_n; added=0
+          if rows:
+              db=update_history_database(rows,path=H)
+              after_n=source_count(db); added=max(0,after_n-before_n)
+              s['lots_captured']=after_n; s['last_history_event_count']=after_n
+
+          diag={'at':datetime.now(timezone.utc).isoformat(),'route':'savills-2018-exact-catalogue-tuple-direct-first-party-index-search','clues_processed':len(runs),'savills_urls_found':total_urls,'live_first_party_checks':live_checks,'canonical_events_added':added,'savills_events_before':before_n,'savills_events_after':after_n,'runs':runs}
+          s['savills_year_gap_direct_index_last_run']=diag
+          s['last_discovery_mode']=diag['route']
+          s['historically_complete']=False; s['discovery_exhausted']=False
+          if added==0:
+              first=runs[0] if runs else {}
+              failing=(first.get('queries') or ['2018 exact tuple index route'])[0]
+              s['status']='YEAR GAP BLOCKED'
+              s['savills_year_gap_last_blocker']={'at':diag['at'],'route':diag['route'],'failing_url_or_route':failing,'message':f'Exact tuple search processed {len(runs)} 2018 catalogue lot clues, discovered {total_urls} first-party Savills URL(s), and performed {live_checks} strict live checks, but no new canonical History V2 event satisfied full-address plus explicit commercial/mixed-use plus auction-result validation.','next_safe_route':'Enumerate the live PropertyAuctions catalogue ASP.NET pagination/postback state for each revalidated 2018 AID, capture every page of commercial/mixed-use lot tuples, and mine page HTML/image/script identifiers for property/detail IDs before retrying first-party Savills reconstruction.'}
+          else:
+              s.pop('savills_year_gap_last_blocker',None); s['status']='YEAR GAP RECOVERY ACTIVE'
+          p['updated_at']=diag['at']; P.write_text(json.dumps(p,indent=2,ensure_ascii=False))
+          d=json.loads(D.read_text()) if D.exists() else {}
+          d['direct_tuple_index_run']=diag; D.write_text(json.dumps(d,indent=2,ensure_ascii=False))
+          print(json.dumps({k:v for k,v in diag.items() if k!='runs'},indent=2))
+          PY
       - name: Verify generated state
         run: |
           python - <<'PY'
@@ -38,18 +153,19 @@ jobs:
           from pathlib import Path
           h=json.loads(Path('data/property_history.json').read_text())
           p=json.loads(Path('data/historical_backfill_progress.json').read_text())
-          s=p['sources']['Savills Auctions'];d=s['savills_year_gap_last_run']
+          s=p['sources']['Savills Auctions'];d=s['savills_year_gap_last_run'];x=s.get('savills_year_gap_direct_index_last_run') or {}
           count=sum(1 for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions')
           dates=sorted(str(e.get('auction_date')) for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions' and e.get('auction_date'))
           print('SAVILLS_EVENTS',count)
           print('OLDEST_VERIFIED',dates[0] if dates else None)
           print('TARGET_YEAR',d['target_year'])
-          print('CATALOGUE_CANDIDATES',len(d['catalogue_candidates_recovered']))
           print('REVALIDATED_CATALOGUES',len(d['revalidated_propertyauctions_catalogues']))
-          print('COMMERCIAL_MIXED_CLUES',d['commercial_mixed_clues'])
-          print('CLUES_PROCESSED',d['clues_processed'])
-          print('ADDED',d['canonical_events_added'])
-          assert count==d['savills_events_after']
+          print('BASE_CLUES_PROCESSED',d['clues_processed'])
+          print('DIRECT_CLUES_PROCESSED',x.get('clues_processed'))
+          print('DIRECT_SAVILLS_URLS',x.get('savills_urls_found'))
+          print('DIRECT_LIVE_CHECKS',x.get('live_first_party_checks'))
+          print('DIRECT_ADDED',x.get('canonical_events_added'))
+          assert count==x.get('savills_events_after',d['savills_events_after'])
           assert s.get('historically_complete') is False
           assert s.get('discovery_exhausted') is False
           PY
@@ -75,7 +191,7 @@ jobs:
           recovered=json.loads(Path('/tmp/savills_gap_progress.json').read_text())
           fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{})
           rs=recovered['sources']['Savills Auctions']
-          for key in ('savills_year_gap_last_run','savills_year_gap_last_blocker','savills_year_gap_focus','propertyauctions_validated_catalogue_manifest','last_history_event_count','lots_captured','earliest_date_reached','earliest_month_reached','last_discovery_mode','status'):
+          for key in ('savills_year_gap_last_run','savills_year_gap_direct_index_last_run','savills_year_gap_last_blocker','savills_year_gap_focus','propertyauctions_validated_catalogue_manifest','last_history_event_count','lots_captured','earliest_date_reached','earliest_month_reached','last_discovery_mode','status'):
               if key in rs: fs[key]=rs[key]
               elif key in fs and key == 'savills_year_gap_last_blocker': fs.pop(key,None)
           fs['historically_complete']=False
@@ -85,7 +201,7 @@ jobs:
           PY
             git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics/savills_year_gap_recovery.json
             if git diff --cached --quiet; then exit 0; fi
-            git commit -m 'Persist bounded Savills 2018 year-gap batch'
+            git commit -m 'Persist Savills 2018 exact-tuple index recovery'
             if git push origin HEAD:main; then exit 0; fi
             git reset --hard HEAD~1
             sleep $((attempt*3))
