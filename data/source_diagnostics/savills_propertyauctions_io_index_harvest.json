@@ -1,371 +1,1257 @@
 {
-  "at": "2026-09-14T05:13:03.979107+00:00",
-  "route": "propertyauctions-io-search-index-exact-auction-date-bulk-harvest",
-  "auction_dates": 71,
+  "at": "2026-09-14T05:16:30.608885+00:00",
+  "route": "propertyauctions-io-clue-specific-multi-engine-html-index-harvest",
   "commercial_mixed_clues": 497,
-  "queries_executed": 426,
-  "search_errors": 0,
-  "raw_listing_hits": 0,
+  "search_requests": 994,
+  "status_counts": {
+    "bing:200": 497,
+    "ddg:202": 51,
+    "ddg:403": 20,
+    "ddg:None": 426
+  },
+  "raw_propertyauctions_hits": 0,
   "unique_listing_ids": 0,
-  "unique_date_location_postcode_matches": 0,
-  "per_date": {
-    "2018-11-29": {
-      "catalogue_clues": 2,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2018-11-26": {
-      "catalogue_clues": 11,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2018-09-27": {
-      "catalogue_clues": 1,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2018-09-26": {
-      "catalogue_clues": 6,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2018-08-01": {
-      "catalogue_clues": 2,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2018-07-24": {
-      "catalogue_clues": 5,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2018-06-18": {
-      "catalogue_clues": 10,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2018-06-07": {
-      "catalogue_clues": 1,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2018-05-09": {
-      "catalogue_clues": 13,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2018-04-12": {
-      "catalogue_clues": 2,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2018-03-26": {
-      "catalogue_clues": 25,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2018-02-14": {
-      "catalogue_clues": 2,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2018-02-13": {
-      "catalogue_clues": 14,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-12-11": {
-      "catalogue_clues": 8,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-11-30": {
-      "catalogue_clues": 2,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-11-06": {
-      "catalogue_clues": 15,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-09-25": {
-      "catalogue_clues": 6,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-09-21": {
-      "catalogue_clues": 7,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-07-27": {
-      "catalogue_clues": 3,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-07-24": {
-      "catalogue_clues": 5,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-06-19": {
-      "catalogue_clues": 8,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-06-08": {
-      "catalogue_clues": 6,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-05-09": {
-      "catalogue_clues": 5,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-04-27": {
-      "catalogue_clues": 7,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-03-29": {
-      "catalogue_clues": 7,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-02-16": {
-      "catalogue_clues": 3,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2017-02-13": {
-      "catalogue_clues": 5,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-12-15": {
-      "catalogue_clues": 4,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-12-12": {
-      "catalogue_clues": 5,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-11-01": {
-      "catalogue_clues": 4,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-10-20": {
-      "catalogue_clues": 6,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-09-01": {
-      "catalogue_clues": 4,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-07-25": {
-      "catalogue_clues": 5,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-07-07": {
-      "catalogue_clues": 6,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-06-20": {
-      "catalogue_clues": 3,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-05-19": {
-      "catalogue_clues": 14,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-05-09": {
-      "catalogue_clues": 8,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-03-23": {
-      "catalogue_clues": 7,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-03-02": {
-      "catalogue_clues": 7,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-02-16": {
-      "catalogue_clues": 7,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2016-02-04": {
-      "catalogue_clues": 6,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2015-11-02": {
-      "catalogue_clues": 3,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2015-10-22": {
-      "catalogue_clues": 6,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2015-09-03": {
-      "catalogue_clues": 11,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2015-07-28": {
-      "catalogue_clues": 10,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2015-07-09": {
-      "catalogue_clues": 12,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2015-06-22": {
-      "catalogue_clues": 5,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2015-05-14": {
-      "catalogue_clues": 4,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2015-05-11": {
-      "catalogue_clues": 4,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2015-03-31": {
-      "catalogue_clues": 5,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2015-03-26": {
-      "catalogue_clues": 11,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2015-02-17": {
-      "catalogue_clues": 2,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2015-01-29": {
-      "catalogue_clues": 9,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-12-08": {
-      "catalogue_clues": 2,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-12-04": {
-      "catalogue_clues": 12,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-10-28": {
-      "catalogue_clues": 5,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-10-16": {
-      "catalogue_clues": 13,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-09-15": {
-      "catalogue_clues": 5,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-08-28": {
-      "catalogue_clues": 13,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-07-22": {
-      "catalogue_clues": 5,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-07-10": {
-      "catalogue_clues": 11,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-06-16": {
-      "catalogue_clues": 8,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-05-15": {
-      "catalogue_clues": 21,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-05-07": {
-      "catalogue_clues": 1,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-03-27": {
-      "catalogue_clues": 19,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-03-24": {
-      "catalogue_clues": 5,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-02-11": {
-      "catalogue_clues": 5,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2014-01-30": {
-      "catalogue_clues": 6,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2013-12-10": {
-      "catalogue_clues": 6,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2013-11-28": {
-      "catalogue_clues": 8,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
-    },
-    "2010-05-10": {
-      "catalogue_clues": 3,
-      "indexed_listing_ids": 0,
-      "unique_clue_matches": 0
+  "unique_clue_matches": 0,
+  "ambiguous_clue_matches": 0,
+  "per_year": {
+    "2018": {
+      "commercial_mixed_clues": 94,
+      "unique_index_matches": 0,
+      "ambiguous_index_matches": 0
+    },
+    "2017": {
+      "commercial_mixed_clues": 87,
+      "unique_index_matches": 0,
+      "ambiguous_index_matches": 0
+    },
+    "2016": {
+      "commercial_mixed_clues": 86,
+      "unique_index_matches": 0,
+      "ambiguous_index_matches": 0
+    },
+    "2015": {
+      "commercial_mixed_clues": 82,
+      "unique_index_matches": 0,
+      "ambiguous_index_matches": 0
+    },
+    "2014": {
+      "commercial_mixed_clues": 131,
+      "unique_index_matches": 0,
+      "ambiguous_index_matches": 0
+    },
+    "2013": {
+      "commercial_mixed_clues": 14,
+      "unique_index_matches": 0,
+      "ambiguous_index_matches": 0
+    },
+    "2010": {
+      "commercial_mixed_clues": 3,
+      "unique_index_matches": 0,
+      "ambiguous_index_matches": 0
     }
   },
-  "matches": [],
-  "listing_inventory": [],
-  "error_samples": []
+  "unique_matches": [],
+  "ambiguous_matches": [],
+  "error_samples": [
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "131",
+        "location": "South Croydon, Surrey",
+        "property_type": "Investment Leasehold Garage",
+        "result": "£126,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "132",
+        "location": "Stoke-on-Trent, Staffordshire",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£45,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "clue": {
+        "aid": "1067",
+        "auction_date": "2018-03-26",
+        "lot_number": "175",
+        "location": "London N17",
+        "property_type": "Investment Freehold Retail",
+        "result": "£40,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "clue": {
+        "aid": "1067",
+        "auction_date": "2018-03-26",
+        "lot_number": "190",
+        "location": "Ilford, Essex",
+        "property_type": "Vacant Freehold Garage",
+        "result": "Withdrawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "149",
+        "location": "London SE9",
+        "property_type": "Vacant Freehold Garage",
+        "result": "Sold Post"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "119",
+        "location": "Rotherham, South Yorkshire",
+        "property_type": "Investment Freehold Retail",
+        "result": "Refer to Auctioneer"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "clue": {
+        "aid": "1067",
+        "auction_date": "2018-03-26",
+        "lot_number": "187",
+        "location": "Farnborough, Hampshire",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£7,500"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "clue": {
+        "aid": "1067",
+        "auction_date": "2018-03-26",
+        "lot_number": "189",
+        "location": "Mitcham, Surrey",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£46,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "clue": {
+        "aid": "1067",
+        "auction_date": "2018-03-26",
+        "lot_number": "188",
+        "location": "Farnborough, Hampshire",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£7,500"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "clue": {
+        "aid": "1080",
+        "auction_date": "2018-02-14",
+        "lot_number": "9",
+        "location": "Immingham, Lincolnshire",
+        "property_type": "Investment Freehold Retail Warehouse",
+        "result": "Available"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "clue": {
+        "aid": "1067",
+        "auction_date": "2018-03-26",
+        "lot_number": "201",
+        "location": "Immingham, Lincolnshire",
+        "property_type": "Part Vacant Freehold Retail",
+        "result": "Withdrawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "clue": {
+        "aid": "1080",
+        "auction_date": "2018-02-14",
+        "lot_number": "2A",
+        "location": "Debdale Lane, Mansfield Woodhouse",
+        "property_type": "Investment Freehold Commercial",
+        "result": "Available"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "clue": {
+        "aid": "1067",
+        "auction_date": "2018-03-26",
+        "lot_number": "181",
+        "location": "London SW17",
+        "property_type": "Vacant Freehold Retail",
+        "result": "£560,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "166",
+        "location": "Newport, Isle of Wight",
+        "property_type": "Vacant Freehold Garage",
+        "result": "Available at £20,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "150",
+        "location": "Luton, Bedfordshire",
+        "property_type": "Vacant Freehold Garage",
+        "result": "Available at £90,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Luton%2C+Bedfordshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18a19f50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "168",
+        "location": "St Albans, Hertfordshire",
+        "property_type": "Investment Freehold Garage",
+        "result": "£141,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22St+Albans%2C+Hertfordshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18ee29d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "174",
+        "location": "Ewell, Surrey",
+        "property_type": "Vacant Freehold Office",
+        "result": "Sold Prior"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Ewell%2C+Surrey%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b43a050>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "171",
+        "location": "Watford, Hertfordshire",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£57,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Watford%2C+Hertfordshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b8ae410>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "169",
+        "location": "Southam, Warwickshire",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£34,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Southam%2C+Warwickshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18e2e950>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "175",
+        "location": "Barnet, Hertfordshire",
+        "property_type": "Investment Freehold Garage",
+        "result": "Available at £150,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Barnet%2C+Hertfordshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18c63550>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "176",
+        "location": "Buntingford, Hertfordshire",
+        "property_type": "Vacant Freehold Garage",
+        "result": "Withdrawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Buntingford%2C+Hertfordshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb280e8e10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "252",
+        "location": "Oldbury, West Midlands",
+        "property_type": "Vacant Freehold Office",
+        "result": "Withdrawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Oldbury%2C+West+Midlands%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb280f7690>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1066",
+        "auction_date": "2018-02-13",
+        "lot_number": "258",
+        "location": "Westbury, Wiltshire",
+        "property_type": "Vacant Freehold Garage",
+        "result": "Available at £6,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Westbury%2C+Wiltshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b83b690>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1047",
+        "auction_date": "2017-12-11",
+        "lot_number": "9",
+        "location": "Barnet, Hertfordshire",
+        "property_type": "Investment Freehold Garage",
+        "result": "Available at £220,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Barnet%2C+Hertfordshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18ed6f90>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1047",
+        "auction_date": "2017-12-11",
+        "lot_number": "47",
+        "location": "London W4",
+        "property_type": "Vacant Freehold Office",
+        "result": "£504,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+W4%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18fd2590>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1047",
+        "auction_date": "2017-12-11",
+        "lot_number": "48",
+        "location": "London SE26",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£27,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+SE26%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bafd690>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1047",
+        "auction_date": "2017-12-11",
+        "lot_number": "86",
+        "location": "Hemel Hempstead, Hertfordshire",
+        "property_type": "Vacant Freehold Retail",
+        "result": "£270,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Hemel+Hempstead%2C+Hertfordshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb28028910>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1047",
+        "auction_date": "2017-12-11",
+        "lot_number": "87",
+        "location": "Moreton-in-Marsh, Gloucestershire",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£46,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Moreton-in-Marsh%2C+Gloucestershire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18fd2090>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1047",
+        "auction_date": "2017-12-11",
+        "lot_number": "88",
+        "location": "Salisbury, Wiltshire",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£31,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Salisbury%2C+Wiltshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18ed4790>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1047",
+        "auction_date": "2017-12-11",
+        "lot_number": "97",
+        "location": "Luton, Bedfordshire",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£87,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Luton%2C+Bedfordshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18ac59d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1047",
+        "auction_date": "2017-12-11",
+        "lot_number": "161",
+        "location": "Oldbury, West Midlands",
+        "property_type": "Vacant Freehold Office",
+        "result": "Available at £195,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Oldbury%2C+West+Midlands%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b415cd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1037",
+        "auction_date": "2017-11-30",
+        "lot_number": "11",
+        "location": "Oldham Road, Manchester",
+        "property_type": "Investment Freehold Industrial",
+        "result": "Available"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Oldham+Road%2C+Manchester%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb281c23d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1037",
+        "auction_date": "2017-11-30",
+        "lot_number": "30",
+        "location": "Immingham, Lincolnshire",
+        "property_type": "Investment Freehold Office",
+        "result": "Withdrawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Immingham%2C+Lincolnshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb281f4e10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "19",
+        "location": "London SW16",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£13,500"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+SW16%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18e79750>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "29",
+        "location": "London NW10",
+        "property_type": "Vacant Leasehold Garage",
+        "result": "Withdrawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+NW10%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18c0ff10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "51",
+        "location": "South Croydon, Surrey",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£304,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22South+Croydon%2C+Surrey%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18f45cd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "58B",
+        "location": "Reading, Berkshire",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£86,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Reading%2C+Berkshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb281b3f50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "66",
+        "location": "London W7",
+        "property_type": "Vacant Freehold Retail",
+        "result": "£475,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+W7%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bb61b10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "72",
+        "location": "London N14",
+        "property_type": "Vacant Leasehold Garage",
+        "result": "Refer to Auctioneer"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+N14%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2baa2890>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "77",
+        "location": "Epsom, Surrey",
+        "property_type": "Vacant Leasehold Retail",
+        "result": "£65,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Epsom%2C+Surrey%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2baa1310>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "81",
+        "location": "Luton, Bedfordshire",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£88,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Luton%2C+Bedfordshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bc483d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "81A",
+        "location": "Coventry, West Midlands",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£55,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Coventry%2C+West+Midlands%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18e84ed0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "90",
+        "location": "Mitcham, Surrey",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£66,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Mitcham%2C+Surrey%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18e84610>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "155",
+        "location": "Bretton, Peterborough",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£6,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Bretton%2C+Peterborough%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18e9d890>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "156",
+        "location": "Godalming, Surrey",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£115,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Godalming%2C+Surrey%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2baa0bd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "163",
+        "location": "Gloucester, Gloucestershire",
+        "property_type": "Investment Freehold Office",
+        "result": "£116,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Gloucester%2C+Gloucestershire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bafec50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "164",
+        "location": "Gloucester, Gloucestershire",
+        "property_type": "Investment Freehold Industrial",
+        "result": "£123,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Gloucester%2C+Gloucestershire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b9d29d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1046",
+        "auction_date": "2017-11-06",
+        "lot_number": "173",
+        "location": "Consett, County Durham",
+        "property_type": "Vacant Freehold Retail",
+        "result": "£57,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Consett%2C+County+Durham%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bbf5e90>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1045",
+        "auction_date": "2017-09-25",
+        "lot_number": "119",
+        "location": "London SE25",
+        "property_type": "Vacant Freehold Office",
+        "result": "Withdrawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+SE25%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b61a450>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1045",
+        "auction_date": "2017-09-25",
+        "lot_number": "128",
+        "location": "Wickford, Essex",
+        "property_type": "Vacant Freehold Office",
+        "result": "Withdawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Wickford%2C+Essex%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18e611d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1045",
+        "auction_date": "2017-09-25",
+        "lot_number": "129",
+        "location": "Weybridge, Surrey",
+        "property_type": "Vacant Freehold Office",
+        "result": "Available at £1M"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Weybridge%2C+Surrey%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b724dd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1045",
+        "auction_date": "2017-09-25",
+        "lot_number": "209",
+        "location": "Oldbury, West Midlands",
+        "property_type": "Vacant Freehold Office",
+        "result": "£200,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Oldbury%2C+West+Midlands%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b2e3ed0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1045",
+        "auction_date": "2017-09-25",
+        "lot_number": "219",
+        "location": "Sunningdale, Berkshire",
+        "property_type": "Vacant Leasehold Garage",
+        "result": "£10,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Sunningdale%2C+Berkshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb28160890>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1045",
+        "auction_date": "2017-09-25",
+        "lot_number": "222",
+        "location": "London SW19",
+        "property_type": "Vacant Leasehold Retail",
+        "result": "£10,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+SW19%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18a19a90>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1036",
+        "auction_date": "2017-09-21",
+        "lot_number": "5",
+        "location": "Mansfield, Nottingham",
+        "property_type": "Investment Freehold Industrial",
+        "result": "£125,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Mansfield%2C+Nottingham%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18aeff10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1036",
+        "auction_date": "2017-09-21",
+        "lot_number": "13",
+        "location": "Oldham Road, Manchester",
+        "property_type": "Freehold Industrial",
+        "result": "Available"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Oldham+Road%2C+Manchester%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b64c490>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1036",
+        "auction_date": "2017-09-21",
+        "lot_number": "14",
+        "location": "Mansfield, Nottinghamshire",
+        "property_type": "Vacant Freehold Retail",
+        "result": "£21,500"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Mansfield%2C+Nottinghamshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18d24f90>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1036",
+        "auction_date": "2017-09-21",
+        "lot_number": "18",
+        "location": "Clifton, Nottingham",
+        "property_type": "Vacant Leasehold Retail",
+        "result": "Available"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Clifton%2C+Nottingham%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18a86cd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1036",
+        "auction_date": "2017-09-21",
+        "lot_number": "19",
+        "location": "Nottingham",
+        "property_type": "Investment Freehold Retail",
+        "result": "£150,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Nottingham%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2805dbd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1036",
+        "auction_date": "2017-09-21",
+        "lot_number": "23",
+        "location": "Stoke-on-Trent, Staffordshire",
+        "property_type": "Investment Freehold Bank",
+        "result": "£225,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Stoke-on-Trent%2C+Staffordshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb280c39d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1036",
+        "auction_date": "2017-09-21",
+        "lot_number": "25",
+        "location": "Mansfield, Nottinghamshire",
+        "property_type": "Vacant Freehold Industrial",
+        "result": "Withdrawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Mansfield%2C+Nottinghamshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb281f65d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1035",
+        "auction_date": "2017-07-27",
+        "lot_number": "2",
+        "location": "Nottingham",
+        "property_type": "Investment Freehold Retail",
+        "result": "Available"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Nottingham%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18c68a10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1035",
+        "auction_date": "2017-07-27",
+        "lot_number": "19",
+        "location": "Clifton, Nottingham",
+        "property_type": "Vacant Leasehold Retail",
+        "result": "Available"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Clifton%2C+Nottingham%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bd63c90>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1035",
+        "auction_date": "2017-07-27",
+        "lot_number": "21",
+        "location": "Hucknall, Nottingham",
+        "property_type": "Vacant Freehold Retail",
+        "result": "Withdrawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Hucknall%2C+Nottingham%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bd35250>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1044",
+        "auction_date": "2017-07-24",
+        "lot_number": "76",
+        "location": "West Molesey, Surrey",
+        "property_type": "Part Vacant Freehold Retail",
+        "result": "Available at £530,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22West+Molesey%2C+Surrey%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18e31a50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1044",
+        "auction_date": "2017-07-24",
+        "lot_number": "91",
+        "location": "Egham, Surrey",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£66,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Egham%2C+Surrey%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b279f90>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1044",
+        "auction_date": "2017-07-24",
+        "lot_number": "102",
+        "location": "London N17",
+        "property_type": "Vacant Freehold Garage",
+        "result": "Withdrawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+N17%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b7d96d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1044",
+        "auction_date": "2017-07-24",
+        "lot_number": "107",
+        "location": "Runcorn, Cheshire",
+        "property_type": "Vacant Freehold Office",
+        "result": "£105,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Runcorn%2C+Cheshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2ba78650>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1044",
+        "auction_date": "2017-07-24",
+        "lot_number": "119",
+        "location": "Gloucester",
+        "property_type": "Investment Leasehold Retail",
+        "result": "£140,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Gloucester%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bd7f790>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1043",
+        "auction_date": "2017-06-19",
+        "lot_number": "45",
+        "location": "London SE22",
+        "property_type": "Vacant Freehold Retail",
+        "result": "Sold Prior"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+SE22%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b7d8e50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1043",
+        "auction_date": "2017-06-19",
+        "lot_number": "46",
+        "location": "London N14",
+        "property_type": "Vacant Leasehold Garage",
+        "result": "£18,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+N14%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b894350>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1043",
+        "auction_date": "2017-06-19",
+        "lot_number": "49",
+        "location": "London W5",
+        "property_type": "Investment Freehold Garage",
+        "result": "£53,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+W5%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bd51850>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1043",
+        "auction_date": "2017-06-19",
+        "lot_number": "65",
+        "location": "West Midlands",
+        "property_type": "Investment Freehold Retail",
+        "result": "Available at £1.8M"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22West+Midlands%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18c830d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1043",
+        "auction_date": "2017-06-19",
+        "lot_number": "136",
+        "location": "London SW6",
+        "property_type": "Vacant Leasehold Retail",
+        "result": "£32,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+SW6%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b8953d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1043",
+        "auction_date": "2017-06-19",
+        "lot_number": "140",
+        "location": "Edenbridge, Kent",
+        "property_type": "Vacant Freehold Office",
+        "result": "Available at £420,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Edenbridge%2C+Kent%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bb051d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1043",
+        "auction_date": "2017-06-19",
+        "lot_number": "144",
+        "location": "Gloucester, Gloucestershire",
+        "property_type": "Investment Leasehold Retail",
+        "result": "Available at £185,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Gloucester%2C+Gloucestershire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b7d5a10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1043",
+        "auction_date": "2017-06-19",
+        "lot_number": "146",
+        "location": "London N1",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£70,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+N1%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bc864d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1034",
+        "auction_date": "2017-06-08",
+        "lot_number": "2",
+        "location": "Mansfield, Nottinghamshire",
+        "property_type": "Investment Freehold Industrial",
+        "result": "£220,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Mansfield%2C+Nottinghamshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18c66690>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1034",
+        "auction_date": "2017-06-08",
+        "lot_number": "8",
+        "location": "Warsop",
+        "property_type": "Investment Freehold Commercial",
+        "result": "£230,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Warsop%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b7dbd50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1034",
+        "auction_date": "2017-06-08",
+        "lot_number": "13",
+        "location": "Mansfield Woodhouse",
+        "property_type": "Investment Freehold Industrial",
+        "result": "£230,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Mansfield+Woodhouse%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b7d41d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1034",
+        "auction_date": "2017-06-08",
+        "lot_number": "17",
+        "location": "Mansfield Woodhouse",
+        "property_type": "Investment Freehold Industrial",
+        "result": "£242,500"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Mansfield+Woodhouse%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bb61250>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1034",
+        "auction_date": "2017-06-08",
+        "lot_number": "21",
+        "location": "Mansfield",
+        "property_type": "Investment Freehold Retail",
+        "result": "Available"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Mansfield%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2b7d6190>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1034",
+        "auction_date": "2017-06-08",
+        "lot_number": "23",
+        "location": "Nottingham",
+        "property_type": "Investment Freehold Commercial",
+        "result": "Sold Prior"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Nottingham%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb28145210>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1019",
+        "auction_date": "2017-05-09",
+        "lot_number": "18",
+        "location": "Feltham, Middlesex",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£90,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Feltham%2C+Middlesex%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb281be7d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1019",
+        "auction_date": "2017-05-09",
+        "lot_number": "66",
+        "location": "Erith, Kent",
+        "property_type": "Investment Freehold Industrial",
+        "result": "£835,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Erith%2C+Kent%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bc14b50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1019",
+        "auction_date": "2017-05-09",
+        "lot_number": "67",
+        "location": "Dartford, Kent",
+        "property_type": "Investment Freehold Industrial",
+        "result": "Withdrawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Dartford%2C+Kent%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18b66a10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1019",
+        "auction_date": "2017-05-09",
+        "lot_number": "73",
+        "location": "Witney, Oxfordshire",
+        "property_type": "Investment Freehold Retail",
+        "result": "Refer to Auctioneer"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Witney%2C+Oxfordshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18e1c9d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1019",
+        "auction_date": "2017-05-09",
+        "lot_number": "119",
+        "location": "Tring, Hertfordshire",
+        "property_type": "Vacant Leasehold Office",
+        "result": "£590,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Tring%2C+Hertfordshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18e1d990>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1033",
+        "auction_date": "2017-04-27",
+        "lot_number": "3",
+        "location": "Netherfield, Nottingham",
+        "property_type": "Vacant Freehold Retail",
+        "result": "Available"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Netherfield%2C+Nottingham%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18d4e310>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1033",
+        "auction_date": "2017-04-27",
+        "lot_number": "6",
+        "location": "Nottingham",
+        "property_type": "Investment Freehold Commercial",
+        "result": "Available"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Nottingham%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18d4cdd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1033",
+        "auction_date": "2017-04-27",
+        "lot_number": "17",
+        "location": "West Bridgford, Nottingham",
+        "property_type": "Investment Freehold Retail",
+        "result": "Available"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22West+Bridgford%2C+Nottingham%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18dd8dd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1033",
+        "auction_date": "2017-04-27",
+        "lot_number": "21",
+        "location": "Mansfield, Nottinghamshire",
+        "property_type": "Investment Freehold Retail",
+        "result": "£48,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Mansfield%2C+Nottinghamshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb18ece590>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1033",
+        "auction_date": "2017-04-27",
+        "lot_number": "24",
+        "location": "Mansfield, Nottinghamshire",
+        "property_type": "Investment Freehold Retail",
+        "result": "Withdrawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Mansfield%2C+Nottinghamshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb280d9dd0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1033",
+        "auction_date": "2017-04-27",
+        "lot_number": "28",
+        "location": "Mansfield, Nottinghamshire",
+        "property_type": "Investment Freehold Office",
+        "result": "£215,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Mansfield%2C+Nottinghamshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bccb090>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1033",
+        "auction_date": "2017-04-27",
+        "lot_number": "30",
+        "location": "Mansfield, Nottinghamshire",
+        "property_type": "Investment Freehold Industrial",
+        "result": "Withdrawn"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Mansfield%2C+Nottinghamshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bbb8b10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1018",
+        "auction_date": "2017-03-29",
+        "lot_number": "54",
+        "location": "London SW20",
+        "property_type": "Vacant Leasehold Garage",
+        "result": "£14,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+SW20%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb281e9b10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1018",
+        "auction_date": "2017-03-29",
+        "lot_number": "55",
+        "location": "Morden, Surrey",
+        "property_type": "Vacant Leasehold Commercial",
+        "result": "£329,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Morden%2C+Surrey%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bb8da10>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1018",
+        "auction_date": "2017-03-29",
+        "lot_number": "87",
+        "location": "London N17",
+        "property_type": "Investment Freehold Retail",
+        "result": "Available at £2.1M"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22London+N17%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2800a1d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1018",
+        "auction_date": "2017-03-29",
+        "lot_number": "90",
+        "location": "Ascot, Berkshire",
+        "property_type": "Vacant Freehold Office",
+        "result": "Available at £430,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Ascot%2C+Berkshire%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bb4b1d0>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    },
+    {
+      "clue": {
+        "aid": "1018",
+        "auction_date": "2017-03-29",
+        "lot_number": "118",
+        "location": "Hornchurch, Essex",
+        "property_type": "Part Vacant Freehold Garage",
+        "result": "£241,000"
+      },
+      "engine": "ddg",
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='html.duckduckgo.com', port=443): Max retries exceeded with url: /html/?q=site%3Apropertyauctions.io%2Flistings+%22Hornchurch%2C+Essex%22+Savills (Caused by ConnectTimeoutError(<HTTPSConnection(host='html.duckduckgo.com', port=443) at 0x7fdb2bb52d50>, 'Connection to html.duckduckgo.com timed out. (connect timeout=7)'))"
+    }
+  ]
 }
