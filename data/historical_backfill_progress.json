@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T12:36:56.303957+00:00",
+  "updated_at": "2026-09-14T12:37:00.521625+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2010-2018-catalogue-wide-rss-item-recovery-and-auction-coverage",
+      "last_discovery_mode": "savills-2018-commoncrawl-warc-catalogue-and-aid-content-recovery",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -58736,7 +58736,7 @@
         "next_safe_route": "If archived catalogue HTML exposes PID/detail targets, enumerate and replay those exact targets and capture-adjacent first-party Savills document/PDF URLs. If none survive, retain this exact source-specific blocker and continue breadth-first 2018 using the concurrently implemented Common Crawl WARC route rather than retrying LotList."
       },
       "savills_2018_commoncrawl_warc_last_run": {
-        "at": "2026-09-14T12:26:19.687293+00:00",
+        "at": "2026-09-14T12:37:00.521625+00:00",
         "route": "savills-2018-commoncrawl-warc-catalogue-and-aid-content-recovery",
         "unresolved_lots_input": 58,
         "aids": [
@@ -58786,21 +58786,21 @@
           "CC-MAIN-2017-04"
         ],
         "index_queries_executed": 1440,
-        "index_queries_ok": 1,
-        "index_queries_failed": 1439,
-        "unique_cdx_records": 1,
-        "warc_records_targeted": 1,
-        "warc_records_fetched": 1,
-        "text_pdf_documents_parsed": 1,
+        "index_queries_ok": 0,
+        "index_queries_failed": 1440,
+        "unique_cdx_records": 0,
+        "warc_records_targeted": 0,
+        "warc_records_fetched": 0,
+        "text_pdf_documents_parsed": 0,
         "unique_identity_rows_ready": 0,
         "canonical_events_before": 3307,
         "canonical_events_after": 3307,
         "canonical_events_added": 0
       },
       "savills_2018_commoncrawl_warc_blocker": {
-        "at": "2026-09-14T12:26:19.687293+00:00",
+        "at": "2026-09-14T12:37:00.521625+00:00",
         "route": "savills-2018-commoncrawl-warc-catalogue-and-aid-content-recovery",
-        "message": "Queried 36 historical Common Crawl indexes with 1440 exact catalogue/AID namespace queries; discovered 1 unique captures, fetched 1 WARC payloads, parsed 1 text/PDF documents, promoted 0 canonical event(s).",
+        "message": "Queried 36 historical Common Crawl indexes with 1440 exact catalogue/AID namespace queries; discovered 0 unique captures, fetched 0 WARC payloads, parsed 0 text/PDF documents, promoted 0 canonical event(s).",
         "per_lot_blockers": [
           {
             "auction_date": "2018-11-26",
