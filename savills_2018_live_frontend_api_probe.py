@@ -1,99 +1,75 @@
 from __future__ import annotations
 import datetime, json, re, requests
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
 
 AID='1072'
-BASE='https://auctions.savills.co.uk'
-LOT=f'{BASE}/Auctions/LotList?AID={AID}'
+DATE='2018-11-26'
+UNRESOLVED=['9','43','82','102','111','119','147','148','153','167','174']
 UA={'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36'}
+PREV=Path('data/source_diagnostics/savills_2018_live_frontend_api_probe.json')
 OUT=Path('data/source_diagnostics/savills_2018_live_frontend_api_probe.json')
 PROG=Path('data/historical_backfill_progress.json')
 S=requests.Session(); S.headers.update(UA)
+POSTCODE=re.compile(r'\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b',re.I)
+STREET=re.compile(r"\b\d{1,4}[A-Za-z]?\s+[A-Za-z][A-Za-z0-9 .\-'’]{2,80}\b")
 
-def get(u, timeout=(5,15)):
+def fetch(u):
     try:
-        r=S.get(u,timeout=timeout,allow_redirects=True)
-        return {'requested':u,'status':r.status_code,'final_url':r.url,'content_type':r.headers.get('content-type',''),'bytes':len(r.content),'text':r.text[:1000000]}
-    except Exception as e:
-        return {'requested':u,'error':f'{type(e).__name__}: {e}','text':''}
+        r=S.get(u,timeout=(4,10),allow_redirects=True)
+        return r
+    except Exception:
+        return None
 
-root=get(LOT)
-html=root.get('text','')
-js=[]
-for m in re.finditer(r'''<script[^>]+src=["']([^"']+)["']''',html,re.I):
-    u=urljoin(root.get('final_url',LOT),m.group(1))
-    if urlparse(u).netloc.endswith('savills.co.uk') and u not in js: js.append(u)
-# Also force the Vue modules observed in the previous first-party probe.
-for p in ('/libraries/vuejs/modules/dist/pagination.js','/libraries/vuejs/vue-resource.js','/libraries/vuejs/vuex.js','/templates/savills/js/savills-core-v1.5.js'):
-    u=urljoin(BASE,p)
-    if u not in js: js.append(u)
+old=json.loads(PREV.read_text()) if PREV.exists() else {}
+marker_routes=[]
+for r in old.get('route_probes',[]):
+    if r.get('pid_like_ids') or r.get('lot_markers'):
+        marker_routes.append({k:r.get(k) for k in ('requested','final_url','status','pid_like_ids','lot_markers','body_sample')})
 
-js_rows=[]; corpus=html
-for u in js:
-    rr=get(u); txt=rr.pop('text',''); corpus+='\n'+txt
-    rr['route_tokens']=sorted(set(re.findall(r'''["']([^"']*(?:api|ajax|auction|lot|catalog|property|search|filter)[^"']*)["']''',txt,re.I)))[:150]
-    js_rows.append(rr)
-
-# Extract concrete URL/path tokens only; do not invent endpoints.
-tokens=set()
-for pat in (
-    r'''https?://[^\s"'<>]+''',
-    r'''["'](/[^"']*(?:api|ajax|auction|lot|catalog|property|search|filter)[^"']*)["']''',
-    r'''(?:url|endpoint)\s*[:=]\s*["']([^"']+)["']''',
-):
-    for m in re.finditer(pat,corpus,re.I):
-        x=m.group(1) if m.lastindex else m.group(0)
-        x=x.replace('&amp;','&').strip()
-        if len(x)<500: tokens.add(x)
-
-# Preserve form/action and hidden input evidence because ASP.NET/Joomla pages may use postbacks.
-forms=[]
-for fm in re.finditer(r'<form\b([^>]*)>(.*?)</form>',html,re.I|re.S):
-    head,body=fm.group(1),fm.group(2)
-    action=(re.search(r'''action=["']([^"']*)''',head,re.I) or [None,None])[1]
-    method=(re.search(r'''method=["']([^"']*)''',head,re.I) or [None,'GET'])[1]
-    inputs=[]
-    for im in re.finditer(r'<input\b([^>]*)>',body,re.I):
-        attrs=im.group(1)
-        name=(re.search(r'''name=["']([^"']+)''',attrs,re.I) or [None,None])[1]
-        value=(re.search(r'''value=["']([^"']*)''',attrs,re.I) or [None,None])[1]
-        typ=(re.search(r'''type=["']([^"']+)''',attrs,re.I) or [None,None])[1]
-        if name: inputs.append({'name':name,'type':typ,'value':value[:300] if isinstance(value,str) else value})
-    forms.append({'action':urljoin(root.get('final_url',LOT),action or ''),'method':method.upper(),'inputs':inputs[:100]})
-
-# Probe only concrete same-origin GET-like route tokens found in first-party HTML/JS.
-probe=[]
-seen=set()
-for t in sorted(tokens):
-    u=urljoin(BASE,t)
-    pu=urlparse(u)
-    if not pu.netloc.endswith('savills.co.uk') or u in seen: continue
-    if any(x in u.lower() for x in ('.png','.jpg','.jpeg','.gif','.svg','.css','.woff','.ttf')): continue
-    if not any(k in u.lower() for k in ('api','ajax','auction','lot','catalog','property','search','filter')): continue
-    seen.add(u)
-    # If the discovered URL explicitly contains an AID placeholder, substitute only the known AID.
-    u=re.sub(r'\{\{?\s*aid\s*\}?\}',AID,u,flags=re.I)
-    u=re.sub(r'\{\s*auctionid\s*\}',AID,u,flags=re.I)
-    rr=get(u); txt=rr.pop('text','')
-    pids=sorted(set(re.findall(r'(?:PID|pid|property(?:_|-)id|id)[=/:"\']+([0-9]{2,})',txt)))
-    lot_markers=sorted(set(re.findall(r'(?i)lot\s*(?:#|no\.?|number)?\s*([0-9]{1,3}[A-Za-z]?)',txt)))[:100]
-    rr.update({'pid_like_ids':pids[:100],'lot_markers':lot_markers,'body_sample':re.sub(r'\s+',' ',txt[:800])})
-    probe.append(rr)
-    if len(probe)>=80: break
+attempts=[]; candidates=[]; seen=set()
+for mr in marker_routes:
+    base=mr.get('final_url') or mr.get('requested')
+    if not base or not urlparse(base).netloc.endswith('savills.co.uk'):
+        continue
+    pu=urlparse(base)
+    base_q=dict(parse_qsl(pu.query,keep_blank_values=True))
+    variants=[base]
+    for lot in UNRESOLVED:
+        for lk in ('Lot','lot','LotNo','lotNo','lotNumber'):
+            q=dict(base_q); q.setdefault('AID',AID); q[lk]=lot
+            variants.append(urlunparse(pu._replace(query=urlencode(q))))
+    for pid in [str(x) for x in (mr.get('pid_like_ids') or [])][:25]:
+        for pk in ('PID','pid','propertyId','id'):
+            q=dict(base_q); q.setdefault('AID',AID); q[pk]=pid
+            variants.append(urlunparse(pu._replace(query=urlencode(q))))
+    for u in variants:
+        if u in seen: continue
+        seen.add(u)
+        r=fetch(u)
+        if r is None:
+            attempts.append({'url':u,'error':'request_failed'})
+            continue
+        txt=r.text[:500000]
+        pcs=sorted(set(x.upper().replace(' ','') for x in POSTCODE.findall(txt)))
+        streets=sorted(set(re.sub(r'\s+',' ',x).strip() for x in STREET.findall(txt)))[:50]
+        lots=sorted(set(re.findall(r'(?i)lot\s*(?:#|no\.?|number)?\s*([0-9]{1,3}[A-Za-z]?)',txt)))[:100]
+        attempts.append({'url':u,'status':r.status_code,'final_url':r.url,'bytes':len(r.content),'postcodes':pcs[:25],'street_candidates':streets,'lot_markers':lots})
+        hit=sorted(set(lots)&set(UNRESOLVED))
+        if hit and len(pcs)==1 and streets:
+            candidates.append({'lots':hit,'url':r.url,'postcode':pcs[0],'street_candidates':streets[:10]})
 
 now=datetime.datetime.now(datetime.timezone.utc).isoformat()
 diag={
- 'at':now,'route':'savills-2018-live-frontend-js-api-form-trace','aid':AID,'auction_date':'2018-11-26',
- 'lotlist_status':root.get('status'),'lotlist_bytes':root.get('bytes'),'javascript_assets':len(js_rows),
- 'forms_found':len(forms),'concrete_route_tokens':len(tokens),'safe_get_routes_probed':len(probe),
- 'javascript':js_rows,'forms':forms,'route_tokens':sorted(tokens)[:1000],'route_probes':probe,
- 'canonical_rows_added':0,
- 'blocker':'live_frontend_trace_found_no_unique_full_address_identity' if not any(r.get('pid_like_ids') or r.get('lot_markers') for r in probe) else 'live_frontend_exposes_ids_or_lot_markers_requiring_exact_manifest_identity_reconciliation'
+    'at':now,'route':'savills-2018-marker-bearing-route-parameter-replay','aid':AID,'auction_date':DATE,
+    'unresolved_lots':UNRESOLVED,'marker_routes_found':len(marker_routes),'requests_attempted':len(attempts),
+    'identity_candidates':candidates,'canonical_rows_added':0,
+    'blocker':'marker_replay_produced_candidates_requiring_manifest_crosscheck' if candidates else 'marker_replay_no_unique_lot_full_address_identity',
+    'marker_routes':marker_routes,'attempts':attempts
 }
 OUT.parent.mkdir(parents=True,exist_ok=True); OUT.write_text(json.dumps(diag,indent=2))
 p=json.loads(PROG.read_text()); s=p.setdefault('sources',{}).setdefault('Savills Auctions',{})
 s['historically_complete']=False; s['discovery_exhausted']=False; s['last_discovery_mode']=diag['route']
-s['savills_2018_live_frontend_api_probe_last_run']={k:v for k,v in diag.items() if k not in ('javascript','forms','route_tokens','route_probes')}
+s['savills_2018_marker_replay_last_run']={k:v for k,v in diag.items() if k not in ('marker_routes','attempts')}
 p['updated_at']=now; PROG.write_text(json.dumps(p,indent=2))
-print(json.dumps({k:v for k,v in diag.items() if k not in ('javascript','forms','route_tokens','route_probes')},indent=2))
+print(json.dumps({k:v for k,v in diag.items() if k not in ('marker_routes','attempts')},indent=2))
