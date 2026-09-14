@@ -50,13 +50,13 @@ def main():
     history=json.loads(H.read_text())
     before=count(history)
     mp=json.loads(MAP.read_text())
-    cats=[x for x in mp.get('legacy_catalogues',[]) if str(x.get('date','')).startswith('2018-')]
-    cats=sorted(cats,key=lambda x:(str(x.get('date')),int(x.get('aid') or 0)))
+    cats=[x for x in mp.get('legacy_catalogues',[]) if str(x.get('auction_date','')).startswith('2018-')]
+    cats=sorted(cats,key=lambda x:(str(x.get('auction_date')),int(x.get('aid') or 0)))
     catalogues=[]; all_candidates={}; ids={}; total_rows=0; commercial_rows=0; rows_with_ids=0; rows_with_first_party_candidates=0
     for cat in cats:
-        aid=cat.get('aid'); url=cat.get('url') or f'https://www.propertyauctions.com/Results/LotList.aspx?AID={aid}'
+        aid=cat.get('aid'); auction_date=cat.get('auction_date'); url=cat.get('catalogue_url') or f'https://www.propertyauctions.com/Results/LotList.aspx?AID={aid}'
         st,final,html,err=get(url)
-        rec={'aid':aid,'date':cat.get('date'),'url':url,'status':st,'final_url':final,'error':err,'commercial_rows':[]}
+        rec={'aid':aid,'date':auction_date,'url':url,'status':st,'final_url':final,'error':err,'commercial_rows':[]}
         if st!=200 or not html:
             catalogues.append(rec); continue
         soup=BeautifulSoup(html,'lxml')
@@ -81,20 +81,18 @@ def main():
                     if host.endswith('savills.co.uk') or host.endswith('propertyauctions.com'):
                         candidates.append(full)
                         for m in URL_ID_RE.findall(full): found_ids.add(m)
-            # Include IDs encoded in inline scripts/onclick even when no clickable href survived.
             for m in re.findall(r'(?i)(?:commission|property|pid|lot|item)[^0-9]{0,16}(\d{2,9})',raw): found_ids.add(m)
             if found_ids: rows_with_ids+=1
             uniq=[]
             for u in candidates:
                 if u not in uniq: uniq.append(u)
-                all_candidates.setdefault(u,[]).append({'aid':aid,'date':cat.get('date'),'lot':cells[0].strip()})
+                all_candidates.setdefault(u,[]).append({'aid':aid,'date':auction_date,'lot':cells[0].strip()})
             if uniq: rows_with_first_party_candidates+=1
             for x in found_ids:
-                ids.setdefault(x,[]).append({'aid':aid,'date':cat.get('date'),'lot':cells[0].strip(),'type':typ,'location':cells[2].strip()})
+                ids.setdefault(x,[]).append({'aid':aid,'date':auction_date,'lot':cells[0].strip(),'type':typ,'location':cells[2].strip()})
             rec['commercial_rows'].append({'lot_number':cells[0].strip(),'property_type':typ,'location':cells[2].strip(),'result':cells[3].strip(),'postcode_hits':POSTCODE.findall(raw),'numeric_ids':sorted(found_ids,key=lambda x:int(x)),'first_party_candidates':uniq,'row_attributes':attrs[:120]})
         catalogues.append(rec)
 
-    # Probe every distinct candidate extracted directly from qualifying row markup.
     probes=[]; useful=[]
     for u,refs in sorted(all_candidates.items()):
         st,final,text,err=get(u,12)
