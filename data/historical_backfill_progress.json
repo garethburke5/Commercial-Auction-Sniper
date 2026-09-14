@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T12:38:25.308521+00:00",
+  "updated_at": "2026-09-14T12:51:49.005918+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-rss-link-guid-exact-wayback-detail-capture-reconciliation",
+      "last_discovery_mode": "savills-2018-03-26-targeted-propertyauctions-aid-form-postback-asset-forensics",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -53440,7 +53440,7 @@
         "next_safe_route": "Work the four largest unresolved 2018 auctions separately (2018-03-26, 2018-05-09, 2018-11-26, 2018-06-18). For each, enumerate PropertyAuctions AID page form actions/postbacks/static assets and archived Savills PDF/document/result namespaces keyed by exact lot number/location; persist per-lot blocker where no property identity survives."
       },
       "savills_2018_03_26_aid_forensic_last_run": {
-        "at": "2026-09-14T05:07:43.446232+00:00",
+        "at": "2026-09-14T12:51:49.005918+00:00",
         "route": "savills-2018-03-26-targeted-propertyauctions-aid-form-postback-asset-forensics",
         "auction_date": "2018-03-26",
         "catalogues_found": 1,
@@ -53453,167 +53453,24 @@
             "aid": 1067,
             "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
             "commercial_mixed_rows": 25,
-            "status": 200,
-            "error": null,
-            "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
-            "html_bytes": 205547,
-            "forms": [
-              "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067"
-            ],
-            "hidden_names": [
-              "__EVENTARGUMENT",
-              "__EVENTTARGET",
-              "__EVENTVALIDATION",
-              "__VIEWSTATE",
-              "__VIEWSTATEGENERATOR",
-              "ctl00_ContentPlaceHolder1_rgResults_ClientState",
-              "ctl00_ContentPlaceHolder1_rtm1_ClientState"
-            ],
-            "reference_count": 50,
-            "postback_targets": 5,
-            "identifier_candidates": [],
-            "postcodes": []
+            "status": null,
+            "error": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
           }
         ],
-        "postback_targets_replayed": 5,
-        "postbacks_with_changed_or_identity-bearing_surface": 4,
+        "postback_targets_replayed": 0,
+        "postbacks_with_changed_or_identity-bearing_surface": 0,
         "identifier_candidates": [],
-        "unique_references_discovered": 253,
+        "unique_references_discovered": 0,
         "first_party_savills_refs": [],
-        "document_refs": [
-          "https://www.propertyauctions.com/Images/titleResultsAuction.png",
-          "https://www.propertyauctions.com/Results/",
-          "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
-          "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
-          "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
-          "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
-          "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl04','')"
-        ],
-        "reference_probes": [
-          {
-            "url": "https://www.propertyauctions.com/Images/titleResultsAuction.png",
-            "status": 200,
-            "error": null,
-            "postcodes": []
-          },
-          {
-            "url": "https://www.propertyauctions.com/Results/",
-            "status": 200,
-            "error": null,
-            "postcodes": []
-          },
-          {
-            "url": "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
-            "status": null,
-            "error": "InvalidSchema: No connection adapters were found for \"javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')\"",
-            "postcodes": []
-          },
-          {
-            "url": "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
-            "status": null,
-            "error": "InvalidSchema: No connection adapters were found for \"javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')\"",
-            "postcodes": []
-          },
-          {
-            "url": "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
-            "status": null,
-            "error": "InvalidSchema: No connection adapters were found for \"javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')\"",
-            "postcodes": []
-          },
-          {
-            "url": "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')",
-            "status": null,
-            "error": "InvalidSchema: No connection adapters were found for \"javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')\"",
-            "postcodes": []
-          },
-          {
-            "url": "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl04','')",
-            "status": null,
-            "error": "InvalidSchema: No connection adapters were found for \"javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl04','')\"",
-            "postcodes": []
-          }
-        ],
-        "postback_samples": [
-          {
-            "aid": 1067,
-            "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00",
-            "status": 200,
-            "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
-            "new_refs": [
-              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl04','')"
-            ],
-            "ids": [],
-            "postcodes": []
-          },
-          {
-            "aid": 1067,
-            "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01",
-            "status": 200,
-            "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
-            "new_refs": [
-              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl04','')"
-            ],
-            "ids": [],
-            "postcodes": []
-          },
-          {
-            "aid": 1067,
-            "target": "ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02",
-            "status": 200,
-            "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
-            "new_refs": [
-              "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl04','')"
-            ],
-            "ids": [],
-            "postcodes": []
-          },
-          {
-            "aid": 1067,
-            "target": "ctl00$loginStatus1$ctl02",
-            "status": 200,
-            "final_url": "https://www.propertyauctions.com/Dataclub/?ReturnUrl=%2fResults%2fLotList.aspx%3fAID%3d1067",
-            "new_refs": [
-              "https://www.propertyauctions.com/Data/Adverts/advertDataclub.jpg",
-              "https://www.propertyauctions.com/Data/News/newsThumb_100a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_101a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_102a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_103a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_104a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_105a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_106a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_107a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_108a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_109a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_110a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_111a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_112a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_113a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_114a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_13a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_16a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_17a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_18a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_23a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_24a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_25a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_26a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_27a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_28a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_29a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_30a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_31a.png",
-              "https://www.propertyauctions.com/Data/News/newsThumb_32a.png"
-            ],
-            "ids": [],
-            "postcodes": []
-          }
-        ]
+        "document_refs": [],
+        "reference_probes": [],
+        "postback_samples": []
       },
       "savills_2018_03_26_aid_forensic_last_blocker": {
-        "at": "2026-09-14T05:07:43.446232+00:00",
+        "at": "2026-09-14T12:51:49.005918+00:00",
         "route": "savills-2018-03-26-targeted-propertyauctions-aid-form-postback-asset-forensics",
         "failing_url_or_route": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
-        "message": "26 Mar 2018 has 25 commercial/mixed clues. Replayed 5 exact catalogue postback controls; 4 changed or exposed identity-bearing surfaces; 0 first-party Savills refs and 7 document refs were discovered; 0 probed refs exposed postcode-bearing identity text. Canonical promotion still requires deterministic full-address/lot evidence.",
+        "message": "26 Mar 2018 has 25 commercial/mixed clues. Replayed 0 exact catalogue postback controls; 0 changed or exposed identity-bearing surfaces; 0 first-party Savills refs and 0 document refs were discovered; 0 probed refs exposed postcode-bearing identity text. Canonical promotion still requires deterministic full-address/lot evidence.",
         "next_safe_route": "Use any recovered identifier/document refs from this exact auction to enumerate archived first-party Savills detail/PDF variants. If none survive, persist per-lot blockers for 26 Mar 2018 and move to 9 May 2018 using the same targeted AID forensic procedure."
       },
       "savills_bulk_asset_tree_last_run": {
