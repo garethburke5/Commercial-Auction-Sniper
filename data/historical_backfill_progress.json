@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T12:25:59.783816+00:00",
+  "updated_at": "2026-09-14T12:26:19.687293+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-wayback-exact-propertyauctions-lotlist-capture-recovery",
+      "last_discovery_mode": "savills-2018-commoncrawl-warc-catalogue-and-aid-content-recovery",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -58734,6 +58734,598 @@
           }
         ],
         "next_safe_route": "If archived catalogue HTML exposes PID/detail targets, enumerate and replay those exact targets and capture-adjacent first-party Savills document/PDF URLs. If none survive, retain this exact source-specific blocker and continue breadth-first 2018 using the concurrently implemented Common Crawl WARC route rather than retrying LotList."
+      },
+      "savills_2018_commoncrawl_warc_last_run": {
+        "at": "2026-09-14T12:26:19.687293+00:00",
+        "route": "savills-2018-commoncrawl-warc-catalogue-and-aid-content-recovery",
+        "unresolved_lots_input": 58,
+        "aids": [
+          "1067",
+          "1068",
+          "1069",
+          "1071",
+          "1072"
+        ],
+        "commoncrawl_indexes_selected": 36,
+        "commoncrawl_index_ids": [
+          "CC-MAIN-2019-51",
+          "CC-MAIN-2019-47",
+          "CC-MAIN-2019-43",
+          "CC-MAIN-2019-39",
+          "CC-MAIN-2019-35",
+          "CC-MAIN-2019-30",
+          "CC-MAIN-2019-26",
+          "CC-MAIN-2019-22",
+          "CC-MAIN-2019-18",
+          "CC-MAIN-2019-13",
+          "CC-MAIN-2019-09",
+          "CC-MAIN-2019-04",
+          "CC-MAIN-2018-51",
+          "CC-MAIN-2018-47",
+          "CC-MAIN-2018-43",
+          "CC-MAIN-2018-39",
+          "CC-MAIN-2018-34",
+          "CC-MAIN-2018-30",
+          "CC-MAIN-2018-26",
+          "CC-MAIN-2018-22",
+          "CC-MAIN-2018-17",
+          "CC-MAIN-2018-13",
+          "CC-MAIN-2018-09",
+          "CC-MAIN-2018-05",
+          "CC-MAIN-2017-51",
+          "CC-MAIN-2017-47",
+          "CC-MAIN-2017-43",
+          "CC-MAIN-2017-39",
+          "CC-MAIN-2017-34",
+          "CC-MAIN-2017-30",
+          "CC-MAIN-2017-26",
+          "CC-MAIN-2017-22",
+          "CC-MAIN-2017-17",
+          "CC-MAIN-2017-13",
+          "CC-MAIN-2017-09",
+          "CC-MAIN-2017-04"
+        ],
+        "index_queries_executed": 1440,
+        "index_queries_ok": 1,
+        "index_queries_failed": 1439,
+        "unique_cdx_records": 1,
+        "warc_records_targeted": 1,
+        "warc_records_fetched": 1,
+        "text_pdf_documents_parsed": 1,
+        "unique_identity_rows_ready": 0,
+        "canonical_events_before": 3307,
+        "canonical_events_after": 3307,
+        "canonical_events_added": 0
+      },
+      "savills_2018_commoncrawl_warc_blocker": {
+        "at": "2026-09-14T12:26:19.687293+00:00",
+        "route": "savills-2018-commoncrawl-warc-catalogue-and-aid-content-recovery",
+        "message": "Queried 36 historical Common Crawl indexes with 1440 exact catalogue/AID namespace queries; discovered 1 unique captures, fetched 1 WARC payloads, parsed 1 text/PDF documents, promoted 0 canonical event(s).",
+        "per_lot_blockers": [
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "9",
+            "location": "Ashtead, Surrey",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "43",
+            "location": "London E17",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "82",
+            "location": "Erdington, West Midlands",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "102",
+            "location": "London N17",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "111",
+            "location": "London SE15",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "119",
+            "location": "Luton, Bedfordshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "147",
+            "location": "London W11",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "148",
+            "location": "London W11",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "153",
+            "location": "London SE13",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "167",
+            "location": "Grays, Essex",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "174",
+            "location": "London W9",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-09-26",
+            "aid": 1071,
+            "lot_number": "27",
+            "location": "London N3",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "41D",
+            "location": "Ascot, Berkshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "88A",
+            "location": "Enfield, Middlesex",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "94",
+            "location": "Romford, Essex",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "127",
+            "location": "London SW12",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "140",
+            "location": "London SE9",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "147",
+            "location": "Chatham, Kent",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "148",
+            "location": "Chatham, Kent",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "153",
+            "location": "Rotherham, South Yorkshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "161",
+            "location": "Farnborough, Hampshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "164",
+            "location": "Immingham, Lincolnshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "52",
+            "location": "Maidstone, Kent",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "55",
+            "location": "Redcar, North Yorkshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "57",
+            "location": "London SE15",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "58",
+            "location": "London SE15",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "60",
+            "location": "Billingham, North Yorkshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "83",
+            "location": "Rochester, Kent",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "131",
+            "location": "New Malden, Surrey",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "143",
+            "location": "Ilford, Essex IG4",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "144",
+            "location": "Helston, Cornwall",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "150",
+            "location": "Heston, Middlesex",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "151",
+            "location": "Farnborough, Hampshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "153",
+            "location": "Chatham, Kent",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "154",
+            "location": "Chatham, Kent",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "26",
+            "location": "Farnborough, Hampshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "27",
+            "location": "Farnborough, Hampshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "28",
+            "location": "Aldershot, Hampshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "29",
+            "location": "Aldershot, Hampshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "37",
+            "location": "London E17",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "49",
+            "location": "London E10",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "76",
+            "location": "London SW6",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "109",
+            "location": "London SE25",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "111",
+            "location": "Romford, Essex",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "116",
+            "location": "London SE19",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "117",
+            "location": "London SE9",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "144",
+            "location": "London W8",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "147",
+            "location": "London SW12",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "148",
+            "location": "Aldershot, Hampshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "171",
+            "location": "Rochester, Kent",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "172",
+            "location": "Hilgay, Norfolk",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "175",
+            "location": "London N17",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "181",
+            "location": "London SW17",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "187",
+            "location": "Farnborough, Hampshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "188",
+            "location": "Farnborough, Hampshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "189",
+            "location": "Mitcham, Surrey",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "190",
+            "location": "Ilford, Essex",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "201",
+            "location": "Immingham, Lincolnshire",
+            "identity_candidates": 0,
+            "candidate_samples": [],
+            "blocker": "no unique lot+locality+postcode identity in 2017-2019 Common Crawl WARC captures of exact catalogue/AID namespaces"
+          }
+        ],
+        "next_safe_route": "For still-unresolved 2018 lots, enumerate capture-adjacent first-party Savills pages/RSS/PDF/document URLs referenced inside any recovered WARC HTML plus exact legacy PropertyAuctions PID/LotDetail URL variants from archived link targets. If Common Crawl yields no usable captures, persist that source-specific absence and move breadth-first to the next unreconciled 2018 auction route rather than retrying the same namespace."
       }
     }
   }
