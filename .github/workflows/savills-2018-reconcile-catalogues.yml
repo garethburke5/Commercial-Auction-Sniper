@@ -1,0 +1,69 @@
+name: Savills 2018 Breadth First Reconciliation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/savills-2018-reconcile-catalogues.yml'
+      - 'savills_2018_reconcile_catalogues.py'
+
+permissions:
+  contents: write
+concurrency:
+  group: savills-2018-breadth-first-reconciliation
+  cancel-in-progress: true
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Reconcile every mapped 2018 auction
+        run: python savills_2018_reconcile_catalogues.py
+      - name: Verify and preserve
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/source_diagnostics/savills_2018_auction_reconciliation.json').read_text())
+          assert d['year']==2018 and d['known_auctions']>0
+          assert d['qualifying']==d['canonicalised']+d['unresolved']
+          print('CANONICAL_SAVILLS_EVENTS',d['canonical_savills_event_count'])
+          print('OLDEST_VERIFIED_LOT_LEVEL_DATE',d['oldest_verified_lot_level_date'])
+          print('AUCTIONS_MAPPED_BY_YEAR',d['auctions_mapped_by_year'])
+          print('QUALIFYING_CLUES_BY_YEAR',d['qualifying_commercial_mixed_clues_by_year'])
+          print('2018',d['known_auctions'],d['qualifying'],d['canonicalised'],d['unresolved'])
+          PY
+          cp data/historical_backfill_progress.json /tmp/progress.json
+          cp data/source_diagnostics/savills_2018_auction_reconciliation.json /tmp/diag.json
+      - name: Publish conflict-safe
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/diag.json data/source_diagnostics/savills_2018_auction_reconciliation.json
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          fp=Path('data/historical_backfill_progress.json'); fresh=json.loads(fp.read_text()); rec=json.loads(Path('/tmp/progress.json').read_text())
+          fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{}); rs=rec['sources']['Savills Auctions']
+          for k in ('savills_2018_auction_reconciliation_last_run','savills_2018_auction_reconciliation','savills_2018_auction_reconciliation_blocker','last_discovery_mode'):
+              if k in rs: fs[k]=rs[k]
+          fs['historically_complete']=False; fs['discovery_exhausted']=False; fresh['updated_at']=rec.get('updated_at',fresh.get('updated_at'))
+          fp.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
+          PY
+            git add data/historical_backfill_progress.json data/source_diagnostics/savills_2018_auction_reconciliation.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist Savills 2018 auction reconciliation'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1; sleep $((attempt*3))
+          done
+          exit 1
