@@ -1,0 +1,90 @@
+{
+  "at": "2026-09-14T19:59:51.931730+00:00",
+  "route": "savills-2018-06-18-first-party-aid-lot-detail-document-relationship-recovery",
+  "auction_date": "2018-06-18",
+  "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-11",
+  "aid": "1069",
+  "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+  "expected_total_catalogue_rows_from_recovered_manifest": 178,
+  "expected_commercial_mixed_from_recovered_manifest": 10,
+  "first_party_surfaces_attempted": 10,
+  "successful_200_surfaces": 4,
+  "discovered_detail_or_pid_links": 0,
+  "commercial_mixed_rows_reparsed_from_live_surfaces": 0,
+  "commercial_mixed_lot_numbers_reparsed": [],
+  "detail_relationships_probed": 0,
+  "identity_candidates": [],
+  "canonical_rows_added": 0,
+  "blocker": "surviving_first_party_aid_catalogue_surfaces_do_not_expose_pid_detail_relationships_for_aid1069",
+  "unresolved_lot_blockers": [],
+  "next_route": "if no deterministic first-party identity emerges, advance breadth-first within 2018 while retaining this AID1069 blocker; for AID1069 next use exact archived Data/Auctions/1069 document/image/RSS asset filenames and PropertyAuctions PID relationships rather than another generic page replay",
+  "surface_results": [
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "error": "ConnectionError",
+      "detail": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList?AID=1069",
+      "error": "ConnectionError",
+      "detail": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "url": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "error": "ConnectionError",
+      "detail": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "url": "https://auctions.savills.co.uk/Auctions/LotList?AID=1069",
+      "status": 200,
+      "final_url": "https://auctions.savills.co.uk/Auctions/LotList?AID=1069",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 77956
+    },
+    {
+      "url": "https://auctions.savills.co.uk/Auctions/LotList.aspx?AID=1069",
+      "status": 200,
+      "final_url": "https://auctions.savills.co.uk/Auctions/LotList.aspx?AID=1069",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 77966
+    },
+    {
+      "url": "http://auctions.savills.co.uk/Auctions/LotList.aspx?AID=1069",
+      "status": 200,
+      "final_url": "https://auctions.savills.co.uk/Auctions/LotList.aspx?AID=1069",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 77966
+    },
+    {
+      "url": "https://auctions.savills.co.uk/Results/LotList.aspx?AID=1069",
+      "status": 404,
+      "final_url": "https://auctions.savills.co.uk/Results/LotList.aspx?AID=1069",
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 0
+    },
+    {
+      "url": "https://auctions.savills.co.uk/Auctions/AuctionResults.aspx?AID=1069",
+      "status": 200,
+      "final_url": "https://auctions.savills.co.uk/Auctions/AuctionResults.aspx?AID=1069",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 77980
+    },
+    {
+      "url": "https://www.savills.co.uk/auctions/auction-results.aspx?AID=1069",
+      "status": 404,
+      "final_url": "https://www.savills.co.uk/auctions/auction-results.aspx?AID=1069",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 130378
+    },
+    {
+      "url": "https://auctions.savills.co.uk/Data/Rss/Savills%20London%20National.xml",
+      "status": 404,
+      "final_url": "https://auctions.savills.co.uk/Data/Rss/Savills%20London%20National.xml",
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 0
+    }
+  ],
+  "manifest_rows": [],
+  "pid_links": [],
+  "detail_probe_results": []
+}
