@@ -1,0 +1,46 @@
+name: Savills 2018-05-09 Archive Index Recovery
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/savills-2018-05-09-archive-index-recovery.yml'
+      - 'savills_2018_05_09_archive_index_recovery.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  recover:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - run: python -m py_compile savills_2018_05_09_archive_index_recovery.py
+      - name: Execute 9 May 2018 archive-index recovery
+        run: python savills_2018_05_09_archive_index_recovery.py
+      - name: Persist diagnostic onto freshest production main
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp data/source_diagnostics/savills_2018_05_09_archive_index_recovery.json /tmp/diag.json
+          cp data/historical_backfill_progress.json /tmp/progress.json
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/diag.json data/source_diagnostics/savills_2018_05_09_archive_index_recovery.json
+            cp /tmp/progress.json data/historical_backfill_progress.json
+            git add data/source_diagnostics/savills_2018_05_09_archive_index_recovery.json data/historical_backfill_progress.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist Savills 2018 05-09 archive index recovery'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt*4))
+          done
+          exit 1
