@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T14:25:24.641398+00:00",
+  "updated_at": "2026-09-14T15:01:26.732230+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-wayback-aid-pid-identity-recovery",
+      "last_discovery_mode": "savills-2018-wayback-available-catalogue-pid-replay",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -59253,6 +59253,32 @@
         "at": "2026-09-14T14:25:24.621152+00:00",
         "route": "savills-2018-wayback-aid-pid-identity-recovery",
         "message": "Wayback AID/Data-Auctions route queried 20 namespaces, recovered 16 unique snapshots, parsed 0 documents, produced 0 unique identity rows and persisted 0 new canonical events. Per-lot blockers are persisted in the diagnostic."
+      },
+      "savills_2018_wayback_available_last_run": {
+        "at": "2026-09-14T15:01:26.716729+00:00",
+        "route": "savills-2018-wayback-available-catalogue-pid-replay",
+        "unresolved_lots_input": 58,
+        "aids": [
+          "1067",
+          "1068",
+          "1069",
+          "1071",
+          "1072"
+        ],
+        "availability_queries": 30,
+        "available_snapshots": 0,
+        "catalogue_documents_parsed": 0,
+        "pid_links_discovered": 0,
+        "detail_documents_parsed": 0,
+        "safe_unique_rows_ready": 0,
+        "canonical_events_before_apply": 3307,
+        "canonical_events_after_apply": 3307,
+        "canonical_events_added": 0
+      },
+      "savills_2018_wayback_available_blocker": {
+        "at": "2026-09-14T15:01:26.716729+00:00",
+        "route": "savills-2018-wayback-available-catalogue-pid-replay",
+        "message": "Wayback Availability API route parsed 0 catalogue snapshots, exposed 0 PID URLs, parsed 0 detail snapshots, produced 0 unique identities and persisted 0 canonical events. Per-lot blockers are persisted in the diagnostic."
       }
     }
   }
