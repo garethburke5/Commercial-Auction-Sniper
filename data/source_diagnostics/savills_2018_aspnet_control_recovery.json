@@ -1,10 +1,10 @@
 {
-  "at": "2026-09-14T09:00:12.236357+00:00",
-  "route": "savills-2018-propertyauctions-aspnet-resource-control-reconstruction",
+  "at": "2026-09-14T09:03:28.236277+00:00",
+  "route": "savills-2018-propertyauctions-aspnet-resource-control-reconstruction-with-legacy-host-fallback",
   "input_unresolved": 58,
   "catalogues_attempted": 5,
-  "catalogues_fetched": 0,
-  "script_resources_discovered": 0,
+  "catalogues_fetched": 5,
+  "script_resources_discovered": 75,
   "postback_controls_discovered": 0,
   "postback_responses_replayed": 0,
   "lots_with_location_postcode_identity_candidate": 0,
@@ -15,30 +15,1932 @@
     {
       "aid": "1067",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
-      "error": "SSLError: HTTPSConnectionPool(host='www.propertyauctions.com', port=443): Max retries exceeded with url: /Results/LotList.aspx?AID=1067 (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.propertyauctions.com'. (_ssl.c:1016)\")))"
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "recovery_variant": "legacy-tls-readonly-fallback",
+      "script_urls": [
+        "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332"
+      ],
+      "resource_probes": [
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 58990,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 12193,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 35764,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 13854,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 102804,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 68264,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 3678,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 12588,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 40329,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 467275,
+          "mentions_postback": true,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 95860,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 26954,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 10729,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 9950,
+          "mentions_postback": true,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 23063,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        }
+      ],
+      "hidden_field_names": [
+        "__EVENTARGUMENT",
+        "__EVENTTARGET",
+        "__EVENTVALIDATION",
+        "__VIEWSTATE",
+        "__VIEWSTATEGENERATOR",
+        "ctl00_ContentPlaceHolder1_rgResults_ClientState",
+        "ctl00_ContentPlaceHolder1_rtm1_ClientState"
+      ],
+      "page_postbacks": [],
+      "page_postback_count": 0,
+      "rows_seen": 215
     },
     {
       "aid": "1068",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
-      "error": "SSLError: HTTPSConnectionPool(host='www.propertyauctions.com', port=443): Max retries exceeded with url: /Results/LotList.aspx?AID=1068 (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.propertyauctions.com'. (_ssl.c:1016)\")))"
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "recovery_variant": "legacy-tls-readonly-fallback",
+      "script_urls": [
+        "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332"
+      ],
+      "resource_probes": [
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 58990,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 12193,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 35764,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 13854,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 102804,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 68264,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 3678,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 12588,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 40329,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 467275,
+          "mentions_postback": true,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 95860,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 26954,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 10729,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 9950,
+          "mentions_postback": true,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 23063,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        }
+      ],
+      "hidden_field_names": [
+        "__EVENTARGUMENT",
+        "__EVENTTARGET",
+        "__EVENTVALIDATION",
+        "__VIEWSTATE",
+        "__VIEWSTATEGENERATOR",
+        "ctl00_ContentPlaceHolder1_rgResults_ClientState",
+        "ctl00_ContentPlaceHolder1_rtm1_ClientState"
+      ],
+      "page_postbacks": [],
+      "page_postback_count": 0,
+      "rows_seen": 161
     },
     {
       "aid": "1069",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
-      "error": "SSLError: HTTPSConnectionPool(host='www.propertyauctions.com', port=443): Max retries exceeded with url: /Results/LotList.aspx?AID=1069 (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.propertyauctions.com'. (_ssl.c:1016)\")))"
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "recovery_variant": "legacy-tls-readonly-fallback",
+      "script_urls": [
+        "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332"
+      ],
+      "resource_probes": [
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 58990,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 12193,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 35764,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 13854,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 102804,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 68264,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 3678,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 12588,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 40329,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 467275,
+          "mentions_postback": true,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 95860,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 26954,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 10729,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 9950,
+          "mentions_postback": true,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 23063,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        }
+      ],
+      "hidden_field_names": [
+        "__EVENTARGUMENT",
+        "__EVENTTARGET",
+        "__EVENTVALIDATION",
+        "__VIEWSTATE",
+        "__VIEWSTATEGENERATOR",
+        "ctl00_ContentPlaceHolder1_rgResults_ClientState",
+        "ctl00_ContentPlaceHolder1_rtm1_ClientState"
+      ],
+      "page_postbacks": [],
+      "page_postback_count": 0,
+      "rows_seen": 180
     },
     {
       "aid": "1071",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
-      "error": "SSLError: HTTPSConnectionPool(host='www.propertyauctions.com', port=443): Max retries exceeded with url: /Results/LotList.aspx?AID=1071 (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.propertyauctions.com'. (_ssl.c:1016)\")))"
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "recovery_variant": "legacy-tls-readonly-fallback",
+      "script_urls": [
+        "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332"
+      ],
+      "resource_probes": [
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 58990,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 12193,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 35764,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 13854,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 102804,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 68264,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 3678,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 12588,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 40329,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 467275,
+          "mentions_postback": true,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 95860,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 26954,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 10729,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 9950,
+          "mentions_postback": true,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 23063,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        }
+      ],
+      "hidden_field_names": [
+        "__EVENTARGUMENT",
+        "__EVENTTARGET",
+        "__EVENTVALIDATION",
+        "__VIEWSTATE",
+        "__VIEWSTATEGENERATOR",
+        "ctl00_ContentPlaceHolder1_rgResults_ClientState",
+        "ctl00_ContentPlaceHolder1_rtm1_ClientState"
+      ],
+      "page_postbacks": [],
+      "page_postback_count": 0,
+      "rows_seen": 169
     },
     {
       "aid": "1072",
       "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
-      "error": "SSLError: HTTPSConnectionPool(host='www.propertyauctions.com', port=443): Max retries exceeded with url: /Results/LotList.aspx?AID=1072 (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.propertyauctions.com'. (_ssl.c:1016)\")))"
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "recovery_variant": "legacy-tls-readonly-fallback",
+      "script_urls": [
+        "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+        "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332"
+      ],
+      "resource_probes": [
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=7RME8vhSRqt3Mqdxi2yQ2vgla9pNupKMO8fRhWK7OFQIFD6bxsmIu15w0Ge5Z3RjnQ0ltnJ-Mcq0856hdfjXRdW6ziICGNBR8CJSaoaa_y42ybb0pAgeXN5y2T-kEUXiNoGsneBYX3hnJyYVzqLzIw2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 58990,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=86EhAqQjfuMKlbK4FWyenEYmnweAH6pK0jDIFan-NDa1nMyuwrPdLr7jDcwWifdc-iyE2NGBk_V5pvUSbLxccbaTs6c9S9clVGTcubXdVLPMlssV-NgHQ6x1URVMPwh_GW2EFukdmCz6CAsVjFGPmlr4J3NM2M3iBnuOD5NYWJw1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 12193,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=A22-SyJgKhJ5FWUJePaPlEr7PThX5g0nNdk97uYiqhLZWd5IGU9Hb3OSLVfRLV4iwjqy1QpFn-rMcvwGfxooDUU1njxDC49XAawDc9L_PjghRPib4mywCd1WT5_WZbsceoLReMrQbhgI_3Z_MUJIWw2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 35764,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=GUyLPMOEFhffuIMm6XZ0oK3cqImDo_vrCV0oIpQhfyOatnoFw-3xa9_z8X_3hM4AEUnn-BURV3qpPED_oaOdSOqMegsVFpgiBG1WieVCbWcuQhPKolFEdsuC6fNo_uSfh4hjei495rdSRB0fBCvCWUlQca9H4OdVPHUnoFT3Ino1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 13854,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=NJmAwtEo3Ipnlaxl6CMhvtFt5ejbRcqOPMrMbEsBKBSj_Luudi2J6s45ufYEwIsFwWI4Y7qYHSjvDZbW6pMjBdWZkwwx_3q5voUXxzXmpJvGLDxxdZwK2iQpwnObEARU_7U1i-7s9xYrFIGgrC_1MU4TDDKr_DU47RbpTJF7TTI1&amp;t=5c0e0825",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 102804,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=TDVjdgRbdvNAY3tnbizUcBz7pBkP3E29S6zbm1o9RkUSnnptyFgpeeUYSqWxwMzTpKLTqEg_RFsJIJC1HTySEVcxbv1Xzgc0W80Z7WPR71DSrvgPRwaDegP10OISaecA0&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 68264,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=aoSSiMnLNTC20U5L7LFIKspEtXhFrYE3hYUqp_nxGarN1150x7-n2W-ceYnuc2mSIZilI24SQ3zPfVWUx-lYgKG4gzFZ4JqWyIFsEHYPhJH01KXmcI0wuLwoyCWrhjcccoZda5bcRfhXjjLOPTs26gs-Kq-mGUuUfvY7bw5xAgc1&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 3678,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=cmIcXiVJ__exjjpjrN730hvxtKgMD6ZgDXhMSIDZAuVnlj6STJ-zebExuCgDDuoForp6mAzhsmhaZul6hloc-0nLYFc6PJ2nCDcA2prCtpPHudLy3kWseqQ_Yr8Z71xTPnEGFgXylJnwiMygvbOo_A2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 12588,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=dwY9oWetJoJoVpgL6Zq8OHO7HmLRsaEBYAA8SNZRaRlPAxT9XJjsu2XBGNPeJgjScdFwiWXLzmPRmBUPm6VtNGxD86FFrfszoAhO8Cz_PbG5SxslcdxwuiXoUDg8DH1MmkpijjKU4_tj7xhCXd_Qn8GPZVp0x9RCebjxG7O_kGU1&amp;t=5c0e0825",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 40329,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=jsREEuQJotslNUdHnktdpk05KpDfmePb7RJGvVCxOmYdEffodCsuw7Av-nnatl5K1n89o-Ujz4z0LNQ3Aqrq1KqQxpKwm-L3Tq7HmnQfeg0wl6GibNuieSEhPnTCvHmUD2ExYWDqELGHI5xoI703dg2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 467275,
+          "mentions_postback": true,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=mbGZm65DzNC0tMTq0ElbcT6tvgEwA23myIZe_TGgRqztdi8BQbK4ZU0WaxdLmJm-sVcifvRAS9kNrpsWTih7ERDNc57kM7N8ud0X7zqWVWFG8plqsIIy3b9VNAmkiV5DXpG5Qy_ABRAHXRXQR-4wrQ2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 95860,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CHMhoQb4aAQjlalnQG76FCaOhVs4MnJMf-SdOhOxEmtANlFlV_Dqj7aqAXTjIK2DTeQF28PFSEwkpa9CsY7hTpdUtf6LMliO_42qrlS-6GFhgLWKvUyyHcJo_LhmotpzA2&amp;t=ffffffff93d1c106",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 26954,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=utaAJrK4EroNO-KNr3p19J9_L-ltB1jA-zWrltJHHa6w-SioJ_l16d3f2j05R1QTYOaStMLI0bREVFhg3uPLw-608FSoTxs07EPyyYSmiQltrz_uIIu-ghCsQvN_675SVvgIcanRTqqKe4GufnOunQ2&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 10729,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/ScriptResource.axd?d=yDnolN3MCk2j5_wvI0cFD64RW6Q0UHGniLuxQLjOl9GaVsllaUrnrdVGuwg9a2zxDHsVKcj2heRGW9PaZjIvE84IuVLMtR-ZOW_NBYmSryaBWI1VY-7ftJSIjKE94UDf5R8tCxvLpAE80mDxisAC3n9EgeYz81ZD68WkE_1Dy-81&amp;t=ffffffff9ebf392d",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 9950,
+          "mentions_postback": true,
+          "mentions_pid": false,
+          "error": null
+        },
+        {
+          "url": "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332",
+          "status": 200,
+          "final_url": "https://www.propertyauctions.com/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZIWXWqgdujqZ_A0JtJ0E-L8ksGzAWMnMiBcOtdTEbQP9VXTEJYzoxg_a2-zOEuclJA2&amp;t=638901572248157332",
+          "recovery_variant": "legacy-tls-readonly-fallback",
+          "bytes": 23063,
+          "mentions_postback": false,
+          "mentions_pid": false,
+          "error": null
+        }
+      ],
+      "hidden_field_names": [
+        "__EVENTARGUMENT",
+        "__EVENTTARGET",
+        "__EVENTVALIDATION",
+        "__VIEWSTATE",
+        "__VIEWSTATEGENERATOR",
+        "ctl00_ContentPlaceHolder1_rgResults_ClientState",
+        "ctl00_ContentPlaceHolder1_rtm1_ClientState"
+      ],
+      "page_postbacks": [],
+      "page_postback_count": 0,
+      "rows_seen": 181
     }
   ],
-  "lots": [],
-  "blocker": "Legacy PropertyAuctions ASP.NET reconstruction found no exact row/detail control whose replay exposes a deterministic location+postcode identity for the unresolved 2018 lots.",
-  "next_route": "Persist per-lot ASP.NET blocker, then move breadth-first to the next unresolved 2018 auction and enumerate archived/static document and image asset basenames from its exact AID page; search those identifiers against first-party Savills PDF/detail namespaces before progressing to 2017."
+  "lots": [
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "26",
+      "location": "Farnborough, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "26 Part Vacant Freehold Garage Farnborough, Hampshire £144,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "27",
+      "location": "Farnborough, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "27 Part Vacant Freehold Garage Farnborough, Hampshire £120,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "28",
+      "location": "Aldershot, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "28 Part Vacant Freehold Garage Aldershot, Hampshire £220,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "29",
+      "location": "Aldershot, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "29 Part Vacant Freehold Garage Aldershot, Hampshire £120,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "37",
+      "location": "London E17",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "37 Vacant Freehold Garage London E17 Sold Post",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "49",
+      "location": "London E10",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "49 Vacant Freehold Retail London E10 Available at £670,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "76",
+      "location": "London SW6",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "76 Investment Freehold Retail London SW6 Available at £900,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "109",
+      "location": "London SE25",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "109 Investment Leasehold Retail London SE25 £74,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "111",
+      "location": "Romford, Essex",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "111 Vacant Freehold Garage Romford, Essex £20,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "116",
+      "location": "London SE19",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "116 Vacant Freehold Garage London SE19 £18,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "117",
+      "location": "London SE9",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "117 Vacant Freehold Garage London SE9 £10,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "144",
+      "location": "London W8",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "144 Vacant Freehold Garage London W8 £380,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "147",
+      "location": "London SW12",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "147 Vacant Leasehold Garage London SW12 £168,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "148",
+      "location": "Aldershot, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "148 Investment Freehold Garage Aldershot, Hampshire £105,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "171",
+      "location": "Rochester, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "171 Vacant Freehold Garage Rochester, Kent £45,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "172",
+      "location": "Hilgay, Norfolk",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "172 Vacant Freehold Garage Hilgay, Norfolk £55,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "175",
+      "location": "London N17",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "175 Investment Freehold Retail London N17 £40,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "181",
+      "location": "London SW17",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "181 Vacant Freehold Retail London SW17 £560,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "187",
+      "location": "Farnborough, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "187 Vacant Freehold Garage Farnborough, Hampshire £7,500",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "188",
+      "location": "Farnborough, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "188 Vacant Freehold Garage Farnborough, Hampshire £7,500",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "189",
+      "location": "Mitcham, Surrey",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "189 Vacant Freehold Garage Mitcham, Surrey £46,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "190",
+      "location": "Ilford, Essex",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "190 Vacant Freehold Garage Ilford, Essex Withdrawn",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": "1067",
+      "lot_number": "201",
+      "location": "Immingham, Lincolnshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "matching_rows": [
+        {
+          "text": "201 Part Vacant Freehold Retail Immingham, Lincolnshire Withdrawn",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": "1068",
+      "lot_number": "52",
+      "location": "Maidstone, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "matching_rows": [
+        {
+          "text": "52 Vacant Freehold Commercial Maidstone, Kent Available at £790,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": "1068",
+      "lot_number": "55",
+      "location": "Redcar, North Yorkshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "matching_rows": [
+        {
+          "text": "55 Investment Freehold Office Redcar, North Yorkshire Available at £870,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": "1068",
+      "lot_number": "57",
+      "location": "London SE15",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "matching_rows": [
+        {
+          "text": "57 Part Vacant Freehold Commercial London SE15 Sold Prior",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": "1068",
+      "lot_number": "58",
+      "location": "London SE15",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "matching_rows": [
+        {
+          "text": "58 Vacant Freehold Commercial London SE15 Sold Prior",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": "1068",
+      "lot_number": "60",
+      "location": "Billingham, North Yorkshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "matching_rows": [
+        {
+          "text": "60 Investment Freehold Office Billingham, North Yorkshire Available at £675,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": "1068",
+      "lot_number": "83",
+      "location": "Rochester, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "matching_rows": [
+        {
+          "text": "83 Vacant Freehold Garage Rochester, Kent £66,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": "1068",
+      "lot_number": "131",
+      "location": "New Malden, Surrey",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "matching_rows": [
+        {
+          "text": "131 Vacant Freehold Garage New Malden, Surrey Refer to Auctioneer",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": "1068",
+      "lot_number": "143",
+      "location": "Ilford, Essex IG4",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "matching_rows": [
+        {
+          "text": "143 Leasehold Garage Ilford, Essex IG4 Sold Post",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": "1068",
+      "lot_number": "144",
+      "location": "Helston, Cornwall",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "matching_rows": [
+        {
+          "text": "144 Vacant Freehold Hotel Helston, Cornwall Withdrawn Prior",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": "1068",
+      "lot_number": "150",
+      "location": "Heston, Middlesex",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "matching_rows": [
+        {
+          "text": "150 Vacant Freehold Garage Heston, Middlesex Sold Post",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": "1068",
+      "lot_number": "151",
+      "location": "Farnborough, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "matching_rows": [
+        {
+          "text": "151 Vacant Freehold Garage Farnborough, Hampshire Available at £7,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": "1068",
+      "lot_number": "153",
+      "location": "Chatham, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "matching_rows": [
+        {
+          "text": "153 Vacant Freehold Garage Chatham, Kent £5,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": "1068",
+      "lot_number": "154",
+      "location": "Chatham, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "matching_rows": [
+        {
+          "text": "154 Vacant Freehold Garage Chatham, Kent £5,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": "1069",
+      "lot_number": "41D",
+      "location": "Ascot, Berkshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "matching_rows": [
+        {
+          "text": "41D Vacant Leasehold Retail Ascot, Berkshire £152,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": "1069",
+      "lot_number": "88A",
+      "location": "Enfield, Middlesex",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "matching_rows": [
+        {
+          "text": "88A Part Vacant Freehold Retail Enfield, Middlesex Available at £580,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": "1069",
+      "lot_number": "94",
+      "location": "Romford, Essex",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "matching_rows": [
+        {
+          "text": "94 Vacant Freehold Garage Romford, Essex £70,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": "1069",
+      "lot_number": "127",
+      "location": "London SW12",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "matching_rows": [
+        {
+          "text": "127 Vacant Leasehold Garage London SW12 Sold Prior",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": "1069",
+      "lot_number": "140",
+      "location": "London SE9",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "matching_rows": [
+        {
+          "text": "140 Vacant Freehold Garage London SE9 Available at £10,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": "1069",
+      "lot_number": "147",
+      "location": "Chatham, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "matching_rows": [
+        {
+          "text": "147 Vacant Freehold Garage Chatham, Kent Refer to Auctioneer",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": "1069",
+      "lot_number": "148",
+      "location": "Chatham, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "matching_rows": [
+        {
+          "text": "148 Investment Freehold Garage Chatham, Kent Refer to Auctioneer",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": "1069",
+      "lot_number": "153",
+      "location": "Rotherham, South Yorkshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "matching_rows": [
+        {
+          "text": "153 Investment Freehold Retail Rotherham, South Yorkshire Available at £130,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": "1069",
+      "lot_number": "161",
+      "location": "Farnborough, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "matching_rows": [
+        {
+          "text": "161 Vacant Freehold Garage Farnborough, Hampshire Available at £5,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": "1069",
+      "lot_number": "164",
+      "location": "Immingham, Lincolnshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "matching_rows": [
+        {
+          "text": "164 Part Vacant Freehold Office Immingham, Lincolnshire Withdrawn",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-09-26",
+      "aid": "1071",
+      "lot_number": "27",
+      "location": "London N3",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "matching_rows": [
+        {
+          "text": "27 Part Vacant Freehold Garage London N3 £104,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": "1072",
+      "lot_number": "9",
+      "location": "Ashtead, Surrey",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "matching_rows": [
+        {
+          "text": "9 Vacant Freehold Garage Ashtead, Surrey £14,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": "1072",
+      "lot_number": "43",
+      "location": "London E17",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "matching_rows": [
+        {
+          "text": "43 Vacant Freehold Garage London E17 Available at £250,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": "1072",
+      "lot_number": "82",
+      "location": "Erdington, West Midlands",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "matching_rows": [
+        {
+          "text": "82 Investment Freehold Retail Erdington, West Midlands Sold Prior",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": "1072",
+      "lot_number": "102",
+      "location": "London N17",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "matching_rows": [
+        {
+          "text": "102 Vacant Freehold Retail London N17 Available at £150,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": "1072",
+      "lot_number": "111",
+      "location": "London SE15",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "matching_rows": [
+        {
+          "text": "111 Investment Freehold Retail London SE15 Withdrawn",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": "1072",
+      "lot_number": "119",
+      "location": "Luton, Bedfordshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "matching_rows": [
+        {
+          "text": "119 Vacant Freehold Garage Luton, Bedfordshire £70,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": "1072",
+      "lot_number": "147",
+      "location": "London W11",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "matching_rows": [
+        {
+          "text": "147 Vacant Leasehold Garage London W11 £50,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": "1072",
+      "lot_number": "148",
+      "location": "London W11",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "matching_rows": [
+        {
+          "text": "148 Vacant Leasehold Garage London W11 £170,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": "1072",
+      "lot_number": "153",
+      "location": "London SE13",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "matching_rows": [
+        {
+          "text": "153 Investment Leasehold Garage London SE13 £46,000",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": "1072",
+      "lot_number": "167",
+      "location": "Grays, Essex",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "matching_rows": [
+        {
+          "text": "167 Vacant Freehold Garage Grays, Essex Withdrawn Prior",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": "1072",
+      "lot_number": "174",
+      "location": "London W9",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "matching_rows": [
+        {
+          "text": "174 Vacant Freehold Retail London W9 Withdrawn Prior",
+          "postbacks": [],
+          "hrefs": []
+        }
+      ],
+      "exact_control_candidates": 0,
+      "postback_probes": [],
+      "blocker": "matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity"
+    }
+  ],
+  "blocker": "Legacy PropertyAuctions ASP.NET reconstruction successfully fetched catalogue surfaces but found no exact row/detail control whose replay exposes a deterministic location+postcode identity for the unresolved 2018 lots.",
+  "next_route": "Persist per-lot ASP.NET blocker, then enumerate archived/static document and image asset basenames from each exact AID page and search those identifiers against first-party Savills PDF/detail namespaces, breadth-first across the remaining 2018 auctions."
 }
