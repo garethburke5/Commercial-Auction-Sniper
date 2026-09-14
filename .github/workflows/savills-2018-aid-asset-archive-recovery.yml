@@ -1,0 +1,66 @@
+name: Savills 2018 AID Asset Archive Recovery
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'savills_2018_aid_asset_archive_recovery.py'
+      - '.github/workflows/savills-2018-aid-asset-archive-recovery.yml'
+permissions:
+  contents: write
+concurrency:
+  group: savills-2018-aid-asset-archive-recovery
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - run: python -m py_compile savills_2018_aid_asset_archive_recovery.py
+      - name: Execute exact AID asset namespace recovery
+        run: python savills_2018_aid_asset_archive_recovery.py
+      - name: Publish recovery conflict-safe
+        run: |
+          set -euo pipefail
+          cp data/source_diagnostics/savills_2018_aid_asset_archive_recovery.json /tmp/diag.json
+          cp data/property_history.json /tmp/history.json
+          cp data/historical_backfill_progress.json /tmp/progress.json
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/diag.json data/source_diagnostics/savills_2018_aid_asset_archive_recovery.json
+            cp /tmp/history.json data/property_history.json
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          fp=Path('data/historical_backfill_progress.json')
+          fresh=json.loads(fp.read_text()); run=json.loads(Path('/tmp/progress.json').read_text())
+          fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{}); rs=run['sources']['Savills Auctions']
+          for k in ('last_discovery_mode','savills_2018_aid_asset_archive_last_run','savills_2018_aid_asset_archive_blocker','lots_captured'):
+              if k in rs: fs[k]=rs[k]
+          fs['historically_complete']=False;fs['discovery_exhausted']=False
+          fresh['updated_at']=run.get('updated_at',fresh.get('updated_at'))
+          fp.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
+          d=json.loads(Path('data/source_diagnostics/savills_2018_aid_asset_archive_recovery.json').read_text())
+          h=json.loads(Path('data/property_history.json').read_text())
+          print('CANONICAL_SAVILLS',sum(1 for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions'))
+          print('CDX_RESOURCES',d['cdx_unique_resources'],'TEXT_REPLAYED',d['text_resources_replayed'],'LOT_ASSETS',d['lot_specific_asset_links'],'ADDED',d['canonical_events_added'])
+          assert d['unresolved_lots_input']==58
+          PY
+            git add data/source_diagnostics/savills_2018_aid_asset_archive_recovery.json data/property_history.json data/historical_backfill_progress.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist Savills 2018 AID asset archive recovery'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt*4))
+          done
+          exit 1
