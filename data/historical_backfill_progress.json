@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T05:11:42.159543+00:00",
+  "updated_at": "2026-09-14T05:13:03.979107+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "propertyauctions-io-savills-bulk-endpoint-and-pagination-discovery",
+      "last_discovery_mode": "propertyauctions-io-search-index-exact-auction-date-bulk-harvest",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -54691,6 +54691,381 @@
         "failing_url_or_route": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D",
         "message": "Archive page status=403; initial HTML exposed 0 listing IDs; inspected 0 JS bundles and 3 endpoint candidates; 0 bulk-looking endpoint responses.",
         "next_safe_route": "Use any discovered endpoint/pagination contract to enumerate the full Savills archive, filter Commercial/Mixed Use, and reconcile 2010-2018 by auction date/address. If no endpoint is exposed, execute browser-compatible archive pagination/query-state replay and indexed listing-ID harvest."
+      },
+      "propertyauctions_io_index_harvest_last_run": {
+        "at": "2026-09-14T05:13:03.979107+00:00",
+        "route": "propertyauctions-io-search-index-exact-auction-date-bulk-harvest",
+        "auction_dates": 71,
+        "commercial_mixed_clues": 497,
+        "queries_executed": 426,
+        "search_errors": 0,
+        "raw_listing_hits": 0,
+        "unique_listing_ids": 0,
+        "unique_date_location_postcode_matches": 0,
+        "per_date": {
+          "2018-11-29": {
+            "catalogue_clues": 2,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2018-11-26": {
+            "catalogue_clues": 11,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2018-09-27": {
+            "catalogue_clues": 1,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2018-09-26": {
+            "catalogue_clues": 6,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2018-08-01": {
+            "catalogue_clues": 2,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2018-07-24": {
+            "catalogue_clues": 5,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2018-06-18": {
+            "catalogue_clues": 10,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2018-06-07": {
+            "catalogue_clues": 1,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2018-05-09": {
+            "catalogue_clues": 13,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2018-04-12": {
+            "catalogue_clues": 2,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2018-03-26": {
+            "catalogue_clues": 25,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2018-02-14": {
+            "catalogue_clues": 2,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2018-02-13": {
+            "catalogue_clues": 14,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-12-11": {
+            "catalogue_clues": 8,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-11-30": {
+            "catalogue_clues": 2,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-11-06": {
+            "catalogue_clues": 15,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-09-25": {
+            "catalogue_clues": 6,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-09-21": {
+            "catalogue_clues": 7,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-07-27": {
+            "catalogue_clues": 3,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-07-24": {
+            "catalogue_clues": 5,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-06-19": {
+            "catalogue_clues": 8,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-06-08": {
+            "catalogue_clues": 6,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-05-09": {
+            "catalogue_clues": 5,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-04-27": {
+            "catalogue_clues": 7,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-03-29": {
+            "catalogue_clues": 7,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-02-16": {
+            "catalogue_clues": 3,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2017-02-13": {
+            "catalogue_clues": 5,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-12-15": {
+            "catalogue_clues": 4,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-12-12": {
+            "catalogue_clues": 5,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-11-01": {
+            "catalogue_clues": 4,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-10-20": {
+            "catalogue_clues": 6,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-09-01": {
+            "catalogue_clues": 4,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-07-25": {
+            "catalogue_clues": 5,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-07-07": {
+            "catalogue_clues": 6,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-06-20": {
+            "catalogue_clues": 3,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-05-19": {
+            "catalogue_clues": 14,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-05-09": {
+            "catalogue_clues": 8,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-03-23": {
+            "catalogue_clues": 7,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-03-02": {
+            "catalogue_clues": 7,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-02-16": {
+            "catalogue_clues": 7,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2016-02-04": {
+            "catalogue_clues": 6,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2015-11-02": {
+            "catalogue_clues": 3,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2015-10-22": {
+            "catalogue_clues": 6,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2015-09-03": {
+            "catalogue_clues": 11,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2015-07-28": {
+            "catalogue_clues": 10,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2015-07-09": {
+            "catalogue_clues": 12,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2015-06-22": {
+            "catalogue_clues": 5,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2015-05-14": {
+            "catalogue_clues": 4,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2015-05-11": {
+            "catalogue_clues": 4,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2015-03-31": {
+            "catalogue_clues": 5,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2015-03-26": {
+            "catalogue_clues": 11,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2015-02-17": {
+            "catalogue_clues": 2,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2015-01-29": {
+            "catalogue_clues": 9,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-12-08": {
+            "catalogue_clues": 2,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-12-04": {
+            "catalogue_clues": 12,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-10-28": {
+            "catalogue_clues": 5,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-10-16": {
+            "catalogue_clues": 13,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-09-15": {
+            "catalogue_clues": 5,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-08-28": {
+            "catalogue_clues": 13,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-07-22": {
+            "catalogue_clues": 5,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-07-10": {
+            "catalogue_clues": 11,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-06-16": {
+            "catalogue_clues": 8,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-05-15": {
+            "catalogue_clues": 21,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-05-07": {
+            "catalogue_clues": 1,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-03-27": {
+            "catalogue_clues": 19,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-03-24": {
+            "catalogue_clues": 5,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-02-11": {
+            "catalogue_clues": 5,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2014-01-30": {
+            "catalogue_clues": 6,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2013-12-10": {
+            "catalogue_clues": 6,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2013-11-28": {
+            "catalogue_clues": 8,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          },
+          "2010-05-10": {
+            "catalogue_clues": 3,
+            "indexed_listing_ids": 0,
+            "unique_clue_matches": 0
+          }
+        }
+      },
+      "propertyauctions_io_index_harvest_last_blocker": {
+        "at": "2026-09-14T05:13:03.979107+00:00",
+        "route": "propertyauctions-io-search-index-exact-auction-date-bulk-harvest",
+        "failing_url_or_route": "PropertyAuctions.io archive direct endpoint is HTTP 403; Bing RSS indexed /listings/ namespace used instead.",
+        "message": "0 unique indexed listing IDs recovered across 71 Savills auction dates; 0 map uniquely to known commercial/mixed catalogue clues by exact date + location + postcode-bearing indexed title/snippet.",
+        "next_safe_route": "For harvested listing IDs, query exact full address/postcode against first-party auctions.savills.co.uk and archived Savills namespaces in bulk; promote deterministic first-party-confirmed matches. Expand index harvest by postcode/location shards for dates whose search result cap is saturated."
       }
     }
   }
