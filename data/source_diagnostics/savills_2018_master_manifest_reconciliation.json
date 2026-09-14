@@ -1,0 +1,145 @@
+{
+  "at": "2026-09-14T23:04:19.825382+00:00",
+  "route": "savills-2018-first-party-master-manifest-reconciliation",
+  "master_source": "https://auctions.savills.co.uk/past-auctions/archive/",
+  "master_auction_count": 8,
+  "master_auctions": [
+    {
+      "auction_date": "2018-02-13",
+      "aid": 1066,
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+      "first_party_offered_count": 234,
+      "commercial_mixed_clues": 14,
+      "canonical_lot_matches": 14,
+      "unresolved": 0,
+      "blocker": null
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "first_party_offered_count": 186,
+      "commercial_mixed_clues": 25,
+      "canonical_lot_matches": 2,
+      "unresolved": 23,
+      "blocker": "Recovered catalogue clue lacks enough deterministic first-party lot identity to canonicalise remaining rows safely."
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "first_party_offered_count": 148,
+      "commercial_mixed_clues": 13,
+      "canonical_lot_matches": 0,
+      "unresolved": 13,
+      "blocker": "Recovered catalogue clue lacks enough deterministic first-party lot identity to canonicalise remaining rows safely."
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "first_party_offered_count": 150,
+      "commercial_mixed_clues": 10,
+      "canonical_lot_matches": 0,
+      "unresolved": 10,
+      "blocker": "Recovered catalogue clue lacks enough deterministic first-party lot identity to canonicalise remaining rows safely."
+    },
+    {
+      "auction_date": "2018-07-24",
+      "aid": 1070,
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+      "first_party_offered_count": 96,
+      "commercial_mixed_clues": 5,
+      "canonical_lot_matches": 5,
+      "unresolved": 0,
+      "blocker": null
+    },
+    {
+      "auction_date": "2018-09-26",
+      "aid": 1071,
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "first_party_offered_count": 147,
+      "commercial_mixed_clues": 6,
+      "canonical_lot_matches": 5,
+      "unresolved": 1,
+      "blocker": "Recovered catalogue clue lacks enough deterministic first-party lot identity to canonicalise remaining rows safely."
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "first_party_offered_count": 127,
+      "commercial_mixed_clues": 11,
+      "canonical_lot_matches": 0,
+      "unresolved": 11,
+      "blocker": "Recovered catalogue clue lacks enough deterministic first-party lot identity to canonicalise remaining rows safely."
+    },
+    {
+      "auction_date": "2018-12-11",
+      "aid": null,
+      "catalogue_url": null,
+      "first_party_offered_count": 4,
+      "commercial_mixed_clues": 0,
+      "canonical_lot_matches": 0,
+      "unresolved": 0,
+      "blocker": null
+    }
+  ],
+  "master_commercial_mixed_clues": 84,
+  "master_canonical_lot_matches": 26,
+  "master_unresolved": 58,
+  "non_master_catalogue_date_anomalies": [
+    {
+      "date": "2018-02-14",
+      "commercial_mixed_clues": 2,
+      "canonical_lot_matches": 0,
+      "unresolved": 2,
+      "classification": "catalogue-clue date not present in first-party Savills chronological auction manifest",
+      "blocker": "Do not count as a separate Savills auction until an exact Savills auction/AID relationship is proven."
+    },
+    {
+      "date": "2018-04-12",
+      "commercial_mixed_clues": 2,
+      "canonical_lot_matches": 0,
+      "unresolved": 2,
+      "classification": "catalogue-clue date not present in first-party Savills chronological auction manifest",
+      "blocker": "Do not count as a separate Savills auction until an exact Savills auction/AID relationship is proven."
+    },
+    {
+      "date": "2018-06-07",
+      "commercial_mixed_clues": 1,
+      "canonical_lot_matches": 0,
+      "unresolved": 1,
+      "classification": "catalogue-clue date not present in first-party Savills chronological auction manifest",
+      "blocker": "Do not count as a separate Savills auction until an exact Savills auction/AID relationship is proven."
+    },
+    {
+      "date": "2018-08-01",
+      "commercial_mixed_clues": 2,
+      "canonical_lot_matches": 0,
+      "unresolved": 2,
+      "classification": "catalogue-clue date not present in first-party Savills chronological auction manifest",
+      "blocker": "Do not count as a separate Savills auction until an exact Savills auction/AID relationship is proven."
+    },
+    {
+      "date": "2018-09-27",
+      "commercial_mixed_clues": 1,
+      "canonical_lot_matches": 0,
+      "unresolved": 1,
+      "classification": "catalogue-clue date not present in first-party Savills chronological auction manifest",
+      "blocker": "Do not count as a separate Savills auction until an exact Savills auction/AID relationship is proven."
+    },
+    {
+      "date": "2018-11-29",
+      "commercial_mixed_clues": 2,
+      "canonical_lot_matches": 0,
+      "unresolved": 2,
+      "classification": "catalogue-clue date not present in first-party Savills chronological auction manifest",
+      "blocker": "Do not count as a separate Savills auction until an exact Savills auction/AID relationship is proven."
+    }
+  ],
+  "non_master_anomaly_clues": 10,
+  "catalogue_wide_2018_clues": 94,
+  "finding": "The previous 13-auction 2018 denominator conflated six catalogue-clue dates with the eight auctions in the surviving first-party Savills chronology. Auction completeness must use the 8-date Savills chronology as master and retain the six extra dates as attribution anomalies, not auctions.",
+  "next_route": "Breadth-first capture the eight master auctions only. For each unresolved master auction, persist every commercial/mixed clue as a partial source record and enrich to canonical History V2 only when full identity is deterministic. Separately attribute the six non-master clue dates without allowing them to block master-auction traversal."
+}
