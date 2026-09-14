@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T01:05:47.954397+00:00",
+  "updated_at": "2026-09-14T02:04:12.148516+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "2018 ROW-ASSET RECOVERY BLOCKED",
+      "status": "2018 ARCHIVE SNAPSHOT REPLAY BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3254,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-commercial-row-html-asset-and-identifier-forensics",
+      "last_discovery_mode": "savills-2018-row-evidence-parallel-wayback-index-and-snapshot-replay",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -46672,6 +46672,26 @@
         "failing_url_or_route": "all validated 2018 PropertyAuctions AID catalogue row markup",
         "message": "Forensic pass inspected 94 commercial/mixed row(s), found identifiers on 94, first-party row candidates on 0, and 0 candidate page(s) with postcodes, but no row has yet been promoted without deterministic full-address identity plus Savills evidence.",
         "next_safe_route": "Use the persisted per-row numeric ID index and exact asset URLs to query Wayback/Common Crawl by exact discovered identifier/asset basename and sibling directory patterns; reconcile any address-bearing snapshot to AID/date/lot before History V2 promotion."
+      },
+      "savills_2018_row_archive_index_last_run": {
+        "at": "2026-09-14T02:04:12.148516+00:00",
+        "route": "savills-2018-row-evidence-parallel-wayback-index-and-snapshot-replay",
+        "source_urls": 14,
+        "index_queries": 15,
+        "unique_archive_captures": 256,
+        "captures_replayed": 256,
+        "replayed_pages_with_postcodes": 0,
+        "deterministic_aid_lot_location_postcode_matches": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3254,
+        "savills_events_after": 3254
+      },
+      "savills_2018_row_archive_index_last_blocker": {
+        "at": "2026-09-14T02:04:12.148516+00:00",
+        "route": "savills-2018-row-evidence-parallel-wayback-index-and-snapshot-replay",
+        "failing_url_or_route": "row-derived exact/sibling Wayback index plus snapshot replay",
+        "message": "Parallel archive indexing found 256 capture row(s); replayed 256 surfaces and found 0 postcode-bearing pages, but 0 pages deterministically joined AID + lot + catalogue location + postcode for the 94 commercial/mixed 2018 clues.",
+        "next_safe_route": "Use the persisted archived URL corpus to enumerate document/PDF/brochure/particular namespaces and search those first-party/static documents by exact AID+lot/location, retaining the failed replay evidence."
       }
     }
   }

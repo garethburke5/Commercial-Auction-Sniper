@@ -1,0 +1,1690 @@
+{
+  "at": "2026-09-14T02:04:12.148516+00:00",
+  "route": "savills-2018-row-evidence-parallel-wayback-index-and-snapshot-replay",
+  "source_urls": 14,
+  "index_queries": 15,
+  "queries": [
+    {
+      "url": "https://www.propertyauctions.com/Results/",
+      "mode": "prefix",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&collapse=urlkey&limit=1500&matchType=prefix",
+        "rows": 256
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "mode": "exact",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&collapse=urlkey&limit=1500",
+        "rows": 0
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "mode": "exact",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&collapse=urlkey&limit=1500",
+        "rows": 0
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+      "mode": "exact",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1070&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&collapse=urlkey&limit=1500",
+        "rows": 1
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+      "mode": "exact",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1083&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&collapse=urlkey&limit=1500",
+        "rows": 1
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+      "mode": "exact",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1081&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&collapse=urlkey&limit=1500",
+        "rows": 0
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "mode": "exact",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&collapse=urlkey&limit=1500",
+        "rows": 0
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "mode": "exact",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&collapse=urlkey&limit=1500",
+        "rows": 0
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "mode": "exact",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&collapse=urlkey&limit=1500",
+        "rows": 0
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+      "mode": "exact",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1073&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&collapse=urlkey&limit=1500",
+        "rows": 0
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+      "mode": "exact",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1082&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&collapse=urlkey&limit=1500",
+        "rows": 0
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+      "mode": "exact",
+      "diagnostic": {
+        "status": null,
+        "request_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+        "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=15)"
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+      "mode": "exact",
+      "diagnostic": {
+        "status": null,
+        "request_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+        "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=15)"
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+      "mode": "exact",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1085&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&collapse=urlkey&limit=1500",
+        "rows": 0
+      }
+    },
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+      "mode": "exact",
+      "diagnostic": {
+        "status": null,
+        "request_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+        "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=15)"
+      }
+    }
+  ],
+  "unique_archive_captures": 256,
+  "captures_replayed": 256,
+  "replayed_pages_with_postcodes": 0,
+  "deterministic_aid_lot_location_postcode_matches": 0,
+  "match_samples": [],
+  "capture_samples": [
+    {
+      "timestamp": "20141208210823",
+      "original": "http://www.propertyauctions.com:80/Results/",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20150611004554",
+      "original": "http://www.propertyauctions.com:80/Results/Default.aspx",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20160405113220",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1000",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20160405074652",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1001",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20161031125151",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1005",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190730175041",
+      "original": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1062",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190730174833",
+      "original": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190730174710",
+      "original": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1077",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190730174016",
+      "original": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190916152954",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1088",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190820070717",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1089",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20191013223946",
+      "original": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1090",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20191111232143",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1091",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20200208014147",
+      "original": "http://www.propertyauctions.com:80/Results/LotList.aspx?AID=1092",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190720073708",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1095",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190720074845",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1096",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20191013224008",
+      "original": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1097",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20191211132824",
+      "original": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1098",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190820070707",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1101",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190820081018",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1106",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190720081104",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1107",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190916140249",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1108",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190720071514",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1109",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190916143043",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1114",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20190720074701",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1115",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20191111232215",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1117",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20191216163911",
+      "original": "http://www.propertyauctions.com:80/Results/LotList.aspx?AID=1118",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20200919033049",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1120",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20210123002755",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1121",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20201028193458",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1122",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20210123010116",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1123",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20200215143333",
+      "original": "http://www.propertyauctions.com:80/Results/LotList.aspx?AID=1124",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20201202224432",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1126",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20201202230413",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1127",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20200215171424",
+      "original": "http://www.propertyauctions.com:80/Results/LotList.aspx?AID=1132",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20200810185230",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1134",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20200810190951",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1135",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20200810192647",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1136",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20201028210938",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1137",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20200919015611",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1139",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20210225082728",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1140",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20210413001347",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1141",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20210508184453",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1142",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20210225073014",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1143",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20210413012241",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1144",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20210616203637",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1145",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20210616205558",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1146",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20210729070724",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1147",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20210729044725",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1148",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20210729051408",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1149",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20210927202408",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1150",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20211207232416",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1151",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20220129003219",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1152",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20211016113819",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=1153",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20211208002942",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1154",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20220129015603",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1155",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20220527181709",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1156",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20220527192947",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1157",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20220925214408",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1159",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20220925194432",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1160",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20221206174406",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1161",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20230323134301",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1162",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20220527182402",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1164",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20220925203241",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1166",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20220925214931",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1167",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20230323142740",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1168",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20221206161513",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1169",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20230605092757",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1170",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20230323150840",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1171",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20230605094400",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1172",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20230927224532",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1173",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20230927214440",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1174",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20231204041837",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1175",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20240224192504",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1176",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20230323133034",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1177",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20230605102755",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1178",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20230605092128",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1179",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20230927213658",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1180",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20231204041301",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1181",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20231204031353",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1182",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20240224181031",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1183",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20240421052624",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1184",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20240520205629",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1185",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20240618094120",
+      "original": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1186",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20240813175321",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1187",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20241004060647",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1188",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20241213145343",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1189",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20250119163413",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1190",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20240421041505",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1191",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20240520221057",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1192",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20240520210430",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1193",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20241004060305",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1194",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20241004045425",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1195",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20241213160204",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1196",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20250119161021",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1197",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20250317110308",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1202",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20250423214333",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1203",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20250622084125",
+      "original": "https://propertyauctions.com/Results/LotList.aspx?AID=1204",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20260612050737",
+      "original": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1207",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20150221012531",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=874",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20150221001633",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=881",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20160126142619",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=936",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20150220201118",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=938",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20150515090226",
+      "original": "http://www.propertyauctions.com:80/Results/LotList.aspx?AID=945",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20150515090231",
+      "original": "http://www.propertyauctions.com:80/Results/LotList.aspx?AID=947",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20150515090539",
+      "original": "http://www.propertyauctions.com:80/Results/LotList.aspx?AID=948",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20160405111312",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=951",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20150515090236",
+      "original": "http://www.propertyauctions.com:80/Results/LotList.aspx?AID=955",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20160405072101",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=964",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20161031083104",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=968",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20160126023623",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=974",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20161031124416",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=989",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20161031124712",
+      "original": "http://propertyauctions.com/Results/LotList.aspx?AID=997",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20010807013452",
+      "original": "http://www.propertyauctions.com:80/results_auctions_list.asp",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20010421094956",
+      "original": "http://www.propertyauctions.com:80/results_frame.htm",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20010708213040",
+      "original": "http://www.propertyauctions.com:80/results_list.asp",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20010817094610",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=124&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20010817100018",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=125&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20010817101244",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=126&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20010817102929",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=127&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20010817105441",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=130&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20011113223328",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=138&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20011113224538",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=139&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20011113231222",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=142&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20011113232734",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=143&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20011113233649",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=144&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20020210110149",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=146&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20020605104341",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=149&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20020414134610",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=150&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20020210102628",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=151&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20020210103118",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=153&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20020210103652",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=154&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20020210103538",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=156&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20020605104936",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=171&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20020605105639",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=172&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20020605140248",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=174&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20020605111151",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=175&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20020721231652",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=177&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20020605110617",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=178&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021002155518",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=182&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021002155616",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=183&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021002160451",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=186&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021002160524",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=192&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021002161214",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=194&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021002162337",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=195&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021210080311",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=200&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021210074027",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=202&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021210074157",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=203&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021210074525",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=204&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021210074103",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=205&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021210074049",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=206&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021210073622",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=207&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021210075500",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=209&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030203103515",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=210&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20021210075201",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=212&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030203110055",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=213&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030416030701",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=217&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030416103634",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=222&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030416104254",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=224&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030416121821",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=225&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030416121940",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=226&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030416123539",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=229&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030416124202",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=231&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030416123623",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=235&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030609191603",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=237&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030609191813",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=238&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030609192124",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=239&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030609192043",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=241&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030609192637",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=243&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030609192618",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=245&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20050904040646",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=248&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030805223037",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=249&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20031009044544",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=250&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030805223331",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=251&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030805223214",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=252&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20031009050515",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=254&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040419212148",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=256&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030805224738",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=257&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20030805224507",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=258&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20031009051721",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=260&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20031009052501",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=261&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040416213949",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=262&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20031009055627",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=263&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20031009071232",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=267&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20031218230741",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=269&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20031218231407",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=271&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20031218231446",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=272&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20031219061920",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=275&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20031219061938",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=276&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20031219062030",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=277&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20031219062606",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=278&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040407174901",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=292&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040407175602",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=295&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040407180131",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=296&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040407180301",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=297&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040407180720",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=298&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040407181638",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=300&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040407182021",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=301&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040407182651",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=302&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040407182947",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=303&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040407183317",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=304&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040623081546",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=318&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040623081611",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=319&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040803165604",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=320&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040803170909",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=321&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040803171021",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=322&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040803172127",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=323&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040803173238",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=324&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040803173624",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=325&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040803174111",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=326&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040803175002",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=327&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040803175624",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=328&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040803180239",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=329&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040926191936",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=330&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040926191339",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=331&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040926191402",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=332&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040926191429",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=334&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20040926191452",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=335&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20050308140040",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=348&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20050308134817",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=355&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20050308135404",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=356&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20050308135806",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=357&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20050308135002",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=358&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20050308135458",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=359&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20050308135834",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=360&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20050308134814",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=361&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20050305164600",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=362&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20050308135129",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=363&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20060509111719",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=428&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20060509111200",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=430&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20060509111642",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=431&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20060509111625",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=432&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20060509111707",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=433&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20060509111656",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=434&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20060509111733",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=435&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20060509111632",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=436&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20060509111438",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=437&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20061113082913",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=458&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20061113082752",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=460&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20061113083104",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=462&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20061113083141",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=463&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20061113083210",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=464&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20061113083321",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=465&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20061113082009",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=466&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20061113082829",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=467&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20061113083018",
+      "original": "http://www.propertyauctions.com/results_list.asp?id=468&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20080122045212",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=513&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20080122045217",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=514&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20080122045222",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=527&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20080122045228",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=528&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20080122045233",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=529&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20080122045248",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=530&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20080122045252",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=532&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20080122045306",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=533&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20080122045311",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=534&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    },
+    {
+      "timestamp": "20080430085534",
+      "original": "http://www.propertyauctions.com:80/results_list.asp?id=559&unsold=0",
+      "statuscode": "200",
+      "mimetype": "text/html"
+    }
+  ],
+  "replay_samples": [],
+  "canonical_events_added": 0,
+  "savills_events_before": 3254,
+  "savills_events_after": 3254
+}
