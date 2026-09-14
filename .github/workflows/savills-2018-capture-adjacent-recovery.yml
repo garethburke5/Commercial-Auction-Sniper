@@ -1,0 +1,45 @@
+name: Savills 2018 Capture Adjacent Recovery
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'savills_2018_capture_adjacent_recovery.py'
+      - '.github/workflows/savills-2018-capture-adjacent-recovery.yml'
+permissions:
+  contents: write
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 58
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install archive/PDF parsers
+        run: |
+          pip install requests pypdf fonttools
+          sudo apt-get update -qq
+          sudo apt-get install -y poppler-utils
+      - name: Compile
+        run: python -m py_compile savills_2018_capture_adjacent_recovery.py
+      - name: Recover capture-adjacent AID PID PDF identities
+        run: python savills_2018_capture_adjacent_recovery.py
+      - name: Persist validated rows or blocker
+        run: |
+          set -euo pipefail
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics/savills_2018_capture_adjacent_recovery.json
+          if git diff --cached --quiet; then exit 1; fi
+          git commit -m 'Persist Savills 2018 capture-adjacent recovery'
+          for attempt in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then exit 0; fi
+            git rebase --abort || true
+            git fetch origin main
+            sleep $((attempt*4))
+          done
+          exit 1
