@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T10:01:44.297166+00:00",
+  "updated_at": "2026-09-14T10:14:36.226574+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-propertyauctions-static-asset-basename-and-first-party-index-recovery",
+      "last_discovery_mode": "exact-original-discovery-logic-full-firstparty-url-inventory",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -56835,6 +56835,17 @@
         "route": "savills-2018-propertyauctions-static-asset-basename-and-first-party-index-recovery",
         "message": "Live PropertyAuctions catalogues were inspected for static/document/image asset identifiers and exact asset/AID/lot/locality index searches were executed, but no unique full-address identity was recovered for the unresolved 2018 lots.",
         "next_safe_route": "Use archived HTML/document capture enumeration by exact catalogue URL and discovered asset paths via Common Crawl indexes and Wayback URL-prefix queries, then resolve captured document text against first-party Savills identities; persist per-lot archive blocker when absent."
+      },
+      "savills_firstparty_full_url_inventory": {
+        "at": "2026-09-14T10:14:36.226574+00:00",
+        "total_urls": 20673,
+        "class_counts": {
+          "other": 18,
+          "lot_detail": 20558,
+          "auction_catalogue": 96,
+          "archive": 1
+        },
+        "route": "exact-original-discovery-logic-full-firstparty-url-inventory"
       }
     }
   }
