@@ -1,17 +1,489 @@
 {
-  "at": "2026-09-14T04:05:51.385250+00:00",
-  "route": "savills-2018-item-level-rss-lot-location-postcode-recovery",
+  "at": "2026-09-14T04:07:19.721526+00:00",
+  "route": "savills-2018-tolerant-item-level-rss-lot-location-postcode-recovery",
   "commercial_mixed_clues_considered": 94,
   "rss_capture_candidates": 8,
   "rss_documents_replayed": 8,
-  "rss_items_parsed": 0,
-  "safe_unique_item_matches": 0,
-  "ambiguous_item_matches": 0,
-  "canonical_events_added": 0,
+  "rss_items_parsed": 1332,
+  "safe_unique_item_matches": 26,
+  "ambiguous_item_matches": 2,
+  "canonical_events_added": 26,
   "savills_events_before": 3254,
-  "savills_events_after": 3254,
-  "accepted_rows": [],
-  "ambiguous_samples": [],
+  "savills_events_after": 3280,
+  "accepted_rows": [
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=d9ee3604-3ef8-460a-9a69-a7987db58851",
+      "source_id": "savills-rss:1071:40",
+      "auction_date": "2018-09-26",
+      "lot_number": "40",
+      "address": "208 Durnsford Road, Wimbledon Park, London SW19 8DR",
+      "property_type": "Freehold Industrial",
+      "status": "AVAILABLE",
+      "guide_price": 2.0,
+      "sale_price": null,
+      "description": "Lot 40. Guide price Â£1.7M+. A modern warehouse (B8) building of approximately 10,330 sq ft on a site of approximately 0.30 acres with planning submitted for a new build development near good road links and Underground station.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1071/Images/sp_40a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180914132141id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=e08962fd-9c18-46e4-bae2-7027a8e2f846",
+      "source_id": "savills-rss:1071:67",
+      "auction_date": "2018-09-26",
+      "lot_number": "67",
+      "address": "Garage on the west side of Moorfield Road, Orpington, Kent BR6 0HG",
+      "property_type": "Vacant Freehold Garage",
+      "status": "SOLD",
+      "guide_price": null,
+      "sale_price": 18000.0,
+      "description": "Lot 67. Guide price Â£5,000+. A garage, well located close to the shopping and recreational amenities of Orpington. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1071/Images/sp_67a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180914132141id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=4b65ef29-3833-4ec4-8519-bfc1127c3d19",
+      "source_id": "savills-rss:1071:102",
+      "auction_date": "2018-09-26",
+      "lot_number": "102",
+      "address": "138 Ham Road, Worthing, West Sussex BN11 2QS",
+      "property_type": "Vacant Freehold Retail",
+      "status": "AVAILABLE",
+      "guide_price": 165000.0,
+      "sale_price": null,
+      "description": "Lot 102. Guide price Â£125,000+. A single storey building (retail) with planning permission for change of use to two bedroom single storey residential dwelling, conveniently located for the amenities of Worthing and Lancing. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1071/Images/sp_102a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180914132141id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=86ab2183-1937-4896-8dfb-d6586ad98b15",
+      "source_id": "savills-rss:1071:110",
+      "auction_date": "2018-09-26",
+      "lot_number": "110",
+      "address": "Store building rear of 129 Nortoft Road, Bournemouth, Dorset BH8 8QB",
+      "property_type": "Vacant Freehold Industrial",
+      "status": "AVAILABLE",
+      "guide_price": 45000.0,
+      "sale_price": null,
+      "description": "Lot 110. Guide price Â£20,000+. A light industrial unit with prior approval for change of use to a residential dwelling, well located close to the shopping and recreational amenities of the centre of Bournemouth. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1071/Images/sp_110a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180914132141id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=c27c8458-e3d3-4b0d-bc9e-84d35ea0b35a",
+      "source_id": "savills-rss:1071:111",
+      "auction_date": "2018-09-26",
+      "lot_number": "111",
+      "address": "6 West Road, Reigate, Surrey RH2 7JT",
+      "property_type": "Part Vacant Freehold Retail",
+      "status": "SOLD",
+      "guide_price": null,
+      "sale_price": 410000.0,
+      "description": "Lot 111. Guide price Â£390,000+. A well located detached property comprising a shop and basement unit (let) and three bedroom maisonette above (vacant) presented in reasonable decorative order. Part Vacant Investment let at &#163;12,500 per annum.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1071/Images/sp_111a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180914132141id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=a227bb1e-1f70-43e4-90ed-93b851e4668b",
+      "source_id": "savills-rss:1070:34",
+      "auction_date": "2018-07-24",
+      "lot_number": "34",
+      "address": "Palace Mansions, 494-522 Muswell Hill Broadway, Muswell Hill,, London N10 1BT",
+      "property_type": "Investment Freehold Retail",
+      "status": "SOLD",
+      "guide_price": null,
+      "sale_price": 2.95,
+      "description": "Lot 34. Guide price Â£2.575M+. First time on the market for over 50 years. An attractive and rarely available unbroken parade of seven lock-up shop units, seven self-contained mansion flats (four sold on lease, three let) and four lock-up garages located in the Muswell Hill Conservation Area. Investment let at &#163;176,465 per annum.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1070/Images/sp_34a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180715190121id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=6e03599e-360b-4ae4-99a4-ec2971f56f70",
+      "source_id": "savills-rss:1070:40",
+      "auction_date": "2018-07-24",
+      "lot_number": "40",
+      "address": "43-45 Barnsley Road, Goldthorpe, Rotherham,, South Yorkshire S63 9LT",
+      "property_type": "Investment Freehold Retail",
+      "status": "WITHDRAWN",
+      "guide_price": null,
+      "sale_price": null,
+      "description": "Lot 40. Guide price Â£110,000+. A double fronted shop unit with a three bedroom flat above, well located close to the shopping facilities of Goldthorpe. Investment let at &#163;10,500 per annum.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1070/Images/sp_40a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180715190121id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=58b77d8f-c50b-45d1-9be0-eb91942ec7fd",
+      "source_id": "savills-rss:1070:86",
+      "auction_date": "2018-07-24",
+      "lot_number": "86",
+      "address": "Garage and Land adjacent to 31 Clayhill Crescent, Eltham, London SE9 4JA",
+      "property_type": "Vacant Freehold Garage",
+      "status": "SOLD",
+      "guide_price": null,
+      "sale_price": 60000.0,
+      "description": "Lot 86. Guide price Â£10,000+. A mainly rectangular shaped garage site of approximately 2,400 sq ft. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1070/Images/sp_86a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180715190121id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=eb11c7b0-45ce-4aa5-9248-dfb822bd2203",
+      "source_id": "savills-rss:1070:104",
+      "auction_date": "2018-07-24",
+      "lot_number": "104",
+      "address": "St Mark's House,, St Mark's Court, Teesdale, Stockton-on-Tees TS17 6QT",
+      "property_type": "Vacant Freehold Office",
+      "status": "WITHDRAWN",
+      "guide_price": null,
+      "sale_price": null,
+      "description": "Lot 104. Guide price Â£900,000+. Located in a prominent poisition in Teesdale Business Park. A newly refurbished high spec office building of 16,572 sq ft split over three floors. Nearby occupiers include HMRC and Barclays. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1070/Images/sp_104a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180715190121id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=c9052f20-74a4-4c4a-9d3e-ba514cc47b73",
+      "source_id": "savills-rss:1070:109",
+      "auction_date": "2018-07-24",
+      "lot_number": "109",
+      "address": "19 Penrhiwceiber Road, Mountain Ash, Mid Glamorgan,, Wales CF45 3SP",
+      "property_type": "Investment Freehold Mixed Use",
+      "status": "WITHDRAWN",
+      "guide_price": null,
+      "sale_price": null,
+      "description": "Lot 109. Guide price Â£65,000+. A mid terrace mixed use building arranged as a takeaway restaurant and self-contained basement/lower ground floor flat, well located for Penrhiwceiber Station. Investment let at &#163;7,800 per annum.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1070/Images/sp_109a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180715190121id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=7f5aae41-d4da-4fda-b433-6ca49f5616d9",
+      "source_id": "savills-rss:1067:62",
+      "auction_date": "2018-03-26",
+      "lot_number": "62",
+      "address": "Flat 28, 45 Violet Lane, Croydon,, Surrey CR0 4HD",
+      "property_type": "Vacant Freehold Commercial",
+      "status": "SOLD",
+      "guide_price": null,
+      "sale_price": 890000.0,
+      "description": "Lot 62. Guide price Â£125,000+. A well located two bedroom sixth floor purpose built flat requiring modernisation - Vacant<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1047/Images/sp_62a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20171227023405id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=406eb921-a301-4a64-b4be-34774519204d",
+      "source_id": "savills-rss:1067:167",
+      "auction_date": "2018-03-26",
+      "lot_number": "167",
+      "address": "30 Eastdown Park, Lewisham, London SE13 5HS",
+      "property_type": "Vacant Freehold Garage",
+      "status": "AVAILABLE",
+      "guide_price": 55000.0,
+      "sale_price": null,
+      "description": "Lot 167. Guide price Â£725,000+. A four storey building arranged as three flats in need of modernisation, well located for the shops, amenities and transport connections of the centre of Lewisham. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_167a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=cfe87ec3-45b0-4653-bf5a-cfe6739dd9ca",
+      "source_id": "savills-rss:1066:119",
+      "auction_date": "2018-02-13",
+      "lot_number": "119",
+      "address": "1-22 Effingham Square, Rotherham, South Yorkshire S65 1AP",
+      "property_type": "Investment Freehold Retail",
+      "status": null,
+      "guide_price": null,
+      "sale_price": null,
+      "description": "Lot 119. Guide price Â£1.85M+. A rarely available unbroken parade of 10 shops with two storey upper parts forming part of an island shaped site located in the heart of Effingham Square, adjacent to the UK&#39;s new largest Tesco Extra store in the heart of Rotherham town centre. Total current rent &#163;178,000 per annum<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_119a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=d6ddb587-4745-4daf-8231-f09326cc57f0",
+      "source_id": "savills-rss:1066:131",
+      "auction_date": "2018-02-13",
+      "lot_number": "131",
+      "address": "Garages 2,, 4,, 5,, 7,, 8,, 10,, 11,, 12,, 19,, 27 & 28 rear of Oakfield Court, 252 Pampisford Road, South Croydon,, Surrey CR2 6DD",
+      "property_type": "Investment Leasehold Garage",
+      "status": "SOLD",
+      "guide_price": null,
+      "sale_price": 126000.0,
+      "description": "Lot 131. Guide price Â£75,000+. Eleven garages, conveniently located for South Croydon Station and Purley Way. Investment let at &#163;7,160 per annum.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_131a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=920745c9-2ac3-400d-b983-da59a96c0c63",
+      "source_id": "savills-rss:1066:132",
+      "auction_date": "2018-02-13",
+      "lot_number": "132",
+      "address": "Land and Garages on the south side of Bursley Road, Stoke-on-Trent, Staffordshire ST6 3DQ",
+      "property_type": "Vacant Freehold Garage",
+      "status": "SOLD",
+      "guide_price": null,
+      "sale_price": 45000.0,
+      "description": "Lot 132. Guide price Â£10,000+. Of interest to builders, developers and investors. Five garages and land approximately 1,840 sq ft with potential, well located close to shopping and recreational amenities of Burslem and Hanley. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_132a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=30535be6-0e16-42a4-9018-668ca49b6641",
+      "source_id": "savills-rss:1066:149",
+      "auction_date": "2018-02-13",
+      "lot_number": "149",
+      "address": "Garage 14, Craybury End, Eltham,, London SE9 3SL",
+      "property_type": "Vacant Freehold Garage",
+      "status": "SOLD",
+      "guide_price": null,
+      "sale_price": null,
+      "description": "Lot 149. Guide price Â£11,000+. A lock-up garage conveniently located for the shopping and recreational amenities of Eltham. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_149a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=69dc6669-4100-4a7f-a687-ef3ecde184a1",
+      "source_id": "savills-rss:1066:150",
+      "auction_date": "2018-02-13",
+      "lot_number": "150",
+      "address": "Nine Garages rear of St Thomas Road, Stopsley, Luton,, Bedfordshire LU2 7UY",
+      "property_type": "Vacant Freehold Garage",
+      "status": "AVAILABLE",
+      "guide_price": 90000.0,
+      "sale_price": null,
+      "description": "Lot 150. Guide price Â£85,000+. A garage site of approximately 4,900 sq ft with potential, well located close to shopping and recreational amenities of Luton town centre. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_150a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=cec066a7-53c6-4d85-bf8e-7d62d5ecf2ca",
+      "source_id": "savills-rss:1066:166",
+      "auction_date": "2018-02-13",
+      "lot_number": "166",
+      "address": "Land and Garage rear of 21 Northumberland Road, Newport, Isle of Wight PO30 5SA",
+      "property_type": "Vacant Freehold Garage",
+      "status": "AVAILABLE",
+      "guide_price": 20000.0,
+      "sale_price": null,
+      "description": "Lot 166. Guide price Â£18,000+. A single lock-up garage situated on a mainly rectangular shaped site of approximately 2,430 sq ft with development potential (subject to requisite consents), conveniently located for the amenities of Newport and St Mary&#39;s Hospital. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_166a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=77bd9f15-1014-4caa-822f-17c5e537a495",
+      "source_id": "savills-rss:1066:168",
+      "auction_date": "2018-02-13",
+      "lot_number": "168",
+      "address": "Garages rear of 34-40 College Road, St Albans, Hertfordshire AL1 5ND",
+      "property_type": "Investment Freehold Garage",
+      "status": "SOLD",
+      "guide_price": null,
+      "sale_price": 141000.0,
+      "description": "Lot 168. Guide price Â£130,000+. A block of eight garages on a site of approximately 5,800 sq ft with development potential (subject to requisite consents), well located for the amenities of St Albans. Investment let at &#163;4,016 per annum.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_168a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=a946f310-4651-4574-8010-d6586742c879",
+      "source_id": "savills-rss:1066:169",
+      "auction_date": "2018-02-13",
+      "lot_number": "169",
+      "address": "Garages at Park Close, Avon Dassett, Southam,, Warwickshire CV47 2AW",
+      "property_type": "Vacant Freehold Garage",
+      "status": "SOLD",
+      "guide_price": null,
+      "sale_price": 34000.0,
+      "description": "Lot 169. Guide price Â£15,000+. A block of three garages on a site of approximately 1,970 sq ft with development potential (subject to requisite consents). Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_169a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=2b82ee1c-3fe5-4b89-aa98-bff1f67b3f54",
+      "source_id": "savills-rss:1066:171",
+      "auction_date": "2018-02-13",
+      "lot_number": "171",
+      "address": "Land and Garages rear of 1 Cromer Road, Watford, Hertfordshire WD24 4DY",
+      "property_type": "Vacant Freehold Garage",
+      "status": "SOLD",
+      "guide_price": null,
+      "sale_price": 57000.0,
+      "description": "Lot 171. Guide price Â£10,000+. Two garages and associated land with development potential (subject to requisite consents), well located close to shopping and recreational amenities of Watford town centre. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_171a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=8cd3b162-12e1-4731-8000-bb40134374cb",
+      "source_id": "savills-rss:1066:174",
+      "auction_date": "2018-02-13",
+      "lot_number": "174",
+      "address": "27-29 High Street, Ewell, Surrey KT17 1SB",
+      "property_type": "Vacant Freehold Office",
+      "status": "SOLD",
+      "guide_price": null,
+      "sale_price": null,
+      "description": "Lot 174. Guide price Sold Prior. An attractive period three storey office building with planning for conversion of the upper parts to 6 x one bedroom units, located on an established High Street parade in the centre of Ewell. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_174a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=b0f6b214-60cd-453c-a0f4-ecad04f3594b",
+      "source_id": "savills-rss:1066:175",
+      "auction_date": "2018-02-13",
+      "lot_number": "175",
+      "address": "Garages at Golda Close, Barnet, Hertfordshire EN5 2LX",
+      "property_type": "Investment Freehold Garage",
+      "status": "AVAILABLE",
+      "guide_price": 150000.0,
+      "sale_price": null,
+      "description": "Lot 175. Guide price Â£170,000+. Of interest to developers and investors. A block of five garages on a site of approximately 0.07 acres with development potential. Investment let at &#163;3,380 per annum.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_175a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=6a6e8812-a6fa-444a-9399-21a7b9d10da8",
+      "source_id": "savills-rss:1066:176",
+      "auction_date": "2018-02-13",
+      "lot_number": "176",
+      "address": "Garages at 1 Paddock Road, Buntingford, Hertfordshire SG9 9EX",
+      "property_type": "Vacant Freehold Garage",
+      "status": "WITHDRAWN",
+      "guide_price": null,
+      "sale_price": null,
+      "description": "Lot 176. Guide price Withdrawn Prior. A pair of garages well located within easy reach of Buntingford High Street. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_176a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=77c7cc05-2e6f-495e-b7b7-67cd25539abd",
+      "source_id": "savills-rss:1066:252",
+      "auction_date": "2018-02-13",
+      "lot_number": "252",
+      "address": "Global House,, Popes Lane, Oldbury, West Midlands B69 4PA",
+      "property_type": "Vacant Freehold Office",
+      "status": "WITHDRAWN",
+      "guide_price": null,
+      "sale_price": null,
+      "description": "Lot 252. Guide price Withdrawn Prior. Located in an established commercial area, a three storey former office building (B1 use) of approximately 13,378 sq ft presented in shell condition, having potential for redevelopment/conversion subject to the usual consents. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_252a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    },
+    {
+      "source": "Savills Auctions",
+      "url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=d204fd3e-d16e-468d-9c48-2a8ad3574285",
+      "source_id": "savills-rss:1066:258",
+      "auction_date": "2018-02-13",
+      "lot_number": "258",
+      "address": "Former Garages at Little Court Lane, Edington, Westbury,, Wiltshire BA13 4PW",
+      "property_type": "Vacant Freehold Garage",
+      "status": "AVAILABLE",
+      "guide_price": 6000.0,
+      "sale_price": null,
+      "description": "Lot 258. Guide price Â£5,000+. A pair of former garages. Vacant.<div><img src=\"http://auctions.savills.co.uk/Data/Auctions/1066/Images/sp_258a.jpg\" /></div>",
+      "archival_discovery_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "legacy_catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+    }
+  ],
+  "ambiguous_samples": [
+    {
+      "clue": {
+        "aid": 1071,
+        "auction_date": "2018-09-26",
+        "lot_number": "27",
+        "location": "London N3",
+        "property_type": "Part Vacant Freehold Garage",
+        "result": "£104,000",
+        "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071"
+      },
+      "matches": [
+        {
+          "title": "8 Gipsy Hill, Crystal Palace, London SE19 1NL",
+          "link": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=baf3d974-e1d7-4dfd-9cd0-1e414365ca78",
+          "guid": "baf3d974-e1d7-4dfd-9cd0-1e414365ca78",
+          "postcodes": [
+            "SE19 1NL"
+          ],
+          "replay_url": "https://web.archive.org/web/20171227023405id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml"
+        },
+        {
+          "title": "16 Worcester Road, Manor Park, London E12 5JX",
+          "link": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=f211e87d-5994-4828-aefc-e08711238ded",
+          "guid": "f211e87d-5994-4828-aefc-e08711238ded",
+          "postcodes": [
+            "E12 5JX"
+          ],
+          "replay_url": "https://web.archive.org/web/20191213071357id_/http://auctions.savills.co.uk/Data/Rss/Savills%20London%20National.xml"
+        },
+        {
+          "title": "Garages to the rear of, 34-36 Oakfield Road,, Finchley, London N3 2HT",
+          "link": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=ea1f0381-4f1d-4742-9fa1-c0d31ff0a99c",
+          "guid": "ea1f0381-4f1d-4742-9fa1-c0d31ff0a99c",
+          "postcodes": [
+            "N3 2HT"
+          ],
+          "replay_url": "https://web.archive.org/web/20180914132141id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml"
+        },
+        {
+          "title": "8A Robson Avenue, Willesden, London NW10 3SG",
+          "link": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=50a6644e-8a56-4452-86f9-8bdcb63b6e6f",
+          "guid": "50a6644e-8a56-4452-86f9-8bdcb63b6e6f",
+          "postcodes": [
+            "NW10 3SG"
+          ],
+          "replay_url": "https://web.archive.org/web/20171026061348id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml"
+        }
+      ]
+    },
+    {
+      "clue": {
+        "aid": 1067,
+        "auction_date": "2018-03-26",
+        "lot_number": "144",
+        "location": "London W8",
+        "property_type": "Vacant Freehold Garage",
+        "result": "£380,000",
+        "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067"
+      },
+      "matches": [
+        {
+          "title": "First Floor Room, 102 Christchurch Road, Streatham Hill,, London SW2 3DF",
+          "link": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=2f746a2b-5600-45a1-b1b9-c58b796a42c9",
+          "guid": "2f746a2b-5600-45a1-b1b9-c58b796a42c9",
+          "postcodes": [
+            "SW2 3DF"
+          ],
+          "replay_url": "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml"
+        },
+        {
+          "title": "Flat D,, 20 Cambridge Avenue, Kilburn, London NW6 5BA",
+          "link": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=8bc195cf-b74b-40c9-a4d8-2a474f259b38",
+          "guid": "8bc195cf-b74b-40c9-a4d8-2a474f259b38",
+          "postcodes": [
+            "NW6 5BA"
+          ],
+          "replay_url": "https://web.archive.org/web/20171026061348id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml"
+        }
+      ]
+    }
+  ],
   "query_diagnostics": [
     {
       "prefix": "http://auctions.savills.co.uk/Data/Rss/",
@@ -21,9 +493,8 @@
     },
     {
       "prefix": "https://auctions.savills.co.uk/Data/Rss/",
-      "status": 200,
-      "rows": 8,
-      "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FRss%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&from=2017&to=2019&limit=5000&matchType=prefix&collapse=digest"
+      "status": 503,
+      "error": "<html><head><meta charset=\"UTF-8\"><title>Internet Archive: Temporarily Offline</title><style>p{font-size:24px;}img{margin-bottom:2rem;}</style></head>\n<body style=\"padding:30px 0;\">\n<div style=\"float:"
     }
   ]
 }
