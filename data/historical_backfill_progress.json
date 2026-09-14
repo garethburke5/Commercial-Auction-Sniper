@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T05:10:59.063109+00:00",
+  "updated_at": "2026-09-14T05:11:42.159543+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -54667,24 +54667,29 @@
         }
       },
       "propertyauctions_io_bulk_discovery_last_run": {
-        "at": "2026-09-14T05:10:59.063109+00:00",
+        "at": "2026-09-14T05:11:42.159543+00:00",
         "route": "propertyauctions-io-savills-bulk-endpoint-and-pagination-discovery",
         "auctioneer_url": "https://propertyauctions.io/auctioneers/savills",
         "archive_filter_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D",
-        "archive_status": null,
-        "archive_bytes": 0,
+        "archive_status": 403,
+        "archive_bytes": 6055,
+        "archive_error": null,
         "archive_listing_ids": [],
         "script_count": 0,
         "scripts": [],
         "forms": [],
         "relevant_links": [],
-        "candidate_endpoints": []
+        "candidate_endpoints": [
+          "/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&__cf_chl_tk=c0IGoZ5Sw.QPawo7ZtDUI6fvGUS67ObuFOvvGe3d6QY-1789362702-1.0.1.1-227n1uIKh8ceJ7A32cqSbt0MQk9xn5RATxpHRwW2Xvs",
+          "/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&__cf_chl_f_tk=c0IGoZ5Sw.QPawo7ZtDUI6fvGUS67ObuFOvvGe3d6QY-1789362702-1.0.1.1-227n1uIKh8ceJ7A32cqSbt0MQk9xn5RATxpHRwW2Xvs",
+          "/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&__cf_chl_rt_tk=c0IGoZ5Sw.QPawo7ZtDUI6fvGUS67ObuFOvvGe3d6QY-1789362702-1.0.1.1-227n1uIKh8ceJ7A32cqSbt0MQk9xn5RATxpHRwW2Xvs"
+        ]
       },
       "propertyauctions_io_bulk_discovery_last_blocker": {
-        "at": "2026-09-14T05:10:59.063109+00:00",
+        "at": "2026-09-14T05:11:42.159543+00:00",
         "route": "propertyauctions-io-savills-bulk-endpoint-and-pagination-discovery",
         "failing_url_or_route": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D",
-        "message": "Archive page status=None; initial HTML exposed 0 listing IDs; inspected 0 JS bundles and 0 endpoint candidates; 0 bulk-looking endpoint responses.",
+        "message": "Archive page status=403; initial HTML exposed 0 listing IDs; inspected 0 JS bundles and 3 endpoint candidates; 0 bulk-looking endpoint responses.",
         "next_safe_route": "Use any discovered endpoint/pagination contract to enumerate the full Savills archive, filter Commercial/Mixed Use, and reconcile 2010-2018 by auction date/address. If no endpoint is exposed, execute browser-compatible archive pagination/query-state replay and indexed listing-ID harvest."
       }
     }

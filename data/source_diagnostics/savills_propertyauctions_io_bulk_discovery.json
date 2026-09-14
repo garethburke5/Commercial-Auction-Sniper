@@ -1,172 +1,202 @@
 {
-  "at": "2026-09-14T05:10:59.063109+00:00",
+  "at": "2026-09-14T05:11:42.159543+00:00",
   "route": "propertyauctions-io-savills-bulk-endpoint-and-pagination-discovery",
   "auctioneer_url": "https://propertyauctions.io/auctioneers/savills",
   "archive_filter_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D",
   "page_probes": {
     "https://propertyauctions.io/auctioneers/savills": {
       "url": "https://propertyauctions.io/auctioneers/savills",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/auctioneers/savills",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 5808,
+      "sha256": "20d2aa18ba5f6dac084b20c645229348164727425d9148daf837b982ad8c8080",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-z1FHbtXRLOQrZvkXCjU6Jf&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     },
     "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D": {
       "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6055,
+      "sha256": "dcd3d2d450908b6b702de7c3a49cbfc50defa8ba04108d96d1bc0095c5c6d8c9",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-yWmGeUpAd2L9cnNiUnJfNj&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     },
     "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&page=2": {
       "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&page=2",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&page=2",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6091,
+      "sha256": "827594742e091c3ee57dd69f457dfa176694ec76aaffee23452798575b9b1379",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-7aeMcAYAsXBYlVJlQKfe6q&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     },
     "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&page=15": {
       "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&page=15",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&page=15",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6094,
+      "sha256": "1b52ef6fc25560c8e526b6ea9b749561a6fd976574d2bcb28bedddb52299c735",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-Nwwmxmkv8Q9f15bVWEBdDc&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     },
     "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&page=30": {
       "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&page=30",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&page=30",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6094,
+      "sha256": "434ee4468511bbaaf50198276826058f81b1cabc7c9e9e74ae6df7c64b21b27c",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-VyrHKuGkcQzdPGWUswKwJi&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     },
     "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&p=2": {
       "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&p=2",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&p=2",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6082,
+      "sha256": "b9f2f096d25fc020ad707c90c0c31d05525a0d4941b85d8965f8250101df8f4d",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-1JclJHcpyl01CGNpuUZgxo&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     },
     "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&p=15": {
       "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&p=15",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&p=15",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6085,
+      "sha256": "8e99dc8b45b2fc3fe8c4b26c64937a08b3a397ec3d5d73546f802afc1064c286",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-bKG4iWq0LFaXls1xNChMJS&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     },
     "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&p=30": {
       "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&p=30",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&p=30",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6085,
+      "sha256": "0db956219666632d182d73eaeb3075f7b5eeeea4e2f877fc5b506c1c79a96f5d",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-D056eYWChaw3BGY1MzgFD5&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     },
     "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&offset=2": {
       "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&offset=2",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&offset=2",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6097,
+      "sha256": "60dda4179dc55c16557b9ed60c1e2994c92feffbcd53b78f2b5077f89eee2e8c",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-7TppBaAPv8Fh0GIuTTj72U&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     },
     "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&offset=15": {
       "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&offset=15",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&offset=15",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6100,
+      "sha256": "2fe737be0713ee105868fd0b92fed666a94758b5fa7f7d36ce7cf39c9bbb58c0",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-aagFAl6u6cBCPZx80P2Do4&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     },
     "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&offset=30": {
       "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&offset=30",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&offset=30",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6100,
+      "sha256": "e16037a9ae80f24c0a8c5d09947f57e9b1f17561fe4dbca1d1add1a4f4a1367e",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-bL19KySBidynCmwvh8jS8n&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     },
     "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&start=2": {
       "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&start=2",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&start=2",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6094,
+      "sha256": "6629bf40003a9b3a5337ab975c3358dcec77abfd1614804f9c6d865be2ab0dfe",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-uNljNga46ZgSeTFJL2vcOX&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     },
     "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&start=15": {
       "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&start=15",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&start=15",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6097,
+      "sha256": "3597a699b93a837892fca77bf2503f31c407906d816273d327809f356b5b6e2a",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-dkwoN2MEZXmEGxYul6AjWH&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     },
     "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&start=30": {
       "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&start=30",
-      "status": null,
-      "error": "InvalidHeader: Header part ({'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) from ('User-Agent', {'User-Agent': 'Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; +https://github.com/garethburke5/Commercial-Auction-Sniper)'}) must be of type str or bytes, not <class 'dict'>",
-      "bytes": 0,
-      "content_type": "",
-      "sha256": null,
+      "final_url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&start=30",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6097,
+      "sha256": "7122e92df57e3635ecd4580453ed5a61ad10820f880dc55b5432f030038f09ec",
       "listing_ids": [],
       "listing_count": 0,
-      "text_sample": ""
+      "text_sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-1fQV9g7m1U1vHY5s7r2C5T&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
     }
   },
-  "archive_status": null,
-  "archive_bytes": 0,
+  "archive_status": 403,
+  "archive_bytes": 6055,
+  "archive_error": null,
   "archive_listing_ids": [],
   "script_count": 0,
   "scripts": [],
   "forms": [],
   "relevant_links": [],
   "bundles": [],
-  "candidate_endpoints": [],
-  "endpoint_probes": []
+  "candidate_endpoints": [
+    "/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&__cf_chl_tk=c0IGoZ5Sw.QPawo7ZtDUI6fvGUS67ObuFOvvGe3d6QY-1789362702-1.0.1.1-227n1uIKh8ceJ7A32cqSbt0MQk9xn5RATxpHRwW2Xvs",
+    "/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&__cf_chl_f_tk=c0IGoZ5Sw.QPawo7ZtDUI6fvGUS67ObuFOvvGe3d6QY-1789362702-1.0.1.1-227n1uIKh8ceJ7A32cqSbt0MQk9xn5RATxpHRwW2Xvs",
+    "/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&__cf_chl_rt_tk=c0IGoZ5Sw.QPawo7ZtDUI6fvGUS67ObuFOvvGe3d6QY-1789362702-1.0.1.1-227n1uIKh8ceJ7A32cqSbt0MQk9xn5RATxpHRwW2Xvs"
+  ],
+  "endpoint_probes": [
+    {
+      "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&__cf_chl_tk=c0IGoZ5Sw.QPawo7ZtDUI6fvGUS67ObuFOvvGe3d6QY-1789362702-1.0.1.1-227n1uIKh8ceJ7A32cqSbt0MQk9xn5RATxpHRwW2Xvs",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6055,
+      "listing_count": 0,
+      "sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scal"
+    },
+    {
+      "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&__cf_chl_f_tk=c0IGoZ5Sw.QPawo7ZtDUI6fvGUS67ObuFOvvGe3d6QY-1789362702-1.0.1.1-227n1uIKh8ceJ7A32cqSbt0MQk9xn5RATxpHRwW2Xvs",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 5480,
+      "listing_count": 0,
+      "sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scal"
+    },
+    {
+      "url": "https://propertyauctions.io/archive/search?table=%7B%22auction_house%22%3A%5B%22savills%22%5D%7D&__cf_chl_rt_tk=c0IGoZ5Sw.QPawo7ZtDUI6fvGUS67ObuFOvvGe3d6QY-1789362702-1.0.1.1-227n1uIKh8ceJ7A32cqSbt0MQk9xn5RATxpHRwW2Xvs",
+      "status": 403,
+      "content_type": "text/html; charset=UTF-8",
+      "bytes": 6055,
+      "listing_count": 0,
+      "sample": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scal"
+    }
+  ]
 }
