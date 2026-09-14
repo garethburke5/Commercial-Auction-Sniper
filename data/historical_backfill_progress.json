@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T05:26:24.665855+00:00",
+  "updated_at": "2026-09-14T06:00:29.493382+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-archive-card-transition-forensics-2017-2020",
+      "last_discovery_mode": "savills-2018-breadth-first-catalogue-to-history-v2-reconciliation",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -55874,6 +55874,887 @@
         "failing_url_or_route": "Live Savills archive card markup around 2017-2020 platform transition",
         "message": "Compared raw card markup, href IDs, thumbnail/image names, comments and hidden attributes across linked 2019-2020 cards and unlinked 2018/2017 cards.",
         "next_safe_route": "Use any deterministic ID/image/comment relationship found to reconstruct 2018 catalogue URLs. If IDs are absent from cards, enumerate first-party catalogue IDs adjacent to known December-2019 ID=3 through archived/live route variants and validate by exact auction date/lot count before ingestion."
+      },
+      "savills_2018_auction_reconciliation_last_run": {
+        "at": "2026-09-14T06:00:29.493382+00:00",
+        "route": "savills-2018-breadth-first-catalogue-to-history-v2-reconciliation",
+        "canonical_savills_event_count": 3307,
+        "oldest_verified_lot_level_date": "2010-05-10",
+        "auctions_mapped_by_year": {
+          "2018": 8,
+          "2017": 8,
+          "2016": 8,
+          "2015": 8,
+          "2014": 7,
+          "2013": 0,
+          "2012": 0,
+          "2011": 0,
+          "2010": 0
+        },
+        "qualifying_commercial_mixed_clues_by_year": {
+          "2018": 94,
+          "2017": 87,
+          "2016": 86,
+          "2015": 82,
+          "2014": 131,
+          "2013": 14,
+          "2012": 0,
+          "2011": 0,
+          "2010": 3
+        },
+        "year": 2018,
+        "known_auctions": 8,
+        "qualifying": 84,
+        "canonicalised": 26,
+        "unresolved": 58,
+        "blocker": "PropertyAuctions initial-grid rows provide date/lot/type/location/result but unresolved rows lack a deterministic canonical History V2 identity match. Next route must resolve full lot identity from AID/lot controls or first-party Savills evidence, not guess from locality.",
+        "next_route": "For each unresolved 2018 AID/lot, replay its Telerik/ASP.NET row/detail controls and probe first-party Savills detail/document/PDF variants; persist source-specific blocker per lot when no stronger identity survives."
+      },
+      "savills_2018_auction_reconciliation": [
+        {
+          "auction_date": "2018-12-11",
+          "archive_pages": [
+            "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+          ],
+          "catalogues": [
+            {
+              "aid": 1073,
+              "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+              "total_catalogue_rows": 4,
+              "commercial_mixed_count": 0
+            }
+          ],
+          "qualifying_commercial_mixed": 0,
+          "canonicalised": 0,
+          "unresolved": 0,
+          "matches": [],
+          "unresolved_lots": []
+        },
+        {
+          "auction_date": "2018-11-26",
+          "archive_pages": [
+            "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+          ],
+          "catalogues": [
+            {
+              "aid": 1072,
+              "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+              "total_catalogue_rows": 179,
+              "commercial_mixed_count": 11
+            }
+          ],
+          "qualifying_commercial_mixed": 11,
+          "canonicalised": 0,
+          "unresolved": 11,
+          "matches": [],
+          "unresolved_lots": [
+            {
+              "aid": 1072,
+              "lot_number": "9",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Ashtead, Surrey",
+              "result": "£14,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1072,
+              "lot_number": "43",
+              "property_type": "Vacant Freehold Garage",
+              "location": "London E17",
+              "result": "Available at £250,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1072,
+              "lot_number": "82",
+              "property_type": "Investment Freehold Retail",
+              "location": "Erdington, West Midlands",
+              "result": "Sold Prior",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1072,
+              "lot_number": "102",
+              "property_type": "Vacant Freehold Retail",
+              "location": "London N17",
+              "result": "Available at £150,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1072,
+              "lot_number": "111",
+              "property_type": "Investment Freehold Retail",
+              "location": "London SE15",
+              "result": "Withdrawn",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1072,
+              "lot_number": "119",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Luton, Bedfordshire",
+              "result": "£70,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1072,
+              "lot_number": "147",
+              "property_type": "Vacant Leasehold Garage",
+              "location": "London W11",
+              "result": "£50,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1072,
+              "lot_number": "148",
+              "property_type": "Vacant Leasehold Garage",
+              "location": "London W11",
+              "result": "£170,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1072,
+              "lot_number": "153",
+              "property_type": "Investment Leasehold Garage",
+              "location": "London SE13",
+              "result": "£46,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1072,
+              "lot_number": "167",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Grays, Essex",
+              "result": "Withdrawn Prior",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1072,
+              "lot_number": "174",
+              "property_type": "Vacant Freehold Retail",
+              "location": "London W9",
+              "result": "Withdrawn Prior",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            }
+          ]
+        },
+        {
+          "auction_date": "2018-09-26",
+          "archive_pages": [
+            "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+          ],
+          "catalogues": [
+            {
+              "aid": 1071,
+              "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+              "total_catalogue_rows": 167,
+              "commercial_mixed_count": 6
+            }
+          ],
+          "qualifying_commercial_mixed": 6,
+          "canonicalised": 5,
+          "unresolved": 1,
+          "matches": [
+            {
+              "aid": 1071,
+              "lot_number": "40",
+              "location": "London SW19",
+              "event_id": "5c4ff00402d2d1fdb1198ed1"
+            },
+            {
+              "aid": 1071,
+              "lot_number": "67",
+              "location": "Orpington, Kent",
+              "event_id": "0c74a52eeea10c9a9d57fa73"
+            },
+            {
+              "aid": 1071,
+              "lot_number": "102",
+              "location": "Worthing, West Sussex",
+              "event_id": "9926c0cffa375e5af279b89b"
+            },
+            {
+              "aid": 1071,
+              "lot_number": "110",
+              "location": "Bournemouth, Dorset",
+              "event_id": "279c1f435dd8838bd653fb00"
+            },
+            {
+              "aid": 1071,
+              "lot_number": "111",
+              "location": "Reigate, Surrey",
+              "event_id": "1991680de2f5ad1afc4e4fa3"
+            }
+          ],
+          "unresolved_lots": [
+            {
+              "aid": 1071,
+              "lot_number": "27",
+              "property_type": "Part Vacant Freehold Garage",
+              "location": "London N3",
+              "result": "£104,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            }
+          ]
+        },
+        {
+          "auction_date": "2018-07-24",
+          "archive_pages": [
+            "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+          ],
+          "catalogues": [
+            {
+              "aid": 1070,
+              "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+              "total_catalogue_rows": 118,
+              "commercial_mixed_count": 5
+            }
+          ],
+          "qualifying_commercial_mixed": 5,
+          "canonicalised": 5,
+          "unresolved": 0,
+          "matches": [
+            {
+              "aid": 1070,
+              "lot_number": "34",
+              "location": "London N10",
+              "event_id": "adde0603b7711eda8f2a16a9"
+            },
+            {
+              "aid": 1070,
+              "lot_number": "40",
+              "location": "Rotherham, South Yorkshire",
+              "event_id": "58b3c73d708b56b891b47bc1"
+            },
+            {
+              "aid": 1070,
+              "lot_number": "86",
+              "location": "London SE9",
+              "event_id": "3be74f995259591b5540b94e"
+            },
+            {
+              "aid": 1070,
+              "lot_number": "104",
+              "location": "Teesdale, Stockton-on-Tees",
+              "event_id": "28d6070f2db7b1be57af7c3b"
+            },
+            {
+              "aid": 1070,
+              "lot_number": "109",
+              "location": "Mid Glamorgan, Wales",
+              "event_id": "d645dc16d0f94baa6a188ded"
+            }
+          ],
+          "unresolved_lots": []
+        },
+        {
+          "auction_date": "2018-06-18",
+          "archive_pages": [
+            "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+          ],
+          "catalogues": [
+            {
+              "aid": 1069,
+              "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+              "total_catalogue_rows": 178,
+              "commercial_mixed_count": 10
+            }
+          ],
+          "qualifying_commercial_mixed": 10,
+          "canonicalised": 0,
+          "unresolved": 10,
+          "matches": [],
+          "unresolved_lots": [
+            {
+              "aid": 1069,
+              "lot_number": "41D",
+              "property_type": "Vacant Leasehold Retail",
+              "location": "Ascot, Berkshire",
+              "result": "£152,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1069,
+              "lot_number": "88A",
+              "property_type": "Part Vacant Freehold Retail",
+              "location": "Enfield, Middlesex",
+              "result": "Available at £580,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1069,
+              "lot_number": "94",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Romford, Essex",
+              "result": "£70,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1069,
+              "lot_number": "127",
+              "property_type": "Vacant Leasehold Garage",
+              "location": "London SW12",
+              "result": "Sold Prior",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1069,
+              "lot_number": "140",
+              "property_type": "Vacant Freehold Garage",
+              "location": "London SE9",
+              "result": "Available at £10,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1069,
+              "lot_number": "147",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Chatham, Kent",
+              "result": "Refer to Auctioneer",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1069,
+              "lot_number": "148",
+              "property_type": "Investment Freehold Garage",
+              "location": "Chatham, Kent",
+              "result": "Refer to Auctioneer",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1069,
+              "lot_number": "153",
+              "property_type": "Investment Freehold Retail",
+              "location": "Rotherham, South Yorkshire",
+              "result": "Available at £130,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1069,
+              "lot_number": "161",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Farnborough, Hampshire",
+              "result": "Available at £5,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1069,
+              "lot_number": "164",
+              "property_type": "Part Vacant Freehold Office",
+              "location": "Immingham, Lincolnshire",
+              "result": "Withdrawn",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            }
+          ]
+        },
+        {
+          "auction_date": "2018-05-09",
+          "archive_pages": [
+            "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+          ],
+          "catalogues": [
+            {
+              "aid": 1068,
+              "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "total_catalogue_rows": 159,
+              "commercial_mixed_count": 13
+            }
+          ],
+          "qualifying_commercial_mixed": 13,
+          "canonicalised": 0,
+          "unresolved": 13,
+          "matches": [],
+          "unresolved_lots": [
+            {
+              "aid": 1068,
+              "lot_number": "52",
+              "property_type": "Vacant Freehold Commercial",
+              "location": "Maidstone, Kent",
+              "result": "Available at £790,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1068,
+              "lot_number": "55",
+              "property_type": "Investment Freehold Office",
+              "location": "Redcar, North Yorkshire",
+              "result": "Available at £870,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1068,
+              "lot_number": "57",
+              "property_type": "Part Vacant Freehold Commercial",
+              "location": "London SE15",
+              "result": "Sold Prior",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1068,
+              "lot_number": "58",
+              "property_type": "Vacant Freehold Commercial",
+              "location": "London SE15",
+              "result": "Sold Prior",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1068,
+              "lot_number": "60",
+              "property_type": "Investment Freehold Office",
+              "location": "Billingham, North Yorkshire",
+              "result": "Available at £675,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1068,
+              "lot_number": "83",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Rochester, Kent",
+              "result": "£66,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1068,
+              "lot_number": "131",
+              "property_type": "Vacant Freehold Garage",
+              "location": "New Malden, Surrey",
+              "result": "Refer to Auctioneer",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1068,
+              "lot_number": "143",
+              "property_type": "Leasehold Garage",
+              "location": "Ilford, Essex IG4",
+              "result": "Sold Post",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1068,
+              "lot_number": "144",
+              "property_type": "Vacant Freehold Hotel",
+              "location": "Helston, Cornwall",
+              "result": "Withdrawn Prior",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1068,
+              "lot_number": "150",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Heston, Middlesex",
+              "result": "Sold Post",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1068,
+              "lot_number": "151",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Farnborough, Hampshire",
+              "result": "Available at £7,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1068,
+              "lot_number": "153",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Chatham, Kent",
+              "result": "£5,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1068,
+              "lot_number": "154",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Chatham, Kent",
+              "result": "£5,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            }
+          ]
+        },
+        {
+          "auction_date": "2018-03-26",
+          "archive_pages": [
+            "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+          ],
+          "catalogues": [
+            {
+              "aid": 1067,
+              "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "total_catalogue_rows": 213,
+              "commercial_mixed_count": 25
+            }
+          ],
+          "qualifying_commercial_mixed": 25,
+          "canonicalised": 2,
+          "unresolved": 23,
+          "matches": [
+            {
+              "aid": 1067,
+              "lot_number": "62",
+              "location": "Croydon, Surrey",
+              "event_id": "4507748fa54b23b649614062"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "167",
+              "location": "London N1",
+              "event_id": "6e6557b2acce120fd5ad9da0"
+            }
+          ],
+          "unresolved_lots": [
+            {
+              "aid": 1067,
+              "lot_number": "26",
+              "property_type": "Part Vacant Freehold Garage",
+              "location": "Farnborough, Hampshire",
+              "result": "£144,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "27",
+              "property_type": "Part Vacant Freehold Garage",
+              "location": "Farnborough, Hampshire",
+              "result": "£120,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "28",
+              "property_type": "Part Vacant Freehold Garage",
+              "location": "Aldershot, Hampshire",
+              "result": "£220,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "29",
+              "property_type": "Part Vacant Freehold Garage",
+              "location": "Aldershot, Hampshire",
+              "result": "£120,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "37",
+              "property_type": "Vacant Freehold Garage",
+              "location": "London E17",
+              "result": "Sold Post",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "49",
+              "property_type": "Vacant Freehold Retail",
+              "location": "London E10",
+              "result": "Available at £670,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "76",
+              "property_type": "Investment Freehold Retail",
+              "location": "London SW6",
+              "result": "Available at £900,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "109",
+              "property_type": "Investment Leasehold Retail",
+              "location": "London SE25",
+              "result": "£74,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "111",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Romford, Essex",
+              "result": "£20,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "116",
+              "property_type": "Vacant Freehold Garage",
+              "location": "London SE19",
+              "result": "£18,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "117",
+              "property_type": "Vacant Freehold Garage",
+              "location": "London SE9",
+              "result": "£10,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "144",
+              "property_type": "Vacant Freehold Garage",
+              "location": "London W8",
+              "result": "£380,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "147",
+              "property_type": "Vacant Leasehold Garage",
+              "location": "London SW12",
+              "result": "£168,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "148",
+              "property_type": "Investment Freehold Garage",
+              "location": "Aldershot, Hampshire",
+              "result": "£105,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "171",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Rochester, Kent",
+              "result": "£45,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "172",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Hilgay, Norfolk",
+              "result": "£55,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "175",
+              "property_type": "Investment Freehold Retail",
+              "location": "London N17",
+              "result": "£40,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "181",
+              "property_type": "Vacant Freehold Retail",
+              "location": "London SW17",
+              "result": "£560,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "187",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Farnborough, Hampshire",
+              "result": "£7,500",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "188",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Farnborough, Hampshire",
+              "result": "£7,500",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "189",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Mitcham, Surrey",
+              "result": "£46,000",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "190",
+              "property_type": "Vacant Freehold Garage",
+              "location": "Ilford, Essex",
+              "result": "Withdrawn",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            },
+            {
+              "aid": 1067,
+              "lot_number": "201",
+              "property_type": "Part Vacant Freehold Retail",
+              "location": "Immingham, Lincolnshire",
+              "result": "Withdrawn",
+              "evidence_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+              "blocker": "no deterministic canonical History V2 match from date+lot/location"
+            }
+          ]
+        },
+        {
+          "auction_date": "2018-02-13",
+          "archive_pages": [
+            "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+          ],
+          "catalogues": [
+            {
+              "aid": 1066,
+              "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+              "total_catalogue_rows": 262,
+              "commercial_mixed_count": 14
+            }
+          ],
+          "qualifying_commercial_mixed": 14,
+          "canonicalised": 14,
+          "unresolved": 0,
+          "matches": [
+            {
+              "aid": 1066,
+              "lot_number": "119",
+              "location": "Rotherham, South Yorkshire",
+              "event_id": "429f93c45b1108e8c1ef15c0"
+            },
+            {
+              "aid": 1066,
+              "lot_number": "131",
+              "location": "South Croydon, Surrey",
+              "event_id": "3be973a17e8eec8a194d7437"
+            },
+            {
+              "aid": 1066,
+              "lot_number": "132",
+              "location": "Stoke-on-Trent, Staffordshire",
+              "event_id": "4bd61a29e9233d0de11d7b2d"
+            },
+            {
+              "aid": 1066,
+              "lot_number": "149",
+              "location": "London SE9",
+              "event_id": "d38dd7eaf0767619c23364cc"
+            },
+            {
+              "aid": 1066,
+              "lot_number": "150",
+              "location": "Luton, Bedfordshire",
+              "event_id": "e1926c78fedda6e09a3c38ad"
+            },
+            {
+              "aid": 1066,
+              "lot_number": "166",
+              "location": "Newport, Isle of Wight",
+              "event_id": "3cf28b749a11230393b206be"
+            },
+            {
+              "aid": 1066,
+              "lot_number": "168",
+              "location": "St Albans, Hertfordshire",
+              "event_id": "f674e96687cde9b9588ba9a8"
+            },
+            {
+              "aid": 1066,
+              "lot_number": "169",
+              "location": "Southam, Warwickshire",
+              "event_id": "5a884905fcba50cc90ed6b87"
+            },
+            {
+              "aid": 1066,
+              "lot_number": "171",
+              "location": "Watford, Hertfordshire",
+              "event_id": "7bc2f2fcea81176e58a2d03b"
+            },
+            {
+              "aid": 1066,
+              "lot_number": "174",
+              "location": "Ewell, Surrey",
+              "event_id": "e006325635e814ebe106b69f"
+            },
+            {
+              "aid": 1066,
+              "lot_number": "175",
+              "location": "Barnet, Hertfordshire",
+              "event_id": "2f8012b146f0788ab10dc7b3"
+            },
+            {
+              "aid": 1066,
+              "lot_number": "176",
+              "location": "Buntingford, Hertfordshire",
+              "event_id": "4d9dc88ac9ffe81a3158b447"
+            },
+            {
+              "aid": 1066,
+              "lot_number": "252",
+              "location": "Oldbury, West Midlands",
+              "event_id": "1261c8745923dca1b549e9bc"
+            },
+            {
+              "aid": 1066,
+              "lot_number": "258",
+              "location": "Westbury, Wiltshire",
+              "event_id": "792eca235ca63a010994741c"
+            }
+          ],
+          "unresolved_lots": []
+        }
+      ],
+      "savills_2018_auction_reconciliation_blocker": {
+        "at": "2026-09-14T06:00:29.493382+00:00",
+        "message": "PropertyAuctions initial-grid rows provide date/lot/type/location/result but unresolved rows lack a deterministic canonical History V2 identity match. Next route must resolve full lot identity from AID/lot controls or first-party Savills evidence, not guess from locality.",
+        "next_safe_route": "For each unresolved 2018 AID/lot, replay its Telerik/ASP.NET row/detail controls and probe first-party Savills detail/document/PDF variants; persist source-specific blocker per lot when no stronger identity survives."
       }
     }
   }
