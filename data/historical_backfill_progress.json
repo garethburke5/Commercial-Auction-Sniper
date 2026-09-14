@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T14:21:48.987416+00:00",
+  "updated_at": "2026-09-14T14:25:24.641398+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -59230,7 +59230,7 @@
         "message": "Throttled 240 2018-index AID namespace queries after the prior 503 flood; 99 completed as usable 200/404 responses, 21 captures recovered, 0 rows passed identity checks, 0 new canonical events persisted."
       },
       "savills_2018_wayback_aid_last_run": {
-        "at": "2026-09-14T14:21:48.968768+00:00",
+        "at": "2026-09-14T14:25:24.621152+00:00",
         "route": "savills-2018-wayback-aid-pid-identity-recovery",
         "unresolved_lots_input": 58,
         "aids": [
@@ -59241,7 +59241,7 @@
           "1072"
         ],
         "cdx_queries": 20,
-        "cdx_queries_ok": 16,
+        "cdx_queries_ok": 14,
         "unique_snapshots": 16,
         "documents_parsed": 0,
         "safe_unique_rows_ready": 0,
@@ -59250,7 +59250,7 @@
         "canonical_events_added": 0
       },
       "savills_2018_wayback_aid_blocker": {
-        "at": "2026-09-14T14:21:48.968768+00:00",
+        "at": "2026-09-14T14:25:24.621152+00:00",
         "route": "savills-2018-wayback-aid-pid-identity-recovery",
         "message": "Wayback AID/Data-Auctions route queried 20 namespaces, recovered 16 unique snapshots, parsed 0 documents, produced 0 unique identity rows and persisted 0 new canonical events. Per-lot blockers are persisted in the diagnostic."
       }
