@@ -29,7 +29,7 @@ class AuctionEstatesDeepExtractionTests(unittest.TestCase):
 
     def test_floorplan_is_not_selected_over_property_photo(self):
         s=BeautifulSoup('''
-        <html><body>
+        <html><body><h1>Commercial Lot</h1>
           <img src="/media/plan123.jpg" alt="Floor plan" />
           <img src="/media/property364216.jpg" alt="Unit 4 - 2 South Street property photograph" />
         </body></html>
@@ -42,12 +42,12 @@ class AuctionEstatesDeepExtractionTests(unittest.TestCase):
         ''','lxml')
         self.assertTrue(_needs_interactive(s))
 
-    def test_static_hidden_tenure_avoids_unnecessary_browser_clicks(self):
+    def test_tabs_are_hydrated_even_when_visible_prose_mentions_tenure(self):
         s=BeautifulSoup('''
         <html><body><h1>Commercial Lot</h1><div>Details Tenure EPC</div>
-        <div style="display:none">Offered For Sale on a new 999 year Long Leasehold (Virtual Freehold)</div></body></html>
+        <div>Freehold mixed-use property with buyer information hidden behind the tabs.</div></body></html>
         ''','lxml')
-        self.assertFalse(_needs_interactive(s))
+        self.assertTrue(_needs_interactive(s))
 
 
 if __name__=='__main__':
