@@ -80,7 +80,6 @@ for row in asset_records:
     for lot in lots:
         asset_lot_evidence.setdefault(lot,[]).append({"timestamp":row.get("timestamp"),"original":row.get("original"),"mimetype":row.get("mimetype")})
 
-# Replay every deduplicated 2018 RSS capture returned by CDX, not an arbitrary subset.
 rss_replays=[]
 rss_items=[]
 for row in rss_records:
@@ -110,7 +109,6 @@ for row in rss_records:
     except Exception as exc:
         rss_replays.append({"timestamp":ts,"original":orig,"replay":replay,"error":type(exc).__name__})
 
-# Build conservative identities only when RSS itself binds AID1069 evidence to one lot + one postcode + one PID.
 identities=[]
 for item in rss_items:
     if len(item["lots"])==1 and len(item["postcodes"])==1 and len(item["pids"])==1:
@@ -162,3 +160,5 @@ src["historically_complete"]=False; src["discovery_exhausted"]=False; src["last_
 src["savills_2018_06_18_archive_asset_last_run"]={k:v for k,v in diag.items() if k not in ("cdx_runs","asset_lot_evidence","rss_replays","rss_items")}
 progress["updated_at"]=now; PROG.write_text(json.dumps(progress,indent=2))
 print(json.dumps({k:v for k,v in diag.items() if k not in ("cdx_runs","asset_lot_evidence","rss_replays","rss_items")},indent=2))
+
+# Trigger marker: archive asset recovery for AID1069.
