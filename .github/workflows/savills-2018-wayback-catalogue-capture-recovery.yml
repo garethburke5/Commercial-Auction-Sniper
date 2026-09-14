@@ -1,4 +1,5 @@
 name: Savills 2018 Wayback Catalogue Capture Recovery
+# Trigger exact legacy catalogue capture recovery after Data/Auctions archive stall
 on:
   workflow_dispatch:
   push:
