@@ -62,3 +62,4 @@ jobs:
             sleep $((attempt*3))
           done
           exit 1
+# trigger: scan-complete-corpus-url-namespace
