@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T11:09:53.654194+00:00",
+  "updated_at": "2026-09-14T11:19:20.049495+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-all-20558-url-namespace-locality-candidate-probe",
+      "last_discovery_mode": "savills-2018-full-firstparty-20558-lot-direct-identity-reconciliation",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -56861,6 +56861,540 @@
         "route": "savills-2018-all-20558-url-namespace-locality-candidate-probe",
         "message": "Scanned all 20558 persisted first-party lot URL strings for all 58 unresolved 2018 lots; 0 lots have live locality candidates. Per-lot candidate/blocker evidence is persisted in the diagnostic.",
         "next_safe_route": "Use exact live candidate pages to reconcile auction date + lot number + full address. For rows with no URL candidate, use archived URL-prefix enumeration over Wayback/Common Crawl plus legacy PropertyAuctions document/PDF paths."
+      },
+      "savills_2018_firstparty_corpus_identity_last_run": {
+        "at": "2026-09-14T11:19:17.907495+00:00",
+        "route": "savills-2018-full-firstparty-20558-lot-direct-identity-reconciliation",
+        "source_corpus_total_urls": 20673,
+        "source_corpus_lot_detail_urls": 20558,
+        "unresolved_lots_considered": 58,
+        "urls_fetched": 20558,
+        "http_status_counts": {
+          "200": 20558
+        },
+        "pages_with_target_date_lot_postcode_identity": 2,
+        "safe_unique_rows_ready": 0,
+        "crawl_seconds": 1014.88,
+        "canonical_events_before": 3307,
+        "canonical_events_after": 3307,
+        "canonical_events_added": 0,
+        "oldest_verified_lot_level_date": "2023-03-28",
+        "year_2018_qualifying": 84,
+        "year_2018_canonicalised": 26,
+        "year_2018_unresolved": 58,
+        "auction_reconciliation": [
+          {
+            "auction_date": "2018-12-11",
+            "archive_pages": [
+              "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+            ],
+            "catalogues": [
+              {
+                "aid": 1073,
+                "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+                "total_catalogue_rows": 4,
+                "commercial_mixed_count": 0
+              }
+            ],
+            "total_catalogue_rows": 4,
+            "qualifying_commercial_mixed": 0,
+            "canonicalised": 0,
+            "unresolved": 0,
+            "unresolved_lots": []
+          },
+          {
+            "auction_date": "2018-11-26",
+            "archive_pages": [
+              "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+            ],
+            "catalogues": [
+              {
+                "aid": 1072,
+                "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+                "total_catalogue_rows": 179,
+                "commercial_mixed_count": 11
+              }
+            ],
+            "total_catalogue_rows": 179,
+            "qualifying_commercial_mixed": 11,
+            "canonicalised": 0,
+            "unresolved": 11,
+            "unresolved_lots": [
+              {
+                "aid": 1072,
+                "lot_number": "9",
+                "location": "Ashtead, Surrey",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1072,
+                "lot_number": "43",
+                "location": "London E17",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1072,
+                "lot_number": "82",
+                "location": "Erdington, West Midlands",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1072,
+                "lot_number": "102",
+                "location": "London N17",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1072,
+                "lot_number": "111",
+                "location": "London SE15",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1072,
+                "lot_number": "119",
+                "location": "Luton, Bedfordshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1072,
+                "lot_number": "147",
+                "location": "London W11",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1072,
+                "lot_number": "148",
+                "location": "London W11",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1072,
+                "lot_number": "153",
+                "location": "London SE13",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1072,
+                "lot_number": "167",
+                "location": "Grays, Essex",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1072,
+                "lot_number": "174",
+                "location": "London W9",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              }
+            ]
+          },
+          {
+            "auction_date": "2018-09-26",
+            "archive_pages": [
+              "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+            ],
+            "catalogues": [
+              {
+                "aid": 1071,
+                "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+                "total_catalogue_rows": 167,
+                "commercial_mixed_count": 6
+              }
+            ],
+            "total_catalogue_rows": 167,
+            "qualifying_commercial_mixed": 6,
+            "canonicalised": 5,
+            "unresolved": 1,
+            "unresolved_lots": [
+              {
+                "aid": 1071,
+                "lot_number": "27",
+                "location": "London N3",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              }
+            ]
+          },
+          {
+            "auction_date": "2018-07-24",
+            "archive_pages": [
+              "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+            ],
+            "catalogues": [
+              {
+                "aid": 1070,
+                "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+                "total_catalogue_rows": 118,
+                "commercial_mixed_count": 5
+              }
+            ],
+            "total_catalogue_rows": 118,
+            "qualifying_commercial_mixed": 5,
+            "canonicalised": 5,
+            "unresolved": 0,
+            "unresolved_lots": []
+          },
+          {
+            "auction_date": "2018-06-18",
+            "archive_pages": [
+              "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+            ],
+            "catalogues": [
+              {
+                "aid": 1069,
+                "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+                "total_catalogue_rows": 178,
+                "commercial_mixed_count": 10
+              }
+            ],
+            "total_catalogue_rows": 178,
+            "qualifying_commercial_mixed": 10,
+            "canonicalised": 0,
+            "unresolved": 10,
+            "unresolved_lots": [
+              {
+                "aid": 1069,
+                "lot_number": "41D",
+                "location": "Ascot, Berkshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1069,
+                "lot_number": "88A",
+                "location": "Enfield, Middlesex",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1069,
+                "lot_number": "94",
+                "location": "Romford, Essex",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1069,
+                "lot_number": "127",
+                "location": "London SW12",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1069,
+                "lot_number": "140",
+                "location": "London SE9",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1069,
+                "lot_number": "147",
+                "location": "Chatham, Kent",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1069,
+                "lot_number": "148",
+                "location": "Chatham, Kent",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1069,
+                "lot_number": "153",
+                "location": "Rotherham, South Yorkshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1069,
+                "lot_number": "161",
+                "location": "Farnborough, Hampshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1069,
+                "lot_number": "164",
+                "location": "Immingham, Lincolnshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              }
+            ]
+          },
+          {
+            "auction_date": "2018-05-09",
+            "archive_pages": [
+              "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+            ],
+            "catalogues": [
+              {
+                "aid": 1068,
+                "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+                "total_catalogue_rows": 159,
+                "commercial_mixed_count": 13
+              }
+            ],
+            "total_catalogue_rows": 159,
+            "qualifying_commercial_mixed": 13,
+            "canonicalised": 0,
+            "unresolved": 13,
+            "unresolved_lots": [
+              {
+                "aid": 1068,
+                "lot_number": "52",
+                "location": "Maidstone, Kent",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1068,
+                "lot_number": "55",
+                "location": "Redcar, North Yorkshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1068,
+                "lot_number": "57",
+                "location": "London SE15",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1068,
+                "lot_number": "58",
+                "location": "London SE15",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1068,
+                "lot_number": "60",
+                "location": "Billingham, North Yorkshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1068,
+                "lot_number": "83",
+                "location": "Rochester, Kent",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1068,
+                "lot_number": "131",
+                "location": "New Malden, Surrey",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1068,
+                "lot_number": "143",
+                "location": "Ilford, Essex IG4",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1068,
+                "lot_number": "144",
+                "location": "Helston, Cornwall",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1068,
+                "lot_number": "150",
+                "location": "Heston, Middlesex",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1068,
+                "lot_number": "151",
+                "location": "Farnborough, Hampshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1068,
+                "lot_number": "153",
+                "location": "Chatham, Kent",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1068,
+                "lot_number": "154",
+                "location": "Chatham, Kent",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              }
+            ]
+          },
+          {
+            "auction_date": "2018-03-26",
+            "archive_pages": [
+              "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+            ],
+            "catalogues": [
+              {
+                "aid": 1067,
+                "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+                "total_catalogue_rows": 213,
+                "commercial_mixed_count": 25
+              }
+            ],
+            "total_catalogue_rows": 213,
+            "qualifying_commercial_mixed": 25,
+            "canonicalised": 2,
+            "unresolved": 23,
+            "unresolved_lots": [
+              {
+                "aid": 1067,
+                "lot_number": "26",
+                "location": "Farnborough, Hampshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "27",
+                "location": "Farnborough, Hampshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "28",
+                "location": "Aldershot, Hampshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "29",
+                "location": "Aldershot, Hampshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "37",
+                "location": "London E17",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "49",
+                "location": "London E10",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "76",
+                "location": "London SW6",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "109",
+                "location": "London SE25",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "111",
+                "location": "Romford, Essex",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "116",
+                "location": "London SE19",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "117",
+                "location": "London SE9",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "144",
+                "location": "London W8",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "147",
+                "location": "London SW12",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "148",
+                "location": "Aldershot, Hampshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "171",
+                "location": "Rochester, Kent",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "172",
+                "location": "Hilgay, Norfolk",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "175",
+                "location": "London N17",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "181",
+                "location": "London SW17",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "187",
+                "location": "Farnborough, Hampshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "188",
+                "location": "Farnborough, Hampshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "189",
+                "location": "Mitcham, Surrey",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "190",
+                "location": "Ilford, Essex",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              },
+              {
+                "aid": 1067,
+                "lot_number": "201",
+                "location": "Immingham, Lincolnshire",
+                "blocker": "full first-party 20,558-lot corpus produced no exact auction-date + lot-number page with a full postcode address"
+              }
+            ]
+          },
+          {
+            "auction_date": "2018-02-13",
+            "archive_pages": [
+              "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+            ],
+            "catalogues": [
+              {
+                "aid": 1066,
+                "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+                "total_catalogue_rows": 262,
+                "commercial_mixed_count": 14
+              }
+            ],
+            "total_catalogue_rows": 262,
+            "qualifying_commercial_mixed": 14,
+            "canonicalised": 14,
+            "unresolved": 0,
+            "unresolved_lots": []
+          }
+        ]
+      },
+      "savills_2018_firstparty_corpus_identity_blocker": {
+        "at": "2026-09-14T11:19:20.049457+00:00",
+        "route": "savills-2018-full-firstparty-20558-lot-direct-identity-reconciliation",
+        "message": "Crawled all 20558 persisted first-party Savills lot-detail URLs against all 58 unresolved 2018 commercial/mixed lots. Added 0 validated canonical events; remaining lots carry per-lot blockers in auction_reconciliation.",
+        "next_safe_route": "For still-unresolved exact date+lot identities, enumerate archived captures of the specific first-party corpus URL namespace and recovered PropertyAuctions catalogue/document paths via Common Crawl CDX and Wayback prefix indexes, then parse surviving HTML/PDF documents for unique full-address identity. Do not advance to 2017 until every 2018 auction is accounted for."
       }
     }
   }
