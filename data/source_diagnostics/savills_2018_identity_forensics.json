@@ -1,0 +1,4174 @@
+{
+  "at": "2026-09-14T07:11:03.663426+00:00",
+  "route": "savills-2018-per-lot-row-detail-pid-and-first-party-url-forensics",
+  "input_unresolved": 58,
+  "identity_candidates_resolved": 0,
+  "still_unresolved": 58,
+  "detail_pages_with_identity": 0,
+  "http_probes": 174,
+  "canonical_rows_added": 0,
+  "lots": [
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "9",
+      "location": "Ashtead, Surrey",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "8 Vacant Leasehold Maisonette Ashtead, Surrey £194,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "9 Vacant Freehold Garage Ashtead, Surrey £14,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1072/9",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1072/9",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "43",
+      "location": "London E17",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "43 Vacant Freehold Garage London E17 Available at £250,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1072/43",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1072/43",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "82",
+      "location": "Erdington, West Midlands",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "48A Vacant Freehold Land Enfield, Middlesex £82,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "82 Investment Freehold Retail Erdington, West Midlands Sold Prior",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1072/82",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1072/82",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "102",
+      "location": "London N17",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "102 Vacant Freehold Retail London N17 Available at £150,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1072/102",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1072/102",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "111",
+      "location": "London SE15",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "108 Vacant Freehold Development Wokingham, Berkshire £111,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "111 Investment Freehold Retail London SE15 Withdrawn",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1072/111",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1072/111",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "119",
+      "location": "Luton, Bedfordshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "12 Vacant Freehold Semi-Detached House Luton, Bedfordshire Available at £230,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "119 Vacant Freehold Garage Luton, Bedfordshire £70,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1072/119",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1072/119",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "147",
+      "location": "London W11",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "135 Investment Freehold Building London W11 Sold Prior",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "147 Vacant Leasehold Garage London W11 £50,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "148 Vacant Leasehold Garage London W11 £170,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1072/147",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1072/147",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "148",
+      "location": "London W11",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "135 Investment Freehold Building London W11 Sold Prior",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "146 Vacant Leasehold Flat Southampton, Hampshire £148,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "147 Vacant Leasehold Garage London W11 £50,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "148 Vacant Leasehold Garage London W11 £170,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1072/148",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1072/148",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "153",
+      "location": "London SE13",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "153 Investment Leasehold Garage London SE13 £46,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1072/153",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1072/153",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "167",
+      "location": "Grays, Essex",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "84 Vacant Leasehold Studio Grays, Essex Withdrawn",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "166 Vacant Freehold Detached House Grays, Essex £360,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "167 Vacant Freehold Garage Grays, Essex Withdrawn Prior",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1072/167",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1072/167",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "174",
+      "location": "London W9",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "174 Vacant Freehold Retail London W9 Withdrawn Prior",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-11-26-1072",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1072/174",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1072/174",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-09-26",
+      "aid": 1071,
+      "lot_number": "27",
+      "location": "London N3",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "27 Part Vacant Freehold Garage London N3 £104,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-09-26-1071",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-09-26-1071",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1071/27",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1071/27",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "41D",
+      "location": "Ascot, Berkshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "41D Vacant Leasehold Retail Ascot, Berkshire £152,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1069/41D",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1069/41D",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "88A",
+      "location": "Enfield, Middlesex",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "20 Vacant Leasehold Maisonette Enfield, Middlesex £235,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "76 Vacant Leasehold Maisonette Enfield, Middlesex Available at £145,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "88A Part Vacant Freehold Retail Enfield, Middlesex Available at £580,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1069/88A",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1069/88A",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "94",
+      "location": "Romford, Essex",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "23 Vacant Freehold Semi-Detached House Romford, Essex £311,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "37 Vacant Freehold Semi-Detached House Nottingham, Nottinghamshire £94,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "61 Vacant Freehold House Romford, Essex £279,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "77 Vacant Leasehold Flat Harlow, Essex £94,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "94 Vacant Freehold Garage Romford, Essex £70,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1069/94",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1069/94",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "127",
+      "location": "London SW12",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "3 Vacant Freehold House London SW12 £960,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "127 Vacant Leasehold Garage London SW12 Sold Prior",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1069/127",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1069/127",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "140",
+      "location": "London SE9",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "30 Vacant Freehold House London SE9 £328,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "140 Vacant Freehold Garage London SE9 Available at £10,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "166 Vacant Freehold Chalet Oldham, Greater Manchester £140,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1069/140",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1069/140",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "147",
+      "location": "Chatham, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "27 Vacant Freehold House Chatham, Kent Sold Prior",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "147 Vacant Freehold Garage Chatham, Kent Refer to Auctioneer",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "148 Investment Freehold Garage Chatham, Kent Refer to Auctioneer",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1069/147",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1069/147",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "148",
+      "location": "Chatham, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "27 Vacant Freehold House Chatham, Kent Sold Prior",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "147 Vacant Freehold Garage Chatham, Kent Refer to Auctioneer",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "148 Investment Freehold Garage Chatham, Kent Refer to Auctioneer",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1069/148",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1069/148",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "153",
+      "location": "Rotherham, South Yorkshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "153 Investment Freehold Retail Rotherham, South Yorkshire Available at £130,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1069/153",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1069/153",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "161",
+      "location": "Farnborough, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "161 Vacant Freehold Garage Farnborough, Hampshire Available at £5,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1069/161",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1069/161",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "164",
+      "location": "Immingham, Lincolnshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "164 Part Vacant Freehold Office Immingham, Lincolnshire Withdrawn",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "165 Vacant Freehold Land Immingham, Lincolnshire Withdrawn",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-06-18-1069",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1069/164",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1069/164",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "52",
+      "location": "Maidstone, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "52 Vacant Freehold Commercial Maidstone, Kent Available at £790,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "75 Vacant Freehold Building Maidstone, Kent £602,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1068/52",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1068/52",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "55",
+      "location": "Redcar, North Yorkshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "45 Vacant Leasehold Other London W8 Available at £55,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "55 Investment Freehold Office Redcar, North Yorkshire Available at £870,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1068/55",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1068/55",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "57",
+      "location": "London SE15",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "34 Vacant Freehold House London SE15 Withdrawn",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "41 Vacant Leasehold Flat London SE15 £225,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "57 Part Vacant Freehold Commercial London SE15 Sold Prior",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "58 Vacant Freehold Commercial London SE15 Sold Prior",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "105 Vacant Leasehold Flat London SE15 Available at £295,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1068/57",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1068/57",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "58",
+      "location": "London SE15",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "34 Vacant Freehold House London SE15 Withdrawn",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "41 Vacant Leasehold Flat London SE15 £225,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "57 Part Vacant Freehold Commercial London SE15 Sold Prior",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "58 Vacant Freehold Commercial London SE15 Sold Prior",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "105 Vacant Leasehold Flat London SE15 Available at £295,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1068/58",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1068/58",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "60",
+      "location": "Billingham, North Yorkshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "60 Investment Freehold Office Billingham, North Yorkshire Available at £675,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1068/60",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1068/60",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "83",
+      "location": "Rochester, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "83 Vacant Freehold Garage Rochester, Kent £66,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1068/83",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1068/83",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "131",
+      "location": "New Malden, Surrey",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "131 Vacant Freehold Garage New Malden, Surrey Refer to Auctioneer",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1068/131",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1068/131",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "143",
+      "location": "Ilford, Essex IG4",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "143 Leasehold Garage Ilford, Essex IG4 Sold Post",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1068/143",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1068/143",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "144",
+      "location": "Helston, Cornwall",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "144 Vacant Freehold Hotel Helston, Cornwall Withdrawn Prior",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1068/144",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1068/144",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "150",
+      "location": "Heston, Middlesex",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "46 Vacant Leasehold Flat Romford, Essex Available at £150,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "150 Vacant Freehold Garage Heston, Middlesex Sold Post",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1068/150",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1068/150",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "151",
+      "location": "Farnborough, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "151 Vacant Freehold Garage Farnborough, Hampshire Available at £7,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "152 Vacant Freehold Site Farnborough, Hampshire £15,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1068/151",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1068/151",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "153",
+      "location": "Chatham, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "138 Vacant Leasehold Flat Chatham, Kent Sold Prior",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "153 Vacant Freehold Garage Chatham, Kent £5,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "154 Vacant Freehold Garage Chatham, Kent £5,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1068/153",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1068/153",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "154",
+      "location": "Chatham, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "138 Vacant Leasehold Flat Chatham, Kent Sold Prior",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "153 Vacant Freehold Garage Chatham, Kent £5,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "154 Vacant Freehold Garage Chatham, Kent £5,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-05-09-1068",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1068/154",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1068/154",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "26",
+      "location": "Farnborough, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "26 Part Vacant Freehold Garage Farnborough, Hampshire £144,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "27 Part Vacant Freehold Garage Farnborough, Hampshire £120,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "149 Vacant Freehold Site Farnborough, Hampshire £42,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "170 Vacant Freehold Site Stoke-on-Trent, Staffordshire £26,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "187 Vacant Freehold Garage Farnborough, Hampshire £7,500",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "188 Vacant Freehold Garage Farnborough, Hampshire £7,500",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/26",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/26",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "27",
+      "location": "Farnborough, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "26 Part Vacant Freehold Garage Farnborough, Hampshire £144,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "27 Part Vacant Freehold Garage Farnborough, Hampshire £120,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "149 Vacant Freehold Site Farnborough, Hampshire £42,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "187 Vacant Freehold Garage Farnborough, Hampshire £7,500",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "188 Vacant Freehold Garage Farnborough, Hampshire £7,500",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/27",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/27",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "28",
+      "location": "Aldershot, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "28 Part Vacant Freehold Garage Aldershot, Hampshire £220,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "29 Part Vacant Freehold Garage Aldershot, Hampshire £120,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "148 Investment Freehold Garage Aldershot, Hampshire £105,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/28",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/28",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "29",
+      "location": "Aldershot, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "28 Part Vacant Freehold Garage Aldershot, Hampshire £220,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "29 Part Vacant Freehold Garage Aldershot, Hampshire £120,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "148 Investment Freehold Garage Aldershot, Hampshire £105,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/29",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/29",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "37",
+      "location": "London E17",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "36 Vacant Freehold House London E17 Sold Post",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "37 Vacant Freehold Garage London E17 Sold Post",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "95A Vacant Leasehold Flat London E17 Available at £300,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/37",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/37",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "49",
+      "location": "London E10",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "45 Vacant Leasehold Flat London E10 Available at £250,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "49 Vacant Freehold Retail London E10 Available at £670,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/49",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/49",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "76",
+      "location": "London SW6",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "76 Investment Freehold Retail London SW6 Available at £900,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "121 Vacant Freehold Building London SW6 Refer to Auctioneer",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "198 Vacant Leasehold House Preston, Lancashire £76,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/76",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/76",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "109",
+      "location": "London SE25",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "31 Investment Leasehold Flat London SE25 Available at £180,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "78 Vacant Leasehold Flat London SE25 £208,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "79 Vacant Leasehold Flat London SE25 £220,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "81 Vacant Leasehold Flat London SE25 £206,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "89 Vacant Leasehold Flat London SE25 £196,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "109 Investment Leasehold Retail London SE25 £74,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/109",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/109",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "111",
+      "location": "Romford, Essex",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "111 Vacant Freehold Garage Romford, Essex £20,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/111",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/111",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "116",
+      "location": "London SE19",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "30 Vacant Freehold Semi-Detached House London SE19 £419,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "41 Vacant Freehold Semi-Detached House London SE19 £441,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "67 Vacant Leasehold Flat Barnehurst, Kent £116,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "116 Vacant Freehold Garage London SE19 £18,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/116",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/116",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "117",
+      "location": "London SE9",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "117 Vacant Freehold Garage London SE9 £10,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/117",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/117",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "144",
+      "location": "London W8",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "26 Part Vacant Freehold Garage Farnborough, Hampshire £144,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "144 Vacant Freehold Garage London W8 £380,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/144",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/144",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "147",
+      "location": "London SW12",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "4 Vacant Leasehold Flat London SW12 Available at £395,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "147 Vacant Leasehold Garage London SW12 £168,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/147",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/147",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "148",
+      "location": "Aldershot, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "28 Part Vacant Freehold Garage Aldershot, Hampshire £220,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "29 Part Vacant Freehold Garage Aldershot, Hampshire £120,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "148 Investment Freehold Garage Aldershot, Hampshire £105,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/148",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/148",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "171",
+      "location": "Rochester, Kent",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "142 Vacant Freehold Land Rochester, Kent £22,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "171 Vacant Freehold Garage Rochester, Kent £45,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/171",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/171",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "172",
+      "location": "Hilgay, Norfolk",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "24 Vacant Leasehold Maisonette Sutton, Surrey £172,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "105 Vacant Freehold Site Coulsdon, Surrey £172,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "172 Vacant Freehold Garage Hilgay, Norfolk £55,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "178 Part Vacant Freehold Building Brixham, Devon £172,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/172",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/172",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "175",
+      "location": "London N17",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "175 Investment Freehold Retail London N17 £40,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/175",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/175",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "181",
+      "location": "London SW17",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "44 Vacant Freehold House London SW17 £374,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "48 Vacant Leasehold Flat London SW17 Available at £215,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "115 Vacant Freehold House London SW17 £466,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "129 Vacant Freehold Semi-Detached House London SW17 Sold Post",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "181 Vacant Freehold Retail London SW17 £560,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/181",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/181",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "187",
+      "location": "Farnborough, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "26 Part Vacant Freehold Garage Farnborough, Hampshire £144,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "27 Part Vacant Freehold Garage Farnborough, Hampshire £120,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "95B Vacant Leasehold Flat Chigwell, Essex Available at £187,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "149 Vacant Freehold Site Farnborough, Hampshire £42,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "187 Vacant Freehold Garage Farnborough, Hampshire £7,500",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "188 Vacant Freehold Garage Farnborough, Hampshire £7,500",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/187",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/187",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "188",
+      "location": "Farnborough, Hampshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "26 Part Vacant Freehold Garage Farnborough, Hampshire £144,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "27 Part Vacant Freehold Garage Farnborough, Hampshire £120,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "149 Vacant Freehold Site Farnborough, Hampshire £42,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "187 Vacant Freehold Garage Farnborough, Hampshire £7,500",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "188 Vacant Freehold Garage Farnborough, Hampshire £7,500",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/188",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/188",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "189",
+      "location": "Mitcham, Surrey",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "112 Vacant Leasehold Studio Mitcham, Surrey £114,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "182 Vacant Freehold Site Mitcham, Surrey £73,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "189 Vacant Freehold Garage Mitcham, Surrey £46,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/189",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/189",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "190",
+      "location": "Ilford, Essex",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "8 Vacant Freehold House Ilford, Essex £438,000",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "90 Vacant Leasehold Flat Epsom, Surrey £190,000",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": false
+        },
+        {
+          "text": "137 Vacant Leasehold Flat Ilford, Essex Refer to Auctioneer",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        },
+        {
+          "text": "190 Vacant Freehold Garage Ilford, Essex Withdrawn",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/190",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/190",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "201",
+      "location": "Immingham, Lincolnshire",
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "catalogue_fetch": {
+        "ok": true,
+        "status": 200,
+        "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "content_type": "text/html; charset=utf-8"
+      },
+      "row_candidates": [
+        {
+          "text": "201 Part Vacant Freehold Retail Immingham, Lincolnshire Withdrawn",
+          "links": [],
+          "lot_hit": true,
+          "location_hit": true
+        },
+        {
+          "text": "202 Vacant Freehold Land Immingham, Lincolnshire Withdrawn",
+          "links": [],
+          "lot_hit": false,
+          "location_hit": true
+        }
+      ],
+      "detail_probes": [],
+      "first_party_probes": [
+        {
+          "url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/auctions/2018-03-26-1067",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London |",
+            "h1": "",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/lot/1067/201",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        },
+        {
+          "url": "https://auctions.savills.co.uk/property-detail/1067/201",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://auctions.savills.co.uk/404",
+          "content_type": "text/html; charset=utf-8",
+          "identity": {
+            "title": "Savills Property Auctions | UK &amp; London | 404",
+            "h1": "404: Page not found",
+            "address_candidates": []
+          }
+        }
+      ],
+      "resolved_identity": null,
+      "blocker": "no unique full-address identity exposed by row/detail/PID or first-party URL probes"
+    }
+  ],
+  "blocker": "Per-lot live catalogue row/detail/PID and first-party Savills URL probes did not provide enough unique full-address identity for automatic canonical promotion.",
+  "next_route": "Use archived captures/index evidence for the still-unresolved exact AID+lot pairs (Wayback CDX/Common Crawl/search index), while retaining any first-party Savills URL/evidence found here; canonicalise only unique lot identities."
+}

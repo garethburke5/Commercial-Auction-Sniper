@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T06:00:29.493382+00:00",
+  "updated_at": "2026-09-14T07:11:03.663426+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-breadth-first-catalogue-to-history-v2-reconciliation",
+      "last_discovery_mode": "savills-2018-per-lot-row-detail-pid-and-first-party-url-forensics",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -56755,6 +56755,23 @@
         "at": "2026-09-14T06:00:29.493382+00:00",
         "message": "PropertyAuctions initial-grid rows provide date/lot/type/location/result but unresolved rows lack a deterministic canonical History V2 identity match. Next route must resolve full lot identity from AID/lot controls or first-party Savills evidence, not guess from locality.",
         "next_safe_route": "For each unresolved 2018 AID/lot, replay its Telerik/ASP.NET row/detail controls and probe first-party Savills detail/document/PDF variants; persist source-specific blocker per lot when no stronger identity survives."
+      },
+      "savills_2018_identity_forensics_last_run": {
+        "at": "2026-09-14T07:11:03.663426+00:00",
+        "route": "savills-2018-per-lot-row-detail-pid-and-first-party-url-forensics",
+        "input_unresolved": 58,
+        "identity_candidates_resolved": 0,
+        "still_unresolved": 58,
+        "detail_pages_with_identity": 0,
+        "http_probes": 174,
+        "canonical_rows_added": 0,
+        "blocker": "Per-lot live catalogue row/detail/PID and first-party Savills URL probes did not provide enough unique full-address identity for automatic canonical promotion.",
+        "next_route": "Use archived captures/index evidence for the still-unresolved exact AID+lot pairs (Wayback CDX/Common Crawl/search index), while retaining any first-party Savills URL/evidence found here; canonicalise only unique lot identities."
+      },
+      "savills_2018_identity_forensics_blocker": {
+        "at": "2026-09-14T07:11:03.663426+00:00",
+        "message": "Per-lot live catalogue row/detail/PID and first-party Savills URL probes did not provide enough unique full-address identity for automatic canonical promotion.",
+        "next_safe_route": "Use archived captures/index evidence for the still-unresolved exact AID+lot pairs (Wayback CDX/Common Crawl/search index), while retaining any first-party Savills URL/evidence found here; canonicalise only unique lot identities."
       }
     }
   }
