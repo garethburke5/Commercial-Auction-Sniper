@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T07:11:03.663426+00:00",
+  "updated_at": "2026-09-14T08:04:50.992369+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "CATALOGUE BULK RECOVERY BLOCKED",
+      "status": "2018 EXACT AID LOT ARCHIVE BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3307,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-per-lot-row-detail-pid-and-first-party-url-forensics",
+      "last_discovery_mode": "savills-2018-exact-aid-lot-locality-wayback-bing-index-recovery",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -56772,6 +56772,25 @@
         "at": "2026-09-14T07:11:03.663426+00:00",
         "message": "Per-lot live catalogue row/detail/PID and first-party Savills URL probes did not provide enough unique full-address identity for automatic canonical promotion.",
         "next_safe_route": "Use archived captures/index evidence for the still-unresolved exact AID+lot pairs (Wayback CDX/Common Crawl/search index), while retaining any first-party Savills URL/evidence found here; canonicalise only unique lot identities."
+      },
+      "savills_2018_exact_aid_lot_archive_last_run": {
+        "at": "2026-09-14T08:04:50.992369+00:00",
+        "route": "savills-2018-exact-aid-lot-locality-wayback-bing-index-recovery",
+        "input_unresolved": 58,
+        "aids_queried": 5,
+        "cdx_capture_rows": 0,
+        "lots_with_identity_evidence_candidates": 0,
+        "canonical_rows_added": 0,
+        "savills_events_before": 3307,
+        "savills_events_after": 3307,
+        "blocker": "Exact AID+lot+locality Wayback wildcard and Bing RSS searches produced no safe full-address identity for the unresolved 2018 set.",
+        "next_route": "Pivot to legacy PropertyAuctions ASP.NET resource/control discovery: enumerate historical scripts/WebResource.axd/ScriptResource.axd and form event targets around LotList, then reconstruct row-detail postbacks/PID endpoints from archived page source."
+      },
+      "savills_2018_exact_aid_lot_archive_blocker": {
+        "at": "2026-09-14T08:04:50.992369+00:00",
+        "route": "savills-2018-exact-aid-lot-locality-wayback-bing-index-recovery",
+        "message": "Exact AID+lot+locality Wayback wildcard and Bing RSS searches produced no safe full-address identity for the unresolved 2018 set.",
+        "next_safe_route": "Pivot to legacy PropertyAuctions ASP.NET resource/control discovery: enumerate historical scripts/WebResource.axd/ScriptResource.axd and form event targets around LotList, then reconstruct row-detail postbacks/PID endpoints from archived page source."
       }
     }
   }
