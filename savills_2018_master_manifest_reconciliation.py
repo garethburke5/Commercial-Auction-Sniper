@@ -24,9 +24,6 @@ MASTER = [
     ('2018-12-11', None, 4),
 ]
 
-# Dates present in catalogue-wide clue evidence but not in the first-party
-# Savills chronological auction calendar. They must not inflate the auction
-# count. Keep them as source anomalies pending attribution.
 NON_MASTER_DATES = [
     '2018-02-14', '2018-04-12', '2018-06-07',
     '2018-08-01', '2018-09-27', '2018-11-29'
