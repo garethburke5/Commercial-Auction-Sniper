@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T02:04:12.148516+00:00",
+  "updated_at": "2026-09-14T03:01:27.886011+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "2018 ARCHIVE SNAPSHOT REPLAY BLOCKED",
+      "status": "YEAR GAP BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3254,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-row-evidence-parallel-wayback-index-and-snapshot-replay",
+      "last_discovery_mode": "savills-2018-first-party-pdf-brochure-download-archive-replay",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -46692,6 +46692,53 @@
         "failing_url_or_route": "row-derived exact/sibling Wayback index plus snapshot replay",
         "message": "Parallel archive indexing found 256 capture row(s); replayed 256 surfaces and found 0 postcode-bearing pages, but 0 pages deterministically joined AID + lot + catalogue location + postcode for the 94 commercial/mixed 2018 clues.",
         "next_safe_route": "Use the persisted archived URL corpus to enumerate document/PDF/brochure/particular namespaces and search those first-party/static documents by exact AID+lot/location, retaining the failed replay evidence."
+      },
+      "savills_2018_document_archive_last_run": {
+        "at": "2026-09-14T03:01:27.886011+00:00",
+        "route": "savills-2018-first-party-pdf-brochure-download-archive-replay",
+        "clues_considered": 1427,
+        "prefix_queries": [
+          {
+            "prefix": "https://pdf.euro.savills.co.uk/brochures/",
+            "status": 200,
+            "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fpdf.euro.savills.co.uk%2Fbrochures%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&from=2017&to=2019&limit=5000&matchType=prefix&collapse=urlkey",
+            "rows": 5
+          },
+          {
+            "prefix": "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/",
+            "status": 200,
+            "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fpdf.euro.savills.co.uk%2Fuk%2Fcommercial-auctions-uk%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&from=2017&to=2019&limit=5000&matchType=prefix&collapse=urlkey",
+            "rows": 0
+          },
+          {
+            "prefix": "https://auctions.savills.co.uk/downloads/",
+            "status": 200,
+            "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fdownloads%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&from=2017&to=2019&limit=5000&matchType=prefix&collapse=urlkey",
+            "rows": 0
+          },
+          {
+            "prefix": "https://pdf.euro.savills.co.uk/uk/auctions/",
+            "status": 200,
+            "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fpdf.euro.savills.co.uk%2Fuk%2Fauctions%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&from=2017&to=2019&limit=5000&matchType=prefix&collapse=urlkey",
+            "rows": 0
+          }
+        ],
+        "archive_document_urls": 5,
+        "documents_replayed": 5,
+        "documents_with_text": 5,
+        "documents_with_postcodes": 0,
+        "deterministic_location_plus_lot_or_date_matches": 0,
+        "match_samples": [],
+        "canonical_events_added": 0,
+        "savills_events_before": 3254,
+        "savills_events_after": 3254
+      },
+      "savills_2018_document_archive_last_blocker": {
+        "at": "2026-09-14T03:01:27.886011+00:00",
+        "route": "savills-2018-first-party-pdf-brochure-download-archive-replay",
+        "failing_url_or_route": "https://pdf.euro.savills.co.uk/brochures/ ; https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/ ; https://pdf.euro.savills.co.uk/uk/auctions/ ; https://auctions.savills.co.uk/downloads/",
+        "message": "First-party Savills archived document sweep replayed 5 candidate document surfaces and found 0 deterministic location+lot/date clue matches, but no History V2 event was promoted without a unique full-address/property identity chain.",
+        "next_safe_route": "Use any matched document originals plus their parent/sibling directories to enumerate catalogue-specific PDFs/images; if no matches, pivot to Common Crawl indexes for the same first-party Savills PDF/download prefixes and then legacy Savills Auc/PID namespaces for 2018."
       }
     }
   }

@@ -1,0 +1,40 @@
+{
+  "at": "2026-09-14T03:01:27.886011+00:00",
+  "route": "savills-2018-first-party-pdf-brochure-download-archive-replay",
+  "clues_considered": 1427,
+  "prefix_queries": [
+    {
+      "prefix": "https://pdf.euro.savills.co.uk/brochures/",
+      "status": 200,
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fpdf.euro.savills.co.uk%2Fbrochures%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&from=2017&to=2019&limit=5000&matchType=prefix&collapse=urlkey",
+      "rows": 5
+    },
+    {
+      "prefix": "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/",
+      "status": 200,
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fpdf.euro.savills.co.uk%2Fuk%2Fcommercial-auctions-uk%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&from=2017&to=2019&limit=5000&matchType=prefix&collapse=urlkey",
+      "rows": 0
+    },
+    {
+      "prefix": "https://auctions.savills.co.uk/downloads/",
+      "status": 200,
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fdownloads%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&from=2017&to=2019&limit=5000&matchType=prefix&collapse=urlkey",
+      "rows": 0
+    },
+    {
+      "prefix": "https://pdf.euro.savills.co.uk/uk/auctions/",
+      "status": 200,
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fpdf.euro.savills.co.uk%2Fuk%2Fauctions%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&from=2017&to=2019&limit=5000&matchType=prefix&collapse=urlkey",
+      "rows": 0
+    }
+  ],
+  "archive_document_urls": 5,
+  "documents_replayed": 5,
+  "documents_with_text": 5,
+  "documents_with_postcodes": 0,
+  "deterministic_location_plus_lot_or_date_matches": 0,
+  "match_samples": [],
+  "canonical_events_added": 0,
+  "savills_events_before": 3254,
+  "savills_events_after": 3254
+}
