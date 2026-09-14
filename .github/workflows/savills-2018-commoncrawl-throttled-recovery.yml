@@ -7,6 +7,7 @@ on:
       - 'savills_2018_commoncrawl_throttled_recovery.py'
       - '.github/workflows/savills-2018-commoncrawl-throttled-recovery.yml'
 
+# Immediate execution trigger after repairing the prior 503 flood.
 permissions:
   contents: write
 
