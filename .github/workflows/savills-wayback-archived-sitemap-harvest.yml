@@ -1,0 +1,74 @@
+name: Savills Wayback Archived Sitemap Harvest
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/savills-wayback-archived-sitemap-harvest.yml'
+      - 'savills_wayback_archived_sitemap_harvest.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: savills-wayback-archived-sitemap-harvest
+  cancel-in-progress: true
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - run: python -m py_compile savills_wayback_archived_sitemap_harvest.py
+      - name: Harvest archived Savills sitemaps recursively
+        run: python savills_wayback_archived_sitemap_harvest.py
+      - name: Verify and preserve
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/source_diagnostics/savills_wayback_archived_sitemap_harvest.json').read_text())
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          for k in ('root_capture_rows','unique_root_captures','child_sitemaps_discovered','unique_child_captures','unique_firstparty_urls','auction_urls','commission_urls','catalogue_roots','historical_2010_2018_catalogue_roots'):
+              print(k.upper(),d.get(k))
+          print('BY_YEAR',d.get('auction_urls_by_year'))
+          assert p['sources']['Savills Auctions'].get('historically_complete') is False
+          PY
+          cp data/historical_backfill_progress.json /tmp/progress.json
+          cp data/source_diagnostics/savills_wayback_archived_sitemap_harvest.json /tmp/diag.json
+      - name: Publish conflict-safe
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/diag.json data/source_diagnostics/savills_wayback_archived_sitemap_harvest.json
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          fp=Path('data/historical_backfill_progress.json')
+          fresh=json.loads(fp.read_text()); rec=json.loads(Path('/tmp/progress.json').read_text())
+          fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{}); rs=rec['sources']['Savills Auctions']
+          for k in ('savills_archived_sitemap_harvest_last_run','savills_archived_sitemap_harvest_last_blocker','last_discovery_mode'):
+              if k in rs: fs[k]=rs[k]
+          fs['historically_complete']=False; fs['discovery_exhausted']=False
+          fresh['updated_at']=rec.get('updated_at',fresh.get('updated_at'))
+          fp.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
+          PY
+            git add data/historical_backfill_progress.json data/source_diagnostics/savills_wayback_archived_sitemap_harvest.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist Savills archived sitemap bulk harvest'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt*3))
+          done
+          exit 1
