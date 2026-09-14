@@ -53,3 +53,5 @@ jobs:
             sleep $((attempt*4))
           done
           exit 1
+
+# trigger metadata recovery after direct-replay stall
