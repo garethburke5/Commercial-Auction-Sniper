@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T11:37:13.661895+00:00",
+  "updated_at": "2026-09-14T12:07:30.804505+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-full-firstparty-20558-lot-direct-identity-reconciliation",
+      "last_discovery_mode": "savills-2018-exact-aid-data-auctions-asset-archive-enumeration",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -57395,6 +57395,619 @@
         "route": "savills-2018-full-firstparty-20558-lot-direct-identity-reconciliation",
         "message": "Crawled all 20558 persisted first-party Savills lot-detail URLs against all 58 unresolved 2018 commercial/mixed lots. Added 0 validated canonical events; remaining lots carry per-lot blockers in auction_reconciliation.",
         "next_safe_route": "For still-unresolved exact date+lot identities, enumerate archived captures of the specific first-party corpus URL namespace and recovered PropertyAuctions catalogue/document paths via Common Crawl CDX and Wayback prefix indexes, then parse surviving HTML/PDF documents for unique full-address identity. Do not advance to 2017 until every 2018 auction is accounted for."
+      },
+      "savills_2018_aid_asset_archive_last_run": {
+        "at": "2026-09-14T12:07:30.804505+00:00",
+        "route": "savills-2018-exact-aid-data-auctions-asset-archive-enumeration",
+        "unresolved_lots_input": 58,
+        "aids": [
+          "1067",
+          "1068",
+          "1069",
+          "1071",
+          "1072"
+        ],
+        "cdx_unique_resources": 16,
+        "text_resources_replayed": 0,
+        "lot_specific_asset_links": 3,
+        "unique_identity_rows_ready": 0,
+        "canonical_events_before": 3307,
+        "canonical_events_after": 3307,
+        "canonical_events_added": 0
+      },
+      "savills_2018_aid_asset_archive_blocker": {
+        "at": "2026-09-14T12:07:30.804505+00:00",
+        "route": "savills-2018-exact-aid-data-auctions-asset-archive-enumeration",
+        "message": "Enumerated 16 archived resources beneath exact Data/Auctions/AID namespaces for 5 affected 2018 catalogues; replayed 0 text resources; promoted 0 canonical event(s).",
+        "per_lot_blockers": [
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "9",
+            "location": "Ashtead, Surrey",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1072/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "43",
+            "location": "London E17",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1072/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "82",
+            "location": "Erdington, West Midlands",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1072/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "102",
+            "location": "London N17",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1072/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "111",
+            "location": "London SE15",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1072/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "119",
+            "location": "Luton, Bedfordshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1072/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "147",
+            "location": "London W11",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1072/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "148",
+            "location": "London W11",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1072/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "153",
+            "location": "London SE13",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1072/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "167",
+            "location": "Grays, Essex",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1072/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-11-26",
+            "aid": 1072,
+            "lot_number": "174",
+            "location": "London W9",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1072/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-09-26",
+            "aid": 1071,
+            "lot_number": "27",
+            "location": "London N3",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1071/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "41D",
+            "location": "Ascot, Berkshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1069/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "88A",
+            "location": "Enfield, Middlesex",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1069/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "94",
+            "location": "Romford, Essex",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1069/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "127",
+            "location": "London SW12",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1069/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "140",
+            "location": "London SE9",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1069/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "147",
+            "location": "Chatham, Kent",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1069/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "148",
+            "location": "Chatham, Kent",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1069/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "153",
+            "location": "Rotherham, South Yorkshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1069/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "161",
+            "location": "Farnborough, Hampshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1069/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-06-18",
+            "aid": 1069,
+            "lot_number": "164",
+            "location": "Immingham, Lincolnshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1069/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "52",
+            "location": "Maidstone, Kent",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 1,
+            "asset_samples": [
+              "http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_52a.jpg"
+            ],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1068/ namespace; lot-specific archived assets=1"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "55",
+            "location": "Redcar, North Yorkshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 1,
+            "asset_samples": [
+              "http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_55a.jpg"
+            ],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1068/ namespace; lot-specific archived assets=1"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "57",
+            "location": "London SE15",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1068/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "58",
+            "location": "London SE15",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1068/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "60",
+            "location": "Billingham, North Yorkshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 1,
+            "asset_samples": [
+              "http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_60a.jpg"
+            ],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1068/ namespace; lot-specific archived assets=1"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "83",
+            "location": "Rochester, Kent",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1068/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "131",
+            "location": "New Malden, Surrey",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1068/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "143",
+            "location": "Ilford, Essex IG4",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1068/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "144",
+            "location": "Helston, Cornwall",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1068/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "150",
+            "location": "Heston, Middlesex",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1068/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "151",
+            "location": "Farnborough, Hampshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1068/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "153",
+            "location": "Chatham, Kent",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1068/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-05-09",
+            "aid": 1068,
+            "lot_number": "154",
+            "location": "Chatham, Kent",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1068/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "26",
+            "location": "Farnborough, Hampshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "27",
+            "location": "Farnborough, Hampshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "28",
+            "location": "Aldershot, Hampshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "29",
+            "location": "Aldershot, Hampshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "37",
+            "location": "London E17",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "49",
+            "location": "London E10",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "76",
+            "location": "London SW6",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "109",
+            "location": "London SE25",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "111",
+            "location": "Romford, Essex",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "116",
+            "location": "London SE19",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "117",
+            "location": "London SE9",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "144",
+            "location": "London W8",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "147",
+            "location": "London SW12",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "148",
+            "location": "Aldershot, Hampshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "171",
+            "location": "Rochester, Kent",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "172",
+            "location": "Hilgay, Norfolk",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "175",
+            "location": "London N17",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "181",
+            "location": "London SW17",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "187",
+            "location": "Farnborough, Hampshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "188",
+            "location": "Farnborough, Hampshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "189",
+            "location": "Mitcham, Surrey",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "190",
+            "location": "Ilford, Essex",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          },
+          {
+            "auction_date": "2018-03-26",
+            "aid": 1067,
+            "lot_number": "201",
+            "location": "Immingham, Lincolnshire",
+            "text_identity_candidates": 0,
+            "lot_specific_archived_assets": 0,
+            "asset_samples": [],
+            "blocker": "no unique postcode-bearing text identity in archived Data/Auctions/1067/ namespace; lot-specific archived assets=0"
+          }
+        ],
+        "next_safe_route": "For remaining lots, use exact archived lot-specific image/document basenames recovered here as reverse identity keys across search indexes/Common Crawl and capture-adjacent HTML/RSS; require unique full-address/postcode evidence before promotion."
       }
     }
   }
