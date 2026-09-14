@@ -1,0 +1,88 @@
+name: Savills 2018 Wayback Host Surface Recovery
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/savills-2018-wayback-host-surface-recovery.yml'
+      - 'savills_2018_wayback_host_surface_recovery.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: savills-2018-wayback-host-surface-recovery
+  cancel-in-progress: true
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Compile recovery
+        run: python -m py_compile savills_2018_wayback_host_surface_recovery.py
+      - name: Run host-surface recovery
+        run: python savills_2018_wayback_host_surface_recovery.py
+      - name: Verify and preserve
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          h=json.loads(Path('data/property_history.json').read_text())
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          d=json.loads(Path('data/source_diagnostics/savills_2018_wayback_host_surface_recovery.json').read_text())
+          s=p['sources']['Savills Auctions']; z=s['savills_2018_wayback_host_surface_last_run']
+          c=sum(1 for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions')
+          dates=sorted(str(e.get('auction_date')) for e in h.get('auction_events',[]) if e.get('source')=='Savills Auctions' and e.get('auction_date'))
+          print('SAVILLS_EVENTS',c)
+          print('OLDEST_VERIFIED',dates[0] if dates else None)
+          print('UNRESOLVED_INPUT',z.get('unresolved_2018_clues_input'))
+          print('HOST_CAPTURES',z.get('host_cdx_unique_captures'))
+          print('PAGES_REPLAYED',z.get('host_pages_replayed'))
+          print('POSTCODE_PAGES',z.get('postcode_bearing_pages'))
+          print('SAFE_MATCHES',z.get('safe_host_surface_matches'))
+          print('ADDED',z.get('canonical_events_added'))
+          print('COVERAGE_2018',z.get('auction_coverage_2018'))
+          assert s.get('historically_complete') is False
+          assert s.get('discovery_exhausted') is False
+          PY
+          cp data/property_history.json /tmp/history.json
+          cp data/historical_backfill_progress.json /tmp/progress.json
+          cp data/source_diagnostics/savills_2018_wayback_host_surface_recovery.json /tmp/diag.json
+      - name: Publish conflict-safe
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/history.json data/property_history.json
+            cp /tmp/diag.json data/source_diagnostics/savills_2018_wayback_host_surface_recovery.json
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          fp=Path('data/historical_backfill_progress.json')
+          fresh=json.loads(fp.read_text()); rec=json.loads(Path('/tmp/progress.json').read_text())
+          fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{}); rs=rec['sources']['Savills Auctions']
+          for k in ('savills_2018_wayback_host_surface_last_run','savills_2018_auction_coverage','savills_2018_wayback_host_surface_last_blocker','last_discovery_mode','status','lots_captured'):
+              if k in rs: fs[k]=rs[k]
+          fs['historically_complete']=False; fs['discovery_exhausted']=False
+          fresh['updated_at']=rec.get('updated_at',fresh.get('updated_at'))
+          fp.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
+          PY
+            git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics/savills_2018_wayback_host_surface_recovery.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist Savills 2018 Wayback host-surface recovery'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt*3))
+          done
+          exit 1
