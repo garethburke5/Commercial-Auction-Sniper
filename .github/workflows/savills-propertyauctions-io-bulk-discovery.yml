@@ -1,0 +1,77 @@
+name: Savills PropertyAuctions.io Bulk Discovery
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/savills-propertyauctions-io-bulk-discovery.yml'
+      - 'savills_propertyauctions_io_bulk_discovery.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: savills-propertyauctions-io-bulk-discovery
+  cancel-in-progress: true
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - run: python -m py_compile savills_propertyauctions_io_bulk_discovery.py
+      - name: Discover archive bulk endpoint and pagination
+        run: python savills_propertyauctions_io_bulk_discovery.py
+      - name: Verify and preserve
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/source_diagnostics/savills_propertyauctions_io_bulk_discovery.json').read_text())
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          print('ARCHIVE_STATUS',d.get('archive_status'))
+          print('ARCHIVE_BYTES',d.get('archive_bytes'))
+          print('INITIAL_LISTING_IDS',len(d.get('archive_listing_ids') or []))
+          print('SCRIPTS',d.get('script_count'))
+          print('CANDIDATE_ENDPOINTS',len(d.get('candidate_endpoints') or []))
+          print('PROBES',len(d.get('endpoint_probes') or []))
+          assert p['sources']['Savills Auctions'].get('historically_complete') is False
+          PY
+          cp data/historical_backfill_progress.json /tmp/progress.json
+          cp data/source_diagnostics/savills_propertyauctions_io_bulk_discovery.json /tmp/diag.json
+      - name: Publish conflict-safe
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/diag.json data/source_diagnostics/savills_propertyauctions_io_bulk_discovery.json
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          fp=Path('data/historical_backfill_progress.json')
+          fresh=json.loads(fp.read_text()); rec=json.loads(Path('/tmp/progress.json').read_text())
+          fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{}); rs=rec['sources']['Savills Auctions']
+          for k in ('propertyauctions_io_bulk_discovery_last_run','propertyauctions_io_bulk_discovery_last_blocker','last_discovery_mode'):
+              if k in rs: fs[k]=rs[k]
+          fs['historically_complete']=False; fs['discovery_exhausted']=False
+          fresh['updated_at']=rec.get('updated_at',fresh.get('updated_at'))
+          fp.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
+          PY
+            git add data/historical_backfill_progress.json data/source_diagnostics/savills_propertyauctions_io_bulk_discovery.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist Savills PropertyAuctions.io bulk discovery'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt*3))
+          done
+          exit 1
