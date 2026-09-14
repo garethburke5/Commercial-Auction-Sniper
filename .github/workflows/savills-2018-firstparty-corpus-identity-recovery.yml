@@ -69,3 +69,4 @@ jobs:
             sleep $((attempt*5))
           done
           exit 1
+# trigger: full-corpus-reconciliation
