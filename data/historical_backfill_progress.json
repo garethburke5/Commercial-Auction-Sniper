@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T01:04:42.486325+00:00",
+  "updated_at": "2026-09-14T01:05:47.954397+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -46652,14 +46652,14 @@
         "next_safe_route": "Enumerate archived PropertyAuctions catalogue scripts/forms/images for each exact 2018 AID and lot tuple, recover PID/commission identifiers from HTML/JS/assets, then replay the corresponding first-party Savills detail/document URLs."
       },
       "savills_2018_row_asset_last_run": {
-        "at": "2026-09-14T01:04:42.486325+00:00",
+        "at": "2026-09-14T01:05:47.954397+00:00",
         "route": "savills-2018-commercial-row-html-asset-and-identifier-forensics",
-        "catalogues_attempted": 0,
-        "initial_grid_rows_seen": 0,
-        "commercial_mixed_rows_seen": 0,
-        "commercial_rows_with_numeric_ids": 0,
+        "catalogues_attempted": 14,
+        "initial_grid_rows_seen": 1429,
+        "commercial_mixed_rows_seen": 94,
+        "commercial_rows_with_numeric_ids": 94,
         "commercial_rows_with_first_party_candidates": 0,
-        "unique_numeric_ids": 0,
+        "unique_numeric_ids": 1,
         "unique_first_party_candidates": 0,
         "candidate_pages_with_postcodes": 0,
         "canonical_events_added": 0,
@@ -46667,10 +46667,10 @@
         "savills_events_after": 3254
       },
       "savills_2018_row_asset_last_blocker": {
-        "at": "2026-09-14T01:04:42.486325+00:00",
+        "at": "2026-09-14T01:05:47.954397+00:00",
         "route": "savills-2018-commercial-row-html-asset-and-identifier-forensics",
         "failing_url_or_route": "all validated 2018 PropertyAuctions AID catalogue row markup",
-        "message": "Forensic pass inspected 0 commercial/mixed row(s), found identifiers on 0, first-party row candidates on 0, and 0 candidate page(s) with postcodes, but no row has yet been promoted without deterministic full-address identity plus Savills evidence.",
+        "message": "Forensic pass inspected 94 commercial/mixed row(s), found identifiers on 94, first-party row candidates on 0, and 0 candidate page(s) with postcodes, but no row has yet been promoted without deterministic full-address identity plus Savills evidence.",
         "next_safe_route": "Use the persisted per-row numeric ID index and exact asset URLs to query Wayback/Common Crawl by exact discovered identifier/asset basename and sibling directory patterns; reconcile any address-bearing snapshot to AID/date/lot before History V2 promotion."
       }
     }

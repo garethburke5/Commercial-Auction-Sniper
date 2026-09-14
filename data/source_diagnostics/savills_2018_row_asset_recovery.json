@@ -1,14 +1,3729 @@
 {
-  "at": "2026-09-14T01:04:42.486325+00:00",
+  "at": "2026-09-14T01:05:47.954397+00:00",
   "route": "savills-2018-commercial-row-html-asset-and-identifier-forensics",
-  "catalogues_attempted": 0,
-  "catalogues": [],
-  "initial_grid_rows_seen": 0,
-  "commercial_mixed_rows_seen": 0,
-  "commercial_rows_with_numeric_ids": 0,
+  "catalogues_attempted": 14,
+  "catalogues": [
+    {
+      "aid": 1066,
+      "date": "2018-02-13",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+      "error": null,
+      "commercial_rows": [
+        {
+          "lot_number": "119",
+          "property_type": "Investment Freehold Retail",
+          "location": "Rotherham, South Yorkshire",
+          "result": "Refer to Auctioneer",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "131",
+          "property_type": "Investment Leasehold Garage",
+          "location": "South Croydon, Surrey",
+          "result": "£126,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "132",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Stoke-on-Trent, Staffordshire",
+          "result": "£45,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "149",
+          "property_type": "Vacant Freehold Garage",
+          "location": "London SE9",
+          "result": "Sold Post",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "150",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Luton, Bedfordshire",
+          "result": "Available at £90,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "166",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Newport, Isle of Wight",
+          "result": "Available at £20,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "168",
+          "property_type": "Investment Freehold Garage",
+          "location": "St Albans, Hertfordshire",
+          "result": "£141,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "169",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Southam, Warwickshire",
+          "result": "£34,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "171",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Watford, Hertfordshire",
+          "result": "£57,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "174",
+          "property_type": "Vacant Freehold Office",
+          "location": "Ewell, Surrey",
+          "result": "Sold Prior",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "175",
+          "property_type": "Investment Freehold Garage",
+          "location": "Barnet, Hertfordshire",
+          "result": "Available at £150,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "176",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Buntingford, Hertfordshire",
+          "result": "Withdrawn",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "252",
+          "property_type": "Vacant Freehold Office",
+          "location": "Oldbury, West Midlands",
+          "result": "Withdrawn",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "258",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Westbury, Wiltshire",
+          "result": "Available at £6,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aid": 1080,
+      "date": "2018-02-14",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+      "error": null,
+      "commercial_rows": [
+        {
+          "lot_number": "2A",
+          "property_type": "Investment Freehold Commercial",
+          "location": "Debdale Lane, Mansfield Woodhouse",
+          "result": "Available",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "9",
+          "property_type": "Investment Freehold Retail Warehouse",
+          "location": "Immingham, Lincolnshire",
+          "result": "Available",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aid": 1067,
+      "date": "2018-03-26",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "error": null,
+      "commercial_rows": [
+        {
+          "lot_number": "26",
+          "property_type": "Part Vacant Freehold Garage",
+          "location": "Farnborough, Hampshire",
+          "result": "£144,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "27",
+          "property_type": "Part Vacant Freehold Garage",
+          "location": "Farnborough, Hampshire",
+          "result": "£120,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "28",
+          "property_type": "Part Vacant Freehold Garage",
+          "location": "Aldershot, Hampshire",
+          "result": "£220,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "29",
+          "property_type": "Part Vacant Freehold Garage",
+          "location": "Aldershot, Hampshire",
+          "result": "£120,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "37",
+          "property_type": "Vacant Freehold Garage",
+          "location": "London E17",
+          "result": "Sold Post",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "49",
+          "property_type": "Vacant Freehold Retail",
+          "location": "London E10",
+          "result": "Available at £670,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "62",
+          "property_type": "Vacant Freehold Commercial",
+          "location": "Croydon, Surrey",
+          "result": "£890,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "76",
+          "property_type": "Investment Freehold Retail",
+          "location": "London SW6",
+          "result": "Available at £900,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "109",
+          "property_type": "Investment Leasehold Retail",
+          "location": "London SE25",
+          "result": "£74,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "111",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Romford, Essex",
+          "result": "£20,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "116",
+          "property_type": "Vacant Freehold Garage",
+          "location": "London SE19",
+          "result": "£18,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "117",
+          "property_type": "Vacant Freehold Garage",
+          "location": "London SE9",
+          "result": "£10,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "144",
+          "property_type": "Vacant Freehold Garage",
+          "location": "London W8",
+          "result": "£380,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "147",
+          "property_type": "Vacant Leasehold Garage",
+          "location": "London SW12",
+          "result": "£168,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "148",
+          "property_type": "Investment Freehold Garage",
+          "location": "Aldershot, Hampshire",
+          "result": "£105,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "167",
+          "property_type": "Vacant Freehold Garage",
+          "location": "London N1",
+          "result": "Available at £55,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "171",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Rochester, Kent",
+          "result": "£45,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "172",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Hilgay, Norfolk",
+          "result": "£55,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "175",
+          "property_type": "Investment Freehold Retail",
+          "location": "London N17",
+          "result": "£40,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "181",
+          "property_type": "Vacant Freehold Retail",
+          "location": "London SW17",
+          "result": "£560,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "187",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Farnborough, Hampshire",
+          "result": "£7,500",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "188",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Farnborough, Hampshire",
+          "result": "£7,500",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "189",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Mitcham, Surrey",
+          "result": "£46,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "190",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Ilford, Essex",
+          "result": "Withdrawn",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "201",
+          "property_type": "Part Vacant Freehold Retail",
+          "location": "Immingham, Lincolnshire",
+          "result": "Withdrawn",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aid": 1081,
+      "date": "2018-04-12",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1081",
+      "error": null,
+      "commercial_rows": [
+        {
+          "lot_number": "5",
+          "property_type": "Vacant Freehold Retail",
+          "location": "Netherfield, Nottingham",
+          "result": "Available",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "19",
+          "property_type": "Vacant Freehold Retail",
+          "location": "Hucknall, Nottingham",
+          "result": "Withdrawn Prior",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aid": 1068,
+      "date": "2018-05-09",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "error": null,
+      "commercial_rows": [
+        {
+          "lot_number": "52",
+          "property_type": "Vacant Freehold Commercial",
+          "location": "Maidstone, Kent",
+          "result": "Available at £790,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "55",
+          "property_type": "Investment Freehold Office",
+          "location": "Redcar, North Yorkshire",
+          "result": "Available at £870,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "57",
+          "property_type": "Part Vacant Freehold Commercial",
+          "location": "London SE15",
+          "result": "Sold Prior",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "58",
+          "property_type": "Vacant Freehold Commercial",
+          "location": "London SE15",
+          "result": "Sold Prior",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "60",
+          "property_type": "Investment Freehold Office",
+          "location": "Billingham, North Yorkshire",
+          "result": "Available at £675,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "83",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Rochester, Kent",
+          "result": "£66,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "131",
+          "property_type": "Vacant Freehold Garage",
+          "location": "New Malden, Surrey",
+          "result": "Refer to Auctioneer",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "143",
+          "property_type": "Leasehold Garage",
+          "location": "Ilford, Essex IG4",
+          "result": "Sold Post",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "144",
+          "property_type": "Vacant Freehold Hotel",
+          "location": "Helston, Cornwall",
+          "result": "Withdrawn Prior",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "150",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Heston, Middlesex",
+          "result": "Sold Post",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "151",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Farnborough, Hampshire",
+          "result": "Available at £7,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "153",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Chatham, Kent",
+          "result": "£5,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "154",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Chatham, Kent",
+          "result": "£5,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aid": 1082,
+      "date": "2018-06-07",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1082",
+      "error": null,
+      "commercial_rows": [
+        {
+          "lot_number": "27",
+          "property_type": "Vacant Leasehold Garage",
+          "location": "Mansfield Road, Nottingham",
+          "result": "£11,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aid": 1069,
+      "date": "2018-06-18",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "error": null,
+      "commercial_rows": [
+        {
+          "lot_number": "41D",
+          "property_type": "Vacant Leasehold Retail",
+          "location": "Ascot, Berkshire",
+          "result": "£152,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "88A",
+          "property_type": "Part Vacant Freehold Retail",
+          "location": "Enfield, Middlesex",
+          "result": "Available at £580,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "94",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Romford, Essex",
+          "result": "£70,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "127",
+          "property_type": "Vacant Leasehold Garage",
+          "location": "London SW12",
+          "result": "Sold Prior",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "140",
+          "property_type": "Vacant Freehold Garage",
+          "location": "London SE9",
+          "result": "Available at £10,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "147",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Chatham, Kent",
+          "result": "Refer to Auctioneer",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "148",
+          "property_type": "Investment Freehold Garage",
+          "location": "Chatham, Kent",
+          "result": "Refer to Auctioneer",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "153",
+          "property_type": "Investment Freehold Retail",
+          "location": "Rotherham, South Yorkshire",
+          "result": "Available at £130,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "161",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Farnborough, Hampshire",
+          "result": "Available at £5,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "164",
+          "property_type": "Part Vacant Freehold Office",
+          "location": "Immingham, Lincolnshire",
+          "result": "Withdrawn",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aid": 1070,
+      "date": "2018-07-24",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+      "error": null,
+      "commercial_rows": [
+        {
+          "lot_number": "34",
+          "property_type": "Investment Freehold Retail",
+          "location": "London N10",
+          "result": "£2.95M",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "40",
+          "property_type": "Investment Freehold Retail",
+          "location": "Rotherham, South Yorkshire",
+          "result": "Withdrawn",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "86",
+          "property_type": "Vacant Freehold Garage",
+          "location": "London SE9",
+          "result": "£60,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "104",
+          "property_type": "Vacant Freehold Office",
+          "location": "Teesdale, Stockton-on-Tees",
+          "result": "Withdrawn",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "109",
+          "property_type": "Investment Freehold Mixed Use",
+          "location": "Mid Glamorgan, Wales",
+          "result": "Withdrawn",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aid": 1083,
+      "date": "2018-08-01",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1083",
+      "error": null,
+      "commercial_rows": [
+        {
+          "lot_number": "9",
+          "property_type": "Vacant Freehold Commercial",
+          "location": "Mansfield, Nottinghamshire",
+          "result": "£176,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "13",
+          "property_type": "Investment Freehold Commercial",
+          "location": "Nottingham",
+          "result": "Sold Prior",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aid": 1071,
+      "date": "2018-09-26",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "error": null,
+      "commercial_rows": [
+        {
+          "lot_number": "27",
+          "property_type": "Part Vacant Freehold Garage",
+          "location": "London N3",
+          "result": "£104,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "40",
+          "property_type": "Freehold Industrial",
+          "location": "London SW19",
+          "result": "Available at £2M",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "67",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Orpington, Kent",
+          "result": "£18,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "102",
+          "property_type": "Vacant Freehold Retail",
+          "location": "Worthing, West Sussex",
+          "result": "Available at £165,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "110",
+          "property_type": "Vacant Freehold Industrial",
+          "location": "Bournemouth, Dorset",
+          "result": "Available at £45,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "111",
+          "property_type": "Part Vacant Freehold Retail",
+          "location": "Reigate, Surrey",
+          "result": "£410,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aid": 1084,
+      "date": "2018-09-27",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1084",
+      "error": null,
+      "commercial_rows": [
+        {
+          "lot_number": "9",
+          "property_type": "Vacant Freehold Mixed Use",
+          "location": "Ripley, Derbyshire",
+          "result": "Available",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aid": 1072,
+      "date": "2018-11-26",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "error": null,
+      "commercial_rows": [
+        {
+          "lot_number": "9",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Ashtead, Surrey",
+          "result": "£14,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "43",
+          "property_type": "Vacant Freehold Garage",
+          "location": "London E17",
+          "result": "Available at £250,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "82",
+          "property_type": "Investment Freehold Retail",
+          "location": "Erdington, West Midlands",
+          "result": "Sold Prior",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "102",
+          "property_type": "Vacant Freehold Retail",
+          "location": "London N17",
+          "result": "Available at £150,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "111",
+          "property_type": "Investment Freehold Retail",
+          "location": "London SE15",
+          "result": "Withdrawn",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "119",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Luton, Bedfordshire",
+          "result": "£70,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "147",
+          "property_type": "Vacant Leasehold Garage",
+          "location": "London W11",
+          "result": "£50,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "148",
+          "property_type": "Vacant Leasehold Garage",
+          "location": "London W11",
+          "result": "£170,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "153",
+          "property_type": "Investment Leasehold Garage",
+          "location": "London SE13",
+          "result": "£46,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "167",
+          "property_type": "Vacant Freehold Garage",
+          "location": "Grays, Essex",
+          "result": "Withdrawn Prior",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "174",
+          "property_type": "Vacant Freehold Retail",
+          "location": "London W9",
+          "result": "Withdrawn Prior",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aid": 1085,
+      "date": "2018-11-29",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+      "error": null,
+      "commercial_rows": [
+        {
+          "lot_number": "9",
+          "property_type": "Vacant Freehold Industrial",
+          "location": "Ilkeston, Derbyshire",
+          "result": "£410,000",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        },
+        {
+          "lot_number": "25",
+          "property_type": "Vacant Freehold Retail",
+          "location": "Ilkeston",
+          "result": "Available",
+          "postcode_hits": [],
+          "numeric_ids": [
+            "00"
+          ],
+          "first_party_candidates": [],
+          "row_attributes": [
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            },
+            {
+              "tag": "td",
+              "attrs": {
+                "class": "blueCell"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "aid": 1073,
+      "date": "2018-12-11",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+      "status": 200,
+      "final_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1073",
+      "error": null,
+      "commercial_rows": []
+    }
+  ],
+  "initial_grid_rows_seen": 1429,
+  "commercial_mixed_rows_seen": 94,
+  "commercial_rows_with_numeric_ids": 94,
   "commercial_rows_with_first_party_candidates": 0,
-  "unique_numeric_ids": 0,
-  "numeric_id_index": {},
+  "unique_numeric_ids": 1,
+  "numeric_id_index": {
+    "00": [
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "119",
+        "type": "Investment Freehold Retail",
+        "location": "Rotherham, South Yorkshire"
+      },
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "131",
+        "type": "Investment Leasehold Garage",
+        "location": "South Croydon, Surrey"
+      },
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "132",
+        "type": "Vacant Freehold Garage",
+        "location": "Stoke-on-Trent, Staffordshire"
+      },
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "149",
+        "type": "Vacant Freehold Garage",
+        "location": "London SE9"
+      },
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "150",
+        "type": "Vacant Freehold Garage",
+        "location": "Luton, Bedfordshire"
+      },
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "166",
+        "type": "Vacant Freehold Garage",
+        "location": "Newport, Isle of Wight"
+      },
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "168",
+        "type": "Investment Freehold Garage",
+        "location": "St Albans, Hertfordshire"
+      },
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "169",
+        "type": "Vacant Freehold Garage",
+        "location": "Southam, Warwickshire"
+      },
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "171",
+        "type": "Vacant Freehold Garage",
+        "location": "Watford, Hertfordshire"
+      },
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "174",
+        "type": "Vacant Freehold Office",
+        "location": "Ewell, Surrey"
+      },
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "175",
+        "type": "Investment Freehold Garage",
+        "location": "Barnet, Hertfordshire"
+      },
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "176",
+        "type": "Vacant Freehold Garage",
+        "location": "Buntingford, Hertfordshire"
+      },
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "252",
+        "type": "Vacant Freehold Office",
+        "location": "Oldbury, West Midlands"
+      },
+      {
+        "aid": 1066,
+        "date": "2018-02-13",
+        "lot": "258",
+        "type": "Vacant Freehold Garage",
+        "location": "Westbury, Wiltshire"
+      },
+      {
+        "aid": 1080,
+        "date": "2018-02-14",
+        "lot": "2A",
+        "type": "Investment Freehold Commercial",
+        "location": "Debdale Lane, Mansfield Woodhouse"
+      },
+      {
+        "aid": 1080,
+        "date": "2018-02-14",
+        "lot": "9",
+        "type": "Investment Freehold Retail Warehouse",
+        "location": "Immingham, Lincolnshire"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "26",
+        "type": "Part Vacant Freehold Garage",
+        "location": "Farnborough, Hampshire"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "27",
+        "type": "Part Vacant Freehold Garage",
+        "location": "Farnborough, Hampshire"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "28",
+        "type": "Part Vacant Freehold Garage",
+        "location": "Aldershot, Hampshire"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "29",
+        "type": "Part Vacant Freehold Garage",
+        "location": "Aldershot, Hampshire"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "37",
+        "type": "Vacant Freehold Garage",
+        "location": "London E17"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "49",
+        "type": "Vacant Freehold Retail",
+        "location": "London E10"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "62",
+        "type": "Vacant Freehold Commercial",
+        "location": "Croydon, Surrey"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "76",
+        "type": "Investment Freehold Retail",
+        "location": "London SW6"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "109",
+        "type": "Investment Leasehold Retail",
+        "location": "London SE25"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "111",
+        "type": "Vacant Freehold Garage",
+        "location": "Romford, Essex"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "116",
+        "type": "Vacant Freehold Garage",
+        "location": "London SE19"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "117",
+        "type": "Vacant Freehold Garage",
+        "location": "London SE9"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "144",
+        "type": "Vacant Freehold Garage",
+        "location": "London W8"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "147",
+        "type": "Vacant Leasehold Garage",
+        "location": "London SW12"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "148",
+        "type": "Investment Freehold Garage",
+        "location": "Aldershot, Hampshire"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "167",
+        "type": "Vacant Freehold Garage",
+        "location": "London N1"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "171",
+        "type": "Vacant Freehold Garage",
+        "location": "Rochester, Kent"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "172",
+        "type": "Vacant Freehold Garage",
+        "location": "Hilgay, Norfolk"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "175",
+        "type": "Investment Freehold Retail",
+        "location": "London N17"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "181",
+        "type": "Vacant Freehold Retail",
+        "location": "London SW17"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "187",
+        "type": "Vacant Freehold Garage",
+        "location": "Farnborough, Hampshire"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "188",
+        "type": "Vacant Freehold Garage",
+        "location": "Farnborough, Hampshire"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "189",
+        "type": "Vacant Freehold Garage",
+        "location": "Mitcham, Surrey"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "190",
+        "type": "Vacant Freehold Garage",
+        "location": "Ilford, Essex"
+      },
+      {
+        "aid": 1067,
+        "date": "2018-03-26",
+        "lot": "201",
+        "type": "Part Vacant Freehold Retail",
+        "location": "Immingham, Lincolnshire"
+      },
+      {
+        "aid": 1081,
+        "date": "2018-04-12",
+        "lot": "5",
+        "type": "Vacant Freehold Retail",
+        "location": "Netherfield, Nottingham"
+      },
+      {
+        "aid": 1081,
+        "date": "2018-04-12",
+        "lot": "19",
+        "type": "Vacant Freehold Retail",
+        "location": "Hucknall, Nottingham"
+      },
+      {
+        "aid": 1068,
+        "date": "2018-05-09",
+        "lot": "52",
+        "type": "Vacant Freehold Commercial",
+        "location": "Maidstone, Kent"
+      },
+      {
+        "aid": 1068,
+        "date": "2018-05-09",
+        "lot": "55",
+        "type": "Investment Freehold Office",
+        "location": "Redcar, North Yorkshire"
+      },
+      {
+        "aid": 1068,
+        "date": "2018-05-09",
+        "lot": "57",
+        "type": "Part Vacant Freehold Commercial",
+        "location": "London SE15"
+      },
+      {
+        "aid": 1068,
+        "date": "2018-05-09",
+        "lot": "58",
+        "type": "Vacant Freehold Commercial",
+        "location": "London SE15"
+      },
+      {
+        "aid": 1068,
+        "date": "2018-05-09",
+        "lot": "60",
+        "type": "Investment Freehold Office",
+        "location": "Billingham, North Yorkshire"
+      },
+      {
+        "aid": 1068,
+        "date": "2018-05-09",
+        "lot": "83",
+        "type": "Vacant Freehold Garage",
+        "location": "Rochester, Kent"
+      },
+      {
+        "aid": 1068,
+        "date": "2018-05-09",
+        "lot": "131",
+        "type": "Vacant Freehold Garage",
+        "location": "New Malden, Surrey"
+      },
+      {
+        "aid": 1068,
+        "date": "2018-05-09",
+        "lot": "143",
+        "type": "Leasehold Garage",
+        "location": "Ilford, Essex IG4"
+      },
+      {
+        "aid": 1068,
+        "date": "2018-05-09",
+        "lot": "144",
+        "type": "Vacant Freehold Hotel",
+        "location": "Helston, Cornwall"
+      },
+      {
+        "aid": 1068,
+        "date": "2018-05-09",
+        "lot": "150",
+        "type": "Vacant Freehold Garage",
+        "location": "Heston, Middlesex"
+      },
+      {
+        "aid": 1068,
+        "date": "2018-05-09",
+        "lot": "151",
+        "type": "Vacant Freehold Garage",
+        "location": "Farnborough, Hampshire"
+      },
+      {
+        "aid": 1068,
+        "date": "2018-05-09",
+        "lot": "153",
+        "type": "Vacant Freehold Garage",
+        "location": "Chatham, Kent"
+      },
+      {
+        "aid": 1068,
+        "date": "2018-05-09",
+        "lot": "154",
+        "type": "Vacant Freehold Garage",
+        "location": "Chatham, Kent"
+      },
+      {
+        "aid": 1082,
+        "date": "2018-06-07",
+        "lot": "27",
+        "type": "Vacant Leasehold Garage",
+        "location": "Mansfield Road, Nottingham"
+      },
+      {
+        "aid": 1069,
+        "date": "2018-06-18",
+        "lot": "41D",
+        "type": "Vacant Leasehold Retail",
+        "location": "Ascot, Berkshire"
+      },
+      {
+        "aid": 1069,
+        "date": "2018-06-18",
+        "lot": "88A",
+        "type": "Part Vacant Freehold Retail",
+        "location": "Enfield, Middlesex"
+      },
+      {
+        "aid": 1069,
+        "date": "2018-06-18",
+        "lot": "94",
+        "type": "Vacant Freehold Garage",
+        "location": "Romford, Essex"
+      },
+      {
+        "aid": 1069,
+        "date": "2018-06-18",
+        "lot": "127",
+        "type": "Vacant Leasehold Garage",
+        "location": "London SW12"
+      },
+      {
+        "aid": 1069,
+        "date": "2018-06-18",
+        "lot": "140",
+        "type": "Vacant Freehold Garage",
+        "location": "London SE9"
+      },
+      {
+        "aid": 1069,
+        "date": "2018-06-18",
+        "lot": "147",
+        "type": "Vacant Freehold Garage",
+        "location": "Chatham, Kent"
+      },
+      {
+        "aid": 1069,
+        "date": "2018-06-18",
+        "lot": "148",
+        "type": "Investment Freehold Garage",
+        "location": "Chatham, Kent"
+      },
+      {
+        "aid": 1069,
+        "date": "2018-06-18",
+        "lot": "153",
+        "type": "Investment Freehold Retail",
+        "location": "Rotherham, South Yorkshire"
+      },
+      {
+        "aid": 1069,
+        "date": "2018-06-18",
+        "lot": "161",
+        "type": "Vacant Freehold Garage",
+        "location": "Farnborough, Hampshire"
+      },
+      {
+        "aid": 1069,
+        "date": "2018-06-18",
+        "lot": "164",
+        "type": "Part Vacant Freehold Office",
+        "location": "Immingham, Lincolnshire"
+      },
+      {
+        "aid": 1070,
+        "date": "2018-07-24",
+        "lot": "34",
+        "type": "Investment Freehold Retail",
+        "location": "London N10"
+      },
+      {
+        "aid": 1070,
+        "date": "2018-07-24",
+        "lot": "40",
+        "type": "Investment Freehold Retail",
+        "location": "Rotherham, South Yorkshire"
+      },
+      {
+        "aid": 1070,
+        "date": "2018-07-24",
+        "lot": "86",
+        "type": "Vacant Freehold Garage",
+        "location": "London SE9"
+      },
+      {
+        "aid": 1070,
+        "date": "2018-07-24",
+        "lot": "104",
+        "type": "Vacant Freehold Office",
+        "location": "Teesdale, Stockton-on-Tees"
+      },
+      {
+        "aid": 1070,
+        "date": "2018-07-24",
+        "lot": "109",
+        "type": "Investment Freehold Mixed Use",
+        "location": "Mid Glamorgan, Wales"
+      },
+      {
+        "aid": 1083,
+        "date": "2018-08-01",
+        "lot": "9",
+        "type": "Vacant Freehold Commercial",
+        "location": "Mansfield, Nottinghamshire"
+      },
+      {
+        "aid": 1083,
+        "date": "2018-08-01",
+        "lot": "13",
+        "type": "Investment Freehold Commercial",
+        "location": "Nottingham"
+      },
+      {
+        "aid": 1071,
+        "date": "2018-09-26",
+        "lot": "27",
+        "type": "Part Vacant Freehold Garage",
+        "location": "London N3"
+      },
+      {
+        "aid": 1071,
+        "date": "2018-09-26",
+        "lot": "40",
+        "type": "Freehold Industrial",
+        "location": "London SW19"
+      },
+      {
+        "aid": 1071,
+        "date": "2018-09-26",
+        "lot": "67",
+        "type": "Vacant Freehold Garage",
+        "location": "Orpington, Kent"
+      },
+      {
+        "aid": 1071,
+        "date": "2018-09-26",
+        "lot": "102",
+        "type": "Vacant Freehold Retail",
+        "location": "Worthing, West Sussex"
+      },
+      {
+        "aid": 1071,
+        "date": "2018-09-26",
+        "lot": "110",
+        "type": "Vacant Freehold Industrial",
+        "location": "Bournemouth, Dorset"
+      },
+      {
+        "aid": 1071,
+        "date": "2018-09-26",
+        "lot": "111",
+        "type": "Part Vacant Freehold Retail",
+        "location": "Reigate, Surrey"
+      },
+      {
+        "aid": 1084,
+        "date": "2018-09-27",
+        "lot": "9",
+        "type": "Vacant Freehold Mixed Use",
+        "location": "Ripley, Derbyshire"
+      },
+      {
+        "aid": 1072,
+        "date": "2018-11-26",
+        "lot": "9",
+        "type": "Vacant Freehold Garage",
+        "location": "Ashtead, Surrey"
+      },
+      {
+        "aid": 1072,
+        "date": "2018-11-26",
+        "lot": "43",
+        "type": "Vacant Freehold Garage",
+        "location": "London E17"
+      },
+      {
+        "aid": 1072,
+        "date": "2018-11-26",
+        "lot": "82",
+        "type": "Investment Freehold Retail",
+        "location": "Erdington, West Midlands"
+      },
+      {
+        "aid": 1072,
+        "date": "2018-11-26",
+        "lot": "102",
+        "type": "Vacant Freehold Retail",
+        "location": "London N17"
+      },
+      {
+        "aid": 1072,
+        "date": "2018-11-26",
+        "lot": "111",
+        "type": "Investment Freehold Retail",
+        "location": "London SE15"
+      },
+      {
+        "aid": 1072,
+        "date": "2018-11-26",
+        "lot": "119",
+        "type": "Vacant Freehold Garage",
+        "location": "Luton, Bedfordshire"
+      },
+      {
+        "aid": 1072,
+        "date": "2018-11-26",
+        "lot": "147",
+        "type": "Vacant Leasehold Garage",
+        "location": "London W11"
+      },
+      {
+        "aid": 1072,
+        "date": "2018-11-26",
+        "lot": "148",
+        "type": "Vacant Leasehold Garage",
+        "location": "London W11"
+      },
+      {
+        "aid": 1072,
+        "date": "2018-11-26",
+        "lot": "153",
+        "type": "Investment Leasehold Garage",
+        "location": "London SE13"
+      },
+      {
+        "aid": 1072,
+        "date": "2018-11-26",
+        "lot": "167",
+        "type": "Vacant Freehold Garage",
+        "location": "Grays, Essex"
+      },
+      {
+        "aid": 1072,
+        "date": "2018-11-26",
+        "lot": "174",
+        "type": "Vacant Freehold Retail",
+        "location": "London W9"
+      },
+      {
+        "aid": 1085,
+        "date": "2018-11-29",
+        "lot": "9",
+        "type": "Vacant Freehold Industrial",
+        "location": "Ilkeston, Derbyshire"
+      },
+      {
+        "aid": 1085,
+        "date": "2018-11-29",
+        "lot": "25",
+        "type": "Vacant Freehold Retail",
+        "location": "Ilkeston"
+      }
+    ]
+  },
   "unique_first_party_candidates": 0,
   "candidate_probes": [],
   "candidate_pages_with_postcodes": 0,
