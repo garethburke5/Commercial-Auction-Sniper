@@ -45,6 +45,7 @@ def replay_variants(row):
 
 
 def fetch_record(row):
+    ts=row['timestamp']
     attempts=[]
     for u in replay_variants(row):
         try:
