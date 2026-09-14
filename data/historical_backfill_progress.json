@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "2018 MASTER MANIFEST RECONCILED - 8 FIRST-PARTY AUCTIONS",
+      "status": "2018 CAPTURE-FIRST SOURCE CORPUS ACTIVE",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3307,
@@ -59627,6 +59627,16 @@
         "non_master_anomaly_clues": 10,
         "blocker": "Remaining unresolved master-auction clues lack deterministic full lot identity; six additional clue dates are not present in the first-party Savills auction chronology and require separate attribution.",
         "next_route": "Breadth-first capture the eight master auctions only. For each unresolved master auction, persist every commercial/mixed clue as a partial source record and enrich to canonical History V2 only when full identity is deterministic. Separately attribute the six non-master clue dates without allowing them to block master-auction traversal."
+      },
+      "savills_2018_capture_first_last_run": {
+        "at": "2026-09-14T23:13:41.306586+00:00",
+        "route": "savills-2018-capture-first-source-corpus",
+        "master_auction_source_records": 8,
+        "partial_unresolved_lot_source_records": 58,
+        "source_records_total": 66,
+        "canonical_rows_added": 0,
+        "blocker": "Partial lot records intentionally retain incomplete identity rather than blocking breadth-first historical capture.",
+        "next_route": "Extend the same capture-first corpus backwards to the full 2017 Savills master auction chronology, retaining catalogue/lot URLs and available fields before enrichment."
       }
     }
   }
