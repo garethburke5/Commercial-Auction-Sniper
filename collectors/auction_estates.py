@@ -62,14 +62,29 @@ def _authoritative_property_type(s):
     return None
 
 
-def _is_target_type(ptype):
+def _commercial_mixed_evidence(text):
+    t=norm(text or "").lower()
+    explicit_mixed=any(x in t for x in (
+        "mixed-use","mixed use","ground-floor retail","ground floor retail","retail unit and",
+        "commercial unit and","shop and flat","shop with flat","retail and residential",
+        "commercial/residential","commercial and residential","former takeaway","former restaurant",
+    ))
+    commercial=any(x in t for x in (
+        "retail unit","commercial unit","shop unit","office unit","office premises","warehouse",
+        "industrial unit","takeaway","restaurant","public house","commercial investment",
+    ))
+    residential=any(x in t for x in ("flat","apartment","living space","residential","bedroom"))
+    return explicit_mixed or (commercial and residential)
+
+
+def _is_target_type(ptype,text=""):
     p=norm(ptype or "").lower().replace("-"," ")
-    if p=="residential":return False
+    if p=="residential":return _commercial_mixed_evidence(text)
     return p in {"commercial","mixed use","telecoms","investment"}
 
 
 def _is_target(text):
-    return _is_target_type(_property_type(text))
+    return _is_target_type(_property_type(text),text)
 
 
 def _normal_date(day,month,year):
@@ -85,28 +100,28 @@ def _property_content_text(s):
         for marker in STOP_MARKERS:
             p=text.lower().find(marker.lower())
             if p>0:text=text[:p]
-        return norm(text)[:14000]
+        return norm(text)[:16000]
     pieces=[]
-    for node in [h1]+list(h1.find_all_next(limit=260)):
+    for node in [h1]+list(h1.find_all_next(limit=320)):
         if getattr(node,"name",None) not in {"h1","h2","h3","h4","p","li","div","span","strong","dd","dt"}:continue
         value=norm(node.get_text(" ",strip=True))
         if not value:continue
         if any(value.lower().startswith(m.lower()) for m in STOP_MARKERS):break
         if value not in pieces:pieces.append(value)
-        if len(" ".join(pieces))>14000:break
+        if len(" ".join(pieces))>16000:break
     text=norm(" ".join(pieces))
     for marker in STOP_MARKERS:
         p=text.lower().find(marker.lower())
         if p>0:text=text[:p]
-    return norm(text)[:14000]
+    return norm(text)[:16000]
 
 
 def _needs_interactive(s):
+    # Auction Estates hides material buyer facts behind Details/Tenure/EPC accordions.
+    # Always hydrate when those controls exist; a stray 'Freehold' in visible prose must
+    # not prevent us from retrieving the actual tenure/EPC payload.
     t=_property_content_text(s)
-    has_tabs=bool(re.search(r"\bDetails\b.*\bTenure\b.*\bEPC\b",t,re.I))
-    has_tenure_detail=bool(re.search(r"\b(?:freehold|leasehold|virtual freehold|\d{2,4}\s*year\s+(?:long\s+)?leasehold)\b",t,re.I))
-    has_epc_detail=bool(re.search(r"\bEPC(?:\s+(?:rating|band))?\s*[:\-]?\s*[A-G]\b",t,re.I))
-    return has_tabs and not (has_tenure_detail or has_epc_detail)
+    return bool(re.search(r"\bDetails\b.*\bTenure\b.*\bEPC\b",t,re.I))
 
 
 def _expand_if_needed(url,s):
@@ -114,7 +129,9 @@ def _expand_if_needed(url,s):
     try:
         html=get_html_with_clicks(url,("Details","Tenure","EPC"))
         expanded=BeautifulSoup(html,"lxml")
-        if len(_property_content_text(expanded))>len(_property_content_text(s)):
+        expanded_text=_property_content_text(expanded)
+        base_text=_property_content_text(s)
+        if len(expanded_text)>len(base_text) or re.search(r"(?:Freehold|Leasehold) with (?:Part )?Vacant Possession|EPC(?: Rating)?\s*[A-G]",expanded_text,re.I):
             return expanded
     except Exception as exc:
         print("AUCTION_ESTATES_INTERACTIVE_FAIL",url,repr(exc))
@@ -124,6 +141,7 @@ def _expand_if_needed(url,s):
 def _classified_property_type(explicit_type,text):
     p=norm(explicit_type or "")
     low=(text or "").lower()
+    if _commercial_mixed_evidence(text):return "Mixed Use"
     if p.lower()=="mixed use":return "Mixed Use"
     if p.lower()=="telecoms":return "Telecoms"
     if any(x in low for x in ("retail investment","retail unit","ground floor retail","shop investment","shop unit")):
@@ -154,37 +172,56 @@ def _tenancy_details(text):
     return tenant,term,start,fri,break_clause
 
 
+def _tenancy_schedule(text):
+    """Capture multi-let investment evidence without pretending it is one lease."""
+    t=norm(text); rows=[]
+    pat=re.compile(
+        r"(?P<label>\b\d+[A-Za-z]?\s+[A-Za-z][^.;]{0,80}?)\s*-?\s*Let on a\s+(?P<term>\d+)\s+year lease dated\s+"
+        r"(?P<date>\d{2}/\d{2}/\d{4})\s+to\s+(?P<tenant>.+?)\s+at a rent of\s+£(?P<rent>[\d,]+(?:\.\d+)?)\s*pa"
+        r"(?P<tail>[^.;]{0,100})",
+        re.I,
+    )
+    for m in pat.finditer(t):
+        rows.append({
+            "label":norm(m.group("label")),"term":f'{m.group("term")} years',"date":m.group("date"),
+            "tenant":norm(m.group("tenant")).strip(" ,.-"),"rent":float(m.group("rent").replace(",","")),
+            "no_break":bool(re.search(r"no break clause",m.group("tail") or "",re.I)),
+        })
+    future=None
+    m=re.search(r"rising to\s+£\s*([\d,]+(?:\.\d+)?)\s*(?:pax|pa|per annum)?\s+in\s+([A-Za-z]+\s+20\d{2})",t,re.I)
+    if m:future=(float(m.group(1).replace(",","")),norm(m.group(2)))
+    return rows,future
+
+
 def _image(s,base):
+    """Respect Auction Estates gallery order: source lead photo beats heuristic scoring."""
+    bad=("logo","icon","avatar","staff","map","floorplan","floor-plan","plan","epc","placeholder","sprite","social","siteplan")
     candidates=[]
-    for idx,img in enumerate(s.find_all("img")):
+    h1=s.find("h1")
+    nodes=list(h1.find_all_next("img")) if h1 else list(s.find_all("img"))
+    for idx,img in enumerate(nodes):
         context=" ".join(str(img.get(a) or "") for a in ("alt","title","class","id")).lower()
+        urls=[]
         for attr in ("data-src","data-lazy-src","data-original","data-image","data-url","src"):
-            if img.get(attr):candidates.append((urljoin(base,img.get(attr)),context,idx))
+            if img.get(attr):urls.append(img.get(attr))
         for attr in ("srcset","data-srcset"):
             if img.get(attr):
-                for part in img.get(attr).split(","):
-                    u=part.strip().split(" ")[0]
-                    if u:candidates.append((urljoin(base,u),context,idx))
+                parts=[p.strip().split(" ")[0] for p in img.get(attr).split(",") if p.strip()]
+                urls.extend(reversed(parts))
+        for raw in urls:
+            u=urljoin(base,raw); combined=(u+" "+context).lower()
+            if any(x in combined for x in bad):continue
+            if u.lower().split("?",1)[0].endswith((".jpg",".jpeg",".png",".webp")):
+                return u
+            candidates.append(u)
+    # Explicit social/SEO hero is the next-best source-owned signal.
     for attrs in ({"property":"og:image"},{"name":"twitter:image"}):
         tag=s.find("meta",attrs=attrs)
-        if tag and tag.get("content"):candidates.append((urljoin(base,tag.get("content")),"meta hero",-1))
-    seen=set(); scored=[]
-    bad=("logo","icon","avatar","staff","map","floorplan","floor-plan","plan","epc","placeholder","sprite","social","siteplan")
-    good=("property","gallery","photo","image","hero","main")
-    for u,context,idx in candidates:
-        if not u or u in seen:continue
-        seen.add(u); low=u.lower(); combined=low+" "+context
-        if any(x in combined for x in bad):continue
-        score=0
-        if "auctionestates" in low:score+=5
-        if any(x in combined for x in good):score+=4
-        if any(x in low for x in ("uploads","images","photos","media")):score+=3
-        if low.split("?",1)[0].endswith((".jpg",".jpeg",".webp")):score+=2
-        if idx>=0 and idx<8:score+=max(0,3-idx//3)
-        scored.append((score,-idx,u))
-    if scored:
-        scored.sort(reverse=True)
-        return scored[0][2]
+        if tag and tag.get("content"):
+            u=urljoin(base,tag.get("content")); low=u.lower()
+            if not any(x in low for x in bad):return u
+    for u in candidates:
+        if u:return u
     generic=image_from_soup(s,base)
     return generic if generic and not any(x in generic.lower() for x in bad) else None
 
@@ -223,10 +260,15 @@ def _terminal_status_near_title(s):
 
 
 def _detail(url,card,auction_date,fetcher=_fetch):
-    s=fetcher(url); ptype=_authoritative_property_type(s)
-    if not _is_target_type(ptype):return None
+    s=fetcher(url)
+    initial_text=_property_content_text(s)
+    ptype=_authoritative_property_type(s)
+    if not _is_target_type(ptype,initial_text):return None
     s=_expand_if_needed(url,s)
-    text=_property_content_text(s); combined=norm(card+" "+text); terminal=_terminal_status_near_title(s)
+    text=_property_content_text(s)
+    # Re-check after hydration: hidden tab text can prove a Residential-labelled lot is mixed use.
+    if not _is_target_type(ptype,text):return None
+    combined=norm(card+" "+text); terminal=_terminal_status_near_title(s)
     h1=s.find("h1"); address=norm(h1.get_text(" ",strip=True)) if h1 else url
     guide=parse_guide(combined)
     if guide is None:
@@ -240,28 +282,41 @@ def _detail(url,card,auction_date,fetcher=_fetch):
     lot=Lot(source=SOURCE,url=url,address=address,auction_date=auction_date,image_url=_image(s,url),guide_price=guide,annual_rent=rent,tenure=parse_tenure(text),vat_status=parse_vat(text),legal_pack_status=lp_status,legal_pack_url=lp_url,property_type=_classified_property_type(ptype,text),description=text,status=terminal or "CURRENT")
     lot.area_sqft,lot.area_sqm,lot.site_area_acres=_area(text)
     tenant,term,start,fri,break_clause=_tenancy_details(text)
+    schedule,future_rent=_tenancy_schedule(text)
+    if schedule:
+        names=[r["tenant"] for r in schedule if r.get("tenant")]
+        if names:tenant="; ".join(dict.fromkeys(names))
+        no_break=[r for r in schedule if r.get("no_break")]
+        if no_break:break_clause="; ".join(f'{r["label"]}: No break' for r in no_break)
+        if len(schedule)>1:
+            lot.lease_term="; ".join(f'{r["label"]}: {r["term"]}' for r in schedule)
+            lot.lease_start="; ".join(f'{r["label"]}: {r["date"]}' for r in schedule)
     if tenant:lot.tenant=tenant
-    if term:lot.lease_term=term
-    if start:lot.lease_start=start
+    if term and not lot.lease_term:lot.lease_term=term
+    if start and not lot.lease_start:lot.lease_start=start
     if fri is not None:lot.fri=fri
     if break_clause:lot.break_clause=break_clause
+    if future_rent:lot.rent_review=f'Total rent rises to £{future_rent[0]:,.0f} p.a. in {future_rent[1]}'
     m=re.search(r"\bEPC(?:\s+(?:rating|band))?\s*[:\-]?\s*([A-G])\b",text,re.I)
     if m:lot.epc=m.group(1).upper()
     has_vacant=bool(re.search(r"\bvacant possession\b|\bvacant\b",text,re.I)); has_let=bool(re.search(r"\blet on a lease\b|\blet to\b|\btenant\b|\btenanted\b|\bcurrent rent\b|\brent reserved\b",text,re.I))
     if has_vacant and has_let:lot.occupation="Part Vacant / Part Let"
     elif has_vacant:lot.occupation="Vacant"
     elif has_let:lot.occupation="Tenanted"
-    if re.search(r"scope for conversion of (?:the )?uppers? to residential|conversion of upper floors? to residential|residential conversion|subject to planning|\bSTP\b",text,re.I):lot.residential_conversion=True;lot.development_potential=True
-    elif re.search(r"development potential|redevelopment|scope for .*development|potential for future development|future development|full planning permission",text,re.I):lot.development_potential=True
-    if re.search(r"refurbish|refurbishment|requires restoration|in need of renovation",text,re.I):lot.refurbishment=True
+    if re.search(r"full planning permission",text,re.I):lot.development_potential=True;lot.residential_conversion=bool(re.search(r"HMO|residential|dwelling|flat",text,re.I))
+    elif re.search(r"scope for conversion of (?:the )?uppers? to residential|conversion of upper floors? to residential|residential conversion|subject to planning|\bSTP\b",text,re.I):lot.residential_conversion=True;lot.development_potential=True
+    elif re.search(r"development potential|redevelopment|scope for .*development|potential for future development|future development",text,re.I):lot.development_potential=True
+    if re.search(r"stripped out|refurbish|refurbishment|requires restoration|in need of renovation|in need of cosmetic refurbishment",text,re.I):lot.refurbishment=True
     if re.search(r"self[- ]contained access",text,re.I):lot.asset_management=True
     if re.search(r"prominent position|heart of .*town centre|heart of .*city centre|pedestrianised|prominent location",text,re.I):lot.pitch="Prominent/central commercial location"
     pm=re.search(r"\b(\d+)\s+(?:allocated\s+)?(?:car\s+)?parking spaces?\b|\b(\d+)\s+space car park\b",text,re.I)
     if pm:lot.parking=f"{pm.group(1) or pm.group(2)} parking spaces"
     elif re.search(r"allocated parking space",text,re.I):lot.parking="1 allocated parking space"
     elif re.search(r"secure car park",text,re.I):lot.parking="Secure car park"
-    near=re.search(r"Nearby occupiers?:?\s+(.+?)(?:\.|Close to|Adjacent to|$)",text,re.I)
+    near=re.search(r"(?:Nearby occupiers?|Close to)\s*:?\s+(.+?)(?:\.|Adjacent to|$)",text,re.I)
     if near:lot.nearby_occupiers=norm(near.group(1))[:300]
+    listed=re.search(r"\bGrade\s+(I{1,3}|II\*?)\s+Listed\b",text,re.I)
+    if listed:lot.listed_status=f'Grade {listed.group(1).upper()} Listed'
     return lot.finalise()
 
 
