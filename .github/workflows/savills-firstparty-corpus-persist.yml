@@ -1,0 +1,61 @@
+name: Savills First-Party URL Inventory Persist
+
+on:
+  push:
+    paths:
+      - 'savills_firstparty_corpus_persist.py'
+      - '.github/workflows/savills-firstparty-corpus-persist.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  persist:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4 lxml
+      - run: python savills_firstparty_corpus_persist.py
+      - name: Publish inventory conflict-safe
+        run: |
+          set -euo pipefail
+          cp data/source_diagnostics/savills_firstparty_full_url_corpus.json /tmp/corpus.json
+          cp data/historical_backfill_progress.json /tmp/progress.json
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/corpus.json data/source_diagnostics/savills_firstparty_full_url_corpus.json
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          fp=Path('data/historical_backfill_progress.json')
+          fresh=json.loads(fp.read_text()); rec=json.loads(Path('/tmp/progress.json').read_text())
+          fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{}); rs=rec['sources']['Savills Auctions']
+          for k in ('savills_firstparty_full_url_inventory','last_discovery_mode'):
+              if k in rs: fs[k]=rs[k]
+          fs['historically_complete']=False;fs['discovery_exhausted']=False
+          fresh['updated_at']=rec.get('updated_at',fresh.get('updated_at'))
+          fp.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
+          d=json.loads(Path('data/source_diagnostics/savills_firstparty_full_url_corpus.json').read_text())
+          print('CORPUS_URLS',d.get('total_urls'))
+          print('CLASS_COUNTS',d.get('class_counts'))
+          assert d.get('total_urls',0)>10000
+          PY
+            git add data/source_diagnostics/savills_firstparty_full_url_corpus.json data/historical_backfill_progress.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist complete Savills first-party URL inventory'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt*3))
+          done
+          exit 1
