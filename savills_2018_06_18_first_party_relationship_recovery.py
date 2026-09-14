@@ -71,7 +71,6 @@ for resp in responses:
         low = clean.lower()
         lotm = LOT_RE.search(clean)
         if not lotm:
-            # Legacy grids frequently put bare lot number in the first cell.
             first = re.search(r"(?is)<td\b[^>]*>\s*(?:<[^>]+>\s*)*(\d+[A-Za-z]?)\s*(?:<|$)", tr)
             lot = first.group(1) if first else None
         else:
@@ -80,7 +79,6 @@ for resp in responses:
             hrefs = [urljoin(base, html.unescape(h)) for h in HREF_RE.findall(tr)]
             rows.append({"source_url": resp["url"], "lot_number": lot, "text": clean[:2000], "links": hrefs})
 
-# Deduplicate by lot while preserving all source evidence.
 manifest = {}
 for row in rows:
     ent = manifest.setdefault(row["lot_number"], {"lot_number": row["lot_number"], "texts": [], "links": []})
@@ -88,23 +86,17 @@ for row in rows:
     for link in row["links"]:
         if link not in ent["links"]: ent["links"].append(link)
 
-# Also capture direct PID links anywhere in the retrieved first-party/catalogue bodies.
 pid_links = []
 for link in sorted(set(all_links)):
     if PID_RE.search(link) or "LotDetails" in link or "lot-details" in link.lower():
         pid_links.append(link)
 
-# Probe every discovered detail relationship; no invented PID range and no arbitrary lot/page ceiling.
-detail_probes = []
-for link in pid_links:
-    detail_probes.append(get(link))
-
+detail_probes = [get(link) for link in pid_links]
 identity_candidates = []
 for p in detail_probes:
     text = html.unescape(re.sub(r"\s+", " ", TAG_RE.sub(" ", p.get("text") or ""))).strip()
     pcs = sorted(set(x.upper() for x in POSTCODE_RE.findall(text)))
     lots = sorted(set(LOT_RE.findall(text)))
-    # Conservative: identity evidence requires one postcode plus an explicit lot marker.
     if len(pcs) == 1 and lots:
         identity_candidates.append({"url": p.get("final_url") or p.get("url"), "postcodes": pcs, "lots": lots[:10], "text_excerpt": text[:1200]})
 
@@ -138,9 +130,7 @@ diag = {
     "identity_candidates": identity_candidates,
     "canonical_rows_added": 0,
     "blocker": blocker,
-    "unresolved_lot_blockers": [
-        {"lot_number": lot, "blocker": blocker} for lot in qualifying_lots
-    ],
+    "unresolved_lot_blockers": [{"lot_number": lot, "blocker": blocker} for lot in qualifying_lots],
     "next_route": "if no deterministic first-party identity emerges, advance breadth-first within 2018 while retaining this AID1069 blocker; for AID1069 next use exact archived Data/Auctions/1069 document/image/RSS asset filenames and PropertyAuctions PID relationships rather than another generic page replay",
     "surface_results": [{k:v for k,v in r.items() if k != "text"} for r in responses],
     "manifest_rows": list(manifest.values()),
@@ -160,3 +150,5 @@ progress["updated_at"] = now
 PROG.write_text(json.dumps(progress, indent=2))
 
 print(json.dumps({k:v for k,v in diag.items() if k not in ("surface_results","manifest_rows","pid_links","detail_probe_results")}, indent=2))
+
+# Trigger marker: breadth-first AID1069 first-party recovery.
