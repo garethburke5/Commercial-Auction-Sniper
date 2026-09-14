@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T09:03:28.236277+00:00",
+  "updated_at": "2026-09-14T10:01:44.297166+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "2018 ASPNET CONTROL BLOCKED",
+      "status": "2018 ASSET BASENAME BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3307,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-propertyauctions-aspnet-resource-control-reconstruction-with-legacy-host-fallback",
+      "last_discovery_mode": "savills-2018-propertyauctions-static-asset-basename-and-first-party-index-recovery",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -56813,6 +56813,28 @@
         "route": "savills-2018-propertyauctions-aspnet-resource-control-reconstruction-with-legacy-host-fallback",
         "message": "Legacy PropertyAuctions ASP.NET reconstruction successfully fetched catalogue surfaces but found no exact row/detail control whose replay exposes a deterministic location+postcode identity for the unresolved 2018 lots.",
         "next_safe_route": "Persist per-lot ASP.NET blocker, then enumerate archived/static document and image asset basenames from each exact AID page and search those identifiers against first-party Savills PDF/detail namespaces, breadth-first across the remaining 2018 auctions."
+      },
+      "savills_2018_asset_basename_last_run": {
+        "at": "2026-09-14T10:01:44.297166+00:00",
+        "route": "savills-2018-propertyauctions-static-asset-basename-and-first-party-index-recovery",
+        "input_unresolved": 58,
+        "catalogues_attempted": 5,
+        "catalogues_fetched": 5,
+        "meaningful_asset_references": 40,
+        "index_searches_executed": 254,
+        "first_party_index_hits": 0,
+        "lots_with_identity_candidates": 0,
+        "canonical_rows_added": 0,
+        "savills_events_before": 3307,
+        "savills_events_after": 3307,
+        "blocker": "Live PropertyAuctions catalogues were inspected for static/document/image asset identifiers and exact asset/AID/lot/locality index searches were executed, but no unique full-address identity was recovered for the unresolved 2018 lots.",
+        "next_route": "Use archived HTML/document capture enumeration by exact catalogue URL and discovered asset paths via Common Crawl indexes and Wayback URL-prefix queries, then resolve captured document text against first-party Savills identities; persist per-lot archive blocker when absent."
+      },
+      "savills_2018_asset_basename_blocker": {
+        "at": "2026-09-14T10:01:44.297166+00:00",
+        "route": "savills-2018-propertyauctions-static-asset-basename-and-first-party-index-recovery",
+        "message": "Live PropertyAuctions catalogues were inspected for static/document/image asset identifiers and exact asset/AID/lot/locality index searches were executed, but no unique full-address identity was recovered for the unresolved 2018 lots.",
+        "next_safe_route": "Use archived HTML/document capture enumeration by exact catalogue URL and discovered asset paths via Common Crawl indexes and Wayback URL-prefix queries, then resolve captured document text against first-party Savills identities; persist per-lot archive blocker when absent."
       }
     }
   }
