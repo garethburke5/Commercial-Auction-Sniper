@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T18:11:53.056248+00:00",
+  "updated_at": "2026-09-14T18:12:15.617954+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -59349,7 +59349,7 @@
         "blocker": "live_frontend_exposes_ids_or_lot_markers_requiring_exact_manifest_identity_reconciliation"
       },
       "savills_2018_marker_replay_last_run": {
-        "at": "2026-09-14T18:11:53.056248+00:00",
+        "at": "2026-09-14T18:12:15.617954+00:00",
         "route": "savills-2018-marker-bearing-route-parameter-replay",
         "aid": "1072",
         "auction_date": "2018-11-26",
@@ -59366,8 +59366,8 @@
           "167",
           "174"
         ],
-        "marker_routes_found": 7,
-        "requests_attempted": 532,
+        "marker_routes_found": 0,
+        "requests_attempted": 0,
         "identity_candidates": [],
         "canonical_rows_added": 0,
         "blocker": "marker_replay_no_unique_lot_full_address_identity"
