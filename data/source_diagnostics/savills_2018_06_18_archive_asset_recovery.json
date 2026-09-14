@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-14T20:02:12.408302+00:00",
+  "at": "2026-09-14T20:03:35.076780+00:00",
   "route": "savills-2018-06-18-wayback-data-auctions-1069-assets-and-all-2018-rss-captures",
   "auction_date": "2018-06-18",
   "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-11",
@@ -8,7 +8,7 @@
   "expected_total_catalogue_rows_from_recovered_manifest": 178,
   "expected_commercial_mixed_from_recovered_manifest": 10,
   "cdx_queries": 6,
-  "cdx_queries_with_rows": 2,
+  "cdx_queries_with_rows": 1,
   "unique_cdx_records": 3,
   "aid1069_asset_records": 0,
   "asset_lot_numbers": [],
@@ -35,7 +35,7 @@
     {
       "pattern": "https://auctions.savills.co.uk/Data/Auctions/1069/*",
       "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2018&to=2018&collapse=digest",
-      "status": 200,
+      "status": 503,
       "rows": []
     },
     {
@@ -81,30 +81,8 @@
     {
       "pattern": "https://auctions.savills.co.uk/Data/Rss/Savills%20London%20National.xml",
       "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FRss%2FSavills%2520London%2520National.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2018&to=2018&collapse=digest",
-      "status": 200,
-      "rows": [
-        {
-          "timestamp": "20180226114758",
-          "original": "http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
-          "statuscode": "200",
-          "mimetype": "text/xml",
-          "digest": "BEGYYWZNJ5EYPDRA5WZD7SSAAR5C3GCR"
-        },
-        {
-          "timestamp": "20180715190121",
-          "original": "http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
-          "statuscode": "200",
-          "mimetype": "text/xml",
-          "digest": "AZITDLVDMPCO3NGCULVWWNQU3WAWLAWE"
-        },
-        {
-          "timestamp": "20180914132141",
-          "original": "http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
-          "statuscode": "200",
-          "mimetype": "text/xml",
-          "digest": "6L26ZDGBOF3BVO2UQGF6Z6QZXTJIRU3P"
-        }
-      ]
+      "status": 503,
+      "rows": []
     }
   ],
   "asset_lot_evidence": {},
