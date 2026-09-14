@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T05:20:15.742499+00:00",
+  "updated_at": "2026-09-14T05:21:49.230519+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-firstparty-complete-observed-catalogue-id-namespace-sweep",
+      "last_discovery_mode": "savills-wayback-archived-joomla-commission-catalogue-namespace",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -54902,6 +54902,29 @@
         "failing_url_or_route": "Live Savills catalogue IDs 1..242",
         "message": "Exhaustively swept 242 IDs in the observed first-party catalogue namespace: 96 valid surfaces, 63 dated catalogues, oldest dated catalogue 2022-11-08, 0 detail links exposed.",
         "next_safe_route": "Bulk crawl every detail link from all dated catalogues and canonicalise commercial/mixed lots. If oldest live catalogue is newer than 2018, use the observed catalogue-ID/date relationship plus archived Joomla commission catalogue URLs in Wayback/Common Crawl to bridge into 2018 and earlier."
+      },
+      "savills_wayback_joomla_catalogue_last_run": {
+        "at": "2026-09-14T05:21:49.230519+00:00",
+        "route": "savills-wayback-archived-joomla-commission-catalogue-namespace",
+        "cdx_queries": 12,
+        "cdx_rows_raw": 164,
+        "commission_rows": 164,
+        "unique_captures": 41,
+        "replays_ok": 8,
+        "catalogue_captures": 2,
+        "detail_captures": 6,
+        "dated_catalogue_captures": 0,
+        "oldest_catalogue_date": null,
+        "newest_catalogue_date": null,
+        "detail_urls_exposed_by_catalogues": 0,
+        "by_year": {}
+      },
+      "savills_wayback_joomla_catalogue_last_blocker": {
+        "at": "2026-09-14T05:21:49.230519+00:00",
+        "route": "savills-wayback-archived-joomla-commission-catalogue-namespace",
+        "failing_url_or_route": "Wayback auctions.savills.co.uk Joomla com_bidding view=commission catalogue/detail namespace, 2017-2021",
+        "message": "2 archived catalogue captures recovered; oldest parsed date None; 0 first-party detail URLs exposed.",
+        "next_safe_route": "Replay every detail URL exposed by historical catalogue captures and ingest commercial/mixed lots in bulk. If catalogue captures do not bridge into 2018, query capture-adjacent index.php URLkey namespace and old /Auctions/ ASP/Joomla transition endpoints by the exact 2018 auction timestamps."
       }
     }
   }
