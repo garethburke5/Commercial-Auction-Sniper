@@ -75,8 +75,6 @@ def main():
                     row_pbs=sorted(set(POSTBACK.findall(raw)))
                     hrefs=re.findall(r'\bhref=["\']([^"\']+)["\']',raw,re.I)
                     matches.append({'text':tx[:1200],'postbacks':[{'target':a,'argument':b} for a,b in row_pbs],'hrefs':hrefs[:20]})
-            candidates=[]
-            # Only replay controls attributable to this exact matching row, or controls whose target/argument carries the lot.
             exact=[]
             for m in matches:
                 for pb in m['postbacks']:
@@ -115,3 +113,4 @@ def main():
     p['updated_at']=diag['at']; PROGRESS.write_text(json.dumps(p,indent=2,ensure_ascii=False)); DIAG.parent.mkdir(parents=True,exist_ok=True); DIAG.write_text(json.dumps(diag,indent=2,ensure_ascii=False))
     print(json.dumps({k:v for k,v in diag.items() if k not in ('catalogues','lots')},indent=2))
 if __name__=='__main__': main()
+# trigger: 2026-09-14 ASP.NET control reconstruction pass
