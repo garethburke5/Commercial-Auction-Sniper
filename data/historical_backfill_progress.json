@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T19:02:57.923394+00:00",
+  "updated_at": "2026-09-14T19:15:09.607411+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-cdx-original-url-aid-pid-lot-relationship-recovery",
+      "last_discovery_mode": "savills-2018-breadth-first-exact-search-index-corroboration",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -59400,6 +59400,30 @@
         "canonical_rows_added": 0,
         "blocker": "cdx_original_url_relationships_do_not_expose_unique_full_address_for_unresolved_lots",
         "next_route": "for each recovered PID/original relationship, enumerate exact first-party Savills/PropertyAuctions PID detail and Data/Auctions document namespaces; if no relationship exists, persist per-lot terminal source-specific blocker and advance to next 2018 auction"
+      },
+      "savills_2018_09_26_index_last_run": {
+        "at": "2026-09-14T19:15:09.607411+00:00",
+        "route": "savills-2018-breadth-first-exact-search-index-corroboration",
+        "auction_date": "2018-09-26",
+        "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-11",
+        "aid": "1071",
+        "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+        "total_catalogue_rows": 167,
+        "commercial_mixed_count": 6,
+        "canonical_history_v2_matches_before": 5,
+        "unresolved_commercial_mixed_before": 1,
+        "target_lot": {
+          "lot_number": "27",
+          "location": "London N3",
+          "property_type": "Part Vacant Freehold Garage",
+          "result": "\u00a3104,000"
+        },
+        "queries_executed": 10,
+        "index_hits_with_target_context": 0,
+        "safe_identity_candidates": [],
+        "canonical_rows_added": 0,
+        "blocker": "exact_search_indexes_do_not_expose_a_unique_first_party_full_address_for_aid1071_lot27",
+        "next_route": "if no safe indexed identity, persist the source-specific blocker and advance breadth-first to the next unresolved 2018 master-archive auction (18 June 2018 / AID 1069), using exact first-party lot/detail/document relationships before archive escalation"
       }
     }
   }
