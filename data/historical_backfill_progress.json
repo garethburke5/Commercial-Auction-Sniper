@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T05:24:08.948122+00:00",
+  "updated_at": "2026-09-14T05:25:11.951825+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-wayback-archived-sitemap-recursive-bulk-url-harvest",
+      "last_discovery_mode": "savills-live-past-auction-archive-raw-html-js-backend-discovery",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -54950,6 +54950,23 @@
         "failing_url_or_route": "Wayback captures of first-party Savills robots/sitemap resources, recursively including child XML sitemaps",
         "message": "Harvested 0 unique first-party URLs, 0 /auctions/ URLs and 0 apparent 2010-2018 catalogue roots from archived machine-readable surfaces.",
         "next_safe_route": "If historical catalogue roots exist, replay/crawl every root and child lot URL in bulk and canonicalise commercial/mixed lots. If no historical roots exist, inspect archived sitemap capture-adjacent URLkey namespaces and raw first-party past-auction page JS/API for hidden auction IDs."
+      },
+      "savills_archive_backend_discovery_last_run": {
+        "at": "2026-09-14T05:25:11.951825+00:00",
+        "route": "savills-live-past-auction-archive-raw-html-js-backend-discovery",
+        "archive_pages": 6,
+        "pages_http_200": 6,
+        "scripts_discovered": 13,
+        "scripts_http_200": 13,
+        "target_2018_date_contexts_found": 8,
+        "candidate_backend_strings": 183
+      },
+      "savills_archive_backend_discovery_last_blocker": {
+        "at": "2026-09-14T05:25:11.951825+00:00",
+        "route": "savills-live-past-auction-archive-raw-html-js-backend-discovery",
+        "failing_url_or_route": "Live Savills /past-auctions/archive/page-9..14 raw HTML and all same-origin JS bundles",
+        "message": "Found 8 exact 2018 archive-card contexts and 183 backend/route strings across 13 JS assets.",
+        "next_safe_route": "Resolve the strongest archive/auction/commission route strings and any IDs found adjacent to the 2018 cards; replay the resulting first-party catalogue/data endpoint for all eight 2018 sales. If no IDs are embedded, compare 2019 linked catalogue cards against their raw 2019 archive markup to infer the hidden mapping field used before links were enabled."
       }
     }
   }
