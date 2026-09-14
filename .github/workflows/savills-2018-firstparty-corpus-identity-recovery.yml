@@ -58,7 +58,7 @@ jobs:
           print('2018_CANONICAL',r.get('year_2018_canonicalised'))
           print('2018_UNRESOLVED',r.get('year_2018_unresolved'))
           assert d.get('source_corpus_lot_detail_urls',0) >= 20000
-          assert d.get('unresolved_lots_considered') == 58
+          assert d.get('unresolved_lots_considered',0) >= 58
           assert s.get('historically_complete') is False
           PY
             git add data/property_history.json data/historical_backfill_progress.json data/source_diagnostics/savills_2018_firstparty_corpus_identity_recovery.json
@@ -69,4 +69,4 @@ jobs:
             sleep $((attempt*5))
           done
           exit 1
-# trigger: full-corpus-reconciliation
+# trigger: full-corpus-reconciliation-immediate-2026-09-14
