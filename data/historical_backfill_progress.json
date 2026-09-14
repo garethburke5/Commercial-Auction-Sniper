@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T05:18:46.692118+00:00",
+  "updated_at": "2026-09-14T05:20:15.742499+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-firstparty-sitemap-robots-and-archive-hidden-link-commission-discovery",
+      "last_discovery_mode": "savills-firstparty-complete-observed-catalogue-id-namespace-sweep",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -54770,6 +54770,138 @@
         "failing_url_or_route": "Savills first-party sitemap/robots + /past-auctions/archive/page-1..14",
         "message": "Discovered 96 explicit legacy commission IDs and 95 auction catalogue slugs from first-party machine-readable/hidden-link surfaces.",
         "next_safe_route": "If IDs/slugs exist, bulk crawl them and group every qualifying property by auction date. If machine-readable surfaces omit historical IDs, enumerate the bounded live legacy commission-ID namespace using observed first-party ID minima/maxima and stop only after date-based reconciliation, not an arbitrary year cutoff."
+      },
+      "savills_firstparty_catalogue_id_sweep_last_run": {
+        "at": "2026-09-14T05:20:15.742499+00:00",
+        "route": "savills-firstparty-complete-observed-catalogue-id-namespace-sweep",
+        "id_min": 1,
+        "id_max": 242,
+        "ids_requested": 242,
+        "http_200": 242,
+        "valid_catalogue_surfaces": 96,
+        "dated_catalogues": 63,
+        "oldest_dated_catalogue": "2022-11-08",
+        "newest_dated_catalogue": "2026-09-16",
+        "total_lot_markers": 961,
+        "total_unique_postcodes_on_catalogues": 1013,
+        "total_detail_links": 0,
+        "by_year": {
+          "2022": {
+            "catalogues": 2,
+            "lot_markers": 20,
+            "postcodes": 22,
+            "detail_links": 0,
+            "commercial_term_hits": 20,
+            "ids": [
+              98,
+              118
+            ]
+          },
+          "2023": {
+            "catalogues": 10,
+            "lot_markers": 100,
+            "postcodes": 108,
+            "detail_links": 0,
+            "commercial_term_hits": 69,
+            "ids": [
+              112,
+              114,
+              121,
+              122,
+              130,
+              132,
+              133,
+              134,
+              135,
+              136
+            ]
+          },
+          "2024": {
+            "catalogues": 16,
+            "lot_markers": 160,
+            "postcodes": 175,
+            "detail_links": 0,
+            "commercial_term_hits": 111,
+            "ids": [
+              144,
+              145,
+              146,
+              147,
+              148,
+              149,
+              150,
+              151,
+              152,
+              153,
+              154,
+              155,
+              156,
+              157,
+              158,
+              159
+            ]
+          },
+          "2025": {
+            "catalogues": 20,
+            "lot_markers": 200,
+            "postcodes": 206,
+            "detail_links": 0,
+            "commercial_term_hits": 162,
+            "ids": [
+              177,
+              178,
+              179,
+              184,
+              185,
+              186,
+              187,
+              188,
+              189,
+              190,
+              191,
+              192,
+              193,
+              194,
+              195,
+              196,
+              197,
+              198,
+              211,
+              213
+            ]
+          },
+          "2026": {
+            "catalogues": 15,
+            "lot_markers": 151,
+            "postcodes": 148,
+            "detail_links": 0,
+            "commercial_term_hits": 119,
+            "ids": [
+              216,
+              217,
+              218,
+              219,
+              220,
+              221,
+              222,
+              223,
+              224,
+              225,
+              226,
+              227,
+              240,
+              241,
+              242
+            ]
+          }
+        }
+      },
+      "savills_firstparty_catalogue_id_sweep_last_blocker": {
+        "at": "2026-09-14T05:20:15.742499+00:00",
+        "route": "savills-firstparty-complete-observed-catalogue-id-namespace-sweep",
+        "failing_url_or_route": "Live Savills catalogue IDs 1..242",
+        "message": "Exhaustively swept 242 IDs in the observed first-party catalogue namespace: 96 valid surfaces, 63 dated catalogues, oldest dated catalogue 2022-11-08, 0 detail links exposed.",
+        "next_safe_route": "Bulk crawl every detail link from all dated catalogues and canonicalise commercial/mixed lots. If oldest live catalogue is newer than 2018, use the observed catalogue-ID/date relationship plus archived Joomla commission catalogue URLs in Wayback/Common Crawl to bridge into 2018 and earlier."
       }
     }
   }
