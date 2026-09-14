@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T12:26:19.687293+00:00",
+  "updated_at": "2026-09-14T12:26:28.185216+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-commoncrawl-warc-catalogue-and-aid-content-recovery",
+      "last_discovery_mode": "savills-2018-wayback-exact-propertyauctions-lotlist-capture-recovery",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -58010,7 +58010,7 @@
         "next_safe_route": "For remaining lots, use exact archived lot-specific image/document basenames recovered here as reverse identity keys across search indexes/Common Crawl and capture-adjacent HTML/RSS; require unique full-address/postcode evidence before promotion."
       },
       "savills_2018_wayback_catalogue_capture_last_run": {
-        "at": "2026-09-14T12:25:59.783816+00:00",
+        "at": "2026-09-14T12:26:28.185216+00:00",
         "route": "savills-2018-wayback-exact-propertyauctions-lotlist-capture-recovery",
         "unresolved_lots_input": 58,
         "aids": [
@@ -58032,7 +58032,7 @@
         "canonical_events_added": 0
       },
       "savills_2018_wayback_catalogue_capture_blocker": {
-        "at": "2026-09-14T12:25:59.783816+00:00",
+        "at": "2026-09-14T12:26:28.185216+00:00",
         "route": "savills-2018-wayback-exact-propertyauctions-lotlist-capture-recovery",
         "message": "Queried 20 exact legacy LotList catalogue variants, found 0 unique Wayback captures, replayed 0, extracted 0 distinct detail/PID targets, and promoted 0 canonical event(s).",
         "per_lot_blockers": [
