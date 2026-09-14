@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T20:11:37.283000+00:00",
+  "updated_at": "2026-09-14T20:13:35.716837+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-05-09-breadth-first-first-party-aid-pid-detail-recovery",
+      "last_discovery_mode": "savills-2018-05-09-wayback-commoncrawl-aid1068-url-relationship-recovery",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -59496,15 +59496,36 @@
         "next_route": "For any recovered PID/lot markers, probe exact first-party detail/document/PDF URLs and require one unique full address before promotion; if none survive, persist this blocker and advance breadth-first to 26 March 2018 rather than repeat generic archive replay."
       },
       "savills_2018_05_09_blocker": {
-        "at": "2026-09-14T20:11:37.283000+00:00",
+        "at": "2026-09-14T20:13:35.716837+00:00",
         "auction_date": "2018-05-09",
-        "aids": [
-          "1068"
-        ],
+        "aid": "1068",
+        "total_catalogue_rows": 159,
+        "commercial_mixed_count": 13,
         "canonicalised": 0,
         "unresolved": 13,
-        "blocker": "surviving_first_party_2018_05_09_catalogue_surfaces_do_not_expose_pid_lot_detail_identity",
-        "next_safe_route": "For any recovered PID/lot markers, probe exact first-party detail/document/PDF URLs and require one unique full address before promotion; if none survive, persist this blocker and advance breadth-first to 26 March 2018 rather than repeat generic archive replay."
+        "blocker": "archive_indexes_expose_aid1068_records_but_no_unique_lot_pid_postcode_identity",
+        "next_safe_route": "Persist this exact AID1068 archive-index blocker and advance breadth-first to 26 March 2018. Retain any relationship URLs for later exact first-party PID/document triangulation; do not repeat generic index replay."
+      },
+      "savills_2018_05_09_archive_index_last_run": {
+        "at": "2026-09-14T20:13:35.716837+00:00",
+        "route": "savills-2018-05-09-wayback-commoncrawl-aid1068-url-relationship-recovery",
+        "auction_date": "2018-05-09",
+        "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-11",
+        "aid": "1068",
+        "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "total_catalogue_rows": 159,
+        "commercial_mixed_count": 13,
+        "canonical_history_v2_matches_before": 0,
+        "unresolved_commercial_mixed_before": 13,
+        "index_queries": 16,
+        "wayback_queries_with_rows": 0,
+        "commoncrawl_queries_with_rows": 1,
+        "unique_index_records": 1,
+        "relationship_records": 1,
+        "safe_identity_candidates": [],
+        "canonical_rows_added": 0,
+        "blocker": "archive_indexes_expose_aid1068_records_but_no_unique_lot_pid_postcode_identity",
+        "next_route": "Persist this exact AID1068 archive-index blocker and advance breadth-first to 26 March 2018. Retain any relationship URLs for later exact first-party PID/document triangulation; do not repeat generic index replay."
       }
     }
   }

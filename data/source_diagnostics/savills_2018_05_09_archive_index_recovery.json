@@ -1,0 +1,145 @@
+{
+  "at": "2026-09-14T20:13:35.716837+00:00",
+  "route": "savills-2018-05-09-wayback-commoncrawl-aid1068-url-relationship-recovery",
+  "auction_date": "2018-05-09",
+  "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-11",
+  "aid": "1068",
+  "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+  "total_catalogue_rows": 159,
+  "commercial_mixed_count": 13,
+  "canonical_history_v2_matches_before": 0,
+  "unresolved_commercial_mixed_before": 13,
+  "index_queries": 16,
+  "wayback_queries_with_rows": 0,
+  "commoncrawl_queries_with_rows": 1,
+  "unique_index_records": 1,
+  "relationship_records": 1,
+  "safe_identity_candidates": [],
+  "canonical_rows_added": 0,
+  "blocker": "archive_indexes_expose_aid1068_records_but_no_unique_lot_pid_postcode_identity",
+  "next_route": "Persist this exact AID1068 archive-index blocker and advance breadth-first to 26 March 2018. Retain any relationship URLs for later exact first-party PID/document triangulation; do not repeat generic index replay.",
+  "cdx_runs": [
+    {
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068*",
+      "url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068%2A&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2018&to=2018&collapse=urlkey",
+      "status": 503,
+      "rows": []
+    },
+    {
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068*",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068%2A&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2018&to=2018&collapse=urlkey",
+      "status": 200,
+      "rows": []
+    },
+    {
+      "pattern": "http://www.propertyauctions.com/*AID=1068*",
+      "url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fwww.propertyauctions.com%2F%2AAID%3D1068%2A&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2018&to=2018&collapse=urlkey",
+      "status": 503,
+      "rows": []
+    },
+    {
+      "pattern": "https://www.propertyauctions.com/*AID=1068*",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fwww.propertyauctions.com%2F%2AAID%3D1068%2A&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2018&to=2018&collapse=urlkey",
+      "status": 503,
+      "rows": []
+    },
+    {
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2018&to=2018&collapse=urlkey",
+      "status": 503,
+      "rows": []
+    },
+    {
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2018&to=2018&collapse=urlkey",
+      "status": 503,
+      "rows": []
+    },
+    {
+      "pattern": "http://auctions.savills.co.uk/*AID=1068*",
+      "url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2F%2AAID%3D1068%2A&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2018&to=2018&collapse=urlkey",
+      "status": 503,
+      "rows": []
+    },
+    {
+      "pattern": "https://auctions.savills.co.uk/*AID=1068*",
+      "url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2F%2AAID%3D1068%2A&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2018&to=2018&collapse=urlkey",
+      "status": 503,
+      "rows": []
+    }
+  ],
+  "commoncrawl_runs": [
+    {
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068*",
+      "url": "https://index.commoncrawl.org/CC-MAIN-2018-22-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068%2A&output=json",
+      "status": 404,
+      "rows": []
+    },
+    {
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068*",
+      "url": "https://index.commoncrawl.org/CC-MAIN-2018-22-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068%2A&output=json",
+      "status": 404,
+      "rows": []
+    },
+    {
+      "pattern": "http://www.propertyauctions.com/*AID=1068*",
+      "url": "https://index.commoncrawl.org/CC-MAIN-2018-22-index?url=http%3A%2F%2Fwww.propertyauctions.com%2F%2AAID%3D1068%2A&output=json",
+      "status": 404,
+      "rows": []
+    },
+    {
+      "pattern": "https://www.propertyauctions.com/*AID=1068*",
+      "url": "https://index.commoncrawl.org/CC-MAIN-2018-22-index?url=https%3A%2F%2Fwww.propertyauctions.com%2F%2AAID%3D1068%2A&output=json",
+      "status": 404,
+      "rows": []
+    },
+    {
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "url": "https://index.commoncrawl.org/CC-MAIN-2018-22-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json",
+      "status": 200,
+      "rows": [
+        {
+          "urlkey": "uk,co,savills,auctions)/data/auctions/1068/documents/viewings.pdf",
+          "timestamp": "20180528094558",
+          "url": "http://auctions.savills.co.uk/Data/Auctions/1068/Documents/viewings.pdf",
+          "mime": "application/pdf",
+          "mime-detected": "application/pdf",
+          "status": "200",
+          "digest": "637ZRGA4QBRCZ25NRL2MRHZRQSTSDTFX",
+          "length": "216877",
+          "offset": "27742087",
+          "filename": "crawl-data/CC-MAIN-2018-22/segments/1526794872766.96/warc/CC-MAIN-20180528091637-20180528111637-00133.warc.gz"
+        }
+      ]
+    },
+    {
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "url": "https://index.commoncrawl.org/CC-MAIN-2018-22-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json",
+      "status": 503,
+      "rows": []
+    },
+    {
+      "pattern": "http://auctions.savills.co.uk/*AID=1068*",
+      "url": "https://index.commoncrawl.org/CC-MAIN-2018-22-index?url=http%3A%2F%2Fauctions.savills.co.uk%2F%2AAID%3D1068%2A&output=json",
+      "status": 503,
+      "rows": []
+    },
+    {
+      "pattern": "https://auctions.savills.co.uk/*AID=1068*",
+      "url": "https://index.commoncrawl.org/CC-MAIN-2018-22-index?url=https%3A%2F%2Fauctions.savills.co.uk%2F%2AAID%3D1068%2A&output=json",
+      "status": 503,
+      "rows": []
+    }
+  ],
+  "relationship_evidence": [
+    {
+      "source": "commoncrawl_index",
+      "original": "http://auctions.savills.co.uk/Data/Auctions/1068/Documents/viewings.pdf",
+      "timestamp": "20180528094558",
+      "mimetype": null,
+      "pids": [],
+      "lots": [],
+      "postcodes": []
+    }
+  ]
+}
