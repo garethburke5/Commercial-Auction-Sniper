@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T08:59:37.710090+00:00",
+  "updated_at": "2026-09-14T09:00:12.236357+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -56793,7 +56793,7 @@
         "next_safe_route": "Pivot to legacy PropertyAuctions ASP.NET resource/control discovery: enumerate historical scripts/WebResource.axd/ScriptResource.axd and form event targets around LotList, then reconstruct row-detail postbacks/PID endpoints from archived page source."
       },
       "savills_2018_aspnet_control_last_run": {
-        "at": "2026-09-14T08:59:37.710090+00:00",
+        "at": "2026-09-14T09:00:12.236357+00:00",
         "route": "savills-2018-propertyauctions-aspnet-resource-control-reconstruction",
         "input_unresolved": 58,
         "catalogues_attempted": 5,
@@ -56809,7 +56809,7 @@
         "next_route": "Persist per-lot ASP.NET blocker, then move breadth-first to the next unresolved 2018 auction and enumerate archived/static document and image asset basenames from its exact AID page; search those identifiers against first-party Savills PDF/detail namespaces before progressing to 2017."
       },
       "savills_2018_aspnet_control_blocker": {
-        "at": "2026-09-14T08:59:37.710090+00:00",
+        "at": "2026-09-14T09:00:12.236357+00:00",
         "route": "savills-2018-propertyauctions-aspnet-resource-control-reconstruction",
         "message": "Legacy PropertyAuctions ASP.NET reconstruction found no exact row/detail control whose replay exposes a deterministic location+postcode identity for the unresolved 2018 lots.",
         "next_safe_route": "Persist per-lot ASP.NET blocker, then move breadth-first to the next unresolved 2018 auction and enumerate archived/static document and image asset basenames from its exact AID page; search those identifiers against first-party Savills PDF/detail namespaces before progressing to 2017."
