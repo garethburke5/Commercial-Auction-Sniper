@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T08:04:50.992369+00:00",
+  "updated_at": "2026-09-14T08:59:37.710090+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "2018 EXACT AID LOT ARCHIVE BLOCKED",
+      "status": "2018 ASPNET CONTROL BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3307,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-exact-aid-lot-locality-wayback-bing-index-recovery",
+      "last_discovery_mode": "savills-2018-propertyauctions-aspnet-resource-control-reconstruction",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -56791,6 +56791,28 @@
         "route": "savills-2018-exact-aid-lot-locality-wayback-bing-index-recovery",
         "message": "Exact AID+lot+locality Wayback wildcard and Bing RSS searches produced no safe full-address identity for the unresolved 2018 set.",
         "next_safe_route": "Pivot to legacy PropertyAuctions ASP.NET resource/control discovery: enumerate historical scripts/WebResource.axd/ScriptResource.axd and form event targets around LotList, then reconstruct row-detail postbacks/PID endpoints from archived page source."
+      },
+      "savills_2018_aspnet_control_last_run": {
+        "at": "2026-09-14T08:59:37.710090+00:00",
+        "route": "savills-2018-propertyauctions-aspnet-resource-control-reconstruction",
+        "input_unresolved": 58,
+        "catalogues_attempted": 5,
+        "catalogues_fetched": 0,
+        "script_resources_discovered": 0,
+        "postback_controls_discovered": 0,
+        "postback_responses_replayed": 0,
+        "lots_with_location_postcode_identity_candidate": 0,
+        "canonical_rows_added": 0,
+        "savills_events_before": 3307,
+        "savills_events_after": 3307,
+        "blocker": "Legacy PropertyAuctions ASP.NET reconstruction found no exact row/detail control whose replay exposes a deterministic location+postcode identity for the unresolved 2018 lots.",
+        "next_route": "Persist per-lot ASP.NET blocker, then move breadth-first to the next unresolved 2018 auction and enumerate archived/static document and image asset basenames from its exact AID page; search those identifiers against first-party Savills PDF/detail namespaces before progressing to 2017."
+      },
+      "savills_2018_aspnet_control_blocker": {
+        "at": "2026-09-14T08:59:37.710090+00:00",
+        "route": "savills-2018-propertyauctions-aspnet-resource-control-reconstruction",
+        "message": "Legacy PropertyAuctions ASP.NET reconstruction found no exact row/detail control whose replay exposes a deterministic location+postcode identity for the unresolved 2018 lots.",
+        "next_safe_route": "Persist per-lot ASP.NET blocker, then move breadth-first to the next unresolved 2018 auction and enumerate archived/static document and image asset basenames from its exact AID page; search those identifiers against first-party Savills PDF/detail namespaces before progressing to 2017."
       }
     }
   }

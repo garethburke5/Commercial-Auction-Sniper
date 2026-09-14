@@ -1,0 +1,44 @@
+{
+  "at": "2026-09-14T08:59:37.710090+00:00",
+  "route": "savills-2018-propertyauctions-aspnet-resource-control-reconstruction",
+  "input_unresolved": 58,
+  "catalogues_attempted": 5,
+  "catalogues_fetched": 0,
+  "script_resources_discovered": 0,
+  "postback_controls_discovered": 0,
+  "postback_responses_replayed": 0,
+  "lots_with_location_postcode_identity_candidate": 0,
+  "canonical_rows_added": 0,
+  "savills_events_before": 3307,
+  "savills_events_after": 3307,
+  "catalogues": [
+    {
+      "aid": "1067",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "error": "SSLError: HTTPSConnectionPool(host='www.propertyauctions.com', port=443): Max retries exceeded with url: /Results/LotList.aspx?AID=1067 (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.propertyauctions.com'. (_ssl.c:1016)\")))"
+    },
+    {
+      "aid": "1068",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "error": "SSLError: HTTPSConnectionPool(host='www.propertyauctions.com', port=443): Max retries exceeded with url: /Results/LotList.aspx?AID=1068 (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.propertyauctions.com'. (_ssl.c:1016)\")))"
+    },
+    {
+      "aid": "1069",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "error": "SSLError: HTTPSConnectionPool(host='www.propertyauctions.com', port=443): Max retries exceeded with url: /Results/LotList.aspx?AID=1069 (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.propertyauctions.com'. (_ssl.c:1016)\")))"
+    },
+    {
+      "aid": "1071",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "error": "SSLError: HTTPSConnectionPool(host='www.propertyauctions.com', port=443): Max retries exceeded with url: /Results/LotList.aspx?AID=1071 (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.propertyauctions.com'. (_ssl.c:1016)\")))"
+    },
+    {
+      "aid": "1072",
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "error": "SSLError: HTTPSConnectionPool(host='www.propertyauctions.com', port=443): Max retries exceeded with url: /Results/LotList.aspx?AID=1072 (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.propertyauctions.com'. (_ssl.c:1016)\")))"
+    }
+  ],
+  "lots": [],
+  "blocker": "Legacy PropertyAuctions ASP.NET reconstruction found no exact row/detail control whose replay exposes a deterministic location+postcode identity for the unresolved 2018 lots.",
+  "next_route": "Persist per-lot ASP.NET blocker, then move breadth-first to the next unresolved 2018 auction and enumerate archived/static document and image asset basenames from its exact AID page; search those identifiers against first-party Savills PDF/detail namespaces before progressing to 2017."
+}
