@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T18:03:35.032263+00:00",
+  "updated_at": "2026-09-14T18:11:53.056248+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-live-frontend-js-api-form-trace",
+      "last_discovery_mode": "savills-2018-marker-bearing-route-parameter-replay",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -59347,6 +59347,30 @@
         "safe_get_routes_probed": 45,
         "canonical_rows_added": 0,
         "blocker": "live_frontend_exposes_ids_or_lot_markers_requiring_exact_manifest_identity_reconciliation"
+      },
+      "savills_2018_marker_replay_last_run": {
+        "at": "2026-09-14T18:11:53.056248+00:00",
+        "route": "savills-2018-marker-bearing-route-parameter-replay",
+        "aid": "1072",
+        "auction_date": "2018-11-26",
+        "unresolved_lots": [
+          "9",
+          "43",
+          "82",
+          "102",
+          "111",
+          "119",
+          "147",
+          "148",
+          "153",
+          "167",
+          "174"
+        ],
+        "marker_routes_found": 7,
+        "requests_attempted": 532,
+        "identity_candidates": [],
+        "canonical_rows_added": 0,
+        "blocker": "marker_replay_no_unique_lot_full_address_identity"
       }
     }
   }
