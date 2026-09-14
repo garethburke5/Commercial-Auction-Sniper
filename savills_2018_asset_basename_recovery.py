@@ -79,7 +79,6 @@ def main():
         meaningful=[u for u in assets if meaningful_asset(u,aid)]
         catalogue_rec={'aid':aid,'catalogue_url':cu,'status':r.status_code,'final_url':r.url,'recovery_variant':getattr(r,'_recovery_variant',None),'asset_count':len(assets),'meaningful_asset_count':len(meaningful),'meaningful_assets':meaningful}
         catalogues.append(catalogue_rec)
-        # Search every meaningful basename; no year/id/page cutoff. Generic framework assets are excluded semantically.
         asset_search={}
         for u in meaningful:
             b=basename(u)
@@ -124,3 +123,4 @@ def main():
     p['updated_at']=diag['at']; PROGRESS.write_text(json.dumps(p,indent=2,ensure_ascii=False)); DIAG.parent.mkdir(parents=True,exist_ok=True); DIAG.write_text(json.dumps(diag,indent=2,ensure_ascii=False))
     print(json.dumps({k:v for k,v in diag.items() if k not in ('catalogues','lots')},indent=2))
 if __name__=='__main__': main()
+# trigger after workflow installation
