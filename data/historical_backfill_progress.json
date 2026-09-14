@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T11:09:34.210677+00:00",
+  "updated_at": "2026-09-14T11:09:53.654194+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -56848,7 +56848,7 @@
         "route": "exact-original-discovery-logic-full-firstparty-url-inventory"
       },
       "savills_2018_corpus_url_candidate_probe_last_run": {
-        "at": "2026-09-14T11:09:34.210677+00:00",
+        "at": "2026-09-14T11:09:53.654194+00:00",
         "route": "savills-2018-all-20558-url-namespace-locality-candidate-probe",
         "corpus_lot_detail_urls_scanned": 20558,
         "unresolved_lots_considered": 58,
@@ -56857,7 +56857,7 @@
         "lots_with_live_candidates": 0
       },
       "savills_2018_corpus_url_candidate_probe_blocker": {
-        "at": "2026-09-14T11:09:34.210677+00:00",
+        "at": "2026-09-14T11:09:53.654194+00:00",
         "route": "savills-2018-all-20558-url-namespace-locality-candidate-probe",
         "message": "Scanned all 20558 persisted first-party lot URL strings for all 58 unresolved 2018 lots; 0 lots have live locality candidates. Per-lot candidate/blocker evidence is persisted in the diagnostic.",
         "next_safe_route": "Use exact live candidate pages to reconcile auction date + lot number + full address. For rows with no URL candidate, use archived URL-prefix enumeration over Wayback/Common Crawl plus legacy PropertyAuctions document/PDF paths."
