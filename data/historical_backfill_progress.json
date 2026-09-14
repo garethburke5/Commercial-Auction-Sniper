@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T11:19:20.049495+00:00",
+  "updated_at": "2026-09-14T11:37:13.661895+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -56863,7 +56863,7 @@
         "next_safe_route": "Use exact live candidate pages to reconcile auction date + lot number + full address. For rows with no URL candidate, use archived URL-prefix enumeration over Wayback/Common Crawl plus legacy PropertyAuctions document/PDF paths."
       },
       "savills_2018_firstparty_corpus_identity_last_run": {
-        "at": "2026-09-14T11:19:17.907495+00:00",
+        "at": "2026-09-14T11:37:11.962173+00:00",
         "route": "savills-2018-full-firstparty-20558-lot-direct-identity-reconciliation",
         "source_corpus_total_urls": 20673,
         "source_corpus_lot_detail_urls": 20558,
@@ -56874,7 +56874,7 @@
         },
         "pages_with_target_date_lot_postcode_identity": 2,
         "safe_unique_rows_ready": 0,
-        "crawl_seconds": 1014.88,
+        "crawl_seconds": 1047.23,
         "canonical_events_before": 3307,
         "canonical_events_after": 3307,
         "canonical_events_added": 0,
@@ -57391,7 +57391,7 @@
         ]
       },
       "savills_2018_firstparty_corpus_identity_blocker": {
-        "at": "2026-09-14T11:19:20.049457+00:00",
+        "at": "2026-09-14T11:37:13.661861+00:00",
         "route": "savills-2018-full-firstparty-20558-lot-direct-identity-reconciliation",
         "message": "Crawled all 20558 persisted first-party Savills lot-detail URLs against all 58 unresolved 2018 commercial/mixed lots. Added 0 validated canonical events; remaining lots carry per-lot blockers in auction_reconciliation.",
         "next_safe_route": "For still-unresolved exact date+lot identities, enumerate archived captures of the specific first-party corpus URL namespace and recovered PropertyAuctions catalogue/document paths via Common Crawl CDX and Wayback prefix indexes, then parse surviving HTML/PDF documents for unique full-address identity. Do not advance to 2017 until every 2018 auction is accounted for."
