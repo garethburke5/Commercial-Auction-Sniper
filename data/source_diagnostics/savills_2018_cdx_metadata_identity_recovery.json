@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-14T16:49:38.289625+00:00",
+  "at": "2026-09-14T17:21:35.054032+00:00",
   "route": "savills-2018-wayback-cdx-metadata-asset-relationship",
   "unresolved_lots_input": 58,
   "aids": [
@@ -10,8 +10,8 @@
     "1072"
   ],
   "cdx_queries": 30,
-  "cdx_queries_ok": 23,
-  "metadata_records": 16,
+  "cdx_queries_ok": 19,
+  "metadata_records": 15,
   "safe_unique_rows_ready": 0,
   "canonical_events_before_apply": 3307,
   "canonical_events_after_apply": 3307,
@@ -568,9 +568,8 @@
     },
     {
       "pattern": "auctions.savills.co.uk/*AID=1067*",
-      "status": 200,
-      "bytes": 3,
-      "rows": 0
+      "status": null,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=auctions.savills.co.uk%2F%2AAID%3D1067%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode%2Clength&collapse=urlkey (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f7a7b841490>, 'Connection to web.archive.org timed out. (connect timeout=12)'))"
     },
     {
       "pattern": "www.auctions.savills.co.uk/*AID=1067*",
@@ -586,8 +585,9 @@
     },
     {
       "pattern": "www.auctions.savills.co.uk/Data/Auctions/1068/*",
-      "status": null,
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.auctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode%2Clength&collapse=urlkey (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f73dd8f56d0>, 'Connection to web.archive.org timed out. (connect timeout=12)'))"
+      "status": 503,
+      "bytes": 11832,
+      "error": "<html><head><meta charset=\"UTF-8\"><title>Internet Archive: Temporarily Offline</title><style>p{font-size:24px;}img{margin-bottom:2rem;}</style></head>\n<body style=\"padding:30px 0;\">\n<div style=\"float:left;width:260px;text-align:center;\">\n<img xsrc=\"logo_ia.jpg\" src=\"data:image/jpeg;base64,iVBORw0KGg"
     },
     {
       "pattern": "propertyauctions.com/*AID=1068*",
@@ -597,66 +597,64 @@
     },
     {
       "pattern": "www.propertyauctions.com/*AID=1068*",
-      "status": 200,
-      "bytes": 3,
-      "rows": 0
-    },
-    {
-      "pattern": "auctions.savills.co.uk/*AID=1068*",
       "status": 503,
       "bytes": 11832,
       "error": "<html><head><meta charset=\"UTF-8\"><title>Internet Archive: Temporarily Offline</title><style>p{font-size:24px;}img{margin-bottom:2rem;}</style></head>\n<body style=\"padding:30px 0;\">\n<div style=\"float:left;width:260px;text-align:center;\">\n<img xsrc=\"logo_ia.jpg\" src=\"data:image/jpeg;base64,iVBORw0KGg"
     },
     {
-      "pattern": "www.auctions.savills.co.uk/*AID=1068*",
+      "pattern": "auctions.savills.co.uk/*AID=1068*",
       "status": 200,
       "bytes": 3,
       "rows": 0
+    },
+    {
+      "pattern": "www.auctions.savills.co.uk/*AID=1068*",
+      "status": null,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.auctions.savills.co.uk%2F%2AAID%3D1068%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode%2Clength&collapse=urlkey (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f7a7b8dcd50>, 'Connection to web.archive.org timed out. (connect timeout=12)'))"
     },
     {
       "pattern": "auctions.savills.co.uk/Data/Auctions/1069/*",
       "status": null,
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=auctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode%2Clength&collapse=urlkey (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f73dd8c7c90>, 'Connection to web.archive.org timed out. (connect timeout=12)'))"
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=auctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode%2Clength&collapse=urlkey (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f7a7b8dced0>, 'Connection to web.archive.org timed out. (connect timeout=12)'))"
     },
     {
       "pattern": "www.auctions.savills.co.uk/Data/Auctions/1069/*",
-      "status": 200,
-      "bytes": 3,
-      "rows": 0
+      "status": 503,
+      "bytes": 11832,
+      "error": "<html><head><meta charset=\"UTF-8\"><title>Internet Archive: Temporarily Offline</title><style>p{font-size:24px;}img{margin-bottom:2rem;}</style></head>\n<body style=\"padding:30px 0;\">\n<div style=\"float:left;width:260px;text-align:center;\">\n<img xsrc=\"logo_ia.jpg\" src=\"data:image/jpeg;base64,iVBORw0KGg"
     },
     {
       "pattern": "propertyauctions.com/*AID=1069*",
-      "status": 200,
-      "bytes": 3,
-      "rows": 0
+      "status": null,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=propertyauctions.com%2F%2AAID%3D1069%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode%2Clength&collapse=urlkey (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f7a7b8dd210>, 'Connection to web.archive.org timed out. (connect timeout=12)'))"
     },
     {
       "pattern": "www.propertyauctions.com/*AID=1069*",
-      "status": 200,
-      "bytes": 3,
-      "rows": 0
+      "status": null,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.propertyauctions.com%2F%2AAID%3D1069%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode%2Clength&collapse=urlkey (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f7a7b8d68d0>, 'Connection to web.archive.org timed out. (connect timeout=12)'))"
     },
     {
       "pattern": "auctions.savills.co.uk/*AID=1069*",
-      "status": 200,
-      "bytes": 3,
-      "rows": 0
+      "status": 503,
+      "bytes": 11832,
+      "error": "<html><head><meta charset=\"UTF-8\"><title>Internet Archive: Temporarily Offline</title><style>p{font-size:24px;}img{margin-bottom:2rem;}</style></head>\n<body style=\"padding:30px 0;\">\n<div style=\"float:left;width:260px;text-align:center;\">\n<img xsrc=\"logo_ia.jpg\" src=\"data:image/jpeg;base64,iVBORw0KGg"
     },
     {
       "pattern": "www.auctions.savills.co.uk/*AID=1069*",
-      "status": null,
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.auctions.savills.co.uk%2F%2AAID%3D1069%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode%2Clength&collapse=urlkey (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f73dd8c6490>, 'Connection to web.archive.org timed out. (connect timeout=12)'))"
+      "status": 200,
+      "bytes": 3,
+      "rows": 0
     },
     {
       "pattern": "auctions.savills.co.uk/Data/Auctions/1071/*",
       "status": null,
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=auctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode%2Clength&collapse=urlkey (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f73dd8ed6d0>, 'Connection to web.archive.org timed out. (connect timeout=12)'))"
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=auctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode%2Clength&collapse=urlkey (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f7a7b8d7390>, 'Connection to web.archive.org timed out. (connect timeout=12)'))"
     },
     {
       "pattern": "www.auctions.savills.co.uk/Data/Auctions/1071/*",
-      "status": 200,
-      "bytes": 220,
-      "rows": 1
+      "status": 503,
+      "bytes": 11832,
+      "error": "<html><head><meta charset=\"UTF-8\"><title>Internet Archive: Temporarily Offline</title><style>p{font-size:24px;}img{margin-bottom:2rem;}</style></head>\n<body style=\"padding:30px 0;\">\n<div style=\"float:left;width:260px;text-align:center;\">\n<img xsrc=\"logo_ia.jpg\" src=\"data:image/jpeg;base64,iVBORw0KGg"
     },
     {
       "pattern": "propertyauctions.com/*AID=1071*",
@@ -690,8 +688,9 @@
     },
     {
       "pattern": "www.auctions.savills.co.uk/Data/Auctions/1072/*",
-      "status": null,
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.auctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode%2Clength&collapse=urlkey (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f73dd8c5d50>, 'Connection to web.archive.org timed out. (connect timeout=12)'))"
+      "status": 200,
+      "bytes": 3,
+      "rows": 0
     },
     {
       "pattern": "propertyauctions.com/*AID=1072*",
@@ -701,8 +700,9 @@
     },
     {
       "pattern": "www.propertyauctions.com/*AID=1072*",
-      "status": null,
-      "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=12)"
+      "status": 200,
+      "bytes": 3,
+      "rows": 0
     },
     {
       "pattern": "auctions.savills.co.uk/*AID=1072*",
@@ -837,14 +837,6 @@
       "digest": "LDPTPUTZAYAIFG7XPXLMAEZK7PHYSJBC",
       "statuscode": "200",
       "length": "97157"
-    },
-    {
-      "timestamp": "20180914215959",
-      "original": "https://auctions.savills.co.uk/Data/Auctions/1071/Images/bp_3a.jpg",
-      "mimetype": "image/jpeg",
-      "digest": "TGMM5FLU5X7YMBHCOA3EULY2QCUXUZ4T",
-      "statuscode": "200",
-      "length": "49795"
     }
   ]
 }
