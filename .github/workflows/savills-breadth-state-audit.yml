@@ -1,0 +1,21 @@
+name: Savills Breadth State Audit
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/savills-breadth-state-audit.yml'
+      - 'savills_breadth_state_audit.py'
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m py_compile savills_breadth_state_audit.py
+      - name: Fresh production Savills state
+        run: python savills_breadth_state_audit.py
