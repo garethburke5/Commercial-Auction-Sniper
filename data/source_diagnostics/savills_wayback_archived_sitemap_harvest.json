@@ -1,0 +1,183 @@
+{
+  "at": "2026-09-14T05:24:08.948122+00:00",
+  "route": "savills-wayback-archived-sitemap-recursive-bulk-url-harvest",
+  "seed_urls": 28,
+  "root_capture_rows": 18,
+  "unique_root_captures": 6,
+  "root_replays_ok": 0,
+  "child_sitemaps_discovered": 0,
+  "child_capture_rows": 0,
+  "unique_child_captures": 0,
+  "child_replays_ok": 0,
+  "unique_firstparty_urls": 0,
+  "auction_urls": 0,
+  "commission_urls": 0,
+  "catalogue_roots": 0,
+  "historical_2010_2018_catalogue_roots": 0,
+  "auction_urls_by_year": {},
+  "historical_catalogue_roots": [],
+  "auction_url_samples": [],
+  "commission_url_samples": [],
+  "query_diagnostics": [
+    {
+      "url": "https://auctions.savills.co.uk/robots.txt",
+      "status": 200,
+      "rows": 6,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Frobots.txt&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "http://www.auctions.savills.co.uk/sitemap1.xml",
+      "status": null,
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=http%3A%2F%2Fwww.auctions.savills.co.uk%2Fsitemap1.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "url": "https://www.auctions.savills.co.uk/robots.txt",
+      "status": null,
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.auctions.savills.co.uk%2Frobots.txt&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "url": "http://www.auctions.savills.co.uk/sitemap_index.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fwww.auctions.savills.co.uk%2Fsitemap_index.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "https://www.auctions.savills.co.uk/sitemap.xml",
+      "status": null,
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.auctions.savills.co.uk%2Fsitemap.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "url": "https://www.auctions.savills.co.uk/sitemap_index.xml",
+      "status": null,
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.auctions.savills.co.uk%2Fsitemap_index.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "url": "https://auctions.savills.co.uk/sitemap1.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fsitemap1.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "http://www.auctions.savills.co.uk/sitemap-index.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fwww.auctions.savills.co.uk%2Fsitemap-index.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "https://www.auctions.savills.co.uk/sitemap-index.xml",
+      "status": null,
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.auctions.savills.co.uk%2Fsitemap-index.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "url": "https://www.auctions.savills.co.uk/sitemap/sitemap.xml",
+      "status": null,
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.auctions.savills.co.uk%2Fsitemap%2Fsitemap.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "url": "https://www.auctions.savills.co.uk/sitemaps/sitemap.xml",
+      "status": null,
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.auctions.savills.co.uk%2Fsitemaps%2Fsitemap.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "url": "https://www.auctions.savills.co.uk/sitemap1.xml",
+      "status": null,
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=https%3A%2F%2Fwww.auctions.savills.co.uk%2Fsitemap1.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+    },
+    {
+      "url": "https://auctions.savills.co.uk/sitemap.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fsitemap.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "http://auctions.savills.co.uk/sitemaps/sitemap.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2Fsitemaps%2Fsitemap.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "http://www.auctions.savills.co.uk/sitemap.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fwww.auctions.savills.co.uk%2Fsitemap.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "http://auctions.savills.co.uk/sitemap.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2Fsitemap.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "http://auctions.savills.co.uk/sitemap-index.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2Fsitemap-index.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "http://auctions.savills.co.uk/sitemap_index.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2Fsitemap_index.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "https://auctions.savills.co.uk/sitemap/sitemap.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fsitemap%2Fsitemap.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "https://auctions.savills.co.uk/sitemap_index.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fsitemap_index.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "http://www.auctions.savills.co.uk/sitemap/sitemap.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fwww.auctions.savills.co.uk%2Fsitemap%2Fsitemap.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "http://www.auctions.savills.co.uk/robots.txt",
+      "status": 200,
+      "rows": 6,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fwww.auctions.savills.co.uk%2Frobots.txt&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "http://www.auctions.savills.co.uk/sitemaps/sitemap.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fwww.auctions.savills.co.uk%2Fsitemaps%2Fsitemap.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "https://auctions.savills.co.uk/sitemap-index.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fsitemap-index.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "https://auctions.savills.co.uk/sitemaps/sitemap.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Fsitemaps%2Fsitemap.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "http://auctions.savills.co.uk/sitemap/sitemap.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2Fsitemap%2Fsitemap.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "http://auctions.savills.co.uk/sitemap1.xml",
+      "status": 200,
+      "rows": 0,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2Fsitemap1.xml&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    },
+    {
+      "url": "http://auctions.savills.co.uk/robots.txt",
+      "status": 200,
+      "rows": 6,
+      "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2Frobots.txt&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&from=2017&to=2021&limit=5000&matchType=exact&collapse=digest"
+    }
+  ]
+}
