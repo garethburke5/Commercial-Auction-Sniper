@@ -2,8 +2,8 @@ import unittest
 from bs4 import BeautifulSoup
 
 from collectors.auction_estates import (
-    _auction_date, _is_target, _lot_links, _property_type, _image,
-    _terminal_status_near_title, _tenancy_details, _detail,
+    _auction_date, _is_target, _is_target_type, _lot_links, _property_type, _image,
+    _terminal_status_near_title, _tenancy_details, _tenancy_schedule, _detail,
 )
 
 
@@ -25,6 +25,7 @@ class AuctionEstatesCollectorTests(unittest.TestCase):
     def test_image_recovers_lazy_gallery_image_and_rejects_logo(self):
         s = BeautifulSoup('''
         <html><head><meta property="og:image" content="/images/logo.png"></head><body>
+          <h1>Unit 7 South Street, Ilkeston</h1>
           <img src="/assets/logo.svg" alt="Auction Estates" />
           <img data-src="https://media.auctionestates.co.uk/property/363629/hero-main.jpg" alt="Property photograph" />
         </body></html>
@@ -33,6 +34,19 @@ class AuctionEstatesCollectorTests(unittest.TestCase):
             _image(s, "https://www.auctionestates.co.uk/property/eldon-chambers-nottingham-363629"),
             "https://media.auctionestates.co.uk/property/363629/hero-main.jpg",
         )
+
+    def test_source_gallery_order_beats_later_interior_photo(self):
+        s = BeautifulSoup('''
+        <html><body>
+          <h1>Unit 7 South Street, Ilkeston, DE75 5QE</h1>
+          <div class="gallery">
+            <img src="/media/shopfront-main.jpg" alt="Unit 7 South Street exterior" />
+            <img src="/media/interior-kitchen.jpg" alt="Interior photograph" />
+            <img src="/media/floorplan.jpg" alt="Floor plan" />
+          </div>
+        </body></html>
+        ''', "lxml")
+        self.assertTrue(_image(s, "https://www.auctionestates.co.uk/property/unit-7-south-street-41599").endswith("shopfront-main.jpg"))
 
     def test_property_type_parser_and_commercial_filter(self):
         commercial = "Guide price £225,000 Property Type Commercial Key Features freehold five-storey restaurant"
@@ -44,6 +58,10 @@ class AuctionEstatesCollectorTests(unittest.TestCase):
         self.assertTrue(_is_target(mixed))
         self.assertTrue(_is_target(investment))
         self.assertFalse(_is_target(residential))
+
+    def test_residential_label_with_genuine_mixed_use_is_retained(self):
+        text = "Property Type Residential Key Features freehold mixed-use property comprising ground floor retail unit and one-bedroom flat above"
+        self.assertTrue(_is_target_type("Residential", text))
 
     def test_exact_residential_tavistock_flat_is_rejected(self):
         html = '''
@@ -84,6 +102,42 @@ class AuctionEstatesCollectorTests(unittest.TestCase):
             "2026-10-08",
             fetcher=fetcher,
         ))
+
+    def test_exact_noel_street_residential_house_is_rejected(self):
+        html = '''
+        <html><body>
+          <h1>96 Noel Street, Nottingham, NG7 6AU</h1>
+          <div>Guide price £195,000+</div><div>Property Type Residential</div>
+          <div>Reception Rooms 1 Bedrooms 6 Bathrooms 2</div>
+          <h3>Key Features</h3><p>A freehold three-storey 6 bedroom semi-detached house.</p>
+        </body></html>
+        '''
+        self.assertIsNone(_detail(
+            "https://www.auctionestates.co.uk/property/96-noel-street-nottingham-ng7-6au-363652",
+            "96 Noel Street Guide price £195,000+", "2026-10-08",
+            fetcher=lambda url: BeautifulSoup(html, "lxml"),
+        ))
+
+    def test_residential_labelled_woodborough_mixed_use_is_retained(self):
+        html = '''
+        <html><body>
+          <h1>570 Woodborough Road, Nottingham, NG3 5FH</h1>
+          <div>SoldPrior</div><div>Guide price £160,000+</div><div>Property Type Residential</div>
+          <h3>Key Features</h3>
+          <p>Freehold mixed-use property comprising ground floor retail unit and a one-bedroom self-contained flat on the upper floor.</p>
+          <p>Full Planning Permission for conversion into a 5-bed HMO. Self-contained access to the rear.</p>
+        </body></html>
+        '''
+        lot = _detail(
+            "https://www.auctionestates.co.uk/property/570-woodborough-road-nottingham-ng3-5fh-364179",
+            "570 Woodborough Road Guide price £160,000+", "2026-10-08",
+            fetcher=lambda url: BeautifulSoup(html, "lxml"),
+        )
+        self.assertIsNotNone(lot)
+        self.assertEqual(lot.property_type, "Mixed Use")
+        self.assertEqual(lot.status, "SOLD PRIOR")
+        self.assertTrue(lot.development_potential)
+        self.assertTrue(lot.residential_conversion)
 
     def test_terminal_status_is_read_from_current_lot_header(self):
         s = BeautifulSoup('''
@@ -142,6 +196,19 @@ class AuctionEstatesCollectorTests(unittest.TestCase):
         self.assertIsNone(start)
         self.assertTrue(fri)
         self.assertEqual(break_clause, "No break")
+
+    def test_sadler_gate_multi_tenancy_and_future_rent_are_captured(self):
+        text = (
+            "14 Sadler Gate - Let on a 5 year lease dated 01/06/2025 to Vision Express UK Limited at a rent of £18,000 pa. "
+            "14a Sadler Gate - Let on a 20 year lease dated 29/10/2021 to Gareth Bardill (T/A The Blue Note) at a rent of £25,000 pa (no break clause). "
+            "Total Current Rent Reserved of £43,000 pa rising to £49,000 pax in December 2026."
+        )
+        schedule, future = _tenancy_schedule(text)
+        self.assertEqual(len(schedule), 2)
+        self.assertEqual(schedule[0]["tenant"], "Vision Express UK Limited")
+        self.assertEqual(schedule[1]["rent"], 25000)
+        self.assertTrue(schedule[1]["no_break"])
+        self.assertEqual(future, (49000.0, "December 2026"))
 
 
 if __name__ == "__main__":
