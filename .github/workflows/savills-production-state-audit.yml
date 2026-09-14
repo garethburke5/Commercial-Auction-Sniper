@@ -1,0 +1,44 @@
+name: Savills Production State Audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'savills_production_state_audit.py'
+      - '.github/workflows/savills-production-state-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python savills_production_state_audit.py
+      - name: Persist fresh audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp data/source_diagnostics/savills_production_state_audit.json /tmp/audit.json
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/audit.json data/source_diagnostics/savills_production_state_audit.json
+            git add data/source_diagnostics/savills_production_state_audit.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist fresh Savills production state audit'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt*4))
+          done
+          exit 1
