@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T04:03:23.972978+00:00",
+  "updated_at": "2026-09-14T04:05:51.385250+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-commoncrawl-first-party-legacy-auc-pid-url-recovery",
+      "last_discovery_mode": "savills-2018-item-level-rss-lot-location-postcode-recovery",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -48529,6 +48529,42 @@
         "failing_url_or_route": "Common Crawl 2017-2019 indexes for first-party Savills auction/PDF namespaces",
         "message": "Common Crawl first-party legacy sweep discovered 53 candidate Savills URLs, probed 53 lot/property-like surfaces and produced 29 deterministic location+lot+postcode matches. No canonical event is promoted by this discovery-only stage without a unique full-address evidence chain.",
         "next_safe_route": "Use any deterministic matches as an exact URL manifest for a promotion pass. If zero, enumerate first-party Savills 2018 static/image/script assets and legacy query-string namespaces from Common Crawl originals, then search those recovered identifiers against the known 94 commercial/mixed AID+lot+location tuples."
+      },
+      "savills_2018_rss_item_last_run": {
+        "at": "2026-09-14T04:05:51.385250+00:00",
+        "route": "savills-2018-item-level-rss-lot-location-postcode-recovery",
+        "commercial_mixed_clues_considered": 94,
+        "rss_capture_candidates": 8,
+        "rss_documents_replayed": 8,
+        "rss_items_parsed": 0,
+        "safe_unique_item_matches": 0,
+        "ambiguous_item_matches": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3254,
+        "savills_events_after": 3254,
+        "accepted_rows": [],
+        "ambiguous_samples": [],
+        "query_diagnostics": [
+          {
+            "prefix": "http://auctions.savills.co.uk/Data/Rss/",
+            "status": 200,
+            "rows": 8,
+            "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FRss%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&from=2017&to=2019&limit=5000&matchType=prefix&collapse=digest"
+          },
+          {
+            "prefix": "https://auctions.savills.co.uk/Data/Rss/",
+            "status": 200,
+            "rows": 8,
+            "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FRss%2F&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype&filter=statuscode%3A200&from=2017&to=2019&limit=5000&matchType=prefix&collapse=digest"
+          }
+        ]
+      },
+      "savills_2018_rss_item_last_blocker": {
+        "at": "2026-09-14T04:05:51.385250+00:00",
+        "route": "savills-2018-item-level-rss-lot-location-postcode-recovery",
+        "failing_url_or_route": "Wayback Savills /Data/Rss/ historical captures",
+        "message": "Parsed 0 RSS items from 8 historical first-party feed captures but found 0 unique same-item lot+location+postcode identities safe to promote.",
+        "next_safe_route": "Mine RSS item links/guids and adjacent first-party property/detail URLs by capture timestamp; if lot numbers are absent from feed items, reconcile using exact address/postcode plus auction-date-specific catalogue evidence without inferring across items."
       }
     }
   }
