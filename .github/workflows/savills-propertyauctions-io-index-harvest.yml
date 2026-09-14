@@ -26,7 +26,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install requests
+      - run: pip install requests beautifulsoup4
       - run: python -m py_compile savills_propertyauctions_io_index_harvest.py
       - name: Harvest indexed Savills listings by exact auction date
         run: python savills_propertyauctions_io_index_harvest.py
@@ -37,12 +37,12 @@ jobs:
           from pathlib import Path
           d=json.loads(Path('data/source_diagnostics/savills_propertyauctions_io_index_harvest.json').read_text())
           p=json.loads(Path('data/historical_backfill_progress.json').read_text())
-          print('AUCTION_DATES',d.get('auction_dates'))
           print('CLUES',d.get('commercial_mixed_clues'))
-          print('QUERIES',d.get('queries_executed'))
-          print('RAW_HITS',d.get('raw_listing_hits'))
+          print('REQUESTS',d.get('search_requests'))
+          print('RAW_HITS',d.get('raw_propertyauctions_hits'))
           print('UNIQUE_IDS',d.get('unique_listing_ids'))
-          print('UNIQUE_MATCHES',d.get('unique_date_location_postcode_matches'))
+          print('UNIQUE_MATCHES',d.get('unique_clue_matches'))
+          print('AMBIGUOUS',d.get('ambiguous_clue_matches'))
           assert p['sources']['Savills Auctions'].get('historically_complete') is False
           PY
           cp data/historical_backfill_progress.json /tmp/progress.json
