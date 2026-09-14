@@ -1,0 +1,92 @@
+{
+  "at": "2026-09-14T19:02:57.923394+00:00",
+  "route": "savills-2018-cdx-original-url-aid-pid-lot-relationship-recovery",
+  "aid": "1072",
+  "auction_date": "2018-11-26",
+  "unresolved_lots": [
+    "9",
+    "43",
+    "82",
+    "102",
+    "111",
+    "119",
+    "147",
+    "148",
+    "153",
+    "167",
+    "174"
+  ],
+  "patterns_queried": 12,
+  "queries_with_rows": 0,
+  "failed_queries": 1,
+  "unique_original_urls": 0,
+  "unique_pid_tokens": 0,
+  "lots_with_direct_archive_relationship": [],
+  "safe_identity_candidates": [],
+  "canonical_rows_added": 0,
+  "blocker": "cdx_original_url_relationships_do_not_expose_unique_full_address_for_unresolved_lots",
+  "next_route": "for each recovered PID/original relationship, enumerate exact first-party Savills/PropertyAuctions PID detail and Data/Auctions document namespaces; if no relationship exists, persist per-lot terminal source-specific blocker and advance to next 2018 auction",
+  "queries": [
+    {
+      "pattern": "propertyauctions.com/*AID=1072*",
+      "status": 200,
+      "row_count": 0
+    },
+    {
+      "pattern": "www.propertyauctions.com/*AID=1072*",
+      "status": 200,
+      "row_count": 0
+    },
+    {
+      "pattern": "propertyauctions.com/*aid=1072*",
+      "status": 200,
+      "row_count": 0
+    },
+    {
+      "pattern": "www.propertyauctions.com/*aid=1072*",
+      "status": 200,
+      "row_count": 0
+    },
+    {
+      "pattern": "savills.co.uk/*AID=1072*",
+      "status": 200,
+      "row_count": 0
+    },
+    {
+      "pattern": "www.savills.co.uk/*AID=1072*",
+      "status": 200,
+      "row_count": 0
+    },
+    {
+      "pattern": "savills.co.uk/*aid=1072*",
+      "status": 200,
+      "row_count": 0
+    },
+    {
+      "pattern": "www.savills.co.uk/*aid=1072*",
+      "status": 200,
+      "row_count": 0
+    },
+    {
+      "pattern": "propertyauctions.com/Data/Auctions/1072/*",
+      "status": 200,
+      "row_count": 0
+    },
+    {
+      "pattern": "www.propertyauctions.com/Data/Auctions/1072/*",
+      "status": 200,
+      "row_count": 0
+    },
+    {
+      "pattern": "savills.co.uk/Data/Auctions/1072/*",
+      "status": 503,
+      "row_count": 0
+    },
+    {
+      "pattern": "www.savills.co.uk/Data/Auctions/1072/*",
+      "status": 200,
+      "row_count": 0
+    }
+  ],
+  "relationships": []
+}
