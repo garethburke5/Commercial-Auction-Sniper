@@ -119,3 +119,5 @@ def main():
     print(json.dumps(summary,indent=2))
 
 if __name__=='__main__': main()
+
+# workflow trigger: Availability API/PID replay route
