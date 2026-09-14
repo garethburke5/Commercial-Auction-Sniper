@@ -46,9 +46,12 @@ jobs:
           print('OLDEST_VERIFIED',dates[0] if dates else None)
           print('SOURCE_URLS',z.get('source_urls'))
           print('UNIQUE_ARCHIVE_CAPTURES',z.get('unique_archive_captures'))
+          print('CAPTURES_REPLAYED',z.get('captures_replayed'))
+          print('POSTCODE_PAGES',z.get('replayed_pages_with_postcodes'))
+          print('DETERMINISTIC_MATCHES',z.get('deterministic_aid_lot_location_postcode_matches'))
           assert s.get('historically_complete') is False
           assert s.get('discovery_exhausted') is False
-          assert d.get('route')=='savills-2018-row-evidence-exact-and-sibling-wayback-index'
+          assert d.get('route')=='savills-2018-row-evidence-parallel-wayback-index-and-snapshot-replay'
           PY
           cp data/property_history.json /tmp/history.json
           cp data/historical_backfill_progress.json /tmp/progress.json
