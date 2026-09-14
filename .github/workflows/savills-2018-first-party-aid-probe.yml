@@ -1,0 +1,45 @@
+name: Savills 2018 First Party AID Probe
+on:
+  push:
+    paths:
+      - 'savills_2018_first_party_aid_probe.py'
+      - '.github/workflows/savills-2018-first-party-aid-probe.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: savills-2018-first-party-aid-probe
+  cancel-in-progress: false
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - run: python -m py_compile savills_2018_first_party_aid_probe.py
+      - name: Execute bounded first-party AID probe
+        run: python savills_2018_first_party_aid_probe.py
+      - name: Persist blocker/result onto freshest production main
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp data/source_diagnostics/savills_2018_first_party_aid_probe.json /tmp/diag.json
+          cp data/historical_backfill_progress.json /tmp/progress.json
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git fetch origin main
+          git reset --hard origin/main
+          cp /tmp/diag.json data/source_diagnostics/savills_2018_first_party_aid_probe.json
+          cp /tmp/progress.json data/historical_backfill_progress.json
+          git add data/source_diagnostics/savills_2018_first_party_aid_probe.json data/historical_backfill_progress.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Persist Savills 2018 first-party AID blocker'
+            git push origin HEAD:main
+          fi
