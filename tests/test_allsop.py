@@ -70,11 +70,11 @@ class AllsopCollectorTests(unittest.TestCase):
         s=BeautifulSoup('<body><footer>Other auction results include sold prior lots.</footer><main><h2>LOT 1 - London</h2><p>1 High Street, London, W1A 1AA</p><h1>Retail Investment</h1></main></body>',"lxml")
         self.assertNotIn("sold prior",_live_status_probe(s,"irrelevant card").lower())
 
-    def test_future_featured_teaser_uses_exact_published_auction_date(self):
+    def test_future_featured_teaser_is_not_publishable_without_verified_detail(self):
         card="Commercial LOT - Oct 2026 FEATURED LOT Sheffield S10 Substantial Freehold Retail, Supermarket & Car Park Investment Guide Price £5.8M"
         self.assertEqual(_teaser_address(card),"Sheffield S10")
         lot=_teaser_lot("https://www.allsop.co.uk/lot-overview/example/c261001-044",card,"https://www.allsop.co.uk/media/auction/lot-44.jpg","2026-10-07")
-        self.assertEqual(lot.auction_date,"2026-10-07")
+        self.assertIsNone(lot)
 
     def test_exact_detail_date_rejects_historic_lot_even_if_future_card_is_contaminated(self):
         html='''<main><h2>LOT 67 - Bolton</h2><p>26-38 Bridge Street, Bolton, Lancashire, BL1 2EH</p><h1>Freehold Retail Ground Rent Investment</h1><p>Commercial - 24th March 2026 - Live Stream</p><p>Guide Price £600,000 Current Rent Reserved £40,950 p.a. Freehold</p></main>'''
@@ -83,13 +83,13 @@ class AllsopCollectorTests(unittest.TestCase):
         with patch('collectors.allsop.soup',return_value=fake):
             self.assertIsNone(_hydrate(("https://www.allsop.co.uk/lot-overview/old/c260324-100",meta),today=date(2026,9,7)))
 
-    def test_exact_detail_identity_overrides_unrelated_future_teaser(self):
+    def test_mismatched_teaser_and_detail_identity_is_quarantined(self):
         html='''<main><h2>LOT 44 - Sheffield</h2><p>123 Ecclesall Road, Sheffield, S10 1AA</p><h1>Substantial Freehold Retail Supermarket & Car Park Investment</h1><p>Commercial - 7th October 2026 - Live Stream</p><p>Guide Price £5,800,000 Current Rent Reserved £450,000 p.a. Freehold</p><img src="/media/property/lot44.jpg" alt="property"></main>'''
         fake=BeautifulSoup(html,"lxml")
         meta={"card":"Commercial LOT - Oct 2026 FEATURED LOT Darwen BB3 Another Investment Lot 113","image":None,"auction_date":"2026-10-07","card_target":True}
         with patch('collectors.allsop.soup',return_value=fake):
             lot=_hydrate(("https://www.allsop.co.uk/lot-overview/sheffield/c261001-044",meta),today=date(2026,9,7))
-        self.assertEqual(lot.address,"123 Ecclesall Road, Sheffield, S10 1AA");self.assertEqual(lot.lot_number,"Lot 44");self.assertEqual(lot.auction_date,"2026-10-07")
+        self.assertIsNone(lot)
 
 
 if __name__=="__main__": unittest.main()
