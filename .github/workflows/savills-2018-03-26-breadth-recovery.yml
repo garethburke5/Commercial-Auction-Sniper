@@ -44,3 +44,4 @@ jobs:
             sleep $((attempt*4))
           done
           exit 1
+# trigger: breadth-first recovery
