@@ -1,0 +1,194 @@
+{
+  "at": "2026-09-14T21:08:48.053451+00:00",
+  "route": "savills-2018-02-13-legacy-aspnet-postback-recovery",
+  "auction_date": "2018-02-13",
+  "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-11",
+  "archive_manifest_entries": [
+    {
+      "auction_date": "2018-02-13",
+      "year": 2018,
+      "archive_pages": [
+        "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+      ],
+      "exact_legacy_catalogues": [
+        {
+          "aid": 1066,
+          "auction_date": "2018-02-13",
+          "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+          "initial_grid_lot_rows": 262,
+          "initial_grid_commercial_mixed_rows": 14,
+          "postback_targets": [
+            "javascript:__doPostBack('ctl00$loginStatus1$ctl02','')",
+            "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl00','')",
+            "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl01','')",
+            "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl02','')",
+            "javascript:__doPostBack('ctl00$ContentPlaceHolder1$rgResults$ctl00$ctl02$ctl00$ctl03','')"
+          ]
+        }
+      ],
+      "nearby_legacy_catalogues_not_assumed_same_event": [
+        {
+          "aid": 1080,
+          "auction_date": "2018-02-14",
+          "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+          "day_delta": 1
+        }
+      ],
+      "exact_catalogue_match_count": 1
+    }
+  ],
+  "aids": [
+    "1066"
+  ],
+  "catalogues": [
+    {
+      "aid": 1066,
+      "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+      "total_catalogue_rows": 262,
+      "commercial_mixed_count": 14
+    }
+  ],
+  "qualifying_commercial_mixed": 14,
+  "canonical_history_v2_matches": 14,
+  "unresolved_commercial_mixed": 0,
+  "matched": [
+    {
+      "aid": 1066,
+      "lot_number": "119",
+      "location": "Rotherham, South Yorkshire",
+      "event_id": "429f93c45b1108e8c1ef15c0"
+    },
+    {
+      "aid": 1066,
+      "lot_number": "131",
+      "location": "South Croydon, Surrey",
+      "event_id": "3be973a17e8eec8a194d7437"
+    },
+    {
+      "aid": 1066,
+      "lot_number": "132",
+      "location": "Stoke-on-Trent, Staffordshire",
+      "event_id": "4bd61a29e9233d0de11d7b2d"
+    },
+    {
+      "aid": 1066,
+      "lot_number": "149",
+      "location": "London SE9",
+      "event_id": "d38dd7eaf0767619c23364cc"
+    },
+    {
+      "aid": 1066,
+      "lot_number": "150",
+      "location": "Luton, Bedfordshire",
+      "event_id": "e1926c78fedda6e09a3c38ad"
+    },
+    {
+      "aid": 1066,
+      "lot_number": "166",
+      "location": "Newport, Isle of Wight",
+      "event_id": "3cf28b749a11230393b206be"
+    },
+    {
+      "aid": 1066,
+      "lot_number": "168",
+      "location": "St Albans, Hertfordshire",
+      "event_id": "f674e96687cde9b9588ba9a8"
+    },
+    {
+      "aid": 1066,
+      "lot_number": "169",
+      "location": "Southam, Warwickshire",
+      "event_id": "5a884905fcba50cc90ed6b87"
+    },
+    {
+      "aid": 1066,
+      "lot_number": "171",
+      "location": "Watford, Hertfordshire",
+      "event_id": "7bc2f2fcea81176e58a2d03b"
+    },
+    {
+      "aid": 1066,
+      "lot_number": "174",
+      "location": "Ewell, Surrey",
+      "event_id": "e006325635e814ebe106b69f"
+    },
+    {
+      "aid": 1066,
+      "lot_number": "175",
+      "location": "Barnet, Hertfordshire",
+      "event_id": "2f8012b146f0788ab10dc7b3"
+    },
+    {
+      "aid": 1066,
+      "lot_number": "176",
+      "location": "Buntingford, Hertfordshire",
+      "event_id": "4d9dc88ac9ffe81a3158b447"
+    },
+    {
+      "aid": 1066,
+      "lot_number": "252",
+      "location": "Oldbury, West Midlands",
+      "event_id": "1261c8745923dca1b549e9bc"
+    },
+    {
+      "aid": 1066,
+      "lot_number": "258",
+      "location": "Westbury, Wiltshire",
+      "event_id": "792eca235ca63a010994741c"
+    }
+  ],
+  "unresolved_lots": [],
+  "first_party_get_probes": [
+    {
+      "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+      "status": null,
+      "final_url": null,
+      "bytes": 0,
+      "pids": [],
+      "lots": [],
+      "postcodes": []
+    },
+    {
+      "url": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+      "status": null,
+      "final_url": null,
+      "bytes": 0,
+      "pids": [],
+      "lots": [],
+      "postcodes": []
+    },
+    {
+      "url": "https://auctions.savills.co.uk/Results/LotList.aspx?AID=1066",
+      "status": null,
+      "final_url": null,
+      "bytes": 0,
+      "pids": [],
+      "lots": [],
+      "postcodes": []
+    },
+    {
+      "url": "https://auctions.savills.co.uk/Results/LotList?AID=1066",
+      "status": null,
+      "final_url": null,
+      "bytes": 0,
+      "pids": [],
+      "lots": [],
+      "postcodes": []
+    },
+    {
+      "url": "https://auctions.savills.co.uk/Auctions/LotList?AID=1066",
+      "status": null,
+      "final_url": null,
+      "bytes": 0,
+      "pids": [],
+      "lots": [],
+      "postcodes": []
+    }
+  ],
+  "postback_requests": 0,
+  "postback_responses": [],
+  "lot_identity_context": [],
+  "canonical_rows_added": 0,
+  "blocker": "surviving_first_party_2018_02_13_surfaces_do_not_expose_usable_legacy_postback_state",
+  "next_route": "Advance breadth-first to the next unresolved 2018 chronological-manifest auction. Retain this form-state evidence; later correlate any postback targets/PIDs against first-party Savills Data/Auctions documents and archived PID detail URLs without repeating this same form replay."
+}
