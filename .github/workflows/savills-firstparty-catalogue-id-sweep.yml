@@ -1,0 +1,74 @@
+name: Savills First-Party Catalogue ID Sweep
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/savills-firstparty-catalogue-id-sweep.yml'
+      - 'savills_firstparty_catalogue_id_sweep.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: savills-firstparty-catalogue-id-sweep
+  cancel-in-progress: true
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - run: python -m py_compile savills_firstparty_catalogue_id_sweep.py
+      - name: Sweep complete observed Savills catalogue ID namespace
+        run: python savills_firstparty_catalogue_id_sweep.py
+      - name: Verify and preserve
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/source_diagnostics/savills_firstparty_catalogue_id_sweep.json').read_text())
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          for k in ('ids_requested','http_200','valid_catalogue_surfaces','dated_catalogues','oldest_dated_catalogue','total_lot_markers','total_unique_postcodes_on_catalogues','total_detail_links'):
+              print(k.upper(),d.get(k))
+          assert d.get('ids_requested')==d.get('id_max')
+          assert p['sources']['Savills Auctions'].get('historically_complete') is False
+          PY
+          cp data/historical_backfill_progress.json /tmp/progress.json
+          cp data/source_diagnostics/savills_firstparty_catalogue_id_sweep.json /tmp/diag.json
+      - name: Publish conflict-safe
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/diag.json data/source_diagnostics/savills_firstparty_catalogue_id_sweep.json
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          fp=Path('data/historical_backfill_progress.json')
+          fresh=json.loads(fp.read_text());rec=json.loads(Path('/tmp/progress.json').read_text())
+          fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{});rs=rec['sources']['Savills Auctions']
+          for k in ('savills_firstparty_catalogue_id_sweep_last_run','savills_firstparty_catalogue_id_sweep_last_blocker','last_discovery_mode'):
+              if k in rs:fs[k]=rs[k]
+          fs['historically_complete']=False;fs['discovery_exhausted']=False
+          fresh['updated_at']=rec.get('updated_at',fresh.get('updated_at'))
+          fp.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
+          PY
+            git add data/historical_backfill_progress.json data/source_diagnostics/savills_firstparty_catalogue_id_sweep.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist Savills complete catalogue ID sweep'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt*3))
+          done
+          exit 1
