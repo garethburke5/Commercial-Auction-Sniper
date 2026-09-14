@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T00:11:43.341671+00:00",
+  "updated_at": "2026-09-14T01:04:42.486325+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "2018 COMMISSION ARCHIVE BLOCKED",
+      "status": "2018 ROW-ASSET RECOVERY BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3254,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-wayback-direct-commission-namespace-enumeration",
+      "last_discovery_mode": "savills-2018-commercial-row-html-asset-and-identifier-forensics",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -46650,6 +46650,28 @@
         "failing_url_or_route": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidon%26view%3Dcommission%26id%3D&matchType=prefix&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2017&to=2020&limit=5000",
         "message": "Direct Wayback enumeration found 0 distinct archived Savills commission/detail URL(s), checked 0, but added no new canonical 2018 commercial/mixed events.",
         "next_safe_route": "Enumerate archived PropertyAuctions catalogue scripts/forms/images for each exact 2018 AID and lot tuple, recover PID/commission identifiers from HTML/JS/assets, then replay the corresponding first-party Savills detail/document URLs."
+      },
+      "savills_2018_row_asset_last_run": {
+        "at": "2026-09-14T01:04:42.486325+00:00",
+        "route": "savills-2018-commercial-row-html-asset-and-identifier-forensics",
+        "catalogues_attempted": 0,
+        "initial_grid_rows_seen": 0,
+        "commercial_mixed_rows_seen": 0,
+        "commercial_rows_with_numeric_ids": 0,
+        "commercial_rows_with_first_party_candidates": 0,
+        "unique_numeric_ids": 0,
+        "unique_first_party_candidates": 0,
+        "candidate_pages_with_postcodes": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3254,
+        "savills_events_after": 3254
+      },
+      "savills_2018_row_asset_last_blocker": {
+        "at": "2026-09-14T01:04:42.486325+00:00",
+        "route": "savills-2018-commercial-row-html-asset-and-identifier-forensics",
+        "failing_url_or_route": "all validated 2018 PropertyAuctions AID catalogue row markup",
+        "message": "Forensic pass inspected 0 commercial/mixed row(s), found identifiers on 0, first-party row candidates on 0, and 0 candidate page(s) with postcodes, but no row has yet been promoted without deterministic full-address identity plus Savills evidence.",
+        "next_safe_route": "Use the persisted per-row numeric ID index and exact asset URLs to query Wayback/Common Crawl by exact discovered identifier/asset basename and sibling directory patterns; reconcile any address-bearing snapshot to AID/date/lot before History V2 promotion."
       }
     }
   }
