@@ -1,0 +1,46 @@
+name: Savills 2018 Wayback AID Identity Recovery
+on:
+  push:
+    paths:
+      - 'savills_2018_wayback_aid_identity_recovery.py'
+      - '.github/workflows/savills-2018-wayback-aid-identity-recovery.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests pypdf fonttools
+      - run: python -m py_compile savills_2018_wayback_aid_identity_recovery.py
+      - name: Execute Wayback AID identity recovery
+        run: python savills_2018_wayback_aid_identity_recovery.py
+      - name: Persist result onto freshest production main
+        run: |
+          set -euo pipefail
+          cp data/source_diagnostics/savills_2018_wayback_aid_identity_recovery.json /tmp/wayback.json
+          cp data/property_history.json /tmp/history.json
+          cp data/historical_backfill_progress.json /tmp/progress.json
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/wayback.json data/source_diagnostics/savills_2018_wayback_aid_identity_recovery.json
+            cp /tmp/history.json data/property_history.json
+            cp /tmp/progress.json data/historical_backfill_progress.json
+            git add data/source_diagnostics/savills_2018_wayback_aid_identity_recovery.json data/property_history.json data/historical_backfill_progress.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist Savills 2018 Wayback AID recovery'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt*4))
+          done
+          exit 1
