@@ -112,3 +112,4 @@ def main():
     p['updated_at']=diag['at']; PROGRESS.write_text(json.dumps(p,indent=2,ensure_ascii=False)); DIAG.parent.mkdir(parents=True,exist_ok=True); DIAG.write_text(json.dumps(diag,indent=2,ensure_ascii=False))
     print(json.dumps({k:v for k,v in diag.items() if k not in ('lots','cdx_queries')},indent=2))
 if __name__=='__main__': main()
+# trigger: 2026-09-14 exact AID+lot archive pass
