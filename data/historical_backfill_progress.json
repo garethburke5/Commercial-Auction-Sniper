@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T00:10:17.022434+00:00",
+  "updated_at": "2026-09-14T00:11:43.341671+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -127,7 +127,7 @@
       "last_run": "2026-09-09T06:22:24.562312+00:00"
     },
     "Savills Auctions": {
-      "status": "2018 DETAIL RECOVERY BLOCKED",
+      "status": "2018 COMMISSION ARCHIVE BLOCKED",
       "auctions_discovered": 77,
       "auctions_completed": 77,
       "lots_captured": 3254,
@@ -226,7 +226,7 @@
       "last_expected_lots": 5,
       "last_commercial_feed": "https://auctions.savills.co.uk/auctions/july-2022-95/page-1/quantity-100/property_type-253/sort-by-0",
       "last_history_event_count": 3254,
-      "last_discovery_mode": "savills-2018-manifest-aid-to-first-party-catalogue-detail-live-then-wayback",
+      "last_discovery_mode": "savills-2018-wayback-direct-commission-namespace-enumeration",
       "last_success": "2026-09-13T06:05:02.574081+00:00",
       "last_run_rows": 178,
       "last_run_failures": 0,
@@ -46598,6 +46598,58 @@
         "message": "Processed 14 validated 2018 AID catalogue(s), found 0 direct first-party detail link(s), but added no new canonical History V2 events.",
         "next_safe_route": "Enumerate archived Savills index.php commission/PID namespaces and catalogue HTML scripts/forms for the exact 2018 AIDs and lot numbers, then replay matching first-party detail captures before promotion.",
         "implemented_fallback": "This run already falls back from each live first-party catalogue/detail URL to exact Wayback captures and parses recovered Savills detail pages with the canonical Savills collector."
+      },
+      "savills_2018_commission_archive_last_run": {
+        "at": "2026-09-14T00:11:43.341671+00:00",
+        "route": "savills-2018-wayback-direct-commission-namespace-enumeration",
+        "target_manifest_dates": [
+          "2018-02-13",
+          "2018-02-14",
+          "2018-03-26",
+          "2018-04-12",
+          "2018-05-09",
+          "2018-06-07",
+          "2018-06-18",
+          "2018-07-24",
+          "2018-08-01",
+          "2018-09-26",
+          "2018-09-27",
+          "2018-11-26",
+          "2018-11-29",
+          "2018-12-11"
+        ],
+        "cdx_queries": [
+          {
+            "prefix": "https://auctions.savills.co.uk/index.php?option=com_bidon&view=commission&id=",
+            "diagnostic": {
+              "status": 200,
+              "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidon%26view%3Dcommission%26id%3D&matchType=prefix&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2017&to=2020&limit=5000",
+              "rows": 0
+            }
+          },
+          {
+            "prefix": "http://auctions.savills.co.uk/index.php?option=com_bidon&view=commission&id=",
+            "diagnostic": {
+              "status": 200,
+              "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidon%26view%3Dcommission%26id%3D&matchType=prefix&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2017&to=2020&limit=5000",
+              "rows": 0
+            }
+          }
+        ],
+        "unique_commission_urls": 0,
+        "snapshots_checked": 0,
+        "commercial_mixed_rows_recovered": 0,
+        "canonical_events_added": 0,
+        "savills_events_before": 3254,
+        "savills_events_after": 3254,
+        "attempt_samples": []
+      },
+      "savills_2018_commission_archive_last_blocker": {
+        "at": "2026-09-14T00:11:43.341671+00:00",
+        "route": "savills-2018-wayback-direct-commission-namespace-enumeration",
+        "failing_url_or_route": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidon%26view%3Dcommission%26id%3D&matchType=prefix&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2017&to=2020&limit=5000",
+        "message": "Direct Wayback enumeration found 0 distinct archived Savills commission/detail URL(s), checked 0, but added no new canonical 2018 commercial/mixed events.",
+        "next_safe_route": "Enumerate archived PropertyAuctions catalogue scripts/forms/images for each exact 2018 AID and lot tuple, recover PID/commission identifiers from HTML/JS/assets, then replay the corresponding first-party Savills detail/document URLs."
       }
     }
   }

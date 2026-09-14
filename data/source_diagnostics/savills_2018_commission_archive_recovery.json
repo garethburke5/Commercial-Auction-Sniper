@@ -1,0 +1,45 @@
+{
+  "at": "2026-09-14T00:11:43.341671+00:00",
+  "route": "savills-2018-wayback-direct-commission-namespace-enumeration",
+  "target_manifest_dates": [
+    "2018-02-13",
+    "2018-02-14",
+    "2018-03-26",
+    "2018-04-12",
+    "2018-05-09",
+    "2018-06-07",
+    "2018-06-18",
+    "2018-07-24",
+    "2018-08-01",
+    "2018-09-26",
+    "2018-09-27",
+    "2018-11-26",
+    "2018-11-29",
+    "2018-12-11"
+  ],
+  "cdx_queries": [
+    {
+      "prefix": "https://auctions.savills.co.uk/index.php?option=com_bidon&view=commission&id=",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=https%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidon%26view%3Dcommission%26id%3D&matchType=prefix&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2017&to=2020&limit=5000",
+        "rows": 0
+      }
+    },
+    {
+      "prefix": "http://auctions.savills.co.uk/index.php?option=com_bidon&view=commission&id=",
+      "diagnostic": {
+        "status": 200,
+        "request_url": "https://web.archive.org/cdx/search/cdx?url=http%3A%2F%2Fauctions.savills.co.uk%2Findex.php%3Foption%3Dcom_bidon%26view%3Dcommission%26id%3D&matchType=prefix&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&filter=mimetype%3Atext%2Fhtml&collapse=urlkey&from=2017&to=2020&limit=5000",
+        "rows": 0
+      }
+    }
+  ],
+  "unique_commission_urls": 0,
+  "snapshots_checked": 0,
+  "commercial_mixed_rows_recovered": 0,
+  "canonical_events_added": 0,
+  "savills_events_before": 3254,
+  "savills_events_after": 3254,
+  "attempt_samples": []
+}
