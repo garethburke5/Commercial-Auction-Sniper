@@ -1,0 +1,2430 @@
+{
+  "at": "2026-09-14T13:47:20.048529+00:00",
+  "route": "savills-2018-commoncrawl-throttled-2018-index-recovery",
+  "unresolved_lots_input": 58,
+  "aids": [
+    "1067",
+    "1068",
+    "1069",
+    "1071",
+    "1072"
+  ],
+  "indexes_selected": 12,
+  "index_ids": [
+    "CC-MAIN-2018-51",
+    "CC-MAIN-2018-47",
+    "CC-MAIN-2018-43",
+    "CC-MAIN-2018-39",
+    "CC-MAIN-2018-34",
+    "CC-MAIN-2018-30",
+    "CC-MAIN-2018-26",
+    "CC-MAIN-2018-22",
+    "CC-MAIN-2018-17",
+    "CC-MAIN-2018-13",
+    "CC-MAIN-2018-09",
+    "CC-MAIN-2018-05"
+  ],
+  "queries_executed": 240,
+  "queries_ok": 99,
+  "queries_200": 18,
+  "queries_404_empty": 81,
+  "queries_failed": 141,
+  "unique_cdx_records": 21,
+  "warc_records_targeted": 21,
+  "warc_records_fetched": 21,
+  "text_pdf_documents_parsed": 20,
+  "safe_unique_rows_ready": 0,
+  "accepted_rows": [],
+  "per_lot": [
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "9",
+      "location": "Ashtead, Surrey",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "43",
+      "location": "London E17",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "82",
+      "location": "Erdington, West Midlands",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "102",
+      "location": "London N17",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "111",
+      "location": "London SE15",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "119",
+      "location": "Luton, Bedfordshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "147",
+      "location": "London W11",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "148",
+      "location": "London W11",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "153",
+      "location": "London SE13",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "167",
+      "location": "Grays, Essex",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-11-26",
+      "aid": 1072,
+      "lot_number": "174",
+      "location": "London W9",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-09-26",
+      "aid": 1071,
+      "lot_number": "27",
+      "location": "London N3",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "41D",
+      "location": "Ascot, Berkshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "88A",
+      "location": "Enfield, Middlesex",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "94",
+      "location": "Romford, Essex",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "127",
+      "location": "London SW12",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "140",
+      "location": "London SE9",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "147",
+      "location": "Chatham, Kent",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "148",
+      "location": "Chatham, Kent",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "153",
+      "location": "Rotherham, South Yorkshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "161",
+      "location": "Farnborough, Hampshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-06-18",
+      "aid": 1069,
+      "lot_number": "164",
+      "location": "Immingham, Lincolnshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "52",
+      "location": "Maidstone, Kent",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "55",
+      "location": "Redcar, North Yorkshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "57",
+      "location": "London SE15",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "58",
+      "location": "London SE15",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "60",
+      "location": "Billingham, North Yorkshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "83",
+      "location": "Rochester, Kent",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "131",
+      "location": "New Malden, Surrey",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "143",
+      "location": "Ilford, Essex IG4",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "144",
+      "location": "Helston, Cornwall",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "150",
+      "location": "Heston, Middlesex",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "151",
+      "location": "Farnborough, Hampshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "153",
+      "location": "Chatham, Kent",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-05-09",
+      "aid": 1068,
+      "lot_number": "154",
+      "location": "Chatham, Kent",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "26",
+      "location": "Farnborough, Hampshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "27",
+      "location": "Farnborough, Hampshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "28",
+      "location": "Aldershot, Hampshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "29",
+      "location": "Aldershot, Hampshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "37",
+      "location": "London E17",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "49",
+      "location": "London E10",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "76",
+      "location": "London SW6",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "109",
+      "location": "London SE25",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "111",
+      "location": "Romford, Essex",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "116",
+      "location": "London SE19",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "117",
+      "location": "London SE9",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "144",
+      "location": "London W8",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "147",
+      "location": "London SW12",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "148",
+      "location": "Aldershot, Hampshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "171",
+      "location": "Rochester, Kent",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "172",
+      "location": "Hilgay, Norfolk",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "175",
+      "location": "London N17",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "181",
+      "location": "London SW17",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "187",
+      "location": "Farnborough, Hampshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "188",
+      "location": "Farnborough, Hampshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "189",
+      "location": "Mitcham, Surrey",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "190",
+      "location": "Ilford, Essex",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    },
+    {
+      "auction_date": "2018-03-26",
+      "aid": 1067,
+      "lot_number": "201",
+      "location": "Immingham, Lincolnshire",
+      "identity_candidates": 0,
+      "candidate_samples": []
+    }
+  ],
+  "query_diagnostics": [
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": 200,
+      "ok": true,
+      "rows": 6,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": 200,
+      "ok": true,
+      "rows": 6,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 2
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": 200,
+      "ok": true,
+      "rows": 1,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": 200,
+      "ok": true,
+      "rows": 1,
+      "attempts": 2
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 2
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 2
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": 200,
+      "ok": true,
+      "rows": 1,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": 200,
+      "ok": true,
+      "rows": 1,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 2
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 2
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": 200,
+      "ok": true,
+      "rows": 1,
+      "attempts": 2
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": 200,
+      "ok": true,
+      "rows": 1,
+      "attempts": 2
+    },
+    {
+      "index": "CC-MAIN-2018-51",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-51-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab57c50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-47-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab572d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-47-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab4b350>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-47-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab49b10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-47-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab4b550>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-47-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab4b490>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-47-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab5a350>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-47-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab54110>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-47-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab6b050>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-47-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab49f10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-47-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab583d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-47-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab5b250>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-47-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab4bf10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-47-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab54550>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 3
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 3
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": 200,
+      "ok": true,
+      "rows": 1,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-47",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": 200,
+      "ok": true,
+      "rows": 1,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 2
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": 200,
+      "ok": true,
+      "rows": 2,
+      "attempts": 2
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": 200,
+      "ok": true,
+      "rows": 2,
+      "attempts": 2
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 2
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-43",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab7f990>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab7cfd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ac09810>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab68d50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830acdab90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab48890>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab49e10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab7d850>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab6a250>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab55b90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab55190>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab7e450>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab59650>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab49f50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab4a890>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab54c90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab49b90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab7f510>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab59bd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-39",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-39-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab93490>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab904d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab90450>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab4bc50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab69950>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab91990>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab55510>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab6ad10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab912d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab4b050>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab59850>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab58590>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab90d90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab55e50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab494d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab93e10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab48c50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ac0b810>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab93e50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab55210>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-34",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-34-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab7d410>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab7c090>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830acdb610>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab2abd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab69a90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab59910>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab55550>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab5bc90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab91790>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab574d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab4a010>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab4b250>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab5ab10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab20650>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab90990>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab54690>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab93c90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-30-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab4a5d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-30",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 2
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": 400,
+      "ok": false,
+      "error": "Error: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": 200,
+      "ok": true,
+      "rows": 7,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": 200,
+      "ok": true,
+      "rows": 7,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": 200,
+      "ok": true,
+      "rows": 1,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": 200,
+      "ok": true,
+      "rows": 1,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-26",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": 200,
+      "ok": true,
+      "rows": 1,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": 200,
+      "ok": true,
+      "rows": 1,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-22",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 3
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": 404,
+      "ok": true,
+      "rows": 0,
+      "attempts": 1
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-17-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab97810>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-17-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab95cd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-17-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abad310>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-17-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abaf350>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-17-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab97f50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-17-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab97050>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-17-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab23810>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-17-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab6b810>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-17",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-17-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ac08c50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab7dad0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab97ad0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab21d10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abac550>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abad850>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abaf9d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab16090>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab95dd0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ad89ed0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab3b190>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ac08b90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab20110>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abae610>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abaf550>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab91410>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab93f50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830c0c1f50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab68290>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab6b850>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab94190>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-13",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-13-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab95390>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab92650>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab93390>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab7f790>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab6ae50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab68a10>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab568d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abad2d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab58590>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab94c50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab68210>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab54910>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab54f90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab58610>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab54310>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830acdb390>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abae710>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ad89f90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab6bad0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ac0a590>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-09",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-09-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab5a990>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abad490>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1067&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abae110>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abb8a90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1067/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab0d710>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abbb6d0>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abbb990>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abafd90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1068/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1068%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab7e290>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab58650>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ad89f90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab95a50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1069/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab59350>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abb8910>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1071&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab68790>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1071/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1071%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ac0be50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=https%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abbb710>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "https://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=https%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab17e50>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "http://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=http%3A%2F%2Fwww.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830abafc90>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    },
+    {
+      "index": "CC-MAIN-2018-05",
+      "pattern": "http://auctions.savills.co.uk/Data/Auctions/1072/*",
+      "status": null,
+      "ok": false,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='index.commoncrawl.org', port=443): Max retries exceeded with url: /CC-MAIN-2018-05-index?url=http%3A%2F%2Fauctions.savills.co.uk%2FData%2FAuctions%2F1072%2F%2A&output=json&filter=status%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='index.commoncrawl.org', port=443) at 0x7f830ab68650>, 'Connection to index.commoncrawl.org timed out. (connect timeout=8)'))",
+      "attempts": 4
+    }
+  ],
+  "warc_failures": [],
+  "canonical_events_before_apply": 3307,
+  "canonical_events_after_apply": 3307,
+  "canonical_events_added": 0
+}
