@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-14T15:21:03.584464+00:00",
+  "updated_at": "2026-09-14T15:28:11.556903+00:00",
   "sources": {
     "Allsop Commercial": {
       "status": "CAUGHT UP",
@@ -59281,7 +59281,7 @@
         "message": "Wayback Availability API route parsed 0 catalogue snapshots, exposed 0 PID URLs, parsed 0 detail snapshots, produced 0 unique identities and persisted 0 canonical events. Per-lot blockers are persisted in the diagnostic."
       },
       "savills_2018_wayback_cdx_direct_last_run": {
-        "at": "2026-09-14T15:21:03.565495+00:00",
+        "at": "2026-09-14T15:28:11.538677+00:00",
         "route": "savills-2018-wayback-cdx-direct-multivariant-replay",
         "unresolved_lots_input": 58,
         "aids": [
@@ -59292,21 +59292,21 @@
           "1072"
         ],
         "cdx_queries": 25,
-        "cdx_queries_ok": 19,
+        "cdx_queries_ok": 22,
         "aid_asset_cdx_records": 16,
         "aid_asset_documents_parsed": 0,
         "pid_urls_discovered": 0,
         "pid_cdx_records": 0,
         "documents_parsed_total": 0,
         "replay_attempts": 64,
-        "replay_200": 25,
+        "replay_200": 33,
         "safe_unique_rows_ready": 0,
         "canonical_events_before_apply": 3307,
         "canonical_events_after_apply": 3307,
         "canonical_events_added": 0
       },
       "savills_2018_wayback_cdx_direct_blocker": {
-        "at": "2026-09-14T15:21:03.565495+00:00",
+        "at": "2026-09-14T15:28:11.538677+00:00",
         "route": "savills-2018-wayback-cdx-direct-multivariant-replay",
         "message": "Direct CDX timestamp/original multi-variant replay recovered 16 AID/asset captures, parsed 0 total documents, exposed 0 PID URLs, produced 0 unique identities and persisted 0 canonical events. Per-lot blockers and replay statuses are persisted in the diagnostic."
       }

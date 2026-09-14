@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-14T15:21:03.565495+00:00",
+  "at": "2026-09-14T15:28:11.538677+00:00",
   "route": "savills-2018-wayback-cdx-direct-multivariant-replay",
   "unresolved_lots_input": 58,
   "aids": [
@@ -10,14 +10,14 @@
     "1072"
   ],
   "cdx_queries": 25,
-  "cdx_queries_ok": 19,
+  "cdx_queries_ok": 22,
   "aid_asset_cdx_records": 16,
   "aid_asset_documents_parsed": 0,
   "pid_urls_discovered": 0,
   "pid_cdx_records": 0,
   "documents_parsed_total": 0,
   "replay_attempts": 64,
-  "replay_200": 25,
+  "replay_200": 33,
   "safe_unique_rows_ready": 0,
   "canonical_events_before_apply": 3307,
   "canonical_events_after_apply": 3307,
@@ -574,8 +574,9 @@
     },
     {
       "pattern": "www.auctions.savills.co.uk/Data/Auctions/1067/*",
-      "status": null,
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.auctions.savills.co.uk%2FData%2FAuctions%2F1067%2F%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f616294fa10>, 'Connection to web.archive.org timed out. (connect timeout=10)'))"
+      "status": 200,
+      "bytes": 3,
+      "rows": 0
     },
     {
       "pattern": "propertyauctions.com/Results/LotList.aspx?AID=1068*",
@@ -585,8 +586,9 @@
     },
     {
       "pattern": "www.propertyauctions.com/Results/LotList.aspx?AID=1068*",
-      "status": null,
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1068%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f616294f190>, 'Connection to web.archive.org timed out. (connect timeout=10)'))"
+      "status": 200,
+      "bytes": 3,
+      "rows": 0
     },
     {
       "pattern": "auctions.savills.co.uk/Results/LotList.aspx?AID=1068*",
@@ -608,23 +610,27 @@
     },
     {
       "pattern": "propertyauctions.com/Results/LotList.aspx?AID=1069*",
-      "status": null,
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f6162889c90>, 'Connection to web.archive.org timed out. (connect timeout=10)'))"
+      "status": 200,
+      "bytes": 3,
+      "rows": 0
     },
     {
       "pattern": "www.propertyauctions.com/Results/LotList.aspx?AID=1069*",
-      "status": null,
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1069%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f6162921ad0>, 'Connection to web.archive.org timed out. (connect timeout=10)'))"
+      "status": 200,
+      "bytes": 3,
+      "rows": 0
     },
     {
       "pattern": "auctions.savills.co.uk/Results/LotList.aspx?AID=1069*",
-      "status": null,
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=auctions.savills.co.uk%2FResults%2FLotList.aspx%3FAID%3D1069%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f6162912ad0>, 'Connection to web.archive.org timed out. (connect timeout=10)'))"
+      "status": 200,
+      "bytes": 3,
+      "rows": 0
     },
     {
       "pattern": "auctions.savills.co.uk/Data/Auctions/1069/*",
-      "status": null,
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=auctions.savills.co.uk%2FData%2FAuctions%2F1069%2F%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f61628fe8d0>, 'Connection to web.archive.org timed out. (connect timeout=10)'))"
+      "status": 200,
+      "bytes": 3,
+      "rows": 0
     },
     {
       "pattern": "www.auctions.savills.co.uk/Data/Auctions/1069/*",
@@ -664,21 +670,18 @@
     },
     {
       "pattern": "propertyauctions.com/Results/LotList.aspx?AID=1072*",
-      "status": 200,
-      "bytes": 3,
-      "rows": 0
+      "status": null,
+      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode&collapse=digest (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
     },
     {
       "pattern": "www.propertyauctions.com/Results/LotList.aspx?AID=1072*",
-      "status": 200,
-      "bytes": 3,
-      "rows": 0
+      "status": null,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.propertyauctions.com%2FResults%2FLotList.aspx%3FAID%3D1072%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f6bbc7b2510>, 'Connection to web.archive.org timed out. (connect timeout=10)'))"
     },
     {
       "pattern": "auctions.savills.co.uk/Results/LotList.aspx?AID=1072*",
-      "status": 200,
-      "bytes": 3,
-      "rows": 0
+      "status": null,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=auctions.savills.co.uk%2FResults%2FLotList.aspx%3FAID%3D1072%2A&output=json&filter=statuscode%3A200&fl=timestamp%2Coriginal%2Cmimetype%2Cdigest%2Cstatuscode&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f6bbc7b1290>, 'Connection to web.archive.org timed out. (connect timeout=10)'))"
     },
     {
       "pattern": "auctions.savills.co.uk/Data/Auctions/1072/*",
@@ -759,10 +762,8 @@
     },
     {
       "url": "https://web.archive.org/web/20180730080358if_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_14a.jpg",
-      "status": 200,
-      "final_url": "https://web.archive.org/web/20180730080358if_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_14a.jpg",
-      "bytes": 94218,
-      "content_type": "image/jpeg"
+      "status": null,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20180730080358if_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_14a.jpg (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7f6bbc7b1690>, 'Connection to web.archive.org timed out. (connect timeout=10)'))"
     },
     {
       "url": "https://web.archive.org/web/20180730080358/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_14a.jpg",
@@ -780,18 +781,22 @@
     },
     {
       "url": "https://web.archive.org/web/20180730080257id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_1a.jpg",
-      "status": null,
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20180730080257id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_1a.jpg (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20180730080257id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_1a.jpg",
+      "bytes": 91078,
+      "content_type": "image/jpeg"
     },
     {
       "url": "https://web.archive.org/web/20180730080257if_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_1a.jpg",
       "status": null,
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20180730080257if_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_1a.jpg (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "error": "ReadTimeout: HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=10)"
     },
     {
       "url": "https://web.archive.org/web/20180730080257/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_1a.jpg",
-      "status": null,
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20180730080257/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_1a.jpg (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20180730080257/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_1a.jpg",
+      "bytes": 91078,
+      "content_type": "image/jpeg"
     },
     {
       "url": "http://web.archive.org/web/20180730080257id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_1a.jpg",
@@ -802,18 +807,24 @@
     },
     {
       "url": "https://web.archive.org/web/20180730080210id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_31a.jpg",
-      "status": null,
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20180730080210id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_31a.jpg (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20180730080210id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_31a.jpg",
+      "bytes": 88091,
+      "content_type": "image/jpeg"
     },
     {
       "url": "https://web.archive.org/web/20180730080210if_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_31a.jpg",
-      "status": null,
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20180730080210if_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_31a.jpg (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20180730080210if_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_31a.jpg",
+      "bytes": 88091,
+      "content_type": "image/jpeg"
     },
     {
       "url": "https://web.archive.org/web/20180730080210/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_31a.jpg",
-      "status": null,
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20180730080210/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_31a.jpg (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20180730080210/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_31a.jpg",
+      "bytes": 88091,
+      "content_type": "image/jpeg"
     },
     {
       "url": "http://web.archive.org/web/20180730080210id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_31a.jpg",
@@ -824,18 +835,24 @@
     },
     {
       "url": "https://web.archive.org/web/20180730080718id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_51a.jpg",
-      "status": null,
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20180730080718id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_51a.jpg (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20180730080718id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_51a.jpg",
+      "bytes": 98941,
+      "content_type": "image/jpeg"
     },
     {
       "url": "https://web.archive.org/web/20180730080718if_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_51a.jpg",
-      "status": null,
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20180730080718if_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_51a.jpg (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20180730080718if_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_51a.jpg",
+      "bytes": 98941,
+      "content_type": "image/jpeg"
     },
     {
       "url": "https://web.archive.org/web/20180730080718/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_51a.jpg",
-      "status": null,
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20180730080718/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_51a.jpg (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20180730080718/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_51a.jpg",
+      "bytes": 98941,
+      "content_type": "image/jpeg"
     },
     {
       "url": "http://web.archive.org/web/20180730080718id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_51a.jpg",
@@ -868,8 +885,10 @@
     },
     {
       "url": "https://web.archive.org/web/20180730080048id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_55a.jpg",
-      "status": null,
-      "error": "ConnectionError: HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /web/20180730080048id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_55a.jpg (Caused by NewConnectionError(\"HTTPSConnection(host='web.archive.org', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))"
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20180730080048id_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_55a.jpg",
+      "bytes": 68474,
+      "content_type": "image/jpeg"
     },
     {
       "url": "https://web.archive.org/web/20180730080048if_/http://auctions.savills.co.uk/Data/Auctions/1068/Images/hp_55a.jpg",
