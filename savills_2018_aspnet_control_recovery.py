@@ -3,7 +3,8 @@ import html,json,re
 from datetime import datetime,timezone
 from pathlib import Path
 from urllib.parse import urljoin
-import requests
+import requests,urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 SOURCE='Savills Auctions'
 IDENT=Path('data/source_diagnostics/savills_2018_identity_forensics.json')
@@ -33,10 +34,25 @@ def hidden_fields(text):
     return out
 
 def fetch(url,method='GET',data=None):
-    try:
-        r=requests.request(method,url,headers=UA,data=data,timeout=(8,25),allow_redirects=True)
-        return r, None
-    except Exception as e: return None,f'{type(e).__name__}: {e}'
+    variants=[(url,True,'original')]
+    if 'propertyauctions.com' in url.lower():
+        variants=[]
+        for u,label in [
+            (url,'original'),
+            (url.replace('https://www.propertyauctions.com','https://propertyauctions.com'),'https-no-www'),
+            (url.replace('https://www.propertyauctions.com','http://www.propertyauctions.com'),'http-www'),
+            (url.replace('https://www.propertyauctions.com','http://propertyauctions.com'),'http-no-www')]:
+            if u not in [x[0] for x in variants]: variants.append((u,True,label))
+        variants.append((url,False,'legacy-tls-readonly-fallback'))
+    errors=[]
+    for u,verify,label in variants:
+        try:
+            r=requests.request(method,u,headers=UA,data=data,timeout=(8,25),allow_redirects=True,verify=verify)
+            r._recovery_variant=label
+            return r, None
+        except Exception as e:
+            errors.append(f'{label}: {type(e).__name__}: {e}')
+    return None,' | '.join(errors)
 
 def main():
     ident=load(IDENT); lots=[x for x in ident.get('lots',[]) if not x.get('resolved_identity')]
@@ -44,11 +60,11 @@ def main():
     db=load(HISTORY); before=count(db)
     by_aid={}
     for x in lots: by_aid.setdefault(str(x.get('aid')),[]).append(x)
-    catalogue_results=[]; lot_results=[]; total_postbacks=0; total_scripts=0; postback_responses=0; identity_hits=0
+    catalogue_results=[]; lot_results=[]; total_postbacks=0; total_scripts=0; postback_responses=0
     for aid,clues in sorted(by_aid.items()):
         url=str(clues[0].get('catalogue_url') or f'https://www.propertyauctions.com/Results/LotList.aspx?AID={aid}')
         r,err=fetch(url)
-        if not r:
+        if r is None:
             catalogue_results.append({'aid':aid,'url':url,'error':err}); continue
         text=r.text
         scripts=sorted(set(urljoin(r.url,x) for x in SCRIPT.findall(text)))
@@ -59,8 +75,8 @@ def main():
         for su in scripts:
             if any(k in su.lower() for k in ('webresource.axd','scriptresource.axd','telerik','ajax','lot','result')):
                 rr,e=fetch(su)
-                body=rr.text if rr and 'text' in rr.headers.get('content-type','') else ''
-                resource_probes.append({'url':su,'status':rr.status_code if rr else None,'final_url':rr.url if rr else None,'bytes':len(rr.content) if rr else 0,'mentions_postback':('__doPostBack' in body or '__EVENTTARGET' in body),'mentions_pid':bool(re.search(r'\bPID\b|property.?id|lot.?id',body,re.I)),'error':e})
+                body=rr.text if rr is not None and 'text' in rr.headers.get('content-type','') else ''
+                resource_probes.append({'url':su,'status':rr.status_code if rr is not None else None,'final_url':rr.url if rr is not None else None,'recovery_variant':getattr(rr,'_recovery_variant',None) if rr is not None else None,'bytes':len(rr.content) if rr is not None else 0,'mentions_postback':('__doPostBack' in body or '__EVENTTARGET' in body),'mentions_pid':bool(re.search(r'\bPID\b|property.?id|lot.?id',body,re.I)),'error':e})
         row_html=[]
         for raw in ROW.findall(text):
             tx=clean(raw)
@@ -77,8 +93,7 @@ def main():
                     matches.append({'text':tx[:1200],'postbacks':[{'target':a,'argument':b} for a,b in row_pbs],'hrefs':hrefs[:20]})
             exact=[]
             for m in matches:
-                for pb in m['postbacks']:
-                    exact.append((pb['target'],pb['argument'],'row'))
+                for pb in m['postbacks']: exact.append((pb['target'],pb['argument'],'row'))
             for target,arg in pbs:
                 blob=f'{target} {arg}'
                 if lot and re.search(rf'(?<!\d)0*{re.escape(lot)}(?!\d)',blob): exact.append((target,arg,'page-lot-token'))
@@ -86,25 +101,27 @@ def main():
             probes=[]
             for target,arg,why in exact:
                 payload=dict(h); payload['__EVENTTARGET']=target; payload['__EVENTARGUMENT']=arg
-                rr,e=fetch(r.url,'POST',payload)
-                postback_responses+=1
-                body=rr.text if rr else ''
+                rr,e=fetch(r.url,'POST',payload); postback_responses+=1
+                body=rr.text if rr is not None else ''
                 pcs=sorted(set(x.upper() for x in POSTCODE.findall(clean(body))))[:20]
                 loc_hit=loc.lower() in clean(body).lower() if loc and body else False
                 identity=bool(pcs and loc_hit)
-                if identity: identity_hits+=1
-                probes.append({'target':target,'argument':arg,'why':why,'status':rr.status_code if rr else None,'final_url':rr.url if rr else None,'postcodes':pcs,'location_hit':loc_hit,'identity_candidate':identity,'error':e})
+                probes.append({'target':target,'argument':arg,'why':why,'status':rr.status_code if rr is not None else None,'final_url':rr.url if rr is not None else None,'recovery_variant':getattr(rr,'_recovery_variant',None) if rr is not None else None,'postcodes':pcs,'location_hit':loc_hit,'identity_candidate':identity,'error':e})
             lot_results.append({'auction_date':clue.get('auction_date'),'aid':aid,'lot_number':lot,'location':loc,'catalogue_url':url,'matching_rows':matches,'exact_control_candidates':len(exact),'postback_probes':probes,'blocker':None if any(x['identity_candidate'] for x in probes) else 'matching catalogue row exposes no replayable row/detail postback yielding a location+postcode identity'})
-        catalogue_results.append({'aid':aid,'url':url,'status':r.status_code,'final_url':r.url,'script_urls':scripts,'resource_probes':resource_probes,'hidden_field_names':sorted(h.keys()),'page_postbacks':[{'target':a,'argument':b} for a,b in pbs[:300]],'page_postback_count':len(pbs),'rows_seen':len(row_html)})
-    diag={'at':now(),'route':'savills-2018-propertyauctions-aspnet-resource-control-reconstruction','input_unresolved':len(lots),'catalogues_attempted':len(by_aid),'catalogues_fetched':sum(1 for x in catalogue_results if x.get('status')==200),'script_resources_discovered':total_scripts,'postback_controls_discovered':total_postbacks,'postback_responses_replayed':postback_responses,'lots_with_location_postcode_identity_candidate':sum(1 for x in lot_results if any(y.get('identity_candidate') for y in x.get('postback_probes',[]))),'canonical_rows_added':0,'savills_events_before':before,'savills_events_after':before,'catalogues':catalogue_results,'lots':lot_results}
+        catalogue_results.append({'aid':aid,'url':url,'status':r.status_code,'final_url':r.url,'recovery_variant':getattr(r,'_recovery_variant',None),'script_urls':scripts,'resource_probes':resource_probes,'hidden_field_names':sorted(h.keys()),'page_postbacks':[{'target':a,'argument':b} for a,b in pbs[:300]],'page_postback_count':len(pbs),'rows_seen':len(row_html)})
+    diag={'at':now(),'route':'savills-2018-propertyauctions-aspnet-resource-control-reconstruction-with-legacy-host-fallback','input_unresolved':len(lots),'catalogues_attempted':len(by_aid),'catalogues_fetched':sum(1 for x in catalogue_results if x.get('status')==200),'script_resources_discovered':total_scripts,'postback_controls_discovered':total_postbacks,'postback_responses_replayed':postback_responses,'lots_with_location_postcode_identity_candidate':sum(1 for x in lot_results if any(y.get('identity_candidate') for y in x.get('postback_probes',[]))),'canonical_rows_added':0,'savills_events_before':before,'savills_events_after':before,'catalogues':catalogue_results,'lots':lot_results}
     hits=diag['lots_with_location_postcode_identity_candidate']
     if hits:
         blocker=f'{hits} unresolved lot(s) produced location+postcode postback candidates, but automatic promotion is withheld until full address and first-party Savills evidence are uniquely reconciled.'
         nxt='Validate the persisted postback candidates against first-party Savills catalogue/detail/document evidence and canonicalise only unique full-address identities; then continue unresolved 2018 lots.'
         status='2018 ASPNET CONTROL EVIDENCE FOUND'
+    elif diag['catalogues_fetched']==0:
+        blocker='PropertyAuctions catalogue transport remains blocked even after canonical/non-www HTTP(S) variants and a read-only legacy TLS fallback; no ASP.NET control surface could be inspected.'
+        nxt='Use archived PropertyAuctions AID HTML captures as the control-source instead of the live host, extract form targets/resource URLs there, and replay only surviving first-party/static resources.'
+        status='2018 ASPNET TRANSPORT BLOCKED'
     else:
-        blocker='Legacy PropertyAuctions ASP.NET reconstruction found no exact row/detail control whose replay exposes a deterministic location+postcode identity for the unresolved 2018 lots.'
-        nxt='Persist per-lot ASP.NET blocker, then move breadth-first to the next unresolved 2018 auction and enumerate archived/static document and image asset basenames from its exact AID page; search those identifiers against first-party Savills PDF/detail namespaces before progressing to 2017.'
+        blocker='Legacy PropertyAuctions ASP.NET reconstruction successfully fetched catalogue surfaces but found no exact row/detail control whose replay exposes a deterministic location+postcode identity for the unresolved 2018 lots.'
+        nxt='Persist per-lot ASP.NET blocker, then enumerate archived/static document and image asset basenames from each exact AID page and search those identifiers against first-party Savills PDF/detail namespaces, breadth-first across the remaining 2018 auctions.'
         status='2018 ASPNET CONTROL BLOCKED'
     diag['blocker']=blocker; diag['next_route']=nxt
     s['savills_2018_aspnet_control_last_run']={k:v for k,v in diag.items() if k not in ('catalogues','lots')}
@@ -113,4 +130,4 @@ def main():
     p['updated_at']=diag['at']; PROGRESS.write_text(json.dumps(p,indent=2,ensure_ascii=False)); DIAG.parent.mkdir(parents=True,exist_ok=True); DIAG.write_text(json.dumps(diag,indent=2,ensure_ascii=False))
     print(json.dumps({k:v for k,v in diag.items() if k not in ('catalogues','lots')},indent=2))
 if __name__=='__main__': main()
-# trigger: 2026-09-14 ASP.NET control reconstruction pass
+# trigger: repaired TLS/host fallback pass
