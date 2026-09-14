@@ -1,0 +1,83 @@
+name: Savills 2018-03-26 AID Forensic Recovery
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/savills-2018-03-26-aid-forensic-recovery.yml'
+      - 'savills_2018_03_26_aid_forensic_recovery.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: savills-2018-03-26-aid-forensic-recovery
+  cancel-in-progress: true
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests beautifulsoup4
+      - name: Compile recovery
+        run: python -m py_compile savills_2018_03_26_aid_forensic_recovery.py
+      - name: Run targeted AID forensics
+        run: python savills_2018_03_26_aid_forensic_recovery.py
+      - name: Verify and preserve
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          d=json.loads(Path('data/source_diagnostics/savills_2018_03_26_aid_forensic_recovery.json').read_text())
+          s=p['sources']['Savills Auctions']; z=s['savills_2018_03_26_aid_forensic_last_run']
+          print('AUCTION_DATE',z.get('auction_date'))
+          print('AIDS',z.get('aids'))
+          print('CLUES',z.get('commercial_mixed_clues'))
+          print('POSTBACKS',z.get('postback_targets_replayed'))
+          print('CHANGED',z.get('postbacks_with_changed_or_identity-bearing_surface'))
+          print('UNIQUE_REFS',z.get('unique_references_discovered'))
+          print('SAVILLS_REFS',len(z.get('first_party_savills_refs') or []))
+          print('DOC_REFS',len(z.get('document_refs') or []))
+          assert z.get('auction_date')=='2018-03-26'
+          assert s.get('historically_complete') is False
+          assert s.get('discovery_exhausted') is False
+          PY
+          cp data/historical_backfill_progress.json /tmp/progress.json
+          cp data/source_diagnostics/savills_2018_03_26_aid_forensic_recovery.json /tmp/diag.json
+      - name: Publish conflict-safe
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/diag.json data/source_diagnostics/savills_2018_03_26_aid_forensic_recovery.json
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          fp=Path('data/historical_backfill_progress.json')
+          fresh=json.loads(fp.read_text()); rec=json.loads(Path('/tmp/progress.json').read_text())
+          fs=fresh.setdefault('sources',{}).setdefault('Savills Auctions',{}); rs=rec['sources']['Savills Auctions']
+          for k in ('savills_2018_03_26_aid_forensic_last_run','savills_2018_03_26_aid_forensic_last_blocker','last_discovery_mode','status'):
+              if k in rs: fs[k]=rs[k]
+          fs['historically_complete']=False; fs['discovery_exhausted']=False
+          fresh['updated_at']=rec.get('updated_at',fresh.get('updated_at'))
+          fp.write_text(json.dumps(fresh,indent=2,ensure_ascii=False))
+          PY
+            git add data/historical_backfill_progress.json data/source_diagnostics/savills_2018_03_26_aid_forensic_recovery.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Persist targeted Savills 26 Mar 2018 AID forensics'
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt*3))
+          done
+          exit 1
