@@ -1,0 +1,36 @@
+{
+  "at": "2026-09-14T14:15:00Z",
+  "source": "Savills Auctions",
+  "year": 2018,
+  "route_previous": "savills-2018-commoncrawl-throttled-2018-index-recovery",
+  "previous_result": {
+    "unresolved_lots_input": 58,
+    "queries_executed": 240,
+    "queries_ok": 99,
+    "queries_failed": 141,
+    "unique_cdx_records": 21,
+    "warc_records_fetched": 21,
+    "text_pdf_documents_parsed": 20,
+    "safe_unique_rows_ready": 0,
+    "canonical_events_added": 0
+  },
+  "exact_blocker": "The throttled Common Crawl route recovered 21 2018 AID/Data-Auctions captures and fetched all 21 WARC records, but yielded no unique postcode-bearing lot identity for any of the 58 unresolved commercial/mixed lots. 141/240 index queries still failed, and PDF parsing emitted CFF Type1/fontTools warnings, so identity extraction from archived catalogue PDFs is not yet exhausted.",
+  "current_reconciliation": {
+    "canonical_savills_event_count": 3307,
+    "oldest_verified_lot_level_date": "2010-05-10",
+    "auctions_mapped_by_year": {"2018":8,"2017":8,"2016":8,"2015":8,"2014":7,"2013":0,"2012":0,"2011":0,"2010":0},
+    "qualifying_commercial_mixed_clues_by_year": {"2018":94,"2017":87,"2016":86,"2015":82,"2014":131,"2013":14,"2012":0,"2011":0,"2010":3},
+    "2018_catalogue_qualifying_reconciled": 84,
+    "2018_canonicalised": 26,
+    "2018_unresolved": 58,
+    "current_auction": {"auction_date":"2018-11-26","aid":1072,"total_catalogue_rows":179,"commercial_mixed_count":11,"canonicalised":0,"unresolved":11}
+  },
+  "distinct_next_route": {
+    "name": "savills-2018-wayback-aid-pid-identity-recovery",
+    "implementation": "savills_2018_wayback_aid_identity_recovery.py",
+    "workflow": ".github/workflows/savills-2018-wayback-aid-identity-recovery.yml",
+    "status": "executing",
+    "difference_from_previous": "Uses Internet Archive Wayback CDX and replay instead of Common Crawl indexes/WARC, enumerates PropertyAuctions AID and Savills Data/Auctions namespaces, installs fontTools for archived PDF decoding, and persists per-lot no-match versus ambiguous-match blockers."
+  },
+  "historically_complete": false
+}
