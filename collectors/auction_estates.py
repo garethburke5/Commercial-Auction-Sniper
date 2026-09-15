@@ -65,9 +65,8 @@ def _authoritative_property_type(s):
 def _commercial_mixed_evidence(text):
     t=norm(text or "").lower()
     explicit_mixed=any(x in t for x in (
-        "mixed-use","mixed use","ground-floor retail","ground floor retail","retail unit and",
-        "commercial unit and","shop and flat","shop with flat","retail and residential",
-        "commercial/residential","commercial and residential","former takeaway","former restaurant",
+        "mixed-use","mixed use","shop and flat","shop with flat","retail and residential",
+        "commercial/residential","commercial and residential",
     ))
     commercial=any(x in t for x in (
         "retail unit","commercial unit","shop unit","office unit","office premises","warehouse",
