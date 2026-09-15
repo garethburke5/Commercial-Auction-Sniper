@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "auctioneer": "Savills Auctions",
   "run_date": "2026-09-15",
   "priority": "breadth_first_2018_to_2010",
@@ -15,8 +15,14 @@
       "status": "auction_date_verified_catalogue_manifest_unrecovered"
     }
   ],
-  "attempted_route": "Fresh exact-date and year searches for surviving Savills Auctions 2012 catalogue/results/lot evidence, including June/September/December variants and commercial-lot terms, after inspecting current production main. Searches did not expose a defensible PropertyAuctions AID/Auc catalogue or first-party Savills lot manifest for 2012. The only production-persisted 2012 anchor remains 20 September 2012; its evidenced example is residential-only and is excluded from commercial ingestion.",
-  "blocker": "No surviving/indexed first-party Savills catalogue URL or PropertyAuctions AID/Auc lot manifest has yet been recovered for the evidenced 20 September 2012 auction, and no defensible additional 2012 auction dates were established in this route. Therefore total catalogue rows and commercial/mixed lot counts cannot yet be reconciled without invention.",
-  "next_distinct_route": "Use the historical catalogue.auctions.savills.co.uk namespace recovered from 2011 as the seed for exact 2012 archive/index enumeration, including Wayback/Common Crawl URL-prefix discovery and archived catalogue assets; persist any auction/catalogue/lot URL immediately even when fields are partial. In parallel probe PropertyAuctions AID ranges adjacent to evidenced 2011/2013 events for date-bearing LotList manifests, without assuming sequential identity.",
+  "attempted_route": "After re-inspecting production main and the live Savills workflows, ran a distinct indexed-domain recovery route: exact-date searches against catalogue.auctions.savills.co.uk, PropertyAuctions/PropertyAuctions.io, and general indexed web results for Savills 20 September 2012 plus year/date variants. This route independently surfaced contemporary indexed evidence for a Savills auction on 20 September 2012 (including the widely indexed Pink Floyd archive sale), but did not expose a surviving first-party catalogue URL, a PropertyAuctions AID/Auc LotList manifest, or a defensible commercial/mixed lot denominator. The evidence is therefore retained as an auction-date anchor only; no residential example is promoted into commercial history.",
+  "blocker": "The 20 September 2012 auction date remains defensible, but the indexed-domain route still yields no source manifest that can enumerate its lots or classify a commercial/mixed subset. Without a surviving Savills catalogue/lot URL or PropertyAuctions AID/Auc manifest, canonical lot matches and unresolved commercial/mixed counts are intentionally null rather than inferred.",
+  "next_distinct_route": "Move off search-engine indexing and enumerate archived URL inventories directly: Wayback CDX/Common Crawl prefix discovery for catalogue.auctions.savills.co.uk and historical Savills catalogue asset paths around 2012-09-20, then probe date-bearing archived catalogue/PDF/RSS assets. Separately enumerate PropertyAuctions AID ranges adjacent to verified 2011 and 2013 Savills events and accept only manifests whose embedded auctioneer/date fields identify Savills 2012; do not infer identity from numeric adjacency.",
+  "live_lot_expansion_run": {
+    "run_id": 34927492860,
+    "status_at_check": "in_progress",
+    "workflow": "Savills Primary Lot Expansion",
+    "note": "This newer first-party lot-expansion run targets the 140-event live Savills archive index (2014 onward) and does not by itself resolve the 2012 manifest gap."
+  },
   "do_not_claim_complete": true
 }
