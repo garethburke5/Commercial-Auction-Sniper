@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "at": "2026-09-15T12:07:36Z",
+  "auctioneer": "Savills",
+  "strategy": "breadth_first_exact_date_manifest_reconciliation",
+  "frontier_year": 2011,
+  "frontier_auction": "2011-06-20",
+  "production_head_inspected": "7131b474b773f3fa15bb0168ee3118f430bed93d",
+  "latest_savills_workflow": {
+    "run_id": 34964526461,
+    "name": "Savills bulk historical corpus harvest",
+    "conclusion": "success",
+    "result": "PropertyAuctions auctioneer endpoint returned HTTP 403; 0 listing URLs discovered; 0 corpus records"
+  },
+  "attempted": [
+    "Fresh exact-date public-index search for Savills 20 June 2011 lot and catalogue evidence",
+    "Fresh PropertyAuctions-index search for Savills 20 June 2011 AID/Auc/manifest evidence",
+    "Reconciliation against production savills_2010_2018_rss_catalogue_recovery year map"
+  ],
+  "result": {
+    "new_validated_canonical_events": 0,
+    "canonicalised_current_auction": 0,
+    "unresolved_current_auction": null,
+    "reason_unresolved_is_null": "No complete Savills or PropertyAuctions manifest denominator was recovered for 20 June 2011."
+  },
+  "blockers": [
+    "propertyauctions.io/auctioneers/savills returns HTTP 403 from GitHub Actions, preventing auctioneer-page manifest enumeration",
+    "Fresh public exact-date searches returned unrelated 20 June 2011 auction/property-history records and no defensible Savills manifest",
+    "Production RSS reconciliation has no 2011 year denominator, so isolated clues cannot safely establish completeness"
+  ],
+  "distinct_next_route": "Do not retry the PropertyAuctions auctioneer page. Run bounded archive-inventory enumeration for legacy catalogue.auctions.savills.co.uk and auctions.savills.co.uk URL prefixes keyed to 2011-06-20 using Wayback CDX/Common Crawl from GitHub Actions, persist discovered URLs before parsing, then walk neighbouring lot identifiers only where archived responses independently bind Savills to the exact auction date. Probe PropertyAuctions AID/Auc only after an independently dated identifier anchor is found.",
+  "completeness_declared": false
+}
