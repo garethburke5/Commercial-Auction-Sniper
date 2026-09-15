@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "source_first_partial_allowed",
+  "records": [
+    {"source_record_id":"savills-auction|2016-12-12","record_type":"auction","auction_date":"2016-12-12","archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-12","catalogue_url":null,"offered_count":126,"sold_count":98,"success_percent":78,"raised_gbp":26914000,"capture_status":"auction_source_captured_catalogue_enumeration_pending"},
+    {"source_record_id":"savills-auction|2016-11-01","record_type":"auction","auction_date":"2016-11-01","archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-12","catalogue_url":null,"offered_count":183,"sold_count":125,"success_percent":68,"raised_gbp":38963000,"capture_status":"auction_source_captured_catalogue_enumeration_pending"},
+    {"source_record_id":"savills-auction|2016-09-19","record_type":"auction","auction_date":"2016-09-19","archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-12","catalogue_url":null,"offered_count":179,"sold_count":144,"success_percent":80,"raised_gbp":43526000,"capture_status":"auction_source_captured_catalogue_enumeration_pending"},
+    {"source_record_id":"savills-auction|2016-07-25","record_type":"auction","auction_date":"2016-07-25","archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-13","catalogue_url":null,"offered_count":134,"sold_count":104,"success_percent":78,"raised_gbp":29965000,"capture_status":"auction_source_captured_catalogue_enumeration_pending"},
+    {"source_record_id":"savills-auction|2016-06-20","record_type":"auction","auction_date":"2016-06-20","archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-13","catalogue_url":null,"offered_count":148,"sold_count":124,"success_percent":84,"raised_gbp":33037000,"capture_status":"auction_source_captured_catalogue_enumeration_pending"},
+    {"source_record_id":"savills-auction|2016-05-09","record_type":"auction","auction_date":"2016-05-09","archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-13","catalogue_url":null,"offered_count":230,"sold_count":174,"success_percent":76,"raised_gbp":50113000,"capture_status":"auction_source_captured_catalogue_enumeration_pending"},
+    {"source_record_id":"savills-auction|2016-03-02","record_type":"auction","auction_date":"2016-03-02","archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-13","catalogue_url":null,"offered_count":154,"sold_count":128,"success_percent":83,"raised_gbp":38559000,"capture_status":"auction_source_captured_catalogue_enumeration_pending"},
+    {"source_record_id":"savills-auction|2016-02-16","record_type":"auction","auction_date":"2016-02-16","archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-13","catalogue_url":null,"offered_count":233,"sold_count":198,"success_percent":85,"raised_gbp":68206000,"capture_status":"auction_source_captured_catalogue_enumeration_pending"}
+  ],
+  "notes":"First-party Savills chronological archive captured immediately from archive pages 12-13. Catalogue/AID and lot-detail URLs remain null until directly evidenced; null values do not block breadth-first capture."
+}
