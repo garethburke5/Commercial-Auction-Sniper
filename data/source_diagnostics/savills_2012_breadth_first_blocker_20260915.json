@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "auctioneer": "Savills Auctions",
   "run_date": "2026-09-15",
   "priority": "breadth_first_2018_to_2010",
@@ -15,14 +15,17 @@
       "status": "auction_date_verified_catalogue_manifest_unrecovered"
     }
   ],
-  "attempted_route": "After re-inspecting production main and the live Savills workflows, ran a distinct indexed-domain recovery route: exact-date searches against catalogue.auctions.savills.co.uk, PropertyAuctions/PropertyAuctions.io, and general indexed web results for Savills 20 September 2012 plus year/date variants. This route independently surfaced contemporary indexed evidence for a Savills auction on 20 September 2012 (including the widely indexed Pink Floyd archive sale), but did not expose a surviving first-party catalogue URL, a PropertyAuctions AID/Auc LotList manifest, or a defensible commercial/mixed lot denominator. The evidence is therefore retained as an auction-date anchor only; no residential example is promoted into commercial history.",
-  "blocker": "The 20 September 2012 auction date remains defensible, but the indexed-domain route still yields no source manifest that can enumerate its lots or classify a commercial/mixed subset. Without a surviving Savills catalogue/lot URL or PropertyAuctions AID/Auc manifest, canonical lot matches and unresolved commercial/mixed counts are intentionally null rather than inferred.",
-  "next_distinct_route": "Move off search-engine indexing and enumerate archived URL inventories directly: Wayback CDX/Common Crawl prefix discovery for catalogue.auctions.savills.co.uk and historical Savills catalogue asset paths around 2012-09-20, then probe date-bearing archived catalogue/PDF/RSS assets. Separately enumerate PropertyAuctions AID ranges adjacent to verified 2011 and 2013 Savills events and accept only manifests whose embedded auctioneer/date fields identify Savills 2012; do not infer identity from numeric adjacency.",
-  "live_lot_expansion_run": {
-    "run_id": 34927492860,
-    "status_at_check": "in_progress",
-    "workflow": "Savills Primary Lot Expansion",
-    "note": "This newer first-party lot-expansion run targets the 140-event live Savills archive index (2014 onward) and does not by itself resolve the 2012 manifest gap."
+  "attempted_route": "Fresh production-main inspection followed by the previously queued distinct archived-inventory route. Attempted Wayback CDX prefix discovery for catalogue.auctions.savills.co.uk constrained to 2012; the available web retrieval layer rejected direct CDX query navigation as unsafe and indexed searches for the CDX/catalogue domain returned no results. Ran fresh exact-date and year searches for Savills 20 September 2012 and PropertyAuctions/AID manifestations; these did not surface a surviving Savills property-auction catalogue or PropertyAuctions AID/Auc LotList manifest. No lot is promoted from unrelated Savills references.",
+  "blocker": "2012-09-20 remains an auction-date anchor only. The archived URL inventory could not be enumerated through the available retrieval surface, and fresh indexed search still exposes neither a first-party Savills lot manifest nor a PropertyAuctions AID/Auc manifest. Therefore the commercial/mixed denominator, canonicalised lot count and unresolved lot count remain null rather than inferred.",
+  "next_distinct_route": "Use repository-executed archive enumeration rather than the web retrieval layer: add a bounded GitHub Actions probe that calls Wayback CDX/Common Crawl indexes for historical Savills catalogue/RSS/PDF URL prefixes around 2012, records HTTP/status/count diagnostics, and persists discovered URLs even when no lot parses. In parallel, enumerate bounded PropertyAuctions AID ranges adjacent to independently verified Savills 2011/2013 manifests, accepting only responses whose embedded auctioneer and date identify Savills 2012.",
+  "primary_lot_expansion_diagnostic": {
+    "run_id": 34928000320,
+    "result": "failed_non_zero_verification",
+    "auctions_processed": 140,
+    "catalogue_pages_fetched": 280,
+    "lots_captured": 0,
+    "http_failures": 0,
+    "interpretation": "The live first-party pages were fetched successfully but the current HTML parser found no Lot markers; this is a parser/URL-shape failure, not evidence of zero lots. It does not resolve the 2012 historical gap."
   },
   "do_not_claim_complete": true
 }
