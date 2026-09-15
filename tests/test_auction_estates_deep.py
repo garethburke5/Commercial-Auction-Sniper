@@ -24,7 +24,7 @@ class AuctionEstatesDeepExtractionTests(unittest.TestCase):
         self.assertNotIn('offices of the auctioneers', text.lower())
 
     def test_investment_subtype_uses_lot_particulars_not_footer_office_wording(self):
-        text='A retail investment property let to Hair & Beauty. Ground floor retail unit.'
+        text='A retail investment property let to Hair & Beauty.'
         self.assertEqual(_classified_property_type('Investment',text),'Retail')
 
     def test_floorplan_is_not_selected_over_property_photo(self):
