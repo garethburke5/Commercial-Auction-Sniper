@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-09-15T07:14:39+01:00",
+  "scope": "Savills breadth-first historical recovery; first-party archive lot expansion",
+  "workflow_run_id": 34928000320,
+  "head_sha": "847230ee3c934110c3dbfee4b700ab15b51d8671",
+  "result": {
+    "auctions_indexed": 140,
+    "catalogue_pages_fetched": 280,
+    "http_failures": 0,
+    "lots_parsed": 0,
+    "verification": "failed_non_zero_assertion"
+  },
+  "blocker": "The first-party catalogue requests returned successfully but the current HTML parser found no literal Lot markers in the fetched response bodies. This is a parser/rendering or catalogue-URL-shape blocker, not evidence of zero Savills lots.",
+  "breadth_first_effect": "Do not canonicalise or reject any auction from this run; preserve the 140-event archive index and continue 2018-2010 reconciliation through independent surviving manifests.",
+  "distinct_next_route": [
+    "Inspect raw response structure for one known public Savills catalogue and extract actual detail href patterns rather than splitting cleaned HTML on literal Lot text.",
+    "Enumerate public Savills sitemap/search-indexed lot URLs by auction slug/property ID and reconcile them to archive dates.",
+    "For 2018-2010, continue PropertyAuctions AID/Auc manifest and archived Savills RSS/catalogue enumeration independently of the failed live parser."
+  ],
+  "do_not_claim_complete": true
+}
