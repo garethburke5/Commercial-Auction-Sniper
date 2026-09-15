@@ -1,0 +1,47 @@
+name: Savills Primary Lot Expansion
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'savills_primary_lot_collector.py'
+      - '.github/workflows/savills-primary-lot-collector.yml'
+permissions:
+  contents: write
+concurrency:
+  group: savills-primary-lot-expansion
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Expand Savills auctions into lots
+        run: python savills_primary_lot_collector.py
+      - name: Verify non-zero lot capture
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/historical_raw/savills_primary_lots.json').read_text())
+          print('AUCTIONS_INDEXED',d['auctions_indexed'])
+          print('LOTS_CAPTURED',d['lots_captured'])
+          print('PAGES_FETCHED',d['catalogue_pages_fetched'])
+          assert d['lots_captured'] > 0, d
+          PY
+      - name: Persist lot corpus
+        run: |
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/historical_raw/savills_primary_lots.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Persist Savills first-party lot corpus'
+          git pull --rebase origin main
+          git push origin HEAD:main
