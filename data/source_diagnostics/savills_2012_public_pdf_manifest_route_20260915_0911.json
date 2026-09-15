@@ -1,0 +1,22 @@
+{
+  "schema_version": 3,
+  "auctioneer": "Savills Auctions",
+  "run_date": "2026-09-15",
+  "priority": "breadth_first_2018_to_2010",
+  "current_year": 2012,
+  "route": "public-indexed-copies-of-original-savills-lot-pages-and-contemporaneous-reporting",
+  "new_verified_auction_dates": [
+    {"auction_date":"2012-03-27","evidence":"indexed PDF copy of original catalogue.auctions.savills.co.uk lot page; Lot 45, 139B Copleston Road, sold GBP226,000"},
+    {"auction_date":"2012-05-09","evidence":"indexed PDF copy of original catalogue.auctions.savills.co.uk lot page; Lot 33, 194 Choumert Road, sold GBP446,000"},
+    {"auction_date":"2012-09-20","evidence":"contemporaneous Forbes report explicitly states Savills Auctions sale on September 20, 2012; existing production anchor retained"},
+    {"auction_date":"2012-12-10","evidence":"indexed PDF copies of original catalogue.auctions.savills.co.uk lot pages; Lots 81 and 82 evidenced"}
+  ],
+  "validated_lot_level_examples": 4,
+  "canonical_events_added": 0,
+  "reason_not_canonicalised":"The recovered public copies validate auction dates and individual lot-level existence/results but are isolated pages, not complete auction manifests; breadth-first completeness requires a denominator before claiming canonicalised versus unresolved coverage.",
+  "canonicalised_current_year_this_route": 0,
+  "unresolved_current_year": null,
+  "blocker":"No complete 2012 Savills chronological catalogue or PropertyAuctions AID/Auc lot manifest has yet been recovered. Public indexed copies prove at least four 2012 auction dates but do not establish every 2012 auction or complete lot counts.",
+  "next_distinct_route":"Use the newly validated dates (2012-03-27, 2012-05-09, 2012-09-20, 2012-12-10) as bounded keys for repository-executed archive inventory enumeration. Query Wayback CDX/Common Crawl for catalogue.auctions.savills.co.uk URL captures around each date and enumerate PropertyAuctions AID/Auc responses accepting only embedded Savills/date matches. Persist URL inventories and per-auction denominators before canonical promotion.",
+  "do_not_claim_complete": true
+}
