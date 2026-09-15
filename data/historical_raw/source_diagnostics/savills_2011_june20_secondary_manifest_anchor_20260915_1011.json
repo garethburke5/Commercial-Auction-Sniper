@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-09-15T10:11:00Z",
+  "auctioneer": "Savills",
+  "recovery_scope": "breadth-first 2018 down to 2010",
+  "current_year": 2011,
+  "route": "independent contemporary secondary-source recovery of legacy Savills catalogue anchor",
+  "validated_auction_anchor": {
+    "auction_date": "2011-06-20",
+    "venue": "Millennium Hotel, Mayfair",
+    "source": "Property Tribes contemporary thread dated 2011-06-07",
+    "source_url": "https://propertytribes.com/savills-national-auction-june-20-2011-t-3254.html",
+    "legacy_savills_catalogue_link_reported": true,
+    "lot_level_clues": [
+      {"lot_number": "109", "description": "flat in Essex", "guide_price": 25000},
+      {"lot_number": "123", "description": "terraced house in Hull", "guide_price": 25000}
+    ],
+    "qualifying_subset_claim": "Contemporary author stated 16 lots met their investment criteria; this is not treated as a complete commercial/mixed manifest."
+  },
+  "canonicalised_this_route": 0,
+  "unresolved_lot_count": null,
+  "blocker": "A contemporary source verifies the 20 June 2011 Savills National auction and legacy Savills catalogue existence, with specific lot numbers, but does not expose a complete auction lot manifest or a defensible commercial/mixed denominator. No validated PropertyAuctions AID/Auc manifest was recovered on this route.",
+  "next_distinct_route": "Use the exact 2011-06-20 date plus legacy catalogue.auctions.savills.co.uk catalogue path as archive keys for bounded Wayback/Common Crawl URL enumeration; enumerate neighbouring archived lot URLs/lot numbers before parsing. In parallel, bounded PropertyAuctions AID/Auc probing is permitted only after a response independently identifies Savills and 2011-06-20.",
+  "completeness_declared": false
+}
