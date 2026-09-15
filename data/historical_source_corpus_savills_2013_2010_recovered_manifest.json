@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "source_first_partial_allowed",
+  "records": [
+    {
+      "source_record_id": "savills-auction|2013-12-10|recovered-catalogue-clues",
+      "record_type": "auction_partial",
+      "auction_date": "2013-12-10",
+      "archive_url": null,
+      "catalogue_url": null,
+      "commercial_mixed_clues": 6,
+      "canonical_lot_matches": 0,
+      "unresolved": 6,
+      "evidence_url": "data/source_diagnostics/savills_2010_2018_rss_catalogue_recovery.json",
+      "capture_status": "recovered_source_manifest_urls_pending"
+    },
+    {
+      "source_record_id": "savills-auction|2013-11-28|recovered-catalogue-clues",
+      "record_type": "auction_partial",
+      "auction_date": "2013-11-28",
+      "archive_url": null,
+      "catalogue_url": null,
+      "commercial_mixed_clues": 8,
+      "canonical_lot_matches": 0,
+      "unresolved": 8,
+      "evidence_url": "data/source_diagnostics/savills_2010_2018_rss_catalogue_recovery.json",
+      "capture_status": "recovered_source_manifest_urls_pending"
+    },
+    {
+      "source_record_id": "savills-auction|2010-05-10|recovered-catalogue-clues",
+      "record_type": "auction_partial",
+      "auction_date": "2010-05-10",
+      "archive_url": null,
+      "catalogue_url": null,
+      "commercial_mixed_clues": 3,
+      "canonical_lot_matches": 0,
+      "unresolved": 3,
+      "evidence_url": "data/source_diagnostics/savills_2010_2018_rss_catalogue_recovery.json",
+      "capture_status": "recovered_source_manifest_urls_pending"
+    }
+  ],
+  "notes": "Source-first persistence of already-recovered Savills catalogue evidence below the surviving first-party chronological archive frontier. These records deliberately retain partial auction identity instead of discarding known commercial/mixed-use catalogue evidence while URL/AID enrichment remains pending. No 2012 or 2011 auction records are invented: those years remain uncaptured until source evidence is found."
+}
