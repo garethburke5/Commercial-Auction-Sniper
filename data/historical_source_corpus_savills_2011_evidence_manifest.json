@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "source_first_partial_allowed",
+  "records": [
+    {
+      "source_record_id": "savills-auction|2011-06-20|external-contemporary-evidence",
+      "record_type": "auction_partial",
+      "auction_date": "2011-06-20",
+      "archive_url": null,
+      "catalogue_url": null,
+      "commercial_mixed_clues": null,
+      "canonical_lot_matches": null,
+      "unresolved": null,
+      "evidence_url": "https://propertytribes.com/savills-national-auction-june-20-2011-t-3254.html",
+      "capture_status": "contemporary_date_evidence_captured_catalogue_pending",
+      "notes": "Contemporary Property Tribes post explicitly identifies Savills National Auction June 20 2011 and discusses catalogue lots including lot numbers. Saved as source evidence; no unsupported lot facts promoted."
+    },
+    {
+      "source_record_id": "savills-auction|2011-09-19|external-contemporary-evidence",
+      "record_type": "auction_partial",
+      "auction_date": "2011-09-19",
+      "archive_url": null,
+      "catalogue_url": "http://catalogue.auctions.savills.co.uk/residential/online-catalogue",
+      "commercial_mixed_clues": null,
+      "canonical_lot_matches": null,
+      "unresolved": null,
+      "evidence_url": "https://www.cityam.com/property-news-40/",
+      "capture_status": "contemporary_date_and_historical_catalogue_url_captured",
+      "notes": "Contemporary City A.M. report states Savills next property auction was 19 September 2011 and preserves the then-live Savills online catalogue URL."
+    },
+    {
+      "source_record_id": "savills-auction|2011-12-12|external-contemporary-evidence",
+      "record_type": "auction_partial",
+      "auction_date": "2011-12-12",
+      "archive_url": null,
+      "catalogue_url": null,
+      "commercial_mixed_clues": null,
+      "canonical_lot_matches": null,
+      "unresolved": null,
+      "evidence_url": "https://property-investor-news.com/article/auctions/2012/01/14/residential_auction_review.html",
+      "capture_status": "contemporary_date_evidence_captured_catalogue_pending",
+      "notes": "Contemporary review identifies Savills final residential auction of 2011 as 12 December, with 108 lots offered."
+    }
+  ],
+  "notes": "Breadth-first source capture for the previously empty 2011 manifest gap. These are evidence records, not a claim that 2011 is complete. Further first-party/archive catalogue recovery is required, and commercial/mixed lot counts remain unknown until catalogue evidence is recovered."
+}
