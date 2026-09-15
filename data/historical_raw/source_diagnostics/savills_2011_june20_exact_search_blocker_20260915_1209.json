@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-09-15T11:09:00Z",
+  "auctioneer": "Savills",
+  "recovery_scope": "breadth-first 2018 down to 2010",
+  "current_year": 2011,
+  "current_auction_date": "2011-06-20",
+  "route": "exact-date and known-lot public-index enumeration after contemporary secondary anchor",
+  "starting_main_sha": "42c8c872f43a486c645b572a0b5f417dec1e4e13",
+  "latest_relevant_workflow": {
+    "name": "Expand Historical Source Corpus",
+    "run_id": 34960880733,
+    "conclusion": "success",
+    "records_added": 132,
+    "savills_auction_records_added": 132,
+    "total_source_corpus_records": 198
+  },
+  "attempted_queries": [
+    "exact 20 June 2011 Savills auction catalogue lot",
+    "Savills 20 June 2011 auction Lot",
+    "Savills June 2011 Lot 109 auction",
+    "Savills June 2011 Lot 123 auction",
+    "Savills 2011 PropertyAuctions AID Auc"
+  ],
+  "result": "No additional defensible Savills 20 June 2011 catalogue lot page or PropertyAuctions AID/Auc manifest was surfaced by the public search index. Returned exact-date results were unrelated auctioneers or modern Savills pages where 2011 appeared only in tenancy/planning/history text and were rejected.",
+  "canonicalised_this_route": 0,
+  "unresolved_lot_count": null,
+  "blocker": "Search-index coverage does not expose the legacy 20 June 2011 Savills manifest. Known lot numbers 109 and 123 remain secondary-source anchors only; no complete lot denominator or qualifying commercial/mixed denominator is defensible.",
+  "next_distinct_route": "Do not repeat public search. Execute bounded archive inventory enumeration from repository infrastructure: Wayback CDX and Common Crawl queries keyed to 2011-06-20 and legacy catalogue.auctions.savills.co.uk URL prefixes, persisting discovered URLs before parsing. Then walk neighbouring archived lot identifiers around known lots 109 and 123. Probe PropertyAuctions AID/Auc only after an independently returned record confirms both Savills and 2011-06-20.",
+  "completeness_declared": false
+}
