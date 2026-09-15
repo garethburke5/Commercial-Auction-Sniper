@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Allsop",
+  "strategy": "discover_save_move_on",
+  "captured_at": "2026-09-15T22:02:00Z",
+  "main_head_before": "69335d19d485b8ac0282ba6e3d870fe63b5683ae",
+  "auction": {
+    "auction_date": "2015-03-25",
+    "auction_type": "commercial",
+    "status": "partial_manifest_lot_enumeration_in_progress",
+    "source_urls": [
+      "https://propertyauctions.io/listings/497ac9f8cccc11d1f3d6cb39483c1129",
+      "https://propertyauctions.io/listings/549416d66054e5bd9bea857087f0e362",
+      "https://propertyauctions.io/listings/4a05acf4c1dd40026e7a90803d0ca4e7",
+      "https://propertyauctions.io/listings/20906c68a0594f727ac7c9ae9dd8cabc",
+      "https://propertyauctions.io/listings/f4d1ee9a0d9c30aff22434b190cf3718",
+      "https://propertyauctions.io/listings/121f384f7aa4dd5c63097bfd97051116"
+    ]
+  },
+  "lots": [
+    {"lot_number":null,"address":"24A High Street, Staveley, Chesterfield, Derbyshire, S43 3UX","locality":"Staveley","property_type":"Commercial","guide_price_gbp":80000,"result_price_gbp":100000,"status":"Sold","rent_pa_gbp":9200,"tenure":"Freehold","source_url":"https://propertyauctions.io/listings/497ac9f8cccc11d1f3d6cb39483c1129"},
+    {"lot_number":null,"address":"Block Q East, Ground Floor Only, Kingston Square, Bradford-on-Avon, Wiltshire, BA15 1FH","locality":"Bradford-on-Avon","property_type":"Commercial","guide_price_gbp":190000,"result_price_gbp":231000,"status":"Sold","rent_pa_gbp":null,"tenure":"Leasehold - 999 years from 1 January 2010 at peppercorn ground rent","source_url":"https://propertyauctions.io/listings/549416d66054e5bd9bea857087f0e362"},
+    {"lot_number":null,"address":"13/15 High Street, Weybridge, Surrey, KT13 8AX","locality":"Weybridge","property_type":"Commercial / residential ground rent investment","guide_price_gbp":1200000,"result_price_gbp":1250000,"status":"Sold","rent_pa_gbp":88000,"tenure":"Freehold","source_url":"https://propertyauctions.io/listings/4a05acf4c1dd40026e7a90803d0ca4e7"},
+    {"lot_number":null,"address":"1/1A Cornmarket, Faringdon, Oxfordshire, SN7 7HG","locality":"Faringdon","property_type":"Mixed Use","guide_price_gbp":70000,"result_price_gbp":71500,"status":"Sold","rent_pa_gbp":null,"tenure":"Freehold","source_url":"https://propertyauctions.io/listings/20906c68a0594f727ac7c9ae9dd8cabc"},
+    {"lot_number":null,"address":"11 Huntspill Road, Highbridge, Somerset, TA9 3ZD","locality":"Highbridge","property_type":"Commercial / residential ground rent investment","guide_price_gbp":40000,"result_price_gbp":90000,"status":"Sold","rent_pa_gbp":6750,"tenure":"Freehold","source_url":"https://propertyauctions.io/listings/f4d1ee9a0d9c30aff22434b190cf3718"},
+    {"lot_number":null,"address":"313 Whitehorse Road, Croydon, Surrey, CR0 2HR","locality":"Croydon","property_type":"Mixed Use","guide_price_gbp":170000,"result_price_gbp":195000,"status":"Sold","rent_pa_gbp":9000,"tenure":"Freehold","source_url":"https://propertyauctions.io/listings/121f384f7aa4dd5c63097bfd97051116"}
+  ],
+  "notes": "Breadth-first continuation of the already-open March 2015 Allsop catalogue. Lot numbers are left null because the surviving indexed evidence used in this tranche does not expose them. A suspicious rental-value figure on the Faringdon source was not copied because it conflicts with the vacant-shop description and is unsuitable for uncritical canonical capture. Residential-only records excluded."
+}
