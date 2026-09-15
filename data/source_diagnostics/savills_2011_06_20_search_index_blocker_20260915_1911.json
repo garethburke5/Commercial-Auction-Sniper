@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "frontier_year": 2011,
+  "auction_date": "2011-06-20",
+  "strategy": "fresh exact-date public-index enumeration after direct PropertyAuctions auctioneer harvest stalled",
+  "attempted": [
+    "Exact-date Savills auction/property/lot search for 20 June 2011",
+    "Exact-date search against legacy catalogue.auctions.savills.co.uk hostname",
+    "Exact-date PropertyAuctions AID/Auc/manifest search"
+  ],
+  "result": {
+    "new_canonical_events": 0,
+    "qualifying_commercial_mixed_denominator": null,
+    "manifest_recovered": false,
+    "date_bound_propertyauctions_identifier_recovered": false
+  },
+  "blocker": "Fresh public indexing did not expose a complete UK Savills 20 June 2011 lot manifest or an independently date-bound PropertyAuctions AID/Auc identifier. Returned exact-date material was unrelated auction/property-history content and was rejected. The latest Savills bulk PropertyAuctions workflow also discovered zero listing URLs from one auctioneer page and recorded one blocker, so that route is not repeated here.",
+  "next_distinct_route": "Run bounded archive-inventory enumeration against Wayback CDX and Common Crawl for catalogue.auctions.savills.co.uk and auctions.savills.co.uk URL spaces around 2011-06-20. Persist every discovered URL before parsing; only walk neighbouring lot identifiers after archived content independently binds Savills and the exact auction date. Resume PropertyAuctions identifier probing only from an independently dated anchor.",
+  "completeness_declared": false
+}
