@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "strategy": "breadth_first_surviving_document_recovery",
+  "checked_from_main_sha": "cf3fd1fac9e4ccd7a6dff507f0d895d458237530",
+  "validated_auction_anchors": [
+    {"auction_date":"2011-02-14","lot_number":"76","address":"16 Lanbury Road, Nunhead, London SE15 3DB","result":"Sold Prior","tenure":"Freehold","classification":"residential - not qualifying commercial/mixed","evidence":"Surviving PDF reproduces legacy Savills catalogue lot page."},
+    {"auction_date":"2011-06-20","lot_number":"109","classification":"residential clue - not qualifying commercial/mixed","evidence":"Contemporary discussion identifies Savills National Auction, venue and legacy catalogue."},
+    {"auction_date":"2011-06-20","lot_number":"123","classification":"residential clue - not qualifying commercial/mixed","evidence":"Contemporary discussion identifies this lot in the same Savills National Auction."},
+    {"auction_date":"2011-07-25","lot_number":"65","address":"61 Cobourg Road, Camberwell, London SE5 0HU","result":"Sold: £404,000","tenure":"Freehold","classification":"residential - not qualifying commercial/mixed","evidence":"Surviving PDF reproduces legacy Savills catalogue lot page."},
+    {"auction_date":"2011-09-19","classification":"auction-date anchor only","evidence":"Contemporary City A.M. article states Savills national residential auction date, venue and live online catalogue."}
+  ],
+  "current_year": 2011,
+  "auctions_mapped_minimum": 4,
+  "qualifying_commercial_mixed_clues": 0,
+  "new_canonical_events": 0,
+  "unresolved_qualifying_denominator": null,
+  "propertyauctions_status": "Latest GitHub bulk harvest reports CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1.",
+  "blocker": "Surviving documents prove additional 2011 Savills auction dates and individual residential lots, but not complete manifests or a defensible commercial/mixed denominator. PropertyAuctions direct auctioneer enumeration remains blocked.",
+  "next_distinct_route": "Use 14 Feb, 20 Jun, 25 Jul and 19 Sep 2011 as separate bounded archive keys; enumerate surviving legacy catalogue documents date-by-date, then archive inventories; persist URLs before parsing and reconcile identifiers only when independently date-bound."
+}
