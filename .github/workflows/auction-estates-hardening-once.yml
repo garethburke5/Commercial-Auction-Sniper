@@ -1,0 +1,54 @@
+name: Auction Estates Hardening Once
+
+on:
+  push:
+    branches:
+      - auction-estates-hardening-20260915
+    paths:
+      - '.github/workflows/auction-estates-hardening-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  harden:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: auction-estates-hardening-20260915
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Apply exact classifier correction
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('collectors/auction_estates.py')
+          s = p.read_text(encoding='utf-8')
+          old = '''        "mixed-use","mixed use","ground-floor retail","ground floor retail","retail unit and",
+                  "commercial unit and","shop and flat","shop with flat","retail and residential",
+                  "commercial/residential","commercial and residential","former takeaway","former restaurant",
+          '''
+          new = '''        "mixed-use","mixed use","shop and flat","shop with flat","retail and residential",
+                  "commercial/residential","commercial and residential",
+          '''
+          if old not in s:
+              raise SystemExit('Expected Auction Estates mixed-use classifier block not found; refusing broad edit')
+          s2 = s.replace(old, new, 1)
+          if s2.count('ground floor retail') != s.count('ground floor retail') - 1:
+              raise SystemExit('Unexpected classifier edit scope')
+          p.write_text(s2, encoding='utf-8')
+          PY
+      - name: Run Auction Estates regression tests
+        run: |
+          pip install -r requirements.txt
+          python -m unittest tests.test_auction_estates tests.test_auction_estates_deep
+      - name: Commit classifier correction and remove one-off workflow
+        run: |
+          rm .github/workflows/auction-estates-hardening-once.yml
+          git config user.name 'Auction Sniper Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add collectors/auction_estates.py .github/workflows/auction-estates-hardening-once.yml
+          git commit -m 'Fix Auction Estates retail versus mixed-use classification'
+          git push origin HEAD:auction-estates-hardening-20260915
