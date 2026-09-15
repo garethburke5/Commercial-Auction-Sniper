@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "frontier_year": 2011,
+  "auction_date": "2011-06-20",
+  "recovery_strategy": "breadth-first auction completeness",
+  "route": "fresh exact-date legacy-catalogue and PropertyAuctions AID/Auc index enumeration after direct PropertyAuctions harvest stalled",
+  "attempted": [
+    "Exact-date web index search for 20 June 2011 + Savills + auction/catalogue/lot terminology",
+    "Exact-date search for PropertyAuctions Savills AID/Auc/manifest evidence",
+    "Exact-date search for propertyauctions.io Savills evidence",
+    "Rejected unrelated art auctions, planning/property-history references and non-target results"
+  ],
+  "validated_new_canonical_events": 0,
+  "qualifying_commercial_mixed_denominator": null,
+  "unresolved_count": null,
+  "blocker": "Fresh public indexing still exposes no complete UK Savills 20 June 2011 lot manifest and no independently date-bound PropertyAuctions AID/Auc anchor. Direct PropertyAuctions harvesting previously returned no listing inventory, so absence from indexing cannot be treated as completeness.",
+  "next_distinct_route": "Repository-executed bounded Wayback CDX/Common Crawl URL inventory enumeration over legacy catalogue.auctions.savills.co.uk and auctions.savills.co.uk prefixes for the 2011-06-20 auction. Persist discovered URLs before parsing; walk neighbouring lot identifiers only after archived content independently proves Savills plus exact auction date.",
+  "completeness_declared": false,
+  "captured_at_utc": "2026-09-15T17:08:54Z"
+}
