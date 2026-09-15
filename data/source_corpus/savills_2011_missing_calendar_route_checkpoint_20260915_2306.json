@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "strategy": "breadth_first_missing_calendar_slot_search",
+  "checked_at": "2026-09-15T22:06:00Z",
+  "main_head_before": "f285bb686d458900dc5d16a589fa73b104535d1b",
+  "year": 2011,
+  "validated_auction_dates_before": ["2011-02-14", "2011-06-20", "2011-07-25", "2011-09-19"],
+  "fresh_recovery": {
+    "attempted": "Distinct calendar-gap route: searched contemporary public indexing for Savills next/residential auction notices and lot references in the unmapped 2011 intervals, especially March-May and October-November, instead of retrying the blocked PropertyAuctions auctioneer enumeration.",
+    "validated_new_auction_dates": [],
+    "canonical_commercial_mixed_added": 0,
+    "qualifying_commercial_mixed_denominator": "unknown",
+    "blocker": "Fresh calendar-gap searches did not expose another defensible UK Savills auction date or complete lot manifest. Results were dominated by unrelated Savills agency/valuation records. The latest Savills bulk-harvest workflow also freshly confirms CORPUS_RECORDS=0, DISCOVERED=0, PAGES=1, BLOCKERS=1, so PropertyAuctions auctioneer enumeration remains non-productive.",
+    "next_distinct_route": "Use the four independently verified 2011 dates as bounded seeds for archive URL inventory recovery rather than date search: enumerate Wayback CDX/Common Crawl captures for legacy catalogue.auctions.savills.co.uk/residential and auctions.savills.co.uk URL spaces around each date, persist every discovered URL before parsing, then infer neighbouring catalogue/lot identifiers only where archived content independently binds Savills plus the exact auction date. Reconcile recovered identifiers against PropertyAuctions AID/Auc manifests after the archive anchor exists."
+  },
+  "source_notes": [
+    "City A.M. contemporary evidence continues to validate 14 February 2011 as Savills' next residential auction.",
+    "City A.M. contemporary evidence continues to validate 19 September 2011 at the Royal Garden Hotel and identifies catalogue lots 31 and 32, but not their property identities/types."
+  ],
+  "completeness_declared": false
+}
