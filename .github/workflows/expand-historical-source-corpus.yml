@@ -1,0 +1,43 @@
+name: Expand Historical Source Corpus
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'expand_historical_source_corpus.py'
+      - 'data/historical_raw/savills_primary_archive_index.json'
+      - '.github/workflows/expand-historical-source-corpus.yml'
+permissions:
+  contents: write
+concurrency:
+  group: historical-source-corpus-expansion
+  cancel-in-progress: false
+jobs:
+  expand:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Expand source corpus capture-first
+        run: python expand_historical_source_corpus.py
+      - name: Verify and persist
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/historical_source_corpus.json').read_text())
+          print('TOTAL_RECORDS',len(d.get('records',[])))
+          print('LAST_EXPANSION',d.get('last_expansion'))
+          assert len(d.get('records',[])) > 0
+          PY
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/historical_source_corpus.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Expand historical source corpus breadth-first'
+          git pull --rebase origin main
+          git push origin HEAD:main
