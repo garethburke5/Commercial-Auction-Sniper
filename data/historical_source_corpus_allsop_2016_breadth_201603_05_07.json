@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "capture_strategy": "DISCOVER -> SAVE SOURCE RECORD/URL -> MOVE ON",
+  "auctioneer": "Allsop",
+  "records": [
+    {
+      "source_record_id": "allsop-auction|2016-03-21|breadth-source",
+      "record_type": "auction",
+      "auction_date": "2016-03-21",
+      "archive_url": "https://www.allsop.co.uk/auctions/all-past-auction-results/",
+      "source_urls": ["https://www.allsop.co.uk/auctions/all-past-auction-results/","https://propertyauctions.io/listings/b75b5cd7a12d1a2eacc67a6ffe590e1b","https://propertyauctions.io/listings/4175902510a128a0ac4d3c294061d1ba"],
+      "capture_status": "partial_manifest_lot_enumeration_in_progress",
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "allsop-lot|2016-03-21|12b-mercia-road-gloucester",
+      "record_type": "lot_partial",
+      "auction_date": "2016-03-21",
+      "lot_number": null,
+      "address": "12B Mercia Road, Gloucester, Gloucestershire, GL1 2SQ",
+      "locality": "Gloucester",
+      "property_type": "Commercial",
+      "guide_price_gbp": 100000,
+      "result_price_gbp": 172000,
+      "tenure": "Freehold",
+      "lot_url": "https://propertyauctions.io/listings/b75b5cd7a12d1a2eacc67a6ffe590e1b",
+      "source_urls": ["https://propertyauctions.io/listings/b75b5cd7a12d1a2eacc67a6ffe590e1b"],
+      "capture_status": "captured_partial_needs_enrichment"
+    },
+    {
+      "source_record_id": "allsop-lot|2016-03-21|cobham-roadside",
+      "record_type": "lot_partial",
+      "auction_date": "2016-03-21",
+      "lot_number": null,
+      "address": "Cobham Roadside, Long Orchard, Portsmouth Road, Cobham, Surrey, KT11 1EL",
+      "locality": "Cobham",
+      "property_type": "Commercial roadside development site",
+      "guide_price_gbp": 4000000,
+      "result_price_gbp": null,
+      "tenure": "Freehold",
+      "size": "Site approx. 2.6 hectares (6.5 acres); Main Building 815 sq m (8,772 sq ft); Coach House 288 sq m (3,100 sq ft)",
+      "lot_url": "https://propertyauctions.io/listings/4175902510a128a0ac4d3c294061d1ba",
+      "source_urls": ["https://propertyauctions.io/listings/4175902510a128a0ac4d3c294061d1ba"],
+      "capture_status": "captured_partial_needs_enrichment"
+    },
+    {
+      "source_record_id": "allsop-auction|2016-05-16|breadth-source",
+      "record_type": "auction",
+      "auction_date": "2016-05-16",
+      "archive_url": "https://www.allsop.co.uk/auctions/all-past-auction-results/",
+      "source_urls": ["https://www.allsop.co.uk/auctions/all-past-auction-results/","https://propertyauctions.io/listings/1d79edbf81125612df462ab5b395dd5e"],
+      "capture_status": "partial_manifest_lot_enumeration_in_progress",
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "allsop-lot|2016-05-16|6-king-street-belper",
+      "record_type": "lot_partial",
+      "auction_date": "2016-05-16",
+      "lot_number": null,
+      "address": "6 King Street, Belper, Derbyshire, DE56 1PS",
+      "locality": "Belper",
+      "property_type": "Commercial",
+      "guide_price_gbp": 120000,
+      "result_price_gbp": null,
+      "tenure": null,
+      "lot_url": "https://propertyauctions.io/listings/1d79edbf81125612df462ab5b395dd5e",
+      "source_urls": ["https://propertyauctions.io/listings/1d79edbf81125612df462ab5b395dd5e"],
+      "capture_status": "captured_partial_needs_enrichment"
+    },
+    {
+      "source_record_id": "allsop-auction|2016-07-20|breadth-source",
+      "record_type": "auction",
+      "auction_date": "2016-07-20",
+      "archive_url": "https://www.allsop.co.uk/auctions/all-past-auction-results/",
+      "source_urls": ["https://www.allsop.co.uk/auctions/all-past-auction-results/","https://propertyauctions.io/listings/4488d8c26b68ca82d490c2c5853ed17e","https://propertyauctions.io/listings/0a168378cc06f86bd7476c9010562a43"],
+      "capture_status": "partial_manifest_lot_enumeration_in_progress",
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "allsop-lot|2016-07-20|unit-15-blue-lion-place",
+      "record_type": "lot_partial",
+      "auction_date": "2016-07-20",
+      "lot_number": null,
+      "address": "Unit 15, Blue Lion Place, London, SE1 4PU",
+      "locality": "London",
+      "property_type": "Commercial office",
+      "guide_price_gbp": null,
+      "result_price_gbp": 1260000,
+      "tenure": "Freehold",
+      "size": "Approx. 220 sq m (2,368 sq ft)",
+      "lot_url": "https://propertyauctions.io/listings/4488d8c26b68ca82d490c2c5853ed17e",
+      "source_urls": ["https://propertyauctions.io/listings/4488d8c26b68ca82d490c2c5853ed17e"],
+      "capture_status": "captured_partial_needs_enrichment"
+    },
+    {
+      "source_record_id": "allsop-lot|2016-07-20|allied-place-leicester",
+      "record_type": "lot_partial",
+      "auction_date": "2016-07-20",
+      "lot_number": null,
+      "address": "Allied Place, 44 Abbey Street, Leicester, Leicestershire, LE1 3TD",
+      "locality": "Leicester",
+      "property_type": "Mixed Use",
+      "guide_price_gbp": null,
+      "result_price_gbp": null,
+      "rent_gbp_pa": 35000,
+      "tenure": "Leasehold",
+      "lease_details": "125-year lease expiring 10 June 2139; current ground rent £35,000 p.a., five-yearly RPI reviews; 46 flats plus one office floor",
+      "lot_url": "https://propertyauctions.io/listings/0a168378cc06f86bd7476c9010562a43",
+      "source_urls": ["https://propertyauctions.io/listings/0a168378cc06f86bd7476c9010562a43"],
+      "capture_status": "captured_partial_needs_enrichment"
+    }
+  ]
+}
