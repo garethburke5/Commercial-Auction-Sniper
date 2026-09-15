@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "strategy": "breadth_first_exact_manifest_search",
+  "captured_at": "2026-09-15T23:20:00Z",
+  "main_head_before": "2c34faa7248d1818ed34d91be45b8e60ec493895",
+  "auction_date": "2011-12-12",
+  "known_total_lots_offered": 108,
+  "attempted": [
+    "Fresh exact-date search of surviving Savills auction catalogue pages for 12 December 2011",
+    "Fresh PropertyAuctions search for Savills 12 December 2011 AID/Auc/lot-manifest evidence"
+  ],
+  "result": {
+    "new_manifest_urls": 0,
+    "new_propertyauctions_aid_auc_anchors": 0,
+    "new_qualifying_commercial_mixed_clues": 0,
+    "canonical_commercial_mixed_events_added": 0,
+    "unresolved_qualifying_count": null
+  },
+  "blocker": "Publicly indexed Savills and PropertyAuctions searches returned no surviving 12 December 2011 lot manifest or independently date-bound AID/Auc anchor. The known 108-lot auction denominator therefore cannot yet be split into qualifying commercial/mixed versus residential lots.",
+  "distinct_next_route": "Move on breadth-first rather than repeat this exact search: enumerate the remaining 2011 calendar for additional Savills auction dates, while preparing bounded Wayback CDX/Common Crawl inventory queries for each verified 2011 date and legacy catalogue.auctions.savills.co.uk URL space. Persist discovered archive URLs before parsing, then reconcile recovered lot identifiers against PropertyAuctions AID/Auc evidence.",
+  "completeness_declared": false
+}
