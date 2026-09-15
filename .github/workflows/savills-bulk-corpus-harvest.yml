@@ -1,0 +1,99 @@
+name: Savills bulk historical corpus harvest
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: savills-bulk-corpus-harvest
+  cancel-in-progress: false
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+      - name: Bulk harvest source-identifiable Savills records
+        run: |
+          python - <<'PY'
+          import json, re, time
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+          from bs4 import BeautifulSoup
+
+          BASE='https://propertyauctions.io/auctioneers/savills'
+          OUT=Path('data/raw_savills_propertyauctions_corpus.json')
+          DIAG=Path('data/source_diagnostics/savills_bulk_harvest_latest.json')
+          OUT.parent.mkdir(parents=True, exist_ok=True); DIAG.parent.mkdir(parents=True, exist_ok=True)
+          old=[]
+          if OUT.exists():
+            try: old=json.loads(OUT.read_text())
+            except Exception: pass
+          by_url={r.get('source_url'):r for r in old if r.get('source_url')}
+          s=requests.Session(); s.headers['User-Agent']='Mozilla/5.0 Commercial-Auction-Sniper historical research'
+          attempted=[]; blockers=[]; discovered=set()
+          # Breadth-first: follow every listing link exposed by auctioneer pages/pagination.
+          frontier=[BASE]; seen=set()
+          for _ in range(250):
+            if not frontier: break
+            u=frontier.pop(0)
+            if u in seen: continue
+            seen.add(u)
+            try:
+              r=s.get(u,timeout=20); attempted.append({'url':u,'status':r.status_code})
+              if r.status_code!=200:
+                blockers.append({'url':u,'status':r.status_code}); continue
+              soup=BeautifulSoup(r.text,'html.parser')
+              for a in soup.find_all('a',href=True):
+                v=urljoin(u,a['href']).split('#')[0]
+                if '/listings/' in v: discovered.add(v)
+                elif 'propertyauctions.io/auctioneers/savills' in v and v not in seen and v not in frontier: frontier.append(v)
+              # Also capture listing URLs embedded in JS/JSON.
+              for m in re.findall(r'https?://propertyauctions\.io/listings/[A-Za-z0-9_-]+|/listings/[A-Za-z0-9_-]+',r.text):
+                discovered.add(urljoin(u,m))
+            except Exception as e: blockers.append({'url':u,'error':repr(e)})
+            time.sleep(.15)
+          for i,u in enumerate(sorted(discovered)):
+            if u in by_url: continue
+            try:
+              r=s.get(u,timeout=20)
+              if r.status_code!=200: blockers.append({'url':u,'status':r.status_code}); continue
+              soup=BeautifulSoup(r.text,'html.parser'); text=' '.join(soup.stripped_strings)
+              title=(soup.find('h1').get_text(' ',strip=True) if soup.find('h1') else None)
+              def grab(pattern):
+                m=re.search(pattern,text,re.I); return m.group(1).strip() if m else None
+              auction_date=grab(r'Auction Date[: ]+([0-9]{1,2}\s+[A-Za-z]+\s+[0-9]{4})')
+              ptype=grab(r'Property Type[: ]+([A-Za-z ]+?)(?:Sold Price|Guide Price|Description|$)')
+              status=grab(r'\b(Sold|Unsold|Withdrawn|Available|Auction Ended)\b')
+              guide=grab(r'Guide Price[: ]*£?([0-9,]+)')
+              sold=grab(r'Sold Price[: ]*£?([0-9,]+)')
+              by_url[u]={'auctioneer':'Savills','source':'propertyauctions.io','source_url':u,'title':title,'auction_date':auction_date,'property_type':ptype,'status':status,'guide_price':guide,'sold_price':sold,'raw_capture_status':'source_identifiable'}
+            except Exception as e: blockers.append({'url':u,'error':repr(e)})
+            if i and i%100==0: time.sleep(.5)
+          rows=sorted(by_url.values(),key=lambda x:(x.get('auction_date') or '',x.get('source_url') or ''))
+          OUT.write_text(json.dumps(rows,indent=2,ensure_ascii=False)+'\n')
+          DIAG.write_text(json.dumps({'schema_version':1,'strategy':'bulk_capture_first','auctioneer':'Savills','auctioneer_pages_visited':len(seen),'listing_urls_discovered_this_run':len(discovered),'corpus_records':len(rows),'blockers':blockers[:500],'attempted_pages':attempted[-100:]},indent=2)+'\n')
+          print(f'CORPUS_RECORDS={len(rows)} DISCOVERED={len(discovered)} PAGES={len(seen)} BLOCKERS={len(blockers)}')
+          PY
+      - name: Commit harvested corpus
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/raw_savills_propertyauctions_corpus.json data/source_diagnostics/savills_bulk_harvest_latest.json
+          if git diff --cached --quiet; then echo 'No corpus change'; exit 0; fi
+          git commit -m 'Bulk harvest Savills historical source corpus'
+          git pull --rebase origin main
+          git push origin HEAD:main
