@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "source_first_partial_allowed",
+  "records": [
+    {
+      "source_record_id": "savills-auction|2012-09-20|external-contemporary-evidence",
+      "record_type": "auction_partial",
+      "auction_date": "2012-09-20",
+      "archive_url": null,
+      "catalogue_url": null,
+      "commercial_mixed_clues": null,
+      "canonical_lot_matches": null,
+      "unresolved": null,
+      "evidence_urls": [
+        "https://www.forbes.com/sites/morganbrennan/2012/09/12/living-with-the-band-pink-floyds-london-rental-and-other-rock-star-homes-for-sale/",
+        "https://www.brain-damage.co.uk/archive/london-pink-floyd-house-sells-at-auction-for-1.2m.html"
+      ],
+      "capture_status": "contemporary_date_evidence_captured_catalogue_pending",
+      "notes": "Contemporary Forbes report says Savills Auctions would sell the Highgate property on September 20, 2012; next-day report confirms it sold at the Savills auction. Saved as auction-date/source evidence; no unsupported catalogue identity promoted."
+    },
+    {
+      "source_record_id": "savills-lot|2012-09-20|highgate-pink-floyd-house|partial",
+      "record_type": "lot_partial",
+      "auction_date": "2012-09-20",
+      "lot_number": null,
+      "location": "Highgate, London",
+      "address": null,
+      "property_type": "residential",
+      "guide_price": 1200000,
+      "result_price": 1200000,
+      "currency": "GBP",
+      "catalogue_url": null,
+      "source_urls": [
+        "https://www.forbes.com/sites/morganbrennan/2012/09/12/living-with-the-band-pink-floyds-london-rental-and-other-rock-star-homes-for-sale/",
+        "https://www.brain-damage.co.uk/archive/london-pink-floyd-house-sells-at-auction-for-1.2m.html"
+      ],
+      "capture_status": "source_evidence_captured_excluded_residential_only",
+      "include_in_commercial_corpus": false,
+      "notes": "Captured only as evidence anchoring the auction date; residential-only and therefore excluded from commercial/mixed ingestion."
+    }
+  ],
+  "notes": "Breadth-first source capture for the previously empty 2012 Savills manifest gap. This establishes at least one evidenced UK Savills Auctions date in 2012 without claiming year completeness. Commercial/mixed catalogue recovery remains pending."
+}
