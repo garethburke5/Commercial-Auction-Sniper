@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-09-15T08:10:00+01:00",
+  "auctioneer": "Savills",
+  "priority_range": "2018-2010 breadth-first",
+  "current_year": 2012,
+  "verified_auction_anchor": "2012-09-20",
+  "route": "fresh public search-index discovery for exact Savills auction date plus PropertyAuctions terminology",
+  "attempted": [
+    "Exact search: Savills + 20 September 2012 + auction",
+    "Exact search: Savills + 2012 + Property Auctions + 20 September",
+    "Search: Savills + September 2012 + auction property"
+  ],
+  "result": {
+    "savills_2012_auction_manifest_found": false,
+    "propertyauctions_aid_auc_manifest_found": false,
+    "qualifying_commercial_mixed_lot_manifest_found": false,
+    "canonicalised_this_route": 0,
+    "unresolved_manifest_denominator": null
+  },
+  "blocker": "Fresh public search indexes did not surface a UK Savills 20 September 2012 catalogue/lot manifest or a PropertyAuctions AID/Auc manifest. Returned Savills hits were later auction property pages where September 2012 appeared only in lease dates, plus unrelated international/market material. Those cannot be used as 2012 auction-lot evidence.",
+  "distinct_next_route": "Execute bounded archive inventory enumeration from GitHub Actions against historical Savills catalogue/RSS/PDF URL prefixes using Wayback CDX and Common Crawl indexes; persist every discovered URL/status before parsing. In parallel enumerate bounded PropertyAuctions AID/Auc candidates around independently evidenced adjacent Savills auction dates, without treating non-matches as proof of absence.",
+  "do_not_claim_complete": true
+}
