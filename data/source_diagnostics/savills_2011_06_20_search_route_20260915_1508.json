@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "frontier_year": 2011,
+  "auction_date": "2011-06-20",
+  "strategy": "fresh exact-date public-index reconciliation after PropertyAuctions direct harvest 403",
+  "attempted": [
+    "Exact-date Savills auction + lot + catalogue searches for 20 June 2011",
+    "Legacy catalogue.auctions.savills.co.uk exact-date search",
+    "PropertyAuctions Savills 20 June 2011 AID/Auc/manifest search"
+  ],
+  "result": {
+    "new_canonical_events": 0,
+    "canonicalised_current_route": 0,
+    "unresolved_denominator": null,
+    "manifest_recovered": false
+  },
+  "blocker": "Fresh public indexing did not expose a UK Savills 20 June 2011 catalogue/manifest or independently date-bound PropertyAuctions AID/Auc identifier. Search results included unrelated auctioneers and Australian Savills Residential property-history records dated 20 June 2011; these are not the target UK Savills auction and were rejected. The latest direct PropertyAuctions GitHub harvest remains source-blocked (HTTP 403, zero listing URLs discovered).",
+  "next_distinct_route": "Run bounded archive inventory enumeration against Wayback CDX and Common Crawl for legacy catalogue.auctions.savills.co.uk and auctions.savills.co.uk URL prefixes keyed to 2011-06-20; persist discovered URLs before parsing. Walk neighbouring lot identifiers only after an archived response independently binds the page to Savills and 20 June 2011. Resume PropertyAuctions AID/Auc enumeration only from an independently dated Savills identifier anchor.",
+  "completeness_declared": false,
+  "recorded_at": "2026-09-15T15:08:00+01:00"
+}
