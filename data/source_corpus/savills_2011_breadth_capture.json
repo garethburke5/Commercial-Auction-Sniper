@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "capture_strategy": "source-first breadth capture; enrichment later",
+  "auctioneer": "Savills Auctions",
+  "records": [
+    {
+      "source_record_id": "savills-auction|2011-05|date-pending",
+      "record_type": "auction_partial",
+      "auction_date": null,
+      "auction_month": "2011-05",
+      "auction_location": "London",
+      "sold_rate_pct": 85,
+      "amount_raised_gbp_approx": 27000000,
+      "source_urls": [
+        "https://www.thejc.com/life/to-step-on-to-the-property-ladder-use-the-rostrum-gewnr832"
+      ],
+      "capture_status": "captured_source_evidence_needs_exact_auction_date_and_catalogue_url",
+      "evidence_note": "Contemporary report published 26 May 2011 states Savills' May property auction in London sold about 85% of lots and raised almost GBP27m."
+    },
+    {
+      "source_record_id": "savills-lot|2011-05|date-pending|chiswick-common-road",
+      "record_type": "lot_partial",
+      "auction_date": null,
+      "auction_month": "2011-05",
+      "lot_number": null,
+      "address_partial": "Chiswick Common Road, Chiswick, London",
+      "property_type": "mixed-use retail and residential",
+      "description": "Corner building with a retail unit and two vacant one-bedroom flats.",
+      "guide_price_gbp": 675000,
+      "result_price_gbp": 695000,
+      "result": "sold",
+      "passing_rent_gbp_pa": 13750,
+      "tenure": null,
+      "tenant": null,
+      "source_urls": [
+        "https://www.thejc.com/life/to-step-on-to-the-property-ladder-use-the-rostrum-gewnr832"
+      ],
+      "capture_status": "partial_source_captured_needs_enrichment",
+      "canonical_history_v2": false,
+      "evidence_note": "Contemporary report identifies this as a lot in Savills' May 2011 London auction and gives use, rent, guide and sold price."
+    },
+    {
+      "source_record_id": "savills-auction|2011-09-19|catalogue-url-evidenced",
+      "record_type": "auction",
+      "auction_date": "2011-09-19",
+      "auction_location": "Royal Garden Hotel, 2-24 Kensington High Street, London",
+      "catalogue_url": "http://catalogue.auctions.savills.co.uk/residential/online-catalogue",
+      "source_urls": [
+        "https://www.cityam.com/property-news-40/",
+        "http://catalogue.auctions.savills.co.uk/residential/online-catalogue"
+      ],
+      "capture_status": "captured_source_manifest_needs_commercial_mixed_lot_enumeration",
+      "evidence_note": "Contemporary City A.M. report dated 8 September 2011 states Savills' next national residential auction was Monday 19 September and records the then-live Savills catalogue URL. Auction retained as chronology/source evidence; residential-only lots are not ingested."
+    }
+  ]
+}
