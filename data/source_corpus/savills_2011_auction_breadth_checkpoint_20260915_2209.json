@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "strategy": "breadth_first_surviving_chronological_evidence",
+  "checked_at": "2026-09-15T21:09:00Z",
+  "main_head_before": "5c37d9bfafed27209f4d0791a3f54b47cbe2f3c2",
+  "year": 2011,
+  "validated_auction_dates": [
+    {"date":"2011-02-14","evidence":"Contemporary City A.M. report states Savills' next residential auction would be Monday 14 February 2011.","url":"https://www.cityam.com/property-news-15/"},
+    {"date":"2011-06-20","evidence":"Previously source-anchored Savills National auction; manifest remains incomplete."},
+    {"date":"2011-07-25","evidence":"Previously recovered surviving legacy Savills lot-page anchor; manifest remains incomplete."},
+    {"date":"2011-09-19","evidence":"Contemporary City A.M. report states Savills national residential auction Monday 19 September 2011 at Royal Garden Hotel and online catalogue was live; lots 31 and 32 explicitly mentioned.","url":"https://www.cityam.com/property-news-40/"}
+  ],
+  "fresh_recovery": {
+    "attempted":"Exact-date breadth-first public-index reconciliation for 14 Feb, 25 Jul and 19 Sep 2011, including legacy Savills catalogue terms and known lot anchors.",
+    "new_validated_manifest_clue":"2011-09-19 lots 31 and 32 are explicitly identified as catalogue lots in a contemporary report; property identities/types are not exposed by the surviving article.",
+    "canonical_commercial_mixed_added":0,
+    "qualifying_commercial_mixed_denominator":"unknown",
+    "blocker":"Surviving chronological evidence validates auction dates and isolated lot numbers but does not expose complete lot manifests or property types; direct PropertyAuctions harvest previously returned zero discovered listing URLs, so no commercial/mixed lot can safely be canonicalised from this route.",
+    "next_distinct_route":"Use each exact 2011 auction date as an independent bounded archive key. Enumerate Wayback CDX/Common Crawl URL inventories for catalogue.auctions.savills.co.uk/residential and auctions.savills.co.uk, save discovered URLs before parsing, then reconcile any lot identifiers against PropertyAuctions AID/Auc only where the returned page independently binds Savills plus the exact auction date."
+  },
+  "completeness_declared": false
+}
