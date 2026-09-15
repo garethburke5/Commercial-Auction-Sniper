@@ -1,0 +1,34 @@
+{
+  "schema": "historical_source_corpus_breadth_v1",
+  "capture_priority": "source-first breadth; partial records accepted",
+  "auction": {
+    "auctioneer": "Allsop",
+    "auction_date": "2014-03-24",
+    "auction_type": "commercial",
+    "archive_url": "https://www.allsop.co.uk/auctions/all-past-auction-results/",
+    "results_total_raised_gbp": 80274500,
+    "results_source_url": "https://www.allsop.co.uk/auctions/all-past-auction-results/",
+    "status": "partial_manifest_lot_enumeration_in_progress"
+  },
+  "lots": [
+    {"lot_number":null,"address":"86/88 Above Bar Street, Southampton, Hampshire, SO14 7DT","locality":"Southampton","property_type":"commercial/mixed-use - shops, restaurant and residential accommodation","guide_price_gbp":1350000,"result_price_gbp":null,"rent_gbp_pa":188100,"tenure":"Freehold","source_urls":["https://propertyauctions.io/listings/c71f21d7b306ce47bde5d31231105587"]},
+    {"lot_number":null,"address":"30 The Vale, London, W3 7RS","locality":"London","property_type":"petrol filling station ground rent investment","guide_price_gbp":600000,"result_price_gbp":null,"rent_gbp_pa":null,"tenure":"Freehold","size":"0.116 hectares / 0.29 acres","source_urls":["https://propertyauctions.io/listings/52817d9a12ccd66051f45fe670fa157a"]},
+    {"lot_number":null,"address":"Aqueous 3, Aqueous Business Centre, Catherine Street, Aston Cross, Birmingham, West Midlands, B6 5RQ","locality":"Birmingham","property_type":"modern office","guide_price_gbp":740000,"result_price_gbp":770000,"rent_gbp_pa":null,"tenure":"Freehold","source_urls":["https://propertyauctions.io/listings/9159405e4db7f116ee639681bc1116cf"]},
+    {"lot_number":null,"address":"Priory Road Health Centre, Priory Road, Alcester, Warwickshire, B49 5DX","locality":"Alcester","property_type":"former health centre / redevelopment opportunity","guide_price_gbp":70000,"result_price_gbp":180000,"rent_gbp_pa":null,"tenure":"Freehold","source_urls":["https://propertyauctions.io/listings/a76c92ddf0bf3094719098144442acb9"]},
+    {"lot_number":null,"address":"24 Market Place, Boston, Lincolnshire, PE21 6EH","locality":"Boston","property_type":"bank investment","guide_price_gbp":250000,"result_price_gbp":314000,"rent_gbp_pa":22500,"tenure":"Freehold","source_urls":["https://propertyauctions.io/listings/fb8763619a557a23e8a754bb9efdefa6"]},
+    {"lot_number":null,"address":"424 St John Street, London, EC1V 4NJ","locality":"London","property_type":"shop investment","guide_price_gbp":500000,"result_price_gbp":545000,"rent_gbp_pa":null,"tenure":"Leasehold - 999 years from 6 September 2013, peppercorn","source_urls":["https://propertyauctions.io/listings/9451e78490117167c9b9f63054a9f9fa"]},
+    {"lot_number":null,"address":"94/95 North Street, Sudbury, CO13 1RF","locality":"Sudbury","property_type":"shop investment","guide_price_gbp":2000000,"result_price_gbp":null,"rent_gbp_pa":160000,"tenure":"Freehold","source_urls":["https://propertyauctions.io/listings/f33178c195b83c975a55e9178733558a"]},
+    {"lot_number":null,"address":"18/19 The Mall, London, W5 2PJ","locality":"London","property_type":"mixed-use restaurant, dental surgery and flat","guide_price_gbp":950000,"result_price_gbp":1420000,"rent_gbp_pa":91000,"tenure":"Freehold","source_urls":["https://propertyauctions.io/listings/0ec466e30b6a8b443c5fcf111d2a0042"]},
+    {"lot_number":null,"address":"55 Heath Street, London, NW3 6UG","locality":"London","property_type":"estate agent investment","guide_price_gbp":850000,"result_price_gbp":880000,"rent_gbp_pa":43000,"tenure":"Freehold","source_urls":["https://propertyauctions.io/listings/d4aa47711d9cf1bca7d4aea01195e635"]},
+    {"lot_number":null,"address":"Unit 11, Bessemer Park, 250 Milkwood Road, London, SE24 0HG","locality":"London","property_type":"industrial investment","guide_price_gbp":340000,"result_price_gbp":380000,"rent_gbp_pa":null,"tenure":"Leasehold - 999 years from 24 June 1990, peppercorn","source_urls":["https://propertyauctions.io/listings/ffe0cafaef2218bf9bfeacd78ffe2db5"]},
+    {"lot_number":null,"address":"36 High Street, Stone, Staffordshire, ST15 8AW","locality":"Stone","property_type":"shop investment","guide_price_gbp":325000,"result_price_gbp":null,"rent_gbp_pa":28500,"tenure":"Freehold","source_urls":["https://propertyauctions.io/listings/52707989a759ce5253c9e973b85f87cb"]},
+    {"lot_number":null,"address":"3 Market Square, Biggleswade, Bedfordshire, SG18 8AP","locality":"Biggleswade","property_type":"mixed-use funeral parlour/workshop and residential accommodation","guide_price_gbp":300000,"result_price_gbp":300000,"rent_gbp_pa":20000,"tenure":"Freehold","source_urls":["https://propertyauctions.io/listings/740e07f4194dc4d7396ff957e70dd66d"]},
+    {"lot_number":null,"address":"40-42 High Street, Tonbridge, Kent, TN9 1EH","locality":"Tonbridge","property_type":"mixed-use shop and two flats","guide_price_gbp":550000,"result_price_gbp":null,"result_status":"Withdrawn","rent_gbp_pa":15720,"tenure":"Freehold","source_urls":["https://propertyauctions.io/listings/06a8388ead50033a08d1eeb4d15b8aac"]}
+  ],
+  "capture_notes": [
+    "Residential-only records excluded.",
+    "Lot numbers left null where surviving indexed evidence did not expose them.",
+    "Guide/result/rent/tenure copied only where evidenced by the cited surviving source.",
+    "Allsop past-results archive reports March 2014 total raised of GBP 80,274,500; lot enumeration remains deliberately partial for later breadth passes."
+  ]
+}
