@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "frontier_year": 2011,
+  "auction_date": "2011-06-20",
+  "recovery_strategy": "fresh exact-date and known-lot public-index enumeration after PropertyAuctions runner 403",
+  "attempted": [
+    "Exact-date Savills auction + lot public search",
+    "Exact-date legacy catalogue.auctions.savills.co.uk search",
+    "PropertyAuctions AID/Auc terminology search for Savills June 2011"
+  ],
+  "result": {
+    "new_validated_canonical_events": 0,
+    "complete_manifest_recovered": false,
+    "unresolved_denominator": null
+  },
+  "blocker": "Fresh exact-date searches did not surface a surviving Savills 20 June 2011 lot manifest or a PropertyAuctions AID/Auc identifier bound independently to Savills and this date. Search results were unrelated auctioneers/properties and were rejected.",
+  "distinct_next_route": "Run bounded archive inventory enumeration from repository infrastructure against Wayback CDX and Common Crawl for legacy catalogue.auctions.savills.co.uk and auctions.savills.co.uk prefixes keyed to 2011-06-20; persist discovered URLs before parsing; use known lot-number anchors only to walk neighbouring archived identifiers after the archive binds them to Savills and the exact date.",
+  "completeness_declared": false,
+  "recorded_at": "2026-09-15T13:11:00Z"
+}
