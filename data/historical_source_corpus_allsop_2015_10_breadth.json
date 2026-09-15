@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "capture_strategy": "DISCOVER -> SAVE SOURCE RECORD/URL -> MOVE ON",
+  "records": [
+    {
+      "source_record_id": "allsop-auction|2015-10-19|commercial-partial-manifest",
+      "auctioneer": "Allsop",
+      "record_type": "auction",
+      "auction_date": "2015-10-19",
+      "property_scope": "commercial",
+      "source_urls": ["https://www.propertyauctions.com/dataclub/"],
+      "evidence_note": "Contemporary results index reports Allsop Commercial October two-day sale held 19-20 October 2015 with 210 investments on offer; lot records below are independently date-bound to 19 October 2015.",
+      "capture_status": "partial_manifest_lot_enumeration_in_progress",
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "allsop-lot|2015-10-19|75-76-oldfields-circus-northolt",
+      "auctioneer": "Allsop", "record_type": "lot_partial", "auction_date": "2015-10-19", "lot_number": null,
+      "address": "75/76 Oldfields Circus, Northolt, Middlesex, UB5 4RU", "property_type": "Commercial - betting office and ground rent investment", "guide_price_gbp": 150000, "result_price_gbp": 275000, "result_status": "Sold", "rent_pa_gbp": 12600, "tenure": "Freehold",
+      "source_urls": ["https://propertyauctions.io/listings/65ba23c0333ac9a1f832c8881e179702"], "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "allsop-lot|2015-10-19|the-ings-railside-lane-doncaster",
+      "auctioneer": "Allsop", "record_type": "lot_partial", "auction_date": "2015-10-19", "lot_number": null,
+      "address": "The Ings, Railside Lane, Doncaster, South Yorkshire, DN5 8AR", "property_type": "Commercial investment - concrete batching plant site", "guide_price_gbp": 150000, "result_price_gbp": 210000, "result_status": "Sold", "rent_pa_gbp": 12550, "tenure": "Freehold",
+      "source_urls": ["https://propertyauctions.io/listings/46d221eb2ac9892dfc00a9b18e3d4ca4"], "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "allsop-lot|2015-10-19|5-bank-street-kirriemuir",
+      "auctioneer": "Allsop", "record_type": "lot_partial", "auction_date": "2015-10-19", "lot_number": null,
+      "address": "5 Bank Street, Kirriemuir, Angus, DD8 4BE", "property_type": "Commercial investment - public offices", "guide_price_gbp": 240000, "result_price_gbp": 240000, "result_status": "Sold", "tenure": "Freehold",
+      "source_urls": ["https://propertyauctions.io/listings/abb46967d82f7fd2cb85e44da0f08295"], "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "allsop-lot|2015-10-19|6-market-square-waltham-abbey",
+      "auctioneer": "Allsop", "record_type": "lot_partial", "auction_date": "2015-10-19", "lot_number": null,
+      "address": "6 Market Square, Waltham Abbey, Essex, EN9 1DN", "property_type": "Commercial - bank investment", "guide_price_gbp": 320000, "result_price_gbp": 437500, "result_status": "Sold", "tenure": "Freehold",
+      "source_urls": ["https://propertyauctions.io/listings/8b0158c140710d0d5ff1a4e6245162c2"], "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "allsop-lot|2015-10-19|56-57-high-street-stourbridge",
+      "auctioneer": "Allsop", "record_type": "lot_partial", "auction_date": "2015-10-19", "lot_number": null,
+      "address": "56-57 High Street, Stourbridge, West Midlands, DY8 1DE", "property_type": "Commercial - bank investment with office suite", "guide_price_gbp": 425000, "result_price_gbp": 525000, "result_status": "Sold", "tenure": "Freehold",
+      "source_urls": ["https://propertyauctions.io/listings/c4ac76b9763d86ab2a5b1f7283b667d9"], "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "allsop-lot|2015-10-19|32-cheshire-street-market-drayton",
+      "auctioneer": "Allsop", "record_type": "lot_partial", "auction_date": "2015-10-19", "lot_number": null,
+      "address": "32 Cheshire Street, Market Drayton, Shropshire, TF9 1PF", "property_type": "Commercial - shop investment", "guide_price_gbp": 140000, "result_price_gbp": 140000, "result_status": "Sold", "tenure": "Freehold",
+      "source_urls": ["https://propertyauctions.io/listings/3233021dba6d78bc9ebfd382dbe077a0"], "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "allsop-lot|2015-10-19|51-52-fleet-street-torquay",
+      "auctioneer": "Allsop", "record_type": "lot_partial", "auction_date": "2015-10-19", "lot_number": null,
+      "address": "51-52 Fleet Street, Torquay, Devon, TQ2 5DW", "property_type": "Commercial - bank investment", "guide_price_gbp": 1200000, "result_price_gbp": null, "result_status": "Withdrawn", "tenure": "Freehold", "size_sq_ft": 9116,
+      "source_urls": ["https://propertyauctions.io/listings/8e487e39e4eb9fc7124a72f0844c769d"], "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "allsop-lot|2015-10-19|20-battle-road-newton-abbot",
+      "auctioneer": "Allsop", "record_type": "lot_partial", "auction_date": "2015-10-19", "lot_number": null,
+      "address": "20 Battle Road, Heathfield Industrial Estate, Newton Abbot, Devon, TQ12 6TN", "property_type": "Commercial - distribution warehouse investment", "guide_price_gbp": 1100000, "result_price_gbp": 1135000, "result_status": "Sold", "rent_pa_gbp": 119600, "tenure": "Freehold", "size_sq_ft": 38912,
+      "source_urls": ["https://propertyauctions.io/listings/071943900fa6b3ccf8f70936e2d9e05a"], "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "allsop-lot|2015-10-19|36-lowesmoor-worcester",
+      "auctioneer": "Allsop", "record_type": "lot_partial", "auction_date": "2015-10-19", "lot_number": null,
+      "address": "36 Lowesmoor, Worcester, Worcestershire, WR1 2SG", "property_type": "Commercial - convenience store investment", "guide_price_gbp": 285000, "result_price_gbp": null, "result_status": "Withdrawn", "tenure": "Leasehold - 999 years from 28 October 2013, ground rent £1 pa", "size_sq_ft": 3658,
+      "source_urls": ["https://propertyauctions.io/listings/73851f483579c6f18f16b5ad43021acf"], "canonical_history_v2": false
+    }
+  ]
+}
