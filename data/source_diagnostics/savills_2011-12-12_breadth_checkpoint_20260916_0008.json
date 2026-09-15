@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "strategy": "breadth_first_chronological_corroboration",
+  "captured_at": "2026-09-15T23:08:00Z",
+  "main_head_before": "b6d85381f23a5327af57b3224ba4c000c4fdd69b",
+  "auction_date": "2011-12-12",
+  "venue": "Royal Garden Hotel, Kensington, London",
+  "auction_status": "independently_verified",
+  "lots_offered_reported": 108,
+  "success_rate_reported_pct": 83,
+  "total_realised_reported_gbp": 22500000,
+  "source": {
+    "url": "https://property-investor-news.com/article/auctions/2012/01/14/residential_auction_review.html",
+    "publication_date_reported": "2011-12-01",
+    "evidence": "Contemporary Residential Auction Review states Savills held its final residential auction of 2011 at the Royal Garden Hotel on 12 December, with 108 lots on offer, 83% sold and approximately GBP22.5m realised."
+  },
+  "reconciliation": {
+    "new_auction_date_mapped": true,
+    "canonical_commercial_mixed_events_added": 0,
+    "qualifying_commercial_mixed_clues_validated": 0,
+    "qualifying_denominator": null,
+    "unresolved_qualifying_count": null,
+    "reason_not_canonicalised": "The surviving review gives the auction-level denominator but not a lot manifest, addresses, property types, or PropertyAuctions AID/Auc identifiers. The auction is described as residential; no commercial/mixed lot can be inferred safely from the aggregate review."
+  },
+  "latest_savills_workflow_rechecked": {
+    "run_id": 35024746126,
+    "job_id": 104568947840,
+    "result": "CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1",
+    "direct_propertyauctions_route": "stalled"
+  },
+  "blocker": "The 12 December 2011 auction is now independently date- and denominator-verified, but no surviving lot-level manifest/AID/Auc mapping was recovered in this route, so commercial/mixed qualification and canonicalisation cannot be performed safely.",
+  "distinct_next_route": "Use the newly verified 12 December 2011 date plus its 108-lot denominator as a bounded archive target: enumerate legacy Savills catalogue captures and indexed lot pages for that exact date, save discovered URLs first, then reconcile recovered lot numbers/addresses against PropertyAuctions listing and AID/Auc evidence. In parallel continue breadth-first calendar mapping of remaining 2011 gaps rather than repeatedly querying the blocked PropertyAuctions auctioneer page.",
+  "completeness_declared": false
+}
