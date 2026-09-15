@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Allsop",
+  "strategy": "discover_save_move_on",
+  "auction": {
+    "auction_date": "2015-05-18",
+    "auction_type": "commercial",
+    "status": "partial_manifest_lot_enumeration_in_progress",
+    "archive_url": "https://www.propertyauctions.com/dataclub/",
+    "source_urls": [
+      "https://www.propertyauctions.com/dataclub/"
+    ]
+  },
+  "lots": [
+    {
+      "lot_number": null,
+      "address": "Brite Court, 50 Park Road, Gatley, Cheshire, SK8 4HZ",
+      "locality": "Gatley",
+      "property_type": "Commercial - office investment",
+      "guide_price": 1350000,
+      "result": "Sold",
+      "hammer_or_sold_price": 2000000,
+      "rent_pa": null,
+      "tenure": "Freehold",
+      "size": null,
+      "tenant": null,
+      "lease_details": null,
+      "source_urls": ["https://propertyauctions.io/listings/fa19de492ae38619501deb3f797f0b64"]
+    },
+    {
+      "lot_number": null,
+      "address": "67 Cricklewood Broadway, London, NW2 3JR",
+      "locality": "Cricklewood",
+      "property_type": "Commercial - restaurant investment",
+      "guide_price": 250000,
+      "result": "Sold",
+      "hammer_or_sold_price": 315000,
+      "rent_pa": 16000,
+      "tenure": "Leasehold - described as virtual freehold, 999 years from completion at peppercorn rent",
+      "size": null,
+      "tenant": null,
+      "lease_details": "999 years from completion at peppercorn rent",
+      "source_urls": ["https://propertyauctions.io/listings/59d239b8020369d0d04444fc0a59da24"]
+    },
+    {
+      "lot_number": null,
+      "address": "Unit 3, Northbrook Road, Eastern Avenue Trading Estate, Gloucester, Gloucestershire, GL4 3DP",
+      "locality": "Gloucester",
+      "property_type": "Commercial - industrial investment",
+      "guide_price": 900000,
+      "result": "Sold",
+      "hammer_or_sold_price": 875000,
+      "rent_pa": 87120,
+      "tenure": "Freehold",
+      "size": "1,832 sq m / 19,718 sq ft GIA; 0.59 ha / 1.46 acre site",
+      "tenant": null,
+      "lease_details": null,
+      "source_urls": ["https://propertyauctions.io/listings/b4bc2df3bcbbf139d5fab7e7307f4cbf"]
+    },
+    {
+      "lot_number": null,
+      "address": "6A Finkle Street, Richmond, North Yorkshire, DL10 4QB",
+      "locality": "Richmond",
+      "property_type": "Commercial - shop investment",
+      "guide_price": 195000,
+      "result": "Sold",
+      "hammer_or_sold_price": 250000,
+      "rent_pa": 18000,
+      "tenure": "Freehold",
+      "size": null,
+      "tenant": null,
+      "lease_details": null,
+      "source_urls": ["https://propertyauctions.io/listings/ce85143647143fc5b23ed2c0662962e2"]
+    },
+    {
+      "lot_number": null,
+      "address": "Shops 59 & 61, Flat 71, Garages 41 & 47, Clare Road, Stanwell, Middlesex, TW19 7QP",
+      "locality": "Stanwell",
+      "property_type": "Mixed-use - two shops, flat and two garages",
+      "guide_price": 335000,
+      "result": "Sold",
+      "hammer_or_sold_price": 365000,
+      "rent_pa": 25500,
+      "tenure": "Freehold",
+      "size": null,
+      "tenant": null,
+      "lease_details": null,
+      "source_urls": ["https://propertyauctions.io/listings/326d29ac0b13482c95c9087ed71ca303"]
+    }
+  ],
+  "capture_notes": "Capture-first tranche. Missing lot numbers and other unavailable fields deliberately left null. Residential-only lots excluded. Individual listing URLs retained for later enrichment/canonical reconciliation."
+}
