@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "run_date": "2026-09-15",
+  "strategy": "discover_save_move_on",
+  "production_head_inspected": "0c8afadf14ee512b9febf92fa26c7fdff02ecd94",
+  "coverage_focus": "2018-2010 breadth-first",
+  "newly_persisted_before_this_checkpoint": {
+    "year": 2012,
+    "verified_auction_dates": ["2012-03-27", "2012-05-09", "2012-09-20", "2012-12-10"],
+    "validated_lot_level_examples": 4
+  },
+  "capture_policy": "Persist auction, lot and evidence URLs immediately; null fields do not block source capture; residential-only lots excluded from qualifying corpus.",
+  "current_blocker": "The four evidenced 2012 dates are not yet complete auction manifests and no defensible complete commercial/mixed denominator has been recovered.",
+  "next_route": "Enumerate URL inventories around each evidenced 2012 date using surviving catalogue.auctions.savills.co.uk and PropertyAuctions AID/Auc evidence; save each discovered URL/partial qualifying lot before enrichment.",
+  "do_not_claim_complete": true
+}
