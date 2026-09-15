@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "recovery_scope": "breadth-first historical recovery 2018-2010",
+  "frontier_year": 2011,
+  "auction_date": "2011-06-20",
+  "route": "fresh exact-date public-index enumeration after PropertyAuctions runner 403",
+  "attempted": [
+    "fresh searches for exact date + Savills auction catalogue/lot terminology",
+    "legacy catalogue.auctions.savills.co.uk hostname + exact date/lot terms",
+    "PropertyAuctions AID/Auc/manifest terminology via public indexing"
+  ],
+  "result": {
+    "new_validated_canonical_events": 0,
+    "canonicalised_current_route": 0,
+    "unresolved_manifest_count": null,
+    "complete_manifest_recovered": false,
+    "propertyauctions_date_bound_identifier_recovered": false
+  },
+  "blocker": "Fresh public indexing did not expose a UK Savills 20 June 2011 lot manifest or an independently date-bound PropertyAuctions AID/Auc identifier. Exact-date results were dominated by unrelated auctioneers/properties and therefore cannot safely establish a denominator or canonical events.",
+  "safety_decision": "Do not infer completeness or promote unrelated exact-date results. Keep unresolved denominator null until a source manifest is recovered.",
+  "distinct_next_route": "Run bounded archive inventory enumeration from repository infrastructure against Wayback CDX and Common Crawl using 2011-06-20 plus legacy catalogue.auctions.savills.co.uk / auctions.savills.co.uk prefixes. Persist discovered URLs before parsing; walk neighbouring lot identifiers only after an archived response independently proves Savills and the exact auction date. Resume PropertyAuctions AID/Auc probing only from a date-bound identifier anchor.",
+  "historical_completeness_declared": false,
+  "checked_at": "2026-09-15T16:10:00+01:00"
+}
