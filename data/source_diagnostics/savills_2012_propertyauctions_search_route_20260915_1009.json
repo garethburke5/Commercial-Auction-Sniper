@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "run_date": "2026-09-15",
+  "production_head_inspected": "1b010a3cff27bb0110057e651f454aa421e822d0",
+  "coverage_focus": "2018-2010 breadth-first; current frontier 2012",
+  "route": "fresh public search-index queries for surviving catalogue.auctions.savills.co.uk 2012 lot pages plus PropertyAuctions Savills 2012 AID/Auc/manifest evidence",
+  "queries_attempted": [
+    "site:catalogue.auctions.savills.co.uk 2012 Lot Savills June",
+    "site:catalogue.auctions.savills.co.uk 2012 Lot Savills July",
+    "site:catalogue.auctions.savills.co.uk 2012 Lot Savills October",
+    "site:propertyauctions.io Savills 2012 auction AID Auc"
+  ],
+  "result": "No defensible additional 2012 Savills auction manifest or target-year lot page was recovered. PropertyAuctions results returned modern Savills listings where 2012 appeared only in construction, lease, or address-history text, not as the auction date.",
+  "new_canonical_events": 0,
+  "current_verified_2012_auction_dates": ["2012-03-27", "2012-05-09", "2012-09-20", "2012-12-10"],
+  "canonicalised_current_route": 0,
+  "unresolved_current_auction_or_year": null,
+  "blocker": "Search-index relevance is polluted by modern PropertyAuctions pages containing incidental 2012 dates; no complete PropertyAuctions AID/Auc manifest denominator or additional date-keyed Savills catalogue inventory surfaced.",
+  "distinct_next_route": "Use repository-executed archive inventory enumeration (Wayback CDX/Common Crawl) keyed to the four verified 2012 auction dates and legacy catalogue.auctions.savills.co.uk URL prefixes; persist discovered URLs before parsing, then bounded-enumerate PropertyAuctions identifiers only where an independently verified Savills/date response anchors the range.",
+  "do_not_claim_complete": true
+}
