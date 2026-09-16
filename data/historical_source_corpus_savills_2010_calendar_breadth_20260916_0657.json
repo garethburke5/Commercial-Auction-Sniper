@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "capture_mode": "breadth_first_source_corpus",
+  "captured_at": "2026-09-16T05:57:00Z",
+  "main_head_inspected": "b057da5f2a06fb647432626f5da7804aa35a4d9f",
+  "records": [
+    {
+      "source_record_id": "savills-auction|2010-10-11|commercial",
+      "auctioneer": "Savills Commercial Auctions",
+      "record_type": "auction",
+      "auction_date": "2010-10-11",
+      "auction_month": "2010-10",
+      "venue": null,
+      "aid": null,
+      "auc": null,
+      "lots_in_catalogue": null,
+      "source_urls": [
+        "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf",
+        "http://www.savills.co.uk/auction"
+      ],
+      "capture_status": "auction_enumerated_catalogue_manifest_pending",
+      "canonical_history_v2": false,
+      "notes": "Savills Commercial Research September 2010 market review explicitly lists Monday 11 October as a 2010 auction date and says its catalogue had closed. Lot manifest remains to enumerate; no lot facts inferred."
+    },
+    {
+      "source_record_id": "savills-auction|2010-12-13|commercial",
+      "auctioneer": "Savills Commercial Auctions",
+      "record_type": "auction",
+      "auction_date": "2010-12-13",
+      "auction_month": "2010-12",
+      "venue": null,
+      "aid": null,
+      "auc": null,
+      "lots_in_catalogue": null,
+      "catalogue_close_date": "2010-11-08",
+      "source_urls": [
+        "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf",
+        "http://www.savills.co.uk/auction"
+      ],
+      "capture_status": "auction_enumerated_catalogue_manifest_pending",
+      "canonical_history_v2": false,
+      "notes": "Savills Commercial Research September 2010 market review explicitly lists Monday 13 December as a 2010 auction date, with catalogue close Monday 8 November. Lot manifest remains to enumerate; no lot facts inferred."
+    }
+  ],
+  "run_summary": {
+    "auction_records_added": 2,
+    "commercial_or_mixed_lot_records_added": 0,
+    "years_covered": [2010],
+    "auctions_covered": [
+      "Savills Commercial 11 October 2010",
+      "Savills Commercial 13 December 2010"
+    ],
+    "completeness_declared": false,
+    "attempted": "Inspected production main first. Honoured the prior checkpoint instruction not to repeat generic 12 July identity reconstruction, and instead used an official surviving Savills Commercial Research PDF to broaden the 2010 chronological auction calendar.",
+    "distinct_next_route": "Enumerate catalogue/results sources and commercial/mixed lots for 11 October and 13 December 2010 independently, while continuing breadth-first calendar recovery for the remaining Savills 2010-2018 gaps."
+  }
+}
