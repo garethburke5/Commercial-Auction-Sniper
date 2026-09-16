@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "captured_at": "2026-09-16T01:08:36Z",
+  "main_head_inspected": "77fa585272cd8b6aa886f01cd83a5216b466c321",
+  "strategy": "breadth_first_capture_first_archive_inventory",
+  "workflow": {
+    "name": "Savills bulk archive inventory",
+    "run_id": 35040576798,
+    "job_id": 104619282486,
+    "conclusion": "success",
+    "archive_url_records": 654,
+    "persist_commit": "65707691b507b3c8514608bdc53538c40bc49770"
+  },
+  "validated_progress": {
+    "new_raw_archive_url_records": 654,
+    "new_canonical_events_from_inventory_stage": 0,
+    "note": "This stage intentionally preserves archive URL inventory before lot parsing/classification."
+  },
+  "source_specific_blockers": [
+    "Wayback CDX returned intermittent HTTP 503/504 responses across multiple year/host combinations.",
+    "2015 catalogue.auctions.savills.co.uk timed out and auctions.savills.co.uk read timed out.",
+    "2010 catalogue.auctions.savills.co.uk and www.savills.co.uk/auction-catalogues timed out.",
+    "2011 host queries returned 503/504, so the 654-record inventory is not a completeness denominator."
+  ],
+  "distinct_next_route": "Parse the 654 persisted archive URLs into auction-date and lot-level raw records first, prioritising URLs containing catalogue/lot/property paths. In parallel use Common Crawl index enumeration specifically for the Wayback-failed year/host cells (2010, 2011, 2012, 2013, 2015, 2016 and partial 2018) and reconcile recovered identifiers against PropertyAuctions AID/Auc manifests only after date-bound anchors are present.",
+  "completeness_declared": false
+}
