@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Commercial Auctions",
+  "strategy": "breadth_first_exact_date_manifest_reconciliation",
+  "captured_at": "2026-09-16T07:07:50Z",
+  "main_head_inspected": "35a3c8b84d2c4ab50ab3f656a813899ba9623127",
+  "auction_dates": ["2011-02-28","2011-05-10","2011-07-11","2011-10-17","2011-12-05"],
+  "attempted": [
+    "Freshly inspected latest Savills bulk PropertyAuctions workflow and job log; it completed but returned CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1.",
+    "Searched each exact official 2011 Savills Commercial auction date for surviving catalogue/lot-manifest evidence and PropertyAuctions AID/Auc-style results.",
+    "Retained the official Savills commercial auction calendar dates already evidenced on production main; no lot manifest was inferred from unrelated search results."
+  ],
+  "new_validated_canonical_events": 0,
+  "new_qualifying_commercial_mixed_clues": 0,
+  "qualifying_denominator": null,
+  "unresolved_qualifying_count": null,
+  "blocker": "Exact-date web discovery did not surface a surviving Savills 2011 commercial lot manifest or PropertyAuctions AID/Auc mapping. The PropertyAuctions auctioneer-page harvester is independently confirmed stalled because the page exposes no listing URLs to that route.",
+  "distinct_next_route": "Enumerate the official Savills pdf.euro.savills.co.uk/uk/commercial-auctions-uk/ namespace and archived captures around each five-week catalogue-close-to-auction window, using filename/date adjacency from the surviving September 2010 market-review PDF. Persist discovered catalogue/results PDF URLs first; extract addresses and lot numbers second; then reconcile those address/lot pairs against PropertyAuctions. If the Savills PDF namespace is incomplete, query Common Crawl indexes specifically for that path and the five exact 2011 auction dates rather than retrying the PropertyAuctions auctioneer page.",
+  "completeness_declared": false
+}
