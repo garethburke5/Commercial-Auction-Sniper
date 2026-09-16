@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "capture_mode": "breadth_first_source_corpus",
+  "captured_at": "2026-09-16T03:57:30Z",
+  "main_head_inspected": "4dfc501be7df8daad359ea5e0d0a823dd5e2b20c",
+  "records": [
+    {
+      "source_record_id": "savills-auction|2013-10-28|london-residential-auction-evidenced",
+      "auctioneer": "Savills Auctions",
+      "record_type": "auction",
+      "auction_date": "2013-10-28",
+      "aid": null,
+      "auc": null,
+      "venue": "Marriott Hotel, London W1",
+      "lots_offered": 182,
+      "lots_sold_in_room": 148,
+      "lots_sold_prior": 11,
+      "sale_value_gbp": 45000000,
+      "success_rate_percent": 88,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": "https://property-investor-news.com/article/auctions/2013/11/20/auction_report.html",
+      "source_urls": [
+        "https://property-investor-news.com/article/auctions/2013/11/20/auction_report.html",
+        "https://www.itv.com/news/london/story/2013-10-28/multi-million-pound-council-houses/",
+        "https://www.independent.co.uk/news/uk/home-news/britain-s-most-expensive-council-house-sells-for-ps2-96m-8909562.html"
+      ],
+      "capture_status": "auction_enumerated_source_urls_saved_lot_enumeration_pending",
+      "canonical_history_v2": false,
+      "notes": "Contemporary report identifies 28 October 2013 Savills auction, 182 offered, 148 sold in room, 11 sold prior, circa GBP45m and 88% success. The prominently reported Borough Market council house is residential and therefore not persisted as a commercial lot. Commercial/mixed-use lot enumeration remains pending from surviving catalogue/results sources."
+    }
+  ],
+  "run_summary": {
+    "auction_records_added": 1,
+    "commercial_or_mixed_lot_records_added": 0,
+    "years_covered": [2013],
+    "auctions_covered": ["Savills Auctions 2013-10-28"],
+    "residential_only_lots_excluded": true,
+    "completeness_declared": false,
+    "next_breadth_route": "Continue Savills 2013 auction-date enumeration and catalogue/results discovery; do not retry the unchanged 654-CDX parser."
+  }
+}
