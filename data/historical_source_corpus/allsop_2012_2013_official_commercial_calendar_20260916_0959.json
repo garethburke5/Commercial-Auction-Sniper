@@ -1,0 +1,27 @@
+{
+  "schema": "historical_source_corpus_capture_v1",
+  "capture_mode": "DISCOVER_SAVE_MOVE_ON",
+  "auctioneer": "Allsop",
+  "captured_at": "2026-09-16T09:59:00+01:00",
+  "source_urls": [
+    "https://www.allsop.co.uk/auctions/all-past-auction-results/"
+  ],
+  "notes": "Official Allsop past-results chronology. Month/year and total raised are evidenced. Exact auction day, AID/Auc and per-auction results URLs are left null pending later enumeration; these unknowns do not block source capture.",
+  "auctions": [
+    {"year":2012,"month":"February","auction_date":null,"aid":null,"auc":null,"total_raised_gbp":43937000,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","catalogue_url":null,"results_url":null,"document_urls":[],"enumeration_status":"source_record_saved_results_link_pending"},
+    {"year":2012,"month":"March","auction_date":null,"aid":null,"auc":null,"total_raised_gbp":45629500,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","catalogue_url":null,"results_url":null,"document_urls":[],"enumeration_status":"source_record_saved_results_link_pending"},
+    {"year":2012,"month":"May","auction_date":null,"aid":null,"auc":null,"total_raised_gbp":58241201,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","catalogue_url":null,"results_url":null,"document_urls":[],"enumeration_status":"source_record_saved_results_link_pending"},
+    {"year":2012,"month":"July","auction_date":null,"aid":null,"auc":null,"total_raised_gbp":62659500,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","catalogue_url":null,"results_url":null,"document_urls":[],"enumeration_status":"source_record_saved_results_link_pending"},
+    {"year":2012,"month":"October","auction_date":null,"aid":null,"auc":null,"total_raised_gbp":88581500,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","catalogue_url":null,"results_url":null,"document_urls":[],"enumeration_status":"source_record_saved_results_link_pending"},
+    {"year":2012,"month":"December","auction_date":null,"aid":null,"auc":null,"total_raised_gbp":50865500,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","catalogue_url":null,"results_url":null,"document_urls":[],"enumeration_status":"source_record_saved_results_link_pending"},
+    {"year":2013,"month":"February","auction_date":null,"aid":null,"auc":null,"total_raised_gbp":43034600,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","catalogue_url":null,"results_url":null,"document_urls":[],"enumeration_status":"source_record_saved_results_link_pending"},
+    {"year":2013,"month":"March","auction_date":null,"aid":null,"auc":null,"total_raised_gbp":57499500,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","catalogue_url":null,"results_url":null,"document_urls":[],"enumeration_status":"source_record_saved_results_link_pending"},
+    {"year":2013,"month":"May","auction_date":null,"aid":null,"auc":null,"total_raised_gbp":59005500,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","catalogue_url":null,"results_url":null,"document_urls":[],"enumeration_status":"source_record_saved_results_link_pending"},
+    {"year":2013,"month":"July","auction_date":"2013-07-09","aid":null,"auc":null,"total_raised_gbp":57803608,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","catalogue_url":null,"results_url":null,"document_urls":["https://www.allsop.co.uk/insights/crystal-palace-fc-s-training-ground-set-to-go-under-the-hammer-at-allsop-s-july-commercial-auction/"],"enumeration_status":"partial_lot_manifest_saved"},
+    {"year":2013,"month":"October","auction_date":null,"aid":null,"auc":null,"total_raised_gbp":83807500,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","catalogue_url":null,"results_url":null,"document_urls":[],"enumeration_status":"source_record_saved_results_link_pending"},
+    {"year":2013,"month":"December","auction_date":null,"aid":null,"auc":null,"total_raised_gbp":81077500,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","catalogue_url":null,"results_url":null,"document_urls":[],"enumeration_status":"source_record_saved_results_link_pending"}
+  ],
+  "lots": [
+    {"year":2013,"auction_date":"2013-07-09","lot_number":"74","address":"Crystal Palace Football Club Training Ground, Copers Cope Road","locality":"Beckenham, Kent","property_type":"sports ground investment / commercial leisure","guide_price_gbp":2000000,"guide_qualifier":"plus","result_gbp":null,"hammer_gbp":null,"rent_pa_gbp":200310,"tenure":"freehold","tenant":"Crystal Palace Football Club","lease_details":"Leased to Crystal Palace FC until 2018","size":"5 hectares (12.3 acres)","lot_detail_url":null,"source_urls":["https://www.allsop.co.uk/insights/crystal-palace-fc-s-training-ground-set-to-go-under-the-hammer-at-allsop-s-july-commercial-auction/"],"capture_status":"partial_evidenced_record"}
+  ]
+}
