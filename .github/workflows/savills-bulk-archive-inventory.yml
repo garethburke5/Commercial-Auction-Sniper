@@ -1,0 +1,28 @@
+name: Savills bulk archive inventory
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'savills_bulk_archive_inventory.py'
+      - '.github/workflows/savills-bulk-archive-inventory.yml'
+permissions:
+  contents: write
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests
+      - name: Enumerate Savills archive URLs
+        run: python savills_bulk_archive_inventory.py
+      - name: Persist inventory or blocker
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/historical_raw/savills_archive_url_inventory_2010_2018.json data/source_diagnostics/savills_archive_inventory_blocker.json
+          git diff --cached --quiet || git commit -m 'Persist Savills bulk archive inventory'
+          git push
