@@ -1,0 +1,28 @@
+name: Savills Common Crawl 2010 Inventory
+on:
+  push:
+    paths:
+      - 'savills_commoncrawl_2010_inventory.py'
+      - '.github/workflows/savills-commoncrawl-2010-inventory.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Enumerate Common Crawl Savills assets
+        run: python savills_commoncrawl_2010_inventory.py
+      - name: Persist inventory and blocker
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/historical_raw/savills_commoncrawl_2010_inventory.json data/source_diagnostics/savills_commoncrawl_2010_blocker.json
+          git diff --cached --quiet || git commit -m 'Persist Savills 2010 Common Crawl inventory'
+          git push
