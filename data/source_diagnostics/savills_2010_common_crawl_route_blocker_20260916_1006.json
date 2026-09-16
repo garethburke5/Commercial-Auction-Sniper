@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Commercial Auctions",
+  "captured_at": "2026-09-16T09:06:10Z",
+  "strategy": "common_crawl_index_enumeration_bounded_to_2010",
+  "target_auctions": ["2010-10-11", "2010-12-13"],
+  "production_main_observed_before": {
+    "property_history_sha": "bbbebf7f22f68ce30a1a9efdc02897b4ea0b2295",
+    "historical_backfill_progress_sha": "4fcf9f0f8c0e4dd792d5c708fc3567306c6adecf"
+  },
+  "latest_prior_checkpoint_rechecked": {
+    "commit": "ea17628e070018133f9c7e56111160492d0bf9ee",
+    "route": "official PDF namespace search plus exact-date reconciliation",
+    "canonical_events_added": 0,
+    "distinct_next_route": "Common Crawl index enumeration"
+  },
+  "attempted": "Started the distinct next route by checking production main for any existing Common Crawl Savills implementation (none found), then attempted to locate indexed 2010 Savills commercial-auction PDF/legacy-page assets using externally searchable URL/date combinations before introducing a new production harvester. The searches did not expose a Savills October/December 2010 catalogue/results asset, lot/address manifest, or PropertyAuctions AID/Auc anchor. No unsafe identifier inference was made.",
+  "validated_evidence": {
+    "canonical_events_added": 0,
+    "qualifying_commercial_mixed_clues_added": 0,
+    "existing_common_crawl_implementation_found_on_main": false
+  },
+  "blocker": "This execution environment does not expose a direct Common Crawl index-query connector, and ordinary indexed web search does not substitute for CDX-style enumeration of Common Crawl records. Adding a harvester without first being able to execute and validate the index request would repeat the unproven-route problem. Therefore no speculative collector was committed and no lot identities were fabricated.",
+  "distinct_next_route": "Execute the Common Crawl index API from a GitHub Actions runner (where outbound HTTP can be logged and persisted): enumerate url=pdf.euro.savills.co.uk/uk/commercial-auctions-uk/* and legacy Savills auction URL patterns with output=json, preserve every 2010 capture URL/digest/status before fetching bodies, then parse only recovered catalogue/results assets into raw lot identities. If the index returns zero usable 2010 assets, record that denominator and move to Internet Archive archived-body retrieval for the already inventoried Savills URLs rather than retrying search-engine queries.",
+  "completeness_declared": false
+}
