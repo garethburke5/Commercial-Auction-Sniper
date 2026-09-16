@@ -1,0 +1,166 @@
+{
+  "records": 654,
+  "attempts": [
+    {
+      "year": 2018,
+      "pattern": "catalogue.auctions.savills.co.uk/*",
+      "status": 200,
+      "bytes": 176
+    },
+    {
+      "year": 2018,
+      "pattern": "auctions.savills.co.uk/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2018,
+      "pattern": "www.savills.co.uk/auction-catalogues/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2017,
+      "pattern": "catalogue.auctions.savills.co.uk/*",
+      "status": 200,
+      "bytes": 212
+    },
+    {
+      "year": 2017,
+      "pattern": "auctions.savills.co.uk/*",
+      "status": 200,
+      "bytes": 73907
+    },
+    {
+      "year": 2017,
+      "pattern": "www.savills.co.uk/auction-catalogues/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2016,
+      "pattern": "catalogue.auctions.savills.co.uk/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2016,
+      "pattern": "auctions.savills.co.uk/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2016,
+      "pattern": "www.savills.co.uk/auction-catalogues/*",
+      "status": 200,
+      "bytes": 3
+    },
+    {
+      "year": 2015,
+      "pattern": "catalogue.auctions.savills.co.uk/*",
+      "error": "ConnectTimeout(MaxRetryError(\"HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=catalogue.auctions.savills.co.uk%2F%2A&from=2015&to=2015&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7fa43f8ac710>, 'Connection to web.archive.org timed out. (connect timeout=60)'))\"))"
+    },
+    {
+      "year": 2015,
+      "pattern": "auctions.savills.co.uk/*",
+      "error": "ReadTimeout(ReadTimeoutError(\"HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=60)\"))"
+    },
+    {
+      "year": 2015,
+      "pattern": "www.savills.co.uk/auction-catalogues/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2014,
+      "pattern": "catalogue.auctions.savills.co.uk/*",
+      "status": 200,
+      "bytes": 20402
+    },
+    {
+      "year": 2014,
+      "pattern": "auctions.savills.co.uk/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2014,
+      "pattern": "www.savills.co.uk/auction-catalogues/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2013,
+      "pattern": "catalogue.auctions.savills.co.uk/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2013,
+      "pattern": "auctions.savills.co.uk/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2013,
+      "pattern": "www.savills.co.uk/auction-catalogues/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2012,
+      "pattern": "catalogue.auctions.savills.co.uk/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2012,
+      "pattern": "auctions.savills.co.uk/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2012,
+      "pattern": "www.savills.co.uk/auction-catalogues/*",
+      "status": 200,
+      "bytes": 3
+    },
+    {
+      "year": 2011,
+      "pattern": "catalogue.auctions.savills.co.uk/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2011,
+      "pattern": "auctions.savills.co.uk/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2011,
+      "pattern": "www.savills.co.uk/auction-catalogues/*",
+      "status": 504,
+      "bytes": 160
+    },
+    {
+      "year": 2010,
+      "pattern": "catalogue.auctions.savills.co.uk/*",
+      "error": "ConnectTimeout(MaxRetryError(\"HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=catalogue.auctions.savills.co.uk%2F%2A&from=2010&to=2010&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7fa43f8aede0>, 'Connection to web.archive.org timed out. (connect timeout=60)'))\"))"
+    },
+    {
+      "year": 2010,
+      "pattern": "auctions.savills.co.uk/*",
+      "status": 503,
+      "bytes": 11832
+    },
+    {
+      "year": 2010,
+      "pattern": "www.savills.co.uk/auction-catalogues/*",
+      "error": "ConnectTimeout(MaxRetryError(\"HTTPSConnectionPool(host='web.archive.org', port=443): Max retries exceeded with url: /cdx/search/cdx?url=www.savills.co.uk%2Fauction-catalogues%2F%2A&from=2010&to=2010&output=json&fl=timestamp%2Coriginal%2Cstatuscode%2Cmimetype%2Cdigest&filter=statuscode%3A200&collapse=digest (Caused by ConnectTimeoutError(<HTTPSConnection(host='web.archive.org', port=443) at 0x7fa43f8af8c0>, 'Connection to web.archive.org timed out. (connect timeout=60)'))\"))"
+    }
+  ],
+  "blocker": null,
+  "next_route": "Common Crawl index enumeration over same hosts, then lot URL parsing.",
+  "completeness_declared": false
+}
