@@ -1,0 +1,41 @@
+{
+  "capture_mode": "breadth_first_source_corpus",
+  "auctioneer": "Clive Emson",
+  "records_added": 2,
+  "records": [
+    {
+      "record_type": "auction_partial",
+      "auctioneer": "Clive Emson",
+      "auction_date": null,
+      "auction_month": "2012-04",
+      "aid_auc": null,
+      "source_urls": [
+        "https://www.allagents.co.uk/cliveemson.co.uk/reviews"
+      ],
+      "notes": "Contemporaneous owner review dated 24 March 2012 states the property was booked into a Clive Emson auction in April. Exact auction day/catalogue identity not evidenced in this source and remains null."
+    },
+    {
+      "record_type": "lot_partial",
+      "auctioneer": "Clive Emson",
+      "auction_date": null,
+      "auction_month": "2012-04",
+      "lot_number": null,
+      "address": "Rye River Cafe, Rye, East Sussex",
+      "locality": "Rye",
+      "property_type": "Commercial cafe property",
+      "guide_price": null,
+      "result": null,
+      "hammer_price": null,
+      "rent_pa_gbp": null,
+      "tenure": null,
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "source_urls": [
+        "https://www.allagents.co.uk/cliveemson.co.uk/reviews"
+      ],
+      "notes": "Contemporaneous owner review dated 24 March 2012 identifies Rye River Cafe as booked into a Clive Emson auction in April 2012. Capture-first partial only; exact address, lot number, auction date, tenure and pricing are not evidenced and are intentionally null."
+    }
+  ],
+  "notes": "Breadth-first partial capture. This is a contemporaneous third-party source rather than an official catalogue. It is retained as a discovery/source-corpus lead for later official catalogue/result reconciliation. No unsupported fields inferred; residential-only material excluded."
+}
