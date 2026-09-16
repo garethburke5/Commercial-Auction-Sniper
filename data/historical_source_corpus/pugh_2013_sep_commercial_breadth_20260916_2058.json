@@ -1,0 +1,48 @@
+{
+  "run": "pugh_2013_sep_commercial_breadth_20260916_2058",
+  "priority": "DISCOVER -> SAVE SOURCE RECORD/URL -> MOVE ON; breadth before enrichment",
+  "fresh_main_at_start": "2e7f9ef741e7db97ea72eae5ec6e01d57bf33a4b",
+  "auctioneer": "Pugh Auctioneers",
+  "auction_records": [
+    {
+      "auction_date": "2013-09-12",
+      "auction_location_or_series": "Pugh Leeds / Manchester historical catalogue namespace",
+      "source_url": "https://uniquepropertybulletinarchive.co.uk/unique-property-bulletin-15-september-2013/",
+      "catalogue_urls": [
+        "http://www.pugh-auctions.com/Lot/Leeds/20130905/001",
+        "http://www.pugh-auctions.com/Lot/Manchester/20130912/139"
+      ],
+      "completeness": "partial; surviving third-party page preserves original Pugh lot URLs"
+    }
+  ],
+  "lot_records": [
+    {
+      "auction_date": "2013-09-12",
+      "lot_number": "001",
+      "address": "Settle Police Station, 15 Duke Street, Settle, North Yorkshire, BD24 9DU",
+      "property_type": "former police station / commercial-development opportunity",
+      "guide_price_gbp": 400000,
+      "result_status": "failed to sell at auction",
+      "tenure": "Freehold",
+      "size": "5,941 sq ft GIA; site approximately 0.57 acres",
+      "lot_url": "http://www.pugh-auctions.com/Lot/Leeds/20130905/001",
+      "source_url": "https://uniquepropertybulletinarchive.co.uk/unique-property-bulletin-15-september-2013/",
+      "notes": "Surviving source states ground floor 3,857 sq ft, first floor 2,074 sq ft, total 5,941 sq ft; car parking and lawn; retained as non-residential commercial/development partial. Source labels auction date 12 September 2013 although original Pugh URL contains 20130905; discrepancy preserved, not reconciled."
+    },
+    {
+      "auction_date": "2013-09-12",
+      "lot_number": "139",
+      "address": "The Old Market Hall, Bacup, Lancashire, OL13 8GW",
+      "property_type": "vacant former town-centre market hall with residential planning consent / mixed redevelopment",
+      "guide_price_gbp": 115000,
+      "result_status": "failed to sell at auction",
+      "tenure": "Freehold",
+      "size": "approximately 17,000 sq ft GIA including 9,649 sq ft ground floor and 7,352 sq ft covered extension",
+      "lot_url": "http://www.pugh-auctions.com/Lot/Manchester/20130912/139",
+      "source_url": "https://uniquepropertybulletinarchive.co.uk/unique-property-bulletin-15-september-2013/",
+      "notes": "Vacant Grade II listed former market hall; residential planning consent evidenced. Included as mixed-use/development qualifying record, not residential-only."
+    }
+  ],
+  "counts": {"auction_records": 1, "lot_or_partial_records": 2},
+  "completeness": "NOT COMPLETE"
+}
