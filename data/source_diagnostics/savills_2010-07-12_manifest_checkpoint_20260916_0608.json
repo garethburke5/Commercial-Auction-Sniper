@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Commercial Auctions",
+  "strategy": "breadth_first_manifest_reconciliation",
+  "captured_at": "2026-09-16T05:08:00Z",
+  "main_head_before": "ab6036b12067d8a8eb39fe86579012d3d56d2faa",
+  "auction_date": "2010-07-12",
+  "catalogue_lots_reported": 27,
+  "qualifying_commercial_mixed_clues_validated": 1,
+  "canonicalised_this_pass": 0,
+  "unresolved_catalogue_lots": 26,
+  "attempted": [
+    "Freshly inspected production main and the latest Savills bulk-harvest workflow/job log.",
+    "Re-ran exact-date and commercial-lot discovery searches for Savills 12 July 2010.",
+    "Attempted to recover a PropertyAuctions AID/Auc/listing manifest for the exact auction date.",
+    "Reconfirmed the contemporary source denominator of 27 lots and the 8 Chapel Market commercial/mixed sold lot."
+  ],
+  "source_specific_blockers": {
+    "propertyauctions": "Latest production workflow fetched https://propertyauctions.io/auctioneers/savills but returned CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1; exact-date searches did not expose a 2010 AID/Auc manifest.",
+    "savills_chronological_archive": "The surviving contemporary report proves the 27-lot 12 July 2010 Savills Commercial catalogue but does not enumerate the remaining 26 lot addresses/numbers.",
+    "wayback_inventory": "Existing archive inventory is incomplete for 2010; prior bounded Wayback host/year requests timed out or returned 503s."
+  },
+  "validated_source": {
+    "url": "https://www.thejc.com/banks-make-money-at-auction-jx40ckic",
+    "evidence": "Savills Commercial sales catalogue for 12 July consisted of 27 lots; 8 Chapel Market, Islington was a vacant freehold retail/residential building sold in room for GBP675,000."
+  },
+  "distinct_next_route": "Stop generic exact-date search. Enumerate contemporary trade/press references using the known 27-lot denominator plus seller/instruction anchors (KPMG, housing associations, trustees and LPA receivers), and query archived search/index captures for individual addresses. Persist each recovered lot immediately; then pivot each address into PropertyAuctions address history to recover any surviving listing identifier/AID/Auc. In parallel use Common Crawl for the failed 2010 Savills legacy-host partition.",
+  "completeness_declared": false
+}
