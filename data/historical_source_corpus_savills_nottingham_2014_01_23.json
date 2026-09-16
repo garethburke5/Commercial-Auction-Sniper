@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "strategy": "capture_first_partial_source_shard",
+  "auctioneer": "Savills Nottingham",
+  "auction": {
+    "auction_date": "2014-01-23",
+    "venue": "Nottingham Racecourse",
+    "aid": null,
+    "auc": null,
+    "status": "partial_manifest_lot_enumeration_in_progress",
+    "evidence": {
+      "sale_total_gbp": 2500000,
+      "success_rate_percent": 80
+    },
+    "source_urls": [
+      "https://ca.marketscreener.com/quote/stock/SAVILLS-PLC-4006034/news/Savills-plc-Hungry-bidders-generate-2-5m-at-Savills-Nottingham-auction-17880717/"
+    ],
+    "next_known_auction_date": "2014-03-27"
+  },
+  "lots": [
+    {
+      "lot_number": 2,
+      "address": null,
+      "locality": "Bridgnorth, Shropshire",
+      "property_type": "former fish and chip shop",
+      "commercial_or_mixed": "commercial",
+      "guide_price_gbp": 50000,
+      "result_price_gbp": 73000,
+      "hammer_price_gbp": 73000,
+      "rent_pa_gbp": null,
+      "tenure": null,
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "source_urls": [
+        "https://ca.marketscreener.com/quote/stock/SAVILLS-PLC-4006034/news/Savills-plc-Hungry-bidders-generate-2-5m-at-Savills-Nottingham-auction-17880717/"
+      ],
+      "capture_note": "Partial record retained because the surviving source identifies the lot and commercial use but not a street address."
+    },
+    {
+      "lot_number": 10,
+      "address": null,
+      "locality": "Stoke-on-Trent",
+      "property_type": "commercial property investment / cafe",
+      "commercial_or_mixed": "commercial",
+      "guide_price_gbp": 25000,
+      "result_price_gbp": 46000,
+      "hammer_price_gbp": 46000,
+      "rent_pa_gbp": 4200,
+      "tenure": null,
+      "tenant": "JJ's Cafe",
+      "lease_details": null,
+      "size": null,
+      "source_urls": [
+        "https://ca.marketscreener.com/quote/stock/SAVILLS-PLC-4006034/news/Savills-plc-Hungry-bidders-generate-2-5m-at-Savills-Nottingham-auction-17880717/"
+      ],
+      "capture_note": "Offered on behalf of receivers. Partial record retained because the surviving source does not expose the street address."
+    }
+  ],
+  "excluded_residential_only_examples": [
+    "pair of semi-detached houses on Ebury Road, Sherwood Rise, Nottingham",
+    "detached family home on fringe of Wollaton"
+  ]
+}
