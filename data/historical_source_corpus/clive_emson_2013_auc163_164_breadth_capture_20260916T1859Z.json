@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "capture_strategy": "breadth_first_source_corpus",
+  "auctioneer": "Clive Emson",
+  "records_added": {"auction": 2, "lot_or_partial": 1},
+  "records": [
+    {
+      "record_type": "auction",
+      "auction_date": "2013-07-25",
+      "auc": "163",
+      "source_urls": [
+        "http://www.cliveemson.co.uk/listing_view.asp?Lot=85&Auc=163",
+        "https://uniquepropertybulletinarchive.co.uk/unique-property-bulletin-7-july-2014/"
+      ],
+      "notes": "Regional auction date within Clive Emson Auc 163 evidenced by surviving historical listing reference. Catalogue/results URL not independently recovered in this pass."
+    },
+    {
+      "record_type": "auction",
+      "auction_date": "2013-07-26",
+      "auc": "163",
+      "source_urls": [
+        "http://www.cliveemson.co.uk/listing_view.asp?Lot=108&Auc=163",
+        "https://uniquepropertybulletinarchive.co.uk/unique-property-bulletin-21-july-2013/"
+      ],
+      "notes": "Regional auction date within Clive Emson Auc 163 evidenced by surviving historical listing reference. Catalogue/results URL not independently recovered in this pass."
+    },
+    {
+      "record_type": "lot",
+      "auction_date": "2013-09-12",
+      "auc": "164",
+      "lot_number": "147",
+      "address": "The Potteries, Love Lane, Headcorn, Ashford, Kent, TN27 9HJ",
+      "locality": "Headcorn, Ashford, Kent",
+      "property_type": "Horticultural / commercial-development site with potting shed, implement store and permitted polytunnels",
+      "guide_price_gbp": 140000,
+      "result_status": "Failed To Sell At Auction",
+      "tenure": "Freehold",
+      "size_acres": 4.5,
+      "size_hectares": 1.8,
+      "planning": "Planning permission M1/11/1412 dated 2011-08-17 for three polytunnels, potting shed, access track and hardstanding; surviving source also notes possible further commercial or residential development subject to consents.",
+      "source_urls": [
+        "http://www.cliveemson.co.uk/listing_view.asp?Lot=47&Auc=164",
+        "https://uniquepropertybulletinarchive.co.uk/unique-property-bulletin-15-september-2013/"
+      ],
+      "notes": "Capture-first partial. The surviving article labels this Lot 147 but prints an original brochure URL containing Lot=47; both facts are preserved without attempting forensic reconciliation."
+    }
+  ],
+  "notes": "Breadth-first source capture. Unknown fields remain absent/null by design. Residential-only properties excluded. Historical Clive Emson brochure URLs are preserved even where no longer live; third-party archive page retained as surviving evidence."
+}
