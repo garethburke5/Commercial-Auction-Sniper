@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "captured_at": "2026-09-16T03:07:00Z",
+  "main_head_inspected": "3bfcbad1c180f79b3dfb645903975f91f6a4ec16",
+  "workflow_run": 35047064778,
+  "workflow_result": "success",
+  "source_captures": 654,
+  "raw_candidates": 654,
+  "lot_hints": 0,
+  "candidate_distribution_by_year": {"2018": 1, "2017": 532, "2014": 121},
+  "years_with_zero_candidates": [2016,2015,2013,2012,2011,2010],
+  "canonical_events_added_from_parser": 0,
+  "blocker": "The first archive parser preserved all 654 CDX captures but recovered zero lot hints. The capture inventory is highly skewed to 2017 and 2014 and contains no candidate captures for six target years, so treating it as a lot corpus would inflate counts without property identities.",
+  "distinct_next_route": "Do not rerun this parser unchanged. Enumerate Common Crawl indexes for the failed/missing year-host cells and separately inspect the 532 2017 and 121 2014 archived URLs for legacy catalogue endpoint/path signatures. Fetch archived page bodies only for URLs proven to be catalogue/lot/result resources, then extract auction date, lot number, address and result before PropertyAuctions AID/Auc reconciliation.",
+  "completeness_declared": false
+}
