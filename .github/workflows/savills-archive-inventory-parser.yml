@@ -1,0 +1,22 @@
+name: Savills archive inventory parser
+on:
+  push:
+    paths:
+      - 'savills_archive_inventory_parser.py'
+      - '.github/workflows/savills-archive-inventory-parser.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse recovered archive inventory
+        run: python savills_archive_inventory_parser.py
+      - name: Persist raw candidates and diagnostic
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/historical_raw/savills_archive_lot_candidates_2010_2018.json data/source_diagnostics/savills_archive_inventory_parse.json
+          if git diff --cached --quiet; then echo 'No parse change'; else git commit -m 'Persist parsed Savills archive lot candidates' && git push; fi
