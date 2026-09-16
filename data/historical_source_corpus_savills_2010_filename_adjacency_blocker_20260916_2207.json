@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-16T21:07:20Z",
+  "source": "Savills Auctions",
+  "scope": ["2010-10-11", "2010-12-13"],
+  "route": "Common Crawl / archive filename-directory adjacency around recovered official Savills commercial-auctions-uk PDFs, followed by PropertyAuctions AID/Auc reconciliation",
+  "attempted": {
+    "starting_evidence": "29 Common Crawl capture records previously resolved to three unique official Savills 2010 PDFs (February market review, April survey, September market review); recovered PDF parsing exposed auction chronology but no lot numbers.",
+    "repository_reconciliation": "Fresh main inspection and repository search found no newly persisted Savills AID/Auc lot manifest or lot-level October/December 2010 corpus after the prior exact-date/archive-adjacency checkpoint.",
+    "production_head_at_start": "35b2037b4a7b515d32c3f37970a8f30c28e170b3"
+  },
+  "result": {
+    "validated_new_canonical_events": 0,
+    "new_propertyauctions_aid_auc_manifests": 0,
+    "current_auctions": {
+      "2010-10-11": {"canonicalised_new": 0, "unresolved_qualifying": null},
+      "2010-12-13": {"canonicalised_new": 0, "unresolved_qualifying": null}
+    }
+  },
+  "blocker": "The recovered official Savills PDFs are market-review/survey documents, not lot manifests. Filename/directory adjacency and fresh repository reconciliation have not exposed a surviving catalogue/results asset or PropertyAuctions AID/Auc manifest that identifies the lots in the 11 October or 13 December 2010 sales. The qualifying-lot denominator therefore remains unknown and must not be guessed.",
+  "distinct_next_route": "Pivot breadth-first away from 2010 filename adjacency to the next unresolved year with a known qualifying denominator: reconstruct 2013 auction-by-auction PropertyAuctions listing manifests using surviving listing records and date clusters, then move 2014->2018 only after each year's mapped auctions have explicit canonicalised/unresolved accounting. Return to 2010 only when a new catalogue/results or AID/Auc identity source is discovered.",
+  "completeness_claim": false
+}
