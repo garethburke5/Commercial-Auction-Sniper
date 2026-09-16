@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Commercial Auctions",
+  "captured_at": "2026-09-16T08:10:55Z",
+  "strategy": "official_pdf_namespace_search_then_exact_date_reconciliation",
+  "target_auctions": ["2010-10-11", "2010-12-13"],
+  "production_main_observed": {
+    "property_history_sha": "bbbebf7f22f68ce30a1a9efdc02897b4ea0b2295",
+    "historical_backfill_progress_sha": "4fcf9f0f8c0e4dd792d5c708fc3567306c6adecf"
+  },
+  "latest_prior_savills_bulk_job_rechecked": {
+    "run_id": 35056836844,
+    "job_id": 104668680576,
+    "result": "CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1",
+    "route": "PropertyAuctions auctioneer enumeration",
+    "status": "stalled"
+  },
+  "attempted": "Executed the distinct next route recorded by the previous checkpoint: searched the public pdf.euro.savills.co.uk/uk/commercial-auctions-uk namespace for October and December 2010 catalogue/results assets, plus exact-date web searches for 11 October 2010 and 13 December 2010. The surviving official September 2010 Savills Commercial Auctions Market Review was recovered and independently confirms both auction dates and catalogue-close information, but no indexed October/December catalogue or results PDF, lot manifest, property-address list, or PropertyAuctions AID/Auc identifier was exposed by this route.",
+  "validated_evidence": {
+    "official_savills_market_review": "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf",
+    "dates_confirmed": ["2010-10-11", "2010-12-13"],
+    "canonical_events_added": 0,
+    "qualifying_commercial_mixed_clues_added": 0
+  },
+  "blocker": "Search indexing exposes the official September 2010 market-review PDF but not the adjacent October/December 2010 catalogue/results assets. Exact-date searches are dominated by unrelated material. Without a lot-level source, neither qualifying denominator nor AID/Auc reconciliation can be stated safely.",
+  "distinct_next_route": "Enumerate Common Crawl index records specifically for pdf.euro.savills.co.uk/uk/commercial-auctions-uk/* and legacy www.savills.co.uk/auction* captures bounded to 2010, preserving every discovered PDF/page URL before parsing. Only after a catalogue/results asset yields lot/address identities should PropertyAuctions be queried for AID/Auc matching. Do not retry generic exact-date search or the blocked PropertyAuctions auctioneer page.",
+  "completeness_declared": false
+}
