@@ -59,13 +59,14 @@ jobs:
         run: python run_collectors_resilient.py
 
       - name: Preserve last-known-good rows for temporary source outages
-        run: python collectors/publication_resilience.py
+        run: python -m collectors.publication_resilience
 
       - name: Validate candidate snapshot before publish
         run: |
           python - <<'PY'
           import json, re
           from collections import defaultdict, Counter
+          from datetime import date
           from pathlib import Path
           from source_manifest import manifest_coverage
           p=Path('data/properties.json')
@@ -73,11 +74,12 @@ jobs:
           d=json.loads(p.read_text(encoding='utf-8'))
           assert 'properties' in d and 'archive' in d and 'source_health' in d and d.get('generated_at'), 'invalid snapshot contract'
           print('SNAPSHOT',len(d['properties']),'published properties',len(d['archive']),'historical')
-          for s in d['source_health']: print(s['source'],s['status'],s['lots_seen'],'/',s.get('expected_count'))
+          for s in d['source_health']:
+              print(s['source'],s['status'],s['lots_seen'],'/',s.get('expected_count'))
           failed=[s for s in d['source_health'] if s.get('status')=='FAILED']
-          assert not failed, 'unpreserved FAILED collectors: '+', '.join(s['source'] for s in failed)
-          mismatch=[s for s in d['source_health'] if s.get('status')=='LIVE' and s.get('expected_count') and s.get('lots_seen')!=s.get('expected_count')]
-          assert not mismatch, 'live catalogue count mismatches: '+', '.join(f"{s['source']} {s['lots_seen']}/{s['expected_count']}" for s in mismatch)
+          assert not failed, 'FAILED collectors: '+', '.join(s['source'] for s in failed)
+          mismatch=[s for s in d['source_health'] if s.get('expected_count') and s.get('lots_seen')!=s.get('expected_count')]
+          assert not mismatch, 'catalogue count mismatches: '+', '.join(f"{s['source']} {s['lots_seen']}/{s['expected_count']}" for s in mismatch)
           coverage=manifest_coverage(d['source_health'])
           print('TARGET COVERAGE',coverage)
           assert not coverage['missing_required_sources'], 'required sources absent from source health: '+', '.join(coverage['missing_required_sources'])
@@ -114,15 +116,18 @@ jobs:
           bad_vacant=[x for x in d['properties'] if str(x.get('occupation') or '').strip().lower() in {'vacant','vacant possession'} and (x.get('annual_rent') is not None or x.get('gross_yield') is not None)]
           assert not bad_vacant, f'vacant rent/yield integrity failures: {len(bad_vacant)}'
           boiler=re.compile(r'login|log in|register to bid|cancel proxy bid|your bid|wishlist|connecting to auction|please wait',re.I)
-          assert not [x for x in d['properties'] if boiler.search(str(x.get('address') or ''))], 'boilerplate property titles'
-          assert not [x for x in d['properties'] if boiler.search(str(x.get('description') or ''))], 'boilerplate property descriptions'
+          bad_titles=[x for x in d['properties'] if boiler.search(str(x.get('address') or ''))]
+          assert not bad_titles, f'boilerplate property titles: {len(bad_titles)}'
+          bad_descriptions=[x for x in d['properties'] if boiler.search(str(x.get('description') or ''))]
+          assert not bad_descriptions, f'boilerplate property descriptions: {len(bad_descriptions)}'
           identities=defaultdict(set)
           for x in d['properties']:
               lot=str(x.get('lot_number') or '').strip().upper(); address=re.sub(r'\s+',' ',str(x.get('address') or '').strip().lower()); day=str(x.get('auction_date') or '')[:10]; url=str(x.get('url') or '').strip()
               if lot and lot not in {'LOT TBC','TBC'} and address and day and url: identities[(str(x.get('source') or ''),day,lot,address)].add(url)
           duplicate_identities={k:v for k,v in identities.items() if len(v)>1}
           assert not duplicate_identities, 'duplicate lot identities across detail URLs: '+repr({k:sorted(v) for k,v in list(duplicate_identities.items())[:10]})
-          assert [x for x in d['properties'] if x.get('source')=='Savills Auctions'], 'no current Savills lots published'
+          sav=[x for x in d['properties'] if x.get('source')=='Savills Auctions']
+          assert sav, 'no current Savills lots published'
           PY
 
       - name: Build permanent auction history database
