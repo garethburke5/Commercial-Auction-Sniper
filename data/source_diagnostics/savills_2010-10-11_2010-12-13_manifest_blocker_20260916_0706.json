@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Commercial Auctions",
+  "captured_at": "2026-09-16T06:06:55Z",
+  "main_head_inspected": "cb8abc442004815e5c360e2b07f3620fa4072036",
+  "strategy": "breadth_first_exact_date_manifest_reconciliation",
+  "auctions": [
+    {"auction_date":"2010-10-11","auction_status":"official_savills_calendar_verified","aid":null,"auc":null,"lot_manifest_recovered":false,"canonical_events_added":0,"qualifying_commercial_mixed_clues_added":0,"unresolved_qualifying_count":null},
+    {"auction_date":"2010-12-13","auction_status":"official_savills_calendar_verified","aid":null,"auc":null,"lot_manifest_recovered":false,"canonical_events_added":0,"qualifying_commercial_mixed_clues_added":0,"unresolved_qualifying_count":null}
+  ],
+  "latest_savills_workflow_rechecked": {"run_id":35056836844,"job_id":104668680576,"result":"CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1","propertyauctions_auctioneer_route":"stalled"},
+  "attempted": "Rechecked production main and the latest Savills bulk-harvest job log first. Then searched the exact 11 October 2010 and 13 December 2010 auction dates for surviving catalogue/lot-manifest and PropertyAuctions AID/Auc evidence. Search results were dominated by unrelated same-date material and did not expose a defensible Savills UK lot manifest or PropertyAuctions identifier.",
+  "blocker": "Official Savills evidence verifies both auction dates, but the surviving searchable web evidence in this route does not expose the catalogue lot manifests, lot addresses, or PropertyAuctions AID/Auc identifiers. The direct PropertyAuctions auctioneer endpoint also remains non-enumerating, so qualifying commercial/mixed denominators cannot be stated safely.",
+  "distinct_next_route": "Use the official Savills September 2010 market-review PDF as a seed document: enumerate its linked/adjacent pdf.euro.savills.co.uk commercial-auctions-uk PDF namespace and filename variants for October/December 2010 catalogues/results. For each recovered address or lot number, pivot directly to PropertyAuctions address/listing search for AID/Auc reconciliation. If the PDF namespace stalls, query Common Crawl for pdf.euro.savills.co.uk/uk/commercial-auctions-uk/* bounded to 2010 rather than retrying the blocked auctioneer page.",
+  "completeness_declared": false
+}
