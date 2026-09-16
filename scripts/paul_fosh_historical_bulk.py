@@ -25,10 +25,14 @@ def save(path,obj): path.parent.mkdir(parents=True,exist_ok=True); path.write_te
 def parse_page(page):
  url=INDEX+f'?Page={page}&lotResultType=All&order=RecentlyEnded&viewType=Grid'
  s=BeautifulSoup(get(url),'lxml'); text=norm(s.get_text(' ',strip=True))
- total=None; m=re.search(r'Showing results(?:\s+\d+\s*-\s*\d+\s+of|\s+)([\d,]+)',text,re.I)
- if m: total=int(m.group(1).replace(',',''))
+ total=None
+ # Paul Fosh renders pagination text such as "Showing 1 - 50 of 5,463". Always
+ # capture the number after "of"; the old expression accidentally captured 1.
+ for pat in (r'\b(?:showing|viewing)\s+(?:results\s+)?[\d,]+\s*(?:-|–|to)\s*[\d,]+\s+of\s+([\d,]+)', r'\bof\s+([\d,]+)\s+(?:results|properties|lots)\b'):
+  m=re.search(pat,text,re.I)
+  if m:
+   total=int(m.group(1).replace(',','')); break
  rows=[]
- # Result cards expose lot/date/address/status/price; preserve partial rows rather than reject.
  for heading in s.find_all(['h3','h4']):
   address=norm(heading.get_text(' ',strip=True))
   if not address or address.lower() in {'past property auctions','upcoming auction'}: continue
