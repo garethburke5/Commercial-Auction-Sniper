@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "capture_mode": "breadth_first_source_corpus",
+  "captured_at": "2026-09-16T05:02:00Z",
+  "main_head_inspected": "f03116cc37fec93b747ac711832b5e0bc9aa4e0e",
+  "records": [
+    {
+      "source_record_id": "savills-auction|2010-07-12|commercial",
+      "auctioneer": "Savills Commercial Auctions",
+      "record_type": "auction",
+      "auction_date": "2010-07-12",
+      "auction_month": "2010-07",
+      "venue": null,
+      "aid": null,
+      "auc": null,
+      "lots_in_catalogue": 27,
+      "success_rate_percent": 89,
+      "guide_price_range": "£20,000 to £950,000",
+      "source_urls": [
+        "https://www.thejc.com/banks-make-money-at-auction-jx40ckic"
+      ],
+      "capture_status": "auction_enumerated_partial_lot_manifest",
+      "canonical_history_v2": false,
+      "notes": "Contemporary report states Savills Commercial sales catalogue for its July 12 auction consisted of 27 lots and achieved an 89% success rate. Broad capture first; remaining catalogue lots still to enumerate."
+    },
+    {
+      "source_record_id": "savills-lot|2010-07-12|8-chapel-market-islington",
+      "auctioneer": "Savills Commercial Auctions",
+      "record_type": "lot_partial",
+      "auction_date": "2010-07-12",
+      "aid": null,
+      "auc": null,
+      "lot_number": null,
+      "address": "8 Chapel Market, Islington, London",
+      "locality": "Islington, London",
+      "property_type": "vacant freehold retail and residential building",
+      "guide_price": "£500,000",
+      "guide_price_prior": "£400,000 to £425,000",
+      "result": "sold in room",
+      "hammer_price": "£675,000",
+      "rent": null,
+      "tenure": "freehold",
+      "tenant": null,
+      "lease_details": null,
+      "size": "2,495 sq ft (232 sq m)",
+      "source_urls": [
+        "https://www.thejc.com/banks-make-money-at-auction-jx40ckic"
+      ],
+      "capture_status": "commercial_mixed_partial_saved",
+      "canonical_history_v2": false,
+      "notes": "Basement, ground and three upper floors including roof terrace; full vacant possession on completion. Lot number not exposed by surviving source and is deliberately left null."
+    },
+    {
+      "source_record_id": "savills-lot|2010-03|reef-n-beef-eastbourne",
+      "auctioneer": "Savills Commercial Auctions",
+      "record_type": "lot_partial",
+      "auction_date": null,
+      "auction_month": "2010-03",
+      "aid": null,
+      "auc": null,
+      "lot_number": null,
+      "address": "Reef 'n' Beef building, Eastbourne",
+      "locality": "Eastbourne",
+      "property_type": "restaurant investment; ground floor and basement of former cinema",
+      "guide_price": null,
+      "result": "sold",
+      "hammer_price": "£228,000",
+      "rent": "£22,000 per annum net",
+      "tenure": "999-year lease",
+      "tenant": "restaurant and bar",
+      "lease_details": "new 999-year lease",
+      "size": "2,762 sq ft (259 sq m)",
+      "source_urls": [
+        "https://www.thejc.com/life/key-players-on-the-auctions-scene-m8hv9grs"
+      ],
+      "capture_status": "commercial_partial_saved_exact_auction_date_pending",
+      "canonical_history_v2": false,
+      "notes": "Contemporary report published 1 April 2010 describes this as sold by Savills in its £7.8m commercial sale with 88% on-the-day success. Exact auction date is not exposed, so it remains null."
+    },
+    {
+      "source_record_id": "savills-lot|2010-03|fulham-freehold-investment",
+      "auctioneer": "Savills Commercial Auctions",
+      "record_type": "lot_partial",
+      "auction_date": null,
+      "auction_month": "2010-03",
+      "aid": null,
+      "auc": null,
+      "lot_number": null,
+      "address": null,
+      "locality": "Fulham, south-west London",
+      "property_type": "freehold investment",
+      "guide_price": "£300,000 to £330,000",
+      "result": "sold",
+      "hammer_price": "£690,000",
+      "rent": null,
+      "tenure": "freehold",
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "source_urls": [
+        "https://www.thejc.com/life/key-players-on-the-auctions-scene-m8hv9grs"
+      ],
+      "capture_status": "commercial_partial_saved_exact_identity_pending",
+      "canonical_history_v2": false,
+      "notes": "Address and exact auction date unavailable in surviving source; partial record retained rather than blocking breadth capture."
+    }
+  ],
+  "run_summary": {
+    "auction_records_added": 1,
+    "commercial_or_mixed_lot_records_added": 3,
+    "years_covered": [2010],
+    "auctions_covered": ["Savills Commercial 12 July 2010", "Savills Commercial March 2010 sale (exact date pending)"],
+    "completeness_declared": false,
+    "attempted": "Inspected production main first, then moved breadth-first into uncaptured 2010 Savills commercial-sale evidence rather than repeating unresolved 2011 identity reconstruction.",
+    "distinct_next_route": "Enumerate the remaining 24 lots from the 12 July 2010 commercial catalogue via surviving press/archive/catalogue references, while continuing chronological Savills 2010 auction discovery and preserving partial records immediately."
+  }
+}
