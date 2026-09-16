@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "capture_mode": "discover_save_move_on",
+  "auctioneer": "Allsop",
+  "captured_at": "2026-09-16T11:58:45Z",
+  "records": [
+    {
+      "source_record_id": "allsop-auction|2010-07|building-428-source-survivor",
+      "auctioneer": "Allsop",
+      "record_type": "auction",
+      "auction_date": null,
+      "auction_month": "2010-07",
+      "aid_auc": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "document_urls": ["https://www.supremecourt.uk/cases/docs/uksc-2014-0026a-judgment.pdf"],
+      "source_urls": ["https://www.supremecourt.uk/cases/docs/uksc-2014-0026a-judgment.pdf"],
+      "capture_status": "partial_auction_identity_month_only_move_on",
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "allsop-lot|2010-07|building-428",
+      "auctioneer": "Allsop",
+      "record_type": "lot_partial",
+      "auction_date": null,
+      "auction_month": "2010-07",
+      "lot_number": null,
+      "address": "Building 428",
+      "locality": null,
+      "property_type": "Commercial/development - disused heating tower",
+      "guide_price_gbp": null,
+      "result_price_gbp": null,
+      "hammer_price_gbp": null,
+      "rent_pa_gbp": null,
+      "tenure": null,
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "evidence_notes": "UK Supreme Court judgment records that Allsop were the auctioneers employed in July 2010; Building 428 was an old/run-down disused heating tower with hydrocarbon-contaminated ground, planning permissions and estimated decontamination cost of about GBP30,000. The judgment states the auction result bore out Allsop's view that it would be difficult to sell. Exact auction day, lot number, location and result are not supplied by this source and remain null.",
+      "source_urls": ["https://www.supremecourt.uk/cases/docs/uksc-2014-0026a-judgment.pdf"],
+      "capture_status": "captured_partial_move_on",
+      "canonical_history_v2": false
+    }
+  ]
+}
