@@ -14,6 +14,7 @@ on:
       - 'config/target_sources.json'
       - 'collectors/**'
       - 'scripts/update_history_database.py'
+      - '.github/workflows/auction-sniper-scan.yml'
 
 permissions:
   contents: write
@@ -66,7 +67,6 @@ jobs:
           python - <<'PY'
           import json, re
           from collections import defaultdict, Counter
-          from datetime import date
           from pathlib import Path
           from source_manifest import manifest_coverage
           p=Path('data/properties.json')
@@ -76,8 +76,11 @@ jobs:
           print('SNAPSHOT',len(d['properties']),'published properties',len(d['archive']),'historical')
           for s in d['source_health']:
               print(s['source'],s['status'],s['lots_seen'],'/',s.get('expected_count'))
-          failed=[s for s in d['source_health'] if s.get('status')=='FAILED']
-          assert not failed, 'FAILED collectors: '+', '.join(s['source'] for s in failed)
+          # publication_resilience intentionally converts temporary FAILED sources with retained
+          # last-known-good inventory to DEGRADED. Validate the post-resilience state, not the
+          # collector's pre-resilience failure list.
+          failed=[s for s in d['source_health'] if str(s.get('status') or '').upper()=='FAILED']
+          assert not failed, 'unpreserved FAILED collectors: '+', '.join(s['source'] for s in failed)
           mismatch=[s for s in d['source_health'] if s.get('expected_count') and s.get('lots_seen')!=s.get('expected_count')]
           assert not mismatch, 'catalogue count mismatches: '+', '.join(f"{s['source']} {s['lots_seen']}/{s['expected_count']}" for s in mismatch)
           coverage=manifest_coverage(d['source_health'])
