@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Commercial Auctions",
+  "capture_mode": "breadth_first_source_corpus",
+  "source_type": "official_savills_market_review_calendar",
+  "source_url": "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf",
+  "archive_url": null,
+  "captured_at": "2026-09-16T06:59:19Z",
+  "main_head_inspected": "57ea8bba89114b565faafadfca6f74867540d39b",
+  "records": [
+    {"record_type":"auction","auction_date":"2011-02-28","auctioneer":"Savills Commercial Auctions","aid":null,"auc":null,"catalogue_url":null,"results_url":null,"document_urls":["https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf"],"catalogue_close_date":"2011-01-24","status":"official_calendar_date_discovered_manifest_pending"},
+    {"record_type":"auction","auction_date":"2011-05-10","auctioneer":"Savills Commercial Auctions","aid":null,"auc":null,"catalogue_url":null,"results_url":null,"document_urls":["https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf"],"catalogue_close_date":"2011-04-05","status":"official_calendar_date_discovered_manifest_pending"},
+    {"record_type":"auction","auction_date":"2011-07-11","auctioneer":"Savills Commercial Auctions","aid":null,"auc":null,"catalogue_url":null,"results_url":null,"document_urls":["https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf"],"catalogue_close_date":"2011-06-06","status":"official_calendar_date_discovered_manifest_pending"},
+    {"record_type":"auction","auction_date":"2011-10-17","auctioneer":"Savills Commercial Auctions","aid":null,"auc":null,"catalogue_url":null,"results_url":null,"document_urls":["https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf"],"catalogue_close_date":"2011-09-12","status":"official_calendar_date_discovered_manifest_pending"},
+    {"record_type":"auction","auction_date":"2011-12-05","auctioneer":"Savills Commercial Auctions","aid":null,"auc":null,"catalogue_url":null,"results_url":null,"document_urls":["https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf"],"catalogue_close_date":"2011-10-31","status":"official_calendar_date_discovered_manifest_pending"}
+  ],
+  "completeness_declared": false,
+  "next_action": "Enumerate catalogue/results sources and qualifying commercial/mixed-use lots for each auction date; save partials without blocking on AID/Auc or enrichment."
+}
