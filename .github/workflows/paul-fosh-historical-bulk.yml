@@ -1,0 +1,54 @@
+name: Paul Fosh Full Historical Results Backfill
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/paul_fosh_historical_bulk.py'
+      - '.github/workflows/paul-fosh-historical-bulk.yml'
+permissions:
+  contents: write
+concurrency:
+  group: paul-fosh-full-historical-results
+  cancel-in-progress: false
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Compile collector
+        run: python -m py_compile scripts/paul_fosh_historical_bulk.py history_database.py
+      - name: Harvest public Paul Fosh historical results
+        run: python scripts/paul_fosh_historical_bulk.py
+      - name: Validate and persist corpus and canonical database
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          raw=json.loads(Path('data/historical_raw/paul_fosh_results.json').read_text())
+          hist=json.loads(Path('data/property_history.json').read_text())
+          prog=json.loads(Path('data/historical_backfill_progress.json').read_text())
+          rows=raw.get('records',[])
+          pf=[e for e in hist.get('auction_events',[]) if e.get('source')=='Paul Fosh Auctions']
+          st=prog.get('sources',{}).get('Paul Fosh Auctions',{})
+          print('PAUL_FOSH_VALIDATION raw',len(rows),'canonical',len(pf),'expected',st.get('expected_public_results'),'status',st.get('status'))
+          assert rows, 'zero Paul Fosh historical rows harvested'
+          assert pf, 'zero Paul Fosh rows reached canonical history'
+          assert all(r.get('address') and r.get('source_id') and r.get('auction_date') for r in rows), 'raw corpus missing identity fields'
+          PY
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/historical_raw/paul_fosh_results.json data/property_history.json data/historical_backfill_progress.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Ingest Paul Fosh historical auction results corpus'
+          git pull --rebase origin main
+          git push origin HEAD:main
