@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "capture_mode": "breadth_first_source_corpus",
+  "captured_at": "2026-09-16T04:07:00Z",
+  "main_head_inspected": "ce22f74fa2381f74c1482d76ad7fd7e2c71949b9",
+  "records": [
+    {
+      "source_record_id": "savills-auction|2013-06|london-marriott-grosvenor-square",
+      "auctioneer": "Savills Auctions",
+      "record_type": "auction",
+      "auction_date": null,
+      "auction_month": "2013-06",
+      "venue": "Marriott Hotel, Grosvenor Square, London",
+      "aid": null,
+      "auc": null,
+      "source_urls": ["https://www.standard.co.uk/news/london/houses-selling-for-70-above-guide-price-in-bidding-frenzy-8668021.html"],
+      "capture_status": "auction_month_and_venue_verified_exact_date_manifest_pending",
+      "canonical_history_v2": false,
+      "notes": "Contemporary Evening Standard report published 28 June 2013 states a Savills auction took place that week at the Marriott Hotel on Grosvenor Square and reports multiple sold residential lots. Exact auction date and full lot manifest are not exposed by this source, so no commercial/mixed lot is inferred or canonicalised."
+    }
+  ],
+  "run_summary": {
+    "auction_records_added": 1,
+    "commercial_or_mixed_lot_records_added": 0,
+    "years_covered": [2013],
+    "completeness_declared": false,
+    "attempted": "Fresh main/workflow inspection followed by breadth-first 2013 chronological search for additional Savills auction events and PropertyAuctions lot-manifest anchors.",
+    "blocker": "The surviving June 2013 contemporary source verifies Savills, month and venue but not an exact auction date, complete catalogue, or PropertyAuctions AID/Auc manifest. Search results for PropertyAuctions were dominated by modern Savills listings and did not expose a 2013 AID/Auc anchor.",
+    "distinct_next_route": "Use the verified June 2013 Marriott/Grosvenor Square anchor to search archived Savills catalogue/results URLs and contemporary sold-lot addresses; then pivot each recovered address through PropertyAuctions address-history/listing pages to recover date-bound identifiers. Continue breadth-first through remaining 2013 calendar gaps rather than retrying the unchanged 654-CDX parser."
+  }
+}
