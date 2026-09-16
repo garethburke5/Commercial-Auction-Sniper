@@ -1,0 +1,8 @@
+{
+  "route": "common_crawl_exact_warc_range_retrieval",
+  "retrieved_count": 3,
+  "pdf_count": 3,
+  "error_count": 0,
+  "errors": [],
+  "next_route": "Parse recovered PDFs for auction/lot/address identifiers and reconcile to PropertyAuctions AID/Auc; if WARC range service blocks, use Common Crawl S3/HTTPS full-record retrieval or Wayback archived bodies."
+}
