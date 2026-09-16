@@ -1,0 +1,34 @@
+name: Savills 2010 recovered PDF parse
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/parse_savills_2010_recovered_pdfs.py
+      - .github/workflows/savills-2010-recovered-pdf-parse.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests pypdf
+      - run: python scripts/parse_savills_2010_recovered_pdfs.py
+      - name: Persist parse evidence safely
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/historical_raw/savills_commoncrawl_2010_pdf_parse.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist parsed Savills 2010 recovered PDF evidence"
+          for i in 1 2 3 4; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((i*5))
+          done
+          exit 1
