@@ -1,0 +1,30 @@
+name: Savills Common Crawl WARC Body Recovery
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/savills_commoncrawl_warc_extract.py'
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Retrieve exact archived bodies
+        run: python scripts/savills_commoncrawl_warc_extract.py
+      - name: Persist recovery evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/historical_raw/savills_commoncrawl_2010_bodies.json data/historical_raw/savills_cc_*.pdf data/source_diagnostics/savills_commoncrawl_warc_body_blocker.json || true
+          if ! git diff --cached --quiet; then
+            git commit -m 'Persist Savills Common Crawl WARC body recovery'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
