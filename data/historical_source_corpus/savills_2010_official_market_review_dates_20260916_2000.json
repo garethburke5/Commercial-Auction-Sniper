@@ -1,0 +1,48 @@
+{
+  "run": "savills_2010_official_market_review_dates_20260916_2000",
+  "priority": "breadth-first source capture",
+  "source": {
+    "publisher": "Savills Commercial",
+    "document_title": "Commercial Auctions Market Review - September 2010",
+    "document_url": "http://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf",
+    "recovered_source_path": "data/historical_raw/savills_commoncrawl_2010_pdf_parse.json",
+    "evidence_note": "Recovered official Savills PDF explicitly lists the remaining 2010 Commercial Auction dates and catalogue-close dates. Dates are captured as auction/source records; no lot facts are inferred from the market-review document."
+  },
+  "auction_records": [
+    {
+      "auctioneer": "Savills Commercial",
+      "auction_date": "2010-10-11",
+      "auction_date_display": "Monday 11th October 2010",
+      "catalogue_close_date": null,
+      "aid_auc": null,
+      "auction_catalogue_url": null,
+      "results_url": null,
+      "archive_url": null,
+      "document_urls": [
+        "http://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf"
+      ],
+      "source_status": "official Savills date evidence",
+      "notes": "September 2010 Savills Commercial Auctions Market Review lists Monday 11th October under '2010 Auction dates' and marks catalogue as Closed."
+    },
+    {
+      "auctioneer": "Savills Commercial",
+      "auction_date": "2010-12-13",
+      "auction_date_display": "Monday 13th December 2010",
+      "catalogue_close_date": "2010-11-08",
+      "aid_auc": null,
+      "auction_catalogue_url": null,
+      "results_url": null,
+      "archive_url": null,
+      "document_urls": [
+        "http://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf"
+      ],
+      "source_status": "official Savills date evidence",
+      "notes": "September 2010 Savills Commercial Auctions Market Review lists Monday 13th December under '2010 Auction dates' with catalogue close Monday 8th November."
+    }
+  ],
+  "lot_records": [],
+  "capture_counts": {
+    "auction_records_added": 2,
+    "lot_or_partial_records_added": 0
+  }
+}
