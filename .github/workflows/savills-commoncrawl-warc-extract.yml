@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'scripts/savills_commoncrawl_warc_extract.py'
+      - '.github/workflows/savills-commoncrawl-warc-extract.yml'
 jobs:
   recover:
     runs-on: ubuntu-latest
@@ -12,19 +13,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Retrieve exact archived bodies
         run: python scripts/savills_commoncrawl_warc_extract.py
-      - name: Persist recovery evidence
+      - name: Persist recovery evidence conflict-safe
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/historical_raw/savills_commoncrawl_2010_bodies.json data/historical_raw/savills_cc_*.pdf data/source_diagnostics/savills_commoncrawl_warc_body_blocker.json || true
-          if ! git diff --cached --quiet; then
+          mkdir -p /tmp/savills-warc
+          cp data/historical_raw/savills_commoncrawl_2010_bodies.json /tmp/savills-warc/bodies.json
+          cp data/source_diagnostics/savills_commoncrawl_warc_body_blocker.json /tmp/savills-warc/blocker.json
+          cp data/historical_raw/savills_cc_*.pdf /tmp/savills-warc/ 2>/dev/null || true
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/savills-warc/bodies.json data/historical_raw/savills_commoncrawl_2010_bodies.json
+            cp /tmp/savills-warc/blocker.json data/source_diagnostics/savills_commoncrawl_warc_body_blocker.json
+            cp /tmp/savills-warc/savills_cc_*.pdf data/historical_raw/ 2>/dev/null || true
+            git add data/historical_raw/savills_commoncrawl_2010_bodies.json data/historical_raw/savills_cc_*.pdf data/source_diagnostics/savills_commoncrawl_warc_body_blocker.json || true
+            if git diff --cached --quiet; then exit 0; fi
             git commit -m 'Persist Savills Common Crawl WARC body recovery'
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
+            if git push origin HEAD:main; then exit 0; fi
+            git reset --hard HEAD~1
+            sleep $((attempt*3))
+          done
+          exit 1
