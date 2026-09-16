@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "checked_at": "2026-09-17T00:11:00+01:00",
+  "strategy": "indexed_direct_listing_discovery_without_auctioneer_traversal",
+  "priority": "breadth-first 2018 down to 2010; current unresolved focus 2013 after exhausted 2010 routes",
+  "attempted": [
+    "Fresh inspection of production main and latest Savills workflow/logs",
+    "Confirmed bulk PropertyAuctions auctioneer traversal reached one page, discovered zero listings, and produced zero corpus records",
+    "Bypassed the blocked /auctioneers/savills traversal and searched independently indexed PropertyAuctions /listings/ URLs for Savills + 2013",
+    "Searched indexed web corpus for Savills 2013 PropertyAuctions AID/Auc identifiers"
+  ],
+  "result": {
+    "validated_new_canonical_events": 0,
+    "indexed_2013_savills_listing_manifests_found": 0,
+    "aid_auc_manifests_found": 0
+  },
+  "blocker": "Direct indexed-web discovery did not expose a defensible Savills 2013 PropertyAuctions listing manifest or AID/Auc identifier. The live PropertyAuctions auctioneer traversal remains blocked at its Savills index, so neither route currently supplies source-identifiable 2013 lot identities.",
+  "safety": "No canonical event inserted from search-result coincidence or non-Savills PropertyAuctions pages.",
+  "distinct_next_route": "Use search-engine/indexed-cache discovery against known 2013 Savills auction dates and surviving Savills chronological archive clues to recover property addresses or legacy Savills catalogue/result URLs first; then query those exact addresses/URLs against PropertyAuctions listing history to derive AID/Auc identities. Do not retry /auctioneers/savills until its access behaviour changes.",
+  "completeness": "No Savills historical year is declared complete."
+}
