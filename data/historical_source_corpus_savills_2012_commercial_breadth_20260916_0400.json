@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "source_first_partial_allowed",
+  "records": [
+    {
+      "source_record_id": "savills-lot|2012-04|highbury-fields-former-public-lavatory|partial",
+      "record_type": "lot_partial",
+      "auction_date": null,
+      "auction_year": 2012,
+      "lot_number": null,
+      "location": "Highbury Fields, Islington, London",
+      "address": null,
+      "property_type": "commercial_conversion_opportunity",
+      "guide_price": 75000,
+      "result_price": 182000,
+      "currency": "GBP",
+      "tenure": "leasehold",
+      "lease_term_years": 125,
+      "size_sq_ft": 663,
+      "rent": null,
+      "tenant": null,
+      "lease_details": "125-year lease; former public lavatory comprising gentlemen's 364 sq ft and ladies' 299 sq ft rooms; residential planning had been ruled out by Islington Council; purchaser reported intention to convert to offices.",
+      "archive_url": null,
+      "catalogue_url": null,
+      "lot_detail_url": null,
+      "results_url": "https://www.standard.co.uk/hp/front/victorian-loo-sells-for-ps182-000-6327663.html",
+      "source_urls": [
+        "https://www.standard.co.uk/hp/front/victorian-loo-sells-for-ps182-000-6327663.html"
+      ],
+      "capture_status": "commercial_partial_captured_contemporary_result_source_exact_auction_date_pending",
+      "include_in_commercial_corpus": true,
+      "canonical_history_v2": false,
+      "notes": "Contemporary 12 April 2012 report identifies the property as described in FPD Savills' catalogue and reports an auction sale at £182,000 against £75,000 reserve/guide wording. Exact auction date and lot number are not asserted because the surviving report does not safely establish them. Capture-first record retained rather than blocking on identity reconstruction."
+    }
+  ],
+  "notes": "Breadth-first Savills 2012 commercial source capture. Unknown exact auction identity remains null by design; enrichment is deferred."
+}
