@@ -35,6 +35,7 @@ from collectors.future_property_auctions import collect as future_property
 from collectors.bidx1 import collect as bidx1
 from collectors.symonds_sampson import collect as symonds_sampson
 from collectors.auction_estates import collect as auction_estates
+from collectors.paul_fosh import collect as paul_fosh
 from source_manifest import append_missing_health, manifest_coverage
 
 DATA=Path("data")
@@ -48,7 +49,7 @@ COLLECTORS=[
     collect_northants_beds_bucks, collect_beds_bucks, collect_leicestershire, collect_tees_valley,
     collect_national_online,
     savills, bond_wolfe, pugh, strettons, lsh, pattinson, mchugh, allsop, acuitus,
-    clive_emson, barnard_marcus, barnett_ross, harman_healy, knight_frank, town_country,
+    clive_emson, paul_fosh, barnard_marcus, barnett_ross, harman_healy, knight_frank, town_country,
     future_property, bidx1, symonds_sampson, auction_estates,
 ]
 PUBLISHABLE={"LIVE","DEGRADED"}
@@ -223,8 +224,9 @@ def run():
         q["image_coverage_pct"]=round(100*q["valid_images"]/q["lots"],1) if q["lots"] else 0; q["rich_coverage_pct"]=round(100*q["rich"]/q["lots"],1) if q["lots"] else 0
     target_coverage=manifest_coverage(results)
     lifecycle_counts=Counter(_normal_status(x.get("status")) for x in archive)
-    snapshot={"generated_at":datetime.now(timezone.utc).isoformat(),"properties":active,"archive":archive,"source_health":results,"integrity":{"active_property_count":len(active),"historical_property_count":len(archive),"lifecycle_counts":dict(lifecycle_counts),"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"quality_rejection_reasons":rejection_reasons,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"source_quality":source_quality,"target_coverage":target_coverage,"acceptance_ready":target_coverage.get("acceptance_ready",False)}}
-    (DATA/"properties.json").write_text(json.dumps(snapshot,indent=2),encoding="utf-8")
-    print(json.dumps({"generated_at":snapshot["generated_at"],"property_count":len(active),"historical_count":len(archive),"lifecycle_counts":dict(lifecycle_counts),"quality_repairs":quality_repairs,"quality_rejections":quality_rejections,"duplicate_image_repairs":duplicate_image_repairs,"authoritative_scopes_completed":len(authoritative_scopes),"stale_false_positive_rows_pruned":pruned,"source_quality":source_quality,"target_coverage":target_coverage,"sources":results},indent=2))
+    snapshot={"generated_at":datetime.now(timezone.utc).isoformat(),"properties":active,"archive":archive,"source_health":results,"target_coverage":target_coverage,"quality":{"repairs":quality_repairs,"rejections":quality_rejections,"rejection_reasons":rejection_reasons,"pruned":pruned,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"source_quality":source_quality,"archive_lifecycle":dict(lifecycle_counts)}}
+    (DATA/"properties.json").write_text(json.dumps(snapshot,indent=2,ensure_ascii=False),encoding="utf-8")
+    return snapshot
 
-if __name__=="__main__": run()
+if __name__=="__main__":
+    s=run(); print(f"Published {len(s['properties'])} active lots; archived {len(s['archive'])}; sources {len(s['source_health'])}")
