@@ -1,0 +1,23 @@
+{
+  "run": "savills_2010_oct_dec_archive_adjacency_20260916_2110",
+  "priority": "breadth-first auction completeness",
+  "fresh_main_at_start": "bcb18339d64e9b84b03c1f7f15a0df7594091042",
+  "current_target": ["2010-10-11", "2010-12-13"],
+  "preflight": {
+    "latest_savills_workflow_run": 35132927884,
+    "workflow": "Savills 2010 recovered PDF parse",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "attempted_route": "Distinct archive-adjacency discovery after the recovered official Savills PDFs proved to be market reviews: exact-date catalogue/results searches for 11 October 2010 and 13 December 2010, including Savills commercial auction and PropertyAuctions terminology, while preserving the known official chronology as the reconciliation anchor.",
+  "validated_findings": {
+    "official_savills_dates": ["2010-10-11", "2010-12-13"],
+    "new_savills_catalogue_or_results_assets": 0,
+    "new_propertyauctions_aid_auc_manifests": 0,
+    "new_canonical_property_events": 0
+  },
+  "blocker": "Fresh adjacency discovery returned unrelated auction/date material and no source that safely identifies a Savills October or December 2010 lot, catalogue/results asset, or PropertyAuctions AID/Auc manifest. No lot identity can be inferred safely from these results.",
+  "safety_decision": "Reject unrelated exact-date hits; do not infer lots, addresses, classifications or results and do not increment canonical history.",
+  "distinct_next_route": "Enumerate Common Crawl captures by filename/directory adjacency around the three already recovered Savills commercial-auctions-uk PDF URLs rather than by auction-date search terms. Persist candidate neighbouring URLs first, then retrieve/parse only candidates whose path/title indicates catalogue, results, auction or lot content; reconcile any property identities against PropertyAuctions AID/Auc before canonicalisation.",
+  "completeness": "NOT COMPLETE"
+}
