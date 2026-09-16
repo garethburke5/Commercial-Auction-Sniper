@@ -1,0 +1,24 @@
+{
+  "run": "savills_2010_oct_dec_manifest_reconciliation_20260916_2009",
+  "priority": "breadth-first auction completeness",
+  "current_target": ["2010-10-11", "2010-12-13"],
+  "fresh_main_at_start": "6c7d1607cc9b797fab58b272145f534b814812be",
+  "evidence_checked": [
+    "data/historical_raw/savills_commoncrawl_2010_pdf_parse.json",
+    "data/historical_source_corpus/savills_2010_official_market_review_dates_20260916_2000.json",
+    "GitHub Actions run 35132927884 logs"
+  ],
+  "attempted_route": "Exact-date and auctioneer searches for surviving lot/catalogue/results identities after parsing the recovered official Savills PDFs; repository search for PropertyAuctions/AID/Auc anchors.",
+  "validated_findings": {
+    "official_savills_dates": ["2010-10-11", "2010-12-13"],
+    "recovered_official_pdfs": 3,
+    "pdf_parse_errors": 0,
+    "lot_numbers_in_recovered_pdfs": 0,
+    "new_propertyauctions_aid_auc_manifests": 0,
+    "new_canonical_property_events": 0
+  },
+  "blocker": "The three recovered official Savills 2010 PDFs are market-review/survey documents, not auction catalogues or results. Their parsed text contains the October and December auction dates but no lot numbers or property identities. Fresh exact-date web discovery and repository code/data search did not surface a surviving PropertyAuctions AID/Auc manifest for either sale. Search results were unrelated or modern Savills pages and therefore cannot safely identify 2010 lots.",
+  "safety_decision": "Do not infer lots, addresses, commercial classification, guides, rents or results from market commentary or unrelated search results. Do not increment canonical history.",
+  "distinct_next_route": "Use the recovered Savills PDF filenames/date terminology as adjacency seeds to enumerate archived Savills catalogue/results assets in Common Crawl/Wayback around 2010-10-11 and 2010-12-13, including directory listings and savills.co.uk/auction legacy URLs. Preserve every candidate URL/capture first; only then parse property identities and reconcile any discovered IDs against PropertyAuctions AID/Auc.",
+  "completeness": "NOT COMPLETE"
+}
