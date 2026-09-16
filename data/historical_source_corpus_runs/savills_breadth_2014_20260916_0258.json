@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "strategy": "discover_save_move_on",
+  "auctioneer": "Savills",
+  "main_head_inspected": "f077b8b2f56cb3eb29134a32b8c9d387f4dc75db",
+  "completeness_declared": false,
+  "records": [
+    {
+      "record_type": "auction_source",
+      "auctioneer": "Savills Nottingham",
+      "auction_date": "2014-03-27",
+      "venue": "Nottingham Racecourse",
+      "aid": null,
+      "auc": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "source_urls": [
+        "https://ca.marketscreener.com/quote/stock/SAVILLS-PLC-4006034/news/Savills-plc-Hungry-bidders-generate-2-5m-at-Savills-Nottingham-auction-17880717/"
+      ],
+      "evidence_note": "Contemporary Savills-distributed report for the 23 January 2014 Nottingham sale explicitly states the next auction was 27 March 2014 at the same Nottingham auction operation. Persisted as a partial auction-source record pending catalogue recovery."
+    },
+    {
+      "record_type": "auction_source",
+      "auctioneer": "Savills London & National",
+      "auction_date": "2014-10-28",
+      "venue": null,
+      "aid": null,
+      "auc": null,
+      "archive_url": null,
+      "catalogue_url": "http://catalogue.auctions.savills.co.uk/London-National/Online-Catalogue/Default.aspx?st=2#&&s=2",
+      "results_url": null,
+      "source_urls": [
+        "https://www.propertyauctions.com/dataclub/",
+        "https://www.standard.co.uk/news/london/london-property-market-shows-no-signs-of-slowing-down-as-alleyway-sells-for-ps260-000-9826407.html"
+      ],
+      "evidence_note": "Surviving contemporary sources identify the Savills National auction on 28 October 2014 and preserve a legacy catalogue URL."
+    },
+    {
+      "record_type": "lot_partial",
+      "auctioneer": "Savills London & National",
+      "auction_date": "2014-10-28",
+      "lot_number": null,
+      "aid": null,
+      "auc": null,
+      "address": "Passageway/site between a charity shop and Starbucks, Northcote Road, Battersea, London",
+      "locality": "Battersea, London",
+      "property_type": "freehold development site / passageway",
+      "guide_price_gbp": 55000,
+      "result_price_gbp": 260000,
+      "hammer_price_gbp": 260000,
+      "rent_pa_gbp": null,
+      "tenure": "Freehold",
+      "tenant": null,
+      "lease_details": null,
+      "size": "approximately 900 sq ft; contemporary Dataclub summary describes site as 0.016 acres",
+      "commercial_or_mixed": true,
+      "source_urls": [
+        "https://www.standard.co.uk/news/london/london-property-market-shows-no-signs-of-slowing-down-as-alleyway-sells-for-ps260-000-9826407.html",
+        "https://www.propertyauctions.com/dataclub/"
+      ],
+      "evidence_note": "Vacant freehold site sold at Savills National auction; planning allowed residential or artist's studio. Retained as mixed/development rather than residential-only. Exact street number and lot number unavailable in surviving evidence and intentionally left unresolved."
+    }
+  ],
+  "counts": {
+    "auction_records_added": 2,
+    "lot_or_partial_records_added": 1,
+    "total_records_added": 3
+  },
+  "years_covered": [2014],
+  "auctions_covered": ["2014-03-27 Savills Nottingham", "2014-10-28 Savills London & National"]
+}
