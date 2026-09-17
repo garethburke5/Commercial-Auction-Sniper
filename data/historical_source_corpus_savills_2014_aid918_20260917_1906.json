@@ -1,0 +1,17 @@
+{
+  "source": "PropertyAuctions legacy catalogue reconciliation",
+  "auctioneer": "Savills",
+  "auction_date": "2014-09-15",
+  "propertyauctions_aid": 918,
+  "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=918",
+  "validation": "Historical full-AID scan persisted on production records an explicit dated SAVILLS heading on the live PropertyAuctions page.",
+  "initial_grid_lot_rows": 218,
+  "strict_commercial_mixed_lots_on_initial_grid": 5,
+  "canonicalised": 0,
+  "unresolved": 5,
+  "canonical_events_added": 0,
+  "attempted_route": "Repository-state inversion of the full PropertyAuctions AID scan after open-web AID discovery stalled. Recovered exact AID/date/catalogue identity from persisted reconciliation rather than inferring adjacent IDs.",
+  "blocker": "The persisted aggregate AID scan retains AID 918, exact auction date, 218 initial-grid rows and 5 strict commercial/mixed rows, but this execution has not recovered the five rows' deterministic full-address/Auc detail identities. No speculative canonical join was made.",
+  "next_safe_route": "Recover the five AID 918 qualifying row tuples from historical scan state/commit or replay the exact AID 918 ASP.NET grid and persist lot number, type, locality, result and Auc/detail target. Then reconcile each exact identity against surviving Savills chronological/RSS evidence. If row identity replay stalls, move breadth-first to 28-Aug-2014 and recover its exact AID/manifest rather than looping on AID 918.",
+  "completeness_claim": false
+}
