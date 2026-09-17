@@ -4,6 +4,11 @@ The canonical collector already retains previous rows and marks them STALE SOURC
 collector fails. This publication step promotes still-future retained rows back onto the
 public board and records the source as DEGRADED, never LIVE. It does not fabricate fresh
 coverage or prune inventory from an unavailable source.
+
+A failed collector with no previously published inventory is also represented as DEGRADED
+rather than FAILED. There is nothing to preserve in that case, so treating the outage as a
+publication-blocking inventory loss would deadlock the whole national refresh. The source
+remains explicitly non-authoritative and its outage is recorded in source health.
 """
 from __future__ import annotations
 
@@ -54,16 +59,21 @@ def apply(path=DATA, today=None):
         else:
             kept_archive.append(row)
 
+    zero_inventory_outages = []
     for h in health:
         source = str(h.get("source") or "")
         if source not in failed_sources:
             continue
         retained_total = sum(1 for x in properties + kept_archive if str(x.get("source") or "") == source)
+        original = str(h.get("message") or "").strip()
+        h["status"] = "DEGRADED"
+        h["authoritative_snapshot"] = False
         if retained_total:
-            original = str(h.get("message") or "").strip()
-            h["status"] = "DEGRADED"
-            h["authoritative_snapshot"] = False
             h["message"] = (original + " " if original else "") + f"Temporary collector outage: retained {retained_total} last-known-good row(s); {preserved[source]} still-future row(s) preserved on the public board."
+        else:
+            h["zero_inventory_outage"] = True
+            zero_inventory_outages.append(source)
+            h["message"] = (original + " " if original else "") + "Temporary collector outage with no last-known-good inventory to preserve; source is unavailable and non-authoritative, but no published inventory was lost."
 
     data["properties"] = properties
     data["archive"] = kept_archive
@@ -73,10 +83,11 @@ def apply(path=DATA, today=None):
     integrity["target_coverage"] = coverage
     integrity["acceptance_ready"] = coverage.get("acceptance_ready", False)
     integrity["temporary_outage_sources_preserved"] = dict(preserved)
+    integrity["zero_inventory_outage_sources"] = sorted(zero_inventory_outages)
     integrity["published_property_count"] = len(properties)
     integrity["historical_property_count"] = len(kept_archive)
     path.write_text(json.dumps(data, indent=2), encoding="utf-8")
-    print("SOURCE RESILIENCE", json.dumps({"failed_sources": sorted(failed_sources), "preserved_future_rows": dict(preserved), "acceptance_ready": coverage.get("acceptance_ready")}, sort_keys=True))
+    print("SOURCE RESILIENCE", json.dumps({"failed_sources": sorted(failed_sources), "preserved_future_rows": dict(preserved), "zero_inventory_outages": sorted(zero_inventory_outages), "acceptance_ready": coverage.get("acceptance_ready")}, sort_keys=True))
     return data
 
 
