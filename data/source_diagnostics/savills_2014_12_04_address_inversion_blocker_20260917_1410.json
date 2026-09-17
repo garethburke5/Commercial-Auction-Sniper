@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "production_main_inspected_sha": "3122bdb66e1f1878553e2eae4c9a035e9515ce8d",
+  "target_year": 2014,
+  "target_auction": "2014-12-04",
+  "route": "breadth-first address-led inversion after EIG catalogue-object route stalled on 2014-12-08",
+  "attempted": [
+    "Fresh inspection of production main and latest Savills bulk historical workflow decoded logs",
+    "Fresh inspection of data/source_diagnostics/savills_2010_2018_rss_catalogue_recovery.json and its 2014-12-04 coverage entry",
+    "Repository-wide exact-date searches for 2014-12-04 / 4 December 2014 source objects",
+    "Public-index exact-date searches combining Savills, 4 December 2014, auction, commercial/property/lot and propertyauctions.io terms",
+    "Attempted recovery of exact clue-address provenance before PropertyAuctions/EIG inversion"
+  ],
+  "result": {"canonical_events_added": 0, "new_propertyauctions_aid_auc_manifests": 0, "new_eig_auction_ids": 0, "new_eig_lot_ids": 0},
+  "coverage_at_attempt": {"year_2014":{"mapped_auctions":15,"commercial_mixed_clues":131,"canonical_lot_matches":0,"unresolved":131},"auction_2014_12_04":{"commercial_mixed_clues":12,"canonical_lot_matches":0,"unresolved":12}},
+  "blocker": "The reconciliation proves 12 commercial/mixed clues for 2014-12-04 but its exposed coverage summary does not retain their exact address provenance, repository exact-date indexing exposes no source objects for this date, and public date-led search is polluted by unrelated Savills material. Without exact clue addresses, address-led inversion cannot be safely joined to PropertyAuctions AID/Auc or EIG /files/55/<auctionid>/ objects. The latest direct PropertyAuctions Savills crawl independently still returns zero records/discoveries with one blocker. No candidate met canonical threshold.",
+  "distinct_next_route": "Recover the 12 clue identities from the provenance inputs that generated savills_2010_2018_rss_catalogue_recovery.json rather than searching the open web by date: inspect the RSS/capture candidate artifacts and reconciliation workflow/script for the source clue collection, extract every 2014-12-04 address/lot/source URL, persist that manifest, then invert each exact address against PropertyAuctions listing indexes and EIG catalogue/image namespaces. If the provenance inputs cannot be reconstructed, move breadth-first to 2014-10-16 (13 unresolved clues) using the same provenance-first method rather than repeating date-only searches.",
+  "historical_completeness_declared": false
+}
