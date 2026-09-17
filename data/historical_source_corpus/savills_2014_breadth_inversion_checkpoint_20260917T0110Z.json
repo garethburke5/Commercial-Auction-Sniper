@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "capture_mode": "breadth_first_2014_date_address_inversion",
+  "target_year": 2014,
+  "production_main_inspected_sha": "1febc2fab55584ce9e0a1e658947ce2b80edf25c",
+  "known_breadth_ledger": {"mapped_auctions": 15, "qualifying_commercial_mixed_clues": 131, "canonicalised": 0, "unresolved": 131},
+  "attempted": [
+    "Fresh GitHub main and Actions inspection before recovery",
+    "Direct web/index discovery for Savills 2014 commercial auction, catalogue, result and lot identities",
+    "PropertyAuctions/PropertyAuctions.io inversion rather than retrying the blocked /auctioneers/savills traversal"
+  ],
+  "validated_2014_chronology_clues": [
+    {"auction_date":"2014-10-28","lot_number":"144","clue":"Savills National auction sold a 0.016-acre Battersea/Northcote Road passageway for GBP260,000; contemporary reporting identifies it as Lot 144."},
+    {"auction_date":"2014-12-08","lot_number":"46","clue":"PropertyAuctions indexed news identifies former Wisbech Town FC Fenland Park as Savills London and National Auction Lot 46, guide GBP2.5m."}
+  ],
+  "canonical_events_added": 0,
+  "blocker": "The distinct 2014 inversion route produced genuine Savills 2014 lot/date clues, but no surviving PropertyAuctions AID/Auc manifest or source-stable listing identity was recovered for those clues. They are therefore evidence anchors only and must not be canonicalised yet.",
+  "next_distinct_route": "Use the exact recovered anchors (2014-10-28 Lot 144 Northcote Road/Battersea and 2014-12-08 Lot 46 Fenland Park/Wisbech) as seed identities for archived PropertyAuctions URL/AID/Auc recovery and adjacent-lot enumeration; then fan out auction-by-auction across the 15 mapped 2014 auctions before moving to 2015.",
+  "completeness_claim": false
+}
