@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Acuitus",
+  "capture_mode": "breadth_first_source_corpus",
+  "production_main_inspected_sha": "271b48e2679c14801a22c536de7eb8d9f6687868",
+  "auction_records": [
+    {
+      "record_type": "auction",
+      "auction_date": "2014-07-09",
+      "auctioneer": "Acuitus",
+      "venue": "The Millennium Hotel, 44 Grosvenor Square, London W1K 2HP",
+      "catalogue_lot_count": 54,
+      "sold_lot_count": 38,
+      "reported_total_sales_gbp": 37723000,
+      "source_urls": ["https://www.acuitus.co.uk/auction-news/single-lots-sells-for-5-7m-at-july-auction/"],
+      "notes": "Acuitus reported 54 lots in the July catalogue and £37.723m raised; 38 lots sold."
+    }
+  ],
+  "lot_records": [
+    {
+      "record_type": "lot",
+      "auction_date": "2014-07-09",
+      "lot_number": 3,
+      "address": "77 Grand Parade, Brighton, East Sussex BN2 9JA",
+      "property_type": "Freehold Guesthouse Investment",
+      "tenure": "Freehold",
+      "rent_pa_gbp": 27500,
+      "result": "Sold",
+      "result_price_gbp": 590000,
+      "tenant": "Pavilion Reach Limited",
+      "lease_details": "15 year lease until 2027",
+      "size_sq_ft": 3491,
+      "source_urls": ["https://www.acuitus.co.uk/property/1284/", "https://www.acuitus.co.uk/uploads/42-1284/3.pdf"]
+    },
+    {
+      "record_type": "lot",
+      "auction_date": "2014-07-09",
+      "lot_number": 10,
+      "address": "130-136 Poole Road, Bournemouth, Dorset BH4 9EF",
+      "property_type": "Freehold Language School Investment",
+      "tenure": "Freehold",
+      "rent_pa_gbp": 202937,
+      "result": "Sold",
+      "result_price_gbp": 2250000,
+      "tenant": "Kaplan English School / lease guaranteed by Kaplan Inc.",
+      "lease_details": "Lease guaranteed until 2030; annual fixed 2.5% rental uplifts",
+      "size_sq_ft": 11882,
+      "source_urls": ["https://www.acuitus.co.uk/property/1291/"]
+    },
+    {
+      "record_type": "lot",
+      "auction_date": "2014-07-09",
+      "lot_number": 12,
+      "address": "408 Holloway Road, Islington, London N7 6QF",
+      "property_type": "Freehold Bank Investment",
+      "tenure": "Freehold",
+      "rent_pa_gbp": 77500,
+      "result": "Sold",
+      "result_price_gbp": 1590000,
+      "tenant": "Santander UK plc",
+      "lease_details": null,
+      "size_sq_ft": null,
+      "source_urls": ["https://www.acuitus.co.uk/property/1293/?also=y", "https://www.acuitus.co.uk/uploads/42-1293/12.pdf"]
+    },
+    {
+      "record_type": "lot",
+      "auction_date": "2014-07-09",
+      "lot_number": 35,
+      "address": "Nationwide Building Society, 83 Abington Street, Northampton, Northamptonshire NN1 2BH",
+      "property_type": "Virtual Freehold Retail Investment",
+      "tenure": "Virtual Freehold; 999 years from completion at peppercorn rent",
+      "rent_pa_gbp": 69000,
+      "result": "Sold",
+      "result_price_gbp": 1010000,
+      "tenant": "Nationwide Building Society",
+      "lease_details": "15 years from 21/10/2011 until 2026, FRI, no breaks stated",
+      "size_sq_ft": 3814,
+      "source_urls": ["https://www.acuitus.co.uk/property/1316/", "https://propertyauctions.io/listings/f0688f0d93946c5e7a14f2a434683582"]
+    },
+    {
+      "record_type": "lot",
+      "auction_date": "2014-07-09",
+      "lot_number": 40,
+      "address": "Former Batemans Laboratories, Catteshall Lane, Godalming, Surrey GU7 1LD",
+      "property_type": "Freehold Industrial Investment with Redevelopment Potential",
+      "tenure": "Freehold",
+      "rent_pa_gbp": 80200,
+      "result": "Sold",
+      "result_price_gbp": 865000,
+      "tenant": "Vision Express (UK) Ltd on assignment",
+      "lease_details": null,
+      "size_sq_ft": 12344,
+      "source_urls": ["https://www.acuitus.co.uk/property/1321/"]
+    }
+  ]
+}
