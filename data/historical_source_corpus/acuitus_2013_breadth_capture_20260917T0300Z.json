@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Acuitus",
+  "capture_mode": "breadth_first_source_capture",
+  "production_main_inspected_sha": "cd0e763bdd541c14ad8365b72a675fa95fad2346",
+  "auction_records_added": 0,
+  "lot_records_added": 6,
+  "lots": [
+    {"auction_date":"2013-05-23","lot_number":"22","address":"Victoria House, Victoria Square, Horley, RH6 7AF","property_type":"retail and office investment","result_status":"Sold","result_price_gbp":1220000,"rent_pa_gbp":290400,"tenure":"Long Leasehold","size_sq_ft":28742,"lot_url":"https://www.acuitus.co.uk/property/835/"},
+    {"auction_date":"2013-05-23","lot_number":"41","address":"Consort House, Victoria Road, Consort Way, Horley, RH6 7AF","property_type":"office investment","result_status":"Sold","result_price_gbp":1250000,"rent_pa_gbp":340192,"tenure":"Long Leasehold / virtual freehold","size_sq_ft":21381,"lot_url":"https://www.acuitus.co.uk/property/850/"},
+    {"auction_date":"2013-05-23","lot_number":null,"address":"329 & 329A North End Road, Fulham, London SW6 1NN","property_type":"mixed use retail and residential","result_status":"Sold","result_price_gbp":885000,"rent_pa_gbp":null,"tenure":"Freehold","source_url":"https://propertyauctions.io/listings/91699b7216c368056b751d4d1d5aca60"},
+    {"auction_date":"2013-05-23","lot_number":"48","address":"Unit 3 Hawley Lane Business Park, Frimley, Farnborough, GU14 8JE","property_type":"industrial / warehouse","result_status":"Sold Prior","result_price_gbp":null,"rent_pa_gbp":null,"tenure":"Freehold","size_sq_ft":5376,"lot_url":"https://www.acuitus.co.uk/property/857/"},
+    {"auction_date":"2013-07-11","lot_number":null,"address":"Unit 7, Pond Wood Close, Moulton Park Industrial Estate, Northampton NN3 6RT","property_type":"industrial warehouse","result_status":"Sold","result_price_gbp":500000,"rent_pa_gbp":null,"tenure":"Freehold","size_sq_ft":20090,"site_acres":1.07,"source_url":"https://propertyauctions.io/listings/12b4071d46e467a9271c3fd5aa8d057f"},
+    {"auction_date":"2013-03-21","lot_number":null,"address":"39-41 Torwood Street, Torquay, Devon TQ1 1DZ","property_type":"leisure / restaurant / nightclub","result_status":"Sold","result_price_gbp":950000,"rent_pa_gbp":null,"tenure":"Freehold","lease_detail":"Entire property let until 2028","source_url":"https://propertyauctions.io/listings/1134dd57d276230ff9edc38f83a6b73a"}
+  ],
+  "notes":"Breadth-first capture. Unknown fields deliberately left null. Residential-only lots excluded. Records selected after checking current main/code search to avoid known duplicates."
+}
