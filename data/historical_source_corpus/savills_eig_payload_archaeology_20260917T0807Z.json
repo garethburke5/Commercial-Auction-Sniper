@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "eig_historical_post_payload_archaeology",
+  "production_main_inspected_sha": "31a68a482ae5ac76047bbc53af18673d999f427b",
+  "target_year": 2014,
+  "target_auction_date": "2014-10-28",
+  "canonical_events_added": 0,
+  "verified_eig_seed": {
+    "auctioneer_id": 55,
+    "auction_id": 17999,
+    "lot_id": 756425,
+    "lot_number": "2",
+    "address": "66D Charlwood Street, Pimlico, London, SW1V 4PQ",
+    "qualifies_commercial_or_mixed": false
+  },
+  "attempted": [
+    "Inspected current production main and latest Savills bulk-harvest workflow/job/logs before recovery",
+    "Confirmed PropertyAuctions auctioneer traversal still returns HTTP 403 and discovers zero listing URLs",
+    "Searched exact historical EIG fulldetails.aspx?auctionid=17999 plus payload/requests.post signatures",
+    "Searched the contemporaneous Stack Overflow question and mirrors for the omitted POST payload definition",
+    "Searched exact auctioneerid=55, auctionid=17999 and /files/55/ namespace combinations for additional Savills auction or lot IDs"
+  ],
+  "new_evidence": {
+    "contemporaneous_code_signature": "requests.post('https://www.eigroup.co.uk/clients/auctions/fulldetails.aspx?auctionid=17999', params=payload)",
+    "reported_table_count": 232,
+    "table_class": "table-search-result",
+    "payload_definition_recovered": false,
+    "second_lot_id_recovered": false,
+    "propertyauctions_aid_auc_recovered": false
+  },
+  "source_specific_blocker": "The 28 October 2014 EIG response is proven to have contained 232 lot tables, but the contemporaneous public code excerpt references an external variable named payload without publishing its definition. Public indexing and mirrors preserve only Lot 2, not the POST form state or another lot record. The current PropertyAuctions Savills auctioneer endpoint independently remains HTTP 403, so it cannot supply the missing AID/Auc frontier.",
+  "distinct_next_route": "Do not retry generic search. Recover the EIG POST state from source mechanics: inspect the authenticated EIG Passport client and the live historical search/full-details form for hidden ASP.NET fields and request parameters, then submit the historical auction 17999 request with authenticated session state and parse all table-search-result records. If deployment secrets are unavailable to the runner, persist that exact credential/runtime blocker and move breadth-first to the next mapped 2014 auction while separately searching Stack Overflow revision/history or contemporaneous code caches for the payload definition.",
+  "breadth_ledger": {
+    "2018": {"auctions_mapped": 13, "qualifying_clues": 94, "canonicalised": 26, "unresolved": 68},
+    "2017": {"auctions_mapped": 14, "qualifying_clues": 87, "canonicalised": 24, "unresolved": 63},
+    "2016": {"auctions_mapped": 14, "qualifying_clues": 86, "canonicalised": 3, "unresolved": 83},
+    "2015": {"auctions_mapped": 12, "qualifying_clues": 82, "canonicalised": 0, "unresolved": 82},
+    "2014": {"auctions_mapped": 15, "qualifying_clues": 131, "canonicalised": 0, "unresolved": 131},
+    "2013": {"auctions_mapped": 2, "qualifying_clues": 14, "canonicalised": 0, "unresolved": 14},
+    "2012": {"auctions_mapped": null, "qualifying_clues": null, "canonicalised": null, "unresolved": null},
+    "2011": {"auctions_mapped": null, "qualifying_clues": null, "canonicalised": null, "unresolved": null},
+    "2010": {"auctions_mapped": 1, "qualifying_clues": 3, "canonicalised": 0, "unresolved": 3}
+  },
+  "current_auction": {"date": "2014-10-28", "qualifying_clues": 5, "canonicalised": 0, "unresolved": 5},
+  "historical_completeness_declared": false
+}
