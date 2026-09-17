@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "capture_mode": "2014_propertyauctions_auction_date_cluster_inversion",
+  "production_main_inspected_sha": "14e6e67739b789a5f17ccc2666bf68b3f9f20401",
+  "current_year": 2014,
+  "canonical_events_added": 0,
+  "target_auctions": ["2014-10-28", "2014-12-08"],
+  "known_seeds": [
+    {"auction_date":"2014-10-28","lot_number":"144","identity":"0.016 acre passageway/site, Northcote Road, Battersea"},
+    {"auction_date":"2014-12-08","lot_number":"46","identity":"former Wisbech Town Football Club ground, Fenland Park"}
+  ],
+  "attempted_route": "Auction-date-cluster inversion: search surviving indexed property-history/listing records around the exact 28 October and 8 December 2014 dates, looking for source-backed Savills neighbours and recoverable PropertyAuctions AID/Auc namespace anchors; this deliberately avoided retrying the blocked /auctioneers/savills route and the already-failed exact-seed route.",
+  "result": "No source-defensible UK Savills commercial-auction neighbour or PropertyAuctions AID/Auc manifest was recovered. Date-only results were dominated by unrelated auctions and Australian Savills Residential transactions; these were rejected. A surviving contemporary UK clue for 28 October 2014 Lot 49 Hazelbourne Road exposes a legacy catalogue.auctions.savills.co.uk London-National Online-Catalogue URL, but not a PropertyAuctions AID/Auc identity and therefore was not canonicalised.",
+  "blocker": "Search-index date clustering is too noisy to reconstruct the PropertyAuctions manifest namespace: exact auction dates collide with unrelated sales, while surviving UK Savills clues expose legacy Savills catalogue URLs rather than AID/Auc identifiers.",
+  "next_distinct_route": "Use the recovered legacy catalogue.auctions.savills.co.uk/London-National/Online-Catalogue/Default.aspx namespace from the 28 October 2014 Lot 49 clue as an archive-native seed. Enumerate Common Crawl/Wayback captures and adjacent catalogue/result assets for that host/date, extract lot numbers/addresses from archived catalogue pages, then reconcile those exact identities against PropertyAuctions AID/Auc records. Continue across all 15 mapped 2014 auctions before advancing breadth-first.",
+  "completeness_claim": false
+}
