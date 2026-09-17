@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "capture_mode": "legacy_catalogue_namespace_recovery_checkpoint",
+  "production_main_inspected_sha": "f37f756426a33aa116d15c8040f854456e7b0d7d",
+  "target_year": 2014,
+  "target_auction_date": "2014-10-28",
+  "canonical_events_added": 0,
+  "verified_seed": {
+    "lot_number": "49",
+    "address_clue": "Hazelbourne Road, London SW12",
+    "guide_price": "£480,000",
+    "legacy_catalogue_url": "http://catalogue.auctions.savills.co.uk/London-National/Online-Catalogue/Default.aspx?st=2#&&s=2",
+    "evidence": "Contemporary 23 October 2014 Clapham Property Blog explicitly states Savills Auction House, Tuesday 28 October, Lot 49 and preserves the legacy Savills catalogue URL."
+  },
+  "attempted_route": "Search/enumerate the recovered catalogue.auctions.savills.co.uk London-National Online-Catalogue namespace around the 28 October 2014 sale, seeking archived catalogue/result pages or adjacent lot identities before PropertyAuctions AID/Auc inversion.",
+  "result": "Search-visible evidence reconfirms the namespace and Lot 49 seed but did not expose a surviving archived catalogue/result page, adjacent Savills lot URL, or PropertyAuctions AID/Auc manifest in this pass.",
+  "blocker": "The legacy catalogue URL is preserved in contemporary evidence, but searchable archive indexing does not currently surface the underlying 2014 catalogue state or its lot-manifest namespace. No source-defensible AID/Auc join is available, so canonical insertion is unsafe.",
+  "distinct_next_route": "Use URL-parameter archaeology from the preserved ASP.NET catalogue endpoint: search/index historical variants of Default.aspx parameters and contemporaneous inbound links to recover another lot-specific URL/state token for the 28 October 2014 auction; then pivot from exact recovered addresses/lot numbers into PropertyAuctions listing IDs/AID/Auc manifests. If no second state token survives, move breadth-first to the next mapped 2014 auction rather than repeat generic archive search.",
+  "completeness_claim": false
+}
