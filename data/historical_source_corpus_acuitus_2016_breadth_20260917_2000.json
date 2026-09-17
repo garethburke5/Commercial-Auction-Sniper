@@ -1,0 +1,24 @@
+{
+  "source": "Acuitus first-party historical pages",
+  "auctioneer": "Acuitus",
+  "capture_mode": "breadth_first_source_corpus",
+  "captured_at": "2026-09-17T20:00:00+01:00",
+  "auctions": [
+    {"auction_date":"2016-02-11","catalogue_lot_count":72,"results_summary_url":"https://www.acuitus.co.uk/auction-news/february-auction-raises-56-38m-with-98pc-success-rate/","catalogue_source_url":"https://www.acuitus.co.uk/auction-news/catalogue-launched-for-first-2016-auction/"},
+    {"auction_date":"2016-03-23","catalogue_lot_count":82,"catalogue_source_url":"https://www.acuitus.co.uk/auction-news/catalogue-launched-for-second-2016-auction/"},
+    {"auction_date":"2016-05-19","catalogue_lot_count":98,"catalogue_source_url":"https://www.acuitus.co.uk/auction-news/catalogue-launched-for-third-2016-auction/"},
+    {"auction_date":"2016-07-07","catalogue_lot_count":97,"catalogue_source_url":"https://www.acuitus.co.uk/auction-news/catalogue-launched-for-fourth-auction-of-2016/","results_summary_url":"https://www.acuitus.co.uk/insights/july-auction-raises-55-7m-as-investors-back-property/"},
+    {"auction_date":"2016-10-13","catalogue_lot_count":null,"catalogue_source_url":"https://www.acuitus.co.uk/auction-news/catalogue-launched-for-october-auction-22-9-16/","results_summary_url":"https://www.acuitus.co.uk/auction-news/acuitus-sells-70-61m-of-assets-at-largest-ever-auction/"},
+    {"auction_date":"2016-12-08","catalogue_lot_count":null,"results_summary_url":"https://www.acuitus.co.uk/auction-news/final-auction-completes-record-breaking-year/"}
+  ],
+  "lots": [
+    {"auction_date":"2016-02-11","lot_number":4,"address":"106 High Street, Eltham, London, SE9 1BJ","property_type":"Freehold Retail Investment","guide":null,"result":"Sold","hammer_or_price":822000,"rent_pa":52500,"tenure":"Freehold","tenant":"Shoe Zone Retail Limited","lease_details":"15 year lease","size_sq_ft":null,"lot_url":"https://www.acuitus.co.uk/property/1879/"},
+    {"auction_date":"2016-02-11","lot_number":10,"address":"15 The Broadway, Southgate, London, N14 6PH","property_type":"Freehold Retail and Residential Investment","guide":null,"result":"Sold","hammer_or_price":337000,"rent_pa":20568,"tenure":"Freehold","tenant":"Anthony Charles UK Ltd","lease_details":null,"size_sq_ft":null,"lot_url":"https://www.acuitus.co.uk/property/1885/"},
+    {"auction_date":"2016-02-11","lot_number":46,"address":"39 Norwich Road, Dereham, Norfolk, NR20 3AS","property_type":"Convenience Store Investment","guide":null,"result":"Sold","hammer_or_price":310000,"rent_pa":30030,"tenure":null,"tenant":"T&S Stores Limited (subsidiary of Tesco plc), trading as One Stop Convenience Store","lease_details":null,"size_sq_ft":null,"lot_url":"https://www.acuitus.co.uk/property/1921/","document_url":"https://www.acuitus.co.uk/media/32613/buyers%20legal%20report%20v4.pdf"},
+    {"auction_date":"2016-02-11","lot_number":61,"address":"45 High Street, Harborne, Birmingham, B17 9NT","property_type":"Freehold Retail and Residential Investment","guide":null,"result":"Sold Prior","hammer_or_price":null,"rent_pa":20230,"tenure":"Freehold","tenant":null,"lease_details":null,"size_sq_ft":null,"lot_url":"https://www.acuitus.co.uk/property/1935/","document_url":"https://www.acuitus.co.uk/media/32613/buyers%20legal%20report%20v4.pdf"},
+    {"auction_date":"2016-02-11","lot_number":68,"address":"33 Cattlemarket, Loughborough, Leicestershire, LE11 3DL","property_type":"Freehold Retail Investment","guide":null,"result":"Sold","hammer_or_price":495000,"rent_pa":47500,"tenure":"Freehold","tenant":null,"lease_details":"10 year lease until 2025, subject to option","size_sq_ft":null,"lot_url":"https://www.acuitus.co.uk/property/1942/"},
+    {"auction_date":"2016-05-19","lot_number":77,"address":"Fisher Street Business Centre, Fisher Street, Tipton, Dudley, West Midlands, DY4 8XE","property_type":"Freehold Multi-let Industrial Investment","guide":null,"result":"Sold","hammer_or_price":728000,"rent_pa":84578,"tenure":"Freehold","tenant":"Multi-let; 25 industrial units","lease_details":null,"size_sq_ft":30338,"lot_url":"https://www.acuitus.co.uk/property/2097/"},
+    {"auction_date":"2016-10-13","lot_number":47,"address":"Atticus House, The Windmills, Turk Street, Alton, Hampshire, GU34 1EF","property_type":"Freehold Office Investment","guide":null,"result":"Sold","hammer_or_price":385000,"rent_pa":40000,"tenure":"Freehold","tenant":"Tenants including Fox & Co Accountants","lease_details":null,"size_sq_ft":3086,"lot_url":"https://www.acuitus.co.uk/property/2276/"}
+  ],
+  "notes": "Broad source capture only. Unknown fields intentionally null. Residential-only lots excluded. Catalogue launch pages preserve further named commercial opportunities for later lot-level extraction."
+}
