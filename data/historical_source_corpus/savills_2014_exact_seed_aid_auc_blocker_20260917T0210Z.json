@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "capture_mode": "2014_exact_seed_propertyauctions_aid_auc_reconciliation",
+  "production_main_inspected_sha": "40cd7e1da32873f7196e6aeac4ddbf6c0582771e",
+  "current_year": 2014,
+  "canonical_events_added": 0,
+  "seeds_attempted": [
+    {
+      "auction_date": "2014-10-28",
+      "lot_number": "144",
+      "identity": "0.016 acre passageway/site, Northcote Road, Battersea",
+      "known_result": "sold for GBP 260000",
+      "propertyauctions_aid_auc_manifest_recovered": false
+    },
+    {
+      "auction_date": "2014-12-08",
+      "lot_number": "46",
+      "identity": "former Wisbech Town Football Club ground, Fenland Park",
+      "known_guide": "GBP 2.5m",
+      "propertyauctions_aid_auc_manifest_recovered": false
+    }
+  ],
+  "attempted_route": "Exact lot/date/address inversion against indexed PropertyAuctions listing pages and AID/Auc terminology, avoiding the previously blocked /auctioneers/savills traversal.",
+  "result": "No source-defensible PropertyAuctions listing identity or AID/Auc manifest for either 2014 Savills seed was recovered. Indexed Northcote Road PropertyAuctions hits resolve to other properties/auctioneers and were rejected; Fenland Park exact-seed searches returned no listing manifest.",
+  "blocker": "The two 2014 Savills lot identities are source-defensible, but their PropertyAuctions AID/Auc namespace remains unexposed by exact indexed search, so canonicalisation would skip the required manifest reconciliation.",
+  "next_distinct_route": "Enumerate adjacent 2014 PropertyAuctions listing identities by auction-date cluster from surviving property-history pages, then test recovered listing IDs for Savills attribution and infer the corresponding AID/Auc manifest namespace only from source-backed neighbours. Continue breadth-first across all 15 mapped 2014 auctions rather than retrying generic Savills search.",
+  "completeness_claim": false
+}
