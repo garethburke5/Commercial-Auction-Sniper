@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "production_main_inspected_sha": "ade64cf43e0c158e5245ebda69aaf432b4025801",
+  "target_year": 2014,
+  "target_auction_date": "2014-10-28",
+  "route": "EIG historical POST payload revision/source archaeology",
+  "known_eig": {
+    "auctioneer_id": 55,
+    "auction_id": 17999,
+    "known_lot_id": 756425,
+    "known_lot_number": "2",
+    "known_address": "66D Charlwood Street, Pimlico, London SW1V 4PQ",
+    "reported_response_property_tables": 232
+  },
+  "attempted": [
+    "Fresh web-index searches for auctioneerid=55 plus Savills/EIG auctionid signatures",
+    "Exact searches for Stack Overflow question/revision identifiers around the surviving 2014 requests.post example",
+    "Exact searches combining auctionid=17999, lotid=756425, payload and the reported 232-result response",
+    "Fresh inspection of production eig_client.py for an authenticated safe route",
+    "Fresh inspection of latest Savills bulk-harvest workflow logs"
+  ],
+  "result": {
+    "canonical_events_added": 0,
+    "new_propertyauctions_aid_auc_manifests": 0,
+    "new_eig_lot_ids": 0,
+    "new_eig_auction_ids": 0
+  },
+  "blocker": "Publicly indexed copies preserve the requests.post call and auction/lot seed but not the payload definition or a second lot/auction identifier. PropertyAuctions auctioneer traversal remains HTTP 403. Production eig_client.py can dynamically authenticate to EIG Passport, but this automation execution has no access to the deployment's EIG credential secrets and GitHub's connector cannot read repository/deployment secrets.",
+  "distinct_next_route": "Breadth-first move off auction 17999 rather than repeat it: use the surviving Savills chronological archive/RSS auction dates to discover another 2014 EIG auction ID via exact date plus EIG/Savills searches; in parallel, when an execution environment with EIG credentials is available, extend eig_client.py with a read-only historical auction enumerator that submits the live form state and captures complete auction manifests before PropertyAuctions AID/Auc reconciliation.",
+  "historical_completeness_declared": false
+}
