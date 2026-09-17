@@ -1,0 +1,24 @@
+{
+  "auctioneer": "Savills",
+  "capture_mode": "breadth_first_historical_recovery_checkpoint",
+  "captured_at": "2026-09-18T00:07:45+01:00",
+  "current_auction": "2014-07-22",
+  "first_party_chronology_status": "surviving Savills chronological archive identifies 22 July 2014 as a 2014 auction date",
+  "propertyauctions_identity": {
+    "aid": null,
+    "auc": null,
+    "lot_manifest": null
+  },
+  "canonicalised_this_checkpoint": 0,
+  "qualifying_commercial_mixed_denominator": null,
+  "unresolved": "exact denominator unresolved until deterministic PropertyAuctions AID/Auc or lot manifest is recovered",
+  "attempts": [
+    "inspected fresh production main before recovery",
+    "inspected latest Savills bulk historical workflow and decoded harvest job log; it produced CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1 and No corpus change",
+    "searched current default-branch repository index for exact 2014-07-22 / 22 July 2014 Savills records; no deterministic AID/Auc row identity surfaced",
+    "tested exact-date public-index inversion for Savills 22 July 2014; results were unrelated/non-UK-auction collisions and were rejected"
+  ],
+  "blocker": "The first-party chronology proves the event date, but current production/repository index and public indexing expose no deterministic PropertyAuctions AID/Auc or lot-row manifest for 22-Jul-2014. Numeric adjacency must not be used to infer an AID.",
+  "next_distinct_route": "Inspect historical git objects/commits that produced the full PropertyAuctions AID scan rather than the default-branch index. Search those historical trees for the 22-Jul-2014 dated SAVILLS heading or a matching aggregate row count; if no deterministic identity survives, advance breadth-first to 16-Jun-2014 and persist its exact source state while leaving 22-Jul quarantined.",
+  "safety": "zero speculative canonical events added; historical completeness not claimed"
+}
