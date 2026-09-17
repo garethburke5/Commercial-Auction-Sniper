@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "capture_mode": "breadth_first_source_specific_blocker",
+  "production_main_inspected_sha": "6b0383e15d5cc1d333eb8d10727480e011cf9b8a",
+  "auctioneer": "Savills Auctions",
+  "current_year": 2014,
+  "current_auction_date": "2014-09-15",
+  "commercial_mixed_clues": 5,
+  "canonical_lot_matches": 0,
+  "unresolved": 5,
+  "canonical_events_added": 0,
+  "previous_auction_route_attempted": {
+    "auction_date": "2014-10-16",
+    "propertyauctions_aid": 921,
+    "route": "exact tuple public-index inversion using lot number + locality + result + auction date",
+    "result": "No source-defensible street address, Auc/detail target, or Savills lot GUID recovered; search results were unrelated/colliding and were rejected."
+  },
+  "current_auction_route_attempted": {
+    "route": "breadth-first exact-date PropertyAuctions AID/Auc public-index discovery",
+    "queries": [
+      "15 September 2014 propertyauctions.com/Results/LotList.aspx?AID= Savills",
+      "15/09/2014 Savills LotList.aspx?AID propertyauctions",
+      "15 September 2014 Savills auction PropertyAuctions AID"
+    ],
+    "result": "No source-defensible PropertyAuctions AID/Auc manifest surfaced; unrelated auction results were rejected."
+  },
+  "blocker": "The surviving catalogue-wide reconciliation proves five qualifying commercial/mixed clues on 2014-09-15, but the exact PropertyAuctions AID and row identities are not present in the current aggregate reconciliation and are not exposed by public indexing.",
+  "next_safe_route": "Recover the exact 2014-09-15 PropertyAuctions AID and its parsed row manifest from the historical full AID namespace scan/commit state, then persist lot-level source records before attempting archived Auc/detail or Savills GUID inversion. If that historical state cannot recover the AID, move breadth-first to 2014-08-28 and repeat repository-history AID inversion rather than guessing IDs.",
+  "completeness_claim": false
+}
