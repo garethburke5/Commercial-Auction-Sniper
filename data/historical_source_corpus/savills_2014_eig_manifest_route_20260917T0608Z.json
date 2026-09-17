@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "capture_mode": "eig_manifest_namespace_recovery_checkpoint",
+  "production_main_inspected_sha": "ee8da5b99de7d662ea259135e286e1cef1b89115",
+  "target_year": 2014,
+  "target_auction_date": "2014-10-28",
+  "canonical_events_added": 0,
+  "verified_manifest_seed": {
+    "auctioneer_id": 55,
+    "auction_id": 17999,
+    "lot_id": 756425,
+    "lot_number": "2",
+    "address": "66D Charlwood Street, Pimlico, London, SW1V 4PQ",
+    "guide_price": "£450,000 Plus",
+    "description": "Leasehold 2nd Floor Studio Flat Unmodernised Vacant",
+    "auction_date": "2014-10-28",
+    "catalogue_pdf_namespace": "https://www.eigroup.co.uk/files/55/17999/",
+    "evidence": "Contemporaneous 28 October 2014 Stack Overflow question preserves raw EIG HTML from the Savills full-details page, including auctioneer Savills (London - National), auctioneerid=55, auctionid=17999, lotid=756425, Lot 2, address, guide, description and catalogue PDF URL. The companion question states the page contained 232 such tables."
+  },
+  "attempted_route": "URL-parameter archaeology around the legacy Savills ASP.NET catalogue endpoint and contemporaneous indexed inbound links for 28 October 2014.",
+  "result": "A materially stronger surviving manifest namespace was recovered via contemporaneous raw EIG HTML: Savills auctioneerid 55, auctionid 17999, lotid 756425, Lot 2, and files/55/17999 catalogue namespace. This supplies an auction-native enumeration key but does not by itself satisfy the requested PropertyAuctions AID/Auc reconciliation, so no canonical event was inserted.",
+  "blocker": "The 28 October 2014 auction now has a source-defensible EIG auction/lot namespace, but a surviving PropertyAuctions AID/Auc mapping for auction 17999 / lot 756425 has not yet been recovered. Canonical insertion remains unsafe until cross-source reconciliation or equivalent source-specific validation is completed.",
+  "distinct_next_route": "Exploit the recovered EIG auctionid=17999 and files/55/17999 namespace to enumerate the full 28 October 2014 lot manifest breadth-first (the contemporaneous parser author reported 232 table records), extract exact lot numbers/addresses/lotids/catalogue PDFs, filter commercial/mixed clues, then invert those exact identities into PropertyAuctions AID/Auc records. This is distinct from generic PropertyAuctions traversal and from Savills catalogue parameter search.",
+  "completeness_claim": false
+}
