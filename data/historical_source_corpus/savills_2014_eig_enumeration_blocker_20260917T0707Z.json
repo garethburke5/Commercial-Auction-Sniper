@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "capture_mode": "eig_manifest_enumeration_blocker_checkpoint",
+  "production_main_inspected_sha": "3b7ba83f002ec8ae8f399933bf7d0933e10fac0e",
+  "target_year": 2014,
+  "target_auction_date": "2014-10-28",
+  "canonical_events_added": 0,
+  "verified_manifest_seed": {
+    "auctioneer_id": 55,
+    "auction_id": 17999,
+    "lot_id": 756425,
+    "lot_number": "2",
+    "address": "66D Charlwood Street, Pimlico, London, SW1V 4PQ",
+    "guide_price": "£450,000 Plus",
+    "description": "Leasehold 2nd Floor Studio Flat Unmodernised Vacant",
+    "auction_date": "2014-10-28",
+    "catalogue_pdf": "https://www.eigroup.co.uk/files/55/17999/6ec339ec-d59e-4b8a-9136-dc6e9a583328.pdf",
+    "image": "https://www.eigroup.co.uk/files/55/17999/de591a4f-7da1-4bcd-a42c-76731bd72a23.jpg"
+  },
+  "attempted_route": "Exploit EIG auctionid=17999 breadth-first by searching the exact auction ID, lot ID, full-details endpoint, table-search-result signature, catalogue namespace and exact seed address; separately invert the seed address into indexed PropertyAuctions/property-history discovery.",
+  "result": "Searchable contemporaneous mirrors reproduce only the same Lot 2 HTML record. They newly preserve the exact catalogue PDF UUID and image UUID but expose no second lot ID, no neighbouring table record, no POST payload value, and no PropertyAuctions AID/Auc mapping. The verified seed is residential and therefore is not itself a qualifying commercial/mixed clue.",
+  "blocker": "The EIG full-details page was populated by a POST request with a payload that is not preserved in the indexed question. Search indexing exposes one of the reported 232 table records but not the remaining table set or the payload needed to reproduce the historical response. Exact address inversion likewise exposes no defensible PropertyAuctions AID/Auc manifest. Enumerating guessed lot IDs would be unsafe and is not attempted.",
+  "distinct_next_route": "Use the newly recovered exact EIG catalogue PDF UUID and image UUID as archive-object seeds: search Common Crawl/Wayback/indexes for files/55/17999/ adjacency and inbound references, recover neighbouring UUID catalogue objects or archived full-details responses, then derive exact lot IDs/addresses from those objects before PropertyAuctions AID/Auc inversion. If archive-object adjacency yields no second lot, advance breadth-first to another mapped 2014 Savills auction rather than retrying auctionid=17999 generic search.",
+  "completeness_claim": false
+}
