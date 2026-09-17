@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Acuitus",
+  "capture_mode": "breadth_first_source_corpus",
+  "auction_date": "2013-05-23",
+  "records": [
+    {"record_type":"lot","lot_number":"6","address":"51 Petty France, Victoria, London, SW1H 9ET","property_type":"High Street Retail","rent_pa":93500,"result_status":"Sold","result_price":1925000,"tenure":"Freehold and Leasehold","lot_url":"https://www.acuitus.co.uk/property/819/"},
+    {"record_type":"lot","lot_number":"13","address":"141 Terminus Road, Eastbourne, East Sussex, BN21 3NR","property_type":"High Street Retail","rent_pa":108000,"result_status":"Sold","result_price":1080000,"tenure":"Freehold","tenant":"The Edinburgh Woollen Mill Limited","lot_url":"https://www.acuitus.co.uk/property/826/"},
+    {"record_type":"lot","lot_number":"14","address":"Garland Court, Garland Road, East Grinstead, West Sussex, RH19 1DN","property_type":"Office","rent_pa":102730,"result_status":"Sold","result_price":1070000,"tenure":"Freehold","size_sq_ft":19186,"tenant":"Multi-let; tenants include Rentokil Initial UK Limited, EDP plc, Ballard Chalmers Ltd and Condusiv Technologies Corporation Europe","lot_url":"https://www.acuitus.co.uk/property/827/"},
+    {"record_type":"lot","lot_number":"28","address":"23 High Street, Southend-on-Sea, Essex, SS3 9AJ","property_type":"High Street Retail","rent_pa":20000,"result_status":"Sold Prior","result_price":null,"tenure":null,"lease_details":"Entirely let until 2023 subject to option; rent rising to £22,500 p.a.x. in 2015 and £25,000 p.a.x. in 2016","lot_url":"https://www.acuitus.co.uk/property/841/"},
+    {"record_type":"lot","lot_number":"31","address":"Units 1&2, Kestrel Road, Trafford Park, Manchester, M17 1SF","property_type":"Industrial/Warehouse","rent_pa":125505,"result_status":"Withdrawn Prior","result_price":null,"tenure":null,"tenant":"Johnson Controls Limited and MIS Testing Limited","site_area_acres":1.54,"lot_url":"https://www.acuitus.co.uk/property/814/"},
+    {"record_type":"lot","lot_number":"40","address":"319 Ordsall Lane, Salford Quays, Salford, Greater Manchester, M5 3FT","property_type":"Industrial/Warehouse","rent_pa":126250,"result_status":"Sold","result_price":960000,"tenure":"Freehold","tenant":"Pan World Brands Ltd","lease_details":"Entirely let until 2021","size_sq_ft":31495,"site_area_acres":1.35,"lot_url":"https://www.acuitus.co.uk/property/849/"},
+    {"record_type":"lot","lot_number":"46","address":"48 Derby Road, Nottingham, NG1 5FQ","property_type":"High Street Retail","rent_pa":16650,"result_status":"Withdrawn Prior","result_price":null,"tenure":"Long Leasehold","tenant":"Ferguson Interiors Ltd","lease_details":"16 years 8 months from 02/02/2004 until 28/09/2020; headlease to 09/09/2144 at fixed £1 p.a.","size_sq_ft":1780,"lot_url":"https://www.acuitus.co.uk/property/855/"}
+  ],
+  "notes": "Breadth-first capture. Unknown fields intentionally null. Residential-only lots excluded. Existing corpus records were checked by repository search where practical; these seven addresses returned no match before persistence."
+}
