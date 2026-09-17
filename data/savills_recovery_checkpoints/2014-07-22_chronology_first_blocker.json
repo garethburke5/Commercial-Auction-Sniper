@@ -1,0 +1,20 @@
+{
+  "auctioneer": "Savills",
+  "auction_date": "2014-07-22",
+  "recovery_scope": "Savills historical recovery 2018 down to 2010, breadth-first",
+  "route": "chronology-first exact-date reconciliation before accepting PropertyAuctions AID/Auc identity",
+  "surviving_savills_chronology": {
+    "2014_dates": ["2014-12-08", "2014-10-28", "2014-09-15", "2014-07-22", "2014-06-16", "2014-05-07", "2014-04-24"],
+    "source": "data/savills_historical_archive_index.json on production main"
+  },
+  "propertyauctions_reconciliation": {
+    "exact_aid": null,
+    "auc_lot_manifest": null,
+    "status": "unresolved",
+    "note": "Current production repository search and persisted aggregate reconciliation do not expose a deterministic PropertyAuctions AID/Auc row manifest for the exact 22-Jul-2014 first-party Savills event. No neighbouring AID has been inferred."
+  },
+  "canonical_events_added": 0,
+  "blocker": "First-party chronology confirms the auction date, but a deterministic PropertyAuctions AID/Auc lot identity has not yet been recovered from current production artifacts; canonicalising catalogue rows without that join would be unsafe.",
+  "next_distinct_route": "Invert historical repository commits that created the full PropertyAuctions AID scan and catalogue manifest for an exact 22-Jul-2014 date/AID record. If that fails, recover the 22-Jul-2014 candidate identities from the preserved Savills archive candidate corpus and use those lot/address seeds to query Auc/detail identities; do not infer AID from numerical adjacency.",
+  "completeness_claim": false
+}
