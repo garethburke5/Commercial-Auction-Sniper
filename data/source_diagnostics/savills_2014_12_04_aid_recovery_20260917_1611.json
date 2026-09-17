@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2014-12-04",
+  "production_main_inspected_sha": "193e0b8696260e1592e4d6dc349dc1955efa8d01",
+  "recovery_mode": "historical_propertyauctions_manifest_aid_recovery",
+  "validated_propertyauctions_manifest": {
+    "aid": 937,
+    "url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=937",
+    "validation": "historical production manifest records live PropertyAuctions page with explicit dated SAVILLS heading",
+    "initial_grid_lot_rows": 34,
+    "strict_commercial_mixed_lots_on_initial_grid": 12
+  },
+  "canonical_events_added": 0,
+  "current_auction": {
+    "commercial_mixed_clues": 12,
+    "canonical_lot_matches": 0,
+    "unresolved": 12
+  },
+  "attempted": [
+    "Inspected current production main before recovery.",
+    "Inspected latest Savills bulk historical workflow and decoded harvest log; direct propertyauctions.io auctioneer frontier still yielded zero discoveries.",
+    "Recovered the exact 4 December 2014 PropertyAuctions catalogue identity from repository history rather than guessing: AID=937.",
+    "Attempted public-index inversion of the exact AID 937 catalogue; no row-level address/Auc manifest was exposed by the search index in this run."
+  ],
+  "blocker": "The exact catalogue AID is now recovered, but the historical aggregate manifest persisted only 34 initial-grid row count and 12 strict commercial/mixed count; it did not persist the individual row address/lot/Auc identities. Current public indexing did not expose those rows, so canonicalisation would be speculative.",
+  "distinct_next_route": "Use exact AID=937 as the retrieval key: replay or archive-recover https://www.propertyauctions.com/Results/LotList.aspx?AID=937, preserving ASP.NET hidden state and every initial-grid/postback row as lot number + address + result + Auc/detail target. If live retrieval is unavailable, query Wayback/Common Crawl specifically for the exact AID=937 URL and postback/detail targets. Reconcile recovered rows against the surviving Savills 2014-12-04 chronology before canonicalisation; if the exact AID route stalls, advance breadth-first to the next mapped 2014 catalogue and recover its persisted AID rather than repeating generic date search.",
+  "completeness_claim": false
+}
