@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2014-08-28",
+  "propertyauctions_aid": 917,
+  "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=917",
+  "known_initial_grid_lot_rows": 31,
+  "known_strict_commercial_mixed_lots": 13,
+  "canonicalised": 0,
+  "unresolved": 13,
+  "canonical_events_added": 0,
+  "attempted_route": "Freshly inspected production main and latest Savills bulk workflow/logs, then attempted the distinct AID-917 row reconstruction route. Searched current repository/indexed history for AID=917 and exact 2014-08-28/AID-917 row evidence, then tested exact-AID/date public index inversion. The repository search did not expose the original per-row scan state, and public search did not return a defensible PropertyAuctions Auc/detail manifest or Savills UK lot identities.",
+  "blocker": "The production checkpoint proves AID 917, the exact auction date, 31 initial-grid rows and 13 strict commercial/mixed rows, but the surviving accessible aggregate record does not contain those 13 rows' lot numbers, street addresses or PropertyAuctions Auc/detail targets. Search results for the date are polluted by unrelated Savills Australia material. No row identity can therefore be canonicalised safely from this route.",
+  "distinct_next_route": "Advance breadth-first to the next mapped 2014 Savills catalogue and recover its exact PropertyAuctions AID plus any surviving row manifest from repository history/full-AID scan state. Do not loop on AID 917 unless a new deterministic row/Auc seed is recovered. In parallel, if a historical commit containing the original full-AID scanner output becomes identifiable, extract AID 917 rows directly from that commit rather than open-web searching.",
+  "completeness_claim": false
+}
