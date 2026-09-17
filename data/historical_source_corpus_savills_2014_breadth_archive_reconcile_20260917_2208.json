@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "recovery_mode": "breadth_first_archive_reconciliation",
+  "checked_at": "2026-09-17T21:08:00Z",
+  "production_main_before_write": "b9c8cb0c6bde74294486789badce784919b56e35",
+  "current_focus": {
+    "propertyauctions_aid": 917,
+    "propertyauctions_date": "2014-08-28",
+    "initial_grid_lot_rows": 31,
+    "qualifying_commercial_mixed": 13,
+    "canonicalised": 0,
+    "unresolved": 13
+  },
+  "fresh_reconciliation": {
+    "surviving_savills_first_party_archive_oldest": "2014-04-24",
+    "surviving_savills_first_party_2014_dates": ["2014-12-08","2014-10-28","2014-09-15","2014-07-22","2014-06-16","2014-05-07","2014-04-24"],
+    "aid_917_date_present_in_surviving_first_party_chronology": false,
+    "archive_candidate_capture_counts_by_year": {"2018":1,"2017":532,"2014":121}
+  },
+  "attempted": [
+    "Inspected fresh production main and latest Savills bulk historical workflow decoded job log.",
+    "Re-fetched the surviving Savills first-party chronological archive index and compared its 2014 event dates to PropertyAuctions AID 917.",
+    "Inspected the preserved Savills archive lot-candidate inventory and tested public exact-date/AID discovery without accepting unrelated auctioneer collisions."
+  ],
+  "blocker": "PropertyAuctions historical evidence identifies AID 917 as SAVILLS on 28 August 2014 with 31 grid rows and 13 strict commercial/mixed rows, but 28 August 2014 is not one of the seven 2014 dates surviving in the current Savills first-party past-auctions chronology. The individual AID 917 row addresses/Auc targets are also absent from the persisted aggregate manifest. This is therefore a source-chronology mismatch requiring identity-level corroboration, not a safe canonical join.",
+  "distinct_next_route": "Advance breadth-first to the next date that is present in the surviving first-party Savills chronology: 22 July 2014. Recover its exact PropertyAuctions AID and lot manifest from the historical full-AID scan/repository history, then reconcile row identities against the first-party date. Keep AID 917 quarantined until a deterministic row/Auc or archived Savills identity corroborates the 28 August date.",
+  "canonical_events_added": 0,
+  "completeness_claim": false
+}
