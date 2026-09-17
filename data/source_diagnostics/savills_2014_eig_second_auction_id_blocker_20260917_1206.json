@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "production_main_inspected_sha": "943ef590316e41756920a577dfce1980f9048d2f",
+  "target_year": 2014,
+  "route": "breadth-first second-EIG-auction-ID discovery from exact surviving Savills 2014 dates",
+  "known_eig_anchor": {"auctioneer_id":55,"auction_id":17999,"auction_date":"2014-10-28","lot_id":756425,"lot_number":"2","address":"66D Charlwood Street, Pimlico, London SW1V 4PQ","reported_total_tables":232},
+  "attempted": [
+    "Fresh inspection of current production main before recovery",
+    "Fresh inspection of latest Savills bulk-harvest job and decoded logs",
+    "Exact public-index searches for Savills London-National auctioneerid=55 plus 2014 EIG auction IDs excluding auction 17999",
+    "Exact EIG /files/55/ namespace searches for another 2014 auction directory",
+    "Exact auctioneerid=55 plus Auction Date searches for another 2014 Savills EIG response",
+    "Reconciliation against production Savills RSS chronological coverage dates"
+  ],
+  "result": {"canonical_events_added":0,"new_eig_auction_ids":0,"new_eig_lot_ids":0,"new_propertyauctions_aid_auc_manifests":0},
+  "blocker": "Search indexing still exposes only EIG auction 17999 / 28 October 2014 for Savills auctioneer 55. Searches excluding 17999 collapse back to the same Stack Overflow HTML or unrelated results. The latest PropertyAuctions bulk route independently remains HTTP 403 with zero discovered listings, so no source-defensible second EIG auction ID or PropertyAuctions AID/Auc manifest was available to canonicalise.",
+  "distinct_next_route": "Move breadth-first to catalogue-object recovery rather than repeat auction-ID search: use each mapped 2014 Savills date plus known commercial/mixed RSS clue addresses to search for EIG catalogue PDFs/images and /files/55/<auctionid>/ paths. Any recovered file path yields the missing auction ID directly; then enumerate that auction's indexed lot objects and invert exact lot/address identities into PropertyAuctions AID/Auc. If no EIG file object emerges, continue to the next mapped 2014 date rather than looping on 28 October.",
+  "historical_completeness_declared": false
+}
