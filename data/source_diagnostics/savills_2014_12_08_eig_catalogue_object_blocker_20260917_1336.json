@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "production_main_inspected_sha": "fe2bd6c7511dc2d7a69f41a5648cff80fc3dbac5",
+  "target_year": 2014,
+  "target_auction": "2014-12-08",
+  "route": "breadth-first EIG catalogue-object inversion after second-auction-ID indexing stalled",
+  "attempted": [
+    "Fresh inspection of current production main before recovery",
+    "Fresh inspection of latest Savills bulk historical corpus workflow and decoded job logs",
+    "Fresh reconciliation against data/source_diagnostics/savills_2010_2018_rss_catalogue_recovery.json",
+    "Exact public-index searches for Savills 8 December 2014 auction plus commercial property and lot terms",
+    "Exact public-index search for Savills 8 December 2014 plus propertyauctions.io",
+    "Search for an EIG /files/55/<auctionid>/ catalogue/image object capable of yielding a second 2014 auction ID"
+  ],
+  "result": {"canonical_events_added":0,"new_eig_auction_ids":0,"new_eig_lot_ids":0,"new_propertyauctions_aid_auc_manifests":0,"new_eig_catalogue_objects":0},
+  "coverage_at_attempt": {"year_2014":{"mapped_auctions":15,"commercial_mixed_clues":131,"canonical_lot_matches":0,"unresolved":131},"auction_2014_12_08":{"commercial_mixed_clues":2,"canonical_lot_matches":0,"unresolved":2}},
+  "blocker": "The 8 December 2014 date/object searches are polluted by unrelated Savills Residential Australia and generic 8 December material and expose no source-defensible UK Savills EIG /files/55/<auctionid>/ object, second EIG auction ID, or PropertyAuctions AID/Auc manifest. The latest direct PropertyAuctions Savills auctioneer crawl independently remains HTTP 403 with CORPUS_RECORDS=0, DISCOVERED=0, PAGES=1, BLOCKERS=1. No candidate met the canonical threshold.",
+  "distinct_next_route": "Continue breadth-first to the next mapped 2014 auction, 4 December 2014, but switch from date-only object search to address-led inversion: recover its commercial/mixed RSS clue addresses from the surviving Savills RSS/capture corpus, then query each exact address against PropertyAuctions listing indexes and EIG catalogue/image namespaces. An exact PropertyAuctions listing supplies the listing identity directly; an EIG /files/55/<auctionid>/ hit supplies the missing auction ID. Do not revisit 8 December unless a new address/object seed appears.",
+  "historical_completeness_declared": false
+}
