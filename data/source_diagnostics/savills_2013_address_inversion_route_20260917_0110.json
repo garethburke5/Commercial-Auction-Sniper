@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "checked_at": "2026-09-17T01:10:00+01:00",
+  "production_head_at_start": "e5e28f9c8a1d311404d67bc6d0f3221f5d3c99d2",
+  "strategy": "2013 date/address inversion after blocked PropertyAuctions auctioneer and indexed-listing routes",
+  "priority": "breadth-first auction completeness 2018 down to 2010; current unresolved focus 2013",
+  "attempted": [
+    "Freshly inspected production main and latest Savills workflow/job state before recovery",
+    "Confirmed latest Savills bulk historical corpus workflow completed successfully but its prior route supplied no source-identifiable listing frontier",
+    "Searched the indexed web for Savills 2013 commercial-auction/catalogue/results combinations to recover property-address or legacy catalogue/result anchors",
+    "Searched PropertyAuctions/propertyauctions.io indexed results for Savills-linked 2013 property-history and lot clues",
+    "Rejected modern Savills pages whose only 2013 reference was lease commencement and unrelated PropertyAuctions 2013 sale-history matches"
+  ],
+  "result": {
+    "validated_new_canonical_events": 0,
+    "defensible_2013_savills_property_addresses_recovered": 0,
+    "defensible_2013_propertyauctions_aid_auc_manifests_recovered": 0
+  },
+  "blocker": "Date/address inversion did not expose a source-defensible property address belonging to a mapped 2013 Savills auction. Indexed results were either modern Savills lots with leases dating from 2013 or unrelated PropertyAuctions property-history events, so none can safely identify a 2013 Savills lot or AID/Auc manifest.",
+  "safety": "No canonical event inserted from year-only coincidences, lease dates, unrelated auctioneers, or modern Savills lots.",
+  "distinct_next_route": "Move breadth-first to the next mapped unresolved auction/year with a surviving clue denominator (2014) and invert its explicit surviving Savills lot/address clues against PropertyAuctions property-history/AID/Auc records. Preserve 2013 as blocked until a new catalogue/result/address anchor appears; do not retry generic Savills 2013 or /auctioneers/savills traversal.",
+  "completeness": "No Savills historical year is declared complete."
+}
