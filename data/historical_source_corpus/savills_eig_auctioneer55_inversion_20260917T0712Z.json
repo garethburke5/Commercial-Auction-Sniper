@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "breadth_first_eig_auctioneer_id_inversion",
+  "production_main_inspected_sha": "d0b5accca28afc800abbb5d036a7c57a9da64ecf",
+  "target_year": 2014,
+  "target_auction_date": "2014-10-28",
+  "canonical_events_added": 0,
+  "verified_eig_seed": {
+    "auctioneer_id": 55,
+    "auctioneer_label": "Savills (London - National)",
+    "auction_id": 17999,
+    "auction_date": "2014-10-28",
+    "lot_id": 756425,
+    "lot_number": "2",
+    "address": "66D Charlwood Street, Pimlico, London, SW1V 4PQ",
+    "catalogue_pdf": "https://www.eigroup.co.uk/files/55/17999/6ec339ec-d59e-4b8a-9136-dc6e9a583328.pdf",
+    "image": "https://www.eigroup.co.uk/files/55/17999/de591a4f-7da1-4bcd-a42c-76731bd72a23.jpg",
+    "qualifies_commercial_or_mixed": false
+  },
+  "attempted": [
+    "Fresh web inversion searches for exact auctioneerid=55 plus Savills/EIG",
+    "Exact /files/55/ EIG namespace searches",
+    "Exact auctionid=17999 searches",
+    "Searches for other Savills 2014 fulldetails.aspx auction IDs",
+    "Inspected repository EIG client to identify a distinct authenticated-source route"
+  ],
+  "result": "Publicly indexed inversion reconfirmed auctioneerid=55 and auctionid=17999 but exposed no second Savills auction ID, no neighbouring lot ID, and no PropertyAuctions AID/Auc mapping. No speculative canonical event was written.",
+  "source_specific_blocker": "Search-engine indexing contains the 2014-10-28 EIG response fragment but does not enumerate the auctioneer's other auction IDs or preserve the POST payload needed to reproduce the 232-record response. PropertyAuctions AID/Auc remains unrecovered for this auction.",
+  "distinct_next_route": "Use the repository's existing authenticated EIG Passport capability as a source route rather than public indexing: extend a safe historical EIG enumerator to authenticate from deployment secrets, discover Savills auctioneer 55 auction/date pages, capture auction IDs and complete lot manifests into source corpus, then reconcile recovered commercial/mixed addresses against PropertyAuctions AID/Auc. Do not store credentials or weaken canonical validation.",
+  "breadth_ledger": {
+    "2018": {"auctions_mapped": 13, "qualifying_clues": 94, "canonicalised": 26, "unresolved": 68},
+    "2017": {"auctions_mapped": 14, "qualifying_clues": 87, "canonicalised": 24, "unresolved": 63},
+    "2016": {"auctions_mapped": 14, "qualifying_clues": 86, "canonicalised": 3, "unresolved": 83},
+    "2015": {"auctions_mapped": 12, "qualifying_clues": 82, "canonicalised": 0, "unresolved": 82},
+    "2014": {"auctions_mapped": 15, "qualifying_clues": 131, "canonicalised": 0, "unresolved": 131},
+    "2013": {"auctions_mapped": 2, "qualifying_clues": 14, "canonicalised": 0, "unresolved": 14},
+    "2012": {"auctions_mapped": null, "qualifying_clues": null, "canonicalised": null, "unresolved": null},
+    "2011": {"auctions_mapped": null, "qualifying_clues": null, "canonicalised": null, "unresolved": null},
+    "2010": {"auctions_mapped": null, "qualifying_clues": null, "canonicalised": null, "unresolved": null}
+  },
+  "historical_completeness_declared": false
+}
