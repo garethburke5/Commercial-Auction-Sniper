@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "production_main_inspected_sha": "4a84eab63495c2e33fd0c753b2f1e6a60a75b5ce",
+  "auction_date": "2014-06-16",
+  "breadth_status": "unresolved",
+  "commercial_mixed_clues": 8,
+  "canonical_lot_matches": 0,
+  "unresolved": 8,
+  "evidence": {
+    "reconciliation_file": "data/source_diagnostics/savills_2010_2018_rss_catalogue_recovery.json",
+    "reconciliation_route": "savills-2010-2018-catalogue-wide-rss-item-recovery-and-auction-coverage",
+    "propertyauctions_bulk_route_latest": "blocked: auctioneer page returns no discoverable corpus; latest workflow log reports CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1",
+    "repository_exact_date_search": "No current indexed row-level AID/Auc identity for 2014-06-16 / 16 Jun 2014 was exposed."
+  },
+  "attempted_this_pass": [
+    "Fresh production main inspection",
+    "Fresh latest Savills bulk historical workflow/job-log inspection",
+    "Current repository exact-date search for 2014-06-16 and 16 Jun 2014",
+    "Re-read production catalogue-wide reconciliation instead of relying on previous-run claims",
+    "Inspected commit lineage/tree of the reconciliation generator to locate surviving row-level outputs"
+  ],
+  "blocker": "The surviving production reconciliation proves eight qualifying commercial/mixed clues for 16 June 2014 but does not retain a deterministic PropertyAuctions AID/Auc/full-address identity for those eight rows. The latest direct PropertyAuctions auctioneer route remains HTTP/source blocked and yielded zero corpus records. No AID is inferred from neighbouring catalogue numbers.",
+  "distinct_next_route": "Continue breadth-first to the next 2014 catalogue while separately mining the historical reconciliation-generator commit/tree and Actions lineage for discarded raw AID-grid output. For 16 June, canonicalise only if a deterministic AID/Auc or first-party Savills lot identity is recovered.",
+  "canonical_events_added": 0,
+  "historical_completeness_declared": false
+}
