@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "purpose": "historical_source_corpus_breadth_capture",
+  "records": [
+    {
+      "source_record_id": "savills-auction|2014-12-08|secondary-contemporary-source",
+      "auctioneer": "Savills Auctions",
+      "record_type": "auction",
+      "auction_date": "2014-12-08",
+      "aid": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "document_urls": [],
+      "source_urls": ["https://propertyauctions.com/"],
+      "capture_status": "partial_source_record",
+      "canonical_history_v2": false,
+      "notes": "Contemporary PropertyAuctions page evidences Savills London and National Auction on 8 December 2014 and identifies Lot 46. Missing identifiers remain null."
+    },
+    {
+      "source_record_id": "savills-lot|2014-12-08|46|fenland-park-wisbech",
+      "auctioneer": "Savills Auctions",
+      "record_type": "lot",
+      "auction_date": "2014-12-08",
+      "aid": null,
+      "lot_number": "46",
+      "address": "Fenland Park, former Wisbech Town Football Club ground",
+      "locality": "Wisbech",
+      "property_type": "development site / former football ground",
+      "guide_price": "£2.5m",
+      "result": null,
+      "hammer_price": null,
+      "rent": null,
+      "tenure": null,
+      "tenant": null,
+      "lease_details": null,
+      "size": "approximately 4 acres",
+      "planning": "Planning permission for 83 houses and apartments; consent to demolish existing football stands and buildings",
+      "archive_url": null,
+      "catalogue_url": null,
+      "lot_detail_url": null,
+      "results_url": null,
+      "document_urls": [],
+      "source_urls": ["https://propertyauctions.com/"],
+      "capture_status": "partial_commercial_or_development_source_record",
+      "canonical_history_v2": false,
+      "notes": "Captured breadth-first from contemporary source; unresolved fields deliberately left null."
+    }
+  ]
+}
