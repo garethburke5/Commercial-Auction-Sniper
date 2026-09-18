@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Acuitus",
+  "capture_mode": "breadth-first source corpus",
+  "production_main_inspected_sha": "251cca5ea3fd6c287ba8cd6f9f1c7b99d3bff3c8",
+  "rule": "DISCOVER -> SAVE SOURCE RECORD/URL -> MOVE ON; unknown fields remain null",
+  "auctions": [
+    {"auction_date":"2024-02-15","source_urls":["https://www.acuitus.co.uk/auction-news/prime-nottingham-assets-lead-acuitus-catalogue/","https://www.acuitus.co.uk/auction-news/nottingham-portfolio-stars-february-auction/"]},
+    {"auction_date":"2024-03-27","source_urls":["https://www.acuitus.co.uk/important-auction-update/111/","https://www.acuitus.co.uk/auction-news/landmark-assets-shine-march-auction/","https://www.acuitus.co.uk/auction-news/acuitus-launches-march-catalogue/"]},
+    {"auction_date":"2024-05-09","source_urls":["https://www.acuitus.co.uk/auction-news/acuitus-raises-14-5m-at-may-auction/"]},
+    {"auction_date":"2024-07-09","source_urls":["https://www.acuitus.co.uk/auction-news/acuitus-raises-16-76m-at-july-auction-with-100-of-properties-offered-sold/"]},
+    {"auction_date":"2024-09-25","source_urls":["https://www.acuitus.co.uk/auction-news/acuitus-september-catalogue-hits-the-years-high/","https://www.acuitus.co.uk/auction-news/development-opportunities-drive-acuitus-september-auction/"]},
+    {"auction_date":"2024-11-07","source_urls":["https://www.acuitus.co.uk/auction-news/retail-and-development-opportunities-lead-in-latest-acuitus-sale/","https://www.acuitus.co.uk/auction-news/acuitus-november-auction-raises-13-55m/"]},
+    {"auction_date":"2024-12-12","source_urls":["https://www.acuitus.co.uk/auction-news/shopping-centres-feature-in-latest-acuitus-auction/"]}
+  ],
+  "lots": [
+    {"auction_date":"2024-02-15","lot_number":null,"address":"13-25 Milton Street, Nottingham","property_type":"retail parade with upper parts","guide":"£2.1m+","result":"£2.125m","rent":"£210,275 pa","tenure":null,"tenant":null,"lease_details":null,"size":null,"source_urls":["https://www.acuitus.co.uk/auction-news/prime-nottingham-assets-lead-acuitus-catalogue/","https://www.acuitus.co.uk/auction-news/nottingham-portfolio-stars-february-auction/"]},
+    {"auction_date":"2024-02-15","lot_number":null,"address":"Lenton Lane Industrial Estate, Nottingham","property_type":"electricity generation facility","guide":"£1m+","result":"£1.47m","rent":"£72,000 pa; minimum £105,034 in 2025","tenure":null,"tenant":null,"lease_details":"lease expiring 2035","size":"3.25 acre site","source_urls":["https://www.acuitus.co.uk/auction-news/prime-nottingham-assets-lead-acuitus-catalogue/","https://www.acuitus.co.uk/auction-news/nottingham-portfolio-stars-february-auction/"]},
+    {"auction_date":"2024-03-27","lot_number":"1","address":"894/896 Uxbridge Road, Hayes, London, UB4 0RR","property_type":"car showroom and residential investment","guide":null,"result":"£604,000","rent":null,"tenure":"freehold","tenant":null,"lease_details":null,"size":null,"source_urls":["https://www.acuitus.co.uk/important-auction-update/111/","https://www.acuitus.co.uk/auction-news/landmark-assets-shine-march-auction/"]},
+    {"auction_date":"2024-03-27","lot_number":"3","address":"159 Hoxton Street, Hoxton, London, N1 6PJ","property_type":null,"guide":null,"result":"Sold prior","rent":"£1 pa headrent","tenure":"long leasehold","tenant":null,"lease_details":"125 years from 1 September 2001","size":null,"source_urls":["https://www.acuitus.co.uk/important-auction-update/111/"]},
+    {"auction_date":"2024-05-09","lot_number":"36","address":"49 The Parade, Leamington Spa, Warwickshire, CV32 4BL","property_type":"retail investment","guide":null,"result":"Sold Prior","rent":"£27,500 pa","tenure":"virtual freehold","tenant":"Gifted Collective Ltd","lease_details":"lease until 2027","size":null,"source_urls":["https://www.acuitus.co.uk/property/5106/"]},
+    {"auction_date":"2024-07-09","lot_number":"2","address":"285 Watling Street, Radlett, Hertfordshire, WD7 7LA","property_type":"retail and residential investment","guide":null,"result":"£668,000","rent":"£43,500 pa","tenure":"freehold","tenant":"Keech Hospice Care (shop)","lease_details":"shop lease until December 2033 subject to option","size":null,"source_urls":["https://www.acuitus.co.uk/property/5128/"]},
+    {"auction_date":"2024-07-09","lot_number":"17","address":"Exchange Buildings, 36/39 Market Place, Boston, Lincolnshire, PE21 6NH","property_type":"retail and residential parade investment","guide":null,"result":"Withdrawn Post","rent":"£95,705 pa plus one vacant shop","tenure":"freehold","tenant":null,"lease_details":"shop leases expire 2027 and 2028; flats on ASTs; part third floor long lease","size":null,"source_urls":["https://www.acuitus.co.uk/property/5135/"]},
+    {"auction_date":"2024-09-25","lot_number":"54","address":"238 Warrington Road, Whiston, Prescot, Merseyside, L35 2UA","property_type":"vacant commercial opportunity","guide":null,"result":"£67,000","rent":null,"tenure":"virtual freehold","tenant":null,"lease_details":null,"size":null,"source_urls":["https://www.acuitus.co.uk/property/5179/"]},
+    {"auction_date":"2024-12-12","lot_number":"1","address":"217/217a Broadway, Bexleyheath, London, DA6 7EJ","property_type":"retail and residential ground rent investment","guide":null,"result":"£325,000","rent":"£26,125 pa","tenure":"freehold","tenant":"Dignity Funerals Limited (shop)","lease_details":"shop until February 2030; upper floors long lease","size":null,"source_urls":["https://www.acuitus.co.uk/property/5285/"]}
+  ],
+  "capture_counts":{"auction_records":7,"lot_or_partial_records":9},
+  "notes":["Residential-only lots excluded.","September catalogue source evidences 66 lots; broad lot enumeration remains a later breadth pass.","No unknown field was used as a reason to suppress a source record."]
+}
