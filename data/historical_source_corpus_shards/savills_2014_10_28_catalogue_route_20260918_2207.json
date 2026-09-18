@@ -1,0 +1,38 @@
+{
+  "auctioneer": "Savills",
+  "capture_scope": "breadth-first source-corpus recovery",
+  "captured_at": "2026-09-18T21:07:58Z",
+  "auction_date": "2014-10-28",
+  "auction_id": "17999",
+  "records": [
+    {
+      "record_type": "lot_source",
+      "lot_number": "2",
+      "lot_id": "756425",
+      "address": "66D Charlwood Street, Pimlico, London, SW1V 4PQ",
+      "description": "Leasehold 2nd Floor Studio Flat Unmodernised Vacant",
+      "guide_price": "£450,000 Plus",
+      "vendor": "Housing Association",
+      "lease_details": "125 Yr, commencing 01/01/2013 (GR.£250.PA)",
+      "catalogue_entry_url": "https://www.eigroup.co.uk/files/55/17999/6ec339ec-d59e-4b8a-9136-dc6e9a583328.pdf",
+      "lot_details_url": "https://www.eigroup.co.uk/clients/lots/details.aspx?lotid=756425&hb=1",
+      "classification": "residential",
+      "canonicalisation_status": "source-validated_nonqualifying"
+    },
+    {
+      "record_type": "lot_clue",
+      "lot_number": "49",
+      "address": "Hazelbourne Road, London SW12",
+      "description": "Development opportunity; four rooms, kitchen and separate WC; potential loft conversion",
+      "catalogue_surface": "http://catalogue.auctions.savills.co.uk/London-National/Online-Catalogue/Default.aspx?st=2#&&s=2",
+      "classification": "residential/development",
+      "canonicalisation_status": "source-identifiable_unresolved"
+    }
+  ],
+  "attempted_route": "deterministic EIG auction ID -> surviving verbatim legacy HTML -> catalogue-entry URL and independent indexed Savills catalogue fingerprint",
+  "blocker": "The surviving EIG HTML exposes lot 2 and its per-lot PDF, and an indexed contemporary source exposes Savills lot 49, but no complete auction table/lot denominator is presently indexed and the live PropertyAuctions crawler exposes zero listing URLs. Full auction canonicalisation would therefore be unsafe.",
+  "distinct_next_route": "Use the recovered EIG file namespace /files/55/17999/ and lotid 756425 plus Savills catalogue lot 49 fingerprint to search/index adjacent per-lot catalogue PDFs and reconstruct the auction lot-number set before results reconciliation.",
+  "new_canonical_events": 0,
+  "new_unresolved_source_lots": 1,
+  "new_validated_nonqualifying_lots": 1
+}
