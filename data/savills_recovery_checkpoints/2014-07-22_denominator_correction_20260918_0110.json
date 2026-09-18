@@ -1,0 +1,19 @@
+{
+  "auctioneer": "Savills",
+  "auction_date": "2014-07-22",
+  "recovery_scope": "Savills historical recovery 2018 down to 2010, breadth-first",
+  "correction": "The prior 22-Jul-2014 checkpoint incorrectly said the qualifying denominator was not defensible. Current production data/source_diagnostics/savills_2010_2018_rss_catalogue_recovery.json explicitly records this date with 5 commercial/mixed clues, 0 canonical lot matches and 5 unresolved.",
+  "evidence": {
+    "source_file": "data/source_diagnostics/savills_2010_2018_rss_catalogue_recovery.json",
+    "commercial_mixed_clues": 5,
+    "canonical_lot_matches": 0,
+    "unresolved": 5,
+    "propertyauctions_exact_aid": null,
+    "propertyauctions_auc_manifest": null
+  },
+  "attempted_route_this_pass": "Fresh main/workflow inspection followed by historical Git inversion of the original exhaustive PropertyAuctions recovery implementation and reconciliation against the production RSS/catalogue diagnostic. The original scanner is verified to have exhaustively enumerated PropertyAuctions AID 1..1116 and parsed Lot/Type/Location/Result rows, but its diagnostic output was not committed under the expected recovery filename. The production RSS reconciliation nevertheless retained the 22-Jul-2014 five-clue denominator.",
+  "blocker": "The five qualifying clue rows are proven in production aggregate reconciliation, but their exact PropertyAuctions AID/Auc/full-address identities are not retained in that aggregate file. No speculative canonical insertion is permitted.",
+  "next_distinct_route": "Advance breadth-first to the next first-party-confirmed 2014 event, 16-Jun-2014, whose production reconciliation already records 8 commercial/mixed clues. In parallel, recover row-level identities from historical Git objects/outputs of savills_propertyauctions_results_archive_recovery.py rather than repeating public endpoint searches.",
+  "canonical_events_added": 0,
+  "completeness_claim": false
+}
