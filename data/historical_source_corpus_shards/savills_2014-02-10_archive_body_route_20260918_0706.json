@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2014-02-10",
+  "recovery_mode": "breadth-first archived-body/digest route",
+  "production_main_inspected_sha": "3d474f36ca2693bf16b052918023261e535d7ac2",
+  "latest_bulk_workflow": {
+    "run_id": 35307753404,
+    "job_id": 105483335776,
+    "conclusion": "success",
+    "data_result": "CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1",
+    "interpretation": "operationally green but recovered zero records"
+  },
+  "archive_body_route": {
+    "preserved_candidate_inventory": "data/historical_raw/savills_archive_lot_candidates_2010_2018.json",
+    "source_capture_count": 654,
+    "2014_candidate_count": 121,
+    "lot_number_hints": 0,
+    "february_2014_timestamp_candidates_found": 0,
+    "deterministic_archived_body_for_2014_02_10_found": false
+  },
+  "fresh_external_reconciliation": {
+    "auction_scale": "contemporary London Evening Standard evidence says Savills' 10-11 February 2014 auction offered more than 260 properties",
+    "qualifying_clues_retained": [
+      "Broadmeads Pumping Station, Hertford Road, Ware, SG12 9LH - guide £450,000+",
+      "Wansunt Pumping Station Cottage, Lower Station Road, Crayford, Kent, DA1 3PY - guide £200,000+",
+      "Church Premises adjacent to 1 Radegund Road, Cambridge, CB1 3RH - guide £140,000+"
+    ],
+    "canonicalised": 0,
+    "unresolved": 3
+  },
+  "attempted": [
+    "Freshly inspected production main and latest Savills bulk workflow/job log.",
+    "Re-opened the preserved Savills archive lot-candidate inventory and verified 654 captures, 121 dated 2014 and zero lot-number hints.",
+    "Searched the preserved repository corpus for February-2014 timestamp/digest candidates; no deterministic February capture was exposed.",
+    "Ran fresh exact auction/lot web reconciliation and recovered three named Savills 10 February 2014 property clues from a contemporary London Evening Standard article.",
+    "Rejected unrelated Australian Savills date collisions and did not infer PropertyAuctions AID/Auc IDs."
+  ],
+  "blocker": "The preserved Wayback-derived Savills inventory has 121 captures from 2014 but no February-2014 timestamp candidate or lot-number hint exposed in the current corpus, so this run cannot retrieve a deterministic archived response body for the 10-11 February auction. The latest live PropertyAuctions traversal also recovered zero records. The three contemporary named properties lack deterministic Savills lot numbers/AID/Auc identities and therefore remain source clues, not canonical History V2 events.",
+  "next_route": "Pivot from date/digest recovery to named-property inversion: search the three contemporary February properties by exact address across preserved PropertyAuctions manifests, archived Savills URL/PID/RSS captures and repository history, using any recovered lot number or Auc target to enumerate adjacent lots. This is distinct from the exhausted February timestamp/digest route.",
+  "completeness_claim": false
+}
