@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2014-02-10",
+  "recovery_mode": "breadth-first named-property inversion",
+  "production_main_inspected_sha": "c27f6ff31b2b7d2fb6fcab2f825064e084a27e51",
+  "attempted": [
+    "Inspected fresh production main before recovery.",
+    "Inspected latest Savills workflow/run surface; the latest visible Savills bulk historical corpus harvest remained operationally completed, but its associated corpus commit still reports zero discovered records and one blocker, so no data-recovery success was inferred from green status.",
+    "Searched production repository independently for Broadmeads Pumping Station, Wansunt Pumping Station Cottage, and Radegund Road Cambridge; no indexed deterministic PropertyAuctions AID/Auc or Savills lot-number identity was exposed.",
+    "Executed the distinct named-property inversion route on the three contemporary February-2014 seeds.",
+    "Recovered independent sale evidence for Wansunt Pumping Station Cottage, Lower Station Road, Dartford DA1 3PY: sold 7 March 2014 for GBP256,000, freehold. This is temporally consistent with a post-auction completion after the 10 February Savills offering, but does not by itself prove a Savills lot number/AID/Auc and therefore is retained only as corroborating evidence."
+  ],
+  "qualifying_commercial_mixed_clues": 3,
+  "canonical_events_added": 0,
+  "unresolved": 3,
+  "corroborating_evidence": [
+    {
+      "address": "Wansunt Pumping Station Cottage, Lower Station Road, Crayford, Dartford, DA1 3PY",
+      "offered_guide": "GBP200,000+",
+      "offered_source": "https://www.standard.co.uk/homesandproperty/property-news/five-lots-to-watch-londons-february-property-auctions-a70031.html",
+      "later_sale_date": "2014-03-07",
+      "later_sale_price": "GBP256,000",
+      "later_sale_tenure": "Freehold",
+      "later_sale_source": "https://domovita.co.uk/sold-prices/street/da1/lower-station-road",
+      "canonical_join_status": "not joined: no deterministic Savills lot number or PropertyAuctions AID/Auc"
+    }
+  ],
+  "blocker": "Named-property inversion corroborated one subsequent sale but did not recover a deterministic Savills lot number, PropertyAuctions AID/Auc target, or archived Savills PID/RSS lot identity for any of the three February seeds. A later Land Registry-style sale is not sufficient to assert auction lot identity or hammer result.",
+  "next_route": "Use the exact Wansunt address plus its 7 March 2014 transfer as a reverse-key into archived Savills catalogue/result PDFs and web-index/cache captures; in parallel search historical PropertyAuctions address/detail manifests rather than date/AID adjacency. If a deterministic lot/Auc identity is recovered, expand by neighbouring lot numbers to reconstruct the February catalogue breadth-first.",
+  "completeness_claim": false
+}
