@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "capture_mode": "breadth-first Past Auctions archive enumeration",
+  "production_main_inspected_sha": "1321b36382aad9ebbd69bb8ed2f1179b107762ff",
+  "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-11",
+  "year": 2018,
+  "auction_records": [
+    {"auction_date":"2018-02-13","title":"London & National","venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","offered":234,"sold":167,"success_pct":71,"raised_gbp":55652000,"archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-11","catalogue_url":null,"results_url":null,"aid":null},
+    {"auction_date":"2018-03-26","title":"London & National","venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","offered":186,"sold":139,"success_pct":75,"raised_gbp":43087000,"archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-11","catalogue_url":null,"results_url":null,"aid":null},
+    {"auction_date":"2018-05-09","title":"London & National","venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","offered":148,"sold":111,"success_pct":75,"raised_gbp":29938000,"archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-11","catalogue_url":null,"results_url":null,"aid":null},
+    {"auction_date":"2018-06-18","title":"London & National","venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","offered":150,"sold":101,"success_pct":67,"raised_gbp":24142000,"archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-11","catalogue_url":null,"results_url":null,"aid":null},
+    {"auction_date":"2018-07-24","title":"London & National","venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","offered":96,"sold":68,"success_pct":71,"raised_gbp":23843000,"archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-11","catalogue_url":null,"results_url":null,"aid":null},
+    {"auction_date":"2018-09-26","title":"London & National","venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","offered":147,"sold":98,"success_pct":67,"raised_gbp":35983000,"archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-11","catalogue_url":null,"results_url":null,"aid":null},
+    {"auction_date":"2018-11-26","title":"London & National","venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","offered":127,"sold":99,"success_pct":78,"raised_gbp":29661000,"archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-11","catalogue_url":null,"results_url":null,"aid":null},
+    {"auction_date":"2018-12-11","title":"London & National","venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","offered":4,"sold":3,"success_pct":75,"raised_gbp":5050000,"archive_url":"https://auctions.savills.co.uk/past-auctions/archive/page-11","catalogue_url":null,"results_url":null,"aid":null}
+  ],
+  "lot_records": [],
+  "auction_records_added": 8,
+  "lot_records_added": 0,
+  "notes": [
+    "Persisted the complete surviving Savills Past Auctions chronology visible for calendar year 2018 before attempting lot-level enrichment.",
+    "No catalogue/results/AID URL was invented where the surviving archive page did not expose one in its rendered content.",
+    "The archive denominators establish 1,092 offered lots across the eight 2018 auction records; commercial/mixed classification is deferred until evidenced lot/catalogue sources are enumerated.",
+    "Next breadth step: enumerate catalogue/results sources for each of these eight dates, save every identifiable commercial/mixed lot immediately, then continue archive chronology into 2017 and earlier without blocking on unresolved identities."
+  ],
+  "completeness_claim": false
+}
