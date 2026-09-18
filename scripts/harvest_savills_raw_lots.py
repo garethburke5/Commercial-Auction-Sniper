@@ -15,6 +15,8 @@ STATUS=Path("data/savills_raw_harvest_status.json")
 UA={"User-Agent":"Mozilla/5.0 (compatible; CommercialAuctionSniper/1.0)"}
 AID_MIN=1
 AID_MAX=1400
+# Known-good manifests are fetched first; this proves/banks data before broad discovery.
+KNOWN_AIDS=[1046,1032,1080,993]
 
 def clean(x):
     return re.sub(r"\s+"," ",x or "").strip() or None
@@ -78,7 +80,8 @@ def main():
         except Exception: pass
     byid={x.get("source_event_id"):x for x in existing if x.get("source_event_id")}
     session=requests.Session(); blockers=[]; aids=[]; new=0
-    for aid in range(AID_MAX,AID_MIN-1,-1):
+    scan_order=KNOWN_AIDS+[aid for aid in range(AID_MAX,AID_MIN-1,-1) if aid not in KNOWN_AIDS]
+    for aid in scan_order:
         try:
             rows,err=parse_aid(session,aid)
             if err: blockers.append(err)
