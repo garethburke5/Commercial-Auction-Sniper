@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "production_main_inspected_sha": "d44d08321c7cca63494562c33ed07d65102ac8f6",
+  "source_route": "First-party Savills Past Auctions chronological archive page 13, after PropertyAuctions bulk crawler produced zero discoveries",
+  "source_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+  "records": [
+    {"auction_date":"2016-02-16","auction_name":"London & National","venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","offered":233,"sold":198,"success_percent":85,"raised_gbp":68206000,"aid_auc":null,"capture_status":"auction_archive_validated_lot_manifest_pending","canonical_history_v2":false},
+    {"auction_date":"2016-03-02","auction_name":"London & National","venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","offered":154,"sold":128,"success_percent":83,"raised_gbp":38559000,"aid_auc":null,"capture_status":"auction_archive_validated_lot_manifest_pending","canonical_history_v2":false},
+    {"auction_date":"2016-05-09","auction_name":"London & National","venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","offered":230,"sold":174,"success_percent":76,"raised_gbp":50113000,"aid_auc":null,"capture_status":"auction_archive_validated_lot_manifest_pending","canonical_history_v2":false},
+    {"auction_date":"2016-06-20","auction_name":"London & National","venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","offered":148,"sold":124,"success_percent":84,"raised_gbp":33037000,"aid_auc":null,"capture_status":"auction_archive_validated_lot_manifest_pending","canonical_history_v2":false},
+    {"auction_date":"2016-07-25","auction_name":"London & National","venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","offered":134,"sold":104,"success_percent":78,"raised_gbp":29965000,"aid_auc":null,"capture_status":"auction_archive_validated_lot_manifest_pending","canonical_history_v2":false}
+  ],
+  "attempted": [
+    "Inspected latest Savills bulk workflow job log: CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1.",
+    "Abandoned repetition of propertyauctions.io auctioneer-page crawler for this pass.",
+    "Reconciled adjacent 2016 chronology against surviving first-party Savills archive page 13.",
+    "Searched indexed PropertyAuctions LotList/AID surfaces for 16 February and 2 March 2016; no deterministic manifest identity surfaced in this pass."
+  ],
+  "blocker": "First-party archive supplies authoritative auction denominators but not individual lot rows or PropertyAuctions AID/Auc identities. The current PropertyAuctions bulk route exposes zero listing URLs from its Savills auctioneer page, so no complete lot manifest can safely be claimed from that route.",
+  "canonicalised_this_pass": 0,
+  "unresolved_auction_manifests_this_pass": 5,
+  "next_route": "Continue breadth-first through adjacent Savills archive chronology, while using exact date + offered/sold/raised fingerprints to search legacy indexed PropertyAuctions LotList/Auc identities and catalogue/addendum mirrors; when a manifest is recovered, bank every lot regardless of property type before classification.",
+  "completeness_claim": false
+}
