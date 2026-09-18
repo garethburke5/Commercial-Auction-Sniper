@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2014-02-10",
+  "recovery_mode": "breadth-first reconciliation",
+  "production_main_inspected_sha": "55ac5326ce68ceffb9d319d01c984c0bf1d81db7",
+  "latest_bulk_workflow": {
+    "run_id": 35307753404,
+    "job_id": 105483335776,
+    "conclusion": "success",
+    "data_result": "CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1",
+    "interpretation": "operationally green but recovered zero records"
+  },
+  "chronological_archive_reconciliation": {
+    "surviving_first_party_archive_oldest_event": "2014-04-24",
+    "current_date_present_in_surviving_first_party_archive": false,
+    "contemporary_date_evidence": "A contemporary source identifies Savills' two-day auction on 10-11 February 2014 with more than 260 properties.",
+    "qualifying_commercial_mixed_clues_retained": 1
+  },
+  "propertyauctions_reconciliation": {
+    "deterministic_aid_auc_manifest_found_this_pass": false,
+    "canonicalised": 0,
+    "unresolved": 1,
+    "blocker": "No deterministic PropertyAuctions AID/Auc or lot-number manifest was recovered for the 10 February 2014 source record. The live propertyauctions.io Savills auctioneer traversal remains blocked (HTTP non-200 in the latest bulk workflow), and the preserved Savills archive URL candidate inventory contains 2014 captures but no lot-number hints."
+  },
+  "attempted": [
+    "Freshly inspected production main and latest Savills bulk workflow/job logs.",
+    "Verified the workflow was operationally successful but recovered zero records.",
+    "Reconciled the 10 February 2014 source shard against the surviving first-party Savills archive index; that archive currently bottoms out at 24 April 2014.",
+    "Inspected the preserved Savills archive lot-candidate inventory: 654 candidates total, 121 from 2014, with zero lot-number hints overall.",
+    "Searched for a deterministic PropertyAuctions AID/Auc join and did not infer one from neighbouring IDs."
+  ],
+  "next_route": "Exploit the preserved 121 Savills 2014 archive captures by digest/timestamp and retrieve their archived response bodies/WARC adjacency, then match explicit lot/address text to the February source clue before attempting PropertyAuctions AID/Auc enrichment. This is distinct from the blocked live auctioneer traversal and from another exact-date web search.",
+  "completeness_claim": false
+}
