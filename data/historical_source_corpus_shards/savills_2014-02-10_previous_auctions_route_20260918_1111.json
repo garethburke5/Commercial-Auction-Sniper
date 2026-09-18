@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2014-02-10",
+  "recovery_mode": "breadth-first",
+  "production_main_inspected_sha": "580e901a74141a8dbc8df565587364f34807e63f",
+  "attempted": [
+    "Inspected current production main before recovery.",
+    "Inspected latest Savills bulk historical workflow and full job log; the job succeeded operationally but reported CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1.",
+    "Executed a distinct legacy-navigation route using a contemporaneous 12-Feb-2014 reference to catalogue.auctions.savills.co.uk/london-national/Previous-Auctions/#&&s=1.",
+    "Searched production repository for preserved Previous-Auctions identity; no deterministic lot manifest was present.",
+    "Reconfirmed contemporary February auction denominator: more than 260 properties and three named Savills commercial/development clues (Broadmeads Pumping Station; Wansunt Pumping Station Cottage; Church Premises adjacent to 1 Radegund Road)."
+  ],
+  "qualifying_commercial_mixed_clues": 3,
+  "canonical_events_added": 0,
+  "unresolved_clues": 3,
+  "new_source_identity": "http://catalogue.auctions.savills.co.uk/london-national/Previous-Auctions/#&&s=1",
+  "blocker": "A contemporaneous February 2014 legacy Previous-Auctions endpoint is now identified, but the surviving/searchable material still does not expose the February catalogue's deterministic lot-number manifest or a PropertyAuctions AID/Auc join. Fragment state is client-side and cannot itself establish lot identities.",
+  "next_route": "Recover/index the legacy Previous-Auctions page state and linked February catalogue resources via archived URL variants (including fragmentless endpoint, query/state resources and linked catalogue assets), then join the first explicit lot/address identity to PropertyAuctions AID/Auc and expand adjacent lots breadth-first. Do not infer lot numbers from the 260+ denominator.",
+  "completeness_claim": false
+}
