@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2015-05-11",
+  "capture_mode": "breadth-first source reconciliation",
+  "production_main_inspected_sha": "9f7e43b4ce81c0706c8f8c68ad110da556f1580f",
+  "validated_source_facts": {
+    "auction_name": "London & National",
+    "auction_scope": "Residential & Commercial",
+    "result_success_pct": 88,
+    "result_raised_gbp_min": 40000000,
+    "result_wording": "selling over £40million worth of property with an 88% success rate on 11 May 2015"
+  },
+  "source_urls": [
+    "https://www.propertyauctions.com/results/",
+    "https://doczz.net/doc/6710914/addendum---savills",
+    "https://abcdocz.com/doc/920459/savills-auctions"
+  ],
+  "lot_manifest": {
+    "aid": null,
+    "auc": null,
+    "offered_lot_denominator": null,
+    "lot_rows_recovered": 0
+  },
+  "canonical_events_added": 0,
+  "unresolved_qualifying_lots": null,
+  "blocker": "PropertyAuctions' indexed results page validates the 11 May 2015 Savills sale result, while surviving Savills catalogue/addendum mirrors validate the auction identity and scope. However this pass still exposes no deterministic PropertyAuctions AID/Auc LotList manifest or complete offered-lot denominator, so no lot-level canonical events are admitted from this source record.",
+  "attempted": [
+    "Fresh inspection of production main and latest Savills raw-first workflow/logs.",
+    "Rejected the direct GitHub-runner PropertyAuctions AID scan as a stalled route after its log showed RAW_LOTS=0, SAVILLS_AUCTIONS=0, BLOCKERS=1400.",
+    "Switched to indexed PropertyAuctions results/news plus surviving Savills catalogue/addendum mirrors for the current 11 May 2015 auction.",
+    "Validated auction result at 88% success and over £40m sold; retained lot-level fields as unresolved rather than inferring a denominator or AID."
+  ],
+  "next_route": "Use exact auction-result headline/date plus surviving catalogue lot text to invert indexed legacy PropertyAuctions LotList/Auc URLs and recover a deterministic AID/Auc. If no manifest identity is exposed, enumerate the surviving catalogue mirror itself breadth-first into raw lot rows, then reconcile results separately before canonicalisation.",
+  "completeness_claim": false
+}
