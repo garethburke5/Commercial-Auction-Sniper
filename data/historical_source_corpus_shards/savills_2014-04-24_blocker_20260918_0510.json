@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2014-04-24",
+  "recovery_mode": "breadth-first",
+  "production_main_inspected_sha": "de694de47291c78e1cd53ab989258d37c57e81f2",
+  "attempted": [
+    "Inspected fresh production main before recovery.",
+    "Inspected the current GitHub Actions run surface before recovery; no newer Savills corpus write was established from the available run listing.",
+    "Advanced breadth-first from the persisted 2014-05-07 blocker to the next surviving Savills chronological archive date, 2014-04-24.",
+    "Ran a distinct exact-date external-source inversion for Savills 24 April 2014 and rejected Australian residential Savills results and Irish agency-sale references as non-UK-auction collisions.",
+    "Checked the surviving production source-corpus surface for a deterministic PropertyAuctions AID/Auc manifest for this date; none was established in this pass."
+  ],
+  "canonical_events_added": 0,
+  "qualifying_commercial_mixed_rows": null,
+  "canonicalised": 0,
+  "unresolved": null,
+  "blocker": "The 24-Apr-2014 Savills chronological auction shell is retained, but no deterministic PropertyAuctions AID/Auc lot manifest or full lot identity was recovered. Public exact-date search is collision-heavy and does not establish a UK Savills auction lot denominator, so no AID, lot count, address, or property record is inferred.",
+  "next_route": "Invert the preserved PropertyAuctions full numeric AID corpus for explicit Savills heading/date matches around the 2014 catalogue band, then extract every initial-grid commercial/mixed row from the matched AID before any address enrichment. If no AID survives, use archived Savills catalogue/RSS/PID captures keyed by the exact 24-Apr-2014 shell.",
+  "completeness_claim": false
+}
