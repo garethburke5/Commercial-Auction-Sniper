@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "purpose": "Ten-auction Savills recovery proof batch; auction identity/denominator captured before commercial-lot extraction",
+  "captured_at": "2026-09-18",
+  "auctions": [
+    {
+      "date": "2018-12-11",
+      "name": "London & National",
+      "offered": 4,
+      "sold": 3,
+      "success_pct": 75,
+      "raised_gbp": 5050000,
+      "source": "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+    },
+    {
+      "date": "2018-11-26",
+      "name": "London & National",
+      "offered": 127,
+      "sold": 99,
+      "success_pct": 78,
+      "raised_gbp": 29661000,
+      "source": "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+    },
+    {
+      "date": "2018-09-26",
+      "name": "London & National",
+      "offered": 147,
+      "sold": 98,
+      "success_pct": 67,
+      "raised_gbp": 35983000,
+      "source": "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+    },
+    {
+      "date": "2018-07-24",
+      "name": "London & National",
+      "offered": 96,
+      "sold": 68,
+      "success_pct": 71,
+      "raised_gbp": 23843000,
+      "source": "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+    },
+    {
+      "date": "2018-06-18",
+      "name": "London & National",
+      "offered": 150,
+      "sold": 101,
+      "success_pct": 67,
+      "raised_gbp": 24142000,
+      "source": "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+    },
+    {
+      "date": "2018-05-09",
+      "name": "London & National",
+      "offered": 148,
+      "sold": 111,
+      "success_pct": 75,
+      "raised_gbp": 29938000,
+      "source": "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+    },
+    {
+      "date": "2018-03-26",
+      "name": "London & National",
+      "offered": 186,
+      "sold": 139,
+      "success_pct": 75,
+      "raised_gbp": 43087000,
+      "source": "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+    },
+    {
+      "date": "2018-02-13",
+      "name": "London & National",
+      "offered": 234,
+      "sold": 167,
+      "success_pct": 71,
+      "raised_gbp": 55652000,
+      "source": "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+    },
+    {
+      "date": "2017-12-11",
+      "name": "London & National",
+      "offered": 127,
+      "sold": 91,
+      "success_pct": 72,
+      "raised_gbp": 23693000,
+      "source": "https://auctions.savills.co.uk/past-auctions/archive/page-11"
+    },
+    {
+      "date": "2017-11-06",
+      "name": "London & National",
+      "offered": 178,
+      "sold": 135,
+      "success_pct": 76,
+      "raised_gbp": 38669000,
+      "source": "https://auctions.savills.co.uk/past-auctions/archive/page-11",
+      "propertyauctions_aid": "1046",
+      "manifest": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046"
+    }
+  ],
+  "totals": {
+    "auctions": 10,
+    "offered": 1397,
+    "sold": 1012
+  },
+  "completeness_claim": false,
+  "next_step": "Extract qualifying commercial/mixed lots from each auction; missing enrichment fields remain null. Do not require canonicalisation for raw capture."
+}
