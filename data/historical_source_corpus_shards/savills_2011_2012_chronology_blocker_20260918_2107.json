@@ -1,0 +1,20 @@
+{
+  "auctioneer": "Savills",
+  "recovery_scope": "breadth-first historical auction chronology, 2012 then 2011",
+  "captured_at": "2026-09-18T20:07:00Z",
+  "status": "source_specific_blocker",
+  "canonical_events_added": 0,
+  "current_years": [2012, 2011],
+  "attempted_routes": [
+    "fresh inspection of current main and latest Savills workflow/job logs",
+    "exact-year web/index searches for Savills London & National auction chronology in 2012 and 2011",
+    "exact-year searches for PropertyAuctions/Savills historical auction references and result manifests"
+  ],
+  "findings": {
+    "2012": "No deterministic surviving Savills chronological auction page or PropertyAuctions AID/Auc lot manifest was recovered in this pass.",
+    "2011": "No deterministic surviving Savills chronological auction page or PropertyAuctions AID/Auc lot manifest was recovered in this pass."
+  },
+  "blocker": "The current indexed routes did not expose an authoritative auction-date denominator or deterministic PropertyAuctions AID/Auc identities for 2012/2011. The latest GitHub PropertyAuctions auctioneer crawler also remains stalled at the auctioneer frontier with zero discovered listings, so repeating that route would not be distinct or useful.",
+  "safety_rule": "Do not infer that zero mapped auctions means Savills held zero auctions. Do not fabricate dates, AIDs, lot numbers, results, or completeness.",
+  "next_distinct_route": "Work backwards from surviving 2013 and 2010 first-party/lot fingerprints into adjacent archived Savills catalogue/addendum URLs and search-engine cached PDF/catalogue titles; use any recovered exact date plus named lot/result fingerprint to invert legacy PropertyAuctions LotList.aspx AID/Auc identities. Bank all property types before classification."
+}
