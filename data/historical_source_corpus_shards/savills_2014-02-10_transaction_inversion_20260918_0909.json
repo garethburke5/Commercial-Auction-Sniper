@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2014-02-10",
+  "auction_end_date": "2014-02-11",
+  "recovery_mode": "breadth-first transaction-to-catalogue inversion",
+  "production_main_inspected_sha": "55ac5326ce68ceffb9d319d01c984c0bf1d81db7",
+  "attempted": [
+    "Inspected fresh production main before recovery and did not inherit prior-run claims.",
+    "Inspected the current GitHub Actions run surface before recovery; no newer validated Savills canonical corpus write was identified from the available run surface.",
+    "Re-ran exact-address reverse-key searches for Wansunt Pumping Station Cottage, Broadmeads Pumping Station and the Radegund Road church seed against current production code search and fresh indexed web evidence.",
+    "Tested the promised transaction-to-catalogue inversion: Wansunt's 7 March 2014 GBP256,000 freehold transfer was used as a reverse key for Savills/PropertyAuctions lot identity; fresh searches still returned the transaction and contemporary Savills offering but no deterministic lot number, AID/Auc or archived catalogue/results PDF identity.",
+    "Cross-checked Broadmeads transaction history. Later Land Registry-style records show 2018/2020 transfers, not a deterministic February-2014 auction completion, so they were not used to manufacture a result.",
+    "Rejected unrelated Radegund Road and date collisions rather than joining them to the February Savills catalogue without lot identity."
+  ],
+  "qualifying_commercial_mixed_clues": 3,
+  "canonical_events_added": 0,
+  "unresolved": 3,
+  "validated_clues": [
+    {
+      "address": "Wansunt Pumping Station Cottage, Lower Station Road, Crayford, Kent, DA1 3PY",
+      "savills_offering_date": "2014-02-10",
+      "guide": "GBP200,000+",
+      "later_transfer_date": "2014-03-07",
+      "later_transfer_price": "GBP256,000",
+      "later_transfer_tenure": "Freehold",
+      "join_status": "unresolved: no deterministic Savills lot number or PropertyAuctions AID/Auc"
+    },
+    {
+      "address": "Broadmeads Pumping Station, Hertford Road, Ware, SG12 9LH",
+      "savills_offering_date": "2014-02-10",
+      "guide": "GBP450,000+",
+      "join_status": "unresolved: no deterministic Savills lot number or PropertyAuctions AID/Auc"
+    },
+    {
+      "address": "Church premises adjacent to 1 Radegund Road, Cambridge",
+      "savills_offering_date": "2014-02-10",
+      "guide": "GBP140,000+",
+      "join_status": "unresolved: no deterministic Savills lot number or PropertyAuctions AID/Auc"
+    }
+  ],
+  "blocker": "Transaction-to-catalogue inversion corroborates the Wansunt post-auction transfer and the contemporary Savills offering, but no surviving indexed source in this pass exposes the Savills lot number, PropertyAuctions AID/Auc, or an archived catalogue/results document identifier. Transfer price/date alone is insufficient to assert auction result identity.",
+  "next_route": "Pivot from property-name/date search to catalogue-container discovery: enumerate February-2014 Savills catalogue/result document filenames and archived URL patterns from neighbouring known Savills events and web/archive indexes, then search those container identifiers directly. If a February container is recovered, parse the entire catalogue breadth-first and only then join individual lots/AID identities.",
+  "completeness_claim": false
+}
