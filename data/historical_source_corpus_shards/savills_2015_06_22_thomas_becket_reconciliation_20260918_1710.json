@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2015-06-22",
+  "recovery_mode": "breadth-first indexed-source reconciliation after blocked direct AID enumeration",
+  "production_main_inspected_sha": "891b0f7f4318f6b5ab2468db73cc975f0483dd1b",
+  "workflow_evidence": {
+    "run_id": 35345010572,
+    "job_id": 105599429722,
+    "actual_result": "RAW_LOTS=0 NEW=0 SAVILLS_AUCTIONS=0 BLOCKERS=1400; VERIFIED_RAW_LOTS 0; VERIFIED_AUCTIONS 0",
+    "route_status": "failed for lot recovery despite workflow conclusion=success"
+  },
+  "auction_evidence": {
+    "auction_name": "Savills London & National Residential & Commercial Auction",
+    "date": "2015-06-22",
+    "venue": "Millennium Hotel, Grosvenor Square, London",
+    "sources": [
+      "https://doczz.net/doc/6710914/addendum---savills",
+      "https://www.london-se1.co.uk/news/view/8309"
+    ]
+  },
+  "lot_reconciliation": {
+    "address": "Thomas A Becket, 320 Old Kent Road, London SE1 5UE",
+    "property_type": "mixed commercial/residential; former public house / development opportunity",
+    "tenure": "freehold",
+    "guide_price_gbp": 1900000,
+    "lot_number": null,
+    "result_gbp": null,
+    "propertyauctions_aid": null,
+    "sources": [
+      "https://www.london-se1.co.uk/news/view/8309",
+      "https://www.standard.co.uk/going-out/bars/thomas-a-becket-pub-buy-sir-enry-s-gym-for-a-knockout-price-10309675.html",
+      "https://highfield-investments.co.uk/properties/thomas-a-becket-320-old-kent-road-london-se1-5ue/"
+    ],
+    "reconciliation_note": "Contemporary sources independently confirm Savills 22 June auction, freehold, guide £1.9m and mixed commercial/residential character. A later/parallel Highfield marketing page says the property would be placed in Savills' 28 July auction if not sold prior; this conflicts with treating 22 June as a proven completed lot result. Therefore no lot number, AID, result or canonical event is invented."
+  },
+  "canonical_events_added": 0,
+  "unresolved_qualifying_lots": 1,
+  "blocker": "No deterministic surviving PropertyAuctions AID/Auc manifest or complete Savills 22 June 2015 lot catalogue/result denominator has been recovered. Direct GitHub-hosted AID enumeration is independently proven nonproductive (0 lots, 1400 blockers). Thomas A Becket has conflicting contemporary/near-contemporary sale-timing evidence, so it cannot safely be promoted to a completed canonical 22 June result.",
+  "distinct_next_route": "Advance breadth-first to the next Savills chronological auction while separately using catalogue/addendum mirrors and exact named-lot fingerprints to recover a 22 June catalogue denominator. Do not retry direct AID enumeration. Bank all property types when a catalogue is recovered, then reconcile results separately.",
+  "completeness_claim": false
+}
