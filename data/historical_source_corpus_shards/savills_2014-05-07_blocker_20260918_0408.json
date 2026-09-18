@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2014-05-07",
+  "recovery_mode": "breadth-first",
+  "production_main_inspected_sha": "8214f17f0f6beae30d69894f86981c46d55085b9",
+  "attempted": [
+    "Inspected fresh production main before recovery.",
+    "Inspected latest Savills bulk-historical workflow/run surface; no newer successful Savills corpus write was present on main.",
+    "Searched current production repository for exact 2014-05-07 row/manifest identity; no indexed deterministic AID/Auc match was exposed.",
+    "Ran a distinct external exact-date recovery route for Savills 7 May 2014; returned unrelated Savills agency/valuation references and no defensible UK auction AID/Auc lot manifest."
+  ],
+  "canonical_events_added": 0,
+  "blocker": "The surviving breadth reconciliation identifies this date as the next Savills auction cursor, but this pass did not recover a deterministic PropertyAuctions AID/Auc lot manifest or full-address lot identity. Search collisions are not accepted as auction evidence.",
+  "next_route": "Invert the already-proven PropertyAuctions numeric AID corpus around the neighbouring 2014 Savills catalogues and match explicit Savills heading/date, then persist its complete initial-grid commercial/mixed rows before address enrichment. Do not infer AID by numeric adjacency.",
+  "completeness_claim": false
+}
