@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2014-02-10",
+  "auction_end_date": "2014-02-11",
+  "recovery_mode": "breadth-first catalogue-container discovery",
+  "production_main_inspected_sha": "c27f6ff31b2b7d2fb6fcab2f825064e084a27e51",
+  "attempted": [
+    "Inspected fresh production main and current GitHub Actions run surface before recovery; did not inherit previous-run claims.",
+    "Inspected the latest Savills bulk historical workflow run/job surface. The latest visible bulk run was operationally green but did not establish a newer canonical Savills corpus write.",
+    "Inspected the persisted February 2014 transaction-inversion evidence and current source-corpus directory before selecting a new route.",
+    "Executed catalogue-container discovery using exact 10/11 February 2014 Savills auction dates, auctions.savills.co.uk host patterns, catalogue/PDF terminology, and neighbouring historical Savills catalogue URL evidence.",
+    "Recovered a concrete legacy Savills catalogue container pattern from contemporary 2014 evidence: catalogue.auctions.savills.co.uk/London-National/Online-Catalogue/Default.aspx?st=2#&&s=2, used for the 28 October 2014 Savills sale. This validates the legacy London-National/Online-Catalogue container family but does not by itself identify the February catalogue instance.",
+    "Reconfirmed contemporary evidence that the 10/11 February 2014 Savills auction contained more than 260 properties and included Wansunt Pumping Station Cottage and Broadmeads Pumping Station, but exact February searches still did not expose a deterministic catalogue instance, lot number, PropertyAuctions AID/Auc, or results PDF."
+  ],
+  "qualifying_commercial_mixed_clues": 3,
+  "canonical_events_added": 0,
+  "unresolved": 3,
+  "new_validated_container_evidence": {
+    "legacy_host": "catalogue.auctions.savills.co.uk",
+    "container_family": "/London-National/Online-Catalogue/Default.aspx",
+    "contemporary_example_date": "2014-10-28",
+    "contemporary_example_lot": "49",
+    "status": "validated URL family only; February 2014 instance not yet identified"
+  },
+  "blocker": "Catalogue-container discovery recovered the correct legacy Savills London-National online-catalogue URL family from contemporary 2014 evidence, but the URL is state/session-style and the surviving indexed evidence does not expose a February-specific catalogue identifier, lot-number mapping, PropertyAuctions AID/Auc, or results document. The February lots therefore remain unsafe to canonicalise.",
+  "next_route": "Use the newly validated legacy host/path as the pivot: search web/archive indexes for catalogue.auctions.savills.co.uk/London-National captures constrained to February 2014, including query-state variants and archived link targets. In parallel invert PropertyAuctions manifests for the exact three February seed addresses. Accept a join only when an archived Savills lot number or explicit PropertyAuctions Savills AID/Auc is recovered; then expand the entire auction breadth-first from adjacent lots.",
+  "completeness_claim": false
+}
