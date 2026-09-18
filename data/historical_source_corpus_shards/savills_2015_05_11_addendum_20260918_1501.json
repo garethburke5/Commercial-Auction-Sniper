@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "capture_mode": "breadth-first source corpus",
+  "production_main_inspected_sha": "42bdf106dac932a18d602630d8d42edd2b5f107b",
+  "source_document_url": "https://doczz.net/doc/6710914/addendum---savills",
+  "notes": "Surviving Savills auction addendum transcription explicitly identifies SAVILLS AUCTION SALE 11th May 2015 at The Marriott Hotel, Grosvenor Square, London W1K 6JP and states London & National / Residential & Commercial. It also evidences forthcoming dates 22 June, 28 July and 21 September 2015, already captured elsewhere. Missing AID/catalogue/results identities remain null; no lot is classified commercial from address/name alone.",
+  "auctions": [
+    {
+      "source_record_id": "savills-auction|2015-05-11|addendum-document",
+      "auction_date": "2015-05-11",
+      "auction_name": "London & National",
+      "venue": "The Marriott Hotel, Grosvenor Square, London W1K 6JP",
+      "auction_scope": "Residential & Commercial",
+      "aid": null,
+      "offered": null,
+      "sold": null,
+      "success_pct": null,
+      "raised_gbp": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "document_urls": ["https://doczz.net/doc/6710914/addendum---savills"],
+      "source_urls": ["https://doczz.net/doc/6710914/addendum---savills"],
+      "capture_status": "partial_source_record_addendum_survives",
+      "canonical_history_v2": false
+    }
+  ],
+  "lots": []
+}
