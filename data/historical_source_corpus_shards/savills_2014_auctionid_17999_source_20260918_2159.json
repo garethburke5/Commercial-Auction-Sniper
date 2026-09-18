@@ -1,0 +1,25 @@
+{
+  "auctioneer": "Savills",
+  "capture_scope": "breadth-first source-corpus recovery",
+  "captured_at": "2026-09-18T20:59:00Z",
+  "records": [
+    {
+      "record_type": "auction_source",
+      "auction_date": "2014-10-28",
+      "auctioneer_name_evidenced": "Savills (London - National)",
+      "auction_id": "17999",
+      "auction_url": "https://www.eigroup.co.uk/clients/auctions/details.aspx?auctionid=17999",
+      "source_url": "https://stackoverflow.com/questions/26608125/create-a-dataframe-from-html-table-in-python/26608398",
+      "source_type": "surviving verbatim legacy HTML excerpt",
+      "evidence_note": "A contemporaneous Stack Overflow question preserves verbatim legacy EIG HTML showing Auctioneer Savills (London - National), Auction Date 28 October 2014, and href /clients/auctions/details.aspx?auctionid=17999. The example lot is a residential studio flat and is intentionally NOT captured as a corpus lot.",
+      "catalogue_url": null,
+      "results_url": null,
+      "archive_url": null,
+      "lot_count": null
+    }
+  ],
+  "auction_records_added": 0,
+  "lot_records_added": 0,
+  "source_identity_records_added": 1,
+  "classification_note": "Residential-only example lot excluded; this shard banks the deterministic auction identity/URL for later catalogue/results enumeration without inventing commercial lots."
+}
