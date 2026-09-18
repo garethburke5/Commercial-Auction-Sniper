@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2015-05-11",
+  "recovery_mode": "breadth-first indexed PropertyAuctions results evidence",
+  "production_main_inspected_sha": "4b509839bd9b1ebcf721b2e3889faff20fb459f8",
+  "latest_raw_workflow_run": 35345010572,
+  "latest_raw_workflow_actual_result": "RAW_LOTS=0 NEW=0 SAVILLS_AUCTIONS=0 BLOCKERS=1400; VERIFIED_RAW_LOTS=0; VERIFIED_AUCTIONS=0",
+  "validated": {
+    "auction_sequence": "third Savills London & National auction of 2015",
+    "success_rate_pct": 88,
+    "raised_gbp_min": 40000000,
+    "next_auction_date": "2015-06-22",
+    "lot_level_clues": [
+      "Garages with parcels of land in Brondesbury Park and Croydon sold well above guide",
+      "Eight ground rents in Eastbourne attracted competition",
+      "Four lots sold for over GBP 1m",
+      "A Shepherd's Bush building arranged as three self-contained flats sold for GBP 1.41m"
+    ]
+  },
+  "source_url": "https://propertyauctions.com/News/More.aspx?nid=37",
+  "aid": null,
+  "auc": null,
+  "complete_lot_denominator": null,
+  "canonical_events_added": 0,
+  "unresolved_current_auction": "Complete lot denominator and deterministic PropertyAuctions AID/Auc remain unresolved; the indexed results article proves auction/result facts but is not a lot manifest.",
+  "attempted": [
+    "Inspected current production main before recovery.",
+    "Read latest Savills raw-first workflow job log; did not accept green conclusion because log proves zero lots and 1400 blockers.",
+    "Searched indexed legacy PropertyAuctions LotList/AID surfaces for exact 11 May 2015 and adjacent 2015 Savills dates.",
+    "Recovered a surviving PropertyAuctions results article with auction-level and several lot-level result clues, but no deterministic AID/Auc manifest identity."
+  ],
+  "blocker": "GitHub-hosted direct legacy AID enumeration is blocked (1400/1400 attempts yielded blockers), while current indexed search exposes the PropertyAuctions results article but not the complete LotList.aspx AID/Auc manifest for 11 May 2015.",
+  "distinct_next_route": "Use the now-fixed auction fingerprint (11 May 2015, third auction, 88%, >GBP40m, next sale 22 June) plus named lot clues to search archived Savills catalogue/addendum mirrors and web archives for catalogue pages; enumerate all lots from that catalogue without pre-filtering, then reconcile results separately. Do not repeat broad AID scanning.",
+  "completeness_claim": false
+}
