@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2014-05-15",
+  "propertyauctions_aid": 908,
+  "catalogue_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=908",
+  "propertyauctions_status_at_historical_scan": 200,
+  "explicit_savills_heading": true,
+  "initial_grid_lot_rows": 45,
+  "qualifying_commercial_mixed_rows": 21,
+  "canonicalised": 0,
+  "unresolved": 21,
+  "commercial_mixed_rows": [
+    {"lot":"2","type":"Office","location":"Solihull","result":"£226,000"},
+    {"lot":"7","type":"Retail","location":"Eastwood","result":"£50,000"},
+    {"lot":"9","type":"Retail","location":"Nottingham","result":"Sold Prior"},
+    {"lot":"13","type":"Retail","location":"Woolston, Southampton","result":"£156,000"},
+    {"lot":"17","type":"Retail","location":"Barwell","result":"Refer"},
+    {"lot":"18","type":"Retail","location":"Barwell","result":"Refer"},
+    {"lot":"21","type":"Retail","location":"Ilkeston","result":"£131,000"},
+    {"lot":"22","type":"Industrial","location":"Burntwood","result":"Withdrawn Prior"},
+    {"lot":"23","type":"Industrial","location":"Burntwood","result":"Withdrawn Prior"},
+    {"lot":"24","type":"Industrial","location":"Mansfield","result":"Sold Prior"},
+    {"lot":"25","type":"Retail","location":"Leigh Park","result":"Sold Prior"},
+    {"lot":"27","type":"Industrial","location":"Hull","result":"Sold Prior"},
+    {"lot":"29","type":"Industrial","location":"Mansfield","result":"Sold Prior"},
+    {"lot":"34","type":"Retail","location":"Stourbridge","result":"Withdrawn Prior"},
+    {"lot":"36","type":"Industrial","location":"Peterborough","result":"Available at £95,000"},
+    {"lot":"37","type":"Retail","location":"Wolverhampton","result":"Sold Prior"},
+    {"lot":"39","type":"Office","location":"Nottingham","result":"Refer"},
+    {"lot":"41","type":"Retail","location":"Nottingham","result":"Available at £249,000"},
+    {"lot":"42","type":"Office","location":"16 Clarendon Street","result":"Sold Prior"},
+    {"lot":"43","type":"Industrial","location":"Nottingham","result":"Sold Prior"},
+    {"lot":"45","type":"Industrial","location":"Nottingham","result":"Sale Agreed"}
+  ],
+  "reconciliation": {
+    "propertyauctions_evidence": "Exact AID/date/explicit Savills heading and all 45 initial-grid rows survive in data/source_diagnostics/savills_2018_2010_catalogue_map.json.",
+    "savills_chronology": "2014-05-15 is not one of the seven dates recovered on the surviving first-party Savills archive spine, so AID 908 is retained as an exact PropertyAuctions Savills catalogue but is not silently equated to a first-party archive event.",
+    "canonicalisation_rule": "Do not canonicalise from locality-only rows. Full street address or stable Savills/Auc/PID identity is still required."
+  },
+  "attempted_this_pass": [
+    "Fresh production main inspection",
+    "Fresh latest Savills bulk-harvest workflow and decoded job-log inspection",
+    "Direct interrogation of the production full-AID catalogue map rather than repeating the blocked modern PropertyAuctions auctioneer route",
+    "Recovered the exact AID 908 initial-grid manifest and all 21 commercial/mixed lot tuples"
+  ],
+  "blocker": "AID 908's row-level lot/type/locality/result manifest is now recovered, but the historical initial grid does not retain full street addresses or Auc/detail targets for these 21 rows; locality-only identities are insufficient for safe canonical property events.",
+  "next_distinct_route": "Use the recovered AID 908 lot numbers plus type/locality/result tuples to invert archived PropertyAuctions detail/postback captures and Savills RSS/PID captures for full street addresses. In parallel continue breadth-first to 2014-05-07, then the remaining 2014 catalogue mappings, without waiting for AID 908 enrichment.",
+  "completeness_claim": false
+}
