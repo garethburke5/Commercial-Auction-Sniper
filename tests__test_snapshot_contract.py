@@ -1,5 +1,5 @@
 
-from collectors.core import Lot
+from collectors__core import Lot
 
 def test_yield_is_calculated_not_scraped():
     lot=Lot(source="X",url="https://example.com/1",address="A",
