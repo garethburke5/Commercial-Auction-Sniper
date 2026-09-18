@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2015-06-22",
+  "capture_mode": "breadth-first source corpus; save evidenced partials immediately",
+  "production_main_inspected_sha": "5e950f165b70a4da1fb8e7c0eea302bb451c60b8",
+  "auction_records": [
+    {
+      "auction_date": "2015-06-22",
+      "auction_name": "Savills London & National Residential & Commercial Auction",
+      "aid": null,
+      "auc": null,
+      "venue": "Millennium Hotel, Grosvenor Square, London",
+      "archive_url": "https://doczz.net/doc/6710914/addendum---savills",
+      "catalogue_url": null,
+      "results_url": null,
+      "document_urls": ["https://doczz.net/doc/6710914/addendum---savills"],
+      "evidence_note": "Savills 11 May 2015 addendum lists 22 June 2015 as a forthcoming London & National Residential & Commercial auction; contemporary London SE1 report confirms Savills auction at Millennium Hotel on 22 June."
+    }
+  ],
+  "lot_records": [
+    {
+      "auction_date": "2015-06-22",
+      "lot_number": null,
+      "address": "Thomas a Becket, Old Kent Road, London",
+      "locality": "Old Kent Road, London SE1",
+      "property_type": "public house / commercial development opportunity",
+      "guide_price_gbp": 1900000,
+      "result_gbp": null,
+      "hammer_gbp": null,
+      "rent_pa_gbp": null,
+      "tenure": "freehold",
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "archive_url": "https://doczz.net/doc/6710914/addendum---savills",
+      "auction_catalogue_url": null,
+      "lot_detail_url": null,
+      "results_url": null,
+      "source_urls": ["https://www.london-se1.co.uk/news/view/8309", "https://doczz.net/doc/6710914/addendum---savills"],
+      "evidence_note": "Contemporary 8 June 2015 report states the freehold of the Thomas a Becket building was offered by Savills for its 22 June auction with guide £1.9m; report quotes catalogue redevelopment/reconfiguration potential subject to consents. Lot number and result remain unknown and are intentionally null."
+    }
+  ],
+  "residential_only_excluded": true,
+  "auction_records_added": 1,
+  "lot_or_partial_records_added": 1,
+  "completeness_claim": false
+}
