@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "records": [
+    {
+      "source_record_id": "savills-auction|2015-09-21|surviving-addendum",
+      "auctioneer": "Savills Auctions",
+      "record_type": "auction",
+      "auction_date": "2015-09-21",
+      "auction_name": "London & National",
+      "scope": "Residential & Commercial",
+      "offered": null,
+      "sold": null,
+      "success_percent": null,
+      "raised_gbp": null,
+      "aid_auc": null,
+      "source_urls": [
+        "https://doczz.net/doc/6710914/addendum---savills"
+      ],
+      "capture_status": "auction_identity_captured_lot_manifest_pending",
+      "canonical_history_v2": false,
+      "notes": "Breadth-first recovery. Surviving Savills addendum explicitly names 21 September 2015 as a forthcoming London & National Residential & Commercial auction. Exact PropertyAuctions AID/Auc, lot denominator and results manifest were not exposed by the fresh indexed searches in this pass; those fields deliberately remain null. No individual lots or results are invented."
+    }
+  ],
+  "run_summary": {
+    "production_main_inspected_sha": "bba8f2e498f92f84f25723a93f85f2ea6e925469",
+    "previous_bulk_workflow_result": "CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1",
+    "auction_records_added": 1,
+    "lot_or_partial_records_added": 0,
+    "years_covered": [2015],
+    "auctions_covered": ["2015-09-21"],
+    "attempted": [
+      "Re-read latest Savills bulk historical workflow job log rather than trusting success conclusion.",
+      "Searched fresh indexes for exact 28 July 2015 lot evidence and the next 2015 Savills Residential & Commercial auction.",
+      "Used surviving Savills addendum as a distinct source route after propertyauctions.io auctioneer-frontier crawl returned zero listings."
+    ],
+    "blocker": "No deterministic PropertyAuctions AID/Auc, complete lot denominator, catalogue or results manifest for 21 September 2015 was exposed by the fresh indexed route. Direct propertyauctions.io auctioneer-frontier GitHub workflow remains non-enumerable (0 discovered, 1 blocker).",
+    "next_route": "Use the fixed 21 September 2015 auction/date/scope fingerprint to search surviving Savills catalogue/addendum mirrors and named-lot/result snippets; invert any recovered legacy PropertyAuctions LotList/Auc identity. If no manifest emerges, bank source-identifiable individual lot rows from catalogue mirrors regardless of residential/commercial type, then reconcile results separately.",
+    "completeness_claim": false
+  }
+}
