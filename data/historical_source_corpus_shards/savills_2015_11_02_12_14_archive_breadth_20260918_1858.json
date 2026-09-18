@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "records": [
+    {
+      "source_record_id": "savills-auction|2015-11-02|past-auctions-page-13",
+      "auctioneer": "Savills Auctions",
+      "record_type": "auction",
+      "auction_date": "2015-11-02",
+      "auction_name": "London & National",
+      "scope": null,
+      "venue": "The Berkeley, Knightsbridge, London, SW1X 7RL",
+      "offered": 199,
+      "sold": 161,
+      "success_percent": 81,
+      "raised_gbp": 57666000,
+      "aid_auc": null,
+      "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+      "catalogue_url": null,
+      "results_url": null,
+      "document_urls": [],
+      "source_urls": ["https://auctions.savills.co.uk/past-auctions/archive/page-13"],
+      "capture_status": "auction_archive_captured_catalogue_results_manifest_pending",
+      "canonical_history_v2": false,
+      "notes": "Breadth-first source capture from surviving first-party Savills Past Auctions archive. Missing AID/catalogue/results identities deliberately remain null and do not block capture. Residential-only lot evidence encountered during discovery was not persisted."
+    },
+    {
+      "source_record_id": "savills-auction|2015-12-14|past-auctions-page-13",
+      "auctioneer": "Savills Auctions",
+      "record_type": "auction",
+      "auction_date": "2015-12-14",
+      "auction_name": "London & National",
+      "scope": null,
+      "venue": "The Berkeley, Knightsbridge, London, SW1X 7RL",
+      "offered": 138,
+      "sold": 117,
+      "success_percent": 85,
+      "raised_gbp": 35941000,
+      "aid_auc": null,
+      "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+      "catalogue_url": null,
+      "results_url": null,
+      "document_urls": [],
+      "source_urls": ["https://auctions.savills.co.uk/past-auctions/archive/page-13"],
+      "capture_status": "auction_archive_captured_catalogue_results_manifest_pending",
+      "canonical_history_v2": false,
+      "notes": "Breadth-first source capture from surviving first-party Savills Past Auctions archive. Missing AID/catalogue/results identities deliberately remain null and do not block capture."
+    }
+  ],
+  "run_summary": {
+    "production_main_inspected_sha": "f3c6da2382ad6fb70e5d9a095abd8027cc025ce7",
+    "auction_records_added": 2,
+    "lot_or_partial_records_added": 0,
+    "years_covered": [2015],
+    "auctions_covered": ["2015-11-02", "2015-12-14"],
+    "source_route": "First-party Savills Past Auctions chronological archive page 13",
+    "workflow": "DISCOVER -> SAVE SOURCE RECORD/URL -> MOVE ON",
+    "completeness_claim": false,
+    "next_route": "Continue breadth-first to adjacent surviving archive chronology and catalogue/results sources; bank commercial/mixed partial lots immediately when evidenced."
+  }
+}
