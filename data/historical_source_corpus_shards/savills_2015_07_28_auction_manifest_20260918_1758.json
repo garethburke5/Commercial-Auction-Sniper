@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "records": [
+    {
+      "source_record_id": "savills-auction|2015-07-28|first-party-past-auctions",
+      "auctioneer": "Savills Auctions",
+      "record_type": "auction",
+      "auction_date": "2015-07-28",
+      "auction_name": "London & National",
+      "venue": "The Berkeley, Knightsbridge, London, SW1X 7RL",
+      "offered": 170,
+      "sold": 141,
+      "success_percent": 83,
+      "raised_gbp": 45426000,
+      "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+      "catalogue_url": null,
+      "results_url": null,
+      "aid_auc": null,
+      "source_urls": [
+        "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+        "https://doczz.net/doc/6710914/addendum---savills"
+      ],
+      "capture_status": "auction_manifest_captured_catalogue_results_lot_enumeration_pending",
+      "canonical_history_v2": false,
+      "notes": "Breadth-first source capture. First-party Savills Past Auctions archive evidences date, venue, offered/sold counts, success and amount raised. Surviving 11 May 2015 Savills addendum independently lists 28 July 2015 as a forthcoming London & National Residential & Commercial auction. Missing AID/catalogue/results identities deliberately remain null and do not block capture. No lot records are invented from the auction manifest alone."
+    }
+  ],
+  "run_summary": {
+    "production_main_inspected_sha": "c6ec6839b2889acfb79bcc8a5542b045c63960b3",
+    "auction_records_added": 1,
+    "lot_or_partial_records_added": 0,
+    "years_covered": [2015],
+    "auctions_covered": ["2015-07-28"],
+    "workflow": "DISCOVER -> SAVE SOURCE RECORD/URL -> MOVE ON",
+    "completeness_claim": false
+  }
+}
