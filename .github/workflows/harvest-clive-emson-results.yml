@@ -1,0 +1,31 @@
+name: Harvest Clive Emson results
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 4 * * 1"
+
+permissions:
+  contents: write
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Harvest first-party results
+        run: python scripts/harvest_clive_emson_results.py
+      - name: Persist corpus changes
+        run: |
+          if git diff --quiet -- data/clive_emson_results_raw.json; then
+            echo "No corpus change"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/clive_emson_results_raw.json
+          git commit -m "Update Clive Emson historical results corpus"
+          git push
