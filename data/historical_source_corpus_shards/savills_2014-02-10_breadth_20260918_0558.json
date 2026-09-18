@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2014-02-10",
+  "recovery_mode": "breadth-first",
+  "production_main_inspected_sha": "109e4f060403535eb694c3be66f1f8490dbde318",
+  "auction_records": [
+    {
+      "auction_date": "2014-02-10",
+      "aid_auc": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "source_urls": [
+        "https://www.standard.co.uk/homesandproperty/property-news/five-lots-to-watch-londons-february-property-auctions-a70031.html"
+      ],
+      "notes": "Contemporary article states Savills' biggest-ever property auction was on Monday 10 and Tuesday 11 February 2014 with over 260 properties. This record preserves only the evidenced first-day date; no AID or catalogue URL is inferred."
+    }
+  ],
+  "lot_records": [
+    {
+      "auction_date": "2014-02-10",
+      "aid_auc": null,
+      "lot_number": null,
+      "address": "Church Premises adjacent to 1 Radegund Road, Cambridge, CB1 3RH",
+      "locality": "Cambridge",
+      "property_type": "church premises / development opportunity",
+      "guide": "£140,000+",
+      "result": null,
+      "hammer": null,
+      "rent": null,
+      "tenure": null,
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "lot_detail_url": null,
+      "source_urls": [
+        "https://www.standard.co.uk/homesandproperty/property-news/five-lots-to-watch-londons-february-property-auctions-a70031.html"
+      ],
+      "evidence_note": "Contemporary source identifies this as a Savills auction lot on 10 February 2014, guide £140,000+, and says planning permission was still required to convert the church premises to residential use. Captured as non-residential/mixed-development source record; no lot number, tenure, result or size inferred."
+    }
+  ],
+  "excluded_residential_only_examples": [
+    "Broadmeads Pumping Station, Hertford Road, Ware, SG12 9LH",
+    "Wansunt Pumping Station Cottage, Lower Station Road, Crayford, Kent, DA1 3PY"
+  ],
+  "auction_records_added": 1,
+  "lot_records_added": 1,
+  "completeness_claim": false,
+  "next_route": "Continue breadth-first across uncaptured Savills 2014 auction shells and preserved PropertyAuctions AID bands; save partial commercial/mixed rows immediately and leave enrichment for History V2."
+}
