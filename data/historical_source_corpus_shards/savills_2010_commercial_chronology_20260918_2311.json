@@ -1,0 +1,21 @@
+{
+  "auctioneer": "Savills",
+  "capture_scope": "breadth-first chronology recovery",
+  "captured_at": "2026-09-18T22:11:00Z",
+  "year": 2010,
+  "source": "Savills Commercial Auctions Market Review - September 2010",
+  "source_url": "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf",
+  "validated_auction_dates": [
+    {"auction_date":"2010-10-11","status":"first_party_chronology_validated","lot_manifest_status":"unresolved"},
+    {"auction_date":"2010-12-13","status":"first_party_chronology_validated","lot_manifest_status":"unresolved"}
+  ],
+  "adjacent_chronology": {
+    "last_sale_before_report":"2010-03",
+    "2011_dates":["2011-02-28","2011-05-10","2011-07-11","2011-10-17","2011-12-05"]
+  },
+  "blocker": "The first-party Savills report establishes exact commercial-auction dates but does not expose the historical lot table, catalogue denominator, or deterministic PropertyAuctions AID/Auc. The latest GitHub PropertyAuctions bulk crawler remains stalled at the auctioneer frontier (CORPUS_RECORDS=0, DISCOVERED=0, PAGES=1, BLOCKERS=1), so no AID or lot rows are inferred.",
+  "canonicalisation_status":"auction_dates_validated_lots_unresolved",
+  "new_canonical_lot_events":0,
+  "new_unresolved_auction_manifests":2,
+  "next_route":"Use the exact 2010-10-11 and 2010-12-13 dates plus Savills commercial fingerprints against indexed EIG catalogue namespaces, archived catalogue PDFs, and legacy PropertyAuctions LotList/Auc URLs; bank all recovered lots before classification."
+}
