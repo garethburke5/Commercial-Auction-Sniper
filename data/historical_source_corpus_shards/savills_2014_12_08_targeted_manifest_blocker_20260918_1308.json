@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2014-12-08",
+  "recovery_mode": "breadth-first-targeted-manifest",
+  "production_main_inspected_sha": "36777983d76d9445f91b9da8962a33198755cd74",
+  "latest_bulk_workflow_run": 35338224256,
+  "latest_bulk_workflow_result": "CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1",
+  "attempted": [
+    "Inspected production main before recovery.",
+    "Inspected the latest Savills bulk historical corpus workflow job and decoded log; the job was operationally green but the propertyauctions.io/auctioneers/savills frontier exposed zero listing URLs and one blocker.",
+    "Switched away from the stalled propertyauctions.io auctioneer-page frontier to a targeted exact-date/lot manifest discovery route for Savills 8 December 2014 and known Lot 46 Fenland Park.",
+    "Searched fresh web indexes for exact Savills 8 December 2014 + PropertyAuctions AID/LotList identity and for the known Lot 46 anchor.",
+    "No deterministic PropertyAuctions AID/Auc/LotList manifest identity was exposed by the indexed results in this pass."
+  ],
+  "known_lot_anchor": {
+    "lot_number": "46",
+    "address": "Fenland Park, former Wisbech Town Football Club ground",
+    "locality": "Wisbech",
+    "guide_price": "£2.5m",
+    "size": "4 acres",
+    "planning": "Planning permission for 83 houses and apartments",
+    "canonical_history_v2": false
+  },
+  "canonical_events_added": 0,
+  "unresolved_qualifying_lots": 1,
+  "blocker": "The exact-date/known-lot search still does not expose a deterministic PropertyAuctions AID/Auc or LotList manifest for the 8 December 2014 Savills sale. The propertyauctions.io auctioneer frontier is separately non-enumerable from the current GitHub runner, so neither route can yet prove the complete lot denominator or result for Lot 46.",
+  "next_route": "Use the surviving Savills chronological archive identity for 8 December 2014 as the fixed auction anchor, then invert archived/indexed legacy PropertyAuctions URLs by exact date and known address/lot terms to recover the first AID/Auc; once found, enumerate that manifest wholesale and admit every observable lot with nulls for absent fields before moving to the next auction.",
+  "completeness_claim": false
+}
