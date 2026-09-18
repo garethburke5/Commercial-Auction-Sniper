@@ -1,0 +1,67 @@
+{
+  "auctioneer": "Savills",
+  "capture_scope": "breadth-first source-corpus recovery",
+  "captured_at": "2026-09-18T22:00:00Z",
+  "auction_date": null,
+  "auction_month": "2010-03",
+  "auction_id": null,
+  "records": [
+    {
+      "record_type": "auction_source",
+      "auction_date": null,
+      "auction_month": "2010-03",
+      "sale_total": "£7.8 million",
+      "on_day_success_rate": "88%",
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "source_urls": [
+        "https://www.thejc.com/life/key-players-on-the-auctions-scene-m8hv9grs",
+        "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf"
+      ],
+      "evidence_note": "Contemporary 1 April 2010 report quotes Savills commercial auctions head Simon Parker describing an 88% on-the-day success rate in a £7.8m sale. Savills' September 2010 Commercial Auctions Market Review independently states the relevant last sale was March 2010. Exact day/AID remains unresolved and is intentionally null."
+    },
+    {
+      "record_type": "lot_source",
+      "lot_number": null,
+      "address": null,
+      "locality": "Eastbourne",
+      "property_name": "Reef 'n' Beef building",
+      "property_type": "restaurant investment",
+      "guide_price": null,
+      "result_price": "£228,000",
+      "rent": "£22,000 per annum net",
+      "tenure": "new 999-year lease / virtually freehold",
+      "tenant": "restaurant and bar occupier (name not evidenced in source)",
+      "lease_details": "New 999-year lease",
+      "size": "2,762 sq ft (259 sq m)",
+      "lot_detail_url": null,
+      "source_urls": ["https://www.thejc.com/life/key-players-on-the-auctions-scene-m8hv9grs"],
+      "classification": "commercial",
+      "canonicalisation_status": "source-identifiable_partial"
+    },
+    {
+      "record_type": "lot_source",
+      "lot_number": null,
+      "address": null,
+      "locality": "Fulham, south-west London",
+      "property_name": null,
+      "property_type": "freehold investment",
+      "guide_price": "£300,000-£330,000",
+      "result_price": "£690,000",
+      "rent": null,
+      "tenure": "Freehold",
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "lot_detail_url": null,
+      "source_urls": ["https://www.thejc.com/life/key-players-on-the-auctions-scene-m8hv9grs"],
+      "classification": "commercial/investment",
+      "canonicalisation_status": "source-identifiable_partial"
+    }
+  ],
+  "workflow": "DISCOVER -> SAVE SOURCE RECORD/URL -> MOVE ON",
+  "new_auction_records": 1,
+  "new_commercial_or_mixed_lot_records": 2,
+  "note": "Broad capture only. Exact auction day, AID, lot numbers and missing addresses are deferred to later enrichment; unknowns did not block persistence."
+}
