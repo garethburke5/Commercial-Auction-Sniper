@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "production_main_inspected_sha": "6455b31216678b26c8061cfade806cb0b8efcae3",
+  "capture_strategy": "breadth-first source capture; bank surviving first-party historical commercial-auction document immediately; do not infer individual lot identities",
+  "records": [
+    {
+      "record_type": "source_document",
+      "year": 2010,
+      "auction_date": null,
+      "auction_name": null,
+      "aid_auc": null,
+      "document_title": "Commercial Auctions Market Review - September 2010",
+      "publisher": "Savills Research",
+      "property_scope": "UK commercial auctions",
+      "source_url": "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf",
+      "document_url": "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf",
+      "evidence": "Surviving first-party Savills PDF reports approximately 2,800 UK auction lots offered in H1 2010, GBP427m raised, a 69% national success rate, and analysis sourced from EIG/Savills using 1,800 commercial property sales since August 2009. It is retained as a historical source container and denominator/context lead, not as evidence for any unidentified individual lot.",
+      "capture_status": "first_party_historical_source_document",
+      "canonical_history_v2": false,
+      "blocker": "The review contains aggregate commercial-auction analysis rather than a deterministic Savills auction catalogue/results manifest, so no individual lot identities are inferred from it."
+    }
+  ],
+  "new_auction_records": 0,
+  "new_lot_records": 0,
+  "new_source_document_records": 1,
+  "years_covered_this_shard": [2010],
+  "next_breadth_route": "Continue surviving Savills Past Auctions chronology and indexed catalogue/results/addendum containers for 2010-2014; bank any identifiable commercial/mixed lot immediately and leave unresolved fields null."
+}
