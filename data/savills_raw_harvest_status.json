@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-09-18T10:29:44.537490+00:00",
+  "captured_at": "2026-09-18T12:36:28.812920+00:00",
   "total_raw_lots": 0,
   "new_or_updated_run": 0,
   "savills_aids_seen": [],
@@ -9,6 +9,22 @@
     1400
   ],
   "blockers": [
+    {
+      "aid": 1046,
+      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "aid": 1032,
+      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "aid": 1080,
+      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "aid": 993,
+      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
     {
       "aid": 1400,
       "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
@@ -391,22 +407,6 @@
     },
     {
       "aid": 1305,
-      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
-    },
-    {
-      "aid": 1304,
-      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
-    },
-    {
-      "aid": 1303,
-      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
-    },
-    {
-      "aid": 1302,
-      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
-    },
-    {
-      "aid": 1301,
       "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     }
   ],
