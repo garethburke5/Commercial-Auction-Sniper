@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "production_main_inspected_sha": "628f6be9cb809cd0c1704f9f3434178e51070759",
+  "capture_strategy": "breadth-first source reconciliation; persist exact evidence/blocker without inferred AID or lot identity",
+  "records": [
+    {
+      "record_type": "lot_partial",
+      "auction_date": "2014-10-28",
+      "auction_name": "Savills National auction",
+      "aid_auc": null,
+      "lot_number": null,
+      "locality": "Battersea, south London",
+      "property_type": "freehold site / passageway",
+      "tenure": "freehold",
+      "size": "0.016 acres",
+      "guide_price_gbp": 55000,
+      "result_price_gbp": 260000,
+      "source_url": "https://www.propertyauctions.com/dataclub/",
+      "evidence": "Surviving PropertyAuctions archive states Savills National sold a 0.016-acre freehold Battersea site for GBP260,000 from a GBP55,000 guide in its 28 October 2014 sale.",
+      "capture_status": "commercial_nonresidential_partial_reconciled",
+      "canonical_history_v2": false,
+      "blocker": "No deterministic lot number, full address, AID/Auc manifest, or complete auction denominator recovered from this source; unsafe to canonicalise."
+    },
+    {
+      "record_type": "lot_partial",
+      "auction_date": "2014-12-08",
+      "auction_name": "Savills London and National Auction",
+      "aid_auc": null,
+      "lot_number": "46",
+      "address": "Fenland Park, former Wisbech Town Football Club ground",
+      "locality": "Wisbech",
+      "property_type": "development land / former football ground",
+      "size": "4 acres",
+      "guide_price_gbp": 2500000,
+      "planning": "Planning permission for 83 houses and apartments and demolition of existing football stands/buildings",
+      "source_url": "https://www.propertyauctions.com/dataclub/",
+      "evidence": "Surviving PropertyAuctions archive identifies Fenland Park as Lot 46 in Savills London and National Auction on 8 December 2014, guide GBP2.5m, four-acre site with planning permission for 83 houses/apartments.",
+      "capture_status": "commercial_or_land_lot_partial_reconciled",
+      "canonical_history_v2": false,
+      "blocker": "AID/Auc manifest and result/hammer price not recovered; do not infer a sale result or complete-auction denominator."
+    }
+  ],
+  "current_auction": "2014-12-08",
+  "new_canonical_events": 0,
+  "unresolved_source_identifiable_lots": 2,
+  "route_attempted": "Fresh indexed PropertyAuctions archive/results recovery after GitHub-hosted propertyauctions.io crawler returned zero listing URLs.",
+  "route_blocker": "Legacy PropertyAuctions archive exposes article text but no deterministic AID/Auc manifest or full catalogue denominator for these 2014 sales.",
+  "distinct_next_route": "Use exact date + named-lot + lot-number fingerprints against surviving Savills catalogue/addendum mirrors and indexed legacy LotList.aspx/Auc URLs; if manifest remains unavailable, enumerate every source-identifiable catalogue lot raw before classification."
+}
