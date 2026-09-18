@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "auction_date": "2015-05-11",
+  "capture_mode": "breadth-first source corpus; partial commercial lots",
+  "production_main_inspected_sha": "f8d6c3c28c04688359ba20c75de8437979a601d4",
+  "auction": {
+    "auction_name": "London & National",
+    "auction_scope": "Residential & Commercial",
+    "venue": "The Marriott Hotel, Grosvenor Square, London W1K 6JP",
+    "aid": null,
+    "auc": null,
+    "source_urls": [
+      "https://doczz.net/doc/6710914/addendum---savills",
+      "https://www.propertyauctions.com/results/"
+    ]
+  },
+  "lots": [
+    {
+      "lot_number": "121",
+      "address": "George & Dragon, Castle Street, Combe Martin, Devon EX34 0HX",
+      "locality": "Combe Martin",
+      "property_type": "public house",
+      "guide_price_gbp": null,
+      "result_gbp": null,
+      "rent_pa_gbp": null,
+      "tenure": null,
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "evidenced_notes": "Savills auction addendum identifies Lot 121 at this address and states VAT is applicable to the sale. Independent business-rates evidence identifies Ye Olde George And Dragon at Castle Street as a Public House.",
+      "source_urls": [
+        "https://doczz.net/doc/6710914/addendum---savills",
+        "https://counciltaxrates.info/ex340hx"
+      ]
+    },
+    {
+      "lot_number": "151",
+      "address": "9 Stony Street, Frome, Somerset BA11 1BU",
+      "locality": "Frome",
+      "property_type": "commercial premises / studio",
+      "guide_price_gbp": null,
+      "result_gbp": null,
+      "rent_pa_gbp": null,
+      "tenure": null,
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "evidenced_notes": "Savills auction addendum identifies Lot 151. Contemporary local planning record evidences approved 2015 change of use from hair dressing studio to tattoo parlour/studio within basement; retained as commercial partial without inferring unshown catalogue facts.",
+      "source_urls": [
+        "https://doczz.net/doc/6710914/addendum---savills",
+        "https://www.frometowncouncil.gov.uk/wp-content/uploads/2014/07/Appendix-1-MDC-decisions.pdf"
+      ]
+    },
+    {
+      "lot_number": "153",
+      "address": "Cemex House, Whitehall Road, Colchester, Essex CO2 8HD",
+      "locality": "Colchester",
+      "property_type": null,
+      "guide_price_gbp": null,
+      "result_gbp": null,
+      "rent_pa_gbp": null,
+      "tenure": null,
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "status": "sold prior",
+      "evidenced_notes": "Savills addendum identifies Lot 153 and corrects its postcode to CO2 8HD. The withdrawn/sold-prior sequence in the same addendum maps Lot 153 to SOLD PRIOR. Retained as a partial non-residential candidate from the named Cemex House source record; property type deliberately left null.",
+      "source_urls": [
+        "https://doczz.net/doc/6710914/addendum---savills"
+      ]
+    }
+  ],
+  "records_added_this_shard": {
+    "auction_records": 0,
+    "lot_partial_records": 3
+  },
+  "completeness_claim": false,
+  "next_route": "Continue breadth-first across uncaptured Savills 2015/2014 auction dates and surviving catalogue/addendum/results mirrors; do not block on unresolved AID/Auc."
+}
