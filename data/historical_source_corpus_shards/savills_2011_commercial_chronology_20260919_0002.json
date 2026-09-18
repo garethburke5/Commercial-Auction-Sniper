@@ -1,0 +1,20 @@
+{
+  "auctioneer": "Savills",
+  "capture_scope": "breadth-first chronology recovery",
+  "captured_at": "2026-09-18T23:02:00Z",
+  "year": 2011,
+  "source": "Savills Commercial Auctions Market Review - September 2010 (forward auction calendar)",
+  "source_url": "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf",
+  "auction_records": [
+    {"auction_date":"2011-02-28","status":"first_party_calendar_evidenced","aid":null,"auc":null,"catalogue_url":null,"results_url":null,"lot_manifest_status":"unresolved"},
+    {"auction_date":"2011-05-10","status":"first_party_calendar_evidenced","aid":null,"auc":null,"catalogue_url":null,"results_url":null,"lot_manifest_status":"unresolved"},
+    {"auction_date":"2011-07-11","status":"first_party_calendar_evidenced","aid":null,"auc":null,"catalogue_url":null,"results_url":null,"lot_manifest_status":"unresolved"},
+    {"auction_date":"2011-10-17","status":"first_party_calendar_evidenced","aid":null,"auc":null,"catalogue_url":null,"results_url":null,"lot_manifest_status":"unresolved"},
+    {"auction_date":"2011-12-05","status":"first_party_calendar_evidenced","aid":null,"auc":null,"catalogue_url":null,"results_url":null,"lot_manifest_status":"unresolved"}
+  ],
+  "lot_records": [],
+  "capture_policy": "DISCOVER -> SAVE SOURCE RECORD/URL -> MOVE ON. Unknown AID/catalogue/results/lot fields do not block chronology capture; no facts inferred.",
+  "new_auction_records": 5,
+  "new_lot_records": 0,
+  "next_route": "Continue breadth-first through surviving 2012-2018 Savills Past Auctions/archive evidence and bank catalogue/results URLs and commercial/mixed-use partial lots whenever evidenced."
+}
