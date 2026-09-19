@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills (London - National)",
+  "year": 2014,
+  "strategy": "property_first_source_capture",
+  "canonical_history_v2": false,
+  "records": [
+    {
+      "source_record_id": "savills-auction|2014-10-28|eig-17999",
+      "record_type": "auction",
+      "auction_date": "2014-10-28",
+      "auction_id": "17999",
+      "auctioneer_id": "55",
+      "source_urls": [
+        "https://www.eigroup.co.uk/clients/auctions/fulldetails.aspx?auctionid=17999",
+        "https://stackoverflow.com/questions/26611827/parsing-a-string-in-pandas-where-there-isnt-a-delimiter",
+        "http://catalogue.auctions.savills.co.uk/London-National/Online-Catalogue/Default.aspx?st=2#&&s=2"
+      ],
+      "capture_status": "identified_manifest_not_fully_harvested"
+    },
+    {
+      "source_record_id": "savills-lot|2014-10-28|battersea-freehold-site",
+      "record_type": "lot",
+      "auction_date": "2014-10-28",
+      "auction_id": "17999",
+      "lot_number": null,
+      "locality": "Battersea, south London",
+      "address": null,
+      "property_type": "freehold site / passageway",
+      "commercial_mixed_status": "non_residential_land",
+      "guide_price_gbp": 55000,
+      "result_price_gbp": 260000,
+      "tenure": "Freehold",
+      "size": "0.016 acres",
+      "source_urls": [
+        "https://www.propertyauctions.com/dataclub/",
+        "https://www.propertyauctions.com/results/"
+      ],
+      "capture_status": "partial_property_banked"
+    },
+    {
+      "source_record_id": "savills-lot|2014-12-08|46|fenland-park-wisbech",
+      "record_type": "lot",
+      "auction_date": "2014-12-08",
+      "lot_number": "46",
+      "locality": "Wisbech",
+      "address": "Former Wisbech Town Football Club ground, Fenland Park",
+      "property_type": "development site / former football ground",
+      "commercial_mixed_status": "non_residential_development",
+      "guide_price_gbp": 2500000,
+      "result_price_gbp": null,
+      "tenure": null,
+      "size": "4 acres",
+      "planning": "Planning permission for 83 houses and apartments; consent to demolish existing football stands and buildings",
+      "source_urls": [
+        "https://www.propertyauctions.com/dataclub/",
+        "https://www.propertyauctions.com/results/"
+      ],
+      "capture_status": "partial_property_banked"
+    }
+  ],
+  "excluded_residential_evidence": [
+    {
+      "auction_date": "2014-10-28",
+      "auction_id": "17999",
+      "lot_number": "2",
+      "lot_id": "756425",
+      "address": "66D Charlwood Street, Pimlico, London, SW1V 4PQ",
+      "reason": "Residential-only studio flat; not banked into commercial corpus",
+      "catalogue_pdf_url": "https://www.eigroup.co.uk/files/55/17999/6ec339ec-d59e-4b8a-9136-dc6e9a583328.pdf"
+    }
+  ],
+  "harvest_notes": {
+    "important_recovery": "Recovered deterministic EIG auction identity 17999 and auctioneer identity 55 for the 28 October 2014 Savills London-National sale. Surviving indexed HTML also proves the historical manifest exposed lot IDs, lot numbers, addresses and per-lot catalogue PDF URLs. This is a bulk-manifest recovery route, not merely an auction-date clue.",
+    "auction_complete": false,
+    "next_route": "Use auctionid=17999 / auctioneerid=55 and indexed lot fingerprints to enumerate the remaining 28 October 2014 manifest, then repeat the same identity recovery for the other 2014 Savills London-National dates."
+  }
+}
