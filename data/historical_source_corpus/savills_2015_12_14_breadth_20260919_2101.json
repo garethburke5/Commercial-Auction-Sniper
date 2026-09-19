@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions (London & National)",
+  "auction_date": "2015-12-14",
+  "auction_status": "harvesting_not_complete",
+  "capture_scope": "breadth_first_source_corpus",
+  "auction": {
+    "offered": 138,
+    "sold": 117,
+    "success_percent": 85,
+    "raised_gbp": 35941000,
+    "venue": "The Berkeley, Knightsbridge, London, SW1X 7RL",
+    "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13"
+  },
+  "sources": [
+    {
+      "url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+      "source_type": "first_party_archive",
+      "evidence": "Savills archive identifies the 14 December 2015 London & National sale and reports 138 offered, 117 sold, 85% success and £35,941,000 raised."
+    }
+  ],
+  "attempted_routes": [
+    "Exact-date Savills auction/result/catalogue web-index search",
+    "Exact-date commercial/freehold/guide-price lot search",
+    "Independent indexed references to Savills 14 December 2015 sale"
+  ],
+  "blocker": "The first-party archive provides the auction denominator but the available indexed routes in this run did not expose a deterministic full catalogue/results representation or a commercial/mixed lot row that could be safely attributed to this auction. Residential and unrelated 14 December 2015 results were rejected. No lot facts are inferred.",
+  "reconciliation": {
+    "expected_lots": 138,
+    "enumerated_lots": 0,
+    "commercial_mixed_banked": 0,
+    "residential_excluded": 0,
+    "unresolved": 138,
+    "status": "harvesting_not_complete"
+  },
+  "next_route": "Park this catalogue after breadth-first source discovery and continue to the next uncaptured Savills auction/year. Revisit via recovered catalogue PDF, PropertyAuctions AID/Auc, EIG auction identity, archived catalogue/result endpoint, or indexed lot manifest when a deterministic bulk route appears."
+}
