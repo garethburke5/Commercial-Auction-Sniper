@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions (London & National)",
+  "auction_date": "2015-05-11",
+  "auction_status": "harvesting_not_complete",
+  "source_type": "surviving_catalogue_addendum_transcription",
+  "source_urls": [
+    "https://doczz.net/doc/6710914/addendum---savills"
+  ],
+  "evidence": {
+    "venue": "The Marriott Hotel, Grosvenor Square, London W1K 6JP",
+    "sale_scope": "Residential & Commercial",
+    "document_title": "ADDENDUM - SAVILLS AUCTION SALE 11th May 2015",
+    "forthcoming_dates_evidenced": ["2015-06-22", "2015-07-28", "2015-09-21"]
+  },
+  "reconciliation": {
+    "expected_lots": null,
+    "enumerated_lots_from_surviving_addendum": 15,
+    "banked_commercial_or_mixed_lots": 1,
+    "residential_only_exclusions": null,
+    "unresolved": null,
+    "note": "The surviving addendum is not the complete catalogue; auction remains harvesting_not_complete. Fifteen lot/address references are visible in the indexed transcription, but only the clearly non-residential land lot below is admitted in this pass."
+  },
+  "lots": [
+    {
+      "lot_number": "70",
+      "address": "Land at Manor Farm Road, Wembley, Middlesex HA0 1AB",
+      "property_type": "land",
+      "classification": "commercial_or_mixed_candidate_non_residential_land",
+      "guide_price": null,
+      "result": null,
+      "hammer_price": null,
+      "rent": null,
+      "tenure": null,
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "source_urls": ["https://doczz.net/doc/6710914/addendum---savills"],
+      "capture_status": "partial_property_banked_catalogue_harvest_continues",
+      "evidence_note": "Lot number and address are explicitly listed in the surviving Savills auction addendum; no unsupported particulars inferred."
+    }
+  ],
+  "other_evidenced_lot_references_not_admitted_without_safe_commercial_classification": [
+    "17 - 37 Westminster Palace Gardens, Artillery Row, Victoria, London SW1P 1RR",
+    "26 - 13 Eskdale Gardens, Purley, Surrey CR8 1ET",
+    "32 - 65 Icknield Drive, Gants Hill, Ilford, Essex IG2 6SE",
+    "40 - 58 The Crescent, Walthamstow, London E17 8AB",
+    "47 - 121 Stephendale Road, Fulham, London SW6 2PS",
+    "50 - Flat 2, 38 Cleveland Square, Bayswater, London W2 6DA",
+    "64 - Flat 7, 18 Brockley Park, Forest Hill, London SE23 1PS",
+    "69A - 42 Old Church Lane, Kingsbury, London NW9 8TA",
+    "74 - 16 Northwick Park Road, Harrow, Middlesex HA1 2NU",
+    "110 - 12A Greyhound Road, Hammersmith, London W6 8NX",
+    "125 - 27 Burford Road, Catford, London SE6 4DF",
+    "127 - Flat 2, 53 Wellmeadow Road, Lewisham, London SE13 6TA",
+    "149 - 16 Church Road, Lawrence Hill, Bristol, Somerset BS5 9JA",
+    "153 - Cemex House, Whitehall Road, Colchester, Essex CO2 8HD"
+  ]
+}
