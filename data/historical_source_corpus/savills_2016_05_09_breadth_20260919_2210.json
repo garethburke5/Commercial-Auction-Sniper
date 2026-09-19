@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions (London & National)",
+  "auction_date": "2016-05-09",
+  "auction_status": "harvesting_not_complete",
+  "capture_scope": "breadth_first_source_corpus",
+  "auction": {
+    "venue": "The Berkeley, Knightsbridge, London, SW1X 7RL",
+    "offered": 230,
+    "sold": 174,
+    "success_percent": 76,
+    "raised_gbp": 50113000,
+    "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13"
+  },
+  "validated_lot_clues": [
+    {
+      "address": "Former garage/storage site off Fulham Palace Road, Hammersmith, London",
+      "lot_number": null,
+      "classification": "development_land_garage",
+      "guide_gbp": 250000,
+      "result_gbp": 466000,
+      "tenure": "freehold",
+      "site_dimensions": "approximately 18 ft x 35 ft; contemporary reporting also gives approximately 570 sq ft site area",
+      "planning": "Planning permission for a small two-bedroom house; contemporary reporting describes approximately 800 sq ft proposed development.",
+      "source_urls": [
+        "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+        "https://www.theguardian.com/money/2016/may/09/freehold-garage-south-west-london-fetches-auction-hammersmith-fulham",
+        "https://www.standard.co.uk/news/london/tiny-garage-just-18ft-wide-sells-at-auction-for-ps466-000-a3244211.html"
+      ],
+      "evidence": "Contemporaneous Guardian reporting dated 9 May 2016 states Savills sold the vacant freehold former garage/storage site that Monday for £466,000 against a £250,000 guide. The Evening Standard independently reports the same Savills sale, dimensions, planning and result. Exact Savills lot number and PropertyAuctions AID/Auc or EIG manifest identifier were not exposed by the indexed route, so they are deliberately left unresolved."
+    }
+  ],
+  "reconciliation": {
+    "expected_lots": 230,
+    "enumerated_lots": 1,
+    "commercial_mixed_banked": 1,
+    "unresolved": 229,
+    "canonicalised_this_run": 0,
+    "status": "harvesting_not_complete"
+  },
+  "blocker": "The surviving Savills chronological archive fixes the auction denominator, and contemporaneous reporting independently validates one non-residential/development lot, but exact-date searches did not expose a deterministic PropertyAuctions AID/Auc or EIG full-manifest identifier. PropertyAuctions search hits for 9 May 2016 encountered other auctioneers/property histories and were rejected rather than attributed to Savills.",
+  "attempted_route": "Exact-date Savills archive reconciliation plus contemporaneous result-report fingerprinting, followed by PropertyAuctions/index searches for deterministic lot-manifest identifiers.",
+  "next_route": "Move breadth-first to the 20 June 2016 Savills sale. Separately retain the £466,000 Hammersmith garage result, £250,000 guide and Fulham Palace Road fingerprint for later AID/Auc/EIG inversion. Do not stall on the missing lot number or infer identifiers."
+}
