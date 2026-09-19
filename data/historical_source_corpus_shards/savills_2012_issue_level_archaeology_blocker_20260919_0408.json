@@ -1,0 +1,28 @@
+{
+  "auctioneer": "Savills",
+  "recovery_scope": "2012 issue-level archaeology",
+  "run_date": "2026-09-19",
+  "status": "source_specific_blocker",
+  "production_main_inspected_first": true,
+  "main_sha_at_start": "aa160f7c7c760d5c42dabc213897d9a9f0f773a8",
+  "workflow_inspection": {
+    "latest_identified_savills_bulk_run_id": 22145997759,
+    "jobs_endpoint_result": "404 Not Found via connected GitHub Actions API on this pass",
+    "interpretation": "workflow run metadata was inspected but no fresh lot evidence could be validated from logs; no prior-run recovery claim was accepted as evidence"
+  },
+  "routes_attempted": [
+    "exact 2012 Savills commercial auction searches for February, May, July, October and December",
+    "2012 Savills Commercial Auctions Market Review PDF/index search",
+    "Property Week / trade-press exact-year Savills commercial auction search",
+    "indexed legacy PropertyAuctions AID/Auc/LotList fingerprint search"
+  ],
+  "result": {
+    "new_canonical_lots": 0,
+    "new_validated_auction_manifests": 0,
+    "unresolved": "complete 2012 Savills auction-date denominator and lot manifests",
+    "qualifying_commercial_mixed_clues": 0
+  },
+  "blocker": "The bounded issue-level/index searches did not expose a deterministic UK Savills 2012 commercial-auction chronology, catalogue denominator, or PropertyAuctions AID/Auc lot manifest. Search hits were unrelated/current or merely contained 2012 lease dates. Promoting them would contaminate the historical corpus.",
+  "distinct_next_route": "Recover issue-level 2012 Estates Gazette/Property Week auction-calendar and auction-results pages or PDFs by publication date, extract only explicit Savills sale dates plus named lots, then invert each exact date + named lot fingerprint against EIG catalogue namespaces and legacy PropertyAuctions LotList/Auc indexes. Do not repeat the zero-discovery generic auctioneer-frontier crawler.",
+  "completeness_claim": false
+}
