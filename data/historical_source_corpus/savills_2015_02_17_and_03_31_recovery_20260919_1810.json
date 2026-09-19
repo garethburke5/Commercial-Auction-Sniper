@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions (London & National)",
+  "recovery_scope": "breadth_first_2015_early_year",
+  "captured_at": "2026-09-19T17:10:00Z",
+  "events": [
+    {
+      "auction_date": "2015-02-17",
+      "auction_status": "harvesting_not_complete",
+      "source_evidence": [
+        {
+          "url": "https://www.propertyauctions.com/",
+          "evidence": "PropertyAuctions surviving index states this was Savills London-National's first auction of 2015, held 17 February, selling over GBP52.4m with an 86% success rate."
+        },
+        {
+          "url": "https://www.itv.com/news/granada/update/2015-02-17/historic-blackpool-hotel-goes-under-the-hammer/",
+          "evidence": "Contemporaneous ITV report identifies Lot 162, The Empress Hotel, Blackpool, in the Savills London and National auction on 17 February 2015; guide GBP170,000; former hotel/public house over 15,000 sq ft with planning for nine flats and a retail unit."
+        }
+      ],
+      "reconciliation": {
+        "expected_lots": null,
+        "banked_lot_level_clues": 1,
+        "banked_commercial_or_mixed_clues": 1,
+        "canonicalised_this_pass": 0,
+        "unresolved": "Full catalogue/AID/Auc manifest and exact offered denominator not recovered. 86% success rate is not reverse-engineered into a lot count."
+      },
+      "lots": [
+        {
+          "lot_number": "162",
+          "address": "The Empress Hotel, Blackpool",
+          "property_type": "former hotel and public house",
+          "classification": "commercial_or_mixed_candidate",
+          "guide_price_gbp": 170000,
+          "size": "over 15,000 sq ft",
+          "planning": "planning permission for conversion to nine self-contained flats and a retail unit",
+          "capture_status": "validated_source_clue_not_yet_canonical",
+          "source_url": "https://www.itv.com/news/granada/update/2015-02-17/historic-blackpool-hotel-goes-under-the-hammer/"
+        }
+      ]
+    },
+    {
+      "auction_date": "2015-03-31",
+      "auction_status": "container_validated_manifest_unresolved",
+      "source_evidence": [
+        {
+          "url": "https://s3-us-west-2.amazonaws.com/magazines2015b/YPN81-online.pdf",
+          "evidence": "Contemporaneous March 2015 auction calendar lists Savills (London - National), 31/03/2015, Millennium Hotel Mayfair, Grosvenor Square, London W1K 2HP."
+        }
+      ],
+      "reconciliation": {
+        "expected_lots": null,
+        "banked_lot_level_clues": 0,
+        "banked_commercial_or_mixed_clues": 0,
+        "canonicalised_this_pass": 0,
+        "unresolved": "No deterministic PropertyAuctions AID/Auc manifest or surviving complete catalogue recovered in this route."
+      }
+    }
+  ],
+  "blocker": "The generic PropertyAuctions auctioneer-page crawler remains non-productive and indexed sources expose auction/date and isolated lot evidence rather than deterministic full manifests.",
+  "distinct_next_route": "Use the now-validated 31 March 2015 date/venue fingerprint to search EIG auction IDs and PropertyAuctions AID/Auc manifests, then continue breadth-first to the next 2015 auction; bank any deterministic manifest wholesale before classification."
+}
