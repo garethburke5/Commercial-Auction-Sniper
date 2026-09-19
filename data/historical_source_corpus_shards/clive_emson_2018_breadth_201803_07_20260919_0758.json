@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-19T06:58:39Z",
+  "capture_mode": "breadth_first_source_corpus",
+  "auctioneer": "Clive Emson Auctioneers",
+  "completeness_claim": false,
+  "auctions": [
+    {
+      "auction_date": "2018-03-20",
+      "region": null,
+      "auction_id": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "document_urls": ["https://services.swale.gov.uk/meetings/documents/s8851/ITEM%209%20Landholdings%20Review%20-%20Sale%20of%20Various%20Sites%20Final.pdf"],
+      "evidence_note": "Swale Borough Council report dated 7 February 2018 states the next available Clive Emson auctions were 20 March 2018 and 1 May 2018. Region not inferred."
+    },
+    {
+      "auction_date": "2018-05-01",
+      "region": null,
+      "auction_id": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "document_urls": ["https://services.swale.gov.uk/meetings/documents/s8851/ITEM%209%20Landholdings%20Review%20-%20Sale%20of%20Various%20Sites%20Final.pdf"],
+      "evidence_note": "Swale Borough Council report dated 7 February 2018 states the next available Clive Emson auctions were 20 March 2018 and 1 May 2018. Region not inferred."
+    },
+    {
+      "auction_date": "2018-06-15",
+      "region": "West Country",
+      "auction_id": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "document_urls": ["https://klp.land/property/topsham-station-house-344/"],
+      "venue": "St Mellion International Resort, Saltash, PL12 6SD",
+      "evidence_note": "KLP property page states Station House, Topsham was offered with Clive Emson on 15 June 2018 at St Mellion International Resort."
+    },
+    {
+      "auction_date": "2018-07-26",
+      "region": "West Country",
+      "auction_id": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "document_urls": ["https://media.onthemarket.com/properties/5174512/616238523/document-0.pdf"],
+      "evidence_note": "Waycotts particulars identify The Kings Arms, Plymouth as for sale by auction on 26 July 2018 in conjunction with Clive Emson."
+    }
+  ],
+  "lots": [
+    {
+      "auction_date": "2018-06-15",
+      "lot_number": null,
+      "address": "Station House, Topsham",
+      "locality": "Topsham",
+      "property_type": "former station house / development property",
+      "guide_price_gbp": 350000,
+      "result_gbp": null,
+      "result_status": "Sold",
+      "rent_pa_gbp": null,
+      "tenure": "Freehold",
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "lot_url": "https://klp.land/property/topsham-station-house-344/",
+      "results_url": null,
+      "document_urls": [],
+      "commercial_classification": "non-residential / development",
+      "evidence_note": "KLP identifies the freehold property, £350,000 price, Sold status and Clive Emson auction date. No unsupported use details inferred."
+    },
+    {
+      "auction_date": "2018-07-26",
+      "lot_number": null,
+      "address": "The Kings Arms, 60 Pembroke Street, Devonport, Plymouth, PL1 4JS",
+      "locality": "Plymouth",
+      "property_type": "mixed residential and commercial investment",
+      "guide_price_gbp": 225000,
+      "guide_price_high_gbp": 275000,
+      "result_gbp": null,
+      "result_status": null,
+      "rent_pa_gbp": null,
+      "tenure": null,
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "lot_url": null,
+      "results_url": null,
+      "document_urls": ["https://media.onthemarket.com/properties/5174512/616238523/document-0.pdf"],
+      "commercial_classification": "mixed-use",
+      "evidence_note": "Waycotts particulars explicitly describe mixed residential and commercial investment, auction 26 July 2018 with Clive Emson, guide £225,000-£275,000 plus fees."
+    }
+  ],
+  "source_notes": [
+    "Capture is intentionally partial and breadth-first; null fields do not block persistence.",
+    "No residential-only lots included.",
+    "March and May region labels were not inferred from the council source."
+  ]
+}
