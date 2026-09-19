@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "year": 2014,
+  "strategy": "breadth_first_surviving_source_reconciliation",
+  "captured_at": "2026-09-19T13:07:23Z",
+  "canonical_history_v2": false,
+  "records": [
+    {
+      "record_type": "auction_clue",
+      "auction_date": "2014-10-28",
+      "auction_name": "Savills London & National",
+      "lot_number": "49",
+      "property_clue": "Hazelbourne Road SW12 development opportunity",
+      "evidence": "Contemporary property blog states the property would go under the hammer with Savills Auction House on Tuesday 28 October and identifies Lot 49; it preserves the historic Savills catalogue URL.",
+      "source_url": "https://www.claphampropertyblog.com/2014/",
+      "historic_catalogue_url": "http://catalogue.auctions.savills.co.uk/London-National/Online-Catalogue/Default.aspx?st=2#&&s=2",
+      "capture_status": "auction_and_lot_number_validated_manifest_unresolved"
+    },
+    {
+      "record_type": "auction_clue",
+      "auction_date": "2014-12-08",
+      "auction_name": "Savills London & National",
+      "lot_number": "46",
+      "property_clue": "Former Wisbech Town Football Club ground, Fenland Park",
+      "guide_price_gbp": 2500000,
+      "property_type": "development site / former football ground",
+      "evidence": "PropertyAuctions states the former Wisbech Town Football Club ground would be offered at Savills London and National Auction on 8 December 2014 as Lot 46, guide £2.5m, with planning permission for 83 houses and apartments.",
+      "source_url": "https://www.propertyauctions.com/dataclub/",
+      "capture_status": "auction_and_lot_number_validated_manifest_unresolved"
+    }
+  ],
+  "current_reconciliation": {
+    "current_year": 2014,
+    "validated_auction_dates_this_pass": ["2014-10-28", "2014-12-08"],
+    "qualifying_commercial_or_mixed_clues_this_pass": 2,
+    "newly_canonicalised": 0,
+    "unresolved_validated_lot_clues": 2,
+    "blocker": "The current PropertyAuctions auctioneer bulk route returns no listings, and indexed evidence exposes individual 2014 Savills auction/lot fingerprints but not a deterministic complete AID/Auc LotList manifest for these dates.",
+    "attempted": [
+      "Inspected production main before recovery",
+      "Inspected latest Savills bulk historical corpus workflow and full harvest job log",
+      "Searched exact 2014 Savills London & National date/lot fingerprints",
+      "Cross-checked surviving PropertyAuctions Dataclub/results index",
+      "Recovered historic Savills catalogue URL fingerprint from contemporary 28 October 2014 source"
+    ],
+    "next_distinct_route": "Use the preserved catalogue.auctions.savills.co.uk London-National URL shape and exact lot/date fingerprints to search archived/cached catalogue pages and identify additional 2014 auction containers and lots; separately invert PropertyAuctions AID/Auc identities from exact date+lot fingerprints. Bank complete manifests wholesale when deterministic; otherwise continue breadth-first into other 2014 dates rather than stalling on one manifest."
+  }
+}
