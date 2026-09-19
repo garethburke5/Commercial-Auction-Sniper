@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions (London & National)",
+  "auction_date": "2015-06-22",
+  "auction_status": "harvesting_not_complete",
+  "capture_scope": "breadth_first_commercial_lot_recovery",
+  "source_evidence": [
+    {
+      "url": "https://www.london-se1.co.uk/news/view/8309",
+      "evidence": "Contemporaneous 8 June 2015 report states the Thomas a Becket pub freehold was offered by Savills at the Millennium Hotel, Grosvenor Square on Monday 22 June 2015 with guide GBP1.9m; source quotes the auction catalogue and redevelopment/reconfiguration potential."
+    },
+    {
+      "url": "https://www.london-se1.co.uk/date/2015-06-22",
+      "evidence": "Contemporaneous day archive records the Thomas a Becket lot as withdrawn from the auction and separately records a council-owned shop and flat in Southwark Bridge Road selling at the Savills auction for GBP1.1m against GBP500k guide."
+    },
+    {
+      "url": "https://doczz.net/doc/6710914/addendum---savills",
+      "evidence": "Surviving Savills London & National Residential & Commercial addendum identifies 22 June 2015 as the forthcoming auction date."
+    }
+  ],
+  "reconciliation": {
+    "expected_lots": 188,
+    "expected_lots_basis": "Previously banked first-party Savills archive manifest for 22 June 2015; retained as auction-level reconciliation target.",
+    "lot_level_records_added_this_shard": 2,
+    "commercial_or_mixed_records_added_this_shard": 2,
+    "residential_excluded_this_shard": 0,
+    "unresolved": 186,
+    "status": "harvesting_not_complete"
+  },
+  "lots": [
+    {
+      "lot_number": null,
+      "address": "Thomas a Becket pub, Old Kent Road, London",
+      "property_type": "public house / redevelopment opportunity",
+      "classification": "commercial",
+      "guide_price_gbp": 1900000,
+      "result": "withdrawn from auction",
+      "tenure": "freehold of entire building offered",
+      "planning_or_potential": "auction catalogue stated potential to redevelop or reconfigure subject to requisite consents",
+      "capture_status": "partial_property_banked",
+      "source_urls": [
+        "https://www.london-se1.co.uk/news/view/8309",
+        "https://www.london-se1.co.uk/date/2015-06-22"
+      ]
+    },
+    {
+      "lot_number": null,
+      "address": "Southwark Bridge Road, London SE1 (exact street number unresolved)",
+      "property_type": "shop and flat",
+      "classification": "mixed_use",
+      "guide_price_gbp": 500000,
+      "result_price_gbp": 1100000,
+      "vendor": "council-owned (specific council not inferred in record)",
+      "capture_status": "partial_property_banked_address_number_unresolved",
+      "source_urls": [
+        "https://www.london-se1.co.uk/date/2015-06-22"
+      ]
+    }
+  ]
+}
