@@ -1,0 +1,27 @@
+{
+  "auctioneer": "Savills",
+  "recovery_scope": "2012 breadth-first historical auction recovery",
+  "recovered_at": "2026-09-19T02:08:15+01:00",
+  "completeness_claim": false,
+  "canonicalised_this_pass": 0,
+  "current_year": 2012,
+  "workflow_state_checked": {
+    "latest_savills_bulk_run_id": 35393764887,
+    "job_id": 105757807065,
+    "actual_log_result": "CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1; No corpus change",
+    "stalled_route_not_repeated": "propertyauctions.io/auctioneers/savills frontier crawler"
+  },
+  "distinct_route_attempted": [
+    "fresh indexed exact-year search for Savills UK commercial auction 2012",
+    "fresh indexed searches combining Savills commercial auction with February 2012, December 2012 and candidate exact-date language",
+    "search for surviving Savills Commercial Auctions Market Review 2012 material",
+    "search for indexed PropertyAuctions AID/Auc or LotList manifestations tied to 2012"
+  ],
+  "validated_result": "No deterministic Savills 2012 auction-date denominator or PropertyAuctions AID/Auc lot manifest was exposed by this route. Search results were dominated by unrelated contemporary/current material and non-UK Savills references; none is safe to promote to a Savills UK 2012 auction event.",
+  "blocker": {
+    "type": "source_specific_manifest_gap",
+    "detail": "2012 remains the principal chronology gap between first-party-dated 2011 commercial auctions and surviving 2013+ coverage. No complete Savills chronological archive page, catalogue denominator, EIG auction ID, or PropertyAuctions AID/Auc manifest for 2012 was deterministically recovered in this pass."
+  },
+  "next_distinct_route": "Use archived property-trade magazine issues from 2012 as a bounded date-discovery corpus, extracting only explicit Savills auction dates/lot names; then pivot each exact fingerprint into EIG catalogue namespaces and legacy PropertyAuctions LotList/Auc indexes. Do not retry the zero-discovery auctioneer frontier crawler.",
+  "safety": "No lot, date, denominator, AID/Auc, or completeness status has been inferred or fabricated."
+}
