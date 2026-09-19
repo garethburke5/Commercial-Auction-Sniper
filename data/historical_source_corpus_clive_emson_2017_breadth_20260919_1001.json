@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "capture_mode": "breadth_first_source_corpus",
+  "records": [
+    {
+      "source_record_id": "clive-emson-auction|2017-09-12|maidstone",
+      "auctioneer": "Clive Emson Auctioneers",
+      "record_type": "auction",
+      "auction_date": "2017-09-12",
+      "venue": "Clive Emson Conference Centre, Detling, Maidstone",
+      "auction_id": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "archive_url": null,
+      "source_urls": ["https://theisleofthanetnews.com/2017/08/21/12-thanet-properties-due-to-go-under-the-hammer/"],
+      "capture_status": "auction_container_captured_manifest_pending",
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "clive-emson-auction|2017-10-30|maidstone",
+      "auctioneer": "Clive Emson Auctioneers",
+      "record_type": "auction",
+      "auction_date": "2017-10-30",
+      "venue": "Clive Emson Conference Centre, Detling, Maidstone",
+      "auction_id": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "archive_url": null,
+      "source_urls": ["https://theisleofthanetnews.com/2017/09/13/8-thanet-properties-have-gone-under-the-hammer/"],
+      "capture_status": "auction_container_captured_manifest_pending",
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "clive-emson-lot|2017|five-wells-grays|online",
+      "auctioneer": "Clive Emson Auctioneers",
+      "record_type": "lot_partial",
+      "auction_date": null,
+      "auction_method": "online",
+      "lot_number": null,
+      "address": "Five Wells, Grays",
+      "locality": "Grays",
+      "property_type": "office building",
+      "guide_price_gbp": 975000,
+      "result_gbp": 1225000,
+      "hammer_price_gbp": 1225000,
+      "tenure": "freehold",
+      "tenant": "National Probation Service",
+      "lease_details": "Occupied by the National Probation Service for up to 12 months at time of source report",
+      "size": null,
+      "lot_url": null,
+      "results_url": null,
+      "source_urls": ["https://www.yourthurrock.com/2017/04/04/grays-office-sold-million-line-auction/"],
+      "capture_status": "partial_commercial_lot_captured_date_unresolved",
+      "canonical_history_v2": false
+    }
+  ]
+}
