@@ -1,0 +1,32 @@
+{
+  "auctioneer": "Savills Commercial",
+  "recovery_scope": "2011 breadth-first chronology reconciliation",
+  "recovered_at": "2026-09-19T01:07:46+01:00",
+  "source": {
+    "type": "first_party_savills_research_pdf",
+    "title": "Commercial Auctions Market Review - September 2010",
+    "url": "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf"
+  },
+  "validated_auction_dates": [
+    "2011-02-28",
+    "2011-05-10",
+    "2011-07-11",
+    "2011-10-17",
+    "2011-12-05"
+  ],
+  "auction_count_validated": 5,
+  "classification": "Savills Commercial auction dates",
+  "lot_manifest_status": "unresolved",
+  "propertyauctions_aid_auc_status": "unresolved",
+  "canonical_lots_added": 0,
+  "qualifying_commercial_mixed_clues_added": 0,
+  "blocker": "The surviving first-party Savills chronology supplies exact 2011 commercial auction dates and catalogue-close dates, but this recovery pass did not expose a deterministic PropertyAuctions AID/Auc LotList manifest or complete lot denominator for any of the five auctions. Generic exact-date indexed searches produced unrelated Savills material and are not sufficient for canonical lot creation.",
+  "attempted_routes": [
+    "fresh inspection of current production main",
+    "fresh inspection of latest Savills bulk-harvest workflow/job state",
+    "first-party Savills commercial-auction chronology reconciliation",
+    "exact-date indexed searches for each of the five 2011 auction dates"
+  ],
+  "distinct_next_route": "Use each exact 2011 date plus its catalogue-close date as a bounded fingerprint against EIG historical auction namespaces/catalogue PDFs and archived Savills commercial-auction catalogue filenames; where an EIG auction id or legacy PropertyAuctions AID/Auc appears, enumerate the complete lot-number denominator and bank all property types before classification.",
+  "completeness_claim": false
+}
