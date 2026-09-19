@@ -161,6 +161,19 @@ _source = _source.replace(
     1,
 )
 
+# Accessibility/usability: make the browser scrollbar easy to grab on desktop.
+_source = _source.replace(
+    "</style>\\n\\\"\\\"\\\",unsafe_allow_html=True)",
+    '''\n/* Wider board scrollbar — intentionally generous for long auction scans */
+html{scrollbar-width:auto!important;scrollbar-color:#6f7f91 #111820!important}
+::-webkit-scrollbar{width:18px!important;height:18px!important}
+::-webkit-scrollbar-track{background:#111820!important}
+::-webkit-scrollbar-thumb{background:#6f7f91!important;border:3px solid #111820!important;border-radius:10px!important}
+::-webkit-scrollbar-thumb:hover{background:#93a3b5!important}
+</style>\n\"\"\",unsafe_allow_html=True)''',
+    1,
+)
+
 exec(
     compile(_source, str(_legacy_path), "exec"),
     globals(),
