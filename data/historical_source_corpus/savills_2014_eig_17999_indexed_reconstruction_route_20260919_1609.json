@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills (London - National)",
+  "auction_date": "2014-10-28",
+  "eig_auction_id": "17999",
+  "eig_auctioneer_id": "55",
+  "capture_status": "indexed_manifest_reconstruction_route_validated_full_enumeration_pending",
+  "fresh_main_inspection": {
+    "head_before_write": "d06876c1d594417e8dea4e15aa1e3c3cddc26f0d",
+    "head_message": "Persist Savills EIG 17999 232-lot manifest breakthrough"
+  },
+  "validated_indexed_evidence": {
+    "expected_manifest_rows_from_surviving_contemporaneous_evidence": 232,
+    "known_eig_lot_id": "756425",
+    "known_lot_number": "2",
+    "known_address": "66D Charlwood Street, Pimlico, London, SW1V 4PQ",
+    "known_description": "Leasehold 2nd Floor Studio Flat Unmodernised Vacant",
+    "known_guide_price": "£450,000 Plus",
+    "known_catalogue_pdf": "https://www.eigroup.co.uk/files/55/17999/6ec339ec-d59e-4b8a-9136-dc6e9a583328.pdf",
+    "source": "Contemporaneous Stack Overflow HTML capture of EIG fulldetails.aspx?auctionid=17999"
+  },
+  "attempted_this_pass": [
+    "Freshly inspected production main before recovery work",
+    "Inspected latest Savills bulk historical workflow/job rather than trusting prior-run claims",
+    "Searched indexed web corpus for auctionid=17999, eigroup /files/55/17999 fingerprints, lot IDs and adjacent lot-number evidence",
+    "Confirmed the surviving contemporaneous HTML still deterministically binds auction 17999, auctioneer 55, lotid 756425, lot 2 and the catalogue PDF path"
+  ],
+  "blocker": "Search indexing currently exposes the same deterministic Lot 2 HTML capture but does not expose a complete enumerable set of the other 231 table-search-result rows. Direct EIG full-auction retrieval is not available through the current web recovery route. Therefore 231 rows must not be fabricated or inferred.",
+  "canonicalised_this_pass": 0,
+  "manifest_rows_expected": 232,
+  "manifest_rows_individually_validated": 1,
+  "manifest_rows_unresolved": 231,
+  "canonical_history_v2": false,
+  "completeness": "not_complete",
+  "next_distinct_route": "Use the deterministic /files/55/17999/ path and lotid=756425 anchor for cache/archive enumeration of sibling PDF/image/lotid fingerprints; bank each independently evidenced row raw-first. In parallel move breadth-first to the next 2014 Savills auction identity rather than allowing EIG 17999 to stall year coverage."
+}
