@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-19T11:07:35Z",
+  "auctioneer": "Savills",
+  "series": "London & National",
+  "capture_mode": "breadth_first_chronological_archive",
+  "completeness_claim": false,
+  "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+  "auctions": [
+    {"auction_date":"2016-02-16","offered":233,"sold":198,"success_percent":85,"raised_gbp":68206000,"venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","catalogue_url":null,"results_url":null,"aid_auc":null},
+    {"auction_date":"2016-03-02","offered":154,"sold":128,"success_percent":83,"raised_gbp":38559000,"venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","catalogue_url":null,"results_url":null,"aid_auc":null},
+    {"auction_date":"2016-05-09","offered":230,"sold":174,"success_percent":76,"raised_gbp":50113000,"venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","catalogue_url":null,"results_url":null,"aid_auc":null},
+    {"auction_date":"2016-06-20","offered":148,"sold":124,"success_percent":84,"raised_gbp":33037000,"venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","catalogue_url":null,"results_url":null,"aid_auc":null},
+    {"auction_date":"2016-07-25","offered":134,"sold":104,"success_percent":78,"raised_gbp":29965000,"venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","catalogue_url":null,"results_url":null,"aid_auc":null}
+  ],
+  "offered_total": 899,
+  "sold_total": 728,
+  "lots": [],
+  "blocker": "The surviving archive page exposes auction-level chronology and denominators but no deterministic catalogue/results or PropertyAuctions AID/Auc identity for these five London & National containers. The latest GitHub bulk PropertyAuctions.io crawler also discovered zero listing URLs and one blocker, so it was not reused as evidence.",
+  "next_route": "Advance breadth-first to the next surviving Savills archive page/year while separately fingerprinting these exact dates and offered/sold denominators against indexed PropertyAuctions LotList AID/Auc manifests; bank any deterministic whole manifest immediately before classification.",
+  "notes": "Auction containers saved immediately; no lot facts invented. 2016 PropertyAuctions AID 993 / 4-Feb Nottingham is a separate already-known manifest and is not conflated with these London & National dates."
+}
