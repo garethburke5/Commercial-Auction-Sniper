@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-19T07:09:45Z",
+  "auctioneer": "Savills London & National",
+  "auction_date": "2018-02-13",
+  "capture_mode": "breadth_first_manifest_reconciliation",
+  "completeness_claim": false,
+  "known_denominator": {
+    "offered": 234,
+    "sold": 167,
+    "source": "surviving Savills chronology / previously persisted auction proof"
+  },
+  "canonical_events_added": 0,
+  "manifest_rows_added": 0,
+  "unresolved_manifest_rows": 234,
+  "attempted_this_pass": [
+    "Fresh production-main inspection",
+    "Latest Savills bulk historical corpus harvest job/log inspection",
+    "Exact-date indexed search for Savills 13 February 2018 plus PropertyAuctions AID",
+    "Exact-date indexed search for Savills London & National 13 February 2018",
+    "Indexed search for Savills London & National 2018 AID= fingerprints",
+    "Production GitHub code search for 2018-02-13 Savills and 13 February 2018"
+  ],
+  "blocker": "No deterministic PropertyAuctions AID/Auc/LotList identity surfaced for the 13 February 2018 London & National auction. The latest bulk propertyauctions.io auctioneer crawler also remains non-productive: CORPUS_RECORDS=0, DISCOVERED=0, PAGES=1, BLOCKERS=1. No lot rows are admitted without a source-identifiable manifest.",
+  "distinct_next_route": "Use bounded neighbouring-AID enumeration around the proven 2018 Nottingham AID 1080 and other dated PropertyAuctions manifests, matching candidate page auctioneer/date/header counts against 13 February 2018 and the 234-offered/167-sold fingerprint. If identified, bank every observable row before classification/canonicalisation.",
+  "admission_rule": "all property types admitted once source-identifiable; missing fields remain null"
+}
