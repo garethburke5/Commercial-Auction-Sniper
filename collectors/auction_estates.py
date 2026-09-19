@@ -193,37 +193,34 @@ def _tenancy_schedule(text):
 
 
 def _image(s,base):
-    """Choose the best property photograph, not merely the first gallery asset."""
-    hard_bad=("logo","icon","avatar","staff","map","floorplan","floor-plan","epc","placeholder","sprite","social","siteplan","site-plan")
-    soft_bad=("plan","kitchen","bathroom","bedroom","interior","inside")
-    good=("front","exterior","shopfront","shop-front","facade","façade","building","property","hero","main")
-    ranked=[]
+    """Mirror Auction Estates: use the first valid image in their own gallery."""
+    bad=("logo","icon","avatar","staff","map","floorplan","floor-plan","epc","placeholder","sprite","social","siteplan","site-plan")
     h1=s.find("h1")
     nodes=list(h1.find_all_next("img")) if h1 else list(s.find_all("img"))
-    for idx,img in enumerate(nodes):
+    for img in nodes:
         context=" ".join(str(img.get(a) or "") for a in ("alt","title","class","id")).lower()
         urls=[]
+        # Prefer the source image represented by the first gallery item. For srcset,
+        # use its largest rendition but do not change gallery order.
         for attr in ("data-src","data-lazy-src","data-original","data-image","data-url","src"):
             if img.get(attr):urls.append(img.get(attr))
         for attr in ("srcset","data-srcset"):
             if img.get(attr):
-                urls.extend(p.strip().split(" ")[0] for p in img.get(attr).split(",") if p.strip())
+                parts=[p.strip().split(" ")[0] for p in img.get(attr).split(",") if p.strip()]
+                urls.extend(reversed(parts))
         for raw in urls:
             u=urljoin(base,raw); combined=(u+" "+context).lower()
-            if any(x in combined for x in hard_bad):continue
-            if not u.lower().split("?",1)[0].endswith((".jpg",".jpeg",".png",".webp")):continue
-            score=max(0,30-idx)
-            score += 25*sum(x in combined for x in good)
-            score -= 12*sum(x in combined for x in soft_bad)
-            ranked.append((score,-idx,u))
-    if ranked:return max(ranked)[2]
+            if any(x in combined for x in bad):continue
+            if u.lower().split("?",1)[0].endswith((".jpg",".jpeg",".png",".webp")):
+                return u
+    # Only fall back when the page does not expose a usable first gallery photograph.
     for attrs in ({"property":"og:image"},{"name":"twitter:image"}):
         tag=s.find("meta",attrs=attrs)
         if tag and tag.get("content"):
             u=urljoin(base,tag.get("content")); low=u.lower()
-            if not any(x in low for x in hard_bad):return u
+            if not any(x in low for x in bad):return u
     generic=image_from_soup(s,base)
-    return generic if generic and not any(x in generic.lower() for x in hard_bad) else None
+    return generic if generic and not any(x in generic.lower() for x in bad) else None
 
 def _area(text):
     sqft=sqm=acres=None; vals=[]
