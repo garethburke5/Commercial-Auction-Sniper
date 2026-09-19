@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills (London - National)",
+  "auctioneer_id": 55,
+  "auction_id": 17999,
+  "auction_date": "2014-10-28",
+  "strategy": "indexed_sibling_lot_and_file_fingerprint_enumeration",
+  "attempted": [
+    "fresh web-index query for site:eigroup.co.uk lotid siblings around verified lotid 756425",
+    "fresh web-index query for auctionid=17999 plus Savills London-National/date fingerprints",
+    "fresh web-index query for /files/55/17999 catalogue/image siblings"
+  ],
+  "result": {
+    "new_individually_validated_lots": 0,
+    "previously_validated_lots": 1,
+    "expected_manifest_rows": 232,
+    "unresolved_manifest_rows": 231,
+    "new_canonical_events": 0
+  },
+  "verified_anchor": {
+    "eig_lot_id": 756425,
+    "lot_number": "2",
+    "address": "66D Charlwood Street, Pimlico, London, SW1V 4PQ",
+    "classification": "residential_only"
+  },
+  "blocker": "Current searchable index surfaces the same contemporaneous Stack Overflow HTML specimen for lotid 756425 but does not enumerate sibling EIG lot IDs or /files/55/17999 objects. Direct EIG full-manifest retrieval remains unavailable via the current recovery route. No sibling rows can be admitted safely from this route.",
+  "safe_action": "Do not infer sequential lot IDs, GUID file names, addresses, classifications, or the remaining 231 rows.",
+  "distinct_next_route": "Advance breadth-first to the next independently identifiable 2014 Savills auction container and recover its EIG auctionid or PropertyAuctions AID/Auc fingerprint from surviving chronological/catalogue/index evidence; keep auction 17999 parked for archive/cache or catalogue-PDF enumeration when a deterministic sibling index appears.",
+  "source_urls": [
+    "https://stackoverflow.com/questions/26611827/parsing-a-string-in-pandas-where-there-isnt-a-delimiter",
+    "https://stackoverflow.com/questions/26608125/create-a-dataframe-from-html-table-in-python/26608398",
+    "https://www.eigroup.co.uk/clients/auctions/fulldetails.aspx?auctionid=17999"
+  ],
+  "capture_status": "source_specific_blocker_persisted"
+}
