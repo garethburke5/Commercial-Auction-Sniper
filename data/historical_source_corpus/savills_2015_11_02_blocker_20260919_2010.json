@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions (London & National)",
+  "auction_date": "2015-11-02",
+  "auction_status": "harvesting_not_complete",
+  "capture_scope": "breadth_first_source_corpus",
+  "auction": {
+    "offered": 188,
+    "sold": 156,
+    "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13"
+  },
+  "attempted_routes": [
+    "Fresh exact-date web/index search for Savills 2 November 2015 auction lots and results",
+    "Fresh exact-date search for PropertyAuctions AID/Auc and lot-manifest fingerprints",
+    "Fresh search for independently indexed lot-level Savills auction evidence"
+  ],
+  "blocker": "The first-party chronological archive establishes the 2 November 2015 London & National auction container and its 188 offered / 156 sold denominator, but fresh exact-date searches did not expose a deterministic PropertyAuctions AID/Auc manifest, EIG auction identifier, catalogue/results representation, or independently verifiable lot row. Unrelated 2 November 2015 results were rejected. No lot rows are inferred.",
+  "reconciliation": {
+    "expected_lots": 188,
+    "lot_level_records_added_this_shard": 0,
+    "canonicalised_this_shard": 0,
+    "unresolved": 188,
+    "status": "harvesting_not_complete"
+  },
+  "next_route": "Park 2 November 2015 and continue breadth-first to 14 December 2015. For the parked auction, next use venue/date plus neighbouring 21-Sep/14-Dec catalogue fingerprints to invert surviving EIG auction IDs or PropertyAuctions AID/Auc references; bank any deterministic manifest wholesale before classification."
+}
