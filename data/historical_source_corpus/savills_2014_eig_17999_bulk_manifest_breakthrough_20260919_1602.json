@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills (London - National)",
+  "auction_date": "2014-10-28",
+  "eig_auction_id": "17999",
+  "eig_auctioneer_id": "55",
+  "capture_status": "bulk_manifest_structure_recovered_harvesting_not_complete",
+  "bulk_manifest_evidence": {
+    "evidenced_table_count": 232,
+    "evidence_description": "Contemporaneous developer question states there are 232 such table-search-result tables on the EIG full-auction page and shows the complete HTML schema for an individual row.",
+    "known_row": {
+      "eig_lot_id": "756425",
+      "lot_number": "2",
+      "address": "66D Charlwood Street, Pimlico, London, SW1V 4PQ",
+      "description": "Leasehold 2nd Floor Studio Flat Unmodernised Vacant",
+      "guide_price": "£450,000 Plus",
+      "auction_date": "2014-10-28",
+      "lease_details": "125 Yr, commencing 01/01/2013 (GR.£250.PA)",
+      "catalogue_pdf_url": "https://www.eigroup.co.uk/files/55/17999/6ec339ec-d59e-4b8a-9136-dc6e9a583328.pdf",
+      "classification": "residential_only_exclude_from_commercial_corpus"
+    }
+  },
+  "source_urls": [
+    "https://www.eigroup.co.uk/clients/auctions/fulldetails.aspx?auctionid=17999",
+    "https://stackoverflow.com/questions/26608125/create-a-dataframe-from-html-table-in-python/26608398",
+    "https://stackoverflow.com/questions/26611827/parsing-a-string-in-pandas-where-there-isnt-a-delimiter"
+  ],
+  "harvesting_architecture": {
+    "raw_first": true,
+    "parser": "scripts/harvest_eig_catalogue.py",
+    "rule": "Enumerate and bank the entire recovered manifest before commercial/residential filtering. Auction is not harvested until all manifest rows are processed.",
+    "expected_manifest_rows_from_surviving_evidence": 232
+  },
+  "canonical_history_v2": false,
+  "completeness": "not_complete"
+}
