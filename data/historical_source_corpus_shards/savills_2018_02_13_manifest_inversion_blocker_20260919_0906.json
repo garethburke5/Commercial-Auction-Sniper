@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-19T08:06:46Z",
+  "auctioneer": "Savills London & National",
+  "auction_date": "2018-02-13",
+  "capture_mode": "breadth_first_manifest_recovery",
+  "completeness_claim": false,
+  "first_party_denominator": {"offered": 234, "sold": 167},
+  "canonicalised_this_pass": 0,
+  "manifest_rows_added_this_pass": 0,
+  "unresolved_offered_lots": 234,
+  "attempted_routes": [
+    "fresh production main inspection",
+    "latest Savills bulk-harvest workflow job/log inspection",
+    "exact-date web search for PropertyAuctions AID/LotList identity",
+    "13/02/2018 + Savills + LotList/AID fingerprint search",
+    "13 February 2018 + Savills London & National + 234-offered fingerprint search"
+  ],
+  "source_specific_blocker": "No deterministic PropertyAuctions AID/Auc/LotList identity surfaced for the 13 February 2018 London & National auction. The latest bulk workflow still targets propertyauctions.io/auctioneers/savills and returned CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1; that route is not evidence of lot absence.",
+  "distinct_next_route": "Do not repeat generic exact-date searches. Enumerate cached/indexed neighbouring PropertyAuctions AID manifests around the proven 2018 Savills Nottingham AID 1080 and identify candidates by auctioneer/date plus the exact 234 offered / 167 sold fingerprint; if found, bank every observable lot row before classification.",
+  "notes": "Blocker persisted once for this route; historical completeness is not claimed."
+}
