@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-19T06:11:57Z",
+  "auctioneer": "Savills London & National",
+  "auction_date": "2018-02-13",
+  "recovery_mode": "breadth_first_manifest_reconciliation",
+  "savills_chronology": {
+    "source_url": "https://auctions.savills.co.uk/past-auctions/archive/page-11",
+    "offered": 234,
+    "sold": 167,
+    "success_pct": 71,
+    "raised_gbp": 55652000
+  },
+  "propertyauctions_manifest": {
+    "aid": null,
+    "auc": null,
+    "lotlist_url": null,
+    "status": "unresolved"
+  },
+  "attempted_this_pass": [
+    "Fresh production-main inspection",
+    "Fresh latest Savills bulk-harvest workflow/job/log inspection",
+    "Direct first-party Savills archive verification for 13 February 2018",
+    "Exact-date web/index searches for PropertyAuctions AID/Auc/LotList fingerprints"
+  ],
+  "blocker": "Savills first-party archive verifies the 13 February 2018 London & National auction and its 234-lot offered denominator, but exact-date searches did not expose a deterministic PropertyAuctions AID/Auc LotList manifest. The GitHub bulk propertyauctions.io auctioneer crawler is separately verified to return CORPUS_RECORDS=0, DISCOVERED=0, PAGES=1, BLOCKERS=1 and is not being reused as evidence of capture.",
+  "canonical_events_added": 0,
+  "raw_lots_added": 0,
+  "unresolved_offered_denominator": 234,
+  "next_distinct_route": "Use neighbouring known PropertyAuctions AID manifests and archived/indexed LotList fingerprints to identify the AID for the exact 2018-02-13 London & National date; once deterministic, bank the whole manifest without property-type filtering before enrichment/canonicalisation.",
+  "completeness_claim": false
+}
