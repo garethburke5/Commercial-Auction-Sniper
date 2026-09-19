@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions (London & National)",
+  "auction_date": "2016-02-16",
+  "auction_status": "harvesting_not_complete",
+  "capture_scope": "breadth_first_source_corpus",
+  "auction": {
+    "offered": 233,
+    "sold": 198,
+    "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13"
+  },
+  "validated_lot_clues": [
+    {
+      "description": "Freehold single-storey garage off Brompton Road / Crescent Place, Chelsea SW3",
+      "guide_gbp": 180000,
+      "sold_gbp": 360000,
+      "size_sq_ft": 146,
+      "classification": "non_residential_garage",
+      "source": "IBTimes UK, published 17 February 2016",
+      "evidence": "Contemporaneous report states Savills auctioned the freehold single-storey Chelsea garage on 16 February 2016; guide £180,000 and hammer £360,000."
+    }
+  ],
+  "attempted_routes": [
+    "Fresh exact-date Savills auction/lot search",
+    "Exact-date lot/property fingerprint search",
+    "Contemporaneous press-result recovery after the 2015 breadth cursor completed"
+  ],
+  "blocker": "The first-party chronology fixes the 16 February 2016 auction denominator at 233 offered / 198 sold, and one non-residential lot is independently evidenced, but this run did not expose a deterministic PropertyAuctions AID/Auc or EIG full manifest. Lot number for the Chelsea garage is not inferred.",
+  "reconciliation": {
+    "expected_lots": 233,
+    "enumerated_lots": 1,
+    "commercial_mixed_banked": 1,
+    "unresolved": 232,
+    "canonicalised_this_run": 0,
+    "status": "harvesting_not_complete"
+  },
+  "next_route": "Continue breadth-first to 2 March 2016 while separately fingerprinting the 16-Feb Chelsea garage address/£360,000 result against PropertyAuctions AID/Auc and EIG remnants. Bank a complete manifest only when a deterministic identifier is recovered."
+}
