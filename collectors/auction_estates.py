@@ -193,34 +193,45 @@ def _tenancy_schedule(text):
 
 
 def _image(s,base):
-    """Mirror Auction Estates: use the first valid image in their own gallery."""
+    """Mirror Auction Estates' own designated hero/primary gallery image."""
     bad=("logo","icon","avatar","staff","map","floorplan","floor-plan","epc","placeholder","sprite","social","siteplan","site-plan")
-    h1=s.find("h1")
-    nodes=list(h1.find_all_next("img")) if h1 else list(s.find_all("img"))
-    for img in nodes:
-        context=" ".join(str(img.get(a) or "") for a in ("alt","title","class","id")).lower()
-        urls=[]
-        # Prefer the source image represented by the first gallery item. For srcset,
-        # use its largest rendition but do not change gallery order.
-        for attr in ("data-src","data-lazy-src","data-original","data-image","data-url","src"):
-            if img.get(attr):urls.append(img.get(attr))
-        for attr in ("srcset","data-srcset"):
-            if img.get(attr):
-                parts=[p.strip().split(" ")[0] for p in img.get(attr).split(",") if p.strip()]
-                urls.extend(reversed(parts))
-        for raw in urls:
-            u=urljoin(base,raw); combined=(u+" "+context).lower()
-            if any(x in combined for x in bad):continue
-            if u.lower().split("?",1)[0].endswith((".jpg",".jpeg",".png",".webp")):
-                return u
-    # Only fall back when the page does not expose a usable first gallery photograph.
+
+    def usable(raw,context=""):
+        if not raw:return None
+        u=urljoin(base,raw); low=(u+" "+context).lower()
+        if any(x in low for x in bad):return None
+        return u if u.lower().split("?",1)[0].endswith((".jpg",".jpeg",".png",".webp")) else None
+
+    # Auction Estates' visible hero is the first item in the property's gallery/carousel.
+    # Find gallery-like containers first instead of assuming DOM-wide <img> order.
+    selectors=(
+        "[class*='gallery']","[id*='gallery']","[class*='slider']","[id*='slider']",
+        "[class*='carousel']","[id*='carousel']","[class*='swiper']","[class*='slick']",
+    )
+    for selector in selectors:
+        for gallery in s.select(selector):
+            for img in gallery.find_all("img"):
+                context=" ".join(str(img.get(a) or "") for a in ("alt","title","class","id"))
+                # Preserve gallery item order; srcset only chooses resolution of that item.
+                for attr in ("data-src","data-lazy-src","data-original","data-image","data-url","src"):
+                    u=usable(img.get(attr),context)
+                    if u:return u
+                for attr in ("srcset","data-srcset"):
+                    if img.get(attr):
+                        parts=[p.strip().split(" ")[0] for p in img.get(attr).split(",") if p.strip()]
+                        for raw in reversed(parts):
+                            u=usable(raw,context)
+                            if u:return u
+
+    # SEO/social hero is source-designated and therefore a safer fallback than an
+    # arbitrary later page image.
     for attrs in ({"property":"og:image"},{"name":"twitter:image"}):
         tag=s.find("meta",attrs=attrs)
-        if tag and tag.get("content"):
-            u=urljoin(base,tag.get("content")); low=u.lower()
-            if not any(x in low for x in bad):return u
+        u=usable(tag.get("content") if tag else None)
+        if u:return u
+
     generic=image_from_soup(s,base)
-    return generic if generic and not any(x in generic.lower() for x in bad) else None
+    return usable(generic)
 
 def _area(text):
     sqft=sqm=acres=None; vals=[]
