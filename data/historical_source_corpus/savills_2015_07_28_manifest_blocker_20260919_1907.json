@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions (London & National)",
+  "auction_date": "2015-07-28",
+  "auction_status": "harvesting_not_complete",
+  "capture_scope": "breadth_first_manifest_reconciliation",
+  "source_evidence": [
+    {
+      "url": "https://doczz.net/doc/6710914/addendum---savills",
+      "evidence": "Surviving Savills 11 May 2015 London & National Residential & Commercial addendum explicitly lists 28 July 2015 as a forthcoming auction date."
+    }
+  ],
+  "reconciliation": {
+    "expected_lots": 134,
+    "expected_lots_basis": "Previously banked first-party Savills chronological archive denominator for 28 July 2015; retained as reconciliation target and not re-inferred from search results.",
+    "lot_level_records_added_this_shard": 0,
+    "commercial_or_mixed_records_added_this_shard": 0,
+    "unresolved": 134,
+    "status": "harvesting_not_complete"
+  },
+  "attempted_routes": [
+    "Fresh exact-date web/index searches for Savills 28 July 2015 auction lots and commercial property clues.",
+    "Search for an exact-date Savills lot/property fingerprint that could safely bridge to a PropertyAuctions AID/Auc or EIG manifest."
+  ],
+  "blocker": "The surviving first-party addendum validates the auction date, but fresh exact-date searches did not expose a deterministic PropertyAuctions AID/Auc, EIG auctionid, or independently identifiable lot row for 28 July 2015. Same-date Savills research/planning results are unrelated and were rejected. No lot rows were inferred or fabricated.",
+  "next_route": "Park 28 July 2015 and continue breadth-first to 21 September 2015 using exact date plus venue/catalogue fingerprints against PropertyAuctions AID/Auc and EIG remnants. Revisit 28 July only when a deterministic manifest or lot fingerprint surfaces; bank any recovered manifest wholesale before classification."
+}
