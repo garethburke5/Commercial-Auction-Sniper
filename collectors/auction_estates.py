@@ -193,9 +193,11 @@ def _tenancy_schedule(text):
 
 
 def _image(s,base):
-    """Respect Auction Estates gallery order: source lead photo beats heuristic scoring."""
-    bad=("logo","icon","avatar","staff","map","floorplan","floor-plan","plan","epc","placeholder","sprite","social","siteplan")
-    candidates=[]
+    """Choose the best property photograph, not merely the first gallery asset."""
+    hard_bad=("logo","icon","avatar","staff","map","floorplan","floor-plan","epc","placeholder","sprite","social","siteplan","site-plan")
+    soft_bad=("plan","kitchen","bathroom","bedroom","interior","inside")
+    good=("front","exterior","shopfront","shop-front","facade","façade","building","property","hero","main")
+    ranked=[]
     h1=s.find("h1")
     nodes=list(h1.find_all_next("img")) if h1 else list(s.find_all("img"))
     for idx,img in enumerate(nodes):
@@ -205,25 +207,23 @@ def _image(s,base):
             if img.get(attr):urls.append(img.get(attr))
         for attr in ("srcset","data-srcset"):
             if img.get(attr):
-                parts=[p.strip().split(" ")[0] for p in img.get(attr).split(",") if p.strip()]
-                urls.extend(reversed(parts))
+                urls.extend(p.strip().split(" ")[0] for p in img.get(attr).split(",") if p.strip())
         for raw in urls:
             u=urljoin(base,raw); combined=(u+" "+context).lower()
-            if any(x in combined for x in bad):continue
-            if u.lower().split("?",1)[0].endswith((".jpg",".jpeg",".png",".webp")):
-                return u
-            candidates.append(u)
-    # Explicit social/SEO hero is the next-best source-owned signal.
+            if any(x in combined for x in hard_bad):continue
+            if not u.lower().split("?",1)[0].endswith((".jpg",".jpeg",".png",".webp")):continue
+            score=max(0,30-idx)
+            score += 25*sum(x in combined for x in good)
+            score -= 12*sum(x in combined for x in soft_bad)
+            ranked.append((score,-idx,u))
+    if ranked:return max(ranked)[2]
     for attrs in ({"property":"og:image"},{"name":"twitter:image"}):
         tag=s.find("meta",attrs=attrs)
         if tag and tag.get("content"):
             u=urljoin(base,tag.get("content")); low=u.lower()
-            if not any(x in low for x in bad):return u
-    for u in candidates:
-        if u:return u
+            if not any(x in low for x in hard_bad):return u
     generic=image_from_soup(s,base)
-    return generic if generic and not any(x in generic.lower() for x in bad) else None
-
+    return generic if generic and not any(x in generic.lower() for x in hard_bad) else None
 
 def _area(text):
     sqft=sqm=acres=None; vals=[]
