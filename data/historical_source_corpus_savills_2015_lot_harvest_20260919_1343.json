@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "purpose": "Property-first historical harvest. Auction containers are not complete until underlying catalogue/results lots are traversed.",
+  "auctioneer": "Savills Auctions",
+  "auction_date": "2015-06-22",
+  "auction_status": "harvesting_not_complete",
+  "auction_manifest": {
+    "offered": 188,
+    "sold": 167,
+    "success_percent": 89,
+    "raised_gbp": 63018000,
+    "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13"
+  },
+  "source_urls": [
+    "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+    "https://abcdocz.com/doc/920458/savills-auctions"
+  ],
+  "lot_records": [
+    {
+      "source_record_id": "savills-lot|2015-06-22|springfield-bowls-club-western-gardens-ealing",
+      "record_type": "lot",
+      "auction_date": "2015-06-22",
+      "lot_number": null,
+      "address": "Springfield Bowls Club, 1-31 Western Gardens, Ealing, London W5 3RS",
+      "locality": "Ealing, London",
+      "property_type": "Leisure investment / bowling club site",
+      "commercial_mixed_status": "commercial",
+      "guide_price_gbp": 450000,
+      "result_price_gbp": null,
+      "tenure": "Freehold",
+      "tenant": "Trustees of Springfield (Acton) Bowling Club",
+      "rent_pa_gbp": 5300,
+      "lease_details": "99 year lease from 1 July 1968; source states 52 years remaining; rent reviews every 21 years",
+      "size": "Approximately 0.95 acres",
+      "notes": "Irregular shaped site used as a bowling club. Source states tennis courts were redundant and may lend themselves to modest residential development subject to planning and tenant negotiations.",
+      "source_urls": [
+        "https://abcdocz.com/doc/920458/savills-auctions"
+      ],
+      "capture_status": "partial_property_banked_catalogue_harvest_continues",
+      "canonical_history_v2": false
+    }
+  ],
+  "excluded_evidenced_residential": [
+    {
+      "address": "32 Formosa Street, Maida Vale, London W9 2QA",
+      "reason": "Residential-only: arranged as two three-bedroom split-level maisonettes; excluded from commercial corpus."
+    }
+  ]
+}
