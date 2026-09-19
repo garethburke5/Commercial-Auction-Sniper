@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions (London & National)",
+  "auction_date": "2015-09-21",
+  "auction_status": "harvesting_not_complete",
+  "capture_scope": "breadth_first_source_corpus",
+  "auction": {
+    "venue": "The Berkeley, Knightsbridge, London, SW1X 7RL",
+    "offered": 256,
+    "sold": 218,
+    "success_percent": 85,
+    "raised_gbp": 70997000,
+    "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13"
+  },
+  "source_evidence": [
+    {
+      "url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+      "type": "first_party_archive",
+      "evidence": "Savills chronological archive records the London & National sale on Monday 21 September 2015 with 256 offered, 218 sold, 85% success and GBP70,997,000 raised."
+    },
+    {
+      "url": "https://www.standard.co.uk/news/london/derelict-shed-in-east-dulwich-goes-under-hammer-for-ps440-000-at-savills-auctions-a2953521.html",
+      "type": "contemporaneous_press_lot_evidence",
+      "evidence": "23 September 2015 report states Savills auctioned the East Dulwich outbuilding on Monday; guide GBP325,000, sold GBP440,000, 1,108 sq ft, former blacksmith workshop/outbuilding, planning permission for conversion to a two-bedroom home."
+    },
+    {
+      "url": "https://doczz.net/doc/6710914/addendum---savills",
+      "type": "surviving_savills_document_mirror",
+      "evidence": "Savills London & National Residential & Commercial document lists 21 September 2015 as a forthcoming auction date."
+    }
+  ],
+  "lots": [
+    {
+      "lot_number": null,
+      "address": null,
+      "locality": "East Dulwich, London",
+      "property_type": "former blacksmith workshop / derelict outbuilding with residential conversion planning permission",
+      "classification": "development_non_residential_provenance",
+      "guide_price_gbp": 325000,
+      "result_price_gbp": 440000,
+      "tenure": null,
+      "rent_pa_gbp": null,
+      "tenant": null,
+      "lease_details": null,
+      "size_sq_ft": 1108,
+      "planning": "Planning permission reported for conversion to a two-bedroom home with garden area.",
+      "capture_status": "partial_property_banked_address_and_lot_number_unresolved",
+      "source_urls": [
+        "https://www.standard.co.uk/news/london/derelict-shed-in-east-dulwich-goes-under-hammer-for-ps440-000-at-savills-auctions-a2953521.html",
+        "https://auctions.savills.co.uk/past-auctions/archive/page-13"
+      ],
+      "notes": "Contemporaneous report identifies prior use as a blacksmith's workshop and sale through Savills on the auction date. Exact address and lot number are not evidenced in the surviving source and are deliberately left null."
+    }
+  ],
+  "reconciliation": {
+    "expected_lots": 256,
+    "lot_level_records_added_this_shard": 1,
+    "commercial_mixed_or_non_residential_development_records_added_this_shard": 1,
+    "residential_excluded_this_shard": 0,
+    "unresolved": 255,
+    "status": "harvesting_not_complete"
+  },
+  "next_route": "Continue breadth-first to the 2 November 2015 and 14 December 2015 Savills catalogues while separately seeking deterministic catalogue/results representations for the 256-row September manifest."
+}
