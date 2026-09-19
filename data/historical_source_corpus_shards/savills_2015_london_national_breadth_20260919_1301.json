@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-19T12:01:32Z",
+  "auctioneer": "Savills",
+  "series": "London & National",
+  "capture_mode": "breadth_first_chronological_archive",
+  "completeness_claim": false,
+  "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+  "auctions": [
+    {"auction_date":"2015-12-14","offered":138,"sold":117,"success_percent":85,"raised_gbp":35941000,"venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","catalogue_url":null,"results_url":null,"aid_auc":null},
+    {"auction_date":"2015-11-02","offered":199,"sold":161,"success_percent":81,"raised_gbp":57666000,"venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","catalogue_url":null,"results_url":null,"aid_auc":null},
+    {"auction_date":"2015-09-21","offered":256,"sold":218,"success_percent":85,"raised_gbp":70997000,"venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","catalogue_url":null,"results_url":null,"aid_auc":null},
+    {"auction_date":"2015-07-28","offered":170,"sold":141,"success_percent":83,"raised_gbp":45426000,"venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","catalogue_url":null,"results_url":null,"aid_auc":null},
+    {"auction_date":"2015-06-22","offered":188,"sold":167,"success_percent":89,"raised_gbp":63018000,"venue":"The Berkeley, Knightsbridge, London, SW1X 7RL","catalogue_url":null,"results_url":null,"aid_auc":null}
+  ],
+  "offered_total": 951,
+  "sold_total": 804,
+  "lots": [],
+  "blocker": "The surviving Savills archive page 13 exposes these five 2015 auction containers after the 2016 entries. The next older archive page was not accessible in this run, so earlier 2015 auctions are deliberately not inferred or invented.",
+  "next_route": "Continue breadth-first with the next surviving older Savills archive page/index evidence and bank each additional 2015 auction immediately; then advance through 2014-2010 before source-specific lot enrichment.",
+  "notes": "Auction containers saved immediately from first-party archive evidence. Catalogue/results/AID identities remain null where not evidenced; no lot facts invented."
+}
