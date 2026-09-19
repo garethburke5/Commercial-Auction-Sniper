@@ -1,0 +1,23 @@
+{
+  "auctioneer": "Allsop",
+  "capture_stage": "breadth_first_historical_source_capture",
+  "main_inspected_sha": "aa160f7c7c760d5c42dabc213897d9a9f0f773a8",
+  "source_document": {
+    "title": "Commercial Auction Annual Market Review 2019",
+    "url": "https://www.allsop.co.uk/media/smye5x12/commercial-auction-annual-market-review-2019.pdf",
+    "source_type": "first_party_pdf",
+    "evidence": "Allsop's 2019 annual commercial auction market review publishes the forthcoming 2020 commercial auction calendar and catalogue-online dates."
+  },
+  "auction_records": [
+    {"auction_date":"2020-02-13","catalogue_online_date":"2020-01-25","auction_type":"commercial","catalogue_url":null,"results_url":null,"lots_captured":0},
+    {"auction_date":"2020-03-31","catalogue_online_date":"2020-03-14","auction_type":"commercial","catalogue_url":null,"results_url":null,"lots_captured":0},
+    {"auction_date":"2020-05-28","catalogue_online_date":"2020-05-09","auction_type":"commercial","catalogue_url":null,"results_url":null,"lots_captured":0},
+    {"auction_date":"2020-07-16","catalogue_online_date":"2020-06-27","auction_type":"commercial","catalogue_url":null,"results_url":null,"lots_captured":0},
+    {"auction_date":"2020-09-17","catalogue_online_date":"2020-08-29","auction_type":"commercial","catalogue_url":null,"results_url":null,"lots_captured":0},
+    {"auction_date":"2020-10-29","catalogue_online_date":"2020-10-10","auction_type":"commercial","catalogue_url":null,"results_url":null,"lots_captured":0},
+    {"auction_date":"2020-12-17","catalogue_online_date":"2020-11-28","auction_type":"commercial","catalogue_url":null,"results_url":null,"lots_captured":0}
+  ],
+  "lot_records": [],
+  "capture_policy": "DISCOVER -> SAVE SOURCE RECORD/URL -> MOVE ON; unknown catalogue/results identities do not block auction-container capture.",
+  "completeness_claim": false
+}
