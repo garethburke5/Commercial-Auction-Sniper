@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-19T05:17:00Z",
+  "auctioneer": "Savills Nottingham",
+  "auction_date": "2016-02-04",
+  "source_auction_id": "AID:993",
+  "source_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=993",
+  "production_evidence": {
+    "commercial_candidate_rows_persisted": 10,
+    "offered_header_count": 26,
+    "sold_header_count": 17,
+    "source_corpus_path": "data/historical_source_corpus/savills_2016-02-04_aid993_commercial_20260919_0600.json"
+  },
+  "attempted_this_pass": [
+    "fresh production main inspection",
+    "latest Savills bulk historical corpus workflow and job-log inspection",
+    "direct PropertyAuctions AID 993 manifest re-fetch through web route",
+    "indexed searches for additional Savills 2018/2017 PropertyAuctions AID manifests"
+  ],
+  "blocker": "Direct PropertyAuctions AID 993 manifest fetch timed out in this pass; the latest GitHub Actions propertyauctions.io auctioneer crawler also returned CORPUS_RECORDS=0, DISCOVERED=0, PAGES=1, BLOCKERS=1. No additional complete manifest was safely observable, so no lot rows were invented.",
+  "distinct_next_route": "Use surviving production source-corpus/AID fingerprints to enumerate neighbouring PropertyAuctions AIDs and search cached/indexed LotList manifestations auction-by-auction; when a complete observable manifest surfaces, bank every row before classification. Do not repeat the propertyauctions.io auctioneer crawler.",
+  "canonical_events_added": 0,
+  "historical_completeness_claimed": false
+}
