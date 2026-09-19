@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-19T09:59:14Z",
+  "auctioneer": "Clive Emson Auctioneers",
+  "capture_mode": "breadth_first_source_capture",
+  "completeness_claim": false,
+  "source_urls": [
+    "https://s3-us-west-2.amazonaws.com/magazines2015b/YPN107-digitaledition.pdf",
+    "https://auction-link.org.uk/london-property-auctions-in-july-2017/",
+    "https://klp.land/property_details/131/131.pdf",
+    "https://media.onthemarket.com/properties/4603267/579060694/document-0.pdf"
+  ],
+  "auctions": [
+    {"auction_date":"2017-05-02","region":"Kent & South East London","venue":"Clive Emson Conference Centre, Kent County Show Ground, Maidstone","auction_id":null,"catalogue_url":null,"results_url":null},
+    {"auction_date":"2017-05-03","region":"Essex, North & East London","venue":"Chelmsford City Racecourse, Great Leighs","auction_id":null,"catalogue_url":null,"results_url":null},
+    {"auction_date":"2017-05-05","region":"Hampshire & Isle of Wight","venue":"Ageas Bowl, Southampton","auction_id":null,"catalogue_url":null,"results_url":null},
+    {"auction_date":"2017-05-08","region":"Sussex & Surrey","venue":"Hilton Brighton Metropole","auction_id":null,"catalogue_url":null,"results_url":null},
+    {"auction_date":"2017-07-24","region":"Kent / London series evidence","venue":null,"auction_id":null,"catalogue_url":null,"results_url":null},
+    {"auction_date":"2017-07-26","region":"West Country","venue":"St Mellion International Resort, Saltash","auction_id":null,"catalogue_url":null,"results_url":null}
+  ],
+  "lots": [
+    {"auction_date":"2017-07-24","lot_number":null,"address":"107 Mortimer Street, Herne Bay, Kent, CT6 5ER","locality":"Herne Bay","property_type":"mixed-use / multi-unit investment building","guide_price":null,"result_price":385000,"rent":null,"tenure":"Freehold","tenant":null,"lease_details":"11 flats reported; 4 vacant, 6 let on ASTs, Unit 11 sold on a long lease","size":null,"lot_url":null,"document_url":"https://media.onthemarket.com/properties/4603267/579060694/document-0.pdf","notes":"Source states SOLD IN CLIVE EMSON LAND & PROPERTY AUCTION (24TH JULY 2017). Included as mixed-use/partial pending later classification; no unsupported facts added."},
+    {"auction_date":"2017-07-26","lot_number":null,"address":"The Barn, EX15 3RU","locality":null,"property_type":"development opportunity / barn conversion","guide_price":null,"result_price":null,"rent":null,"tenure":"Freehold","tenant":null,"lease_details":null,"size":null,"lot_url":null,"document_url":"https://klp.land/property_details/131/131.pdf","notes":"Joint-agent particulars explicitly state Clive Emson auction on 26 July 2017 at St Mellion; source describes detached barn conversion opportunity. Partial source record retained without invented locality/price."}
+  ],
+  "records_added_this_pass": {"auctions":6,"lots_or_partials":2,"total":8},
+  "notes":"DISCOVER -> SAVE -> MOVE ON. Residential-only lots excluded where evidenced. Unknown fields intentionally remain null; later History V2 enrichment/canonicalisation is out of scope for this breadth pass. May calendar source also establishes a regional series; only dates explicitly visible in surviving evidence are banked here."
+}
