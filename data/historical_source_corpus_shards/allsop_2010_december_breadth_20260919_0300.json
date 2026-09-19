@@ -1,0 +1,99 @@
+{
+  "auctioneer": "Allsop",
+  "recovery_scope": "2010 commercial source-corpus breadth capture",
+  "recovered_at": "2026-09-19T03:00:00+01:00",
+  "completeness_claim": false,
+  "workflow": "DISCOVER -> SAVE SOURCE RECORD/URL -> MOVE ON",
+  "auction_records": [
+    {
+      "auction_date": "2010-12-07",
+      "catalogue_namespace": "C1012",
+      "auction_type": "Commercial",
+      "sale_mode": "In Room",
+      "source_urls": [
+        "https://www.allsop.co.uk/lot-overview/lot/c1012-106",
+        "https://www.allsop.co.uk/lot-overview/Freehold-Public-House-Investment-in-London/C1012-096",
+        "https://www.allsop.co.uk/lot-overview/Heritable-Industrial-Investment-in-Livingston/C1012-118",
+        "https://www.allsop.co.uk/lot-overview/lot/c1012-008"
+      ]
+    }
+  ],
+  "lot_records": [
+    {
+      "auction_date": "2010-12-07",
+      "catalogue_namespace": "C1012",
+      "lot_number": 20,
+      "address": "36 Chapel Market, Islington, London, N1 9EN",
+      "property_type": "Virtual Freehold Shop Investment",
+      "result": "Refer to Auctioneer",
+      "rent_pa": 35000,
+      "tenure": "Leasehold; new 999 year lease from completion at £100 pa fixed",
+      "source_urls": ["https://www.allsop.co.uk/lot-overview/lot/c1012-106"]
+    },
+    {
+      "auction_date": "2010-12-07",
+      "catalogue_namespace": "C1012",
+      "lot_number": 34,
+      "address": "Ruby Lounge, 33 Caledonian Road, London, N1 9BU",
+      "property_type": "Freehold Public House Investment",
+      "result": "£880,000",
+      "rent_pa": 65000,
+      "tenure": "Freehold",
+      "tenant": "Enterprise Inns plc",
+      "lease_details": "New 35 year lease; rent review 2016",
+      "source_urls": ["https://www.allsop.co.uk/lot-overview/Freehold-Public-House-Investment-in-London/C1012-096"]
+    },
+    {
+      "auction_date": "2010-12-07",
+      "catalogue_namespace": "C1012",
+      "lot_number": 65,
+      "address": "Units 1-11, Houston Industrial Estate, 1 Firth Road, Livingston, West Lothian, EH54 5DJ",
+      "property_type": "Heritable Industrial Investment",
+      "result": "Sold After",
+      "rent_pa": 76780,
+      "tenure": "Heritable",
+      "size": "17,476 sq ft on 1.23 acres",
+      "source_urls": ["https://www.allsop.co.uk/lot-overview/Heritable-Industrial-Investment-in-Livingston/C1012-118"]
+    },
+    {
+      "auction_date": "2010-12-07",
+      "catalogue_namespace": "C1012",
+      "lot_number": 96,
+      "address": "The Former Hardy's & Hansons Brewery, Hardy Street, Kimberley, Nottinghamshire, NG16 2NR",
+      "property_type": "Vacant Former Brewery, Land and Buildings with Development Potential",
+      "result": "Sold Prior",
+      "rent_pa": null,
+      "tenure": "Freehold",
+      "size": "Main brewery 168,128 sq ft; total site 20.89 acres",
+      "lease_details": "Vacant possession on completion except two houses let on ASTs",
+      "source_urls": ["https://www.allsop.co.uk/lot-overview/lot/c1012-008"]
+    },
+    {
+      "auction_date": "2010-12-07",
+      "catalogue_namespace": "C1012",
+      "lot_number": 57,
+      "address": "Block C, Quayside Bar, Restaurant & Cafe, Unit 12 Regatta Quay, Key Street, Ipswich, Suffolk, IP4 1FF",
+      "property_type": "Virtual Freehold Restaurant Investment",
+      "result": null,
+      "rent_pa": 65000,
+      "tenure": "Long Leasehold; 999 years from 1 January 2006 at peppercorn",
+      "lease_details": "Lease expires 2034; fixed rent uplift to £70,000 pa in 2012; rent review 2014",
+      "size": "3,661 sq ft",
+      "source_urls": ["https://www.allsop.co.uk/api/file/2816745a-44dc-11e9-9ed6-0242ac110002"]
+    },
+    {
+      "auction_date": "2010-12-07",
+      "catalogue_namespace": "C1012",
+      "lot_number": 25,
+      "address": "66 High Street, New Malden, Surrey, KT3 4EZ",
+      "property_type": "Freehold Bank and Residential Investment (mixed-use)",
+      "result": null,
+      "rent_pa": 88000,
+      "tenure": "Freehold",
+      "tenant": "HSBC (majority); maisonette on AST",
+      "lease_details": "HSBC lease expires 2022; bank rent review 2012",
+      "source_urls": ["https://www.allsop.co.uk/api/file/219f16a4-44dc-11e9-9d44-0242ac110002"]
+    }
+  ],
+  "notes": "Breadth-first partial capture only. Unknown guide/result/other fields remain null and do not block persistence. Residential-only lots excluded. More C1012 lots remain to enumerate in later passes."
+}
