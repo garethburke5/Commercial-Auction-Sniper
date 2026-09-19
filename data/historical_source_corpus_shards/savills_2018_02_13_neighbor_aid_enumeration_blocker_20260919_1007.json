@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-19T09:07:39Z",
+  "auctioneer": "Savills London & National",
+  "auction_date": "2018-02-13",
+  "capture_mode": "breadth_first_neighbouring_aid_enumeration",
+  "completeness_claim": false,
+  "first_party_denominator": {"offered": 234, "sold": 167},
+  "canonicalised_this_pass": 0,
+  "manifest_rows_added_this_pass": 0,
+  "unresolved_offered_lots": 234,
+  "known_neighbour_anchor": {"aid": 1080, "auctioneer": "Savills Nottingham", "auction_date": "2018-02-14"},
+  "attempted_routes": [
+    "fresh production main inspection at c4667ab945fa4810c5f2023fc1ca8a6549977b18",
+    "latest Savills bulk-harvest workflow run 35421619971 and job log inspection",
+    "neighbouring-AID inversion using the proven AID 1080 dated 2018-02-14 as anchor",
+    "indexed exact-date searches for 13 February 2018 plus PropertyAuctions AID/LotList",
+    "indexed exact 234-offered / 167-sold fingerprint searches"
+  ],
+  "source_specific_blocker": "The neighbouring-AID route did not expose a deterministic PropertyAuctions AID/Auc/LotList manifest for Savills London & National 13 February 2018. Search indexing returned no attributable PropertyAuctions candidate. The latest GitHub bulk workflow still targets propertyauctions.io/auctioneers/savills and its log reports CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1 followed by No corpus change, so that crawler is not evidence of lot absence.",
+  "distinct_next_route": "Park this auction after recording the neighbouring-AID failure and continue breadth-first to the next mapped 2018 Savills auction whose surviving chronological record can be paired with an indexed PropertyAuctions AID/Auc manifest. Bank every observable manifest row immediately when one is found; return to 13-Feb-2018 only after accessible 2018 manifests are exhausted.",
+  "notes": "No rows invented. This records a distinct route from the earlier generic exact-date manifest inversion. Historical completeness is not claimed."
+}
