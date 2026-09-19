@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills (London - National)",
+  "auctioneer_id": 55,
+  "auction_id": 17999,
+  "auction_date": "2014-10-28",
+  "capture_status": "harvesting_not_complete",
+  "expected_lot_tables": 232,
+  "expected_lot_tables_evidence": "Contemporaneous Stack Overflow question states the fetched EIG full-auction HTML contained 232 table-search-result tables.",
+  "full_manifest_url": "https://www.eigroup.co.uk/clients/auctions/fulldetails.aspx?auctionid=17999",
+  "source_urls": [
+    "https://stackoverflow.com/questions/26608125/create-a-dataframe-from-html-table-in-python/26608398",
+    "https://stackoverflow.com/questions/26611827/parsing-a-string-in-pandas-where-there-isnt-a-delimiter",
+    "https://www.eigroup.co.uk/clients/auctions/fulldetails.aspx?auctionid=17999"
+  ],
+  "reconciliation": {
+    "expected_lots": 232,
+    "enumerated_lots_this_shard": 1,
+    "banked_commercial_or_mixed_this_shard": 0,
+    "excluded_residential_this_shard": 1,
+    "unresolved": 231,
+    "status": "harvesting_not_complete"
+  },
+  "lots": [
+    {
+      "source_record_id": "savills-eig|17999|lotid-756425",
+      "eig_lot_id": 756425,
+      "lot_number": "2",
+      "address": "66D Charlwood Street, Pimlico, London, SW1V 4PQ",
+      "description": "Leasehold 2nd Floor Studio Flat Unmodernised Vacant",
+      "guide_price": "£450,000 Plus",
+      "auctioneer": "Savills (London - National)",
+      "auction_date": "2014-10-28",
+      "vendor": "Housing Association",
+      "tenure": "Leasehold",
+      "lease_details": "125 Yr, commencing 01/01/2013 (GR.£250.PA)",
+      "classification": "residential_only",
+      "corpus_action": "exclude_residential_only",
+      "lot_detail_url": "https://www.eigroup.co.uk/clients/lots/details.aspx?lotid=756425&hb=1",
+      "catalogue_pdf_url": "https://www.eigroup.co.uk/files/55/17999/6ec339ec-d59e-4b8a-9136-dc6e9a583328.pdf",
+      "image_url": "https://www.eigroup.co.uk/files/55/17999/de591a4f-7da1-4bcd-a42c-76731bd72a23.jpg",
+      "source_urls": [
+        "https://stackoverflow.com/questions/26608125/create-a-dataframe-from-html-table-in-python/26608398",
+        "https://stackoverflow.com/questions/26611827/parsing-a-string-in-pandas-where-there-isnt-a-delimiter"
+      ]
+    }
+  ],
+  "recovery_note": "Direct EIG full-manifest and catalogue-PDF URLs are currently inaccessible from the available web fetch route. The contemporaneous indexed HTML evidence was persisted immediately; bulk recovery should continue through alternate indexed/archive/catalogue routes rather than treating this auction as complete."
+}
