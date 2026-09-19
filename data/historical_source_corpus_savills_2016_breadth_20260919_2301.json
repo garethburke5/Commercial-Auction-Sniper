@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "capture_mode": "source_corpus_breadth_first",
+  "captured_at": "2026-09-19T22:01:42Z",
+  "records": [
+    {
+      "source_record_id": "savills-auction|2016-05-09|first-party-archive",
+      "auctioneer": "Savills Auctions",
+      "record_type": "auction",
+      "auction_date": "2016-05-09",
+      "auction_name": "London & National",
+      "venue": "The Berkeley, Knightsbridge, London, SW1X 7RL",
+      "offered": 230,
+      "sold": 174,
+      "success_pct": 76,
+      "raised_gbp": 50113000,
+      "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+      "source_urls": ["https://auctions.savills.co.uk/past-auctions/archive/page-13"],
+      "capture_status": "auction_enumerated_lots_partial",
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "savills-lot|2016-05-09|fulham-former-garage-partial",
+      "auctioneer": "Savills Auctions",
+      "record_type": "lot_partial",
+      "auction_date": "2016-05-09",
+      "lot_number": null,
+      "address": null,
+      "locality": "Hammersmith and Fulham, London",
+      "property_type": "vacant freehold former garage / development site",
+      "guide_price_gbp": 250000,
+      "result_price_gbp": 466000,
+      "tenure": "Freehold",
+      "size": "18 ft x 35 ft site",
+      "planning": "Planning permission reported for a small two-bedroom house over three floors",
+      "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+      "lot_detail_url": null,
+      "source_urls": [
+        "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+        "https://www.theguardian.com/money/2016/may/09/freehold-garage-south-west-london-fetches-auction-hammersmith-fulham"
+      ],
+      "capture_status": "captured_partial_identity_exact_address_and_lot_number_unresolved",
+      "commercial_or_mixed_basis": "non-residential garage/development site at auction; not residential-only",
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "savills-auction|2016-06-20|first-party-archive",
+      "auctioneer": "Savills Auctions",
+      "record_type": "auction",
+      "auction_date": "2016-06-20",
+      "auction_name": "London & National",
+      "venue": "The Berkeley, Knightsbridge, London, SW1X 7RL",
+      "offered": 148,
+      "sold": 124,
+      "success_pct": 84,
+      "raised_gbp": 33037000,
+      "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+      "source_urls": ["https://auctions.savills.co.uk/past-auctions/archive/page-13"],
+      "capture_status": "auction_enumerated_lots_pending",
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "savills-auction|2016-07-25|first-party-archive",
+      "auctioneer": "Savills Auctions",
+      "record_type": "auction",
+      "auction_date": "2016-07-25",
+      "auction_name": "London & National",
+      "venue": "The Berkeley, Knightsbridge, London, SW1X 7RL",
+      "offered": 134,
+      "sold": 104,
+      "success_pct": 78,
+      "raised_gbp": 29965000,
+      "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+      "source_urls": ["https://auctions.savills.co.uk/past-auctions/archive/page-13"],
+      "capture_status": "auction_enumerated_lots_pending",
+      "canonical_history_v2": false
+    }
+  ],
+  "reconciliation": {
+    "auction_records_added": 3,
+    "lot_or_partial_records_added": 1,
+    "auction_dates_covered": ["2016-05-09", "2016-06-20", "2016-07-25"],
+    "manifest_lots_offered_total": 512,
+    "qualifying_lots_captured_this_shard": 1,
+    "note": "Breadth-first capture: auction manifests banked immediately; unresolved catalogue identities intentionally deferred."
+  }
+}
