@@ -1,0 +1,31 @@
+{
+  "auctioneer": "Savills",
+  "target_year": 2012,
+  "recovery_stage": "breadth_first_historical_recovery",
+  "status": "blocked_no_safe_manifest",
+  "recorded_at": "2026-09-19T03:11:45+01:00",
+  "main_inspected_sha": "42b11732294e2c79aef799c82864aa919c72d262",
+  "latest_savills_workflow": {
+    "name": "Savills bulk historical corpus harvest",
+    "run_id": 35393764887,
+    "head_sha": "c66ce87dec53a607a8290077e8ba2cf360e01656",
+    "job_conclusion": "success",
+    "note": "Job metadata shows harvest/commit steps succeeded but does not itself prove any lot recovery; no previous-run recovery claim was reused."
+  },
+  "route_attempted_this_pass": [
+    "Fresh indexed searches for Savills 2012 commercial auction + February",
+    "Fresh indexed searches for Savills 2012 commercial auction + May",
+    "Fresh indexed searches for Savills 2012 commercial auction + July",
+    "Fresh indexed searches for Savills 2012 commercial auction + October",
+    "Fresh indexed searches for Savills 2012 commercial auction + December",
+    "Fresh indexed search for Savills commercial auctions 2012 PDF"
+  ],
+  "result": {
+    "validated_auction_dates_added": 0,
+    "canonical_lots_added": 0,
+    "qualifying_commercial_mixed_clues_added": 0
+  },
+  "blocker": "The bounded trade-press/index search did not expose a safely attributable Savills UK 2012 commercial-auction date set, complete catalogue denominator, or deterministic PropertyAuctions AID/Auc LotList manifest. Returned results were current Savills pages or unrelated material and cannot safely be promoted into historical events.",
+  "distinct_next_route": "Search archived 2012 Estates Gazette/Property Week auction calendar and results issue fingerprints for explicit Savills sale dates and named lots; then invert each exact date+lot fingerprint against EIG historical auction namespaces and legacy PropertyAuctions AID/Auc/LotList indexes. Do not rerun the zero-discovery auctioneer-frontier crawler.",
+  "completeness_claim": false
+}
