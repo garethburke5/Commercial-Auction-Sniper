@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills (London - National)",
+  "year": 2014,
+  "auction_date": "2014-10-28",
+  "eig_auction_id": "17999",
+  "eig_auctioneer_id": "55",
+  "canonical_history_v2": false,
+  "attempt": {
+    "route": "direct_eig_full_manifest_fetch",
+    "url": "https://www.eigroup.co.uk/clients/auctions/fulldetails.aspx?auctionid=17999",
+    "result": "blocked_in_current_recovery_client",
+    "validated_indexed_manifest_evidence": {
+      "lot_id": "756425",
+      "lot_number": "2",
+      "address": "66D Charlwood Street, Pimlico, London, SW1V 4PQ",
+      "auction_date": "2014-10-28",
+      "auctioneer": "Savills (London - National)",
+      "description": "Leasehold 2nd Floor Studio Flat Unmodernised Vacant",
+      "guide_price": "£450,000 Plus",
+      "lease_details": "125 Yr, commencing 01/01/2013 (GR.£250.PA)",
+      "catalogue_pdf": "https://www.eigroup.co.uk/files/55/17999/6ec339ec-d59e-4b8a-9136-dc6e9a583328.pdf"
+    }
+  },
+  "canonicalised_this_attempt": 0,
+  "unresolved": "remaining auctionid=17999 manifest rows; direct EIG full-details endpoint could not be fetched by the current recovery client",
+  "blocker": "Direct EIG fulldetails.aspx access is unavailable from the current recovery route even though indexed surviving HTML proves the manifest schema and deterministic auction/lot IDs.",
+  "distinct_next_route": "Enumerate indexed EIG lotid and /files/55/17999/ fingerprints for auctionid=17999, bank every identifiable row regardless of property type, then use recovered lot-ID neighbourhoods to locate adjacent 2014 Savills auction IDs before moving breadth-first to 2013.",
+  "completeness": "not_complete"
+}
