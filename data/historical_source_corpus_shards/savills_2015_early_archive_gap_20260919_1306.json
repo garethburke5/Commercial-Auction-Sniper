@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-19T12:06:38Z",
+  "auctioneer": "Savills",
+  "series": "London & National",
+  "capture_mode": "breadth_first_distinct_route_archive_gap_reconciliation",
+  "completeness_claim": false,
+  "current_year": 2015,
+  "already_verified_archive_page": "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+  "already_verified_2015_containers_on_page_13": ["2015-12-14","2015-11-02","2015-09-21","2015-07-28","2015-06-22"],
+  "distinct_routes_attempted": [
+    "direct fetch of the next older Savills chronological archive page /past-auctions/archive/page-14",
+    "indexed exact-date search for the known early-2015 Savills London & National auction on 2015-05-11",
+    "PropertyAuctions indexed results/news evidence for Savills early-2015 auctions",
+    "indexed search for the first 2015 Savills London-National auction on 2015-02-17"
+  ],
+  "validated_clues": [
+    {
+      "auction_date": "2015-05-11",
+      "evidence": "PropertyAuctions news states Savills held its third auction of 2015 on 11 May 2015, selling over £40m with an 88% success rate; a surviving Savills catalogue mirror also identifies the next auction as 11 May 2015.",
+      "lot_manifest_identified": false
+    },
+    {
+      "auction_date": "2015-02-17",
+      "evidence": "PropertyAuctions news states Savills London-National began 2015 on 17 February, selling over £52.4m with an 86% success rate; independent contemporary indexed evidence identifies at least Lot 162 in that auction.",
+      "lot_manifest_identified": false
+    }
+  ],
+  "canonicalised_this_run": 0,
+  "unresolved": "Exact first-party offered/sold denominators and deterministic PropertyAuctions AID/Auc lot manifests for the early-2015 auctions are not yet recovered; the intervening second 2015 auction date is also not safely established from the sources reached in this run.",
+  "blocker": "Savills archive page 14 is not accessible through the current retrieval route, while PropertyAuctions indexed news exposes auction dates/performance clues but not deterministic AID/Auc LotList manifests or complete lot tables. No denominator or lot rows are inferred from percentages/news summaries.",
+  "next_route": "Move breadth-first to surviving 2014 Savills chronological archive/index evidence instead of spending another run on this page-14 gap; separately fingerprint 2015-05-11 and 2015-02-17 against cached/catalogue mirrors and PropertyAuctions AID/Auc manifests when deterministic identifiers surface.",
+  "notes": "Exact source-specific blocker persisted to production main. Historical completeness is not claimed."
+}
