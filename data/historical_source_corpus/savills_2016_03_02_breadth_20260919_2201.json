@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions (London & National)",
+  "auction_date": "2016-03-02",
+  "auction_status": "harvesting_not_complete",
+  "capture_scope": "breadth_first_source_corpus",
+  "auction": {
+    "venue": "The Berkeley, Knightsbridge, London, SW1X 7RL",
+    "offered": 154,
+    "sold": 128,
+    "success_percent": 83,
+    "raised_gbp": 38559000,
+    "archive_url": "https://auctions.savills.co.uk/past-auctions/archive/page-13"
+  },
+  "validated_lot_clues": [
+    {
+      "address": "Land adjacent to 57 Edbrooke Road, London W9 2DE",
+      "lot_number": null,
+      "classification": "development_land",
+      "guide_gbp": null,
+      "result_gbp": null,
+      "tenure": "freehold",
+      "size_sq_ft": 1850,
+      "planning": "Planning permission granted 29 May 2014 (13/09676/FULL) for demolition of existing side buildings and construction of a four-storey dwelling comprising basement, ground and two upper floors; source notes the flat element of the consent had already been sold/completed.",
+      "vat": "not applicable per source",
+      "source_urls": [
+        "https://highfield-investments.co.uk/properties/land-adjacent-to-57-edbrooke-road-london-w9-2de/",
+        "https://auctions.savills.co.uk/past-auctions/archive/page-13"
+      ],
+      "evidence": "Highfield Investments states the property would be placed in the Savills auction on 2 March 2016 if not sold prior. It describes a cleared development site with permission for an approximately 1,850 sq ft dwelling and freehold interest. It separately states Highfield were inviting offers over £800,000; that figure is not recorded here as the Savills auction guide."
+    }
+  ],
+  "reconciliation": {
+    "expected_lots": 154,
+    "enumerated_lots": 1,
+    "commercial_mixed_banked": 1,
+    "unresolved": 153,
+    "canonicalised_this_run": 0,
+    "status": "harvesting_not_complete"
+  },
+  "next_route": "Move breadth-first to the 9 May 2016 Savills sale while retaining 2 March for later catalogue/results/AID/EIG manifest recovery. Do not stall on this lot identity."
+}
