@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "capture_mode": "raw_property_rows_first",
+  "auctioneer": "Savills Auctions",
+  "year": 2018,
+  "records": [
+    {
+      "source_record_id": "savills|2018-11-26|17-lyndhurst-gardens-hampstead",
+      "record_type": "lot_partial",
+      "auction_date": "2018-11-26",
+      "lot_number": null,
+      "address": "17 Lyndhurst Gardens, Hampstead, London NW3",
+      "property_type": "Grade II listed institutional/office building",
+      "guide": null,
+      "result": "failed to sell at auction",
+      "size": "11,377 sq ft",
+      "source_urls": [
+        "https://londondevelopmentsites.com/category/auction/page/2/",
+        "https://en.wikipedia.org/wiki/The_Hoo%2C_Hampstead"
+      ],
+      "capture_status": "raw_property_banked_partial",
+      "classification": "non-residential/development source record",
+      "note": "Contemporary/later indexed evidence states the NHS-used building failed to sell at Savills auction on 26 November 2018; later marketed again in 2019."
+    }
+  ],
+  "reconciliation": {
+    "actual_property_rows_written": 1,
+    "auction_containers_written": 0
+  }
+}
