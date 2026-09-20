@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "capture_mode": "breadth_first_source_corpus",
+  "auctioneer": "Acuitus",
+  "auction_date": "2014-07-09",
+  "records": [
+    {
+      "source_record_id": "acuitus|2014-07-09|lot-34|property-1315",
+      "record_type": "lot",
+      "lot_number": "34",
+      "address": "4 The Oxebode, Gloucester, Gloucestershire, GL1 1RZ",
+      "locality": "Gloucester",
+      "property_type": "Freehold Retail Investment",
+      "sector": "High Street Retail",
+      "tenure": "Freehold",
+      "rent_pa": 16500,
+      "result_status": "Sold",
+      "result_price": 205000,
+      "tenant": "Sue Ryder",
+      "lease_details": "10 years from 29/09/2009 to 28/09/2019 on a full repairing and insuring lease; break at year 5 stated not exercised",
+      "size": "1,195 sq ft / 110.29 sq m",
+      "source_urls": ["https://www.acuitus.co.uk/property/1315/"],
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "acuitus|2014-07-09|lot-35|property-1316",
+      "record_type": "lot",
+      "lot_number": "35",
+      "address": "Nationwide Building Society, 83 Abington Street, Northampton, Northamptonshire, NN1 2BH",
+      "locality": "Northampton",
+      "property_type": "Virtual Freehold Retail Investment",
+      "sector": "Bank",
+      "tenure": "Virtual Freehold - 999 years from completion at peppercorn rent",
+      "rent_pa": 69000,
+      "result_status": "Sold",
+      "result_price": 1010000,
+      "tenant": "Nationwide Building Society",
+      "lease_details": "Let to Nationwide Building Society until October 2026 with no breaks",
+      "size": null,
+      "source_urls": ["https://www.acuitus.co.uk/property/1316/"],
+      "canonical_history_v2": false
+    }
+  ]
+}
