@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "capture_mode": "raw_property_rows_first",
+  "auctioneer": "Savills Auctions",
+  "year": 2018,
+  "records": [
+    {
+      "source_record_id": "savills|2018-05-09|38-38a-granville-square-wc1x-9pd",
+      "record_type": "lot_partial",
+      "auction_date": "2018-05-09",
+      "lot_number": null,
+      "address": "Land at 38 & 38a Granville Square",
+      "locality": "Kings Cross, London WC1X 9PD",
+      "property_type": "land/development site",
+      "size": "100 sq m",
+      "guide": "£800,000+",
+      "result": null,
+      "tenure": null,
+      "source_urls": [
+        "https://londondevelopmentsites.com/tag/green/page/2/",
+        "http://catalogue.auctions.savills.co.uk/"
+      ],
+      "capture_status": "raw_property_banked_partial",
+      "classification": "land/development; qualifying non-residential/mixed clue",
+      "evidence_note": "Surviving London Development Sites archive entry dated 8 May 2018 explicitly identifies the Savills May 2018 auction at the Sheraton Grand Hotel on 9 May 2018 and states that sites include land at 38 & 38a Granville Square, Kings Cross WC1X 9PD, 100 sq m, guide £800,000+, linking to the then-live Savills catalogue. Lot number/result and full PropertyAuctions AID/Auc manifest remain unresolved; no values are inferred."
+    }
+  ],
+  "reconciliation": {
+    "actual_property_rows_written": 1,
+    "auction_containers_written": 0,
+    "auction_date": "2018-05-09",
+    "canonicalised_this_write": 0,
+    "source_rows_validated_this_write": 1,
+    "full_manifest_status": "unresolved",
+    "blocker": "The surviving third-party chronological archive preserves this exact Savills auction lot clue and the former catalogue link, but fresh indexed searches did not expose a deterministic PropertyAuctions AID/Auc manifest or lot number for 9 May 2018.",
+    "distinct_next_route": "Use the exact address/date/guide fingerprint (38 & 38a Granville Square; 9 May 2018; £800,000+) to invert archived catalogue URLs, EIG identifiers, and cached PropertyAuctions LotList.aspx AID/Auc pages; if no manifest appears promptly, continue breadth-first to the next 2018 auction rather than stalling."
+  }
+}
