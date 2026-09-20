@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "capture_mode": "breadth_first_source_corpus",
+  "auctioneer": "Acuitus",
+  "auction_date": "2014-07-09",
+  "records": [
+    {
+      "source_record_id": "acuitus|2014-07-09|lot-39|property-1320",
+      "record_type": "lot",
+      "auctioneer": "Acuitus",
+      "auction_date": "2014-07-09",
+      "lot_number": "39",
+      "address": "22 Station Road, Swanage, Dorset, BH19 1AE",
+      "locality": "Swanage",
+      "property_type": "Town Centre Bank Investment",
+      "sector": "Bank",
+      "tenure": "Virtual Freehold; 999 years from 25 December 2004 at a peppercorn rent",
+      "rent_pa": 23000,
+      "tenant": "Barclays Bank plc",
+      "lease_details": "20 year lease until June 2027 (subject to option)",
+      "status": "Withdrawn Post",
+      "result_price": null,
+      "size": null,
+      "source_urls": ["https://www.acuitus.co.uk/property/1320/"],
+      "capture_status": "captured_first_party_lot_partial",
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "acuitus|2014-07-09|lot-42|property-1323",
+      "record_type": "lot",
+      "auctioneer": "Acuitus",
+      "auction_date": "2014-07-09",
+      "lot_number": "42",
+      "address": "6 & 8 The Oxebode, Gloucester, Gloucestershire, GL1 1RZ",
+      "locality": "Gloucester",
+      "property_type": "Freehold Retail Investment",
+      "sector": "High Street Retail",
+      "tenure": "Freehold",
+      "rent_pa": 27500,
+      "tenant": "Gloucestershire Media Ltd",
+      "lease_details": null,
+      "status": "Sold",
+      "result_price": 270000,
+      "size": null,
+      "source_urls": ["https://www.acuitus.co.uk/property/1323/"],
+      "capture_status": "captured_first_party_lot_partial",
+      "canonical_history_v2": false
+    }
+  ]
+}
