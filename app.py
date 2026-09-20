@@ -163,10 +163,10 @@ _source = _source.replace(
 
 # Accessibility/usability: make the browser scrollbar easy to grab on desktop.
 _source = _source.replace(
-    "</style>\\n\\\"\\\"\\\",unsafe_allow_html=True)",
+    "</style>\n\"\"\",unsafe_allow_html=True)",
     '''\n/* Wider board scrollbar — intentionally generous for long auction scans */
-html{scrollbar-width:auto!important;scrollbar-color:#6f7f91 #111820!important}
-::-webkit-scrollbar{width:18px!important;height:18px!important}
+html,body,[data-testid="stAppViewContainer"],[data-testid="stMain"]{scrollbar-width:auto!important;scrollbar-color:auto!important;scrollbar-gutter:stable}
+::-webkit-scrollbar{width:24px!important;height:24px!important}
 ::-webkit-scrollbar-track{background:#111820!important}
 ::-webkit-scrollbar-thumb{background:#6f7f91!important;border:3px solid #111820!important;border-radius:10px!important}
 ::-webkit-scrollbar-thumb:hover{background:#93a3b5!important}

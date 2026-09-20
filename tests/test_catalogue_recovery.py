@@ -9,6 +9,13 @@ from collectors.savills_all_future import _savills_property_image_from_html
 
 
 class CatalogueRecoveryTests(unittest.TestCase):
+    def setUp(self):
+        # These fixtures describe the September catalogue before auction day.
+        # Freeze the collector clock so the tests still exercise discovery later.
+        clock = patch('collectors.harman_healy.date', wraps=date).start()
+        clock.today.return_value = date(2026, 9, 6)
+        self.addCleanup(patch.stopall)
+
     def test_barnett_ross_table_fallback_preserves_terminal_rows_with_status(self):
         html='''
         <table>

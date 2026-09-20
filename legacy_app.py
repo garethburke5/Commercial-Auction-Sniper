@@ -3,6 +3,7 @@ import re, html, json, time
 import base64
 from io import BytesIO
 import hashlib
+import subprocess
 from pathlib import Path
 from urllib.parse import urljoin
 import urllib.parse
@@ -22,7 +23,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.73-OPPORTUNITY-SUMMARIES"
+BUILD = "V6.77"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -4356,7 +4357,14 @@ with sources_tab:
             if not any(x in txt for x in ("mixed-use","mixed use","commercial unit","retail","shop","office","industrial","warehouse","care home")):
                 a["commercial_flags"]+=1
 
-    st.info("INTERMEDIATE BUILD — live catalogue enrichment is enabled; source audit below should be checked after Refresh market.")
+    try:
+        app_revision = subprocess.check_output(
+            ["git", "rev-parse", "--short=12", "HEAD"], cwd=Path(__file__).parent,
+            text=True, timeout=2,
+        ).strip()
+    except (OSError, subprocess.SubprocessError):
+        app_revision = "unavailable"
+    st.caption(f"App revision: {app_revision} · {updated}")
     st.markdown("#### Capture audit")
     st.caption("Expected counts are minimum independently verified current commercial/mixed-use lots. Falling below them is a release failure.")
     audit_rows=[]
@@ -4372,7 +4380,7 @@ with sources_tab:
             "Image coverage":f"{image_pct:.0f}%",
             "Exact pages":f'{a["exact_pages"]}/{a["properties"]}', 
             "Residential flags":a["commercial_flags"],
-            "Expected min":EXPECTED_CURRENT_COUNTS.get(src,"—"),
+            "Expected min":str(EXPECTED_CURRENT_COUNTS.get(src,"—")),
             "Coverage":(f'{100*a["properties"]/EXPECTED_CURRENT_COUNTS[src]:.0f}%' if src in EXPECTED_CURRENT_COUNTS and EXPECTED_CURRENT_COUNTS[src] else "—"),
             "Audit":("❌ MISSING LOTS" if src in EXPECTED_CURRENT_COUNTS and a["properties"] < EXPECTED_CURRENT_COUNTS[src] else audit_status),
         })
@@ -4391,4 +4399,3 @@ with sources_tab:
             note=f'{actual_counts[source]} properties loaded' + (f' · {note}' if note else '')
         icon="✅" if "VERIFIED" in status or "REFRESHED" in status or status=="LIVE" else ("⏳" if "PENDING" in status or "EARLY" in status else "⚠️")
         st.markdown(f'<div class="statusrow">{icon} <b>{html.escape(source)}</b> — {html.escape(status)}<br><small>{html.escape(note)}</small></div>',unsafe_allow_html=True)
-

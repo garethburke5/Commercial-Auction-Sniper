@@ -194,13 +194,25 @@ def _tenancy_schedule(text):
 
 def _image(s,base):
     """Mirror Auction Estates' own designated hero/primary gallery image."""
-    bad=("logo","icon","avatar","staff","map","floorplan","floor-plan","epc","placeholder","sprite","social","siteplan","site-plan")
+    bad=("logo","icon","avatar","staff","map","floorplan","floor-plan","floor plan","epc","placeholder","sprite","social","siteplan","site-plan","site plan")
 
     def usable(raw,context=""):
         if not raw:return None
         u=urljoin(base,raw); low=(u+" "+context).lower()
         if any(x in low for x in bad):return None
-        return u if u.lower().split("?",1)[0].endswith((".jpg",".jpeg",".png",".webp")) else None
+        image_path=u.lower().split("?",1)[0]
+        if image_path.endswith((".jpg",".jpeg",".png",".webp")) or re.match(
+            r"https://cdn\.eigpropertyauctions\.co\.uk/ams/images/",image_path
+        ):return u
+        return None
+
+    # The live source renders the primary photograph as a CSS background, using
+    # an EIG image URL without a filename extension. Unit 10 South Street's first
+    # slide is the Best Shop frontage; numbered later images include its plan.
+    for hero in s.select(".property-slideshow-container .propertySlides .lot-image"):
+        match=re.search(r"background-image\s*:\s*url\(['\"]?([^'\")]+)",hero.get("style") or "",re.I)
+        u=usable(match.group(1) if match else None)
+        if u:return u
 
     # Auction Estates' visible hero is the first item in the property's gallery/carousel.
     # Find gallery-like containers first instead of assuming DOM-wide <img> order.
@@ -230,8 +242,14 @@ def _image(s,base):
         u=usable(tag.get("content") if tag else None)
         if u:return u
 
-    generic=image_from_soup(s,base)
-    return usable(generic)
+    # Keep image context during fallback: a filename such as plan123.jpg does not
+    # reveal that its alt text explicitly calls it a floor plan.
+    for img in s.find_all("img"):
+        context=" ".join(str(img.get(a) or "") for a in ("alt","title","class","id"))
+        for attr in ("data-src","data-lazy-src","data-original","src"):
+            u=usable(img.get(attr),context)
+            if u:return u
+    return None
 
 def _area(text):
     sqft=sqm=acres=None; vals=[]

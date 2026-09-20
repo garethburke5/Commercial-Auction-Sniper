@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 import re
+import os
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from urllib.parse import urlparse, unquote
@@ -175,6 +176,37 @@ def _run_collector_safely(fn):
         source=_collector_name(fn); return SourceResult(source=source,status="FAILED",lots=[],message=f"Collector raised {type(exc).__name__}: {exc}",discovered_count=0,authoritative_snapshot=False)
 
 
+def refresh_quality_telemetry(snapshot):
+    """Certify the actual published active rows after every lifecycle transformation.
+
+    Both the diagnostic quality block and the publication integrity contract use
+    the same measured counts. Terminal catalogue rows remain visible but are not
+    counted as active inventory by the existing image/richness gate.
+    """
+    source_quality={}
+    for item in snapshot.get("properties", []):
+        if _is_terminal(item):
+            continue
+        source=item.get("source") or "Unknown"
+        q=source_quality.setdefault(source, {"lots":0,"valid_images":0,"rich":0})
+        q["lots"]+=1
+        q["valid_images"]+=int(_image_is_valid(source,item.get("image_url")))
+        q["rich"]+=int(sum(_meaningful(item.get(k)) for k in QUALITY_FACT_FIELDS)>=4)
+    for q in source_quality.values():
+        q["image_coverage_pct"]=round(100*q["valid_images"]/q["lots"],1)
+        q["rich_coverage_pct"]=round(100*q["rich"]/q["lots"],1)
+    quality=snapshot.setdefault("quality",{})
+    quality["source_quality"]=source_quality
+    integrity=snapshot.setdefault("integrity",{})
+    integrity["source_quality"]=source_quality
+    integrity["quality_repairs"]=quality.get("repairs",0)
+    integrity["quality_rejections"]=quality.get("rejections",0)
+    integrity["quality_rejection_reasons"]=quality.get("rejection_reasons",{})
+    integrity["published_property_count"]=len(snapshot.get("properties",[]))
+    integrity["historical_property_count"]=len(snapshot.get("archive",[]))
+    return snapshot
+
+
 def run():
     old_snapshot=load_old_snapshot(); old=list(old_snapshot["properties"])+list(old_snapshot["archive"])
     today=datetime.now(timezone.utc).date(); old_by_key={_key(x):dict(x) for x in old if _key(x)!=("","")}
@@ -225,6 +257,9 @@ def run():
     target_coverage=manifest_coverage(results)
     lifecycle_counts=Counter(_normal_status(x.get("status")) for x in archive)
     snapshot={"generated_at":datetime.now(timezone.utc).isoformat(),"properties":active,"archive":archive,"source_health":results,"target_coverage":target_coverage,"quality":{"repairs":quality_repairs,"rejections":quality_rejections,"rejection_reasons":rejection_reasons,"pruned":pruned,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"source_quality":source_quality,"archive_lifecycle":dict(lifecycle_counts)}}
+    refresh_quality_telemetry(snapshot)
+    snapshot["integrity"]["collector_revision"]=os.environ.get("GITHUB_SHA")
+    snapshot["integrity"]["publication_run_id"]=os.environ.get("GITHUB_RUN_ID")
     (DATA/"properties.json").write_text(json.dumps(snapshot,indent=2,ensure_ascii=False),encoding="utf-8")
     return snapshot
 

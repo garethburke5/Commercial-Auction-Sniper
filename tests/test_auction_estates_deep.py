@@ -5,6 +5,19 @@ from collectors.auction_estates import _property_content_text, _classified_prope
 
 
 class AuctionEstatesDeepExtractionTests(unittest.TestCase):
+    def test_unit_10_best_shop_primary_background_beats_later_floorplan(self):
+        s=BeautifulSoup('''
+        <div class="property-slideshow-container">
+          <div class="propertySlides fade"><div class="lot-image"
+            style="background-image: url('https://cdn.eigpropertyauctions.co.uk/ams/images/134/auction/3815/2862483_web_medium');"></div></div>
+          <div class="propertySlides fade"><div class="lot-image"
+            style="background-image: url('https://cdn.eigpropertyauctions.co.uk/ams/images/134/auction/3815/2872492_web_medium');"></div></div>
+        </div>
+        <img src="/media/floorplan.jpg" alt="Floor plan">
+        ''','lxml')
+        self.assertEqual(_image(s,'https://www.auctionestates.co.uk/property/unit-10-south-street-ilkeston-derbyshire-de75-5qe-364520'),
+                         'https://cdn.eigpropertyauctions.co.uk/ams/images/134/auction/3815/2862483_web_medium')
+
     def test_page_chrome_is_excluded_from_property_particulars(self):
         s=BeautifulSoup('''
         <html><body>

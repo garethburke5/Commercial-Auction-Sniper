@@ -190,6 +190,7 @@ def _finalize_published_snapshot(path=Path("data/properties.json"), today=None):
     integrity["terminal_rows_restored_to_publication"] = len(moved)
     integrity["duplicate_lot_rows_removed"] = duplicate_count
 
+    pipeline.refresh_quality_telemetry(data)
     Path(path).write_text(json.dumps(data, indent=2), encoding="utf-8")
     return len(moved)
 

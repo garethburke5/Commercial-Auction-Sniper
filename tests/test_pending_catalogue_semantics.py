@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 from datetime import date
 from bs4 import BeautifulSoup
 
@@ -7,6 +8,11 @@ from collectors.harman_healy import _catalogue_candidates
 
 
 class PendingCatalogueSemanticsTests(unittest.TestCase):
+    def setUp(self):
+        clock = patch('collectors.harman_healy.date', wraps=date).start()
+        clock.today.return_value = date(2026, 9, 6)
+        self.addCleanup(patch.stopall)
+
     def test_allsop_featured_history_tile_is_not_live_catalogue_evidence(self):
         self.assertFalse(_candidate_is_current_or_future(
             "Commercial LOT 45 - Jul 2026 FEATURED LOT Deal CT14 Freehold Care Home Investment",
