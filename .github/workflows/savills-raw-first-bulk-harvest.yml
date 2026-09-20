@@ -21,25 +21,56 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install requests beautifulsoup4
+      - name: Snapshot production raw corpus
+        run: cp data/savills_raw_lots.json /tmp/savills_raw_before.json
       - name: Recover known manifests through archives
         run: python scripts/recover_savills_known_aids_archives.py
-      - name: Harvest observable Savills raw lots
-        run: python scripts/harvest_savills_raw_lots.py
+      - name: Preserve archive additions and run broad discovery safely
+        run: |
+          cp data/savills_raw_lots.json /tmp/savills_raw_after_archive.json
+          python scripts/harvest_savills_raw_lots.py || true
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          before=json.load(open('/tmp/savills_raw_after_archive.json'))
+          after=json.load(open('data/savills_raw_lots.json'))
+          def key(x):
+              return (str(x.get('source_auction_id') or ''), str(x.get('lot_number') or ''), str(x.get('source_event_id') or ''))
+          merged={key(x):x for x in before.get('lots',[])}
+          for x in after.get('lots',[]): merged[key(x)]=x
+          after['lots']=list(merged.values())
+          after['captured_at']=before.get('captured_at') if len(after['lots'])==len(before.get('lots',[])) else after.get('captured_at')
+          Path('data/savills_raw_lots.json').write_text(json.dumps(after,indent=2,ensure_ascii=False)+'\n')
+          print('APPEND_ONLY_RAW_LOTS',len(after['lots']))
+          PY
+      - name: Enforce no raw-corpus regression
+        run: |
+          python - <<'PY'
+          import json
+          b=len(json.load(open('/tmp/savills_raw_before.json')).get('lots',[]))
+          a=len(json.load(open('data/savills_raw_lots.json')).get('lots',[]))
+          print('RAW_BEFORE',b,'RAW_AFTER',a,'DELTA',a-b)
+          assert a >= b, f'raw corpus regression refused: {b} -> {a}'
+          s=json.load(open('data/savills_raw_harvest_status.json'))
+          s['total_raw_lots']=a
+          s['append_only_guard']={'before':b,'after':a,'delta':a-b,'regression_refused':False}
+          open('data/savills_raw_harvest_status.json','w').write(json.dumps(s,indent=2)+'\n')
+          PY
       - name: Promote commercial and mixed rows into historical source corpus
         run: python scripts/promote_savills_raw_to_source_corpus.py
       - name: Verify corpus before persist
         run: |
           python - <<'PY'
           import json
-          p=json.load(open("data/savills_raw_lots.json"))
-          s=json.load(open("data/savills_raw_harvest_status.json"))
-          c=json.load(open("data/historical_source_corpus.json"))
-          assert isinstance(p.get("lots"),list)
-          assert isinstance(c.get("records"),list)
-          assert s["total_raw_lots"]==len(p["lots"])
-          print("VERIFIED_RAW_LOTS",len(p["lots"]))
-          print("VERIFIED_SOURCE_RECORDS",len(c["records"]))
-          print("PROMOTION",s.get("source_corpus_promotion"))
+          p=json.load(open('data/savills_raw_lots.json'))
+          s=json.load(open('data/savills_raw_harvest_status.json'))
+          c=json.load(open('data/historical_source_corpus.json'))
+          assert isinstance(p.get('lots'),list)
+          assert isinstance(c.get('records'),list)
+          assert s['total_raw_lots']==len(p['lots'])
+          print('VERIFIED_RAW_LOTS',len(p['lots']))
+          print('VERIFIED_SOURCE_RECORDS',len(c['records']))
+          print('PROMOTION',s.get('source_corpus_promotion'))
           PY
       - name: Persist harvested corpus to production main
         run: |
@@ -50,6 +81,6 @@ jobs:
             echo "No corpus change"
             exit 0
           fi
-          git commit -m "Harvest and promote Savills source corpus"
+          git commit -m "Harvest and promote Savills source corpus safely"
           git pull --rebase origin main
           git push origin HEAD:main
