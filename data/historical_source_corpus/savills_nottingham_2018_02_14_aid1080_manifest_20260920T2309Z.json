@@ -1,0 +1,35 @@
+{
+  "schema_version": "historical-source-corpus-v1",
+  "auctioneer": "Savills Nottingham",
+  "auction_date": "2018-02-14",
+  "source_auction_id": "AID:1080",
+  "source_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1080",
+  "source_reconciliation": {
+    "offered": 25,
+    "sold": 18,
+    "sold_percent": 72,
+    "total_disclosed_value_gbp": 2675000,
+    "observable_lot_rows_in_retrieved_source": 11,
+    "manifest_incomplete_in_retrieved_source": true
+  },
+  "capture_strategy": "breadth-first exact PropertyAuctions manifest capture; partial records allowed; no inferred facts",
+  "records": [
+    {"lot_number":"1","property_type":"Vacant Freehold Semi-Detached House","location":"Newark, Nottinghamshire","result":"£63,000","classification":"residential"},
+    {"lot_number":"2","property_type":"Vacant Freehold Site","location":"Nettleton, Nr Market Rasen","result":"Available","classification":"land_or_unknown"},
+    {"lot_number":"2A","property_type":"Investment Freehold Commercial","location":"Debdale Lane, Mansfield Woodhouse","result":"Available","classification":"commercial"},
+    {"lot_number":"3","property_type":"Vacant Freehold Terraced House","location":"Radford, Nottingham","result":"Withdrawn Prior","classification":"residential"},
+    {"lot_number":"4","property_type":"Vacant Freehold Building","location":"Blackpool, Lancashire","result":"Available","classification":"unknown_building"},
+    {"lot_number":"5","property_type":"Part Vacant Freehold Building","location":"Sherwood, Nottingham","result":"£299,000","classification":"mixed_or_unknown"},
+    {"lot_number":"6","property_type":"Vacant Freehold Site","location":"Stonehouse, Gloucestershire","result":"£350,000","classification":"land_or_unknown"},
+    {"lot_number":"7","property_type":"Investment Freehold Building","location":"Basford, Nottingham","result":"Available","classification":"commercial_or_mixed_clue"},
+    {"lot_number":"8","property_type":"Vacant Freehold Detached House","location":"Atherstone, Warwickshire","result":"£410,000","classification":"residential"},
+    {"lot_number":"9","property_type":"Investment Freehold Retail Warehouse","location":"Immingham, Lincolnshire","result":"Available","classification":"commercial"},
+    {"lot_number":"10","property_type":"Vacant Freehold Land","location":"Immingham, Lincolnshire","result":"Available","classification":"land_or_unknown"},
+    {"lot_number":"11","property_type":"Vacant Freehold Terraced House","location":"Forest Fields, Nottingham","result":"£80,500","classification":"residential"}
+  ],
+  "qualifying_commercial_or_mixed_clues_observable": 4,
+  "canonical_events_written": 0,
+  "unresolved_offered_lots": 14,
+  "blocker": "The surviving indexed PropertyAuctions AID 1080 result exposes 11 lot rows in the retrievable representation while the auction header states 25 offered; 14 offered lots are therefore not yet observable and must not be fabricated.",
+  "distinct_next_route": "Use AID 1080 plus exact date 14 Feb 2018 to recover the missing 14 rows via alternate cached/indexed representations and individual lot/result URLs; in parallel continue breadth-first to the next 2018 Savills auction rather than stalling on this manifest."
+}
