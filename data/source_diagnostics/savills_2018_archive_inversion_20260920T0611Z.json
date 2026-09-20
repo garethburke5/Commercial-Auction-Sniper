@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "scope": "2018 breadth-first historical recovery",
+  "attempted_at": "2026-09-20T06:11:00Z",
+  "production_head_inspected": "8c2335c955d2d704bb2fef75aa194d2be55bb277",
+  "previous_route": {
+    "route": "generic propertyauctions.io auctioneer crawler",
+    "latest_run_id": 35490144797,
+    "result": "CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1; No corpus change",
+    "status": "exhausted_for_now"
+  },
+  "distinct_route_attempted": "exact-date archive/index inversion for surviving lot/property fingerprints and PropertyAuctions AID/Auc manifests",
+  "auction_dates_tested": [
+    "2018-05-09",
+    "2018-06-18",
+    "2018-07-23",
+    "2018-09-24"
+  ],
+  "validated_surviving_evidence": [
+    {
+      "auction_dates": ["2018-05-09", "2018-06-18"],
+      "property": "Hampstead Heath land",
+      "guide": "£95,000+",
+      "evidence": "City of London committee report states land was due for Savills 9 May 2018, withdrawn, then understood due for Savills 18 June 2018",
+      "source_url": "https://democracy.cityoflondon.gov.uk/documents/s96381/Final%20Draft%20-%20Henry%20Hallowes%20Land%20Acquisition%20Hampstead%20Heath%20HHMC%20Report%2022.5.18.pdf"
+    }
+  ],
+  "result": {
+    "new_validated_canonical_events": 0,
+    "new_complete_manifests": 0,
+    "propertyauctions_aid_or_auc_ids_recovered": 0
+  },
+  "exact_blocker": "Exact-date web/index inversion did not expose a trustworthy PropertyAuctions LotList.aspx AID/Auc manifest for the tested 2018 auctions. Search results were dominated by unrelated Savills agency/investment material; the only independently validated auction evidence remains isolated property fingerprints, so no manifest denominator or additional lot rows can safely be inferred.",
+  "next_distinct_route": "Pivot from surviving property fingerprints and legacy Savills catalogue URLs into web-archive/Common Crawl style URL-index discovery for old auctions.savills.co.uk catalogue endpoints, then map any recovered catalogue/lot URLs back to EIG auctionid/lotid or PropertyAuctions AID/Auc identifiers. Park each date quickly if no deterministic manifest key emerges and continue breadth-first through remaining 2018 auctions before 2017."
+}
