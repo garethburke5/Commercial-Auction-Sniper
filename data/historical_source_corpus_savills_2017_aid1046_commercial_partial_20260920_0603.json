@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "capture_mode": "raw_property_rows_first",
+  "auctioneer": "Savills London & National",
+  "auction_date": "2017-11-06",
+  "source_auction_id": "AID:1046",
+  "source_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046",
+  "records": [
+    {"source_record_id":"savills|2017-11-06|AID1046|lot29","record_type":"lot_partial","lot_number":"29","property_type":"Vacant Leasehold Garage","locality":"London NW10","result":"Withdrawn","source_url":"https://www.propertyauctions.com/Results/LotList.aspx?AID=1046","capture_status":"raw_property_banked_partial","classification":"non-residential/garage"},
+    {"source_record_id":"savills|2017-11-06|AID1046|lot44","record_type":"lot_partial","lot_number":"44","property_type":"Vacant Freehold Building","locality":"London SW19","result":"Refer to Auctioneer","source_url":"https://www.propertyauctions.com/Results/LotList.aspx?AID=1046","capture_status":"raw_property_banked_partial","classification":"potential-commercial/building"},
+    {"source_record_id":"savills|2017-11-06|AID1046|lot46","record_type":"lot_partial","lot_number":"46","property_type":"Vacant Freehold Building","locality":"Carshalton, Surrey","result":"£124,000","source_url":"https://www.propertyauctions.com/Results/LotList.aspx?AID=1046","capture_status":"raw_property_banked_partial","classification":"potential-commercial/building"},
+    {"source_record_id":"savills|2017-11-06|AID1046|lot51","record_type":"lot_partial","lot_number":"51","property_type":"Vacant Freehold Garage","locality":"South Croydon, Surrey","result":"£304,000","source_url":"https://www.propertyauctions.com/Results/LotList.aspx?AID=1046","capture_status":"raw_property_banked_partial","classification":"non-residential/garage"},
+    {"source_record_id":"savills|2017-11-06|AID1046|lot58B","record_type":"lot_partial","lot_number":"58B","property_type":"Vacant Freehold Garage","locality":"Reading, Berkshire","result":"£86,000","source_url":"https://www.propertyauctions.com/Results/LotList.aspx?AID=1046","capture_status":"raw_property_banked_partial","classification":"non-residential/garage"}
+  ],
+  "reconciliation":{"actual_lot_or_partial_records_added":5,"auction_records_added":0,"source_manifest_raw_rows":193,"note":"Additional directly evidenced non-residential/potential-commercial rows extracted from the existing production raw AID 1046 manifest. Residential-only rows excluded from this commercial/mixed shard."}
+}
