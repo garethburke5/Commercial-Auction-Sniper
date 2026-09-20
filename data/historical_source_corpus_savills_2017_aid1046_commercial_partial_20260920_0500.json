@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "capture_mode": "raw_property_rows_first",
+  "auctioneer": "Savills London & National",
+  "auction_date": "2017-11-06",
+  "source_auction_id": "AID:1046",
+  "source_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046",
+  "records": [
+    {"source_record_id":"savills|2017-11-06|AID1046|lot1","record_type":"lot_partial","lot_number":"1","property_type":"Vacant Freehold Site","locality":"London SE15","result":"£530,000","source_url":"https://www.propertyauctions.com/Results/LotList.aspx?AID=1046","capture_status":"raw_property_banked_partial","classification":"non-residential/site"},
+    {"source_record_id":"savills|2017-11-06|AID1046|lot2","record_type":"lot_partial","lot_number":"2","property_type":"Vacant Freehold Land","locality":"Harrow, Middlesex","result":"Withdrawn","source_url":"https://www.propertyauctions.com/Results/LotList.aspx?AID=1046","capture_status":"raw_property_banked_partial","classification":"non-residential/land"},
+    {"source_record_id":"savills|2017-11-06|AID1046|lot6","record_type":"lot_partial","lot_number":"6","property_type":"Vacant Freehold Land","locality":"Tonbridge, Kent","result":"£202,000","source_url":"https://www.propertyauctions.com/Results/LotList.aspx?AID=1046","capture_status":"raw_property_banked_partial","classification":"non-residential/land"},
+    {"source_record_id":"savills|2017-11-06|AID1046|lot9","record_type":"lot_partial","lot_number":"9","property_type":"Vacant Freehold Building","locality":"London SE13","result":"£426,000","source_url":"https://www.propertyauctions.com/Results/LotList.aspx?AID=1046","capture_status":"raw_property_banked_partial","classification":"potential-commercial/building"},
+    {"source_record_id":"savills|2017-11-06|AID1046|lot19","record_type":"lot_partial","lot_number":"19","property_type":"Vacant Freehold Garage","locality":"London SW16","result":"£13,500","source_url":"https://www.propertyauctions.com/Results/LotList.aspx?AID=1046","capture_status":"raw_property_banked_partial","classification":"non-residential/garage"}
+  ],
+  "reconciliation":{"actual_lot_or_partial_records_added":5,"auction_records_added":0,"source_manifest_raw_rows":193,"note":"These five rows are directly evidenced in the existing production raw AID 1046 manifest. Clearly residential rows in the same manifest are not copied into this commercial/mixed source-corpus shard."}
+}
