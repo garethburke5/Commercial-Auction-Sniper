@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "captured_at": "2026-09-20T16:08:39+01:00",
+  "priority": "breadth-first 2018 down to 2010",
+  "current_frontier": "archive page 15 / post-2014 continuation",
+  "attempted": [
+    "Fresh production main inspection after commit 5bbe5e887bbb93a96f3bd999600e325bd564185c",
+    "Fresh latest workflow-runs inspection",
+    "Direct retrieval of Savills chronological archive pages 15, 16 and 17",
+    "Exact web searches for 2013, 2012, 2011 and 2010 Savills PropertyAuctions LotList AID manifests",
+    "Repository search for surviving page-15 and 2013 archive evidence"
+  ],
+  "validated_state": {
+    "new_lot_records": 0,
+    "new_canonical_events": 0,
+    "archive_containers_newly_validated_this_pass": 0
+  },
+  "blocker": {
+    "savills_archive": "Direct archive/page-15, /page-16 and /page-17 retrieval was inaccessible from the current retrieval route.",
+    "propertyauctions": "Exact searches for historical Savills LotList.aspx AID manifests for 2013-2010 returned no indexed results.",
+    "repository": "No already-banked page-15 or 2013 lot-manifest evidence was found by repository search."
+  },
+  "distinct_next_route": "Invert the already validated exact auction dates/offered denominators from archive pages 12-14 into legacy Savills catalogue URLs and EIG auctionid/lotid fingerprints, beginning with the earliest unresolved 2014 auction and moving breadth-first; bank any exposed individual lots immediately and park dates that do not expose enumeration.",
+  "completeness_claim": false
+}
