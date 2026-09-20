@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "capture_mode": "raw_property_rows_first",
+  "auctioneer": "Savills Auctions",
+  "year": 2018,
+  "records": [
+    {
+      "source_record_id": "savills|2018-05-09|land-38-38a-granville-square",
+      "record_type": "lot_partial",
+      "auction_date": "2018-05-09",
+      "lot_number": null,
+      "address": "Land at 38 & 38a Granville Square, Kings Cross, London WC1X 9PD",
+      "property_type": "development site",
+      "guide": "£800,000+",
+      "result": null,
+      "tenure": null,
+      "size": "approximately 100 sq m",
+      "source_urls": ["https://londondevelopmentsites.com/tag/green/page/2/"],
+      "capture_status": "raw_property_banked_partial",
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "savills|2018-05-09|hampstead-land-withdrawn-reoffered",
+      "record_type": "lot_partial",
+      "auction_date": "2018-05-09",
+      "lot_number": null,
+      "address": null,
+      "locality": "Hampstead, London",
+      "property_type": "land",
+      "guide": "£95,000+",
+      "result": "withdrawn",
+      "source_urls": ["https://democracy.cityoflondon.gov.uk/documents/s96381/Final%20Draft%20-%20Henry%20Hallowes%20Land%20Acquisition%20Hampstead%20Heath%20HHMC%20Report%2022.5.18.pdf"],
+      "capture_status": "raw_property_banked_partial",
+      "canonical_history_v2": false
+    },
+    {
+      "source_record_id": "savills|2018-11-26|17-lyndhurst-gardens-hampstead",
+      "record_type": "lot_partial",
+      "auction_date": "2018-11-26",
+      "lot_number": null,
+      "address": "17 Lyndhurst Gardens, Hampstead, London NW3",
+      "property_type": "Grade II listed institutional/office building",
+      "guide": null,
+      "result": "failed to sell at auction",
+      "size": "11,377 sq ft",
+      "source_urls": ["https://londondevelopmentsites.com/category/auction/page/2/", "https://en.wikipedia.org/wiki/The_Hoo%2C_Hampstead"],
+      "capture_status": "raw_property_banked_partial",
+      "canonical_history_v2": false
+    }
+  ],
+  "reconciliation": {
+    "auction_records_added_this_shard": 0,
+    "lot_partial_records": 3,
+    "note": "Consolidates already evidenced 2018 Savills property rows into established source-corpus directory; no auction denominator is counted as property capture."
+  }
+}
