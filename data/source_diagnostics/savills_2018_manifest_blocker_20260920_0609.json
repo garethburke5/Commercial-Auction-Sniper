@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills",
+  "recovery_scope": "2018 breadth-first manifest reconciliation",
+  "checked_at": "2026-09-20T05:09:00Z",
+  "production_head_inspected": "775ad635a19f3703e4539ef134cec50cea626770",
+  "latest_bulk_workflow": {
+    "run_id": 35490144797,
+    "head_sha": "1431a9ff11a2ba18396eae64a1f6d6d3f6c30e35",
+    "result": "CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1; No corpus change",
+    "route": "https://propertyauctions.io/auctioneers/savills",
+    "status": "exhausted_for_now"
+  },
+  "attempted_this_pass": [
+    "Fresh exact-date web-index searches for Savills 9 May 2018, 18 June 2018, 23 July 2018 and 24 September 2018 auctions",
+    "Search for surviving PropertyAuctions AID/Auc lot-manifest fingerprints tied to those dates",
+    "Cross-check surviving City of London evidence for the 9 May / 18 June Hampstead Heath land lot"
+  ],
+  "validated_evidence": {
+    "auction_dates": ["2018-05-09", "2018-06-18", "2018-07-23", "2018-09-24"],
+    "known_property_clue": "Hampstead Heath land, guide £95,000+, due 9 May 2018, withdrawn, then understood due 18 June 2018",
+    "source": "City of London committee report"
+  },
+  "blocker": "Fresh indexed searches did not expose a trustworthy deterministic PropertyAuctions AID/Auc identifier or complete lot table for these 2018 dates. The generic propertyauctions.io Savills crawler independently returned zero discovered listings in the latest workflow.",
+  "canonical_events_added": 0,
+  "auction_declared_complete": false,
+  "next_distinct_route": "Archive inversion: use known 2018 property fingerprints and old Savills catalogue URLs to recover archived EIG auctionid/lotid or PropertyAuctions LotList.aspx?AID=/Auc= manifests; park any single date quickly if no manifest surfaces and continue breadth-first across remaining 2018 auctions."
+}
