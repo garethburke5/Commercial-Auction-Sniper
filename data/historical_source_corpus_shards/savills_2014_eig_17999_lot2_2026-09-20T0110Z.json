@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "purpose": "append-only historical source-corpus shard; validated lot-level recovery from surviving indexed EIG HTML",
+  "capture_policy": "store only fields explicitly preserved by surviving source; no invented fields",
+  "records": [
+    {
+      "source_record_id": "savills-eig|17999|756425",
+      "auctioneer": "Savills (London - National)",
+      "record_type": "lot_evidenced",
+      "auction_date": "2014-10-28",
+      "source_auction_id": "EIG:17999",
+      "source_lot_id": "EIG:756425",
+      "lot_number": "2",
+      "address": "66D Charlwood Street, Pimlico, London, SW1V 4PQ",
+      "locality": "Pimlico, London",
+      "property_type": "Leasehold 2nd Floor Studio Flat Unmodernised Vacant",
+      "guide_price": "£450,000 Plus",
+      "vendor": "Housing Association",
+      "lease_details": "125 Yr, commencing 01/01/2013 (GR.£250.PA)",
+      "auction_url": "https://www.eigroup.co.uk/clients/auctions/fulldetails.aspx?auctionid=17999",
+      "lot_url": "https://www.eigroup.co.uk/clients/lots/details.aspx?lotid=756425&hb=1",
+      "catalogue_entry_url": "https://www.eigroup.co.uk/files/55/17999/6ec339ec-d59e-4b8a-9136-dc6e9a583328.pdf",
+      "image_url": "https://www.eigroup.co.uk/files/55/17999/de591a4f-7da1-4bcd-a42c-76731bd72a23.jpg",
+      "evidence_url": "https://stackoverflow.com/questions/26608125/create-a-dataframe-from-html-table-in-python/26608398",
+      "evidence_note": "Contemporaneous 28 October 2014 Stack Overflow question preserves the raw EIG HTML table for this Savills lot, including auctionid 17999, lotid 756425, address, lot number, guide, description, vendor, lease details, catalogue PDF and image URLs.",
+      "capture_status": "validated_lot_level_source_record",
+      "canonical_history_v2": false
+    }
+  ],
+  "auction_reconciliation": {
+    "auction_date": "2014-10-28",
+    "source_auction_id": "EIG:17999",
+    "manifest_scale_evidence": "The contemporaneous parser author states there were 232 such EIG lot tables on the fetched auction page.",
+    "validated_rows_in_this_shard": 1,
+    "unresolved_manifest_rows": 231,
+    "blocker": "Direct EIG fulldetails/details endpoints are not accessible from the current retrieval environment; only indexed/cached fragments are presently recoverable.",
+    "next_route": "Use EIG auctionid 17999 as the deterministic pivot: recover indexed/cache fragments keyed by auctionid=17999 and lotid/file paths, then bank each distinct observable row; separately test archived copies of the fulldetails page and catalogue PDFs rather than retrying PropertyAuctions.io."
+  }
+}
