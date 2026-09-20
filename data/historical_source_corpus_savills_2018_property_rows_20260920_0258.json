@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "capture_mode": "raw_property_rows_first",
+  "auctioneer": "Savills Auctions",
+  "year": 2018,
+  "records": [
+    {
+      "source_record_id": "savills|2018-06-18|hampstead-heath-charity-land",
+      "record_type": "lot_partial",
+      "auction_date": "2018-06-18",
+      "lot_number": null,
+      "address": null,
+      "locality": "Hampstead Heath, London",
+      "property_type": "land",
+      "guide": "£95,000+",
+      "result": null,
+      "tenure": null,
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "source_urls": [
+        "https://democracy.cityoflondon.gov.uk/documents/s96381/Final%20Draft%20-%20Henry%20Hallowes%20Land%20Acquisition%20Hampstead%20Heath%20HHMC%20Report%2022.5.18.pdf"
+      ],
+      "capture_status": "raw_property_banked_partial",
+      "classification": "land/non-residential source record",
+      "evidence_note": "City of London committee report states the land had been due for Savills auction on 9 May 2018 at guide £95,000+, was withdrawn, and was understood to be due for Savills auction on 18 June 2018. This row represents the evidenced 18 June auction appearance; the earlier 9 May withdrawn appearance is already banked separately."
+    }
+  ],
+  "reconciliation": {
+    "actual_property_rows_written": 1,
+    "auction_containers_written": 0,
+    "year_covered": 2018,
+    "auction_dates_covered": ["2018-06-18"]
+  }
+}
