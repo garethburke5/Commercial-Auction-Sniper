@@ -16,7 +16,7 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 90
     steps:
       - name: Checkout production branch
         uses: actions/checkout@v4
@@ -47,7 +47,7 @@ jobs:
         env:
           SAVILLS_EMAIL: ${{ secrets.SAVILLS_EMAIL }}
           SAVILLS_PASSWORD: ${{ secrets.SAVILLS_PASSWORD }}
-        run: python run_collectors_resilient.py
+        run: python -u run_collectors_resilient.py
 
       - name: Preserve last-known-good rows for temporary source outages
         run: python -m collectors.publication_resilience
@@ -123,7 +123,30 @@ jobs:
           assert sav, 'no current Savills lots published'
           PY
 
+      - name: Preserve validated snapshot artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: validated-live-snapshot
+          path: data/properties.json
+          retention-days: 7
+
+      - name: Publish validated refreshed snapshot
+        run: |
+          git config user.name 'Auction Sniper Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          cp data/properties.json /tmp/auction-sniper-properties.json
+          git restore data/properties.json
+          git stash push --include-untracked -m 'collector diagnostics during publication'
+          git pull --rebase origin main
+          cp /tmp/auction-sniper-properties.json data/properties.json
+          git add data/properties.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh canonical Auction Sniper production state'
+            git push origin main
+          fi
+
       - name: Build permanent auction history database
+        timeout-minutes: 20
         run: |
           python scripts/update_history_database.py
           python - <<'PY'
@@ -140,19 +163,14 @@ jobs:
           print('HISTORY VALIDATED',stats)
           PY
 
-      - name: Publish validated refreshed snapshot
+      - name: Publish updated history
         run: |
-          git config user.name 'Auction Sniper Bot'
-          git config user.email 'actions@users.noreply.github.com'
-          cp data/properties.json /tmp/auction-sniper-properties.json
           cp data/property_history.json /tmp/auction-sniper-property-history.json
-          git restore data/properties.json
-          if git ls-files --error-unmatch data/property_history.json >/dev/null 2>&1; then git restore data/property_history.json; else rm -f data/property_history.json; fi
+          git restore data/property_history.json
           git pull --rebase origin main
-          cp /tmp/auction-sniper-properties.json data/properties.json
           cp /tmp/auction-sniper-property-history.json data/property_history.json
-          git add data/properties.json data/property_history.json
+          git add data/property_history.json
           if ! git diff --cached --quiet; then
-            git commit -m 'Refresh canonical Auction Sniper production state'
+            git commit -m 'Bank published auction lots in permanent history'
             git push origin main
           fi
