@@ -1,0 +1,31 @@
+{
+  "schema_version": "historical-source-blocker-v1",
+  "auctioneer": "Savills",
+  "year": 2018,
+  "captured_at": "2026-09-21T00:08:30+01:00",
+  "strategy": "breadth-first exact-date indexed manifest discovery after AID 1080 partial recovery",
+  "attempted_auctions": [
+    "2018-03-26",
+    "2018-05-09",
+    "2018-06-18",
+    "2018-07-24",
+    "2018-09-26",
+    "2018-11-26"
+  ],
+  "routes_attempted": [
+    "exact-date Savills + PropertyAuctions + AID indexed search",
+    "date-specific PropertyAuctions manifest discovery"
+  ],
+  "result": "no indexed AID/Auc lot manifest surfaced for these six dates in this pass",
+  "new_lot_records_written": 0,
+  "known_partial_manifest": {
+    "auction_date": "2018-02-14",
+    "source_auction_id": "AID:1080",
+    "offered": 25,
+    "observable_lot_rows": 12,
+    "qualifying_commercial_mixed_rows_saved": 4,
+    "unresolved_offered_lots": 13
+  },
+  "blocker": "The exact-date public search index exposes no PropertyAuctions AID/Auc manifest for the six remaining tested 2018 dates; repeating the failed live/Wayback/Common-Crawl runner route is explicitly avoided.",
+  "next_distinct_route": "Invert surviving Savills chronological archive dates and denominators through legacy Savills catalogue/result URL patterns and EIG auctionid/lotid fingerprints, breadth-first; park any date that does not enumerate and continue to the next 2018 auction before descending to 2017."
+}
