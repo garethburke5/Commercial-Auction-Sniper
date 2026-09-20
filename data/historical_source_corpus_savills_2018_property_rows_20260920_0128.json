@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "capture_mode": "raw_property_rows_first",
+  "auctioneer": "Savills Auctions",
+  "year": 2018,
+  "records": [
+    {
+      "source_record_id": "savills|2018-05-09|land-38-38a-granville-square",
+      "record_type": "lot_partial",
+      "auction_date": "2018-05-09",
+      "lot_number": null,
+      "address": "Land at 38 & 38a Granville Square, Kings Cross, London WC1X 9PD",
+      "property_type": "development site",
+      "guide": "£800,000+",
+      "tenure": null,
+      "result": null,
+      "size": "approximately 100 sq m",
+      "source_urls": [
+        "https://londondevelopmentsites.com/tag/green/page/2/"
+      ],
+      "capture_status": "raw_property_banked_partial",
+      "classification": "development/non-residential source record"
+    },
+    {
+      "source_record_id": "savills|2018-05-09|hampstead-land-withdrawn-reoffered",
+      "record_type": "lot_partial",
+      "auction_date": "2018-05-09",
+      "lot_number": null,
+      "address": null,
+      "locality": "Hampstead, London",
+      "property_type": "land",
+      "guide": "£95,000+",
+      "result": "withdrawn",
+      "source_urls": [
+        "https://democracy.cityoflondon.gov.uk/documents/s96381/Final%20Draft%20-%20Henry%20Hallowes%20Land%20Acquisition%20Hampstead%20Heath%20HHMC%20Report%2022.5.18.pdf"
+      ],
+      "capture_status": "raw_property_banked_partial",
+      "classification": "land/non-residential source record",
+      "note": "City of London committee paper states land was due to be auctioned by Savills 9 May 2018, withdrawn, then due for 18 June 2018."
+    }
+  ],
+  "reconciliation": {
+    "actual_property_rows_written": 2,
+    "auction_containers_written": 0
+  }
+}
