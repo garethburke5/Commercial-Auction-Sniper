@@ -2,6 +2,11 @@ name: Auction Sniper Publish Now
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'data/properties.json'
+      - 'data/property_history.json'
 
 permissions:
   contents: write
