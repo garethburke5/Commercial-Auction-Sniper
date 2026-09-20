@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills London & National",
+  "capture_mode": "breadth_first_source_specific_blocker",
+  "run_date": "2026-09-20",
+  "production_head_inspected": "3a4d3e0b67a23f1191f0452a486559bd848b2105",
+  "latest_savills_workflow": {
+    "run_id": 35490144797,
+    "job_id": 106023578238,
+    "result": "CORPUS_RECORDS=0 DISCOVERED=0 PAGES=1 BLOCKERS=1; No corpus change",
+    "exhausted_route": "https://propertyauctions.io/auctioneers/savills generic listing crawler"
+  },
+  "year": 2018,
+  "auction_dates_tested": ["2018-05-09", "2018-06-18", "2018-07-23", "2018-09-24"],
+  "route_attempted": "exact-date archive/index inversion for surviving Savills lot fingerprints and PropertyAuctions AID/Auc manifests",
+  "validated_surviving_evidence": [{
+    "auction_dates": ["2018-05-09", "2018-06-18"],
+    "property": "Hampstead Heath land",
+    "guide": "£95,000+",
+    "source": "City of London committee report dated 23 May / 5 June 2018",
+    "source_url": "https://democracy.cityoflondon.gov.uk/documents/s96381/Final%20Draft%20-%20Henry%20Hallowes%20Land%20Acquisition%20Hampstead%20Heath%20HHMC%20Report%2022.5.18.pdf",
+    "note": "Report says land was due for Savills 9 May 2018, withdrawn, then understood due for Savills 18 June 2018."
+  }],
+  "canonical_events_added": 0,
+  "raw_manifest_rows_added": 0,
+  "blocker": "Exact-date indexed searches did not expose a trustworthy historical PropertyAuctions LotList.aspx AID/Auc manifest for the tested 2018 auctions; generic propertyauctions.io route is independently confirmed to discover zero listing URLs.",
+  "distinct_next_route": "Use surviving old auctions.savills.co.uk catalogue/lot URL fingerprints and property/address/guide strings to locate archived catalogue endpoints, then invert those into EIG auctionid/lotid or PropertyAuctions AID/Auc keys. Park each date quickly if no deterministic manifest key emerges and continue breadth-first across 2018 before descending to 2017."
+}
