@@ -5,6 +5,7 @@ on:
     paths:
       - scripts/harvest_savills_raw_lots.py
       - scripts/recover_savills_known_aids_archives.py
+      - scripts/promote_savills_raw_to_source_corpus.py
       - .github/workflows/savills-raw-first-bulk-harvest.yml
 permissions:
   contents: write
@@ -24,26 +25,31 @@ jobs:
         run: python scripts/recover_savills_known_aids_archives.py
       - name: Harvest observable Savills raw lots
         run: python scripts/harvest_savills_raw_lots.py
+      - name: Promote commercial and mixed rows into historical source corpus
+        run: python scripts/promote_savills_raw_to_source_corpus.py
       - name: Verify corpus before persist
         run: |
           python - <<'PY'
           import json
           p=json.load(open("data/savills_raw_lots.json"))
           s=json.load(open("data/savills_raw_harvest_status.json"))
+          c=json.load(open("data/historical_source_corpus.json"))
           assert isinstance(p.get("lots"),list)
+          assert isinstance(c.get("records"),list)
           assert s["total_raw_lots"]==len(p["lots"])
           print("VERIFIED_RAW_LOTS",len(p["lots"]))
-          print("VERIFIED_AUCTIONS",s["savills_auctions_seen"])
+          print("VERIFIED_SOURCE_RECORDS",len(c["records"]))
+          print("PROMOTION",s.get("source_corpus_promotion"))
           PY
       - name: Persist harvested corpus to production main
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/savills_raw_lots.json data/savills_raw_harvest_status.json
+          git add data/savills_raw_lots.json data/savills_raw_harvest_status.json data/historical_source_corpus.json
           if git diff --cached --quiet; then
             echo "No corpus change"
             exit 0
           fi
-          git commit -m "Harvest Savills raw lot corpus"
+          git commit -m "Harvest and promote Savills source corpus"
           git pull --rebase origin main
           git push origin HEAD:main
