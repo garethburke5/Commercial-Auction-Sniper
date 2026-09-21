@@ -48,6 +48,16 @@ def test_residential_label_does_not_exclude_woodborough_mixed_use():
     assert commercial_decision(row) is True
 
 
+@pytest.mark.parametrize('text',[
+    'Ground floor convenience store with post office and two flats above.',
+    'Freehold cafe investment and residential development opportunity.',
+    'Healthcare centre and dental surgery. Forms part of a large residential development.',
+    'Three vacant modern commercial units. Part of a waterside residential development.',
+])
+def test_commercial_components_in_residential_buildings_remain_eligible(text):
+    assert commercial_decision({'description':text}) is True
+
+
 def test_same_auction_lot_duplicates_are_caught_despite_address_and_url_variants():
     one = {'source':'Allsop Commercial','lot_number':'Lot 032','auction_date':'2026-10-07','address':'1 High St','url':'https://example.com/lot?searchid=a'}
     two = dict(one,lot_number='32',address='1 High Street, Town',url='https://example.com/lot?idx=4')

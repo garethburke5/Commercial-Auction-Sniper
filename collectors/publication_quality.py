@@ -8,7 +8,7 @@ from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 from .core import Lot, clean_description
 
 RESIDENTIAL = re.compile(r'\b(?:residential (?:property|investment|development|flat)|apartments?|maisonettes?|bungalows?|(?:detached|terraced|town|dwelling|family)\s*houses?|family home|\d+[ -](?:bed|bedroom)|(?:one|two|three|four|five|six)[ -]bedroom|HMO|house in multiple occupation)\b', re.I)
-COMMERCIAL = re.compile(r'\b(?:mixed[ -]use|commercial (?:property|unit|premises|building|accommodation)|retail (?:unit|premises|investment|shop|parade)|(?:ground[ -]floor|lock[ -]up) (?:retail|shop)|shop (?:and|with|investment|unit)|office (?:unit|building|premises|accommodation)|industrial (?:unit|property|premises)|warehouse|factory|trade counter|public house|restaurant|takeaway|supermarket|shopping centre|care home|hotel|day nursery|petrol station|commercial yard)\b', re.I)
+COMMERCIAL = re.compile(r'\b(?:mixed[ -]use|commercial (?:property|units?|premises|buildings?|accommodation)|retail (?:units?|premises|investment|shop|parade)|(?:ground[ -]floor|lock[ -]up) (?:retail|shop)|shop (?:and|with|investment|units?)|office (?:units?|buildings?|premises|accommodation)|industrial (?:units?|property|premises)|warehouse|factory|trade counter|public house|restaurant|takeaway|supermarket|convenience store|post office|caf[eé]|healthcare centre|(?:dental|veterinary|doctors?) surgery|shopping centre|care home|hotel|day nursery|petrol station|commercial yard)\b', re.I)
 MIXED = re.compile(r'\bmixed[ -]use\b|\b(?:commercial|retail|shop)\s*(?:and|&|/)\s*(?:residential|flats?)\b', re.I)
 
 

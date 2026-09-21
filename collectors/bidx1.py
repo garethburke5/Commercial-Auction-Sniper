@@ -136,7 +136,7 @@ def _discover(fetcher=_fetch, today=None):
 
 def _image_from_detail(s, base):
     """Recover a real BidX1 lot photo from static or hydrated gallery markup."""
-    bad = ("support", "agent", "profile", "avatar", "team", "logo", "icon", "ber-", "user", "favourite", "flag", "spinner")
+    bad = ("support", "agent", "surveyor", "profile", "avatar", "team", "logo", "icon", "ber-", "user", "favourite", "flag", "spinner", "floorplan", "floor-plan", "site-plan", "siteplan")
     candidates = []
 
     def add(raw, bonus=0):
@@ -154,6 +154,17 @@ def _image_from_detail(s, base):
         if any(x in low for x in ("thumb", "thumbnail", "small", "100x", "150x")): score -= 3
         candidates.append((score, u))
 
+    # Slick adds a clone of the last slide before the real first slide. The
+    # auctioneer's explicit photo index is authoritative, independent of DOM order.
+    primary=s.select_one('a[data-pswp-photo-index="0"][href]')
+    if primary:
+        add(primary.get('href'))
+        if candidates: return candidates[0][1]
+    primary=s.select_one('img[data-index="0"]')
+    if primary:
+        add(primary.get('data-lazy') or primary.get('data-src') or primary.get('src'))
+        if candidates: return candidates[0][1]
+
     for attrs in ({"property": "og:image"}, {"name": "twitter:image"}, {"property": "twitter:image"}, {"itemprop": "image"}):
         tag = s.find("meta", attrs=attrs)
         if tag and tag.get("content"):
@@ -167,7 +178,7 @@ def _image_from_detail(s, base):
         if any(x in alt for x in bad):
             continue
         bonus = 12 if any(x in alt for x in ("property", "lot", "building", "auction")) else 0
-        for attr in ("data-src", "data-lazy-src", "data-original", "data-image", "data-url", "src"):
+        for attr in ("data-src", "data-lazy", "data-lazy-src", "data-original", "data-image", "data-url", "src"):
             add(img.get(attr), bonus)
         for attr in ("srcset", "data-srcset"):
             raw = img.get(attr)
@@ -234,10 +245,17 @@ def _detail(url, seed, auction_date, fetcher=_fetch):
     lp_url, lp_status = legal_pack(s, url)
     if lp_status == "NOT FOUND" and re.search(r"\bView Legal Pack\b|\bLegal Document Download\b", text, re.I): lp_status = "AVAILABLE - LOGIN REQUIRED"
     lot = Lot(source=SOURCE, url=url, address=address, auction_date=auction_date,
-        image_url=image, guide_price=guide, annual_rent=rent,
+        image_url=image, image_is_primary=bool(s.select_one('a[data-pswp-photo-index="0"], img[data-index="0"]')),
+        image_source_url=url, guide_price=guide, annual_rent=rent,
         tenure=parse_tenure(text), vat_status=parse_vat(text), legal_pack_status=lp_status,
         legal_pack_url=lp_url, property_type=_property_type(text), description=text[:9000])
     lot.area_sqft, lot.area_sqm, lot.site_area_acres = _area(text)
+    status_node=s.select_one('.bidding-card')
+    status_text=norm(status_node.get_text(" ",strip=True)) if status_node else ''
+    for pattern,status in ((r'\bsold\s+prior\b','SOLD PRIOR'),(r'\bwithdrawn\b','WITHDRAWN'),(r'\bpostponed\b','POSTPONED')):
+        if re.search(pattern,status_text,re.I):
+            lot.status=status
+            break
     if re.search(r"\bvacant possession\b", text, re.I) and not re.search(r"\blet to\b|\btenanted\b|\bproducing\s+£", text, re.I): lot.occupation = "Vacant"
     elif re.search(r"\blet to\b|\btenanted\b|\bproducing\s+£|\brent(?:al)? income\b", text, re.I): lot.occupation = "Tenanted"
     if re.search(r"development potential|development opportunity|planning permission|subject to (?:the )?necessary consents|subject to planning", text, re.I): lot.development_potential = True

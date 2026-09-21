@@ -4,6 +4,7 @@ from io import BytesIO
 from urllib.parse import urljoin, urlparse
 
 from pypdf import PdfReader
+from bs4 import NavigableString
 
 from .browser import get_bytes
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
@@ -130,6 +131,20 @@ def _strip_chrome(text):
 
 
 def _property_text(s):
+    heading=s.find('h1')
+    if heading:
+        # Webdadi puts a viewing form and the site navigation before the h1.
+        # Starting at the actual property heading prevents the form from cutting
+        # off the particulars and prevents commercial navigation leaking into them.
+        parts=[]
+        for node in heading.next_elements:
+            if not isinstance(node,NavigableString):continue
+            if any(p.name in {'script','style','nav','footer','form'} for p in node.parents):continue
+            value=norm(str(node))
+            if any(marker.lower() in value.lower() for marker in CHROME_MARKERS+('Other properties you might be interested in',)):
+                break
+            if value:parts.append(value)
+        return norm(' '.join(parts))
     root=s.find("main") or s
     return _strip_chrome(root.get_text(" ",strip=True))
 
@@ -211,6 +226,12 @@ def _structured(text):
 
 
 def _image(s,url):
+    # Webdadi publishes its ordered gallery as links, including photographs
+    # rendered as CSS backgrounds rather than img tags. Use the first photograph.
+    for anchor in s.select('a[href*="cdn.webdadi.net/Media/image/"]'):
+        label=norm(anchor.get_text(" ",strip=True)+' '+str(anchor.get('title') or '')+' '+str(anchor))
+        if re.search(r'floor[ -]?plan|site[ -]?plan|\bEPC\b|\blogo\b',label,re.I):continue
+        return urljoin(url,anchor['href'])
     candidates=[]
     for img in s.find_all("img"):
         for attr in ("data-src","data-lazy-src","src"):
@@ -232,7 +253,7 @@ def _brochure_links(s,url):
     for a in s.find_all("a",href=True):
         href=urljoin(url,a.get("href") or "")
         label=norm(a.get_text(" ",strip=True)).lower()
-        if href.lower().endswith(".pdf") and any(x in label or x in href.lower() for x in ("brochure","particular","auction")):out.append(href)
+        if urlparse(href).path.lower().endswith(".pdf") and any(x in label or x in href.lower() for x in ("brochure","particular","auction")):out.append(href)
     return out
 
 
@@ -246,7 +267,7 @@ def _detail(url,seed,auction_date,image_hint=None,fetcher=None,brochure_reader=N
     s=fetcher(url);text=_property_text(s)
     if not _is_target(text):return None
     enriched=text
-    if len(text)<900:
+    if len(text)<900 or re.search(r'please refer to (?:the )?brochure',text,re.I):
         if brochure_reader is not None:
             try:
                 ptext=norm(brochure_reader(s,url))
@@ -262,7 +283,7 @@ def _detail(url,seed,auction_date,image_hint=None,fetcher=None,brochure_reader=N
     ml=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
     lp_url,lp_status=legal_pack(s,url)
     rent=_current_rent(enriched);guide=parse_guide(text) or parse_guide(enriched);facts=_structured(enriched)
-    return Lot(source=SOURCE,url=url,address=address,lot_number=("Lot "+ml.group(1) if ml else None),auction_date=auction_date,image_url=_image(s,url) or image_hint,guide_price=guide,annual_rent=rent,tenure=parse_tenure(enriched),vat_status=parse_vat(enriched),legal_pack_status=lp_status,legal_pack_url=lp_url,status="Live",description=enriched[:1200],property_type=_property_type(enriched),occupation=facts.get("occupation"),area_sqft=facts.get("area_sqft"),erv=facts.get("erv"),lease_term=facts.get("lease_term"),lease_start=facts.get("lease_start"),break_status=facts.get("break_status"),rent_review=facts.get("rent_review"),fri=facts.get("fri"),rateable_value=facts.get("rateable_value"),epc=facts.get("epc"),development_potential=facts.get("development_potential"),refurbishment=facts.get("refurbishment"),asset_management=facts.get("asset_management"),listed_status=facts.get("listed_status")).finalise()
+    return Lot(source=SOURCE,url=url,address=address,lot_number=("Lot "+ml.group(1) if ml else None),auction_date=auction_date,image_url=_image(s,url) or image_hint,image_is_primary=bool(s.select_one('a[href*="cdn.webdadi.net/Media/image/"]')),image_source_url=url,guide_price=guide,annual_rent=rent,tenure=parse_tenure(enriched),vat_status=parse_vat(enriched),legal_pack_status=lp_status,legal_pack_url=lp_url,status="Live",description=enriched[:9000],property_type=_property_type(enriched),occupation=facts.get("occupation"),area_sqft=facts.get("area_sqft"),erv=facts.get("erv"),lease_term=facts.get("lease_term"),lease_start=facts.get("lease_start"),break_status=facts.get("break_status"),rent_review=facts.get("rent_review"),fri=facts.get("fri"),rateable_value=facts.get("rateable_value"),epc=facts.get("epc"),development_potential=facts.get("development_potential"),refurbishment=facts.get("refurbishment"),asset_management=facts.get("asset_management"),listed_status=facts.get("listed_status")).finalise()
 
 
 def collect():

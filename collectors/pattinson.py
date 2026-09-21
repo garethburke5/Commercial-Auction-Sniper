@@ -449,7 +449,13 @@ def _apply_detail(lot, ds, seed, url):
         if tt and not re.search(r"pattinson|property search|commercial properties|just a moment", tt, re.I):
             lot.address = tt
 
-    lot.image_url = image_from_soup(ds, url)
+    primary=ds.select_one('img[alt="Photo 1"]') if 'rightmove.co.uk/properties/' in url else None
+    if primary and (primary.get('src') or primary.get('data-src')):
+        lot.image_url=urljoin(url,primary.get('src') or primary.get('data-src'))
+        lot.image_is_primary=True
+        lot.image_source_url=url
+    else:
+        lot.image_url = image_from_soup(ds, url) or lot.image_url
     lot.guide_price = parse_guide(text) or lot.guide_price
     if not lot.guide_price:
         m = re.search(r"(?:Reduced\s+)?(?:Starting Bid|Current Bid)\s*£\s*([\d,]+(?:\.\d+)?)", text, re.I)
