@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "capture_run": "2026-09-21T14:07:00Z",
+  "auctioneer": "Savills Commercial",
+  "auction_date": "2010-03-01",
+  "savills_auc": 668,
+  "recovery_route": "fresh exact legacy URL search-index inversion after repository-main/workflow inspection",
+  "queries_attempted": [
+    "\"comm_previous_auction_detail.asp\" \"668\" Savills",
+    "\"comm_previous_auction_lot.asp\" \"668\" Savills",
+    "\"Auc=668\" \"Savills\" auction",
+    "\"auc=668\" \"savills.co.uk\" auction"
+  ],
+  "result": {
+    "validated_lot_records": 0,
+    "canonicalised_events": 0,
+    "lot_denominator": null,
+    "propertyauctions_aid": null,
+    "manifest_recovered": false,
+    "historical_complete": false
+  },
+  "blocker": "Fresh public search indexing returned no defensible archived Savills Commercial Auc 668 detail page, lot page, PropertyAuctions AID manifest, or lot denominator. Returned hits were unrelated and were discarded. Savills Auc 668 must not be assumed to equal PropertyAuctions AID 668.",
+  "next_distinct_route": "Use the known-good archived Auc 675 replay evidence already banked in production to recover its precise legacy host/path and pagination grammar, then enumerate adjacent Wayback/CDX captures for comm_previous_auction_lot.asp around Auc 668 and derive pos/page URLs and a denominator before canonicalising any lot. If Auc 668 remains absent, park it and breadth-first apply the same archive-neighbour traversal to Auc 685, 698 and 719.",
+  "notes": "This file records a source-specific blocker only; it is not a claim that the auction or its lots are captured."
+}
