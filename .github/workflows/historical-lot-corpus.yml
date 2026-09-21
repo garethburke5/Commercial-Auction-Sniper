@@ -34,11 +34,13 @@ jobs:
         run: python -m pytest -q tests/test_historical_corpus.py
       - name: Bank every previously recovered legacy lot
         run: python -u historical_corpus.py bank-legacy
-      - name: Bank evidenced lots from saved source-corpus shards
-        run: python -u historical_corpus.py bank-source-corpus
       - name: Traverse every known Savills catalogue and all its pages
-        timeout-minutes: 42
+        timeout-minutes: 30
         run: python -u historical_corpus.py harvest-savills --workers 3
+      - name: Collect every Paul Fosh result page
+        if: always()
+        timeout-minutes: 15
+        run: python -u historical_corpus.py harvest-paul-fosh --workers 3
       - name: Rebuild database from saved lot records
         if: always()
         run: python -u historical_corpus.py build
@@ -50,6 +52,7 @@ jobs:
           git config user.name 'Auction Sniper History Bot'
           git config user.email 'actions@users.noreply.github.com'
           git add data/auction_history/appearances data/auction_history/sources data/auction_history/auctions data/auction_history/progress.json data/auction_history/auction_history.sqlite.gz
+          if test -f data/auction_history/paul_fosh_collection.json; then git add data/auction_history/paul_fosh_collection.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Bank historical auction lot records and source evidence'
           for attempt in 1 2 3 4; do

@@ -73,3 +73,17 @@ def test_financial_and_sector_edge_cases():
     assert h.sector("Investment Apartment") == "residential"
     assert h.sector("Investment Public House") == "commercial"
     assert h.sector("Shop and Flat") == "mixed-use"
+
+
+def test_withdrawn_lot_without_number_is_still_banked():
+    html = '''<p>Showing results 1 - 1 of 1</p><div class="card-body">
+    Auction Ended - 30/07/2026 15:52
+    <h4>Portland House, Llandrindod Wells, LD1 5ER</h4>
+    Commercial / Residential Opportunity Result: Withdrawn
+    <a href="/lot/details/edaa1ac0-0424-41c2-8f6e-ad3e114b7601">View Result</a></div>'''
+    start, end, total, rows, raw = h.parse_paul_fosh(html, "https://auction.paulfosh.com/past-auctions", {})
+    assert total == len(rows) == 1
+    assert rows[0]["lot_number"] is None
+    assert rows[0]["status"] == "withdrawn"
+    assert rows[0]["auction_date"] == "2026-07-30"
+    assert rows[0]["source_lot_id"] == "edaa1ac0-0424-41c2-8f6e-ad3e114b7601"

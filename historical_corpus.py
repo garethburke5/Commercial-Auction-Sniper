@@ -11,18 +11,21 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 import gzip
+import fcntl
 from functools import lru_cache
 import hashlib
 import html
 import json
+import math
 from pathlib import Path
 import re
 import sqlite3
 import threading
 import time
+from types import SimpleNamespace
 from urllib.parse import parse_qs, urlencode, urljoin, urlsplit
+from urllib.request import urlopen
 
-import requests
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parent
@@ -159,7 +162,7 @@ def base_row(source, auction_id, date, lot, source_id, url):
     return {
         "schema_version": 1, "appearance_id": eid, "auctioneer": source,
         "source_auction_id": str(auction_id), "auction_date": date,
-        "lot_number": str(lot), "source_lot_id": str(source_id) if source_id else None,
+        "lot_number": str(lot) if lot is not None else None, "source_lot_id": str(source_id) if source_id else None,
         "address": None, "postcode": None, "locality": None, "sector": "unknown",
         "property_type": None, "tenure": None, "guide_price": None,
         "guide_price_high": None, "reserve_price": None, "sale_price": None,
@@ -231,9 +234,12 @@ def fetch(url):
         if wait > 0:
             time.sleep(wait)
         _last_request = time.monotonic()
-    r = requests.get(url, timeout=(10, 30), headers={"User-Agent": "Mozilla/5.0 (compatible; AuctionSniperHistory/1.0; public property research)"})
-    r.raise_for_status()
-    return r
+    # urllib uses the runtime's configured proxy and also works in the local
+    # collection environment where requests' proxy CONNECT can time out.
+    with urlopen(url, timeout=35) as response:
+        content = response.read()
+        charset = response.headers.get_content_charset() or "utf-8"
+        return SimpleNamespace(content=content, text=content.decode(charset, errors="replace"), url=response.geturl())
 
 
 @lru_cache(maxsize=1)
@@ -376,87 +382,6 @@ def bank_legacy():
     print("LEGACY_LOTS_BANKED", total, flush=True)
 
 
-
-def bank_source_corpus():
-    """Import evidenced lot arrays from earlier immutable source-corpus shards.
-
-    These shards were deliberately saved before the canonical appearance store
-    existed.  Auction containers are not appearances: only rows inside an
-    explicit lot/property array are admitted.  The original JSON is snapshotted
-    unchanged and every unknown value remains null.
-    """
-    roots = (ROOT / "data/source_corpus_shards", ROOT / "data/historical_source_corpus")
-    array_names = ("lot_records", "lots", "properties", "property_records")
-    total = 0
-    for source_path in sorted(p for root in roots if root.exists() for p in root.rglob("*.json")):
-        try:
-            payload = json.loads(source_path.read_text())
-        except (OSError, json.JSONDecodeError):
-            continue
-        lot_rows = next((payload.get(k) for k in array_names if isinstance(payload.get(k), list)), None)
-        if not lot_rows:
-            continue
-        auctioneer = clean(payload.get("auctioneer")) or "Unknown auctioneer"
-        snapshot_key = digest(source_path.read_bytes())[:20]
-        snapshot = DATA / "sources/source-corpus" / (snapshot_key + ".json.gz")
-        save_gzip(snapshot, {"imported_at": now(), "origin_file": str(source_path.relative_to(ROOT)),
-                             "origin_sha256": digest(source_path.read_bytes()), "payload": payload})
-        rows = []
-        for raw in lot_rows:
-            if not isinstance(raw, dict):
-                continue
-            address = plain(raw.get("address") or raw.get("locality_address") or raw.get("property_address"))
-            lot = clean(raw.get("lot_number")) or None
-            date = clean(raw.get("auction_date")) or None
-            period = clean(raw.get("auction_period") or raw.get("auction_month")) or None
-            urls = raw.get("source_urls") if isinstance(raw.get("source_urls"), list) else []
-            url = clean(raw.get("source_url") or raw.get("original_url") or (urls[0] if urls else "") or
-                        payload.get("archive_url")) or "https://example.invalid/source-unavailable"
-            source_id = clean(raw.get("source_record_id") or raw.get("source_lot_id")) or None
-            identity = source_id or digest(json.dumps(
-                [auctioneer, date, period, lot, address, url], ensure_ascii=False,
-                separators=(",", ":")).encode())[:24]
-            auction_id = clean(raw.get("source_auction_id")) or (date or period or "date-unknown")
-            row = base_row(auctioneer, "source-corpus:" + auction_id, date, lot or "unknown",
-                           source_id or identity, url)
-            row["appearance_id"] = "source-corpus|" + identity
-            row.update(address=address,
-                       locality=clean(raw.get("locality")) or None,
-                       property_type=plain(raw.get("property_type") or raw.get("description")),
-                       tenure=plain(raw.get("tenure")),
-                       guide_price=money(raw.get("guide_price_gbp") or raw.get("guide_gbp") or raw.get("guide_price")),
-                       guide_price_high=money(raw.get("guide_price_high_gbp")),
-                       sale_price=money(raw.get("result_price_gbp") or raw.get("hammer_gbp") or raw.get("result_gbp") or raw.get("sale_price")),
-                       annual_rent=money(raw.get("rent_pa_gbp") or raw.get("annual_rent")),
-                       rent_text=plain(raw.get("rent_text")),
-                       tenant=plain(raw.get("tenant")),
-                       lease_information=plain(raw.get("lease_details") or raw.get("lease_information")),
-                       floor_area=plain(raw.get("size") or raw.get("floor_area")),
-                       yield=raw.get("gross_initial_yield_pct") or raw.get("yield"),
-                       description=plain(raw.get("notes") or raw.get("description")),
-                       record_quality="address_record" if address else "partial_lot")
-            if address and (m := PC.search(address)):
-                row["postcode"] = m.group().upper()
-            row["sector"] = sector(" ".join(str(v or "") for v in
-                                    (row["property_type"], row["description"])))
-            result = clean(raw.get("result_status") or raw.get("result") or raw.get("status"))
-            if row["sale_price"] is not None or result.lower() == "sold":
-                row["status"] = "sold"
-            elif result:
-                row["status"] = result.lower()
-            row["source_evidence"] = {
-                "source_url": url, "source_urls": urls or [url],
-                "snapshot_path": str(snapshot.relative_to(ROOT)),
-                "origin_file": str(source_path.relative_to(ROOT)),
-                "origin_sha256": digest(source_path.read_bytes())
-            }
-            rows.append(row)
-        if rows:
-            total += write_rows("source-corpus/" + source_path.stem, rows)
-    print("SOURCE_CORPUS_LOTS_BANKED", total, flush=True)
-    return total
-
-
 def known_modern_ids():
     path = ROOT / "data/source_diagnostics/savills_firstparty_full_url_corpus.json"
     data = json.loads(path.read_text())
@@ -469,7 +394,99 @@ def known_modern_ids():
     return sorted(ids)
 
 
+def parse_paul_fosh(text, url, evidence):
+    soup = BeautifulSoup(text, "html.parser")
+    visible = clean(soup.get_text(" ", strip=True))
+    m = re.search(r"Showing\s+(?:results\s+)?([\d,]+)\s*[-–]\s*([\d,]+)\s+of\s+([\d,]+)", visible, re.I)
+    if not m:
+        raise ValueError("Paul Fosh result count/pagination not found")
+    start, end, total = [int(v.replace(",", "")) for v in m.groups()]
+    rows, raw = [], []
+    for container in soup.select(".card-body"):
+        link = container.find("a", href=re.compile(r"/lot/details/[a-f0-9-]+", re.I))
+        heading = container.find(["h3", "h4"])
+        if not link or not heading:
+            continue
+        card = clean(container.get_text(" ", strip=True))
+        lm = re.search(r"\bLot\s+(\d+[A-Za-z]?)\b", card, re.I)
+        dm = re.search(r"Auction Ended\s*-\s*(\d{2}/\d{2}/\d{4})", card, re.I)
+        detail = urljoin("https://auction.paulfosh.com", link["href"])
+        source_id = detail.rstrip("/").split("/")[-1]
+        date = datetime.strptime(dm.group(1), "%d/%m/%Y").date().isoformat() if dm else None
+        row = base_row("Paul Fosh Auctions", "paulfosh-end:" + (date or "unknown"), date, lm.group(1).upper() if lm else None, source_id, detail)
+        row["appearance_id"] = "Paul Fosh Auctions|listing:" + source_id
+        row["auction_date_basis"] = "published_lot_end_date"
+        row["address"] = clean(heading.get_text(" ", strip=True))
+        if pc := PC.search(row["address"]):
+            row["postcode"] = pc.group().upper()
+        row["description"] = card
+        row["sector"] = sector(card)
+        if price := re.search(r"Sale price:\s*£\s*([\d,.]+)", card, re.I):
+            row.update(status="sold", sale_price=money(price.group(1)))
+        else:
+            for label in ("sold prior", "sold post", "withdrawn", "unsold", "postponed", "available"):
+                if re.search(r"\b" + label + r"\b", card, re.I):
+                    row["status"] = label
+                    break
+        row["source_evidence"] = evidence
+        row["record_quality"] = "address_record"
+        rows.append(row)
+        raw.append({"source_lot_id": source_id, "address": row["address"], "card_text": card, "lot_url": detail})
+    if len(rows) != end - start + 1 or len({r["source_lot_id"] for r in rows}) != len(rows):
+        raise ValueError(f"Paul Fosh card count mismatch: parsed {len(rows)}, page says {start}-{end}")
+    return start, end, total, rows, raw
+
+
+def harvest_paul_fosh(workers=3):
+    state_file = DATA / "paul_fosh_collection.json"
+    def page(n):
+        url = f"https://auction.paulfosh.com/past-auctions?Page={n}&lotResultType=All&order=RecentlyEnded&viewType=Grid"
+        response = fetch(url)
+        snapshot = DATA / "sources" / "paul_fosh" / f"page-{n}.json.gz"
+        ev = {"source_url": url, "retrieved_at": now(), "response_sha256": digest(response.content), "snapshot_path": str(snapshot.relative_to(ROOT))}
+        start, end, total, rows, raw = parse_paul_fosh(response.text, url, ev)
+        if start != (n - 1) * 50 + 1:
+            raise ValueError(f"Paul Fosh page {n} ignored pagination, returned {start}")
+        save_gzip(snapshot, {**ev, "start": start, "end": end, "total": total, "lots": raw})
+        return n, total, rows
+    first, expected, rows = page(1)
+    byid = {r["appearance_id"]: r for r in rows}
+    pages = {first}
+    failures = []
+    def checkpoint():
+        retained = write_rows("paul_fosh/results", list(byid.values()))
+        save_json(state_file, {"checked_at": now(), "lots_captured": retained,
+                              "current_run_unique_lots": len(byid), "expected_public_results": expected,
+                              "pages_captured": sorted(pages), "pages_expected": math.ceil(expected / 50),
+                              "results_complete": len(byid) == expected and len(pages) == math.ceil(expected / 50) and not failures,
+                              "failures": failures, "date_basis": "individual published lot end dates; not inferred auction-container dates"})
+    checkpoint()
+    with ThreadPoolExecutor(max_workers=max(1, min(workers, 4))) as executor:
+        jobs = {executor.submit(page, n): n for n in range(2, math.ceil(expected / 50) + 1)}
+        for future in as_completed(jobs):
+            try:
+                n, total, rows = future.result()
+                if total != expected:
+                    failures.append({"page": n, "error": "Result count changed during traversal"})
+                for row in rows:
+                    byid[row["appearance_id"]] = row
+                pages.add(n)
+                print("PAUL_FOSH", len(byid), "/", expected, "page", n, flush=True)
+            except Exception as e:
+                failures.append({"page": jobs[future], "error": f"{type(e).__name__}: {e}"[:400]})
+            if len(pages) % 5 == 0:
+                checkpoint()
+    checkpoint()
+
+
 def build_database():
+    DATA.mkdir(parents=True, exist_ok=True)
+    with (DATA / ".build.lock").open("w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        return _build_database()
+
+
+def _build_database():
     target = DATA / "auction_history.sqlite"
     temp = target.with_suffix(".sqlite.tmp")
     if temp.exists():
@@ -496,8 +513,10 @@ def build_database():
                 con.execute("INSERT OR IGNORE INTO properties VALUES (?,?,?,?)", (row["property_id"], row["address"], row["postcode"], row["identity_method"]))
             keys = ("appearance_id", "auctioneer", "source_auction_id", "auction_date", "lot_number", "source_lot_id", "property_id", "address", "postcode", "locality", "sector", "status", "guide_price", "sale_price", "original_url", "record_quality")
             con.execute("INSERT INTO appearances VALUES (" + ",".join("?" for _ in range(17)) + ")", tuple(row.get(k) for k in keys) + (json.dumps(row, ensure_ascii=False, separators=(",", ":")),))
+    failure_count = 0
     for path in sorted((DATA / "auctions").rglob("*.json")):
         row = json.loads(path.read_text())
+        failure_count += len(row.get("errors", []))
         con.execute("INSERT INTO auctions VALUES (?,?,?,?,?,?)", (row["source_auction_id"], row["auctioneer"], row.get("auction_date"), bool(row.get("catalogue_complete")), row["lots_captured"], json.dumps(row)))
     con.executescript("CREATE INDEX appearances_property ON appearances(property_id,auction_date); CREATE INDEX appearances_auction ON appearances(auctioneer,auction_date,lot_number); CREATE INDEX appearances_postcode ON appearances(postcode);")
     con.commit()
@@ -514,10 +533,14 @@ def build_database():
               "date_range": list(con.execute("SELECT min(auction_date),max(auction_date) FROM appearances").fetchone()),
               "surviving_catalogues_completely_harvested": con.execute("SELECT count(*) FROM auctions WHERE catalogue_complete=1").fetchone()[0],
               "catalogues_incomplete_or_unreconciled": con.execute("SELECT count(*) FROM auctions WHERE catalogue_complete=0").fetchone()[0],
+              "catalogue_fetch_or_parse_failures": failure_count,
               "limits": ["Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
                          "Exact address groups are not a verified count of unique physical buildings.",
                          "Completeness refers to surviving published catalogue content, not all lots originally offered.",
                          "Legacy partial lots retain location and lot number; missing street addresses remain null."]}
+    paul_state = DATA / "paul_fosh_collection.json"
+    if paul_state.exists():
+        report["paul_fosh_results"] = json.loads(paul_state.read_text())
     con.close()
     temp.replace(target)
     atomic(target.with_suffix(".sqlite.gz"), gzip.compress(target.read_bytes(), compresslevel=6, mtime=0))
@@ -526,23 +549,41 @@ def build_database():
     return report
 
 
+def lookup_history(postcode, address=None, database=None):
+    """Read-only integration entrypoint; returns candidates, never fuzzy merges."""
+    path = Path(database or DATA / "auction_history.sqlite").resolve()
+    con = sqlite3.connect(path.as_uri() + "?mode=ro", uri=True)
+    normalized = re.sub(r"\s+", "", postcode).upper()
+    rows = con.execute("SELECT record_json FROM appearances WHERE replace(upper(postcode),' ','')=? ORDER BY auction_date", (normalized,)).fetchall()
+    con.close()
+    records = [json.loads(row[0]) for row in rows]
+    if address:
+        key = re.sub(r"[^a-z0-9]+", " ", address.lower()).strip()
+        records = [r for r in records if re.sub(r"[^a-z0-9]+", " ", (r.get("address") or "").lower()).strip() == key]
+    return records
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["bank-legacy", "bank-source-corpus", "harvest-savills", "build"])
+    parser.add_argument("command", choices=["bank-legacy", "harvest-savills", "harvest-paul-fosh", "build"])
     parser.add_argument("--ids", help="Comma-separated known auction IDs; default all recovered catalogue IDs")
     parser.add_argument("--workers", type=int, default=3)
     parser.add_argument("--refresh", action="store_true")
     args = parser.parse_args()
     if args.command == "bank-legacy":
         bank_legacy()
-    elif args.command == "bank-source-corpus":
-        bank_source_corpus()
+    elif args.command == "harvest-paul-fosh":
+        harvest_paul_fosh(args.workers)
     elif args.command == "harvest-savills":
         ids = [int(i) for i in args.ids.split(",")] if args.ids else known_modern_ids()
+        states = []
         with ThreadPoolExecutor(max_workers=max(1, min(args.workers, 4))) as executor:
             jobs = {executor.submit(harvest_modern, aid, args.refresh): aid for aid in ids}
             for future in as_completed(jobs):
-                future.result()
+                states.append(future.result())
+        if states and not any(s.get("lots_captured", 0) > 0 for s in states):
+            build_database()
+            raise SystemExit("Collection failed: none of the selected Savills catalogues yielded property records")
     build_database()
 
 

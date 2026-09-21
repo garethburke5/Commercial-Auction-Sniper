@@ -9,6 +9,7 @@ progress is one evidenced auction lot appearance, never an auction date alone.
 pip install requests beautifulsoup4
 python historical_corpus.py bank-legacy
 python historical_corpus.py harvest-savills
+python historical_corpus.py harvest-paul-fosh
 python historical_corpus.py build
 ```
 
@@ -17,6 +18,11 @@ catalogue map, including residential lots. Missing street addresses remain null.
 The second traverses all previously identified modern catalogue IDs and every
 page, retaining the lot-level structured data embedded in the public website.
 Run `harvest-savills --ids 241 --refresh` to recheck one auction.
+
+Paul Fosh collection traverses and reconciles the entire paginated public results
+set, retaining all addresses, published lot end dates, outcomes, prices and detail
+links. Its lot end dates are labelled as such; they are not silently assumed to
+be a separate catalogue's date. Listing UUIDs preserve stable source identity.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including
