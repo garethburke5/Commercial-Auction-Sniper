@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-09-21T16:38:25.577549+00:00",
+  "individual_lot_records_captured": 8688,
+  "records_with_address": 0,
+  "partial_lot_records": 8688,
+  "exact_address_groups": 0,
+  "groups_with_repeat_appearances": 0,
+  "by_auctioneer": {
+    "Savills Auctions": 8688
+  },
+  "by_year": {
+    "2010": 138,
+    "2013": 379,
+    "2014": 1889,
+    "2015": 1400,
+    "2016": 1775,
+    "2017": 1678,
+    "2018": 1429
+  },
+  "by_sector": {
+    "commercial": 385,
+    "land": 641,
+    "mixed-use": 7,
+    "residential": 6333,
+    "unknown": 1322
+  },
+  "date_range": [
+    "2010-05-10",
+    "2018-12-11"
+  ],
+  "surviving_catalogues_completely_harvested": 0,
+  "catalogues_incomplete_or_unreconciled": 170,
+  "limits": [
+    "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
+    "Exact address groups are not a verified count of unique physical buildings.",
+    "Completeness refers to surviving published catalogue content, not all lots originally offered.",
+    "Legacy partial lots retain location and lot number; missing street addresses remain null."
+  ]
+}
