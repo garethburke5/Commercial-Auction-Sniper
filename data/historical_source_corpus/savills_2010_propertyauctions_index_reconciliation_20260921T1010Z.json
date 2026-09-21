@@ -1,0 +1,41 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "auctioneer": "Savills",
+  "captured_at_utc": "2026-09-21T10:10:00Z",
+  "scope": "Breadth-first Savills 2010 reconciliation after fresh production-main inspection. This record does not assert catalogue completeness.",
+  "production_main_before_write": "647ee03d97cc30e29774ce22d3c7ca92d1ced913",
+  "current_frontier": "2010",
+  "attempt": {
+    "route": "PropertyAuctions public-index and exact-date/property-fingerprint inversion",
+    "queries": [
+      "site:propertyauctions.io Savills 2010 auction October 11",
+      "site:propertyauctions.io Savills 13 December 2010 auction",
+      "Reef n Beef Eastbourne Savills auction 2010",
+      "Savills 11 October 2010 auction commercial"
+    ],
+    "validated_new_lot_records": 0,
+    "canonicalised_events": 0
+  },
+  "validated_evidence": [
+    {
+      "period": "March 2010",
+      "property": "Reef 'n' Beef building, Eastbourne",
+      "use": "commercial restaurant investment",
+      "area_sq_ft": 2762,
+      "rent_pa_gbp": 22000,
+      "sold_price_gbp": 228000,
+      "source": "The Jewish Chronicle, 1 April 2010",
+      "note": "Contemporary report says Savills Commercial's £7.8m sale achieved 88% on-the-day success. Exact auction date, lot number and complete denominator remain unavailable."
+    }
+  ],
+  "blocker": {
+    "source_specific": "Fresh PropertyAuctions-index searches did not expose a defensible Savills AID/Auc manifest for March, 11 October or 13 December 2010. Exact-date search results were either unrelated or modern listings with historical address transactions, not 2010 Savills lot manifests.",
+    "march_exact_date": null,
+    "march_offered_lot_denominator": null,
+    "october_aid_auc": null,
+    "december_aid_auc": null,
+    "lot_enumeration_complete": false,
+    "historical_complete": false
+  },
+  "distinct_next_route": "Mine repository historical-source shards and legacy EIG/Savills URL/PDF filename fingerprints for Reef 'n' Beef Eastbourne and the Fulham £690k freehold to recover auctionid/lotid or catalogue namespace; separately project any recovered namespace onto 11-Oct-2010 and 13-Dec-2010. Do not infer unresolved lot counts without a trustworthy denominator."
+}
