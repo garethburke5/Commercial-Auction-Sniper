@@ -1,0 +1,37 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "auctioneer": "Savills",
+  "captured_at_utc": "2026-09-21T11:15:00Z",
+  "scope": "Breadth-first Savills 2010 reconciliation after fresh main/workflow inspection. No catalogue completeness is asserted.",
+  "production_main_observed": "c8a1f90d5ee68fa00099185db99a73b0000a6256",
+  "current_frontier": "2010",
+  "attempt": {
+    "route": "repository historical-source-shard mining plus legacy identifier fingerprinting",
+    "repository_queries": ["Reef Beef Eastbourne", "Eastbourne", "auctionid"],
+    "web_fingerprints": ["Reef n Beef Eastbourne Savills auction 2010", "£690,000 Fulham Savills auction 2010 commercial", "11 October 2010 Savills commercial auction", "13 December 2010 Savills commercial auction"],
+    "validated_new_lot_records": 0,
+    "canonicalised_events": 0
+  },
+  "validated_evidence": [
+    {
+      "period": "March 2010",
+      "property": "Reef 'n' Beef building, Eastbourne",
+      "use": "commercial restaurant investment",
+      "area_sq_ft": 2762,
+      "rent_pa_gbp": 22000,
+      "sold_price_gbp": 228000,
+      "source": "The Jewish Chronicle, 1 April 2010",
+      "note": "Contemporary report identifies the property in Savills Commercial's £7.8m sale with 88% on-the-day success, but does not expose exact auction date, lot number, AID/Auc, auctionid/lotid, or catalogue denominator."
+    }
+  ],
+  "blocker": {
+    "source_specific": "Fresh repository code/source search returned no indexed Eastbourne/Reef 'n' Beef historical shard and no indexed legacy auctionid namespace. Fresh exact-property/date web fingerprinting again surfaced the contemporary March result but no defensible PropertyAuctions AID/Auc, EIG auctionid/lotid, Savills PDF filename, or complete manifest for March, 11-Oct-2010, or 13-Dec-2010.",
+    "march_exact_date": null,
+    "march_offered_lot_denominator": null,
+    "october_aid_auc": null,
+    "december_aid_auc": null,
+    "lot_enumeration_complete": false,
+    "historical_complete": false
+  },
+  "distinct_next_route": "Use surviving chronological-archive neighbourhoods and adjacent known legacy Savills/EIG catalogue identifiers from 2011/2009 to bracket likely 2010 identifier ranges, then test those namespaces against exact March/October/December dates and known property fingerprints. Keep each auction unresolved until an actual lot manifest or trustworthy denominator is recovered."
+}
