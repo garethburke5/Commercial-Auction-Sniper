@@ -157,6 +157,22 @@ def sector(text, residential=False, commercial=False):
     return "unknown"
 
 
+def legacy_address_from_location(value):
+    """Return street-level legacy locations without guessing from a town/area.
+
+    The PropertyAuctions result grids normally expose only a locality, but a
+    minority of saved rows contain a numbered premise in that same column. A
+    numbered value is safe to preserve as the surviving address fragment;
+    unnumbered roads, districts and towns remain locality-only partial lots.
+    """
+    value = clean(value)
+    if re.match(r"^\d+[A-Za-z]?(?:\s*[/&-]\s*\d+[A-Za-z]?)?(?:\s+and\s+\d+[A-Za-z]?(?:/\d+[A-Za-z]?)?)?\s+\S", value, re.I):
+        return value
+    if re.match(r"^Land\s+to\s+the\s+Rear\s+of\s+\d+[A-Za-z]?(?:\s*[-–]\s*\d+[A-Za-z]?)?\s+\S", value, re.I):
+        return value
+    return None
+
+
 def base_row(source, auction_id, date, lot, source_id, url):
     eid = f"{source}|{auction_id}|{source_id or lot}"
     return {
@@ -347,16 +363,28 @@ def bank_legacy():
         key = "savills/legacy-" + str(cat["aid"])
         raw_rows = cat.get("all_initial_grid_rows", [])
         snapshot = DATA / "sources" / (key + ".json.gz")
-        save_gzip(snapshot, {"imported_at": now(), "original_capture_at": data.get("at"),
-                            "origin_file": str(path.relative_to(ROOT)), "origin_sha256": digest(original), "catalogue": cat})
+        # The snapshot is immutable evidence. Re-banking must not rewrite it
+        # merely to change an import timestamp.
+        if not snapshot.exists():
+            save_gzip(snapshot, {"imported_at": now(), "original_capture_at": data.get("at"),
+                                "origin_file": str(path.relative_to(ROOT)), "origin_sha256": digest(original), "catalogue": cat})
         rows = []
+        address_rows = 0
         for raw in raw_rows:
             lot = clean(raw.get("lot_number"))
             if not re.fullmatch(r"\d+[A-Za-z]?", lot) or lot == "0":
                 continue
             row = base_row("Savills Auctions", "propertyauctions:" + str(cat["aid"]), cat["auction_date"], lot, None, cat["catalogue_url"])
-            row.update(locality=clean(raw.get("location")) or None, property_type=raw.get("property_type"),
+            locality = clean(raw.get("location")) or None
+            address = legacy_address_from_location(locality)
+            row.update(address=address, locality=locality, property_type=raw.get("property_type"),
                        sector=sector(raw.get("property_type")), result_text=raw.get("result"), record_quality="partial_lot")
+            if address:
+                address_rows += 1
+                row["record_quality"] = "address_record"
+                row["address_basis"] = "numbered_premise_preserved_verbatim_from_saved_legacy_result_grid_location"
+                if match := PC.search(address):
+                    row["postcode"] = match.group().upper()
             result = clean(raw.get("result"))
             if money(result) is not None:
                 row.update(sale_price=money(result), status="sold")
@@ -373,12 +401,19 @@ def bank_legacy():
             rows.append(row)
         n = write_rows(key, rows)
         total += n
-        save_json(DATA / "auctions" / (key + ".json"), {
+        state_path = DATA / "auctions" / (key + ".json")
+        state = {
             "auctioneer": "Savills Auctions", "source_auction_id": "propertyauctions:" + str(cat["aid"]),
             "auction_date": cat["auction_date"], "catalogue_complete": False,
             "completion_scope": "all saved grid rows banked; source pagination and original offered count not independently reconciled",
             "lots_captured": n, "saved_grid_rows": len(raw_rows), "errors": [],
-            "needs_address_enrichment": True, "checked_at": now()})
+            "address_records": address_rows, "partial_lot_records": n - address_rows,
+            "needs_address_enrichment": address_rows < n, "checked_at": now()}
+        if state_path.exists():
+            previous = json.loads(state_path.read_text())
+            if {k: v for k, v in previous.items() if k != "checked_at"} == {k: v for k, v in state.items() if k != "checked_at"}:
+                state["checked_at"] = previous.get("checked_at", state["checked_at"])
+        save_json(state_path, state)
     print("LEGACY_LOTS_BANKED", total, flush=True)
 
 
