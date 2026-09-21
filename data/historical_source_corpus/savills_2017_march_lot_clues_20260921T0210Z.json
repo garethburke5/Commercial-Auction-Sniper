@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "breadth_first_lot_clue_capture",
+  "auction_date": "2017-03-29",
+  "auction_label": "Savills London & National auction",
+  "aid": null,
+  "auc": null,
+  "offered_minimum": 180,
+  "lot_enumeration_complete": false,
+  "validated_new_canonical_events": 0,
+  "source_clues": [
+    {
+      "address": "Land between St Paul's Vicarage and 6 Denleigh Gardens, Winchmore Hill, London N21 1JA",
+      "classification_clue": "land/development",
+      "guide": "£775,000+",
+      "source_url": "https://londondevelopmentsites.com/tag/n21/",
+      "source_note": "Contemporary development-auction index identifies this site in the Savills 29 March 2017 auction, with planning for a detached house."
+    },
+    {
+      "address": "2 Chadwick Street, Westminster, London SW1P 2EP",
+      "classification_clue": "freehold building/development",
+      "guide": "£1.1m+",
+      "source_url": "https://londondevelopmentsites.com/tag/n21/",
+      "source_note": "Contemporary development-auction index identifies this freehold building in the Savills 29 March 2017 auction."
+    },
+    {
+      "address": "26 Wadham Road, Putney, London SW15 2LR",
+      "classification_clue": "office/development",
+      "guide": "£1.1m+",
+      "source_url": "https://londondevelopmentsites.com/tag/n21/",
+      "source_note": "Contemporary development-auction index identifies a freehold office building with planning for three flats in the Savills 29 March 2017 auction."
+    }
+  ],
+  "source_reconciliation": {
+    "auction_date_source": "https://auction-link.org.uk/savills-london-auction-29th-march-2017/",
+    "offered_source_note": "Contemporary Auction Link notice says the catalogue contained over 180 lots and this was Savills' second London auction of 2017.",
+    "propertyauctions_manifest_found": false,
+    "aid_auc_found": false,
+    "canonicalised": 0,
+    "observable_property_clues_banked": 3,
+    "unresolved_manifest_rows": ">=177 because the source only establishes over 180 total lots and does not expose lot numbering"
+  },
+  "blocker": "Exact PropertyAuctions AID/Auc and complete Savills catalogue/results enumeration remain undiscovered for 29 March 2017. Public-index inversion exposes individual property clues but not stable lot numbers or a complete manifest, so these clues are not promoted as canonical events.",
+  "distinct_next_route": "Use the three exact addresses as reverse keys into archived EIG/Savills/PropertyAuctions lot pages and cached PDFs to recover lot identifiers/catalogue namespace; in parallel continue breadth-first to the 9 May 2017 auction rather than allowing March to stall the year.",
+  "completeness_claim": false
+}
