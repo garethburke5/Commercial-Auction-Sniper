@@ -18,6 +18,7 @@ from collectors import clive_emson_resilient as clive
 from collectors import symonds_sampson_resilient as symonds
 from collectors import future_property_auctions_resilient as future_property
 from collectors import bidx1 as bidx1_collector
+from collectors.publication_quality import lot_identity, prepare_publication
 
 
 _REPLACEMENTS = {
@@ -92,15 +93,7 @@ def _collect_bidx1_with_reserve_proxy():
 
 def _lot_identity(item):
     """Stable identity for one auction lot even when the auctioneer exposes URL variants."""
-    source = _normal_token(item.get("source"))
-    day = str(item.get("auction_date") or "")[:10]
-    lot = _normal_token(item.get("lot_number"))
-    address = _normal_token(item.get("address"))
-    if source and day and lot and lot not in {"lot tbc", "tbc"} and address:
-        return ("lot", source, day, lot, address)
-    if source and day and address:
-        return ("address", source, day, address)
-    return ("url", source, str(item.get("url") or "").strip())
+    return lot_identity(item)
 
 
 def _record_score(item):
@@ -190,6 +183,7 @@ def _finalize_published_snapshot(path=Path("data/properties.json"), today=None):
     integrity["terminal_rows_restored_to_publication"] = len(moved)
     integrity["duplicate_lot_rows_removed"] = duplicate_count
 
+    prepare_publication(data)
     pipeline.refresh_quality_telemetry(data)
     Path(path).write_text(json.dumps(data, indent=2), encoding="utf-8")
     return len(moved)

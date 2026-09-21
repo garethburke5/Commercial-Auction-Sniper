@@ -23,7 +23,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.77"
+BUILD = "V6.78"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -1829,6 +1829,10 @@ def load_rows():
                     source=x.get("source"), lot=x.get("lot_number") or "Lot TBC",
                     date=x.get("auction_date"), address=x.get("address") or "",
                     guide=x.get("guide_price"), rent=x.get("annual_rent"),
+                    guide_upper=x.get("guide_price_upper"), guide_text=x.get("guide_price_text"),
+                    canonical_snapshot=bool((snap.get("integrity") or {}).get("financial_semantics_checked")),
+                    previous_rent=x.get("historic_rent"), arrears=x.get("arrears"),
+                    tenancy_schedule=x.get("tenancy_schedule") or [],
                     tenure=x.get("tenure") or "UNKNOWN", vat=x.get("vat_status") or "UNKNOWN",
                     url=x.get("url") or "", desc=x.get("description") or "", image=x.get("image_url"),
                     legal_pack_status=x.get("legal_pack_status") or "UNKNOWN",
@@ -3052,6 +3056,12 @@ def _classify_rental_evidence(text):
 
 def _normalise_rent_semantics(row):
     r=dict(row)
+    if r.get('canonical_snapshot'):
+        # The collector has separated current income, historic income and costs.
+        # Reinterpreting its description here can revive rejected historic rent.
+        r['rent_status']='CURRENT / PASSING' if r.get('rent') else 'NO CONFIRMED CURRENT RENT'
+        r['yield']=calc_yield(r)
+        return r
     text=norm(' '.join(str(r.get(k) or '') for k in ('desc','legal_text','summary','notes')))
     ev=_classify_rental_evidence(text)
     old=r.get('rent')
@@ -4174,6 +4184,18 @@ def _safe_card_image_src(source,image_url):
 def money(v): return "—" if v is None else f"£{v:,.0f}"
 def pct(v): return "—" if v is None else f"{v:.1f}%"
 
+def guide_display(row):
+    lower,upper=row.get('guide'),row.get('guide_upper')
+    if lower is not None and upper is not None and upper>lower:
+        return f'{money(lower)}–{money(upper)}'
+    return str(row.get('guide_text') or money(lower))
+
+def yield_display(row):
+    lower,upper,rent=row.get('guide'),row.get('guide_upper'),row.get('rent')
+    if rent and lower and upper and upper>lower:
+        return f'{100*rent/upper:.1f}–{100*rent/lower:.1f}%'
+    return pct(row.get('yield'))
+
 with lots_tab:
     lots=list(rows)
 
@@ -4283,9 +4305,9 @@ with lots_tab:
             +f'<div class="oppTitle">{html.escape(_opp_title)}</div>'
             +(f'<div class="oppFacts">{html.escape(_opp_facts)}</div>' if _opp_facts else '')
             +f'<div class="addr">{html.escape(x["address"])}</div><div class="metrics">'
-            +f'<div class="metric"><span>Guide</span><b>{money(x.get("guide"))}</b></div>'
+            +f'<div class="metric"><span>Guide</span><b>{html.escape(guide_display(x))}</b></div>'
             +f'<div class="metric"><span>Rent p.a.</span><b>{money(x.get("rent"))}</b></div>'
-            +f'<div class="metric yieldMetric"><span>GIY</span><b>{html.escape(pct(y))}</b></div>'
+            +f'<div class="metric yieldMetric"><span>GIY</span><b>{html.escape(yield_display(x))}</b></div>'
             +'<div class="metric"><span>Tenure</span><b>'+html.escape((x.get("tenure") or "—").upper())+'</b></div>' 
             +'</div>'
             +f'<div class="meta">{html.escape(meta)}</div>'

@@ -2,6 +2,9 @@ from pathlib import Path
 import json
 import re
 import os
+import time
+import subprocess
+from concurrent.futures import ThreadPoolExecutor
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from urllib.parse import urlparse, unquote
@@ -112,6 +115,9 @@ def _enrich_item(item):
         lot=Lot(**payload); enriched=enrich_common_fields(lot,str(payload.get("description") or "")).to_dict(); out=dict(item)
         for k,v in enriched.items():
             if k=="source_id": continue
+            if k in {'annual_rent','gross_yield','occupation','historic_rent','ground_rent','service_charge','erv','arrears','guide_price_upper','guide_price_text'}:
+                out[k]=v
+                continue
             if out.get(k) in (None,"","UNKNOWN","NOT FOUND") and v not in (None,"","UNKNOWN","NOT FOUND"): out[k]=v
         return out
     except Exception: return dict(item)
@@ -139,7 +145,9 @@ def _merge_last_good(old,new):
     if not old: return dict(new)
     out=dict(old)
     for k,v in new.items():
-        if k=="description":
+        if k in {'annual_rent','gross_yield','historic_rent','ground_rent','service_charge','erv','arrears','guide_price_upper','guide_price_text'}:
+            out[k]=v
+        elif k=="description":
             new_desc=clean_description(v); old_desc=clean_description(out.get(k))
             if _meaningful(new_desc): out[k]=new_desc
             elif _meaningful(old_desc): out[k]=old_desc
@@ -162,7 +170,7 @@ def _remove_duplicate_images(active):
         if not bad: continue
         duplicate_urls[source]=bad
         for item in items:
-            if str(item.get("image_url") or "").strip() in bad: item["image_url"]=None; removed+=1
+            if not item.get('image_is_primary') and str(item.get("image_url") or "").strip() in bad: item["image_url"]=None; removed+=1
     return removed,duplicate_urls
 
 
@@ -171,9 +179,14 @@ def _collector_name(fn):
     leaf=module.rsplit(".",1)[-1].replace("_v2","").replace("_"," ").strip()
     return leaf.title() or getattr(fn,"__name__","Unknown collector")
 def _run_collector_safely(fn):
-    try: return fn()
+    started=time.monotonic()
+    print('COLLECTOR START',_collector_name(fn),flush=True)
+    try:
+        result=fn()
     except Exception as exc:
-        source=_collector_name(fn); return SourceResult(source=source,status="FAILED",lots=[],message=f"Collector raised {type(exc).__name__}: {exc}",discovered_count=0,authoritative_snapshot=False)
+        source=_collector_name(fn); result=SourceResult(source=source,status="FAILED",lots=[],message=f"Collector raised {type(exc).__name__}: {exc}",discovered_count=0,authoritative_snapshot=False)
+    print('COLLECTOR COMPLETE',result.source,result.status,len(result.lots),'lots',round(time.monotonic()-started,1),'seconds',flush=True)
+    return result
 
 
 def refresh_quality_telemetry(snapshot):
@@ -211,8 +224,12 @@ def run():
     old_snapshot=load_old_snapshot(); old=list(old_snapshot["properties"])+list(old_snapshot["archive"])
     today=datetime.now(timezone.utc).date(); old_by_key={_key(x):dict(x) for x in old if _key(x)!=("","")}
     results=[]; current_by_key={}; source_status={}; authoritative_scopes=[]; quality_repairs=quality_rejections=0; rejection_reasons={}
-    for fn in COLLECTORS:
-        r=_run_collector_safely(fn); source_status[r.source]=r.status; source_rejected=0
+    # Three independent source collectors share the runner; each retains its own
+    # source-level reconciliation and failures. This avoids a 40-minute serial scan.
+    with ThreadPoolExecutor(max_workers=max(1,min(3,int(os.environ.get('COLLECTOR_WORKERS','3'))))) as pool:
+        collected=list(pool.map(_run_collector_safely,COLLECTORS))
+    for r in collected:
+        source_status[r.source]=r.status; source_rejected=0
         if r.status in PUBLISHABLE:
             for lot in r.lots:
                 item,repairs,reason=_sanitize_item(lot.to_dict()); quality_repairs+=len(repairs)
@@ -258,7 +275,9 @@ def run():
     lifecycle_counts=Counter(_normal_status(x.get("status")) for x in archive)
     snapshot={"generated_at":datetime.now(timezone.utc).isoformat(),"properties":active,"archive":archive,"source_health":results,"target_coverage":target_coverage,"quality":{"repairs":quality_repairs,"rejections":quality_rejections,"rejection_reasons":rejection_reasons,"pruned":pruned,"duplicate_image_repairs":duplicate_image_repairs,"duplicate_image_urls":duplicate_image_urls,"source_quality":source_quality,"archive_lifecycle":dict(lifecycle_counts)}}
     refresh_quality_telemetry(snapshot)
-    snapshot["integrity"]["collector_revision"]=os.environ.get("GITHUB_SHA")
+    try: revision=subprocess.check_output(['git','rev-parse','HEAD'],text=True,timeout=3).strip()
+    except Exception: revision=os.environ.get('GITHUB_SHA')
+    snapshot["integrity"]["collector_revision"]=revision
     snapshot["integrity"]["publication_run_id"]=os.environ.get("GITHUB_RUN_ID")
     (DATA/"properties.json").write_text(json.dumps(snapshot,indent=2,ensure_ascii=False),encoding="utf-8")
     return snapshot

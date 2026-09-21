@@ -1,10 +1,11 @@
 from __future__ import annotations
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, field
 from datetime import datetime, timezone
 from typing import Optional
 import hashlib
 import re
 from urllib.parse import urljoin
+from .financials import money, guide_range, income_facts, current_income_text
 
 MONEY_RE = re.compile(r"(?:£\s*)+([\d,]+(?:\.\d{1,2})?)")
 
@@ -122,7 +123,7 @@ def normalize_occupation(occupation, description):
     current = norm(occupation)
     if current.lower() not in {"vacant", "vacant possession"} and not current.lower().startswith("vacant -"):
         return current or None
-    particulars = clean_description(description)
+    particulars = current_income_text(clean_description(description))
     if particulars and LET_EVIDENCE.search(particulars):
         if VACANT_EVIDENCE.search(particulars):
             return "Part Vacant / Part Let"
@@ -139,7 +140,15 @@ class Lot:
     auction_date: Optional[str] = None
     image_url: Optional[str] = None
     guide_price: Optional[float] = None
+    guide_price_upper: Optional[float] = None
+    guide_price_text: Optional[str] = None
     annual_rent: Optional[float] = None
+    historic_rent: Optional[float] = None
+    arrears: Optional[float] = None
+    auction_id: Optional[str] = None
+    image_is_primary: bool = False
+    image_source_url: Optional[str] = None
+    tenancy_schedule: list = field(default_factory=list)
     gross_yield: Optional[float] = None
     tenure: Optional[str] = None
     vat_status: str = "UNKNOWN"
@@ -181,6 +190,17 @@ class Lot:
 
     def finalise(self):
         self.description = clean_description(self.description)
+        lower, upper, price_text = guide_range(self.description)
+        if lower and (self.guide_price is None or self.guide_price == lower):
+            self.guide_price = lower
+            self.guide_price_upper = upper or self.guide_price_upper
+            self.guide_price_text = self.guide_price_text or price_text
+        finances = income_facts(self.description)
+        for key in ('historic_rent', 'erv', 'ground_rent', 'service_charge', 'arrears'):
+            if getattr(self, key) is None and key in finances:
+                setattr(self, key, finances[key])
+        if self.annual_rent is not None and 'annual_rent' not in finances and self.annual_rent in [finances.get(k) for k in ('historic_rent', 'erv', 'ground_rent', 'service_charge')]:
+            self.annual_rent = None
         self.occupation = normalize_occupation(self.occupation, self.description)
         occ = (self.occupation or "").strip().lower()
         wholly_vacant = occ in {"vacant", "vacant possession"} or occ.startswith("vacant -")
@@ -214,6 +234,7 @@ class SourceResult:
     discovered_count: Optional[int] = None
     authoritative_snapshot: bool = False
     scope_dates: tuple[str, ...] = ()
+    reconciliation: dict = field(default_factory=dict)
 
     def __post_init__(self):
         # A collector that explicitly declares its snapshot authoritative is saying
@@ -243,38 +264,17 @@ class SourceResult:
             "scope_dates": list(self.scope_dates),
             "message": self.message,
             "checked_at": datetime.now(timezone.utc).isoformat(),
+            "reconciliation": self.reconciliation,
         }
 
 def parse_money(text):
-    m = MONEY_RE.search(str(text or ""))
-    return float(m.group(1).replace(",", "")) if m else None
+    return money(text)
 
 def parse_guide(text):
-    money = r"((?:£\s*)+[\d,]+(?:\.\d+)?)"
-    separator = r"\s*(?:[:*+\-–—|.]\s*)*"
-    for pat in [
-        rf"Guide Price{separator}{money}",
-        rf"Guide{separator}{money}",
-        rf"Available At{separator}{money}",
-    ]:
-        m = re.search(pat, text or "", re.I)
-        if m:
-            return parse_money(m.group(1))
-    return None
+    return guide_range(text)[0]
 
 def parse_rent(text):
-    values = []
-    for pat in [
-        r"(?:Producing|Currently Producing|Current Gross Income|Current Rent Reserved|"
-        r"Rent(?:al)?(?: Income)?|Investment Let at|Let at|income of|generating|let producing)"
-        r"\s*:?\s*(?:approximately\s*)?(£[\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)\b",
-        r"(£[\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)\b",
-    ]:
-        for m in re.finditer(pat, text or "", re.I):
-            value = parse_money(m.group(1))
-            if value and 500 <= value <= 5_000_000:
-                values.append(value)
-    return max(values) if values else None
+    return income_facts(text).get('annual_rent')
 
 def is_commercial(text):
     t = norm(text).lower()

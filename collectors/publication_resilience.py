@@ -87,6 +87,8 @@ def apply(path=DATA, today=None):
     integrity["published_property_count"] = len(properties)
     integrity["historical_property_count"] = len(kept_archive)
     from run_collectors import refresh_quality_telemetry
+    from .publication_quality import prepare_publication
+    prepare_publication(data)
     refresh_quality_telemetry(data)
     path.write_text(json.dumps(data, indent=2), encoding="utf-8")
     print("SOURCE RESILIENCE", json.dumps({"failed_sources": sorted(failed_sources), "preserved_future_rows": dict(preserved), "zero_inventory_outages": sorted(zero_inventory_outages), "acceptance_ready": coverage.get("acceptance_ready")}, sort_keys=True))

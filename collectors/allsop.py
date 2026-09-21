@@ -314,7 +314,7 @@ def _identity_key(lot):
     return (address, lot.auction_date or "", lot_no)
 
 
-def collect():
+def _collect_html():
     try:
         targets=_discover()
         if not targets:return SourceResult(SOURCE,"CATALOGUE PENDING",[],"Allsop canonical auction pages and public search endpoints returned no auction lot pages.",discovered_count=0)
@@ -338,3 +338,8 @@ def collect():
         msg=f"Allsop verified-detail current/future sweep: {len(live_targets)} candidate pages inspected; {len(available)} available commercial/mixed-use lots; {len(terminal)} unavailable history rows retained; {failures} detail failures. Stale/mismatched teaser URLs are quarantined and duplicate identities suppressed."
         return SourceResult(SOURCE,status,lots,msg,discovered_count=len(live_targets),authoritative_snapshot=bool(status=="LIVE" and not failures),scope_dates=tuple(sorted({x.auction_date for x in lots if x.auction_date})))
     except Exception as exc:return SourceResult(SOURCE,"FAILED",[],f"Allsop collection failed: {exc}")
+
+
+def collect():
+    from .allsop_api import collect as collect_public_catalogues
+    return collect_public_catalogues()

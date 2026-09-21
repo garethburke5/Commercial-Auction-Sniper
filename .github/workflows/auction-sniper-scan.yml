@@ -52,6 +52,15 @@ jobs:
       - name: Preserve last-known-good rows for temporary source outages
         run: python -m collectors.publication_resilience
 
+      - name: Preserve candidate for publication diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: candidate-unpublished-snapshot
+          path: data/properties.json
+          retention-days: 7
+          if-no-files-found: warn
+
       - name: Validate candidate snapshot before publish
         run: |
           python - <<'PY'
@@ -59,9 +68,11 @@ jobs:
           from collections import defaultdict, Counter
           from pathlib import Path
           from source_manifest import manifest_coverage
+          from collectors.publication_quality import validate_publication
           p=Path('data/properties.json')
           assert p.exists(), 'data/properties.json was not generated'
           d=json.loads(p.read_text(encoding='utf-8'))
+          validate_publication(d)
           assert 'properties' in d and 'archive' in d and 'source_health' in d and d.get('generated_at'), 'invalid snapshot contract'
           print('SNAPSHOT',len(d['properties']),'published properties',len(d['archive']),'historical')
           for s in d['source_health']:

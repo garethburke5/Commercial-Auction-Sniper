@@ -3,7 +3,7 @@ from datetime import date, datetime
 from urllib.parse import urljoin, urlparse
 
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
-from .utils import soup, detail_lot, image_from_soup, enrich_common_fields
+from .utils import soup, detail_lot, image_from_soup, enrich_common_fields, legal_pack
 
 BASE = "https://www.auctionhouse.co.uk"
 REGIONS = {
@@ -151,7 +151,7 @@ def _fallback_catalogue_lot(source, href, card, label, lot_number, auction_date,
     return enrich_common_fields(lot,card).finalise()
 
 
-def _direct_first_party_lot(source, href, card, label, lot_number, auction_date, card_image=None, fetcher=_fetch):
+def _direct_first_party_lot(source, href, card, label, lot_number, auction_date, card_image=None, fetcher=None, suppress_prior=True):
     """Parse a branch-hosted exact page when the shared detail_lot parser cannot.
 
     Auction House's newer regional frontend (notably Wales) uses UUID routes on a
@@ -160,24 +160,49 @@ def _direct_first_party_lot(source, href, card, label, lot_number, auction_date,
     the first-party facts instead of degrading to a skeletal catalogue card.
     """
     try:
-        ds=fetcher(href)
+        ds=(fetcher or _fetch)(href)
     except Exception:
         return None
     root=ds.find("main") or ds.find("article") or ds
     text=norm(root.get_text(" ",strip=True))
-    if len(text)<80 or _prior_or_withdrawn(text[:1800]): return None
+    # The modern EIG branch template has no address h1 and puts account/bidding
+    # controls before the particulars. Scope extraction to the Description panel.
+    description_heading=next((h for h in ds.find_all(["h3","h4"]) if norm(h.get_text(" ",strip=True)).lower()=="description"),None)
+    if description_heading:
+        sections=[]
+        for node in description_heading.find_next_siblings():
+            if node.name in {"h3","h4"} or node.find(["h3","h4"]): break
+            if node.name != "p": continue
+            value=norm(node.get_text(" ",strip=True))
+            value=re.split(r"\b(?:Viewings|IMPORTANT INFORMATION)\b",value,maxsplit=1,flags=re.I)[0]
+            if value: sections.append(value)
+        if not sections: return None
+        text=norm(" ".join(sections))
+    if len(text)<80 or (suppress_prior and _prior_or_withdrawn(text[:1800])): return None
     combined=norm(card+" "+text)
     if not _commercialish(combined): return None
     h1=ds.find("h1")
     address=norm(h1.get_text(" ",strip=True)) if h1 else _card_address(label,card)
+    highlights=ds.select_one('.lot-highlights')
+    if highlights:
+        address_node=highlights.parent.select_one('p b')
+        if address_node: address=norm(address_node.get_text(" ",strip=True))
     address=re.sub(r"^Lot\s+\d+[A-Z]?\s*[:\-|]?\s*","",address or "",flags=re.I)
     if not address or len(address)<6: address=_card_address(label,card)
     if not address: return None
-    image=image_from_soup(ds,href) or card_image
-    lot=Lot(source=source,url=href,address=address,lot_number=lot_number,auction_date=auction_date,
-        image_url=image,guide_price=parse_guide(combined),annual_rent=parse_rent(combined),
+    primary=ds.select_one('#carousel-lot-images .item[data-slide="0"] img')
+    image=urljoin(href,primary.get('data-src') or primary.get('src')) if primary and (primary.get('data-src') or primary.get('src')) else image_from_soup(ds,href) or card_image
+    canonical=ds.select_one('link[rel="canonical"][href]')
+    property_url=urljoin(href,canonical['href']) if canonical else href
+    lp_url,lp_status=legal_pack(ds,property_url)
+    guide_text=norm(highlights.get_text(" ",strip=True)) if highlights else card
+    lot=Lot(source=source,url=property_url,address=address,lot_number=lot_number,auction_date=auction_date,
+        image_url=image,image_is_primary=bool(primary),image_source_url=property_url if primary else None,
+        guide_price=parse_guide(guide_text) or parse_guide(combined),annual_rent=parse_rent(text),
         tenure=parse_tenure(combined),vat_status=parse_vat(combined),property_type=_property_type(combined),
-        description=text[:9000],status="CURRENT")
+        description=text[:9000],status="CURRENT",legal_pack_url=lp_url,legal_pack_status=lp_status)
+    epc=re.search(r'EPC Rating:\s*([^.;]{1,85})',text,re.I)
+    if epc: lot.epc=epc.group(1).strip()
     # Explicit high-value facts frequently present on the modern branch pages.
     m=re.search(r"(?:approximately|approx\.?|circa|extending to)\s*([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|square feet)",combined,re.I)
     if m: lot.area_sqft=float(m.group(1).replace(",",""))

@@ -93,6 +93,21 @@ def _normal_date(day,month,year):
 
 def _property_content_text(s):
     """Return only the lot particulars, excluding auction conditions/footer chrome."""
+    if s.select_one('#details'):
+        pieces=[]
+        # These tab panels are already present in the source HTML, even when
+        # visually collapsed. Trim conditions per panel so they cannot hide the
+        # subsequent tenure/EPC panel or contaminate classification.
+        for selector in ('.property-address', '.lot-container', '#details', '#tenure', '#epc'):
+            node=s.select_one(selector)
+            if not node:continue
+            text=norm(node.get_text(' ',strip=True))
+            for marker in STOP_MARKERS+('Viewings Contact Auction Estates',):
+                pos=text.lower().find(marker.lower())
+                if pos>=0:text=text[:pos]
+            if selector=='#epc':text='EPC '+text
+            if text:pieces.append(text)
+        return norm(' '.join(pieces))[:16000]
     h1=s.find("h1")
     if not h1:
         text=norm((s.find("main") or s).get_text(" ",strip=True))
@@ -119,6 +134,8 @@ def _needs_interactive(s):
     # Auction Estates hides material buyer facts behind Details/Tenure/EPC accordions.
     # Always hydrate when those controls exist; a stray 'Freehold' in visible prose must
     # not prevent us from retrieving the actual tenure/EPC payload.
+    panels=[s.select_one('#'+name) for name in ('details','tenure','epc')]
+    if all(p is not None and norm(p.get_text(' ',strip=True)) for p in panels):return False
     t=_property_content_text(s)
     return bool(re.search(r"\bDetails\b.*\bTenure\b.*\bEPC\b",t,re.I))
 
@@ -288,12 +305,11 @@ def _detail(url,card,auction_date,fetcher=_fetch):
     s=fetcher(url)
     initial_text=_property_content_text(s)
     ptype=_authoritative_property_type(s)
-    if not _is_target_type(ptype,initial_text):return None
     s=_expand_if_needed(url,s)
     text=_property_content_text(s)
     # Re-check after hydration: hidden tab text can prove a Residential-labelled lot is mixed use.
     if not _is_target_type(ptype,text):return None
-    combined=norm(card+" "+text); terminal=_terminal_status_near_title(s)
+    combined=text; terminal=_terminal_status_near_title(s)
     h1=s.find("h1"); address=norm(h1.get_text(" ",strip=True)) if h1 else url
     guide=parse_guide(combined)
     if guide is None:
@@ -304,7 +320,7 @@ def _detail(url,card,auction_date,fetcher=_fetch):
         m=re.search(r"(?:total\s+)?current\s+rent\s+reserved\s+(?:of\s+)?£\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|pa|p\.a\.)",combined,re.I)
         if m:rent=float(m.group(1).replace(",",""))
     lp_url,lp_status=legal_pack(s,url)
-    lot=Lot(source=SOURCE,url=url,address=address,auction_date=auction_date,image_url=_image(s,url),guide_price=guide,annual_rent=rent,tenure=parse_tenure(text),vat_status=parse_vat(text),legal_pack_status=lp_status,legal_pack_url=lp_url,property_type=_classified_property_type(ptype,text),description=text,status=terminal or "CURRENT")
+    lot=Lot(source=SOURCE,url=url,address=address,auction_date=auction_date,image_url=_image(s,url),image_is_primary=True,image_source_url=url,guide_price=guide,annual_rent=rent,tenure=parse_tenure(text),vat_status=parse_vat(text),legal_pack_status=lp_status,legal_pack_url=lp_url,property_type=_classified_property_type(ptype,text),description=text,status=terminal or "CURRENT")
     lot.area_sqft,lot.area_sqm,lot.site_area_acres=_area(text)
     tenant,term,start,fri,break_clause=_tenancy_details(text)
     schedule,future_rent=_tenancy_schedule(text)

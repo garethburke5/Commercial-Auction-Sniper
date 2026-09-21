@@ -13,7 +13,7 @@ and are archived by run_collectors.py.
 from __future__ import annotations
 
 import re
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 from .core import SourceResult, norm
 from .utils import detail_lot
@@ -100,7 +100,16 @@ def _collect_region(slug):
 
         for href, (card, label, lot_number, auction_date, card_image, card_status) in targets.items():
             lot = None
+            if urlparse(href).hostname == f'{slug}.auctionhouse.co.uk':
+                lot = base._direct_first_party_lot(
+                    source, href, card, label, lot_number, auction_date, card_image,
+                    suppress_prior=False,
+                )
+                if lot:
+                    direct_recoveries += 1
             for use_browser in (False, True):
+                if lot:
+                    break
                 try:
                     # Do NOT suppress Sold Prior / Withdrawn. Lifecycle is evidence;
                     # run_collectors.py will keep it out of the active board.
