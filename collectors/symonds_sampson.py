@@ -97,7 +97,12 @@ def _discover_events(fetcher=_fetch,today=None):
 
 def _is_auction_property_url(href):
     parsed=urlparse(href or "");host=(parsed.hostname or "").lower();path=(parsed.path or "").lower().rstrip("/")
-    return host==AUCTION_HOST and path.startswith("/property/") and len(path.split("/"))>=3
+    # Webdadi lot IDs contain digits (e.g. dwr0007c6). The same /property/
+    # namespace also contains footer links to town-wide search result pages.
+    parts=path.strip('/').split('/')
+    return bool(host==AUCTION_HOST and len(parts)>=3 and parts[0]=='property'
+                and re.fullmatch(r'[a-z0-9]{7,}',parts[1]) and re.search(r'\d',parts[1])
+                and not any('property-for-sale' in p or 'properties-for-sale' in p for p in parts))
 
 
 def _event_card_image(anchor,event_url):
@@ -117,6 +122,7 @@ def _property_links(s,auction_date):
     out={}
     for a in s.find_all("a",href=True):
         href=urljoin(BASE,a.get("href") or "").split("#",1)[0]
+        if a.find_parent(['footer','nav']):continue
         if not _is_auction_property_url(href):continue
         out[href]=(norm(a.get_text(" ",strip=True)),auction_date,_event_card_image(a,BASE))
     return out
@@ -160,9 +166,10 @@ def _is_target(text):
 def _property_type(text):
     low=_strip_chrome(text).lower()
     if "mixed use" in low or "mixed-use" in low or (COMMERCIAL_SIGNAL.search(low) and any(x in low for x in RESIDENTIAL_COMPONENT)):return "Mixed Use"
-    if "retail" in low or "shop" in low:return "Retail"
-    if "office" in low:return "Office"
     if "industrial" in low or "warehouse" in low or "workshop" in low:return "Industrial"
+    if re.search(r'\bgarages?\b',low) and not re.search(r'\b(?:shop|retail|office)\b',low):return "Garages / Land"
+    if re.search(r'\b(?:retail|shop)\b',low):return "Retail"
+    if re.search(r'\boffices?\b',low):return "Office"
     if "public house" in low or re.search(r"\bpub\b",low):return "Leisure"
     return "Commercial"
 
@@ -283,7 +290,9 @@ def _detail(url,seed,auction_date,image_hint=None,fetcher=None,brochure_reader=N
     ml=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
     lp_url,lp_status=legal_pack(s,url)
     rent=_current_rent(enriched);guide=parse_guide(text) or parse_guide(enriched);facts=_structured(enriched)
-    return Lot(source=SOURCE,url=url,address=address,lot_number=("Lot "+ml.group(1) if ml else None),auction_date=auction_date,image_url=_image(s,url) or image_hint,image_is_primary=bool(s.select_one('a[href*="cdn.webdadi.net/Media/image/"]')),image_source_url=url,guide_price=guide,annual_rent=rent,tenure=parse_tenure(enriched),vat_status=parse_vat(enriched),legal_pack_status=lp_status,legal_pack_url=lp_url,status="Live",description=enriched[:9000],property_type=_property_type(enriched),occupation=facts.get("occupation"),area_sqft=facts.get("area_sqft"),erv=facts.get("erv"),lease_term=facts.get("lease_term"),lease_start=facts.get("lease_start"),break_status=facts.get("break_status"),rent_review=facts.get("rent_review"),fri=facts.get("fri"),rateable_value=facts.get("rateable_value"),epc=facts.get("epc"),development_potential=facts.get("development_potential"),refurbishment=facts.get("refurbishment"),asset_management=facts.get("asset_management"),listed_status=facts.get("listed_status")).finalise()
+    terminal=re.match(r'^(SOLD\s*PRIOR|WITHDRAWN(?:\s*PRIOR)?|POSTPONED)\b',address,re.I)
+    status=terminal.group(1).upper() if terminal else 'Live'
+    return Lot(source=SOURCE,url=url,address=address,lot_number=("Lot "+ml.group(1) if ml else None),auction_date=auction_date,image_url=_image(s,url) or image_hint,image_is_primary=bool(s.select_one('a[href*="cdn.webdadi.net/Media/image/"]')),image_source_url=url,guide_price=guide,annual_rent=rent,tenure=parse_tenure(enriched),vat_status=parse_vat(enriched),legal_pack_status=lp_status,legal_pack_url=lp_url,status=status,description=enriched[:9000],property_type=_property_type(enriched),occupation=facts.get("occupation"),area_sqft=facts.get("area_sqft"),erv=facts.get("erv"),lease_term=facts.get("lease_term"),lease_start=facts.get("lease_start"),break_status=facts.get("break_status"),rent_review=facts.get("rent_review"),fri=facts.get("fri"),rateable_value=facts.get("rateable_value"),epc=facts.get("epc"),development_potential=facts.get("development_potential"),refurbishment=facts.get("refurbishment"),asset_management=facts.get("asset_management"),listed_status=facts.get("listed_status")).finalise()
 
 
 def collect():

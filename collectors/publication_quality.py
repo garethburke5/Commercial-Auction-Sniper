@@ -7,24 +7,48 @@ from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 
 from .core import Lot, clean_description
 
-RESIDENTIAL = re.compile(r'\b(?:residential (?:property|investment|development|flat)|apartments?|maisonettes?|bungalows?|(?:detached|terraced|town|dwelling|family)\s*houses?|family home|\d+[ -](?:bed|bedroom)|(?:one|two|three|four|five|six)[ -]bedroom|HMO|house in multiple occupation)\b', re.I)
+RESIDENTIAL = re.compile(r'\b(?:residential (?:property|investment|development|flat)|apartments?|maisonettes?|bungalows?|studio flats?|(?:detached|terraced|town|dwelling|family|self[ -]contained)\s*houses?|family home|\d+[ -](?:bed|bedroom)|(?:one|two|three|four|five|six)[ -]bedroom|HMO|house in multiple occupation)\b', re.I)
 COMMERCIAL = re.compile(r'\b(?:mixed[ -]use|commercial (?:property|units?|premises|buildings?|accommodation)|retail (?:units?|premises|investment|shop|parade)|(?:ground[ -]floor|lock[ -]up) (?:retail|shop)|shop (?:and|with|investment|units?)|office (?:units?|buildings?|premises|accommodation)|industrial (?:units?|property|premises)|warehouse|factory|trade counter|public house|restaurant|takeaway|supermarket|convenience store|post office|caf[eé]|healthcare centre|(?:dental|veterinary|doctors?) surgery|shopping centre|care home|hotel|day nursery|petrol station|commercial yard)\b', re.I)
 MIXED = re.compile(r'\bmixed[ -]use\b|\b(?:commercial|retail|shop)\s*(?:and|&|/)\s*(?:residential|flats?)\b', re.I)
 
 
-def commercial_decision(item):
-    """Reject residential assets; evidence of actual commercial use overrides labels."""
-    text = clean_description(str(item.get('description') or ''))
+def asset_text(description):
+    """Exclude vicinity and agency prose from evidence about the asset itself."""
+    text = clean_description(str(description or ''))
     text = re.split(r'\b(?:Our Nearest Office|Important notices|For more property information|Popular Searches)\b', text, flags=re.I)[0]
     # Nearby shops and the auctioneer's office do not describe the asset for sale.
-    asset = re.sub(r'\b(?:nearby occupiers|local amenities|close to|within walking distance of|nearby shops)\b[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
+    return re.sub(
+        r'\b(?i:nearby occupiers|local amenities|close to|(?:within )?walking distance (?:of|to)|nearby shops)\b'
+        r'[^.;]*?(?=[.;]|$|\s(?:An?|The|This|Comprising|Freehold|Leasehold|Layout|Ground|First|Let|GF|FF)\b)',
+        ' ', text)
+
+
+def commercial_decision(item):
+    """Reject residential assets; require particulars to prove mixed use."""
+    asset = asset_text(item.get('description'))
     kind = str(item.get('property_type') or '')
-    positive = bool(COMMERCIAL.search(asset) or MIXED.search(kind))
+    # A collector-generated type is not independent evidence. In particular,
+    # nearby restaurants previously caused flats to be labelled "Mixed Use".
+    positive = bool(COMMERCIAL.search(asset) or MIXED.search(asset)
+                    or re.search(r'\b(?:estate agency|estate agents?|vet(?:erinary)? (?:surgery|practice|clinic)|ground[ -]floor shops?|commercial space|(?:hair|beauty) salon|barbers?|(?:block|parade) of (?:\d+|\w+) shops)\b', asset, re.I))
     residential = bool(RESIDENTIAL.search(asset+' '+str(item.get('address') or '')) or re.fullmatch(r'(?:Residential|House|Flat|Apartment|Bungalow)(?: / Residential)?', kind, re.I))
     if residential and not positive:
         return False
     if positive:
         return True
+    return None
+
+
+def publication_exclusion(item):
+    address = str(item.get('address') or '')
+    if re.match(r'^\s*propert(?:y|ies)\s+(?:for sale|to let|search)\b', address, re.I):
+        return 'Catalogue/search page: not an individual property'
+    if item.get('source') == 'Symonds & Sampson':
+        from .symonds_sampson import _is_auction_property_url
+        if not _is_auction_property_url(item.get('url')):
+            return 'Catalogue/search page: not an individual property'
+    if commercial_decision(item) is False:
+        return 'Pure residential: no commercial or mixed-use particulars'
     return None
 
 
@@ -55,11 +79,16 @@ def prepare_publication(snapshot):
     duplicates = 0
     for raw in snapshot.get('properties', []):
         item = dict(raw)
-        if commercial_decision(item) is False:
-            item['publication_exclusion'] = 'Pure residential: no commercial or mixed-use particulars'
+        reason = publication_exclusion(item)
+        if reason:
+            item['publication_exclusion'] = reason
             excluded.append(item)
-            counts[item.get('source') or 'Unknown'] += 1
+            counts[(item.get('source') or 'Unknown', reason.split(':')[0])] += 1
             continue
+        if item.get('source') == 'Symonds & Sampson':
+            terminal = re.match(r'^(SOLD\s*PRIOR|WITHDRAWN(?:\s*PRIOR)?|POSTPONED)\b', str(item.get('address') or ''), re.I)
+            if terminal:
+                item['status'] = terminal.group(1).upper()
         # Finalise financial facts after restoration too; historic rent must never
         # be revived by merging an older snapshot into a currently vacant lot.
         try:
@@ -79,7 +108,8 @@ def prepare_publication(snapshot):
     snapshot['properties'] = list(kept.values())
     snapshot['excluded_properties'] = list({(x.get('source'), canonical_url(x.get('url'))):x for x in excluded}.values())
     integrity = snapshot.setdefault('integrity', {})
-    integrity['residential_rows_excluded'] = dict(counts)
+    integrity['residential_rows_excluded'] = {source:n for (source,reason),n in counts.items() if reason == 'Pure residential'}
+    integrity['non_property_rows_excluded'] = {source:n for (source,reason),n in counts.items() if reason != 'Pure residential'}
     integrity['duplicate_lot_rows_removed'] = integrity.get('duplicate_lot_rows_removed', 0) + duplicates
     validate_publication(snapshot)
     integrity['commercial_purity_checked'] = True
@@ -90,8 +120,8 @@ def prepare_publication(snapshot):
 
 def validate_publication(snapshot):
     rows = snapshot.get('properties') or []
-    residential = [x.get('url') for x in rows if commercial_decision(x) is False]
-    assert not residential, 'Pure residential lots on commercial board: '+repr(residential[:10])
+    invalid = [(x.get('url'), publication_exclusion(x)) for x in rows if publication_exclusion(x)]
+    assert not invalid, 'Ineligible rows on commercial board: '+repr(invalid[:10])
     identities = Counter(lot_identity(x) for x in rows)
     duplicates = [k for k,v in identities.items() if v > 1]
     assert not duplicates, 'Repeated auction/source/date/lot: '+repr(duplicates[:10])

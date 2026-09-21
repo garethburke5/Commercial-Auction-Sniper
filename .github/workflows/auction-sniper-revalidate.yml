@@ -1,0 +1,41 @@
+name: Revalidate Published Auction Snapshot
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auction-sniper-live-snapshot-revalidation
+  cancel-in-progress: false
+
+jobs:
+  revalidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install -r requirements.txt pytest
+      - name: Run regression tests
+        run: python -m pytest tests -q
+      - name: Revalidate and publish existing source facts
+        run: |
+          git config user.name 'Auction Sniper Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git pull --rebase origin main
+          python -m scripts.revalidate_snapshot
+          python -m scripts.validate_publication
+          git add data/properties.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Apply validated live-board publication repairs'
+            git push origin main
+          fi

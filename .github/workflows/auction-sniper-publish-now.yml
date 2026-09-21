@@ -11,6 +11,9 @@ on:
       - 'run_collectors*.py'
       - 'source_manifest.py'
       - 'requirements.txt'
+      - 'scripts/revalidate_snapshot.py'
+      - 'scripts/validate_publication.py'
+      - '.github/workflows/auction-sniper-revalidate.yml'
       - 'collectors/**'
       - 'tests/**'
       - 'config/**'
@@ -21,6 +24,9 @@ permissions:
   contents: write
 
 jobs:
+  repair_published_snapshot:
+    uses: ./.github/workflows/auction-sniper-revalidate.yml
   production:
+    needs: repair_published_snapshot
     uses: ./.github/workflows/auction-sniper-scan.yml
     secrets: inherit

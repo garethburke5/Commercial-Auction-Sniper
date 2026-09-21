@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
 from .utils import soup, legal_pack, image_from_soup
 from .interactive import get_html_with_clicks
+from .publication_quality import asset_text, COMMERCIAL, RESIDENTIAL, MIXED
 
 SOURCE="Auction Estates"
 BASE="https://www.auctionestates.co.uk"
@@ -63,17 +64,9 @@ def _authoritative_property_type(s):
 
 
 def _commercial_mixed_evidence(text):
-    t=norm(text or "").lower()
-    explicit_mixed=any(x in t for x in (
-        "mixed-use","mixed use","shop and flat","shop with flat","retail and residential",
-        "commercial/residential","commercial and residential",
-    ))
-    commercial=any(x in t for x in (
-        "retail unit","commercial unit","shop unit","office unit","office premises","warehouse",
-        "industrial unit","takeaway","restaurant","public house","commercial investment",
-    ))
-    residential=any(x in t for x in ("flat","apartment","living space","residential","bedroom"))
-    return explicit_mixed or (commercial and residential)
+    t=asset_text(text)
+    residential=bool(RESIDENTIAL.search(t) or re.search(r'\bliving (?:space|accommodation)\b',t,re.I))
+    return bool(MIXED.search(t) or (COMMERCIAL.search(t) and residential))
 
 
 def _is_target_type(ptype,text=""):

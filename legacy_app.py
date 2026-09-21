@@ -23,7 +23,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.78"
+BUILD = "V6.79"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -4188,7 +4188,7 @@ def guide_display(row):
     lower,upper=row.get('guide'),row.get('guide_upper')
     if lower is not None and upper is not None and upper>lower:
         return f'{money(lower)}–{money(upper)}'
-    return str(row.get('guide_text') or money(lower))
+    return re.sub(r'(?:£\s*){2,}', '£', str(row.get('guide_text') or money(lower)))
 
 def yield_display(row):
     lower,upper,rent=row.get('guide'),row.get('guide_upper'),row.get('rent')
