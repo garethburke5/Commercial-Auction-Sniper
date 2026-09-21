@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "breadth_first_source_capture",
+  "year": 2017,
+  "auctions": [
+    {
+      "auction_date": null,
+      "auction_label": "Savills first auction of 2017",
+      "aid": null,
+      "auc": null,
+      "offered": 215,
+      "sold": null,
+      "success_rate_pct": 80.5,
+      "raised_gbp": 64160000,
+      "archive_url": "https://www.propertyauctions.com/dataclub/",
+      "auction_catalogue_url": null,
+      "results_url": null,
+      "document_urls": [],
+      "source_note": "PropertyAuctions Dataclub surviving public index states: Savills first auction of 2017 saw 80.5% of 215 lots on offer sold for a total of GBP64.16m. Exact auction date/catalogue route was not exposed by this source, so those fields remain null pending later enumeration.",
+      "lot_enumeration_complete": false
+    }
+  ],
+  "lots": [],
+  "validated_new_auction_records": 1,
+  "validated_new_lot_records": 0,
+  "completeness_claim": false
+}
