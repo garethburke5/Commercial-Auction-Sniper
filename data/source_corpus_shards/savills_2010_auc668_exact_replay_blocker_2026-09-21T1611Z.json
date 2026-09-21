@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "capture_run": "2026-09-21T16:11:00Z",
+  "production_main_inspected": "cfbdc3462e4b9a2b4162595fd73967eb28615b9f",
+  "auctioneer": "Savills Commercial",
+  "recovery_scope": "breadth-first 2018-2010; active frontier 2010-03-01 / Auc 668",
+  "auction": {
+    "auction_date": "2010-03-01",
+    "savills_auc": 668,
+    "canonicalised_this_run": 0,
+    "unresolved_lot_count": null,
+    "manifest_complete": false
+  },
+  "attempted_route": "Repository/default-branch mining for the exact successful Auc 675 archived replay URL, timestamp, pagination grammar, and comm_previous_auction_lot.asp hrefs, followed by exact legacy-URL replay discovery for Auc 668 without relying on CDX.",
+  "result": "No indexed/default-branch source exposed a replayable Auc 675 archived lot URL or Auc 668 lot manifest. Repository code search returned no comm_previous_auction_lot.asp hit and no Auc 668 hit. The recursive main tree confirms multiple dedicated Savills recovery workflows exist, including savills-2010-2018-rss-catalogue-recovery.yml and savills-2010-recovered-pdf-parse.yml, but the latest history-banking workflow remains failed and supplies no new validated Savills lot capture.",
+  "blocker": "The known Auc 668 identity cannot yet be converted into a trustworthy lot denominator because neither current default-branch indexed evidence nor the exact-replay route exposes archived lot hrefs. Savills Auc IDs must not be assumed to equal PropertyAuctions AIDs.",
+  "next_distinct_route": "Inspect the dedicated Savills 2010 recovery workflow definitions and their historical workflow runs/artifacts for archived PDF/catalogue outputs or exact legacy URLs; if an artifact contains a recovered catalogue, parse it directly and reconcile its lot enumeration against PropertyAuctions. If those artifacts are absent, park Auc 668 and apply the same artifact-first traversal breadth-first to Auc 685, 698 and 719.",
+  "historical_complete": false
+}
