@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "breadth_first_source_capture",
+  "capture_priority": "discover_save_move_on",
+  "year": 2012,
+  "auction_records": [
+    {
+      "auction_date": null,
+      "auction_month": "2012-10",
+      "auction_label": "Savills London October auction",
+      "aid": null,
+      "auc": null,
+      "offered": null,
+      "sold": null,
+      "reported_value": "£32m",
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "document_urls": [],
+      "evidence_url": "https://property-investor-news.com/article/auctions/2013/11/20/auction_report.html",
+      "evidence_note": "Contemporary comparison in the 2013 Savills October auction report explicitly states that the October 2012 Savills auction total was £32m. Exact 2012 auction date, AID/Auc and catalogue/results routes were not exposed by the surviving indexed source and are deliberately left null.",
+      "lot_enumeration_complete": false
+    }
+  ],
+  "lot_records": [],
+  "validated_new_auction_records": 1,
+  "validated_new_lot_records": 0,
+  "lot_enumeration_complete": false,
+  "attempted": ["Fresh broad public-index search for Savills 2012 auction/catalogue/results sources", "Exact month searches across May, July, September, October and December 2012", "Cross-check of surviving contemporary auction reporting for dated/aggregate evidence"],
+  "capture_note": "Breadth-first source record only. No commercial/mixed-use lot was promoted without auction-level evidence tying it to Savills. Residential-only search hits were excluded. Do not treat this auction container as completed lot capture.",
+  "distinct_next_route": "Continue breadth-first into 2011 and 2010 while separately queueing legacy EIG/Savills catalogue namespace recovery for 2012.",
+  "historical_completeness_declared": false
+}
