@@ -1,0 +1,23 @@
+{
+  "source": "Savills Auctions",
+  "run_at": "2026-09-21T13:12:00Z",
+  "objective": "2010 breadth-first historical recovery by direct archived-manifest traversal",
+  "historical_complete": false,
+  "canonical_events_added": 0,
+  "production_main_inspected": "debab951bf8eb192bff652b6ce1c08dc4524ad1b",
+  "workflow_observation": "Latest production history-banking run was still in progress at inspection; no workflow result was used as capture evidence.",
+  "current_auction": {
+    "date": "2010-03-01",
+    "savills_auc": 668,
+    "canonicalised_this_run": 0,
+    "unresolved_lots": "unknown: no trustworthy lot denominator recovered"
+  },
+  "attempted": [
+    "Direct exact-URL/index search for comm_previous_auction_detail.asp?auc=668",
+    "Direct exact-URL/index search for comm_previous_auction_lot.asp?Auc=668",
+    "Savills + Auc=668 exact identifier search"
+  ],
+  "result": "No indexed/replayable Auc 668 detail page, lot page, lot denominator, or PropertyAuctions AID manifest was recovered through the available web route. Search results were unrelated and were excluded.",
+  "blocker": "The Savills Auc 668 identifier/date is source-banked, but the available web index does not expose its archived comm_previous_auction_detail/lot pages and the current GitHub corpus does not contain the Auc 668 lot manifest. Numeric equality between Savills Auc and PropertyAuctions AID remains unvalidated and must not be assumed.",
+  "distinct_next_route": "Use Wayback CDX URL-prefix enumeration (not search-engine indexing) for the legacy Savills host/path around comm_previous_auction_detail.asp and comm_previous_auction_lot.asp, filtering captures by Auc=668 and extracting every discovered pos/page URL. If CDX is inaccessible, recover the original legacy host/path from the previously successful Auc 675 replay evidence and enumerate adjacent archived URLs from that exact host namespace. Then repeat for Auc 685, 698 and 719."
+}
