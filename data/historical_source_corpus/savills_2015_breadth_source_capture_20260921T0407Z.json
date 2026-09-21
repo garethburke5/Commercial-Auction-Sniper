@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "breadth_first_source_capture",
+  "capture_priority": "discover_save_move_on",
+  "year": 2015,
+  "auctions": [
+    {"auction_date":"2015-02-17","auction_label":"London & National","offered":null,"sold":null,"success_percent":86,"raised":"£52.4m+","lot_enumeration_complete":false,"evidence_url":"https://propertyauctions.com/"},
+    {"auction_date":"2015-05-11","auction_label":"London & National","offered":null,"sold":null,"success_percent":88,"raised":"£40m+","lot_enumeration_complete":false,"evidence_url":"https://propertyauctions.com/"},
+    {"auction_date":"2015-06-22","auction_label":"London & National","offered":188,"sold":167,"success_percent":89,"raised":"£63,018,000","lot_enumeration_complete":false,"evidence_url":"https://auctions.savills.co.uk/past-auctions/archive/page-13"},
+    {"auction_date":"2015-07-28","auction_label":"London & National","offered":170,"sold":141,"success_percent":83,"raised":"£45,426,000","lot_enumeration_complete":false,"evidence_url":"https://auctions.savills.co.uk/past-auctions/archive/page-13"},
+    {"auction_date":"2015-09-21","auction_label":"London & National","offered":256,"sold":218,"success_percent":85,"raised":"£70,997,000","lot_enumeration_complete":false,"evidence_url":"https://auctions.savills.co.uk/past-auctions/archive/page-13"},
+    {"auction_date":"2015-11-02","auction_label":"London & National","offered":199,"sold":161,"success_percent":81,"raised":"£57,666,000","lot_enumeration_complete":false,"evidence_url":"https://auctions.savills.co.uk/past-auctions/archive/page-13"},
+    {"auction_date":"2015-12-14","auction_label":"London & National","offered":138,"sold":117,"success_percent":85,"raised":"£35,941,000","lot_enumeration_complete":false,"evidence_url":"https://auctions.savills.co.uk/past-auctions/archive/page-13"}
+  ],
+  "lots": [
+    {"auction_date":"2015-02-17","lot_number":"162","address":"The Empress Hotel, Blackpool","property_type":"former hotel and public house with planning permission for nine self-contained flats and a retail unit","guide":"£170,000","size":"over 15,000 sq ft","source_url":"https://www.itv.com/news/granada/update/2015-02-17/historic-blackpool-hotel-goes-under-the-hammer/","partial_record":true},
+    {"auction_date":"2015-06-22","lot_number":"153","address":"Pavement/highway land near Islington Green, London","property_type":"freehold land/pavement with potential commercial uses including advertising, market stall or mobile coffee shop","guide":"£25,000 reported reserve £4,000","hammer":"£125,000","size":"560 sq ft","source_url":"https://www.independent.co.uk/news/uk/home-news/pavement-in-islington-north-london-sells-at-auction-for-ps125-000-10344029.html","partial_record":true},
+    {"auction_date":"2015-06-22","lot_number":null,"address":"Thomas a Becket, Old Kent Road, London","property_type":"freehold public house/building with redevelopment or reconfiguration potential","guide":"£1,900,000","source_url":"https://www.london-se1.co.uk/news/view/8309","partial_record":true}
+  ],
+  "blocker": "Surviving Savills chronological archive supplies auction denominators but not underlying lot enumeration; indexed PropertyAuctions material exposes aggregate 2015 results but no AID/Auc manifest for these dates. The three lot records are source-verified clues, not evidence that any catalogue is complete.",
+  "distinct_next_route": "Continue breadth-first through the remaining 2015 auction dates and then 2014, using exact-address inversion of source-verified lot clues to recover cached Savills/EIG/PropertyAuctions lot identifiers. Park any auction whose AID/Auc or catalogue namespace does not enumerate promptly; never infer missing lots from denominators."
+}
