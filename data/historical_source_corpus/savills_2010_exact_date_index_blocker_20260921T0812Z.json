@@ -1,0 +1,32 @@
+{
+  "schema": "historical_source_corpus_breadth_v1",
+  "auctioneer": "Savills",
+  "capture_mode": "BREADTH-FIRST RECONCILIATION; EXACT BLOCKERS ARE VALID OUTPUT",
+  "captured_at_utc": "2026-09-21T08:12:00Z",
+  "year": 2010,
+  "scope": "Return breadth frontier to requested 2018-2010 range; do not treat newer 2008 source work as completion of 2010.",
+  "attempted_route": {
+    "name": "exact-date public-index inversion",
+    "dates": ["2010-10-11", "2010-12-13"],
+    "queries": [
+      "Savills 11 October 2010 auction commercial",
+      "Savills 13 December 2010 auction commercial",
+      "Savills March 2010 auction Reef n Beef Fulham",
+      "Savills 2010 Property Auctions AID auction"
+    ],
+    "result": "No surviving indexed Savills/PropertyAuctions AID/Auc lot manifest or complete Savills lot catalogue was exposed for either exact commercial-auction date. Search results were dominated by unrelated international/property references."
+  },
+  "reconciliation": {
+    "known_2010_commercial_dates": ["2010-10-11", "2010-12-13"],
+    "march_2010_sale_known": true,
+    "march_2010_exact_date": null,
+    "new_validated_lot_records": 0,
+    "new_canonical_events": 0,
+    "catalogue_manifest_complete": false,
+    "aid_auc_recovered": false,
+    "unresolved_lot_count": null,
+    "blocker": "Exact-date public indexing does not expose PropertyAuctions AID/Auc identifiers, complete lot manifests, or complete legacy Savills catalogue/results enumeration for the 2010 commercial dates. March 2010 also lacks a verified exact auction date/denominator.",
+    "next_distinct_route": "Mine repository/source shards and legacy EIG auctionid/lotid fingerprints for the already evidenced March-2010 Reef n Beef Eastbourne and Fulham sale-price clues, then use any recovered identifier namespace to enumerate the 11-Oct-2010 and 13-Dec-2010 catalogues. Keep each auction partial until reconciled against a denominator.",
+    "historical_complete": false
+  }
+}
