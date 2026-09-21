@@ -1,22 +1,21 @@
 {
   "auctioneer": "Savills Auctions",
   "source_auction_id": "savills:224",
-  "auction_date": null,
-  "auction_name": null,
-  "catalogue_complete": false,
+  "auction_date": "2026-06-09",
+  "auction_name": "9 June 2026",
+  "catalogue_complete": true,
   "completion_scope": "all published lots in surviving online catalogue; not proof of original historical catalogue completeness",
-  "lots_captured": 0,
-  "raw_records_observed": 0,
-  "expected_raw_records": null,
-  "pages_expected": null,
-  "pages_captured": 0,
-  "excluded_non_properties": [],
-  "errors": [
+  "lots_captured": 222,
+  "raw_records_observed": 223,
+  "expected_raw_records": 223,
+  "pages_expected": 3,
+  "pages_captured": 3,
+  "excluded_non_properties": [
     {
-      "url": "https://auctions.savills.co.uk/auctions/9-june-2026-224/page-1/quantity-100/sort-by-0",
-      "page": 1,
-      "error": "ConnectTimeout: HTTPSConnectionPool(host='auctions.savills.co.uk', port=443): Max retries exceeded with url: /auctions/9-june-2026-224/page-1/quantity-100/sort-by-0 (Caused by ConnectTimeoutError(<HTTPSConnection(host='auctions.savills.co.uk', port=443) at 0x7f390d2e6720>, 'Connection to auctions.savills.co.uk timed out. (connect timeout=10)'))"
+      "source_lot_id": "23197",
+      "reason": "unnumbered or lot-zero section divider"
     }
   ],
-  "checked_at": "2026-09-21T16:38:04.283961+00:00"
+  "errors": [],
+  "checked_at": "2026-09-21T22:13:34.045907+00:00"
 }
