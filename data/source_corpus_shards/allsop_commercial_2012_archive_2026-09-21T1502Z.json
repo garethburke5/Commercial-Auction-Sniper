@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "capture_run": "2026-09-21T15:02:49Z",
+  "auctioneer": "Allsop Commercial",
+  "capture_strategy": "breadth-first source corpus; discover -> save source record/URL -> move on",
+  "archive_url": "https://www.allsop.co.uk/auctions/all-past-auction-results/",
+  "auctions": [
+    {"year":2012,"month":"February","total_raised_gbp":43937000,"results_url":"https://www.allsop.co.uk/property-search?auction_id=5546f423-9ac0-e611-80ef-005056a414c9&view=table","auction_uuid":"5546f423-9ac0-e611-80ef-005056a414c9","lot_enumeration_complete":false},
+    {"year":2012,"month":"March","total_raised_gbp":45629500,"results_url":"https://www.allsop.co.uk/property-search?auction_id=5946f423-9ac0-e611-80ef-005056a414c9&view=table","auction_uuid":"5946f423-9ac0-e611-80ef-005056a414c9","lot_enumeration_complete":false},
+    {"year":2012,"month":"May","total_raised_gbp":58241201,"results_url":"https://www.allsop.co.uk/property-search?auction_id=5c46f423-9ac0-e611-80ef-005056a414c9&view=table","auction_uuid":"5c46f423-9ac0-e611-80ef-005056a414c9","lot_enumeration_complete":false},
+    {"year":2012,"month":"July","total_raised_gbp":62659500,"results_url":"https://www.allsop.co.uk/property-search?auction_id=5f46f423-9ac0-e611-80ef-005056a414c9&view=table","auction_uuid":"5f46f423-9ac0-e611-80ef-005056a414c9","lot_enumeration_complete":false},
+    {"year":2012,"month":"October","total_raised_gbp":88581500,"results_url":"https://www.allsop.co.uk/property-search?auction_id=6246f423-9ac0-e611-80ef-005056a414c9&view=table","auction_uuid":"6246f423-9ac0-e611-80ef-005056a414c9","lot_enumeration_complete":false},
+    {"year":2012,"month":"December","total_raised_gbp":50865500,"results_url":"https://www.allsop.co.uk/property-search?auction_id=6646f423-9ac0-e611-80ef-005056a414c9&view=table","auction_uuid":"6646f423-9ac0-e611-80ef-005056a414c9","lot_enumeration_complete":false}
+  ],
+  "lots": [],
+  "notes": "All six 2012 commercial auction containers and stable first-party results UUIDs were recovered from Allsop's surviving Past Auction Results chronology. Current results routes are client-rendered and exposed no defensible lot rows to this crawler, so no lot facts were invented and all auctions remain explicitly incomplete for lot enumeration."
+}
