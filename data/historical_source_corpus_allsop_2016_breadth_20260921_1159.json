@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "capture_mode": "breadth_first_source_corpus",
+  "auctioneer": "Allsop Commercial Auctions",
+  "year": 2016,
+  "records": [
+    {"source_record_id":"allsop-commercial-auction|2016-12","record_type":"auction","auction_month":"2016-12","total_raised_gbp":126105000,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","results_url":"https://www.allsop.co.uk/property-search?auction_id=9e46f423-9ac0-e611-80ef-005056a414c9&view=table","auction_id":"9e46f423-9ac0-e611-80ef-005056a414c9","lot_enumeration_complete":false},
+    {"source_record_id":"allsop-commercial-auction|2016-10","record_type":"auction","auction_month":"2016-10","total_raised_gbp":121738000,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","results_url":"https://www.allsop.co.uk/property-search?auction_id=9c46f423-9ac0-e611-80ef-005056a414c9&view=table","auction_id":"9c46f423-9ac0-e611-80ef-005056a414c9","lot_enumeration_complete":false},
+    {"source_record_id":"allsop-commercial-auction|2016-07","record_type":"auction","auction_month":"2016-07","total_raised_gbp":70091520,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","results_url":"https://www.allsop.co.uk/property-search?auction_id=9946f423-9ac0-e611-80ef-005056a414c9&view=table","auction_id":"9946f423-9ac0-e611-80ef-005056a414c9","lot_enumeration_complete":false},
+    {"source_record_id":"allsop-commercial-auction|2016-05","record_type":"auction","auction_month":"2016-05","total_raised_gbp":119419500,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","results_url":"https://www.allsop.co.uk/property-search?auction_id=9746f423-9ac0-e611-80ef-005056a414c9&view=table","auction_id":"9746f423-9ac0-e611-80ef-005056a414c9","lot_enumeration_complete":false},
+    {"source_record_id":"allsop-commercial-auction|2016-03","record_type":"auction","auction_month":"2016-03","total_raised_gbp":101668500,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","results_url":"https://www.allsop.co.uk/property-search?auction_id=9646f423-9ac0-e611-80ef-005056a414c9&view=table","auction_id":"9646f423-9ac0-e611-80ef-005056a414c9","lot_enumeration_complete":false},
+    {"source_record_id":"allsop-commercial-auction|2016-02","record_type":"auction","auction_month":"2016-02","total_raised_gbp":76115500,"archive_url":"https://www.allsop.co.uk/auctions/all-past-auction-results/","results_url":"https://www.allsop.co.uk/property-search?auction_id=9346f423-9ac0-e611-80ef-005056a414c9&view=table","auction_id":"9346f423-9ac0-e611-80ef-005056a414c9","lot_enumeration_complete":false}
+  ],
+  "notes":"First-party archive breadth capture. Results routes are preserved even though current server-side text extraction exposes no lot rows; lot enumeration remains queued. Unknown exact auction dates are intentionally not invented."
+}
