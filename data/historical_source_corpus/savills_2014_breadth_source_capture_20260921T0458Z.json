@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "breadth_first_source_capture",
+  "capture_priority": "discover_save_move_on",
+  "year": 2014,
+  "auctions": [
+    {
+      "auction_date": "2014-02-10",
+      "auction_label": "London & National",
+      "aid_auc": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "document_urls": [],
+      "lot_enumeration_complete": false,
+      "evidence_url": "https://www.standard.co.uk/homesandproperty/property-news/five-lots-to-watch-londons-february-property-auctions-a70031.html"
+    },
+    {
+      "auction_date": "2014-10-28",
+      "auction_label": "London & National",
+      "aid_auc": "EIG auctionid=17999",
+      "archive_url": null,
+      "catalogue_url": "http://catalogue.auctions.savills.co.uk/London-National/Online-Catalogue/Default.aspx?st=2#&&s=2",
+      "results_url": null,
+      "document_urls": ["https://www.eigroup.co.uk/files/55/17999/6ec339ec-d59e-4b8a-9136-dc6e9a583328.pdf"],
+      "lot_enumeration_complete": false,
+      "evidence_urls": [
+        "https://stackoverflow.com/questions/26611827/parsing-a-string-in-pandas-where-there-isnt-a-delimiter",
+        "https://www.claphampropertyblog.com/2014/10/development-opportunity-on-hazelbourne.html",
+        "https://propertyauctions.com/"
+      ]
+    },
+    {
+      "auction_date": "2014-12-08",
+      "auction_label": "London & National",
+      "aid_auc": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "document_urls": [],
+      "lot_enumeration_complete": false,
+      "evidence_url": "https://propertyauctions.com/"
+    }
+  ],
+  "lots": [
+    {
+      "auction_date": "2014-12-08",
+      "lot_number": "46",
+      "address": "Former Wisbech Town Football Club ground, Fenland Park, Wisbech",
+      "locality": "Wisbech",
+      "property_type": "former football ground / development site",
+      "guide": "£2.5m",
+      "result": null,
+      "hammer": null,
+      "rent": null,
+      "tenure": null,
+      "tenant": null,
+      "lease_details": null,
+      "size": "four acre site",
+      "planning": "planning permission for 83 houses and apartments and demolition of existing football stands/buildings",
+      "source_url": "https://propertyauctions.com/",
+      "partial_record": true
+    },
+    {
+      "auction_date": "2014-10-28",
+      "lot_number": null,
+      "address": "Freehold passageway/site, Battersea, south London",
+      "locality": "Battersea, London",
+      "property_type": "freehold site / passageway",
+      "guide": "£55,000",
+      "result": "sold",
+      "hammer": "£260,000",
+      "rent": null,
+      "tenure": "freehold",
+      "tenant": null,
+      "lease_details": null,
+      "size": "0.016 acres",
+      "source_url": "https://propertyauctions.com/",
+      "partial_record": true
+    }
+  ],
+  "excluded_residential_only_clues": [
+    "66D Charlwood Street, Pimlico, London SW1V 4PQ - Lot 2, 28 October 2014 - residential studio flat",
+    "Hazelbourne Road SW12 - Lot 49, 28 October 2014 - residential/development flat"
+  ],
+  "blocker": "The current Savills Past Auctions frontend does not directly expose the page-14 2014 archive through the available fetch route. Surviving indexed contemporary sources nevertheless evidence multiple auction dates, the legacy London-National catalogue namespace, EIG auctionid 17999 for 28 October 2014, a surviving EIG catalogue-entry PDF URL, and source-verified lot clues. These are banked immediately without treating catalogue enumeration as complete.",
+  "distinct_next_route": "Continue breadth-first into additional 2014 dates and then 2013 while separately exploiting EIG auctionid 17999 and the legacy catalogue namespace for broad lot enumeration. Do not stall on one inaccessible archive page."
+}
