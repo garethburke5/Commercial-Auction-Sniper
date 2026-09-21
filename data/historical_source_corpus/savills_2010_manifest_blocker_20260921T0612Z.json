@@ -1,0 +1,31 @@
+{
+  "capture_run": "2026-09-21T06:12:00Z",
+  "auctioneer": "Savills Commercial",
+  "scope": "Breadth-first reconciliation of the 2010 Savills Commercial auctions after confirming the surviving chronological calendar",
+  "auctions": [
+    {
+      "auction_date": "2010-10-11",
+      "calendar_source": "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf",
+      "propertyauctions_aid": null,
+      "propertyauctions_auc": null,
+      "lot_manifest_recovered": false,
+      "canonicalised_this_run": 0,
+      "unresolved": "complete catalogue/lot manifest",
+      "blocker": "Fresh exact-date public-index inversion did not expose a PropertyAuctions AID/Auc manifest, surviving Savills catalogue/results page, or enumerated UK lot list for 11 October 2010. Search results were either later Savills auctions or unrelated non-UK properties."
+    },
+    {
+      "auction_date": "2010-12-13",
+      "calendar_source": "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf",
+      "propertyauctions_aid": null,
+      "propertyauctions_auc": null,
+      "lot_manifest_recovered": false,
+      "canonicalised_this_run": 0,
+      "unresolved": "complete catalogue/lot manifest",
+      "blocker": "Fresh exact-date public-index inversion did not expose a PropertyAuctions AID/Auc manifest, surviving Savills catalogue/results page, or enumerated UK lot list for 13 December 2010."
+    }
+  ],
+  "attempted_route": "Exact-date public-index inversion using the two source-verified Savills Commercial 2010 auction dates, combined with Savills/PropertyAuctions/lot/catalogue/result terms.",
+  "validated_new_lot_records": 0,
+  "distinct_next_route": "Use the surviving early-2010 sold-property clues (Reef 'n' Beef Eastbourne and the Fulham freehold investment) plus the exact October/December calendar dates as address/result fingerprints against legacy EIG/Savills catalogue namespaces and archived PDF filenames. Park 2010 dates that still fail to enumerate; do not treat auction-date discovery as lot capture.",
+  "historical_complete": false
+}
