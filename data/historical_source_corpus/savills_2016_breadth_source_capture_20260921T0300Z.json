@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "breadth_first_source_capture",
+  "capture_priority": "discover_save_move_on",
+  "auctions": [
+    {
+      "auction_date": "2016-06-20",
+      "auction_label": "Savills London auction",
+      "aid": null,
+      "auc": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "evidence_url": "https://highfield-investments.co.uk/properties/land-adjacent-to-33-platford-green-hornchurch-rm11-2ta/",
+      "venue": "The Marriott Hotel, Grosvenor Square, London W1K 6JP",
+      "lot_enumeration_complete": false
+    },
+    {
+      "auction_date": "2016-09-19",
+      "auction_label": "Savills London auction",
+      "aid": null,
+      "auc": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "evidence_url": "https://highfield-investments.co.uk/properties/42-high-street-ewell-epsom-surrey-kt17-1rq/",
+      "venue": "The Marriott Hotel, Grosvenor Square, London W1H 6JP",
+      "lot_enumeration_complete": false
+    },
+    {
+      "auction_date": "2016-11-01",
+      "auction_label": "Savills London auction",
+      "aid": null,
+      "auc": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "evidence_url": "https://www.standard.co.uk/homesandproperty/buying-mortgages/empty-loft-to-go-under-the-hammer-for-ps150k-hanwell-space-has-consent-for-onebedroom-flat-a105681.html",
+      "venue": "The Marriott Hotel, Grosvenor Square, London W1K 6JP",
+      "lot_enumeration_complete": false
+    },
+    {
+      "auction_date": "2016-12-12",
+      "auction_label": "Savills London - National auction",
+      "aid": null,
+      "auc": null,
+      "archive_url": null,
+      "catalogue_url": null,
+      "results_url": null,
+      "evidence_urls": [
+        "https://s3-us-west-2.amazonaws.com/magazines2015b/YPN102-digitaledition.pdf",
+        "https://londondevelopmentsites.com/tag/green/page/3/"
+      ],
+      "venue": "The London Marriott Hotel, Grosvenor Square, London W1K 6JP",
+      "lot_enumeration_complete": false
+    }
+  ],
+  "lots": [
+    {
+      "auction_date": "2016-09-19",
+      "lot_number": null,
+      "address": "42 High Street, Ewell, Epsom, Surrey KT17 1RQ",
+      "locality": "Ewell, Epsom, Surrey",
+      "property_type": "commercial office/building with residential conversion consent",
+      "guide": "Offers in excess of £625,000",
+      "result": null,
+      "hammer": null,
+      "rent": null,
+      "tenure": "Freehold",
+      "tenant": null,
+      "lease_details": null,
+      "size": null,
+      "source_urls": [
+        "https://highfield-investments.co.uk/properties/42-high-street-ewell-epsom-surrey-kt17-1rq/"
+      ],
+      "source_note": "Contemporary marketing page states the property would be placed in the Savills auction on 19 September 2016 if not sold prior; it also records freehold tenure and permitted-development consent for conversion from Class B1 to four one-bedroom apartments. Auction participation is therefore a source clue rather than a confirmed hammer/result record.",
+      "partial_record": true
+    }
+  ],
+  "notes": "Broad source capture only. Unknown AID/Auc, catalogue/results routes and lot numbers are intentionally null. Residential-only examples exposed by the same sources were not promoted to qualifying lot records."
+}
