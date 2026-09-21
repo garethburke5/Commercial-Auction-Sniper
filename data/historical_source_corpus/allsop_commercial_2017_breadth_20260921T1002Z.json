@@ -1,0 +1,66 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "auctioneer": "Allsop",
+  "captured_at_utc": "2026-09-21T10:02:00Z",
+  "scope": "Breadth-first commercial source capture from Allsop first-party Past Auction Results archive. Persist auction containers and first-party results URLs immediately; lot enumeration remains a subsequent breadth pass where dynamic result pages do not expose rows to the crawler.",
+  "production_main_before_write": "904b814a0975275aa952c57db37ca7d7d4306cc8",
+  "archive_url": "https://www.allsop.co.uk/auctions/all-past-auction-results/",
+  "auctions": [
+    {
+      "auction_period": "February 2017",
+      "auction_date": null,
+      "auction_id": "a046f423-9ac0-e611-80ef-005056a414c9",
+      "total_raised_gbp": 64055500,
+      "results_url": "https://www.allsop.co.uk/property-search?auction_id=a046f423-9ac0-e611-80ef-005056a414c9&view=table",
+      "catalogue_url": null,
+      "lot_enumeration_complete": false
+    },
+    {
+      "auction_period": "March 2017",
+      "auction_date": null,
+      "auction_id": "c52134af-08dc-e611-80f1-005056a414c9",
+      "total_raised_gbp": 93429270,
+      "results_url": "https://www.allsop.co.uk/property-search?auction_id=c52134af-08dc-e611-80f1-005056a414c9&view=table",
+      "catalogue_url": null,
+      "lot_enumeration_complete": false
+    },
+    {
+      "auction_period": "May 2017",
+      "auction_date": null,
+      "auction_id": "c397dee7-9b13-e711-80f4-005056a414c9",
+      "total_raised_gbp": 107503500,
+      "results_url": "https://www.allsop.co.uk/property-search?auction_id=c397dee7-9b13-e711-80f4-005056a414c9&view=table",
+      "catalogue_url": null,
+      "lot_enumeration_complete": false
+    },
+    {
+      "auction_period": "July 2017",
+      "auction_date": null,
+      "auction_id": "46246f41-3c3a-e711-80f9-005056a414c9",
+      "total_raised_gbp": 92780000,
+      "results_url": "https://www.allsop.co.uk/property-search?auction_id=46246f41-3c3a-e711-80f9-005056a414c9&view=table",
+      "catalogue_url": null,
+      "lot_enumeration_complete": false
+    },
+    {
+      "auction_period": "October 2017",
+      "auction_date": null,
+      "auction_id": "1eb759bc-9f6b-e711-80fc-005056a414c9",
+      "total_raised_gbp": 167327500,
+      "results_url": "https://www.allsop.co.uk/property-search?auction_id=1eb759bc-9f6b-e711-80fc-005056a414c9&view=table",
+      "catalogue_url": null,
+      "lot_enumeration_complete": false
+    },
+    {
+      "auction_period": "December 2017",
+      "auction_date": null,
+      "auction_id": "cd346276-6699-e711-80ff-005056a414c9",
+      "total_raised_gbp": 97982000,
+      "results_url": "https://www.allsop.co.uk/property-search?auction_id=cd346276-6699-e711-80ff-005056a414c9&view=table",
+      "catalogue_url": null,
+      "lot_enumeration_complete": false
+    }
+  ],
+  "lots": [],
+  "capture_notes": "The first-party archive enumerates all six 2017 commercial auction months, totals and dedicated results URLs. Each results URL currently resolves to a dynamic property-search page whose lot rows were not exposed in the text crawler, so no lot facts are invented. The stable auction UUIDs are banked now as high-value enumeration handles."
+}
