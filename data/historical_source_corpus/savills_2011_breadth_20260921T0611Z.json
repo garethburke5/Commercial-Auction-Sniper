@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "breadth_first_source_capture",
+  "capture_priority": "discover_save_move_on",
+  "year": 2011,
+  "auction_records": [
+    {
+      "auction_date": "2011-05-23",
+      "auction_label": "Savills London May property auction",
+      "aid": null,
+      "auc": null,
+      "offered": null,
+      "sold": null,
+      "reported_value": "almost £27m",
+      "reported_success_rate": "85%",
+      "evidence_url": "https://www.thejc.com/life/to-step-on-to-the-property-ladder-use-the-rostrum-gewnr832",
+      "lot_enumeration_complete": false
+    },
+    {
+      "auction_date": "2011-12-12",
+      "auction_label": "Savills London final residential auction 2011",
+      "aid": null,
+      "auc": null,
+      "offered": 108,
+      "sold": null,
+      "reported_value": "approximately £22.5m",
+      "reported_success_rate": "83%",
+      "evidence_url": "https://property-investor-news.com/article/auctions/2012/01/14/residential_auction_review.html",
+      "lot_enumeration_complete": false
+    },
+    {
+      "auction_date": "2011-03-28",
+      "auction_label": "Savills Nottingham regional auction",
+      "aid": null,
+      "auc": null,
+      "offered": null,
+      "sold": null,
+      "reported_value": "£2.65m+",
+      "reported_success_rate": "76%",
+      "evidence_url": "https://www.insidermedia.com/news/midlands/50028-auction-shifts-265m-worth-properties",
+      "lot_enumeration_complete": false
+    }
+  ],
+  "lot_records": [
+    {
+      "auction_date": "2011-05-23",
+      "address_or_description": "Corner building, Chiswick Common Road, Chiswick",
+      "qualifying_clue": "mixed-use retail plus two vacant flats",
+      "rent": "£13,750 pa retail",
+      "guide_price": "£675,000",
+      "sold_price": "£695,000",
+      "source_url": "https://www.thejc.com/life/to-step-on-to-the-property-ladder-use-the-rostrum-gewnr832",
+      "canonicalised": false
+    },
+    {
+      "auction_date": "2011-03-28",
+      "address_or_description": "Telecoms transmitter mast, Cumbria",
+      "qualifying_clue": "income-producing commercial/infrastructure asset",
+      "sold_price": "£175,000",
+      "source_url": "https://www.insidermedia.com/news/midlands/50028-auction-shifts-265m-worth-properties",
+      "canonicalised": false
+    }
+  ],
+  "validated_new_auction_records": 3,
+  "validated_new_lot_records": 2,
+  "canonicalised_new_events": 0,
+  "lot_enumeration_complete": false,
+  "attempted": [
+    "Fresh inspection of production main and latest Savills bulk-harvest workflow/logs",
+    "Public-index inversion for Savills 2011 auction dates, results and lot clues",
+    "Cross-check against surviving Savills commercial-auction market review date schedule and contemporary auction reporting"
+  ],
+  "blocker": "The surviving 2011 sources expose auction-level results and selected property clues but not PropertyAuctions AID/Auc identifiers or complete lot manifests. The latest bulk PropertyAuctions.io workflow again discovered zero listing URLs and logged one blocker from the auctioneer endpoint.",
+  "distinct_next_route": "Continue breadth-first into 2010 using the surviving Savills commercial-auction schedule/results and exact-property inversion; separately queue 2011 exact-address searches against legacy EIG/Savills/PropertyAuctions lot URLs to recover catalogue namespaces.",
+  "historical_completeness_declared": false
+}
