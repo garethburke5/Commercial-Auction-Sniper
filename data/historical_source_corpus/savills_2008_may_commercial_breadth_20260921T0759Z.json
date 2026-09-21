@@ -1,0 +1,81 @@
+{
+  "schema": "historical_source_corpus_breadth_v1",
+  "auctioneer": "Savills",
+  "capture_mode": "BREADTH-FIRST SOURCE CAPTURE; PARTIAL RECORDS ARE VALID",
+  "captured_at_utc": "2026-09-21T07:59:00Z",
+  "year": 2008,
+  "source_records": [
+    {
+      "record_type": "auction_partial",
+      "auctioneer": "Savills Commercial",
+      "auction_date": null,
+      "year": 2008,
+      "month": 5,
+      "aid": null,
+      "auc": null,
+      "venue": "Claridge's, London",
+      "offered_lots": 34,
+      "sold_lots": null,
+      "unsold_pct": 36,
+      "amount_raised_gbp": 8000000,
+      "lot_enumeration_complete": false,
+      "source_urls": [
+        "https://www.estatesgazette.co.uk/news/gp-fails-to-save-health-of-savills-results/"
+      ],
+      "notes": "Contemporary Estates Gazette report published 17 May 2008 states Savills' commercial auction at Claridge's on Monday offered 34 lots, 36% were unsold and the sale raised £8m. Exact auction date and legacy AID/Auc are not stated in the surviving source and are intentionally left null."
+    },
+    {
+      "record_type": "lot_partial",
+      "auctioneer": "Savills Commercial",
+      "auction_date": null,
+      "year": 2008,
+      "month": 5,
+      "aid": null,
+      "auc": null,
+      "lot_number": null,
+      "address": "Near West Fareham, Hampshire",
+      "property_type": "Short-term leasehold office investment",
+      "guide_price_gbp_low": 3000000,
+      "guide_price_gbp_high": 3400000,
+      "rent_pa_gbp": 275000,
+      "tenant": "Meggitt Properties",
+      "lease_details": "Let to Meggitt Properties until 2013",
+      "result": "sold",
+      "hammer_or_sale_price_gbp": 3220000,
+      "yield_pct": 8.1,
+      "qualifying_commercial_or_mixed": true,
+      "source_urls": [
+        "https://www.estatesgazette.co.uk/news/gp-fails-to-save-health-of-savills-results/"
+      ],
+      "notes": "Contemporary report identifies this as a key performer in the Savills Commercial Claridge's sale. Full address and lot number are unavailable in the surviving indexed source."
+    },
+    {
+      "record_type": "lot_partial",
+      "auctioneer": "Savills",
+      "auction_date": null,
+      "year": 2008,
+      "month": 5,
+      "aid": null,
+      "auc": null,
+      "lot_number": null,
+      "address": "Hurlingham Road, Fulham, London",
+      "property_type": "Former surgery with residential upper parts; mixed-use",
+      "guide_price_gbp_low": 240000,
+      "result": "sold",
+      "hammer_or_sale_price_gbp": 318000,
+      "qualifying_commercial_or_mixed": true,
+      "source_urls": [
+        "https://www.estatesgazette.co.uk/news/gp-fails-to-save-health-of-savills-results/"
+      ],
+      "notes": "Contemporary report identifies a former GP surgery with residential upper parts in Hurlingham Road sold for £318,000 from a £240,000 guide. The article discusses the residential and commercial Savills sales held that Monday; exact catalogue identity/lot number remains unresolved, so this is retained as a mixed-use partial source record rather than canonicalised."
+    }
+  ],
+  "reconciliation": {
+    "auction_records_added": 1,
+    "qualifying_lot_partial_records_added": 2,
+    "catalogue_manifest_complete": false,
+    "workflow": "DISCOVER -> SAVE SOURCE RECORD/URL -> MOVE ON",
+    "next_distinct_route": "Continue older Savills breadth-first; separately seek surviving May-2008 catalogue/results identifiers and remaining commercial lots without blocking broader capture."
+  },
+  "historical_complete": false
+}
