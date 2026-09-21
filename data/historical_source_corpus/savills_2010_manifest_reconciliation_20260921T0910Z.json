@@ -1,0 +1,28 @@
+{
+  "schema": "savills_historical_recovery_blocker_v1",
+  "auctioneer": "Savills",
+  "captured_at_utc": "2026-09-21T09:10:00Z",
+  "scope": "Breadth-first Savills reconciliation frontier 2010; exact source-specific blocker persisted after fresh main/workflow inspection.",
+  "production_main_before_write": "f7e16de3dc8c62ef57e56d71a3395df2584cb2f4",
+  "verified_sources": [
+    {
+      "source": "Savills Commercial Auctions Market Review September 2010",
+      "url": "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf",
+      "evidence": "Savills states its last commercial sale was March 2010 and lists forthcoming commercial auction dates 11 October 2010 and 13 December 2010."
+    },
+    {
+      "source": "Jewish Chronicle, 1 April 2010",
+      "url": "https://www.thejc.com/life/key-players-on-the-auctions-scene-m8hv9grs",
+      "evidence": "Contemporary report identifies Savills' £7.8m sale, 88% on-the-day success, Reef 'n' Beef Eastbourne sold £228,000 and a Fulham freehold investment sold £690,000."
+    }
+  ],
+  "auction_frontier": [
+    {"auction_period":"March 2010","exact_date":null,"aid_auc":null,"eig_auction_id":null,"complete_manifest":false,"validated_qualifying_clues":2,"newly_canonicalised":0,"unresolved_lot_count":null},
+    {"auction_date":"2010-10-11","aid_auc":null,"eig_auction_id":null,"complete_manifest":false,"newly_canonicalised":0,"unresolved_lot_count":null},
+    {"auction_date":"2010-12-13","aid_auc":null,"eig_auction_id":null,"complete_manifest":false,"newly_canonicalised":0,"unresolved_lot_count":null}
+  ],
+  "attempted_this_pass": "Fresh exact-date and property-fingerprint public-index inversion for March 2010 Reef 'n' Beef Eastbourne plus 11-Oct-2010 and 13-Dec-2010 Savills commercial auctions, including PropertyAuctions AID/Auc/catalogue/lot terminology.",
+  "blocker": "The surviving Savills chronology confirms the sale schedule and the contemporary result report confirms two March qualifying properties, but fresh indexing still exposes no PropertyAuctions AID/Auc manifest, EIG auctionid/lotid namespace, offered-lot denominator, or complete Savills catalogue/results enumeration for these 2010 sales.",
+  "next_distinct_route": "Mine repository historical-source shards and legacy EIG/Savills URL/PDF filename fingerprints for the two March properties; use any recovered auctionid/lotid or catalogue namespace to enumerate the March catalogue and project the namespace onto the 11-Oct and 13-Dec 2010 dates. Keep unresolved counts unknown until a trustworthy denominator is recovered.",
+  "historical_complete": false
+}
