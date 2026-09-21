@@ -60,10 +60,12 @@ a modern catalogue is marked complete. This is completeness of the surviving
 online catalogue; it does not prove that deleted original lots were recovered.
 
 Legacy partial lots have date, source auction ID, lot number, locality, type and
-result where these survived. They are real partial lot records, not full-address
-properties. Their auctions remain unreconciled until original completeness can
-be established. An unavailable source or a failed parser is a failure, never zero
-properties successfully harvested.
+result where these survived. When the saved result-grid location itself contains
+an explicit numbered premise, that text is also retained verbatim as the address;
+towns, districts and unnumbered roads are not promoted or guessed. The remaining
+rows are real partial lot records, not full-address properties. Their auctions
+remain unreconciled until original completeness can be established. An unavailable
+source or a failed parser is a failure, never zero properties successfully harvested.
 
 The older `data/property_history.json` has known date, classification and matching
 issues. It remains intact. Do not add its count to this corpus: it overlaps with
