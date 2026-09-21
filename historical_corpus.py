@@ -376,6 +376,87 @@ def bank_legacy():
     print("LEGACY_LOTS_BANKED", total, flush=True)
 
 
+
+def bank_source_corpus():
+    """Import evidenced lot arrays from earlier immutable source-corpus shards.
+
+    These shards were deliberately saved before the canonical appearance store
+    existed.  Auction containers are not appearances: only rows inside an
+    explicit lot/property array are admitted.  The original JSON is snapshotted
+    unchanged and every unknown value remains null.
+    """
+    roots = (ROOT / "data/source_corpus_shards", ROOT / "data/historical_source_corpus")
+    array_names = ("lot_records", "lots", "properties", "property_records")
+    total = 0
+    for source_path in sorted(p for root in roots if root.exists() for p in root.rglob("*.json")):
+        try:
+            payload = json.loads(source_path.read_text())
+        except (OSError, json.JSONDecodeError):
+            continue
+        lot_rows = next((payload.get(k) for k in array_names if isinstance(payload.get(k), list)), None)
+        if not lot_rows:
+            continue
+        auctioneer = clean(payload.get("auctioneer")) or "Unknown auctioneer"
+        snapshot_key = digest(source_path.read_bytes())[:20]
+        snapshot = DATA / "sources/source-corpus" / (snapshot_key + ".json.gz")
+        save_gzip(snapshot, {"imported_at": now(), "origin_file": str(source_path.relative_to(ROOT)),
+                             "origin_sha256": digest(source_path.read_bytes()), "payload": payload})
+        rows = []
+        for raw in lot_rows:
+            if not isinstance(raw, dict):
+                continue
+            address = plain(raw.get("address") or raw.get("locality_address") or raw.get("property_address"))
+            lot = clean(raw.get("lot_number")) or None
+            date = clean(raw.get("auction_date")) or None
+            period = clean(raw.get("auction_period") or raw.get("auction_month")) or None
+            urls = raw.get("source_urls") if isinstance(raw.get("source_urls"), list) else []
+            url = clean(raw.get("source_url") or raw.get("original_url") or (urls[0] if urls else "") or
+                        payload.get("archive_url")) or "https://example.invalid/source-unavailable"
+            source_id = clean(raw.get("source_record_id") or raw.get("source_lot_id")) or None
+            identity = source_id or digest(json.dumps(
+                [auctioneer, date, period, lot, address, url], ensure_ascii=False,
+                separators=(",", ":")).encode())[:24]
+            auction_id = clean(raw.get("source_auction_id")) or (date or period or "date-unknown")
+            row = base_row(auctioneer, "source-corpus:" + auction_id, date, lot or "unknown",
+                           source_id or identity, url)
+            row["appearance_id"] = "source-corpus|" + identity
+            row.update(address=address,
+                       locality=clean(raw.get("locality")) or None,
+                       property_type=plain(raw.get("property_type") or raw.get("description")),
+                       tenure=plain(raw.get("tenure")),
+                       guide_price=money(raw.get("guide_price_gbp") or raw.get("guide_gbp") or raw.get("guide_price")),
+                       guide_price_high=money(raw.get("guide_price_high_gbp")),
+                       sale_price=money(raw.get("result_price_gbp") or raw.get("hammer_gbp") or raw.get("result_gbp") or raw.get("sale_price")),
+                       annual_rent=money(raw.get("rent_pa_gbp") or raw.get("annual_rent")),
+                       rent_text=plain(raw.get("rent_text")),
+                       tenant=plain(raw.get("tenant")),
+                       lease_information=plain(raw.get("lease_details") or raw.get("lease_information")),
+                       floor_area=plain(raw.get("size") or raw.get("floor_area")),
+                       yield=raw.get("gross_initial_yield_pct") or raw.get("yield"),
+                       description=plain(raw.get("notes") or raw.get("description")),
+                       record_quality="address_record" if address else "partial_lot")
+            if address and (m := PC.search(address)):
+                row["postcode"] = m.group().upper()
+            row["sector"] = sector(" ".join(str(v or "") for v in
+                                    (row["property_type"], row["description"])))
+            result = clean(raw.get("result_status") or raw.get("result") or raw.get("status"))
+            if row["sale_price"] is not None or result.lower() == "sold":
+                row["status"] = "sold"
+            elif result:
+                row["status"] = result.lower()
+            row["source_evidence"] = {
+                "source_url": url, "source_urls": urls or [url],
+                "snapshot_path": str(snapshot.relative_to(ROOT)),
+                "origin_file": str(source_path.relative_to(ROOT)),
+                "origin_sha256": digest(source_path.read_bytes())
+            }
+            rows.append(row)
+        if rows:
+            total += write_rows("source-corpus/" + source_path.stem, rows)
+    print("SOURCE_CORPUS_LOTS_BANKED", total, flush=True)
+    return total
+
+
 def known_modern_ids():
     path = ROOT / "data/source_diagnostics/savills_firstparty_full_url_corpus.json"
     data = json.loads(path.read_text())
@@ -447,13 +528,15 @@ def build_database():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["bank-legacy", "harvest-savills", "build"])
+    parser.add_argument("command", choices=["bank-legacy", "bank-source-corpus", "harvest-savills", "build"])
     parser.add_argument("--ids", help="Comma-separated known auction IDs; default all recovered catalogue IDs")
     parser.add_argument("--workers", type=int, default=3)
     parser.add_argument("--refresh", action="store_true")
     args = parser.parse_args()
     if args.command == "bank-legacy":
         bank_legacy()
+    elif args.command == "bank-source-corpus":
+        bank_source_corpus()
     elif args.command == "harvest-savills":
         ids = [int(i) for i in args.ids.split(",")] if args.ids else known_modern_ids()
         with ThreadPoolExecutor(max_workers=max(1, min(args.workers, 4))) as executor:
