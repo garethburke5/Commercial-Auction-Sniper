@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "breadth_first_distinct_route_blocker",
+  "year": 2018,
+  "attempted_auction_dates": ["2018-03-26","2018-05-09","2018-06-18","2018-07-24","2018-09-26","2018-11-26"],
+  "route_attempted": "exact-date public web index inversion for legacy Savills catalogue/results lot pages, after PropertyAuctions live/archive routes stalled",
+  "validated_new_lot_records": 0,
+  "blocker": "Exact-date public-index searches did not expose a UK Savills auction catalogue/results manifest or stable individual lot enumeration for the six unresolved 2018 London & National dates. Returned results were unrelated Savills agency/news records; therefore no lot records were admitted.",
+  "control_evidence": "The surviving Savills chronological archive page 11 already enumerates these auction dates and offered denominators in savills_2018_archive_breadth_20260921T0000Z.json.",
+  "current_partial_manifest": {"auction":"Savills Nottingham","date":"2018-02-14","propertyauctions_aid":1080,"offered":25,"observable_lot_rows":12,"unresolved_rows":13},
+  "next_distinct_route": "Search repository/source shards and legacy EIG auctionid/lotid fingerprints keyed by exact 2018 dates and known addresses; park any non-enumerating auction and descend breadth-first to 2017 rather than repeat public-index or PropertyAuctions network scans.",
+  "completeness_claim": false
+}
