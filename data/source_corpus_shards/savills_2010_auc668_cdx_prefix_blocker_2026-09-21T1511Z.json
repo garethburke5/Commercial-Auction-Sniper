@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "capture_run": "2026-09-21T15:11:00Z",
+  "auctioneer": "Savills Commercial",
+  "auction_date": "2010-03-01",
+  "savills_auc": 668,
+  "production_main_inspected": "1caa7750b4db95313f80b71e62cd0d3f6d40d59d",
+  "workflow_observation": "Latest Bank Published Auction History run inspected fresh: run 35603387672 completed failure; Build permanent auction history database failed and Publish updated history was skipped.",
+  "recovery_route": "Wayback CDX URL-prefix enumeration using the recovered legacy comm_previous_auction_lot namespace, after confirming the persisted 2010 Savills Commercial sequence 668/675/685/698/719 and the known-good Auc 675 replay evidence.",
+  "attempted": [
+    "Direct CDX request for auctions.savills.co.uk/comm_previous_auction_lot.asp?Auc=675&* to recover the exact known-good host/path and pagination grammar",
+    "Fresh exact-index searches for comm_previous_auction_lot.asp Auc=675 and Auc=668 as a cross-check"
+  ],
+  "result": {
+    "validated_lot_records": 0,
+    "canonicalised_events": 0,
+    "lot_denominator": null,
+    "propertyauctions_aid": null,
+    "manifest_recovered": false,
+    "historical_complete": false
+  },
+  "blocker": "The available web fetch path rejects direct web.archive.org CDX enumeration as inaccessible, while fresh public indexing exposes no defensible Auc 675/668 lot URLs. Therefore the CDX-prefix route cannot currently enumerate pos/page captures from this runtime. No lot facts or denominator were inferred, and Savills Auc must not be assumed equal to PropertyAuctions AID.",
+  "next_distinct_route": "Mine GitHub history and persisted historical_backfill_progress/source diagnostics for the exact successful Auc 675 archived replay URL, timestamp, host and any discovered pagination/lot hrefs; then replay those exact archived URLs rather than CDX. If the persisted replay payload lacks lot hrefs, park Auc 668 and breadth-first test exact archived replay candidates for Auc 685, 698 and 719 using the recovered 2010 namespace.",
+  "notes": "Source-specific blocker only. This is not a claim that Auc 668 or its underlying lots are captured."
+}
