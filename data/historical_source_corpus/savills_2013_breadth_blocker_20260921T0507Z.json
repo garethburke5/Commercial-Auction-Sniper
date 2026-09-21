@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "breadth_first_source_capture",
+  "capture_priority": "discover_save_move_on",
+  "year": 2013,
+  "validated_new_lot_records": 0,
+  "lot_enumeration_complete": false,
+  "attempted": [
+    "Fresh public-index search for Savills 2013 PropertyAuctions AID/Auc manifests",
+    "Fresh exact-term search for Savills 2013 auction lot/catalogue evidence",
+    "Cross-check of surviving contemporary auction reporting"
+  ],
+  "validated_evidence": [
+    {
+      "auction_date": "2013-10-28",
+      "auction_label": "London residential auction",
+      "offered": 182,
+      "sold_in_room": 148,
+      "sold_prior": 11,
+      "reported_value": "£45m",
+      "reported_success_rate": "88%",
+      "source_url": "https://property-investor-news.com/article/auctions/2013/11/20/auction_report.html",
+      "lot_enumeration_complete": false
+    }
+  ],
+  "blocker": "The distinct public-index/AID-Auc discovery route did not expose a surviving PropertyAuctions AID/Auc manifest or a complete Savills 2013 catalogue. Contemporary reporting validates the 28 October 2013 auction and denominator but does not enumerate all lots. No lot rows were promoted from aggregate evidence.",
+  "distinct_next_route": "Exploit legacy EIG catalogue identifiers and archived Savills catalogue URL namespaces keyed to exact 2013 auction dates; use surviving named/address-level clues only to infer catalogue IDs. Park any date that fails to enumerate and continue breadth-first into 2012 rather than stalling.",
+  "historical_completeness_declared": false
+}
