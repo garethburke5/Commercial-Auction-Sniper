@@ -1,0 +1,77 @@
+{
+  "schema": "historical_source_corpus_breadth_v1",
+  "auctioneer": "Savills",
+  "capture_mode": "BREADTH-FIRST RECONCILIATION; SOURCE EVIDENCE IS NOT CATALOGUE COMPLETENESS",
+  "captured_at_utc": "2026-09-21T07:12:00Z",
+  "year": 2010,
+  "source_records": [
+    {
+      "record_type": "auction_partial",
+      "auctioneer": "Savills Commercial",
+      "auction_date": null,
+      "year": 2010,
+      "month": 3,
+      "aid": null,
+      "auc": null,
+      "offered_lots": null,
+      "sold_lots": null,
+      "amount_raised_gbp": 7800000,
+      "success_rate_on_day_pct": 88,
+      "lot_enumeration_complete": false,
+      "source_urls": [
+        "https://www.thejc.com/life/key-players-on-the-auctions-scene-m8hv9grs",
+        "https://pdf.euro.savills.co.uk/uk/commercial-auctions-uk/commercial-auctions-market-review---sept-2010.pdf"
+      ],
+      "notes": "JC article published 1 Apr 2010 describes Savills Commercial's latest £7.8m sale with 88% on-the-day success. Savills September 2010 Commercial Auctions Market Review independently states Savills Commercial's last sale was March 2010. Together these validate a March-2010 auction month, but neither source supplies the exact sale date, catalogue denominator, AID/Auc, or complete manifest."
+    },
+    {
+      "record_type": "lot_partial",
+      "auctioneer": "Savills Commercial",
+      "auction_date": null,
+      "year": 2010,
+      "month": 3,
+      "aid": null,
+      "auc": null,
+      "lot_number": null,
+      "address": "Reef 'n' Beef building, Eastbourne",
+      "property_type": "Virtually freehold restaurant investment; ground floor and basement of former cinema",
+      "size_sq_ft": 2762,
+      "rent_pa_gbp": 22000,
+      "tenure": "New 999-year lease",
+      "result": "sold",
+      "hammer_or_sale_price_gbp": 228000,
+      "qualifying_commercial_or_mixed": true,
+      "source_url": "https://www.thejc.com/life/key-players-on-the-auctions-scene-m8hv9grs",
+      "notes": "Source identifies this as a lot sold in Savills Commercial's latest sale; exact lot number and exact March auction date remain unresolved."
+    },
+    {
+      "record_type": "lot_partial",
+      "auctioneer": "Savills Commercial",
+      "auction_date": null,
+      "year": 2010,
+      "month": 3,
+      "aid": null,
+      "auc": null,
+      "lot_number": null,
+      "address": "Fulham, south-west London",
+      "property_type": "Freehold investment",
+      "guide_price_gbp_low": 300000,
+      "guide_price_gbp_high": 330000,
+      "result": "sold",
+      "hammer_or_sale_price_gbp": 690000,
+      "qualifying_commercial_or_mixed": true,
+      "source_url": "https://www.thejc.com/life/key-players-on-the-auctions-scene-m8hv9grs",
+      "notes": "Source identifies this as sold by Savills in the same latest sale. Full address, exact lot number and exact March auction date remain unresolved."
+    }
+  ],
+  "reconciliation": {
+    "canonicalised_this_route": 0,
+    "qualifying_property_clues_banked": 2,
+    "catalogue_manifest_complete": false,
+    "unresolved_count": null,
+    "unresolved_reason": "No offered-lot denominator or AID/Auc/complete catalogue manifest is exposed by the surviving March-2010 sources, so an exact unresolved lot count cannot safely be asserted.",
+    "october_december_context": "Savills September 2010 Commercial Auctions Market Review lists future commercial sales for 11 Oct 2010 and 13 Dec 2010 and says the last Savills Commercial sale was March 2010. Exact-date public-index inversion has not exposed complete manifests for those future dates.",
+    "next_distinct_route": "Use the validated March-2010 month plus the two named sold-property fingerprints to search legacy EIG auctionid/lotid namespaces and archived Savills catalogue/PDF filenames. Separately continue AID/Auc discovery for 11-Oct-2010 and 13-Dec-2010. Do not mark any 2010 auction complete without enumeration against a denominator."
+  },
+  "historical_complete": false
+}
