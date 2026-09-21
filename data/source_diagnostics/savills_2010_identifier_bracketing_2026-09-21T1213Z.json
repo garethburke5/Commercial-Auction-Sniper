@@ -1,0 +1,26 @@
+{
+  "source": "Savills Auctions",
+  "run_at": "2026-09-21T12:13:00Z",
+  "objective": "2010 breadth-first historical recovery by identifier-range bracketing",
+  "historical_complete": false,
+  "canonical_events_added": 0,
+  "new_finding": {
+    "route": "mine already-persisted Wayback/CDX candidate-original-URL evidence in historical_backfill_progress.json rather than repeat public-index search",
+    "commercial_auction_namespace": [
+      {"date":"2010-03-01","savills_auc":668,"evidence":"persisted candidate_original_urls"},
+      {"date":"2010-05-10","savills_auc":675,"evidence":"persisted candidate_original_urls; archived detail replay previously returned HTTP 200"},
+      {"date":"2010-07-12","savills_auc":685,"evidence":"persisted candidate_original_urls"},
+      {"date":"2010-10-11","savills_auc":698,"evidence":"persisted candidate_original_urls"},
+      {"date":"2010-12-13","savills_auc":719,"evidence":"persisted candidate_original_urls"}
+    ],
+    "residential_crosscheck": {"date":"2010-05-10","savills_london_auc":678,"propertyauctions_aid":678,"initial_grid_lot_rows":138,"strict_commercial_mixed_lots_on_initial_grid":3}
+  },
+  "blocker": "The identifier-bracketing route succeeded in recovering the exact 2010 Savills Commercial Auc sequence (668,675,685,698,719), but current public PropertyAuctions AID URLs are inaccessible through the available web fetch path and the persisted evidence does not yet contain complete lot manifests for Auc 668/685/698/719. A Savills Auc identifier must not be assumed to equal a PropertyAuctions AID without source validation.",
+  "current_auction": {
+    "date":"2010-03-01",
+    "savills_auc":668,
+    "canonicalised_this_run":0,
+    "unresolved_lots":"unknown until archived detail pages or a source-specific manifest yields a denominator"
+  },
+  "distinct_next_route": "Use the recovered Savills Commercial Auc IDs directly against Wayback CDX/replay URL patterns for comm_previous_auction_detail.asp and comm_previous_auction_lot.asp, beginning Auc=668 and traversing pos/page links; separately validate any PropertyAuctions AID mapping instead of assuming numeric identity. Then repeat for Auc=685,698,719."
+}
