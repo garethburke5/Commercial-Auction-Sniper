@@ -1,14 +1,15 @@
 {
-  "checked_at": "2026-09-24T12:11:06.029228+00:00",
-  "lots_captured": 5474,
-  "current_run_unique_lots": 5423,
-  "expected_public_results": 5473,
+  "checked_at": "2026-09-24T21:47:58.768011+00:00",
+  "lots_captured": 5475,
+  "current_run_unique_lots": 5474,
+  "expected_public_results": 5474,
   "pages_captured": [
     1,
     2,
     3,
     4,
     5,
+    6,
     7,
     8,
     9,
@@ -115,12 +116,7 @@
     110
   ],
   "pages_expected": 110,
-  "results_complete": false,
-  "failures": [
-    {
-      "page": 6,
-      "error": "URLError: <urlopen error [Errno 111] Connection refused>"
-    }
-  ],
+  "results_complete": true,
+  "failures": [],
   "date_basis": "individual published lot end dates; not inferred auction-container dates"
 }

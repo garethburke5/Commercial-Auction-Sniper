@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-09-24T17:31:50.593401+00:00",
-  "individual_lot_records_captured": 36748,
-  "records_with_address": 28089,
+  "generated_at": "2026-09-24T21:48:07.667789+00:00",
+  "individual_lot_records_captured": 36749,
+  "records_with_address": 28090,
   "partial_lot_records": 8659,
-  "exact_address_groups": 20555,
+  "exact_address_groups": 20556,
   "groups_with_repeat_appearances": 5129,
   "by_auctioneer": {
     "Acuitus": 49,
     "Allsop": 13,
     "Allsop Commercial": 3,
     "Auction House London": 2546,
-    "Paul Fosh Auctions": 5474,
+    "Paul Fosh Auctions": 5475,
     "Pugh Auctioneers": 2,
     "Savills (London - National)": 1,
     "Savills Auctions": 28640,
@@ -35,14 +35,14 @@
     "2023": 3771,
     "2024": 4959,
     "2025": 5659,
-    "2026": 7047
+    "2026": 7048
   },
   "by_sector": {
     "commercial": 3139,
     "land": 1811,
     "mixed-use": 2858,
     "residential": 25754,
-    "unknown": 3186
+    "unknown": 3187
   },
   "date_range": [
     "2010-05-10",
@@ -58,16 +58,17 @@
     "Legacy partial lots retain location and lot number; missing street addresses remain null."
   ],
   "paul_fosh_results": {
-    "checked_at": "2026-09-24T12:11:06.029228+00:00",
-    "lots_captured": 5474,
-    "current_run_unique_lots": 5423,
-    "expected_public_results": 5473,
+    "checked_at": "2026-09-24T21:47:58.768011+00:00",
+    "lots_captured": 5475,
+    "current_run_unique_lots": 5474,
+    "expected_public_results": 5474,
     "pages_captured": [
       1,
       2,
       3,
       4,
       5,
+      6,
       7,
       8,
       9,
@@ -174,13 +175,8 @@
       110
     ],
     "pages_expected": 110,
-    "results_complete": false,
-    "failures": [
-      {
-        "page": 6,
-        "error": "URLError: <urlopen error [Errno 111] Connection refused>"
-      }
-    ],
+    "results_complete": true,
+    "failures": [],
     "date_basis": "individual published lot end dates; not inferred auction-container dates"
   }
 }
