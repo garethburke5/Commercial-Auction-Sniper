@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-09-24T05:20:06.102003+00:00",
-  "individual_lot_records_captured": 36747,
-  "records_with_address": 28088,
+  "generated_at": "2026-09-24T12:11:15.872763+00:00",
+  "individual_lot_records_captured": 36748,
+  "records_with_address": 28089,
   "partial_lot_records": 8659,
-  "exact_address_groups": 20554,
+  "exact_address_groups": 20555,
   "groups_with_repeat_appearances": 5129,
   "by_auctioneer": {
     "Acuitus": 49,
     "Allsop": 13,
     "Allsop Commercial": 3,
     "Auction House London": 2546,
-    "Paul Fosh Auctions": 5473,
+    "Paul Fosh Auctions": 5474,
     "Pugh Auctioneers": 2,
     "Savills (London - National)": 1,
     "Savills Auctions": 28640,
@@ -35,18 +35,18 @@
     "2023": 3771,
     "2024": 4959,
     "2025": 5659,
-    "2026": 7046
+    "2026": 7047
   },
   "by_sector": {
     "commercial": 3139,
     "land": 1811,
     "mixed-use": 2858,
-    "residential": 25753,
+    "residential": 25754,
     "unknown": 3186
   },
   "date_range": [
     "2010-05-10",
-    "2026-09-23"
+    "2026-09-24"
   ],
   "surviving_catalogues_completely_harvested": 108,
   "catalogues_incomplete_or_unreconciled": 75,
@@ -58,17 +58,16 @@
     "Legacy partial lots retain location and lot number; missing street addresses remain null."
   ],
   "paul_fosh_results": {
-    "checked_at": "2026-09-24T05:19:57.914411+00:00",
-    "lots_captured": 5473,
-    "current_run_unique_lots": 5472,
-    "expected_public_results": 5472,
+    "checked_at": "2026-09-24T12:11:06.029228+00:00",
+    "lots_captured": 5474,
+    "current_run_unique_lots": 5423,
+    "expected_public_results": 5473,
     "pages_captured": [
       1,
       2,
       3,
       4,
       5,
-      6,
       7,
       8,
       9,
@@ -175,8 +174,13 @@
       110
     ],
     "pages_expected": 110,
-    "results_complete": true,
-    "failures": [],
+    "results_complete": false,
+    "failures": [
+      {
+        "page": 6,
+        "error": "URLError: <urlopen error [Errno 111] Connection refused>"
+      }
+    ],
     "date_basis": "individual published lot end dates; not inferred auction-container dates"
   }
 }
