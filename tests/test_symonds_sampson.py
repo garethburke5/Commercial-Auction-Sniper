@@ -9,6 +9,20 @@ from collectors.symonds_sampson import (
 
 
 class SymondsSampsonCollectorTests(unittest.TestCase):
+    def test_main_features_before_heading_keep_beer_mixed_use_and_primary(self):
+        page='''<a href="#features">Main Features</a><ul><li>For sale by Public Auction Thursday 8th October 2026</li><li>Two existing flats and a shop let at £5,400 pa</li><li>Multi-vehicle garage/workshop/store</li></ul><h1>Fore Street, Beer, Seaton</h1><p>Guide Price £295,000</p><p>3 Bedroom House For Sale. Residential refurbishment and redevelopment opportunity.</p><p>Tenure: Freehold</p><a href="https://cdn.webdadi.net/Media/image/l/primary.jpg">Property Image</a><a href="https://cdn.webdadi.net/Media/image/l/exterior.jpg">Exterior</a>'''
+        lot=_detail('https://auctions.symondsandsampson.co.uk/property/beer','','2026-12-11',fetcher=lambda _:BeautifulSoup(page,'lxml'),brochure_reader=lambda *_:'')
+        self.assertEqual(lot.auction_date,'2026-10-08')
+        self.assertEqual(lot.property_type,'Mixed Use')
+        self.assertEqual(lot.annual_rent,5400)
+        self.assertTrue(lot.image_url.endswith('/primary.jpg'))
+
+    def test_detail_classification_waits_for_brochure(self):
+        page='<h1>Fore Street</h1><p>3 Bedroom House For Sale. Please refer to brochure.</p>'
+        lot=_detail('https://auctions.symondsandsampson.co.uk/property/beer','','2026-10-08',fetcher=lambda _:BeautifulSoup(page,'lxml'),brochure_reader=lambda *_:'Two existing flats and a shop let at £5,400 pa.')
+        self.assertIsNotNone(lot)
+        self.assertEqual(lot.annual_rent,5400)
+
     def test_event_date_parser(self):
         self.assertEqual(_parse_date("Thursday, 24 September 2026 2:00 PM - 5:00 PM"), "2026-09-24")
 

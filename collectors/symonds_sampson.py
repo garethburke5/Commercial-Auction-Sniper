@@ -15,7 +15,7 @@ BASE = "https://auctions.symondsandsampson.co.uk"
 AUCTION_HOST = "auctions.symondsandsampson.co.uk"
 EVENT_PATH = BASE + "/events/property-auction/symonds-and-sampson-property-auctions"
 EVENT_INDEXES = (EVENT_PATH, EVENT_PATH + "?eventdate=upcoming")
-DATE_RE = re.compile(r"\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(\d{1,2})\s+([A-Za-z]+)\s+(20\d{2})\b", re.I)
+DATE_RE = re.compile(r"\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})\b", re.I)
 MONTHS = {name.lower(): i for i, name in enumerate(("January","February","March","April","May","June","July","August","September","October","November","December"), 1)}
 RESIDENTIAL_STRONG = ("detached house","semi-detached house","terraced house","bungalow","residential flat","bedroom flat","family home","residential property","bedroom house","house for sale")
 RESIDENTIAL_COMPONENT = ("flat above","flats above","existing flat","existing flats","vacant flat","vacant flats","residential accommodation","living accommodation","apartment above")
@@ -143,6 +143,12 @@ def _property_text(s):
         # Starting at the actual property heading prevents the form from cutting
         # off the particulars and prevents commercial navigation leaking into them.
         parts=[]
+        # Main Features appears before the h1 on Webdadi. Fore Street's shop,
+        # flats, rent and auction date are all in this section, not its teaser.
+        features=s.find(string=lambda t:t and norm(t)=='Main Features')
+        if features:
+            listing=features.parent.find_next('ul')
+            if listing: parts.append(norm(listing.get_text(' ',strip=True)))
         for node in heading.next_elements:
             if not isinstance(node,NavigableString):continue
             if any(p.name in {'script','style','nav','footer','form'} for p in node.parents):continue
@@ -180,19 +186,7 @@ def _money_value(raw):
 
 
 def _current_rent(text):
-    text=text or ""
-    patterns=(
-        r"(?:current(?: gross)? income|current rent|rent reserved)\s*(?:of|is|:)?\s*(£[\d,]+(?:\.\d+)?)\s*(?:rent\s*)?(?:per annum|p\.?a\.?|pa)\b",
-        r"(?:producing|generating|let at)\s*(?:of|is|:)?\s*(£[\d,]+(?:\.\d+)?)\s*(?:rent\s*)?(?:per annum|p\.?a\.?|pa)\b",
-        r"annual rent\s*(?:of|is|:)?\s*(£[\d,]+(?:\.\d+)?)\b",
-        r"rent\s*(?:of|is|:)?\s*(£[\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)\b",
-    )
-    for pat in patterns:
-        m=re.search(pat,text,re.I)
-        if m:
-            v=_money_value(m.group(1))
-            if v:return v
-    return parse_rent(text)
+    return parse_rent(text or '')
 
 
 def _structured(text):
@@ -250,9 +244,9 @@ def _image(s,url):
             if "property" in low:score+=5
             if any(x in low for x in ("front","exterior","main","hero")):score+=4
             if "property" in alt or "exterior" in alt:score+=3
-            if "plan" in low or "plan" in alt:score-=6
+            if re.search(r'floor[ -]?plan|site[ -]?plan|\bepc\b|map',low+' '+alt,re.I):continue
             candidates.append((score,full))
-    return max(candidates,key=lambda x:x[0])[1] if candidates else image_from_soup(s,url)
+    return candidates[0][1] if candidates else image_from_soup(s,url)
 
 
 def _brochure_links(s,url):
@@ -272,7 +266,6 @@ def _pdf_text(url):
 def _detail(url,seed,auction_date,image_hint=None,fetcher=None,brochure_reader=None):
     fetcher=fetcher or _fetch
     s=fetcher(url);text=_property_text(s)
-    if not _is_target(text):return None
     enriched=text
     if len(text)<900 or re.search(r'please refer to (?:the )?brochure',text,re.I):
         if brochure_reader is not None:
@@ -286,6 +279,8 @@ def _detail(url,seed,auction_date,image_hint=None,fetcher=None,brochure_reader=N
                     ptext=_pdf_text(pdf)
                     if ptext:enriched=norm(text+" "+ptext)
                 except Exception:pass
+    if not _is_target(enriched):return None
+    auction_date=_parse_date(text) or auction_date
     h=s.find("h1");address=norm(h.get_text(" ",strip=True)) if h else seed or url
     ml=re.search(r"\bLot\s+(\d+[A-Z]?)\b",text,re.I)
     lp_url,lp_status=legal_pack(s,url)
@@ -296,15 +291,20 @@ def _detail(url,seed,auction_date,image_hint=None,fetcher=None,brochure_reader=N
 
 
 def collect():
-    events,failures=_discover_events();lots=[]
+    events,failures=_discover_events();lots=[];targets={};detail_failures=[];excluded=0
     for event_url,auction_date in events.items():
         try:
             s=_fetch(event_url)
-            for url,(seed,d,image_hint) in _property_links(s,auction_date).items():
-                try:
-                    lot=_detail(url,seed,d,image_hint)
-                    if lot:lots.append(lot)
-                except Exception:continue
+            targets.update(_property_links(s,auction_date))
         except Exception as exc:failures.append((event_url,exc))
+    for url,(seed,d,image_hint) in targets.items():
+        try:
+            lot=_detail(url,seed,d,image_hint)
+            if lot:lots.append(lot)
+            else:excluded+=1
+        except Exception as exc:
+            detail_failures.append(url)
+            print('SYMONDS_DETAIL_FAIL',url,str(exc),flush=True)
     note="; ".join(f"{u}: {e}" for u,e in failures[:4]) if failures else ""
-    return SourceResult(source=SOURCE,status=("LIVE" if lots else "FAILED"),lots=lots,message=note,discovered_count=len(lots),expected_count=None)
+    note=f'{len(events)} future events; {len(targets)} unique lot URLs; {len(targets)-len(detail_failures)} details inspected; {len(lots)} commercial/mixed-use; {excluded} excluded; {len(detail_failures)} detail failures. '+note
+    return SourceResult(source=SOURCE,status=('DEGRADED' if failures or detail_failures else 'LIVE') if lots else 'FAILED',lots=lots,message=note,discovered_count=len(targets),expected_count=None,reconciliation={'discovered_lot_urls':len(targets),'detail_pages_inspected':len(targets)-len(detail_failures),'commercial_mixed_lots':len(lots),'noncommercial_excluded':excluded,'detail_failures':detail_failures})

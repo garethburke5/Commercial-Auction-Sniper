@@ -77,6 +77,16 @@ _clear_start=_source.index('    if clear_filters:\n')
 _clear_end=_source.index('        st.rerun()\n',_clear_start)+len('        st.rerun()\n')
 _source=_source[:_clear_start]+_source[_clear_end:]
 _source=_source.replace('BUILD = "V6.80"','BUILD = "V6.81"',1)
+_source=_source.replace('hay=(str(x.get("address") or "")+" "+str(x.get("desc") or "")).lower()',
+                        'hay=str(x.get("address") or "").lower()',1)
+_source=_source.replace('return all(t in hay for t in terms)',
+                        'return bool(re.search(r"\\b"+r".*?\\b".join(re.escape(t) for t in terms)+r"\\b",hay))',1)
+_source=_source.replace('help="Search property addresses and particulars. Press Enter to apply."',
+                        'help="Search property addresses. Press Enter to apply."',1)
+_source=_source.replace("    return '<div class=\"legalPackReady\">🔎 '+html.escape(status)+'</div>'",
+                        '    from board_links import legal_pack_links\n    return legal_pack_links(p)',1)
+_source=_source.replace('    with st.expander("Buyer Due Diligence · analyse a legal pack", expanded=False):',
+                        '    st.markdown(\'<div id="buyer-due-diligence"></div>\',unsafe_allow_html=True)\n    with st.expander("Buyer Due Diligence · analyse a legal pack", expanded=False):',1)
 
 # Replace the numbered radio pager with a genuinely compact single-row toolbar.
 _old_pager = '''    pager_size, pager_summary = st.columns([1.0,4.0], vertical_alignment="bottom")

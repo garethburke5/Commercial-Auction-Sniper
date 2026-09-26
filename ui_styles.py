@@ -6,6 +6,7 @@ def board_styles(light=False):
     return '''<style>
 section[data-testid="stMain"] [data-testid="stWidgetLabel"] p,
 section[data-testid="stMain"] [data-testid="stTabs"] button{color:FG!important}
+section[data-testid="stMain"] [role="tab"] p{color:FG!important}
 section[data-testid="stMain"] button[kind="secondary"]{background:BG!important;color:FG!important;border:1px solid BORDER!important}
 section[data-testid="stMain"] button p{color:inherit!important}
 section[data-testid="stMain"] button:disabled{opacity:.5!important}

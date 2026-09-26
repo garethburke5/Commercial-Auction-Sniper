@@ -15,7 +15,7 @@ LABELS = {
     'arrears': re.compile(r'\barrears\b', re.I),
     'other_cost': re.compile(r'\b(?:rent deposit|insurance premium|business rates|buyers? fee|purchase price|guide price)\b', re.I),
 }
-CURRENT = re.compile(r'\b(?:total current rent reserved|total current (?:gross )?(?:rent|income)|current (?:gross )?(?:rent|income)|currently producing|producing|rent reserved|rental income|let at|income of|generating)\b', re.I)
+CURRENT = re.compile(r'\b(?:total current rent reserved|total current (?:gross )?(?:rent|income)|current (?:gross )?(?:rent|income)|currently producing|producing|rent reserved|rental income|annual rent|let at|income of|generating)\b', re.I)
 
 
 def money(value):
