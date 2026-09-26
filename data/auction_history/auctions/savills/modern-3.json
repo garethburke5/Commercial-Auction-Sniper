@@ -1,22 +1,22 @@
 {
   "auctioneer": "Savills Auctions",
   "source_auction_id": "savills:3",
-  "auction_date": null,
-  "auction_name": null,
+  "auction_date": "2019-12-16",
+  "auction_name": "December 2019",
   "catalogue_complete": false,
   "completion_scope": "all published lots in surviving online catalogue; not proof of original historical catalogue completeness",
-  "lots_captured": 0,
-  "raw_records_observed": 0,
-  "expected_raw_records": null,
-  "pages_expected": null,
-  "pages_captured": 0,
+  "lots_captured": 110,
+  "raw_records_observed": 110,
+  "expected_raw_records": 106,
+  "pages_expected": 2,
+  "pages_captured": 2,
   "excluded_non_properties": [],
   "errors": [
     {
-      "url": "https://auctions.savills.co.uk/auctions/december-2019-3/page-1/quantity-100/sort-by-0",
-      "page": 1,
-      "error": "URLError: <urlopen error timed out>"
+      "error": "Catalogue count reconciliation failed",
+      "observed": 110,
+      "expected": 106
     }
   ],
-  "checked_at": "2026-09-26T11:44:44.256414+00:00"
+  "checked_at": "2026-09-26T16:17:16.045572+00:00"
 }
