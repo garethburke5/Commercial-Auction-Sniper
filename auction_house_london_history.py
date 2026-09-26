@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import argparse
+from datetime import date
 import json
 import re
 from urllib.parse import urljoin
@@ -13,6 +15,7 @@ from historical_corpus import (
 
 ROOT_URL = "https://auctionhouselondon.co.uk"
 ARCHIVE_URL = ROOT_URL + "/past-auctions"
+SITEMAP_URL = ROOT_URL + "/sitemap.xml"
 
 
 def next_payload(text):
@@ -36,7 +39,14 @@ def embedded_auction(payload):
     raise ValueError("Missing embedded auction object")
 
 
-def auction_page(route):
+def auction_page(route, refresh=False):
+    route_slug = route.rstrip("/").rsplit("/", 1)[-1]
+    state_path = DATA / "auctions" / "auction_house_london" / (route_slug + ".json")
+    if state_path.exists() and not refresh:
+        saved = json.loads(state_path.read_text())
+        if saved.get("catalogue_complete"):
+            saved["already_banked"] = True
+            return saved
     url = urljoin(ROOT_URL, route)
     response = fetch(url)
     auction = embedded_auction(next_payload(response.text))
@@ -48,7 +58,10 @@ def auction_page(route):
         raise ValueError(f"Catalogue reconciliation failed: {len(lots)} != {expected}")
     if len({lot.get("slug") for lot in lots}) != len(lots) or any(not lot.get("slug") for lot in lots):
         raise ValueError("Missing or duplicate source lot slug")
-    date = auction["dayOneDate"][:10]
+    auction_date = auction["dayOneDate"][:10]
+    if auction_date > date.today().isoformat():
+        return {"future": True, "source_url": url, "auction_date": auction_date,
+                "source_auction_id": "ahl:" + auction["slug"]}
     key = "auction_house_london/" + auction["slug"]
     snapshot = DATA / "sources" / key / "catalogue.json.gz"
     evidence = {
@@ -66,7 +79,7 @@ def auction_page(route):
     rows = []
     for lot in lots:
         detail = urljoin(ROOT_URL, "/lot/" + lot["slug"])
-        row = base_row("Auction House London", "ahl:" + auction["slug"], date,
+        row = base_row("Auction House London", "ahl:" + auction["slug"], auction_date,
                        lot.get("lotNumber"), lot["slug"], detail)
         address = plain(lot.get("fullAddress"))
         result = clean(lot.get("resultPrice"))
@@ -94,7 +107,7 @@ def auction_page(route):
     captured = write_rows(key, rows)
     state = {
         "auctioneer": "Auction House London", "source_auction_id": "ahl:" + auction["slug"],
-        "auction_date": date, "auction_name": plain(auction.get("formattedDate")),
+        "auction_date": auction_date, "auction_name": plain(auction.get("formattedDate")),
         "catalogue_complete": captured == int(expected),
         "completion_scope": "all lot rows in the surviving public catalogue page",
         "lots_captured": captured, "expected_raw_records": int(expected),
@@ -104,25 +117,50 @@ def auction_page(route):
     return state
 
 
+def discover_routes(years=None):
+    """Discover historical result routes retained in the first-party sitemap."""
+    routes = set()
+    for response in (fetch(ARCHIVE_URL), fetch(SITEMAP_URL)):
+        routes.update(re.findall(r'href="/auction/([^"]+)"', response.text))
+        routes.update(re.findall(
+            r'<loc>https://auctionhouselondon\.co\.uk/auction/([^<]+)</loc>',
+            response.text,
+        ))
+    if years:
+        routes = {route for route in routes if any(route.endswith(str(year)) for year in years)}
+    return ["/auction/" + route for route in sorted(routes)]
+
+
 def main():
-    archive = fetch(ARCHIVE_URL)
-    routes = sorted(set(re.findall(r'href="/auction/([^"]+)"', archive.text)))
-    routes = ["/auction/" + route for route in routes if re.search(r"2026$", route)]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--years", nargs="*", type=int)
+    parser.add_argument("--refresh", action="store_true")
+    args = parser.parse_args()
+    routes = discover_routes(set(args.years or []))
     if not routes:
         raise SystemExit("No Auction House London catalogue routes discovered")
     states = []
     with ThreadPoolExecutor(max_workers=3) as executor:
-        jobs = {executor.submit(auction_page, route): route for route in routes}
+        jobs = {executor.submit(auction_page, route, args.refresh): route for route in routes}
         for future in as_completed(jobs):
             state = future.result()
+            if state.get("future"):
+                print("AHL future", state["source_auction_id"], state["auction_date"], flush=True)
+                continue
             states.append(state)
             print("AHL", state["source_auction_id"], state["lots_captured"], flush=True)
-    if len(states) != len(routes) or any(not state["catalogue_complete"] for state in states):
+    if any(not state["catalogue_complete"] for state in states):
         raise SystemExit("Auction House London catalogue reconciliation failed")
+    all_states = []
+    for path in (DATA / "auctions" / "auction_house_london").glob("*.json"):
+        state = json.loads(path.read_text())
+        if state.get("catalogue_complete"):
+            all_states.append(state)
     save_json(DATA / "auction_house_london_collection.json", {
-        "checked_at": now(), "catalogues_captured": len(states),
-        "lots_captured": sum(s["lots_captured"] for s in states),
+        "checked_at": now(), "catalogues_captured": len(all_states),
+        "lots_captured": sum(s["lots_captured"] for s in all_states),
         "catalogues_complete": True, "source_url": ARCHIVE_URL,
+        "discovery_url": SITEMAP_URL,
     })
     build_database()
 

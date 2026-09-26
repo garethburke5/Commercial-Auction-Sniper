@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install beautifulsoup4
-      - name: Collect and reconcile every published 2026 catalogue
+      - name: Collect and reconcile every surviving historical catalogue
         run: python -u auction_house_london_history.py
       - name: Publish lot rows, snapshots and rebuilt database
         run: |
@@ -39,7 +39,8 @@ jobs:
           git add data/auction_history/auctions/auction_house_london
           git add data/auction_history/auction_house_london_collection.json
           git add data/auction_history/progress.json data/auction_history/auction_history.sqlite.gz
-          git commit -m 'Bank complete Auction House London 2026 lot history'
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Bank complete Auction House London lot history'
           for attempt in 1 2 3 4; do
             git fetch origin main
             git rebase origin/main
