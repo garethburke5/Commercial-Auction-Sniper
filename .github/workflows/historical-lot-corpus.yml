@@ -7,6 +7,8 @@ on:
       - historical_corpus.py
       - tests/test_historical_corpus.py
       - .github/workflows/historical-lot-corpus.yml
+      - data/historical_source_corpus/**
+      - data/source_corpus_shards/**
   schedule:
     - cron: '37 */6 * * *'
 
