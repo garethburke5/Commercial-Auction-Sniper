@@ -39,6 +39,7 @@ def income_facts(text):
     facts = {}
     current = []
     explicit_totals = []
+    explicit_current = []
     for match in MONEY.finditer(text):
         before = text[max(0, match.start()-150):match.start()]
         # Keep sentence boundaries: a historic rent in the previous sentence
@@ -56,6 +57,11 @@ def income_facts(text):
         if label == 'historic_rent' and not re.search(r'\bcurrent(?:ly)?\b', before[label_pos:], re.I):
             facts['historic_rent'] = value
             continue
+        # "ERV when fully let at market rent" describes potential income. The
+        # embedded words "let at" do not turn that estimate into current rent.
+        if label == 'erv' and not re.search(r'\b(?:current (?:rent|income)|currently producing|passing rent)\b',before[label_pos:],re.I):
+            facts['erv'] = value
+            continue
         if label and label_pos >= current_pos:
             if label != 'other_cost':
                 facts[label] = value
@@ -65,13 +71,17 @@ def income_facts(text):
             continue
         if not ANNUAL.search(after) and not current_labels:
             continue
-        if re.search(r'\b(?:rising to|will rise to|increasing to|estimated|potential|anticipated|could achieve)\b[^£]{0,60}$', before, re.I):
+        if re.search(r'\b(?:rising to|will rise to|increasing to|due to increase to|bringing the new total rent to|estimated|potential|anticipated|could achieve)\b[^£]{0,60}$', before, re.I):
             continue
         if 0 < value <= 100000000:
             current.append(value)
+            if re.search(r'\b(?:total current (?:gross )?(?:rent|income)|current (?:gross )?(?:rent|income)|currently producing|passing rent)\b[^£]{0,70}$',before,re.I):
+                explicit_current.append(value)
             if re.search(r'\btotal\b[^£]{0,70}$', before, re.I):
                 explicit_totals.append(value)
-    if explicit_totals:
+    if len(set(explicit_current)) == 1:
+        facts['annual_rent'] = explicit_current[0]
+    elif explicit_totals:
         facts['annual_rent'] = explicit_totals[0]
     elif len(set(current)) == 1:
         facts['annual_rent'] = current[0]
@@ -80,4 +90,5 @@ def income_facts(text):
 
 def current_income_text(text):
     """Remove historic-let clauses before deciding whether any unit is let now."""
-    return re.sub(r'\b(?:previously|formerly|historically|was|had been)\s+let\b[^.;]*(?:[.;]|$)', ' ', str(text or ''), flags=re.I)
+    value=re.sub(r'\b(?:have|had)\s+until recently\s+been\s+(?:tenanted|let)\b[^.;]*(?:[.;]|$)', ' ', str(text or ''), flags=re.I)
+    return re.sub(r'\b(?:previously|formerly|historically|was|had been)\s+let\b[^.;]*(?:[.;]|$)', ' ', value, flags=re.I)

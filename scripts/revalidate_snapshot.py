@@ -7,10 +7,12 @@ from pathlib import Path
 from collectors.auction_estates import _classified_property_type, _commercial_mixed_evidence
 from collectors.symonds_sampson import _property_type
 from run_collectors_resilient import _finalize_published_snapshot
+from scripts.repair_legacy_ahl_particulars import repair as repair_ahl
 
 
 def revalidate(path=Path('data/properties.json')):
     data=json.loads(path.read_text())
+    repair_ahl(data)
     for item in data.get('properties', []):
         if item.get('source') == 'Auction Estates' and item.get('property_type') == 'Mixed Use':
             text=item.get('description') or ''

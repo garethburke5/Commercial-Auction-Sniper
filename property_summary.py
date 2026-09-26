@@ -101,7 +101,9 @@ def _is_ground_rent_investment(row, low, development):
 def _title(row, low):
     rent = row.get("rent") if row.get("rent") is not None else row.get("annual_rent")
     occupation = _norm(row.get("occupation")).lower()
-    kind = _property_kind(" " + low + " ")
+    # Source-confirmed use wins over possible future uses and nearby occupiers.
+    primary = _property_kind(' '+_norm(row.get('property_type')).lower()+' ')
+    kind = primary if primary != 'COMMERCIAL' else _property_kind(" " + low + " ")
     mixed = any(x in low for x in (
         "mixed use", "mixed-use", "mixed commercial/residential", "mixed commercial / residential",
         "mixed residential and commercial", "retail and residential", "shop and flat", "shop with flat",

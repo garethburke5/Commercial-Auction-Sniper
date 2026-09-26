@@ -16,6 +16,10 @@ def asset_text(description):
     """Exclude vicinity and agency prose from evidence about the asset itself."""
     text = clean_description(str(description or ''))
     text = re.split(r'\b(?:Our Nearest Office|Important notices|For more property information|Popular Searches)\b', text, flags=re.I)[0]
+    # Auction House's Location section describes surrounding shops/roads, not
+    # the accommodation being sold. A house on a mixed-use road is still a house.
+    text = re.sub(r'\bLocation\s*:\s*.*?(?=\b(?:Accommodation|Tenancy|Tenure|Planning|Note|EPC Rating|Exterior|VAT)\s*:|$)', ' ', text)
+    text = re.sub(r'\bmixed[ -]use\s+(?:road|street|area|neighbourhood)\b','',text,flags=re.I)
     # Nearby shops and the auctioneer's office do not describe the asset for sale.
     return re.sub(
         r'\b(?i:nearby occupiers|local amenities|close to|(?:within )?walking distance (?:of|to)|nearby shops)\b'

@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from .core import Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat, is_commercial
 from .browser import get_html
+from .financials import current_income_text
 
 def soup(url, use_browser=False):
     return BeautifulSoup(get_html(url, use_browser=use_browser), "lxml")
@@ -279,7 +280,7 @@ def enrich_common_fields(lot, text):
         lot.property_type=_common_property_type(combined)
 
     if lot.occupation is None:
-        has_let=bool(re.search(r"\b(?:let to|is let|are let|currently let|tenanted|tenancy details|producing\s+£|current (?:gross )?income)\b",combined,re.I)) or bool(lot.annual_rent)
+        has_let=bool(re.search(r"\b(?:let to|is let|are let|currently let|tenanted|tenancy details|producing\s+£|current (?:gross )?income)\b",current_income_text(combined),re.I)) or bool(lot.annual_rent)
         has_vacant=bool(re.search(r"\bvacant(?: possession)?\b",combined,re.I))
         if has_let and has_vacant: lot.occupation="Part Vacant / Part Let"
         elif has_let: lot.occupation="Let"
@@ -305,6 +306,9 @@ def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
                force_commercial=False, use_browser=False, strict_commercial=False,
                suppress_prior=True):
     s = soup(url, use_browser=use_browser)
+    if source == 'Auction House London' and s.select_one('.lot-main'):
+        from .auction_house_london_detail import parse_lot
+        return parse_lot(s,url,lot_number,auction_date)
     h1 = s.find("h1")
     title = s.find("title")
     title_text=norm(title.get_text(" ", strip=True)) if title else ""

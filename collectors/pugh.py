@@ -3,12 +3,14 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime
 from urllib.parse import urljoin
 
-from .core import SourceResult, is_commercial, norm
-from .utils import soup, nearest_card, detail_lot
+from .core import Lot, SourceResult, is_commercial, norm, parse_tenure, parse_vat
+from .financials import guide_range, income_facts
+from .publication_quality import commercial_decision, asset_text
+from .utils import soup, nearest_card, detail_lot, enrich_common_fields, legal_pack
 
 SOURCE = "Pugh / BTG Eddisons"
 BASE = "https://www.pugh-auctions.com"
-SEARCH = BASE + "/property-search?include-sold=off&order-results=date-desc&style=list"
+SEARCH = BASE + "/property-search?include-sold=on&order-results=date-desc&style=list"
 
 
 def _auction_date(text):
@@ -23,7 +25,8 @@ def _auction_date(text):
 
 
 def _lot_no(text):
-    text = norm(text); m = re.search(r"^\s*(\d+[A-Z]?)\b", text, re.I) or re.search(r"\bLot\s+(\d+[A-Z]?)", text, re.I)
+    # An address beginning "15 Percy Street" is not Lot 15.
+    text = norm(text); m = re.search(r"\bLot\s+(\d+[A-Z]?)", text, re.I)
     return f"Lot {m.group(1)}" if m else None
 
 
@@ -32,6 +35,7 @@ def _terminal_status(text):
     if "sold prior" in low: return "SOLD PRIOR"
     if "withdrawn" in low: return "WITHDRAWN"
     if "postponed" in low: return "POSTPONED"
+    if re.search(r'\bsold(?:\s+for)?\b', low): return "SOLD"
     return None
 
 
@@ -40,7 +44,15 @@ def _property_cards(s):
     for a in s.find_all("a", href=True):
         href = urljoin(BASE, a.get("href") or "").split("?")[0].rstrip("/")
         if "/property/" not in href: continue
-        card = nearest_card(a, 3600) or norm(a.get_text(" ", strip=True))
+        row = a.find_parent('tr')
+        if row:
+            cells = row.find_all('td', recursive=False)
+            number = norm(cells[0].get_text(' ',strip=True)) if cells else ''
+            prefix = 'Lot '+number+' ' if re.fullmatch(r'\d+[A-Z]?',number,re.I) else ''
+            status = _terminal_status(cells[5].get_text(' ',strip=True)) if len(cells)>5 else None
+            card = prefix + ('Status: '+status+' ' if status else '') + norm(row.get_text(' ',strip=True))
+        else:
+            card = nearest_card(a, 3600) or norm(a.get_text(" ", strip=True))
         if card: out[href] = card
     return out
 
@@ -49,8 +61,10 @@ def _page_targets(s, today):
     out = {}
     for href, card in _property_cards(s).items():
         auction_date = _auction_date(card)
-        if not auction_date or auction_date < today or not is_commercial(card): continue
-        out[href] = (card, _lot_no(card), auction_date, _terminal_status(card))
+        # Catalogue teasers are incomplete; inspect every current/future lot.
+        if not auction_date or auction_date < today: continue
+        status = re.search(r'\bStatus:\s*(SOLD PRIOR|WITHDRAWN|POSTPONED|SOLD)\b',card,re.I)
+        out[href] = (card, _lot_no(card), auction_date, status.group(1).upper() if status else None)
     return out
 
 
@@ -164,6 +178,48 @@ def _apply_pugh_particulars(lot, page_soup):
     return lot.finalise()
 
 
+def _parse_detail(page, href, card='', lotno=None, auction_date=None, card_status=None):
+    """Read one Pugh lot, keeping fees and recommended properties out of facts."""
+    heading = page.find('h1')
+    body = page.select_one('.cms-content')
+    if not heading or not body:
+        raise ValueError('Pugh property heading/particulars missing')
+    header = heading.parent.parent.parent
+    header_text = norm(header.get_text(' ',strip=True))
+    particulars = norm(body.get_text(' ',strip=True))
+    address = norm(heading.get_text(' ',strip=True))
+    decision = commercial_decision({'address':address,'description':particulars})
+    if decision is False or (decision is None and not is_commercial(asset_text(particulars))):
+        return None
+    price_label = page.find(string=lambda t:t and norm(t)=='Guide Price')
+    price_text = norm(price_label.parent.parent.get_text(' ',strip=True)) if price_label else header_text
+    # The price is a sibling of the Guide Price link on Pugh's template.
+    if price_label and not re.search(r'£',price_text):
+        price_text = norm(price_label.parent.parent.parent.get_text(' ',strip=True))
+    guide,upper,raw = guide_range(re.sub(r'\s+to\s+(?=£)', '–', price_text, flags=re.I))
+    primary = page.select_one('img[alt="Property image"]')
+    lp_url,lp_status = legal_pack(page,href)
+    lot = Lot(SOURCE,href,address,lot_number=_lot_no(header_text) or lotno,
+              auction_date=_auction_date(header_text) or auction_date,
+              guide_price=guide,guide_price_upper=upper,guide_price_text=raw,
+              image_url=urljoin(href,primary['src']) if primary and primary.get('src') else None,
+              image_is_primary=bool(primary),image_source_url=href,
+              tenure=parse_tenure(particulars),vat_status=parse_vat(particulars),
+              legal_pack_url=lp_url,legal_pack_status=lp_status,
+              status=_terminal_status(header_text) or card_status or 'CURRENT')
+    from bs4 import BeautifulSoup
+    scoped = BeautifulSoup('<main></main>','lxml')
+    scoped.main.append(BeautifulSoup(str(body),'lxml'))
+    lot = _apply_pugh_particulars(lot,scoped)
+    facts = income_facts(particulars)
+    lot.annual_rent = facts.get('annual_rent')
+    lot = enrich_common_fields(lot,particulars)
+    # Unit 15's floor area is not the total for a portfolio of four units.
+    if len(set(re.findall(r'\bNumber\s+(\d+[A-Z]?)\b',particulars,re.I))) > 1 and not re.search(r'\b(?:overall|total)\s+(?:gross|net|floor|area|NIA|GIA)',particulars,re.I):
+        lot.area_sqft = lot.area_sqm = None
+    return lot.finalise()
+
+
 def collect():
     try:
         today = date.today().isoformat(); targets = {}; previous_ids = None; pages_seen = 0; future_pages_seen = 0; past_only_streak = 0
@@ -187,12 +243,9 @@ def collect():
         lots=[]; failures=0; terminal_count=0; suppressed_noncommercial=0
         def hydrate(item):
             href,(card,lotno,auction_date,card_status)=item
-            lot=detail_lot(SOURCE,href,seed=card,lot_number=lotno,auction_date=auction_date,force_commercial=False,strict_commercial=True,suppress_prior=False)
+            lot=_parse_detail(soup(href,use_browser=False),href,card,lotno,auction_date,card_status)
             if not lot: return None,card_status
-            try: lot=_apply_pugh_particulars(lot,soup(href,use_browser=False))
-            except Exception as exc: print("PUGH_RICH_DETAIL_FAIL",href,repr(exc))
-            lifecycle=_terminal_status((card or "")+" "+str(lot.description or "")) or card_status
-            if lifecycle: lot.status=lifecycle
+            lifecycle=_terminal_status(lot.status)
             return lot.finalise(),lifecycle
         with ThreadPoolExecutor(max_workers=10) as ex:
             futures={ex.submit(hydrate,item):item[0] for item in targets.items()}
@@ -206,5 +259,5 @@ def collect():
         for lot in lots: dedup[lot.url or (norm(lot.address).lower(),lot.auction_date)]=lot
         lots=list(dedup.values()); scope_dates=tuple(sorted({str(x.auction_date)[:10] for x in lots if x.auction_date})); status="LIVE" if lots and failures==0 else "DEGRADED" if lots else "FAILED"
         available=sum(1 for x in lots if _terminal_status(x.status) is None and str(x.status or "").upper() not in {"SOLD PRIOR","WITHDRAWN","POSTPONED"})
-        return SourceResult(SOURCE,status,lots,f"Newest-first all-future sweep: {pages_seen} page(s); {len(targets)} commercial/mixed candidates; {available} available and {terminal_count} sold-prior/withdrawn/postponed history rows published across {len(scope_dates)} future auction date(s); {suppressed_noncommercial} detail pages rejected by strict commercial validation; {failures} detail failures.",discovered_count=len(targets),authoritative_snapshot=False,scope_dates=scope_dates)
+        return SourceResult(SOURCE,status,lots,f"Newest-first all-future sweep: {pages_seen} page(s); {len(targets)} lots discovered before classification; {available} available and {terminal_count} unavailable commercial/mixed-use lots; {suppressed_noncommercial} noncommercial excluded; {failures} detail failures.",discovered_count=len(targets),expected_count=len(lots) if not failures else None,authoritative_snapshot=False,scope_dates=scope_dates,reconciliation={'catalogue_pages':pages_seen,'discovered_lot_urls':len(targets),'detail_pages_inspected':len(targets)-failures,'commercial_mixed_lots':len(lots),'noncommercial_excluded':suppressed_noncommercial,'detail_failures':failures})
     except Exception as exc: return SourceResult(SOURCE, "FAILED", [], f"Pugh discovery failed: {exc}")
