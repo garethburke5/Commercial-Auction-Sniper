@@ -421,9 +421,18 @@ def bank_legacy():
 def bank_source_corpus():
     """Bank actual lots from earlier immutable source-corpus JSON shards."""
     roots = (ROOT / "data/source_corpus_shards", ROOT / "data/historical_source_corpus")
-    array_names = ("lot_records", "lots", "properties", "property_records")
+    # This diagnostic contains 53 item-level RSS matches that were accepted only
+    # after unique auction/date/lot reconciliation.  They were written to the
+    # old property history, but were never admitted to the permanent appearance
+    # shards.  Treat the saved diagnostic itself as immutable source evidence.
+    diagnostic_sources = (
+        ROOT / "data/source_diagnostics/savills_2010_2018_rss_catalogue_recovery.json",
+    )
+    source_paths = sorted(p for root in roots if root.exists() for p in root.rglob("*.json"))
+    source_paths.extend(path for path in diagnostic_sources if path.exists())
+    array_names = ("lot_records", "lots", "properties", "property_records", "accepted_rows")
     total = 0
-    for source_path in sorted(p for root in roots if root.exists() for p in root.rglob("*.json")):
+    for source_path in source_paths:
         try:
             payload = json.loads(source_path.read_text())
         except (OSError, json.JSONDecodeError):
@@ -431,7 +440,7 @@ def bank_source_corpus():
         lot_rows = next((payload.get(k) for k in array_names if isinstance(payload.get(k), list)), None)
         if not lot_rows:
             continue
-        auctioneer = clean(payload.get("auctioneer")) or "Unknown auctioneer"
+        payload_auctioneer = clean(payload.get("auctioneer")) or None
         original = source_path.read_bytes()
         snapshot = DATA / "sources/source-corpus" / (digest(original)[:20] + ".json.gz")
         save_gzip(snapshot, {"imported_at": now(), "origin_file": str(source_path.relative_to(ROOT)),
@@ -440,20 +449,25 @@ def bank_source_corpus():
         for raw in lot_rows:
             if not isinstance(raw, dict):
                 continue
+            auctioneer = clean(raw.get("source")) or payload_auctioneer or "Unknown auctioneer"
             address = plain(raw.get("address") or raw.get("locality_address") or raw.get("property_address"))
             lot = clean(raw.get("lot_number")) or None
             date = clean(raw.get("auction_date")) or None
             period = clean(raw.get("auction_period") or raw.get("auction_month")) or None
             urls = raw.get("source_urls") if isinstance(raw.get("source_urls"), list) else []
-            url = clean(raw.get("source_url") or raw.get("original_url") or
+            url = clean(raw.get("source_url") or raw.get("original_url") or raw.get("url") or
                         (urls[0] if urls else "") or payload.get("archive_url"))
             if not url:
                 continue
-            source_id = clean(raw.get("source_record_id") or raw.get("source_lot_id")) or None
+            source_id = clean(raw.get("source_record_id") or raw.get("source_lot_id") or
+                              raw.get("source_id")) or None
             identity = source_id or digest(json.dumps(
                 [auctioneer, date, period, lot, address, url], ensure_ascii=False,
                 separators=(",", ":")).encode())[:24]
-            auction_id = clean(raw.get("source_auction_id")) or (date or period or "date-unknown")
+            auction_id = clean(raw.get("source_auction_id")) or None
+            if not auction_id and source_id and source_id.startswith("savills-rss:"):
+                auction_id = ":".join(source_id.split(":")[:2])
+            auction_id = auction_id or date or period or "date-unknown"
             row = base_row(auctioneer, "source-corpus:" + auction_id, date, lot or "unknown",
                            source_id or identity, url)
             row["appearance_id"] = "source-corpus|" + identity
