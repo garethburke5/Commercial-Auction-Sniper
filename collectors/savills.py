@@ -4,6 +4,7 @@ from urllib.parse import urljoin
 
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
 from .utils import soup, image_from_soup, nearest_card
+from .areas import floor_area
 
 SOURCE = "Savills Auctions"
 BASE = "https://auctions.savills.co.uk"
@@ -194,6 +195,15 @@ def _detail(href, auction, source_commercial=False):
         ds = soup(href, use_browser=True)
     main = ds.find("main") or ds
     text = norm(main.get_text(" ", strip=True))
+    particulars = ds.select_one('.full-description')
+    additional = ds.select_one('.additional-info')
+    if particulars:
+        # Retain all the particulars, accommodation and tenancy evidence. The
+        # four key-feature bullets are not a substitute for the detail page.
+        scoped = norm(particulars.get_text(' ',strip=True))
+        if additional: scoped += ' ' + norm(additional.get_text(' ',strip=True))
+    else:
+        scoped = ''
     if not source_commercial and not _is_commercial(text):
         return None
 
@@ -234,7 +244,17 @@ def _detail(href, auction, source_commercial=False):
         if ul:
             key_features = [norm(li.get_text(" ", strip=True)) for li in ul.find_all("li") if norm(li.get_text(" ", strip=True))]
 
-    desc = " ".join(key_features[:4]) or _first([r"Description\s+(.{20,500}?)(?:Additional information|Tenure|Accommodation|Tenancy|Planning|Rent|Local information)"], text)
+    desc = scoped or " ".join(key_features[:4]) or _first([r"Description\s+(.{20,500}?)(?:Additional information|Tenure|Accommodation|Tenancy|Planning|Rent|Local information)"], text)
+    accommodation = None
+    for row in ds.select('.additional-info__row'):
+        label = row.select_one('.tenure-sentence')
+        if label and norm(label.get_text()).lower() == 'accommodation':
+            accommodation = row.select_one('.tenure-sentence-text')
+            break
+    if accommodation:
+        total_ft,total_m = floor_area('\n'.join(p.get_text(' ',strip=True) for p in accommodation.find_all('p')))
+        if total_ft is not None or total_m is not None:
+            area_sqft,area_sqm = total_ft,total_m
     image = image_from_soup(ds, BASE)
 
     # Lot.source_id is now a derived property of source+URL. Historical Savills

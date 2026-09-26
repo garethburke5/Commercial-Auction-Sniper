@@ -40,7 +40,7 @@ for src in sorted(hard_quality_sources):
     q=quality.get(src)
     if not q or not q.get('lots'):
         source_rows=[x for x in d['properties'] if str(x.get('source') or '')==src]
-        terminal_statuses={'SOLD PRIOR','WITHDRAWN','WITHDRAWN PRIOR','POSTPONED','AUCTION ENDED','COMPLETED','ARCHIVED'}
+        terminal_statuses={'SOLD','SOLD PRIOR','WITHDRAWN','WITHDRAWN PRIOR','POSTPONED','AUCTION ENDED','COMPLETED','ARCHIVED'}
         nonterminal=[x for x in source_rows if str(x.get('status') or '').strip().upper().replace('_',' ') not in terminal_statuses]
         if nonterminal: missing_quality.append(src)
         continue

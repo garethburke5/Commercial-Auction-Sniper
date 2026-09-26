@@ -27,6 +27,12 @@ def commercial_decision(item):
     """Reject residential assets; require particulars to prove mixed use."""
     asset = asset_text(item.get('description'))
     kind = str(item.get('property_type') or '')
+    # Completed/substantially completed residential conversions are residential
+    # now. Historic office use alone is not current commercial accommodation.
+    if (re.search(r'conversion (?:works )?(?:have |has )?(?:already )?been carried out|(?:majority|substantially|completed).{0,65}conversion|converted (?:into|to) (?:a |an )?residential', asset, re.I)
+        and re.search(r'residential dwelling|private residence|two[ -]bedroom|\d+[ -]bedroom',asset,re.I)
+        and not MIXED.search(asset)):
+        return False
     # A collector-generated type is not independent evidence. In particular,
     # nearby restaurants previously caused flats to be labelled "Mixed Use".
     positive = bool(COMMERCIAL.search(asset) or MIXED.search(asset)
@@ -41,6 +47,8 @@ def commercial_decision(item):
 
 def publication_exclusion(item):
     address = str(item.get('address') or '')
+    if re.search(r'legal document download|highest bidder|my properties|book a free valuation',address,re.I):
+        return 'Invalid property address: site interface text'
     if re.match(r'^\s*propert(?:y|ies)\s+(?:for sale|to let|search)\b', address, re.I):
         return 'Catalogue/search page: not an individual property'
     if item.get('source') == 'Symonds & Sampson':

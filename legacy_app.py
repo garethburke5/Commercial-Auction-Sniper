@@ -11,6 +11,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
 import streamlit as st
+from board_presentation import current_board_row, catalogue_status, available_row
 from bs4 import BeautifulSoup
 from collector_enrichment import extract_particulars, merge_enrichment
 from property_summary import build_opportunity_summary
@@ -23,7 +24,7 @@ except Exception:
 
 st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
-BUILD = "V6.79"
+BUILD = "V6.80"
 CACHE = Path("auction_sniper_cache.json")
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AuctionSniper/5.0)"}
 TIMEOUT = 10
@@ -3204,6 +3205,7 @@ header[data-testid="stHeader"],div[data-testid="stToolbar"],#MainMenu{display:no
 .chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}.chip{font-size:.66rem;font-weight:800;padding:4px 7px;border-radius:999px;background:#223047;border:1px solid #405674;color:#e7eef8}.analysis{margin-top:7px;border-top:1px solid #26354a;padding-top:6px}.research{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.research a{text-decoration:none!important;color:#cfe0f5!important;background:#172638;border:1px solid #314761;border-radius:6px;padding:6px 8px;font-size:.62rem;font-weight:800}.research a:hover{border-color:#f2c94c;color:#f2c94c!important}.iread{margin-top:8px;background:#111d2b;border-left:3px solid #f2c94c;border-radius:6px;padding:8px 10px}.iread span{font-size:.62rem;color:#f2c94c;font-weight:900}.iread p{font-size:.68rem;color:#d8e1ed;margin:4px 0;line-height:1.35}.analysis summary{cursor:pointer;color:#dbe5f2;font-size:.72rem;font-weight:850}.factgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.fact{background:#0f1723;border:1px solid #233149;border-radius:7px;padding:7px 8px}.fact span{display:block;color:#8fa0b5;font-size:.57rem;margin-bottom:2px}.fact b{display:block;color:#f4f7fb;font-size:.70rem;line-height:1.3}
 .action{display:block;text-align:center;text-decoration:none!important;background:#f2c94c;color:#171208!important;border-radius:8px;padding:9px 8px;margin-top:9px;font-size:.77rem;font-weight:950}
 .statusrow{padding:12px 14px;border:1px solid #29354b;background:#111824;border-radius:10px;margin-bottom:8px;font-size:.84rem}
+.lotStatus{display:inline-block;padding:7px 11px;margin:8px 0;border:2px solid #f4ba50;border-radius:6px;background:#402d10;color:#fff0c9;font-size:.9rem;font-weight:800}
 div[data-testid="stExpander"]{border:1px solid #25344a!important;border-radius:11px!important;background:#0e1621!important;margin-bottom:10px}
 button[data-baseweb="tab"]{font-size:.9rem!important}
 @media(min-width:1700px){.block-container{max-width:1640px}.cards{grid-template-columns:repeat(5,minmax(0,1fr));gap:11px}.preview{height:160px}}
@@ -3410,13 +3412,7 @@ from datetime import date as _date
 _all_snapshot_rows=list(rows)
 _today=_date.today().isoformat()
 def _is_current_board_row(r):
-    status=str(r.get("status") or "").strip().lower()
-    if status in {"archived","sold prior","withdrawn","withdrawn prior","auction ended","completed"}:
-        return False
-    d=str(r.get("date") or "").strip()
-    if re.fullmatch(r"\d{4}-\d{2}-\d{2}",d) and d < _today:
-        return False
-    return True
+    return current_board_row(r)
 rows=[r for r in rows if _is_current_board_row(r)]
 try:
     # Full collector universe is prebuilt into auction_sniper_cache.json by GitHub Actions.
@@ -3432,7 +3428,7 @@ st.markdown(
     '<div class="hero"><div><div class="brand">AUCTION <b>SNIPER</b></div>'
     '<div class="tagline">UK commercial auction deal scanner</div>'
     f'<div class="sub">{BUILD} · {html.escape(updated or "")}</div></div>'
-    f'<div class="badge">{len(rows)} verified lots</div></div>',
+    f'<div class="badge">{sum(available_row(r) for r in rows)} available lots<br><small>{sum(bool(catalogue_status(r)) for r in rows)} sold / withdrawn / postponed</small></div></div>',
     unsafe_allow_html=True
 )
 
@@ -4302,10 +4298,11 @@ with lots_tab:
         cards.append(
             '<div class="card">'+preview+'<div class="cb">'
             +f'<div class="src">{html.escape(x["source"])} · {html.escape(x.get("lot") or "Lot TBC")}</div>'
+            +(f'<div class="lotStatus">{html.escape(catalogue_status(x))} · Unavailable</div>' if catalogue_status(x) else '')
             +f'<div class="oppTitle">{html.escape(_opp_title)}</div>'
             +(f'<div class="oppFacts">{html.escape(_opp_facts)}</div>' if _opp_facts else '')
             +f'<div class="addr">{html.escape(x["address"])}</div><div class="metrics">'
-            +f'<div class="metric"><span>Guide</span><b>{html.escape(guide_display(x))}</b></div>'
+            +f'<div class="metric"><span>Guide Price</span><b>{html.escape(guide_display(x))}</b></div>'
             +f'<div class="metric"><span>Rent p.a.</span><b>{money(x.get("rent"))}</b></div>'
             +f'<div class="metric yieldMetric"><span>GIY</span><b>{html.escape(yield_display(x))}</b></div>'
             +'<div class="metric"><span>Tenure</span><b>'+html.escape((x.get("tenure") or "—").upper())+'</b></div>' 

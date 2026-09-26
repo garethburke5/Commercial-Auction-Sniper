@@ -172,7 +172,10 @@ def _detail(url, seed, auction_date=None, fetcher=None):
     lm = re.search(r'\bLot\s+(\d+[A-Z]?)\b', title, re.I)
     price_heading = next((h for h in s.find_all(['h2','h3','h4']) if re.search(r'Guide\s*Price', h.get_text(), re.I)), None)
     price_text = norm(price_heading.get_text(' ', strip=True)) if price_heading else ''
-    lifecycle = _lifecycle(seed)
+    # Addenda describe this lot; bidding-help footers list every possible status.
+    addendum = s.select_one('.addendum')
+    lifecycle = _lifecycle(norm(addendum.get_text(' ',strip=True)) if addendum else '')
+    if lifecycle == 'CURRENT': lifecycle = _lifecycle(seed)
     # A closed lot may carry an early closing timestamp; its published catalogue
     # date remains the date of the sale in the lot's own auction particulars.
     closing = _closing_date(particulars) or auction_date
@@ -181,9 +184,11 @@ def _detail(url, seed, auction_date=None, fetcher=None):
     legal = next((a for a in s.select('a[href]') if '/lot/legals/' in a['href']), None)
     text = norm(title + ' ' + price_text + ' ' + particulars)
     mixed = bool(re.search(r'mixed[ -]use|shop (?:and|with) (?:a )?flat|commercial and residential', particulars, re.I))
+    tenure_heading = next((h for h in s.select('h3.lot-data-heading') if norm(h.get_text()).lower()=='tenure'), None)
+    tenure_text = norm(tenure_heading.parent.get_text(' ',strip=True)) if tenure_heading else particulars
     lot = Lot(source=SOURCE, url=url, address=address, lot_number='Lot '+lm.group(1).upper() if lm else None,
               auction_date=closing, image_url=_primary_image(s,url), image_is_primary=True, image_source_url=url, guide_price=parse_guide(price_text) or parse_guide(seed),
-              annual_rent=parse_rent(particulars), tenure=parse_tenure(particulars), vat_status=parse_vat(particulars),
+              annual_rent=parse_rent(particulars), tenure=parse_tenure(tenure_text), vat_status=parse_vat(particulars),
               legal_pack_url=urljoin(url,legal['href']) if legal else None,
               legal_pack_status='LOGIN REQUIRED' if legal else 'UNKNOWN', status=lifecycle,
               description=text, property_type='Mixed Use' if mixed else None)

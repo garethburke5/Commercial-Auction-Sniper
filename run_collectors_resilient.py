@@ -44,7 +44,7 @@ _REPLACEMENTS = {
     "collect_national_online": regional.collect_national_online,
 }
 
-_PUBLISHED_TERMINAL = {"SOLD PRIOR", "WITHDRAWN", "WITHDRAWN PRIOR", "POSTPONED"}
+_PUBLISHED_TERMINAL = {"SOLD", "SOLD PRIOR", "WITHDRAWN", "WITHDRAWN PRIOR", "POSTPONED"}
 _WORKFLOW_BOILERPLATE = re.compile(
     r"(?:login|log in|register to bid|cancel proxy bid|your bid|wishlist|connecting to auction|please wait)",
     re.I,

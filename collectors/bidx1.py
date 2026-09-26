@@ -4,6 +4,7 @@ from urllib.parse import urljoin
 
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
 from .utils import soup, legal_pack
+from .financials import guide_range
 
 SOURCE = "BidX1"
 BASE = "https://bidx1.com"
@@ -219,19 +220,49 @@ def _property_type(text):
     return "Commercial"
 
 
+def _property_address(s):
+    heading = s.select_one('h2.order-1')
+    if heading:
+        return norm(heading.get_text(' ', strip=True))
+    for heading in s.find_all(['h1', 'h2']):
+        value = norm(heading.get_text(' ', strip=True))
+        if heading.find_parent(class_=re.compile(r'modal|sidebar|bidding-header')):
+            continue
+        if len(value) >= 6 and not re.search(r'legal document|bidding|highest bidder|congratulations|thank you|my properties', value, re.I):
+            return value
+    title = s.find('title')
+    return norm(title.get_text(' ', strip=True)).split('|')[0] if title else None
+
+
+def _particulars(s):
+    sections = {}
+    summary = s.select_one('#elevator-pitch')
+    if summary: sections['Summary'] = norm(summary.get_text(' ', strip=True))
+    for heading in s.select('h3.header.text-right'):
+        label = norm(heading.get_text(' ', strip=True))
+        if re.search(r"buyer's fee|helpful links|downloads", label, re.I): continue
+        row = heading.find_parent(class_='row')
+        content = row.select_one('.content') if row else None
+        if content: sections[label] = norm(content.get_text(' ', strip=True))
+    # Avoid the generic cleaner treating the middle of these scoped sections as
+    # the start of a whole web page and discarding the investment summary.
+    text = ' '.join(('Particulars' if k.lower()=='property description' else k)+': '+v for k,v in sections.items())
+    return norm(text), sections
+
+
 def _detail(url, seed, auction_date, fetcher=_fetch):
     s = fetcher(url)
     main = s.find("main") or s
-    text = norm(main.get_text(" ", strip=True))
-    h1 = s.find("h1")
-    address = norm(h1.get_text(" ", strip=True)) if h1 else None
-    if not address or len(address) < 6:
-        title = s.find("title")
-        address = norm(title.get_text(" ", strip=True)).split("|")[0] if title else url
-    detail_date = _date_from_card(text)
+    page_text = norm(main.get_text(" ", strip=True))
+    text, sections = _particulars(s)
+    text = text or page_text
+    address = _property_address(s)
+    if not address: raise ValueError('BidX1 property address missing')
+    detail_date = _date_from_card(page_text)
     auction_date = detail_date or auction_date
     if auction_date and auction_date < date.today().isoformat(): return None
-    guide = parse_guide(text) or parse_guide(seed)
+    guide, upper, guide_text = guide_range(page_text)
+    guide = guide or parse_guide(seed)
     rent = parse_rent(text)
     image = _image_from_detail(s, url)
     if not image:
@@ -243,12 +274,16 @@ def _detail(url, seed, auction_date, fetcher=_fetch):
         except Exception:
             pass
     lp_url, lp_status = legal_pack(s, url)
-    if lp_status == "NOT FOUND" and re.search(r"\bView Legal Pack\b|\bLegal Document Download\b", text, re.I): lp_status = "AVAILABLE - LOGIN REQUIRED"
+    if lp_status == "NOT FOUND" and re.search(r"\bView Legal Pack\b|\bLegal Document Download\b", page_text, re.I): lp_status = "AVAILABLE - LOGIN REQUIRED"
+    details = s.select_one('.details-list')
+    details_text = norm(details.get_text(' ',strip=True)) if details else text
+    number = re.search(r'\bLot\s+(\d+[A-Z]?)\b',details_text,re.I)
     lot = Lot(source=SOURCE, url=url, address=address, auction_date=auction_date,
         image_url=image, image_is_primary=bool(s.select_one('a[data-pswp-photo-index="0"], img[data-index="0"]')),
-        image_source_url=url, guide_price=guide, annual_rent=rent,
-        tenure=parse_tenure(text), vat_status=parse_vat(text), legal_pack_status=lp_status,
-        legal_pack_url=lp_url, property_type=_property_type(text), description=text[:9000])
+        image_source_url=url, guide_price=guide, guide_price_upper=upper, guide_price_text=guide_text,
+        lot_number='Lot '+number.group(1) if number else None, annual_rent=rent,
+        tenure=parse_tenure(sections.get('Tenure',text)), vat_status=parse_vat('VAT '+sections['VAT']) if sections.get('VAT') else 'UNKNOWN', legal_pack_status=lp_status,
+        legal_pack_url=lp_url, property_type=_property_type(details_text), description=text[:9000])
     lot.area_sqft, lot.area_sqm, lot.site_area_acres = _area(text)
     status_node=s.select_one('.bidding-card')
     status_text=norm(status_node.get_text(" ",strip=True)) if status_node else ''

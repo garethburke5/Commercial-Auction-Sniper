@@ -57,7 +57,7 @@ COLLECTORS=[
     future_property, bidx1, symonds_sampson, auction_estates,
 ]
 PUBLISHABLE={"LIVE","DEGRADED"}
-TERMINAL_STATUSES={"SOLD PRIOR","WITHDRAWN","WITHDRAWN PRIOR","POSTPONED","AUCTION ENDED","COMPLETED","ARCHIVED"}
+TERMINAL_STATUSES={"SOLD","SOLD PRIOR","WITHDRAWN","WITHDRAWN PRIOR","POSTPONED","AUCTION ENDED","COMPLETED","ARCHIVED"}
 BAD_ADDRESS=re.compile(r"(?:login|log in|sign in|register to bid|book a viewing|arrange a viewing|viewing appointment|cancel proxy bid|your bid|remove from wishlist|add to wishlist|connecting to auction|please wait|full details|legal pack available)",re.I)
 DESCRIPTION_BOILERPLATE=re.compile(r"(?:book your free appraisal|register to bid|create account\s*/\s*login|my account|auction countdown|book a viewing|sign up for auction alerts)",re.I)
 RICH_FIELDS=("image_url","area_sqft","area_sqm","site_area_acres","tenant","lease_term","lease_start","lease_expiry","break_clause","break_status","rent_review","fri","erv","epc","rateable_value","service_charge","ground_rent","property_type","occupation","parking","development_potential","asset_management","refurbishment","residential_conversion","listed_status","covenant_rating","covenant_risk","covenant_turnover","guarantors","pitch","nearby_occupiers","legal_pack_url","legal_pack_status","vat_status","tenure","guide_price","annual_rent","lot_number","auction_date")

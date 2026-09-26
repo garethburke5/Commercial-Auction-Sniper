@@ -232,11 +232,11 @@ def _common_property_type(text):
     low=(text or "").lower()
     patterns=(
         ("Mixed Use", ("mixed use","mixed-use","commercial/residential","shop and flat","shop with flat")),
-        ("Retail", ("retail investment","retail unit","shop investment","ground floor shop","supermarket","pharmacy")),
+        ("Retail", ("retail investment","retail unit","retail premises","shop investment","ground floor shop","supermarket","pharmacy")),
         ("Office", ("office investment","office building","office premises","office unit")),
-        ("Industrial / Warehouse", ("industrial unit","industrial property","warehouse","factory","trade counter")),
+        ("Industrial / Warehouse", ("industrial unit","industrial property","warehouse","factory","trade counter","workshop")),
         ("Leisure / Hospitality", ("public house","pub investment","hotel","restaurant","leisure investment")),
-        ("Commercial", ("commercial property","commercial premises","commercial building","commercial investment","commercial unit")),
+        ("Commercial", ("commercial property","commercial development property","commercial premises","commercial building","commercial investment","commercial unit")),
     )
     for label,terms in patterns:
         if any(x in low for x in terms):
@@ -287,7 +287,7 @@ def enrich_common_fields(lot, text):
 
     if lot.fri is None and re.search(r"\bFRI\b|full repairing and insuring",combined,re.I):
         lot.fri=True
-    if lot.development_potential is None and re.search(r"development potential|development opportunity|redevelop|subject to planning|planning permission",combined,re.I):
+    if lot.development_potential is None and re.search(r"development potential|development opportunity|commercial development property|redevelop|subject to (?:the necessary )?planning|planning permission",combined,re.I):
         lot.development_potential=True
     if lot.asset_management is None and re.search(r"asset management opportunit|asset management potential|reversionary potential",combined,re.I):
         lot.asset_management=True
@@ -313,8 +313,16 @@ def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
     )
     main = s.find("main") or s.find("article")
     text = norm(main.get_text(" ", strip=True)) if main else norm(s.get_text(" ", strip=True))
+    # The legacy Auction House template has no h1/main. Its navigation precedes
+    # the particulars, so whole-page extraction was truncated at "Register" and
+    # even classified houses from the site's Commercial navigation link.
+    regional = s.select_one('.lot-details .preline') if 'auctionhouse.co.uk/' in url else None
+    if regional:
+        text = norm(regional.get_text(" ", strip=True))
+        text = re.split(r'Important Notice to Prospective Buyers|Additional Fees', text, flags=re.I)[0]
+        address = re.sub(r'^Property for Auction in .+? - ', '', address, flags=re.I)
     strict_text=address + " " + text[:15000]
-    combined = address + " " + seed + " " + text[:15000]
+    combined = text[:15000] if regional else address + " " + seed + " " + text[:15000]
     low = combined.lower()
 
     if suppress_prior and ("sold prior" in low or "withdrawn prior" in low):
@@ -327,7 +335,8 @@ def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
     if not force_commercial and not is_commercial(commercial_text):
         return None
 
-    guide = parse_guide(text) or parse_guide(seed)
+    guide_node = s.select_one('.guideprice') if regional else None
+    guide = parse_guide(guide_node.get_text(' ',strip=True) if guide_node else text) or parse_guide(seed)
     rent = parse_rent(text) or parse_rent(seed)
     lp_url, lp_status = legal_pack(s, url)
 
@@ -338,4 +347,13 @@ def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
         vat_status=parse_vat(combined), legal_pack_status=lp_status,
         legal_pack_url=lp_url, description=text[:9000]
     )
+    if regional:
+        primary = s.select_one('#carousel-lot-images .carousel-inner .item img')
+        if primary and (primary.get('src') or primary.get('data-src')):
+            lot.image_url = urljoin(url, primary.get('data-src') or primary['src'])
+            lot.image_is_primary = True
+            lot.image_source_url = url
+        lot.property_type = _common_property_type(text)
+        epc = re.search(r'Energy Efficiency Rating\s*\(EPC\)\s*Current Rating\s*([A-G])\b',text,re.I)
+        if epc: lot.epc = epc.group(1).upper()
     return enrich_common_fields(lot, combined).finalise()

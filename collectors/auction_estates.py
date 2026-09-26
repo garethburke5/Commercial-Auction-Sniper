@@ -278,6 +278,11 @@ def _area(text):
 
 
 def _terminal_status_near_title(s):
+    # The source puts Sold Prior/Withdrawn on the hero itself, before the h1.
+    for flash in s.select('.property-slideshow-container .property-flash'):
+        value = norm(flash.get_text(' ', strip=True))
+        for pattern, status in ((r'\bsold\s*prior\b','SOLD PRIOR'),(r'\bwithdrawn\b','WITHDRAWN'),(r'\bpostponed\b','POSTPONED'),(r'^sold$','SOLD')):
+            if re.search(pattern,value,re.I): return status
     h1=s.find("h1")
     if not h1:return None
     parts=[norm(h1.get_text(" ",strip=True))]
