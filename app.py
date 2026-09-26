@@ -36,26 +36,47 @@ with tool_yield:
 with st.expander("Filters",expanded=False):
     st.toggle("☀️ White background", key="light_mode", help="Switch between dark and light board")
 '''
-_new_toolbar = '''# Compact utility strip: keep only the primary refresh action above the board.
-# Investment targets are filters, not masthead controls.
-tool_a,tool_space=st.columns([1.05,5.95],gap=None)
-with tool_a:
+_new_toolbar = '''from ui_styles import board_styles
+st.markdown(board_styles(LIGHT_MODE),unsafe_allow_html=True)
+
+def _clear_board_filters():
+    for key,value in {"filter_area_query":"","filter_sources":[],"filter_max_price":0,
+                      "filter_min_yield":0.0,"filter_include_unknown":True,"filter_tenure":[]}.items():
+        st.session_state[key]=value
+
+search_col,refresh_col=st.columns([4,1],vertical_alignment="bottom",gap="small")
+with search_col:
+    area_query=st.text_input("Search address, town or postcode",value="",placeholder="e.g. Percy Street, Bristol or ST1",
+        help="Search property addresses and particulars. Press Enter to apply.",key="filter_area_query")
+with refresh_col:
     if st.button("↻ Update",type="primary",use_container_width=True,help="Refresh current auction lots and property photos"):
         with st.spinner("Updating listings…"):
             refresh_market()
         st.rerun()
 
-# One compact filter panel; target yield belongs with the investment controls.
 with st.expander("Filters",expanded=False):
     st.toggle("☀️ White background", key="light_mode", help="Switch between dark and light board")
-    target_yield=st.number_input(
-        "Target yield (%)", min_value=1.0,max_value=30.0,value=10.0,step=.5,format="%.1f",
-        help="Target yield — changes the max purchase price on every rented property",
-        key="target_yield_filter"
-    )
 '''
 if _old_toolbar in _source:
     _source = _source.replace(_old_toolbar, _new_toolbar, 1)
+
+# The address search remains visible when optional filters are collapsed.
+_old_area = '''    f1,f2,f3,f4=st.columns([2.0,2.0,1.15,1.15])
+    with f1:
+        area_query=st.text_input(
+            "Area / town / postcode",value="",placeholder="e.g. Stoke, London, ST1, Wales",
+            help="Matches the property address and captured listing description.",key="filter_area_query")
+'''
+_new_area = '''    f1,f2,f3,f4=st.columns([1.0,2.0,1.15,1.15])
+    with f1:
+        target_yield=st.number_input("Target yield (%)",min_value=1.0,max_value=30.0,value=10.0,step=.5,format="%.1f",key="target_yield_filter")
+'''
+_source=_source.replace(_old_area,_new_area,1)
+_source=_source.replace('key="clear_property_filters")','key="clear_property_filters",on_click=_clear_board_filters)',1)
+_clear_start=_source.index('    if clear_filters:\n')
+_clear_end=_source.index('        st.rerun()\n',_clear_start)+len('        st.rerun()\n')
+_source=_source[:_clear_start]+_source[_clear_end:]
+_source=_source.replace('BUILD = "V6.80"','BUILD = "V6.81"',1)
 
 # Replace the numbered radio pager with a genuinely compact single-row toolbar.
 _old_pager = '''    pager_size, pager_summary = st.columns([1.0,4.0], vertical_alignment="bottom")
