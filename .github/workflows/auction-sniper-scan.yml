@@ -43,6 +43,9 @@ jobs:
       - name: Run collector regression tests
         run: python -m pytest tests -q
 
+      - name: Install public brochure text recovery
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils tesseract-ocr
+
       - name: Run production collectors
         env:
           SAVILLS_EMAIL: ${{ secrets.SAVILLS_EMAIL }}

@@ -1,4 +1,6 @@
 import re
+import json
+from pathlib import Path
 from datetime import date
 from io import BytesIO
 from urllib.parse import urljoin, urlparse
@@ -9,7 +11,7 @@ from bs4 import NavigableString
 from .browser import get_bytes
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
 from .utils import soup, legal_pack, image_from_soup
-from .publication_quality import asset_text
+from .publication_quality import asset_text, commercial_decision
 
 SOURCE = "Symonds & Sampson"
 BASE = "https://auctions.symondsandsampson.co.uk"
@@ -202,9 +204,10 @@ def _structured(text):
     out["asset_management"] = True if re.search(r"\b(?:mixed[- ]use|shop\b|restaurant\b).{0,120}\b(?:flats?|apartments?)\b|\b(?:flats?|apartments?)\b.{0,120}\b(?:shop|restaurant)\b",low) else None
     m=re.search(r"\b(Grade\s+(?:I|II\*?|III)\s+Listed)\b",t,re.I)
     if m:out["listed_status"]=norm(m.group(1)).replace("grade","Grade")
-    m=re.search(r"\b(?:Total\s+floor\s+area\s*)?([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft\b",t,re.I)
+    m=re.search(r"\b(?:Total\s+floor\s+area\s*)?([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|square feet)\b",t,re.I)
     if m:out["area_sqft"]=_money_value(m.group(1))
     for pat in (
+        r"\bERV\s+of\s+(?:the\s+)?(?:apartments?|flats?|units?)[^.£]{0,140}£\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)\b",
         r"\b(?:ERV(?:\s+of)?|estimated rental value(?:\s+of)?|potential further(?: income)? of?)\s*£?\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)?\b",
         r"\bERV\s+of\s+(?:the\s+)?(?:apartments?|flats?|units?)\s+is\s+(?:estimated\s+to\s+be\s+)?£\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)\b",
         r"\bestimated rental value\s+of\s+(?:the\s+)?(?:apartments?|flats?|units?)\s+(?:is\s+)?£\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?|pa)\b",
@@ -214,6 +217,11 @@ def _structured(text):
             out["erv"]=_money_value(m.group(1));break
     m=re.search(r"\b(?:lease|tenancy)\s+for\s+(?:a\s+)?(?:term\s+of\s+)?(\d+(?:\.\d+)?\s+years?)\b",t,re.I)
     if m:out["lease_term"]=norm(m.group(1))
+    if 'lease_term' not in out:
+        m=re.search(r'\bnew\s+(ten|five|twenty|\d+)[ -]year\s+lease\b',t,re.I)
+        if m:out['lease_term']=str({'ten':10,'five':5,'twenty':20}.get(m.group(1).lower(),m.group(1)))+' years'
+    m=re.search(r'\bY(\d+)\s+mutual\s+break(?:out)?\s+provision\b',t,re.I)
+    if m:out['break_clause']='Mutual break at year '+m.group(1)
     m=re.search(r"\b(?:from|commencing|commenced)\s+(\d{1,2}\s+[A-Za-z]+\s+20\d{2})\b",t,re.I)
     if m:out["lease_start"]=norm(m.group(1))
     if re.search(r"\bno remaining tenant break clauses?\b",low):out["break_status"]="No remaining tenant break"
@@ -270,7 +278,63 @@ def _brochure_links(s,url):
 def _pdf_text(url):
     raw=get_bytes(url);r=PdfReader(BytesIO(raw))
     text=norm(" ".join((p.extract_text() or "") for p in r.pages))
-    return re.split(r'\bAUCTION CONDITIONS OF SALE|\bAUCTION NOTES|\bImportant Notice:',text,maxsplit=1)[0].strip()
+    return _brochure_particulars(text)
+
+
+def _brochure_particulars(text):
+    # A bidding instruction is placed BEFORE the detailed THE PROPERTY section.
+    # Remove that sentence instead of letting generic chrome removal cut the lot.
+    text=re.sub(r'\bRegister to bid\b.*?\b(?:website|web site)\.', ' ', text, flags=re.I)
+    return re.split(r'\bAUCTION CONDITIONS OF SALE|\bAUCTION NOTES|\bAUCTION TERMS AND CONDITIONS|\bImportant Notice:',text,maxsplit=1)[0].strip()
+
+
+def _reconcile_catalogue(lots, entries, previous, brochure_reader=None):
+    from .symonds_catalogue import same_property
+    by_url={lot.url:lot for lot in lots}
+    published=[]
+    for entry in entries:
+        text=entry['description']
+        if commercial_decision(entry) is False or not _is_target(text):
+            continue
+        if brochure_reader and entry.get('brochure_url'):
+            try:
+                brochure=_brochure_particulars(brochure_reader(entry['brochure_url']))
+                if brochure:text=norm(text+' '+brochure)
+            except Exception as exc:
+                print('SYMONDS_BROCHURE_FAIL',entry['brochure_url'],str(exc),flush=True)
+        day=entry['auction_date']
+        matches=[x for x in previous if x.get('source')==SOURCE and x.get('auction_date')==day
+                 and same_property(entry['address'],x.get('address',''))]
+        # A source URL may appear in archive and current collections. Require one
+        # distinct property, and never match a prior auction at the same address.
+        matches={x['url']:x for x in matches}
+        old=next(iter(matches.values())) if len(matches)==1 else {}
+        live=[x for x in lots if x.auction_date==day and same_property(entry['address'],x.address)]
+        lot=live[0] if len(live)==1 else by_url.get(old.get('url'))
+        if lot is None:
+            source_url=old.get('url') or entry['url']
+            lot=Lot(SOURCE,source_url,entry['address'],description=text,status=old.get('status') or 'CURRENT',
+                    image_url=old.get('image_url') or entry.get('image_url'),
+                    image_is_primary=True,image_source_url=old.get('image_source_url') or entry['url'])
+        else:
+            # Keep the auctioneer's own primary photo and richer particulars.
+            lot.description=norm(text+' '+lot.description)
+        lot.address=entry['address']
+        for key in ('auction_date','lot_number','guide_price','guide_price_upper','guide_price_text','legal_pack_url'):
+            setattr(lot,key,entry.get(key))
+        terminal={'SOLD PRIOR','WITHDRAWN','POSTPONED','SOLD'}
+        if str(lot.status).upper() not in terminal or entry.get('status') in terminal:
+            lot.status=entry['status']
+        if entry.get('annual_rent') is not None:
+            lot.annual_rent=entry['annual_rent']
+        lot.tenure=parse_tenure(text)
+        lot.property_type=_property_type(lot.description)
+        facts=_structured(lot.description)
+        for key,value in facts.items():
+            if value is not None:setattr(lot,key,value)
+        published.append(lot.finalise())
+        by_url[lot.url]=lot
+    return list(by_url.values()), published
 
 
 def _detail(url,seed,auction_date,image_hint=None,fetcher=None,brochure_reader=None):
@@ -280,7 +344,7 @@ def _detail(url,seed,auction_date,image_hint=None,fetcher=None,brochure_reader=N
     if len(text)<900 or re.search(r'please refer to (?:the )?brochure',text,re.I):
         if brochure_reader is not None:
             try:
-                ptext=norm(brochure_reader(s,url))
+                ptext=_brochure_particulars(norm(brochure_reader(s,url)))
                 if ptext:enriched=norm(text+" "+ptext)
             except Exception:pass
         else:
@@ -315,6 +379,21 @@ def collect():
         except Exception as exc:
             detail_failures.append(url)
             print('SYMONDS_DETAIL_FAIL',url,str(exc),flush=True)
+    catalogue={}
+    try:
+        from .symonds_catalogue import collect_catalogue
+        entries,catalogue=collect_catalogue()
+        try:
+            saved=json.loads(Path('data/properties.json').read_text())
+            previous=saved.get('properties',[])+saved.get('archive',[])+saved.get('excluded_properties',[])
+        except (OSError,ValueError):previous=[]
+        from .pdf_particulars import brochure_text
+        lots,reconciled=_reconcile_catalogue(lots,entries,previous,
+            brochure_reader=lambda url:brochure_text(get_bytes(url)))
+        catalogue['commercial_mixed_lots']=len(reconciled)
+    except Exception as exc:
+        catalogue={'failures':[{'error':str(exc)}]}
     note="; ".join(f"{u}: {e}" for u,e in failures[:4]) if failures else ""
     note=f'{len(events)} future events; {len(targets)} unique lot URLs; {len(targets)-len(detail_failures)} details inspected; {len(lots)} commercial/mixed-use; {excluded} excluded; {len(detail_failures)} detail failures. '+note
-    return SourceResult(source=SOURCE,status=('DEGRADED' if failures or detail_failures else 'LIVE') if lots else 'FAILED',lots=lots,message=note,discovered_count=len(targets),expected_count=None,reconciliation={'discovered_lot_urls':len(targets),'detail_pages_inspected':len(targets)-len(detail_failures),'commercial_mixed_lots':len(lots),'noncommercial_excluded':excluded,'detail_failures':detail_failures})
+    note+=f" EIG public catalogue: {catalogue.get('inspected',0)}/{catalogue.get('discovered',0)} details; {catalogue.get('commercial_mixed_lots',0)} commercial/mixed-use reconciled."
+    return SourceResult(source=SOURCE,status=('DEGRADED' if failures or detail_failures or catalogue.get('failures') else 'LIVE') if lots else 'FAILED',lots=lots,message=note,discovered_count=len(targets),expected_count=None,reconciliation={'discovered_lot_urls':len(targets),'detail_pages_inspected':len(targets)-len(detail_failures),'commercial_mixed_lots':len(lots),'noncommercial_excluded':excluded,'detail_failures':detail_failures,'public_catalogue':catalogue})

@@ -76,7 +76,7 @@ _source=_source.replace('key="clear_property_filters")','key="clear_property_fil
 _clear_start=_source.index('    if clear_filters:\n')
 _clear_end=_source.index('        st.rerun()\n',_clear_start)+len('        st.rerun()\n')
 _source=_source[:_clear_start]+_source[_clear_end:]
-_source=_source.replace('BUILD = "V6.80"','BUILD = "V6.82"',1)
+_source=_source.replace('BUILD = "V6.80"','BUILD = "V6.83"',1)
 _source=_source.replace('    if re.search(r"vacant possession|\\bvacant\\b",text,re.I): f["Occupation"]="Vacant / vacant possession"; chips.append("VACANT")', '''    if p.get("canonical_snapshot"):
         occupation=str(p.get("occupation") or "")
         if occupation: f["Occupation"]=occupation

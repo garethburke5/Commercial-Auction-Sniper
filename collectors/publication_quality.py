@@ -63,7 +63,11 @@ def publication_exclusion(item):
         return 'Catalogue/search page: not an individual property'
     if item.get('source') == 'Symonds & Sampson':
         from .symonds_sampson import _is_auction_property_url
-        if not _is_auction_property_url(item.get('url')):
+        parsed=urlsplit(str(item.get('url') or ''))
+        query={k.lower():v for k,v in parse_qsl(parsed.query)}
+        source_catalogue=(parsed.hostname=='auctioneertemplates.eigroup.co.uk' and parsed.path.lower()=='/lotdetails.aspx'
+                          and query.get('a')=='222' and str(query.get('lotid','')).isdigit())
+        if not (_is_auction_property_url(item.get('url')) or source_catalogue):
             return 'Catalogue/search page: not an individual property'
     if commercial_decision(item) is False:
         return 'Pure residential: no commercial or mixed-use particulars'

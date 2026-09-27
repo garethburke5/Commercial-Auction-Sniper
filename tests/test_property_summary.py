@@ -1,6 +1,12 @@
 from property_summary import build_opportunity_summary
 
 
+def test_existing_mixed_use_is_not_relabelled_as_pure_residential_development():
+    title,_=build_opportunity_summary({'property_type':'Mixed Use','occupation':'Vacant',
+        'desc':'Shop with flat above. Planning permission granted for residential conversion.'})
+    assert title=='VACANT MIXED-USE + CONVERSION OPPORTUNITY'
+
+
 def test_occupational_income_is_not_relabelled_as_peppercorn_headlease():
     title, facts=build_opportunity_summary({'property_type':'Retail','rent':93000,
         'desc':'Virtual freehold shop investment. Headlease 999 years at a peppercorn rent. Shop let to Flying Tiger at £93,000 per annum.'})

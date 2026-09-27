@@ -104,7 +104,7 @@ def _title(row, low):
     # Source-confirmed use wins over possible future uses and nearby occupiers.
     primary = _property_kind(' '+_norm(row.get('property_type')).lower()+' ')
     kind = primary if primary != 'COMMERCIAL' else _property_kind(" " + low + " ")
-    mixed = any(x in low for x in (
+    mixed = _norm(row.get('property_type')).lower() in {'mixed use','mixed-use'} or any(x in low for x in (
         "mixed use", "mixed-use", "mixed commercial/residential", "mixed commercial / residential",
         "mixed residential and commercial", "retail and residential", "shop and flat", "shop with flat",
     ))
@@ -120,7 +120,7 @@ def _title(row, low):
 
     if rooftop_dev and consented:
         return "CONSENTED ROOFTOP RESIDENTIAL DEVELOPMENT"
-    if consented and development and any(x in low for x in ("residential", "flat", "dwelling")):
+    if consented and development and not mixed and any(x in low for x in ("residential", "flat", "dwelling")):
         return "CONSENTED RESIDENTIAL DEVELOPMENT"
     if mixed and development and rent:
         return "MIXED-USE INVESTMENT + DEVELOPMENT"
