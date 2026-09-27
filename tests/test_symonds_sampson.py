@@ -9,6 +9,30 @@ from collectors.symonds_sampson import (
 
 
 class SymondsSampsonCollectorTests(unittest.TestCase):
+    def test_source_labelled_primary_photo_wins_over_uuid_brand_image(self):
+        page=BeautifulSoup('<img src="https://cdn.webdadi.net/Media/image/s/093ef7fc.png">'
+            '<img src="https://cdn.webdadi.net/Media/image/l/primary.jpg" alt="Property Image primary">'
+            '<img src="https://cdn.webdadi.net/Media/image/l/second.jpg" alt="Property Image second">','lxml')
+        self.assertTrue(_image(page,'https://example.test/lot').endswith('/primary.jpg'))
+
+    def test_brochure_neighbourhood_does_not_make_house_commercial(self):
+        from collectors.publication_quality import commercial_decision
+        text='A mid-terrace 4 bedroom property for modernisation. SITUATION The village offers a shop, post office and public house. DIRECTIONS North from Dorchester. SERVICES Mains water.'
+        self.assertFalse(_is_target(text))
+        self.assertFalse(commercial_decision({'address':'The Rings','description':text}))
+        # The source brochure for Preston Road contains this heading typo.
+        self.assertFalse(commercial_decision({'address':'Flat 5 Preston Road','description':
+            '2 Bedroom Flat For Sale. STIUATION The harbour has boutiques and café/bars. DIRECTIONS East.'}))
+
+    def test_beer_mixed_use_passes_publication_gate(self):
+        from collectors.publication_quality import commercial_decision
+        self.assertTrue(commercial_decision({'address':'Fore Street Beer','description':
+            '3 Bedroom House For Sale. Multiple elements including two existing flats and a shop let at £5,400 pa.'}))
+
+    def test_current_restaurant_income_is_separate_from_fully_let_potential(self):
+        text='Current restaurant rent of £24,000 per annum. 3 bedroom flat vacant. Potential income of £36,000pa if flat is let. Commercial Lease: £24,000pa. Residential Let: AST £12,000pa (vacant on possession).'
+        self.assertEqual(_current_rent(text),24000)
+
     def test_main_features_before_heading_keep_beer_mixed_use_and_primary(self):
         page='''<a href="#features">Main Features</a><ul><li>For sale by Public Auction Thursday 8th October 2026</li><li>Two existing flats and a shop let at £5,400 pa</li><li>Multi-vehicle garage/workshop/store</li></ul><h1>Fore Street, Beer, Seaton</h1><p>Guide Price £295,000</p><p>3 Bedroom House For Sale. Residential refurbishment and redevelopment opportunity.</p><p>Tenure: Freehold</p><a href="https://cdn.webdadi.net/Media/image/l/primary.jpg">Property Image</a><a href="https://cdn.webdadi.net/Media/image/l/exterior.jpg">Exterior</a>'''
         lot=_detail('https://auctions.symondsandsampson.co.uk/property/beer','','2026-12-11',fetcher=lambda _:BeautifulSoup(page,'lxml'),brochure_reader=lambda *_:'')

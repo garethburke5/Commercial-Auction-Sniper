@@ -13,9 +13,11 @@ and are archived by run_collectors.py.
 from __future__ import annotations
 
 import re
+import json
+from pathlib import Path
 from urllib.parse import urljoin, urlparse
 
-from .core import SourceResult, norm
+from .core import SourceResult, Lot, norm
 from .utils import detail_lot
 from . import auction_house_regions as base
 
@@ -48,6 +50,29 @@ def _terminal_status(text):
 def _is_target_card(text):
     value = norm(text)
     return bool(base._commercialish(value) or EXPLICIT_TARGET.search(value))
+
+
+def _restore_fallback_details(fallback, previous):
+    """Bind an exact same-sale address to its prior detail and canonical URL.
+
+    Redirect/card URLs change during outages. Keep previously captured facts,
+    including residential exclusions, without marking them freshly collected.
+    """
+    address = lambda value: re.sub(r'[^a-z0-9]+', '', str(value or '').lower())
+    matches = [p for p in previous if p.get('source') == fallback.source
+               and p.get('auction_date') == fallback.auction_date
+               and address(p.get('address')) == address(fallback.address)]
+    urls = {p.get('url') for p in matches}
+    if len(urls) != 1:
+        return fallback, False
+    previous_row = max(matches, key=lambda p: len(p.get('description') or ''))
+    if len(previous_row.get('description') or '') <= len(fallback.description or ''):
+        return fallback, False
+    payload = {k:v for k,v in previous_row.items() if k in Lot.__dataclass_fields__}
+    for key in ('guide_price','guide_price_upper','guide_price_text','status'):
+        if getattr(fallback,key) is not None:
+            payload[key] = getattr(fallback,key)
+    return Lot(**payload).finalise(), True
 
 
 def _collect_region(slug):
@@ -97,6 +122,8 @@ def _collect_region(slug):
         catalogue_fallbacks = 0
         direct_recoveries = 0
         terminal_count = 0
+        retained_details = 0
+        previous = None
 
         for href, (card, label, lot_number, auction_date, card_image, card_status) in targets.items():
             lot = None
@@ -152,6 +179,14 @@ def _collect_region(slug):
                 source, href, card, label, lot_number, auction_date, card_image
             )
             if fallback:
+                if previous is None:
+                    try:
+                        snapshot = json.loads(Path('data/properties.json').read_text())
+                        previous = [p for key in ('properties','archive','excluded_properties') for p in snapshot.get(key, [])]
+                    except (OSError, ValueError):
+                        previous = []
+                fallback, retained = _restore_fallback_details(fallback, previous)
+                retained_details += int(retained)
                 lifecycle = card_status or _terminal_status(card) or "CURRENT"
                 fallback.status = lifecycle
                 lots.append(fallback.finalise())
@@ -177,13 +212,16 @@ def _collect_region(slug):
                 authoritative_snapshot=False, scope_dates=tuple(sorted(scope_dates)),
             )
 
-        status = "LIVE" if failures == 0 and len(lots) == expected else "DEGRADED"
+        # A card confirms discovery, not successful detail-page capture. An
+        # outage must not certify these shallow rows or prune richer prior lots.
+        status = "LIVE" if failures == 0 and catalogue_fallbacks == 0 and len(lots) == expected else "DEGRADED"
         live_count = sum(1 for x in lots if _terminal_status(x.status) is None and str(x.status).upper() == "CURRENT")
         message = (
             f"Auction House all-future lifecycle-safe sweep: {len(events)} event(s), "
             f"{expected} commercial/mixed-use lot page(s), {live_count} available, "
             f"{terminal_count} sold-prior/withdrawn/postponed retained as history; "
             f"{direct_recoveries} direct recoveries; {catalogue_fallbacks} catalogue fallbacks; "
+            f"{retained_details} prior detail records preserved; "
             f"{failures} failure(s)."
         )
         return SourceResult(
@@ -191,6 +229,12 @@ def _collect_region(slug):
             expected_count=expected, discovered_count=expected,
             authoritative_snapshot=(status == "LIVE"),
             scope_dates=tuple(sorted(scope_dates)),
+            reconciliation={"discovered_lot_urls": expected,
+                            "detail_pages_inspected": len(lots) - catalogue_fallbacks,
+                            "catalogue_fallbacks": catalogue_fallbacks,
+                            "prior_details_preserved": retained_details,
+                            "detail_failures": detail_failures + catalogue_fallbacks,
+                            "discovery_failures": discovery_failures},
         )
     except Exception as exc:
         return SourceResult(

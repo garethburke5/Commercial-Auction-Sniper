@@ -126,7 +126,7 @@ def _card_address(label, card):
     text=re.sub(r"^Lot\s+\d+[A-Z]?\s*", "", text, flags=re.I)
     text=re.sub(r"^\*?Guide\s*\|?\s*£\s*[\d,]+(?:\s*-\s*£\s*[\d,]+)?\s*(?:\(plus fees\))?\s*", "", text, flags=re.I)
     text=re.sub(r"^\d+\s+Bed\s+", "", text, flags=re.I)
-    text=re.sub(r"^(?:Mixed[- ]Use|Commercial Property|Retail Property|Industrial Property|Office|Property For Sale|Commercial Investment|Retail Investment|Public House|Hotel)\s+", "", text, flags=re.I)
+    text=re.sub(r"^(?:Mixed[- ]Use|Commercial Property|Retail Property|Industrial Property|Office|Property For Sale|Commercial Investment|Retail Investment|Public House|Hotel|Cafe)\s+", "", text, flags=re.I)
     postcode=re.search(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",text,re.I)
     if postcode: return norm(text[:postcode.end()])
     return text[:220] if len(text)>=6 else None

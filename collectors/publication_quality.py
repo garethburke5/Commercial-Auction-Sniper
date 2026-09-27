@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import re
 from collections import Counter
+from decimal import Decimal
 from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 
 from .core import Lot, clean_description
@@ -20,6 +21,9 @@ def asset_text(description):
     # the accommodation being sold. A house on a mixed-use road is still a house.
     text = re.sub(r'\bLocation\s*:\s*.*?(?=\b(?:Accommodation|Tenancy|Tenure|Planning|Note|EPC Rating|Exterior|VAT)\s*:|$)', ' ', text)
     text = re.sub(r'\bmixed[ -]use\s+(?:road|street|area|neighbourhood)\b','',text,flags=re.I)
+    # Brochure SITUATION sections describe nearby shops/cafes and cannot turn a
+    # flat or house into a commercial asset. Later factual sections remain.
+    text = re.sub(r'\b(?:SITUATION|STIUATION|LOCATION)\b.*?(?=\b(?:DIRECTIONS|SERVICES|LOCAL AUTHORITY|TENURE|ENERGY PERFORMANCE|EPC|SOLICITORS?)\b|$)', ' ', text)
     # Nearby shops and the auctioneer's office do not describe the asset for sale.
     return re.sub(
         r'\b(?i:nearby occupiers|local amenities|close to|(?:within )?walking distance (?:of|to)|nearby shops)\b'
@@ -40,7 +44,7 @@ def commercial_decision(item):
     # A collector-generated type is not independent evidence. In particular,
     # nearby restaurants previously caused flats to be labelled "Mixed Use".
     positive = bool(COMMERCIAL.search(asset) or MIXED.search(asset)
-                    or re.search(r'\b(?:estate agency|estate agents?|vet(?:erinary)? (?:surgery|practice|clinic)|ground[ -]floor shops?|commercial space|(?:hair|beauty) salon|barbers?|(?:block|parade) of (?:\d+|\w+) shops)\b', asset, re.I))
+                    or re.search(r'\b(?:estate agency|estate agents?|vet(?:erinary)? (?:surgery|practice|clinic)|ground[ -]floor shops?|shop\s+(?:let|leased|producing|tenanted)|commercial space|(?:hair|beauty) salon|barbers?|(?:block|parade) of (?:\d+|\w+) shops)\b', asset, re.I))
     residential = bool(RESIDENTIAL.search(asset+' '+str(item.get('address') or '')) or re.fullmatch(r'(?:Residential|House|Flat|Apartment|Bungalow)(?: / Residential)?', kind, re.I))
     if residential and not positive:
         return False
@@ -74,8 +78,8 @@ def lot_identity(item):
     source = re.sub(r'\s+', ' ', str(item.get('source') or '').strip().lower())
     day = str(item.get('auction_date') or '')[:10]
     lot = re.sub(r'^lot\s*', '', str(item.get('lot_number') or '').strip(), flags=re.I).upper()
-    if re.fullmatch(r'\d+[A-Z]?', lot):
-        lot = re.sub(r'^0+(?=\d)', '', lot)
+    if re.fullmatch(r'\d+(?:\.\d+)?[A-Z]?', lot):
+        lot = format(Decimal(lot).normalize(), 'f') if re.fullmatch(r'\d+(?:\.\d+)?', lot) else re.sub(r'^0+(?=\d)', '', lot)
         return ('lot', source, str(item.get('auction_id') or day), day, lot)
     address = re.sub(r'[^a-z0-9]+', ' ', str(item.get('address') or '').lower()).strip()
     return ('address', source, day, address) if source and day and address else ('url', source, canonical_url(item.get('url')))

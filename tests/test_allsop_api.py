@@ -1,6 +1,6 @@
 import json
 import pytest
-from collectors.allsop_api import _catalogue, _detail, _day
+from collectors.allsop_api import _catalogue, _detail, _day, _lot_number
 
 
 def test_full_catalogue_traverses_pagination_and_rejects_false_completion():
@@ -45,3 +45,10 @@ def test_public_detail_decimal_lot_number_featured_image_and_tenancy_schedule():
 
 def test_london_auction_day_respects_british_summer_time():
     assert _day('2026-10-06T23:00:00Z')=='2026-10-07'
+
+
+def test_inserted_fractional_lot_number_is_same_identity():
+    assert _lot_number('39.1000')==_lot_number(39.1)=='39.1'
+    from collectors.publication_quality import lot_identity
+    row={'source':'Allsop Commercial','auction_date':'2026-10-07','auction_id':'sale','lot_number':'Lot 39.1000'}
+    assert lot_identity(row)==lot_identity(dict(row,lot_number='Lot 39.1',url='https://example.test/variant'))

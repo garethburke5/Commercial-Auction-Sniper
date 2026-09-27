@@ -9,6 +9,7 @@ from bs4 import NavigableString
 from .browser import get_bytes
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
 from .utils import soup, legal_pack, image_from_soup
+from .publication_quality import asset_text
 
 SOURCE = "Symonds & Sampson"
 BASE = "https://auctions.symondsandsampson.co.uk"
@@ -162,7 +163,7 @@ def _property_text(s):
 
 
 def _is_target(text):
-    low=_strip_chrome(text).lower()
+    low=asset_text(_strip_chrome(text)).lower()
     if COMMERCIAL_SIGNAL.search(low):return True
     if DEVELOPMENT_SIGNAL.search(low):return False
     if any(x in low for x in RESIDENTIAL_STRONG):return False
@@ -170,7 +171,7 @@ def _is_target(text):
 
 
 def _property_type(text):
-    low=_strip_chrome(text).lower()
+    low=asset_text(_strip_chrome(text)).lower()
     if "mixed use" in low or "mixed-use" in low or (COMMERCIAL_SIGNAL.search(low) and any(x in low for x in RESIDENTIAL_COMPONENT)):return "Mixed Use"
     if "industrial" in low or "warehouse" in low or "workshop" in low:return "Industrial"
     if re.search(r'\bgarages?\b',low) and not re.search(r'\b(?:shop|retail|office)\b',low):return "Garages / Land"
@@ -233,13 +234,21 @@ def _image(s,url):
         label=norm(anchor.get_text(" ",strip=True)+' '+str(anchor.get('title') or '')+' '+str(anchor))
         if re.search(r'floor[ -]?plan|site[ -]?plan|\bEPC\b|\blogo\b',label,re.I):continue
         return urljoin(url,anchor['href'])
+    # Webdadi labels the ordered property photographs explicitly. Its logo is
+    # also a UUID image on the same CDN, so the first generic img is not a hero.
+    for img in s.find_all('img'):
+        alt=norm(img.get('alt') or '')
+        if not re.match(r'^Property Image\b',alt,re.I):continue
+        for attr in ('data-src','data-lazy-src','src'):
+            if img.get(attr):return urljoin(url,img[attr])
     candidates=[]
     for img in s.find_all("img"):
         for attr in ("data-src","data-lazy-src","src"):
             src=img.get(attr)
             if not src:continue
             full=urljoin(url,src);low=full.lower();alt=norm(img.get("alt") or "").lower()
-            if any(x in low for x in ("logo","agent","team","icon","avatar","map","plan")) and "property" not in low:continue
+            if any(x in low+' '+alt for x in ("logo","agent","team","icon","avatar","map","plan","brand")) and "property" not in low+' '+alt:continue
+            if img.find_parent(['header','nav','footer']):continue
             score=0
             if "property" in low:score+=5
             if any(x in low for x in ("front","exterior","main","hero")):score+=4
@@ -260,7 +269,8 @@ def _brochure_links(s,url):
 
 def _pdf_text(url):
     raw=get_bytes(url);r=PdfReader(BytesIO(raw))
-    return norm(" ".join((p.extract_text() or "") for p in r.pages))
+    text=norm(" ".join((p.extract_text() or "") for p in r.pages))
+    return re.split(r'\bAUCTION CONDITIONS OF SALE|\bAUCTION NOTES|\bImportant Notice:',text,maxsplit=1)[0].strip()
 
 
 def _detail(url,seed,auction_date,image_hint=None,fetcher=None,brochure_reader=None):
@@ -287,7 +297,7 @@ def _detail(url,seed,auction_date,image_hint=None,fetcher=None,brochure_reader=N
     rent=_current_rent(enriched);guide=parse_guide(text) or parse_guide(enriched);facts=_structured(enriched)
     terminal=re.match(r'^(SOLD\s*PRIOR|WITHDRAWN(?:\s*PRIOR)?|POSTPONED)\b',address,re.I)
     status=terminal.group(1).upper() if terminal else 'Live'
-    return Lot(source=SOURCE,url=url,address=address,lot_number=("Lot "+ml.group(1) if ml else None),auction_date=auction_date,image_url=_image(s,url) or image_hint,image_is_primary=bool(s.select_one('a[href*="cdn.webdadi.net/Media/image/"]')),image_source_url=url,guide_price=guide,annual_rent=rent,tenure=parse_tenure(enriched),vat_status=parse_vat(enriched),legal_pack_status=lp_status,legal_pack_url=lp_url,status=status,description=enriched[:9000],property_type=_property_type(enriched),occupation=facts.get("occupation"),area_sqft=facts.get("area_sqft"),erv=facts.get("erv"),lease_term=facts.get("lease_term"),lease_start=facts.get("lease_start"),break_status=facts.get("break_status"),rent_review=facts.get("rent_review"),fri=facts.get("fri"),rateable_value=facts.get("rateable_value"),epc=facts.get("epc"),development_potential=facts.get("development_potential"),refurbishment=facts.get("refurbishment"),asset_management=facts.get("asset_management"),listed_status=facts.get("listed_status")).finalise()
+    return Lot(source=SOURCE,url=url,address=address,lot_number=("Lot "+ml.group(1) if ml else None),auction_date=auction_date,image_url=_image(s,url) or image_hint,image_is_primary=bool(s.select_one('a[href*="cdn.webdadi.net/Media/image/"]') or s.find('img',alt=re.compile(r'^Property Image\b',re.I))),image_source_url=url,guide_price=guide,annual_rent=rent,tenure=parse_tenure(enriched),vat_status=parse_vat(enriched),legal_pack_status=lp_status,legal_pack_url=lp_url,status=status,description=enriched[:9000],property_type=_property_type(enriched),occupation=facts.get("occupation"),area_sqft=facts.get("area_sqft"),erv=facts.get("erv"),lease_term=facts.get("lease_term"),lease_start=facts.get("lease_start"),break_status=facts.get("break_status"),rent_review=facts.get("rent_review"),fri=facts.get("fri"),rateable_value=facts.get("rateable_value"),epc=facts.get("epc"),development_potential=facts.get("development_potential"),refurbishment=facts.get("refurbishment"),asset_management=facts.get("asset_management"),listed_status=facts.get("listed_status")).finalise()
 
 
 def collect():

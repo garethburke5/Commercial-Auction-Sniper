@@ -15,7 +15,7 @@ LABELS = {
     'arrears': re.compile(r'\barrears\b', re.I),
     'other_cost': re.compile(r'\b(?:rent deposit|insurance premium|business rates|buyers? fee|purchase price|guide price)\b', re.I),
 }
-CURRENT = re.compile(r'\b(?:total current rent reserved|total current (?:gross )?(?:rent|income)|current (?:gross )?(?:rent|income)|currently producing|producing|rent reserved|rental income|annual rent|let at|income of|generating)\b', re.I)
+CURRENT = re.compile(r'\b(?:total current rent reserved|total current (?:gross )?(?:(?:restaurant|commercial|shop|office) )?(?:rent|income)|current (?:gross )?(?:(?:restaurant|commercial|shop|office) )?(?:rent|income)|currently producing|producing|rent reserved|rental income|annual rent|let at|income of|generating)\b', re.I)
 
 
 def money(value):
@@ -59,7 +59,7 @@ def income_facts(text):
             continue
         # "ERV when fully let at market rent" describes potential income. The
         # embedded words "let at" do not turn that estimate into current rent.
-        if label == 'erv' and not re.search(r'\b(?:current (?:rent|income)|currently producing|passing rent)\b',before[label_pos:],re.I):
+        if label == 'erv' and not re.search(r'\b(?:current (?:(?:restaurant|commercial|shop|office) )?(?:rent|income)|currently producing|passing rent)\b',before[label_pos:],re.I):
             facts['erv'] = value
             continue
         if label and label_pos >= current_pos:
@@ -75,7 +75,7 @@ def income_facts(text):
             continue
         if 0 < value <= 100000000:
             current.append(value)
-            if re.search(r'\b(?:total current (?:gross )?(?:rent|income)|current (?:gross )?(?:rent|income)|currently producing|passing rent)\b[^£]{0,70}$',before,re.I):
+            if re.search(r'\b(?:total current (?:gross )?(?:(?:restaurant|commercial|shop|office) )?(?:rent|income)|current (?:gross )?(?:(?:restaurant|commercial|shop|office) )?(?:rent|income)|currently producing|passing rent)\b[^£]{0,70}$',before,re.I):
                 explicit_current.append(value)
             if re.search(r'\btotal\b[^£]{0,70}$', before, re.I):
                 explicit_totals.append(value)

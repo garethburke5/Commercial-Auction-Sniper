@@ -12,6 +12,7 @@ import time
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timezone
+from decimal import Decimal
 from urllib.parse import urlencode
 from zoneinfo import ZoneInfo
 
@@ -60,7 +61,9 @@ def _number(value):
 
 def _lot_number(value):
     value=str(value or '').strip()
-    return str(int(float(value))) if re.fullmatch(r'\d+(?:\.0+)?', value) else value.upper()
+    # Inserted lots use fractional numbers: search returns 39.1 while the
+    # exact detail returns "39.1000". Compare the same numeric identity.
+    return format(Decimal(value).normalize(), 'f') if re.fullmatch(r'\d+(?:\.\d+)?', value) else value.upper()
 
 
 def _url(row):

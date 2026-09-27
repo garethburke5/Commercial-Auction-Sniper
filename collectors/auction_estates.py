@@ -1,6 +1,6 @@
 import re
 from datetime import date
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse, parse_qs
 from bs4 import BeautifulSoup
 
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
@@ -164,7 +164,7 @@ def _classified_property_type(explicit_type,text):
 
 def _tenancy_details(text):
     t=norm(text); tenant=term=start=fri=break_clause=None
-    m=re.search(r"(?:let to|leased to)\s+(.+?)(?=\s+(?:located|at\s+£|paying|on\s+a|for\s+a|under\s+a|,\s*at\s+£|\.|Current\s+Rent))",t,re.I)
+    m=re.search(r"(?:let to|leased to)\s+(.+?)(?=\s+(?:located|in the heart|Total\b|at\s+£|paying|on\s+a|for\s+a|under\s+a|,\s*at\s+£|\.|Current\s+Rent))",t,re.I)
     if m:
         candidate=norm(m.group(1)).strip(" ,.-")
         if 2<=len(candidate)<=140:tenant=candidate
@@ -319,6 +319,8 @@ def _detail(url,card,auction_date,fetcher=_fetch):
         if m:rent=float(m.group(1).replace(",",""))
     lp_url,lp_status=legal_pack(s,url)
     lot=Lot(source=SOURCE,url=url,address=address,auction_date=auction_date,image_url=_image(s,url),image_is_primary=True,image_source_url=url,guide_price=guide,annual_rent=rent,tenure=parse_tenure(text),vat_status=parse_vat(text),legal_pack_status=lp_status,legal_pack_url=lp_url,property_type=_classified_property_type(ptype,text),description=text,status=terminal or "CURRENT")
+    legal_lot=parse_qs(urlparse(lp_url or '').query).get('lotnumber',[''])[0]
+    if re.fullmatch(r'\d+[A-Z]?',legal_lot,re.I):lot.lot_number='Lot '+legal_lot.upper()
     lot.area_sqft,lot.area_sqm,lot.site_area_acres=_area(text)
     tenant,term,start,fri,break_clause=_tenancy_details(text)
     schedule,future_rent=_tenancy_schedule(text)
