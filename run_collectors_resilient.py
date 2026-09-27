@@ -137,6 +137,15 @@ def _finalize_published_snapshot(path=Path("data/properties.json"), today=None):
     properties = list(data.get("properties") or [])
     archive = list(data.get("archive") or [])
 
+    current = []
+    for item in properties:
+        if item.get('source') == 'Pugh / BTG Eddisons' and '/at/' in str(item.get('url') or ''):
+            item['status'] = 'ARCHIVED'
+            archive.append(item)
+        else:
+            current.append(item)
+    properties = current
+
     for item in properties + archive:
         item["description"] = _clean_site_chrome(item.get("description"))
 

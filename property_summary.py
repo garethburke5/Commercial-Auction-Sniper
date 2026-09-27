@@ -116,7 +116,7 @@ def _title(row, low):
     part_vacant = "part vacant" in occupation or "part let" in occupation or bool(
         rent and re.search(r"\b(?:plus\s+)?[\d,]+\s*sq\.?\s*ft[^.]{0,45}\bvacant\b", low)
     )
-    nominal = bool(re.search(r"(?:nil|nill|peppercorn)\s+rent", low))
+    nominal = not rent and bool(re.search(r"(?:nil|nill|peppercorn)\s+rent", low))
 
     if rooftop_dev and consented:
         return "CONSENTED ROOFTOP RESIDENTIAL DEVELOPMENT"
@@ -197,6 +197,9 @@ def _extract_area(row, text):
             return f"{float(sqft):,.0f} sq ft"
         except Exception:
             pass
+    if row.get('canonical_snapshot'):
+        # A missing source total must not be reconstructed from a room/unit area.
+        return None
     patterns = (
         r"(?:extending|extends|approximately|approx\.?|circa|total(?: floor)? area(?: of)?)\s*(?:to\s*)?([\d,]+)\s*(?:sq\.?\s*ft|sqft|ft²)",
         r"\b([\d,]+)\s*(?:sq\.?\s*ft|sqft|ft²)\b",
@@ -267,7 +270,7 @@ def build_opportunity_summary(row):
     headline = _title(row, low)
     highlights = []
 
-    if re.search(r"(?:nil|nill|peppercorn)\s+rent", low):
+    if not (row.get('rent') or row.get('annual_rent')) and re.search(r"(?:nil|nill|peppercorn)\s+rent", low):
         highlights.append("Tenant in situ · nil rent")
 
     composition = _mixed_use_composition(text, low)

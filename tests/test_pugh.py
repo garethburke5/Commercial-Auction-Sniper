@@ -6,6 +6,13 @@ from collectors.pugh import _floor_area_sqft, _apply_pugh_particulars
 
 
 class PughCollectorRegressionTests(unittest.TestCase):
+    def test_dated_listing_versions_share_one_current_discovery_url(self):
+        from collectors.pugh import _property_cards
+        page=BeautifulSoup('<article>Lot 1 Retail 15 Percy Street 28 October 2026'
+            '<a href="/property/percy">Current</a>'
+            '<a href="/property/percy/at/2026-09-18_163524">Saved version</a></article>','lxml')
+        assert list(_property_cards(page))==['https://www.pugh-auctions.com/property/percy']
+
     def test_overall_nia_beats_individual_unit_measurements(self):
         text = (
             "Ground Floor Retail Unit 1 Sales/till area: 297 sq ft Kitchen: 55 sq ft "

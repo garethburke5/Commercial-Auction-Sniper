@@ -76,7 +76,21 @@ _source=_source.replace('key="clear_property_filters")','key="clear_property_fil
 _clear_start=_source.index('    if clear_filters:\n')
 _clear_end=_source.index('        st.rerun()\n',_clear_start)+len('        st.rerun()\n')
 _source=_source[:_clear_start]+_source[_clear_end:]
-_source=_source.replace('BUILD = "V6.80"','BUILD = "V6.81"',1)
+_source=_source.replace('BUILD = "V6.80"','BUILD = "V6.82"',1)
+_source=_source.replace('    if re.search(r"vacant possession|\\bvacant\\b",text,re.I): f["Occupation"]="Vacant / vacant possession"; chips.append("VACANT")', '''    if p.get("canonical_snapshot"):
+        occupation=str(p.get("occupation") or "")
+        if occupation: f["Occupation"]=occupation
+        if "part" in occupation.lower() and "vacant" in occupation.lower(): chips.append("PART VACANT")
+        elif occupation.lower().startswith("vacant"): chips.append("VACANT")
+    elif re.search(r"vacant possession|\\bvacant\\b",text,re.I): f["Occupation"]="Vacant / vacant possession"; chips.append("VACANT")''',1)
+_source=_source.replace('    # Verified lookup is Savills-only:', '''    if p.get('canonical_snapshot'):
+        if p.get('area_sqm'):
+            sqm=float(p['area_sqm'])
+            return sqm*10.7639,sqm
+        return None,None
+    # Verified lookup is Savills-only:''',1)
+_source=_source.replace('    if not status: return ""',
+                        '    if not status:\n        from board_links import legal_pack_links\n        return legal_pack_links(p)',1)
 _source=_source.replace('hay=(str(x.get("address") or "")+" "+str(x.get("desc") or "")).lower()',
                         'hay=str(x.get("address") or "").lower()',1)
 _source=_source.replace('return all(t in hay for t in terms)',

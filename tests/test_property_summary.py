@@ -1,6 +1,19 @@
 from property_summary import build_opportunity_summary
 
 
+def test_occupational_income_is_not_relabelled_as_peppercorn_headlease():
+    title, facts=build_opportunity_summary({'property_type':'Retail','rent':93000,
+        'desc':'Virtual freehold shop investment. Headlease 999 years at a peppercorn rent. Shop let to Flying Tiger at £93,000 per annum.'})
+    assert title=='RETAIL INVESTMENT'
+    assert 'Tenant in situ · nil rent' not in facts
+
+
+def test_rejected_portfolio_total_is_not_recreated_from_one_shop_area():
+    _,facts=build_opportunity_summary({'canonical_snapshot':True,'property_type':'Retail','rent':29000,
+        'desc':'Four retail units. Number 15 extends to 1,984 sq ft. Numbers 17, 19 and 23 also included.'})
+    assert not any('1,984' in fact for fact in facts)
+
+
 def test_st_helens_retail_investment_and_upper_floor_development():
     row = {
         "rent": 28500,
@@ -71,4 +84,3 @@ def test_incidental_peppercorn_does_not_override_retail_development():
     }
     title, _ = build_opportunity_summary(row)
     assert title == "RETAIL + DEVELOPMENT OPPORTUNITY"
-

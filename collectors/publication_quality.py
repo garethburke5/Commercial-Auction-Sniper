@@ -55,6 +55,8 @@ def commercial_decision(item):
 
 def publication_exclusion(item):
     address = str(item.get('address') or '')
+    if item.get('source') == 'Pugh / BTG Eddisons' and '/at/' in str(item.get('url') or ''):
+        return 'Historical listing version: not current catalogue inventory'
     if re.search(r'legal document download|highest bidder|my properties|book a free valuation',address,re.I):
         return 'Invalid property address: site interface text'
     if re.match(r'^\s*propert(?:y|ies)\s+(?:for sale|to let|search)\b', address, re.I):
@@ -109,7 +111,7 @@ def prepare_publication(snapshot):
         # be revived by merging an older snapshot into a currently vacant lot.
         try:
             normal = Lot(**{k:v for k,v in item.items() if k in allowed}).to_dict()
-            for key in ('annual_rent', 'gross_yield', 'historic_rent', 'erv', 'ground_rent', 'service_charge', 'arrears', 'occupation', 'guide_price_upper', 'guide_price_text'):
+            for key in ('annual_rent', 'gross_yield', 'historic_rent', 'erv', 'ground_rent', 'service_charge', 'arrears', 'occupation', 'guide_price_upper', 'guide_price_text', 'area_sqft', 'area_sqm'):
                 item[key] = normal[key]
         except (TypeError, ValueError):
             pass

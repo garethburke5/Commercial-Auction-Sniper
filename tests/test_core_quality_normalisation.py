@@ -4,6 +4,14 @@ from collectors.core import Lot, clean_description, normalize_occupation, parse_
 
 
 class CoreQualityNormalisationTests(unittest.TestCase):
+    def test_explicit_part_vacancy_is_not_overridden_by_current_rent(self):
+        lot = Lot('BidX1', 'https://example.test/1', 'Post Office Vaults',
+                  guide_price=875000, annual_rent=69850, occupation='Tenanted',
+                  description='Freehold mixed use investment (part vacant). Currently producing £69,850 per annum.').finalise()
+        self.assertEqual(lot.occupation, 'Part Vacant / Part Let')
+        self.assertEqual(lot.annual_rent, 69850)
+        self.assertAlmostEqual(lot.gross_yield, 7.98)
+
     def test_extracts_property_particulars_from_page_chrome(self):
         raw = (
             "2-7 Market Way | Pugh Auctions Book your free appraisal Register to bid My account "

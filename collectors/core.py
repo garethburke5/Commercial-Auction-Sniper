@@ -121,6 +121,8 @@ def clean_description(text):
 
 def normalize_occupation(occupation, description):
     current = norm(occupation)
+    if re.search(r'\bpart(?:ly)?[ -](?:vacant|let)\b', clean_description(description), re.I):
+        return "Part Vacant / Part Let"
     if current.lower() not in {"vacant", "vacant possession"} and not current.lower().startswith("vacant -"):
         return current or None
     particulars = current_income_text(clean_description(description))
@@ -190,6 +192,12 @@ class Lot:
 
     def finalise(self):
         self.description = clean_description(self.description)
+        # Component shop measurements are not a total for a multi-unit lot.
+        # Apply after every merge/enrichment so an old snapshot cannot revive one.
+        if (self.source == 'Pugh / BTG Eddisons'
+            and len(set(re.findall(r'\bNumber\s+(\d+[A-Z]?)\b', self.description, re.I))) > 1
+            and not re.search(r'\b(?:overall|total)\s+(?:gross|net|floor|area|NIA|GIA)', self.description, re.I)):
+            self.area_sqft = self.area_sqm = None
         lower, upper, price_text = guide_range(self.description)
         if lower and (self.guide_price is None or self.guide_price == lower):
             self.guide_price = lower

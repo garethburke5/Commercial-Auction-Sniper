@@ -44,6 +44,8 @@ def _property_cards(s):
     for a in s.find_all("a", href=True):
         href = urljoin(BASE, a.get("href") or "").split("?")[0].rstrip("/")
         if "/property/" not in href: continue
+        # /at/TIMESTAMP is a saved historical version, not a second live lot.
+        href = href.split('/at/', 1)[0]
         row = a.find_parent('tr')
         if row:
             cells = row.find_all('td', recursive=False)
