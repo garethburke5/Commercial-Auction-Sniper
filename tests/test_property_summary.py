@@ -1,6 +1,12 @@
 from property_summary import build_opportunity_summary
 
 
+def test_source_land_type_is_not_overridden_by_agent_contact_office():
+    title,_ = build_opportunity_summary({'property_type':'Land',
+        'description':'A plot of land. For further details contact our office.'})
+    assert title == 'LAND OPPORTUNITY'
+
+
 def test_existing_mixed_use_is_not_relabelled_as_pure_residential_development():
     title,_=build_opportunity_summary({'property_type':'Mixed Use','occupation':'Vacant',
         'desc':'Shop with flat above. Planning permission granted for residential conversion.'})

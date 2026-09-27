@@ -1,5 +1,7 @@
 import unittest
 from bs4 import BeautifulSoup
+from collectors.core import Lot
+from collectors.pattinson import repair_particulars
 
 from collectors.pattinson import (
     BASE,
@@ -21,6 +23,32 @@ from collectors.pattinson import (
 
 
 class PattinsonCollectorTests(unittest.TestCase):
+    def test_saved_rossall_particulars_recover_monthly_income_and_partial_vacancy(self):
+        lot = Lot('Pattinson Auction','https://example.com/rossall','Rossall Road',
+            guide_price=190000, annual_rent=800, occupation='Tenanted',
+            property_type='Retail Property (high street)',
+            description=('The shop is offered with vacant possession. Accommodation - First Floor Apartment. '
+                'The retail unit could be leased for approximately £1,000 pcm and the apartment is currently '
+                'let at a rent of £800 pcm including utilities. Auctioneers Additional Comments '
+                'A reservation fee of £7,200 inc VAT is payable.'))
+        repair_particulars(lot)
+        self.assertEqual(lot.annual_rent,9600)
+        self.assertEqual(lot.erv,12000)
+        self.assertEqual(lot.gross_yield,5.05)
+        self.assertEqual(lot.occupation,'Part Vacant / Part Let')
+        self.assertEqual(lot.property_type,'Mixed Use')
+        self.assertEqual(lot.vat_status,'UNKNOWN')
+        self.assertNotIn('reservation fee',lot.description)
+
+    def test_land_site_measurement_is_not_displayed_as_floor_area(self):
+        lot=Lot('Pattinson Auction','https://example.com/land','Land at Pool Lane',
+            property_type='Land',area_sqft=1306.8,area_sqm=121.4,
+            description='Plot of land measuring 0.03 acres (121.4 sqm).')
+        repair_particulars(lot)
+        self.assertEqual(lot.site_area_acres,0.03)
+        self.assertIsNone(lot.area_sqft)
+        self.assertIsNone(lot.area_sqm)
+
     def test_search_is_auction_first_and_partner_is_first_party(self):
         self.assertEqual(SEARCH, "https://www.pattinson.co.uk/auction/property-search")
         self.assertEqual(PARTNER_SEARCH, "https://addisonbarton.pattinson.co.uk/")

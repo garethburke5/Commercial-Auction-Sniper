@@ -76,7 +76,15 @@ _source=_source.replace('key="clear_property_filters")','key="clear_property_fil
 _clear_start=_source.index('    if clear_filters:\n')
 _clear_end=_source.index('        st.rerun()\n',_clear_start)+len('        st.rerun()\n')
 _source=_source[:_clear_start]+_source[_clear_end:]
-_source=_source.replace('BUILD = "V6.80"','BUILD = "V6.83"',1)
+_source=_source.replace('BUILD = "V6.80"','BUILD = "V6.84"',1)
+_source=_source.replace('    if not tenant:\n        for pat in [',
+                        '    if not tenant and not p.get("canonical_snapshot"):\n        for pat in [',1)
+_source=_source.replace('        if m: f["Break clause"]=norm(m.group(1))[:140]; chips.append("BREAK"); break',
+                        '        if m and not p.get("canonical_snapshot"): f["Break clause"]=norm(m.group(1))[:140]; chips.append("BREAK"); break',1)
+_source=_source.replace('    if m:\n        rr=norm(m.group(1)); f["Rent review / steps"]=rr[:140]',
+                        '    if m and not p.get("rent_review"):\n        rr=norm(m.group(1)); f["Rent review / steps"]=rr[:140]',1)
+_source=_source.replace('    if "Vacant" in f.get("Occupation",""): notes.append(',
+                        '    if not f.get("Passing rent") and "vacant" in f.get("Occupation","").lower(): notes.append(',1)
 _source=_source.replace('    if re.search(r"vacant possession|\\bvacant\\b",text,re.I): f["Occupation"]="Vacant / vacant possession"; chips.append("VACANT")', '''    if p.get("canonical_snapshot"):
         occupation=str(p.get("occupation") or "")
         if occupation: f["Occupation"]=occupation

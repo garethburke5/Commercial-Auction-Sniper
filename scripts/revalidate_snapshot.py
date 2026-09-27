@@ -1,11 +1,15 @@
 """Apply current publication rules to existing facts without claiming a new scan."""
 import json
+import re
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
 from collectors.auction_estates import _classified_property_type, _commercial_mixed_evidence
 from collectors.symonds_sampson import _property_type
+from collectors.core import Lot
+from collectors.pattinson import repair_particulars as repair_pattinson
+from dataclasses import fields
 from run_collectors_resilient import _finalize_published_snapshot
 from scripts.repair_legacy_ahl_particulars import repair as repair_ahl
 
@@ -20,6 +24,11 @@ def revalidate(path=Path('data/properties.json')):
                 item['property_type']=_classified_property_type('Commercial',text)
         elif item.get('source') == 'Symonds & Sampson':
             item['property_type']=_property_type(item.get('description') or '')
+            if not re.fullmatch(r'Lot \d+[A-Z]?', item.get('lot_number') or '', re.I):
+                item['lot_number']=None
+        elif item.get('source') == 'Pattinson Auction':
+            lot = Lot(**{f.name:item[f.name] for f in fields(Lot) if f.name in item})
+            item.update(repair_pattinson(lot).to_dict())
     path.write_text(json.dumps(data,indent=2))
     _finalize_published_snapshot(path)
     data=json.loads(path.read_text())

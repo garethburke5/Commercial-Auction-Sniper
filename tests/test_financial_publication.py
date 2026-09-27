@@ -3,6 +3,31 @@ import pytest
 from collectors.core import Lot, parse_guide, parse_rent
 from collectors.publication_quality import prepare_publication, validate_publication, commercial_decision
 from run_collectors import _merge_last_good
+from collectors.financials import income_facts
+from collectors.financials import guide_range
+
+
+def test_guide_range_written_with_to_preserves_both_bounds():
+    assert guide_range('Guide Price £110,000 to £125,000') == (110000,125000,'£110,000 to £125,000')
+
+
+def test_monthly_current_rent_and_potential_rent_are_annualised_separately():
+    text = ('The retail unit could be leased for approximately £1,000 pcm and the '
+            'apartment is currently let at a rent of £800 pcm including utilities.')
+    facts = income_facts(text)
+    assert facts['annual_rent'] == 9600
+    assert facts['erv'] == 12000
+
+
+def test_weekly_rent_is_annualised_and_monthly_previous_rent_stays_historic():
+    assert parse_rent('Currently producing £200 per week.') == 10400
+    facts = income_facts('Previously let at £900 pcm. Current rent £1,000 per month.')
+    assert facts['historic_rent'] == 10800
+    assert facts['annual_rent'] == 12000
+
+
+def test_monthly_ground_rent_does_not_become_occupational_income():
+    assert income_facts('Ground rent £100 pcm.') == {'ground_rent':1200}
 
 
 def test_vaults_historic_rent_never_becomes_current_yield():
@@ -46,6 +71,42 @@ def test_residential_regressions_are_excluded_despite_nearby_commercial_mentions
 def test_residential_label_does_not_exclude_woodborough_mixed_use():
     row = {'address':'570 Woodborough Road','property_type':'Residential','description':'Ground floor retail unit with a self-contained two-bedroom flat above.'}
     assert commercial_decision(row) is True
+
+
+@pytest.mark.parametrize('text',[
+    'A one-bedroom open plan apartment. Accommodation: Bedroom and bathroom. Viewings: Bridgfords Estate Agents.',
+    'A traditional semi-detached property with 2 bedrooms. Viewings: Blundells Estate Agents. Important Notice: Fees apply.',
+    'The house has Two Bedrooms and a bathroom. It is a small village with a Post Office/Store, Church and village hall.',
+    'A one bedroom third floor flat. Conveniently located for a range of amenities and The Galleries Shopping Centre and Retail Park.',
+    'Three bedrooms. The local area is well serviced by local bus routes and amenities including shopping and a supermarket.',
+    'A three-bedroom house. Eastwood has a good range of amenities including schooling, local shopping, supermarket and petrol station.',
+])
+def test_residential_lots_are_not_rescued_by_viewing_agents_or_village_amenities(text):
+    assert commercial_decision({'source':'Barnard Marcus','description':text,'property_type':'Office'}) is False
+
+
+def test_empty_barnard_detail_page_cannot_enter_board_as_an_office():
+    row={'source':'Barnard Marcus','url':'https://example.com/lot','address':'7 Thames Street',
+         'property_type':'Office','description':"249, Auction: all lots prev lot next lot summary what's next? legal docs book viewing"}
+    assert not prepare_publication({'properties':[row]})['properties']
+
+
+@pytest.mark.parametrize('text',[
+    'Freehold Amusement Arcade and Residential Ground Rent Investment. Arcade with 17 flats sold off above.',
+    'Freehold Vacant Funeral Parlour. Planning permission granted for 5 flats and a Class E unit.',
+    'Freehold Betting Office Investment. Betting office with a self-contained flat above.',
+    'Former Offices & Stores. Office block comprises three floors. Potential conversion to flats.',
+    'A detached pub. The upper floors provide owners accommodation comprising five bedrooms.',
+    'Former hostel with two bedrooms and potential for conversion to residential use.',
+    'Lock Up Garages Portfolio beside a block of flats.',
+])
+def test_real_commercial_components_survive_stricter_residential_gate(text):
+    assert commercial_decision({'description':text}) is True
+
+
+def test_flat_roof_and_detached_building_do_not_imply_residential_use():
+    assert commercial_decision({'description':'Commercial accommodation with additional flat roof area.'}) is True
+    assert commercial_decision({'description':'Detached property. Single storey 3314 sq ft. St John Ambulance.'}) is not False
 
 
 @pytest.mark.parametrize('text',[

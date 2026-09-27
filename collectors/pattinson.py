@@ -6,7 +6,8 @@ from urllib.parse import parse_qs, urlencode, urljoin, urlparse
 import requests
 from bs4 import BeautifulSoup
 
-from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
+from .core import SourceResult, Lot, norm, clean_description, parse_guide, parse_rent, parse_tenure, parse_vat
+from .financials import income_facts
 from .utils import image_from_soup, legal_pack, nearest_card, enrich_common_fields
 
 SOURCE = "Pattinson Auction"
@@ -34,8 +35,8 @@ COMMERCIAL_LABELS = (
     "commercial", "public house", "drinking establishment", "pub", "restaurant", "restaurants",
     "hot food takeaway", "takeaway", "care home", "nursery", "supermarket", "shop", "mixed use", "mixed-use",
     "business premises", "commercial development", "leisure", "land & development", "land and development",
-    "development land", "hospitality facility", "commercial land", "investment property", "pair of flats",
-    "block of apartments", "land", "heavy industrial", "light industrial", "retail property",
+    "development land", "hospitality facility", "commercial land", "investment property",
+    "land", "heavy industrial", "light industrial", "retail property",
 )
 RESIDENTIAL_LABELS = (
     "residential portfolio", "residential development", " hmo ", "house in ", "flat in ",
@@ -44,7 +45,7 @@ RESIDENTIAL_LABELS = (
 )
 MIXED_MARKERS = (
     "shop and flat", "shop with flat", "retail and residential", "commercial and residential",
-    "commercial/residential", "mixed use", "mixed-use", "pair of flats", "block of apartments",
+    "commercial/residential", "mixed use", "mixed-use",
 )
 CLOSED_MARKERS = (
     "sold stc", "sold subject", "auction ended", "bidding ended",
@@ -419,6 +420,35 @@ def _detail_soup(url):
     return None, None
 
 
+def repair_particulars(lot):
+    """Re-parse the property's evidence, excluding standard auction fee prose.
+
+    Also used when revalidating a saved snapshot, without inventing a new crawl.
+    """
+    text = clean_description(lot.description)
+    text = re.split(
+        r'\bAuctioneers? Additional Comments\b|\b(?:Additional Information\s+)?For further information please contact our office\b|'
+        r'\bRead full description\b|\bAbout Pattinsons\b|\bMARKETED BY\b', text, maxsplit=1, flags=re.I,
+    )[0].strip()
+    lot.description = text
+    lot.annual_rent = parse_rent(text)
+    lot.gross_yield = None
+    for key, value in income_facts(text).items():
+        if hasattr(lot, key):
+            setattr(lot, key, value)
+    lot.vat_status = parse_vat(text)
+    if (re.search(r'retail|shop|office', lot.property_type or '', re.I)
+        and re.search(r'\b(?:first|upper|second)[ -]floor\s+(?:apartment|flat)|\b(?:flat|apartment)s?\s+(?:above|over)\b', text, re.I)):
+        lot.property_type = 'Mixed Use'
+    # The previous collector treated any rent as fully let, even if the shop
+    # was vacant and only its flat was occupied. Derive both components again.
+    lot.occupation = None
+    enrich_common_fields(lot, text)
+    if re.fullmatch(r'(?:commercial )?land(?:\s*(?:&|and)\s*development)?', lot.property_type or '', re.I):
+        lot.area_sqft = lot.area_sqm = None  # Site area is not floor area.
+    return lot.finalise()
+
+
 def _apply_detail(lot, ds, seed, url):
     if ds is None:
         return lot
@@ -476,7 +506,7 @@ def _apply_detail(lot, ds, seed, url):
     elif re.search(r"tenant|tenanted|let to|currently let|producing £|currently rented", text, re.I):
         lot.occupation = "Tenanted"
     enrich_common_fields(lot, text)
-    return lot.finalise()
+    return repair_particulars(lot)
 
 
 def _enrich(url, seed):

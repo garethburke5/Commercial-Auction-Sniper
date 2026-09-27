@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 
 from collectors.core import Lot, clean_description
-from collectors.symonds_catalogue import INDEX, collect_catalogue, same_property
+from collectors.symonds_catalogue import INDEX, collect_catalogue, same_property, _detail
 from collectors.symonds_sampson import _reconcile_catalogue, _brochure_particulars, _structured
 from collectors.publication_quality import prepare_publication
 
@@ -63,3 +63,21 @@ def test_brochure_recovery_keeps_break_and_conditional_erv_separate():
     assert fore['break_clause']=='Mutual break at year 5'
     west=_structured('The ERV of the apartments, once refurbishment is complete is estimated to be approximately £24,000 per annum.')
     assert west['erv']==24000
+
+
+def test_unnumbered_catalogue_does_not_use_address_as_a_lot_number():
+    page=BeautifulSoup('<h3>63 High West Street, Dorchester</h3><p>Vacant commercial premises.</p>'
+        '<table class="extra-details"><tr><td>Guide Price *</td><td>£110,000 to £125,000</td></tr></table>','lxml')
+    row=_detail(page,'https://example.test/lot','2099-10-23','63 High West Street, Dorchester','CURRENT')
+    assert row['lot_number'] is None
+    assert (row['guide_price'],row['guide_price_upper'])==(110000,125000)
+
+
+def test_current_catalogue_range_wins_over_an_older_brochure_guide():
+    entry={'url':'https://example.test/lot','address':'Castle Mount, Axminster',
+        'description':'Commercial premises. Guide Price £125,000–£140,000.',
+        'auction_date':'2099-10-08','lot_number':'Lot 4','status':'CURRENT',
+        'guide_price':110000,'guide_price_upper':125000,'guide_price_text':'£110,000 to £125,000'}
+    lots,_=_reconcile_catalogue([],[entry],[])
+    assert (lots[0].guide_price,lots[0].guide_price_upper)==(110000,125000)
+    assert lots[0].description.startswith('Guide Price £110,000 to £125,000')

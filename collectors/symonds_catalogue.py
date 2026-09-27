@@ -42,7 +42,7 @@ def _detail(page, url, day, lot_number, status):
     legal = page.find('a', href=re.compile(r'legaldocuments\.eigroup\.co\.uk/showbyid/'))
     brochure = page.find('a', string=lambda t:t and 'Catalogue Entry' in t)
     return dict(address=norm(heading.text), description=norm(description.text),
-                url=url, auction_date=day, lot_number='Lot '+lot_number,
+                url=url, auction_date=day, lot_number=('Lot '+lot_number if re.fullmatch(r'\d+[A-Z]?',lot_number,re.I) else None),
                 guide_price=lower, guide_price_upper=upper, guide_price_text=raw,
                 annual_rent=money(fields.get('Income')), status=status,
                 image_url=urljoin(url, img['src']) if img else None,

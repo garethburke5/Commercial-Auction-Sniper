@@ -320,6 +320,9 @@ def _reconcile_catalogue(lots, entries, previous, brochure_reader=None):
             # Keep the auctioneer's own primary photo and richer particulars.
             lot.description=norm(text+' '+lot.description)
         lot.address=entry['address']
+        if entry.get('guide_price_text'):
+            # The current catalogue may revise a guide in an older brochure.
+            lot.description=norm('Guide Price '+entry['guide_price_text']+' '+lot.description)
         for key in ('auction_date','lot_number','guide_price','guide_price_upper','guide_price_text','legal_pack_url'):
             setattr(lot,key,entry.get(key))
         terminal={'SOLD PRIOR','WITHDRAWN','POSTPONED','SOLD'}

@@ -6,9 +6,11 @@ import re
 AMOUNT = r'(?:£\s*)+[\d,]+(?:\.\d+)?\s*(?:[kKmM]\b)?'
 MONEY = re.compile(AMOUNT)
 ANNUAL = re.compile(r'^\s*(?:per\s+annum|per\s+year|p\.?\s*a\.?|pax|a\s+year)\b', re.I)
+MONTHLY = re.compile(r'^\s*(?:p\.?\s*c\.?\s*m\.?|per\s+(?:calendar\s+)?month|a\s+month)\b', re.I)
+WEEKLY = re.compile(r'^\s*(?:p\.?\s*w\.?|per\s+week|a\s+week)\b', re.I)
 LABELS = {
     'historic_rent': re.compile(r'\b(?:previous(?:ly)?|historic(?:al(?:ly)?)?|former(?:ly)?|last)\b[^£.;]{0,70}(?:rent|let|income)|\b(?:was|had been)\s+let\b', re.I),
-    'erv': re.compile(r'\b(?:ERV|estimated rental value|rental potential|potential (?:rental )?income|estimated rent)\b', re.I),
+    'erv': re.compile(r'\b(?:ERV|estimated rental value|rental potential|potential (?:rental )?income|estimated rent|could be (?:let|leased)|could achieve)\b', re.I),
     'ground_rent': re.compile(r'\bground rent\b|\bhead\s*(?:lease\s*)?rent\b', re.I),
     'service_charge': re.compile(r'\bservice charge\b', re.I),
     'rateable_value': re.compile(r'\brateable value\b|\bRV\b', re.I),
@@ -26,7 +28,7 @@ def money(value):
 
 
 def guide_range(text):
-    match = re.search(r'\b(?:Guide(?:\s+Price)?|Available At)\s*(?:[:*+\-–—|.]\s*)*(' + AMOUNT + r'(?:\s*[-–—]\s*' + AMOUNT + r')?\s*\+?)', str(text or ''), re.I)
+    match = re.search(r'\b(?:Guide(?:\s+Price)?|Available At)\s*(?:[:*+\-–—|.]\s*)*(' + AMOUNT + r'(?:\s*(?:[-–—]|to\b)\s*' + AMOUNT + r')?\s*\+?)', str(text or ''), re.I)
     if not match:
         return None, None, None
     raw = match.group(1).strip()
@@ -49,6 +51,12 @@ def income_facts(text):
         value = money(match.group())
         if value is None:
             continue
+        # All rent fields represent annual amounts. Only annualise when the
+        # source explicitly supplies a monthly/weekly period; never infer one.
+        if MONTHLY.search(after):
+            value *= 12
+        elif WEEKLY.search(after):
+            value *= 52
         labels = [(m.start(), key) for key, pattern in LABELS.items() for m in pattern.finditer(before)]
         current_labels = list(CURRENT.finditer(before))
         current_pos = max((m.start() for m in current_labels), default=-1)
@@ -59,7 +67,7 @@ def income_facts(text):
             continue
         # "ERV when fully let at market rent" describes potential income. The
         # embedded words "let at" do not turn that estimate into current rent.
-        if label == 'erv' and not re.search(r'\b(?:current (?:(?:restaurant|commercial|shop|office) )?(?:rent|income)|currently producing|passing rent)\b',before[label_pos:],re.I):
+        if label == 'erv' and not re.search(r'\b(?:current (?:(?:restaurant|commercial|shop|office) )?(?:rent|income)|currently (?:producing|let|leased)|passing rent)\b',before[label_pos:],re.I):
             facts['erv'] = value
             continue
         if label and label_pos >= current_pos:
