@@ -1,0 +1,326 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative official HM Land Registry exact-transaction residential address enrichment",
+  "captured_at_utc": "2026-09-28T18:18:00Z",
+  "source_note": "The official HM Land Registry Price Paid Data report builder was run across all 88 priced, addressless appearances in the oldest remaining Savills legacy result shard, AID 678 dated 10 May 2010. Twenty-five residential matches were retained only where the exact hammer price, locality or postcode district, tenure and residential property class aligned to one compatible transaction completing within 75 days of the auction. Forty-two no-compatible-result, seventeen multi-candidate and four later-completion results were left unchanged. Original Savills/PropertyAuctions evidence and every repeat auction appearance remain preserved.",
+  "source_records": [
+    {
+      "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Official Price Paid Data report-builder records for Savills AID 678",
+      "evidence_excerpt": "Exact-price transaction searches supplied the full address, completion date, tenure, property type and transaction category. Each retained appearance carries its exact official report-builder query."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|102",
+      "address": "49 Sprowston Road, London, E7 9AD",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=119000&max_price=119000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=E7",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=119000&max_price=119000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=E7"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 102 is a vacant  flat in London E7 sold for exactly GBP 119,000 on 10 May 2010. The official HM Land Registry result identifies 49 Sprowston Road, London, E7 9AD as the sole compatible exact-price flat maisonette/leasehold transaction, completing 29 days later on 2010-06-08."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|105",
+      "address": "61 Old Shoreham Road, Brighton, BN42 4RD",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=172000&max_price=172000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=Brighton",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=172000&max_price=172000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=Brighton"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 105 is a vacant freehold house in Brighton sold for exactly GBP 172,000 on 10 May 2010. The official HM Land Registry result identifies 61 Old Shoreham Road, Brighton, BN42 4RD as the sole compatible exact-price terraced/freehold transaction, completing 29 days later on 2010-06-08."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|109",
+      "address": "38 Scotts Road, London, E10 6LW",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=169000&max_price=169000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=E10",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=169000&max_price=169000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=E10"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 109 is a vacant freehold house in London E10 sold for exactly GBP 169,000 on 10 May 2010. The official HM Land Registry result identifies 38 Scotts Road, London, E10 6LW as the sole compatible exact-price terraced/freehold transaction, completing 29 days later on 2010-06-08."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|116",
+      "address": "The Moorlands, Hill Street, Lydney, GL15 5HE",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=219000&max_price=219000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=Lydney",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=219000&max_price=219000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=Lydney"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 116 is a vacant freehold house in Lydney sold for exactly GBP 219,000 on 10 May 2010. The official HM Land Registry result identifies The Moorlands, Hill Street, Lydney, GL15 5HE as the sole compatible exact-price detached/freehold transaction, completing 29 days later on 2010-06-08."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|12",
+      "address": "Flat 2, Grice Court, Alwyne Square, London, N1 2JY",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=366000&max_price=366000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=N1",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=366000&max_price=366000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=N1"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 12 is a vacant  flat in London N1 sold for exactly GBP 366,000 on 10 May 2010. The official HM Land Registry result identifies Flat 2, Grice Court, Alwyne Square, London, N1 2JY as the sole compatible exact-price flat maisonette/leasehold transaction, completing 35 days later on 2010-06-14."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|123",
+      "address": "15 Spa Street, Lincoln, LN2 5NQ",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=64000&max_price=64000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=Lincoln",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=64000&max_price=64000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=Lincoln"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 123 is a vacant freehold house in Lincoln sold for exactly GBP 64,000 on 10 May 2010. The official HM Land Registry result identifies 15 Spa Street, Lincoln, LN2 5NQ as the sole compatible exact-price terraced/freehold transaction, completing 32 days later on 2010-06-11."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|137",
+      "address": "48 5th Avenue, Hull, HU6 8BU",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=40500&max_price=40500&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=Hull",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=40500&max_price=40500&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=Hull"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 137 is a vacant freehold house in Hull sold for exactly GBP 40,500 on 10 May 2010. The official HM Land Registry result identifies 48 5th Avenue, Hull, HU6 8BU as the sole compatible exact-price terraced/freehold transaction, completing 29 days later on 2010-06-08."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|15",
+      "address": "90 Leigh Gardens, London, NW10 5HP",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=560000&max_price=560000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW10",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=560000&max_price=560000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW10"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 15 is a vacant freehold house in London NW10 sold for exactly GBP 560,000 on 10 May 2010. The official HM Land Registry result identifies 90 Leigh Gardens, London, NW10 5HP as the sole compatible exact-price terraced/freehold transaction, completing 52 days later on 2010-07-01."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|16",
+      "address": "182A Westbourne Park Road, London, W11 1BT",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=423000&max_price=423000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=W11",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=423000&max_price=423000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=W11"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 16 is a vacant  flat in London W11 sold for exactly GBP 423,000 on 10 May 2010. The official HM Land Registry result identifies 182A Westbourne Park Road, London, W11 1BT as the sole compatible exact-price flat maisonette/leasehold transaction, completing 30 days later on 2010-06-09."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|19",
+      "address": "20C Loveridge Road, London, NW6 2DT",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=203000&max_price=203000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW6",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=203000&max_price=203000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW6"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 19 is a vacant  flat in London NW6 sold for exactly GBP 203,000 on 10 May 2010. The official HM Land Registry result identifies 20C Loveridge Road, London, NW6 2DT as the sole compatible exact-price flat maisonette/leasehold transaction, completing 74 days later on 2010-07-23."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|23",
+      "address": "9 Bench Field, South Croydon, CR2 7HX",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=290000&max_price=290000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=South+Croydon",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=290000&max_price=290000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=South+Croydon"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 23 is a vacant freehold house in South Croydon sold for exactly GBP 290,000 on 10 May 2010. The official HM Land Registry result identifies 9 Bench Field, South Croydon, CR2 7HX as the sole compatible exact-price detached/freehold transaction, completing 35 days later on 2010-06-14."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|29",
+      "address": "81 Fernside Road, London, SW12 8LH",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=695000&max_price=695000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=SW12",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=695000&max_price=695000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=SW12"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 29 is a vacant freehold house in London SW12 sold for exactly GBP 695,000 on 10 May 2010. The official HM Land Registry result identifies 81 Fernside Road, London, SW12 8LH as the sole compatible exact-price terraced/freehold transaction, completing 29 days later on 2010-06-08."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|34",
+      "address": "53A Carr Road, London, E17 5ER",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=145500&max_price=145500&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=E17",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=145500&max_price=145500&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=E17"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 34 is a vacant  flat in London E17 sold for exactly GBP 145,500 on 10 May 2010. The official HM Land Registry result identifies 53A Carr Road, London, E17 5ER as the sole compatible exact-price flat maisonette/leasehold transaction, completing 32 days later on 2010-06-11."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|36",
+      "address": "38A Chestnut Road, London, SW20 8EB",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=206000&max_price=206000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=SW20",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=206000&max_price=206000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=SW20"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 36 is a vacant  flat in London SW20 sold for exactly GBP 206,000 on 10 May 2010. The official HM Land Registry result identifies 38A Chestnut Road, London, SW20 8EB as the sole compatible exact-price flat maisonette/leasehold transaction, completing 30 days later on 2010-06-09."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|38",
+      "address": "22A Llanvanor Road, London, NW2 2AP",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=559000&max_price=559000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW2",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=559000&max_price=559000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW2"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 38 is a vacant freehold house in London NW2 sold for exactly GBP 559,000 on 10 May 2010. The official HM Land Registry result identifies 22A Llanvanor Road, London, NW2 2AP as the sole compatible exact-price detached/freehold transaction, completing 29 days later on 2010-06-08."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|43",
+      "address": "34 Aylesbury Street, London, NW10 0AS",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=245000&max_price=245000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW10",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=245000&max_price=245000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW10"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 43 is a vacant freehold house in London NW10 sold for exactly GBP 245,000 on 10 May 2010. The official HM Land Registry result identifies 34 Aylesbury Street, London, NW10 0AS as the sole compatible exact-price terraced/freehold transaction, completing 28 days later on 2010-06-07."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|48",
+      "address": "10 Cumberland Road, Bromley, BR2 0PG",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=313000&max_price=313000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=Bromley",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=313000&max_price=313000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=Bromley"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 48 is a vacant freehold house in Bromley sold for exactly GBP 313,000 on 10 May 2010. The official HM Land Registry result identifies 10 Cumberland Road, Bromley, BR2 0PG as the sole compatible exact-price terraced/freehold transaction, completing 35 days later on 2010-06-14."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|52",
+      "address": "23B Maud Road, London, E13 0JT",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=94000&max_price=94000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=E13",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=94000&max_price=94000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=E13"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 52 is a investment  flat in London E13 sold for exactly GBP 94,000 on 10 May 2010. The official HM Land Registry result identifies 23B Maud Road, London, E13 0JT as the sole compatible exact-price flat maisonette/leasehold transaction, completing 32 days later on 2010-06-11."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|56",
+      "address": "89A Talgarth Road, London, W14 9DJ",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=700000&max_price=700000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=W14",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=700000&max_price=700000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=W14"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 56 is a vacant freehold house in London W14 sold for exactly GBP 700,000 on 10 May 2010. The official HM Land Registry result identifies 89A Talgarth Road, London, W14 9DJ as the sole compatible exact-price terraced/freehold transaction, completing 32 days later on 2010-06-11."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|59",
+      "address": "37 Gauntlett Road, Sutton, SM1 4RY",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=211000&max_price=211000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=Sutton",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=211000&max_price=211000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&town=Sutton"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 59 is a vacant freehold house in Sutton sold for exactly GBP 211,000 on 10 May 2010. The official HM Land Registry result identifies 37 Gauntlett Road, Sutton, SM1 4RY as the sole compatible exact-price terraced/freehold transaction, completing 35 days later on 2010-06-14."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|75",
+      "address": "36B St Julians Road, London, NW6 7LB",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=207000&max_price=207000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW6",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=207000&max_price=207000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW6"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 75 is a vacant  flat in London NW6 sold for exactly GBP 207,000 on 10 May 2010. The official HM Land Registry result identifies 36B St Julians Road, London, NW6 7LB as the sole compatible exact-price flat maisonette/leasehold transaction, completing 29 days later on 2010-06-08."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|7A",
+      "address": "17D Iverson Road, London, NW6 2QT",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=204000&max_price=204000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW6",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=204000&max_price=204000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW6"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 7A is a vacant  flat in London NW6 sold for exactly GBP 204,000 on 10 May 2010. The official HM Land Registry result identifies 17D Iverson Road, London, NW6 2QT as the sole compatible exact-price flat maisonette/leasehold transaction, completing 50 days later on 2010-06-29."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|8",
+      "address": "Ground Floor Flat, 242 Worple Road, London, SW20 8RH",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=260000&max_price=260000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=SW20",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=260000&max_price=260000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=SW20"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 8 is a vacant  flat in London SW20 sold for exactly GBP 260,000 on 10 May 2010. The official HM Land Registry result identifies Ground Floor Flat, 242 Worple Road, London, SW20 8RH as the sole compatible exact-price flat maisonette/leasehold transaction, completing 29 days later on 2010-06-08."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|97",
+      "address": "Flat 4, 17 Crossfield Road, London, NW3 4NT",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=131000&max_price=131000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW3",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=131000&max_price=131000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=NW3"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 97 is a investment  flat in London NW3 sold for exactly GBP 131,000 on 10 May 2010. The official HM Land Registry result identifies Flat 4, 17 Crossfield Road, London, NW3 4NT as the sole compatible exact-price flat maisonette/leasehold transaction, completing 44 days later on 2010-06-23."
+    },
+    {
+      "target_shard": "savills/legacy-678",
+      "target_appearance_id": "Savills Auctions|propertyauctions:678|99",
+      "address": "Flat 61, Finsbury House, Partridge Way, London, N22 8DU",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_residential_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=105000&max_price=105000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=N22",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=678",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=105000&max_price=105000&min_date=2010-05-10&max_date=2010-12-16&relative_url_root=%2Fapp%2Fppd&postcode=N22"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 678 lot 99 is a investment  flat in London N22 sold for exactly GBP 105,000 on 10 May 2010. The official HM Land Registry result identifies Flat 61, Finsbury House, Partridge Way, London, N22 8DU as the sole compatible exact-price flat maisonette/leasehold transaction, completing 28 days later on 2010-06-07."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 25,
+  "address_records_added": 25,
+  "partial_records_added": 0,
+  "related_partial_candidates_checked": 88,
+  "ambiguous_candidates_left_unchanged": 63,
+  "historical_completeness_declared": false
+}
+
