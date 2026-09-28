@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 import html
 import json
 import re
@@ -55,7 +56,12 @@ def parse_ids(page_url: str) -> tuple[str, str]:
     return query["auctionHouseId"][0], query["auctionId"][0]
 
 
-def harvest(page_url: str, auction_date: str) -> dict:
+def harvest(
+    page_url: str,
+    auction_date: str,
+    workers: int = 4,
+    allow_incomplete: bool = False,
+) -> dict:
     house_id, auction_id = parse_ids(page_url)
     endpoint = (
         f"{BASE}/umbraco/Api/SearchApi/Search?auctionHouseId={house_id}"
@@ -64,17 +70,24 @@ def harvest(page_url: str, auction_date: str) -> dict:
     first = fetch_json(endpoint.format(page=1))
     pagination = first["pagination"]
     pages = pagination["pageCount"]
+    remaining = list(range(2, pages + 1))
+    with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+        payloads = list(pool.map(lambda page: fetch_json(endpoint.format(page=page)), remaining))
     items = list(first["items"])
-    for page in range(2, pages + 1):
-        payload = fetch_json(endpoint.format(page=page))
-        if payload["pagination"]["currentPage"] != page:
+    for page, payload in zip(remaining, payloads):
+        page_meta = payload["pagination"]
+        if (
+            page_meta["currentPage"] != page
+            or page_meta["pageCount"] != pages
+            or page_meta["totalCount"] != pagination["totalCount"]
+        ):
             raise RuntimeError(f"page {page} did not reconcile")
         items.extend(payload["items"])
 
-    if len(items) != pagination["totalCount"]:
+    reconciled = len(items) == pagination["totalCount"]
+    if not reconciled and not allow_incomplete:
         raise RuntimeError(f"expected {pagination['totalCount']} rows, got {len(items)}")
 
-    slug = auction_date.replace("-", "_")
     source_auction_id = f"barnard-marcus:{auction_date}"
     rows = []
     for item in items:
@@ -114,7 +127,8 @@ def harvest(page_url: str, auction_date: str) -> dict:
 
     ids = [row["source_record_id"] for row in rows]
     lots = [row["lot_number"] for row in rows]
-    if len(ids) != len(set(ids)) or len(lots) != len(set(lots)):
+    numbered_lots = [lot for lot in lots if lot is not None]
+    if len(ids) != len(set(ids)) or len(numbered_lots) != len(set(numbered_lots)):
         raise RuntimeError("source IDs or lot numbers are not unique")
 
     return {
@@ -125,12 +139,19 @@ def harvest(page_url: str, auction_date: str) -> dict:
         "archive_url": f"{BASE}/auctions/previous/",
         "auction_date": auction_date,
         "source_auction_id": source_auction_id,
-        "lot_enumeration_complete": True,
+        "lot_enumeration_complete": reconciled,
         "published_rows": len(rows),
+        "source_reported_rows": pagination["totalCount"],
+        "reconciliation_shortfall": pagination["totalCount"] - len(rows),
         "unnumbered_rows": sum(row["lot_number"] is None for row in rows),
         "pagination_pages_captured": list(range(1, pages + 1)),
         "pagination_pages_expected": pages,
-        "capture_method": "official SearchApi result cards with Show All; every API page reconciled",
+        "capture_method": (
+            "official SearchApi result cards with Show All; every API page reconciled"
+            if reconciled
+            else "official SearchApi result cards with Show All; all API pages traversed, "
+            "but the source-reported total exceeds the returned rows"
+        ),
         "lot_records": rows,
     }
 
@@ -140,8 +161,15 @@ def main() -> None:
     parser.add_argument("page_url")
     parser.add_argument("auction_date")
     parser.add_argument("output", type=Path)
+    parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument("--allow-incomplete", action="store_true")
     args = parser.parse_args()
-    payload = harvest(args.page_url, args.auction_date)
+    payload = harvest(
+        args.page_url,
+        args.auction_date,
+        args.workers,
+        args.allow_incomplete,
+    )
     args.output.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps({
         "rows": payload["published_rows"],
