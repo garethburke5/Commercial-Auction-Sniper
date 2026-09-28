@@ -111,7 +111,7 @@
           "amount": "£2,100"
         }
       ],
-      "notes": "Savills’ buying page does not specify the VAT treatment of these amounts. Confirm the VAT-inclusive charge before bidding. Payable with the deposit on auction day.",
+      "notes": "Payable with the deposit on auction day. The deposit forms part of the purchase price and is separate from the buyer’s fee.",
       "checked_on": "2026-09-28",
       "sources": [
         {
@@ -126,14 +126,16 @@
             "rate": 0,
             "minimum": 0,
             "vat": "unconfirmed",
-            "below": 30000
+            "below": 30000,
+            "description": "Savills buyer’s fee: £250 for any sale below £30,000."
           },
           {
             "fixed": 2100,
             "rate": 0,
             "minimum": 0,
             "vat": "unconfirmed",
-            "at_least": 30000
+            "at_least": 30000,
+            "description": "Savills buyer’s fee: £2,100 for any sale at or above £30,000."
           }
         ],
         "vat_rate": 0.2

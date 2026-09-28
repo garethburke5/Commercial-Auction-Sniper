@@ -12,8 +12,8 @@
 {% macro fee_card(h) -%}
 <article class="auctioneer-card" data-house="{{ h.name|lower }}" data-current="{{ h.current }}">
   <div class="house-heading"><span class="house-monogram" aria-hidden="true">{{ h.initials }}</span><div><h2><a href="{{ url('/auctioneers/'~h.slug~'/') }}">{{ h.name }}</a></h2><p>{% if h.current %}{{ h.available }} available · {{ h.current }} current lots{% else %}Past catalogue captured{% endif %}</p></div></div>
-  <span class="fee-basis {{ h.fee.basis }}">{{ h.fee.basis_label }}</span>
-  <p class="fee-headline">{{ h.fee.headline }}<span>{{ h.fee.vat }}</span></p>
+  {% if h.fee.basis not in ('published', 'lot_example') %}<span class="fee-basis {{ h.fee.basis }}">{{ h.fee.basis_label }}</span>{% endif %}
+  <p class="fee-headline">{{ h.fee.headline }}{% if h.fee.vat_label %}<span>{{ h.fee.vat_label }}</span>{% endif %}</p>
   <p class="fee-summary">{{ h.fee.summary }}</p>
   <details class="fee-detail"><summary>Fee breakdown & exceptions</summary>{{ terms(h.fee) }}</details>
   {{ evidence(h.fee) }}
@@ -23,7 +23,7 @@
 
 {% macro fee_panel(h) -%}
 <section class="buyer-fee-panel" id="buyer-fees" aria-labelledby="buyer-fee-title">
-  <div><p class="eyebrow">BUDGET BEFORE YOU BID</p><h2 id="buyer-fee-title">Buyer fees</h2><span class="fee-basis {{ h.fee.basis }}">{{ h.fee.basis_label }}</span><p class="fee-headline">{{ h.fee.headline }}<span>{{ h.fee.vat }}</span></p><p class="fee-summary">{{ h.fee.summary }}</p>{{ evidence(h.fee) }}</div>
+  <div><p class="eyebrow">BUDGET BEFORE YOU BID</p><h2 id="buyer-fee-title">Buyer fees</h2>{% if h.fee.basis not in ('published', 'lot_example') %}<span class="fee-basis {{ h.fee.basis }}">{{ h.fee.basis_label }}</span>{% endif %}<p class="fee-headline">{{ h.fee.headline }}{% if h.fee.vat_label %}<span>{{ h.fee.vat_label }}</span>{% endif %}</p><p class="fee-summary">{{ h.fee.summary }}</p>{{ evidence(h.fee) }}</div>
   <div>{{ terms(h.fee) }}<p class="fee-notes">Fees are additional to the purchase price. This is not a total purchase-cost quote: taxes, legal costs and other charges in the special conditions may apply. Confirm the current lot terms before bidding.</p></div>
 </section>
 {%- endmacro %}

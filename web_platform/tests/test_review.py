@@ -27,7 +27,7 @@ def test_fee_estimates_vat_minima_ranges_and_unknown_boundaries():
     assert estimate('future-property-auctions-scotland',50000)['amount']==1800
     assert estimate('auction-estates',10000)['amount'] is None
     assert estimate('symonds-sampson',50000)['amount'] is None
-    assert 'unconfirmed' in estimate('savills-auctions',100000)['vat']
+    assert estimate('savills-auctions',100000)['vat']==''
     assert estimate('pugh-btg-eddisons',100000)['amount'] is None
     assert estimate('auction-house-scotland',100000)['amount'] is None
     assert estimate('allsop-commercial',None)['amount'] is None
@@ -83,7 +83,8 @@ def test_rendered_review_preserves_search_hero_and_contextual_history(tmp_path):
     prop=BeautifulSoup(pages[c.all_properties[0]['path']],'html.parser')
     assert prop.select_one('#gallery-hero')['src']==row['image_url']
     assert len(prop.select('[data-gallery-src]'))==2
-    assert '£1,800.00' in prop.select_one('#property-fees').get_text()
+    assert '£1,500' in prop.select_one('#property-fees').get_text()
+    assert '+ VAT' in prop.select_one('#property-fees').get_text()
     assert '£75,000–£80,000' in prop.select_one('#history').get_text()
     assert '£85,000' in prop.select_one('#history').get_text() and '£9,000' in prop.select_one('#history').get_text()
     assert prop.select_one('#property-target')

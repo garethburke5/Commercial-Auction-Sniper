@@ -9,6 +9,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 from decimal import Decimal, ROUND_HALF_UP
 import math
+import re
 
 FEE_FILE = Path(__file__).with_name('auctioneer_fees.json')
 BASIS_LABELS = {'published': 'Published buyer terms', 'lot_example': 'Example lot terms',
@@ -43,6 +44,11 @@ def fee_profile(slug, profiles, today=None):
         'checked_on': None,
     })
     fee['basis_label'] = BASIS_LABELS[fee['basis']]
+    # Keep editorial/provenance metadata, but only publish actual VAT terms.
+    vat = fee.get('vat', '')
+    fee['vat_label'] = '' if re.search(r'confirm|unverified|unconfirmed', vat, re.I) else vat
+    if fee['vat_label'] == 'VAT extra':
+        fee['vat_label'] = '+ VAT'
     checked = date.fromisoformat(fee['checked_on']) if fee['checked_on'] else None
     fee['checked_label'] = checked.strftime('%d %b %Y') if checked else None
     fee['review_due'] = bool(checked and ((today or date.today()) - checked).days > 90)
@@ -64,7 +70,8 @@ def estimate_fee(row, profile, evidence=None):
     """Calculate only a published tariff or a verified rule for this exact lot.
 
     Decimal maths, VAT and minima are explicit. A deposit is never an input.
-    Gaps in source bands and unknown VAT are exposed, never silently filled.
+    Gaps in source bands are not filled. The display retains published VAT
+    terms; numeric amounts include VAT only when the source explicitly adds it.
     """
     result = {'amount': None, 'upper': None, 'display': 'Confirm with auctioneer',
               'vat': '', 'basis': 'Fee terms for this lot need confirmation.',
@@ -85,7 +92,6 @@ def estimate_fee(row, profile, evidence=None):
         calc = profile.get('calculation')
         result['basis'] = 'Based on the auctioneer’s published tariff; lot-specific exceptions may apply.'
         # Commercial/mixed-use lots entered in a residential Allsop sale use its residential tariff.
-        import re
         if row.get('source') == 'Allsop Commercial' and re.search(r'/r\d', row.get('url', '')):
             calc = {'bands': [{'fixed': 300, 'below': 10000, 'vat': 'included'},
                               {'fixed': 2000, 'at_least': 10000, 'vat': 'included'}]}
@@ -104,9 +110,10 @@ def estimate_fee(row, profile, evidence=None):
         b = bands[0]
         amount = max(Decimal(str(b.get('minimum', 0))),
                      Decimal(str(price)) * Decimal(str(b.get('rate', 0)))) + Decimal(str(b.get('fixed', 0)))
+        published = amount.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
         if b['vat'] == 'extra':
             amount *= 1 + Decimal(str(calc.get('vat_rate', .2)))
-        return amount.quantize(Decimal('.01'), rounding=ROUND_HALF_UP), b['vat']
+        return amount.quantize(Decimal('.01'), rounding=ROUND_HALF_UP), b['vat'], published, b.get('description')
 
     lower = calculate(guide)
     upper_price = row.get('guide_price_upper') or guide
@@ -114,7 +121,18 @@ def estimate_fee(row, profile, evidence=None):
     if not lower or not upper or upper_price < guide:
         result['basis'] = 'The published fee bands do not resolve this guide price; confirm the applicable charge.'
         return result
-    result.update(amount=float(lower[0]), upper=float(upper[0]),
-                  display=f'£{lower[0]:,.2f}' + (f'–£{upper[0]:,.2f}' if lower[0] != upper[0] else ''),
-                  vat='VAT treatment unconfirmed — this is the published amount' if 'unconfirmed' in (lower[1], upper[1]) else 'Including VAT')
+    def money(value):
+        return f'£{value:,.0f}' if value == value.to_integral_value() else f'£{value:,.2f}'
+
+    vat_labels = {'extra': '+ VAT', 'included': 'Including VAT'}
+    if lower[1] == upper[1]:
+        display = money(lower[2]) + ('–' + money(upper[2]) if lower[2] != upper[2] else '')
+        vat = vat_labels.get(lower[1], '')
+    else:
+        # A guide range can cross fee bands with different published VAT terms.
+        display = '–'.join((money(b[2]) + ' ' + vat_labels.get(b[1], '')).strip() for b in (lower, upper))
+        vat = ''
+    result.update(amount=float(lower[0]), upper=float(upper[0]), display=display, vat=vat)
+    if lower[3] and lower[3] == upper[3]:
+        result['basis'] = lower[3]
     return result

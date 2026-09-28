@@ -3,7 +3,7 @@ from datetime import date
 from pathlib import Path
 from bs4 import BeautifulSoup
 import pytest
-from web_platform.fees import load_fees, fee_profile, directory
+from web_platform.fees import load_fees, fee_profile, directory, estimate_fee
 from web_platform.catalogue import Catalogue
 from web_platform.site import Site
 
@@ -67,9 +67,65 @@ def test_directory_and_house_page_render_same_evidence_without_changing_income(t
     assert site.catalogue.properties[0]['giy']==10
     card=BeautifulSoup(pages['/'],'html.parser').select_one('.card')
     assert card.select_one('details.investment .research-links')
-    assert card.select_one('.metrics') and card.select_one('.target-price')
+    assert card.select_one('.metrics') and not card.select_one('.target-price')
+    assert 'GIY at guide' in card.get_text() and '10.0%' in card.get_text()
     assert card.select_one('a[href$="#buyer-fees"]')
     assert not card.select_one('details.investment').has_attr('open')
+    for page in pages.values():
+        html = BeautifulSoup(page, 'html.parser')
+        assert not html.select('.card .target, .fee-basis.published, .fee-basis.lot_example')
+        assert 'Published buyer terms' not in html.get_text()
+        assert 'Example lot terms' not in html.get_text()
+    assert index.select_one('.fee-detail') and index.select_one('time[datetime]')
+    assert 'View properties & fees' in index.get_text()
+    prop = BeautifulSoup(pages[site.catalogue.properties[0]['path']], 'html.parser')
+    assert prop.select_one('#property-target')['value'] == '10'
+    assert prop.select_one('.yield-calculator .target-price').get_text() == '£100,000'
+    for path, bundle in site.board_assets():
+        if not path.endswith('/index.json'):
+            for markup in json.loads(bundle).values():
+                assert 'target-price' not in markup and 'GIY at guide' in markup
+
+
+@pytest.mark.parametrize('guide,amount,description', [
+    (29999, 250, 'below £30,000'),
+    (30000, 2100, 'at or above £30,000'),
+    (250000, 2100, 'at or above £30,000'),
+])
+def test_savills_uses_current_published_amount_without_vat_commentary(guide, amount, description):
+    profile = fee_profile('savills-auctions', load_fees())
+    fee = estimate_fee({'guide_price': guide}, profile)
+    assert fee['amount'] == amount and fee['display'] == f'£{amount:,}'
+    assert fee['vat'] == profile['vat_label'] == ''
+    assert description in fee['basis']
+    assert fee['sources'] == [{'label': 'Official buyer terms', 'url': 'https://auctions.savills.co.uk/buying'}]
+    # Provenance and the source's lack of a VAT statement remain in the data.
+    assert profile['basis'] == 'published'
+    assert profile['calculation']['bands'][0]['vat'] == 'unconfirmed'
+
+
+@pytest.mark.parametrize('vat,label,total', [
+    ('extra', '+ VAT', 1200), ('included', 'Including VAT', 1000),
+    ('unconfirmed', '', 1000),
+])
+def test_fee_display_preserves_published_vat_terms_for_any_auctioneer(vat, label, total):
+    profile = {'basis': 'published', 'calculation': {'bands': [{'rate': .01, 'minimum': 1000, 'vat': vat}]}}
+    fee = estimate_fee({'guide_price': 50000}, profile)
+    assert fee['display'] == '£1,000' and fee['vat'] == label
+    assert fee['amount'] == total  # existing arithmetic retains VAT when explicit
+    ranged = estimate_fee({'guide_price': 50000, 'guide_price_upper': 150000}, profile)
+    assert ranged['display'] == '£1,000–£1,500' and ranged['vat'] == label
+    assert ranged['upper'] == total * 1.5
+
+
+def test_all_auctioneer_profiles_hide_internal_vat_uncertainty_without_losing_terms():
+    fees = load_fees()
+    for slug, raw in fees.items():
+        profile = fee_profile(slug, fees)
+        assert profile['basis'] == raw['basis'] and profile['sources'] == raw['sources']
+        assert not any(word in profile['vat_label'].lower() for word in ('confirm', 'unverified'))
+        if raw['vat'].startswith('Including VAT'):
+            assert profile['vat_label'] == raw['vat']
 
 
 def test_card_markup_changes_invalidate_browser_bundles(tmp_path,monkeypatch):
