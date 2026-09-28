@@ -18,19 +18,43 @@
     img.addEventListener('error',fallback);
     if(img.complete&&!img.naturalWidth)fallback();
   });
-  const photos=Array.from(document.querySelectorAll('[data-gallery-src]'));
+  let photos=Array.from(document.querySelectorAll('[data-gallery-src]'));
   if (photos.length) {
     let selected=0;
     const hero=document.querySelector('#gallery-hero'), original=document.querySelector('#gallery-original');
+    const primary=photos[0], position=document.querySelector('#gallery-position');
+    function updateGallery() {
+      photos.forEach((button,i)=>{
+        button.setAttribute('aria-pressed',String(i===selected));
+        button.setAttribute('aria-label',`View image ${i+1}${button===primary?', auctioneer primary photograph':''}`);
+      });
+      position.textContent=`Image ${selected+1} of ${photos.length} · ${photos[selected].dataset.galleryLabel}`;
+      document.querySelector('.gallery-controls').hidden=photos.length<2;
+    }
     function showPhoto(n) {
       selected=(n+photos.length)%photos.length;
       const item=photos[selected];
       hero.src=item.dataset.gallerySrc;hero.alt=item.dataset.galleryLabel;
       original.href=item.dataset.gallerySrc;
-      photos.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===selected)));
-      document.querySelector('#gallery-position').textContent=`Image ${selected+1} of ${photos.length} · ${item.dataset.galleryLabel}`;
+      updateGallery();
     }
-    photos.forEach((button,i)=>button.addEventListener('click',()=>showPhoto(i)));
+    function unavailablePhoto(button) {
+      // A failed optional photograph must not leave a blank gallery slide.
+      // Always preserve the auctioneer's primary selection, even if its host fails.
+      const index=photos.indexOf(button);
+      if(index<0||button===primary)return;
+      const active=photos[selected];
+      photos=photos.filter(photo=>photo!==button);button.remove();
+      if(active===button)showPhoto(Math.min(index,photos.length-1));
+      else{selected=photos.indexOf(active);updateGallery();}
+    }
+    photos.forEach(button=>{
+      button.addEventListener('click',()=>showPhoto(photos.indexOf(button)));
+      const thumbnail=button.querySelector('img');
+      thumbnail.addEventListener('error',()=>unavailablePhoto(button));
+      if(thumbnail.complete&&!thumbnail.naturalWidth)unavailablePhoto(button);
+    });
+    hero.addEventListener('error',()=>unavailablePhoto(photos[selected]));
     document.querySelector('#gallery-previous').addEventListener('click',()=>showPhoto(selected-1));
     document.querySelector('#gallery-next').addEventListener('click',()=>showPhoto(selected+1));
     document.querySelector('.property-gallery').addEventListener('keydown',e=>{

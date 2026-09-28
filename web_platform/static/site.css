@@ -47,6 +47,7 @@
 .auctioneer-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:start}
 .auctioneer-card{background:white;border:1px solid var(--line);border-radius:10px;padding:20px;box-shadow:0 2px 5px #182e4804}
 .auctioneer-card[hidden]{display:none}
+[hidden]{display:none!important}
 .auctioneer-card:hover{border-color:#adc9c2}
 .house-heading{display:flex;gap:12px;align-items:center;min-height:60px;margin-bottom:18px}
 .house-monogram{display:grid;place-items:center;flex:0 0 38px;height:38px;background:#eff3f7;border:1px solid #dee6ed;color:#39526a;border-radius:9px;font-size:.85rem;font-weight:750;letter-spacing:-.02em}
