@@ -1,0 +1,58 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative alternate-source address enrichment",
+  "captured_at_utc": "2026-09-28T13:39:00Z",
+  "source_note": "The saved EIG/Savills appearance describes a freehold detached former school at Seven Springs, Cheltenham, extending to 13,000 square feet on 5.32 acres with residential conversion consent. Historic England identifies the Grade II Sandford School at Coberley, Seven Springs and records that it was formerly Seven Springs House. A Department for Education-derived establishment record and archived planning records give Sandford School's complete postal address as Seven Springs, Cheltenham, Gloucestershire, GL53 9NG. A contractor's project history independently describes the Seven Springs building as a Grade II former school restored after falling into disrepair. These independent features conservatively identify the auction appearance without relying on locality alone.",
+  "source_records": [
+    {
+      "source_url": "https://historicengland.org.uk/listing/the-list/list-entry/1304626",
+      "source_name": "National Heritage List for England",
+      "record_identity": "List entry 1304626",
+      "evidence_excerpt": "Sandford School; Coberley, Seven Springs; formerly known as Seven Springs House, now a school; Grade II."
+    },
+    {
+      "source_url": "https://ukschools.co.uk/school/sandford-school-115819",
+      "source_name": "UK Schools directory sourced from the Department for Education GIAS register",
+      "record_identity": "URN 115819",
+      "evidence_excerpt": "Sandford School; closed; address Seven Springs, Cheltenham, Gloucestershire, GL53 9NG; UPRN 10013392174."
+    },
+    {
+      "source_url": "https://www.landcycle.com/planning-applications/local-authority/Gloucestershire/GL53",
+      "source_name": "Gloucestershire archived planning application index",
+      "record_identity": "03/00078/REGULA and 10/0101/CWREG3",
+      "evidence_excerpt": "Planning records identify Sandford School, Seven Springs, Cheltenham, Gloucestershire, GL53 9NG."
+    },
+    {
+      "source_url": "https://tombsdevelopments.com/portfolio/seven-springs/",
+      "source_name": "Tombs Developments project history",
+      "record_identity": "Seven Springs refurbishment",
+      "evidence_excerpt": "Seven Springs; Grade 2 listed former school restored after falling into disrepair."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "source-corpus/savills_eig_price_order_middle_results_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|17999|lotid-756526",
+      "address": "Sandford School, Seven Springs, Cheltenham, Gloucestershire, GL53 9NG",
+      "address_basis": "conservative_unique_identity_match_across_saved_auction_record_and_independent_address_sources",
+      "source_url": "https://historicengland.org.uk/listing/the-list/list-entry/1304626",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/f78d8d61-f907-40e7-a904-200e088a8c38",
+        "https://historicengland.org.uk/listing/the-list/list-entry/1304626",
+        "https://ukschools.co.uk/school/sandford-school-115819",
+        "https://www.landcycle.com/planning-applications/local-authority/Gloucestershire/GL53",
+        "https://tombsdevelopments.com/portfolio/seven-springs/"
+      ],
+      "evidence_note": "Exact saved Savills/EIG appearance plus four independent alternate-source records agree on the unique former-school identity and complete postal address."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 1,
+  "address_records_added": 1,
+  "partial_records_added": 0,
+  "related_partial_candidates_checked": 3,
+  "ambiguous_candidates_left_unchanged": 2,
+  "historical_completeness_declared": false
+}
