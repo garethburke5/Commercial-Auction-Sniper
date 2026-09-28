@@ -8,5 +8,5 @@ document.querySelector('#property').onclick=()=>document.querySelector('iframe')
 document.querySelector('#calendar').onclick=()=>document.querySelector('iframe').src='../auctions/?viewport-check='+Date.now();
 document.querySelector('#plans').onclick=()=>document.querySelector('iframe').src='../plans/?viewport-check='+Date.now();
 
-document.querySelector('#research').onclick=()=>document.querySelector('iframe').src='../due-diligence/?viewport-check='+Date.now();
+document.querySelector('#research').onclick=()=>document.querySelector('iframe').src='https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app/~/+/?embed=true&view=due-diligence';
 document.querySelector('#glossary').onclick=()=>document.querySelector('iframe').src='../glossary/?viewport-check='+Date.now();
