@@ -113,7 +113,7 @@ def render_review_html(model,standalone=False):
   '<p class="dd-kicker">AUCTION SNIPER / BUYER DUE DILIGENCE</p><h1>'+esc(model['property'])+'</h1>',
   '<p class="dd-muted">Report '+esc(model['report_id'])+' · '+esc(model['created_at'][:10])+' · Evidence review v2</p>',
   '<section id="dd-executive"><h2>Executive summary</h2><p>'+esc(model['summary'])+'</p></section><div class="dd-stats">']
- for n,label in [(cov.get('uploaded_files',cov['files']),'files supplied'),(cov['pages'],'pages processed'),(cov['ocr_pages'],'pages read with OCR'),(cov['unread_pages'],'pages needing visual review')]:out.append('<div class="dd-stat"><b>'+esc(n)+'</b><span>'+label+'</span></div>')
+ for n,label in [(cov.get('uploaded_files',cov['files']),'files supplied'),(cov['pages'],'pages processed'),(cov['ocr_pages'],'pages read with OCR'),(cov['unread_pages'],'pages with unread text')]:out.append('<div class="dd-stat"><b>'+esc(n)+'</b><span>'+label+'</span></div>')
  out.append('</div><p class="dd-callout">'+esc(model['disclaimer'])+'</p>')
  if model['context']:
   out.append('<div class="dd-context">')

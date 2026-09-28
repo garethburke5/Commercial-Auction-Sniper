@@ -89,3 +89,12 @@ def test_private_networks_and_credentials_are_not_download_targets(monkeypatch):
     monkeypatch.setattr('legal_pack_access.socket.getaddrinfo',lambda *a,**kw:[(2,1,6,'',('127.0.0.1',443))])
     for url in ('https://example.com/file.pdf','https://name:secret@example.com/file.pdf'):
         with pytest.raises(ValueError):_public_address(url)
+
+
+def test_local_exports_do_not_execute_document_html_or_use_server_media():
+    from legal_pack_exports import render_report_exports
+    model,_=review([('Lease </script><script>alert(1)</script>.txt','Rent of £35,000 per annum.')])
+    html=render_report_exports(model)
+    assert html.count('</script>')==1 and '<script>alert(1)' not in html
+    assert 'URL.createObjectURL(new Blob' in html and 'media/' not in html
+    assert 'Download readable report (HTML)' in html and 'Save report to reopen (JSON)' in html

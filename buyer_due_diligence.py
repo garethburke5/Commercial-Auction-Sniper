@@ -73,10 +73,9 @@ def render_buyer_due_diligence():
     selected=st.selectbox('Reports in this session',keys,index=keys.index(active) if active in keys else len(keys)-1,format_func=lambda k:reports[k]['property']+' · '+reports[k]['created_at'][:16].replace('T',' '))
     model=reports[selected]
     st.caption('Reports stay available during this session. Download the readable HTML to revisit it offline, or save JSON to reopen here. They are not yet saved to an account.')
-    filename='auction-sniper-'+model['report_id']
-    a,b=st.columns(2)
-    with a:st.download_button('Download readable report (HTML)',render_review_html(model,standalone=True),file_name=filename+'.html',mime='text/html',on_click='ignore')
-    with b:st.download_button('Save report to reopen (JSON)',json.dumps(model,ensure_ascii=False,indent=2),file_name=filename+'.json',mime='application/json',on_click='ignore')
+    from streamlit.components.v1 import html as component_html
+    from legal_pack_exports import render_report_exports
+    component_html(render_report_exports(model),height=110,scrolling=False)
     st.markdown(render_review_html(model),unsafe_allow_html=True)
     originals=st.session_state.get('dd_originals',{}) if selected==st.session_state.get('dd_originals_report') else {}
     if originals:
