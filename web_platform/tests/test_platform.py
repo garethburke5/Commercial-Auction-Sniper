@@ -96,6 +96,8 @@ def test_board_is_the_homepage_and_shares_property_navigation(site):
     pages=dict(site.routes());home=BeautifulSoup(pages['/'],'html.parser')
     assert home.select_one('#property-board')
     assert home.select_one('input[name=q]')
+    assert [o.text for o in home.select('select[name=tenure] option')]==['Any tenure','Freehold','Leasehold','Long Leasehold']
+    assert [o.get('value') for o in home.select('select[name=status] option')]==['','available','unavailable']
     assert 'Open live scanner' not in pages['/']
     assert not home.select('a[href*="streamlit.app"]')
     assets=dict(site.board_assets()); index=json.loads(assets[site.env.globals['board_index']])
@@ -125,3 +127,12 @@ def test_board_json_and_embedded_research_are_served(site):
         response=client.get('/due-diligence/')
         assert response.status_code==200 and 'view=due-diligence' in response.text
         assert 'frame-src https://commercial-auction-sniper' in response.headers['content-security-policy']
+
+
+def test_canonical_tenancy_is_not_replaced_by_the_title_lease():
+    from investment_details import _investment_facts
+    facts,_,_=_investment_facts({'canonical_snapshot':True,'address':'106 High Street, Redcar',
+       'desc':'Held on a 999 year lease. Retail tenant has a 10 year FRI lease.',
+       'lease_term':'10 years','lease_start':'20th August 2019','tenure':'Leasehold'})
+    assert facts['Lease term']=='10 years'
+    assert 'Original lease term' not in facts

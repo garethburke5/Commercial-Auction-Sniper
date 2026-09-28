@@ -471,9 +471,9 @@ def _investment_facts(p):
         f["Legal pack"]="Link found — text not yet extractable"
 
     m=re.search(r"(\d+(?:\.\d+)?)\s*year\s+(?:full\s+repairing\s+and\s+insuring\s+|FRI\s+)?lease",text,re.I)
-    if m: f["Original lease term"]=m.group(1)+" years"
+    if m and not p.get("canonical_snapshot"): f["Original lease term"]=m.group(1)+" years"
     m=re.search(r"(?:lease\s+)?expir(?:y|ing|es)\s*(?:on\s*)?(\d{1,2}[./-]\d{1,2}[./-]\d{2,4}|\d{1,2}\s+[A-Za-z]+\s+\d{4})",text,re.I)
-    if m:
+    if m and not p.get("canonical_snapshot"):
         expiry=m.group(1); f["Lease expiry"]=expiry; yrs=_remaining_years(expiry)
         if yrs is not None:
             f["Term remaining"]=f"{yrs:.1f} years"; f["_remaining_years"]=yrs
