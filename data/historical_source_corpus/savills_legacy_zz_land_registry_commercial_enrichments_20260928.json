@@ -1,0 +1,73 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative alternate-source address enrichment",
+  "captured_at_utc": "2026-09-28T15:13:50Z",
+  "source_note": "Three addressless Savills legacy commercial appearances were matched to HM Land Registry price-paid records using the saved auction date, exact hammer price, locality/postcode district and commercial property class. Each match is the sole same-price transaction surfaced in the matching locality and completes after the auction. No locality-only or approximate-price match was admitted; the original Savills/PropertyAuctions evidence and every auction appearance remain unchanged.",
+  "source_records": [
+    {
+      "source_url": "https://www.rightmove.co.uk/house-prices/kt18-7rl.html",
+      "source_name": "HM Land Registry Price Paid Data via Rightmove",
+      "record_identity": "7A West Street, Epsom, KT18 7RL",
+      "evidence_excerpt": "The Land Registry-derived record identifies the freehold transaction at 7A West Street, Epsom KT18 7RL for £294,000 on 30 April 2014."
+    },
+    {
+      "source_url": "https://www.rightmove.co.uk/house-prices/e13-8bd.html",
+      "source_name": "HM Land Registry Price Paid Data via Rightmove",
+      "record_identity": "61 Chesterton Road, Plaistow, London, E13 8BD",
+      "evidence_excerpt": "The Land Registry-derived record identifies the freehold transaction at 61 Chesterton Road, London E13 8BD for £545,000 on 18 June 2014."
+    },
+    {
+      "source_url": "https://www.doogal.co.uk/ShowMap?postcode=ST1+5NH",
+      "source_name": "HM Land Registry Price Paid Data via Doogal",
+      "record_identity": "The Abattoir, Etruria Road, Stoke-on-Trent, ST1 5NH",
+      "evidence_excerpt": "The Land Registry-derived postcode record identifies The Abattoir, Etruria Road, Stoke-on-Trent ST1 5NH as an Other/freehold property sold for £519,000 in August 2014."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "savills/legacy-902",
+      "target_appearance_id": "Savills Auctions|propertyauctions:902|55",
+      "address": "7A West Street, Epsom, KT18 7RL",
+      "address_basis": "conservative_exact_price_locality_and_post_auction_completion_match",
+      "source_url": "https://www.rightmove.co.uk/house-prices/kt18-7rl.html",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=902",
+        "https://www.rightmove.co.uk/house-prices/kt18-7rl.html"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 902 lot 55 is a retail property in Epsom sold for exactly £294,000 on 24 March 2014. The Land Registry-derived record identifies 7A West Street as the Epsom freehold completing for exactly £294,000 on 30 April 2014; no competing same-price Epsom completion was found in the relevant period."
+    },
+    {
+      "target_shard": "savills/legacy-912",
+      "target_appearance_id": "Savills Auctions|propertyauctions:912|163",
+      "address": "61 Chesterton Road, Plaistow, London, E13 8BD",
+      "address_basis": "conservative_exact_price_postcode_district_and_post_auction_completion_match",
+      "source_url": "https://www.rightmove.co.uk/house-prices/e13-8bd.html",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=912",
+        "https://www.rightmove.co.uk/house-prices/e13-8bd.html"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 912 lot 163 is an office property in London E13 sold for exactly £545,000 on 16 June 2014. The Land Registry-derived record identifies 61 Chesterton Road, E13 8BD completing for exactly £545,000 two days later on 18 June 2014; no competing same-price E13 completion was found in the relevant period."
+    },
+    {
+      "target_shard": "savills/legacy-912",
+      "target_appearance_id": "Savills Auctions|propertyauctions:912|197",
+      "address": "The Abattoir, Etruria Road, Stoke-on-Trent, ST1 5NH",
+      "address_basis": "conservative_exact_price_locality_commercial_class_and_post_auction_completion_match",
+      "source_url": "https://www.doogal.co.uk/ShowMap?postcode=ST1+5NH",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=912",
+        "https://www.doogal.co.uk/ShowMap?postcode=ST1+5NH"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 912 lot 197 is a commercial retail property in Stoke-on-Trent sold for exactly £519,000 on 16 June 2014. The Land Registry-derived record identifies The Abattoir, Etruria Road as an Other/freehold Stoke-on-Trent transaction for exactly £519,000 in August 2014; it is the unique same-price commercial-class completion surfaced in the locality and period."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 3,
+  "address_records_added": 3,
+  "partial_records_added": 0,
+  "related_partial_candidates_checked": 9,
+  "ambiguous_candidates_left_unchanged": 6,
+  "historical_completeness_declared": false
+}
