@@ -67,15 +67,17 @@ def render_buyer_due_diligence():
                 st.success('Saved report reopened. It reflects the files and date recorded in that report.')
             except Exception as exc:st.error(str(exc))
     reports=st.session_state.get('dd_reports',{})
-    if not reports:return
+    if not reports:
+        from legal_pack_exports import render_report_exports
+        st.iframe(render_report_exports(),height='content')
+        return
     st.divider();st.markdown('#### 2. Read and keep your report')
     keys=list(reports);active=st.session_state.get('dd_active_report',keys[-1])
     selected=st.selectbox('Reports in this session',keys,index=keys.index(active) if active in keys else len(keys)-1,format_func=lambda k:reports[k]['property']+' · '+reports[k]['created_at'][:16].replace('T',' '))
     model=reports[selected]
-    st.caption('Reports stay available during this session. Download the readable HTML to revisit it offline, or save JSON to reopen here. They are not yet saved to an account.')
-    from streamlit.components.v1 import html as component_html
+    st.caption('Reports stay available during this session. Download the readable HTML to revisit it offline, or save JSON to reopen here. You can also keep a private copy in this browser using Keep report on this device. Reports are not yet saved to an account.')
     from legal_pack_exports import render_report_exports
-    component_html(render_report_exports(model),height=110,scrolling=False)
+    st.iframe(render_report_exports(model),height='content')
     st.markdown(render_review_html(model),unsafe_allow_html=True)
     originals=st.session_state.get('dd_originals',{}) if selected==st.session_state.get('dd_originals_report') else {}
     if originals:
