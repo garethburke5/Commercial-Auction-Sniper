@@ -204,7 +204,15 @@
   ],
   "errors": [],
   "checked_at": "2026-09-28T06:53:28.195903+00:00",
-  "detail_rows_enriched": 0,
-  "detail_rows_remaining": 178,
-  "detail_enrichment_complete": false
+  "detail_rows_enriched": 177,
+  "detail_rows_remaining": 1,
+  "detail_enrichment_complete": false,
+  "detail_enrichment_errors": [
+    {
+      "appearance_id": "Clive Emson|clive-emson:252|176",
+      "url": "https://www.cliveemson.co.uk/properties/252/176/",
+      "error": "ValueError: detail date '2024-10-03' does not match '2024-09-18'"
+    }
+  ],
+  "detail_enrichment_checked_at": "2026-09-28T09:24:40.625148+00:00"
 }
