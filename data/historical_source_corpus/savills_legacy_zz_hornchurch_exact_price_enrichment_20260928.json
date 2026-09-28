@@ -1,0 +1,44 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative alternate-source address enrichment",
+  "captured_at_utc": "2026-09-28T16:22:00Z",
+  "source_note": "One addressless Savills legacy commercial appearance was matched conservatively across the saved auction identity, auction date, exact hammer price, locality/postcode district, freehold office class and post-auction HM Land Registry completion. The EIG auction record describes a substantial three-storey freehold office and car park in Hornchurch RM11 sold for exactly £1,910,000 on 28 October 2014. The unique Land Registry-derived RM11 1QZ record is Pioneer House, North Street, completing for exactly £1,910,000 on 28 November 2014. Other same-price candidates checked in this pass were left unchanged where identity was ambiguous. The original Savills/PropertyAuctions evidence and every auction appearance remain preserved.",
+  "source_records": [
+    {
+      "source_url": "https://www.eigpropertyauctions.co.uk/search/full-auction-details/17999?order=7&page=5&view=1",
+      "source_name": "Essential Information Group historical auction results",
+      "record_identity": "Hornchurch, Essex, RM11; substantial freehold office",
+      "evidence_excerpt": "The 28 October 2014 Savills auction record identifies a substantial three-storey freehold office with car park in Hornchurch RM11, sold for £1,910,000, with income of £117,500."
+    },
+    {
+      "source_url": "https://www.doogal.co.uk/ShowMap?postcode=RM11+1QZ",
+      "source_name": "HM Land Registry Price Paid Data via Doogal",
+      "record_identity": "Pioneer House, North Street, Hornchurch, RM11 1QZ",
+      "evidence_excerpt": "The Land Registry-derived postcode record identifies Pioneer House, North Street, Hornchurch RM11 1QZ as the freehold property sold for £1,910,000 in November 2014."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "savills/legacy-920",
+      "target_appearance_id": "Savills Auctions|propertyauctions:920|97",
+      "address": "Pioneer House, North Street, Hornchurch, RM11 1QZ",
+      "address_basis": "conservative_exact_price_date_postcode_district_commercial_class_and_post_auction_completion_match",
+      "source_url": "https://www.eigpropertyauctions.co.uk/search/full-auction-details/17999?order=7&page=5&view=1",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=920",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/17999?order=7&page=5&view=1",
+        "https://www.doogal.co.uk/ShowMap?postcode=RM11+1QZ"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 920 lot 97 is an investment freehold office in Hornchurch, Essex sold for exactly £1,910,000 on 28 October 2014. EIG independently records the same auction date, locality/postcode district, exact result and a substantial three-storey freehold office with car park. The sole Land Registry-derived RM11 1QZ transaction identifies Pioneer House, North Street completing for exactly £1,910,000 on 28 November 2014."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 1,
+  "address_records_added": 1,
+  "partial_records_added": 0,
+  "related_partial_candidates_checked": 12,
+  "ambiguous_candidates_left_unchanged": 11,
+  "historical_completeness_declared": false
+}
