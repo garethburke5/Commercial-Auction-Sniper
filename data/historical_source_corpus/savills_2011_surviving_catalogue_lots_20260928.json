@@ -1,0 +1,49 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "captured_at_utc": "2026-09-28T05:28:00Z",
+  "capture_mode": "surviving_catalogue_lot_pages",
+  "scope": "Two individually identifiable 2011 Savills residential appearances recovered from surviving one-page copies of the original legacy Savills catalogue lot pages. These are lot-level captures only; neither underlying auction catalogue is declared complete.",
+  "source_diagnostic": "data/source_diagnostics/savills_2011_archive_checkpoint_20260915.json",
+  "source_repository_commit": "https://github.com/crappistmartin/crappistmartin.github.io/commit/c56dda87ed02f15e5de8d4ac6315f63638e4767e",
+  "lots": [
+    {
+      "source_record_id": "savills-national-2011-02-14-lot76",
+      "source_auction_id": "savills-national-2011-02-14",
+      "auction_date": "2011-02-14",
+      "lot_number": "76",
+      "address": "16 Lanbury Road, Nunhead, London SE15 3DB",
+      "property_type": "Vacant three-bedroom end-of-terrace house requiring modernisation",
+      "tenure": "Freehold",
+      "result_status": "sold prior",
+      "source_url": "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/lanburyroad.pdf",
+      "source_urls": [
+        "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/lanburyroad.pdf",
+        "https://crappistmartin.github.io/images/lanburyroad.pdf"
+      ],
+      "source_document_sha256": "c1e33f2e426afb3b49fc130112921506c681328c200f9a88745c8f7d868c4d64",
+      "notes": "Surviving Savills catalogue lot page states Monday 14 February 2011, lot 76, Result: Sold Prior, the full address, Freehold tenure and vacant residential description. By Order of The London Borough of Southwark."
+    },
+    {
+      "source_record_id": "savills-national-2011-07-25-lot65",
+      "source_auction_id": "savills-national-2011-07-25",
+      "auction_date": "2011-07-25",
+      "lot_number": "65",
+      "address": "61 Cobourg Road, Camberwell, London SE5 0HU",
+      "property_type": "Vacant Grade II Listed three-storey semi-detached house requiring upgrading",
+      "tenure": "Freehold",
+      "result_price_gbp": 404000,
+      "result_status": "sold",
+      "source_url": "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/cobourgroad.pdf",
+      "source_urls": [
+        "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/cobourgroad.pdf",
+        "https://crappistmartin.github.io/images/cobourgroad.pdf"
+      ],
+      "source_document_sha256": "3fa4b96de9ecba707155f229c6c7b215d4059ca016f0316d964a9298b39e6d4b",
+      "notes": "Surviving Savills catalogue lot page states Monday 25 July 2011, lot 65, Sold: £404,000, the full address, Freehold tenure and vacant residential description. By Order of Southwark Council."
+    }
+  ],
+  "catalogue_complete": false,
+  "historical_completeness_declared": false
+}
