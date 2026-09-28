@@ -250,6 +250,28 @@ def collection_summary(auctions):
     }
 
 
+def synchronize_detail_states(auctions):
+    """Keep per-auction detail counts aligned with the canonical shards.
+
+    Another evidenced source can fill an address (for example an official
+    addendum after a detail URL disappears), so state must be derived from the
+    shard rather than only from the most recent detail-page request batch.
+    """
+    for auction in auctions:
+        shard = corpus.DATA / "appearances/clive-emson" / f"{auction['auction_id']}.jsonl.gz"
+        state_file = state_path(auction["auction_id"])
+        if not shard.exists() or not state_file.exists():
+            continue
+        rows = list(corpus.iter_rows(shard))
+        state = json.loads(state_file.read_text())
+        state["detail_rows_enriched"] = sum(bool(row.get("address")) for row in rows)
+        state["detail_rows_remaining"] = sum(not bool(row.get("address")) for row in rows)
+        state["detail_enrichment_complete"] = not state["detail_rows_remaining"]
+        if state["detail_enrichment_complete"]:
+            state["detail_enrichment_errors"] = []
+        corpus.save_json(state_file, state)
+
+
 def detail_fields(raw, expected_auction_id, expected_lot, expected_date):
     """Parse one official lot page, refusing cross-auction or guessed identity."""
     soup = BeautifulSoup(raw, "html.parser")
@@ -367,6 +389,7 @@ def enrich_auction(auction_id, workers=4):
     corpus.save_json(state_file, state)
     index_url, index_raw = get(session(), INDEX)
     auctions = discover(index_raw)
+    synchronize_detail_states(auctions)
     summary = collection_summary(auctions)
     summary.update({"run_detail_rows_enriched": enriched, "run_detail_failures": failures})
     corpus.save_json(corpus.DATA / "clive_emson_collection.json", summary)

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Clive Emson",
+  "capture_scope": "exact address enrichment from first-party auction addendum",
+  "source_url": "https://www.cliveemson.co.uk/auc245/legals/Online011123.pdf",
+  "source_excerpt": "LOT 96 - THE SIGNAL HOUSE, EVESHAM RAILWAY STATION, HIGH ST, EVESHAM, WORCESTERSHIRE",
+  "appearance_enrichments": [
+    {
+      "target_shard": "clive-emson/245",
+      "target_appearance_id": "Clive Emson|clive-emson:245|96",
+      "address": "The Signal House, Evesham Railway Station, High St, Evesham, Worcestershire",
+      "source_url": "https://www.cliveemson.co.uk/auc245/legals/Online011123.pdf",
+      "address_basis": "explicit full premise in official auction addendum",
+      "evidence_note": "Official Clive Emson 1 November 2023 auction addendum explicitly identifies Lot 96. The old lot-detail URL now redirects to the current catalogue, so no postcode is inferred."
+    }
+  ]
+}
