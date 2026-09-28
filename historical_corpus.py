@@ -608,14 +608,19 @@ def build_database():
     DATA.mkdir(parents=True, exist_ok=True)
     with (DATA / ".build.lock").open("w") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
-        return _build_database()
+        try:
+            return _build_database()
+        finally:
+            for stale in DATA.glob(".auction-history-*.sqlite"):
+                stale.unlink(missing_ok=True)
 
 
 def _build_database():
     target = DATA / "auction_history.sqlite"
-    temp = target.with_suffix(".sqlite.tmp")
-    if temp.exists():
-        temp.unlink()
+    # Do not reuse a fixed SQLite staging inode. Overlay filesystems can retain
+    # a bad page-cache state after an interrupted build; a unique database also
+    # makes the atomic replacement boundary unambiguous.
+    temp = DATA / f".auction-history-{time.time_ns()}-{threading.get_ident()}.sqlite"
     con = sqlite3.connect(temp)
     con.executescript("""
         CREATE TABLE appearances (appearance_id TEXT PRIMARY KEY, auctioneer TEXT NOT NULL,

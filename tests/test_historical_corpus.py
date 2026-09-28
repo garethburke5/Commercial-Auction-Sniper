@@ -45,6 +45,7 @@ def test_repeat_appearances_survive_and_neighbouring_units_do_not_merge(tmp_path
     assert report["individual_lot_records_captured"] == 3
     assert report["exact_address_groups"] == 2
     assert report["groups_with_repeat_appearances"] == 1
+    assert not list(tmp_path.glob(".auction-history-*.sqlite"))
 
 
 def test_partial_lots_do_not_create_fictitious_properties(tmp_path, monkeypatch):

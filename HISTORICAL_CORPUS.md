@@ -11,6 +11,7 @@ python historical_corpus.py bank-legacy
 python historical_corpus.py harvest-savills
 python historical_corpus.py harvest-paul-fosh
 python historical_allsop.py --workers 1
+python scripts/harvest_acuitus_canonical.py --all-incomplete
 python historical_corpus.py build
 ```
 
@@ -30,6 +31,12 @@ catalogue's paginated public search results, prioritising commercial catalogues
 while retaining residential lots. Stable auction/lot UUIDs preserve repeat
 appearances. Explicit test rows, lot-zero dividers and future auctions are not
 admitted; raw page snapshots and per-auction count reconciliation are saved.
+
+Acuitus collection uses the first-party results selector and requests the full
+published card set rather than the site's 128-row default. It resumes only years
+with a newly discovered or unreconciled sale, while an explicit `--year` remains
+available for a source refresh. Earliest broken generic property links retain the
+auction-date-plus-lot identity and archive evidence instead of inventing an ID.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including

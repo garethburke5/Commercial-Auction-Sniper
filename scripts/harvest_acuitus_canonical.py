@@ -31,6 +31,18 @@ def commercial_sector(text):
     if re.search(r'land|site|development',t):return 'land'
     return 'unknown'
 
+def all_results_request(auction):
+    """Return an isolated request that asks Acuitus for the full result set.
+
+    The public archive defaults to 128 cards.  At least one historical sale has
+    more lots than that, so relying on the default silently leaves a final page
+    unbanked even though the published count correctly exposes the mismatch.
+    """
+    request=dict(auction)
+    request['base_fields']=dict(auction.get('base_fields') or {})
+    request['base_fields']['perpage']='1000'
+    return request
+
 def parse_results(soup,date,evidence):
     text=soup.get_text(' ',strip=True)
     match=re.search(r'(\d+)\s*[-–]\s*(\d+)\s+of\s+(\d+)\s+properties',text,re.I)
@@ -42,18 +54,26 @@ def parse_results(soup,date,evidence):
         kind=card.select_one('.proplist-sector')
         result=card.select_one('.proplist-grid-status')
         if not address or not result:continue
-        pid=re.search(r'/property/(\d+)/?',card.get('href',''))
-        if not pid:continue
         fields={dt.get_text(' ',strip=True).rstrip('*†').strip():dt.find_next('dd').get_text(' ',strip=True) for dt in result.find_all('dt') if dt.find_next('dd')}
+        card_href=card.get('href','')
+        pid=re.search(r'/property/(\d+)/?',card_href)
+        # Watch-list controls can wrap address/status fragments but are not lot
+        # cards. A broken generic property link is admissible only when the
+        # card itself still publishes both the auction date and lot number.
+        if not pid and not (fields.get('Auction') and fields.get('Lot')):continue
         published=fields.get('Auction','')
         expected='/'.join(reversed(date.split('-')))
         if published!=expected:raise ValueError(f'Result belongs to {published}, expected {expected}')
         lot=fields.get('Lot')
         if not lot:raise ValueError('Identifiable property has no published lot number')
-        source_id=pid.group(1)
+        # Some earliest cards survive with a broken generic /property/ link.
+        # Date + published lot remains a stable appearance identity; retain the
+        # broken href as evidence without inventing a numeric property ID.
+        source_id=pid.group(1) if pid else 'lot-'+lot
         if source_id in seen:raise ValueError('Repeated source lot on result page')
         seen.add(source_id)
-        url=card['href'];row=corpus.base_row('Acuitus','acuitus:'+date,date,lot,source_id,url)
+        url=card_href if pid else evidence.get('source_url') or card_href
+        row=corpus.base_row('Acuitus','acuitus:'+date,date,lot,source_id,url)
         address_text=', '.join(address.stripped_strings)
         sector_text=kind.get_text(' ',strip=True) if kind else ''
         status=fields.get('Status','unknown').lower()
@@ -69,9 +89,10 @@ def parse_results(soup,date,evidence):
             if len(values)>1:row['guide_price_high']=corpus.money(values[1])
         img=card.find('img',src=True)
         if img:row['image_urls']=[img['src']]
+        if not pid:row['source_card_href']=card_href
         rows.append(row)
-    # Current perpage=128 covers these selected catalogues. Refuse to claim a
-    # paginated/changed larger catalogue complete; preserve its observed rows.
+    # Refuse to claim a paginated/changed larger catalogue complete; preserve
+    # its observed rows. all_results_request currently asks for up to 1,000.
     complete=start==1 and end==total and len(rows)==total
     return rows,total,complete
 
@@ -109,7 +130,12 @@ class Bank:
     def flush(self):
         for path,rows in self.changed.items():
             key=str(path.relative_to(corpus.DATA/'appearances'))[:-9]
-            corpus.write_rows(key,list(rows.values()))
+            # A reconciliation retry can add a previously hidden final page or
+            # enrich only some existing rows. Preserve the rest of the shard;
+            # write_rows intentionally replaces its target atomically.
+            merged={row['appearance_id']:row for row in corpus.iter_rows(path)} if path.exists() else {}
+            merged.update(rows)
+            corpus.write_rows(key,list(merged.values()))
         self.changed.clear()
 
 
@@ -143,6 +169,34 @@ def bank_saved_allsop(bank):
         if admitted:corpus.save_gzip(evidence,{'origin_file':str(path.relative_to(corpus.ROOT)),'payload':payload})
     bank.flush()
 
+def incomplete_years(auctions):
+    """Return only years containing a discovered, unreconciled Acuitus sale."""
+    years=set()
+    for auction in auctions:
+        date=auction['auction_date']
+        state_path=corpus.DATA/'auctions/commercial-expansion'/('acuitus-'+date+'.json')
+        try: complete=bool(json.loads(state_path.read_text()).get('catalogue_complete'))
+        except (OSError,ValueError,TypeError): complete=False
+        if not complete:years.add(int(date[:4]))
+    return sorted(years)
+
+def collection_summary(auctions):
+    states={}
+    for path in (corpus.DATA/'auctions/commercial-expansion').glob('acuitus-*.json'):
+        try:
+            state=json.loads(path.read_text())
+            if state.get('auction_date'):states[state['auction_date']]=state
+        except (OSError,ValueError,TypeError):continue
+    dates=sorted(a['auction_date'] for a in auctions)
+    incomplete=[date for date in dates if not states.get(date,{}).get('catalogue_complete')]
+    selected=[states[date] for date in dates if date in states]
+    return {'checked_at':corpus.now(),'auctions_discovered':len(dates),'catalogue_states_present':len(selected),
+        'catalogues_complete':sum(bool(s.get('catalogue_complete')) for s in selected),
+        'published_lot_rows':sum(int(s.get('expected_public_results') or 0) for s in selected),
+        'captured_lot_rows':sum(int(s.get('lots_captured') or 0) for s in selected),
+        'incomplete_auction_dates':incomplete,'first_auction_date':dates[0] if dates else None,
+        'last_auction_date':dates[-1] if dates else None,'complete':bool(dates) and not incomplete}
+
 def harvest(year):
     baseline=json.loads((corpus.DATA/'progress.json').read_text());bank=Bank();bank_saved_allsop(bank)
     session=_session();auctions=[a for a in discover_auctions(session) if a['auction_date'].startswith(str(year)+'-')]
@@ -151,7 +205,7 @@ def harvest(year):
     for auction in auctions:
         date=auction['auction_date'];key='commercial-expansion/acuitus-'+date
         try:
-            url,soup=fetch_auction_page(session,auction);raw=str(soup).encode()
+            url,soup=fetch_auction_page(session,all_results_request(auction));raw=str(soup).encode()
             snapshot=corpus.DATA/'sources/commercial-expansion'/('acuitus-'+date+'-'+corpus.digest(raw)[:16]+'.json.gz')
             evidence={'source_url':url,'request_method':auction['form_method'],'request_auction_id':auction['select_value'],
                 'snapshot_path':str(snapshot.relative_to(corpus.ROOT)),'sha256':corpus.digest(raw),'retrieved_at':corpus.now()}
@@ -179,4 +233,17 @@ def harvest(year):
     if errors:raise SystemExit(1)
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--year',type=int,default=2021);harvest(p.parse_args().year)
+    p=argparse.ArgumentParser()
+    mode=p.add_mutually_exclusive_group(required=True)
+    mode.add_argument('--year',type=int)
+    mode.add_argument('--all-incomplete',action='store_true')
+    args=p.parse_args()
+    if args.all_incomplete:
+        auctions=discover_auctions(_session())
+        years=incomplete_years(auctions)
+        print('ACUITUS_PENDING_YEARS',years,flush=True)
+        for year in years:harvest(year)
+        summary=collection_summary(auctions)
+        corpus.save_json(corpus.DATA/'acuitus_collection.json',summary)
+        print('ACUITUS_COLLECTION',json.dumps(summary,sort_keys=True),flush=True)
+    else:harvest(args.year)
