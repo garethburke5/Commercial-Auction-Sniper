@@ -432,13 +432,16 @@ def bank_source_corpus():
     source_paths.extend(path for path in diagnostic_sources if path.exists())
     array_names = ("lot_records", "lots", "properties", "property_records", "accepted_rows")
     total = 0
+    enriched = 0
     for source_path in source_paths:
         try:
             payload = json.loads(source_path.read_text())
         except (OSError, json.JSONDecodeError):
             continue
-        lot_rows = next((payload.get(k) for k in array_names if isinstance(payload.get(k), list)), None)
-        if not lot_rows:
+        lot_rows = next((payload.get(k) for k in array_names if isinstance(payload.get(k), list)), None) or []
+        enrichment_rows = payload.get("appearance_enrichments")
+        enrichment_rows = enrichment_rows if isinstance(enrichment_rows, list) else []
+        if not lot_rows and not enrichment_rows:
             continue
         payload_auctioneer = clean(payload.get("auctioneer")) or None
         original = source_path.read_bytes()
@@ -471,6 +474,7 @@ def bank_source_corpus():
             row = base_row(auctioneer, "source-corpus:" + auction_id, date, lot or "unknown",
                            source_id or identity, url)
             row["appearance_id"] = "source-corpus|" + identity
+            row["auction_period"] = period
             row.update(
                 address=address, locality=clean(raw.get("locality")) or None,
                 property_type=plain(raw.get("property_type") or raw.get("description")),
@@ -503,7 +507,56 @@ def bank_source_corpus():
             rows.append(row)
         if rows:
             total += write_rows("source-corpus/" + source_path.stem, rows)
+        for enrichment in enrichment_rows:
+            if not isinstance(enrichment, dict):
+                continue
+            target = clean(enrichment.get("target_appearance_id"))
+            target_shard = clean(enrichment.get("target_shard"))
+            address = plain(enrichment.get("address"))
+            target_path = Path(target_shard)
+            if (not target or not re.fullmatch(r"[A-Za-z0-9_./-]+", target_shard) or
+                    target_path.is_absolute() or ".." in target_path.parts or not address):
+                raise ValueError(f"Invalid appearance enrichment in {source_path}")
+            shard = DATA / "appearances" / (target_shard + ".jsonl.gz")
+            if not shard.exists():
+                raise ValueError(f"Missing target shard for enrichment: {target_shard}")
+            target_rows = list(iter_rows(shard))
+            matches = [row for row in target_rows if row.get("appearance_id") == target]
+            if len(matches) != 1:
+                raise ValueError(f"Appearance enrichment target count {len(matches)} for {target}")
+            row = matches[0]
+            existing = plain(row.get("address"))
+            if existing and existing.casefold() != address.casefold():
+                raise ValueError(f"Conflicting address enrichment for {target}: {existing!r} vs {address!r}")
+            if not existing:
+                row["address"] = address
+                row["record_quality"] = "address_record"
+                row["address_basis"] = clean(enrichment.get("address_basis")) or "explicit_numbered_premise_in_saved_source"
+                postcode = clean(enrichment.get("postcode"))
+                if not postcode and (match := PC.search(address)):
+                    postcode = match.group().upper()
+                if postcode:
+                    if not PC.fullmatch(postcode):
+                        raise ValueError(f"Invalid postcode enrichment for {target}: {postcode}")
+                    row["postcode"] = postcode.upper()
+                enriched += 1
+            urls = enrichment.get("source_urls") if isinstance(enrichment.get("source_urls"), list) else []
+            evidence = {
+                "source_url": clean(enrichment.get("source_url") or (urls[0] if urls else "")),
+                "source_urls": urls,
+                "snapshot_path": str(snapshot.relative_to(ROOT)),
+                "origin_file": str(source_path.relative_to(ROOT)),
+                "origin_sha256": digest(original),
+                "evidence_note": plain(enrichment.get("evidence_note")),
+            }
+            evidence = {key: value for key, value in evidence.items() if value not in (None, "", [])}
+            previous = row.get("address_enrichment_evidence")
+            previous = previous if isinstance(previous, list) else []
+            if evidence not in previous:
+                row["address_enrichment_evidence"] = previous + [evidence]
+            write_rows(target_shard, target_rows)
     print("SOURCE_CORPUS_LOTS_BANKED", total, flush=True)
+    print("SOURCE_CORPUS_APPEARANCES_ENRICHED", enriched, flush=True)
     return total
 
 

@@ -88,6 +88,12 @@ rows are real partial lot records, not full-address properties. Their auctions
 remain unreconciled until original completeness can be established. An unavailable
 source or a failed parser is a failure, never zero properties successfully harvested.
 
+Saved source-corpus shards may also enrich one exact appearance by its immutable
+appearance ID. Enrichment fills a missing address only, rejects conflicting text,
+and appends the source snapshot and hash without replacing the lot's original
+result-grid evidence. It does not create a duplicate appearance or imply catalogue
+completeness.
+
 The older `data/property_history.json` has known date, classification and matching
 issues. It remains intact. Do not add its count to this corpus: it overlaps with
 this collection and must be reconciled source by source before import.

@@ -88,3 +88,30 @@ def test_withdrawn_lot_without_number_is_still_banked():
     assert rows[0]["status"] == "withdrawn"
     assert rows[0]["auction_date"] == "2026-07-30"
     assert rows[0]["source_lot_id"] == "edaa1ac0-0424-41c2-8f6e-ad3e114b7601"
+
+
+def test_source_corpus_enriches_exact_appearance_without_duplication(tmp_path, monkeypatch):
+    monkeypatch.setattr(h, "ROOT", tmp_path)
+    monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")
+    row = h.base_row("Savills Auctions", "propertyauctions:973", "2015-11-02", "52", None,
+                     "https://www.propertyauctions.com/Results/LotList.aspx?AID=973")
+    row.update(locality="London SE1", record_quality="partial_lot")
+    h.write_rows("savills/legacy-973", [row])
+    corpus = tmp_path / "data/historical_source_corpus"
+    corpus.mkdir(parents=True)
+    (corpus / "test.json").write_text(json.dumps({
+        "appearance_enrichments": [{
+            "target_shard": "savills/legacy-973",
+            "target_appearance_id": row["appearance_id"],
+            "address": "122 Fort Road, London SE1 5PT",
+            "source_url": "https://example.test/sav52.pdf",
+        }]
+    }))
+
+    assert h.bank_source_corpus() == 0
+    enriched = list(h.iter_rows(h.DATA / "appearances/savills/legacy-973.jsonl.gz"))
+    assert len(enriched) == 1
+    assert enriched[0]["address"] == "122 Fort Road, London SE1 5PT"
+    assert enriched[0]["postcode"] == "SE1 5PT"
+    assert enriched[0]["record_quality"] == "address_record"
+    assert enriched[0]["address_enrichment_evidence"][0]["source_url"].endswith("sav52.pdf")
