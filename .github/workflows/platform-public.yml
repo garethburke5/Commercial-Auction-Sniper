@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['web_platform/**', 'investment_details.py', 'property_summary.py', 'board_presentation.py', 'buyer_due_diligence.py', '.github/workflows/platform-public.yml']
+    paths: ['web_platform/**', 'investment_details.py', 'property_summary.py', 'board_presentation.py', 'buyer_due_diligence.py', 'legal_pack_*.py', 'packages.txt', 'tests/test_legal_pack*.py', '.github/workflows/platform-public.yml']
   workflow_run:
     workflows: ['Auction Sniper Publish Now', 'Auction Sniper Scan', 'Historical lot corpus collection', 'Commercial history expansion', 'Property gallery and fee evidence']
     types: [completed]
@@ -29,8 +29,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install -r web_platform/requirements.txt pytest beautifulsoup4 requests lxml
-      - run: python -m pytest web_platform/tests -q
+      - run: pip install -r web_platform/requirements.txt pytest beautifulsoup4 requests lxml pypdf python-docx openpyxl
+      - run: python -m pytest web_platform/tests tests/test_legal_pack_engine.py tests/test_legal_pack_report.py tests/test_legal_pack_ingest.py tests/test_legal_pack_service.py tests/test_legal_pack_review.py tests/test_legal_evidence_provenance.py -q
       - uses: actions/configure-pages@v5
         id: pages
       - run: python -m web_platform.export --output public-dist --origin "$SITE_ORIGIN"

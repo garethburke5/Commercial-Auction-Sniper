@@ -121,7 +121,7 @@ class Site:
         yield '/privacy/',self.page('/privacy/','Privacy and cookies','privacy',
             'How the public Auction Sniper website handles browsing data and external links.')
         yield '/due-diligence/',self.page('/due-diligence/','Buyer due diligence','due-diligence',
-            'Read your downloaded legal-pack documents with the Auction Sniper analysis workflow.',noindex=True)
+            'Review legal-pack evidence, prioritise questions for your solicitor and save a readable report.',noindex=True)
         yield '/plans/',self.page('/plans/','Useful for free. Deeper when you need it.','plans',
             'Commercial auction search stays free. Explore the planned Premium tools, property reports and professional services.')
 

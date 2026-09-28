@@ -62,10 +62,19 @@
     });
   }
   const research=document.querySelector('#open-research');
-  if (research) research.addEventListener('click',()=>{
-    const frame=document.querySelector('#research-frame');
-    frame.src=research.dataset.src;frame.hidden=false;research.remove();
-  });
+  if (research) {
+    const property=new URLSearchParams(location.search).get('property');
+    const source=new URL(research.dataset.src),full=document.querySelector('#research-fullscreen');
+    if(property&&/^[a-f0-9]{20}$/.test(property)){
+      source.searchParams.set('property',property);
+      const direct=new URL(full.href);direct.searchParams.set('property',property);full.href=direct;
+    }
+    research.addEventListener('click',()=>{
+      const frame=document.querySelector('#research-frame');
+      frame.src=source.href;frame.hidden=false;research.remove();
+    });
+    if(property&&/^[a-f0-9]{20}$/.test(property))research.click();
+  }
   const houseSearch=document.querySelector('#auctioneer-search');
   if (houseSearch) {
     const currentOnly=document.querySelector('#auctioneer-current');

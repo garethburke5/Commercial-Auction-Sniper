@@ -25,9 +25,13 @@ class DueDiligenceReport:
  def to_dict(self): return asdict(self)
 DOC_PATTERNS={DocType.SPECIAL_CONDITIONS:("special condition",),DocType.CPSE1:("cpse 1","cpse1"),DocType.CPSE2:("cpse 2","cpse2"),DocType.EPC:("epc","energy performance"),DocType.VAT:("vat","option to tax","ott"),DocType.COURT:("court","consent order","judgment","drafting in dispute"),DocType.ASBESTOS:("asbestos",),DocType.HEALTH_SAFETY:("health & safety","health _ safety","risk assessment"),DocType.ENVIRONMENTAL:("sitesolutions","environmental"),DocType.ARREARS:("arrears","payment history"),DocType.TENANCY_SCHEDULE:("tenancy schedule",),DocType.TITLE_REGISTER:("official copy (register)","register - cym","title register"),DocType.TITLE_PLAN:("title plan",),DocType.TRANSFER:("tp1","transfer of part"),DocType.LEASE:("lease",),DocType.SEARCH:("search","land charges","water and drainage","chancel")}
 def classify_document(name,text=""):
- h=(name+" "+text[:1200]).lower()
- for k,terms in DOC_PATTERNS.items():
-  if any(x in h for x in terms): return k
+ # A VAT clause inside a lease must not reclassify the lease as a VAT document.
+ for h in (name.lower(),text[:1200].lower()):
+  if re.search(r'\btr1\b|transfer of whole',h):return DocType.TRANSFER
+  if 'sitecheck' in h:return DocType.ENVIRONMENTAL
+  if re.search(r'\bcon29[rm]?\b',h):return DocType.SEARCH
+  for k,terms in DOC_PATTERNS.items():
+   if any(x in h for x in terms): return k
  return DocType.OTHER
 def make_document(name,text="",raw=None,metadata=None):
  b=raw if raw is not None else text.encode("utf-8","ignore"); return PackDocument(name,classify_document(name,text),text,hashlib.sha256(b).hexdigest(),metadata or {})

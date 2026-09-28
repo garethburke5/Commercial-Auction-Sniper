@@ -231,6 +231,11 @@ html,body,[data-testid="stAppViewContainer"],[data-testid="stMain"]{scrollbar-wi
     1,
 )
 
+# Explicit numerical limits require evidence of a qualifying value.
+_source=_source.replace('if not include_unknown: continue','continue')
+_source=_source.replace('include_unknown=st.toggle("Keep properties where price / yield is unknown",value=True,key="filter_include_unknown")',
+    'include_unknown=True; st.caption("A price or yield limit excludes unknown values.")')
+
 import streamlit as st
 if st.query_params.get("view") == "due-diligence":
     st.set_page_config(page_title="Buyer due diligence · Auction Sniper", page_icon="🎯", layout="wide")
@@ -238,9 +243,7 @@ if st.query_params.get("view") == "due-diligence":
     header[data-testid="stHeader"],div[data-testid="stToolbar"], [data-testid="stSidebar"]{display:none!important}
     .stApp{background:#f7f9fc;color:#172b43}.block-container{padding:1rem!important;max-width:1100px}
     </style>""",unsafe_allow_html=True)
-    from ui_styles import board_styles
     from buyer_due_diligence import render_buyer_due_diligence
-    st.markdown(board_styles(True),unsafe_allow_html=True)
     render_buyer_due_diligence()
     st.stop()
 
