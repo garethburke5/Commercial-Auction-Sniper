@@ -10,7 +10,15 @@
     const text=row.search_text ?? normalise(row.address);
     return terms.every(term=>text.includes(term));
   }
-  const api={normalise,matches};
+  function numericMatches(row, filters={}) {
+    const valid=value=>typeof value==='number' && Number.isFinite(value) && value>0;
+    const minimum=Number(filters.min), maximum=Number(filters.max), yieldMinimum=Number(filters.yield);
+    if(minimum>0 && (!valid(row.guide_price)||row.guide_price<minimum))return false;
+    if(maximum>0 && (!valid(row.guide_price)||row.guide_price>maximum))return false;
+    if(yieldMinimum>0 && (!valid(row.giy)||row.giy<yieldMinimum))return false;
+    return true;
+  }
+  const api={normalise,matches,numericMatches};
   if(typeof module!=='undefined' && module.exports) module.exports=api;
   else window.AuctionSniperSearch=api;
 })();

@@ -14,6 +14,7 @@ from .board import index_row, SEARCH_INDEX_VERSION
 from .fees import load_fees, directory, fee_profile, estimate_fee
 from .particulars import structured_particulars
 from .enrichment import ordered_images
+from .glossary import GROUPS, SOURCES, REVIEWED
 
 HERE = Path(__file__).parent
 LIVE = 'https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app/'
@@ -55,6 +56,11 @@ class Site:
 
     def page(self, path, title, kind, description, **ctx):
         schema = {'@context':'https://schema.org','@type':'WebPage','name':title,'url':self.origin+path,'description':description}
+        if kind == 'glossary':
+            schema.update({'@type':'DefinedTermSet','hasDefinedTerm':[
+                {'@type':'DefinedTerm','name':name,'description':definition,
+                 'url':self.origin+path+'#'+term_id,'inDefinedTermSet':self.origin+path}
+                for _,_,terms in GROUPS for term_id,name,definition in terms]})
         crumbs = [('Home','/')]
         if path != '/': crumbs.append((title,path))
         structured = [schema, {'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[
@@ -109,6 +115,9 @@ class Site:
             'Individual auction appearances with source evidence. Repeated appearances are preserved.',history=c.history())
         yield '/methodology/',self.page('/methodology/','How Auction Sniper works','methodology',
             'Understand source evidence, guide prices, missing information and conservative property-history matching.')
+        yield '/glossary/', self.page('/glossary/','Glossary of property auction terms','glossary',
+            'Clear explanations of commercial property yields, leases, auction fees, legal packs, VAT and auction terminology.',
+            glossary=GROUPS, glossary_sources=SOURCES, glossary_reviewed=REVIEWED)
         yield '/privacy/',self.page('/privacy/','Privacy and cookies','privacy',
             'How the public Auction Sniper website handles browsing data and external links.')
         yield '/due-diligence/',self.page('/due-diligence/','Buyer due diligence','due-diligence',

@@ -103,7 +103,6 @@
     const p=new URLSearchParams();
     ['q','min','max','yield','tenure','status'].forEach(k=>{const v=control(k).value.trim();if(v)p.set(k,v);});
     sources().forEach(v=>p.append('source',v));
-    if(!control('unknown').checked)p.set('unknown','0');
     if(size.value!=='50')p.set('size',size.value);
     if(sort.value!=='date')p.set('sort',sort.value);
     if(page>1)p.set('page',page);
@@ -114,7 +113,6 @@
     form.reset();size.value='50';sort.value='date';
     ['q','min','max','yield','tenure','status'].forEach(k=>{if(p.has(k))control(k).value=p.get(k);});
     Array.from(control('source').options).forEach(o=>{o.selected=p.getAll('source').includes(o.value);});
-    control('unknown').checked=p.get('unknown')!=='0';
     if(['10','50','100','All'].includes(p.get('size')))size.value=p.get('size');
     if(['date','price','yield'].includes(p.get('sort')))sort.value=p.get('sort');
     return Math.max(1,parseInt(p.get('page')||board.dataset.page,10)||1);
@@ -125,12 +123,9 @@
     const tenure=control('tenure').value.toLowerCase();if(tenure && (row.tenure||'').toLowerCase()!==tenure)return false;
     const status=control('status').value;if(status==='available'&&row.unavailable)return false;
     if(status==='unavailable'&&!row.unavailable)return false;
-    const unknown=control('unknown').checked,max=Number(control('max').value),min=Number(control('yield').value);
-    if(max>0 && (row.guide_price==null ? !unknown : row.guide_price>max))return false;
-    const minimum=Number(control('min').value);
-    if(minimum>0 && (row.guide_price==null ? !unknown : row.guide_price<minimum))return false;
-    if(min>0 && (row.giy==null ? !unknown : row.giy<min))return false;
-    return true;
+    return window.AuctionSniperSearch.numericMatches(row,{
+      min:control('min').value,max:control('max').value,yield:control('yield').value
+    });
   }
   function sorted(rows){
     if(sort.value==='price')return rows.sort((a,b)=>(a.guide_price??Infinity)-(b.guide_price??Infinity));

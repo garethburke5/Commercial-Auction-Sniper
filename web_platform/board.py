@@ -2,6 +2,7 @@
 from urllib.parse import quote
 from html import unescape
 import re
+import math
 import unicodedata
 from board_presentation import catalogue_status
 from investment_details import _investment_facts
@@ -48,10 +49,11 @@ def enrich_board_row(row):
     row['unavailable'] = catalogue_status(row)
     row['lot_label'] = str(row.get('lot_number') or 'TBC').removeprefix('Lot ')
     rent, low, high = row.get('annual_rent'), row.get('guide_price'), row.get('guide_price_upper')
-    row['giy'] = 100 * rent / low if rent and low and rent > 0 and low > 0 else None
+    valid=lambda n: isinstance(n,(int,float)) and not isinstance(n,bool) and math.isfinite(n) and n>0
+    row['giy'] = 100 * rent / low if valid(rent) and valid(low) else None
     row['giy_text'] = 'Not stated'
     if row['giy'] is not None:
-        row['giy_text'] = (f'{100*rent/high:.1f}–{row["giy"]:.1f}%' if high and high > low
+        row['giy_text'] = (f'{100*rent/high:.1f}–{row["giy"]:.1f}%' if valid(high) and high > low
                            else f'{row["giy"]:.1f}%')
         row['facts']['GIY at guide'] = row['giy_text']
     row['map_url'] = 'https://www.google.com/maps/search/?api=1&query=' + quote(row['address'])
