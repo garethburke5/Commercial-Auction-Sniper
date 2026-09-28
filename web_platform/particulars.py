@@ -59,6 +59,8 @@ def structured_particulars(row):
             if re.match(r'^(?:Register to bid|Share this|Download brochure|Cookie|Accept all)\b', sentence, re.I):
                 continue
             destination = current if current not in ('Description','Key Investment Points') else None
+            if current=='Tenure' and re.search(r'\b(?:let on|let to|tenant)\b',sentence,re.I):
+                destination=None
             if not destination:
                 for pattern, section in (
                     (r'\b(?:VAT|option to tax|TOGC)\b', 'VAT'),

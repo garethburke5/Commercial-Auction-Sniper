@@ -31,6 +31,7 @@ SELECTORS = {
 }
 
 def public_url(url, base):
+    if not url or not str(url).strip():return None
     value = urljoin(base, str(url or ''))
     p = urlsplit(value)
     return value if p.scheme in ('https','http') and p.hostname and not p.username else None
@@ -47,7 +48,7 @@ def ordered_images(values, base, primary=None):
     for value in values:
         item = value if isinstance(value,dict) else {'url':value}
         url=public_url(item.get('url'),base)
-        if not url or BAD_IMAGE.search(url+' '+str(item.get('label') or '')):
+        if not url or image_key(url)==image_key(base) or BAD_IMAGE.search(url+' '+str(item.get('label') or '')):
             continue
         k=image_key(url)
         if k in seen or (primary and k==image_key(primary)):
@@ -66,6 +67,8 @@ def lot_fee(text, host):
         m=re.search(r"Buyer[’']s Fee of ([\d.]+)% inc\.? VAT of the purchase price \(subject to a minimum of £([\d,.]+) inc\.? VAT\)",text,re.I)
         if m:return {'bands':[{'rate':float(m[1])/100,'minimum':float(m[2].replace(',','')),'vat':'included'}]},m[0]
     if 'auctionhouselondon.co.uk' in host:
+        premium=re.search(r"Buyers?[’']? Premium of £([\d,]+(?:\.\d+)?) inc\.? VAT.*?in addition to the buyer[’']s admin fee of £([\d,]+(?:\.\d+)?) inc\.? VAT",text,re.I)
+        if premium:return {'bands':[{'fixed':sum(float(v.replace(',','')) for v in premium.groups()),'vat':'included'}]},premium[0]
         m=re.search(r'Administration Fee\s*[:–-]?\s*£([\d,]+(?:\.\d+)?).*?(?:including|inc\.?)\s*VAT',text,re.I)
         if m and len(m[0])<220:return {'bands':[{'fixed':float(m[1].replace(',','')),'vat':'included'}]},m[0]
     if 'auctionhouse.co.uk' in host:
@@ -184,6 +187,8 @@ def refresh(limit=1200,force=False):
                     old=doc['properties'].get(row['url'],{})
                     # A degraded fetch must not erase a previously recovered gallery.
                     if not result.get('gallery') and old.get('gallery'):result['gallery']=old['gallery']
+                    if result.get('gallery')==old.get('gallery') and old.get('response_sha256')!=result.get('response_sha256'):
+                        result['additional_evidence']=[{k:old.get(k) for k in ('evidence_url','checked_on','response_sha256')}]
                     doc['properties'][row['url']]=result;ok+=1
             except (requests.RequestException,ValueError,KeyError,TypeError) as e:
                 failed+=1

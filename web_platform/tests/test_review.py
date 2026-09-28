@@ -47,6 +47,8 @@ def test_lot_fees_exclude_deposit_and_are_bound_to_exact_property():
     assert estimate_fee(row,{},evidence)['amount']==4500
     assert lot_fee('Deposit 10%, minimum £5000','www.pugh-auctions.com')==(None,None)
     assert lot_fee(regional.replace('£900 inc VAT','See legal pack'),'www.auctionhouse.co.uk')==(None,None)
+    ahl={'url':'https://auctionhouselondon.co.uk/lot/one','guide_price':50000,'description':"Buyers Premium of £1,560 inc VAT. This is in addition to the buyer's admin fee of £1,800 inc VAT charged by the auctioneers."}
+    assert estimate_fee(ahl,fee_profile('auction-house-london',load_fees()))['amount']==3360
 
 def test_gallery_preserves_order_and_excludes_other_properties_and_plans():
     row={'url':'https://www.pugh-auctions.com/property/one','image_url':'https://img.example/primary.jpg'}
@@ -54,6 +56,7 @@ def test_gallery_preserves_order_and_excludes_other_properties_and_plans():
     images=extract_html(html,row)['gallery']
     assert [x['url'] for x in images]==['https://img.example/interior.jpg']
     assert ordered_images(['javascript:alert(1)','https://img.example/interior.jpg','https://img.example/interior.jpg?v=2'],row['url'])==[{'url':'https://img.example/interior.jpg','label':'Source gallery image'}]
+    assert ordered_images([None,'',row['url'],{'url':None}],row['url'])==[]
     assert row['image_url']=='https://img.example/primary.jpg'
 
 def test_structured_particulars_keep_qualifiers_dates_and_historic_income():

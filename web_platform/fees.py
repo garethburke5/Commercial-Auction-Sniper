@@ -70,7 +70,14 @@ def estimate_fee(row, profile, evidence=None):
               'vat': '', 'basis': 'Fee terms for this lot need confirmation.',
               'sources': [s for s in profile.get('sources', []) if 'example' not in s['label'].lower()]}
     calc = None
-    if evidence and evidence.get('fee_calculation') and evidence.get('source_url') == row.get('url'):
+    # Addenda retained in the published lot can specify extra buyer premiums.
+    from .enrichment import lot_fee
+    source_calc,_=lot_fee(str(row.get('description') or ''), urlsplit(row.get('url') or '').hostname or '')
+    if source_calc:
+        calc=source_calc
+        result['basis']='Based on the buyer charges captured in this property’s particulars / addendum.'
+        result['sources']=[{'label':'Fee terms for this lot','url':row['url']}]
+    elif evidence and evidence.get('fee_calculation') and evidence.get('source_url') == row.get('url'):
         calc = evidence['fee_calculation']
         result['basis'] = 'Based on the fee published for this property.'
         result['sources'] = [{'label': 'Fee terms for this lot', 'url': row['url']}]

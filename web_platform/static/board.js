@@ -13,6 +13,11 @@
   }
   const propertyTarget=document.querySelector('#property-target');
   if (propertyTarget) propertyTarget.addEventListener('input',()=>targetPrices(propertyTarget.value));
+  document.querySelectorAll('.auctioneer-logo').forEach(img=>{
+    const fallback=()=>{img.hidden=true;const label=img.parentElement.querySelector('.house-monogram');if(label)label.hidden=false;};
+    img.addEventListener('error',fallback);
+    if(img.complete&&!img.naturalWidth)fallback();
+  });
   const photos=Array.from(document.querySelectorAll('[data-gallery-src]'));
   if (photos.length) {
     let selected=0;
