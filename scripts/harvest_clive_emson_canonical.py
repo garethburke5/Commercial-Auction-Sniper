@@ -358,6 +358,7 @@ def enrich_auction(auction_id, workers=4):
     selected = [row for row in rows.values() if not row.get("address")]
     failures = []
     enriched = 0
+    processed = 0
     with ThreadPoolExecutor(max_workers=max(1, min(workers, 6))) as executor:
         jobs = {executor.submit(enrich_one, row): row for row in selected}
         for future in as_completed(jobs):
@@ -377,6 +378,15 @@ def enrich_auction(auction_id, workers=4):
             except Exception as exc:
                 failures.append({"appearance_id": original["appearance_id"], "url": original["original_url"],
                                  "error": f"{type(exc).__name__}: {exc}"})
+            processed += 1
+            if processed % 25 == 0 or processed == len(jobs):
+                print(json.dumps({
+                    "auction_id": str(auction_id),
+                    "detail_rows_processed": processed,
+                    "detail_rows_selected": len(jobs),
+                    "run_detail_rows_enriched": enriched,
+                    "run_detail_failures": len(failures),
+                }), flush=True)
     corpus.write_rows(f"clive-emson/{auction_id}", list(rows.values()))
     state = json.loads(state_file.read_text())
     state.update({
