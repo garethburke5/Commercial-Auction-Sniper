@@ -75,3 +75,17 @@ def test_billing_signature_replay_entitlements_and_cancellation(tmp_path,monkeyp
     sub['status']='canceled';deliver('evt_old_notification');assert a.plan('alice')=='free'
     sub['status']='active';sub['items']['data'][0]['current_period_end']=1;deliver('evt_3');assert a.plan('alice')=='free'
     sub['items']['data'][0]['price']['id']='unapproved_price';deliver('evt_4');assert a.plan('alice')=='free'
+
+def test_private_saved_properties_are_isolated(site,tmp_path,monkeypatch):
+    from web_platform import app as module
+    a=Accounts(tmp_path/'accounts.sqlite')
+    monkeypatch.setattr(module,'authenticated_user',lambda header:header)
+    monkeypatch.setattr(module,'private_services',lambda:(a,None))
+    with TestClient(create_app(site)) as client:
+        pid=site.catalogue.properties[0]['id']
+        assert client.put('/api/account/saved/'+pid,headers={'Authorization':'alice'}).status_code==200
+        assert client.get('/api/account',headers={'Authorization':'alice'}).json()['saved_properties']==[pid]
+        assert client.get('/api/account',headers={'Authorization':'bob'}).json()['saved_properties']==[]
+        client.delete('/api/account/saved/'+pid,headers={'Authorization':'bob'})
+        assert client.get('/api/account',headers={'Authorization':'alice'}).json()['saved_properties']==[pid]
+        assert client.put('/api/account/saved/not-a-property',headers={'Authorization':'alice'}).status_code==404

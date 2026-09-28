@@ -80,3 +80,23 @@ can be refreshed explicitly. The broader operation must next recover missing
 legacy street addresses, revisit missing years/sources, import and validate other
 auctioneers' existing raw lots, and add adapters for all recoverable UK sources.
 The operation is not complete merely because currently known URLs are exhausted.
+
+## Bounded commercial expansion
+
+`python scripts/harvest_acuitus_canonical.py --year 2021` reuses the existing
+Acuitus discovery adapter (including its current radio-button date selector),
+traverses that year's public results and banks every identifiable card-level lot.
+The published count, distinct source IDs and auction dates must reconcile before
+an auction is complete. Detail enrichment remains a separate stage. A larger
+paginated catalogue is retained as partial and never marked complete.
+
+The manual **Commercial history expansion** workflow accepts another year and
+shares the canonical corpus concurrency lock. It also admits individually evidenced
+Allsop lots from previously saved source files that the earlier importer missed.
+Auction-only records are excluded. Existing source/date/URL matches are enriched
+only where fields were missing. Ambiguous matches remain untouched.
+
+`data/auction_history/commercial_expansion.json` records the exact added IDs,
+commercial/mixed-use/other split, enrichments and reconciliation for its last run.
+The full production count remains `progress.json`. Re-running an already banked
+batch must not be reported as newly captured properties.

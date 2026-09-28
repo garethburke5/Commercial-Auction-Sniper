@@ -7,6 +7,7 @@ import sqlite3
 import tempfile
 from collections import Counter
 from datetime import date
+from board_presentation import current_board_row
 from collectors.publication_quality import lot_identity, publication_exclusion
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
@@ -31,6 +32,7 @@ class Catalogue:
         snapshot = json.loads((self.root / 'data/properties.json').read_text())
         self.generated_at = snapshot.get('generated_at')
         self.rows = {}
+        current_ids = {identity(r) for r in snapshot['properties']}
         for raw in snapshot['properties'] + snapshot.get('archive', []):
             if not raw.get('address') or not safe_url(raw.get('url')) or publication_exclusion(raw):
                 continue
@@ -49,7 +51,7 @@ class Catalogue:
                                     any(row.get(k) for k in ('tenure','annual_rent','area_sqft','lease_term')))
             self.rows.setdefault(row['id'], row)
         self.all_properties = list(self.rows.values())
-        self.properties = sorted((r for r in self.all_properties if not r.get('auction_date') or r['auction_date'] >= date.today().isoformat()), key=lambda r: (r.get('auction_date') or '', r['address']))
+        self.properties = sorted((r for r in self.all_properties if r['id'] in current_ids and current_board_row(r)), key=lambda r: (r.get('auction_date') or '9999-12-31', r['address']))
         self.sources = {r['source_slug']: r['source'] for r in self.all_properties}
         self.progress = json.loads((self.root / 'data/auction_history/progress.json').read_text())
         self.history_path = None
