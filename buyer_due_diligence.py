@@ -67,9 +67,11 @@ def render_buyer_due_diligence():
                 st.success('Saved report reopened. It reflects the files and date recorded in that report.')
             except Exception as exc:st.error(str(exc))
     reports=st.session_state.get('dd_reports',{})
+    # The public viewport QA can exercise the actual saved-reader iframe at phone width.
+    reader_width=390 if st.query_params.get('report_view')=='phone' else 'stretch'
     if not reports:
         from legal_pack_exports import render_report_exports
-        st.iframe(render_report_exports(),height='content')
+        st.iframe(render_report_exports(),height='content',width=reader_width)
         return
     st.divider();st.markdown('#### 2. Read and keep your report')
     keys=list(reports);active=st.session_state.get('dd_active_report',keys[-1])
@@ -77,7 +79,7 @@ def render_buyer_due_diligence():
     model=reports[selected]
     st.caption('Reports stay available during this session. Download the readable HTML to revisit it offline, or save JSON to reopen here. You can also keep a private copy in this browser using Keep report on this device. Reports are not yet saved to an account.')
     from legal_pack_exports import render_report_exports
-    st.iframe(render_report_exports(model),height='content')
+    st.iframe(render_report_exports(model),height='content',width=reader_width)
     st.markdown(render_review_html(model),unsafe_allow_html=True)
     originals=st.session_state.get('dd_originals',{}) if selected==st.session_state.get('dd_originals_report') else {}
     if originals:
