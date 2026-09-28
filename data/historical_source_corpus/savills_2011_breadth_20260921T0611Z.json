@@ -6,7 +6,7 @@
   "year": 2011,
   "auction_records": [
     {
-      "auction_date": "2011-05-23",
+      "auction_date": "2011-05-12",
       "auction_label": "Savills London May property auction",
       "aid": null,
       "auc": null,
@@ -44,7 +44,16 @@
   ],
   "lot_records": [
     {
-      "auction_date": "2011-05-23",
+      "source_record_id": "2a2d829b47fda7cc31d16790",
+      "source_auction_id": "savills-national-2011-05-12",
+      "auction_date": "2011-05-12",
+      "locality": "Chiswick Common Road, Chiswick",
+      "property_type": "Mixed-use corner building: let retail unit and two vacant one-bedroom flats",
+      "guide_price_gbp": 675000,
+      "result_price_gbp": 695000,
+      "result_status": "sold",
+      "annual_rent": 13750,
+      "notes": "Contemporaneous report identifies this individual mixed-use lot by road and district. No street number or lot number survives, so address remains null.",
       "address_or_description": "Corner building, Chiswick Common Road, Chiswick",
       "qualifying_clue": "mixed-use retail plus two vacant flats",
       "rent": "£13,750 pa retail",
@@ -54,7 +63,39 @@
       "canonicalised": false
     },
     {
+      "source_record_id": "savills-national-2011-05-12-maida-vale-two-bedroom-flat",
+      "source_auction_id": "savills-national-2011-05-12",
+      "auction_date": "2011-05-12",
+      "locality": "Maida Vale, London",
+      "property_type": "Two-bedroom flat with use of communal gardens",
+      "guide_price_gbp": 225000,
+      "result_price_gbp": 430000,
+      "result_status": "sold",
+      "notes": "Contemporaneous report identifies this as a distinct Savills May auction lot. No street address or lot number survives, so address remains null.",
+      "source_url": "https://www.thejc.com/life/to-step-on-to-the-property-ladder-use-the-rostrum-gewnr832",
+      "canonicalised": false
+    },
+    {
+      "source_record_id": "savills-national-2011-05-12-marylebone-three-bedroom-regulated-flat",
+      "source_auction_id": "savills-national-2011-05-12",
+      "auction_date": "2011-05-12",
+      "locality": "Marylebone, London",
+      "property_type": "Three-bedroom split-level flat subject to a regulated tenancy",
+      "result_price_gbp": 589000,
+      "result_status": "sold",
+      "notes": "Contemporaneous report identifies this as a distinct Savills May auction lot sold to a professional investment company. No street address or lot number survives, so address remains null.",
+      "source_url": "https://www.thejc.com/life/to-step-on-to-the-property-ladder-use-the-rostrum-gewnr832",
+      "canonicalised": false
+    },
+    {
+      "source_record_id": "1cba1b18bca1b5327e3826e2",
+      "source_auction_id": "savills-nottingham-2011-03-28",
       "auction_date": "2011-03-28",
+      "locality": "Cumbria",
+      "property_type": "Income-producing telecoms transmitter mast",
+      "result_price_gbp": 175000,
+      "result_status": "sold",
+      "notes": "Contemporaneous report identifies this individual infrastructure lot by property type and county. No street address or lot number survives, so address remains null.",
       "address_or_description": "Telecoms transmitter mast, Cumbria",
       "qualifying_clue": "income-producing commercial/infrastructure asset",
       "sold_price": "£175,000",
@@ -63,7 +104,7 @@
     }
   ],
   "validated_new_auction_records": 3,
-  "validated_new_lot_records": 2,
+  "validated_new_lot_records": 4,
   "canonicalised_new_events": 0,
   "lot_enumeration_complete": false,
   "attempted": [
