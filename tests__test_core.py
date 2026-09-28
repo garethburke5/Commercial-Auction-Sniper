@@ -1,5 +1,5 @@
 
-from collectors.core import is_commercial, parse_guide, parse_rent
+from collectors__core import is_commercial, parse_guide, parse_rent
 
 def test_commercial_positive():
     assert is_commercial("Freehold commercial investment comprising a retail unit")
