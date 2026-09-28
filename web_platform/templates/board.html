@@ -1,0 +1,24 @@
+<section id="property-board" data-index="{{ url(board_index) }}" data-page="{{ page }}">
+  <form id="property-filters" role="search" action="{{ url('/properties/') }}">
+    <div class="search-row"><label for="property-search">Search address, town or postcode<input id="property-search" type="search" name="q" placeholder="Try London, Scarborough or ST1" autocomplete="off"></label><button class="button" type="submit">Search properties <span aria-hidden="true">→</span></button></div>
+    <details class="filter-panel"><summary>Refine your search <span>Auctioneer · guide price · yield · tenure</span></summary>
+      <div class="filter-grid">
+        <label>Auction house<select name="source" multiple size="4" aria-describedby="multi-hint">{% for source in catalogue.properties|map(attribute='source')|unique|sort %}<option>{{ source }}</option>{% endfor %}</select><small id="multi-hint">None selected means all auction houses.</small></label>
+        <label>Maximum guide (£)<input name="max" type="number" min="0" step="1000" placeholder="No maximum"><small>Uses the lower end of a guide range.</small></label>
+        <label>Minimum GIY (%)<input name="yield" type="number" min="0" max="100" step="0.5" placeholder="No minimum"><small>Current rent only; at the lower guide.</small></label>
+        <label>Tenure<select name="tenure"><option value="">Any tenure</option>Freehold</option><option>Leasehold</option><option>Long Leasehold</option></select></label>
+        <label>Status<select name="status"><option value="">All catalogue lots</option value="available">Available lots</option value="unavailable">Sold / withdrawn / postponed</option></select></label>
+        <label>Target yield (%)<input id="target-yield" name="target" type="number" min="1" max="30" step="0.5" value="10"><small>Updates the target price on rented properties.</small></label>
+      </div>
+      <div class="filter-actions"><label class="check"><input type="checkbox" name="unknown" checked> Keep properties where price / yield is unknown</label><button type="button" id="clear-filters" class="button outline">Clear filters</button><button type="submit" class="button">Apply filters</button></div>
+    </details>
+  </form>
+  <div class="board-toolbar"><div><h2>Current auction properties</h2><p id="result-count" role="status" aria-live="polite">Showing {{ (page-1)*50+1 if catalogue.properties else 0 }}–{{ [page*50,catalogue.properties|length]|min }} of {{ catalogue.properties|length }} lots</p></div>
+    <div class="board-options"><label>Sort by<select id="sort-order"><option value="date">Auction date · soonest</option><option value="price">Guide price · lowest</option><option value="yield">GIY · highest</option></select></label><label>Show<select id="page-size"><option>10</option><option selected>50</option><option>100</option><option>All</option></select></label></div>
+  </div>
+  <p id="board-error" role="alert" hidden></p>
+  <div id="board-results">{{ cards(rows) }}</div>
+  <nav id="board-pager" class="pagination" aria-label="Property pages">{% for n in range(1,pages+1) %}<a {% if n==page %}aria-current="page"{% endif %} href="{{ url('/properties/' if n==1 else '/properties/page/'~n~'/') }}" data-page="{{ n }}">{{ n }}</a>{% endfor %}</nav>
+  <p class="board-note">Commercial and mixed-use properties. Guide ranges are preserved; previous rent and ERV are never used as current income. <a href="{{ url('/methodology/') }}">How our data works →</a></p>
+  <noscript><p>Property pages and pagination work without JavaScript. Enable JavaScript to use the interactive search and filters.</p></noscript>
+</section>

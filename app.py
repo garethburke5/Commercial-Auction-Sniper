@@ -76,7 +76,7 @@ _source=_source.replace('key="clear_property_filters")','key="clear_property_fil
 _clear_start=_source.index('    if clear_filters:\n')
 _clear_end=_source.index('        st.rerun()\n',_clear_start)+len('        st.rerun()\n')
 _source=_source[:_clear_start]+_source[_clear_end:]
-_source=_source.replace('BUILD = "V6.80"','BUILD = "V6.85"',1)
+_source=_source.replace('BUILD = "V6.80"','BUILD = "V6.86"',1)
 _source=_source.replace('    if not tenant:\n        for pat in [',
                         '    if not tenant and not p.get("canonical_snapshot"):\n        for pat in [',1)
 _source=_source.replace('        if m: f["Break clause"]=norm(m.group(1))[:140]; chips.append("BREAK"); break',
@@ -230,6 +230,19 @@ html,body,[data-testid="stAppViewContainer"],[data-testid="stMain"]{scrollbar-wi
 </style>\n\"\"\",unsafe_allow_html=True)''',
     1,
 )
+
+import streamlit as st
+if st.query_params.get("view") == "due-diligence":
+    st.set_page_config(page_title="Buyer due diligence · Auction Sniper", page_icon="🎯", layout="wide")
+    st.markdown("""<style>
+    header[data-testid="stHeader"],div[data-testid="stToolbar"], [data-testid="stSidebar"]{display:none!important}
+    .stApp{background:#f7f9fc;color:#172b43}.block-container{padding:1rem!important;max-width:1100px}
+    </style>""",unsafe_allow_html=True)
+    from ui_styles import board_styles
+    from buyer_due_diligence import render_buyer_due_diligence
+    st.markdown(board_styles(True),unsafe_allow_html=True)
+    render_buyer_due_diligence()
+    st.stop()
 
 exec(
     compile(_source, str(_legacy_path), "exec"),

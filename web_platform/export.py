@@ -14,6 +14,10 @@ def export(destination, origin):
         target.parent.mkdir(parents=True,exist_ok=True)
         target.write_text(html)
     shutil.copytree(HERE/'static',dest/'static',dirs_exist_ok=True)
+    for path,content in site.board_assets():
+        target=dest/path.lstrip('/')
+        target.parent.mkdir(parents=True,exist_ok=True)
+        target.write_text(content)
     (dest/'sitemap.xml').write_text(site.sitemap(routes))
     (dest/'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /account/\nSitemap: '+origin.rstrip('/')+'/sitemap.xml\n')
     (dest/'.nojekyll').touch()

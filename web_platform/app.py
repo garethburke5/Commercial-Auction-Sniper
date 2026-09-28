@@ -22,6 +22,7 @@ def private_services():
 def create_app(site=None):
     site=site or Site()
     pages=dict(site.routes())
+    board_assets=dict(site.board_assets())
     @asynccontextmanager
     async def lifespan(app):
         yield
@@ -33,7 +34,7 @@ def create_app(site=None):
         response=await call_next(request)
         response.headers['X-Content-Type-Options']='nosniff'
         response.headers['Referrer-Policy']='strict-origin-when-cross-origin'
-        response.headers['Content-Security-Policy']="default-src 'self'; img-src 'self' https:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+        response.headers['Content-Security-Policy']="default-src 'self'; img-src 'self' https:; style-src 'self'; script-src 'self'; frame-src https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
         if request.url.path.startswith(('/api/account','/api/billing')):
             response.headers['Cache-Control']='no-store';response.headers['X-Robots-Tag']='noindex'
         return response
@@ -76,6 +77,7 @@ def create_app(site=None):
     @app.get('/{path:path}')
     def page(path:str):
         p='/'+path
+        if p in board_assets: return Response(board_assets[p],media_type='application/json')
         if p in pages: return HTMLResponse(pages[p])
         if not p.endswith('/') and p+'/' in pages: return RedirectResponse(site.prefix+p+'/',status_code=308)
         if p.startswith('/property/'):

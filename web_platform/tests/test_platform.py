@@ -21,7 +21,7 @@ def site(tmp_path):
     return Site(Catalogue(tmp_path),'https://example.org/sniper')
 
 def test_routes_canonicals_thin_content_and_guides(site):
-    pages=dict(site.routes());assert len(pages)==11
+    pages=dict(site.routes());assert len(pages)==12
     for path,html in pages.items(): assert f'href="https://example.org/sniper{path}"' in html
     row=site.catalogue.properties[0]; html=pages[row['path']]
     assert '£100,000–£125,000' in html and '£10,000' in html and 'Historic rent — not current income' in html
@@ -89,3 +89,39 @@ def test_private_saved_properties_are_isolated(site,tmp_path,monkeypatch):
         client.delete('/api/account/saved/'+pid,headers={'Authorization':'bob'})
         assert client.get('/api/account',headers={'Authorization':'alice'}).json()['saved_properties']==[pid]
         assert client.put('/api/account/saved/not-a-property',headers={'Authorization':'alice'}).status_code==404
+
+
+def test_board_is_the_homepage_and_shares_property_navigation(site):
+    from bs4 import BeautifulSoup
+    pages=dict(site.routes());home=BeautifulSoup(pages['/'],'html.parser')
+    assert home.select_one('#property-board')
+    assert home.select_one('input[name=q]')
+    assert 'Open live scanner' not in pages['/']
+    assert not home.select('a[href*="streamlit.app"]')
+    assets=dict(site.board_assets()); index=json.loads(assets[site.env.globals['board_index']])
+    assert len(index['rows'])==len(site.catalogue.properties)
+    for row in index['rows']:
+        chunk=site.env.globals['board_index'].replace('index.json',row['chunk'])
+        html=json.loads(assets[chunk])[row['id']]
+        assert site.catalogue.rows[row['id']]['path'] in html
+        assert 'Investment details' in html and 'Property history' in html
+
+
+def test_board_preserves_income_semantics_and_guide_range():
+    from web_platform.board import enrich_board_row
+    row={'address':'The Vaults, Chatham','description':'Vacant vaults previously let at £25,000 p.a.',
+         'guide_price':50000,'annual_rent':None,'historic_rent':25000,'occupation':'Vacant'}
+    enriched=enrich_board_row(row)
+    assert enriched['giy'] is None and enriched['giy_text']=='Not stated'
+    assert 'Passing rent' not in enriched['facts']
+    let=enrich_board_row(dict(row,annual_rent=5000,guide_price=25000,guide_price_upper=50000,occupation='Tenanted'))
+    assert let['giy_text']=='10.0–20.0%'
+    assert let['facts']['GIY at guide']=='10.0–20.0%'
+
+
+def test_board_json_and_embedded_research_are_served(site):
+    with TestClient(create_app(site)) as client:
+        assert client.get(site.env.globals['board_index']).json()['rows']
+        response=client.get('/due-diligence/')
+        assert response.status_code==200 and 'view=due-diligence' in response.text
+        assert 'frame-src https://commercial-auction-sniper' in response.headers['content-security-policy']

@@ -1,8 +1,9 @@
-# Auction Sniper public platform foundation
+# Auction Sniper integrated public platform
 
-The existing collectors, publication gates, Streamlit scanner and historical
-corpus remain authoritative. This isolated Python/FastAPI + Jinja frontend reads
-those contracts. Semantic HTML is rendered before delivery; search engines and
+The collectors, publication gates and historical corpus remain authoritative.
+The Python/FastAPI + Jinja frontend presents the established Auction Sniper board
+as the website home, with the property, auctioneer, calendar and history pages
+sharing its navigation and investment logic. Semantic HTML is rendered before delivery; search engines and
 users do not need a Streamlit websocket or JavaScript to read public particulars.
 
 ## Run / publish
@@ -13,7 +14,9 @@ uvicorn web_platform.app:create_app --factory
 python -m web_platform.export --output public-dist --origin https://YOUR-DOMAIN
 ```
 
-GitHub Pages publishes the **public static renderer only**, alongside Streamlit.
+GitHub Pages publishes the **public static renderer only**. Old Streamlit board
+bookmarks remain compatible; they are not a separate product destination. The
+existing legal-pack workflow runs as a dedicated embedded view inside the site.
 It does not run the private API. The same URLs/templates run dynamically through
 ASGI when an account-capable host is connected. No account database or source
 snapshots enter the public artifact. A publication workflow rebuilds after live
@@ -23,7 +26,15 @@ snapshot/corpus refreshes. This is an incremental release, not a DNS migration.
 
 - Useful home, paginated current properties, individual appearance URLs,
   auctioneer collections, dated auction pages/calendar, history, methodology and
-  privacy pages. No empty login, pricing or intelligence pages.
+  privacy and legal-pack research pages. No empty login, pricing or intelligence pages.
+- The light property board keeps address search, auctioneer/price/yield/tenure
+  filters, unknown-value handling, target-yield calculations, guide ranges,
+  current rent, investment details and research links. `investment_details.py`
+  was extracted from the production-patched Streamlit code and is shared by both
+  consumers; `property_summary.py` remains the shared opportunity-title logic.
+  A small browser search index selects lazily loaded card bundles rendered by the
+  same Jinja macro as the initial HTML. Filters have shareable URLs and browser
+  history support. Public pages and pagination remain readable without JS.
 - Stable source/date/lot identity; physical-property matching is separate.
   Exact-address history is labelled as candidate evidence, not verified UPRNs.
 - Canonicals, XML sitemap, robots, semantic HTML, breadcrumbs/JSON-LD, accessible
@@ -76,5 +87,5 @@ https://supabase.com/docs/guides/auth/jwts.
 
 Dashboard UI/provider integration, alerts, saved searches, account deletion and
 retention controls, paid intelligence/report APIs, invoices surface (Stripe portal),
-pricing decisions, custom domain, search index and image optimisation/cache service.
+pricing decisions, custom domain and image optimisation/cache service.
 Historical evidence and missing fields must remain truthful at every stage.

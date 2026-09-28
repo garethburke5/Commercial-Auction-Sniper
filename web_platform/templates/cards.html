@@ -1,0 +1,32 @@
+{% macro card(r) -%}
+<article class="card" data-id="{{ r.id }}" data-rent="{{ r.annual_rent or '' }}">
+  <a class="previewLink" href="{{ url(r.path) }}" aria-label="View {{ r.address }}">
+    {% if r.image_url %}<img class="preview" src="{{ r.image_url }}" alt="{{ r.address }} — auctioneer photograph" width="640" height="420" loading="lazy" decoding="async" referrerpolicy="no-referrer">{% else %}<div class="noimage">Property photograph not supplied</div>{% endif %}
+    <span class="image-label">{{ r.source }}</span>
+  </a>
+  <div class="cardbody">
+    <div class="card-meta"><span>LOT {{ r.lot_label }}</span><span>{{ r.auction_date or 'Date to confirm' }}</span></div>
+    <p class="opportunity">{{ r.opportunity }}</p>
+    <h2><a href="{{ url(r.path) }}">{{ r.address }}</a></h2>
+    {% if r.unavailable %}<p class="lot-status">{{ r.unavailable }} · Unavailable</p>{% endif %}
+    {% if r.highlights %}<p class="highlights">{{ r.highlights[:3]|join(' · ') }}</p>{% endif %}
+    <dl class="metrics">
+      <div><dt>Guide price</dt><dd>{{ r.guide }}</dd></div>
+      <div><dt>Current rent p.a.</dt><dd>{{ money(r.annual_rent) }}</dd></div>
+      <div class="yield-metric"><dt>GIY at guide</dt><dd>{{ r.giy_text }}</dd></div>
+      <div><dt>Tenure</dt><dd>{{ r.tenure or 'Not stated' }}</dd></div>
+    </dl>
+    <p class="target">Price at <span class="target-label">10</span>% target yield <b class="target-price">{{ money(r.annual_rent / 0.10) if r.annual_rent else 'Not stated' }}</b></p>
+    <div class="chips">{% for chip in r.chips[:5] %}<span>{{ chip }}</span>{% endfor %}</div>
+    <details class="investment"><summary>Investment details</summary>
+      <dl class="facts">{% for key,value in r.facts.items() %}<div><dt>{{ key }}</dt><dd>{{ value }}</dd></div>{% endfor %}</dl>
+      {% if r.interpretation %}<div class="investment-read"><b>Investment read</b>{% for note in r.interpretation %}<p>{{ note }}</p>{% endfor %}</div>{% endif %}
+      <p class="muted small">Reletting scores are indicative assessments from captured evidence, not valuations. GIY excludes costs and fees.</p>
+    </details>
+    <div class="research-links"><a href="{{ url(r.path) }}#history">Property history</a><a href="{{ r.legal_pack_url or r.url }}" rel="noopener noreferrer">Legal pack ↗</a><a href="{{ r.map_url }}" rel="noopener noreferrer">Map ↗</a></div>
+    <a class="property-action" href="{{ url(r.path) }}">View property & research <span>→</span></a>
+  </div>
+</article>
+{%- endmacro %}
+
+{% macro cards(rows) -%}<div class="cards">{% for r in rows %}{{ card(r) }}{% endfor %}</div>{%- endmacro %}

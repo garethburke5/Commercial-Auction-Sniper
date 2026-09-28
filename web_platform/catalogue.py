@@ -9,6 +9,7 @@ from collections import Counter
 from datetime import date
 from board_presentation import current_board_row
 from collectors.publication_quality import lot_identity, publication_exclusion
+from .board import enrich_board_row
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
@@ -49,6 +50,7 @@ class Catalogue:
             row['description'] = re.sub(r'<[^>]+>', ' ', row.get('description') or '').strip()
             row['indexable'] = bool(row.get('auction_date') and len(row['description']) >= 180 and
                                     any(row.get(k) for k in ('tenure','annual_rent','area_sqft','lease_term')))
+            enrich_board_row(row)
             self.rows.setdefault(row['id'], row)
         self.all_properties = list(self.rows.values())
         self.properties = sorted((r for r in self.all_properties if r['id'] in current_ids and current_board_row(r)), key=lambda r: (r.get('auction_date') or '9999-12-31', r['address']))
