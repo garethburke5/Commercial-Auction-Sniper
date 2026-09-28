@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths: ['web_platform/**', 'investment_details.py', 'property_summary.py', 'board_presentation.py', 'buyer_due_diligence.py', '.github/workflows/platform-public.yml']
   workflow_run:
-    workflows: ['Auction Sniper Publish Now', 'Auction Sniper Scan', 'Historical lot corpus collection', 'Commercial history expansion']
+    workflows: ['Auction Sniper Publish Now', 'Auction Sniper Scan', 'Historical lot corpus collection', 'Commercial history expansion', 'Property gallery and fee evidence']
     types: [completed]
 permissions:
   contents: read

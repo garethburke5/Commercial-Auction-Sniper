@@ -13,6 +13,25 @@
   }
   const propertyTarget=document.querySelector('#property-target');
   if (propertyTarget) propertyTarget.addEventListener('input',()=>targetPrices(propertyTarget.value));
+  const photos=Array.from(document.querySelectorAll('[data-gallery-src]'));
+  if (photos.length) {
+    let selected=0;
+    const hero=document.querySelector('#gallery-hero'), original=document.querySelector('#gallery-original');
+    function showPhoto(n) {
+      selected=(n+photos.length)%photos.length;
+      const item=photos[selected];
+      hero.src=item.dataset.gallerySrc;hero.alt=item.dataset.galleryLabel;
+      original.href=item.dataset.gallerySrc;
+      photos.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===selected)));
+      document.querySelector('#gallery-position').textContent=`Image ${selected+1} of ${photos.length} · ${item.dataset.galleryLabel}`;
+    }
+    photos.forEach((button,i)=>button.addEventListener('click',()=>showPhoto(i)));
+    document.querySelector('#gallery-previous').addEventListener('click',()=>showPhoto(selected-1));
+    document.querySelector('#gallery-next').addEventListener('click',()=>showPhoto(selected+1));
+    document.querySelector('.property-gallery').addEventListener('keydown',e=>{
+      if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();showPhoto(selected+(e.key==='ArrowLeft'?-1:1));}
+    });
+  }
   const research=document.querySelector('#open-research');
   if (research) research.addEventListener('click',()=>{
     const frame=document.querySelector('#research-frame');
@@ -40,7 +59,6 @@
   const form=document.querySelector('#property-filters'), results=document.querySelector('#board-results');
   const counter=document.querySelector('#result-count'), pager=document.querySelector('#board-pager');
   const error=document.querySelector('#board-error'), size=document.querySelector('#page-size'), sort=document.querySelector('#sort-order');
-  const target=document.querySelector('#target-yield');
   const chunks=new Map();let indexPromise=null, request=0;
   const control=name=>form.elements.namedItem(name);
   const sources=()=>Array.from(control('source').selectedOptions).map(o=>o.value);
@@ -54,10 +72,9 @@
   }
   function parameters(page){
     const p=new URLSearchParams();
-    ['q','max','yield','tenure','status'].forEach(k=>{const v=control(k).value.trim();if(v)p.set(k,v);});
+    ['q','min','max','yield','tenure','status'].forEach(k=>{const v=control(k).value.trim();if(v)p.set(k,v);});
     sources().forEach(v=>p.append('source',v));
     if(!control('unknown').checked)p.set('unknown','0');
-    if(target.value!=='10')p.set('target',target.value);
     if(size.value!=='50')p.set('size',size.value);
     if(sort.value!=='date')p.set('sort',sort.value);
     if(page>1)p.set('page',page);
@@ -66,7 +83,7 @@
   function restore(){
     const p=new URLSearchParams(location.search);
     form.reset();size.value='50';sort.value='date';
-    ['q','max','yield','tenure','status','target'].forEach(k=>{if(p.has(k))control(k).value=p.get(k);});
+    ['q','min','max','yield','tenure','status'].forEach(k=>{if(p.has(k))control(k).value=p.get(k);});
     Array.from(control('source').options).forEach(o=>{o.selected=p.getAll('source').includes(o.value);});
     control('unknown').checked=p.get('unknown')!=='0';
     if(['10','50','100','All'].includes(p.get('size')))size.value=p.get('size');
@@ -81,6 +98,8 @@
     if(status==='unavailable'&&!row.unavailable)return false;
     const unknown=control('unknown').checked,max=Number(control('max').value),min=Number(control('yield').value);
     if(max>0 && (row.guide_price==null ? !unknown : row.guide_price>max))return false;
+    const minimum=Number(control('min').value);
+    if(minimum>0 && (row.guide_price==null ? !unknown : row.guide_price<minimum))return false;
     if(min>0 && (row.giy==null ? !unknown : row.giy<min))return false;
     return true;
   }
@@ -115,14 +134,12 @@
       for(let n=left;n<=Math.min(pages,left+4);n++)pageLink(n,String(n));
       if(page<pages)pageLink(page+1,'Next ›');
       if(writeUrl){const params=parameters(page).toString();history.pushState({},'',location.pathname+(params?'?'+params:''));}
-      targetPrices(target.value);
     }catch(e){if(sequence!==request)return;error.textContent='The catalogue could not be loaded. Your existing results are still available. Reload the page and try again.';error.hidden=false;}
     finally{if(sequence===request)results.removeAttribute('aria-busy');}
   }
   form.addEventListener('submit',event=>{event.preventDefault();render(1);});
   document.querySelector('#clear-filters').addEventListener('click',()=>{form.reset();sort.value='date';render(1);});
   size.addEventListener('change',()=>render(1));sort.addEventListener('change',()=>render(1));
-  target.addEventListener('input',()=>targetPrices(target.value));
   pager.addEventListener('click',event=>{const a=event.target.closest('[data-page]');if(a&&!event.ctrlKey&&!event.metaKey){event.preventDefault();render(Number(a.dataset.page));document.querySelector('.board-toolbar').scrollIntoView({block:'start'});}});
   window.addEventListener('popstate',()=>render(restore(),false));
   const page=restore();if(location.search)render(page,false);

@@ -5,7 +5,7 @@
 {%- endmacro %}
 
 {% macro evidence(fee) -%}
-<div class="fee-evidence">{% for source in fee.sources %}<a href="{{ source.url }}" rel="noopener noreferrer">{{ source.label }} ↗</a>{% endfor %}
+<div class="fee-evidence">{% for source in fee.sources if "example" not in source.label|lower %}<a href="{{ source.url }}" rel="noopener noreferrer">{{ source.label }} ↗</a>{% endfor %}
 {% if fee.checked_on %}<span>Checked <time datetime="{{ fee.checked_on }}">{{ fee.checked_label }}</time>{% if fee.review_due %} · Review due; recheck terms{% endif %}</span>{% endif %}</div>
 {%- endmacro %}
 

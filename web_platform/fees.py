@@ -7,6 +7,8 @@ import json
 from datetime import date
 from pathlib import Path
 from urllib.parse import urlsplit
+from decimal import Decimal, ROUND_HALF_UP
+import math
 
 FEE_FILE = Path(__file__).with_name('auctioneer_fees.json')
 BASIS_LABELS = {'published': 'Published buyer terms', 'lot_example': 'Example lot terms',
@@ -56,3 +58,56 @@ def directory(catalogue, profiles):
                         'current': len(current),
                         'initials': ''.join(word[0] for word in name.split() if word not in ('&', '/'))[:2]})
     return entries
+
+
+def estimate_fee(row, profile, evidence=None):
+    """Calculate only a published tariff or a verified rule for this exact lot.
+
+    Decimal maths, VAT and minima are explicit. A deposit is never an input.
+    Gaps in source bands and unknown VAT are exposed, never silently filled.
+    """
+    result = {'amount': None, 'upper': None, 'display': 'Confirm with auctioneer',
+              'vat': '', 'basis': 'Fee terms for this lot need confirmation.',
+              'sources': [s for s in profile.get('sources', []) if 'example' not in s['label'].lower()]}
+    calc = None
+    if evidence and evidence.get('fee_calculation') and evidence.get('source_url') == row.get('url'):
+        calc = evidence['fee_calculation']
+        result['basis'] = 'Based on the fee published for this property.'
+        result['sources'] = [{'label': 'Fee terms for this lot', 'url': row['url']}]
+    elif profile.get('basis') == 'published' and not profile.get('review_due'):
+        calc = profile.get('calculation')
+        result['basis'] = 'Based on the auctioneer’s published tariff; lot-specific exceptions may apply.'
+        # Commercial/mixed-use lots entered in a residential Allsop sale use its residential tariff.
+        import re
+        if row.get('source') == 'Allsop Commercial' and re.search(r'/r\d', row.get('url', '')):
+            calc = {'bands': [{'fixed': 300, 'below': 10000, 'vat': 'included'},
+                              {'fixed': 2000, 'at_least': 10000, 'vat': 'included'}]}
+    guide = row.get('guide_price')
+    if not calc or not isinstance(guide, (int, float)) or not math.isfinite(guide) or guide <= 0:
+        if calc:
+            result['basis'] = 'A guide price is needed to calculate this fee.'
+        return result
+
+    def calculate(price):
+        bands = [b for b in calc['bands'] if all(
+            {'below': price < n, 'above': price > n, 'at_least': price >= n, 'at_most': price <= n}[k]
+            for k, n in b.items() if k in ('below', 'above', 'at_least', 'at_most'))]
+        if len(bands) != 1:
+            return None
+        b = bands[0]
+        amount = max(Decimal(str(b.get('minimum', 0))),
+                     Decimal(str(price)) * Decimal(str(b.get('rate', 0)))) + Decimal(str(b.get('fixed', 0)))
+        if b['vat'] == 'extra':
+            amount *= 1 + Decimal(str(calc.get('vat_rate', .2)))
+        return amount.quantize(Decimal('.01'), rounding=ROUND_HALF_UP), b['vat']
+
+    lower = calculate(guide)
+    upper_price = row.get('guide_price_upper') or guide
+    upper = calculate(upper_price)
+    if not lower or not upper or upper_price < guide:
+        result['basis'] = 'The published fee bands do not resolve this guide price; confirm the applicable charge.'
+        return result
+    result.update(amount=float(lower[0]), upper=float(upper[0]),
+                  display=f'£{lower[0]:,.2f}' + (f'–£{upper[0]:,.2f}' if lower[0] != upper[0] else ''),
+                  vat='VAT treatment unconfirmed — this is the published amount' if 'unconfirmed' in (lower[1], upper[1]) else 'Including VAT')
+    return result

@@ -16,7 +16,8 @@ def private_services():
     if not path: raise HTTPException(503,'Private services are not enabled')
     accounts=Accounts(path)
     billing=Billing(accounts,os.getenv('STRIPE_SECRET_KEY'),os.getenv('STRIPE_WEBHOOK_SECRET'),
-        {p:os.getenv('STRIPE_PRICE_'+p.upper()) for p in ('investor','professional','business')},os.getenv('PUBLIC_ORIGIN',''))
+        {p:os.getenv('STRIPE_PRICE_'+p.upper()) for p in ('investor','professional','business')},os.getenv('PUBLIC_ORIGIN',''),
+        {p:os.getenv('STRIPE_PRICE_'+p.upper()) for p in Billing.PRODUCTS})
     return accounts,billing
 
 def create_app(site=None):
@@ -45,7 +46,7 @@ def create_app(site=None):
     def account(authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization)
         with a.db() as db: saved=[r[0] for r in db.execute('SELECT property_id FROM saved WHERE user_id=? ORDER BY created_at DESC',(uid,))]
-        return {'plan':a.plan(uid),'saved_properties':saved}
+        return {'plan':a.plan(uid),'saved_properties':saved,'purchases':a.purchases(uid)}
     @app.put('/api/account/saved/{property_id}')
     def save(property_id:str,authorization:str|None=Header(default=None)):
         import time
@@ -59,6 +60,14 @@ def create_app(site=None):
         with a.db() as db: db.execute('DELETE FROM saved WHERE user_id=? AND property_id=?',(uid,property_id))
         return {'saved':False}
     class Checkout(BaseModel): plan:str
+    class Purchase(BaseModel):
+        product:str
+        property_id:str
+    @app.post('/api/billing/purchase')
+    def purchase(body:Purchase,authorization:str|None=Header(default=None)):
+        uid,_,b=user(authorization)
+        if body.property_id not in site.catalogue.rows:raise HTTPException(404,'Unknown property')
+        return {'url':b.purchase(uid,body.product,body.property_id)}
     @app.post('/api/billing/checkout')
     def checkout(body:Checkout,authorization:str|None=Header(default=None)):
         uid,_,b=user(authorization);return {'url':b.checkout(uid,body.plan)}

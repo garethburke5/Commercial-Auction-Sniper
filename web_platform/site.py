@@ -5,15 +5,25 @@ import math
 import os
 from collections import defaultdict
 from pathlib import Path
+from datetime import date
 from urllib.parse import quote
 from xml.sax.saxutils import escape
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from .catalogue import Catalogue, money
 from .board import index_row, SEARCH_INDEX_VERSION
-from .fees import load_fees, directory
+from .fees import load_fees, directory, fee_profile, estimate_fee
+from .particulars import structured_particulars
+from .enrichment import ordered_images
 
 HERE = Path(__file__).parent
 LIVE = 'https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app/'
+
+def uk_date(value):
+    try:
+        d = date.fromisoformat(str(value)[:10])
+        return f'{d.day} {d:%B %Y}'
+    except ValueError:
+        return value or 'Date to confirm'
 
 class Site:
     def __init__(self, catalogue=None, origin=None):
@@ -22,8 +32,18 @@ class Site:
         self.base = self.origin.split('://', 1)[-1].partition('/')[2]
         self.prefix = '/' + self.base if self.base else ''
         self.env = Environment(loader=FileSystemLoader(HERE/'templates'), autoescape=select_autoescape())
-        self.env.globals.update(money=money, url=lambda p: self.prefix+p, live=LIVE)
-        self.fee_directory = directory(self.catalogue, load_fees())
+        self.env.globals.update(money=money, uk_date=uk_date, url=lambda p: self.prefix+p, live=LIVE)
+        self.fees = load_fees()
+        self.fee_directory = directory(self.catalogue, self.fees)
+        evidence_path = HERE/'property_evidence.json'
+        self.evidence = json.loads(evidence_path.read_text())['properties'] if evidence_path.exists() else {}
+        self.logos = {'savills-auctions':'https://www.savills.co.uk/_images/savills-square.svg',
+                      'allsop-commercial':'https://assets.allsop-cdn.co.uk/build/images/packages/platform/frontend/css/logo-2f36f1d436.svg'}
+        for row in getattr(self.catalogue, 'all_properties', []):
+            evidence = self.evidence.get(row['url'], {})
+            if evidence.get('logo_url') and 'linkedin' not in evidence['logo_url'].lower():
+                self.logos.setdefault(row['source_slug'], evidence['logo_url'])
+        self.env.globals['logos'] = self.logos
         # Card bundles change when their markup or deployment prefix changes,
         # even if the underlying catalogue is unchanged.
         self.board_version = hashlib.sha256(json.dumps(self.catalogue.properties,sort_keys=True).encode()
@@ -54,9 +74,21 @@ class Site:
             yield path, self.page(path,'Current auction properties','list','Commercial and mixed-use lots from the published Auction Sniper catalogue.',
                 rows=c.properties[(page-1)*50:page*50], page=page,pages=pages,board=True)
         for row in c.all_properties:
+            evidence = self.evidence.get(row['url'], {})
+            detail_row = dict(row)
+            if evidence.get('sections'):
+                # Source section breaks improve scanning; retain the complete captured text below.
+                detail_row['description'] = '\n'.join(s['title']+': '+s['text'] for s in evidence['sections'] if s.get('text'))
+                # Preserve information not present in the recovered section subset.
+                # The original remains in the source disclosure; structured fields fill gaps.
+            gallery = ordered_images([{'url':row.get('image_url'),'label':'Auctioneer primary photograph'}] if row.get('image_url') else [], row['url'])
+            if row.get('image_url'):
+                gallery += ordered_images(row.get('gallery_images') or evidence.get('gallery') or [], row['url'], row.get('image_url'))
             yield row['path'], self.page(row['path'],row['address'],'property',
                 f"{row['source']} · {row.get('property_type') or 'Auction property'} · Guide {row['guide']}.",
-                row=row, history=c.history(row['address']), noindex=not row['indexable'])
+                row=row, history=c.history(row['address'], limit=100), noindex=not row['indexable'],
+                particulars=structured_particulars(detail_row), gallery=gallery,
+                fee=estimate_fee(row,fee_profile(row['source_slug'],self.fees),evidence))
         yield '/auctioneers/', self.page('/auctioneers/','Auctioneers & buyer fees','sources',
             'Find your next auction. Understand the buyer fees before you bid.',auctioneers=self.fee_directory)
         for key,name in sorted(c.sources.items()):
@@ -71,7 +103,7 @@ class Site:
             'Upcoming dates and retained auction outcomes, grouped by auction house.',events=sorted(events.items()))
         for (date,source),rows in events.items():
             p=f'/auctions/{source}/{date}/'
-            yield p,self.page(p,f'{c.sources[source]} · {date}','list',
+            yield p,self.page(p,f'{c.sources[source]} · {uk_date(date)}','list',
                 'Captured commercial lots for this auction. Check the auctioneer for catalogue changes.',rows=rows)
         yield '/history/',self.page('/history/','Commercial auction history','history',
             'Individual auction appearances with source evidence. Repeated appearances are preserved.',history=c.history())
@@ -81,6 +113,8 @@ class Site:
             'How the public Auction Sniper website handles browsing data and external links.')
         yield '/due-diligence/',self.page('/due-diligence/','Buyer due diligence','due-diligence',
             'Read your downloaded legal-pack documents with the Auction Sniper analysis workflow.',noindex=True)
+        yield '/plans/',self.page('/plans/','Useful for free. Deeper when you need it.','plans',
+            'Commercial auction search stays free. Explore the planned Premium tools, property reports and professional services.')
 
     def board_assets(self):
         """Small search index; card bundles load only for the selected results."""

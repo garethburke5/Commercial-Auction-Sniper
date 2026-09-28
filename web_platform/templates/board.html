@@ -9,7 +9,7 @@
         <label>Minimum GIY (%)<input name="yield" type="number" min="0" max="100" step="0.5" placeholder="No minimum"><small>Current rent only; at the lower guide.</small></label>
         <label>Tenure<select name="tenure"><option value="">Any tenure</option><option>Freehold</option><option>Leasehold</option><option>Long Leasehold</option></select></label>
         <label>Status<select name="status"><option value="">All catalogue lots</option><option value="available">Available lots</option><option value="unavailable">Sold / withdrawn / postponed</option></select></label>
-        <label>Target yield (%)<input id="target-yield" name="target" type="number" min="1" max="30" step="0.5" value="10"><small>Updates the target price on rented properties.</small></label>
+        <label>Minimum guide (£)<input name="min" type="number" min="0" step="1000" placeholder="No minimum"><small>Uses the lower end of a guide range.</small></label>
       </div>
       <div class="filter-actions"><label class="check"><input type="checkbox" name="unknown" checked> Keep properties where price / yield is unknown</label><button type="button" id="clear-filters" class="button outline">Clear filters</button><button type="submit" class="button">Apply filters</button></div>
     </details>

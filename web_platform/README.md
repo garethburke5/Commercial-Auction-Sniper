@@ -28,7 +28,7 @@ snapshot/corpus refreshes. This is an incremental release, not a DNS migration.
   auctioneer collections, dated auction pages/calendar, history, methodology and
   privacy and legal-pack research pages. No empty login, pricing or intelligence pages.
 - The light property board keeps address search, auctioneer/price/yield/tenure
-  filters, unknown-value handling, target-yield calculations, guide ranges,
+  filters, unknown-value handling, property-level target-yield calculations, guide ranges,
   current rent, investment details and research links. `investment_details.py`
   was extracted from the production-patched Streamlit code and is shared by both
   consumers; `property_summary.py` remains the shared opportunity-title logic.
@@ -105,7 +105,7 @@ amount is invented. Profiles older than 90 days show a review reminder; new
 auctioneers use an explicit unverified fallback. To refresh, read the current
 official terms and each relevant exception, update the individual profile and
 its date, run `pytest web_platform/tests`, then verify the published directory
-and house page. This is an editorial comparison, not a total-cost calculator.
+and house page. The property-level estimator uses verified tariffs; it is not a total acquisition-cost calculator.
 
 The directory supports name/region search and current-catalogue filtering. The
 same evidence appears on each house page. Compact cards keep the four primary
@@ -119,3 +119,53 @@ Dashboard UI/provider integration, alerts, saved searches, account deletion and
 retention controls, paid intelligence/report APIs, invoices surface (Stripe portal),
 pricing decisions, custom domain and image optimisation/cache service.
 Historical evidence and missing fields must remain truthful at every stage.
+
+## Property review release — 28 September 2026
+
+The main board keeps minimum/maximum guide, actual current-income GIY, tenure,
+status and keyword filters. Target yield belongs only to property analysis; old
+`target` query parameters are ignored without breaking other filters.
+
+`particulars.py` groups captured source sentences and structured facts. It removes
+exact repeated wording, preserves qualifications and numeric dates, retains the
+source tenancy schedule and exposes the original captured text in a disclosure.
+It does not generate invented summaries. Missing sections are omitted. Source
+HTML section breaks are preferred where recovered.
+
+`enrichment.py` supplements the published lot contract with exact-source ordered
+galleries, source section text, logos and narrowly parsed lot fee clauses. It
+never changes the hero, price, rent, status or commercial classification. HTML/API
+responses are hashed and source/time references retained in `property_evidence.json`.
+Failures preserve old evidence; repeated host failures stop further attempts in
+that run. Writes are atomic. The daily/live-publication refresh checks at most 150
+stale/new rows (seven-day cache) and commits only the evidence file. The public
+renderer rebuilds after its successful completion. This is not historical lot
+harvesting and is not counted as new appearances.
+
+Fee calculations are explicit numeric bands in the verified fee registry, or
+verified clauses bound to the exact lot URL. They use Decimal, known VAT treatment,
+percentage minima and both ends of guide ranges. Unspecified boundaries, stale
+profiles and unmatched lot-only examples remain unconfirmed. Savills' published
+amount retains its unresolved VAT qualifier. A deposit is never added to a fee.
+Calendar dates use UK wording; auctioneer logos have a text fallback where absent.
+History remains in the corpus and at existing URLs, with guides, results, rents
+and source links presented within each property. It is removed from main navigation.
+
+`/plans/` distinguishes today's free tools from planned Premium/professional
+services; no nonfunctional checkout or invented subscription price is advertised.
+Existing Supabase/Stripe account and subscription boundaries remain intact.
+The private service now also supports server-priced one-off orders for
+`investment_report`, `legal_pack_report`, `featured_listing` and `data_export`.
+Configure corresponding `STRIPE_PRICE_<UPPERCASE_PRODUCT>` variables only after
+products can actually be delivered. Price IDs and customer identity are never
+accepted from the browser. Signed checkout notifications trigger a current Stripe
+session read, verify order/customer/price/quantity, and record payment idempotently.
+Paid orders enter `paid_awaiting_fulfilment`; payment does not automatically publish
+a sponsored listing or unlock a subscription. Refund/dispute notifications put
+orders into review; late success notifications cannot restore them. Account APIs
+expose only the signed-in user's order summary. There is no stored card data.
+
+Before activation, provider sandbox end-to-end tests, authenticated dashboard,
+production email, service fulfilment, pricing, operator terms/privacy, cancellation
+and refund operations are still required. No account/payment API is deployed on
+GitHub Pages. The public site clearly marks paid services as not yet open.

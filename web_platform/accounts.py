@@ -28,6 +28,7 @@ class Accounts:
             CREATE TABLE IF NOT EXISTS saved(user_id TEXT NOT NULL,property_id TEXT NOT NULL,created_at INTEGER NOT NULL,PRIMARY KEY(user_id,property_id));
             CREATE TABLE IF NOT EXISTS subscriptions(subscription_id TEXT PRIMARY KEY,user_id TEXT NOT NULL,plan TEXT NOT NULL,status TEXT NOT NULL,valid_until INTEGER NOT NULL);
             CREATE TABLE IF NOT EXISTS webhook_events(event_id TEXT PRIMARY KEY,processed_at INTEGER NOT NULL);
+            CREATE TABLE IF NOT EXISTS purchases(order_id TEXT PRIMARY KEY,user_id TEXT NOT NULL,product TEXT NOT NULL,property_id TEXT NOT NULL,price_id TEXT NOT NULL,session_id TEXT UNIQUE,payment_intent TEXT,status TEXT NOT NULL,created_at INTEGER NOT NULL);
             ''')
         self.path.chmod(0o600)
 
@@ -54,6 +55,10 @@ class Accounts:
 
     def require(self,user,feature):
         if feature not in PLANS[self.plan(user)]: raise HTTPException(403,'Subscription does not include this feature')
+
+    def purchases(self,user):
+        with self.db() as db:
+            return [dict(r) for r in db.execute('SELECT order_id,product,property_id,status,created_at FROM purchases WHERE user_id=? ORDER BY created_at DESC',(user,))]
 
 @lru_cache(maxsize=4)
 def key_client(issuer):

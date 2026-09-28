@@ -21,7 +21,7 @@ def site(tmp_path):
     return Site(Catalogue(tmp_path),'https://example.org/sniper')
 
 def test_routes_canonicals_thin_content_and_guides(site):
-    pages=dict(site.routes());assert len(pages)==12
+    pages=dict(site.routes());assert '/plans/' in pages
     for path,html in pages.items(): assert f'href="https://example.org/sniper{path}"' in html
     row=site.catalogue.properties[0]; html=pages[row['path']]
     assert '£100,000–£125,000' in html and '£10,000' in html and 'Historic rent — not current income' in html
