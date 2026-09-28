@@ -6,7 +6,7 @@
       <div class="filter-grid">
         <label>Auction house<select name="source" multiple size="4" aria-describedby="multi-hint">{% for source in catalogue.properties|map(attribute='source')|unique|sort %}<option>{{ source }}</option>{% endfor %}</select><small id="multi-hint">None selected means all auction houses.</small></label>
         <label>Maximum guide (£)<input name="max" type="number" min="0" step="1000" placeholder="No maximum"><small>Uses the lower end of a guide range.</small></label>
-        <label>Minimum GIY (%)<input name="yield" type="number" min="0" max="100" step="0.1" placeholder="No minimum"><small>Current rent only; at the lower guide. Unknown yields are excluded when set.</small></label>
+        <label>Minimum GIY (%)<input name="yield" type="number" min="0" max="100" step="0.1" placeholder="No minimum"><small>Current rent only. For guide ranges, the lowest yield must qualify. Unknown yields are excluded.</small></label>
         <label>Tenure<select name="tenure"><option value="">Any tenure</option><option>Freehold</option><option>Leasehold</option><option>Long Leasehold</option></select></label>
         <label>Status<select name="status"><option value="">All catalogue lots</option><option value="available">Available lots</option><option value="unavailable">Sold / withdrawn / postponed</option></select></label>
         <label>Minimum guide (£)<input name="min" type="number" min="0" step="1000" placeholder="No minimum"><small>Uses the lower end of a guide range.</small></label>

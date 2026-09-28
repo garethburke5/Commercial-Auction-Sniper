@@ -51,6 +51,7 @@ def enrich_board_row(row):
     rent, low, high = row.get('annual_rent'), row.get('guide_price'), row.get('guide_price_upper')
     valid=lambda n: isinstance(n,(int,float)) and not isinstance(n,bool) and math.isfinite(n) and n>0
     row['giy'] = 100 * rent / low if valid(rent) and valid(low) else None
+    row['giy_min'] = 100 * rent / high if row['giy'] is not None and valid(high) and high > low else row['giy']
     row['giy_text'] = 'Not stated'
     if row['giy'] is not None:
         row['giy_text'] = (f'{100*rent/high:.1f}–{row["giy"]:.1f}%' if valid(high) and high > low
@@ -62,4 +63,4 @@ def enrich_board_row(row):
 
 def index_row(row, chunk):
     return {k:row.get(k) for k in ('id','address','source','tenure','property_type','auction_date',
-                                 'guide_price','giy','unavailable')} | {'chunk':chunk, 'search_text':search_text(row)}
+                                 'guide_price','giy','giy_min','unavailable')} | {'chunk':chunk, 'search_text':search_text(row)}

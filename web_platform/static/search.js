@@ -15,7 +15,8 @@
     const minimum=Number(filters.min), maximum=Number(filters.max), yieldMinimum=Number(filters.yield);
     if(minimum>0 && (!valid(row.guide_price)||row.guide_price<minimum))return false;
     if(maximum>0 && (!valid(row.guide_price)||row.guide_price>maximum))return false;
-    if(yieldMinimum>0 && (!valid(row.giy)||row.giy<yieldMinimum))return false;
+    const qualifyingYield=Object.prototype.hasOwnProperty.call(row,'giy_min')?row.giy_min:row.giy;
+    if(yieldMinimum>0 && (!valid(qualifyingYield)||qualifyingYield<yieldMinimum))return false;
     return true;
   }
   const api={normalise,matches,numericMatches};

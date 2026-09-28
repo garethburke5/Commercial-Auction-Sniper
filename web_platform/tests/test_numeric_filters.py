@@ -22,8 +22,18 @@ assert.equal(match({guide_price:200001,giy:15},{max:200000}),false);
 assert.equal(match({guide_price:150000,giy:null},{min:100000,max:200000}),true);
 assert.equal(match({guide_price:null,giy:null},{}),true);
 assert.equal(match({guide_price:150000,giy:9.9},{min:100000,max:200000,yield:10}),false);
+assert.equal(match({giy:10,giy_min:9.9},{yield:10}),false);
+assert.equal(match({giy:15,giy_min:10},{yield:10}),true);
+assert.equal(match({giy:15,giy_min:null},{yield:10}),false);
 '''
     subprocess.run(['node','-e',script,str(Path(__file__).parents[1]/'static/search.js')],check=True)
+
+
+def test_yield_range_qualifies_at_the_highest_guide():
+    from web_platform.board import enrich_board_row,index_row
+    row=enrich_board_row({'address':'Test shop','annual_rent':10000,'guide_price':100000,'guide_price_upper':110000})
+    assert row['giy']==10 and 9<row['giy_min']<10
+    assert index_row(row,'x')['giy_min']==row['giy_min']
 
 
 def test_glossary_has_required_terms_and_stable_unique_links():
