@@ -160,5 +160,16 @@
     "Clive Emson|clive-emson:245|137"
   ],
   "errors": [],
-  "checked_at": "2026-09-28T06:53:32.767530+00:00"
+  "checked_at": "2026-09-28T06:53:32.767530+00:00",
+  "detail_rows_enriched": 134,
+  "detail_rows_remaining": 1,
+  "detail_enrichment_complete": false,
+  "detail_enrichment_errors": [
+    {
+      "appearance_id": "Clive Emson|clive-emson:245|96",
+      "url": "https://www.cliveemson.co.uk/properties/245/96/",
+      "error": "ValueError: detail page has no lot header/address"
+    }
+  ],
+  "detail_enrichment_checked_at": "2026-09-28T08:08:22.076836+00:00"
 }
