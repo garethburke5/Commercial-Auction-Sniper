@@ -63,7 +63,7 @@ def parse_date(text):
 
 
 def discover(index_html):
-    soup = BeautifulSoup(index_html, "lxml")
+    soup = BeautifulSoup(index_html, "html.parser")
     auctions = {}
     for link in soup.find_all("a", href=True):
         href = urljoin(BASE, link["href"])
@@ -115,7 +115,7 @@ def image_url(auction_id, card):
 
 
 def parse_catalogue(raw, auction, evidence):
-    soup = BeautifulSoup(raw, "lxml")
+    soup = BeautifulSoup(raw, "html.parser")
     title = soup.title.get_text(" ", strip=True) if soup.title else ""
     heading = soup.find("h1")
     date = parse_date(title) or parse_date(heading.get_text(" ", strip=True) if heading else "")
