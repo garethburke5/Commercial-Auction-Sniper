@@ -9,7 +9,6 @@
     <p class="opportunity">{{ r.opportunity }}</p>
     <h2><a href="{{ url(r.path) }}">{{ r.address }}</a></h2>
     {% if r.unavailable %}<p class="lot-status">{{ r.unavailable }} · Unavailable</p>{% endif %}
-    {% if r.highlights %}<p class="highlights">{{ r.highlights[:3]|join(' · ') }}</p>{% endif %}
     <dl class="metrics">
       <div><dt>Guide price</dt><dd>{{ r.guide }}</dd></div>
       <div><dt>Current rent p.a.</dt><dd>{{ money(r.annual_rent) }}</dd></div>
@@ -17,13 +16,14 @@
       <div><dt>Tenure</dt><dd>{{ r.tenure or 'Not stated' }}</dd></div>
     </dl>
     <p class="target">Price at <span class="target-label">10</span>% target yield <b class="target-price">{{ money(r.annual_rent / 0.10) if r.annual_rent else 'Not stated' }}</b></p>
-    <div class="chips">{% for chip in r.chips[:5] %}<span>{{ chip }}</span>{% endfor %}</div>
     <details class="investment"><summary>Investment details</summary>
+      {% if r.highlights %}<p class="highlights">{{ r.highlights[:3]|join(' · ') }}</p>{% endif %}
+      <div class="chips">{% for chip in r.chips[:5] %}<span>{{ chip }}</span>{% endfor %}</div>
       <dl class="facts">{% for key,value in r.facts.items() %}<div><dt>{{ key }}</dt><dd>{{ value }}</dd></div>{% endfor %}</dl>
       {% if r.interpretation %}<div class="investment-read"><b>Investment read</b>{% for note in r.interpretation %}<p>{{ note }}</p>{% endfor %}</div>{% endif %}
       <p class="muted small">Reletting scores are indicative assessments from captured evidence, not valuations. GIY excludes costs and fees.</p>
+      <div class="research-links"><a href="{{ url(r.path) }}#history">Property history</a><a href="{{ r.legal_pack_url or r.url }}" rel="noopener noreferrer">Legal pack ↗</a><a href="{{ r.map_url }}" rel="noopener noreferrer">Map ↗</a><a href="{{ url('/auctioneers/'~r.source_slug~'/') }}#buyer-fees">Buyer fees</a></div>
     </details>
-    <div class="research-links"><a href="{{ url(r.path) }}#history">Property history</a><a href="{{ r.legal_pack_url or r.url }}" rel="noopener noreferrer">Legal pack ↗</a><a href="{{ r.map_url }}" rel="noopener noreferrer">Map ↗</a></div>
     <a class="property-action" href="{{ url(r.path) }}">View property & research <span>→</span></a>
   </div>
 </article>

@@ -83,6 +83,25 @@ https://docs.stripe.com/billing/subscriptions/webhooks,
 https://docs.stripe.com/payments/checkout/build-subscriptions,
 https://supabase.com/docs/guides/auth/jwts.
 
+## Buyer fees and compact catalogue
+
+Buyer-fee information lives in `auctioneer_fees.json`, independently of property
+income, guide prices and GIY. Each profile records the official source, review
+date, VAT wording, fee bands/minimums and scope. Regional lot examples are
+labelled as examples and must never be promoted to house-wide tariffs without
+evidence. BidX1 and Town & Country publish lot-specific fees; no universal
+amount is invented. Profiles older than 90 days show a review reminder; new
+auctioneers use an explicit unverified fallback. To refresh, read the current
+official terms and each relevant exception, update the individual profile and
+its date, run `pytest web_platform/tests`, then verify the published directory
+and house page. This is an editorial comparison, not a total-cost calculator.
+
+The directory supports name/region search and current-catalogue filtering. The
+same evidence appears on each house page. Compact cards keep the four primary
+metrics and yield target visible, with highlights, research links and detailed
+facts in the existing disclosure. Card-template changes invalidate lazy-loaded
+JSON bundle URLs; CSS and JavaScript carry a content version in their URLs.
+
 ## Still to build, intentionally outside this bounded release
 
 Dashboard UI/provider integration, alerts, saved searches, account deletion and

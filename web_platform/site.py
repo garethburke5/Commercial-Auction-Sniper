@@ -10,6 +10,7 @@ from xml.sax.saxutils import escape
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from .catalogue import Catalogue, money
 from .board import index_row
+from .fees import load_fees, directory
 
 HERE = Path(__file__).parent
 LIVE = 'https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app/'
@@ -22,7 +23,13 @@ class Site:
         self.prefix = '/' + self.base if self.base else ''
         self.env = Environment(loader=FileSystemLoader(HERE/'templates'), autoescape=select_autoescape())
         self.env.globals.update(money=money, url=lambda p: self.prefix+p, live=LIVE)
-        self.board_version = hashlib.sha256(json.dumps(self.catalogue.properties,sort_keys=True).encode()).hexdigest()[:12]
+        self.fee_directory = directory(self.catalogue, load_fees())
+        # Card bundles change when their markup or deployment prefix changes,
+        # even if the underlying catalogue is unchanged.
+        self.board_version = hashlib.sha256(json.dumps(self.catalogue.properties,sort_keys=True).encode()
+            + (HERE/'templates/cards.html').read_bytes() + self.prefix.encode()).hexdigest()[:12]
+        self.env.globals['asset_version'] = hashlib.sha256((HERE/'static/site.css').read_bytes()
+            + (HERE/'static/board.js').read_bytes()).hexdigest()[:12]
         self.env.globals.update(board_index=f'/board/{self.board_version}/index.json')
 
     def page(self, path, title, kind, description, **ctx):
@@ -49,12 +56,13 @@ class Site:
             yield row['path'], self.page(row['path'],row['address'],'property',
                 f"{row['source']} · {row.get('property_type') or 'Auction property'} · Guide {row['guide']}.",
                 row=row, history=c.history(row['address']), noindex=not row['indexable'])
-        yield '/auctioneers/', self.page('/auctioneers/','Auctioneers','sources',
-            'Browse the commercial and mixed-use inventory captured from UK auction houses.')
+        yield '/auctioneers/', self.page('/auctioneers/','Auctioneers & buyer fees','sources',
+            'Find your next auction. Understand the buyer fees before you bid.',auctioneers=self.fee_directory)
         for key,name in sorted(c.sources.items()):
             rows = [r for r in c.all_properties if r['source_slug']==key]
-            yield f'/auctioneers/{key}/', self.page(f'/auctioneers/{key}/',name,'list',
-                f'Published commercial and mixed-use auction properties from {name}.',rows=rows)
+            house = next(h for h in self.fee_directory if h['slug']==key)
+            yield f'/auctioneers/{key}/', self.page(f'/auctioneers/{key}/',name,'auctioneer',
+                f'Commercial and mixed-use auction properties, buyer fees and source terms for {name}.',rows=rows,house=house)
         events = defaultdict(list)
         for row in c.properties:
             if row.get('auction_date'): events[(row['auction_date'],row['source_slug'])].append(row)

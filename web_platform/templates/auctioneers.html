@@ -1,0 +1,8 @@
+{% from 'fees.html' import fee_card with context %}
+<section class="fee-guide" aria-label="How to compare buyer fees">
+  <div><span class="eyebrow">THE COST BEYOND THE GUIDE PRICE</span><h2>Know what goes on top.</h2><p>Compare published buyer charges, VAT and minimum fees. Every summary links to the auctioneer’s own information.</p></div>
+  <div class="fee-guide-notes"><p><b>Check the basis.</b> “Example lot terms” describe one named property, not every sale by that auctioneer.</p><p><b>Budget for the full purchase.</b> Deposit money forms part of the price. Buyer fees, taxes, legal costs and special-condition charges can be additional. Confirm the current lot terms before bidding.</p></div>
+</section>
+<div class="directory-toolbar"><label>Find an auctioneer<input id="auctioneer-search" type="search" placeholder="Name or region…" autocomplete="off"></label><label class="check"><input type="checkbox" id="auctioneer-current"> Current catalogues only</label><p id="auctioneer-count" role="status" aria-live="polite">{{ auctioneers|length }} auctioneers</p></div>
+<div class="auctioneer-grid">{% for h in auctioneers %}{{ fee_card(h) }}{% endfor %}</div>
+<p id="auctioneer-empty" class="empty-results" hidden>No auctioneers match. Try another name or region.</p>

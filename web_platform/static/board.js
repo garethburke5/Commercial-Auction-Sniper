@@ -18,6 +18,23 @@
     const frame=document.querySelector('#research-frame');
     frame.src=research.dataset.src;frame.hidden=false;research.remove();
   });
+  const houseSearch=document.querySelector('#auctioneer-search');
+  if (houseSearch) {
+    const currentOnly=document.querySelector('#auctioneer-current');
+    const houses=Array.from(document.querySelectorAll('.auctioneer-card'));
+    function filterHouses(){
+      const terms=houseSearch.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      let visible=0;
+      houses.forEach(h=>{
+        h.hidden=!terms.every(t=>h.dataset.house.includes(t)) || (currentOnly.checked && Number(h.dataset.current)===0);
+        if(!h.hidden)visible++;
+      });
+      document.querySelector('#auctioneer-count').textContent=`${visible} of ${houses.length} auctioneers`;
+      document.querySelector('#auctioneer-empty').hidden=visible!==0;
+    }
+    houseSearch.addEventListener('input',filterHouses);
+    currentOnly.addEventListener('change',filterHouses);
+  }
   const board=document.querySelector('#property-board');
   if (!board) return;
   const form=document.querySelector('#property-filters'), results=document.querySelector('#board-results');

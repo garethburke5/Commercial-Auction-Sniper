@@ -1,0 +1,768 @@
+{
+  "schema_version": 1,
+  "auctioneers": {
+    "allsop-commercial": {
+      "basis": "published",
+      "headline": "£1,500 + VAT",
+      "vat": "VAT extra",
+      "summary": "Buyer’s fee for each commercial-auction lot purchased.",
+      "rules": [
+        {
+          "label": "Commercial auction",
+          "amount": "£1,500 + VAT per lot"
+        }
+      ],
+      "notes": "Commercial-auction terms only. Residential-auction fees differ. Bidder security is separate from the fee; any seller charges are additional.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official buyer terms",
+          "url": "https://www.allsop.co.uk/auctions/how-to-buy-property-at-auction/"
+        }
+      ]
+    },
+    "acuitus": {
+      "basis": "lot_example",
+      "headline": "£1,500 + VAT",
+      "vat": "VAT extra",
+      "summary": "Buyer administration charge shown in Acuitus commercial lot particulars.",
+      "rules": [
+        {
+          "label": "Administration charge",
+          "amount": "£1,500 + VAT on exchange"
+        }
+      ],
+      "notes": "This is the published charge on the linked lot. Confirm the fee in the particulars for the property you intend to buy.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://www.acuitus.co.uk/property/5707/"
+        }
+      ],
+      "example": "Former Texon premises, Skelton, Teesside"
+    },
+    "auction-estates": {
+      "basis": "published",
+      "headline": "£720 / £1,800",
+      "vat": "Including VAT",
+      "summary": "The buyer’s fee depends on the lot value.",
+      "rules": [
+        {
+          "label": "Below £10,000",
+          "amount": "£720"
+        },
+        {
+          "label": "Above £10,000",
+          "amount": "£1,800"
+        }
+      ],
+      "notes": "The published wording does not resolve exactly £10,000: confirm that boundary with Auction Estates. The fee is separate from the deposit.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official buyer terms",
+          "url": "https://www.auctionestates.co.uk/register-to-bid"
+        }
+      ]
+    },
+    "savills-auctions": {
+      "basis": "published",
+      "headline": "£250 / £2,100",
+      "vat": "VAT: confirm with Savills",
+      "summary": "Buyer’s fee varies with the purchase price.",
+      "rules": [
+        {
+          "label": "Below £30,000",
+          "amount": "£250"
+        },
+        {
+          "label": "£30,000 and above",
+          "amount": "£2,100"
+        }
+      ],
+      "notes": "Savills’ buying page does not specify the VAT treatment of these amounts. Confirm the VAT-inclusive charge before bidding. Payable with the deposit on auction day.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official buyer terms",
+          "url": "https://auctions.savills.co.uk/buying"
+        }
+      ]
+    },
+    "paul-fosh-auctions": {
+      "basis": "published",
+      "headline": "1.5% of price",
+      "vat": "Including VAT",
+      "summary": "Combined buyer premium / administration fee, with a minimum charge.",
+      "rules": [
+        {
+          "label": "Sale price £1–£50,000",
+          "amount": "Minimum £1,500"
+        },
+        {
+          "label": "Sale price £50,001 upwards",
+          "amount": "Minimum £2,400"
+        }
+      ],
+      "notes": "The minimum applies to the 1.5% fee; it is not an extra charge. Payable when the auction closes, separately from the purchase price. Confirm any exception in the lot terms.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official buyer terms",
+          "url": "https://www.paulfosh.com/auctions/advice-and-guides/fees-and-deposits/"
+        }
+      ]
+    },
+    "symonds-sampson": {
+      "basis": "published",
+      "headline": "£960 / £1,980",
+      "vat": "Including VAT",
+      "summary": "Property-auction administration fee; main rate increased on 25 September 2026.",
+      "rules": [
+        {
+          "label": "Below £50,000",
+          "amount": "£960 per lot"
+        },
+        {
+          "label": "£50,001 and above",
+          "amount": "£1,980 per lot"
+        }
+      ],
+      "notes": "The buying guide leaves exactly £50,000 unspecified; ask the auctioneer to confirm. Charged per lot even when several lots share a contract. The higher rate applies from 25 September 2026.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official buyer terms",
+          "url": "https://www.symondsandsampson.co.uk/property-auctions/buying"
+        }
+      ]
+    },
+    "barnard-marcus": {
+      "basis": "published",
+      "headline": "£1,800",
+      "vat": "Including VAT",
+      "summary": "Contract documentation charge in addition to the hammer price.",
+      "rules": [
+        {
+          "label": "Contract documentation",
+          "amount": "£1,800 per purchase"
+        }
+      ],
+      "notes": "The registration bond contains both deposit money and this fee; do not count the whole bond as a fee. Seller contributions may be set out in the legal pack.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official buyer terms",
+          "url": "https://www.barnardmarcusauctions.co.uk/guides/preparing-to-buy-buying-guide/"
+        }
+      ]
+    },
+    "lsh-auctions": {
+      "basis": "published",
+      "headline": "£500 / £1,500 + VAT",
+      "vat": "VAT extra",
+      "summary": "LSH Property Auctions buyer’s administration fee.",
+      "rules": [
+        {
+          "label": "Below £20,000",
+          "amount": "£500 + VAT"
+        },
+        {
+          "label": "Above £20,000",
+          "amount": "£1,500 + VAT"
+        }
+      ],
+      "notes": "The current buyer guide does not resolve exactly £20,000; confirm this boundary. These are property-auction terms, not LSH machinery or asset-sale fees.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official buyer terms",
+          "url": "https://propertyauctions.lsh.co.uk/pages/buyers"
+        }
+      ]
+    },
+    "future-property-auctions-scotland": {
+      "basis": "published",
+      "headline": "1% + VAT",
+      "vat": "Minimum £1,500 + VAT",
+      "summary": "Administration fee stated in the published buying guide.",
+      "rules": [
+        {
+          "label": "Administration fee",
+          "amount": "1% of sale price + VAT"
+        },
+        {
+          "label": "Minimum charge",
+          "amount": "£1,500 + VAT"
+        }
+      ],
+      "notes": "The property schedule specifies the applicable fee and can override the general guide. Check the lot terms before bidding.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official buying guide",
+          "url": "https://www.futurepropertyauctions.co.uk/buying_guide17.asp"
+        },
+        {
+          "label": "Lot-specific conditions",
+          "url": "https://futurepropertyauctions.co.uk/buying_terms.asp?id=13150197"
+        }
+      ]
+    },
+    "bond-wolfe": {
+      "basis": "published",
+      "headline": "£2,700",
+      "vat": "Including VAT",
+      "summary": "Buyer’s administration fee, normally payable when the hammer falls.",
+      "rules": [
+        {
+          "label": "Administration fee",
+          "amount": "£2,700 (£2,250 + VAT)"
+        }
+      ],
+      "notes": "Local Authority lots can have a different administration fee. The legal pack can also contain seller costs and other additional charges.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official buyer terms",
+          "url": "https://www.bondwolfe.com/property-auctions-west-midlands/how-to-buy-a-property-at-auction-buyer-faqs/"
+        }
+      ]
+    },
+    "clive-emson": {
+      "basis": "published",
+      "headline": "£750–£5,000",
+      "vat": "Including VAT",
+      "summary": "A fixed fee band per lot, determined by the sale price.",
+      "rules": [
+        {
+          "label": "Up to £29,999",
+          "amount": "£750"
+        },
+        {
+          "label": "£30,000–£99,999",
+          "amount": "£1,250"
+        },
+        {
+          "label": "£100,000–£249,999",
+          "amount": "£1,750"
+        },
+        {
+          "label": "£250,000–£499,999",
+          "amount": "£2,250"
+        },
+        {
+          "label": "£500,000–£749,999",
+          "amount": "£3,500"
+        },
+        {
+          "label": "£750,000 and above",
+          "amount": "£5,000"
+        }
+      ],
+      "notes": "The charge is per lot, including where several lots are bought under one contract. Payable with the deposit; other legal-pack charges may apply.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official buyer terms",
+          "url": "https://www.cliveemson.co.uk/buying/buyers-fees/"
+        }
+      ]
+    },
+    "strettons": {
+      "basis": "published",
+      "headline": "£1,000 / £2,000",
+      "vat": "Including VAT",
+      "summary": "Buyer administration charge in the current buying guide.",
+      "rules": [
+        {
+          "label": "Below £10,000",
+          "amount": "£1,000"
+        },
+        {
+          "label": "£10,000 and above",
+          "amount": "£2,000"
+        }
+      ],
+      "notes": "Payable on exchange for each lot. Older figures remain in some FAQ text; this summary follows the current Guide to Buying. Confirm the contract terms before bidding.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official buyer terms",
+          "url": "https://www.strettons.co.uk/auctions/buying-at-auction/guide-to-buying/"
+        }
+      ]
+    },
+    "barnett-ross": {
+      "basis": "published",
+      "headline": "£500, or lot terms",
+      "vat": "Including VAT",
+      "summary": "The bidder notice gives £500, subject to a different fee in the particulars.",
+      "rules": [
+        {
+          "label": "Published default",
+          "amount": "£500"
+        },
+        {
+          "label": "Lot override",
+          "amount": "As stated in the particulars"
+        }
+      ],
+      "notes": "The online buying guide defers to each lot’s particulars. Treat £500 as a published default, not a confirmed quote for every lot.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official bidder notice",
+          "url": "https://www.barnettross.co.uk/notice-to-bidders.php"
+        },
+        {
+          "label": "Online buying guide",
+          "url": "https://www.barnettross.co.uk/pdfs/online-auctions-buying-guide.pdf?v=7"
+        }
+      ]
+    },
+    "mchugh-co": {
+      "basis": "published",
+      "headline": "£500 / £1,500",
+      "vat": "Including VAT",
+      "summary": "Buyer’s fee in the current notice to bidders.",
+      "rules": [
+        {
+          "label": "Below £10,000",
+          "amount": "£500"
+        },
+        {
+          "label": "£10,000 and above",
+          "amount": "£1,500"
+        }
+      ],
+      "notes": "This uses the current notice, not older buying-guide PDFs showing lower fees. The seller may levy extra charges through the special conditions.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official buyer terms",
+          "url": "https://www.mchughandco.com/document/602/notice-to-bidders"
+        }
+      ]
+    },
+    "bidx1": {
+      "basis": "lot_specific",
+      "headline": "Set for each lot",
+      "vat": "Confirm amount and VAT",
+      "summary": "The UK buyer guide requires an administration fee for each property you register to bid on.",
+      "rules": [
+        {
+          "label": "Administration fee",
+          "amount": "Confirm at registration"
+        },
+        {
+          "label": "If unsuccessful",
+          "amount": "Refunded under BidX1 terms"
+        }
+      ],
+      "notes": "The public UK FAQ and buying guide do not publish a universal amount. Obtain the charge for your selected lot before authorising payment. Bidder security is separate.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official UK FAQ",
+          "url": "https://bidx1.com/en/united-kingdom/faq"
+        },
+        {
+          "label": "UK buying guide",
+          "url": "https://bidx1.com/en/buyers-guide-uk"
+        }
+      ]
+    },
+    "town-country-property-auctions": {
+      "basis": "lot_specific",
+      "headline": "Set for each lot",
+      "vat": "Confirm amount and VAT",
+      "summary": "Buyer’s premium is published on the individual property listing.",
+      "rules": [
+        {
+          "label": "Buyer’s premium",
+          "amount": "See the selected lot"
+        },
+        {
+          "label": "Sale method",
+          "amount": "Conditional or unconditional"
+        }
+      ],
+      "notes": "Both the regional office and sale method matter. The national buying guide does not give one universal rate. A reservation fee and deposit may also be required under the stated terms.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official buyer terms",
+          "url": "https://www.townandcountrypropertyauctions.co.uk/pages/buy-with-us"
+        }
+      ]
+    },
+    "pattinson-auction": {
+      "basis": "published",
+      "headline": "Depends on sale method",
+      "vat": "See VAT treatment below",
+      "summary": "Standard administration and reservation-fee formats have different charges.",
+      "rules": [
+        {
+          "label": "Standard lots: administration",
+          "amount": "£780 including VAT"
+        },
+        {
+          "label": "Reservation-fee lots",
+          "amount": "5% + VAT; minimum £6,000 + VAT"
+        }
+      ],
+      "notes": "These are the formats in Pattinson’s published partner FAQ, not a quote for every property. Current particulars may describe the reservation fee as up to 6% including VAT, minimum £7,200. Use the selected lot’s terms.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official partner FAQ",
+          "url": "https://smartauctionuk.pattinson.co.uk/faqs"
+        },
+        {
+          "label": "Published lot fee example",
+          "url": "https://www.pattinson.co.uk/api/property/507825/particulars"
+        }
+      ]
+    },
+    "pugh-btg-eddisons": {
+      "basis": "lot_example",
+      "headline": "1.8% of price",
+      "vat": "Including VAT · example lot",
+      "summary": "The buyer fee is set in each lot’s particulars; this commercial example states 1.8%.",
+      "rules": [
+        {
+          "label": "Example buyer’s fee",
+          "amount": "1.8% including VAT"
+        },
+        {
+          "label": "Minimum in this example",
+          "amount": "£0 stated in particulars"
+        }
+      ],
+      "notes": "Other lots can differ. BTG Eddisons terms also describe a separate buyer’s contribution, usually £1,650 including VAT where applicable. Conditional-sale reservation fees are set by the lot.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://www.pugh-auctions.com/property/202608061141sq_mgmv"
+        },
+        {
+          "label": "BTG Eddisons bidder terms",
+          "url": "https://www.pugh-auctions.com/files/terms-of-bidding.pdf?id=766f86e45626e0e329d13419e73a912c"
+        }
+      ],
+      "example": "12 and 12a Hanover Road, Scarborough"
+    },
+    "auction-house-north-west": {
+      "basis": "lot_example",
+      "headline": "2.75% + £900",
+      "vat": "Including VAT · example lot",
+      "summary": "Administration charge plus a separate buyer’s premium.",
+      "rules": [
+        {
+          "label": "Administration",
+          "amount": "2.75%; minimum £3,600"
+        },
+        {
+          "label": "Buyer’s premium",
+          "amount": "£900"
+        }
+      ],
+      "notes": "These are the charges on the linked example, not a region-wide tariff. Other lots, premiums and legal-pack disbursements can differ.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://www.auctionhouse.co.uk/northwest/auction/lot/153123"
+        }
+      ],
+      "example": "22–24 Horsemarket Street, Warrington"
+    },
+    "auction-house-north-yorkshire-tees-valley": {
+      "basis": "lot_example",
+      "headline": "1.8% + £1,800",
+      "vat": "Including VAT · example lot",
+      "summary": "Buyer’s premium plus a separate administration charge.",
+      "rules": [
+        {
+          "label": "Buyer’s premium",
+          "amount": "1.8%; minimum £1,800"
+        },
+        {
+          "label": "Administration",
+          "amount": "£1,800"
+        }
+      ],
+      "notes": "These are the charges on the linked example, not a region-wide tariff. Other lots, premiums and legal-pack disbursements can differ.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://www.auctionhouse.co.uk/teesvalley/auction/lot/153203"
+        }
+      ],
+      "example": "4 & 4a Frenchgate, Richmond"
+    },
+    "auction-house-chesterfield-north-derbyshire": {
+      "basis": "lot_example",
+      "headline": "1.2% + £2,340",
+      "vat": "Including VAT · example lot",
+      "summary": "Buyer’s premium on completion, plus administration on exchange.",
+      "rules": [
+        {
+          "label": "Buyer’s premium",
+          "amount": "1.2%; minimum £1,554"
+        },
+        {
+          "label": "Administration",
+          "amount": "£2,340"
+        }
+      ],
+      "notes": "These are the charges on the linked example, not a region-wide tariff. Other lots, premiums and legal-pack disbursements can differ.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://www.auctionhouse.co.uk/chesterfieldandnorthderbyshire/auction/lot/153178"
+        }
+      ],
+      "example": "The Bret Club, Clay Cross"
+    },
+    "auction-house-scotland": {
+      "basis": "lot_example",
+      "headline": "3.6% of price",
+      "vat": "Including VAT · example lot",
+      "summary": "Administration fee with a £3,600 minimum.",
+      "rules": [
+        {
+          "label": "Administration",
+          "amount": "3.6%; minimum £3,600"
+        }
+      ],
+      "notes": "These are the charges on the linked example, not a region-wide tariff. Other lots, premiums and legal-pack disbursements can differ.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://www.auctionhouse.co.uk/scotland/auction/lot/152371"
+        }
+      ],
+      "example": "The Inns, 50 Main Street, Forth"
+    },
+    "auction-house-cumbria": {
+      "basis": "lot_example",
+      "headline": "1.2% of price",
+      "vat": "Including VAT · example lot",
+      "summary": "Administration fee with a £1,500 minimum.",
+      "rules": [
+        {
+          "label": "Administration",
+          "amount": "1.2%; minimum £1,500"
+        }
+      ],
+      "notes": "These are the charges on the linked example, not a region-wide tariff. Other lots, premiums and legal-pack disbursements can differ.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://www.auctionhouse.co.uk/cumbria/auction/lot/152633"
+        }
+      ],
+      "example": "Darby and Joan Club, Ulverston"
+    },
+    "auction-house-west-yorkshire": {
+      "basis": "lot_example",
+      "headline": "1.5% + £360",
+      "vat": "Including VAT · example lot",
+      "summary": "Administration charge plus the stated search charge.",
+      "rules": [
+        {
+          "label": "Administration",
+          "amount": "1.5%; minimum £2,100"
+        },
+        {
+          "label": "Searches",
+          "amount": "£360"
+        }
+      ],
+      "notes": "These are the charges on the linked example, not a region-wide tariff. Other lots, premiums and legal-pack disbursements can differ.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://www.auctionhouse.co.uk/westyorkshire/auction/lot/153182"
+        }
+      ],
+      "example": "St. Ives Estate, Bingley"
+    },
+    "auction-house-sussex-hampshire": {
+      "basis": "lot_example",
+      "headline": "1% of price",
+      "vat": "Including VAT · example lot",
+      "summary": "Administration fee with a £1,750 minimum.",
+      "rules": [
+        {
+          "label": "Administration",
+          "amount": "1%; minimum £1,750"
+        }
+      ],
+      "notes": "These are the charges on the linked example, not a region-wide tariff. Other lots, premiums and legal-pack disbursements can differ.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://www.auctionhouse.co.uk/sussexandhampshire/auction/lot/152778"
+        }
+      ],
+      "example": "Freehold Russell Hill Road, Purley"
+    },
+    "auction-house-south-west": {
+      "basis": "lot_example",
+      "headline": "£1,200 + £600",
+      "vat": "Including VAT · example lot",
+      "summary": "Administration charge plus a separate buyer’s premium.",
+      "rules": [
+        {
+          "label": "Administration",
+          "amount": "£1,200"
+        },
+        {
+          "label": "Buyer’s premium",
+          "amount": "£600"
+        }
+      ],
+      "notes": "These are the charges on the linked example, not a region-wide tariff. Other lots, premiums and legal-pack disbursements can differ.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://www.auctionhouse.co.uk/southwest/auction/lot/152715"
+        }
+      ],
+      "example": "The Barley Sheaf, Liskeard"
+    },
+    "auction-house-east-anglia": {
+      "basis": "lot_example",
+      "headline": "£1,200 + £1,200",
+      "vat": "Including VAT · example lot",
+      "summary": "Administration charge and buyer’s premium are both listed.",
+      "rules": [
+        {
+          "label": "Administration",
+          "amount": "£1,200"
+        },
+        {
+          "label": "Buyer’s premium",
+          "amount": "£1,200"
+        }
+      ],
+      "notes": "These are the charges on the linked example, not a region-wide tariff. Other lots, premiums and legal-pack disbursements can differ.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://www.auctionhouse.co.uk/eastanglia/auction/lot/152412"
+        }
+      ],
+      "example": "Rockys Bar and Restaurant, Papworth Everard"
+    },
+    "auction-house-manchester": {
+      "basis": "lot_example",
+      "headline": "1.5% of price",
+      "vat": "Including VAT · example lot",
+      "summary": "Administration fee with a £2,100 minimum.",
+      "rules": [
+        {
+          "label": "Administration",
+          "amount": "1.5%; minimum £2,100"
+        }
+      ],
+      "notes": "These are the charges on the linked example, not a region-wide tariff. Other lots, premiums and legal-pack disbursements can differ.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://www.auctionhouse.co.uk/manchester/auction/lot/153150"
+        }
+      ],
+      "example": "47 Wharf Street, Sowerby Bridge"
+    },
+    "auction-house-lincolnshire-north-notts-south-yorks": {
+      "basis": "lot_example",
+      "headline": "£1,440 + £1,440",
+      "vat": "Including VAT · example lot",
+      "summary": "Administration charge and buyer’s premium are both listed.",
+      "rules": [
+        {
+          "label": "Administration",
+          "amount": "£1,440"
+        },
+        {
+          "label": "Buyer’s premium",
+          "amount": "£1,440"
+        }
+      ],
+      "notes": "These are the charges on the linked example, not a region-wide tariff. Other lots, premiums and legal-pack disbursements can differ.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://www.auctionhouse.co.uk/lincolnshire/auction/lot/152914"
+        }
+      ],
+      "example": "26a Wellowgate, Grimsby"
+    },
+    "auction-house-london": {
+      "basis": "lot_example",
+      "headline": "£1,800",
+      "vat": "Including VAT · example lot",
+      "summary": "Administration charge; the lot addendum can specify a different amount.",
+      "rules": [
+        {
+          "label": "Administration",
+          "amount": "£1,800"
+        },
+        {
+          "label": "Buyer’s premium",
+          "amount": "Check the legal pack / addendum"
+        }
+      ],
+      "notes": "The legal pack or addendum may contain further buyer premiums and disbursements. This is evidence from the linked lot, not a guaranteed fee for every sale.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://auctionhouselondon.co.uk/lot/38-seven-sisters-road-holloway-london-n7-6aa-367520"
+        }
+      ],
+      "example": "38 Seven Sisters Road, Holloway"
+    },
+    "auction-house-wales": {
+      "basis": "lot_example",
+      "headline": "1.5% + £600",
+      "vat": "Including VAT · example lot",
+      "summary": "Administration fee plus a separate buyer’s premium.",
+      "rules": [
+        {
+          "label": "Administration",
+          "amount": "1.5%; minimum £2,100"
+        },
+        {
+          "label": "Buyer’s premium",
+          "amount": "£600"
+        }
+      ],
+      "notes": "This is the published fee structure for the linked example. Confirm the charges for your selected lot; legal-pack costs can be additional.",
+      "checked_on": "2026-09-28",
+      "sources": [
+        {
+          "label": "Official example lot",
+          "url": "https://wales.auctionhouse.co.uk/lot/details/aa06bce9-0b4e-4876-9638-ed293e791bb0"
+        }
+      ],
+      "example": "Llywernog, Aberystwyth"
+    }
+  }
+}

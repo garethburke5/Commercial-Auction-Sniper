@@ -1,0 +1,29 @@
+{% macro terms(fee) -%}
+  <dl class="fee-rules">{% for rule in fee.rules %}<div><dt>{{ rule.label }}</dt><dd>{{ rule.amount }}</dd></div>{% endfor %}</dl>
+  {% if fee.example %}<p class="fee-example"><b>Example property:</b> {{ fee.example }}. These terms apply to this example; other lots can differ.</p>{% endif %}
+  {% if fee.notes %}<p class="fee-notes">{{ fee.notes }}</p>{% endif %}
+{%- endmacro %}
+
+{% macro evidence(fee) -%}
+<div class="fee-evidence">{% for source in fee.sources %}<a href="{{ source.url }}" rel="noopener noreferrer">{{ source.label }} ↗</a>{% endfor %}
+{% if fee.checked_on %}<span>Checked <time datetime="{{ fee.checked_on }}">{{ fee.checked_label }}</time>{% if fee.review_due %} · Review due; recheck terms{% endif %}</span>{% endif %}</div>
+{%- endmacro %}
+
+{% macro fee_card(h) -%}
+<article class="auctioneer-card" data-house="{{ h.name|lower }}" data-current="{{ h.current }}">
+  <div class="house-heading"><span class="house-monogram" aria-hidden="true">{{ h.initials }}</span><div><h2><a href="{{ url('/auctioneers/'~h.slug~'/') }}">{{ h.name }}</a></h2><p>{% if h.current %}{{ h.available }} available · {{ h.current }} current lots{% else %}Past catalogue captured{% endif %}</p></div></div>
+  <span class="fee-basis {{ h.fee.basis }}">{{ h.fee.basis_label }}</span>
+  <p class="fee-headline">{{ h.fee.headline }}<span>{{ h.fee.vat }}</span></p>
+  <p class="fee-summary">{{ h.fee.summary }}</p>
+  <details class="fee-detail"><summary>Fee breakdown & exceptions</summary>{{ terms(h.fee) }}</details>
+  {{ evidence(h.fee) }}
+  <a class="house-action" href="{{ url('/auctioneers/'~h.slug~'/') }}">View properties & fees <span>→</span></a>
+</article>
+{%- endmacro %}
+
+{% macro fee_panel(h) -%}
+<section class="buyer-fee-panel" id="buyer-fees" aria-labelledby="buyer-fee-title">
+  <div><p class="eyebrow">BUDGET BEFORE YOU BID</p><h2 id="buyer-fee-title">Buyer fees</h2><span class="fee-basis {{ h.fee.basis }}">{{ h.fee.basis_label }}</span><p class="fee-headline">{{ h.fee.headline }}<span>{{ h.fee.vat }}</span></p><p class="fee-summary">{{ h.fee.summary }}</p>{{ evidence(h.fee) }}</div>
+  <div>{{ terms(h.fee) }}<p class="fee-notes">Fees are additional to the purchase price. This is not a total purchase-cost quote: taxes, legal costs and other charges in the special conditions may apply. Confirm the current lot terms before bidding.</p></div>
+</section>
+{%- endmacro %}
