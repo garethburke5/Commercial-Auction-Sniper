@@ -1,0 +1,201 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative official HM Land Registry exact-transaction address enrichment",
+  "captured_at_utc": "2026-09-28T17:20:00Z",
+  "source_note": "The official HM Land Registry Price Paid Data report builder was run across every currently priced, addressless Savills legacy commercial or mixed-use appearance: 142 appearances in total. Twenty-two matches were retained only where the saved auction date, exact hammer price, locality or postcode district, tenure, post-auction completion timing, and commercial or Other property evidence aligned. Residential-looking, multi-candidate and otherwise ambiguous results were left unchanged. The original Savills and PropertyAuctions evidence and every repeat auction appearance remain preserved.",
+  "source_records": [
+    {
+      "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Official Price Paid Data report-builder records",
+      "evidence_excerpt": "Exact-price transaction searches returned the full address, completion date, tenure, property type and transaction category used for the conservative matches below. Each appearance retains its exact official query URL."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "savills/legacy-947",
+      "target_appearance_id": "Savills Auctions|propertyauctions:947|53",
+      "address": "Ground Floor Offices, St Pauls Place, 40 St Pauls Square, Birmingham, B3 1QS",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=3750000&max_price=3750000&min_date=2015-03-31&max_date=2015-11-06&relative_url_root=%2Fapp%2Fppd&town=Birmingham",
+      "evidence_note": "Saved AID 947 lot 53 is an investment leasehold office in Birmingham sold for exactly GBP 3,750,000 on 31 March 2015. The official record identifies this Other/leasehold address completing for the exact price on 5 June 2015."
+    },
+    {
+      "target_shard": "savills/legacy-1070",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1070|34",
+      "address": "520-522 Muswell Hill Broadway, London, N10 1BT",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=2950000&max_price=2950000&min_date=2018-07-24&max_date=2019-03-01&relative_url_root=%2Fapp%2Fppd&postcode=N10",
+      "evidence_note": "Saved AID 1070 lot 34 is an investment freehold retail property in N10 sold for exactly GBP 2,950,000 on 24 July 2018. The sole exact-price N10 record is this Other/freehold address completing on 28 September 2018."
+    },
+    {
+      "target_shard": "savills/legacy-1019",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1019|66",
+      "address": "Jubilee Works, Ness Road, Erith, DA8 2LD",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=835000&max_price=835000&min_date=2017-05-09&max_date=2017-12-15&relative_url_root=%2Fapp%2Fppd&town=Erith",
+      "evidence_note": "Saved AID 1019 lot 66 is an investment freehold industrial property in Erith sold for exactly GBP 835,000 on 9 May 2017. The sole exact-price Erith record is this Other/freehold address completing on 26 July 2017."
+    },
+    {
+      "target_shard": "savills/legacy-1017",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1017|164",
+      "address": "524 Harrow Road, London, W9 3QF",
+      "address_basis": "conservative_official_hmlr_exact_price_date_postcode_and_unique_transaction_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=753000&max_price=753000&min_date=2017-02-13&max_date=2017-09-21&relative_url_root=%2Fapp%2Fppd&postcode=W9",
+      "evidence_note": "Saved AID 1017 lot 164 is an investment freehold retail property in W9 sold for exactly GBP 753,000 on 13 February 2017. The sole exact-price W9 record is this freehold address completing on 17 March 2017."
+    },
+    {
+      "target_shard": "savills/legacy-917",
+      "target_appearance_id": "Savills Auctions|propertyauctions:917|15",
+      "address": "Unit 5, Halifax Road, Cressex Business Park, High Wycombe, HP12 3SD",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=680000&max_price=680000&min_date=2014-08-28&max_date=2015-04-05&relative_url_root=%2Fapp%2Fppd&town=High%20Wycombe",
+      "evidence_note": "Saved AID 917 lot 15 is an investment freehold office in High Wycombe sold for exactly GBP 680,000 on 28 August 2014. The official Other/freehold business-park record completes for the exact price on 1 September 2014; the competing locality result is residential and was rejected."
+    },
+    {
+      "target_shard": "savills/legacy-917",
+      "target_appearance_id": "Savills Auctions|propertyauctions:917|21",
+      "address": "The Woodstock Motor Hotel, Stock Road, West Hanningfield, Chelmsford, CM2 8LA",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=515000&max_price=515000&min_date=2014-08-28&max_date=2015-04-05&relative_url_root=%2Fapp%2Fppd&town=Chelmsford",
+      "evidence_note": "Saved AID 917 lot 21 is a vacant freehold hotel in Chelmsford sold for exactly GBP 515,000 on 28 August 2014. The official Other/freehold hotel record completes for the exact price on 5 September 2014; the competing locality result is residential and was rejected."
+    },
+    {
+      "target_shard": "savills/legacy-1085",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1085|9",
+      "address": "Hallam Mills, Little Hallam Lane, Ilkeston, DE7 4AA",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=410000&max_price=410000&min_date=2018-11-29&max_date=2019-07-07&relative_url_root=%2Fapp%2Fppd&town=Ilkeston",
+      "evidence_note": "Saved AID 1085 lot 9 is a vacant freehold industrial property in Ilkeston sold for exactly GBP 410,000 on 29 November 2018. The official Other/freehold mill record completes for the exact price on 2 January 2019; the competing locality result is residential and was rejected."
+    },
+    {
+      "target_shard": "savills/legacy-1006",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1006|112",
+      "address": "285 Hall Lane, London, E4 8NU",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=346000&max_price=346000&min_date=2016-11-01&max_date=2017-06-09&relative_url_root=%2Fapp%2Fppd&postcode=E4",
+      "evidence_note": "Saved AID 1006 lot 112 is a vacant freehold retail property in E4 sold for exactly GBP 346,000 on 1 November 2016. The sole exact-price E4 record is this Other/freehold address completing on 12 December 2016."
+    },
+    {
+      "target_shard": "savills/legacy-1018",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1018|55",
+      "address": "100 Green Lane, Morden, SM4 6SS",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=329000&max_price=329000&min_date=2017-03-29&max_date=2017-11-04&relative_url_root=%2Fapp%2Fppd&town=Morden",
+      "evidence_note": "Saved AID 1018 lot 55 is a vacant leasehold commercial property in Morden sold for exactly GBP 329,000 on 29 March 2017. The sole exact-price Morden record is this Other/leasehold address completing on 4 May 2017."
+    },
+    {
+      "target_shard": "savills/legacy-945",
+      "target_appearance_id": "Savills Auctions|propertyauctions:945|33",
+      "address": "L Heseltine & Sons, Canal Road, Bradford, BD2 1AR",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=310000&max_price=310000&min_date=2015-03-26&max_date=2015-11-01&relative_url_root=%2Fapp%2Fppd&town=Bradford",
+      "evidence_note": "Saved AID 945 lot 33 is a vacant freehold retail warehouse in Bradford sold for exactly GBP 310,000 on 26 March 2015. The official commercial-class Other/freehold record completes for the exact price on 27 May 2015; residential candidates were rejected."
+    },
+    {
+      "target_shard": "savills/legacy-914",
+      "target_appearance_id": "Savills Auctions|propertyauctions:914|51",
+      "address": "10A Gwynne Road, London, SW11 3GJ",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=244000&max_price=244000&min_date=2014-07-22&max_date=2015-02-27&relative_url_root=%2Fapp%2Fppd&postcode=SW11",
+      "evidence_note": "Saved AID 914 lot 51 is a vacant leasehold office in SW11 sold for exactly GBP 244,000 on 22 July 2014. The sole exact-price SW11 record is this Other/leasehold address completing on 19 August 2014."
+    },
+    {
+      "target_shard": "savills/legacy-959",
+      "target_appearance_id": "Savills Auctions|propertyauctions:959|47",
+      "address": "182A Manford Way, Chigwell, IG7 4DG",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=159000&max_price=159000&min_date=2015-07-28&max_date=2016-03-04&relative_url_root=%2Fapp%2Fppd&town=Chigwell",
+      "evidence_note": "Saved AID 959 lot 47 is a vacant freehold office in Chigwell sold for exactly GBP 159,000 on 28 July 2015. The sole exact-price Chigwell record is this Other/freehold address completing on 3 September 2015."
+    },
+    {
+      "target_shard": "savills/legacy-1069",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1069|41D",
+      "address": "Unit 1A, The Starting Gate, 24-28 Brockenhurst Road, Ascot, SL5 9DL",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=152000&max_price=152000&min_date=2018-06-18&max_date=2019-01-24&relative_url_root=%2Fapp%2Fppd&town=Ascot",
+      "evidence_note": "Saved AID 1069 lot 41D is a vacant leasehold retail property in Ascot sold for exactly GBP 152,000 on 18 June 2018. The sole exact-price Ascot record is this Other/leasehold address completing on 16 July 2018."
+    },
+    {
+      "target_shard": "savills/legacy-1007",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1007|54",
+      "address": "35A Farncombe Street, Godalming, GU7 3LH",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=149000&max_price=149000&min_date=2016-12-12&max_date=2017-07-20&relative_url_root=%2Fapp%2Fppd&town=Godalming",
+      "evidence_note": "Saved AID 1007 lot 54 is a vacant freehold commercial property in Godalming sold for exactly GBP 149,000 on 12 December 2016. The sole exact-price Godalming record is this Other/freehold address completing on 13 January 2017."
+    },
+    {
+      "target_shard": "savills/legacy-921",
+      "target_appearance_id": "Savills Auctions|propertyauctions:921|6",
+      "address": "Warehouse Restaurant, Court Terrace, Ripon, HG4 1PD",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=126000&max_price=126000&min_date=2014-10-16&max_date=2015-05-24&relative_url_root=%2Fapp%2Fppd&town=Ripon",
+      "evidence_note": "Saved AID 921 lot 6 is a vacant freehold retail property in Ripon sold for exactly GBP 126,000 on 16 October 2014. The sole exact-price Ripon record is this Other/freehold address completing on 1 December 2014."
+    },
+    {
+      "target_shard": "savills/legacy-1032",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1032|4",
+      "address": "Victoria Square Post Office, 1 Carlton Road, Worksop, S80 1PE",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=99000&max_price=99000&min_date=2017-02-16&max_date=2017-09-24&relative_url_root=%2Fapp%2Fppd&town=Worksop",
+      "evidence_note": "Saved AID 1032 lot 4 is an investment freehold retail property in Worksop sold for exactly GBP 99,000 on 16 February 2017. The official commercial-class Other/freehold record completes for the exact price on 30 March 2017; the residential candidate was rejected."
+    },
+    {
+      "target_shard": "savills/legacy-921",
+      "target_appearance_id": "Savills Auctions|propertyauctions:921|12",
+      "address": "20-22 High Street, Kirton, Boston, PE20 1EG",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=65000&max_price=65000&min_date=2014-10-16&max_date=2015-05-24&relative_url_root=%2Fapp%2Fppd&town=Boston",
+      "evidence_note": "Saved AID 921 lot 12 is a vacant freehold retail property in Boston sold for exactly GBP 65,000 on 16 October 2014. The official commercial-class Other/freehold record completes for the exact price on 13 November 2014; the residential candidate was rejected."
+    },
+    {
+      "target_shard": "savills/legacy-1043",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1043|136",
+      "address": "337 Lillie Road, London, SW6 7NR",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=32000&max_price=32000&min_date=2017-06-19&max_date=2018-01-25&relative_url_root=%2Fapp%2Fppd&postcode=SW6",
+      "evidence_note": "Saved AID 1043 lot 136 is a vacant leasehold retail property in SW6 sold for exactly GBP 32,000 on 19 June 2017. The sole exact-price SW6 record is this Other/leasehold address completing on 17 July 2017."
+    },
+    {
+      "target_shard": "savills/legacy-1036",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1036|14",
+      "address": "31 Stockwell Gate, Mansfield, NG18 1LA",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_commercial_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=21500&max_price=21500&min_date=2017-09-21&max_date=2018-04-29&relative_url_root=%2Fapp%2Fppd&town=Mansfield",
+      "evidence_note": "Saved AID 1036 lot 14 is a vacant freehold retail property in Mansfield sold for exactly GBP 21,500 on 21 September 2017. The sole exact-price Mansfield record is this Other/freehold address completing on 19 October 2017."
+    },
+    {
+      "target_shard": "savills/legacy-1047",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1047|47",
+      "address": "17 Devonshire Mews, London, W4 2HA",
+      "address_basis": "conservative_official_hmlr_exact_price_date_postcode_and_documented_commercial_use_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=504000&max_price=504000&min_date=2017-12-11&max_date=2018-07-19&relative_url_root=%2Fapp%2Fppd&postcode=W4",
+      "evidence_note": "Saved AID 1047 lot 47 is a vacant freehold office in W4 sold for exactly GBP 504,000 on 11 December 2017. The sole exact-price W4 record is this freehold address completing on 26 January 2018, and independent business-rates evidence records commercial store use."
+    },
+    {
+      "target_shard": "savills/legacy-959",
+      "target_appearance_id": "Savills Auctions|propertyauctions:959|86",
+      "address": "3 Prospect Place, London, W4 4JE",
+      "address_basis": "conservative_official_hmlr_exact_price_date_postcode_and_documented_commercial_use_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=790000&max_price=790000&min_date=2015-07-28&max_date=2016-03-04&relative_url_root=%2Fapp%2Fppd&postcode=W4",
+      "evidence_note": "Saved AID 959 lot 86 is a vacant freehold office in W4 sold for exactly GBP 790,000 on 28 July 2015. The sole exact-price W4 record is this freehold address completing on 25 August 2015, and independent company and business listings confirm commercial use."
+    },
+    {
+      "target_shard": "savills/legacy-1019",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1019|119",
+      "address": "20 High Street, Tring, HP23 5AP",
+      "address_basis": "conservative_official_hmlr_exact_price_date_locality_tenure_and_documented_commercial_use_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=590000&max_price=590000&min_date=2017-05-09&max_date=2017-12-15&relative_url_root=%2Fapp%2Fppd&town=Tring",
+      "evidence_note": "Saved AID 1019 lot 119 is a vacant leasehold office in Tring sold for exactly GBP 590,000 on 9 May 2017. The official commercial-class Other/leasehold record completes for the exact price on 28 June 2017, and independent records identify this address as a banking hall and office."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 22,
+  "address_records_added": 22,
+  "partial_records_added": 0,
+  "related_partial_candidates_checked": 142,
+  "ambiguous_candidates_left_unchanged": 120,
+  "historical_completeness_declared": false
+}
