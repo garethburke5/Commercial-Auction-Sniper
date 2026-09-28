@@ -7,7 +7,9 @@ on:
       - historical_corpus.py
       - historical_allsop.py
       - scripts/harvest_acuitus_canonical.py
+      - scripts/harvest_clive_emson_canonical.py
       - tests/test_historical_corpus.py
+      - tests/test_clive_emson_canonical.py
       - web_platform/tests/test_acuitus_admission.py
       - .github/workflows/historical-lot-corpus.yml
       - data/historical_source_corpus/**
@@ -36,7 +38,7 @@ jobs:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4 pytest
       - name: Verify admission, identities and completeness rules
-        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py web_platform/tests/test_acuitus_admission.py
+        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py web_platform/tests/test_acuitus_admission.py
       - name: Bank every previously recovered legacy lot
         run: python -u historical_corpus.py bank-legacy
       - name: Bank evidenced lots from saved source-corpus shards
@@ -49,6 +51,10 @@ jobs:
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_acuitus_canonical.py --all-incomplete
+      - name: Collect only newly exposed or unreconciled Clive Emson catalogues
+        timeout-minutes: 15
+        continue-on-error: true
+        run: python -u scripts/harvest_clive_emson_canonical.py --all-incomplete
       - name: Traverse every known Savills catalogue and all its pages
         timeout-minutes: 30
         run: python -u historical_corpus.py harvest-savills --workers 3
@@ -71,6 +77,7 @@ jobs:
           if test -f data/auction_history/allsop_collection.json; then git add data/auction_history/allsop_collection.json; fi
           if test -f data/auction_history/commercial_expansion.json; then git add data/auction_history/commercial_expansion.json; fi
           if test -f data/auction_history/acuitus_collection.json; then git add data/auction_history/acuitus_collection.json; fi
+          if test -f data/auction_history/clive_emson_collection.json; then git add data/auction_history/clive_emson_collection.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Bank historical auction lot records and source evidence'
           for attempt in 1 2 3 4; do

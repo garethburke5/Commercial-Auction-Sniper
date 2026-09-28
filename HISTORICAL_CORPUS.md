@@ -12,6 +12,7 @@ python historical_corpus.py harvest-savills
 python historical_corpus.py harvest-paul-fosh
 python historical_allsop.py --workers 1
 python scripts/harvest_acuitus_canonical.py --all-incomplete
+python scripts/harvest_clive_emson_canonical.py --all-incomplete
 python historical_corpus.py build
 ```
 
@@ -37,6 +38,12 @@ published card set rather than the site's 128-row default. It resumes only years
 with a newly discovered or unreconciled sale, while an explicit `--year` remains
 available for a source refresh. Earliest broken generic property links retain the
 auction-date-plus-lot identity and archive evidence instead of inventing an ID.
+
+Clive Emson collection traverses the first-party results index and banks every
+distinct surviving lot card in each unpaginated catalogue. The official archive
+also exposes a lot-numbering extent; missing numbers are recorded as gaps, not
+manufactured appearances. Card localities remain separate from street addresses
+pending detail-page enrichment.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including
