@@ -10,6 +10,7 @@ pip install requests beautifulsoup4
 python historical_corpus.py bank-legacy
 python historical_corpus.py harvest-savills
 python historical_corpus.py harvest-paul-fosh
+python historical_allsop.py --workers 1
 python historical_corpus.py build
 ```
 
@@ -23,6 +24,12 @@ Paul Fosh collection traverses and reconciles the entire paginated public result
 set, retaining all addresses, published lot end dates, outcomes, prices and detail
 links. Its lot end dates are labelled as such; they are not silently assumed to
 be a separate catalogue's date. Listing UUIDs preserve stable source identity.
+
+Allsop collection traverses the first-party past-auction manifest and each
+catalogue's paginated public search results, prioritising commercial catalogues
+while retaining residential lots. Stable auction/lot UUIDs preserve repeat
+appearances. Explicit test rows, lot-zero dividers and future auctions are not
+admitted; raw page snapshots and per-auction count reconciliation are saved.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including
@@ -80,23 +87,3 @@ can be refreshed explicitly. The broader operation must next recover missing
 legacy street addresses, revisit missing years/sources, import and validate other
 auctioneers' existing raw lots, and add adapters for all recoverable UK sources.
 The operation is not complete merely because currently known URLs are exhausted.
-
-## Bounded commercial expansion
-
-`python scripts/harvest_acuitus_canonical.py --year 2021` reuses the existing
-Acuitus discovery adapter (including its current radio-button date selector),
-traverses that year's public results and banks every identifiable card-level lot.
-The published count, distinct source IDs and auction dates must reconcile before
-an auction is complete. Detail enrichment remains a separate stage. A larger
-paginated catalogue is retained as partial and never marked complete.
-
-The manual **Commercial history expansion** workflow accepts another year and
-shares the canonical corpus concurrency lock. It also admits individually evidenced
-Allsop lots from previously saved source files that the earlier importer missed.
-Auction-only records are excluded. Existing source/date/URL matches are enriched
-only where fields were missing. Ambiguous matches remain untouched.
-
-`data/auction_history/commercial_expansion.json` records the exact added IDs,
-commercial/mixed-use/other split, enrichments and reconciliation for its last run.
-The full production count remains `progress.json`. Re-running an already banked
-batch must not be reported as newly captured properties.
