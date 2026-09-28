@@ -1,8 +1,40 @@
 """Adapt the published snapshot to the established Auction Sniper presentation."""
 from urllib.parse import quote
+from html import unescape
+import re
+import unicodedata
 from board_presentation import catalogue_status
 from investment_details import _investment_facts
 from property_summary import build_opportunity_summary
+
+SEARCH_INDEX_VERSION = 2
+SEARCH_FIELDS = ('address', 'description', 'tenant', 'tenancy_schedule', 'property_type',
+                 'source', 'tenure', 'occupation', 'nearby_occupiers', 'lease_term',
+                 'fri', 'break_clause', 'parking', 'development_potential',
+                 'refurbishment', 'listed_status', 'asset_management')
+
+
+def search_text(row):
+    """Compact searchable words from captured particulars, not generated scores.
+
+    Repeated words add no value to the all-terms matcher. Keep every distinct
+    word so long descriptions remain searchable without duplicating their prose.
+    """
+    def values(value):
+        if isinstance(value, str):
+            yield value
+        elif isinstance(value, dict):
+            for item in value.values():
+                yield from values(item)
+        elif isinstance(value, (list, tuple)):
+            for item in value:
+                yield from values(item)
+    text = ' '.join(part for field in SEARCH_FIELDS for part in values(row.get(field)))
+    text = unescape(re.sub(r'<[^>]+>', ' ', text))
+    text = ''.join(c for c in unicodedata.normalize('NFKD', text) if not unicodedata.combining(c))
+    text = text.lower().replace("'", '').replace('’', '')
+    words = re.findall(r'[a-z0-9]+', text)
+    return ' '.join(dict.fromkeys(words))
 
 
 def enrich_board_row(row):
@@ -28,4 +60,4 @@ def enrich_board_row(row):
 
 def index_row(row, chunk):
     return {k:row.get(k) for k in ('id','address','source','tenure','property_type','auction_date',
-                                 'guide_price','giy','unavailable')} | {'chunk':chunk}
+                                 'guide_price','giy','unavailable')} | {'chunk':chunk, 'search_text':search_text(row)}

@@ -85,6 +85,17 @@ https://supabase.com/docs/guides/auth/jwts.
 
 ## Buyer fees and compact catalogue
 
+The property search index includes captured addresses, tenants, tenancy schedules,
+property types, descriptions and other descriptive particulars. All query words
+must match, so `Admiral Liverpool` narrows a business search by location. Nearby
+business mentions can also match; a keyword match does not prove that business is
+the tenant. Search ignores case, accents and punctuation. The index stores unique
+words to limit its size and excludes generated investment assessments and URLs.
+The shipped JavaScript matcher is exercised with the Python index producer in
+`tests/test_keyword_search.py` (requires Node, available on the CI runner).
+Increment `SEARCH_INDEX_VERSION` if changing the index contract so a stale
+address-only index cannot be served to the new search code.
+
 Buyer-fee information lives in `auctioneer_fees.json`, independently of property
 income, guide prices and GIY. Each profile records the official source, review
 date, VAT wording, fee bands/minimums and scope. Regional lot examples are

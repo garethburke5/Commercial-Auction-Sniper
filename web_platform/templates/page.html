@@ -4,7 +4,7 @@
 <title>{{ title }} | Auction Sniper</title><meta name="description" content="{{ description }}">
 <link rel="canonical" href="{{ canonical }}">{% if noindex %}<meta name="robots" content="noindex,follow">{% endif %}
 <meta property="og:title" content="{{ title }}"><meta property="og:description" content="{{ description }}"><meta property="og:url" content="{{ canonical }}">
-<link rel="stylesheet" href="{{ url('/static/site.css') }}?v={{ asset_version }}"><script type="application/ld+json">{{ structured|safe }}</script><script src="{{ url('/static/board.js') }}?v={{ asset_version }}" defer></script>
+<link rel="stylesheet" href="{{ url('/static/site.css') }}?v={{ asset_version }}"><script type="application/ld+json">{{ structured|safe }}</script><script src="{{ url('/static/search.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/board.js') }}?v={{ asset_version }}" defer></script>
 </head><body>
 {% from 'cards.html' import cards with context %}
 {% from 'fees.html' import fee_panel with context %}

@@ -9,7 +9,7 @@ from urllib.parse import quote
 from xml.sax.saxutils import escape
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from .catalogue import Catalogue, money
-from .board import index_row
+from .board import index_row, SEARCH_INDEX_VERSION
 from .fees import load_fees, directory
 
 HERE = Path(__file__).parent
@@ -27,9 +27,10 @@ class Site:
         # Card bundles change when their markup or deployment prefix changes,
         # even if the underlying catalogue is unchanged.
         self.board_version = hashlib.sha256(json.dumps(self.catalogue.properties,sort_keys=True).encode()
-            + (HERE/'templates/cards.html').read_bytes() + self.prefix.encode()).hexdigest()[:12]
+            + (HERE/'templates/cards.html').read_bytes() + self.prefix.encode()
+            + str(SEARCH_INDEX_VERSION).encode()).hexdigest()[:12]
         self.env.globals['asset_version'] = hashlib.sha256((HERE/'static/site.css').read_bytes()
-            + (HERE/'static/board.js').read_bytes()).hexdigest()[:12]
+            + (HERE/'static/board.js').read_bytes() + (HERE/'static/search.js').read_bytes()).hexdigest()[:12]
         self.env.globals.update(board_index=f'/board/{self.board_version}/index.json')
 
     def page(self, path, title, kind, description, **ctx):

@@ -74,9 +74,7 @@
     return Math.max(1,parseInt(p.get('page')||board.dataset.page,10)||1);
   }
   function matches(row){
-    const terms=control('q').value.toLowerCase().trim().split(/[\s,;]+/).filter(Boolean);
-    const address=row.address.toLowerCase();
-    if(!terms.every(term=>address.includes(term)))return false;
+    if(!window.AuctionSniperSearch.matches(row,control('q').value))return false;
     const selected=sources();if(selected.length && !selected.includes(row.source))return false;
     const tenure=control('tenure').value.toLowerCase();if(tenure && (row.tenure||'').toLowerCase()!==tenure)return false;
     const status=control('status').value;if(status==='available'&&row.unavailable)return false;

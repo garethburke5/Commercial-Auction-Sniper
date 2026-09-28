@@ -81,7 +81,7 @@ def test_card_markup_changes_invalidate_browser_bundles(tmp_path,monkeypatch):
     before=Site(EmptyCatalogue())
     (tmp_path/'templates').mkdir()
     (tmp_path/'static').mkdir()
-    for name in ('site.css','board.js'):
+    for name in ('site.css','board.js','search.js'):
         (tmp_path/'static'/name).write_bytes((module.HERE/'static'/name).read_bytes())
     (tmp_path/'templates/cards.html').write_text('changed card markup')
     monkeypatch.setattr(module,'HERE',tmp_path)
