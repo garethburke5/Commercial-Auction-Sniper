@@ -75,10 +75,10 @@ def render_buyer_due_diligence():
     st.caption('Reports stay available during this session. Download the readable HTML to revisit it offline, or save JSON to reopen here. They are not yet saved to an account.')
     filename='auction-sniper-'+model['report_id']
     a,b=st.columns(2)
-    with a:st.download_button('Download readable report (HTML)',render_review_html(model,standalone=True),file_name=filename+'.html',mime='text/html')
-    with b:st.download_button('Save report to reopen (JSON)',json.dumps(model,ensure_ascii=False,indent=2),file_name=filename+'.json',mime='application/json')
+    with a:st.download_button('Download readable report (HTML)',render_review_html(model,standalone=True),file_name=filename+'.html',mime='text/html',on_click='ignore')
+    with b:st.download_button('Save report to reopen (JSON)',json.dumps(model,ensure_ascii=False,indent=2),file_name=filename+'.json',mime='application/json',on_click='ignore')
     st.markdown(render_review_html(model),unsafe_allow_html=True)
     originals=st.session_state.get('dd_originals',{}) if selected==st.session_state.get('dd_originals_report') else {}
     if originals:
         with st.expander('Retrieve an original uploaded document'):
-            name=st.selectbox('Source document',list(originals));st.download_button('Download original document',originals[name],file_name=name,mime='application/octet-stream')
+            name=st.selectbox('Source document',list(originals));st.download_button('Download original document',originals[name],file_name=name,mime='application/octet-stream',on_click='ignore')
