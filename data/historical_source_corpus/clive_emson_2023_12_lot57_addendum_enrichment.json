@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Clive Emson",
+  "capture_scope": "exact address enrichment from first-party auction addendum",
+  "source_url": "https://www.cliveemson.co.uk/auc246/legals/Online131223.pdf",
+  "source_excerpt": "Lot 57 - Flat 3, 62 High Street, Queenborough, Kent- Postponed",
+  "appearance_enrichments": [
+    {
+      "target_shard": "clive-emson/246",
+      "target_appearance_id": "Clive Emson|clive-emson:246|57",
+      "address": "Flat 3, 62 High Street, Queenborough, Kent",
+      "source_url": "https://www.cliveemson.co.uk/auc246/legals/Online131223.pdf",
+      "address_basis": "explicit full premise in official auction addendum",
+      "evidence_note": "Official Clive Emson 13 December 2023 auction addendum explicitly identifies Lot 57 as postponed. The old lot-detail URL now redirects to the current catalogue, so no postcode is inferred."
+    }
+  ]
+}
