@@ -16,7 +16,7 @@
   const research=document.querySelector('#open-research');
   if (research) research.addEventListener('click',()=>{
     const frame=document.querySelector('#research-frame');
-    frame.src=research.dataset.src;frame.hidden=false;research.hidden=true;
+    frame.src=research.dataset.src;frame.hidden=false;research.remove();
   });
   const board=document.querySelector('#property-board');
   if (!board) return;
