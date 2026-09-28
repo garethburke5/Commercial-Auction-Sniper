@@ -13,6 +13,7 @@ python historical_corpus.py harvest-paul-fosh
 python historical_allsop.py --workers 1
 python scripts/harvest_acuitus_canonical.py --all-incomplete
 python scripts/harvest_clive_emson_canonical.py --all-incomplete
+python scripts/harvest_clive_emson_canonical.py --enrich-next --workers 4
 python historical_corpus.py build
 ```
 
@@ -43,7 +44,9 @@ Clive Emson collection traverses the first-party results index and banks every
 distinct surviving lot card in each unpaginated catalogue. The official archive
 also exposes a lot-numbering extent; missing numbers are recorded as gaps, not
 manufactured appearances. Card localities remain separate from street addresses
-pending detail-page enrichment.
+pending detail-page enrichment. The resumable detail pass revisits one oldest
+partial catalogue at a time, preserves each raw lot page, and upgrades only the
+same immutable appearance ID after the page's auction date and lot number agree.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including

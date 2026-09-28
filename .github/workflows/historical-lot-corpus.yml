@@ -55,6 +55,10 @@ jobs:
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_clive_emson_canonical.py --all-incomplete
+      - name: Enrich the oldest Clive Emson partial catalogue from lot pages
+        timeout-minutes: 15
+        continue-on-error: true
+        run: python -u scripts/harvest_clive_emson_canonical.py --enrich-next --workers 4
       - name: Traverse every known Savills catalogue and all its pages
         timeout-minutes: 30
         run: python -u historical_corpus.py harvest-savills --workers 3
