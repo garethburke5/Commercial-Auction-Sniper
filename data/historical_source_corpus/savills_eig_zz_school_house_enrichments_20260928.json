@@ -1,0 +1,78 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative alternate-source address enrichment",
+  "captured_at_utc": "2026-09-28T14:17:04Z",
+  "source_note": "Two saved EIG/Savills appearances for detached former school houses were resolved only after matching their exact property descriptions and saved profile photographs to independent address records. The October 2014 Lewisham lot's £501,000 result uniquely matches HM Land Registry's £501,000 first recorded sale of School House, Ardmere Road on 26 November 2014; a 2015 planning record independently describes the same building as the former school keeper's cottage. The March 2013 Brockley lot's distinctive brick-and-red-quoin facade, gabled roof form and position beside a school match the later sale brochure for The Old School House, Gordonbrock Road; that brochure explicitly identifies it as a detached former schoolhouse, while Royal Mail PAF and property/EPC records supply the complete address. No identity was inferred from locality alone.",
+  "source_records": [
+    {
+      "source_url": "https://www.getthedata.com/postcode/SE13-6EJ",
+      "source_name": "HM Land Registry Price Paid Data via GetTheData",
+      "record_identity": "School House, Ardmere Road, London, SE13 6EJ",
+      "evidence_excerpt": "Detached freehold School House, Ardmere Road, London, SE13 6EJ sold for £501,000 on 26 November 2014."
+    },
+    {
+      "source_url": "https://ukpropertylooker.com/uk/se-13/se13-6ej/1-ardmere-cottages-ardmere-road-lewisham-london-se13-6ej",
+      "source_name": "PlanIt planning register via UK Property Looker",
+      "record_identity": "Lewisham planning application DC/15/090720",
+      "evidence_excerpt": "The 2015 application describes the change of use of the former school keeper's cottage at Ardmere Cottages, Ardmere Road SE13, including a two-storey extension."
+    },
+    {
+      "source_url": "https://media.onthemarket.com/properties/10771008/1362903536/document-0.pdf",
+      "source_name": "Sebastian Roche sale brochure",
+      "record_identity": "The Old School House, Gordonbrock Road, SE4 1JB",
+      "evidence_excerpt": "The brochure identifies a detached former old schoolhouse at Gordonbrock Road and preserves exterior photographs matching the saved EIG profile image's distinctive gabled brick facade, red-brick arches and quoins, and adjacency to the school."
+    },
+    {
+      "source_url": "https://www.ukpostcodecheck.com/postcode/se4-1jb",
+      "source_name": "Royal Mail Postcode Address File via UK Postcode Check",
+      "record_identity": "SE4 1JB address list",
+      "evidence_excerpt": "Royal Mail PAF lists School House, Gordonbrock Road, London, SE4 1JB."
+    },
+    {
+      "source_url": "https://www.bricksandlogic.co.uk/property/school-house-gordonbrock-road-london-se4-1jb",
+      "source_name": "Bricks and Logic property and EPC record",
+      "record_identity": "School House, Gordonbrock Road, London, SE4 1JB",
+      "evidence_excerpt": "Period freehold detached house with garden; the record has an EPC entry dated February 2014 and a later Land Registry sale."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "source-corpus/savills_eig_17999_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|17999|lotid-756437",
+      "address": "School House, Ardmere Road, London, SE13 6EJ",
+      "address_basis": "conservative_unique_identity_match_across_saved_auction_record_and_independent_address_sources",
+      "source_url": "https://www.getthedata.com/postcode/SE13-6EJ",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/f77a3dc1-2df8-4ed3-ae58-71d4bac06673",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/f77a3dc1-2df8-4ed3-ae58-71d4bac06673/profile.jpg",
+        "https://www.getthedata.com/postcode/SE13-6EJ",
+        "https://ukpropertylooker.com/uk/se-13/se13-6ej/1-ardmere-cottages-ardmere-road-lewisham-london-se13-6ej"
+      ],
+      "evidence_note": "The saved Savills/EIG lot is a detached freehold former school keeper's house in Lewisham SE13 sold for £501,000 on 28 October 2014. HM Land Registry records the unique detached freehold School House at Ardmere Road, SE13 6EJ completing for exactly £501,000 four weeks later, and the planning record independently confirms its former-school-keeper identity."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683045",
+      "address": "School House, Gordonbrock Road, London, SE4 1JB",
+      "address_basis": "conservative_unique_identity_match_across_saved_auction_record_and_independent_address_sources",
+      "source_url": "https://media.onthemarket.com/properties/10771008/1362903536/document-0.pdf",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/1973d18d-ca8f-4cbe-9f0f-c9c83e48a825",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/1973d18d-ca8f-4cbe-9f0f-c9c83e48a825/profile.jpg",
+        "https://media.onthemarket.com/properties/10771008/1362903536/document-0.pdf",
+        "https://www.ukpostcodecheck.com/postcode/se4-1jb",
+        "https://www.bricksandlogic.co.uk/property/school-house-gordonbrock-road-london-se4-1jb"
+      ],
+      "evidence_note": "The saved Savills/EIG appearance is a detached freehold former school house with garden in Brockley SE4. Its saved profile photograph matches the later addressed brochure's distinctive gabled brick facade, red-brick arches and quoins and adjoining-school setting; the brochure states it was formerly the old schoolhouse, and independent PAF and EPC records confirm the complete address."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 2,
+  "address_records_added": 2,
+  "partial_records_added": 0,
+  "related_partial_candidates_checked": 2,
+  "ambiguous_candidates_left_unchanged": 0,
+  "historical_completeness_declared": false
+}
