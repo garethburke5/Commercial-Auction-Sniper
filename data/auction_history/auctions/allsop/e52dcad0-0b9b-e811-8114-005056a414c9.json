@@ -1,0 +1,33 @@
+{
+  "auctioneer": "Allsop",
+  "source_auction_id": "allsop:e52dcad0-0b9b-e811-8114-005056a414c9",
+  "auction_date": "2019-02-14",
+  "auction_name": "Residential - February - 2019",
+  "catalogue_complete": true,
+  "completion_scope": "all rows for this UUID in the public Allsop past-auction manifest and search API",
+  "lots_captured": 312,
+  "raw_records_observed": 316,
+  "expected_raw_records": 316,
+  "pages_expected": 1,
+  "pages_captured": 1,
+  "excluded_non_properties": [
+    {
+      "source_lot_id": "1014985b-5821-e911-811d-005056a414c9",
+      "reason": "no published property address"
+    },
+    {
+      "source_lot_id": "2214985b-5821-e911-811d-005056a414c9",
+      "reason": "no published property address"
+    },
+    {
+      "source_lot_id": "1914985b-5821-e911-811d-005056a414c9",
+      "reason": "no published property address"
+    },
+    {
+      "source_lot_id": "2b14985b-5821-e911-811d-005056a414c9",
+      "reason": "no published property address"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-09-28T05:42:20.028460+00:00"
+}

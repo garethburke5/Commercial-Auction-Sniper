@@ -1,0 +1,21 @@
+{
+  "auctioneer": "Allsop",
+  "source_auction_id": "allsop:8346f423-9ac0-e611-80ef-005056a414c9",
+  "auction_date": "2014-12-17",
+  "auction_name": "Residential - December - 2014",
+  "catalogue_complete": true,
+  "completion_scope": "all rows for this UUID in the public Allsop past-auction manifest and search API",
+  "lots_captured": 270,
+  "raw_records_observed": 271,
+  "expected_raw_records": 271,
+  "pages_expected": 1,
+  "pages_captured": 1,
+  "excluded_non_properties": [
+    {
+      "source_lot_id": "9bcd04c3-c632-e911-8121-005056a414c9",
+      "reason": "no published property address"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-09-28T05:42:43.210726+00:00"
+}

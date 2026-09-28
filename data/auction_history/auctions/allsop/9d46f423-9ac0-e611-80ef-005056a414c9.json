@@ -1,0 +1,45 @@
+{
+  "auctioneer": "Allsop",
+  "source_auction_id": "allsop:9d46f423-9ac0-e611-80ef-005056a414c9",
+  "auction_date": "2017-02-16",
+  "auction_name": "Residential - February - 2017",
+  "catalogue_complete": true,
+  "completion_scope": "all rows for this UUID in the public Allsop past-auction manifest and search API",
+  "lots_captured": 280,
+  "raw_records_observed": 287,
+  "expected_raw_records": 287,
+  "pages_expected": 1,
+  "pages_captured": 1,
+  "excluded_non_properties": [
+    {
+      "source_lot_id": "7f134a88-4ae5-e611-80f1-005056a414c9",
+      "reason": "no published property address"
+    },
+    {
+      "source_lot_id": "76134a88-4ae5-e611-80f1-005056a414c9",
+      "reason": "no published property address"
+    },
+    {
+      "source_lot_id": "85163fcb-4be5-e611-80f1-005056a414c9",
+      "reason": "no published property address"
+    },
+    {
+      "source_lot_id": "61163fcb-4be5-e611-80f1-005056a414c9",
+      "reason": "no published property address"
+    },
+    {
+      "source_lot_id": "73163fcb-4be5-e611-80f1-005056a414c9",
+      "reason": "no published property address"
+    },
+    {
+      "source_lot_id": "6a163fcb-4be5-e611-80f1-005056a414c9",
+      "reason": "no published property address"
+    },
+    {
+      "source_lot_id": "7c163fcb-4be5-e611-80f1-005056a414c9",
+      "reason": "no published property address"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-09-28T05:42:31.205599+00:00"
+}

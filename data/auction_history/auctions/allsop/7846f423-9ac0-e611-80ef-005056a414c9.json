@@ -1,0 +1,29 @@
+{
+  "auctioneer": "Allsop",
+  "source_auction_id": "allsop:7846f423-9ac0-e611-80ef-005056a414c9",
+  "auction_date": "2014-03-26",
+  "auction_name": "Residential - March - 2014",
+  "catalogue_complete": true,
+  "completion_scope": "all rows for this UUID in the public Allsop past-auction manifest and search API",
+  "lots_captured": 304,
+  "raw_records_observed": 307,
+  "expected_raw_records": 307,
+  "pages_expected": 1,
+  "pages_captured": 1,
+  "excluded_non_properties": [
+    {
+      "source_lot_id": "d7cf04c3-c632-e911-8121-005056a414c9",
+      "reason": "no published property address"
+    },
+    {
+      "source_lot_id": "ebce04c3-c632-e911-8121-005056a414c9",
+      "reason": "no published property address"
+    },
+    {
+      "source_lot_id": "efd004c3-c632-e911-8121-005056a414c9",
+      "reason": "no published property address"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-09-28T05:42:47.360270+00:00"
+}
