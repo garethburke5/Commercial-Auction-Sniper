@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills (London - National)",
+  "auctioneer_id": 55,
+  "auction_id": 18813,
+  "auction_date": "2013-03-25",
+  "auction_period": "2013-03",
+  "capture_status": "harvesting_not_complete",
+  "source_note": "A contemporaneous saved page explicitly identifies 109 Wendover as sold at a Savills auction in March 2013. Its still-live EIG-hosted original auction PDF identifies Savills lot 102 and supplies the full address and particulars. The live EIG auction 18813 manifest identifies the exact auction date as 25 March 2013. No PropertyAuctions AID is inferred.",
+  "source_urls": [
+    "https://cdn.eigpropertyauctions.co.uk/propertyauctions/55/18813/f6bc9070-cf2d-4b15-83a0-9809ff36322c.pdf",
+    "http://www.eigroup.co.uk/files/55/18813/f6bc9070-cf2d-4b15-83a0-9809ff36322c.pdf",
+    "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+    "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/blog/2014/05/16/southwark-gives-green-light-to-slum-landlords/index.html"
+  ],
+  "saved_source_path": "data/historical_raw/savills_eig_18813_lot102_109_wendover_house.pdf",
+  "saved_source_sha256": "330d154b02e917d35f1acbb547b11d7ee44a276f31f4e50e00f49ac4ccb003f7",
+  "saved_source_bytes": 42511,
+  "pdf_creation_date": "2013-03-12T10:13:16-03:00",
+  "lots": [
+    {
+      "source": "Savills Auctions",
+      "source_auction_id": "savills-eig-18813",
+      "source_record_id": "savills-eig|18813|lot102",
+      "auction_date": "2013-03-25",
+      "auction_period": "2013-03",
+      "lot_number": "102",
+      "address": "109 Wendover House, Thurlow Street, Walworth, London SE17 2UE",
+      "property_type": "Investment leasehold flat",
+      "tenure": "Leasehold",
+      "lease_information": "125 years from 20 December 2000; ground rent £10 per annum",
+      "description": "Fourth-floor flat forming part of a purpose-built block; reception room with kitchen area, three rooms and bathroom/WC; recently refurbished.",
+      "result_status": "sold",
+      "annual_rent": 15600,
+      "rent_text": "£300 per week; total current rent £15,600 per annum",
+      "tenant": "12-month Assured Shorthold Tenancy from 1 February 2013",
+      "source_url": "https://cdn.eigpropertyauctions.co.uk/propertyauctions/55/18813/f6bc9070-cf2d-4b15-83a0-9809ff36322c.pdf",
+      "source_urls": [
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/55/18813/f6bc9070-cf2d-4b15-83a0-9809ff36322c.pdf",
+        "http://www.eigroup.co.uk/files/55/18813/f6bc9070-cf2d-4b15-83a0-9809ff36322c.pdf",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/blog/2014/05/16/southwark-gives-green-light-to-slum-landlords/index.html"
+      ],
+      "notes": "The saved contemporary page says this property was sold at a Savills auction in March 2013. The original one-page auction PDF labels it lot 102 and provides the exact numbered address and tenancy details. The live EIG auction 18813 manifest supplies the exact 25 March 2013 auction date. Sale price and PropertyAuctions AID remain null."
+    }
+  ],
+  "reconciliation": {
+    "expected_lots": 178,
+    "enumerated_lots_this_shard": 1,
+    "new_appearances": 1,
+    "address_records_affected": 1,
+    "partial_records_added": 0,
+    "unresolved": 177,
+    "catalogues_declared_complete": 0,
+    "status": "harvesting_not_complete"
+  }
+}
