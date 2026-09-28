@@ -25,6 +25,11 @@ assert.equal(match({guide_price:150000,giy:9.9},{min:100000,max:200000,yield:10}
 assert.equal(match({giy:10,giy_min:9.9},{yield:10}),false);
 assert.equal(match({giy:15,giy_min:10},{yield:10}),true);
 assert.equal(match({giy:15,giy_min:null},{yield:10}),false);
+assert.equal(match({giy:null},{yield:'0'}),false);
+assert.equal(match({guide_price:null},{min:'0'}),false);
+assert.equal(match({guide_price:null},{max:'0'}),false);
+assert.equal(match({guide_price:1},{max:'0'}),false);
+assert.equal(match({giy:null,guide_price:null},{yield:'',min:'',max:''}),true);
 '''
     subprocess.run(['node','-e',script,str(Path(__file__).parents[1]/'static/search.js')],check=True)
 

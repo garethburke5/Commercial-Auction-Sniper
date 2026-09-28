@@ -12,11 +12,12 @@
   }
   function numericMatches(row, filters={}) {
     const valid=value=>typeof value==='number' && Number.isFinite(value) && value>0;
+    const specified=value=>value!==null && value!==undefined && String(value).trim()!=='' && Number.isFinite(Number(value)) && Number(value)>=0;
     const minimum=Number(filters.min), maximum=Number(filters.max), yieldMinimum=Number(filters.yield);
-    if(minimum>0 && (!valid(row.guide_price)||row.guide_price<minimum))return false;
-    if(maximum>0 && (!valid(row.guide_price)||row.guide_price>maximum))return false;
+    if(specified(filters.min) && (!valid(row.guide_price)||row.guide_price<minimum))return false;
+    if(specified(filters.max) && (!valid(row.guide_price)||row.guide_price>maximum))return false;
     const qualifyingYield=Object.prototype.hasOwnProperty.call(row,'giy_min')?row.giy_min:row.giy;
-    if(yieldMinimum>0 && (!valid(qualifyingYield)||qualifyingYield<yieldMinimum))return false;
+    if(specified(filters.yield) && (!valid(qualifyingYield)||qualifyingYield<yieldMinimum))return false;
     return true;
   }
   const api={normalise,matches,numericMatches};
