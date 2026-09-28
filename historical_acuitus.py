@@ -79,6 +79,15 @@ def discover_auctions(session):
         if len(opts) > len(candidates):
             candidates = opts
             chosen = select
+    # The current archive uses radio inputs rather than a native select.
+    if not candidates:
+        for inp in s.select('input[type="radio"][name="date"]'):
+            label = inp.find_parent('label')
+            text = norm(label.get_text(" ", strip=True)) if label else ""
+            dt = iso_date(text)
+            if dt:
+                candidates.append((dt, inp.get("value"), text))
+                chosen = inp
     if not candidates or chosen is None:
         # Acuitus currently renders the auction selector server-side. Refuse to
         # guess or mark caught-up if that first-party archive disappears.

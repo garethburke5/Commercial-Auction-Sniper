@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+*.sqlite
+*.sqlite.tmp
+*.sqlite-wal
+*.sqlite-shm
+data/auction_history/.build.lock
+public-dist/

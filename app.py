@@ -76,7 +76,7 @@ _source=_source.replace('key="clear_property_filters")','key="clear_property_fil
 _clear_start=_source.index('    if clear_filters:\n')
 _clear_end=_source.index('        st.rerun()\n',_clear_start)+len('        st.rerun()\n')
 _source=_source[:_clear_start]+_source[_clear_end:]
-_source=_source.replace('BUILD = "V6.80"','BUILD = "V6.84"',1)
+_source=_source.replace('BUILD = "V6.80"','BUILD = "V6.85"',1)
 _source=_source.replace('    if not tenant:\n        for pat in [',
                         '    if not tenant and not p.get("canonical_snapshot"):\n        for pat in [',1)
 _source=_source.replace('        if m: f["Break clause"]=norm(m.group(1))[:140]; chips.append("BREAK"); break',
@@ -223,6 +223,10 @@ html,body,[data-testid="stAppViewContainer"],[data-testid="stMain"]{scrollbar-wi
 ::-webkit-scrollbar-track{background:#111820!important}
 ::-webkit-scrollbar-thumb{background:#6f7f91!important;border:3px solid #111820!important;border-radius:10px!important}
 ::-webkit-scrollbar-thumb:hover{background:#93a3b5!important}
+@media (max-width:767px),(hover:none) and (pointer:coarse){
+ html,body,[data-testid="stAppViewContainer"],[data-testid="stMain"]{scrollbar-width:none!important;scrollbar-gutter:auto!important}
+ ::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
+}
 </style>\n\"\"\",unsafe_allow_html=True)''',
     1,
 )
