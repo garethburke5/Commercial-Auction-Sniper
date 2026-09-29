@@ -1,0 +1,84 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "fresh official HM Land Registry exact-transaction re-audit of unresolved 2013 legacy appearances",
+  "captured_at_utc": "2026-09-29T04:23:31Z",
+  "source_note": "The official HM Land Registry Price Paid Data report builder was freshly re-run across all 163 still-addressless, priced Savills legacy appearances dated 2013. Eight unique compatible candidates were returned. Five were retained: three exact-price/locality/tenure/property-class transactions completing within 60 days and two exact-subclass leasehold flats completing within 120 days. One conflicting flat-versus-house candidate and two broad other-class later completions were rejected. Original Savills/PropertyAuctions evidence and every repeat appearance remain preserved.",
+  "source_records": [
+    {
+      "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Fresh official Price Paid Data report-builder records for unresolved 2013 Savills legacy results",
+      "evidence_excerpt": "Exact-price searches supplied the full address, completion date, tenure, property type and transaction category; each retained appearance carries its exact official query and transaction URL."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "savills/legacy-887",
+      "target_appearance_id": "Savills Auctions|propertyauctions:887|29",
+      "address": "Flat 2, 4 Parrs Close, South Croydon, CR2 0QX",
+      "address_basis": "conservative_official_hmlr_fresh_unique_exact_price_date_locality_tenure_specific_subclass_extended_completion_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=95000&max_price=95000&min_date=2013-10-28&max_date=2014-02-25&relative_url_root=%2Fapp%2Fppd&town=South+Croydon",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=887",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=95000&max_price=95000&min_date=2013-10-28&max_date=2014-02-25&relative_url_root=%2Fapp%2Fppd&town=South+Croydon",
+        "http://landregistry.data.gov.uk/data/ppi/transaction/C1D2FB9B-0D9A-4F03-A4CE-727EB258B87C/current"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 887 lot 29 is a vacant  flat in South Croydon sold for exactly GBP 95,000 on 2013-10-28. A fresh official HM Land Registry exact-price query identifies Flat 2, 4 Parrs Close, South Croydon, CR2 0QX as the sole compatible flat maisonette/leasehold transaction, completing 85 days later on 2014-01-21. The later completion is retained only because the specific flat/maisonette subclass and leasehold tenure also agree."
+    },
+    {
+      "target_shard": "savills/legacy-889",
+      "target_appearance_id": "Savills Auctions|propertyauctions:889|1",
+      "address": "16A Handsworth Grange Road, Sheffield, S13 9HE",
+      "address_basis": "conservative_official_hmlr_fresh_unique_exact_price_date_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=30000&max_price=30000&min_date=2013-11-28&max_date=2014-03-28&relative_url_root=%2Fapp%2Fppd&town=Sheffield",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=889",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=30000&max_price=30000&min_date=2013-11-28&max_date=2014-03-28&relative_url_root=%2Fapp%2Fppd&town=Sheffield",
+        "http://landregistry.data.gov.uk/data/ppi/transaction/47844C80-C667-8986-E050-A8C063056488/current"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 889 lot 1 is a investment freehold house in Sheffield sold for exactly GBP 30,000 on 2013-11-28. A fresh official HM Land Registry exact-price query identifies 16A Handsworth Grange Road, Sheffield, S13 9HE as the sole compatible other/freehold transaction, completing 50 days later on 2014-01-17."
+    },
+    {
+      "target_shard": "savills/legacy-889",
+      "target_appearance_id": "Savills Auctions|propertyauctions:889|20",
+      "address": "1 Station Road, Stamford, PE9 4LF",
+      "address_basis": "conservative_official_hmlr_fresh_unique_exact_price_date_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=110000&max_price=110000&min_date=2013-11-28&max_date=2014-03-28&relative_url_root=%2Fapp%2Fppd&town=Stamford",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=889",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=110000&max_price=110000&min_date=2013-11-28&max_date=2014-03-28&relative_url_root=%2Fapp%2Fppd&town=Stamford",
+        "http://landregistry.data.gov.uk/data/ppi/transaction/21E5FEB6-9F0F-2439-E050-A8C06205342E/current"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 889 lot 20 is a vacant freehold house in Stamford sold for exactly GBP 110,000 on 2013-11-28. A fresh official HM Land Registry exact-price query identifies 1 Station Road, Stamford, PE9 4LF as the sole compatible other/freehold transaction, completing 22 days later on 2013-12-20."
+    },
+    {
+      "target_shard": "savills/legacy-892",
+      "target_appearance_id": "Savills Auctions|propertyauctions:892|46",
+      "address": "91C Shirland Road, London, W9 2EL",
+      "address_basis": "conservative_official_hmlr_fresh_unique_exact_price_date_locality_tenure_specific_subclass_extended_completion_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=500000&max_price=500000&min_date=2013-12-10&max_date=2014-04-09&relative_url_root=%2Fapp%2Fppd&postcode=W9",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=892",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=500000&max_price=500000&min_date=2013-12-10&max_date=2014-04-09&relative_url_root=%2Fapp%2Fppd&postcode=W9",
+        "http://landregistry.data.gov.uk/data/ppi/transaction/1ECBC55E-3706-47BF-A6C5-83D5514118F5/current"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 892 lot 46 is a vacant  flat in London W9 sold for exactly GBP 500,000 on 2013-12-10. A fresh official HM Land Registry exact-price query identifies 91C Shirland Road, London, W9 2EL as the sole compatible flat maisonette/leasehold transaction, completing 101 days later on 2014-03-21. The later completion is retained only because the specific flat/maisonette subclass and leasehold tenure also agree."
+    },
+    {
+      "target_shard": "savills/legacy-892",
+      "target_appearance_id": "Savills Auctions|propertyauctions:892|80",
+      "address": "9 Linthorpe Road, London, N16 5RE",
+      "address_basis": "conservative_official_hmlr_fresh_unique_exact_price_date_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=847000&max_price=847000&min_date=2013-12-10&max_date=2014-04-09&relative_url_root=%2Fapp%2Fppd&postcode=N16",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=892",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=847000&max_price=847000&min_date=2013-12-10&max_date=2014-04-09&relative_url_root=%2Fapp%2Fppd&postcode=N16",
+        "http://landregistry.data.gov.uk/data/ppi/transaction/21E5FEB6-9213-2439-E050-A8C06205342E/current"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 892 lot 80 is a vacant freehold house in London N16 sold for exactly GBP 847,000 on 2013-12-10. A fresh official HM Land Registry exact-price query identifies 9 Linthorpe Road, London, N16 5RE as the sole compatible other/freehold transaction, completing 36 days later on 2014-01-15."
+    }
+  ]
+}
+
