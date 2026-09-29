@@ -1,0 +1,138 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative official HM Land Registry exact-transaction legacy address enrichment with extended completion window",
+  "captured_at_utc": "2026-09-29T02:39:00Z",
+  "source_note": "The already-completed exact-price HMLR sweeps for every available 2014-2018 Savills legacy year were audited for unique post-auction completions between 61 and 120 days. Only 2018 produced candidates. Ten addresses were retained where exact hammer price, locality or postcode district, tenure and a specific property subclass aligned to one transaction; four broad other-class candidates were rejected. Original evidence and every repeat appearance remain preserved.",
+  "source_records": [
+    {
+      "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Official Price Paid Data report-builder records for 2014-2018 Savills legacy extended-window audit",
+      "evidence_excerpt": "Exact-price searches supplied address, completion date, tenure and property type. Only one compatible transaction with a specific property subclass was accepted."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|105",
+      "address": "2 St Anns Road, London, N15 6DT",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_extended_completion_window_specific_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=265000&max_price=265000&min_date=2018-02-13&max_date=2018-06-13&relative_url_root=%2Fapp%2Fppd&postcode=N15",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=265000&max_price=265000&min_date=2018-02-13&max_date=2018-06-13&relative_url_root=%2Fapp%2Fppd&postcode=N15"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1066 lot 105 is a vacant leasehold flat in London N15 sold for exactly GBP 265,000 on 2018-02-13. The official HM Land Registry result identifies 2 St Anns Road, London, N15 6DT as the sole compatible exact-price flat maisonette/leasehold transaction, completing 90 days later on 2018-05-14. The extended completion link is retained because the specific property subclass and tenure match; four broad other-class candidates were rejected."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|184",
+      "address": "Meadowlark, North Street, Bath, BA2 7LE",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_extended_completion_window_specific_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=280000&max_price=280000&min_date=2018-02-13&max_date=2018-06-13&relative_url_root=%2Fapp%2Fppd&town=Bath",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=280000&max_price=280000&min_date=2018-02-13&max_date=2018-06-13&relative_url_root=%2Fapp%2Fppd&town=Bath"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1066 lot 184 is a vacant freehold detached house in Bath, Somerset sold for exactly GBP 280,000 on 2018-02-13. The official HM Land Registry result identifies Meadowlark, North Street, Bath, BA2 7LE as the sole compatible exact-price detached/freehold transaction, completing 80 days later on 2018-05-04. The extended completion link is retained because the specific property subclass and tenure match; four broad other-class candidates were rejected."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|199",
+      "address": "14 Mary Street, Newton Abbot, TQ13 9HE",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_extended_completion_window_specific_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=170000&max_price=170000&min_date=2018-02-13&max_date=2018-06-13&relative_url_root=%2Fapp%2Fppd&town=Newton+Abbot",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=170000&max_price=170000&min_date=2018-02-13&max_date=2018-06-13&relative_url_root=%2Fapp%2Fppd&town=Newton+Abbot"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1066 lot 199 is a vacant freehold semi-detached bungalow in Newton Abbot, Devon sold for exactly GBP 170,000 on 2018-02-13. The official HM Land Registry result identifies 14 Mary Street, Newton Abbot, TQ13 9HE as the sole compatible exact-price semi detached/freehold transaction, completing 99 days later on 2018-05-23. The extended completion link is retained because the specific property subclass and tenure match; four broad other-class candidates were rejected."
+    },
+    {
+      "target_shard": "savills/legacy-1067",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1067|147",
+      "address": "Garage At, 55 Byrne Road, London, SW12 9HZ",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_extended_completion_window_specific_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=168000&max_price=168000&min_date=2018-03-26&max_date=2018-07-24&relative_url_root=%2Fapp%2Fppd&postcode=SW12",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1067",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=168000&max_price=168000&min_date=2018-03-26&max_date=2018-07-24&relative_url_root=%2Fapp%2Fppd&postcode=SW12"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1067 lot 147 is a vacant leasehold garage in London SW12 sold for exactly GBP 168,000 on 2018-03-26. The official HM Land Registry result identifies Garage At, 55 Byrne Road, London, SW12 9HZ as the sole compatible exact-price other/leasehold transaction, completing 84 days later on 2018-06-18. The extended completion link is retained because the specific property subclass and tenure match; four broad other-class candidates were rejected."
+    },
+    {
+      "target_shard": "savills/legacy-1068",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1068|8",
+      "address": "88A Tokyngton Avenue, Wembley, HA9 6HL",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_extended_completion_window_specific_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=219000&max_price=219000&min_date=2018-05-09&max_date=2018-09-06&relative_url_root=%2Fapp%2Fppd&town=Wembley",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=219000&max_price=219000&min_date=2018-05-09&max_date=2018-09-06&relative_url_root=%2Fapp%2Fppd&town=Wembley"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1068 lot 8 is a vacant leasehold flat in Wembley, Middlesex sold for exactly GBP 219,000 on 2018-05-09. The official HM Land Registry result identifies 88A Tokyngton Avenue, Wembley, HA9 6HL as the sole compatible exact-price flat maisonette/leasehold transaction, completing 81 days later on 2018-07-29. The extended completion link is retained because the specific property subclass and tenure match; four broad other-class candidates were rejected."
+    },
+    {
+      "target_shard": "savills/legacy-1070",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1070|113",
+      "address": "106 Birling Road, Erith, DA8 3JG",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_extended_completion_window_specific_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=220000&max_price=220000&min_date=2018-07-24&max_date=2018-11-21&relative_url_root=%2Fapp%2Fppd&town=Erith",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=220000&max_price=220000&min_date=2018-07-24&max_date=2018-11-21&relative_url_root=%2Fapp%2Fppd&town=Erith"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1070 lot 113 is a vacant freehold semi-detached house in Erith, Kent sold for exactly GBP 220,000 on 2018-07-24. The official HM Land Registry result identifies 106 Birling Road, Erith, DA8 3JG as the sole compatible exact-price semi detached/freehold transaction, completing 71 days later on 2018-10-03. The extended completion link is retained because the specific property subclass and tenure match; four broad other-class candidates were rejected."
+    },
+    {
+      "target_shard": "savills/legacy-1071",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1071|101",
+      "address": "Flat 17, Parker Building, Freda Street, London, SE16 4ED",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_extended_completion_window_specific_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=210000&max_price=210000&min_date=2018-09-26&max_date=2019-01-24&relative_url_root=%2Fapp%2Fppd&postcode=SE16",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=210000&max_price=210000&min_date=2018-09-26&max_date=2019-01-24&relative_url_root=%2Fapp%2Fppd&postcode=SE16"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1071 lot 101 is a vacant leasehold flat in London SE16 sold for exactly GBP 210,000 on 2018-09-26. The official HM Land Registry result identifies Flat 17, Parker Building, Freda Street, London, SE16 4ED as the sole compatible exact-price flat maisonette/leasehold transaction, completing 79 days later on 2018-12-14. The extended completion link is retained because the specific property subclass and tenure match; four broad other-class candidates were rejected."
+    },
+    {
+      "target_shard": "savills/legacy-1071",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1071|56",
+      "address": "102B Stanstead Road, London, SE23 1BS",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_extended_completion_window_specific_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=245000&max_price=245000&min_date=2018-09-26&max_date=2019-01-24&relative_url_root=%2Fapp%2Fppd&postcode=SE23",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=245000&max_price=245000&min_date=2018-09-26&max_date=2019-01-24&relative_url_root=%2Fapp%2Fppd&postcode=SE23"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1071 lot 56 is a vacant leasehold flat in London SE23 sold for exactly GBP 245,000 on 2018-09-26. The official HM Land Registry result identifies 102B Stanstead Road, London, SE23 1BS as the sole compatible exact-price flat maisonette/leasehold transaction, completing 79 days later on 2018-12-14. The extended completion link is retained because the specific property subclass and tenure match; four broad other-class candidates were rejected."
+    },
+    {
+      "target_shard": "savills/legacy-1072",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1072|2",
+      "address": "Flat D, 163 – 165 Battersea Rise, London, SW11 1HP",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_extended_completion_window_specific_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=490000&max_price=490000&min_date=2018-11-26&max_date=2019-03-26&relative_url_root=%2Fapp%2Fppd&postcode=SW11",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=490000&max_price=490000&min_date=2018-11-26&max_date=2019-03-26&relative_url_root=%2Fapp%2Fppd&postcode=SW11"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1072 lot 2 is a vacant leasehold flat in London SW11 sold for exactly GBP 490,000 on 2018-11-26. The official HM Land Registry result identifies Flat D, 163 – 165 Battersea Rise, London, SW11 1HP as the sole compatible exact-price flat maisonette/leasehold transaction, completing 66 days later on 2019-01-31. The extended completion link is retained because the specific property subclass and tenure match; four broad other-class candidates were rejected."
+    },
+    {
+      "target_shard": "savills/legacy-1085",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1085|1",
+      "address": "86 Ravensdale Road, Mansfield, NG18 2DS",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_extended_completion_window_specific_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=69000&max_price=69000&min_date=2018-11-29&max_date=2019-03-29&relative_url_root=%2Fapp%2Fppd&town=Mansfield",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1085",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=69000&max_price=69000&min_date=2018-11-29&max_date=2019-03-29&relative_url_root=%2Fapp%2Fppd&town=Mansfield"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1085 lot 1 is a vacant freehold semi-detached house in Mansfield, Nottinghamshire sold for exactly GBP 69,000 on 2018-11-29. The official HM Land Registry result identifies 86 Ravensdale Road, Mansfield, NG18 2DS as the sole compatible exact-price semi detached/freehold transaction, completing 63 days later on 2019-01-31. The extended completion link is retained because the specific property subclass and tenure match; four broad other-class candidates were rejected."
+    }
+  ]
+}
