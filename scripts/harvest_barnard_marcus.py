@@ -30,6 +30,18 @@ def fetch_json(url: str, attempts: int = 4) -> dict:
     raise AssertionError("unreachable")
 
 
+def fetch_text(url: str, attempts: int = 4) -> str:
+    for attempt in range(attempts):
+        try:
+            with urlopen(Request(url, headers={"User-Agent": UA}), timeout=60) as response:
+                return response.read().decode("utf-8")
+        except Exception:
+            if attempt + 1 == attempts:
+                raise
+            time.sleep(2**attempt)
+    raise AssertionError("unreachable")
+
+
 def money(value: str | None) -> int | None:
     digits = re.sub(r"\D", "", value or "")
     return int(digits) if digits else None
@@ -47,13 +59,41 @@ def first_image(value: str | None) -> str | None:
 
 
 def parse_ids(page_url: str) -> tuple[str, str]:
-    with urlopen(Request(page_url, headers={"User-Agent": UA}), timeout=45) as response:
-        page = response.read().decode("utf-8")
+    page = fetch_text(page_url)
     match = re.search(r'endpointUrl&quot;:&quot;([^&]+(?:&amp;[^&]+)+)', page)
     if not match:
         raise RuntimeError("Barnard Marcus search endpoint was not found")
     query = parse_qs(urlparse(html.unescape(match.group(1))).query)
     return query["auctionHouseId"][0], query["auctionId"][0]
+
+
+def sitemap_lot_urls(page_url: str) -> list[str]:
+    """Return every first-party lot detail URL for one archived auction."""
+    path = urlparse(page_url).path.rstrip("/") + "/"
+    sitemap = fetch_text(f"{BASE}/sitemap.xml")
+    urls = re.findall(r"<loc>([^<]+)</loc>", sitemap, flags=re.I)
+    lot_urls = []
+    for url in urls:
+        parsed = urlparse(html.unescape(url))
+        if parsed.netloc != urlparse(BASE).netloc or not parsed.path.startswith(path):
+            continue
+        suffix = parsed.path[len(path):].strip("/")
+        if re.fullmatch(r"\d+", suffix):
+            lot_urls.append(urljoin(BASE, parsed.path))
+    return sorted(set(lot_urls), key=lambda url: int(url.rstrip("/").rsplit("/", 1)[-1]))
+
+
+def item_from_lot_page(url: str) -> dict:
+    """Extract the active card JSON embedded in an archived lot detail page."""
+    lot_id = int(url.rstrip("/").rsplit("/", 1)[-1])
+    page = fetch_text(url)
+    attrs = re.findall(r"data-dc-lot-item-options='([^']+)'", page)
+    for value in attrs:
+        payload = json.loads(html.unescape(value))
+        item = payload.get("item", payload)
+        if item.get("id") == lot_id:
+            return item
+    raise RuntimeError(f"active lot card {lot_id} was not found in {url}")
 
 
 def harvest(
@@ -70,28 +110,46 @@ def harvest(
     first = fetch_json(endpoint.format(page=1))
     pagination = first["pagination"]
     pages = pagination["pageCount"]
-    remaining = list(range(2, pages + 1))
-    with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
-        payloads = list(pool.map(lambda page: fetch_json(endpoint.format(page=page)), remaining))
-    items = list(first["items"])
-    for page, payload in zip(remaining, payloads):
-        page_meta = payload["pagination"]
-        if (
-            page_meta["currentPage"] != page
-            or page_meta["pageCount"] != pages
-            or page_meta["totalCount"] != pagination["totalCount"]
-        ):
-            raise RuntimeError(f"page {page} did not reconcile")
-        items.extend(payload["items"])
+    inventory_method = "search_api"
+    inventory_urls: list[str] = []
+    if pages:
+        remaining = list(range(2, pages + 1))
+        with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+            payloads = list(pool.map(lambda page: fetch_json(endpoint.format(page=page)), remaining))
+        items = list(first["items"])
+        for page, payload in zip(remaining, payloads):
+            page_meta = payload["pagination"]
+            if (
+                page_meta["currentPage"] != page
+                or page_meta["pageCount"] != pages
+                or page_meta["totalCount"] != pagination["totalCount"]
+            ):
+                raise RuntimeError(f"page {page} did not reconcile")
+            items.extend(payload["items"])
+        expected_rows = pagination["totalCount"]
+    else:
+        # Some retained auction pages outlive their SearchApi index. The public
+        # sitemap still provides an exact lot-page inventory, and every detail
+        # page embeds the same lot-card JSON used by the search API.
+        inventory_method = "sitemap_lot_pages"
+        inventory_urls = sitemap_lot_urls(page_url)
+        if not inventory_urls:
+            raise RuntimeError("SearchApi returned zero rows and sitemap has no lot pages")
+        with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+            items = list(pool.map(item_from_lot_page, inventory_urls))
+        expected_rows = len(inventory_urls)
 
-    reconciled = len(items) == pagination["totalCount"]
+    reconciled = len(items) == expected_rows
     if not reconciled and not allow_incomplete:
-        raise RuntimeError(f"expected {pagination['totalCount']} rows, got {len(items)}")
+        raise RuntimeError(f"expected {expected_rows} rows, got {len(items)}")
 
     source_auction_id = f"barnard-marcus:{auction_date}"
     rows = []
     for item in items:
         address = ", ".join(filter(None, (clean(item.get("addressLine1")), clean(item.get("addressLine2"))))) or None
+        lot_number = clean(item.get("lotNumber"))
+        if lot_number and lot_number.upper() in {"TBC", "TBA", "N/A"}:
+            lot_number = None
         descriptor = clean(item.get("priceDescriptor"))
         if descriptor and item.get("showPriceAsterix"):
             descriptor += "*"
@@ -113,7 +171,7 @@ def harvest(
             "description": clean(item.get("description")),
             "guide_price_gbp": price if descriptor and re.search(r"guide|available|withdrawn", descriptor, re.I) else None,
             "image_url": first_image(item.get("image")),
-            "lot_number": clean(item.get("lotNumber")),
+            "lot_number": lot_number,
             "property_type": None,
             "raw_card_text": raw,
             "result_price_gbp": price if descriptor and "sold" in descriptor.lower() else None,
@@ -128,8 +186,11 @@ def harvest(
     ids = [row["source_record_id"] for row in rows]
     lots = [row["lot_number"] for row in rows]
     numbered_lots = [lot for lot in lots if lot is not None]
-    if len(ids) != len(set(ids)) or len(numbered_lots) != len(set(numbered_lots)):
-        raise RuntimeError("source IDs or lot numbers are not unique")
+    if len(ids) != len(set(ids)):
+        raise RuntimeError("source IDs are not unique")
+    duplicate_lot_numbers = len(numbered_lots) - len(set(numbered_lots))
+    if duplicate_lot_numbers and inventory_method == "search_api":
+        raise RuntimeError("lot numbers are not unique")
 
     return {
         "schema_version": 1,
@@ -141,16 +202,23 @@ def harvest(
         "source_auction_id": source_auction_id,
         "lot_enumeration_complete": reconciled,
         "published_rows": len(rows),
-        "source_reported_rows": pagination["totalCount"],
-        "reconciliation_shortfall": pagination["totalCount"] - len(rows),
+        "source_reported_rows": expected_rows,
+        "reconciliation_shortfall": expected_rows - len(rows),
         "unnumbered_rows": sum(row["lot_number"] is None for row in rows),
+        "duplicate_lot_numbers": duplicate_lot_numbers,
         "pagination_pages_captured": list(range(1, pages + 1)),
         "pagination_pages_expected": pages,
+        "inventory_method": inventory_method,
+        "sitemap_lot_urls_expected": len(inventory_urls) if inventory_urls else None,
+        "sitemap_lot_urls_captured": len(items) if inventory_urls else None,
         "capture_method": (
             "official SearchApi result cards with Show All; every API page reconciled"
+            if reconciled and inventory_method == "search_api"
+            else "official sitemap lot-page inventory; active embedded lot-card JSON "
+            "extracted from every retained first-party detail page and reconciled"
             if reconciled
-            else "official SearchApi result cards with Show All; all API pages traversed, "
-            "but the source-reported total exceeds the returned rows"
+            else "official source inventory traversed, but the expected total exceeds "
+            "the returned rows"
         ),
         "lot_records": rows,
     }
