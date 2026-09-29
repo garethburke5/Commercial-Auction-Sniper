@@ -1,0 +1,499 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative address enrichment from already-saved official Savills RSS lot records",
+  "captured_at_utc": "2026-09-29T03:15:00Z",
+  "source_note": "Audited all 53 saved official Savills RSS matches across the available 2016-2018 legacy history. Enriched 37 addressless legacy appearances only where auction ID, auction date, lot number, locality, property class and outcome agreed; price also had to agree wherever the legacy row retained a sale or available price. Sixteen already-addressed, price-conflicting, locality-conflicting or internally inconsistent mappings were rejected. Repeat appearances remain separate.",
+  "source_records": [
+    {
+      "source_url": "https://web.archive.org/web/20180914132141id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+      "source_name": "Saved official Savills London National RSS captures",
+      "record_identity": "data/source_diagnostics/savills_2010_2018_rss_catalogue_recovery.json accepted_rows",
+      "evidence_excerpt": "Each retained RSS item preserves the original Savills lot URL, archived RSS capture URL, auction date, lot number, address, property class, outcome and available result fields."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "savills/legacy-1071",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1071|67",
+      "address": "Garage on the west side of Moorfield Road, Orpington, Kent BR6 0HG",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=e08962fd-9c18-46e4-bae2-7027a8e2f846",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=e08962fd-9c18-46e4-bae2-7027a8e2f846",
+        "https://web.archive.org/web/20180914132141id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1071:67 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-09-26, lot 67, locality, property class and outcome, including the GBP 18,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1071",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1071|102",
+      "address": "138 Ham Road, Worthing, West Sussex BN11 2QS",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=4b65ef29-3833-4ec4-8519-bfc1127c3d19",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=4b65ef29-3833-4ec4-8519-bfc1127c3d19",
+        "https://web.archive.org/web/20180914132141id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1071:102 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-09-26, lot 102, locality, property class and outcome, including the GBP 165,000 available price. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1071",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1071|110",
+      "address": "Store building rear of 129 Nortoft Road, Bournemouth, Dorset BH8 8QB",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=86ab2183-1937-4896-8dfb-d6586ad98b15",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=86ab2183-1937-4896-8dfb-d6586ad98b15",
+        "https://web.archive.org/web/20180914132141id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1071:110 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-09-26, lot 110, locality, property class and outcome, including the GBP 45,000 available price. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1070",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1070|40",
+      "address": "43-45 Barnsley Road, Goldthorpe, Rotherham, South Yorkshire S63 9LT",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=6e03599e-360b-4ae4-99a4-ec2971f56f70",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=6e03599e-360b-4ae4-99a4-ec2971f56f70",
+        "https://web.archive.org/web/20180715190121id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1070:40 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-07-24, lot 40, locality, property class and outcome. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1070",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1070|86",
+      "address": "Garage and Land adjacent to 31 Clayhill Crescent, Eltham, London SE9 4JA",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=58b77d8f-c50b-45d1-9be0-eb91942ec7fd",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=58b77d8f-c50b-45d1-9be0-eb91942ec7fd",
+        "https://web.archive.org/web/20180715190121id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1070:86 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-07-24, lot 86, locality, property class and outcome, including the GBP 60,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1070",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1070|104",
+      "address": "St Mark's House, St Mark's Court, Teesdale, Stockton-on-Tees TS17 6QT",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=eb11c7b0-45ce-4aa5-9248-dfb822bd2203",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=eb11c7b0-45ce-4aa5-9248-dfb822bd2203",
+        "https://web.archive.org/web/20180715190121id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1070:104 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-07-24, lot 104, locality, property class and outcome. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1070",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1070|109",
+      "address": "19 Penrhiwceiber Road, Mountain Ash, Mid Glamorgan, Wales CF45 3SP",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=c9052f20-74a4-4c4a-9d3e-ba514cc47b73",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=c9052f20-74a4-4c4a-9d3e-ba514cc47b73",
+        "https://web.archive.org/web/20180715190121id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1070"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1070:109 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-07-24, lot 109, locality, property class and outcome. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|119",
+      "address": "1-22 Effingham Square, Rotherham, South Yorkshire S65 1AP",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=cfe87ec3-45b0-4653-bf5a-cfe6739dd9ca",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=cfe87ec3-45b0-4653-bf5a-cfe6739dd9ca",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:119 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 119, locality, property class and outcome. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|131",
+      "address": "Garages 2, 4, 5, 7, 8, 10, 11, 12, 19, 27 & 28 rear of Oakfield Court, 252 Pampisford Road, South Croydon, Surrey CR2 6DD",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=d6ddb587-4745-4daf-8231-f09326cc57f0",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=d6ddb587-4745-4daf-8231-f09326cc57f0",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:131 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 131, locality, property class and outcome, including the GBP 126,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|132",
+      "address": "Land and Garages on the south side of Bursley Road, Stoke-on-Trent, Staffordshire ST6 3DQ",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=920745c9-2ac3-400d-b983-da59a96c0c63",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=920745c9-2ac3-400d-b983-da59a96c0c63",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:132 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 132, locality, property class and outcome, including the GBP 45,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|149",
+      "address": "Garage 14, Craybury End, Eltham, London SE9 3SL",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=30535be6-0e16-42a4-9018-668ca49b6641",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=30535be6-0e16-42a4-9018-668ca49b6641",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:149 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 149, locality, property class and outcome. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|150",
+      "address": "Nine Garages rear of St Thomas Road, Stopsley, Luton, Bedfordshire LU2 7UY",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=69dc6669-4100-4a7f-a687-ef3ecde184a1",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=69dc6669-4100-4a7f-a687-ef3ecde184a1",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:150 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 150, locality, property class and outcome, including the GBP 90,000 available price. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|166",
+      "address": "Land and Garage rear of 21 Northumberland Road, Newport, Isle of Wight PO30 5SA",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=cec066a7-53c6-4d85-bf8e-7d62d5ecf2ca",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=cec066a7-53c6-4d85-bf8e-7d62d5ecf2ca",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:166 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 166, locality, property class and outcome, including the GBP 20,000 available price. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|168",
+      "address": "Garages rear of 34-40 College Road, St Albans, Hertfordshire AL1 5ND",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=77bd9f15-1014-4caa-822f-17c5e537a495",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=77bd9f15-1014-4caa-822f-17c5e537a495",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:168 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 168, locality, property class and outcome, including the GBP 141,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|169",
+      "address": "Garages at Park Close, Avon Dassett, Southam, Warwickshire CV47 2AW",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=a946f310-4651-4574-8010-d6586742c879",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=a946f310-4651-4574-8010-d6586742c879",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:169 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 169, locality, property class and outcome, including the GBP 34,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|171",
+      "address": "Land and Garages rear of 1 Cromer Road, Watford, Hertfordshire WD24 4DY",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=2b82ee1c-3fe5-4b89-aa98-bff1f67b3f54",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=2b82ee1c-3fe5-4b89-aa98-bff1f67b3f54",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:171 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 171, locality, property class and outcome, including the GBP 57,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|174",
+      "address": "27-29 High Street, Ewell, Surrey KT17 1SB",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=8cd3b162-12e1-4731-8000-bb40134374cb",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=8cd3b162-12e1-4731-8000-bb40134374cb",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:174 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 174, locality, property class and outcome. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|175",
+      "address": "Garages at Golda Close, Barnet, Hertfordshire EN5 2LX",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=b0f6b214-60cd-453c-a0f4-ecad04f3594b",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=b0f6b214-60cd-453c-a0f4-ecad04f3594b",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:175 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 175, locality, property class and outcome, including the GBP 150,000 available price. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|176",
+      "address": "Garages at 1 Paddock Road, Buntingford, Hertfordshire SG9 9EX",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=6a6e8812-a6fa-444a-9399-21a7b9d10da8",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=6a6e8812-a6fa-444a-9399-21a7b9d10da8",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:176 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 176, locality, property class and outcome. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|252",
+      "address": "Global House, Popes Lane, Oldbury, West Midlands B69 4PA",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=77c7cc05-2e6f-495e-b7b7-67cd25539abd",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=77c7cc05-2e6f-495e-b7b7-67cd25539abd",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:252 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 252, locality, property class and outcome. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1066",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1066|258",
+      "address": "Former Garages at Little Court Lane, Edington, Westbury, Wiltshire BA13 4PW",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=d204fd3e-d16e-468d-9c48-2a8ad3574285",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=d204fd3e-d16e-468d-9c48-2a8ad3574285",
+        "https://web.archive.org/web/20180226114758id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1066"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1066:258 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2018-02-13, lot 258, locality, property class and outcome, including the GBP 6,000 available price. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1047",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1047|9",
+      "address": "Garages at Golda Close, Barnet, Hertfordshire EN5 2LX",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=35b7261e-5cb7-453d-a409-fa7219555b3e",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=35b7261e-5cb7-453d-a409-fa7219555b3e",
+        "https://web.archive.org/web/20171227023405id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1047:9 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-12-11, lot 9, locality, property class and outcome, including the GBP 220,000 available price. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1047",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1047|48",
+      "address": "Garage adjacent to 8 Hassocks Close, Sydenham, London SE26 4BS",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=8e172ff1-0ae2-4add-9004-c41440fbd03c",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=8e172ff1-0ae2-4add-9004-c41440fbd03c",
+        "https://web.archive.org/web/20171227023405id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1047:48 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-12-11, lot 48, locality, property class and outcome, including the GBP 27,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1047",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1047|86",
+      "address": "7 Saturn Way, Hemel Hempstead, Hertfordshire HP2 5NY",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=f01aef5c-11ed-4098-a309-ed52af5286dc",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=f01aef5c-11ed-4098-a309-ed52af5286dc",
+        "https://web.archive.org/web/20171227023405id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1047:86 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-12-11, lot 86, locality, property class and outcome, including the GBP 270,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1047",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1047|87",
+      "address": "Stonebridge Garages, Todenham, Moreton-in-Marsh, Gloucestershire GL56 9PB",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=28bc3565-3109-45d0-a2ec-6c9dd07abbb8",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=28bc3565-3109-45d0-a2ec-6c9dd07abbb8",
+        "https://web.archive.org/web/20171227023405id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1047:87 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-12-11, lot 87, locality, property class and outcome, including the GBP 46,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1047",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1047|88",
+      "address": "Land and Garage adjacent to 141 Parsonage Road, Amesbury, Salisbury, Wiltshire SP4 7HT",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=14edd10f-4844-40ea-bbbe-4d775f6c2e2f",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=14edd10f-4844-40ea-bbbe-4d775f6c2e2f",
+        "https://web.archive.org/web/20171227023405id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1047:88 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-12-11, lot 88, locality, property class and outcome, including the GBP 31,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1047",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1047|97",
+      "address": "Nine Garages rear of St Thomas Road, Stopsley, Luton, Bedfordshire LU2 7UY",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=125db3a5-0e54-476f-a271-89b28f923041",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=125db3a5-0e54-476f-a271-89b28f923041",
+        "https://web.archive.org/web/20171227023405id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1047:97 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-12-11, lot 97, locality, property class and outcome, including the GBP 87,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1047",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1047|161",
+      "address": "Global House, Popes Lane, Oldbury, West Midlands B69 4PA",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=1e34269a-6655-4363-9400-b1f2e6e6a6d1",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=1e34269a-6655-4363-9400-b1f2e6e6a6d1",
+        "https://web.archive.org/web/20171227023405id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1047:161 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-12-11, lot 161, locality, property class and outcome, including the GBP 195,000 available price. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1046",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1046|29",
+      "address": "Garage Unit adjacent to 8 Robson Avenue, Willesden, London NW10 3SG",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=ff77b1c7-a895-43a5-91ae-e480a3f8f7d1",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=ff77b1c7-a895-43a5-91ae-e480a3f8f7d1",
+        "https://web.archive.org/web/20171026061348id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1046:29 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-11-06, lot 29, locality, property class and outcome. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1046",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1046|72",
+      "address": "Garage 8, Stafford Close, Southgate, London N14 4BD",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=99bb3694-5fa5-4e8e-b389-ec0b10ed5d0f",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=99bb3694-5fa5-4e8e-b389-ec0b10ed5d0f",
+        "https://web.archive.org/web/20171026061348id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1046:72 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-11-06, lot 72, locality, property class and outcome. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1046",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1046|77",
+      "address": "Basement Unit, 6 Upper High Street (entrance from Depot Road), Epsom, Surrey KT17 4QJ",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=fd6fd48f-eb6b-4af4-b396-40809e343293",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=fd6fd48f-eb6b-4af4-b396-40809e343293",
+        "https://web.archive.org/web/20171026061348id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1046:77 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-11-06, lot 77, locality, property class and outcome, including the GBP 65,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1046",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1046|81",
+      "address": "Nine Garages rear of St Thomas Road, Stopsley, Luton, Bedfordshire LU2 7UY",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=111de6bf-ddfa-401c-9097-1e1fee42df73",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=111de6bf-ddfa-401c-9097-1e1fee42df73",
+        "https://web.archive.org/web/20171026061348id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1046:81 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-11-06, lot 81, locality, property class and outcome, including the GBP 88,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1046",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1046|81A",
+      "address": "Garages to the rear of 48 Mulliner Street, Coventry, West Midlands CV6 5EU",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=9a7ff1bb-4769-45ce-b82b-3a0271a20032",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=9a7ff1bb-4769-45ce-b82b-3a0271a20032",
+        "https://web.archive.org/web/20171026061348id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1046:81A gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-11-06, lot 81A, locality, property class and outcome, including the GBP 55,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1046",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1046|155",
+      "address": "Garage 29, Barnstock, Bretton, Peterborough PE3 8EH",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=99d0430d-5301-4531-a841-02d3444aedfc",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=99d0430d-5301-4531-a841-02d3444aedfc",
+        "https://web.archive.org/web/20171026061348id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1046:155 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-11-06, lot 155, locality, property class and outcome, including the GBP 6,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1046",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1046|156",
+      "address": "Land and Garages adjacent to 30 Llanaway Close, Godalming, Surrey GU7 3ED",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=025ff5a7-c7e9-4885-8af1-d730bbb0b8b6",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=025ff5a7-c7e9-4885-8af1-d730bbb0b8b6",
+        "https://web.archive.org/web/20171026061348id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1046:156 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-11-06, lot 156, locality, property class and outcome, including the GBP 115,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1046",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1046|173",
+      "address": "4 Newstead Rise, Consett, County Durham DH8 0SB",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=ec2204c0-410f-4c63-a5f6-2235aeb15a23",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=ec2204c0-410f-4c63-a5f6-2235aeb15a23",
+        "https://web.archive.org/web/20171026061348id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1046"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1046:173 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-11-06, lot 173, locality, property class and outcome, including the GBP 57,000 sale result. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    },
+    {
+      "target_shard": "savills/legacy-1017",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1017|85",
+      "address": "6 Bamborough Gardens, Shepherd's Bush, London W12 8QN",
+      "address_basis": "conservative_saved_official_savills_rss_exact_auction_date_lot_locality_property_class_outcome_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=5bd48f97-c7b1-4bbf-aa84-f75225aa4145",
+      "source_urls": [
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=5bd48f97-c7b1-4bbf-aa84-f75225aa4145",
+        "https://web.archive.org/web/20171026061348id_/http://auctions.savills.co.uk:80/Data/Rss/Savills%20London%20National.xml",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1017"
+      ],
+      "evidence_note": "Saved official Savills RSS item savills-rss:1017:85 gives the full lot address. It matches the banked legacy appearance on auction ID, auction date 2017-02-13, lot 85, locality, property class and outcome. Conflicting date/lot collisions and internally inconsistent RSS mappings were excluded."
+    }
+  ]
+}
