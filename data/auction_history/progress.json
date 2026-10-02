@@ -1,16 +1,17 @@
 {
-  "generated_at": "2026-10-02T23:12:48.603652+00:00",
-  "individual_lot_records_captured": 123180,
-  "records_with_address": 112986,
+  "generated_at": "2026-10-02T23:20:03.263922+00:00",
+  "individual_lot_records_captured": 124896,
+  "records_with_address": 114702,
   "partial_lot_records": 10194,
-  "exact_address_groups": 88583,
-  "groups_with_repeat_appearances": 16664,
+  "exact_address_groups": 90037,
+  "groups_with_repeat_appearances": 16847,
   "by_auctioneer": {
     "Acuitus": 5697,
     "Allsop": 43310,
     "Allsop Commercial": 66,
     "Auction House London": 19656,
     "Barnard Marcus Auctions": 6050,
+    "Barnett Ross": 1716,
     "Bond Wolfe": 9407,
     "Clive Emson": 3931,
     "Paul Fosh Auctions": 5483,
@@ -39,27 +40,27 @@
     "2018": 5803,
     "2019": 4885,
     "2020": 6554,
-    "2021": 7910,
-    "2022": 8641,
-    "2023": 11556,
-    "2024": 15965,
-    "2025": 18736,
-    "2026": 14231
+    "2021": 8042,
+    "2022": 8803,
+    "2023": 11703,
+    "2024": 16097,
+    "2025": 18890,
+    "2026": 15220
   },
   "by_sector": {
-    "commercial": 19892,
-    "land": 5915,
+    "commercial": 19920,
+    "land": 5936,
     "mixed-use": 12459,
-    "residential": 78403,
-    "unknown": 6511
+    "residential": 78498,
+    "unknown": 8083
   },
   "date_range": [
     "2005-12-12",
-    "2026-10-02"
+    "2026-10-22"
   ],
-  "surviving_catalogues_completely_harvested": 613,
-  "catalogues_incomplete_or_unreconciled": 75,
-  "catalogue_fetch_or_parse_failures": 1,
+  "surviving_catalogues_completely_harvested": 682,
+  "catalogues_incomplete_or_unreconciled": 159,
+  "catalogue_fetch_or_parse_failures": 85,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -67,7 +68,7 @@
     "Legacy partial lots retain location and lot number; missing street addresses remain null."
   ],
   "paul_fosh_results": {
-    "checked_at": "2026-10-02T23:12:16.536050+00:00",
+    "checked_at": "2026-10-02T23:19:30.463085+00:00",
     "lots_captured": 5483,
     "current_run_unique_lots": 5482,
     "expected_public_results": 5482,
