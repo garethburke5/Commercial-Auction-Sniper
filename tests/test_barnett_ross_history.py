@@ -39,6 +39,6 @@ def test_catalogue_without_property_identity_is_not_complete():
 
 def test_result_semantics_remain_distinct():
     assert status_and_prices("Sold Prior") == ("sold prior", None, None)
-    assert status_and_prices("Available at \xc2\xa3375,000") == ("available", None, 375000)
-    assert status_and_prices("\xc2\xa3159,000") == ("sold", 159000, None)
+    assert status_and_prices("Available at £375,000") == ("available", None, 375000)
+    assert status_and_prices("£159,000") == ("sold", 159000, None)
     assert status_and_prices("Withdrawn Prior - Refer") == ("withdrawn prior", None, None)
