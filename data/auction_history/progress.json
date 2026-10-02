@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-10-02T23:20:03.263922+00:00",
-  "individual_lot_records_captured": 124896,
-  "records_with_address": 114702,
+  "generated_at": "2026-10-02T23:25:31.113567+00:00",
+  "individual_lot_records_captured": 127025,
+  "records_with_address": 116831,
   "partial_lot_records": 10194,
-  "exact_address_groups": 90037,
-  "groups_with_repeat_appearances": 16847,
+  "exact_address_groups": 91640,
+  "groups_with_repeat_appearances": 17061,
   "by_auctioneer": {
     "Acuitus": 5697,
     "Allsop": 43310,
     "Allsop Commercial": 66,
     "Auction House London": 19656,
     "Barnard Marcus Auctions": 6050,
-    "Barnett Ross": 1716,
+    "Barnett Ross": 3845,
     "Bond Wolfe": 9407,
     "Clive Emson": 3931,
     "Paul Fosh Auctions": 5483,
@@ -27,12 +27,12 @@
     "2005": 20,
     "2006": 100,
     "2007": 100,
-    "2008": 100,
-    "2009": 47,
-    "2010": 537,
-    "2011": 1083,
-    "2012": 1187,
-    "2013": 2363,
+    "2008": 208,
+    "2009": 261,
+    "2010": 847,
+    "2011": 1330,
+    "2012": 1481,
+    "2013": 2514,
     "2014": 6072,
     "2015": 5398,
     "2016": 5801,
@@ -45,22 +45,22 @@
     "2023": 11703,
     "2024": 16097,
     "2025": 18890,
-    "2026": 15220
+    "2026": 16025
   },
   "by_sector": {
-    "commercial": 19920,
-    "land": 5936,
-    "mixed-use": 12459,
-    "residential": 78498,
-    "unknown": 8083
+    "commercial": 19971,
+    "land": 5965,
+    "mixed-use": 12466,
+    "residential": 78614,
+    "unknown": 10009
   },
   "date_range": [
     "2005-12-12",
     "2026-10-22"
   ],
-  "surviving_catalogues_completely_harvested": 682,
-  "catalogues_incomplete_or_unreconciled": 159,
-  "catalogue_fetch_or_parse_failures": 85,
+  "surviving_catalogues_completely_harvested": 718,
+  "catalogues_incomplete_or_unreconciled": 123,
+  "catalogue_fetch_or_parse_failures": 49,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -68,7 +68,7 @@
     "Legacy partial lots retain location and lot number; missing street addresses remain null."
   ],
   "paul_fosh_results": {
-    "checked_at": "2026-10-02T23:19:30.463085+00:00",
+    "checked_at": "2026-10-02T23:25:09.161417+00:00",
     "lots_captured": 5483,
     "current_run_unique_lots": 5482,
     "expected_public_results": 5482,
