@@ -30,6 +30,7 @@ INDEX = BASE + "/archive.php"
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; Commercial-Auction-Sniper historical corpus)"}
 LOT_RE = re.compile(r"^(?:\d+[A-Za-z]?|[A-Za-z])$")
 PROPERTY_RE = re.compile(r"property\.php\?id=(\d+)", re.I)
+DETAIL_PDF_RE = re.compile(r"(?:^|[/'\"])(details/(20\d{4})/([^/'\"?]+)\.pdf)", re.I)
 
 
 def get(session: requests.Session, url: str, attempts: int = 4) -> tuple[str, bytes]:
@@ -117,16 +118,24 @@ def parse_catalogue(raw: bytes, auction: dict, evidence: dict) -> tuple[list[dic
         visible += 1
         identity_text = " ".join(filter(None, [tr.get("onclick"), *(a.get("href") for a in tr.select("a[href]"))]))
         match = PROPERTY_RE.search(identity_text)
-        if not match:
+        pdf_match = DETAIL_PDF_RE.search(identity_text)
+        if not match and not pdf_match:
             missing_identity.append(cells[0])
             continue
-        source_id = match.group(1)
+        if match:
+            source_id = match.group(1)
+            original_url = f"{BASE}/property.php?id={source_id}"
+        else:
+            # The pre-2017 archive uses stable first-party PDF particulars in
+            # place of numeric property pages.  Preserve that published path;
+            # auction key + PDF path is source identity, never a guessed ID.
+            source_id = pdf_match.group(1).lower()
+            original_url = urljoin(BASE + "/", pdf_match.group(1))
         if source_id in seen:
             raise ValueError(f"Repeated property ID {source_id}")
         seen.add(source_id)
         result = clean(cells[-1].replace("→", ""))
         status, sale_price, available_price = status_and_prices(result)
-        original_url = f"{BASE}/property.php?id={source_id}"
         row = corpus.base_row("Barnett Ross", "barnett-ross:" + auction["key"], date,
                               cells[0].upper(), source_id, original_url)
         row.update(address=address_text, locality=clean(cells[-2]) if len(cells) >= 4 else None,
