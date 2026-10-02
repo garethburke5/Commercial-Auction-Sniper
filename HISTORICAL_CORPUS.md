@@ -14,6 +14,7 @@ python historical_allsop.py --workers 1
 python scripts/harvest_acuitus_canonical.py --all-incomplete
 python scripts/harvest_clive_emson_canonical.py --all-incomplete
 python scripts/harvest_clive_emson_canonical.py --enrich-next --workers 4
+python scripts/harvest_barnett_ross_canonical.py --all-incomplete
 python historical_corpus.py build
 ```
 
@@ -47,6 +48,12 @@ manufactured appearances. Card localities remain separate from street addresses
 pending detail-page enrichment. The resumable detail pass revisits one oldest
 partial catalogue at a time, preserves each raw lot page, and upgrades only the
 same immutable appearance ID after the page's auction date and lot number agree.
+
+Barnett Ross collection traverses the first-party past-results index back to
+November 2002 and banks every visible UK result row, including residential and
+lettered lots. Stable property IDs preserve repeat appearances. Each unpaginated
+catalogue is complete only when every visible row reconciles to one distinct ID;
+Spain-only sales are outside this UK corpus and are explicitly excluded.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including
