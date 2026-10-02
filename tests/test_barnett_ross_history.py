@@ -37,6 +37,17 @@ def test_catalogue_without_property_identity_is_not_complete():
     assert reconciliation["missing_property_id_lots"] == ["A"]
 
 
+def test_legacy_pdf_particulars_are_stable_source_identity():
+    raw = b'''<p>Auction Date: 30th November 2011</p><table><tr
+    onclick="window.open('details/201112/A.pdf')"><td>A</td>
+    <td class="address">3 Shepherd Street, London W1J 7HL</td><td>Withdrawn</td>
+    </tr></table>'''
+    rows, reconciliation = parse_catalogue(raw, {"key": "201112-0"}, {})
+    assert reconciliation["catalogue_complete"] is True
+    assert rows[0]["source_lot_id"] == "details/201112/a.pdf"
+    assert rows[0]["original_url"].endswith("/details/201112/A.pdf")
+
+
 def test_result_semantics_remain_distinct():
     assert status_and_prices("Sold Prior") == ("sold prior", None, None)
     assert status_and_prices("Available at £375,000") == ("available", None, 375000)
