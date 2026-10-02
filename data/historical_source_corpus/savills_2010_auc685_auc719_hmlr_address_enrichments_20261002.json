@@ -1,0 +1,79 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative official HM Land Registry exact-price address enrichment with locality and independent address corroboration",
+  "captured_at_utc": "2026-10-02T22:24:37Z",
+  "source_note": "The official HM Land Registry Price Paid Data report builder was run across all 21 priced, addressless appearances in the already banked 12 July and 13 December 2010 Savills commercial catalogue shards. Three matches were retained. Lot 1 in the July catalogue has one exact-price Southampton completion 29 days after auction, and the matched premises is independently confirmed as a retail unit. December lots 18 and 19 are consecutive Wood Green lots with consecutive 41 and 43 Pellatt Grove addresses, exact distinct hammer prices, the same completion date 35 days after auction, and the only N22 matches in their respective exact-price result sets. Eleven no-result, four ambiguous and three property-class-incompatible candidates remain unchanged. Existing evidence and every separate auction appearance are preserved.",
+  "source_records": [
+    {
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=366000&max_price=366000&min_date=2010-07-12&max_date=2010-09-25&relative_url_root=%2Fapp%2Fppd&town=Southampton",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Savills Auc 685 lot 1 exact-price Southampton transaction",
+      "evidence_excerpt": "229 Portswood Road, Southampton SO17 2NF; GBP 366,000; freehold; completed 10 August 2010. Southampton City Council and the current occupier independently identify 229 Portswood Road as a commercial retail unit."
+    },
+    {
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=490000&max_price=490000&min_date=2010-12-13&max_date=2011-02-26&relative_url_root=%2Fapp%2Fppd&town=London",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Savills Auc 719 lot 18 exact-price Wood Green transaction",
+      "evidence_excerpt": "41 Pellatt Grove, London N22 5NP; GBP 490,000; freehold; completed 17 January 2011. This is the sole N22 candidate in the exact-price London result set."
+    },
+    {
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=494000&max_price=494000&min_date=2010-12-13&max_date=2011-02-26&relative_url_root=%2Fapp%2Fppd&town=London",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Savills Auc 719 lot 19 exact-price Wood Green transaction",
+      "evidence_excerpt": "43 Pellatt Grove, London N22 5NP; GBP 494,000; freehold; completed 17 January 2011. This is the sole N22 candidate in the exact-price London result set."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "source-corpus/savills_2010_07_12_auc685_archived_manifest_20260929",
+      "target_appearance_id": "source-corpus|savills-commercial-auc685-pos1",
+      "address": "229 Portswood Road, Southampton, SO17 2NF",
+      "address_basis": "exact_hammer_price_unique_locality_short_completion_window_and_independently_confirmed_retail_use",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=366000&max_price=366000&min_date=2010-07-12&max_date=2010-09-25&relative_url_root=%2Fapp%2Fppd&town=Southampton",
+      "source_urls": [
+        "https://web.archive.org/web/20101010001045id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=685&date=12/07/2010",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=366000&max_price=366000&min_date=2010-07-12&max_date=2010-09-25&relative_url_root=%2Fapp%2Fppd&town=Southampton",
+        "https://www.southampton.gov.uk/moderngov/documents/s85302/First%20Floor%20Flat%20241A%20Portswood%20Road%20Panel%20Report%202.pdf",
+        "https://www.ageuk.org.uk/directory/search/shops/age-uk-shop-portswood-fb107dc5-a589-e611-8144-02f3d582ec95/"
+      ],
+      "evidence_note": "The saved Savills Auc 685 manifest identifies lot 1 as a Southampton retail property sold for exactly GBP 366,000 on 12 July 2010. HM Land Registry has one exact-price Southampton transaction in the 75-day window: freehold 229 Portswood Road, completing 29 days later on 10 August 2010. Southampton City Council independently identifies 229 Portswood Road as a commercial unit, and the current occupier confirms the full address and retail use."
+    },
+    {
+      "target_shard": "source-corpus/savills_2010_12_13_auc719_archived_manifest_20260929",
+      "target_appearance_id": "source-corpus|savills-commercial-2010-12-13-lot18",
+      "address": "41 Pellatt Grove, Wood Green, London, N22 5NP",
+      "address_basis": "paired_consecutive_lots_exact_distinct_hammer_prices_locality_same_completion_date_and_unique_n22_candidates",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=490000&max_price=490000&min_date=2010-12-13&max_date=2011-02-26&relative_url_root=%2Fapp%2Fppd&town=London",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=490000&max_price=490000&min_date=2010-12-13&max_date=2011-02-26&relative_url_root=%2Fapp%2Fppd&town=London",
+        "https://www.rightmove.co.uk/house-prices/n22/pellatt-grove.html"
+      ],
+      "evidence_note": "The saved Savills Auc 719 manifest identifies consecutive lot 18 as a vacant Wood Green property sold for exactly GBP 490,000. HM Land Registry identifies 41 Pellatt Grove, N22 5NP as the only N22 candidate at that exact price, completing 35 days later on 17 January 2011. Consecutive lot 19 maps independently to adjacent 43 Pellatt Grove at its distinct exact GBP 494,000 hammer price and the same completion date; public sold-price history corroborates both transactions."
+    },
+    {
+      "target_shard": "source-corpus/savills_2010_12_13_auc719_archived_manifest_20260929",
+      "target_appearance_id": "source-corpus|savills-commercial-2010-12-13-lot19",
+      "address": "43 Pellatt Grove, Wood Green, London, N22 5NP",
+      "address_basis": "paired_consecutive_lots_exact_distinct_hammer_prices_locality_same_completion_date_and_unique_n22_candidates",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=494000&max_price=494000&min_date=2010-12-13&max_date=2011-02-26&relative_url_root=%2Fapp%2Fppd&town=London",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=494000&max_price=494000&min_date=2010-12-13&max_date=2011-02-26&relative_url_root=%2Fapp%2Fppd&town=London",
+        "https://www.rightmove.co.uk/house-prices/n22/pellatt-grove.html"
+      ],
+      "evidence_note": "The saved Savills Auc 719 manifest identifies consecutive lot 19 as a vacant Wood Green property sold for exactly GBP 494,000. HM Land Registry identifies 43 Pellatt Grove, N22 5NP as the only N22 candidate at that exact price, completing 35 days later on 17 January 2011. Consecutive lot 18 maps independently to adjacent 41 Pellatt Grove at its distinct exact GBP 490,000 hammer price and the same completion date; public sold-price history corroborates both transactions."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 3,
+  "address_records_added": 3,
+  "partial_records_added": 0,
+  "related_partial_candidates_checked": 21,
+  "no_result_candidates_left_unchanged": 11,
+  "ambiguous_candidates_left_unchanged": 4,
+  "property_class_incompatible_candidates_left_unchanged": 3,
+  "historical_completeness_declared": false
+}
