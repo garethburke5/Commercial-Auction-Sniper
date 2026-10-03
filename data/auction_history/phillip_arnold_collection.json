@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-10-03T16:17:58.946362+00:00",
+  "checked_at": "2026-10-03T16:34:37.698860+00:00",
   "source_url": "https://www.philliparnoldauctions.co.uk/previous-results",
   "result_pages_discovered": 120,
   "result_pages_captured": 120,
   "result_pages_complete": 0,
   "result_pages_denominator_mismatch": 120,
   "appearances_captured": 2416,
-  "run_new_appearances": 2416,
-  "run_new_address_records": 2381,
-  "run_new_partial_lots": 35,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
+  "run_new_partial_lots": 0,
   "by_sector": {
     "unknown": 1922,
     "land": 171,
@@ -17,31 +17,31 @@
   },
   "archive_evidence": {
     "source_url": "https://www.philliparnoldauctions.co.uk/previous-results",
-    "retrieved_at": "2026-10-03T16:16:52.573959+00:00",
+    "retrieved_at": "2026-10-03T16:33:40.917911+00:00",
     "sha256": "dacb807f5428692e96f53c0796d1942eca7d3f543d27c8ff107166a76d1540e1",
     "snapshot_path": "data/auction_history/sources/phillip-arnold/previous-results-dacb807f5428692e.json.gz",
     "basis": "first-party previous-results index"
   },
   "auctions": {
-    "-26": {
+    "-29": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-26",
-      "auction_date": "2008-10-22",
+      "source_auction_id": "phillip-arnold:-29",
+      "auction_date": "2008-04-16",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 24,
-      "visible_source_rows": 31,
-      "lots_captured": 31,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-26",
+      "published_lots_offered": 19,
+      "visible_source_rows": 24,
+      "lots_captured": 24,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-29",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 24,
-        "visible_source_rows": 31
+        "published_lots_offered": 19,
+        "visible_source_rows": 24
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:53.664411+00:00"
+      "checked_at": "2026-10-03T16:33:42.499441+00:00"
     },
     "-33": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -61,87 +61,7 @@
         "visible_source_rows": 28
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:54.025315+00:00"
-    },
-    "-29": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-29",
-      "auction_date": "2008-04-16",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 19,
-      "visible_source_rows": 24,
-      "lots_captured": 24,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-29",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 19,
-        "visible_source_rows": 24
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:54.074960+00:00"
-    },
-    "-28": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-28",
-      "auction_date": "2008-06-19",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 24,
-      "visible_source_rows": 29,
-      "lots_captured": 29,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-28",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 24,
-        "visible_source_rows": 29
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:54.104074+00:00"
-    },
-    "-32": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-32",
-      "auction_date": "2007-09-05",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 25,
-      "visible_source_rows": 31,
-      "lots_captured": 31,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-32",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 25,
-        "visible_source_rows": 31
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:54.187157+00:00"
-    },
-    "-27": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-27",
-      "auction_date": "2008-09-03",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 28,
-      "visible_source_rows": 38,
-      "lots_captured": 38,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-27",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 28,
-        "visible_source_rows": 38
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:54.222462+00:00"
+      "checked_at": "2026-10-03T16:33:42.546340+00:00"
     },
     "-30": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -161,7 +81,47 @@
         "visible_source_rows": 38
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:54.269704+00:00"
+      "checked_at": "2026-10-03T16:33:42.660446+00:00"
+    },
+    "-26": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-26",
+      "auction_date": "2008-10-22",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 24,
+      "visible_source_rows": 31,
+      "lots_captured": 31,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-26",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 24,
+        "visible_source_rows": 31
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:42.719889+00:00"
+    },
+    "-28": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-28",
+      "auction_date": "2008-06-19",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 24,
+      "visible_source_rows": 29,
+      "lots_captured": 29,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-28",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 24,
+        "visible_source_rows": 29
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:42.740764+00:00"
     },
     "-31": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -181,107 +141,47 @@
         "visible_source_rows": 53
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:54.302635+00:00"
+      "checked_at": "2026-10-03T16:33:42.751122+00:00"
     },
-    "-25": {
+    "-27": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-25",
-      "auction_date": "2009-02-25",
+      "source_auction_id": "phillip-arnold:-27",
+      "auction_date": "2008-09-03",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 20,
-      "visible_source_rows": 27,
-      "lots_captured": 27,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-25",
+      "published_lots_offered": 28,
+      "visible_source_rows": 38,
+      "lots_captured": 38,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-27",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 20,
-        "visible_source_rows": 27
+        "published_lots_offered": 28,
+        "visible_source_rows": 38
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:54.611651+00:00"
+      "checked_at": "2026-10-03T16:33:42.767486+00:00"
     },
-    "-23": {
+    "-32": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-23",
-      "auction_date": "2009-06-23",
+      "source_auction_id": "phillip-arnold:-32",
+      "auction_date": "2007-09-05",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 17,
-      "visible_source_rows": 25,
-      "lots_captured": 25,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-23",
+      "published_lots_offered": 25,
+      "visible_source_rows": 31,
+      "lots_captured": 31,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-32",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 17,
-        "visible_source_rows": 25
+        "published_lots_offered": 25,
+        "visible_source_rows": 31
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:55.016923+00:00"
-    },
-    "-24": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-24",
-      "auction_date": "2009-04-22",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 10,
-      "visible_source_rows": 17,
-      "lots_captured": 17,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-24",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 10,
-        "visible_source_rows": 17
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:55.060641+00:00"
-    },
-    "-22": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-22",
-      "auction_date": "2009-09-09",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 14,
-      "visible_source_rows": 20,
-      "lots_captured": 20,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-22",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 14,
-        "visible_source_rows": 20
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:55.120242+00:00"
-    },
-    "-21": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-21",
-      "auction_date": "2009-10-27",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 11,
-      "visible_source_rows": 19,
-      "lots_captured": 19,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-21",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 11,
-        "visible_source_rows": 19
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:55.144427+00:00"
+      "checked_at": "2026-10-03T16:33:42.778462+00:00"
     },
     "-18": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -301,7 +201,87 @@
         "visible_source_rows": 23
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:55.306337+00:00"
+      "checked_at": "2026-10-03T16:33:43.679900+00:00"
+    },
+    "-22": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-22",
+      "auction_date": "2009-09-09",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 14,
+      "visible_source_rows": 20,
+      "lots_captured": 20,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-22",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 14,
+        "visible_source_rows": 20
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:44.077406+00:00"
+    },
+    "-21": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-21",
+      "auction_date": "2009-10-27",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 11,
+      "visible_source_rows": 19,
+      "lots_captured": 19,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-21",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 11,
+        "visible_source_rows": 19
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:44.123585+00:00"
+    },
+    "-25": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-25",
+      "auction_date": "2009-02-25",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 20,
+      "visible_source_rows": 27,
+      "lots_captured": 27,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-25",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 20,
+        "visible_source_rows": 27
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:44.186160+00:00"
+    },
+    "-24": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-24",
+      "auction_date": "2009-04-22",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 10,
+      "visible_source_rows": 17,
+      "lots_captured": 17,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-24",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 10,
+        "visible_source_rows": 17
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:44.225897+00:00"
     },
     "-19": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -321,7 +301,7 @@
         "visible_source_rows": 19
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:55.318037+00:00"
+      "checked_at": "2026-10-03T16:33:44.243610+00:00"
     },
     "-20": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -341,7 +321,27 @@
         "visible_source_rows": 23
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:55.338484+00:00"
+      "checked_at": "2026-10-03T16:33:44.259790+00:00"
+    },
+    "-23": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-23",
+      "auction_date": "2009-06-23",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 17,
+      "visible_source_rows": 25,
+      "lots_captured": 25,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-23",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 17,
+        "visible_source_rows": 25
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:44.263083+00:00"
     },
     "-17": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -361,7 +361,7 @@
         "visible_source_rows": 19
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:55.828022+00:00"
+      "checked_at": "2026-10-03T16:33:44.654793+00:00"
     },
     "-15": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -381,7 +381,7 @@
         "visible_source_rows": 16
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:55.960143+00:00"
+      "checked_at": "2026-10-03T16:33:45.125198+00:00"
     },
     "-16": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -401,47 +401,7 @@
         "visible_source_rows": 31
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:55.975323+00:00"
-    },
-    "-14": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-14",
-      "auction_date": "2011-02-23",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 17,
-      "visible_source_rows": 25,
-      "lots_captured": 25,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-14",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 17,
-        "visible_source_rows": 25
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:56.011975+00:00"
-    },
-    "-13": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-13",
-      "auction_date": "2011-05-10",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 49,
-      "visible_source_rows": 53,
-      "lots_captured": 53,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-13",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 49,
-        "visible_source_rows": 53
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:56.150814+00:00"
+      "checked_at": "2026-10-03T16:33:45.162233+00:00"
     },
     "-11": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -461,7 +421,27 @@
         "visible_source_rows": 25
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:56.275076+00:00"
+      "checked_at": "2026-10-03T16:33:45.502967+00:00"
+    },
+    "-14": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-14",
+      "auction_date": "2011-02-23",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 17,
+      "visible_source_rows": 25,
+      "lots_captured": 25,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-14",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 17,
+        "visible_source_rows": 25
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:45.652313+00:00"
     },
     "-10": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -481,7 +461,27 @@
         "visible_source_rows": 33
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:56.363643+00:00"
+      "checked_at": "2026-10-03T16:33:45.685544+00:00"
+    },
+    "-13": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-13",
+      "auction_date": "2011-05-10",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 49,
+      "visible_source_rows": 53,
+      "lots_captured": 53,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-13",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 49,
+        "visible_source_rows": 53
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:45.774238+00:00"
     },
     "-12": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -501,7 +501,7 @@
         "visible_source_rows": 50
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:56.388494+00:00"
+      "checked_at": "2026-10-03T16:33:45.809440+00:00"
     },
     "-9": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -521,7 +521,7 @@
         "visible_source_rows": 20
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:56.669934+00:00"
+      "checked_at": "2026-10-03T16:33:45.825743+00:00"
     },
     "-7": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -541,27 +541,7 @@
         "visible_source_rows": 14
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:56.862659+00:00"
-    },
-    "-6": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-6",
-      "auction_date": "2012-07-11",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 16,
-      "visible_source_rows": 18,
-      "lots_captured": 18,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-6",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 16,
-        "visible_source_rows": 18
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:56.875670+00:00"
+      "checked_at": "2026-10-03T16:33:46.049713+00:00"
     },
     "-8": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -581,47 +561,27 @@
         "visible_source_rows": 23
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:56.941518+00:00"
+      "checked_at": "2026-10-03T16:33:46.096212+00:00"
     },
-    "-5": {
+    "-6": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-5",
-      "auction_date": "2012-09-19",
+      "source_auction_id": "phillip-arnold:-6",
+      "auction_date": "2012-07-11",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 20,
-      "visible_source_rows": 22,
-      "lots_captured": 22,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-5",
+      "published_lots_offered": 16,
+      "visible_source_rows": 18,
+      "lots_captured": 18,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-6",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 20,
-        "visible_source_rows": 22
+        "published_lots_offered": 16,
+        "visible_source_rows": 18
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:57.025403+00:00"
-    },
-    "-4": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-4",
-      "auction_date": "2012-11-21",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 14,
-      "visible_source_rows": 19,
-      "lots_captured": 19,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-4",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 14,
-        "visible_source_rows": 19
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:57.124489+00:00"
+      "checked_at": "2026-10-03T16:33:46.353447+00:00"
     },
     "-3": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -641,7 +601,47 @@
         "visible_source_rows": 21
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:57.360286+00:00"
+      "checked_at": "2026-10-03T16:33:46.640609+00:00"
+    },
+    "-5": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-5",
+      "auction_date": "2012-09-19",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 20,
+      "visible_source_rows": 22,
+      "lots_captured": 22,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-5",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 20,
+        "visible_source_rows": 22
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:46.680027+00:00"
+    },
+    "-4": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-4",
+      "auction_date": "2012-11-21",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 14,
+      "visible_source_rows": 19,
+      "lots_captured": 19,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-4",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 14,
+        "visible_source_rows": 19
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:46.702483+00:00"
     },
     "-2": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -661,7 +661,7 @@
         "visible_source_rows": 25
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:57.381292+00:00"
+      "checked_at": "2026-10-03T16:33:46.742111+00:00"
     },
     "32": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -681,27 +681,7 @@
         "visible_source_rows": 32
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:57.502691+00:00"
-    },
-    "35": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:35",
-      "auction_date": "2013-12-16",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 10,
-      "visible_source_rows": 12,
-      "lots_captured": 12,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/35",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 10,
-        "visible_source_rows": 12
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:57.768103+00:00"
+      "checked_at": "2026-10-03T16:33:46.784089+00:00"
     },
     "34": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -721,7 +701,7 @@
         "visible_source_rows": 17
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:57.787984+00:00"
+      "checked_at": "2026-10-03T16:33:47.003431+00:00"
     },
     "33": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -741,7 +721,27 @@
         "visible_source_rows": 18
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:57.902774+00:00"
+      "checked_at": "2026-10-03T16:33:47.071693+00:00"
+    },
+    "35": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:35",
+      "auction_date": "2013-12-16",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 10,
+      "visible_source_rows": 12,
+      "lots_captured": 12,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/35",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 10,
+        "visible_source_rows": 12
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:47.195596+00:00"
     },
     "36": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -761,7 +761,7 @@
         "visible_source_rows": 25
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:57.978671+00:00"
+      "checked_at": "2026-10-03T16:33:47.640014+00:00"
     },
     "37": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -781,47 +781,7 @@
         "visible_source_rows": 20
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:57.996466+00:00"
-    },
-    "38": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:38",
-      "auction_date": "2014-06-03",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 15,
-      "visible_source_rows": 23,
-      "lots_captured": 23,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/38",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 15,
-        "visible_source_rows": 23
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:58.209784+00:00"
-    },
-    "40": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:40",
-      "auction_date": "2014-09-23",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 21,
-      "visible_source_rows": 33,
-      "lots_captured": 33,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/40",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 21,
-        "visible_source_rows": 33
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:58.354477+00:00"
+      "checked_at": "2026-10-03T16:33:47.870472+00:00"
     },
     "39": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -841,7 +801,27 @@
         "visible_source_rows": 28
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:58.384778+00:00"
+      "checked_at": "2026-10-03T16:33:48.008205+00:00"
+    },
+    "38": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:38",
+      "auction_date": "2014-06-03",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 15,
+      "visible_source_rows": 23,
+      "lots_captured": 23,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/38",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 15,
+        "visible_source_rows": 23
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:48.054470+00:00"
     },
     "42": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -861,7 +841,27 @@
         "visible_source_rows": 11
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:58.561433+00:00"
+      "checked_at": "2026-10-03T16:33:48.121595+00:00"
+    },
+    "40": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:40",
+      "auction_date": "2014-09-23",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 21,
+      "visible_source_rows": 33,
+      "lots_captured": 33,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/40",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 21,
+        "visible_source_rows": 33
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:48.178281+00:00"
     },
     "41": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -881,7 +881,7 @@
         "visible_source_rows": 26
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:58.631149+00:00"
+      "checked_at": "2026-10-03T16:33:48.200434+00:00"
     },
     "43": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -901,7 +901,7 @@
         "visible_source_rows": 12
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:58.655995+00:00"
+      "checked_at": "2026-10-03T16:33:48.208560+00:00"
     },
     "44": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -921,7 +921,7 @@
         "visible_source_rows": 21
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:58.852709+00:00"
+      "checked_at": "2026-10-03T16:33:48.473544+00:00"
     },
     "45": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -941,27 +941,7 @@
         "visible_source_rows": 16
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:58.868158+00:00"
-    },
-    "46": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:46",
-      "auction_date": "2015-07-23",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 8,
-      "visible_source_rows": 16,
-      "lots_captured": 16,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/46",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 8,
-        "visible_source_rows": 16
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:59.007759+00:00"
+      "checked_at": "2026-10-03T16:33:48.775082+00:00"
     },
     "48": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -981,27 +961,7 @@
         "visible_source_rows": 13
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:59.172447+00:00"
-    },
-    "47": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:47",
-      "auction_date": "2015-09-10",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 37,
-      "visible_source_rows": 56,
-      "lots_captured": 56,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/47",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 37,
-        "visible_source_rows": 56
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:59.271068+00:00"
+      "checked_at": "2026-10-03T16:33:48.862796+00:00"
     },
     "49": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1021,67 +981,47 @@
         "visible_source_rows": 12
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:59.312043+00:00"
+      "checked_at": "2026-10-03T16:33:48.920260+00:00"
     },
-    "53": {
+    "46": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:53",
-      "auction_date": "2016-07-20",
+      "source_auction_id": "phillip-arnold:46",
+      "auction_date": "2015-07-23",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 10,
+      "published_lots_offered": 8,
       "visible_source_rows": 16,
       "lots_captured": 16,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/53",
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/46",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 10,
+        "published_lots_offered": 8,
         "visible_source_rows": 16
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:59.660971+00:00"
+      "checked_at": "2026-10-03T16:33:48.947988+00:00"
     },
-    "52": {
+    "47": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:52",
-      "auction_date": "2016-06-08",
+      "source_auction_id": "phillip-arnold:47",
+      "auction_date": "2015-09-10",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 10,
-      "visible_source_rows": 14,
-      "lots_captured": 14,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/52",
+      "published_lots_offered": 37,
+      "visible_source_rows": 56,
+      "lots_captured": 56,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/47",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 10,
-        "visible_source_rows": 14
+        "published_lots_offered": 37,
+        "visible_source_rows": 56
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:59.689279+00:00"
-    },
-    "51": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:51",
-      "auction_date": "2016-04-13",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 16,
-      "visible_source_rows": 22,
-      "lots_captured": 22,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/51",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 16,
-        "visible_source_rows": 22
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:16:59.885174+00:00"
+      "checked_at": "2026-10-03T16:33:49.037370+00:00"
     },
     "50": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1101,7 +1041,67 @@
         "visible_source_rows": 21
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:59.913368+00:00"
+      "checked_at": "2026-10-03T16:33:49.113816+00:00"
+    },
+    "51": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:51",
+      "auction_date": "2016-04-13",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 16,
+      "visible_source_rows": 22,
+      "lots_captured": 22,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/51",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 16,
+        "visible_source_rows": 22
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:49.128807+00:00"
+    },
+    "52": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:52",
+      "auction_date": "2016-06-08",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 10,
+      "visible_source_rows": 14,
+      "lots_captured": 14,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/52",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 10,
+        "visible_source_rows": 14
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:49.204765+00:00"
+    },
+    "53": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:53",
+      "auction_date": "2016-07-20",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 10,
+      "visible_source_rows": 16,
+      "lots_captured": 16,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/53",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 10,
+        "visible_source_rows": 16
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:49.557143+00:00"
     },
     "54": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1121,27 +1121,7 @@
         "visible_source_rows": 17
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:16:59.922719+00:00"
-    },
-    "56": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:56",
-      "auction_date": "2016-12-07",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 11,
-      "visible_source_rows": 16,
-      "lots_captured": 16,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/56",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 11,
-        "visible_source_rows": 16
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:00.185183+00:00"
+      "checked_at": "2026-10-03T16:33:49.700866+00:00"
     },
     "55": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1161,7 +1141,27 @@
         "visible_source_rows": 21
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:00.328004+00:00"
+      "checked_at": "2026-10-03T16:33:49.770341+00:00"
+    },
+    "56": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:56",
+      "auction_date": "2016-12-07",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 11,
+      "visible_source_rows": 16,
+      "lots_captured": 16,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/56",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 11,
+        "visible_source_rows": 16
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:50.116337+00:00"
     },
     "57": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1181,7 +1181,7 @@
         "visible_source_rows": 19
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:00.427791+00:00"
+      "checked_at": "2026-10-03T16:33:50.197786+00:00"
     },
     "58": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1201,7 +1201,7 @@
         "visible_source_rows": 15
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:00.494324+00:00"
+      "checked_at": "2026-10-03T16:33:50.209501+00:00"
     },
     "59": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1221,27 +1221,7 @@
         "visible_source_rows": 21
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:00.593468+00:00"
-    },
-    "62": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:62",
-      "auction_date": "2017-10-30",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 13,
-      "visible_source_rows": 18,
-      "lots_captured": 18,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/62",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 13,
-        "visible_source_rows": 18
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:00.712553+00:00"
+      "checked_at": "2026-10-03T16:33:50.240737+00:00"
     },
     "60": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1261,7 +1241,7 @@
         "visible_source_rows": 24
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:00.748415+00:00"
+      "checked_at": "2026-10-03T16:33:50.254674+00:00"
     },
     "61": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1281,7 +1261,7 @@
         "visible_source_rows": 24
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:00.800563+00:00"
+      "checked_at": "2026-10-03T16:33:50.380350+00:00"
     },
     "63": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1301,67 +1281,27 @@
         "visible_source_rows": 14
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:01.092924+00:00"
+      "checked_at": "2026-10-03T16:33:50.557501+00:00"
     },
-    "64": {
+    "62": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:64",
-      "auction_date": "2018-02-23",
+      "source_auction_id": "phillip-arnold:62",
+      "auction_date": "2017-10-30",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 17,
-      "visible_source_rows": 21,
-      "lots_captured": 21,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/64",
+      "published_lots_offered": 13,
+      "visible_source_rows": 18,
+      "lots_captured": 18,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/62",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 17,
-        "visible_source_rows": 21
+        "published_lots_offered": 13,
+        "visible_source_rows": 18
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:01.188221+00:00"
-    },
-    "66": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:66",
-      "auction_date": "2018-05-25",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 10,
-      "visible_source_rows": 16,
-      "lots_captured": 16,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/66",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 10,
-        "visible_source_rows": 16
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:01.231460+00:00"
-    },
-    "65": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:65",
-      "auction_date": "2018-04-06",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 16,
-      "visible_source_rows": 27,
-      "lots_captured": 27,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/65",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 16,
-        "visible_source_rows": 27
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:01.272074+00:00"
+      "checked_at": "2026-10-03T16:33:50.579310+00:00"
     },
     "67": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1381,47 +1321,67 @@
         "visible_source_rows": 18
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:01.356829+00:00"
+      "checked_at": "2026-10-03T16:33:50.996040+00:00"
     },
-    "70": {
+    "64": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:70",
-      "auction_date": "2018-12-10",
+      "source_auction_id": "phillip-arnold:64",
+      "auction_date": "2018-02-23",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 4,
-      "visible_source_rows": 10,
-      "lots_captured": 10,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/70",
+      "published_lots_offered": 17,
+      "visible_source_rows": 21,
+      "lots_captured": 21,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/64",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 4,
-        "visible_source_rows": 10
+        "published_lots_offered": 17,
+        "visible_source_rows": 21
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:01.499755+00:00"
+      "checked_at": "2026-10-03T16:33:51.029879+00:00"
     },
-    "69": {
+    "65": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:69",
-      "auction_date": "2018-10-31",
+      "source_auction_id": "phillip-arnold:65",
+      "auction_date": "2018-04-06",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 6,
-      "visible_source_rows": 19,
-      "lots_captured": 19,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/69",
+      "published_lots_offered": 16,
+      "visible_source_rows": 27,
+      "lots_captured": 27,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/65",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 6,
-        "visible_source_rows": 19
+        "published_lots_offered": 16,
+        "visible_source_rows": 27
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:01.526255+00:00"
+      "checked_at": "2026-10-03T16:33:51.095062+00:00"
+    },
+    "66": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:66",
+      "auction_date": "2018-05-25",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 10,
+      "visible_source_rows": 16,
+      "lots_captured": 16,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/66",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 10,
+        "visible_source_rows": 16
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:51.129325+00:00"
     },
     "68": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1441,7 +1401,47 @@
         "visible_source_rows": 21
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:01.597683+00:00"
+      "checked_at": "2026-10-03T16:33:51.159517+00:00"
+    },
+    "69": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:69",
+      "auction_date": "2018-10-31",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 6,
+      "visible_source_rows": 19,
+      "lots_captured": 19,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/69",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 6,
+        "visible_source_rows": 19
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:51.253201+00:00"
+    },
+    "70": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:70",
+      "auction_date": "2018-12-10",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 4,
+      "visible_source_rows": 10,
+      "lots_captured": 10,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/70",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 4,
+        "visible_source_rows": 10
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:51.301638+00:00"
     },
     "71": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1461,27 +1461,7 @@
         "visible_source_rows": 18
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:01.923832+00:00"
-    },
-    "72": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:72",
-      "auction_date": "2019-04-12",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 15,
-      "visible_source_rows": 18,
-      "lots_captured": 18,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/72",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 15,
-        "visible_source_rows": 18
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:01.941908+00:00"
+      "checked_at": "2026-10-03T16:33:51.385928+00:00"
     },
     "73": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1501,27 +1481,27 @@
         "visible_source_rows": 11
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:02.003360+00:00"
+      "checked_at": "2026-10-03T16:33:51.751791+00:00"
     },
-    "76": {
+    "72": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:76",
-      "auction_date": "2019-11-01",
+      "source_auction_id": "phillip-arnold:72",
+      "auction_date": "2019-04-12",
       "catalogue_complete": false,
       "source_rows_complete": true,
       "published_lots_offered": 15,
-      "visible_source_rows": 29,
-      "lots_captured": 29,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/76",
+      "visible_source_rows": 18,
+      "lots_captured": 18,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/72",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
         "published_lots_offered": 15,
-        "visible_source_rows": 29
+        "visible_source_rows": 18
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:02.131967+00:00"
+      "checked_at": "2026-10-03T16:33:51.859752+00:00"
     },
     "74": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1541,7 +1521,7 @@
         "visible_source_rows": 17
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:02.160357+00:00"
+      "checked_at": "2026-10-03T16:33:52.084805+00:00"
     },
     "77": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1561,47 +1541,27 @@
         "visible_source_rows": 15
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:02.340322+00:00"
+      "checked_at": "2026-10-03T16:33:52.149244+00:00"
     },
-    "78": {
+    "76": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:78",
-      "auction_date": "2020-02-17",
+      "source_auction_id": "phillip-arnold:76",
+      "auction_date": "2019-11-01",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 11,
-      "visible_source_rows": 23,
-      "lots_captured": 23,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/78",
+      "published_lots_offered": 15,
+      "visible_source_rows": 29,
+      "lots_captured": 29,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/76",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 11,
-        "visible_source_rows": 23
+        "published_lots_offered": 15,
+        "visible_source_rows": 29
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:02.368475+00:00"
-    },
-    "79": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:79",
-      "auction_date": "2020-04-03",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 7,
-      "visible_source_rows": 23,
-      "lots_captured": 23,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/79",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 7,
-        "visible_source_rows": 23
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:02.480004+00:00"
+      "checked_at": "2026-10-03T16:33:52.224361+00:00"
     },
     "80": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1621,7 +1581,47 @@
         "visible_source_rows": 11
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:02.792513+00:00"
+      "checked_at": "2026-10-03T16:33:52.319266+00:00"
+    },
+    "78": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:78",
+      "auction_date": "2020-02-17",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 11,
+      "visible_source_rows": 23,
+      "lots_captured": 23,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/78",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 11,
+        "visible_source_rows": 23
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:52.344399+00:00"
+    },
+    "79": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:79",
+      "auction_date": "2020-04-03",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 7,
+      "visible_source_rows": 23,
+      "lots_captured": 23,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/79",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 7,
+        "visible_source_rows": 23
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:33:52.356446+00:00"
     },
     "81": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1641,7 +1641,7 @@
         "visible_source_rows": 17
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:02.813286+00:00"
+      "checked_at": "2026-10-03T16:33:52.603509+00:00"
     },
     "82": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1661,7 +1661,7 @@
         "visible_source_rows": 36
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:02.949433+00:00"
+      "checked_at": "2026-10-03T16:33:52.695282+00:00"
     },
     "83": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1681,7 +1681,7 @@
         "visible_source_rows": 17
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:02.994246+00:00"
+      "checked_at": "2026-10-03T16:33:52.903101+00:00"
     },
     "84": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1701,7 +1701,7 @@
         "visible_source_rows": 30
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:03.108164+00:00"
+      "checked_at": "2026-10-03T16:33:52.939329+00:00"
     },
     "85": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1721,7 +1721,7 @@
         "visible_source_rows": 18
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:03.261827+00:00"
+      "checked_at": "2026-10-03T16:33:53.149928+00:00"
     },
     "86": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1741,7 +1741,7 @@
         "visible_source_rows": 23
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:03.275426+00:00"
+      "checked_at": "2026-10-03T16:33:53.198324+00:00"
     },
     "93": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1761,7 +1761,7 @@
         "visible_source_rows": 6
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:08.942361+00:00"
+      "checked_at": "2026-10-03T16:33:55.896751+00:00"
     },
     "94": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1781,67 +1781,7 @@
         "visible_source_rows": 13
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:11.851223+00:00"
-    },
-    "91": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:91",
-      "auction_date": "2022-02-17",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 7,
-      "visible_source_rows": 10,
-      "lots_captured": 10,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/91",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 7,
-        "visible_source_rows": 10
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:14.182529+00:00"
-    },
-    "90": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:90",
-      "auction_date": "2021-12-09",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 11,
-      "visible_source_rows": 12,
-      "lots_captured": 12,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/90",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 11,
-        "visible_source_rows": 12
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:15.381053+00:00"
-    },
-    "89": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:89",
-      "auction_date": "2021-10-27",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 10,
-      "visible_source_rows": 15,
-      "lots_captured": 15,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/89",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 10,
-        "visible_source_rows": 15
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:15.637602+00:00"
+      "checked_at": "2026-10-03T16:33:58.343534+00:00"
     },
     "88": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1861,87 +1801,67 @@
         "visible_source_rows": 14
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:16.186590+00:00"
+      "checked_at": "2026-10-03T16:33:59.426786+00:00"
     },
-    "92": {
+    "89": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:92",
-      "auction_date": "2022-04-07",
+      "source_auction_id": "phillip-arnold:89",
+      "auction_date": "2021-10-27",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 13,
-      "visible_source_rows": 18,
-      "lots_captured": 18,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/92",
+      "published_lots_offered": 10,
+      "visible_source_rows": 15,
+      "lots_captured": 15,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/89",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 13,
-        "visible_source_rows": 18
+        "published_lots_offered": 10,
+        "visible_source_rows": 15
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:17.690330+00:00"
+      "checked_at": "2026-10-03T16:34:00.981550+00:00"
     },
-    "95": {
+    "90": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:95",
-      "auction_date": "2022-09-15",
+      "source_auction_id": "phillip-arnold:90",
+      "auction_date": "2021-12-09",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": null,
-      "visible_source_rows": 17,
-      "lots_captured": 17,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/95",
+      "published_lots_offered": 11,
+      "visible_source_rows": 12,
+      "lots_captured": 12,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/90",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": null,
-        "visible_source_rows": 17
+        "published_lots_offered": 11,
+        "visible_source_rows": 12
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:25.353756+00:00"
+      "checked_at": "2026-10-03T16:34:01.391573+00:00"
     },
-    "98": {
+    "91": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:98",
-      "auction_date": "2023-02-16",
+      "source_auction_id": "phillip-arnold:91",
+      "auction_date": "2022-02-17",
       "catalogue_complete": false,
       "source_rows_complete": true,
       "published_lots_offered": 7,
-      "visible_source_rows": 12,
-      "lots_captured": 12,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/98",
+      "visible_source_rows": 10,
+      "lots_captured": 10,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/91",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
         "published_lots_offered": 7,
-        "visible_source_rows": 12
+        "visible_source_rows": 10
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:25.941633+00:00"
-    },
-    "96": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:96",
-      "auction_date": "2022-10-27",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 2,
-      "visible_source_rows": 14,
-      "lots_captured": 14,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/96",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 2,
-        "visible_source_rows": 14
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:26.084199+00:00"
+      "checked_at": "2026-10-03T16:34:02.074469+00:00"
     },
     "97": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1961,87 +1881,67 @@
         "visible_source_rows": 15
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:26.121032+00:00"
+      "checked_at": "2026-10-03T16:34:05.390421+00:00"
     },
-    "87": {
+    "96": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:87",
-      "auction_date": "2021-07-14",
+      "source_auction_id": "phillip-arnold:96",
+      "auction_date": "2022-10-27",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 2,
+      "visible_source_rows": 14,
+      "lots_captured": 14,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/96",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 2,
+        "visible_source_rows": 14
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:34:05.781649+00:00"
+    },
+    "92": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:92",
+      "auction_date": "2022-04-07",
       "catalogue_complete": false,
       "source_rows_complete": true,
       "published_lots_offered": 13,
-      "visible_source_rows": 26,
-      "lots_captured": 26,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/87",
+      "visible_source_rows": 18,
+      "lots_captured": 18,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/92",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
         "published_lots_offered": 13,
-        "visible_source_rows": 26
+        "visible_source_rows": 18
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:27.194176+00:00"
+      "checked_at": "2026-10-03T16:34:08.437010+00:00"
     },
-    "100": {
+    "98": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:100",
-      "auction_date": "2023-05-25",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 9,
-      "visible_source_rows": 11,
-      "lots_captured": 11,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/100",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 9,
-        "visible_source_rows": 11
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:27.657306+00:00"
-    },
-    "101": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:101",
-      "auction_date": "2023-07-13",
+      "source_auction_id": "phillip-arnold:98",
+      "auction_date": "2023-02-16",
       "catalogue_complete": false,
       "source_rows_complete": true,
       "published_lots_offered": 7,
-      "visible_source_rows": 13,
-      "lots_captured": 13,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/101",
+      "visible_source_rows": 12,
+      "lots_captured": 12,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/98",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
         "published_lots_offered": 7,
-        "visible_source_rows": 13
+        "visible_source_rows": 12
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:30.150110+00:00"
-    },
-    "99": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:99",
-      "auction_date": "2023-04-13",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 12,
-      "visible_source_rows": 19,
-      "lots_captured": 19,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/99",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 12,
-        "visible_source_rows": 19
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:32.554742+00:00"
+      "checked_at": "2026-10-03T16:34:08.754526+00:00"
     },
     "102": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2061,7 +1961,107 @@
         "visible_source_rows": 11
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:33.276517+00:00"
+      "checked_at": "2026-10-03T16:34:09.914110+00:00"
+    },
+    "100": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:100",
+      "auction_date": "2023-05-25",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 9,
+      "visible_source_rows": 11,
+      "lots_captured": 11,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/100",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 9,
+        "visible_source_rows": 11
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:34:09.941462+00:00"
+    },
+    "95": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:95",
+      "auction_date": "2022-09-15",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": null,
+      "visible_source_rows": 17,
+      "lots_captured": 17,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/95",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": null,
+        "visible_source_rows": 17
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:34:10.213281+00:00"
+    },
+    "99": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:99",
+      "auction_date": "2023-04-13",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 12,
+      "visible_source_rows": 19,
+      "lots_captured": 19,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/99",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 12,
+        "visible_source_rows": 19
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:34:10.595182+00:00"
+    },
+    "101": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:101",
+      "auction_date": "2023-07-13",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 7,
+      "visible_source_rows": 13,
+      "lots_captured": 13,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/101",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 7,
+        "visible_source_rows": 13
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:34:12.456456+00:00"
+    },
+    "87": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:87",
+      "auction_date": "2021-07-14",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 13,
+      "visible_source_rows": 26,
+      "lots_captured": 26,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/87",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 13,
+        "visible_source_rows": 26
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:34:12.748018+00:00"
     },
     "108": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2081,47 +2081,7 @@
         "visible_source_rows": 7
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:37.148319+00:00"
-    },
-    "110": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:110",
-      "auction_date": "2024-12-12",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 3,
-      "visible_source_rows": 8,
-      "lots_captured": 8,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/110",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 3,
-        "visible_source_rows": 8
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:37.943394+00:00"
-    },
-    "106": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:106",
-      "auction_date": "2024-04-11",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 11,
-      "visible_source_rows": 15,
-      "lots_captured": 15,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/106",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 11,
-        "visible_source_rows": 15
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:39.384933+00:00"
+      "checked_at": "2026-10-03T16:34:14.158929+00:00"
     },
     "103": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2141,27 +2101,27 @@
         "visible_source_rows": 19
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:39.425369+00:00"
+      "checked_at": "2026-10-03T16:34:15.104697+00:00"
     },
-    "107": {
+    "110": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:107",
-      "auction_date": "2024-06-18",
+      "source_auction_id": "phillip-arnold:110",
+      "auction_date": "2024-12-12",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 15,
-      "visible_source_rows": 22,
-      "lots_captured": 22,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/107",
+      "published_lots_offered": 3,
+      "visible_source_rows": 8,
+      "lots_captured": 8,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/110",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 15,
-        "visible_source_rows": 22
+        "published_lots_offered": 3,
+        "visible_source_rows": 8
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:40.683759+00:00"
+      "checked_at": "2026-10-03T16:34:16.401493+00:00"
     },
     "109": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2181,7 +2141,27 @@
         "visible_source_rows": 14
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:41.151986+00:00"
+      "checked_at": "2026-10-03T16:34:17.991590+00:00"
+    },
+    "107": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:107",
+      "auction_date": "2024-06-18",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 15,
+      "visible_source_rows": 22,
+      "lots_captured": 22,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/107",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 15,
+        "visible_source_rows": 22
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:34:19.203690+00:00"
     },
     "105": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2201,7 +2181,7 @@
         "visible_source_rows": 17
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:41.320019+00:00"
+      "checked_at": "2026-10-03T16:34:19.610330+00:00"
     },
     "104": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2221,47 +2201,27 @@
         "visible_source_rows": 16
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:41.497018+00:00"
+      "checked_at": "2026-10-03T16:34:19.775995+00:00"
     },
-    "115": {
+    "106": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:115",
-      "auction_date": "2025-10-23",
+      "source_auction_id": "phillip-arnold:106",
+      "auction_date": "2024-04-11",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 4,
-      "visible_source_rows": 8,
-      "lots_captured": 8,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/115",
+      "published_lots_offered": 11,
+      "visible_source_rows": 15,
+      "lots_captured": 15,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/106",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 4,
-        "visible_source_rows": 8
+        "published_lots_offered": 11,
+        "visible_source_rows": 15
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:47.121198+00:00"
-    },
-    "117": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:117",
-      "auction_date": "2026-02-26",
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 6,
-      "visible_source_rows": 8,
-      "lots_captured": 8,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/117",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 6,
-        "visible_source_rows": 8
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T16:17:47.628220+00:00"
+      "checked_at": "2026-10-03T16:34:23.225553+00:00"
     },
     "112": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2281,27 +2241,27 @@
         "visible_source_rows": 14
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:47.776948+00:00"
+      "checked_at": "2026-10-03T16:34:25.183263+00:00"
     },
-    "111": {
+    "115": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:111",
-      "auction_date": "2025-02-13",
+      "source_auction_id": "phillip-arnold:115",
+      "auction_date": "2025-10-23",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 8,
-      "visible_source_rows": 13,
-      "lots_captured": 13,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/111",
+      "published_lots_offered": 4,
+      "visible_source_rows": 8,
+      "lots_captured": 8,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/115",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 8,
-        "visible_source_rows": 13
+        "published_lots_offered": 4,
+        "visible_source_rows": 8
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:47.843629+00:00"
+      "checked_at": "2026-10-03T16:34:25.721101+00:00"
     },
     "116": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2321,47 +2281,47 @@
         "visible_source_rows": 7
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:48.766480+00:00"
+      "checked_at": "2026-10-03T16:34:26.075738+00:00"
     },
-    "113": {
+    "111": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:113",
-      "auction_date": "2025-06-12",
+      "source_auction_id": "phillip-arnold:111",
+      "auction_date": "2025-02-13",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 11,
-      "visible_source_rows": 16,
-      "lots_captured": 16,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/113",
+      "published_lots_offered": 8,
+      "visible_source_rows": 13,
+      "lots_captured": 13,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/111",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 11,
-        "visible_source_rows": 16
+        "published_lots_offered": 8,
+        "visible_source_rows": 13
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:49.452777+00:00"
+      "checked_at": "2026-10-03T16:34:26.966515+00:00"
     },
-    "118": {
+    "117": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:118",
-      "auction_date": "2026-04-16",
+      "source_auction_id": "phillip-arnold:117",
+      "auction_date": "2026-02-26",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 5,
-      "visible_source_rows": 12,
-      "lots_captured": 12,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/118",
+      "published_lots_offered": 6,
+      "visible_source_rows": 8,
+      "lots_captured": 8,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/117",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 5,
-        "visible_source_rows": 12
+        "published_lots_offered": 6,
+        "visible_source_rows": 8
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:50.335274+00:00"
+      "checked_at": "2026-10-03T16:34:27.597311+00:00"
     },
     "114": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2381,27 +2341,47 @@
         "visible_source_rows": 12
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:50.357830+00:00"
+      "checked_at": "2026-10-03T16:34:29.500152+00:00"
     },
-    "120": {
+    "118": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:120",
-      "auction_date": "2026-09-17",
+      "source_auction_id": "phillip-arnold:118",
+      "auction_date": "2026-04-16",
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 10,
-      "visible_source_rows": 16,
-      "lots_captured": 16,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/120",
+      "published_lots_offered": 5,
+      "visible_source_rows": 12,
+      "lots_captured": 12,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/118",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 10,
+        "published_lots_offered": 5,
+        "visible_source_rows": 12
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:34:30.160324+00:00"
+    },
+    "113": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:113",
+      "auction_date": "2025-06-12",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 11,
+      "visible_source_rows": 16,
+      "lots_captured": 16,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/113",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 11,
         "visible_source_rows": 16
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:54.965379+00:00"
+      "checked_at": "2026-10-03T16:34:30.310070+00:00"
     },
     "119": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2421,7 +2401,27 @@
         "visible_source_rows": 16
       },
       "errors": [],
-      "checked_at": "2026-10-03T16:17:58.843290+00:00"
+      "checked_at": "2026-10-03T16:34:37.337090+00:00"
+    },
+    "120": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:120",
+      "auction_date": "2026-09-17",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 10,
+      "visible_source_rows": 16,
+      "lots_captured": 16,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/120",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 10,
+        "visible_source_rows": 16
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T16:34:37.508112+00:00"
     }
   },
   "failures": []
