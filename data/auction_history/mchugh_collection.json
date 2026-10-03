@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-10-03T17:31:33.520733+00:00",
+  "checked_at": "2026-10-03T18:25:25.941603+00:00",
   "source_url": "https://www.mchughandco.com/past-auction-results",
   "result_pages_discovered": 46,
   "result_pages_captured": 46,
   "result_pages_complete": 3,
   "result_pages_denominator_mismatch": 43,
   "appearances_captured": 10157,
-  "run_new_appearances": 1633,
-  "run_new_address_records": 1631,
-  "run_new_partial_lots": 2,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
+  "run_new_partial_lots": 0,
   "by_sector": {
     "residential": 7805,
     "unknown": 870,
@@ -18,28 +18,28 @@
   },
   "archive_evidence": {
     "source_url": "https://www.mchughandco.com/past-auction-results",
-    "retrieved_at": "2026-10-03T17:30:42.181312+00:00",
+    "retrieved_at": "2026-10-03T18:24:27.055759+00:00",
     "sha256": "e07909dbf6664b4cf83c87d31c98c9669a0b6dc6e98f7dc3e8ef26f93b61231a",
     "snapshot_path": "data/auction_history/sources/mchugh/past-auction-results-e07909dbf6664b4c.json.gz",
     "basis": "first-party past-auction-results index"
   },
   "auctions": {
-    "17664": {
+    "19802": {
       "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:17664",
-      "auction_date": "2020-06-10",
+      "source_auction_id": "mchugh:19802",
+      "auction_date": "2020-09-03",
       "auction_date_end": null,
       "catalogue_complete": true,
       "source_rows_complete": true,
-      "published_lots_offered": 111,
-      "visible_source_rows": 111,
-      "lots_captured": 111,
-      "source_url": "https://www.mchughandco.com/past-auctions/17664",
+      "published_lots_offered": 119,
+      "visible_source_rows": 119,
+      "lots_captured": 119,
+      "source_url": "https://www.mchughandco.com/past-auctions/19802",
       "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
       "denominator_reconciled": true,
       "reconciliation_note": null,
       "errors": [],
-      "checked_at": "2026-10-03T17:30:43.975095+00:00"
+      "checked_at": "2026-10-03T18:24:28.073236+00:00"
     },
     "18654": {
       "auctioneer": "McHugh & Co",
@@ -56,7 +56,24 @@
       "denominator_reconciled": true,
       "reconciliation_note": null,
       "errors": [],
-      "checked_at": "2026-10-03T17:30:45.269616+00:00"
+      "checked_at": "2026-10-03T18:24:28.920305+00:00"
+    },
+    "17664": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh:17664",
+      "auction_date": "2020-06-10",
+      "auction_date_end": null,
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_lots_offered": 111,
+      "visible_source_rows": 111,
+      "lots_captured": 111,
+      "source_url": "https://www.mchughandco.com/past-auctions/17664",
+      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
+      "denominator_reconciled": true,
+      "reconciliation_note": null,
+      "errors": [],
+      "checked_at": "2026-10-03T18:24:30.229246+00:00"
     },
     "20819": {
       "auctioneer": "McHugh & Co",
@@ -77,45 +94,7 @@
         "visible_source_rows": 152
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:30:45.413285+00:00"
-    },
-    "19802": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:19802",
-      "auction_date": "2020-09-03",
-      "auction_date_end": null,
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_lots_offered": 119,
-      "visible_source_rows": 119,
-      "lots_captured": 119,
-      "source_url": "https://www.mchughandco.com/past-auctions/19802",
-      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
-      "denominator_reconciled": true,
-      "reconciliation_note": null,
-      "errors": [],
-      "checked_at": "2026-10-03T17:30:45.495087+00:00"
-    },
-    "23658": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:23658",
-      "auction_date": "2021-02-24",
-      "auction_date_end": null,
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 173,
-      "visible_source_rows": 174,
-      "lots_captured": 174,
-      "source_url": "https://www.mchughandco.com/past-auctions/23658",
-      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 173,
-        "visible_source_rows": 174
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T17:30:45.629166+00:00"
+      "checked_at": "2026-10-03T18:24:31.040376+00:00"
     },
     "20820": {
       "auctioneer": "McHugh & Co",
@@ -136,7 +115,28 @@
         "visible_source_rows": 161
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:30:45.786758+00:00"
+      "checked_at": "2026-10-03T18:24:31.867587+00:00"
+    },
+    "23658": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh:23658",
+      "auction_date": "2021-02-24",
+      "auction_date_end": null,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 173,
+      "visible_source_rows": 174,
+      "lots_captured": 174,
+      "source_url": "https://www.mchughandco.com/past-auctions/23658",
+      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 173,
+        "visible_source_rows": 174
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T18:24:31.932062+00:00"
     },
     "23659": {
       "auctioneer": "McHugh & Co",
@@ -157,7 +157,7 @@
         "visible_source_rows": 169
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:30:45.870082+00:00"
+      "checked_at": "2026-10-03T18:24:32.095723+00:00"
     },
     "23660": {
       "auctioneer": "McHugh & Co",
@@ -178,49 +178,7 @@
         "visible_source_rows": 215
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:30:46.235479+00:00"
-    },
-    "30769": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:30769",
-      "auction_date": "2021-09-02",
-      "auction_date_end": null,
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 126,
-      "visible_source_rows": 133,
-      "lots_captured": 133,
-      "source_url": "https://www.mchughandco.com/past-auctions/30769",
-      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 126,
-        "visible_source_rows": 133
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T17:30:47.660400+00:00"
-    },
-    "30770": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:30770",
-      "auction_date": "2021-10-14",
-      "auction_date_end": null,
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 139,
-      "visible_source_rows": 155,
-      "lots_captured": 155,
-      "source_url": "https://www.mchughandco.com/past-auctions/30770",
-      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 139,
-        "visible_source_rows": 155
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T17:30:48.728406+00:00"
+      "checked_at": "2026-10-03T18:24:32.824764+00:00"
     },
     "27873": {
       "auctioneer": "McHugh & Co",
@@ -241,28 +199,7 @@
         "visible_source_rows": 232
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:30:49.650483+00:00"
-    },
-    "32930": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:32930",
-      "auction_date": "2021-12-02",
-      "auction_date_end": null,
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 171,
-      "visible_source_rows": 194,
-      "lots_captured": 194,
-      "source_url": "https://www.mchughandco.com/past-auctions/32930",
-      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 171,
-        "visible_source_rows": 194
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T17:30:51.624589+00:00"
+      "checked_at": "2026-10-03T18:24:33.328652+00:00"
     },
     "29318": {
       "auctioneer": "McHugh & Co",
@@ -283,70 +220,70 @@
         "visible_source_rows": 185
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:30:52.032879+00:00"
+      "checked_at": "2026-10-03T18:24:34.926535+00:00"
     },
-    "34815": {
+    "30769": {
       "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:34815",
-      "auction_date": "2022-05-26",
+      "source_auction_id": "mchugh:30769",
+      "auction_date": "2021-09-02",
       "auction_date_end": null,
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 192,
-      "visible_source_rows": 207,
-      "lots_captured": 207,
-      "source_url": "https://www.mchughandco.com/past-auctions/34815",
+      "published_lots_offered": 126,
+      "visible_source_rows": 133,
+      "lots_captured": 133,
+      "source_url": "https://www.mchughandco.com/past-auctions/30769",
       "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 192,
-        "visible_source_rows": 207
+        "published_lots_offered": 126,
+        "visible_source_rows": 133
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:30:53.821945+00:00"
+      "checked_at": "2026-10-03T18:24:35.175563+00:00"
     },
-    "34631": {
+    "30770": {
       "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:34631",
-      "auction_date": "2022-04-06",
+      "source_auction_id": "mchugh:30770",
+      "auction_date": "2021-10-14",
       "auction_date_end": null,
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 237,
-      "visible_source_rows": 238,
-      "lots_captured": 238,
-      "source_url": "https://www.mchughandco.com/past-auctions/34631",
+      "published_lots_offered": 139,
+      "visible_source_rows": 155,
+      "lots_captured": 155,
+      "source_url": "https://www.mchughandco.com/past-auctions/30770",
       "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 237,
-        "visible_source_rows": 238
+        "published_lots_offered": 139,
+        "visible_source_rows": 155
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:30:54.169047+00:00"
+      "checked_at": "2026-10-03T18:24:37.176276+00:00"
     },
-    "34628": {
+    "32930": {
       "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:34628",
-      "auction_date": "2022-02-15",
+      "source_auction_id": "mchugh:32930",
+      "auction_date": "2021-12-02",
       "auction_date_end": null,
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 248,
-      "visible_source_rows": 258,
-      "lots_captured": 258,
-      "source_url": "https://www.mchughandco.com/past-auctions/34628",
+      "published_lots_offered": 171,
+      "visible_source_rows": 194,
+      "lots_captured": 194,
+      "source_url": "https://www.mchughandco.com/past-auctions/32930",
       "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 248,
-        "visible_source_rows": 258
+        "published_lots_offered": 171,
+        "visible_source_rows": 194
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:30:54.514257+00:00"
+      "checked_at": "2026-10-03T18:24:39.307336+00:00"
     },
     "39747": {
       "auctioneer": "McHugh & Co",
@@ -367,28 +304,70 @@
         "visible_source_rows": 195
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:30:54.831405+00:00"
+      "checked_at": "2026-10-03T18:24:40.933469+00:00"
     },
-    "39748": {
+    "34815": {
       "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:39748",
-      "auction_date": "2022-09-15",
+      "source_auction_id": "mchugh:34815",
+      "auction_date": "2022-05-26",
       "auction_date_end": null,
       "catalogue_complete": false,
       "source_rows_complete": true,
-      "published_lots_offered": 233,
-      "visible_source_rows": 254,
-      "lots_captured": 254,
-      "source_url": "https://www.mchughandco.com/past-auctions/39748",
+      "published_lots_offered": 192,
+      "visible_source_rows": 207,
+      "lots_captured": 207,
+      "source_url": "https://www.mchughandco.com/past-auctions/34815",
       "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
       "denominator_reconciled": false,
       "reconciliation_note": {
         "kind": "published_denominator_mismatch",
-        "published_lots_offered": 233,
-        "visible_source_rows": 254
+        "published_lots_offered": 192,
+        "visible_source_rows": 207
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:30:58.353864+00:00"
+      "checked_at": "2026-10-03T18:24:41.135749+00:00"
+    },
+    "34631": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh:34631",
+      "auction_date": "2022-04-06",
+      "auction_date_end": null,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 237,
+      "visible_source_rows": 238,
+      "lots_captured": 238,
+      "source_url": "https://www.mchughandco.com/past-auctions/34631",
+      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 237,
+        "visible_source_rows": 238
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T18:24:42.108812+00:00"
+    },
+    "34628": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh:34628",
+      "auction_date": "2022-02-15",
+      "auction_date_end": null,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 248,
+      "visible_source_rows": 258,
+      "lots_captured": 258,
+      "source_url": "https://www.mchughandco.com/past-auctions/34628",
+      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 248,
+        "visible_source_rows": 258
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T18:24:43.000479+00:00"
     },
     "42570": {
       "auctioneer": "McHugh & Co",
@@ -409,7 +388,7 @@
         "visible_source_rows": 232
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:30:58.691007+00:00"
+      "checked_at": "2026-10-03T18:24:44.987621+00:00"
     },
     "42571": {
       "auctioneer": "McHugh & Co",
@@ -430,7 +409,28 @@
         "visible_source_rows": 208
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:30:59.572156+00:00"
+      "checked_at": "2026-10-03T18:24:46.697724+00:00"
+    },
+    "39748": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh:39748",
+      "auction_date": "2022-09-15",
+      "auction_date_end": null,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 233,
+      "visible_source_rows": 254,
+      "lots_captured": 254,
+      "source_url": "https://www.mchughandco.com/past-auctions/39748",
+      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 233,
+        "visible_source_rows": 254
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T18:24:47.462427+00:00"
     },
     "45372": {
       "auctioneer": "McHugh & Co",
@@ -451,28 +451,7 @@
         "visible_source_rows": 261
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:02.223913+00:00"
-    },
-    "45373": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:45373",
-      "auction_date": "2023-03-29",
-      "auction_date_end": null,
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 230,
-      "visible_source_rows": 248,
-      "lots_captured": 248,
-      "source_url": "https://www.mchughandco.com/past-auctions/45373",
-      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 230,
-        "visible_source_rows": 248
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T17:31:03.279102+00:00"
+      "checked_at": "2026-10-03T18:24:50.588645+00:00"
     },
     "47892": {
       "auctioneer": "McHugh & Co",
@@ -493,7 +472,28 @@
         "visible_source_rows": 255
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:03.880595+00:00"
+      "checked_at": "2026-10-03T18:24:52.379039+00:00"
+    },
+    "45373": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh:45373",
+      "auction_date": "2023-03-29",
+      "auction_date_end": null,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 230,
+      "visible_source_rows": 248,
+      "lots_captured": 248,
+      "source_url": "https://www.mchughandco.com/past-auctions/45373",
+      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 230,
+        "visible_source_rows": 248
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T18:24:52.570925+00:00"
     },
     "49475": {
       "auctioneer": "McHugh & Co",
@@ -514,49 +514,7 @@
         "visible_source_rows": 256
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:05.208104+00:00"
-    },
-    "49476": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:49476",
-      "auction_date": "2023-09-14",
-      "auction_date_end": null,
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 244,
-      "visible_source_rows": 267,
-      "lots_captured": 267,
-      "source_url": "https://www.mchughandco.com/past-auctions/49476",
-      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 244,
-        "visible_source_rows": 267
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T17:31:05.828384+00:00"
-    },
-    "53678": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:53678",
-      "auction_date": "2023-12-07",
-      "auction_date_end": null,
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 147,
-      "visible_source_rows": 162,
-      "lots_captured": 162,
-      "source_url": "https://www.mchughandco.com/past-auctions/53678",
-      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 147,
-        "visible_source_rows": 162
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T17:31:06.695931+00:00"
+      "checked_at": "2026-10-03T18:24:54.012340+00:00"
     },
     "52506": {
       "auctioneer": "McHugh & Co",
@@ -577,7 +535,49 @@
         "visible_source_rows": 218
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:07.314868+00:00"
+      "checked_at": "2026-10-03T18:24:55.373270+00:00"
+    },
+    "53678": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh:53678",
+      "auction_date": "2023-12-07",
+      "auction_date_end": null,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 147,
+      "visible_source_rows": 162,
+      "lots_captured": 162,
+      "source_url": "https://www.mchughandco.com/past-auctions/53678",
+      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 147,
+        "visible_source_rows": 162
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T18:24:55.596062+00:00"
+    },
+    "49476": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh:49476",
+      "auction_date": "2023-09-14",
+      "auction_date_end": null,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 244,
+      "visible_source_rows": 267,
+      "lots_captured": 267,
+      "source_url": "https://www.mchughandco.com/past-auctions/49476",
+      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 244,
+        "visible_source_rows": 267
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T18:24:55.930537+00:00"
     },
     "53677": {
       "auctioneer": "McHugh & Co",
@@ -598,7 +598,7 @@
         "visible_source_rows": 255
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:09.186920+00:00"
+      "checked_at": "2026-10-03T18:24:58.193842+00:00"
     },
     "56839": {
       "auctioneer": "McHugh & Co",
@@ -619,7 +619,7 @@
         "visible_source_rows": 207
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:10.502162+00:00"
+      "checked_at": "2026-10-03T18:25:00.420104+00:00"
     },
     "58142": {
       "auctioneer": "McHugh & Co",
@@ -640,7 +640,7 @@
         "visible_source_rows": 216
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:12.107790+00:00"
+      "checked_at": "2026-10-03T18:25:01.822850+00:00"
     },
     "58141": {
       "auctioneer": "McHugh & Co",
@@ -661,7 +661,7 @@
         "visible_source_rows": 227
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:12.691680+00:00"
+      "checked_at": "2026-10-03T18:25:03.007724+00:00"
     },
     "61325": {
       "auctioneer": "McHugh & Co",
@@ -682,7 +682,7 @@
         "visible_source_rows": 220
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:13.879420+00:00"
+      "checked_at": "2026-10-03T18:25:04.003446+00:00"
     },
     "64299": {
       "auctioneer": "McHugh & Co",
@@ -703,7 +703,7 @@
         "visible_source_rows": 195
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:14.565017+00:00"
+      "checked_at": "2026-10-03T18:25:05.117445+00:00"
     },
     "61326": {
       "auctioneer": "McHugh & Co",
@@ -724,7 +724,7 @@
         "visible_source_rows": 238
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:15.876932+00:00"
+      "checked_at": "2026-10-03T18:25:06.542102+00:00"
     },
     "66087": {
       "auctioneer": "McHugh & Co",
@@ -745,7 +745,7 @@
         "visible_source_rows": 199
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:16.831554+00:00"
+      "checked_at": "2026-10-03T18:25:07.339672+00:00"
     },
     "66088": {
       "auctioneer": "McHugh & Co",
@@ -766,7 +766,7 @@
         "visible_source_rows": 204
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:18.225264+00:00"
+      "checked_at": "2026-10-03T18:25:08.914013+00:00"
     },
     "66108": {
       "auctioneer": "McHugh & Co",
@@ -787,28 +787,7 @@
         "visible_source_rows": 238
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:20.416653+00:00"
-    },
-    "66617": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh:66617",
-      "auction_date": "2025-07-01",
-      "auction_date_end": null,
-      "catalogue_complete": false,
-      "source_rows_complete": true,
-      "published_lots_offered": 226,
-      "visible_source_rows": 234,
-      "lots_captured": 234,
-      "source_url": "https://www.mchughandco.com/past-auctions/66617",
-      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
-      "denominator_reconciled": false,
-      "reconciliation_note": {
-        "kind": "published_denominator_mismatch",
-        "published_lots_offered": 226,
-        "visible_source_rows": 234
-      },
-      "errors": [],
-      "checked_at": "2026-10-03T17:31:21.948699+00:00"
+      "checked_at": "2026-10-03T18:25:11.922011+00:00"
     },
     "68715": {
       "auctioneer": "McHugh & Co",
@@ -829,7 +808,28 @@
         "visible_source_rows": 238
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:25.695914+00:00"
+      "checked_at": "2026-10-03T18:25:15.169050+00:00"
+    },
+    "66617": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh:66617",
+      "auction_date": "2025-07-01",
+      "auction_date_end": null,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "published_lots_offered": 226,
+      "visible_source_rows": 234,
+      "lots_captured": 234,
+      "source_url": "https://www.mchughandco.com/past-auctions/66617",
+      "completion_scope": "all visible cards in the first-party unpaginated result catalogue",
+      "denominator_reconciled": false,
+      "reconciliation_note": {
+        "kind": "published_denominator_mismatch",
+        "published_lots_offered": 226,
+        "visible_source_rows": 234
+      },
+      "errors": [],
+      "checked_at": "2026-10-03T18:25:15.701842+00:00"
     },
     "68864": {
       "auctioneer": "McHugh & Co",
@@ -850,7 +850,7 @@
         "visible_source_rows": 214
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:25.967110+00:00"
+      "checked_at": "2026-10-03T18:25:16.868587+00:00"
     },
     "67250": {
       "auctioneer": "McHugh & Co",
@@ -871,7 +871,7 @@
         "visible_source_rows": 326
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:27.914711+00:00"
+      "checked_at": "2026-10-03T18:25:19.290568+00:00"
     },
     "75431": {
       "auctioneer": "McHugh & Co",
@@ -892,7 +892,7 @@
         "visible_source_rows": 272
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:29.956968+00:00"
+      "checked_at": "2026-10-03T18:25:21.988056+00:00"
     },
     "76244": {
       "auctioneer": "McHugh & Co",
@@ -913,7 +913,7 @@
         "visible_source_rows": 258
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:30.177827+00:00"
+      "checked_at": "2026-10-03T18:25:22.462863+00:00"
     },
     "75430": {
       "auctioneer": "McHugh & Co",
@@ -934,7 +934,7 @@
         "visible_source_rows": 371
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:30.942887+00:00"
+      "checked_at": "2026-10-03T18:25:24.471792+00:00"
     },
     "76246": {
       "auctioneer": "McHugh & Co",
@@ -955,7 +955,7 @@
         "visible_source_rows": 294
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:32.160103+00:00"
+      "checked_at": "2026-10-03T18:25:24.853127+00:00"
     },
     "76247": {
       "auctioneer": "McHugh & Co",
@@ -976,7 +976,7 @@
         "visible_source_rows": 379
       },
       "errors": [],
-      "checked_at": "2026-10-03T17:31:32.933929+00:00"
+      "checked_at": "2026-10-03T18:25:25.300469+00:00"
     }
   },
   "failures": []
