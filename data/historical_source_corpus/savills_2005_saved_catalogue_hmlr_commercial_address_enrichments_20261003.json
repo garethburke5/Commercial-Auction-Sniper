@@ -1,0 +1,127 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative_saved_catalogue_exact_price_hmlr_commercial_address_enrichment",
+  "captured_at_utc": "2026-10-03T16:35:00Z",
+  "source_note": "All priced sold rows in the saved May, July and October 2005 Savills catalogue grids that still lacked a street address were checked against the complete official HM Land Registry 2005 and 2006 Price Paid Data by exact sale price, stated locality and a 0-180 day post-auction window. Four matches were retained: three were unique exact-price/locality transactions and one had a second residential locality candidate but was discriminated by the saved Savills Retail class and an official gambling-premises record at the retained address. Each retained address also has independent official evidence of compatible commercial use. Ambiguous or property-class-conflicting matches were left unchanged. This enriches already banked appearances and does not assert catalogue completeness.",
+  "saved_source_snapshot": "data/historical_source_corpus/savills_2005_saved_catalogue_grid_lots_20261003.json",
+  "saved_source_snapshot_sha256": "9f526d9d53ab0b0060d7f61f2578471700890baae87ca16c4948933285ba3916",
+  "source_records": [
+    {
+      "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Transaction 94B98C2E-6B1D-42A3-997C-E67E3E083629",
+      "evidence_excerpt": "209 Dalton Road, Barrow-in-Furness LA14 1PH; freehold; GBP 340,000; 14 June 2005. The saved Savills row is a Barrow-in-Furness Retail lot sold for exactly GBP 340,000 on 16 May 2005, 29 days earlier."
+    },
+    {
+      "source_url": "https://www.gamblingcommission.gov.uk/public-register/premises/full/79",
+      "source_name": "Gambling Commission premises register",
+      "record_identity": "Ladbrokes, 209 Dalton Road, Barrow-in-Furness",
+      "evidence_excerpt": "The official register identifies 209 Dalton Road as a betting shop, compatible with the saved Savills Retail property class."
+    },
+    {
+      "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Transaction 2A289EA1-9CBF-CDC8-E050-A8C063054829",
+      "evidence_excerpt": "11 Shooters Hill, Cowes PO31 7BE; freehold; GBP 305,000; 25 July 2005. The saved Savills row is a Cowes Retail lot sold for exactly GBP 305,000 on 11 July 2005, 14 days earlier; this is the only exact-price Cowes transaction in the checked window."
+    },
+    {
+      "source_url": "https://www.iow.gov.uk/azservices/documents/1329-NNDR-Full-Listing-of-Accounts-May-2017.pdf",
+      "source_name": "Isle of Wight Council NNDR account listing",
+      "record_identity": "11 Shooters Hill, Cowes PO31 7BE",
+      "evidence_excerpt": "The council record identifies 11 Shooters Hill as Shop and Premises, compatible with the saved Savills Retail property class."
+    },
+    {
+      "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Transaction 2A289EA0-B6FB-CDC8-E050-A8C063054829",
+      "evidence_excerpt": "60 Thorpe Road, Norwich NR1 1RY; freehold; GBP 442,000; 29 November 2005. The saved Savills row is a Norwich Investment lot sold for exactly GBP 442,000 on 24 October 2005, 36 days earlier; this is the only exact-price Norwich transaction in the checked window."
+    },
+    {
+      "source_url": "https://historicengland.org.uk/listing/the-list/list-entry/1372503",
+      "source_name": "Historic England National Heritage List",
+      "record_identity": "List entry 1372503, 60 Thorpe Road, Norwich",
+      "evidence_excerpt": "The official list entry describes 60 Thorpe Road as a house then in office use, compatible with the saved Savills Investment property class."
+    },
+    {
+      "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Transaction 763C488A-2522-406C-91C0-1604ABC701C3",
+      "evidence_excerpt": "6 Talbot Street, Maesteg CF34 9BT; freehold; GBP 497,500; 18 November 2005. The saved Savills row is a Maesteg Retail lot sold for exactly GBP 497,500 on 24 October 2005, 25 days earlier; this is the only exact-price Maesteg transaction in the checked window."
+    },
+    {
+      "source_url": "https://www.filcosupermarkets.co.uk/",
+      "source_name": "Filco Supermarkets",
+      "record_identity": "Filco Maesteg store, 6 Talbot Street",
+      "evidence_excerpt": "The supermarket's store information identifies 6 Talbot Street, Maesteg as retail premises, compatible with the saved Savills Retail property class."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "source-corpus/savills_2005_saved_catalogue_grid_lots_20261003",
+      "target_appearance_id": "source-corpus|savills-commercial-auc371-pos20",
+      "address": "209 Dalton Road, Barrow-in-Furness, LA14 1PH",
+      "postcode": "LA14 1PH",
+      "address_basis": "saved_savills_exact_date_lot_locality_class_and_price_plus_hmlr_exact_price_locality_and_official_commercial_use",
+      "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020158id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=371&date=16/05/2005",
+        "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+        "https://www.gamblingcommission.gov.uk/public-register/premises/full/79"
+      ],
+      "evidence_note": "The saved first-party Savills grid identifies auction 371 position 20 as a Barrow-in-Furness Retail lot sold for GBP 340,000 on 2005-05-16. HMLR transaction 94B98C2E-6B1D-42A3-997C-E67E3E083629 records the freehold at 209 Dalton Road for exactly GBP 340,000 on 2005-06-14. One other exact-price Barrow locality transaction in the window was a detached residential property; the official Gambling Commission register identifies 209 Dalton Road as a betting shop, matching the Savills Retail class."
+    },
+    {
+      "target_shard": "source-corpus/savills_2005_saved_catalogue_grid_lots_20261003",
+      "target_appearance_id": "source-corpus|savills-commercial-auc401-pos11",
+      "address": "11 Shooters Hill, Cowes, PO31 7BE",
+      "postcode": "PO31 7BE",
+      "address_basis": "saved_savills_exact_date_lot_locality_class_and_price_plus_unique_hmlr_exact_price_locality_and_official_commercial_use",
+      "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020158id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=401&date=11/07/2005",
+        "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+        "https://www.iow.gov.uk/azservices/documents/1329-NNDR-Full-Listing-of-Accounts-May-2017.pdf"
+      ],
+      "evidence_note": "The saved first-party Savills grid identifies auction 401 position 11 as a Cowes Retail lot sold for GBP 305,000 on 2005-07-11. The only HMLR transaction at exactly GBP 305,000 in Cowes during the checked 180-day window is transaction 2A289EA1-9CBF-CDC8-E050-A8C063054829 at 11 Shooters Hill on 2005-07-25. The Isle of Wight Council NNDR listing identifies the address as Shop and Premises."
+    },
+    {
+      "target_shard": "source-corpus/savills_2005_saved_catalogue_grid_lots_20261003",
+      "target_appearance_id": "source-corpus|savills-commercial-auc412-pos2",
+      "address": "60 Thorpe Road, Norwich, NR1 1RY",
+      "postcode": "NR1 1RY",
+      "address_basis": "saved_savills_exact_date_lot_locality_class_and_price_plus_unique_hmlr_exact_price_locality_and_official_office_use",
+      "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020158id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=412&date=24/10/2005",
+        "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+        "https://historicengland.org.uk/listing/the-list/list-entry/1372503"
+      ],
+      "evidence_note": "The saved first-party Savills grid identifies auction 412 position 2 as a Norwich Investment lot sold for GBP 442,000 on 2005-10-24. The only HMLR transaction at exactly GBP 442,000 in Norwich during the checked 180-day window is transaction 2A289EA0-B6FB-CDC8-E050-A8C063054829 at 60 Thorpe Road on 2005-11-29. Historic England's official entry describes the property as a house then in office use."
+    },
+    {
+      "target_shard": "source-corpus/savills_2005_saved_catalogue_grid_lots_20261003",
+      "target_appearance_id": "source-corpus|savills-commercial-auc412-pos15",
+      "address": "6 Talbot Street, Maesteg, CF34 9BT",
+      "postcode": "CF34 9BT",
+      "address_basis": "saved_savills_exact_date_lot_locality_class_and_price_plus_unique_hmlr_exact_price_locality_and_independent_retail_use",
+      "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020158id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=412&date=24/10/2005",
+        "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+        "https://www.filcosupermarkets.co.uk/"
+      ],
+      "evidence_note": "The saved first-party Savills grid identifies auction 412 position 15 as a Maesteg Retail lot sold for GBP 497,500 on 2005-10-24. The only HMLR transaction at exactly GBP 497,500 in Maesteg during the checked 180-day window is transaction 763C488A-2522-406C-91C0-1604ABC701C3 at 6 Talbot Street on 2005-11-18. Filco's store information independently confirms retail use at the address."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 4,
+  "address_records_added": 4,
+  "partial_records_added": 0,
+  "full_street_addresses_added": 4,
+  "priced_sold_addressless_2005_rows_checked": 56,
+  "retained_matches": 4,
+  "ambiguous_or_class_conflicting_matches_left_unchanged": 52,
+  "historical_completeness_declared": false
+}
