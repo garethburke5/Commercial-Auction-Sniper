@@ -232,15 +232,16 @@
     "98734"
   ],
   "completion_scope": "all rows across every retained first-party dedicated regional results page",
-  "errors": [
+  "errors": [],
+  "blocked_pages": [
     {
       "page": 3,
       "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions?page=3",
-      "error": "ValueError: page exposed zero lot rows"
+      "reason": "visible result rows currently expose no stable lot redirect IDs"
     }
   ],
   "notes": [
     "Original auction catalogue denominators are not published by this retained results table"
   ],
-  "checked_at": "2026-10-03T08:05:44.898322+00:00"
+  "checked_at": "2026-10-03T08:15:44.887919+00:00"
 }
