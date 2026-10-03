@@ -180,35 +180,46 @@ def harvest_region(session: requests.Session, url_slug: str, auctioneer: str,
 
     for page in range(1, last_page + 1):
         source_url = index if page == 1 else f"{index}?page={page}"
-        try:
-            raw = first_raw if page == 1 else fetch(session, source_url)
-            sha256 = corpus.digest(raw)
-            snapshot = corpus.DATA / "sources" / f"{canonical_slug}-regional" / f"page-{page:03d}-{sha256[:16]}.json.gz"
-            retrieved_at = corpus.now()
-            html = raw.decode("utf-8", "replace")
-            corpus.save_gzip(snapshot, {
-                "source_url": source_url,
-                "retrieved_at": retrieved_at,
-                "sha256": sha256,
-                "html": html,
-            })
-            parsed = parse_page(html, source_url, str(snapshot.relative_to(corpus.ROOT)),
-                                sha256, retrieved_at, auctioneer, canonical_slug)
-            if not parsed:
-                raise ValueError("page exposed zero lot rows")
-            page_counts[str(page)] = len(parsed)
-            for row in parsed:
-                source_id = row["source_lot_id"]
-                if source_id in seen_current:
-                    raise ValueError(
-                        f"source ID {source_id} repeated on pages {seen_current[source_id]} and {page}"
-                    )
-                seen_current[source_id] = page
-                if source_id not in existing_ids and is_historical_outcome(row):
-                    new_rows.append(row)
-        except Exception as exc:
+        parsed = None
+        last_error = None
+        for attempt in range(3):
+            try:
+                raw = first_raw if page == 1 else fetch(session, source_url)
+                sha256 = corpus.digest(raw)
+                snapshot = corpus.DATA / "sources" / f"{canonical_slug}-regional" / f"page-{page:03d}-{sha256[:16]}.json.gz"
+                retrieved_at = corpus.now()
+                html = raw.decode("utf-8", "replace")
+                corpus.save_gzip(snapshot, {
+                    "source_url": source_url,
+                    "retrieved_at": retrieved_at,
+                    "sha256": sha256,
+                    "html": html,
+                })
+                parsed = parse_page(html, source_url, str(snapshot.relative_to(corpus.ROOT)),
+                                    sha256, retrieved_at, auctioneer, canonical_slug)
+                if not parsed:
+                    raise ValueError("page exposed zero lot rows")
+                break
+            except Exception as exc:
+                last_error = exc
+                parsed = None
+                if attempt < 2:
+                    time.sleep(1.0 + attempt)
+        if parsed is None:
+            exc = last_error or ValueError("page could not be parsed")
             failures.append({"page": page, "url": source_url,
                              "error": f"{type(exc).__name__}: {exc}"[:500]})
+            continue
+        page_counts[str(page)] = len(parsed)
+        for row in parsed:
+            source_id = row["source_lot_id"]
+            if source_id in seen_current:
+                raise ValueError(
+                    f"source ID {source_id} repeated on pages {seen_current[source_id]} and {page}"
+                )
+            seen_current[source_id] = page
+            if source_id not in existing_ids and is_historical_outcome(row):
+                new_rows.append(row)
         time.sleep(0.25)
 
     key = f"{canonical_slug}/online-results"
