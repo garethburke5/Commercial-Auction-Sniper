@@ -4,7 +4,7 @@
   "auctioneer": "Savills Auctions",
   "capture_mode": "conservative official HM Land Registry exact-result legacy address enrichment",
   "captured_at_utc": "2026-10-03T10:16:18Z",
-  "source_note": "All 73 still-addressless sold Savills/EIG auction 17999 appearances carrying an exact result and postcode district were checked against official HM Land Registry Price Paid Data for the exact price in the 120-day post-auction window. Twenty-four queries had exactly one transaction. This source banks the 18 whose completion was within 60 days and whose property class and tenure were compatible. Four unique but incompatible class/tenure results, two unique late completions, and all zero/multiple results remain unchanged. Original EIG records and repeat appearances remain separate and preserved.",
+  "source_note": "Seventy-three candidate sold Savills/EIG auction 17999 appearances carrying an exact result and postcode district were checked against official HM Land Registry Price Paid Data for the exact price in the 120-day post-auction window. Twenty-four queries had exactly one transaction. Eighteen matches were within 60 days and had compatible property class and tenure; seven of those addresses were already present on production and were corroborated, while 11 previously addressless appearances were enriched. Four unique but incompatible class/tenure results, two unique late completions, and all zero/multiple results remain unchanged. Original EIG records and repeat appearances remain separate and preserved.",
   "source_records": [
     {
       "source_url": "https://www.eigpropertyauctions.co.uk/search/full-auction-details/17999?view=1&order=7",
@@ -292,8 +292,8 @@
     }
   ],
   "appearance_count": 0,
-  "appearances_enriched": 18,
-  "address_records_added": 18,
+  "appearances_enriched": 11,
+  "address_records_added": 11,
   "partial_records_added": 0,
   "historical_completeness_declared": false
 }
