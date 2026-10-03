@@ -22,6 +22,15 @@ Sold by Auction for £150,000 Guide £150,000
     assert row["appearance_id"] == "Symonds & Sampson|listing:dwr000493"
 
 
+def test_detail_page_accepts_on_prefixed_auction_date():
+    text = """## Studio, High West Street, Dorchester, Dorset, DT1
+#### For Sale
+* For sale by Auction on 23 October 2026
+"""
+    row = parse_property(text, "https://auctions.symondsandsampson.co.uk/property/dwr0007e5/dt1/dorchester/high-west-street/other/studio", {"source_url": "x"})
+    assert row["auction_date"] == "2026-10-23"
+
+
 def test_locality_only_listing_remains_partial():
     assert strict_address("East Coker, Yeovil, Somerset, BA22") is None
     assert strict_address("Hine Town Lane, Blandford Forum, Dorset, DT11") is not None
