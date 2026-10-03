@@ -15,6 +15,7 @@ python scripts/harvest_acuitus_canonical.py --all-incomplete
 python scripts/harvest_clive_emson_canonical.py --all-incomplete
 python scripts/harvest_clive_emson_canonical.py --enrich-next --workers 4
 python scripts/harvest_barnett_ross_canonical.py --all-incomplete
+python scripts/harvest_auction_house_northeast.py
 python historical_corpus.py build
 ```
 
@@ -56,6 +57,13 @@ catalogues' exact auction-plus-lot numbers provide stable appearance identity.
 Linkless legacy rows keep property_id null and are never merged across auctions.
 Each unpaginated catalogue is complete only when every visible row reconciles to
 one distinct evidenced identity; Spain-only sales are explicitly excluded.
+
+Auction House North East collection traverses every retained page of the
+first-party online-results table. Stable redirect IDs preserve identity, exact
+lot-end timestamps are labelled as such, and sold, sold-prior, last-bid and
+postponed states are not conflated. Full addresses, guides, results and immutable
+page snapshots are retained. Pagination can be complete while original auction
+catalogues remain explicitly unreconciled when their denominators are absent.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including

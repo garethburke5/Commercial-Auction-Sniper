@@ -71,6 +71,10 @@ jobs:
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_symonds_sampson_canonical.py --workers 8
+      - name: Collect Auction House North East online results
+        timeout-minutes: 20
+        continue-on-error: true
+        run: python -u scripts/harvest_auction_house_northeast.py
       - name: Traverse every known Savills catalogue and all its pages
         timeout-minutes: 30
         run: python -u historical_corpus.py harvest-savills --workers 3
