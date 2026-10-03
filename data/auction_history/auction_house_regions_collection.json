@@ -1,12 +1,12 @@
 {
-  "checked_at": "2026-10-03T08:54:06.588791+00:00",
-  "regions_requested": 11,
-  "regions_complete": 10,
+  "checked_at": "2026-10-03T09:07:00.445751+00:00",
+  "regions_requested": 19,
+  "regions_complete": 18,
   "regions_blocked": 1,
-  "pages_captured": 87,
-  "source_rows": 2215,
-  "overlapping_existing_rows": 2215,
-  "run_new_appearances": 0,
+  "pages_captured": 97,
+  "source_rows": 2341,
+  "overlapping_existing_rows": 2307,
+  "run_new_appearances": 34,
   "failures": [],
   "blocked_pages": [
     {
@@ -402,6 +402,216 @@
       "page_counts": {
         "1": 30,
         "2": 1
+      },
+      "failures": [],
+      "blocked_pages": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Cumbria",
+      "source_url": "https://www.auctionhouse.co.uk/cumbria/auction/past-auctions",
+      "pages_expected": 1,
+      "pages_captured": 1,
+      "current_archive_rows": 17,
+      "overlapping_existing_rows": 6,
+      "run_new_appearances": 11,
+      "property_appearances_captured": 17,
+      "address_records": 17,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2018-11-15",
+      "latest_lot_end_date": "2026-08-25",
+      "by_status": {
+        "sold_prior": 1,
+        "sold": 14,
+        "sold_after": 2
+      },
+      "page_counts": {
+        "1": 17
+      },
+      "failures": [],
+      "blocked_pages": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Sussex & Hampshire",
+      "source_url": "https://www.auctionhouse.co.uk/sussexandhampshire/auction/past-auctions",
+      "pages_expected": 2,
+      "pages_captured": 2,
+      "current_archive_rows": 38,
+      "overlapping_existing_rows": 32,
+      "run_new_appearances": 6,
+      "property_appearances_captured": 38,
+      "address_records": 38,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2019-12-19",
+      "latest_lot_end_date": "2026-09-29",
+      "by_status": {
+        "sold": 19,
+        "sold_prior": 4,
+        "no_bids": 11,
+        "withdrawn": 1,
+        "last_bid": 2,
+        "sold_after": 1
+      },
+      "page_counts": {
+        "1": 30,
+        "2": 8
+      },
+      "failures": [],
+      "blocked_pages": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Essex",
+      "source_url": "https://www.auctionhouse.co.uk/essex/auction/past-auctions",
+      "pages_expected": 1,
+      "pages_captured": 1,
+      "current_archive_rows": 16,
+      "overlapping_existing_rows": 16,
+      "run_new_appearances": 0,
+      "property_appearances_captured": 16,
+      "address_records": 16,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2025-12-16",
+      "latest_lot_end_date": "2026-09-29",
+      "by_status": {
+        "sold": 7,
+        "sold_after": 3,
+        "sold_prior": 2,
+        "last_bid": 1,
+        "no_bids": 2,
+        "withdrawn": 1
+      },
+      "page_counts": {
+        "1": 16
+      },
+      "failures": [],
+      "blocked_pages": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Leicestershire",
+      "source_url": "https://www.auctionhouse.co.uk/leicestershire/auction/past-auctions",
+      "pages_expected": 2,
+      "pages_captured": 2,
+      "current_archive_rows": 33,
+      "overlapping_existing_rows": 17,
+      "run_new_appearances": 16,
+      "property_appearances_captured": 33,
+      "address_records": 33,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2019-10-10",
+      "latest_lot_end_date": "2026-09-29",
+      "by_status": {
+        "sold": 24,
+        "sold_prior": 5,
+        "postponed": 1,
+        "sold_after": 2,
+        "last_bid": 1
+      },
+      "page_counts": {
+        "1": 30,
+        "2": 3
+      },
+      "failures": [],
+      "blocked_pages": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Scotland",
+      "source_url": "https://www.auctionhouse.co.uk/scotland/auction/past-auctions",
+      "pages_expected": 1,
+      "pages_captured": 1,
+      "current_archive_rows": 3,
+      "overlapping_existing_rows": 3,
+      "run_new_appearances": 0,
+      "property_appearances_captured": 3,
+      "address_records": 3,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2026-05-26",
+      "latest_lot_end_date": "2026-06-30",
+      "by_status": {
+        "sold_after": 1,
+        "sold_prior": 1,
+        "sold": 1
+      },
+      "page_counts": {
+        "1": 3
+      },
+      "failures": [],
+      "blocked_pages": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Northants, Beds & Bucks",
+      "source_url": "https://www.auctionhouse.co.uk/northantsbedsandbucks/auction/past-auctions",
+      "pages_expected": 1,
+      "pages_captured": 1,
+      "current_archive_rows": 12,
+      "overlapping_existing_rows": 11,
+      "run_new_appearances": 1,
+      "property_appearances_captured": 12,
+      "address_records": 12,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2023-12-05",
+      "latest_lot_end_date": "2026-09-02",
+      "by_status": {
+        "sold_prior": 4,
+        "sold": 6,
+        "sold_after": 1,
+        "postponed": 1
+      },
+      "page_counts": {
+        "1": 12
+      },
+      "failures": [],
+      "blocked_pages": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Chesterfield & North Derbyshire",
+      "source_url": "https://www.auctionhouse.co.uk/chesterfieldandnorthderbyshire/auction/past-auctions",
+      "pages_expected": 1,
+      "pages_captured": 1,
+      "current_archive_rows": 1,
+      "overlapping_existing_rows": 1,
+      "run_new_appearances": 0,
+      "property_appearances_captured": 1,
+      "address_records": 1,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2026-09-29",
+      "latest_lot_end_date": "2026-09-29",
+      "by_status": {
+        "last_bid": 1
+      },
+      "page_counts": {
+        "1": 1
+      },
+      "failures": [],
+      "blocked_pages": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Northern Ireland",
+      "source_url": "https://www.auctionhouse.co.uk/northernireland/auction/past-auctions",
+      "pages_expected": 1,
+      "pages_captured": 1,
+      "current_archive_rows": 6,
+      "overlapping_existing_rows": 6,
+      "run_new_appearances": 0,
+      "property_appearances_captured": 6,
+      "address_records": 6,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2026-04-14",
+      "latest_lot_end_date": "2026-09-15",
+      "by_status": {
+        "sold": 3,
+        "withdrawn": 1,
+        "sold_after": 1,
+        "sold_prior": 1
+      },
+      "page_counts": {
+        "1": 6
       },
       "failures": [],
       "blocked_pages": [],
