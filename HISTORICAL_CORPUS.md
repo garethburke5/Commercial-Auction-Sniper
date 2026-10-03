@@ -21,6 +21,7 @@ python scripts/harvest_auction_house_north_west.py
 python scripts/harvest_auction_house_south_west.py
 python scripts/harvest_auction_house_east_anglia.py
 python scripts/harvest_auction_house_national.py
+python scripts/harvest_auction_house_regions.py
 python historical_corpus.py build
 ```
 
@@ -88,6 +89,14 @@ auctioneer, merges only previously unseen stable redirect IDs into that region's
 canonical shard, and defers Auction House London rows until they can be
 crosswalked safely to the existing catalogue corpus. This avoids inflating the
 database with the same appearance from overlapping regional and national pages.
+
+The dedicated regional recovery pass revisits Wales, Notts & Derby, Cheshire,
+Staffordshire & Shropshire, Birmingham & Black Country, Kent, West Yorkshire and
+Lincolnshire/North Notts/South Yorks. These archives can retain rows outside the
+National view. Exact regional auctioneer plus redirect ID reuses the canonical
+appearance identity, preserves earlier evidence unchanged, and admits only IDs
+not already banked. Pagination completeness remains separate from unavailable
+original catalogue denominators.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including
