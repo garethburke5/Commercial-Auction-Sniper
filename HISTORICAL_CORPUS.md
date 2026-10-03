@@ -91,12 +91,13 @@ crosswalked safely to the existing catalogue corpus. This avoids inflating the
 database with the same appearance from overlapping regional and national pages.
 
 The dedicated regional recovery pass revisits Wales, Notts & Derby, Cheshire,
-Staffordshire & Shropshire, Birmingham & Black Country, Kent, West Yorkshire and
-Lincolnshire/North Notts/South Yorks. These archives can retain rows outside the
-National view. Exact regional auctioneer plus redirect ID reuses the canonical
-appearance identity, preserves earlier evidence unchanged, and admits only IDs
-not already banked. Pagination completeness remains separate from unavailable
-original catalogue denominators.
+Staffordshire & Shropshire, Birmingham & Black Country, Kent, West Yorkshire,
+Lincolnshire/North Notts/South Yorks, Hull & East Yorkshire, Coventry &
+Warwickshire, Manchester and North Yorkshire & Tees Valley. These archives can
+retain rows outside the National view. Exact regional auctioneer plus redirect
+ID reuses the canonical appearance identity, preserves earlier evidence
+unchanged, and admits only IDs not already banked. Pagination completeness
+remains separate from unavailable original catalogue denominators.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including

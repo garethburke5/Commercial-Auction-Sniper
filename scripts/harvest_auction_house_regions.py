@@ -35,6 +35,10 @@ REGIONS = (
     ("kent", "Auction House Kent", "auction-house-kent"),
     ("westyorkshire", "Auction House West Yorkshire", "auction-house-westyorkshire"),
     ("lincolnshire", "Auction House Lincolnshire, North Notts & South Yorks", "auction-house-lincolnshirenorthnottssouthyorks"),
+    ("hullandeastyorkshire", "Auction House Hull & East Yorkshire", "auction-house-hulleastyorkshire"),
+    ("coventryandwarwickshire", "Auction House Coventry & Warwickshire", "auction-house-coventrywarwickshire"),
+    ("manchester", "Auction House Manchester", "auction-house-manchester"),
+    ("teesvalley", "Auction House North Yorkshire & Tees Valley", "auction-house-northyorkshireteesvalley"),
 )
 
 
