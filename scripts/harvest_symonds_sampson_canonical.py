@@ -31,6 +31,7 @@ PROPERTY_URL_RE = re.compile(r"\((https://auctions\.symondsandsampson\.co\.uk/pr
 SOURCE_ID_RE = re.compile(r"/property/([^/]+)/", re.I)
 AUCTION_DATE_RE = re.compile(r"For sale by Auction\s+([A-Za-z]+\s+\d{1,2}\s+[A-Za-z]+\s+\d{4})", re.I)
 POSTCODE_RE = corpus.PC
+OUTCODE_RE = re.compile(r"\b(?:GIR|[A-PR-UWYZ][A-HK-Y]?\d[\dA-HJKSTUW]?)\b", re.I)
 STREET_RE = re.compile(
     r"\b(?:street|road|lane|avenue|close|drive|way|place|square|hill|row|terrace|court|gardens|"
     r"crescent|park|parade|wharf|quay|yard|mews|villas?|house|cottage|farm|barn|works|estate|"
@@ -82,7 +83,7 @@ def money(text: str | None) -> int | None:
 
 def strict_address(heading: str | None) -> str | None:
     """Admit premise/street evidence, never a bare village or town."""
-    if not heading or not POSTCODE_RE.search(heading):
+    if not heading or not OUTCODE_RE.search(heading):
         return None
     first = heading.split(",", 1)[0]
     if re.search(r"\d", first) or STREET_RE.search(heading):
@@ -97,7 +98,7 @@ def parse_property(markdown: str, url: str, evidence: dict) -> dict:
     source_id = sid_match.group(1).lower()
     headings = [clean_markdown(v) for v in re.findall(r"^##\s+(.+)$", markdown, re.M)]
     headings = [v for v in headings if v and v.lower() not in {"similar properties"}]
-    heading = next((v for v in headings if POSTCODE_RE.search(v)), None)
+    heading = next((v for v in headings if OUTCODE_RE.search(v)), None)
     date_match = AUCTION_DATE_RE.search(markdown)
     date = None
     if date_match:
