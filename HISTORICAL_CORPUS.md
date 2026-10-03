@@ -25,6 +25,7 @@ python scripts/harvest_auction_house_regions.py
 python scripts/harvest_bidx1_canonical.py
 python scripts/harvest_btg_eddisons_catalogues.py 4
 python scripts/harvest_anderson_garland_results.py
+python scripts/harvest_future_property_auctions.py --limit 12 --workers 3
 python historical_corpus.py build
 ```
 
@@ -125,6 +126,18 @@ guide and sale price. The page is curated rather than a dated catalogue: exact
 auction dates remain null and the records are explicitly excluded from complete
 catalogue counts. Rex listing IDs provide identity where retained; otherwise an
 exact source-heading hash is used without merging across other auctioneers.
+
+Future Property Auctions collection consumes the auctioneer's unauthenticated
+first-party BidJS archive. The manifest currently retains stable auction UUIDs
+back to September 2019; each selected auction is marked complete only when its
+listing, sale and status maps contain the same distinct listing UUIDs. Collection
+is deliberately bounded and resumable, newest first. Address-bearing titles,
+descriptions, property IDs, images, lot numbers, exact closing dates and public
+outcomes are preserved across residential, commercial and land lots. Sold prices
+come only from the public highest bid for a source-marked sold lot; unsuccessful
+bids are not mislabelled as results. Sanitized immutable snapshots omit
+registrants, bidder/user identifiers, full bid histories and unpublished reserve
+values while retaining the response hash and all fields used by the collector.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The
