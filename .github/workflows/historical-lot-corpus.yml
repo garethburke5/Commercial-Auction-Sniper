@@ -9,6 +9,7 @@ on:
       - scripts/harvest_acuitus_canonical.py
       - scripts/harvest_clive_emson_canonical.py
       - scripts/harvest_barnett_ross_canonical.py
+      - scripts/harvest_pugh_canonical.py
       - scripts/harvest_symonds_sampson_canonical.py
       - scripts/harvest_auction_house_northeast.py
       - scripts/harvest_auction_house_south_yorkshire.py
@@ -20,6 +21,7 @@ on:
       - tests/test_historical_corpus.py
       - tests/test_clive_emson_canonical.py
       - tests/test_barnett_ross_history.py
+      - tests/test_pugh_history.py
       - tests/test_symonds_sampson_history.py
       - tests/test_auction_house_northeast.py
       - tests/test_auction_house_south_yorkshire.py
