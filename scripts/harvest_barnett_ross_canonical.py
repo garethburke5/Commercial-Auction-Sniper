@@ -83,8 +83,13 @@ def auction_date(text: str) -> str | None:
 def status_and_prices(value: str | None) -> tuple[str, int | None, int | None]:
     text = clean(value) or ""
     low = text.lower()
-    price_match = re.search(r"£\s*([\d,]+)(?:\.\d+)?", text)
-    price = int(price_match.group(1).replace(",", "")) if price_match else None
+    price_match = re.search(r"£\s*([\d,]+(?:\.\d+)?)\s*([mk])?", text, re.I)
+    if price_match:
+        number = float(price_match.group(1).replace(",", ""))
+        multiplier = {"m": 1_000_000, "k": 1_000}.get((price_match.group(2) or "").lower(), 1)
+        price = int(round(number * multiplier))
+    else:
+        price = None
     if "sold prior" in low:
         return "sold prior", None, None
     if "sold after" in low or "sold post" in low:
@@ -93,7 +98,7 @@ def status_and_prices(value: str | None) -> tuple[str, int | None, int | None]:
         return "withdrawn prior" if "prior" in low else "withdrawn", None, None
     if low.startswith("available"):
         return "available", None, price
-    if price is not None and re.fullmatch(r"£\s*[\d,]+(?:\.\d+)?\s*→?", text):
+    if price is not None and re.fullmatch(r"£\s*[\d,]+(?:\.\d+)?\s*[mMkK]?\s*→?", text):
         return "sold", price, None
     if "refer" in low:
         return "unknown", None, None
