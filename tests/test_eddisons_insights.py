@@ -6,7 +6,7 @@ ARTICLE = """
 <h2>Union Tavern, Union Street, Runcorn, Cheshire WA7 5SU</h2>
 <p>This freehold former public house was sold with vacant possession.</p>
 <p>Suggested pages</p><a href="https://example.test/union">SOLD! Union Tavern: £275,000</a>
-<h2>Land at Test Road, Example AB1 2CD</h2><p>A freehold parcel of land.</p>
+<h2>Land at Test Road, Example AB1 2DE</h2><p>A freehold parcel of land.</p>
 <a href="/land">SOLD! Land: £15,500</a>
 <h3>Get in touch with the BTG Eddisons team</h3><h2>Unrelated footer AB1 2CD</h2>
 </body></html>
