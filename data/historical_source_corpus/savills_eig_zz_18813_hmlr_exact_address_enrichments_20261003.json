@@ -1,0 +1,674 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative official HM Land Registry exact-result legacy address enrichment",
+  "captured_at_utc": "2026-10-03T09:36:00Z",
+  "source_note": "All 123 sold, addressless Savills/EIG auction 18813 appearances carrying an exact result and postcode district were checked against official HM Land Registry Price Paid Data for the exact price in the 120-day post-auction window. Fifty-five queries had exactly one transaction. This source banks the 43 whose completion was within 60 days and whose property class and tenure were compatible. One unique but incompatible shop-versus-flat result and all zero/multiple/late results remain unchanged. Original EIG records and repeat appearances remain separate and preserved.",
+  "source_records": [
+    {
+      "source_url": "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+      "source_name": "Saved Essential Information Group Savills auction manifest",
+      "record_identity": "Savills auction 18813, 25 March 2013",
+      "evidence_excerpt": "The saved public manifest provides stable lot IDs, exact results, postcode districts, tenure and detailed property classes."
+    },
+    {
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Exact-price and postcode-district transaction searches, 25 March to 23 July 2013",
+      "evidence_excerpt": "Each promoted address came from a query returning exactly one transaction; each completion was within 60 days and matched the saved class and tenure."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-682862",
+      "address": "123 Eswyn Road, London, SW17 8TW",
+      "postcode": "SW17 8TW",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=431000&max_price=431000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW17",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/ac7c9793-5eb4-4b68-8138-15fc10965d2f",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/ac7c9793-5eb4-4b68-8138-15fc10965d2f/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=431000&max_price=431000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW17"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-682862 is Freehold Terrace House Two Floor 7 Room(s) Unmodernised Vacant in Tooting, London, SW17, sold for exactly GBP 431,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SW17 at that exact price during the bounded post-auction period: 123 Eswyn Road, London, SW17 8TW, completed 2013-04-23, property type terraced, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-682869",
+      "address": "44 Gratton Road, London, W14 0JX",
+      "postcode": "W14 0JX",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=743000&max_price=743000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=W14",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/435df32e-9c57-4824-9392-fbad85c11be5",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/435df32e-9c57-4824-9392-fbad85c11be5/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=743000&max_price=743000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=W14"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-682869 is Leasehold Basement / Ground Floor Flat Three Room(s) Unmodernised Garden Vacant in Kensington, London, W14, sold for exactly GBP 743,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district W14 at that exact price during the bounded post-auction period: 44 Gratton Road, London, W14 0JX, completed 2013-04-22, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-682870",
+      "address": "73D Hammersmith Grove, London, W6 0NE",
+      "postcode": "W6 0NE",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=401000&max_price=401000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=W6",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/919556bd-6d91-4619-a0c7-e26d9dc3469e",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/919556bd-6d91-4619-a0c7-e26d9dc3469e/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=401000&max_price=401000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=W6"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-682870 is Leasehold 2nd Floor Flat Two Room(s) Unmodernised Vacant in Hammersmith, London, W6, sold for exactly GBP 401,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district W6 at that exact price during the bounded post-auction period: 73D Hammersmith Grove, London, W6 0NE, completed 2013-05-07, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-682875",
+      "address": "Basement, 32 Lena Gardens, London, W6 7PZ",
+      "postcode": "W6 7PZ",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=312000&max_price=312000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=W6",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/9a65f474-add5-4c61-99e3-a8e0581dcef4",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/9a65f474-add5-4c61-99e3-a8e0581dcef4/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=312000&max_price=312000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=W6"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-682875 is Leasehold Basement Flat Two Room(s) Vacant in Hammersmith, London, W6, sold for exactly GBP 312,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district W6 at that exact price during the bounded post-auction period: Basement, 32 Lena Gardens, London, W6 7PZ, completed 2013-04-22, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-682880",
+      "address": "18 Nether Close, London, N3 1AA",
+      "postcode": "N3 1AA",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=242000&max_price=242000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=N3",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/07ff67a3-b09a-4a2a-994f-8e8edf1c426f",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/07ff67a3-b09a-4a2a-994f-8e8edf1c426f/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=242000&max_price=242000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=N3"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-682880 is Leasehold Self-contained Purpose Built Ground Floor Flat Three Room(s) Unmodernised Vacant in Finchley, London, N3, sold for exactly GBP 242,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district N3 at that exact price during the bounded post-auction period: 18 Nether Close, London, N3 1AA, completed 2013-04-22, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-682881",
+      "address": "27 Kingsley Gardens, London, E4 8JS",
+      "postcode": "E4 8JS",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=143000&max_price=143000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E4",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/02ea48bb-4d92-4f04-a3bb-d4ce06be4538",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/02ea48bb-4d92-4f04-a3bb-d4ce06be4538/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=143000&max_price=143000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E4"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-682881 is Leasehold Ground Floor Flat Three Room(s) Garden Vacant in Chingford, London, E4, sold for exactly GBP 143,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district E4 at that exact price during the bounded post-auction period: 27 Kingsley Gardens, London, E4 8JS, completed 2013-04-22, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-682882",
+      "address": "2 Alton Street, London, E14 6BZ",
+      "postcode": "E14 6BZ",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=186000&max_price=186000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E14",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/530aa1d9-3625-4ac8-b3a4-dcae17b34802",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/530aa1d9-3625-4ac8-b3a4-dcae17b34802/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=186000&max_price=186000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E14"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-682882 is Leasehold Ground Floor Flat Three Room(s) Unmodernised Vacant in Poplar, London, E14, sold for exactly GBP 186,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district E14 at that exact price during the bounded post-auction period: 2 Alton Street, London, E14 6BZ, completed 2013-04-26, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-682883",
+      "address": "116 Aintree Street, London, SW6 7QX",
+      "postcode": "SW6 7QX",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=231000&max_price=231000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW6",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/bb44b3fa-d711-4900-8e30-976222c8e18e",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/bb44b3fa-d711-4900-8e30-976222c8e18e/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=231000&max_price=231000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW6"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-682883 is Leasehold 2nd Floor Flat Two Room(s) Unmodernised Vacant in Fulham, London, SW6, sold for exactly GBP 231,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SW6 at that exact price during the bounded post-auction period: 116 Aintree Street, London, SW6 7QX, completed 2013-04-22, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-682884",
+      "address": "Flat 3, Da Palma Court, Anselm Road, London, SW6 1LL",
+      "postcode": "SW6 1LL",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=170000&max_price=170000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW6",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/5784cb69-628f-41d3-81c6-e0445d2dce26",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/5784cb69-628f-41d3-81c6-e0445d2dce26/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=170000&max_price=170000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW6"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-682884 is Leasehold Ground Floor Studio Flat Unmodernised Communal Gardens Vacant in Fulham, London, SW6, sold for exactly GBP 170,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SW6 at that exact price during the bounded post-auction period: Flat 3, Da Palma Court, Anselm Road, London, SW6 1LL, completed 2013-04-22, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-682887",
+      "address": "Ground Floor Flat At, 20 Fitzjohns Avenue, London, NW3 5NA",
+      "postcode": "NW3 5NA",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=734000&max_price=734000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=NW3",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/3b41736f-2625-4c47-b4eb-b80f40307758",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/3b41736f-2625-4c47-b4eb-b80f40307758/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=734000&max_price=734000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=NW3"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-682887 is Leasehold Ground Floor Flat Four Room(s) 1512 Square Feet Vacant in Hampstead, London, NW3, sold for exactly GBP 734,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district NW3 at that exact price during the bounded post-auction period: Ground Floor Flat At, 20 Fitzjohns Avenue, London, NW3 5NA, completed 2013-04-22, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683003",
+      "address": "441 Cannon Hill Lane, London, SW20 9HH",
+      "postcode": "SW20 9HH",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=349000&max_price=349000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW20",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/4ce6c35b-6b20-4c85-a37d-f441d5ab9b44",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/4ce6c35b-6b20-4c85-a37d-f441d5ab9b44/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=349000&max_price=349000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW20"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683003 is Freehold Terrace House Two Floor Four Room(s) Unmodernised Garage/s Garden Vacant in Raynes Park, London, SW20, sold for exactly GBP 349,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SW20 at that exact price during the bounded post-auction period: 441 Cannon Hill Lane, London, SW20 9HH, completed 2013-04-24, property type terraced, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683010",
+      "address": "53 Windsor Road, Thornton Heath, CR7 8HG",
+      "postcode": "CR7 8HG",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=181000&max_price=181000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=CR7",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/251e140f-5e70-4cf0-aa8d-0d0cede2102c",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/251e140f-5e70-4cf0-aa8d-0d0cede2102c/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=181000&max_price=181000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=CR7"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683010 is Freehold Terrace House Two Floor Four Room(s) Unmodernised Garden Vacant in Thornton Heath, Surrey, CR7, sold for exactly GBP 181,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district CR7 at that exact price during the bounded post-auction period: 53 Windsor Road, Thornton Heath, CR7 8HG, completed 2013-04-24, property type terraced, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683019",
+      "address": "Second Floor Flat, 239 Munster Road, London, SW6 6BT",
+      "postcode": "SW6 6BT",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=306000&max_price=306000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW6",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/55946676-4ec0-4e8d-9d9b-9ca9674a7f05",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/55946676-4ec0-4e8d-9d9b-9ca9674a7f05/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=306000&max_price=306000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW6"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683019 is Leasehold 2nd Floor Flat Three Room(s) Registered Rent in Fulham, London, SW6, sold for exactly GBP 306,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SW6 at that exact price during the bounded post-auction period: Second Floor Flat, 239 Munster Road, London, SW6 6BT, completed 2013-04-22, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683023",
+      "address": "22 Woodville Road, London, E11 3BH",
+      "postcode": "E11 3BH",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=396000&max_price=396000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E11",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/544e29bc-7ff7-4773-a166-b336bef80f98",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/544e29bc-7ff7-4773-a166-b336bef80f98/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=396000&max_price=396000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E11"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683023 is Freehold Terrace House Two Floor 6 Room(s) Unmodernised Garden Vacant in Leytonstone, London, E11, sold for exactly GBP 396,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district E11 at that exact price during the bounded post-auction period: 22 Woodville Road, London, E11 3BH, completed 2013-04-19, property type terraced, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683025",
+      "address": "15 Hunter Road, Ilford, IG1 2NN",
+      "postcode": "IG1 2NN",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=206000&max_price=206000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=IG1",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/9d389448-228e-472d-904e-9a56be92cb85",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/9d389448-228e-472d-904e-9a56be92cb85/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=206000&max_price=206000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=IG1"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683025 is Freehold Terrace House Two Floor 5 Room(s) Unmodernised Garden Vacant in Ilford, Essex, IG1, sold for exactly GBP 206,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district IG1 at that exact price during the bounded post-auction period: 15 Hunter Road, Ilford, IG1 2NN, completed 2013-04-22, property type terraced, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683029",
+      "address": "103 Hitcham Road, London, E17 8HL",
+      "postcode": "E17 8HL",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=181000&max_price=181000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E17",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/ef07a25d-d35b-469b-9d6f-f87e2cba12a2",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/ef07a25d-d35b-469b-9d6f-f87e2cba12a2/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=181000&max_price=181000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E17"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683029 is Leasehold 1st Floor Flat Three Room(s) Unmodernised Communal Gardens Vacant in Walthamstow, London, E17, sold for exactly GBP 181,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district E17 at that exact price during the bounded post-auction period: 103 Hitcham Road, London, E17 8HL, completed 2013-04-24, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683031",
+      "address": "28 Somerset Road, London, E17 8QW",
+      "postcode": "E17 8QW",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=288000&max_price=288000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E17",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/fe58093e-4968-4471-bdd2-fab2071811d0",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/fe58093e-4968-4471-bdd2-fab2071811d0/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=288000&max_price=288000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E17"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683031 is Freehold Terrace House Two Floor 7 Room(s) Unmodernised Garden Vacant in Walthamstow, London, E17, sold for exactly GBP 288,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district E17 at that exact price during the bounded post-auction period: 28 Somerset Road, London, E17 8QW, completed 2013-04-24, property type terraced, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683046",
+      "address": "7 Murillo Road, London, SE13 5QF",
+      "postcode": "SE13 5QF",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=274000&max_price=274000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE13",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/7a70e6f7-628d-4da2-a1e3-d6875a8665b9",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/7a70e6f7-628d-4da2-a1e3-d6875a8665b9/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=274000&max_price=274000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE13"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683046 is Freehold Terrace House Two Floor Four Room(s) Unmodernised Garden Vacant in Lewisham, London, SE13, sold for exactly GBP 274,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SE13 at that exact price during the bounded post-auction period: 7 Murillo Road, London, SE13 5QF, completed 2013-04-23, property type terraced, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683055",
+      "address": "Flat 25, Ian Court, Dacres Road, London, SE23 2PB",
+      "postcode": "SE23 2PB",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=187000&max_price=187000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE23",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/f7a85279-f317-4ca0-a64d-0279ff528a4b",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/f7a85279-f317-4ca0-a64d-0279ff528a4b/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=187000&max_price=187000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE23"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683055 is Leasehold Ground Floor Flat Three Room(s) Unmodernised Vacant in Forest Hill, London, SE23, sold for exactly GBP 187,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SE23 at that exact price during the bounded post-auction period: Flat 25, Ian Court, Dacres Road, London, SE23 2PB, completed 2013-04-22, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683063",
+      "address": "Flat 1, Darlington Court, Cumberland Place, London, SE6 1LX",
+      "postcode": "SE6 1LX",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=128000&max_price=128000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE6",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/8701fd94-2900-4004-9349-5797daa78286",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/8701fd94-2900-4004-9349-5797daa78286/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=128000&max_price=128000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE6"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683063 is Leasehold Ground Floor Flat Four Room(s) Unmodernised Parking Space Vacant in Catford, London, SE6, sold for exactly GBP 128,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SE6 at that exact price during the bounded post-auction period: Flat 1, Darlington Court, Cumberland Place, London, SE6 1LX, completed 2013-04-23, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683106",
+      "address": "66 Hitcham Road, London, E17 8HN",
+      "postcode": "E17 8HN",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=149000&max_price=149000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E17",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/8d2be85d-0465-40dd-abb0-bae6f957cd19",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/8d2be85d-0465-40dd-abb0-bae6f957cd19/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=149000&max_price=149000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E17"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683106 is Leasehold Garden Flat Three Room(s) Assured Shorthold Tenancy in Walthamstow, London, E17, sold for exactly GBP 149,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district E17 at that exact price during the bounded post-auction period: 66 Hitcham Road, London, E17 8HN, completed 2013-04-22, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683107",
+      "address": "Flat 5, Fell House, Poynings Road, London, N19 5LG",
+      "postcode": "N19 5LG",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=214000&max_price=214000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=N19",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/5e5c6e8d-4da4-4502-bbb9-ec6a81c42da6",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/5e5c6e8d-4da4-4502-bbb9-ec6a81c42da6/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=214000&max_price=214000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=N19"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683107 is Leasehold 1st / 2nd Floor Flat Four Room(s) Communal Gardens Assured Shorthold Tenancy in Upper Holloway, London, N19, sold for exactly GBP 214,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district N19 at that exact price during the bounded post-auction period: Flat 5, Fell House, Poynings Road, London, N19 5LG, completed 2013-05-08, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_18813_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683108",
+      "address": "Flat 63, John Keats House, Commerce Road, London, N22 8EQ",
+      "postcode": "N22 8EQ",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=125000&max_price=125000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=N22",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/eb7f6edd-e217-4c1c-a07a-83537845885a",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/eb7f6edd-e217-4c1c-a07a-83537845885a/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=125000&max_price=125000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=N22"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683108 is Leasehold 11th Floor Flat Four Room(s) Assured Shorthold Tenancy in London, N22, sold for exactly GBP 125,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district N22 at that exact price during the bounded post-auction period: Flat 63, John Keats House, Commerce Road, London, N22 8EQ, completed 2013-04-22, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683112",
+      "address": "Ivy Cottage, Mill Lane, Lewes, BN8 6AX",
+      "postcode": "BN8 6AX",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=164000&max_price=164000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=BN8",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/6c9c5795-5bdf-4db7-b592-1725a0fa1795",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=4&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/6c9c5795-5bdf-4db7-b592-1725a0fa1795/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=164000&max_price=164000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=BN8"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683112 is Freehold Semi-detached House Two Floor Four Room(s) Registered Rent in Ripe, Lewes, East Sussex, BN8, sold for exactly GBP 164,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district BN8 at that exact price during the bounded post-auction period: Ivy Cottage, Mill Lane, Lewes, BN8 6AX, completed 2013-04-22, property type semi detached, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683114",
+      "address": "7 Maplin Road, London, E16 3EJ",
+      "postcode": "E16 3EJ",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=136000&max_price=136000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E16",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/d4c425eb-2a8a-4d8a-be50-1c62fb4694ee",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=4&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/d4c425eb-2a8a-4d8a-be50-1c62fb4694ee/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=136000&max_price=136000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E16"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683114 is Leasehold 1st / Attic Floor Flat Garden Assured Shorthold Tenancy in Canning Town, London, E16, sold for exactly GBP 136,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district E16 at that exact price during the bounded post-auction period: 7 Maplin Road, London, E16 3EJ, completed 2013-05-20, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683116",
+      "address": "Flat 4, 127 Anerley Road, London, SE20 8AJ",
+      "postcode": "SE20 8AJ",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=86000&max_price=86000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE20",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/eaa6ef04-d4c2-4c37-9f4a-4f103e67333a",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=4&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/eaa6ef04-d4c2-4c37-9f4a-4f103e67333a/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=86000&max_price=86000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE20"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683116 is Leasehold Top Floor Flat Two Room(s) Assured Shorthold Tenancy in Penge, London, SE20, sold for exactly GBP 86,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SE20 at that exact price during the bounded post-auction period: Flat 4, 127 Anerley Road, London, SE20 8AJ, completed 2013-04-22, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683122",
+      "address": "103 Waddington Street, London, E15 1PJ",
+      "postcode": "E15 1PJ",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=155000&max_price=155000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E15",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/1700ef70-b3da-4444-adb7-b9134716bbd8",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=4&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/1700ef70-b3da-4444-adb7-b9134716bbd8/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=155000&max_price=155000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E15"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683122 is Leasehold Purpose Built Ground Floor Flat Three Room(s) Vacant in Stratford, London, E15, sold for exactly GBP 155,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district E15 at that exact price during the bounded post-auction period: 103 Waddington Street, London, E15 1PJ, completed 2013-05-07, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683143",
+      "address": "31A Eastdown Park, London, SE13 5HU",
+      "postcode": "SE13 5HU",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=187000&max_price=187000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE13",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/21684ff0-86bc-4f82-9ecb-19fe13f96292",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=3&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/21684ff0-86bc-4f82-9ecb-19fe13f96292/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=187000&max_price=187000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE13"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683143 is Leasehold Lower Ground Floor Flat Three Room(s) Unmodernised Garden Vacant in Lewisham, London, SE13, sold for exactly GBP 187,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SE13 at that exact price during the bounded post-auction period: 31A Eastdown Park, London, SE13 5HU, completed 2013-04-24, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683145",
+      "address": "Flat 14, Evelyn Court, Stourcliffe Street, London, W1H 5AS",
+      "postcode": "W1H 5AS",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=239000&max_price=239000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=W1H",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/0c66cf92-1d83-409d-b7cc-adc708d28506",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=3&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/0c66cf92-1d83-409d-b7cc-adc708d28506/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=239000&max_price=239000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=W1H"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683145 is Leasehold 5th Floor Flat Three Room(s) Vacant in London, W1H, sold for exactly GBP 239,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district W1H at that exact price during the bounded post-auction period: Flat 14, Evelyn Court, Stourcliffe Street, London, W1H 5AS, completed 2013-05-15, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683146",
+      "address": "73A Balmoral Road, London, NW2 5BH",
+      "postcode": "NW2 5BH",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=255000&max_price=255000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=NW2",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/0fa94d41-cf0c-4927-99c8-de19159f838a",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=3&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/0fa94d41-cf0c-4927-99c8-de19159f838a/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=255000&max_price=255000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=NW2"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683146 is Leasehold Ground Floor Flat One Bedroom Unmodernised Vacant in Willesden, London, NW2, sold for exactly GBP 255,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district NW2 at that exact price during the bounded post-auction period: 73A Balmoral Road, London, NW2 5BH, completed 2013-04-24, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683149",
+      "address": "44 Cuthbert Gardens, London, SE25 6SS",
+      "postcode": "SE25 6SS",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=193000&max_price=193000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE25",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/cb092f89-bb4b-422d-b0c7-0c1befc25791",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=2&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/cb092f89-bb4b-422d-b0c7-0c1befc25791/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=193000&max_price=193000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE25"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683149 is Freehold Terrace House Two Floor Four Room(s) Unmodernised Garden Vacant in South Norwood, London, SE25, sold for exactly GBP 193,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SE25 at that exact price during the bounded post-auction period: 44 Cuthbert Gardens, London, SE25 6SS, completed 2013-04-22, property type terraced, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683151",
+      "address": "Flat 1, Sycamore Court, 228 Romford Road, London, E7 9HB",
+      "postcode": "E7 9HB",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=129000&max_price=129000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E7",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/c91de6eb-2c68-4e32-9b17-70b5abefd009",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=2&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/c91de6eb-2c68-4e32-9b17-70b5abefd009/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=129000&max_price=129000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E7"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683151 is Leasehold Purpose Built Self-contained Ground Floor Flat Four Room(s) Parking Space Vacant in Forest Gate, London, E7, sold for exactly GBP 129,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district E7 at that exact price during the bounded post-auction period: Flat 1, Sycamore Court, 228 Romford Road, London, E7 9HB, completed 2013-04-26, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683152",
+      "address": "190 Victoria Road, Ruislip, HA4 0AW",
+      "postcode": "HA4 0AW",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=314000&max_price=314000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=HA4",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/59ab7edf-4353-4e44-9e89-e7656ded322e",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=2&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/59ab7edf-4353-4e44-9e89-e7656ded322e/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=314000&max_price=314000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=HA4"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683152 is Freehold Terrace House Two Floor 5 Room(s) Unmodernised Garden Vacant in Ruislip, Middlesex, HA4, sold for exactly GBP 314,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district HA4 at that exact price during the bounded post-auction period: 190 Victoria Road, Ruislip, HA4 0AW, completed 2013-04-24, property type terraced, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683159",
+      "address": "The Top Floor Flat At, 13 Killieser Avenue, London, SW2 4NX",
+      "postcode": "SW2 4NX",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=207000&max_price=207000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW2",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/3aa8eb9a-4939-4627-a0d0-13049dac8e34",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=2&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/3aa8eb9a-4939-4627-a0d0-13049dac8e34/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=207000&max_price=207000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW2"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683159 is Leasehold 2nd Floor Flat Two Room(s) Vacant in Streatham, London, SW2, sold for exactly GBP 207,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SW2 at that exact price during the bounded post-auction period: The Top Floor Flat At, 13 Killieser Avenue, London, SW2 4NX, completed 2013-05-16, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683160",
+      "address": "Flat 2, Century House, 245 Streatham High Road, London, SW16 6ER",
+      "postcode": "SW16 6ER",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=103000&max_price=103000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW16",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/5772029f-a131-486d-921d-c99ac0cba3ed",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=2&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/5772029f-a131-486d-921d-c99ac0cba3ed/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=103000&max_price=103000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SW16"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683160 is Leasehold Purpose Built Ground Floor Flat Two Room(s) Parking Space Let in Streatham, London, SW16, sold for exactly GBP 103,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SW16 at that exact price during the bounded post-auction period: Flat 2, Century House, 245 Streatham High Road, London, SW16 6ER, completed 2013-04-24, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683163",
+      "address": "68A Rutland Road, London, E7 8PH",
+      "postcode": "E7 8PH",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=105000&max_price=105000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E7",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/27d12e40-37e1-4c77-b7e4-03f4b60d02e3",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=2&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/27d12e40-37e1-4c77-b7e4-03f4b60d02e3/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=105000&max_price=105000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E7"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683163 is Leasehold Ground Floor Flat Two Room(s) Unmodernised Vacant in Forest Gate, London, E7, sold for exactly GBP 105,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district E7 at that exact price during the bounded post-auction period: 68A Rutland Road, London, E7 8PH, completed 2013-04-26, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683165",
+      "address": "63 Feltham Road, Mitcham, CR4 2JQ",
+      "postcode": "CR4 2JQ",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=216000&max_price=216000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=CR4",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/87fbc797-725a-40c8-899b-7d586f3008ad",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=2&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/87fbc797-725a-40c8-899b-7d586f3008ad/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=216000&max_price=216000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=CR4"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683165 is Freehold Terrace House Two Floor 5 Room(s) Unmodernised Garden Vacant in Mitcham, Surrey, CR4, sold for exactly GBP 216,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district CR4 at that exact price during the bounded post-auction period: 63 Feltham Road, Mitcham, CR4 2JQ, completed 2013-04-10, property type terraced, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683168",
+      "address": "44 King George Avenue, Bournemouth, BH9 1TX",
+      "postcode": "BH9 1TX",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=192000&max_price=192000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=BH9",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/16f40cf9-5ff3-4a16-b0f7-7df272027f16",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=2&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/16f40cf9-5ff3-4a16-b0f7-7df272027f16/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=192000&max_price=192000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=BH9"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683168 is Freehold Detached House Two Floor 5 Room(s) Unmodernised Garden Vacant in Bournemouth, Dorset, BH9, sold for exactly GBP 192,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district BH9 at that exact price during the bounded post-auction period: 44 King George Avenue, Bournemouth, BH9 1TX, completed 2013-04-25, property type detached, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683171",
+      "address": "25A Old Road, London, SE13 5SU",
+      "postcode": "SE13 5SU",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=176000&max_price=176000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE13",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/85becba5-6e67-4a96-ab4b-7cf647e0f13b",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=1&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/85becba5-6e67-4a96-ab4b-7cf647e0f13b/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=176000&max_price=176000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=SE13"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683171 is Leasehold 1st Floor Flat Three Room(s) Garden Vacant in Lewisham, London, SE13, sold for exactly GBP 176,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district SE13 at that exact price during the bounded post-auction period: 25A Old Road, London, SE13 5SU, completed 2013-04-24, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683172",
+      "address": "20 Buckingham Road, Harrow, HA1 4TD",
+      "postcode": "HA1 4TD",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=166000&max_price=166000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=HA1",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/7b99b4f0-befa-43da-b1df-efecb94c5e7e",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=1&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/7b99b4f0-befa-43da-b1df-efecb94c5e7e/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=166000&max_price=166000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=HA1"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683172 is Leasehold Ground Floor Flat Three Room(s) Unmodernised Garden Vacant in Harrow, Middlesex, HA1, sold for exactly GBP 166,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district HA1 at that exact price during the bounded post-auction period: 20 Buckingham Road, Harrow, HA1 4TD, completed 2013-04-22, property type flat maisonette, estate type leasehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683173",
+      "address": "16 Bendish Road, London, E6 1JH",
+      "postcode": "E6 1JH",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=264000&max_price=264000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E6",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/966d1173-7160-4719-94ab-37dbdc54f65e",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=1&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/966d1173-7160-4719-94ab-37dbdc54f65e/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=264000&max_price=264000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=E6"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683173 is Freehold Terrace House Two Floor Arranged As Two Flat Assured Shorthold Tenancy in East Ham, London, E6, sold for exactly GBP 264,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district E6 at that exact price during the bounded post-auction period: 16 Bendish Road, London, E6 1JH, completed 2013-04-22, property type terraced, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683187",
+      "address": "23A Albert Street, Crook, DL15 9EL",
+      "postcode": "DL15 9EL",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=34000&max_price=34000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=DL15",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/4204d712-e436-4f82-8ad4-a5b2d344d281",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=1&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/4204d712-e436-4f82-8ad4-a5b2d344d281/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=34000&max_price=34000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=DL15"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683187 is Freehold End of Terrace House Two Floor Four Room(s) Unmodernised Vacant in Crook, County Durham, DL15, sold for exactly GBP 34,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district DL15 at that exact price during the bounded post-auction period: 23A Albert Street, Crook, DL15 9EL, completed 2013-05-01, property type terraced, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    },
+    {
+      "target_shard": "source-corpus/savills_eig_descending_public_manifests_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|18813|lotid-683188",
+      "address": "21 Eglesfield Road, South Shields, NE33 5PS",
+      "postcode": "NE33 5PS",
+      "address_basis": "conservative_unique_hmlr_exact_price_postcode_district_within_60_days_property_class_and_tenure_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=37000&max_price=37000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=NE33",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/d34b04c7-6a3b-4416-a406-edf0eb4e7f32",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/18813?view=1&page=1&order=6",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/d34b04c7-6a3b-4416-a406-edf0eb4e7f32/profile.jpg",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=37000&max_price=37000&min_date=2013-03-25&max_date=2013-07-23&relative_url_root=%2Fapp%2Fppd&postcode=NE33"
+      ],
+      "evidence_note": "Saved Savills/EIG appearance source-corpus|savills-eig|18813|lotid-683188 is Freehold Terrace Building Two Floor Arranged As Two Flat Unmodernised One Vacant & Ground Rent(s) on One Flat in South Shields, Tyne and Wear, NE33, sold for exactly GBP 37,000 on 25 March 2013. The official HM Land Registry query returns exactly one transaction in postcode district NE33 at that exact price during the bounded post-auction period: 21 Eglesfield Road, South Shields, NE33 5PS, completed 2013-05-02, property type other, estate type freehold. The completion is within 60 days and the property class and tenure are compatible."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 43,
+  "address_records_added": 43,
+  "partial_records_added": 0,
+  "historical_completeness_declared": false
+}
