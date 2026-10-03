@@ -1,0 +1,416 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative official HM Land Registry exact-transaction legacy address enrichment using completion days 91-120 and uniqueness days 0-120",
+  "captured_at_utc": "2026-10-03T13:47:00Z",
+  "source_note": "The official HM Land Registry Price Paid Data was run across all 2,795 priced, addressless sold Savills legacy appearances in 2010, 2013, 2014, 2015, 2016, 2017, 2018. 27 matches were retained only where the exact hammer price, completion 91-120 days after auction, cumulative uniqueness across days 0-120, exact locality or postcode district, tenure and property class aligned to one compatible transaction used by no other lot. All no-result, ambiguous, class-conflicting, shared-transaction and already-used-address candidates remain unchanged. Original Savills/PropertyAuctions evidence and every repeat auction appearance remain preserved.",
+  "source_records": [
+    {
+      "source_url": "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2010.csv",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Official Price Paid Data full-year file for 2010",
+      "evidence_excerpt": "Exact-price records supply full address, completion date, tenure, property type and transaction category."
+    },
+    {
+      "source_url": "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2013.csv",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Official Price Paid Data full-year file for 2013",
+      "evidence_excerpt": "Exact-price records supply full address, completion date, tenure, property type and transaction category."
+    },
+    {
+      "source_url": "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2014.csv",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Official Price Paid Data full-year file for 2014",
+      "evidence_excerpt": "Exact-price records supply full address, completion date, tenure, property type and transaction category."
+    },
+    {
+      "source_url": "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2015.csv",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Official Price Paid Data full-year file for 2015",
+      "evidence_excerpt": "Exact-price records supply full address, completion date, tenure, property type and transaction category."
+    },
+    {
+      "source_url": "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2016.csv",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Official Price Paid Data full-year file for 2016",
+      "evidence_excerpt": "Exact-price records supply full address, completion date, tenure, property type and transaction category."
+    },
+    {
+      "source_url": "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2017.csv",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Official Price Paid Data full-year file for 2017",
+      "evidence_excerpt": "Exact-price records supply full address, completion date, tenure, property type and transaction category."
+    },
+    {
+      "source_url": "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2018.csv",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Official Price Paid Data full-year file for 2018",
+      "evidence_excerpt": "Exact-price records supply full address, completion date, tenure, property type and transaction category."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "savills/legacy-1000",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1000|127",
+      "address": "Flat A 114, St Marys Road, Ilford, IG1 1QY",
+      "postcode": "IG1 1QY",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=237000&max_price=237000&min_date=2016-02-16&max_date=2016-06-15&relative_url_root=%2Fapp%2Fppd&town=Ilford",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1000",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=237000&max_price=237000&min_date=2016-02-16&max_date=2016-06-15&relative_url_root=%2Fapp%2Fppd&town=Ilford"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1000 lot 127 is a investment leasehold flat in Ilford, Essex sold for exactly GBP 237,000 on 2016-02-16. The official HM Land Registry result identifies Flat A 114, St Marys Road, Ilford, IG1 1QY as the sole compatible exact-price flat maisonette/leasehold transaction, completing 106 days later on 2016-06-01."
+    },
+    {
+      "target_shard": "savills/legacy-1001",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1001|17",
+      "address": "154, Broadfield Road, London, SE6 1TH",
+      "postcode": "SE6 1TH",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=510000&max_price=510000&min_date=2016-03-02&max_date=2016-06-30&relative_url_root=%2Fapp%2Fppd&postcode=SE6",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1001",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=510000&max_price=510000&min_date=2016-03-02&max_date=2016-06-30&relative_url_root=%2Fapp%2Fppd&postcode=SE6"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1001 lot 17 is a vacant freehold house in London SE6 sold for exactly GBP 510,000 on 2016-03-02. The official HM Land Registry result identifies 154, Broadfield Road, London, SE6 1TH as the sole compatible exact-price terraced/freehold transaction, completing 118 days later on 2016-06-28."
+    },
+    {
+      "target_shard": "savills/legacy-1001",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1001|8",
+      "address": "162, Braemar Avenue, London, NW10 0DS",
+      "postcode": "NW10 0DS",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=265000&max_price=265000&min_date=2016-03-02&max_date=2016-06-30&relative_url_root=%2Fapp%2Fppd&postcode=NW10",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1001",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=265000&max_price=265000&min_date=2016-03-02&max_date=2016-06-30&relative_url_root=%2Fapp%2Fppd&postcode=NW10"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1001 lot 8 is a vacant leasehold flat in London NW10 sold for exactly GBP 265,000 on 2016-03-02. The official HM Land Registry result identifies 162, Braemar Avenue, London, NW10 0DS as the sole compatible exact-price flat maisonette/leasehold transaction, completing 100 days later on 2016-06-10."
+    },
+    {
+      "target_shard": "savills/legacy-1002",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1002|155",
+      "address": "14, Bush Close, Ilford, IG2 7NL",
+      "postcode": "IG2 7NL",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=254000&max_price=254000&min_date=2016-05-09&max_date=2016-09-06&relative_url_root=%2Fapp%2Fppd&town=Ilford",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1002",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=254000&max_price=254000&min_date=2016-05-09&max_date=2016-09-06&relative_url_root=%2Fapp%2Fppd&town=Ilford"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1002 lot 155 is a vacant leasehold flat in Ilford, Essex sold for exactly GBP 254,000 on 2016-05-09. The official HM Land Registry result identifies 14, Bush Close, Ilford, IG2 7NL as the sole compatible exact-price flat maisonette/leasehold transaction, completing 106 days later on 2016-08-23."
+    },
+    {
+      "target_shard": "savills/legacy-1002",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1002|176",
+      "address": "Flat 40 Roger Stone Court, 8, Coombe Road, London, NW10 0EJ",
+      "postcode": "NW10 0EJ",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=266000&max_price=266000&min_date=2016-05-09&max_date=2016-09-06&relative_url_root=%2Fapp%2Fppd&postcode=NW10",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1002",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=266000&max_price=266000&min_date=2016-05-09&max_date=2016-09-06&relative_url_root=%2Fapp%2Fppd&postcode=NW10"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1002 lot 176 is a vacant leasehold flat in London NW10 sold for exactly GBP 266,000 on 2016-05-09. The official HM Land Registry result identifies Flat 40 Roger Stone Court, 8, Coombe Road, London, NW10 0EJ as the sole compatible exact-price flat maisonette/leasehold transaction, completing 115 days later on 2016-09-01."
+    },
+    {
+      "target_shard": "savills/legacy-1018",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1018|102",
+      "address": "Unit 12, Iron Bridge Close, London, NW10 0UF",
+      "postcode": "NW10 0UF",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=1400000&max_price=1400000&min_date=2017-03-29&max_date=2017-07-27&relative_url_root=%2Fapp%2Fppd&postcode=NW10",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1018",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=1400000&max_price=1400000&min_date=2017-03-29&max_date=2017-07-27&relative_url_root=%2Fapp%2Fppd&postcode=NW10"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1018 lot 102 is a vacant freehold building in London NW10 sold for exactly GBP 1,400,000 on 2017-03-29. The official HM Land Registry result identifies Unit 12, Iron Bridge Close, London, NW10 0UF as the sole compatible exact-price other/freehold transaction, completing 93 days later on 2017-06-30."
+    },
+    {
+      "target_shard": "savills/legacy-1018",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1018|12",
+      "address": "8, Macarthur Close, London, E7 9NT",
+      "postcode": "E7 9NT",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=342000&max_price=342000&min_date=2017-03-29&max_date=2017-07-27&relative_url_root=%2Fapp%2Fppd&postcode=E7",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1018",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=342000&max_price=342000&min_date=2017-03-29&max_date=2017-07-27&relative_url_root=%2Fapp%2Fppd&postcode=E7"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1018 lot 12 is a vacant freehold house in London E7 sold for exactly GBP 342,000 on 2017-03-29. The official HM Land Registry result identifies 8, Macarthur Close, London, E7 9NT as the sole compatible exact-price terraced/freehold transaction, completing 100 days later on 2017-07-07."
+    },
+    {
+      "target_shard": "savills/legacy-1018",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1018|157",
+      "address": "Flat 1 237, Norwood Road, London, SE24 9AG",
+      "postcode": "SE24 9AG",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=334000&max_price=334000&min_date=2017-03-29&max_date=2017-07-27&relative_url_root=%2Fapp%2Fppd&postcode=SE24",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1018",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=334000&max_price=334000&min_date=2017-03-29&max_date=2017-07-27&relative_url_root=%2Fapp%2Fppd&postcode=SE24"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1018 lot 157 is a vacant leasehold flat in London SE24 sold for exactly GBP 334,000 on 2017-03-29. The official HM Land Registry result identifies Flat 1 237, Norwood Road, London, SE24 9AG as the sole compatible exact-price flat maisonette/leasehold transaction, completing 93 days later on 2017-06-30."
+    },
+    {
+      "target_shard": "savills/legacy-1043",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1043|71A",
+      "address": "6, Mill Lane, Grays, RM20 4YE",
+      "postcode": "RM20 4YE",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=195000&max_price=195000&min_date=2017-06-19&max_date=2017-10-17&relative_url_root=%2Fapp%2Fppd&town=Grays",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1043",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=195000&max_price=195000&min_date=2017-06-19&max_date=2017-10-17&relative_url_root=%2Fapp%2Fppd&town=Grays"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1043 lot 71A is a vacant freehold house in Grays, Essex sold for exactly GBP 195,000 on 2017-06-19. The official HM Land Registry result identifies 6, Mill Lane, Grays, RM20 4YE as the sole compatible exact-price terraced/freehold transaction, completing 99 days later on 2017-09-26."
+    },
+    {
+      "target_shard": "savills/legacy-1044",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1044|123",
+      "address": "104, Dawes Road, London, SW6 7EG",
+      "postcode": "SW6 7EG",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=52000&max_price=52000&min_date=2017-07-24&max_date=2017-11-21&relative_url_root=%2Fapp%2Fppd&postcode=SW6",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1044",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=52000&max_price=52000&min_date=2017-07-24&max_date=2017-11-21&relative_url_root=%2Fapp%2Fppd&postcode=SW6"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1044 lot 123 is a investment freehold building in London SW6 sold for exactly GBP 52,000 on 2017-07-24. The official HM Land Registry result identifies 104, Dawes Road, London, SW6 7EG as the sole compatible exact-price other/freehold transaction, completing 92 days later on 2017-10-24."
+    },
+    {
+      "target_shard": "savills/legacy-1044",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1044|25",
+      "address": "28, Herbert Road, London, SW19 3SH",
+      "postcode": "SW19 3SH",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=860000&max_price=860000&min_date=2017-07-24&max_date=2017-11-21&relative_url_root=%2Fapp%2Fppd&postcode=SW19",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1044",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=860000&max_price=860000&min_date=2017-07-24&max_date=2017-11-21&relative_url_root=%2Fapp%2Fppd&postcode=SW19"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1044 lot 25 is a vacant freehold semi-detached house in London SW19 sold for exactly GBP 860,000 on 2017-07-24. The official HM Land Registry result identifies 28, Herbert Road, London, SW19 3SH as the sole compatible exact-price semi detached/freehold transaction, completing 100 days later on 2017-11-01."
+    },
+    {
+      "target_shard": "savills/legacy-1044",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1044|74",
+      "address": "91, Winchester Road, London, N9 9EY",
+      "postcode": "N9 9EY",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=162000&max_price=162000&min_date=2017-07-24&max_date=2017-11-21&relative_url_root=%2Fapp%2Fppd&postcode=N9",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1044",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=162000&max_price=162000&min_date=2017-07-24&max_date=2017-11-21&relative_url_root=%2Fapp%2Fppd&postcode=N9"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1044 lot 74 is a investment leasehold flat in London N9 sold for exactly GBP 162,000 on 2017-07-24. The official HM Land Registry result identifies 91, Winchester Road, London, N9 9EY as the sole compatible exact-price flat maisonette/leasehold transaction, completing 108 days later on 2017-11-09."
+    },
+    {
+      "target_shard": "savills/legacy-897",
+      "target_appearance_id": "Savills Auctions|propertyauctions:897|150",
+      "address": "Flat 3 35, Shrubbery Road, London, SW16 2AS",
+      "postcode": "SW16 2AS",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=285000&max_price=285000&min_date=2014-02-11&max_date=2014-06-11&relative_url_root=%2Fapp%2Fppd&postcode=SW16",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=897",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=285000&max_price=285000&min_date=2014-02-11&max_date=2014-06-11&relative_url_root=%2Fapp%2Fppd&postcode=SW16"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 897 lot 150 is a vacant leasehold house in London SW16 sold for exactly GBP 285,000 on 2014-02-11. The official HM Land Registry result identifies Flat 3 35, Shrubbery Road, London, SW16 2AS as the sole compatible exact-price semi detached/leasehold transaction, completing 108 days later on 2014-05-30."
+    },
+    {
+      "target_shard": "savills/legacy-897",
+      "target_appearance_id": "Savills Auctions|propertyauctions:897|178",
+      "address": "Flat 2 101, Sutherland Avenue, London, W9 2HG",
+      "postcode": "W9 2HG",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=170000&max_price=170000&min_date=2014-02-11&max_date=2014-06-11&relative_url_root=%2Fapp%2Fppd&postcode=W9",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=897",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=170000&max_price=170000&min_date=2014-02-11&max_date=2014-06-11&relative_url_root=%2Fapp%2Fppd&postcode=W9"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 897 lot 178 is a investment flat in London W9 sold for exactly GBP 170,000 on 2014-02-11. The official HM Land Registry result identifies Flat 2 101, Sutherland Avenue, London, W9 2HG as the sole compatible exact-price flat maisonette/leasehold transaction, completing 100 days later on 2014-05-22."
+    },
+    {
+      "target_shard": "savills/legacy-897",
+      "target_appearance_id": "Savills Auctions|propertyauctions:897|252",
+      "address": "113, Mandeville Court, London, E4 8JD",
+      "postcode": "E4 8JD",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=135000&max_price=135000&min_date=2014-02-11&max_date=2014-06-11&relative_url_root=%2Fapp%2Fppd&postcode=E4",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=897",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=135000&max_price=135000&min_date=2014-02-11&max_date=2014-06-11&relative_url_root=%2Fapp%2Fppd&postcode=E4"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 897 lot 252 is a vacant flat in London E4 sold for exactly GBP 135,000 on 2014-02-11. The official HM Land Registry result identifies 113, Mandeville Court, London, E4 8JD as the sole compatible exact-price flat maisonette/leasehold transaction, completing 105 days later on 2014-05-27."
+    },
+    {
+      "target_shard": "savills/legacy-897",
+      "target_appearance_id": "Savills Auctions|propertyauctions:897|67",
+      "address": "39, Magnolia Street, West Drayton, UB7 7UN",
+      "postcode": "UB7 7UN",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=245000&max_price=245000&min_date=2014-02-11&max_date=2014-06-11&relative_url_root=%2Fapp%2Fppd&town=West+Drayton",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=897",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=245000&max_price=245000&min_date=2014-02-11&max_date=2014-06-11&relative_url_root=%2Fapp%2Fppd&town=West+Drayton"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 897 lot 67 is a vacant freehold house in West Drayton sold for exactly GBP 245,000 on 2014-02-11. The official HM Land Registry result identifies 39, Magnolia Street, West Drayton, UB7 7UN as the sole compatible exact-price semi detached/freehold transaction, completing 115 days later on 2014-06-06."
+    },
+    {
+      "target_shard": "savills/legacy-902",
+      "target_appearance_id": "Savills Auctions|propertyauctions:902|45",
+      "address": "32, Plashet Road, London, E13 0PU",
+      "postcode": "E13 0PU",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=221000&max_price=221000&min_date=2014-03-24&max_date=2014-07-22&relative_url_root=%2Fapp%2Fppd&postcode=E13",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=902",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=221000&max_price=221000&min_date=2014-03-24&max_date=2014-07-22&relative_url_root=%2Fapp%2Fppd&postcode=E13"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 902 lot 45 is a vacant flat in London E13 sold for exactly GBP 221,000 on 2014-03-24. The official HM Land Registry result identifies 32, Plashet Road, London, E13 0PU as the sole compatible exact-price flat maisonette/leasehold transaction, completing 92 days later on 2014-06-24."
+    },
+    {
+      "target_shard": "savills/legacy-912",
+      "target_appearance_id": "Savills Auctions|propertyauctions:912|20",
+      "address": "344, Strone Road, London, E12 6TN",
+      "postcode": "E12 6TN",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=244000&max_price=244000&min_date=2014-06-16&max_date=2014-10-14&relative_url_root=%2Fapp%2Fppd&postcode=E12",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=912",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=244000&max_price=244000&min_date=2014-06-16&max_date=2014-10-14&relative_url_root=%2Fapp%2Fppd&postcode=E12"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 912 lot 20 is a vacant freehold house in London E12 sold for exactly GBP 244,000 on 2014-06-16. The official HM Land Registry result identifies 344, Strone Road, London, E12 6TN as the sole compatible exact-price terraced/freehold transaction, completing 109 days later on 2014-10-03."
+    },
+    {
+      "target_shard": "savills/legacy-918",
+      "target_appearance_id": "Savills Auctions|propertyauctions:918|164",
+      "address": "Flat 1 103, Grange Park Road, London, E10 5ER",
+      "postcode": "E10 5ER",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=265000&max_price=265000&min_date=2014-09-15&max_date=2015-01-13&relative_url_root=%2Fapp%2Fppd&postcode=E10",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=918",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=265000&max_price=265000&min_date=2014-09-15&max_date=2015-01-13&relative_url_root=%2Fapp%2Fppd&postcode=E10"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 918 lot 164 is a vacant leasehold flat in London E10 sold for exactly GBP 265,000 on 2014-09-15. The official HM Land Registry result identifies Flat 1 103, Grange Park Road, London, E10 5ER as the sole compatible exact-price flat maisonette/leasehold transaction, completing 95 days later on 2014-12-19."
+    },
+    {
+      "target_shard": "savills/legacy-918",
+      "target_appearance_id": "Savills Auctions|propertyauctions:918|176",
+      "address": "2, Oak Close, Peterborough, PE8 4QY",
+      "postcode": "PE8 4QY",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=221000&max_price=221000&min_date=2014-09-15&max_date=2015-01-13&relative_url_root=%2Fapp%2Fppd&town=Peterborough",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=918",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=221000&max_price=221000&min_date=2014-09-15&max_date=2015-01-13&relative_url_root=%2Fapp%2Fppd&town=Peterborough"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 918 lot 176 is a vacant freehold detached bungalow in Peterborough, Cambridgeshire sold for exactly GBP 221,000 on 2014-09-15. The official HM Land Registry result identifies 2, Oak Close, Peterborough, PE8 4QY as the sole compatible exact-price detached/freehold transaction, completing 98 days later on 2014-12-22."
+    },
+    {
+      "target_shard": "savills/legacy-918",
+      "target_appearance_id": "Savills Auctions|propertyauctions:918|211",
+      "address": "36, Tootell Street, Chorley, PR7 2HX",
+      "postcode": "PR7 2HX",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=62000&max_price=62000&min_date=2014-09-15&max_date=2015-01-13&relative_url_root=%2Fapp%2Fppd&town=Chorley",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=918",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=62000&max_price=62000&min_date=2014-09-15&max_date=2015-01-13&relative_url_root=%2Fapp%2Fppd&town=Chorley"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 918 lot 211 is a vacant leasehold terraced house in Chorley, Lancashire sold for exactly GBP 62,000 on 2014-09-15. The official HM Land Registry result identifies 36, Tootell Street, Chorley, PR7 2HX as the sole compatible exact-price terraced/leasehold transaction, completing 95 days later on 2014-12-19."
+    },
+    {
+      "target_shard": "savills/legacy-943",
+      "target_appearance_id": "Savills Auctions|propertyauctions:943|113",
+      "address": "216, Whitehorse Lane, London, SE25 6UX",
+      "postcode": "SE25 6UX",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=352000&max_price=352000&min_date=2015-02-17&max_date=2015-06-17&relative_url_root=%2Fapp%2Fppd&postcode=SE25",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=943",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=352000&max_price=352000&min_date=2015-02-17&max_date=2015-06-17&relative_url_root=%2Fapp%2Fppd&postcode=SE25"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 943 lot 113 is a vacant freehold terraced house in London SE25 sold for exactly GBP 352,000 on 2015-02-17. The official HM Land Registry result identifies 216, Whitehorse Lane, London, SE25 6UX as the sole compatible exact-price terraced/freehold transaction, completing 108 days later on 2015-06-05."
+    },
+    {
+      "target_shard": "savills/legacy-943",
+      "target_appearance_id": "Savills Auctions|propertyauctions:943|161",
+      "address": "Upper Floor 311, Baring Road, London, SE12 0DZ",
+      "postcode": "SE12 0DZ",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=124000&max_price=124000&min_date=2015-02-17&max_date=2015-06-17&relative_url_root=%2Fapp%2Fppd&postcode=SE12",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=943",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=124000&max_price=124000&min_date=2015-02-17&max_date=2015-06-17&relative_url_root=%2Fapp%2Fppd&postcode=SE12"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 943 lot 161 is a vacant leasehold flat in London SE12 sold for exactly GBP 124,000 on 2015-02-17. The official HM Land Registry result identifies Upper Floor 311, Baring Road, London, SE12 0DZ as the sole compatible exact-price flat maisonette/leasehold transaction, completing 107 days later on 2015-06-04."
+    },
+    {
+      "target_shard": "savills/legacy-943",
+      "target_appearance_id": "Savills Auctions|propertyauctions:943|96",
+      "address": "Grove Bay, Grove Lane, Uxbridge, UB8 3RG",
+      "postcode": "UB8 3RG",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=430000&max_price=430000&min_date=2015-02-17&max_date=2015-06-17&relative_url_root=%2Fapp%2Fppd&town=Uxbridge",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=943",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=430000&max_price=430000&min_date=2015-02-17&max_date=2015-06-17&relative_url_root=%2Fapp%2Fppd&town=Uxbridge"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 943 lot 96 is a vacant freehold detached bungalow in Uxbridge, Middlesex sold for exactly GBP 430,000 on 2015-02-17. The official HM Land Registry result identifies Grove Bay, Grove Lane, Uxbridge, UB8 3RG as the sole compatible exact-price detached/freehold transaction, completing 108 days later on 2015-06-05."
+    },
+    {
+      "target_shard": "savills/legacy-947",
+      "target_appearance_id": "Savills Auctions|propertyauctions:947|166",
+      "address": "19, The Park, Lincoln, LN4 4SN",
+      "postcode": "LN4 4SN",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=136000&max_price=136000&min_date=2015-03-31&max_date=2015-07-29&relative_url_root=%2Fapp%2Fppd&town=Lincoln",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=947",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=136000&max_price=136000&min_date=2015-03-31&max_date=2015-07-29&relative_url_root=%2Fapp%2Fppd&town=Lincoln"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 947 lot 166 is a vacant freehold detached bungalow in Lincoln, Lincolnshire sold for exactly GBP 136,000 on 2015-03-31. The official HM Land Registry result identifies 19, The Park, Lincoln, LN4 4SN as the sole compatible exact-price detached/freehold transaction, completing 99 days later on 2015-07-08."
+    },
+    {
+      "target_shard": "savills/legacy-955",
+      "target_appearance_id": "Savills Auctions|propertyauctions:955|102",
+      "address": "61A, Inniskilling Road, London, E13 9LD",
+      "postcode": "E13 9LD",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=170000&max_price=170000&min_date=2015-05-11&max_date=2015-09-08&relative_url_root=%2Fapp%2Fppd&postcode=E13",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=955",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=170000&max_price=170000&min_date=2015-05-11&max_date=2015-09-08&relative_url_root=%2Fapp%2Fppd&postcode=E13"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 955 lot 102 is a vacant leasehold flat in London E13 sold for exactly GBP 170,000 on 2015-05-11. The official HM Land Registry result identifies 61A, Inniskilling Road, London, E13 9LD as the sole compatible exact-price flat maisonette/leasehold transaction, completing 115 days later on 2015-09-03."
+    },
+    {
+      "target_shard": "savills/legacy-959",
+      "target_appearance_id": "Savills Auctions|propertyauctions:959|50",
+      "address": "10, Northway Road, Croydon, CR0 6JE",
+      "postcode": "CR0 6JE",
+      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=313000&max_price=313000&min_date=2015-07-28&max_date=2015-11-25&relative_url_root=%2Fapp%2Fppd&town=Croydon",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=959",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=313000&max_price=313000&min_date=2015-07-28&max_date=2015-11-25&relative_url_root=%2Fapp%2Fppd&town=Croydon"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 959 lot 50 is a vacant freehold terraced house in Croydon, Surrey sold for exactly GBP 313,000 on 2015-07-28. The official HM Land Registry result identifies 10, Northway Road, Croydon, CR0 6JE as the sole compatible exact-price terraced/freehold transaction, completing 101 days later on 2015-11-06."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 27,
+  "address_records_added": 27,
+  "partial_records_added": 0,
+  "rejection_counts": {
+    "ambiguous": 717,
+    "no_compatible_transaction": 1993,
+    "shared_transaction": 2,
+    "unique_candidate_before_requested_window": 56
+  },
+  "historical_completeness_declared": false
+}

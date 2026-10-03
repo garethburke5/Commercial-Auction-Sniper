@@ -123,10 +123,25 @@ def main() -> None:
     parser.add_argument("--captured-at", required=True)
     parser.add_argument("--min-days", type=int, default=0)
     parser.add_argument("--max-days", type=int, default=60)
+    parser.add_argument(
+        "--uniqueness-min-days",
+        type=int,
+        default=None,
+        help=(
+            "Earliest completion day included when proving that a match is unique; "
+            "defaults to --min-days. Set to 0 for cumulative uniqueness when emitting "
+            "a later completion band."
+        ),
+    )
     args = parser.parse_args()
 
     if args.min_days < 0 or args.max_days < args.min_days:
         parser.error("completion window must satisfy 0 <= min-days <= max-days")
+    uniqueness_min_days = (
+        args.min_days if args.uniqueness_min_days is None else args.uniqueness_min_days
+    )
+    if uniqueness_min_days < 0 or uniqueness_min_days > args.min_days:
+        parser.error("uniqueness-min-days must satisfy 0 <= value <= min-days")
 
     ppd_paths = dict(args.ppd)
     legacy_rows, existing_addresses = load_legacy_rows()
@@ -158,7 +173,8 @@ def main() -> None:
     counters = Counter()
     for row in targets:
         auction_date = dt.date.fromisoformat(row["auction_date"])
-        earliest = auction_date + dt.timedelta(days=args.min_days)
+        earliest = auction_date + dt.timedelta(days=uniqueness_min_days)
+        requested_earliest = auction_date + dt.timedelta(days=args.min_days)
         latest = auction_date + dt.timedelta(days=args.max_days)
         locality = str(row.get("locality") or "")
         district_match = POSTCODE_DISTRICT.search(locality.upper())
@@ -180,7 +196,11 @@ def main() -> None:
             if compatible(row.get("property_type"), ppd_row[4], ppd_row[6]):
                 candidates.append(ppd_row)
         if len(candidates) == 1:
-            candidate_by_appearance[row["appearance_id"]] = (row, candidates[0])
+            completion = dt.date.fromisoformat(candidates[0][2][:10])
+            if completion < requested_earliest:
+                counters["unique_candidate_before_requested_window"] += 1
+            else:
+                candidate_by_appearance[row["appearance_id"]] = (row, candidates[0])
         elif candidates:
             counters["ambiguous"] += 1
         else:
@@ -208,7 +228,7 @@ def main() -> None:
         query_url = (
             "https://landregistry.data.gov.uk/app/ppd/search?limit=100"
             f"&min_price={int(row['sale_price'])}&max_price={int(row['sale_price'])}"
-            f"&min_date={auction_date + dt.timedelta(days=args.min_days)}"
+            f"&min_date={auction_date + dt.timedelta(days=uniqueness_min_days)}"
             f"&max_date={auction_date + dt.timedelta(days=args.max_days)}"
             f"&relative_url_root=%2Fapp%2Fppd&{location_query}"
         )
@@ -221,7 +241,7 @@ def main() -> None:
             "target_appearance_id": appearance_id,
             "address": address,
             "postcode": ppd_row[3].upper(),
-            "address_basis": "conservative_official_hmlr_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
+            "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
             "source_url": query_url,
             "source_urls": [str(row.get("original_url")), query_url],
             "evidence_note": (
@@ -241,14 +261,15 @@ def main() -> None:
         "auctioneer": "Savills Auctions",
         "capture_mode": (
             "conservative official HM Land Registry exact-transaction legacy address enrichment "
-            f"using completion days {args.min_days}-{args.max_days}"
+            f"using completion days {args.min_days}-{args.max_days} and uniqueness days "
+            f"{uniqueness_min_days}-{args.max_days}"
         ),
         "captured_at_utc": args.captured_at,
         "source_note": (
             f"The official HM Land Registry Price Paid Data was run across all {len(targets):,} priced, "
             f"addressless sold Savills legacy appearances in {', '.join(years)}. {len(enrichments):,} "
             f"matches were retained only where the exact hammer price, completion {args.min_days}-{args.max_days} "
-            "days after auction, exact locality "
+            f"days after auction, cumulative uniqueness across days {uniqueness_min_days}-{args.max_days}, exact locality "
             "or postcode district, tenure and property class aligned to one compatible transaction used by no "
             "other lot. All no-result, ambiguous, class-conflicting, shared-transaction and already-used-address "
             "candidates remain unchanged. Original Savills/PropertyAuctions evidence and every repeat auction "
