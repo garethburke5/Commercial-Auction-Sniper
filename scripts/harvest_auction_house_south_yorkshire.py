@@ -1,4 +1,4 @@
-"""Bank the complete retained Auction House North East online-results table.
+"""Bank the complete retained Auction House South Yorkshire online-results table.
 
 The first-party page is paginated and exposes one stable redirect ID per lot,
 the full address, exact auction end timestamp, guide and result.  These are lot
@@ -23,7 +23,7 @@ import historical_corpus as corpus
 
 
 BASE = "https://www.auctionhouse.co.uk"
-INDEX = BASE + "/northeast/auction/past-auctions"
+INDEX = BASE + "/southyorkshire/auction/past-auctions"
 LOT_RE = re.compile(r"https?://online\.auctionhouse\.co\.uk/lot/redirect/(\d+)", re.I)
 DATE_RE = re.compile(r"^\d{2}/\d{2}/\d{4}\s+\d{2}:\d{2}$")
 MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d+)?)", re.I)
@@ -119,8 +119,8 @@ def parse_page(html: str, source_url: str, snapshot_path: str, sha256: str,
             "basis": "first-party paginated online-results row with stable lot redirect ID",
         }
         row = corpus.base_row(
-            "Auction House North East",
-            "auction-house-northeast:online:" + auction_date,
+            "Auction House South Yorkshire",
+            "auction-house-southyorkshire:online:" + auction_date,
             auction_date,
             None,
             source_id,
@@ -145,7 +145,7 @@ def parse_page(html: str, source_url: str, snapshot_path: str, sha256: str,
             last_bid_price=last_bid,
             source_evidence=evidence,
         )
-        row["appearance_id"] = "Auction House North East|online:" + source_id
+        row["appearance_id"] = "Auction House South Yorkshire|online:" + source_id
         rows.append(row)
     return rows
 
@@ -165,9 +165,9 @@ def harvest() -> None:
     first_raw = fetch(session, INDEX)
     last_page = pagination_extent(first_raw.decode("utf-8", "replace"))
     if last_page < 1:
-        raise SystemExit("no Auction House North East pagination discovered")
+        raise SystemExit("no Auction House South Yorkshire pagination discovered")
 
-    existing_path = corpus.DATA / "appearances/auction-house-northeast/online-results.jsonl.gz"
+    existing_path = corpus.DATA / "appearances/auction-house-southyorkshire/online-results.jsonl.gz"
     existing = list(corpus.iter_rows(existing_path)) if existing_path.exists() else []
     merged = {row["source_lot_id"]: row for row in existing}
     seen_current: dict[str, int] = {}
@@ -180,7 +180,7 @@ def harvest() -> None:
         try:
             raw = first_raw if page == 1 else fetch(session, source_url)
             sha256 = corpus.digest(raw)
-            snapshot = corpus.DATA / "sources/auction-house-northeast" / f"page-{page:03d}-{sha256[:16]}.json.gz"
+            snapshot = corpus.DATA / "sources/auction-house-southyorkshire" / f"page-{page:03d}-{sha256[:16]}.json.gz"
             retrieved_at = corpus.now()
             html = raw.decode("utf-8", "replace")
             corpus.save_gzip(snapshot, {
@@ -221,7 +221,7 @@ def harvest() -> None:
         time.sleep(0.35)
 
     rows = sorted(merged.values(), key=lambda row: (row.get("auction_date") or "", row["source_lot_id"]))
-    corpus.write_rows("auction-house-northeast/online-results", rows)
+    corpus.write_rows("auction-house-southyorkshire/online-results", rows)
     current_count = len(seen_current)
     row_total = sum(page_counts.values())
     archive_complete = (
@@ -246,10 +246,10 @@ def harvest() -> None:
         "failures": failures,
         "archive_pagination_complete": archive_complete,
     }
-    corpus.save_json(corpus.DATA / "auction_house_northeast_collection.json", summary)
-    corpus.save_json(corpus.DATA / "auctions/auction-house-northeast/online-results.json", {
-        "auctioneer": "Auction House North East",
-        "source_auction_id": "auction-house-northeast:online-results",
+    corpus.save_json(corpus.DATA / "auction_house_southyorkshire_collection.json", summary)
+    corpus.save_json(corpus.DATA / "auctions/auction-house-southyorkshire/online-results.json", {
+        "auctioneer": "Auction House South Yorkshire",
+        "source_auction_id": "auction-house-southyorkshire:online-results",
         "auction_date": None,
         "catalogue_complete": False,
         "archive_pagination_complete": archive_complete,

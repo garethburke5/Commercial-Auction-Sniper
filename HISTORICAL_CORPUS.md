@@ -16,6 +16,7 @@ python scripts/harvest_clive_emson_canonical.py --all-incomplete
 python scripts/harvest_clive_emson_canonical.py --enrich-next --workers 4
 python scripts/harvest_barnett_ross_canonical.py --all-incomplete
 python scripts/harvest_auction_house_northeast.py
+python scripts/harvest_auction_house_south_yorkshire.py
 python historical_corpus.py build
 ```
 
@@ -64,6 +65,12 @@ lot-end timestamps are labelled as such, and sold, sold-prior, last-bid and
 postponed states are not conflated. Full addresses, guides, results and immutable
 page snapshots are retained. Pagination can be complete while original auction
 catalogues remain explicitly unreconciled when their denominators are absent.
+
+Auction House South Yorkshire uses the same evidenced row model across its much
+deeper retained archive. Every paginated online result is banked independently,
+including repeated property appearances, no-bid and withdrawn states. Complete
+archive pagination is reported separately from unavailable original catalogue
+denominators, so catalogues are not falsely marked complete.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including

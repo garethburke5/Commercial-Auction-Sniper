@@ -1,4 +1,4 @@
-from scripts.harvest_auction_house_northeast import (
+from scripts.harvest_auction_house_south_yorkshire import (
     pagination_extent,
     parse_page,
     result_details,
@@ -7,36 +7,36 @@ from scripts.harvest_auction_house_northeast import (
 
 HTML = """
 <html><body>
-<h3>Past online auction results for Auction House North East</h3>
+<h3>Past online auction results for Auction House South Yorkshire</h3>
 <table>
 <tr><th>Address</th><th></th><th>Auctioneer</th><th>Auction Ended</th><th>Guide</th><th>Result</th></tr>
 <tr>
 <td><a aria-label="Fernlea, Heworth Road, Washington, Tyne And Wear, NE37 2PY" href="https://online.auctionhouse.co.uk/lot/redirect/366263"></a></td>
 <td>Fernlea, Heworth Road, Washington, Tyne And Wear, NE37 2PY</td>
-<td>Auction House North East</td><td>29/09/2026 13:13</td><td>£85,000</td><td>Sold for: £101,000</td>
+<td>Auction House South Yorkshire</td><td>29/09/2026 13:13</td><td>£85,000</td><td>Sold for: £101,000</td>
 </tr>
 <tr>
 <td><a href="https://online.auctionhouse.co.uk/lot/redirect/364779">68 Lingmell, Washington, Tyne And Wear, NE37 1TT</a></td>
 <td>68 Lingmell, Washington, Tyne And Wear, NE37 1TT</td>
-<td>Auction House North East</td><td>29/09/2026 13:10</td><td>£50,000 - £60,000</td><td>Last Bid: £49,000</td>
+<td>Auction House South Yorkshire</td><td>29/09/2026 13:10</td><td>£50,000 - £60,000</td><td>Last Bid: £49,000</td>
 </tr>
 </table>
-<a href="/northeast/auction/past-auctions?page=2">2</a>
-<a href="/northeast/auction/past-auctions?page=18">»»</a>
+<a href="/southyorkshire/auction/past-auctions?page=2">2</a>
+<a href="/southyorkshire/auction/past-auctions?page=59">»»</a>
 </body></html>
 """
 
 
 def test_pagination_extent_uses_last_page_link():
-    assert pagination_extent(HTML) == 18
+    assert pagination_extent(HTML) == 59
 
 
 def test_rows_keep_source_identity_prices_and_exact_end_date():
-    rows = parse_page(HTML, "https://www.auctionhouse.co.uk/northeast/auction/past-auctions",
+    rows = parse_page(HTML, "https://www.auctionhouse.co.uk/southyorkshire/auction/past-auctions",
                       "data/source.json.gz", "abc", "2026-10-03T00:00:00Z")
     assert len(rows) == 2
     sold, last_bid = rows
-    assert sold["appearance_id"] == "Auction House North East|online:366263"
+    assert sold["appearance_id"] == "Auction House South Yorkshire|online:366263"
     assert sold["auction_date"] == "2026-09-29"
     assert sold["address"].startswith("Fernlea")
     assert sold["guide_price"] == 85000
