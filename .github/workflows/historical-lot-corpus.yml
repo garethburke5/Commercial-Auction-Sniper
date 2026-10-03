@@ -12,12 +12,6 @@ on:
       - scripts/harvest_pugh_canonical.py
       - scripts/harvest_symonds_sampson_canonical.py
       - scripts/harvest_bidx1_canonical.py
-      - scripts/harvest_eddisons_insights.py
-      - scripts/harvest_phillip_arnold_results.py
-      - scripts/harvest_mchugh_results.py
-      - scripts/harvest_mchugh_legacy.py
-      - scripts/harvest_strettons_results.py
-      - scripts/harvest_network_auctions.py
       - scripts/harvest_auction_house_northeast.py
       - scripts/harvest_auction_house_south_yorkshire.py
       - scripts/harvest_auction_house_north_west.py
@@ -25,18 +19,14 @@ on:
       - scripts/harvest_auction_house_east_anglia.py
       - scripts/harvest_auction_house_national.py
       - scripts/harvest_auction_house_regions.py
+      - scripts/harvest_network_auctions.py
+      - scripts/harvest_pattinson_history.py
       - tests/test_historical_corpus.py
       - tests/test_clive_emson_canonical.py
       - tests/test_barnett_ross_history.py
       - tests/test_pugh_history.py
       - tests/test_symonds_sampson_history.py
       - tests/test_bidx1_history.py
-      - tests/test_eddisons_insights.py
-      - tests/test_phillip_arnold_results.py
-      - tests/test_mchugh_results.py
-      - tests/test_mchugh_legacy.py
-      - tests/test_strettons_results.py
-      - tests/test_network_auctions.py
       - tests/test_auction_house_northeast.py
       - tests/test_auction_house_south_yorkshire.py
       - tests/test_auction_house_north_west.py
@@ -44,6 +34,8 @@ on:
       - tests/test_auction_house_east_anglia.py
       - tests/test_auction_house_national.py
       - tests/test_auction_house_regions.py
+      - tests/test_network_auctions.py
+      - tests/test_pattinson_history.py
       - web_platform/tests/test_acuitus_admission.py
       - .github/workflows/historical-lot-corpus.yml
       - data/historical_source_corpus/**
@@ -72,7 +64,7 @@ jobs:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4 lxml pytest
       - name: Verify admission, identities and completeness rules
-        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bidx1_history.py tests/test_eddisons_insights.py tests/test_phillip_arnold_results.py tests/test_mchugh_results.py tests/test_mchugh_legacy.py tests/test_strettons_results.py tests/test_network_auctions.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py web_platform/tests/test_acuitus_admission.py
+        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bidx1_history.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py tests/test_network_auctions.py tests/test_pattinson_history.py web_platform/tests/test_acuitus_admission.py
       - name: Bank every previously recovered legacy lot
         run: python -u historical_corpus.py bank-legacy
       - name: Bank evidenced lots from saved source-corpus shards
@@ -109,30 +101,6 @@ jobs:
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_bidx1_canonical.py
-      - name: Bank retained Eddisons monthly selected sold results
-        timeout-minutes: 10
-        continue-on-error: true
-        run: python -u scripts/harvest_eddisons_insights.py
-      - name: Bank Phillip Arnold retained first-party result tables
-        timeout-minutes: 15
-        continue-on-error: true
-        run: python -u scripts/harvest_phillip_arnold_results.py 8
-      - name: Bank McHugh retained first-party result catalogues
-        timeout-minutes: 15
-        continue-on-error: true
-        run: python -u scripts/harvest_mchugh_results.py 8
-      - name: Bank McHugh 2007-2020 first-party result tables
-        timeout-minutes: 12
-        continue-on-error: true
-        run: python -u scripts/harvest_mchugh_legacy.py 8
-      - name: Bank Strettons retained first-party past-auction catalogues
-        timeout-minutes: 10
-        continue-on-error: true
-        run: python -u scripts/harvest_strettons_results.py 4
-      - name: Bank Network Auctions retained legacy result catalogues
-        timeout-minutes: 20
-        continue-on-error: true
-        run: python -u scripts/harvest_network_auctions.py 6
       - name: Collect Auction House North East online results
         timeout-minutes: 20
         continue-on-error: true
@@ -161,6 +129,14 @@ jobs:
         timeout-minutes: 25
         continue-on-error: true
         run: python -u scripts/harvest_auction_house_regions.py
+      - name: Bank retained Network Auctions legacy result catalogues
+        timeout-minutes: 20
+        continue-on-error: true
+        run: python -u scripts/harvest_network_auctions.py 6
+      - name: Bank retained sold Pattinson online-auction property pages
+        timeout-minutes: 10
+        continue-on-error: true
+        run: python -u scripts/harvest_pattinson_history.py 32
       - name: Traverse every known Savills catalogue and all its pages
         timeout-minutes: 30
         run: python -u historical_corpus.py harvest-savills --workers 3
@@ -188,12 +164,6 @@ jobs:
           if test -f data/auction_history/pugh_collection.json; then git add data/auction_history/pugh_collection.json; fi
           if test -f data/auction_history/symonds_sampson_collection.json; then git add data/auction_history/symonds_sampson_collection.json; fi
           if test -f data/auction_history/bidx1_collection.json; then git add data/auction_history/bidx1_collection.json; fi
-          if test -f data/auction_history/eddisons_collection.json; then git add data/auction_history/eddisons_collection.json; fi
-          if test -f data/auction_history/phillip_arnold_collection.json; then git add data/auction_history/phillip_arnold_collection.json; fi
-          if test -f data/auction_history/mchugh_collection.json; then git add data/auction_history/mchugh_collection.json; fi
-          if test -f data/auction_history/mchugh_legacy_collection.json; then git add data/auction_history/mchugh_legacy_collection.json; fi
-          if test -f data/auction_history/strettons_collection.json; then git add data/auction_history/strettons_collection.json; fi
-          if test -f data/auction_history/network_auctions_collection.json; then git add data/auction_history/network_auctions_collection.json; fi
           if test -f data/auction_history/auction_house_northeast_collection.json; then git add data/auction_history/auction_house_northeast_collection.json; fi
           if test -f data/auction_history/auction_house_southyorkshire_collection.json; then git add data/auction_history/auction_house_southyorkshire_collection.json; fi
           if test -f data/auction_history/auction_house_northwest_collection.json; then git add data/auction_history/auction_house_northwest_collection.json; fi
@@ -201,6 +171,8 @@ jobs:
           if test -f data/auction_history/auction_house_eastanglia_collection.json; then git add data/auction_history/auction_house_eastanglia_collection.json; fi
           if test -f data/auction_history/auction_house_national_collection.json; then git add data/auction_history/auction_house_national_collection.json; fi
           if test -f data/auction_history/auction_house_regions_collection.json; then git add data/auction_history/auction_house_regions_collection.json; fi
+          if test -f data/auction_history/network_auctions_collection.json; then git add data/auction_history/network_auctions_collection.json; fi
+          if test -f data/auction_history/pattinson_collection.json; then git add data/auction_history/pattinson_collection.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Bank historical auction lot records and source evidence'
           for attempt in 1 2 3 4; do
