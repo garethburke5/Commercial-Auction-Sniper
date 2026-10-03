@@ -1,0 +1,75 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative contemporaneous press address enrichment of saved Savills catalogue rows",
+  "captured_at_utc": "2026-10-03T06:12:00Z",
+  "source_note": "Contemporaneous press coverage was checked across the three newly banked 2005 first-page Savills catalogue grids. The May coverage did not expose a unique numbered street address for a saved row and the July route yielded no defensible address evidence. The Irish Independent preview for the 24 October auction states the exact auction date and 52-lot catalogue denominator and identifies four properties by full address, property type, locality and compatible guide price. Each has a single compatible row in the saved first-party Savills Auc 412 grid. Only those four unique mappings are retained; all other appearances remain unchanged and all repeat appearances remain separate. This enrichment file sorts after its target source file so the deterministic corpus rebuild applies the evidence after regenerating the target shard.",
+  "saved_source_snapshot": "data/historical_source_corpus/savills_2005_saved_catalogue_grid_lots_20261003.json",
+  "saved_source_snapshot_sha256": "9f526d9d53ab0b0060d7f61f2578471700890baae87ca16c4948933285ba3916",
+  "source_records": [
+    {
+      "source_url": "https://www.independent.ie/news/another-50m-of-uk-properties-coming-to-auction/25962197.html",
+      "source_name": "Irish Independent",
+      "record_identity": "24 October 2005 Savills commercial auction preview",
+      "evidence_excerpt": "Published 19 October 2005, the preview identifies the Monday 24 October Savills commercial auction and its 52-lot catalogue. It names four properties: 8 Gatton Place in Redhill, 11 Old Farm Road in Ayr, Olympia House in Iver, and The Old Fire Station at 244 Shepherd's Bush Road in London, with property types and guide prices compatible with the saved Savills grid."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "source-corpus/savills_2005_saved_catalogue_grid_lots_20261003",
+      "target_appearance_id": "source-corpus|savills-commercial-auc412-pos8",
+      "address": "8 Gatton Place, St Matthew's Road, Redhill, Surrey",
+      "address_basis": "contemporaneous_press_exact_auction_date_catalogue_denominator_unique_property_type_locality_and_compatible_price_match",
+      "source_url": "https://www.independent.ie/news/another-50m-of-uk-properties-coming-to-auction/25962197.html",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020209id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=412&date=24/10/2005",
+        "https://www.independent.ie/news/another-50m-of-uk-properties-coming-to-auction/25962197.html"
+      ],
+      "evidence_note": "The contemporaneous preview identifies 8 Gatton Place as the freehold office investment in Redhill guided at GBP 1.65m-1.75m in the 52-lot Savills auction on 24 October 2005. The saved first-party grid contains one compatible Redhill office row, lot 8, sold for GBP 2.11m."
+    },
+    {
+      "target_shard": "source-corpus/savills_2005_saved_catalogue_grid_lots_20261003",
+      "target_appearance_id": "source-corpus|savills-commercial-auc412-pos10",
+      "address": "11 Old Farm Road, Heathfield Industrial Estate, Ayr, Ayrshire",
+      "address_basis": "contemporaneous_press_exact_auction_date_catalogue_denominator_unique_property_type_locality_and_compatible_price_match",
+      "source_url": "https://www.independent.ie/news/another-50m-of-uk-properties-coming-to-auction/25962197.html",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020209id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=412&date=24/10/2005",
+        "https://www.independent.ie/news/another-50m-of-uk-properties-coming-to-auction/25962197.html"
+      ],
+      "evidence_note": "The contemporaneous preview identifies 11 Old Farm Road as a modern warehouse in Ayr guided at GBP 620,000 in the 52-lot Savills auction on 24 October 2005. The saved first-party grid contains one compatible Ayr industrial row, lot 10, sold for GBP 630,000."
+    },
+    {
+      "target_shard": "source-corpus/savills_2005_saved_catalogue_grid_lots_20261003",
+      "target_appearance_id": "source-corpus|savills-commercial-auc412-pos13",
+      "address": "Olympia House, The Ridgeway Trading Estate, Iver, Buckinghamshire",
+      "address_basis": "contemporaneous_press_exact_auction_date_catalogue_denominator_unique_property_type_locality_and_compatible_price_match",
+      "source_url": "https://www.independent.ie/news/another-50m-of-uk-properties-coming-to-auction/25962197.html",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020209id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=412&date=24/10/2005",
+        "https://www.independent.ie/news/another-50m-of-uk-properties-coming-to-auction/25962197.html"
+      ],
+      "evidence_note": "The contemporaneous preview identifies Olympia House as the freehold office investment in Iver guided at GBP 2.85m-3m in the 52-lot Savills auction on 24 October 2005. The saved first-party grid contains one compatible Iver office row, lot 13, sold for GBP 2.92m."
+    },
+    {
+      "target_shard": "source-corpus/savills_2005_saved_catalogue_grid_lots_20261003",
+      "target_appearance_id": "source-corpus|savills-commercial-auc412-pos20",
+      "address": "The Old Fire Station, 244 Shepherd's Bush Road, Hammersmith, London W6",
+      "address_basis": "contemporaneous_press_exact_auction_date_catalogue_denominator_unique_property_type_locality_and_compatible_price_match",
+      "source_url": "https://www.independent.ie/news/another-50m-of-uk-properties-coming-to-auction/25962197.html",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020209id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=412&date=24/10/2005",
+        "https://www.independent.ie/news/another-50m-of-uk-properties-coming-to-auction/25962197.html"
+      ],
+      "evidence_note": "The contemporaneous preview identifies The Old Fire Station as a Hammersmith pub with ancillary accommodation and upper residential space guided at GBP 2.3m-2.5m in the 52-lot Savills auction on 24 October 2005. The saved first-party grid contains one compatible London leisure row at that price level, lot 20, available at GBP 2.5m."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 4,
+  "address_records_added": 4,
+  "partial_records_added": 0,
+  "catalogues_checked": 3,
+  "candidates_retained": 4,
+  "historical_completeness_declared": false
+}
