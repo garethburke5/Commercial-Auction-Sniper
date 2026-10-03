@@ -17,6 +17,9 @@ python scripts/harvest_clive_emson_canonical.py --enrich-next --workers 4
 python scripts/harvest_barnett_ross_canonical.py --all-incomplete
 python scripts/harvest_auction_house_northeast.py
 python scripts/harvest_auction_house_south_yorkshire.py
+python scripts/harvest_auction_house_north_west.py
+python scripts/harvest_auction_house_south_west.py
+python scripts/harvest_auction_house_east_anglia.py
 python historical_corpus.py build
 ```
 
@@ -71,6 +74,12 @@ deeper retained archive. Every paginated online result is banked independently,
 including repeated property appearances, no-bid and withdrawn states. Complete
 archive pagination is reported separately from unavailable original catalogue
 denominators, so catalogues are not falsely marked complete.
+
+Auction House North West, South West and East Anglia use the same strict model:
+every retained page is captured, stable redirect IDs prevent speculative merges,
+and exact lot-end timestamps remain distinct from original catalogue dates.
+Regional archive pagination is reconciled independently while unavailable
+catalogue denominators keep those original catalogues explicitly incomplete.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including
