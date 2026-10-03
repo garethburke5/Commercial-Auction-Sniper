@@ -27,14 +27,19 @@ def test_catalogue_rows_reconcile_and_keep_all_property_sectors():
     assert all(row["record_quality"] == "address_record" for row in rows)
 
 
-def test_catalogue_without_property_identity_is_not_complete():
-    raw = b'''<p>Auction Date: 30th November 2011</p><table><tr>
+def test_linkless_legacy_row_uses_exact_auction_and_lot_identity():
+    raw = b'''<p>Auction Date: 31st October 2002</p><table><tr>
     <td>A</td><td class="address">3 Shepherd Street, London W1J 7HL</td><td>Withdrawn</td>
     </tr></table>'''
-    rows, reconciliation = parse_catalogue(raw, {"key": "201112-0"}, {})
-    assert rows == []
-    assert reconciliation["catalogue_complete"] is False
-    assert reconciliation["missing_property_id_lots"] == ["A"]
+    rows, reconciliation = parse_catalogue(
+        raw, {"key": "200211-0"}, {"source_url": "https://example.test/catalogue"}
+    )
+    assert reconciliation["catalogue_complete"] is True
+    assert reconciliation["missing_property_id_lots"] == []
+    assert rows[0]["source_lot_id"] == "archive-row:a"
+    assert rows[0]["identity_method"] == "auction_lot_number"
+    assert rows[0]["property_id"] is None
+    assert rows[0]["original_url"] == "https://example.test/catalogue"
 
 
 def test_legacy_pdf_particulars_are_stable_source_identity():
@@ -52,4 +57,6 @@ def test_result_semantics_remain_distinct():
     assert status_and_prices("Sold Prior") == ("sold prior", None, None)
     assert status_and_prices("Available at £375,000") == ("available", None, 375000)
     assert status_and_prices("£159,000") == ("sold", 159000, None)
+    assert status_and_prices("£2.09M") == ("sold", 2090000, None)
+    assert status_and_prices("£82.5K") == ("sold", 82500, None)
     assert status_and_prices("Withdrawn Prior - Refer") == ("withdrawn prior", None, None)
