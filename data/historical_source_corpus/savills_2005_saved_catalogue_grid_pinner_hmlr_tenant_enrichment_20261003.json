@@ -1,0 +1,54 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative official HM Land Registry exact-transaction and contemporaneous tenant address enrichment",
+  "captured_at_utc": "2026-10-03T15:24:00Z",
+  "source_note": "The saved first-party Savills grid identifies 16 May 2005 lot 2 as a Pinner retail property sold for exactly GBP 630,000. A contemporaneous Independent preview of that exact sale describes the Pinner property as a Victorian shop and offices occupied by an estate agent. The official HM Land Registry full-year Price Paid Data contains exactly one Pinner/HA5 transaction at GBP 630,000 in the 180 days after the auction: Chapel Lane Chambers, 1 Chapel Lane, completing 29 days later on 14 June 2005. Historical Companies House evidence separately records the estate agency Gibbs Gillespie at that exact address. The exact auction/date/lot, town, hammer price, short completion, property description and occupier use therefore form a single conservative identity link. No other appearance is changed and no catalogue-completeness claim is made.",
+  "saved_source_snapshot": "data/historical_source_corpus/savills_2005_saved_catalogue_grid_lots_20261003.json",
+  "saved_source_snapshot_sha256": "9f526d9d53ab0b0060d7f61f2578471700890baae87ca16c4948933285ba3916",
+  "source_records": [
+    {
+      "source_url": "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2005.csv",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Official 2005 transaction {2A289EA0-E4AE-CDC8-E050-A8C063054829}",
+      "evidence_excerpt": "GBP 630,000; completion 14 June 2005; Chapel Lane Chambers, 1 Chapel Lane, Pinner, HA5 1AA; freehold. This is the sole exact-price Pinner/HA5 transaction within 180 days after the auction."
+    },
+    {
+      "source_url": "https://www.the-independent.com/property/house-and-home/investment-shopping-around-526217.html",
+      "source_name": "The Independent",
+      "record_identity": "16 May 2005 Savills commercial auction preview",
+      "evidence_excerpt": "The contemporaneous preview identifies the Pinner property in the 16 May Savills auction as a Victorian shop and offices occupied by an estate agent, with GBP 30,500 annual rent and a GBP 475,000 guide."
+    },
+    {
+      "source_url": "https://find-and-update.company-information.service.gov.uk/company/03638110/filing-history?page=2",
+      "source_name": "Companies House",
+      "record_identity": "Gibbs Gillespie PLC registered-office history",
+      "evidence_excerpt": "The filing history records the estate agency's former registered office as Chapel Lane Chambers, 1 Chapel Lane, Pinner, HA5 1AA."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "source-corpus/savills_2005_saved_catalogue_grid_lots_20261003",
+      "target_appearance_id": "source-corpus|savills-commercial-auc371-pos2",
+      "address": "Chapel Lane Chambers, 1 Chapel Lane, Pinner, HA5 1AA",
+      "postcode": "HA5 1AA",
+      "address_basis": "official_hmlr_unique_exact_price_town_and_short_completion_match_corroborated_by_contemporaneous_property_description_and_historical_tenant_use",
+      "source_url": "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2005.csv",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020158id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=371&date=16/05/2005",
+        "https://www.the-independent.com/property/house-and-home/investment-shopping-around-526217.html",
+        "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2005.csv",
+        "https://find-and-update.company-information.service.gov.uk/company/03638110/filing-history?page=2"
+      ],
+      "evidence_note": "Savills Auc 371 lot 2 is the Pinner retail property sold for exactly GBP 630,000 on 16 May 2005. The contemporaneous auction preview describes it as a Victorian shop and offices occupied by an estate agent. Official HM Land Registry transaction {2A289EA0-E4AE-CDC8-E050-A8C063054829} is the sole Pinner/HA5 exact-price transaction within 180 days and identifies Chapel Lane Chambers, 1 Chapel Lane, completing 29 days later on 14 June 2005. Companies House independently records an estate agency at that exact address."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 1,
+  "address_records_added": 1,
+  "partial_records_added": 0,
+  "exact_price_locality_candidates_checked": 37,
+  "candidates_retained": 1,
+  "historical_completeness_declared": false
+}
