@@ -16,6 +16,7 @@ on:
       - scripts/harvest_cheffins_history.py
       - scripts/harvest_btg_eddisons_catalogues.py
       - scripts/harvest_anderson_garland_results.py
+      - scripts/harvest_future_property_auctions.py
       - scripts/harvest_auction_house_northeast.py
       - scripts/harvest_auction_house_south_yorkshire.py
       - scripts/harvest_auction_house_north_west.py
@@ -35,6 +36,7 @@ on:
       - tests/test_cheffins_history.py
       - tests/test_btg_eddisons_catalogues.py
       - tests/test_anderson_garland_results.py
+      - tests/test_future_property_auctions.py
       - tests/test_auction_house_northeast.py
       - tests/test_auction_house_south_yorkshire.py
       - tests/test_auction_house_north_west.py
