@@ -101,6 +101,18 @@ the canonical appearance identity, preserves earlier evidence unchanged, and
 admits only IDs not already banked. Pagination completeness remains separate
 from unavailable original catalogue denominators.
 
+Pugh's retained first-party property-search archive is captured as a canonical
+appearance source across residential, commercial, mixed-use and land rows. The
+first pass reconciles every published result page and banks stable property IDs,
+addresses, auction dates, lot numbers, descriptions, guide/result prices and
+outcomes with immutable HTML snapshots. Later runs stop after a complete page of
+previously observed IDs, so the hourly workflow collects a changed leading edge
+without replaying thousands of unchanged legacy rows. Two earlier Pugh research
+records are merged only on exact normalized address, matching lot number and a
+single auction date within fourteen days; otherwise repeated appearances remain
+separate. Original auction denominators are unavailable, so archive pagination
+completeness never falsely marks individual auction catalogues complete.
+
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including
 those outside the London/National archive date list. Auction IDs prevent same-day
