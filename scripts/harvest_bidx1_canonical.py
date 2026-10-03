@@ -100,16 +100,18 @@ def exact_label(soup: BeautifulSoup, labels: set[str]) -> str | None:
 
 
 def parse_detail(html: str, source_url: str, auction_id: str,
-                 index_row: dict, evidence: dict) -> dict:
+                 index_row: dict, evidence: dict,
+                 auction_date_override: str | None = None) -> dict:
     soup = BeautifulSoup(html, "lxml")
     text = soup.get_text(" ", strip=True)
     source_match = PROPERTY_RE.search(source_url)
     if not source_match or source_match.group(1) != index_row["source_id"]:
         raise ValueError("detail URL/property ID mismatch")
     date_match = DATE_RE.search(text)
-    if not date_match:
+    if not date_match and not auction_date_override:
         raise ValueError("detail page has no exact closing date")
-    auction_date = datetime.strptime(date_match.group(1), "%d/%m/%Y").date().isoformat()
+    auction_date = (datetime.strptime(date_match.group(1), "%d/%m/%Y").date().isoformat()
+                    if date_match else auction_date_override)
     address = heading_address(soup)
     if not address:
         raise ValueError("detail page has no postcode-bearing address heading")
@@ -117,8 +119,6 @@ def parse_detail(html: str, source_url: str, auction_id: str,
     if not lot_number:
         lot_match = LOT_RE.search(text)
         lot_number = lot_match.group(1).upper() if lot_match else None
-    if not lot_number:
-        raise ValueError("detail page and result card have no lot number")
 
     lower = text.lower()
     sale_match = re.search(r"Sold\s+for\s+£\s*[\d,]+(?:\.\d+)?", text, re.I)
@@ -150,7 +150,8 @@ def parse_detail(html: str, source_url: str, auction_id: str,
         locality=address, sector=sector, property_type=property_type,
         sale_price=sale_price, status=status, property_id=index_row["source_id"],
         identity_method="source_property_id", record_quality="address_record",
-        auction_date_basis="exact individual lot closing date published by source",
+        auction_date_basis=("exact individual lot closing date published by source" if date_match else
+            f"same exact BidX1 auction ID {auction_id}; all dated sibling detail pages publish {auction_date}"),
         source_evidence=evidence, index_result_text=index_row.get("index_text"),
     )
     row["appearance_id"] = f"BidX1|auction:{auction_id}|property:{index_row['source_id']}"
@@ -183,10 +184,10 @@ def harvest() -> None:
             if expected != len(index_rows):
                 raise ValueError(f"published result count {expected} != {len(index_rows)} stable property links")
 
-            rows, detail_failures = [], []
+            rows, detail_failures, undated = [], [], []
             for index_row in index_rows:
                 try:
-                    raw = fetch(session, index_row["url"], b"Closing Time")
+                    raw = fetch(session, index_row["url"], b"Property Summary")
                     sha = corpus.digest(raw)
                     snapshot = corpus.DATA / "sources/bidx1" / f"auction-{auction_id}/property-{index_row['source_id']}-{sha[:16]}.json.gz"
                     evidence = {"source_url": index_row["url"], "index_url": index_url,
@@ -195,13 +196,35 @@ def harvest() -> None:
                         "sha256": sha, "retrieved_at": corpus.now(),
                         "basis": "first-party BidX1 auction result card and exact property detail page"}
                     html = raw.decode("utf-8", "replace")
-                    row = parse_detail(html, index_row["url"], auction_id, index_row, evidence)
                     corpus.save_gzip(snapshot, {"evidence": evidence, "html": html})
-                    rows.append(row)
+                    try:
+                        rows.append(parse_detail(html, index_row["url"], auction_id,
+                                                 index_row, evidence))
+                    except ValueError as exc:
+                        if str(exc) == "detail page has no exact closing date" and re.search(
+                                r"\b(?:Withdrawn|Sold)\s+Prior\b", html, re.I):
+                            undated.append((index_row, html, evidence))
+                        else:
+                            raise
                 except Exception as exc:
                     detail_failures.append({"source_id": index_row["source_id"],
                         "url": index_row["url"], "error": f"{type(exc).__name__}: {exc}"[:500]})
                 time.sleep(0.3)
+
+            dated = sorted({row["auction_date"] for row in rows})
+            if undated and len(dated) == 1:
+                for index_row, html, evidence in undated:
+                    try:
+                        rows.append(parse_detail(html, index_row["url"], auction_id,
+                                                 index_row, evidence, dated[0]))
+                    except Exception as exc:
+                        detail_failures.append({"source_id": index_row["source_id"],
+                            "url": index_row["url"], "error": f"{type(exc).__name__}: {exc}"[:500]})
+            elif undated:
+                for index_row, _, _ in undated:
+                    detail_failures.append({"source_id": index_row["source_id"],
+                        "url": index_row["url"],
+                        "error": "undated prior outcome has no single reconciled sibling auction date"})
 
             unique_ids = {row["source_lot_id"] for row in rows}
             complete = not detail_failures and len(rows) == expected and len(unique_ids) == expected

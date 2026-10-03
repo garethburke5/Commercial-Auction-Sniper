@@ -33,3 +33,19 @@ def test_detail_preserves_exact_date_address_and_source_identity():
     assert row["sector"] == "commercial"
     assert row["sale_price"] == 5000
     assert row["record_quality"] == "address_record"
+
+
+def test_withdrawn_prior_accepts_only_explicit_reconciled_auction_date():
+    html = """
+    <html><body><h2>9, 9a &amp; 9b Station Buildings &amp; 1 Thomas Lane, Catford, SE6 4QZ</h2>
+    <ul><li>Auction</li><li>United Kingdom</li><li>Mixed Use</li><li>Commercial</li></ul>
+    <h4>Withdrawn Prior</h4><h4>Property Summary</h4></body></html>
+    """
+    index_row = {"source_id": "82154", "lot_number": None, "index_text": "Withdrawn Prior"}
+    row = parse_detail(html, "https://bidx1.com/en/en-gb/auction/property/82154",
+                       "4561", index_row, {"sha256": "def"}, "2022-10-20")
+    assert row["auction_date"] == "2022-10-20"
+    assert row["lot_number"] is None
+    assert row["status"] == "withdrawn_prior"
+    assert row["sector"] == "commercial"
+    assert "same exact BidX1 auction ID 4561" in row["auction_date_basis"]
