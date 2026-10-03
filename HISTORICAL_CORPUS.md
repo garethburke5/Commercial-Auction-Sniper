@@ -24,6 +24,7 @@ python scripts/harvest_auction_house_national.py
 python scripts/harvest_auction_house_regions.py
 python scripts/harvest_bidx1_canonical.py
 python scripts/harvest_btg_eddisons_catalogues.py 4
+python scripts/harvest_anderson_garland_results.py
 python historical_corpus.py build
 ```
 
@@ -117,6 +118,13 @@ only when distinct first-party property identities and captured pages reconcile
 exactly to its published ``results found`` denominator. Online appearances use
 the published closing day; lots in two-day live-stream catalogues keep a null
 individual auction date while preserving the exact published date range.
+
+Anderson & Garland collection preserves every sold-property block on its
+first-party recent-results page, including address text, description, image,
+guide and sale price. The page is curated rather than a dated catalogue: exact
+auction dates remain null and the records are explicitly excluded from complete
+catalogue counts. Rex listing IDs provide identity where retained; otherwise an
+exact source-heading hash is used without merging across other auctioneers.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The
