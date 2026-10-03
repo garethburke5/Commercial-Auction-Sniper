@@ -1,11 +1,11 @@
 {
-  "checked_at": "2026-10-03T07:28:29.057595+00:00",
-  "regions_requested": 7,
-  "regions_complete": 6,
-  "pages_captured": 73,
-  "source_rows": 1881,
-  "overlapping_existing_rows": 1881,
-  "run_new_appearances": 0,
+  "checked_at": "2026-10-03T08:06:18.171259+00:00",
+  "regions_requested": 11,
+  "regions_complete": 10,
+  "pages_captured": 87,
+  "source_rows": 2215,
+  "overlapping_existing_rows": 2056,
+  "run_new_appearances": 159,
   "failures": [
     {
       "page": 3,
@@ -273,6 +273,123 @@
         "29": 30,
         "30": 30,
         "31": 14
+      },
+      "failures": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Hull & East Yorkshire",
+      "source_url": "https://www.auctionhouse.co.uk/hullandeastyorkshire/auction/past-auctions",
+      "pages_expected": 4,
+      "pages_captured": 4,
+      "current_archive_rows": 94,
+      "overlapping_existing_rows": 53,
+      "run_new_appearances": 41,
+      "property_appearances_captured": 94,
+      "address_records": 94,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2018-10-18",
+      "latest_lot_end_date": "2026-10-06",
+      "by_status": {
+        "sold": 47,
+        "sold_after": 18,
+        "sold_prior": 14,
+        "no_bids": 6,
+        "last_bid": 5,
+        "withdrawn": 3,
+        "postponed": 1
+      },
+      "page_counts": {
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 4
+      },
+      "failures": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Coventry & Warwickshire",
+      "source_url": "https://www.auctionhouse.co.uk/coventryandwarwickshire/auction/past-auctions",
+      "pages_expected": 5,
+      "pages_captured": 5,
+      "current_archive_rows": 139,
+      "overlapping_existing_rows": 46,
+      "run_new_appearances": 93,
+      "property_appearances_captured": 139,
+      "address_records": 139,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2019-06-13",
+      "latest_lot_end_date": "2026-09-22",
+      "by_status": {
+        "sold": 96,
+        "sold_prior": 25,
+        "sold_after": 11,
+        "last_bid": 2,
+        "postponed": 5
+      },
+      "page_counts": {
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30,
+        "5": 19
+      },
+      "failures": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Manchester",
+      "source_url": "https://www.auctionhouse.co.uk/manchester/auction/past-auctions",
+      "pages_expected": 3,
+      "pages_captured": 3,
+      "current_archive_rows": 70,
+      "overlapping_existing_rows": 45,
+      "run_new_appearances": 25,
+      "property_appearances_captured": 70,
+      "address_records": 70,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2020-02-20",
+      "latest_lot_end_date": "2026-09-29",
+      "by_status": {
+        "sold": 60,
+        "sold_prior": 5,
+        "last_bid": 3,
+        "no_bids": 1,
+        "postponed": 1
+      },
+      "page_counts": {
+        "1": 30,
+        "2": 30,
+        "3": 10
+      },
+      "failures": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House North Yorkshire & Tees Valley",
+      "source_url": "https://www.auctionhouse.co.uk/teesvalley/auction/past-auctions",
+      "pages_expected": 2,
+      "pages_captured": 2,
+      "current_archive_rows": 31,
+      "overlapping_existing_rows": 31,
+      "run_new_appearances": 0,
+      "property_appearances_captured": 31,
+      "address_records": 31,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2025-10-15",
+      "latest_lot_end_date": "2026-09-29",
+      "by_status": {
+        "sold_after": 3,
+        "sold_prior": 5,
+        "sold": 12,
+        "no_bids": 5,
+        "postponed": 5,
+        "withdrawn": 1
+      },
+      "page_counts": {
+        "1": 30,
+        "2": 1
       },
       "failures": [],
       "archive_pagination_complete": true
