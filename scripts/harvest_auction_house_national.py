@@ -287,9 +287,10 @@ def harvest() -> None:
         "lots_captured": len(current),
         "completion_scope": "all rows across every retained first-party National results page",
         "source_property_ids": sorted(seen_current),
-        "errors": failures + [{
-            "error": "Aggregator pagination is complete; original regional catalogue denominators are not published"
-        }],
+        "errors": failures,
+        "notes": [
+            "Aggregator pagination is complete; original regional catalogue denominators are not published"
+        ],
         "checked_at": corpus.now(),
     })
     print(json.dumps(summary, indent=2), flush=True)
