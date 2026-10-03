@@ -1,0 +1,45 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative saved order-of-sale and official HM Land Registry cross-source address enrichment",
+  "captured_at_utc": "2026-10-03T09:02:00Z",
+  "source_note": "The saved EIG public manifest explicitly records ordered result position 58 as an Upper Holloway N19 leasehold second-floor flat sold post auction. The independently saved Savills/PropertyAuctions AID 920 manifest has numeric lots 1 through 202 plus a single later addition, lot 72A; its lot 58 is the same N19 leasehold flat. The mapping before lot 72A is independently validated by every available exact-price, postcode-district, tenure and property-class anchor. The preserved official HM Land Registry evidence for AID 920 lot 58 identifies the full address. No order inference was used beyond the insertion-free range before lot 72A, and no other addressless card was promoted by position alone.",
+  "source_records": [
+    {
+      "source_url": "https://www.eigpropertyauctions.co.uk/search/full-auction-details/17999?view=1&order=7",
+      "source_name": "Essential Information Group public Savills auction manifest",
+      "record_identity": "Savills auction 17999 ordered result position 58",
+      "evidence_excerpt": "Ordered result position 58 is an Upper Holloway N19 leasehold second-floor flat, sold post auction for an undisclosed amount."
+    },
+    {
+      "source_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=920",
+      "source_name": "Saved Savills/PropertyAuctions result manifest",
+      "record_identity": "Savills/PropertyAuctions AID 920 lot 58",
+      "evidence_excerpt": "Lot 58 is a vacant leasehold flat in London N19; the saved official HM Land Registry exact-price match supplies the full address."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "source-corpus/savills_eig_17999_public_manifest_first100_20260928",
+      "target_appearance_id": "source-corpus|savills-eig|17999|lotid-756481",
+      "address": "Second Floor Flat, 99 Junction Road, London, N19 5QX",
+      "postcode": "N19 5QX",
+      "address_basis": "conservative_saved_order_position_pre_addition_locality_tenure_property_class_and_official_hmlr_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=285000&max_price=285000&min_date=2014-10-28&max_date=2015-02-25&relative_url_root=%2Fapp%2Fppd&postcode=N19",
+      "source_urls": [
+        "https://www.eigpropertyauctions.co.uk/lot/40170996-d747-4382-898b-962f917213cc",
+        "https://www.eigpropertyauctions.co.uk/search/full-auction-details/17999?view=1&order=7",
+        "https://cdn.eigpropertyauctions.co.uk/propertyauctions/lots/40170996-d747-4382-898b-962f917213cc/profile.jpg",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=920",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=285000&max_price=285000&min_date=2014-10-28&max_date=2015-02-25&relative_url_root=%2Fapp%2Fppd&postcode=N19"
+      ],
+      "evidence_note": "The saved EIG appearance is ordered result position 58, an Upper Holloway N19 leasehold second-floor flat sold post auction on 28 October 2014. In the independently saved AID 920 manifest, numeric lot 58 is the matching London N19 vacant leasehold flat. All independently exact-matched positions before the later 72A insertion confirm position equals numeric lot number in this range. The preserved official HM Land Registry evidence for AID 920 lot 58 identifies Second Floor Flat, 99 Junction Road, London, N19 5QX."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 1,
+  "address_records_added": 1,
+  "partial_records_added": 0,
+  "historical_completeness_declared": false
+}
