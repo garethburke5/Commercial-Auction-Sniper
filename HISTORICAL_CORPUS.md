@@ -103,15 +103,18 @@ from unavailable original catalogue denominators.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The
-first pass reconciles every published result page and banks stable property IDs,
+first pass reconciles every published result page and banks property IDs,
 addresses, auction dates, lot numbers, descriptions, guide/result prices and
-outcomes with immutable HTML snapshots. Later runs stop after a complete page of
-previously observed IDs, so the hourly workflow collects a changed leading edge
-without replaying thousands of unchanged legacy rows. Two earlier Pugh research
-records are merged only on exact normalized address, matching lot number and a
-single auction date within fourteen days; otherwise repeated appearances remain
-separate. Original auction denominators are unavailable, so archive pagination
-completeness never falsely marks individual auction catalogues complete.
+outcomes with immutable HTML snapshots. Incomplete follow-ups fetch only missing
+or failed pages; complete runs stop after a full page of previously observed
+appearances. A stable property URL is property identity rather than appearance
+identity: the collector retains repeated URLs when exact auction date or lot
+differs. Two earlier Pugh research records are merged only on exact normalized
+address, matching lot number and a single auction date within fourteen days;
+otherwise repeated appearances remain separate. Archive completeness requires
+every page and the sum of page-row counts to reconcile to the published archive
+total. Original auction denominators remain unavailable, so this never falsely
+marks individual auction catalogues complete.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including

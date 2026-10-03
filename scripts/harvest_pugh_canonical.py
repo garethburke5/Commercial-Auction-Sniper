@@ -1,7 +1,9 @@
 """Bank Pugh's retained first-party property-search archive.
 
-Stable property URLs identify appearances. The first pass reconciles every
-result page; later passes stop at a complete page of previously observed IDs.
+The first pass reconciles every result page. Incomplete follow-ups fetch only
+missing/failed pages; complete follow-ups stop at a page of known appearances.
+A property URL is a property identity, not necessarily one auction appearance,
+so a repeated URL is retained when its exact auction date or lot differs.
 """
 from __future__ import annotations
 
@@ -105,7 +107,7 @@ def parse_page(raw: bytes, requested_url: str, evidence: dict) -> tuple[list[dic
             page_numbers.extend(int(v) for v in parse_qs(urlparse(link.get("href") or "").query).get("page", []))
         except ValueError:
             continue
-    rows, seen = [], set()
+    rows, seen = [], {}
     for tr in soup.select("table tr"):
         cells = tr.find_all("td")
         link = tr.select_one('a[href*="/property/"]')
@@ -116,9 +118,6 @@ def parse_page(raw: bytes, requested_url: str, evidence: dict) -> tuple[list[dic
         if not match:
             continue
         source_id = match.group(1)
-        if source_id in seen:
-            raise ValueError(f"Repeated property ID {source_id} on {requested_url}")
-        seen.add(source_id)
         values = [clean(cell.get_text(" ", strip=True)) for cell in cells]
         date_text = next((v for v in values if v and DATE_RE.fullmatch(v)), None)
         if not date_text:
@@ -134,6 +133,12 @@ def parse_page(raw: bytes, requested_url: str, evidence: dict) -> tuple[list[dic
         lot = clean(values[0])
         if lot and not re.fullmatch(r"\d+[A-Za-z]?", lot):
             lot = None
+        appearance_key = (source_id, auction_date, lot)
+        if appearance_key in seen:
+            if seen[appearance_key] == values:
+                continue
+            raise ValueError(f"Conflicting repeated appearance {appearance_key} on {requested_url}")
+        seen[appearance_key] = values
         auction_id = f"pugh:{auction_date}:{slug(venue or 'auction')}"
         row = corpus.base_row("Pugh Auctioneers", auction_id, auction_date, lot, source_id, original_url)
         postcode_match = corpus.PC.search(address or "")
@@ -208,13 +213,24 @@ def harvest() -> None:
     except (OSError, ValueError, TypeError):
         previous = {}
     observed_before = set(previous.get("observed_source_ids") or [])
-    full_scan = not (previous.get("archive_pagination_complete") and observed_before)
+    repair_mode = bool(observed_before and not previous.get("archive_pagination_complete"))
+    full_scan = not observed_before
+    known_pages = {
+        int(page) for page in (previous.get("pages_captured_this_run") or [])
+        if str(page).isdigit()
+    } if observed_before else set()
+    previous_failures = {
+        int(item["page"]) for item in (previous.get("failures") or [])
+        if str(item.get("page", "")).isdigit()
+    }
     existing_path = corpus.DATA / "appearances/pugh-auctions/property-search.jsonl.gz"
     existing = list(corpus.iter_rows(existing_path)) if existing_path.exists() else []
-    existing_ids = {str(row.get("source_lot_id")) for row in existing if row.get("source_lot_id")}
+    existing_appearance_ids = {str(row.get("appearance_id")) for row in existing if row.get("appearance_id")}
     legacy = legacy_pugh_rows()
     enriched_by_path, rows_to_write = defaultdict(list), []
-    observed, pages_captured, page_counts = set(observed_before), [], {}
+    observed = set(observed_before)
+    pages_captured = sorted(known_pages)
+    page_counts = dict(previous.get("page_counts") or {}) if observed_before else {}
     failures, run_new = [], []
     result_count, last_page = None, 1
 
@@ -225,7 +241,8 @@ def harvest() -> None:
         current_ids = {row["source_lot_id"] for row in parsed}
         observed.update(current_ids)
         page_counts[str(current_page)] = len(parsed)
-        pages_captured.append(current_page)
+        if current_page not in pages_captured:
+            pages_captured.append(current_page)
         for row in parsed:
             if not bankable(row):
                 continue
@@ -239,8 +256,9 @@ def harvest() -> None:
                 enriched_by_path[path].append(merged)
                 continue
             rows_to_write.append(row)
-            if row["source_lot_id"] not in existing_ids:
+            if row["appearance_id"] not in existing_appearance_ids:
                 run_new.append(row)
+                existing_appearance_ids.add(row["appearance_id"])
         print(f"PUGH page={current_page}/{last_page} rows={len(parsed)} new={len(run_new)}", flush=True)
         return bool(current_ids and current_ids.issubset(observed_before))
 
@@ -254,6 +272,8 @@ def harvest() -> None:
             "published_property_rows": result_count, "observed_property_ids": len(observed),
             "observed_source_ids": sorted(observed), "pages_expected": last_page,
             "pages_captured_this_run": sorted(pages_captured), "page_counts": page_counts,
+            "published_rows_reconciled": sum(page_counts.get(str(page), 0)
+                                               for page in range(1, last_page + 1)),
             "archive_pagination_complete": False, "run_new_appearances": len(run_new),
             "failures": failures,
         })
@@ -262,18 +282,26 @@ def harvest() -> None:
         first = fetch_page(1)
         _, first_rows, result_count, first_last = first
         last_page = first_last or (math.ceil(result_count / len(first_rows)) if result_count else 1)
-        stop = process(first) if not full_scan else False
+        first_seen_before = process(first) if not full_scan else False
+        stop = bool(first_seen_before and not repair_mode)
     except Exception as exc:
         failures.append({"page": 1, "url": page_url(1),
                          "error": f"{type(exc).__name__}: {exc}"[:500]})
         print("FAILED", failures[-1], flush=True)
         stop = True
 
+    if repair_mode:
+        targets = sorted(((set(range(1, last_page + 1)) - set(pages_captured)) |
+                          previous_failures) - {1})
+    else:
+        targets = list(range(2, last_page + 1))
+
     with ThreadPoolExecutor(max_workers=12) as pool:
-        for start in range(2, last_page + 1, 12):
+        for offset in range(0, len(targets), 12):
             if stop:
                 break
-            futures = {pool.submit(fetch_page, p): p for p in range(start, min(start + 12, last_page + 1))}
+            batch = targets[offset:offset + 12]
+            futures = {pool.submit(fetch_page, page): page for page in batch}
             results = {}
             for future in as_completed(futures):
                 current_page = futures[future]
@@ -286,7 +314,7 @@ def harvest() -> None:
             for current_page in sorted(results):
                 try:
                     seen_before = process(results[current_page])
-                    if not full_scan and seen_before:
+                    if not full_scan and not repair_mode and seen_before:
                         stop = True
                         break
                 except Exception as exc:
@@ -294,19 +322,23 @@ def harvest() -> None:
                                      "error": f"{type(exc).__name__}: {exc}"[:500]})
                     print("FAILED", failures[-1], flush=True)
             checkpoint()
-            if failures and not full_scan:
+            if failures and not full_scan and not repair_mode:
                 break
     corpus.write_rows("pugh-auctions/property-search", rows_to_write)
     for path, rows in enriched_by_path.items():
         key = str(path.relative_to(corpus.DATA / "appearances")).removesuffix(".jsonl.gz")
         corpus.write_rows(key, rows)
     saved = list(corpus.iter_rows(existing_path)) if existing_path.exists() else []
-    complete = bool(result_count and not failures and len(observed) == result_count and
-                    (not full_scan or len(pages_captured) == last_page))
+    published_rows_reconciled = sum(page_counts.get(str(page), 0)
+                                    for page in range(1, last_page + 1))
+    complete = bool(result_count and not failures and
+                    len(set(pages_captured)) == last_page and
+                    published_rows_reconciled == result_count)
     summary = {"checked_at": corpus.now(), "source_url": INDEX,
                "published_property_rows": result_count, "observed_property_ids": len(observed),
                "observed_source_ids": sorted(observed), "pages_expected": last_page,
-               "pages_captured_this_run": pages_captured, "page_counts": page_counts,
+               "pages_captured_this_run": sorted(pages_captured), "page_counts": page_counts,
+               "published_rows_reconciled": published_rows_reconciled,
                "archive_pagination_complete": complete,
                "property_appearances_captured": len(saved) + sum(len(v) for v in enriched_by_path.values()),
                "canonical_shard_rows": len(saved),
@@ -322,6 +354,8 @@ def harvest() -> None:
         "auction_date": None, "catalogue_complete": False,
         "archive_pagination_complete": complete, "lots_captured": summary["property_appearances_captured"],
         "source_url": INDEX, "pages_expected": last_page,
+        "published_property_rows": result_count,
+        "published_rows_reconciled": published_rows_reconciled,
         "completion_scope": "all retained first-party property-search rows; original auction denominators unavailable",
         "errors": failures, "checked_at": corpus.now()})
     print(json.dumps({k: v for k, v in summary.items() if k != "observed_source_ids"}, indent=2), flush=True)

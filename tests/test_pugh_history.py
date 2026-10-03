@@ -28,6 +28,18 @@ def test_future_pending_is_excluded_but_completed_result_is_kept():
     assert kept == ["abc1", "abc2", "abc4"]
 
 
+def test_repeated_property_url_is_kept_for_distinct_auction_appearances():
+    html = b'''<html><body><h2>Search Results: 2 properties</h2><table>
+    <tr><td>1</td><td><a href="/property/reoffer1">1 Repeat Road, Leeds LS1 1AA</a></td><td>January Auction</td><td>01/01/2024</td><td>Sold for \xc2\xa3100,000</td></tr>
+    <tr><td>7</td><td><a href="/property/reoffer1">1 Repeat Road, Leeds LS1 1AA</a></td><td>February Auction</td><td>01/02/2024</td><td>Sold for \xc2\xa3110,000</td></tr>
+    </table></body></html>'''
+    rows, total, _ = parse_page(html, "https://example.test?page=96", {})
+    assert total == 2 and len(rows) == 2
+    assert {row["source_lot_id"] for row in rows} == {"reoffer1"}
+    assert len({row["appearance_id"] for row in rows}) == 2
+    assert {row["auction_date"] for row in rows} == {"2024-01-01", "2024-02-01"}
+
+
 def test_legacy_merge_requires_one_close_date_candidate():
     row = {"auction_date": "2013-09-12"}
     candidate = (None, {"auction_date": "2013-09-05"})
