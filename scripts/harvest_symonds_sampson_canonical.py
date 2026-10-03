@@ -16,6 +16,7 @@ import json
 import re
 import sys
 import time
+import threading
 from pathlib import Path
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
@@ -36,13 +37,21 @@ STREET_RE = re.compile(
     r"\b(?:street|road|lane|avenue|close|drive|way|place|square|hill|row|terrace|court|gardens|"
     r"crescent|park|parade|wharf|quay|yard|mews|villas?|house|cottage|farm|barn|works|estate|"
     r"shop|unit|plot|land at|land off|land on|land north|land south|land east|land west)\b", re.I)
+_rate_lock = threading.Lock()
+_last_request = 0.0
 
 
-def fetch_reader(url: str, attempts: int = 4) -> tuple[str, bytes]:
+def fetch_reader(url: str, attempts: int = 6) -> tuple[str, bytes]:
+    global _last_request
     reader_url = READER + url.split("://", 1)[1]
     last = None
     for attempt in range(attempts):
         try:
+            with _rate_lock:
+                wait = 1.25 - (time.monotonic() - _last_request)
+                if wait > 0:
+                    time.sleep(wait)
+                _last_request = time.monotonic()
             req = Request(reader_url, headers={"User-Agent": "Commercial-Auction-Sniper/1.0"})
             with urlopen(req, timeout=90) as response:
                 raw = response.read()
@@ -52,7 +61,7 @@ def fetch_reader(url: str, attempts: int = 4) -> tuple[str, bytes]:
         except Exception as exc:
             last = exc
             if attempt + 1 < attempts:
-                time.sleep(2 ** attempt)
+                time.sleep(min(60, 5 * (2 ** attempt)))
     raise RuntimeError(f"reader failed for {url}: {last}")
 
 
@@ -127,7 +136,7 @@ def parse_property(markdown: str, url: str, evidence: dict) -> dict:
     return row
 
 
-def harvest(workers: int = 8) -> None:
+def harvest(workers: int = 2) -> None:
     _, sitemap_raw = fetch_reader(SITEMAP)
     sitemap_text = sitemap_raw.decode("utf-8", "replace")
     urls = discover(sitemap_text)
@@ -137,7 +146,11 @@ def harvest(workers: int = 8) -> None:
     corpus.save_gzip(sitemap_snapshot, {"source_url": SITEMAP, "transport_url": READER + SITEMAP.split('://',1)[1],
                                        "retrieved_at": corpus.now(), "sha256": corpus.digest(sitemap_raw),
                                        "markdown": sitemap_text})
-    rows, failures = [], []
+    existing_path = corpus.DATA / "appearances/symonds-sampson/retained-property-pages.jsonl.gz"
+    rows = list(corpus.iter_rows(existing_path)) if existing_path.exists() else []
+    existing_ids = {row["source_lot_id"] for row in rows}
+    pending_urls = [url for url in urls if SOURCE_ID_RE.search(url).group(1).lower() not in existing_ids]
+    failures, added = [], []
 
     def one(url: str):
         reader_url, raw = fetch_reader(url)
@@ -153,20 +166,19 @@ def harvest(workers: int = 8) -> None:
         corpus.save_gzip(snapshot, {"evidence": evidence, "markdown": text})
         return row
 
-    with ThreadPoolExecutor(max_workers=max(1, min(workers, 10))) as executor:
-        jobs = {executor.submit(one, url): url for url in urls}
+    with ThreadPoolExecutor(max_workers=max(1, min(workers, 2))) as executor:
+        jobs = {executor.submit(one, url): url for url in pending_urls}
         for future in as_completed(jobs):
             try:
-                rows.append(future.result())
+                row = future.result()
+                rows.append(row)
+                added.append(row)
             except Exception as exc:
                 failures.append({"url": jobs[future], "error": f"{type(exc).__name__}: {exc}"[:500]})
     rows.sort(key=lambda row: row["source_lot_id"])
     if len({row["source_lot_id"] for row in rows}) != len(rows):
         raise SystemExit("duplicate source IDs in parsed property pages")
-    existing_path = corpus.DATA / "appearances/symonds-sampson/retained-property-pages.jsonl.gz"
-    existing = {r["appearance_id"] for r in corpus.iter_rows(existing_path)} if existing_path.exists() else set()
     corpus.write_rows("symonds-sampson/retained-property-pages", rows)
-    new = [row for row in rows if row["appearance_id"] not in existing]
     by_date = Counter(row.get("auction_date") for row in rows)
     for date, count in by_date.items():
         if not date:
@@ -180,7 +192,8 @@ def harvest(workers: int = 8) -> None:
                  "checked_at": corpus.now()}
         corpus.save_json(corpus.DATA / "auctions/symonds-sampson" / f"{date}.json", state)
     summary = {"checked_at": corpus.now(), "sitemap_property_urls": len(urls),
-               "property_pages_captured": len(rows), "run_new_appearances": len(new),
+               "property_pages_captured": len(rows), "pages_already_banked": len(existing_ids),
+               "pages_attempted_this_run": len(pending_urls), "run_new_appearances": len(added),
                "address_records": sum(bool(row.get("address")) for row in rows),
                "partial_lots": sum(not row.get("address") for row in rows),
                "exact_dates_recovered": len([d for d in by_date if d]),
@@ -194,5 +207,5 @@ def harvest(workers: int = 8) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument("--workers", type=int, default=2)
     harvest(parser.parse_args().workers)
