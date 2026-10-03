@@ -1,10 +1,12 @@
 """Bank every surviving Barnett Ross historical result row.
 
 The official archive is an unpaginated catalogue index extending to 2002.  Each
-catalogue publishes one table row per lot and an immutable property.php ID.  This
-collector keeps residential, commercial, mixed-use and land appearances alike,
-saves the raw HTML, and marks a catalogue complete only when every visible lot
-row has a distinct property ID and has been written to the canonical corpus.
+catalogue publishes one table row per lot. Modern rows expose immutable property
+IDs, intermediate rows expose first-party PDF paths, and the earliest rows retain
+only their auction-and-lot identity. This collector keeps residential, commercial,
+mixed-use and land appearances alike, saves the raw HTML, and marks a catalogue
+complete only when every visible row reconciles to one distinct evidenced source
+identity and has been written to the canonical corpus.
 """
 from __future__ import annotations
 
@@ -119,18 +121,24 @@ def parse_catalogue(raw: bytes, auction: dict, evidence: dict) -> tuple[list[dic
         identity_text = " ".join(filter(None, [tr.get("onclick"), *(a.get("href") for a in tr.select("a[href]"))]))
         match = PROPERTY_RE.search(identity_text)
         pdf_match = DETAIL_PDF_RE.search(identity_text)
-        if not match and not pdf_match:
-            missing_identity.append(cells[0])
-            continue
         if match:
             source_id = match.group(1)
             original_url = f"{BASE}/property.php?id={source_id}"
-        else:
-            # The pre-2017 archive uses stable first-party PDF particulars in
-            # place of numeric property pages.  Preserve that published path;
-            # auction key + PDF path is source identity, never a guessed ID.
+            identity_method = "source_property_id"
+        elif pdf_match:
+            # The intermediate archive uses stable first-party PDF particulars
+            # in place of numeric property pages.
             source_id = pdf_match.group(1).lower()
             original_url = urljoin(BASE + "/", pdf_match.group(1))
+            identity_method = "source_pdf_path"
+        else:
+            # The earliest official result tables expose no detail link. Their
+            # exact auction key plus published lot number is nevertheless a
+            # stable appearance identity. It never implies a cross-auction
+            # property merge, so property_id remains null.
+            source_id = f"archive-row:{cells[0].lower()}"
+            original_url = evidence.get("source_url") or auction.get("url") or INDEX
+            identity_method = "auction_lot_number"
         if source_id in seen:
             raise ValueError(f"Repeated property ID {source_id}")
         seen.add(source_id)
@@ -142,7 +150,7 @@ def parse_catalogue(raw: bytes, auction: dict, evidence: dict) -> tuple[list[dic
                    postcode=(corpus.PC.search(address_text).group().upper() if corpus.PC.search(address_text) else None),
                    sector=corpus.sector(address_text), status=status, sale_price=sale_price,
                    available_price=available_price, result_text=result, record_quality="address_record",
-                   source_evidence=evidence)
+                   identity_method=identity_method, source_evidence=evidence)
         rows.append(row)
     complete = bool(visible and not missing_identity and len(rows) == visible and len(seen) == visible)
     return rows, {"auction_date": date, "visible_lot_rows": visible,
