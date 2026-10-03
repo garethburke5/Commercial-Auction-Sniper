@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-03T12:29:06.000028+00:00",
+  "checked_at": "2026-10-03T12:54:04.034498+00:00",
   "source_url": "https://www.pugh-auctions.com/property-search",
   "published_property_rows": 7010,
   "observed_property_ids": 6644,
@@ -7353,36 +7353,30 @@
   "property_appearances_captured": 6774,
   "canonical_shard_rows": 6774,
   "legacy_rows_enriched": 0,
-  "run_new_appearances": 19,
-  "run_new_address_records": 19,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_by_sector": {
-    "residential": 8,
-    "commercial": 2,
-    "land": 5,
-    "unknown": 3,
-    "mixed-use": 1
-  },
+  "run_by_sector": {},
   "failures": [
-    {
-      "page": 350,
-      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=350",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=350"
-    },
-    {
-      "page": 349,
-      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=349",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=349"
-    },
     {
       "page": 351,
       "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=351",
       "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=351"
     },
     {
+      "page": 350,
+      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=350",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=350"
+    },
+    {
       "page": 348,
       "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=348",
       "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=348"
+    },
+    {
+      "page": 349,
+      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=349",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=349"
     }
   ]
 }
