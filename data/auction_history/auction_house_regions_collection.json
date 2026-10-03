@@ -1,0 +1,281 @@
+{
+  "checked_at": "2026-10-03T07:08:34.300305+00:00",
+  "regions_requested": 7,
+  "regions_complete": 6,
+  "pages_captured": 73,
+  "source_rows": 1881,
+  "overlapping_existing_rows": 1164,
+  "run_new_appearances": 717,
+  "failures": [
+    {
+      "page": 3,
+      "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions?page=3",
+      "error": "ValueError: page exposed zero lot rows"
+    }
+  ],
+  "regions": [
+    {
+      "auctioneer": "Auction House Wales",
+      "source_url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions",
+      "pages_expected": 15,
+      "pages_captured": 14,
+      "current_archive_rows": 223,
+      "overlapping_existing_rows": 223,
+      "run_new_appearances": 0,
+      "property_appearances_captured": 223,
+      "address_records": 223,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2020-03-05",
+      "latest_lot_end_date": "2026-09-29",
+      "by_status": {
+        "sold": 141,
+        "sold_prior": 46,
+        "sold_after": 27,
+        "withdrawn": 1,
+        "last_bid": 5,
+        "no_bids": 3
+      },
+      "page_counts": {
+        "1": 15,
+        "2": 8,
+        "4": 7,
+        "5": 10,
+        "6": 4,
+        "7": 16,
+        "8": 7,
+        "9": 20,
+        "10": 13,
+        "11": 13,
+        "12": 30,
+        "13": 30,
+        "14": 30,
+        "15": 20
+      },
+      "failures": [
+        {
+          "page": 3,
+          "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions?page=3",
+          "error": "ValueError: page exposed zero lot rows"
+        }
+      ],
+      "archive_pagination_complete": false
+    },
+    {
+      "auctioneer": "Auction House Notts & Derby",
+      "source_url": "https://www.auctionhouse.co.uk/nottsandderby/auction/past-auctions",
+      "pages_expected": 10,
+      "pages_captured": 10,
+      "current_archive_rows": 277,
+      "overlapping_existing_rows": 190,
+      "run_new_appearances": 87,
+      "property_appearances_captured": 277,
+      "address_records": 277,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2021-11-09",
+      "latest_lot_end_date": "2026-09-29",
+      "by_status": {
+        "sold": 166,
+        "sold_after": 16,
+        "sold_prior": 25,
+        "last_bid": 55,
+        "postponed": 3,
+        "withdrawn": 3,
+        "no_bids": 9
+      },
+      "page_counts": {
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30,
+        "5": 30,
+        "6": 30,
+        "7": 30,
+        "8": 30,
+        "9": 30,
+        "10": 7
+      },
+      "failures": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Cheshire, Staffordshire & Shropshire",
+      "source_url": "https://www.auctionhouse.co.uk/staffordshire/auction/past-auctions",
+      "pages_expected": 6,
+      "pages_captured": 6,
+      "current_archive_rows": 153,
+      "overlapping_existing_rows": 93,
+      "run_new_appearances": 60,
+      "property_appearances_captured": 153,
+      "address_records": 153,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2019-09-19",
+      "latest_lot_end_date": "2026-10-20",
+      "by_status": {
+        "sold_prior": 20,
+        "sold": 94,
+        "sold_after": 9,
+        "last_bid": 25,
+        "postponed": 3,
+        "withdrawn": 1,
+        "no_bids": 1
+      },
+      "page_counts": {
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30,
+        "5": 30,
+        "6": 3
+      },
+      "failures": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Birmingham & Black Country",
+      "source_url": "https://www.auctionhouse.co.uk/birmingham/auction/past-auctions",
+      "pages_expected": 4,
+      "pages_captured": 4,
+      "current_archive_rows": 102,
+      "overlapping_existing_rows": 77,
+      "run_new_appearances": 25,
+      "property_appearances_captured": 102,
+      "address_records": 102,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2019-10-31",
+      "latest_lot_end_date": "2026-09-29",
+      "by_status": {
+        "sold": 62,
+        "sold_after": 6,
+        "sold_prior": 9,
+        "no_bids": 11,
+        "postponed": 4,
+        "last_bid": 10
+      },
+      "page_counts": {
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 12
+      },
+      "failures": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Kent",
+      "source_url": "https://www.auctionhouse.co.uk/kent/auction/past-auctions",
+      "pages_expected": 4,
+      "pages_captured": 4,
+      "current_archive_rows": 95,
+      "overlapping_existing_rows": 90,
+      "run_new_appearances": 5,
+      "property_appearances_captured": 95,
+      "address_records": 95,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2020-02-06",
+      "latest_lot_end_date": "2026-09-29",
+      "by_status": {
+        "sold": 54,
+        "sold_after": 21,
+        "sold_prior": 9,
+        "postponed": 4,
+        "last_bid": 6,
+        "no_bids": 1
+      },
+      "page_counts": {
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 5
+      },
+      "failures": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House West Yorkshire",
+      "source_url": "https://www.auctionhouse.co.uk/westyorkshire/auction/past-auctions",
+      "pages_expected": 4,
+      "pages_captured": 4,
+      "current_archive_rows": 117,
+      "overlapping_existing_rows": 49,
+      "run_new_appearances": 68,
+      "property_appearances_captured": 117,
+      "address_records": 117,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2019-08-29",
+      "latest_lot_end_date": "2026-09-29",
+      "by_status": {
+        "sold": 88,
+        "sold_after": 3,
+        "sold_prior": 8,
+        "withdrawn": 6,
+        "last_bid": 5,
+        "postponed": 3,
+        "no_bids": 4
+      },
+      "page_counts": {
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 27
+      },
+      "failures": [],
+      "archive_pagination_complete": true
+    },
+    {
+      "auctioneer": "Auction House Lincolnshire, North Notts & South Yorks",
+      "source_url": "https://www.auctionhouse.co.uk/lincolnshire/auction/past-auctions",
+      "pages_expected": 31,
+      "pages_captured": 31,
+      "current_archive_rows": 914,
+      "overlapping_existing_rows": 442,
+      "run_new_appearances": 472,
+      "property_appearances_captured": 914,
+      "address_records": 914,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2019-11-07",
+      "latest_lot_end_date": "2026-09-29",
+      "by_status": {
+        "sold_after": 39,
+        "sold_prior": 48,
+        "sold": 820,
+        "last_bid": 5,
+        "no_bids": 2
+      },
+      "page_counts": {
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30,
+        "5": 30,
+        "6": 30,
+        "7": 30,
+        "8": 30,
+        "9": 30,
+        "10": 30,
+        "11": 30,
+        "12": 30,
+        "13": 30,
+        "14": 30,
+        "15": 30,
+        "16": 30,
+        "17": 30,
+        "18": 30,
+        "19": 30,
+        "20": 30,
+        "21": 30,
+        "22": 30,
+        "23": 30,
+        "24": 30,
+        "25": 30,
+        "26": 30,
+        "27": 30,
+        "28": 30,
+        "29": 30,
+        "30": 30,
+        "31": 14
+      },
+      "failures": [],
+      "archive_pagination_complete": true
+    }
+  ]
+}
