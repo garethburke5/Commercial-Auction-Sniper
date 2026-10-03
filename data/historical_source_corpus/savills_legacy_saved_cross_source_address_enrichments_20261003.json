@@ -1,0 +1,93 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative saved-source cross-corpus legacy address enrichment",
+  "captured_at_utc": "2026-10-03T00:44:00Z",
+  "source_note": "The canonical corpus was cross-joined across already saved Savills appearance shards by exact auction date and lot number to locate legacy PropertyAuctions rows still missing addresses. Four matches were retained only where the saved alternate source also agreed on locality and compatible property class, with transaction price or auction outcome where available. Twenty date-and-lot collisions with conflicting locality or property class were left unchanged. This consolidates already banked evidence; it does not assert catalogue completeness.",
+  "source_records": [
+    {
+      "source_url": "https://www.itv.com/news/granada/update/2015-02-17/historic-blackpool-hotel-goes-under-the-hammer/",
+      "source_name": "ITV News Granada",
+      "record_identity": "Savills 17 February 2015 lot 162, The Empress Hotel, Blackpool",
+      "evidence_excerpt": "The saved source identifies The Empress Hotel in Blackpool as Savills lot 162 on 17 February 2015, matching the legacy lot's date, number, locality and vacant freehold building class."
+    },
+    {
+      "source_url": "https://propertyauctions.com/",
+      "source_name": "PropertyAuctions historical source record",
+      "record_identity": "Savills 8 December 2014 lot 46, former Wisbech Town Football Club ground at Fenland Park",
+      "evidence_excerpt": "The saved source identifies the former football ground and four-acre development site at Fenland Park, Wisbech as lot 46 on 8 December 2014, matching the legacy lot's date, number, locality and vacant freehold site class."
+    },
+    {
+      "source_url": "https://www.independent.co.uk/news/uk/home-news/pavement-in-islington-north-london-sells-at-auction-for-ps125-000-10344029.html",
+      "source_name": "The Independent",
+      "record_identity": "Savills 22 June 2015 lot 153, pavement/highway land near Islington Green",
+      "evidence_excerpt": "The saved source identifies the 560 sq ft freehold pavement/highway land near Islington Green as Savills lot 153 sold for GBP 125,000, matching the legacy lot's date, number, London N1 locality, freehold site class and sale price."
+    },
+    {
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=d9ee3604-3ef8-460a-9a69-a7987db58851",
+      "source_name": "Saved Savills RSS catalogue record",
+      "record_identity": "Savills 26 September 2018 lot 40, 208 Durnsford Road, Wimbledon Park, London SW19 8DR",
+      "evidence_excerpt": "The saved official Savills record identifies 208 Durnsford Road, Wimbledon Park, London SW19 8DR as lot 40, a freehold industrial warehouse, on 26 September 2018, matching the legacy lot's date, number, postcode district, property class and available status."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "savills/legacy-943",
+      "target_appearance_id": "Savills Auctions|propertyauctions:943|162",
+      "address": "The Empress Hotel, Blackpool",
+      "address_basis": "conservative_saved_source_exact_date_lot_locality_and_property_class_match",
+      "source_url": "https://www.itv.com/news/granada/update/2015-02-17/historic-blackpool-hotel-goes-under-the-hammer/",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=943",
+        "https://www.itv.com/news/granada/update/2015-02-17/historic-blackpool-hotel-goes-under-the-hammer/"
+      ],
+      "evidence_note": "Legacy AID 943 lot 162 is a vacant freehold building in Blackpool sold for GBP 180,000 on 2015-02-17. The separately saved ITV source identifies The Empress Hotel in Blackpool as Savills lot 162 at that same auction and describes a former hotel/public house with residential and retail planning permission."
+    },
+    {
+      "target_shard": "savills/legacy-939",
+      "target_appearance_id": "Savills Auctions|propertyauctions:939|46",
+      "address": "Former Wisbech Town Football Club ground, Fenland Park, Wisbech",
+      "address_basis": "conservative_saved_source_exact_date_lot_locality_and_property_class_match",
+      "source_url": "https://propertyauctions.com/",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=939",
+        "https://propertyauctions.com/"
+      ],
+      "evidence_note": "Legacy AID 939 lot 46 is a vacant freehold site in Wisbech, Cambridgeshire available at GBP 2.5 million on 2014-12-08. The separately saved source identifies lot 46 on the same date as the former Wisbech Town Football Club ground, a four-acre development site at Fenland Park, Wisbech."
+    },
+    {
+      "target_shard": "savills/legacy-956",
+      "target_appearance_id": "Savills Auctions|propertyauctions:956|153",
+      "address": "Pavement/highway land near Islington Green, London",
+      "address_basis": "conservative_saved_source_exact_date_lot_locality_property_class_and_price_match",
+      "source_url": "https://www.independent.co.uk/news/uk/home-news/pavement-in-islington-north-london-sells-at-auction-for-ps125-000-10344029.html",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=956",
+        "https://www.independent.co.uk/news/uk/home-news/pavement-in-islington-north-london-sells-at-auction-for-ps125-000-10344029.html"
+      ],
+      "evidence_note": "Legacy AID 956 lot 153 is a vacant freehold site in London N1 sold for exactly GBP 125,000 on 2015-06-22. The separately saved Independent source identifies Savills lot 153 as 560 sq ft of freehold pavement/highway land near Islington Green sold for exactly GBP 125,000."
+    },
+    {
+      "target_shard": "savills/legacy-1071",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1071|40",
+      "address": "208 Durnsford Road, Wimbledon Park, London SW19 8DR",
+      "address_basis": "conservative_saved_official_savills_exact_date_lot_postcode_district_property_class_and_status_match",
+      "source_url": "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=d9ee3604-3ef8-460a-9a69-a7987db58851",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1071",
+        "http://auctions.savills.co.uk/Auctions/LotDetails.aspx?pid=d9ee3604-3ef8-460a-9a69-a7987db58851"
+      ],
+      "evidence_note": "Legacy AID 1071 lot 40 is freehold industrial property in London SW19, available at GBP 2 million on 2018-09-26. The separately saved official Savills RSS record identifies lot 40 on that date as 208 Durnsford Road, Wimbledon Park, London SW19 8DR, a freehold industrial warehouse recorded as available."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 4,
+  "address_records_added": 4,
+  "partial_records_added": 0,
+  "full_street_addresses_added": 1,
+  "named_site_addresses_added": 3,
+  "related_partial_candidates_checked": 24,
+  "conflicting_candidates_left_unchanged": 20,
+  "historical_completeness_declared": false
+}
