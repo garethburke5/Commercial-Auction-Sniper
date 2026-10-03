@@ -111,7 +111,7 @@ def parse_property(markdown: str, url: str, evidence: dict) -> dict:
     date_match = AUCTION_DATE_RE.search(markdown)
     date = None
     if date_match:
-        date = datetime.strptime(date_match.group(1), "%A %d %B %Y").date().isoformat()
+        date = datetime.strptime(date_match.group(1), "%d %B %Y").date().isoformat()
     status_match = re.search(r"^####\s+(Sold by Auction|Sold STC|Sold|Withdrawn|For Sale|Available|Unsold)\s*$", markdown, re.M | re.I)
     status_text = status_match.group(1).lower() if status_match else "unknown"
     status = {"sold by auction": "sold", "sold stc": "sold", "for sale": "available"}.get(status_text, status_text)
