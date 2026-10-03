@@ -70,6 +70,14 @@ def result_details(value: str | None) -> tuple[str, int | None, int | None]:
     return status, sale_price, last_bid
 
 
+
+def is_historical_outcome(row: dict, today=None) -> bool:
+    """Reject future pending rows while retaining a completed sold-prior result."""
+    today = today or datetime.now().date()
+    row_date = datetime.strptime(row["auction_date"], "%Y-%m-%d").date()
+    return row_date <= today or row.get("status") in {"sold", "sold_prior", "sold_after"}
+
+
 def pagination_extent(html: str) -> int:
     soup = BeautifulSoup(html, "lxml")
     pages = {1}
@@ -220,7 +228,7 @@ def harvest() -> None:
                              "error": f"{type(exc).__name__}: {exc}"[:500]})
         time.sleep(0.35)
 
-    rows = sorted(merged.values(), key=lambda row: (row.get("auction_date") or "", row["source_lot_id"]))
+    rows = sorted((row for row in merged.values() if is_historical_outcome(row)),\n                  key=lambda row: (row.get("auction_date") or "", row["source_lot_id"]))
     corpus.write_rows("auction-house-southyorkshire/online-results", rows)
     current_count = len(seen_current)
     row_total = sum(page_counts.values())

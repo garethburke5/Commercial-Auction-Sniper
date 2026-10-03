@@ -1,5 +1,5 @@
 from scripts.harvest_auction_house_south_yorkshire import (
-    pagination_extent,
+    is_historical_outcome,\n    pagination_extent,
     parse_page,
     result_details,
 )
@@ -54,3 +54,12 @@ def test_result_states_are_not_forced_to_sold():
     assert result_details("Postponed")[0] == "postponed"
     assert result_details("Last Bid: £25,000")[0] == "last_bid"
     assert result_details("No Bids")[0] == "no_bids"
+
+
+def test_future_pending_rows_are_not_historical_outcomes():
+    assert not is_historical_outcome(
+        {"auction_date": "2999-01-01", "status": "no_bids"}
+    )
+    assert is_historical_outcome(
+        {"auction_date": "2999-01-01", "status": "sold_prior"}
+    )
