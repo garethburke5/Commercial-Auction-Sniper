@@ -11,7 +11,7 @@ HTML = """
 <table>
 <tr><th>Address</th><th></th><th>Auctioneer</th><th>Auction Ended</th><th>Guide</th><th>Result</th></tr>
 <tr>
-<td><a href="https://online.auctionhouse.co.uk/lot/redirect/366263">Fernlea, Heworth Road, Washington, Tyne And Wear, NE37 2PY</a></td>
+<td><a aria-label="Fernlea, Heworth Road, Washington, Tyne And Wear, NE37 2PY" href="https://online.auctionhouse.co.uk/lot/redirect/366263"></a></td>
 <td>Fernlea, Heworth Road, Washington, Tyne And Wear, NE37 2PY</td>
 <td>Auction House North East</td><td>29/09/2026 13:13</td><td>£85,000</td><td>Sold for: £101,000</td>
 </tr>

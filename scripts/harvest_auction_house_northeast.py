@@ -97,6 +97,8 @@ def parse_page(html: str, source_url: str, snapshot_path: str, sha256: str,
         if date_index is None or date_index + 2 >= len(cells):
             raise ValueError(f"lot {source_id} has no complete date/guide/result columns")
         address = clean(anchor.get_text(" ", strip=True))
+        if not address and date_index >= 2:
+            address = clean(cells[date_index - 2])
         if not address:
             raise ValueError(f"lot {source_id} has no published address")
         end_text = cells[date_index]
