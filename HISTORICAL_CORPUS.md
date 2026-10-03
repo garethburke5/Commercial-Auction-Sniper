@@ -109,7 +109,9 @@ outcomes with immutable HTML snapshots. Incomplete follow-ups fetch only missing
 or failed pages; complete runs stop after a full page of previously observed
 appearances. A stable property URL is property identity rather than appearance
 identity: the collector retains repeated URLs when exact auction date or lot
-differs. Two earlier Pugh research records are merged only on exact normalized
+differs. Conflicting duplicate presentations of the same property/date/lot are
+preserved as alternate raw rows in provenance rather than inflating appearance
+counts. Two earlier Pugh research records are merged only on exact normalized
 address, matching lot number and a single auction date within fourteen days;
 otherwise repeated appearances remain separate. Archive completeness requires
 every page and the sum of page-row counts to reconcile to the published archive

@@ -97,7 +97,7 @@ def status_and_prices(value: str | None) -> tuple[str, int | None, int | None, i
     return status, sale, guide, guide_high
 
 
-def parse_page(raw: bytes, requested_url: str, evidence: dict) -> tuple[list[dict], int | None, int]:
+def parse_page(raw: bytes, requested_url: str, evidence: dict) -> tuple[list[dict], int | None, int, int]:
     soup = BeautifulSoup(raw, "lxml")
     total_match = RESULT_COUNT_RE.search(soup.get_text(" ", strip=True))
     result_count = int(total_match.group(1).replace(",", "")) if total_match else None
@@ -107,7 +107,7 @@ def parse_page(raw: bytes, requested_url: str, evidence: dict) -> tuple[list[dic
             page_numbers.extend(int(v) for v in parse_qs(urlparse(link.get("href") or "").query).get("page", []))
         except ValueError:
             continue
-    rows, seen = [], {}
+    rows, seen, source_row_count = [], {}, 0
     for tr in soup.select("table tr"):
         cells = tr.find_all("td")
         link = tr.select_one('a[href*="/property/"]')
@@ -118,6 +118,7 @@ def parse_page(raw: bytes, requested_url: str, evidence: dict) -> tuple[list[dic
         if not match:
             continue
         source_id = match.group(1)
+        source_row_count += 1
         values = [clean(cell.get_text(" ", strip=True)) for cell in cells]
         date_text = next((v for v in values if v and DATE_RE.fullmatch(v)), None)
         if not date_text:
@@ -135,10 +136,13 @@ def parse_page(raw: bytes, requested_url: str, evidence: dict) -> tuple[list[dic
             lot = None
         appearance_key = (source_id, auction_date, lot)
         if appearance_key in seen:
-            if seen[appearance_key] == values:
+            existing = rows[seen[appearance_key]]
+            if existing["source_evidence"]["published_row"] == values:
                 continue
-            raise ValueError(f"Conflicting repeated appearance {appearance_key} on {requested_url}")
-        seen[appearance_key] = values
+            alternate = existing["source_evidence"].setdefault("alternate_published_rows", [])
+            alternate.append(values)
+            existing["source_evidence"]["source_row_occurrences"] = 1 + len(alternate)
+            continue
         auction_id = f"pugh:{auction_date}:{slug(venue or 'auction')}"
         row = corpus.base_row("Pugh Auctioneers", auction_id, auction_date, lot, source_id, original_url)
         postcode_match = corpus.PC.search(address or "")
@@ -150,10 +154,11 @@ def parse_page(raw: bytes, requested_url: str, evidence: dict) -> tuple[list[dic
                    record_quality="address_record" if address else "partial_lot",
                    identity_method="source_property_id",
                    source_evidence={**evidence, "listing_url": original_url, "published_row": values})
+        seen[appearance_key] = len(rows)
         rows.append(row)
     if not rows:
         raise ValueError(f"Official page exposed zero property rows: {requested_url}")
-    return rows, result_count, max(page_numbers, default=1)
+    return rows, result_count, max(page_numbers, default=1), source_row_count
 
 
 def bankable(row: dict, today=None) -> bool:
@@ -191,7 +196,7 @@ def strict_legacy_match(row: dict, candidates: list[tuple[Path, dict]]) -> tuple
     return matches[0] if len(matches) == 1 else None
 
 
-def fetch_page(page: int) -> tuple[int, list[dict], int | None, int]:
+def fetch_page(page: int) -> tuple[int, list[dict], int | None, int, int]:
     """Fetch, snapshot and parse one archive page in an isolated session."""
     requested = page_url(page)
     final_url, raw = get(requests.Session(), requested)
@@ -202,8 +207,8 @@ def fetch_page(page: int) -> tuple[int, list[dict], int | None, int]:
                 "sha256": sha256, "retrieved_at": retrieved,
                 "basis": "visible row in Pugh's retained first-party property-search archive"}
     corpus.save_gzip(snapshot, {"evidence": evidence, "html": raw.decode("utf-8", "replace")})
-    parsed, page_total, page_last = parse_page(raw, requested, evidence)
-    return page, parsed, page_total, page_last
+    parsed, page_total, page_last, source_rows = parse_page(raw, requested, evidence)
+    return page, parsed, page_total, page_last, source_rows
 
 
 def harvest() -> None:
@@ -234,13 +239,13 @@ def harvest() -> None:
     failures, run_new = [], []
     result_count, last_page = None, 1
 
-    def process(result: tuple[int, list[dict], int | None, int]) -> bool:
-        current_page, parsed, page_total, _ = result
+    def process(result: tuple[int, list[dict], int | None, int, int]) -> bool:
+        current_page, parsed, page_total, _, source_rows = result
         if page_total is not None and result_count is not None and page_total != result_count:
             raise ValueError("Published result count changed during traversal")
         current_ids = {row["source_lot_id"] for row in parsed}
         observed.update(current_ids)
-        page_counts[str(current_page)] = len(parsed)
+        page_counts[str(current_page)] = source_rows
         if current_page not in pages_captured:
             pages_captured.append(current_page)
         for row in parsed:
@@ -259,7 +264,8 @@ def harvest() -> None:
             if row["appearance_id"] not in existing_appearance_ids:
                 run_new.append(row)
                 existing_appearance_ids.add(row["appearance_id"])
-        print(f"PUGH page={current_page}/{last_page} rows={len(parsed)} new={len(run_new)}", flush=True)
+        print(f"PUGH page={current_page}/{last_page} source_rows={source_rows} "
+              f"appearances={len(parsed)} new={len(run_new)}", flush=True)
         return bool(current_ids and current_ids.issubset(observed_before))
 
     def checkpoint() -> None:
@@ -280,8 +286,8 @@ def harvest() -> None:
 
     try:
         first = fetch_page(1)
-        _, first_rows, result_count, first_last = first
-        last_page = first_last or (math.ceil(result_count / len(first_rows)) if result_count else 1)
+        _, first_rows, result_count, first_last, first_source_rows = first
+        last_page = first_last or (math.ceil(result_count / first_source_rows) if result_count else 1)
         first_seen_before = process(first) if not full_scan else False
         stop = bool(first_seen_before and not repair_mode)
     except Exception as exc:
@@ -291,8 +297,17 @@ def harvest() -> None:
         stop = True
 
     if repair_mode:
+        expected_counts = {
+            page: (result_count - first_source_rows * (last_page - 1)
+                   if page == last_page else first_source_rows)
+            for page in range(1, last_page + 1)
+        }
+        anomalous = {
+            page for page in pages_captured
+            if page_counts.get(str(page)) != expected_counts.get(page)
+        }
         targets = sorted(((set(range(1, last_page + 1)) - set(pages_captured)) |
-                          previous_failures) - {1})
+                          previous_failures | anomalous) - {1})
     else:
         targets = list(range(2, last_page + 1))
 
