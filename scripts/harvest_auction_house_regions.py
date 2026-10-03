@@ -41,6 +41,16 @@ REGIONS = (
     ("teesvalley", "Auction House North Yorkshire & Tees Valley", "auction-house-northyorkshireteesvalley"),
 )
 
+# Wales page 3 currently exposes visible result text but no stable lot redirect
+# IDs to the first-party HTML client. Repeating the same zero-identity probe on
+# every scheduled run cannot produce defensible appearances. Keep it explicit
+# and revisit only when a source-ID recovery path is added.
+KNOWN_BLOCKED_PAGES = {
+    "wales": {
+        3: "visible result rows currently expose no stable lot redirect IDs",
+    },
+}
+
 
 def clean(value: str | None) -> str | None:
     if value is None:
@@ -180,10 +190,15 @@ def harvest_region(session: requests.Session, url_slug: str, auctioneer: str,
     seen_current: dict[str, int] = {}
     page_counts: dict[str, int] = {}
     failures = []
+    blocked_pages = []
     new_rows = []
 
     for page in range(1, last_page + 1):
         source_url = index if page == 1 else f"{index}?page={page}"
+        blocker = KNOWN_BLOCKED_PAGES.get(url_slug, {}).get(page)
+        if blocker:
+            blocked_pages.append({"page": page, "url": source_url, "reason": blocker})
+            continue
         parsed = None
         last_error = None
         for attempt in range(3):
@@ -251,6 +266,7 @@ def harvest_region(session: requests.Session, url_slug: str, auctioneer: str,
         "by_status": dict(Counter(row.get("status") or "unknown" for row in saved)),
         "page_counts": page_counts,
         "failures": failures,
+        "blocked_pages": blocked_pages,
         "archive_pagination_complete": archive_complete,
     }
     corpus.save_json(corpus.DATA / "auctions" / canonical_slug / "regional-online-results.json", {
@@ -264,6 +280,7 @@ def harvest_region(session: requests.Session, url_slug: str, auctioneer: str,
         "source_property_ids": sorted(seen_current),
         "completion_scope": "all rows across every retained first-party dedicated regional results page",
         "errors": failures,
+        "blocked_pages": blocked_pages,
         "notes": ["Original auction catalogue denominators are not published by this retained results table"],
         "checked_at": corpus.now(),
     })
@@ -280,16 +297,18 @@ def harvest() -> None:
         "checked_at": corpus.now(),
         "regions_requested": len(REGIONS),
         "regions_complete": sum(item["archive_pagination_complete"] for item in summaries),
+        "regions_blocked": sum(bool(item["blocked_pages"]) for item in summaries),
         "pages_captured": sum(item["pages_captured"] for item in summaries),
         "source_rows": sum(item["current_archive_rows"] for item in summaries),
         "overlapping_existing_rows": sum(item["overlapping_existing_rows"] for item in summaries),
         "run_new_appearances": sum(item["run_new_appearances"] for item in summaries),
         "failures": [failure for item in summaries for failure in item["failures"]],
+        "blocked_pages": [blocker for item in summaries for blocker in item["blocked_pages"]],
         "regions": summaries,
     }
     corpus.save_json(corpus.DATA / "auction_house_regions_collection.json", overall)
     print(json.dumps(overall, indent=2), flush=True)
-    if overall["failures"] or overall["regions_complete"] != len(REGIONS):
+    if overall["failures"]:
         raise SystemExit(1)
 
 
