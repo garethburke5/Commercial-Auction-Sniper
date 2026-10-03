@@ -479,7 +479,7 @@ def harvest() -> None:
                                     for page in range(1, failed_pages[0]))
             if normal_reconciled + len(tail_rows) != result_count:
                 raise ValueError("Hybrid list/grid row count did not equal published total")
-            unresolved_path = corpus.DATA / "unresolved/pugh-property-search-tail.json.gz"
+            unresolved_path = corpus.DATA / "sources/pugh/undated-property-search-tail-records.json.gz"
             corpus.save_gzip(unresolved_path, {
                 "checked_at": corpus.now(), "source_url": INDEX,
                 "published_property_rows": result_count,
@@ -506,6 +506,43 @@ def harvest() -> None:
     elif source_rows_complete and unresolved_rows:
         failures = [item for item in (previous.get("failures") or [])
                     if item.get("kind") == "unresolved_source_rows_without_auction_date"]
+        unresolved_path = corpus.DATA / "sources/pugh/undated-property-search-tail-records.json.gz"
+        if not unresolved_path.exists():
+            try:
+                first_failed_page = min(grid_covered_pages)
+                plan = tail_grid_plan(result_count, first_failed_page, first_source_rows)
+                restored = []
+                for page in range(plan["first_grid_page"], plan["last_grid_page"] + 1):
+                    snapshots = sorted((corpus.DATA / "sources/pugh").glob(
+                        f"property-search-grid-080-page-{page:03d}-*.json.gz"))
+                    if not snapshots:
+                        raise ValueError(f"Missing saved grid snapshot for page {page}")
+                    payload = corpus.read_gzip(snapshots[-1])
+                    rows, page_total, page_last = parse_grid_page(
+                        payload["html"].encode(), payload["evidence"]["source_url"], payload["evidence"])
+                    if page_total != result_count or page_last != plan["last_grid_page"]:
+                        raise ValueError("Saved grid snapshot no longer reconciles to Pugh state")
+                    if page == plan["first_grid_page"]:
+                        rows = rows[plan["overlap_rows"]:]
+                    restored.extend(rows)
+                if len(restored) != unresolved_rows:
+                    raise ValueError("Saved grid snapshot row count changed")
+                first_position = result_count - unresolved_rows + 1
+                for offset, row in enumerate(restored):
+                    row["source_position"] = first_position + offset
+                corpus.save_gzip(unresolved_path, {
+                    "checked_at": corpus.now(), "source_url": INDEX,
+                    "published_property_rows": result_count,
+                    "source_positions": [first_position, result_count],
+                    "rows": restored,
+                })
+                for item in failures:
+                    item["record_path"] = str(unresolved_path.relative_to(corpus.ROOT))
+                print(f"PUGH restored unresolved tail records from saved snapshots rows={len(restored)}",
+                      flush=True)
+            except Exception as exc:
+                failures.append({"kind": "unresolved_record_restore",
+                                 "error": f"{type(exc).__name__}: {exc}"[:500]})
     corpus.write_rows("pugh-auctions/property-search", rows_to_write)
     for path, rows in enriched_by_path.items():
         key = str(path.relative_to(corpus.DATA / "appearances")).removesuffix(".jsonl.gz")

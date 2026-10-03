@@ -123,7 +123,7 @@ uses the site's first-party 80-card view only after an exact 60-row source-ID
 overlap with the preceding working list pages, allowing all published source
 positions to be reconciled without repeating the failed probes. Cards that lack
 an auction date and lot number are retained with immutable snapshots under
-`data/auction_history/unresolved/`; they are deliberately excluded from the
+`data/auction_history/sources/pugh/`; they are deliberately excluded from the
 appearance database and its headline totals until another first-party source
 can establish an auction appearance. The Pugh state reports source-row
 reconciliation and appearance completeness separately.
