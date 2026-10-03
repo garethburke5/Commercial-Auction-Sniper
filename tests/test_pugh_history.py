@@ -1,6 +1,12 @@
 from datetime import date
 
-from scripts.harvest_pugh_canonical import bankable, parse_page, strict_legacy_match
+from scripts.harvest_pugh_canonical import (
+    bankable,
+    parse_grid_page,
+    parse_page,
+    strict_legacy_match,
+    tail_grid_plan,
+)
 
 
 def fixture():
@@ -56,3 +62,31 @@ def test_legacy_merge_requires_one_close_date_candidate():
     candidate = (None, {"auction_date": "2013-09-05"})
     assert strict_legacy_match(row, [candidate]) == candidate
     assert strict_legacy_match(row, [candidate, candidate]) is None
+
+
+def test_grid_tail_preserves_undated_source_rows_and_duplicate_occurrences():
+    html = b'''<html><body><h2>Search Results: 7010 properties</h2>
+    <div class="group bg-primary rounded-b-lg relative h-full">
+      <a href="/property/orphan1"><img></a><a href="/property/orphan1">View Property</a>
+      <a href="/property/orphan1">1 Tail Road, Leeds LS1 1AA</a><p>Withdrawn</p>
+    </div>
+    <div class="group bg-primary rounded-b-lg relative h-full">
+      <a href="/property/orphan1">2 Tail Road, York YO1 2BB</a><p>Guide Price: \xc2\xa3100,000</p>
+    </div>
+    <a href="/property-search?show-results=80&amp;page=88">88</a></body></html>'''
+    rows, total, pages = parse_grid_page(html, "https://example.test?page=88", {"snapshot_path": "x"})
+    assert (total, pages, len(rows)) == (7010, 88, 2)
+    assert [row["source_lot_id"] for row in rows] == ["orphan1", "orphan1"]
+    assert rows[0]["auction_date"] is None and rows[0]["lot_number"] is None
+    assert rows[0]["status"] == "withdrawn"
+    assert rows[1]["guide_price"] == 100000
+
+
+def test_tail_grid_plan_reconciles_the_four_failed_twenty_row_pages():
+    plan = tail_grid_plan(7010, first_failed_page=348, normal_page_size=20)
+    assert plan == {
+        "first_grid_page": 87,
+        "last_grid_page": 88,
+        "overlap_rows": 60,
+        "normal_overlap_pages": [345, 346, 347],
+    }

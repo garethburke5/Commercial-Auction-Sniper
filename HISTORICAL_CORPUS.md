@@ -118,6 +118,16 @@ every page and the sum of page-row counts to reconcile to the published archive
 total. Original auction denominators remain unavailable, so this never falsely
 marks individual auction catalogues complete.
 
+Pugh's deepest all-types list pages currently return HTTP 500. The collector
+uses the site's first-party 80-card view only after an exact 60-row source-ID
+overlap with the preceding working list pages, allowing all published source
+positions to be reconciled without repeating the failed probes. Cards that lack
+an auction date and lot number are retained with immutable snapshots under
+`data/auction_history/unresolved/`; they are deliberately excluded from the
+appearance database and its headline totals until another first-party source
+can establish an auction appearance. The Pugh state reports source-row
+reconciliation and appearance completeness separately.
+
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including
 those outside the London/National archive date list. Auction IDs prevent same-day
