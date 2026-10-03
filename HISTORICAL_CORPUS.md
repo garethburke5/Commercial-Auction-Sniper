@@ -20,6 +20,7 @@ python scripts/harvest_auction_house_south_yorkshire.py
 python scripts/harvest_auction_house_north_west.py
 python scripts/harvest_auction_house_south_west.py
 python scripts/harvest_auction_house_east_anglia.py
+python scripts/harvest_auction_house_national.py
 python historical_corpus.py build
 ```
 
@@ -80,6 +81,13 @@ every retained page is captured, stable redirect IDs prevent speculative merges,
 and exact lot-end timestamps remain distinct from original catalogue dates.
 Regional archive pagination is reconciled independently while unavailable
 catalogue denominators keep those original catalogues explicitly incomplete.
+
+The Auction House National results archive is an aggregator, not a separate
+auctioneer. Its collector attributes each row to the published regional
+auctioneer, merges only previously unseen stable redirect IDs into that region's
+canonical shard, and defers Auction House London rows until they can be
+crosswalked safely to the existing catalogue corpus. This avoids inflating the
+database with the same appearance from overlapping regional and national pages.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including
