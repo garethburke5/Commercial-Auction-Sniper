@@ -30,7 +30,10 @@ SITEMAP = BASE + "/sitemap.xml"
 READER = "https://r.jina.ai/http://"
 PROPERTY_URL_RE = re.compile(r"\((https://auctions\.symondsandsampson\.co\.uk/property/[^)]+)\)")
 SOURCE_ID_RE = re.compile(r"/property/([^/]+)/", re.I)
-AUCTION_DATE_RE = re.compile(\n    r"For sale by Auction\\s+(?:(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|on)\\s+)?"\n    r"(\\d{1,2}\\s+[A-Za-z]+\\s+\\d{4})", re.I)\nPOSTCODE_RE = corpus.PC
+AUCTION_DATE_RE = re.compile(
+    r"For sale by Auction\s+(?:(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|on)\s+)?"
+    r"(\d{1,2}\s+[A-Za-z]+\s+\d{4})", re.I)
+POSTCODE_RE = corpus.PC
 OUTCODE_RE = re.compile(r"\b(?:GIR|[A-PR-UWYZ][A-HK-Y]?\d[\dA-HJKSTUW]?)\b", re.I)
 STREET_RE = re.compile(
     r"\b(?:street|road|lane|avenue|close|drive|way|place|square|hill|row|terrace|court|gardens|"
