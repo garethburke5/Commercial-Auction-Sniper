@@ -1,0 +1,76 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative official HM Land Registry exact-transaction address enrichment of saved older Savills catalogue rows",
+  "captured_at_utc": "2026-10-03T04:12:00Z",
+  "source_note": "The official HM Land Registry Price Paid Data report builder was run across all five explicitly residential, sold, addressless appearances in the already banked first-page Savills commercial catalogue grids from 2005-2009. Three unique compatible exact-price matches were retained. The Nottingham vacant flat has one exact-price flat/maisonette leasehold transaction in Nottingham within 120 days. The two Merstham vacant freehold house lots have distinct exact prices mapping to the only compatible freehold Merstham transactions, adjoining Flat 2 and Flat 1 at School House, with the same completion date 37 days after auction. The Harrogate lot returned two compatible freehold houses and was left unchanged; the Ruislip lot returned no compatible exact-price freehold transaction. Original Savills evidence and every separate auction appearance remain preserved.",
+  "saved_source_snapshot": "data/source_diagnostics/savills_wayback_older_auc_recovery.json",
+  "saved_source_snapshot_sha256": "e05e3c0def85fdf2b6bbec8bdfcfdae1e659557a78157c45f1e59de805fa564b",
+  "source_records": [
+    {
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=170000&max_price=170000&min_date=2009-02-23&max_date=2009-06-23&relative_url_root=%2Fapp%2Fppd&town=Nottingham&ptype%5B%5D=lrcommon%3Aflat-maisonette&et%5B%5D=lrcommon%3Aleasehold",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Savills Auc 608 lot 8 exact-price Nottingham flat transaction",
+      "evidence_excerpt": "Apartment 19, The Gallery, Hope Drive, Nottingham, NG7 1BT; GBP 170,000; flat/maisonette; leasehold; completed 1 April 2009. This was the sole compatible result in the exact-price, property-class and tenure query."
+    },
+    {
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=206000&max_price=206000&min_date=2006-05-15&max_date=2006-09-12&relative_url_root=%2Fapp%2Fppd&locality=Merstham&et%5B%5D=lrcommon%3Afreehold",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Savills Auc 438 lot 12 exact-price Merstham freehold transaction",
+      "evidence_excerpt": "Flat 2, School House, London Road South, Redhill, RH1 3AZ; locality Merstham; GBP 206,000; semi-detached; freehold; completed 21 June 2006. This was the sole compatible result in the exact-price, locality and tenure query."
+    },
+    {
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=228000&max_price=228000&min_date=2006-05-15&max_date=2006-09-12&relative_url_root=%2Fapp%2Fppd&locality=Merstham&et%5B%5D=lrcommon%3Afreehold",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Savills Auc 438 lot 16 exact-price Merstham freehold transaction",
+      "evidence_excerpt": "Flat 1, School House, London Road South, Redhill, RH1 3AZ; locality Merstham; GBP 228,000; semi-detached; freehold; completed 21 June 2006. This was the sole compatible result in the exact-price, locality and tenure query."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "source-corpus/savills_2005_2009_saved_catalogue_grid_lots_20260928",
+      "target_appearance_id": "source-corpus|savills-commercial-auc608-pos8",
+      "address": "Apartment 19, The Gallery, Hope Drive, Nottingham, NG7 1BT",
+      "address_basis": "official_hmlr_unique_exact_price_locality_property_class_tenure_and_short_completion_window_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=170000&max_price=170000&min_date=2009-02-23&max_date=2009-06-23&relative_url_root=%2Fapp%2Fppd&town=Nottingham&ptype%5B%5D=lrcommon%3Aflat-maisonette&et%5B%5D=lrcommon%3Aleasehold",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=170000&max_price=170000&min_date=2009-02-23&max_date=2009-06-23&relative_url_root=%2Fapp%2Fppd&town=Nottingham&ptype%5B%5D=lrcommon%3Aflat-maisonette&et%5B%5D=lrcommon%3Aleasehold"
+      ],
+      "evidence_note": "The saved first-party Savills Auc 608 catalogue row identifies lot 8 as a vacant Nottingham flat sold for exactly GBP 170,000 on 23 February 2009. HM Land Registry identifies Apartment 19, The Gallery, Hope Drive as the sole Nottingham flat/maisonette leasehold transaction at that exact price within 120 days, completing 37 days later on 1 April 2009."
+    },
+    {
+      "target_shard": "source-corpus/savills_2005_2009_saved_catalogue_grid_lots_20260928",
+      "target_appearance_id": "source-corpus|savills-commercial-auc438-pos12",
+      "address": "Flat 2, School House, London Road South, Merstham, Redhill, RH1 3AZ",
+      "address_basis": "official_hmlr_unique_exact_price_locality_freehold_property_class_and_short_completion_window_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=206000&max_price=206000&min_date=2006-05-15&max_date=2006-09-12&relative_url_root=%2Fapp%2Fppd&locality=Merstham&et%5B%5D=lrcommon%3Afreehold",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020249id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=438&date=15/05/2006",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=206000&max_price=206000&min_date=2006-05-15&max_date=2006-09-12&relative_url_root=%2Fapp%2Fppd&locality=Merstham&et%5B%5D=lrcommon%3Afreehold"
+      ],
+      "evidence_note": "The saved first-party Savills Auc 438 catalogue row identifies lot 12 as a vacant freehold house in Merstham sold for exactly GBP 206,000 on 15 May 2006. HM Land Registry identifies Flat 2, School House as the sole compatible Merstham freehold transaction at that exact price within 120 days, completing 37 days later on 21 June 2006."
+    },
+    {
+      "target_shard": "source-corpus/savills_2005_2009_saved_catalogue_grid_lots_20260928",
+      "target_appearance_id": "source-corpus|savills-commercial-auc438-pos16",
+      "address": "Flat 1, School House, London Road South, Merstham, Redhill, RH1 3AZ",
+      "address_basis": "official_hmlr_unique_exact_price_locality_freehold_property_class_and_short_completion_window_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=228000&max_price=228000&min_date=2006-05-15&max_date=2006-09-12&relative_url_root=%2Fapp%2Fppd&locality=Merstham&et%5B%5D=lrcommon%3Afreehold",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020249id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=438&date=15/05/2006",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=228000&max_price=228000&min_date=2006-05-15&max_date=2006-09-12&relative_url_root=%2Fapp%2Fppd&locality=Merstham&et%5B%5D=lrcommon%3Afreehold"
+      ],
+      "evidence_note": "The saved first-party Savills Auc 438 catalogue row identifies lot 16 as a vacant freehold house in Merstham sold for exactly GBP 228,000 on 15 May 2006. HM Land Registry identifies Flat 1, School House as the sole compatible Merstham freehold transaction at that exact price within 120 days, completing 37 days later on 21 June 2006."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 3,
+  "address_records_added": 3,
+  "partial_records_added": 0,
+  "related_residential_candidates_checked": 5,
+  "ambiguous_candidates_left_unchanged": 1,
+  "no_result_candidates_left_unchanged": 1,
+  "historical_completeness_declared": false
+}
