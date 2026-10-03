@@ -23,6 +23,7 @@ python scripts/harvest_auction_house_east_anglia.py
 python scripts/harvest_auction_house_national.py
 python scripts/harvest_auction_house_regions.py
 python scripts/harvest_bidx1_canonical.py
+python scripts/harvest_btg_eddisons_catalogues.py 4
 python historical_corpus.py build
 ```
 
@@ -108,6 +109,14 @@ stable property links and successfully parsed detail pages agree exactly. Each
 property's own closing timestamp supplies the appearance date; the collector
 does not infer dates from a search container. Residential and commercial lots
 are retained together, with raw index and detail snapshots preserved.
+
+BTG Eddisons catalogue collection traverses both pages of the first-party
+previous-results archive and every page of each retained live-stream and online
+catalogue. Every visible property card is preserved. A catalogue is complete
+only when distinct first-party property identities and captured pages reconcile
+exactly to its published ``results found`` denominator. Online appearances use
+the published closing day; lots in two-day live-stream catalogues keep a null
+individual auction date while preserving the exact published date range.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The
