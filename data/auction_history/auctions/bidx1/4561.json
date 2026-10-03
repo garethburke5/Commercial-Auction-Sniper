@@ -1,0 +1,29 @@
+{
+  "auctioneer": "BidX1",
+  "source_auction_id": "bidx1:4561",
+  "auction_date": "2022-10-20",
+  "catalogue_complete": false,
+  "published_result_count": 10,
+  "lots_captured": 9,
+  "source_property_ids": [
+    "82235",
+    "82237",
+    "82484",
+    "82485",
+    "82486",
+    "82487",
+    "82545",
+    "82798",
+    "82844"
+  ],
+  "errors": [
+    {
+      "source_id": "82154",
+      "url": "https://bidx1.com/en/en-gb/auction/property/82154",
+      "error": "ValueError: source returned no expected BidX1 content"
+    }
+  ],
+  "completion_scope": "all stable property links in the auction-ID-specific first-party result set",
+  "discovery": "first-party indexed historical result set",
+  "checked_at": "2026-10-03T14:12:02.822038+00:00"
+}
