@@ -149,6 +149,14 @@ def fetch_card(property_id: str) -> tuple[str, int, dict | None]:
 
 def harvest(workers: int = 32) -> None:
     sitemap_response = requests.get(SITEMAP, headers=HEADERS, timeout=90)
+    existing_path = corpus.DATA / "appearances/pattinson/canonical.jsonl.gz"
+    existing_summary = corpus.DATA / "pattinson_collection.json"
+    if sitemap_response.status_code == 403 and existing_path.exists() and existing_summary.exists():
+        # Pattinson currently blocks GitHub-hosted runner addresses.  Retain
+        # the already banked, source-snapshotted rows; a blocked refresh must
+        # never erase or rewrite them.
+        print("PATTINSON_REFRESH_BLOCKED_403 retaining persisted source-snapshotted rows", flush=True)
+        return
     sitemap_response.raise_for_status()
     raw_sitemap = sitemap_response.content
     xml = raw_sitemap.decode("utf-8", "replace")
@@ -179,9 +187,27 @@ def harvest(workers: int = 32) -> None:
             if position % 500 == 0:
                 print("PATTINSON", position, "/", len(property_ids), "card endpoints", flush=True)
 
+    # Preserve every admitted raw card verbatim.  For the much larger set of
+    # rejected live/non-auction cards, retain the admission flags plus a hash
+    # of the raw response so the finite sitemap audit remains reproducible
+    # without adding megabytes of unrelated live-property imagery each run.
+    candidate_payloads = {}
+    audit = {}
+    for property_id, payload in payloads.items():
+        raw_payload = json.dumps(payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True).encode()
+        card = payload.get("property") if isinstance(payload, dict) else None
+        audit[property_id] = {
+            "sha256": corpus.digest(raw_payload),
+            "isSold": card.get("isSold") if isinstance(card, dict) else None,
+            "isOnlineAuction": card.get("isOnlineAuction") if isinstance(card, dict) else None,
+            "isRental": card.get("isRental") if isinstance(card, dict) else None,
+        }
+        if historical_auction(card):
+            candidate_payloads[property_id] = payload
     snapshot_value = {
         "observed_at": observed_at, "sitemap_evidence": sitemap_evidence,
-        "property_urls_discovered": len(property_ids), "cards": payloads,
+        "property_urls_discovered": len(property_ids), "candidate_cards": candidate_payloads,
+        "card_admission_audit": audit,
         "unavailable_property_ids": sorted(unavailable), "failures": failures,
     }
     snapshot_bytes = json.dumps(snapshot_value, ensure_ascii=False, separators=(",", ":"), sort_keys=True).encode()
@@ -190,12 +216,12 @@ def harvest(workers: int = 32) -> None:
     cards_evidence = {
         "source_url": SITEMAP, "retrieved_at": observed_at, "sha256": cards_sha,
         "snapshot_path": str(cards_snapshot.relative_to(corpus.ROOT)),
-        "basis": "raw first-party card responses for every resolvable sitemap property URL",
+        "basis": "raw admitted first-party cards plus admission flags and response hashes for every resolvable sitemap URL",
         "sitemap_sha256": sitemap_sha,
     }
     corpus.save_gzip(cards_snapshot, snapshot_value)
 
-    path = corpus.DATA / "appearances/pattinson/canonical.jsonl.gz"
+    path = existing_path
     existing = list(corpus.iter_rows(path)) if path.exists() else []
     before_ids = {row["appearance_id"] for row in existing}
     rows = []

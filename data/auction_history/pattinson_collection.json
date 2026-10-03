@@ -1,0 +1,46 @@
+{
+  "checked_at": "2026-10-03T20:38:47.552732+00:00",
+  "source_url": "https://www.pattinson.co.uk/sitemap.xml",
+  "property_urls_discovered": 4192,
+  "card_endpoints_resolved": 4188,
+  "card_endpoints_unavailable": 4,
+  "unavailable_property_ids": [
+    "493025",
+    "500357",
+    "514591",
+    "515026"
+  ],
+  "verified_historical_online_auction_appearances": 449,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
+  "run_new_partial_lots": 0,
+  "by_sector": {
+    "residential": 403,
+    "land": 14,
+    "unknown": 17,
+    "commercial": 12,
+    "mixed-use": 3
+  },
+  "by_status": {
+    "sold": 449
+  },
+  "sitemap_evidence": {
+    "source_url": "https://www.pattinson.co.uk/sitemap.xml",
+    "retrieved_at": "2026-10-03T20:37:58.907479+00:00",
+    "sha256": "447cd2929454113af2ba7c55958d8ae1017bf5fe315fa24eea1d86afc991b821",
+    "snapshot_path": "data/auction_history/sources/pattinson/sitemap-447cd2929454113a.json.gz",
+    "basis": "first-party XML sitemap property URL denominator"
+  },
+  "card_scan_evidence": {
+    "source_url": "https://www.pattinson.co.uk/sitemap.xml",
+    "retrieved_at": "2026-10-03T20:37:58.907479+00:00",
+    "sha256": "71ae9e57d06ac15ec48c2d6ae389c29bd613b6d559fc765bec79bdca6eef70f5",
+    "snapshot_path": "data/auction_history/sources/pattinson/card-scan-71ae9e57d06ac15e.json.gz",
+    "basis": "raw admitted first-party cards plus admission flags and response hashes for every resolvable sitemap URL",
+    "sitemap_sha256": "447cd2929454113af2ba7c55958d8ae1017bf5fe315fa24eea1d86afc991b821"
+  },
+  "failures": [],
+  "admission_rule": "isSold=true AND isOnlineAuction=true AND isRental!=true",
+  "catalogue_completion_claimed": false,
+  "completion_scope": "standalone retained property pages only; no parent historical catalogue is published"
+}
