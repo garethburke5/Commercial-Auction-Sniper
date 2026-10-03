@@ -7,7 +7,7 @@ HM Land Registry yearly Price Paid Data files and emits source-corpus
 enrichments only when one transaction is uniquely compatible on:
 
 * exact price;
-* completion between the auction date and 60 days later;
+* completion inside a caller-supplied day window after the auction;
 * exact postcode district, or exact normalized town where no district survives;
 * tenure and property class; and
 * exclusive use of the matched HMLR transaction by one auction appearance.
@@ -121,7 +121,12 @@ def main() -> None:
     parser.add_argument("--ppd", action="append", required=True, type=parse_ppd_arg)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--captured-at", required=True)
+    parser.add_argument("--min-days", type=int, default=0)
+    parser.add_argument("--max-days", type=int, default=60)
     args = parser.parse_args()
+
+    if args.min_days < 0 or args.max_days < args.min_days:
+        parser.error("completion window must satisfy 0 <= min-days <= max-days")
 
     ppd_paths = dict(args.ppd)
     legacy_rows, existing_addresses = load_legacy_rows()
@@ -153,7 +158,8 @@ def main() -> None:
     counters = Counter()
     for row in targets:
         auction_date = dt.date.fromisoformat(row["auction_date"])
-        latest = auction_date + dt.timedelta(days=60)
+        earliest = auction_date + dt.timedelta(days=args.min_days)
+        latest = auction_date + dt.timedelta(days=args.max_days)
         locality = str(row.get("locality") or "")
         district_match = POSTCODE_DISTRICT.search(locality.upper())
         locality_town = normalized(locality.split(",", 1)[0])
@@ -163,7 +169,7 @@ def main() -> None:
                 completion = dt.date.fromisoformat(ppd_row[2][:10])
             except ValueError:
                 continue
-            if not auction_date <= completion <= latest:
+            if not earliest <= completion <= latest:
                 continue
             if district_match:
                 outward = (ppd_row[3] or "").split(" ", 1)[0].upper()
@@ -202,7 +208,8 @@ def main() -> None:
         query_url = (
             "https://landregistry.data.gov.uk/app/ppd/search?limit=100"
             f"&min_price={int(row['sale_price'])}&max_price={int(row['sale_price'])}"
-            f"&min_date={auction_date}&max_date={auction_date + dt.timedelta(days=60)}"
+            f"&min_date={auction_date + dt.timedelta(days=args.min_days)}"
+            f"&max_date={auction_date + dt.timedelta(days=args.max_days)}"
             f"&relative_url_root=%2Fapp%2Fppd&{location_query}"
         )
         aid = auction_id.split(":", 1)[-1]
@@ -214,7 +221,7 @@ def main() -> None:
             "target_appearance_id": appearance_id,
             "address": address,
             "postcode": ppd_row[3].upper(),
-            "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_property_class_match",
+            "address_basis": "conservative_official_hmlr_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
             "source_url": query_url,
             "source_urls": [str(row.get("original_url")), query_url],
             "evidence_note": (
@@ -232,12 +239,16 @@ def main() -> None:
         "schema": "historical_source_corpus_v1",
         "schema_version": 1,
         "auctioneer": "Savills Auctions",
-        "capture_mode": "conservative official HM Land Registry exact-transaction legacy address enrichment",
+        "capture_mode": (
+            "conservative official HM Land Registry exact-transaction legacy address enrichment "
+            f"using completion days {args.min_days}-{args.max_days}"
+        ),
         "captured_at_utc": args.captured_at,
         "source_note": (
             f"The official HM Land Registry Price Paid Data was run across all {len(targets):,} priced, "
             f"addressless sold Savills legacy appearances in {', '.join(years)}. {len(enrichments):,} "
-            "matches were retained only where the exact hammer price, completion within 60 days, exact locality "
+            f"matches were retained only where the exact hammer price, completion {args.min_days}-{args.max_days} "
+            "days after auction, exact locality "
             "or postcode district, tenure and property class aligned to one compatible transaction used by no "
             "other lot. All no-result, ambiguous, class-conflicting, shared-transaction and already-used-address "
             "candidates remain unchanged. Original Savills/PropertyAuctions evidence and every repeat auction "
