@@ -122,7 +122,10 @@ def parse_result_page(html: str, result_url: str, published_offered: int | None,
         address_text = clean(address_node.get_text(" ", strip=True) if address_node else None)
         detail_url = urljoin(BASE, detail_anchor.get("href")) if detail_anchor else None
         detail_match = DETAIL_RE.search(urlparse(detail_url or "").path)
-        if not lot_number or not address_text or not detail_match:
+        # A handful of withdrawn/unsold properties were published without a
+        # catalogue number.  Their stable detail UUID remains a valid source
+        # identity, so preserve the unknown lot number as null.
+        if not address_text or not detail_match:
             raise ValueError(f"lot identity missing at source position {position}")
         source_id = detail_match.group(1).lower()
         description = clean((card.select_one(".grid-tagline") or card).get_text(" ", strip=True))
