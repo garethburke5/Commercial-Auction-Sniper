@@ -1,0 +1,107 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "contemporaneous press recovery of identifiable lots beyond an unavailable archived catalogue page plus conservative exact-address enrichment",
+  "captured_at_utc": "2026-10-03T07:19:00Z",
+  "source_note": "The exact first-party Savills Auc 371 snapshot states that the 16 May 2005 commercial catalogue contained 42 lots and links to pages 2 and 3, but the linked page-2 snapshot is unavailable in the archive. A contemporaneous Independent preview nevertheless identifies three additional properties in that exact sale which do not occur in the preserved first 20 rows. They are banked immediately as separate appearances with null lot numbers rather than assigned invented positions. The named Bolton pub is linked conservatively to the unique surviving Church Hotel on Crook Street using a historical building source; the Docklands office and Old Kent Road advertising right retain null street addresses. The same preview uniquely identifies the banked Gorleston Blockbuster row, and a historical branch directory supplies its exact numbered address. No catalogue-completeness claim is made.",
+  "saved_source_snapshot": "data/historical_source_corpus/savills_2005_saved_catalogue_grid_lots_20261003.json",
+  "saved_source_snapshot_sha256": "9f526d9d53ab0b0060d7f61f2578471700890baae87ca16c4948933285ba3916",
+  "source_records": [
+    {
+      "source_url": "https://www.the-independent.com/property/house-and-home/investment-shopping-around-526217.html",
+      "source_name": "The Independent",
+      "record_identity": "16 May 2005 Savills commercial auction preview",
+      "evidence_excerpt": "Published 26 April 2005, the preview identifies the Savills commercial auction on 16 May and describes its Gorleston Blockbuster shop, The Church pub in Bolton, a ground-floor Docklands office suite, and an Old Kent Road wall with advertising rights."
+    },
+    {
+      "source_url": "https://lostpubsofbolton.blogspot.com/2014/03/",
+      "source_name": "Lost Pubs Of Bolton",
+      "record_identity": "Church Hotel, Crook Street historical building record",
+      "evidence_excerpt": "The record identifies the Church Hotel at Crook Street and Moncrieffe Street, dates the building to the 1830s, and records its later closure and conversion to flats."
+    },
+    {
+      "source_url": "https://www.application-form.org/uk/retailer/blockbuster/store/127-high-street-great-yarmouth-NR31-6RE/19517/",
+      "source_name": "Application-form.org historical store directory",
+      "record_identity": "Blockbuster Gorleston-on-Sea High Street branch",
+      "evidence_excerpt": "The historical directory identifies Blockbuster's Gorleston-on-Sea High Street store at 127 High Street, Gorleston, Great Yarmouth, NR31 6RE."
+    }
+  ],
+  "lots": [
+    {
+      "source_record_id": "savills-commercial-auc371-press-the-church-bolton",
+      "source_auction_id": "savills-commercial-auc371",
+      "auction_date": "2005-05-16",
+      "lot_number": null,
+      "address": "The Church Hotel, Crook Street at Moncrieffe Street, Bolton",
+      "locality": "Bolton",
+      "property_type": "Leisure",
+      "tenure": "Leasehold",
+      "guide_price_gbp": 250000,
+      "rent_pa_gbp": 21975,
+      "notes": "Contemporaneous preview identifies The Church in Bolton in the 16 May Savills sale as an attractive nineteenth-century pub held on a 4,900-year lease, producing GBP 21,975 per annum and guided at GBP 250,000. The historical building record uniquely identifies Bolton's Church Hotel as the 1830s pub at Crook Street and Moncrieffe Street. Lot number and result remain unknown.",
+      "source_url": "https://www.the-independent.com/property/house-and-home/investment-shopping-around-526217.html",
+      "source_urls": [
+        "https://www.the-independent.com/property/house-and-home/investment-shopping-around-526217.html",
+        "https://lostpubsofbolton.blogspot.com/2014/03/"
+      ],
+      "result_status": null
+    },
+    {
+      "source_record_id": "savills-commercial-auc371-press-docklands-office-suite",
+      "source_auction_id": "savills-commercial-auc371",
+      "auction_date": "2005-05-16",
+      "lot_number": null,
+      "address": null,
+      "locality": "London Docklands",
+      "property_type": "Office",
+      "tenure": "Long leasehold",
+      "guide_price_gbp": 275000,
+      "notes": "Contemporaneous preview identifies a ground-floor office suite in Docklands in the 16 May Savills sale, held on a long lease with four parking spaces and guided at GBP 275,000. Street address, lot number and result remain unknown.",
+      "source_url": "https://www.the-independent.com/property/house-and-home/investment-shopping-around-526217.html",
+      "source_urls": [
+        "https://www.the-independent.com/property/house-and-home/investment-shopping-around-526217.html"
+      ],
+      "result_status": null
+    },
+    {
+      "source_record_id": "savills-commercial-auc371-press-old-kent-road-advertising-wall",
+      "source_auction_id": "savills-commercial-auc371",
+      "auction_date": "2005-05-16",
+      "lot_number": null,
+      "address": null,
+      "locality": "Old Kent Road, London",
+      "property_type": "Advertising right",
+      "guide_price_gbp": 15000,
+      "notes": "Contemporaneous preview identifies the side of a wall on Old Kent Road with rights to fix advertising hoardings as a lot in the 16 May Savills sale, estimated at GBP 15,000. Exact numbered address, lot number and result remain unknown.",
+      "source_url": "https://www.the-independent.com/property/house-and-home/investment-shopping-around-526217.html",
+      "source_urls": [
+        "https://www.the-independent.com/property/house-and-home/investment-shopping-around-526217.html"
+      ],
+      "result_status": null
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "source-corpus/savills_2005_saved_catalogue_grid_lots_20261003",
+      "target_appearance_id": "source-corpus|savills-commercial-auc371-pos1",
+      "address": "127 High Street, Gorleston-on-Sea, Great Yarmouth, NR31 6RE",
+      "address_basis": "contemporaneous_press_exact_auction_tenant_locality_and_historical_branch_address_match",
+      "source_url": "https://www.application-form.org/uk/retailer/blockbuster/store/127-high-street-great-yarmouth-NR31-6RE/19517/",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020158id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=371&date=16/05/2005",
+        "https://www.the-independent.com/property/house-and-home/investment-shopping-around-526217.html",
+        "https://www.application-form.org/uk/retailer/blockbuster/store/127-high-street-great-yarmouth-NR31-6RE/19517/"
+      ],
+      "evidence_note": "The contemporaneous preview identifies the Gorleston-on-Sea lot in the 16 May Savills auction as the Blockbuster video shop formerly occupied by vendor Ladbrokes. The saved first-party grid contains one Gorleston retail appearance, lot 1, and the historical Blockbuster directory identifies the town's High Street branch at this exact numbered address."
+    }
+  ],
+  "appearance_count": 3,
+  "appearances_enriched": 1,
+  "address_records_added": 2,
+  "partial_records_added": 2,
+  "catalogues_checked": 1,
+  "catalogue_denominator": 42,
+  "identifiable_appearances_after_recovery": 23,
+  "historical_completeness_declared": false
+}
