@@ -22,6 +22,7 @@ python scripts/harvest_auction_house_south_west.py
 python scripts/harvest_auction_house_east_anglia.py
 python scripts/harvest_auction_house_national.py
 python scripts/harvest_auction_house_regions.py
+python scripts/harvest_bidx1_canonical.py
 python historical_corpus.py build
 ```
 
@@ -100,6 +101,13 @@ rows outside the National view. Exact regional auctioneer plus redirect ID reuse
 the canonical appearance identity, preserves earlier evidence unchanged, and
 admits only IDs not already banked. Pagination completeness remains separate
 from unavailable original catalogue denominators.
+
+BidX1 collection begins from independently evidenced, auction-ID-specific UK
+result sets. A catalogue is complete only when its published result count,
+stable property links and successfully parsed detail pages agree exactly. Each
+property's own closing timestamp supplies the appearance date; the collector
+does not infer dates from a search container. Residential and commercial lots
+are retained together, with raw index and detail snapshots preserved.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The
