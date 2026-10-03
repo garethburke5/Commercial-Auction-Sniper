@@ -12,6 +12,7 @@ on:
       - scripts/harvest_pugh_canonical.py
       - scripts/harvest_symonds_sampson_canonical.py
       - scripts/harvest_bidx1_canonical.py
+      - scripts/harvest_strettons_results.py
       - scripts/harvest_auction_house_northeast.py
       - scripts/harvest_auction_house_south_yorkshire.py
       - scripts/harvest_auction_house_north_west.py
@@ -27,6 +28,7 @@ on:
       - tests/test_pugh_history.py
       - tests/test_symonds_sampson_history.py
       - tests/test_bidx1_history.py
+      - tests/test_strettons_results.py
       - tests/test_auction_house_northeast.py
       - tests/test_auction_house_south_yorkshire.py
       - tests/test_auction_house_north_west.py
@@ -64,7 +66,7 @@ jobs:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4 lxml pytest
       - name: Verify admission, identities and completeness rules
-        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bidx1_history.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py tests/test_network_auctions.py tests/test_pattinson_history.py web_platform/tests/test_acuitus_admission.py
+        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bidx1_history.py tests/test_strettons_results.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py tests/test_network_auctions.py tests/test_pattinson_history.py web_platform/tests/test_acuitus_admission.py
       - name: Bank every previously recovered legacy lot
         run: python -u historical_corpus.py bank-legacy
       - name: Bank evidenced lots from saved source-corpus shards
@@ -101,6 +103,10 @@ jobs:
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_bidx1_canonical.py
+      - name: Bank complete retained Strettons past-auction catalogues
+        timeout-minutes: 10
+        continue-on-error: true
+        run: python -u scripts/harvest_strettons_results.py 4
       - name: Collect Auction House North East online results
         timeout-minutes: 20
         continue-on-error: true
@@ -164,6 +170,7 @@ jobs:
           if test -f data/auction_history/pugh_collection.json; then git add data/auction_history/pugh_collection.json; fi
           if test -f data/auction_history/symonds_sampson_collection.json; then git add data/auction_history/symonds_sampson_collection.json; fi
           if test -f data/auction_history/bidx1_collection.json; then git add data/auction_history/bidx1_collection.json; fi
+          if test -f data/auction_history/strettons_collection.json; then git add data/auction_history/strettons_collection.json; fi
           if test -f data/auction_history/auction_house_northeast_collection.json; then git add data/auction_history/auction_house_northeast_collection.json; fi
           if test -f data/auction_history/auction_house_southyorkshire_collection.json; then git add data/auction_history/auction_house_southyorkshire_collection.json; fi
           if test -f data/auction_history/auction_house_northwest_collection.json; then git add data/auction_history/auction_house_northwest_collection.json; fi

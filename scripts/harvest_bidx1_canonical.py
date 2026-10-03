@@ -34,7 +34,12 @@ MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d+)?)", re.I)
 
 # Add only independently verified first-party auction IDs. Combined search URLs
 # are discovery evidence, not a claim that several auctions form one catalogue.
-AUCTIONS = {"4561": {"discovery": "first-party indexed historical result set"}}
+AUCTIONS = {
+    "4561": {"discovery": "first-party indexed historical result set"},
+    "6854": {"discovery": "first-party indexed historical result set; 19 published results"},
+    "7260": {"discovery": "first-party indexed historical result set; 19 published results"},
+    "7445": {"discovery": "first-party indexed historical result set; 1 published result"},
+}
 
 
 def clean(value: str | None) -> str | None:

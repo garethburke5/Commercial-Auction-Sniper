@@ -1,4 +1,10 @@
-from scripts.harvest_bidx1_canonical import parse_detail, parse_index, search_url
+from scripts.harvest_bidx1_canonical import AUCTIONS, parse_detail, parse_index, search_url
+
+
+def test_only_individually_verified_first_party_auction_ids_are_seeded():
+    assert set(AUCTIONS) == {"4561", "6854", "7260", "7445"}
+    assert all("first-party indexed historical result set" in item["discovery"]
+               for item in AUCTIONS.values())
 
 
 def test_index_reconciles_stable_property_links_and_lots():
