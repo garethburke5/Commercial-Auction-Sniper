@@ -1,0 +1,193 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative official HM Land Registry exact-transaction legacy bungalow address enrichment",
+  "captured_at_utc": "2026-10-03T00:28:33Z",
+  "source_note": "The official HM Land Registry Price Paid Data report builder was run across all 77 priced, addressless Savills legacy appearances whose saved property class identifies a bungalow. Fifty-eight sold candidates were checked. Fourteen matches were retained only where exact hammer price, locality or postcode district, freehold tenure, compatible bungalow class and a single transaction completing within 60 days aligned. Six multi-candidate and 37 no-compatible-result candidates were left unchanged; one unique exact-price candidate without sufficient property-class corroboration was also left partial. Original Savills/PropertyAuctions evidence and every repeat auction appearance remain preserved.",
+  "source_records": [
+    {
+      "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Official Price Paid Data report-builder records for residual Savills legacy bungalow results, 2014-2018",
+      "evidence_excerpt": "Exact-price transaction searches supplied full addresses, completion dates, tenure and Land Registry property types. Each retained appearance carries its exact official report-builder query."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "savills/legacy-943",
+      "target_appearance_id": "Savills Auctions|propertyauctions:943|1",
+      "address": "1 Parkfield Close, Northolt, UB5 5NP",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=302000&max_price=302000&min_date=2015-02-17&max_date=2015-06-17&relative_url_root=%2Fapp%2Fppd&town=Northolt",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=943",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=302000&max_price=302000&min_date=2015-02-17&max_date=2015-06-17&relative_url_root=%2Fapp%2Fppd&town=Northolt"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 943 lot 1 is a vacant freehold semi-detached bungalow in Northolt, Middlesex sold for exactly GBP 302,000 on 2015-02-17. The official HM Land Registry result identifies 1 Parkfield Close, Northolt, UB5 5NP as the sole compatible exact-price semi-detached/freehold transaction, completing 24 days later on 2015-03-13."
+    },
+    {
+      "target_shard": "savills/legacy-943",
+      "target_appearance_id": "Savills Auctions|propertyauctions:943|202",
+      "address": "Ruddle Minor, Ruddlemoor, St Austell, PL26 8XF",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=104000&max_price=104000&min_date=2015-02-17&max_date=2015-06-17&relative_url_root=%2Fapp%2Fppd&town=St+Austell",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=943",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=104000&max_price=104000&min_date=2015-02-17&max_date=2015-06-17&relative_url_root=%2Fapp%2Fppd&town=St+Austell"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 943 lot 202 is a vacant freehold bungalow in St Austell, Cornwall sold for exactly GBP 104,000 on 2015-02-17. The official HM Land Registry result identifies Ruddle Minor, Ruddlemoor, St Austell, PL26 8XF as the sole compatible exact-price detached/freehold transaction, completing 28 days later on 2015-03-17."
+    },
+    {
+      "target_shard": "savills/legacy-1019",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1019|120",
+      "address": "31 Sandy Lodge Lane, Northwood, HA6 2HZ",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=1430000&max_price=1430000&min_date=2017-05-09&max_date=2017-09-09&relative_url_root=%2Fapp%2Fppd&town=Northwood",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1019",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=1430000&max_price=1430000&min_date=2017-05-09&max_date=2017-09-09&relative_url_root=%2Fapp%2Fppd&town=Northwood"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1019 lot 120 is a vacant freehold bungalow in Northwood, Middlesex sold for exactly GBP 1,430,000 on 2017-05-09. The official HM Land Registry result identifies 31 Sandy Lodge Lane, Northwood, HA6 2HZ as the sole compatible exact-price detached/freehold transaction, completing 28 days later on 2017-06-06."
+    },
+    {
+      "target_shard": "savills/legacy-1019",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1019|24",
+      "address": "102 Pound Road, Tonbridge, TN12 5BJ",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=259000&max_price=259000&min_date=2017-05-09&max_date=2017-09-09&relative_url_root=%2Fapp%2Fppd&town=Tonbridge",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1019",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=259000&max_price=259000&min_date=2017-05-09&max_date=2017-09-09&relative_url_root=%2Fapp%2Fppd&town=Tonbridge"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1019 lot 24 is a vacant freehold bungalow in Tonbridge, Kent sold for exactly GBP 259,000 on 2017-05-09. The official HM Land Registry result identifies 102 Pound Road, Tonbridge, TN12 5BJ as the sole compatible exact-price semi-detached/freehold transaction, completing 29 days later on 2017-06-07."
+    },
+    {
+      "target_shard": "savills/legacy-1004",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1004|129",
+      "address": "15 Branksome Avenue, Thornton-Cleveleys, FY5 2EW",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=85000&max_price=85000&min_date=2016-07-25&max_date=2016-11-25&relative_url_root=%2Fapp%2Fppd&town=Cleveleys",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1004",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=85000&max_price=85000&min_date=2016-07-25&max_date=2016-11-25&relative_url_root=%2Fapp%2Fppd&town=Cleveleys"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1004 lot 129 is a vacant freehold semi-detached bungalow in Cleveleys, Lancashire sold for exactly GBP 85,000 on 2016-07-25. The official HM Land Registry result identifies 15 Branksome Avenue, Thornton-Cleveleys, FY5 2EW as the sole compatible exact-price semi-detached/freehold transaction, completing 21 days later on 2016-08-15."
+    },
+    {
+      "target_shard": "savills/legacy-1005",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1005|16",
+      "address": "130 Kings Head Hill, London, E4 7NU",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=337000&max_price=337000&min_date=2016-09-19&max_date=2017-01-19&relative_url_root=%2Fapp%2Fppd&postcode=E4",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1005",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=337000&max_price=337000&min_date=2016-09-19&max_date=2017-01-19&relative_url_root=%2Fapp%2Fppd&postcode=E4"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1005 lot 16 is a vacant freehold semi-detached bungalow in London E4 sold for exactly GBP 337,000 on 2016-09-19. The official HM Land Registry result identifies 130 Kings Head Hill, London, E4 7NU as the sole compatible exact-price semi-detached/freehold transaction, completing 24 days later on 2016-10-13."
+    },
+    {
+      "target_shard": "savills/legacy-1000",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1000|198",
+      "address": "14 Thornhill Road, Surbiton, KT6 7TL",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=644000&max_price=644000&min_date=2016-02-16&max_date=2016-06-16&relative_url_root=%2Fapp%2Fppd&town=Surbiton",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1000",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=644000&max_price=644000&min_date=2016-02-16&max_date=2016-06-16&relative_url_root=%2Fapp%2Fppd&town=Surbiton"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1000 lot 198 is a vacant freehold bungalow in Surbiton, Surrey sold for exactly GBP 644,000 on 2016-02-16. The official HM Land Registry result identifies 14 Thornhill Road, Surbiton, KT6 7TL as the sole compatible exact-price detached/freehold transaction, completing 28 days later on 2016-03-15."
+    },
+    {
+      "target_shard": "savills/legacy-1000",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1000|24",
+      "address": "5 Bywood Avenue, Croydon, CR0 7RB",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=342000&max_price=342000&min_date=2016-02-16&max_date=2016-06-16&relative_url_root=%2Fapp%2Fppd&town=Croydon",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1000",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=342000&max_price=342000&min_date=2016-02-16&max_date=2016-06-16&relative_url_root=%2Fapp%2Fppd&town=Croydon"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1000 lot 24 is a vacant freehold semi-detached bungalow in Croydon, Surrey sold for exactly GBP 342,000 on 2016-02-16. The official HM Land Registry result identifies 5 Bywood Avenue, Croydon, CR0 7RB as the sole compatible exact-price semi-detached/freehold transaction, completing 28 days later on 2016-03-15."
+    },
+    {
+      "target_shard": "savills/legacy-1002",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1002|212",
+      "address": "1, Office Farm Bungalows, The Common, Harleston, IP20 0LP",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=90000&max_price=90000&min_date=2016-05-09&max_date=2016-09-09&relative_url_root=%2Fapp%2Fppd&town=Harleston",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1002",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=90000&max_price=90000&min_date=2016-05-09&max_date=2016-09-09&relative_url_root=%2Fapp%2Fppd&town=Harleston"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1002 lot 212 is a investment freehold bungalow in Harleston, Norfolk sold for exactly GBP 90,000 on 2016-05-09. The official HM Land Registry result identifies 1, Office Farm Bungalows, The Common, Harleston, IP20 0LP as the sole compatible exact-price detached/freehold transaction, completing 28 days later on 2016-06-06."
+    },
+    {
+      "target_shard": "savills/legacy-1072",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1072|44",
+      "address": "3 Green Park, Ferring, Worthing, BN12 6QX",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=334000&max_price=334000&min_date=2018-11-26&max_date=2019-03-26&relative_url_root=%2Fapp%2Fppd&town=Worthing",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=334000&max_price=334000&min_date=2018-11-26&max_date=2019-03-26&relative_url_root=%2Fapp%2Fppd&town=Worthing"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1072 lot 44 is a vacant freehold bungalow in Worthing, West Sussex sold for exactly GBP 334,000 on 2018-11-26. The official HM Land Registry result identifies 3 Green Park, Ferring, Worthing, BN12 6QX as the sole compatible exact-price detached/freehold transaction, completing 53 days later on 2019-01-18."
+    },
+    {
+      "target_shard": "savills/legacy-1047",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1047|151",
+      "address": "Sycamore House, 20B Liberty Hall Road, Addlestone, KT15 1SS",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=510000&max_price=510000&min_date=2017-12-11&max_date=2018-04-11&relative_url_root=%2Fapp%2Fppd&town=Addlestone",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1047",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=510000&max_price=510000&min_date=2017-12-11&max_date=2018-04-11&relative_url_root=%2Fapp%2Fppd&town=Addlestone"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1047 lot 151 is a vacant freehold bungalow in Addlestone, Surrey sold for exactly GBP 510,000 on 2017-12-11. The official HM Land Registry result identifies Sycamore House, 20B Liberty Hall Road, Addlestone, KT15 1SS as the sole compatible exact-price detached/freehold transaction, completing 43 days later on 2018-01-23."
+    },
+    {
+      "target_shard": "savills/legacy-1045",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1045|140",
+      "address": "30 Matlock Way, New Malden, KT3 3AY",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=585000&max_price=585000&min_date=2017-09-25&max_date=2018-01-25&relative_url_root=%2Fapp%2Fppd&town=New+Malden",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1045",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=585000&max_price=585000&min_date=2017-09-25&max_date=2018-01-25&relative_url_root=%2Fapp%2Fppd&town=New+Malden"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1045 lot 140 is a vacant freehold semi-detached bungalow in New Malden, Surrey sold for exactly GBP 585,000 on 2017-09-25. The official HM Land Registry result identifies 30 Matlock Way, New Malden, KT3 3AY as the sole compatible exact-price semi-detached/freehold transaction, completing 25 days later on 2017-10-20."
+    },
+    {
+      "target_shard": "savills/legacy-996",
+      "target_appearance_id": "Savills Auctions|propertyauctions:996|7",
+      "address": "41 New Scott Street, Mansfield, NG20 9BP",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=85500&max_price=85500&min_date=2016-07-07&max_date=2016-11-07&relative_url_root=%2Fapp%2Fppd&town=Mansfield",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=996",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=85500&max_price=85500&min_date=2016-07-07&max_date=2016-11-07&relative_url_root=%2Fapp%2Fppd&town=Mansfield"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 996 lot 7 is a vacant freehold semi-detached bungalow in Mansfield, Nottinghamshire sold for exactly GBP 85,500 on 2016-07-07. The official HM Land Registry result identifies 41 New Scott Street, Mansfield, NG20 9BP as the sole compatible exact-price semi-detached/freehold transaction, completing 22 days later on 2016-07-29."
+    },
+    {
+      "target_shard": "savills/legacy-1069",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1069|54",
+      "address": "17 The Knapp Close, Collingbourne Ducis, Marlborough, SN8 3ES",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_date_locality_tenure_and_bungalow_class_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=90000&max_price=90000&min_date=2018-06-18&max_date=2018-10-18&relative_url_root=%2Fapp%2Fppd&town=Marlborough",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1069",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=90000&max_price=90000&min_date=2018-06-18&max_date=2018-10-18&relative_url_root=%2Fapp%2Fppd&town=Marlborough"
+      ],
+      "evidence_note": "Saved Savills/PropertyAuctions AID 1069 lot 54 is a vacant freehold bungalow in Marlborough, Wiltshire sold for exactly GBP 90,000 on 2018-06-18. The official HM Land Registry result identifies 17 The Knapp Close, Collingbourne Ducis, Marlborough, SN8 3ES as the sole compatible exact-price terraced/freehold transaction, completing 29 days later on 2018-07-17."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 14,
+  "address_records_added": 14,
+  "partial_records_added": 0,
+  "related_partial_candidates_checked": 58,
+  "ambiguous_candidates_left_unchanged": 43,
+  "historical_completeness_declared": false
+}
