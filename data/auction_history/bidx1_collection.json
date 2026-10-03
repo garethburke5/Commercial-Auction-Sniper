@@ -1,33 +1,21 @@
 {
-  "checked_at": "2026-10-03T14:12:02.823278+00:00",
+  "checked_at": "2026-10-03T14:24:48.957140+00:00",
   "seed_auctions": 1,
-  "catalogues_complete": 0,
-  "property_appearances_captured": 9,
-  "run_new_appearances": 9,
-  "run_new_address_records": 9,
+  "catalogues_complete": 1,
+  "property_appearances_captured": 10,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
   "run_new_partial_lots": 0,
   "by_sector": {
-    "commercial": 8,
+    "commercial": 9,
     "residential": 1
   },
   "auctions": {
     "4561": {
       "published_result_count": 10,
-      "lots_captured": 9,
-      "catalogue_complete": false
+      "lots_captured": 10,
+      "catalogue_complete": true
     }
   },
-  "failures": [
-    {
-      "auction_id": "4561",
-      "error": "catalogue did not reconcile",
-      "details": [
-        {
-          "source_id": "82154",
-          "url": "https://bidx1.com/en/en-gb/auction/property/82154",
-          "error": "ValueError: source returned no expected BidX1 content"
-        }
-      ]
-    }
-  ]
+  "failures": []
 }
