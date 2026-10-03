@@ -51,9 +51,11 @@ same immutable appearance ID after the page's auction date and lot number agree.
 
 Barnett Ross collection traverses the first-party past-results index back to
 November 2002 and banks every visible UK result row, including residential and
-lettered lots. Stable property IDs preserve repeat appearances. Each unpaginated
-catalogue is complete only when every visible row reconciles to one distinct ID;
-Spain-only sales are outside this UK corpus and are explicitly excluded.
+lettered lots. Modern property IDs, intermediate PDF paths, and the earliest
+catalogues' exact auction-plus-lot numbers provide stable appearance identity.
+Linkless legacy rows keep property_id null and are never merged across auctions.
+Each unpaginated catalogue is complete only when every visible row reconciles to
+one distinct evidenced identity; Spain-only sales are explicitly excluded.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including
