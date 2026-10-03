@@ -228,7 +228,8 @@ def harvest() -> None:
                              "error": f"{type(exc).__name__}: {exc}"[:500]})
         time.sleep(0.35)
 
-    rows = sorted((row for row in merged.values() if is_historical_outcome(row)),\n                  key=lambda row: (row.get("auction_date") or "", row["source_lot_id"]))
+    rows = sorted((row for row in merged.values() if is_historical_outcome(row)),
+                  key=lambda row: (row.get("auction_date") or "", row["source_lot_id"]))
     corpus.write_rows("auction-house-northwest/online-results", rows)
     current_count = len(seen_current)
     row_total = sum(page_counts.values())

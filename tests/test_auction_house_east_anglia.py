@@ -1,5 +1,6 @@
 from scripts.harvest_auction_house_east_anglia import (
-    is_historical_outcome,\n    pagination_extent,
+    is_historical_outcome,
+    pagination_extent,
     parse_page,
     result_details,
 )
