@@ -109,7 +109,7 @@ jobs:
           if test -f data/auction_history/barnett_ross_collection.json; then git add data/auction_history/barnett_ross_collection.json; fi
           if test -f data/auction_history/symonds_sampson_collection.json; then git add data/auction_history/symonds_sampson_collection.json; fi
           if test -f data/auction_history/auction_house_northeast_collection.json; then git add data/auction_history/auction_house_northeast_collection.json; fi
-          if test -f data/auction_history/auction_house_south_yorkshire_collection.json; then git add data/auction_history/auction_house_south_yorkshire_collection.json; fi
+          if test -f data/auction_history/auction_house_southyorkshire_collection.json; then git add data/auction_history/auction_house_southyorkshire_collection.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Bank historical auction lot records and source evidence'
           for attempt in 1 2 3 4; do
