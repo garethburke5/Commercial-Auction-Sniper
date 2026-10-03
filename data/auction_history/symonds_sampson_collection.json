@@ -1,28 +1,19 @@
 {
-  "checked_at": "2026-10-03T01:41:38.481750+00:00",
+  "checked_at": "2026-10-03T02:07:09.614109+00:00",
   "sitemap_property_urls": 212,
-  "property_pages_captured": 210,
+  "property_pages_captured": 212,
   "pages_already_banked": 210,
   "pages_attempted_this_run": 2,
-  "run_new_appearances": 0,
-  "address_records": 128,
+  "run_new_appearances": 2,
+  "address_records": 130,
   "partial_lots": 82,
   "exact_dates_recovered": 31,
   "date_unresolved_pages": 127,
   "by_sector": {
     "land": 67,
     "residential": 106,
-    "unknown": 37
+    "unknown": 39
   },
-  "failures": [
-    {
-      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007b9/dt6/bridport/st-andrews-road/other/studio",
-      "error": "ValueError: time data 'on 24 September 2026' does not match format '%A %d %B %Y'"
-    },
-    {
-      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007e5/dt1/dorchester/high-west-street/other/studio",
-      "error": "ValueError: time data 'on 23 October 2026' does not match format '%A %d %B %Y'"
-    }
-  ],
-  "complete": false
+  "failures": [],
+  "complete": true
 }
