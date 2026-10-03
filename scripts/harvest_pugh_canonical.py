@@ -6,6 +6,7 @@ result page; later passes stop at a complete page of previously observed IDs.
 from __future__ import annotations
 
 from collections import Counter, defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 import json
 import math
@@ -185,6 +186,21 @@ def strict_legacy_match(row: dict, candidates: list[tuple[Path, dict]]) -> tuple
     return matches[0] if len(matches) == 1 else None
 
 
+def fetch_page(page: int) -> tuple[int, list[dict], int | None, int]:
+    """Fetch, snapshot and parse one archive page in an isolated session."""
+    requested = page_url(page)
+    final_url, raw = get(requests.Session(), requested)
+    sha256, retrieved = corpus.digest(raw), corpus.now()
+    snapshot = corpus.DATA / "sources/pugh" / f"property-search-page-{page:03d}-{sha256[:16]}.json.gz"
+    evidence = {"source_url": requested, "final_url": final_url,
+                "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
+                "sha256": sha256, "retrieved_at": retrieved,
+                "basis": "visible row in Pugh's retained first-party property-search archive"}
+    corpus.save_gzip(snapshot, {"evidence": evidence, "html": raw.decode("utf-8", "replace")})
+    parsed, page_total, page_last = parse_page(raw, requested, evidence)
+    return page, parsed, page_total, page_last
+
+
 def harvest() -> None:
     summary_path = corpus.DATA / "pugh_collection.json"
     try:
@@ -200,55 +216,86 @@ def harvest() -> None:
     enriched_by_path, rows_to_write = defaultdict(list), []
     observed, pages_captured, page_counts = set(observed_before), [], {}
     failures, run_new = [], []
-    result_count, last_page, page = None, 1, 1
-    session = requests.Session()
-    while page <= last_page:
-        requested = page_url(page)
-        try:
-            final_url, raw = get(session, requested)
-            sha256, retrieved = corpus.digest(raw), corpus.now()
-            snapshot = corpus.DATA / "sources/pugh" / f"property-search-page-{page:03d}-{sha256[:16]}.json.gz"
-            evidence = {"source_url": requested, "final_url": final_url,
-                        "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
-                        "sha256": sha256, "retrieved_at": retrieved,
-                        "basis": "visible row in Pugh's retained first-party property-search archive"}
-            corpus.save_gzip(snapshot, {"evidence": evidence, "html": raw.decode("utf-8", "replace")})
-            parsed, page_total, page_last = parse_page(raw, requested, evidence)
-            if page == 1:
-                result_count = page_total
-                last_page = page_last or (math.ceil(result_count / len(parsed)) if result_count else 1)
-            elif page_total is not None and result_count is not None and page_total != result_count:
-                raise ValueError("Published result count changed during traversal")
-            current_ids = {row["source_lot_id"] for row in parsed}
-            observed.update(current_ids)
-            page_counts[str(page)] = len(parsed)
-            pages_captured.append(page)
-            for row in parsed:
-                if not bankable(row):
-                    continue
-                lot_key = str(row.get("lot_number") or "").lstrip("0").lower()
-                match = strict_legacy_match(row, legacy.get((address_key(row.get("address")), lot_key), []))
-                if match:
-                    path, old = match
-                    merged = {**old, **row, "appearance_id": old["appearance_id"],
-                              "source_evidence": {**row["source_evidence"],
-                                                  "prior_source_evidence": old.get("source_evidence")}}
-                    enriched_by_path[path].append(merged)
-                    continue
-                rows_to_write.append(row)
-                if row["source_lot_id"] not in existing_ids:
-                    run_new.append(row)
-            print(f"PUGH page={page}/{last_page} rows={len(parsed)} new={len(run_new)}", flush=True)
-            if not full_scan and current_ids and current_ids.issubset(observed_before):
+    result_count, last_page = None, 1
+
+    def process(result: tuple[int, list[dict], int | None, int]) -> bool:
+        current_page, parsed, page_total, _ = result
+        if page_total is not None and result_count is not None and page_total != result_count:
+            raise ValueError("Published result count changed during traversal")
+        current_ids = {row["source_lot_id"] for row in parsed}
+        observed.update(current_ids)
+        page_counts[str(current_page)] = len(parsed)
+        pages_captured.append(current_page)
+        for row in parsed:
+            if not bankable(row):
+                continue
+            lot_key = str(row.get("lot_number") or "").lstrip("0").lower()
+            match = strict_legacy_match(row, legacy.get((address_key(row.get("address")), lot_key), []))
+            if match:
+                path, old = match
+                merged = {**old, **row, "appearance_id": old["appearance_id"],
+                          "source_evidence": {**row["source_evidence"],
+                                              "prior_source_evidence": old.get("source_evidence")}}
+                enriched_by_path[path].append(merged)
+                continue
+            rows_to_write.append(row)
+            if row["source_lot_id"] not in existing_ids:
+                run_new.append(row)
+        print(f"PUGH page={current_page}/{last_page} rows={len(parsed)} new={len(run_new)}", flush=True)
+        return bool(current_ids and current_ids.issubset(observed_before))
+
+    def checkpoint() -> None:
+        corpus.write_rows("pugh-auctions/property-search", rows_to_write)
+        for path, rows in enriched_by_path.items():
+            key = str(path.relative_to(corpus.DATA / "appearances")).removesuffix(".jsonl.gz")
+            corpus.write_rows(key, rows)
+        corpus.save_json(summary_path, {
+            "checked_at": corpus.now(), "source_url": INDEX,
+            "published_property_rows": result_count, "observed_property_ids": len(observed),
+            "observed_source_ids": sorted(observed), "pages_expected": last_page,
+            "pages_captured_this_run": sorted(pages_captured), "page_counts": page_counts,
+            "archive_pagination_complete": False, "run_new_appearances": len(run_new),
+            "failures": failures,
+        })
+
+    try:
+        first = fetch_page(1)
+        _, first_rows, result_count, first_last = first
+        last_page = first_last or (math.ceil(result_count / len(first_rows)) if result_count else 1)
+        stop = process(first) if not full_scan else False
+    except Exception as exc:
+        failures.append({"page": 1, "url": page_url(1),
+                         "error": f"{type(exc).__name__}: {exc}"[:500]})
+        print("FAILED", failures[-1], flush=True)
+        stop = True
+
+    with ThreadPoolExecutor(max_workers=12) as pool:
+        for start in range(2, last_page + 1, 12):
+            if stop:
                 break
-        except Exception as exc:
-            failures.append({"page": page, "url": requested,
-                             "error": f"{type(exc).__name__}: {exc}"[:500]})
-            print("FAILED", failures[-1], flush=True)
-            if not full_scan:
+            futures = {pool.submit(fetch_page, p): p for p in range(start, min(start + 12, last_page + 1))}
+            results = {}
+            for future in as_completed(futures):
+                current_page = futures[future]
+                try:
+                    results[current_page] = future.result()
+                except Exception as exc:
+                    failures.append({"page": current_page, "url": page_url(current_page),
+                                     "error": f"{type(exc).__name__}: {exc}"[:500]})
+                    print("FAILED", failures[-1], flush=True)
+            for current_page in sorted(results):
+                try:
+                    seen_before = process(results[current_page])
+                    if not full_scan and seen_before:
+                        stop = True
+                        break
+                except Exception as exc:
+                    failures.append({"page": current_page, "url": page_url(current_page),
+                                     "error": f"{type(exc).__name__}: {exc}"[:500]})
+                    print("FAILED", failures[-1], flush=True)
+            checkpoint()
+            if failures and not full_scan:
                 break
-        page += 1
-        time.sleep(0.05)
     corpus.write_rows("pugh-auctions/property-search", rows_to_write)
     for path, rows in enriched_by_path.items():
         key = str(path.relative_to(corpus.DATA / "appearances")).removesuffix(".jsonl.gz")
