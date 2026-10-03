@@ -1,0 +1,107 @@
+{
+  "auctioneer": "Auction House North East",
+  "source_auction_id": "auction-house-northeast:online-results",
+  "auction_date": null,
+  "catalogue_complete": false,
+  "archive_pagination_complete": false,
+  "lots_captured": 0,
+  "current_archive_rows": 0,
+  "completion_scope": "all rows across every retained first-party online-results page",
+  "source_property_ids": [],
+  "errors": [
+    {
+      "page": 1,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions",
+      "error": "ValueError: lot 366163 has no published address"
+    },
+    {
+      "page": 2,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=2",
+      "error": "ValueError: lot 361196 has no published address"
+    },
+    {
+      "page": 3,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=3",
+      "error": "ValueError: lot 360934 has no published address"
+    },
+    {
+      "page": 4,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=4",
+      "error": "ValueError: lot 356914 has no published address"
+    },
+    {
+      "page": 5,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=5",
+      "error": "ValueError: lot 352552 has no published address"
+    },
+    {
+      "page": 6,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=6",
+      "error": "ValueError: lot 347019 has no published address"
+    },
+    {
+      "page": 7,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=7",
+      "error": "ValueError: lot 337600 has no published address"
+    },
+    {
+      "page": 8,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=8",
+      "error": "ValueError: lot 329311 has no published address"
+    },
+    {
+      "page": 9,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=9",
+      "error": "ValueError: lot 319599 has no published address"
+    },
+    {
+      "page": 10,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=10",
+      "error": "ValueError: lot 313277 has no published address"
+    },
+    {
+      "page": 11,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=11",
+      "error": "ValueError: lot 306061 has no published address"
+    },
+    {
+      "page": 12,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=12",
+      "error": "ValueError: lot 300699 has no published address"
+    },
+    {
+      "page": 13,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=13",
+      "error": "ValueError: lot 294101 has no published address"
+    },
+    {
+      "page": 14,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=14",
+      "error": "ValueError: lot 280493 has no published address"
+    },
+    {
+      "page": 15,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=15",
+      "error": "ValueError: lot 245559 has no published address"
+    },
+    {
+      "page": 16,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=16",
+      "error": "ValueError: lot 225945 has no published address"
+    },
+    {
+      "page": 17,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=17",
+      "error": "ValueError: lot 162096 has no published address"
+    },
+    {
+      "page": 18,
+      "url": "https://www.auctionhouse.co.uk/northeast/auction/past-auctions?page=18",
+      "error": "ValueError: lot 106593 has no published address"
+    },
+    {
+      "error": "Rows are individual online lot endings; original catalogue denominators are not published"
+    }
+  ],
+  "checked_at": "2026-10-03T03:13:49.434277+00:00"
+}
