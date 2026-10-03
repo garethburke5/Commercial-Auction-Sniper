@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-03T01:14:40.374332+00:00",
-  "individual_lot_records_captured": 130735,
-  "records_with_address": 120540,
-  "partial_lot_records": 10195,
+  "generated_at": "2026-10-03T01:23:00.611852+00:00",
+  "individual_lot_records_captured": 130812,
+  "records_with_address": 120584,
+  "partial_lot_records": 10228,
   "exact_address_groups": 92259,
   "groups_with_repeat_appearances": 17101,
   "by_auctioneer": {
@@ -20,10 +20,11 @@
     "Savills Auctions": 29576,
     "Savills Auctions (London & National)": 4,
     "Savills Commercial": 2,
+    "Symonds & Sampson": 77,
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 20,
+    "null": 59,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -45,25 +46,25 @@
     "2020": 6554,
     "2021": 8042,
     "2022": 8803,
-    "2023": 11703,
-    "2024": 16097,
+    "2023": 11721,
+    "2024": 16100,
     "2025": 18890,
-    "2026": 16133
+    "2026": 16150
   },
   "by_sector": {
     "commercial": 20081,
-    "land": 6034,
+    "land": 6062,
     "mixed-use": 12472,
-    "residential": 78807,
-    "unknown": 13341
+    "residential": 78847,
+    "unknown": 13350
   },
   "date_range": [
     "2002-10-31",
-    "2026-10-22"
+    "2026-11-20"
   ],
   "surviving_catalogues_completely_harvested": 765,
-  "catalogues_incomplete_or_unreconciled": 76,
-  "catalogue_fetch_or_parse_failures": 2,
+  "catalogues_incomplete_or_unreconciled": 94,
+  "catalogue_fetch_or_parse_failures": 20,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -71,7 +72,7 @@
     "Legacy partial lots retain location and lot number; missing street addresses remain null."
   ],
   "paul_fosh_results": {
-    "checked_at": "2026-10-03T01:14:10.588333+00:00",
+    "checked_at": "2026-10-03T01:22:33.727404+00:00",
     "lots_captured": 5483,
     "current_run_unique_lots": 5482,
     "expected_public_results": 5482,

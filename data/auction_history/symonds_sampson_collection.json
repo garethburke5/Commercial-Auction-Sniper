@@ -1,0 +1,558 @@
+{
+  "checked_at": "2026-10-03T01:20:44.789992+00:00",
+  "sitemap_property_urls": 212,
+  "property_pages_captured": 77,
+  "run_new_appearances": 77,
+  "address_records": 44,
+  "partial_lots": 33,
+  "exact_dates_recovered": 18,
+  "date_unresolved_pages": 39,
+  "by_sector": {
+    "land": 28,
+    "residential": 40,
+    "unknown": 9
+  },
+  "failures": [
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0004b9/dt9/sherborne/brook-street/cottage/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0004b9/dt9/sherborne/brook-street/cottage/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0004a1/dt10/sturminster-newton/high-street/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0004a1/dt10/sturminster-newton/high-street/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0004bc/dt8/beaminster/greens-cross-drive/detached-house/4-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0004bc/dt8/beaminster/greens-cross-drive/detached-house/4-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0004bb/dt2/dorchester/lovelands-lane/cottage/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0004bb/dt2/dorchester/lovelands-lane/cottage/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0004ba/dt6/bridport/west-street/maisonette/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0004ba/dt6/bridport/west-street/maisonette/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0004c2/dt6/bridport/west-street/maisonette/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0004c2/dt6/bridport/west-street/maisonette/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0004c9/ta17/hinton-st-george/1-windyridge/bungalow/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0004c9/ta17/hinton-st-george/1-windyridge/bungalow/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0004d6/ex17/crediton/cheriton-fitzpaine/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0004d6/ex17/crediton/cheriton-fitzpaine/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0004e0/dt2/dorset/minterne-magna/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0004e0/dt2/dorset/minterne-magna/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0004f6/dt11/blandford-forum/salisbury-street/end-of-terrace-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0004f6/dt11/blandford-forum/salisbury-street/end-of-terrace-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0004ec/dt10/sturminster-newton/lydlinch-common/barn-conversion/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0004ec/dt10/sturminster-newton/lydlinch-common/barn-conversion/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0004f9/bh9/bournemouth/wimborne-road/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0004f9/bh9/bournemouth/wimborne-road/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0004fa/bh1/bournemouth/10-walpole-road/apartment/1-bedroom",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0004fa/bh1/bournemouth/10-walpole-road/apartment/1-bedroom: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000511/tr26/st-ives/street-an-pol/apartment/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000511/tr26/st-ives/street-an-pol/apartment/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00052a/dt1/dorchester/poundbury-business-centre/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00052a/dt1/dorchester/poundbury-business-centre/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000537/ex15/cullompton/butterleigh/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000537/ex15/cullompton/butterleigh/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00053e/dt2/dorchester/winterbourne-abbas/detached-house/4-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00053e/dt2/dorchester/winterbourne-abbas/detached-house/4-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000535/bh22/west-parley/church-lane/barn-conversion/4-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000535/bh22/west-parley/church-lane/barn-conversion/4-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000542/sp7/shaftesbury/long-cross/barn-conversion/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000542/sp7/shaftesbury/long-cross/barn-conversion/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00056f/tr14/camborne/carwynnen/end-of-terrace-house/4-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00056f/tr14/camborne/carwynnen/end-of-terrace-house/4-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000574/ta19/ilminster/stocklinch/detached-house/7-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000574/ta19/ilminster/stocklinch/detached-house/7-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000588/pl25/st-austell/mid-cornwall-business-centre/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000588/pl25/st-austell/mid-cornwall-business-centre/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00058d/dt7/lyme-regis/monmouth-park/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00058d/dt7/lyme-regis/monmouth-park/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00058c/dt7/lyme-regis/pine-ridge/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00058c/dt7/lyme-regis/pine-ridge/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00058e/pl13/east-looe/barbican-hill/bungalow/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00058e/pl13/east-looe/barbican-hill/bungalow/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0005a0/dt9/milborne-port/east-street/semi-detached-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0005a0/dt9/milborne-port/east-street/semi-detached-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0005ba/ta24/minehead/cher/house/5-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0005ba/ta24/minehead/cher/house/5-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0005bb/pl14/liskeard/liskeard/other/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0005bb/pl14/liskeard/liskeard/other/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0005a8/bh21/wimborne/postponed-lower-street/house/5-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0005a8/bh21/wimborne/postponed-lower-street/house/5-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0005be/pl14/liskeard/st.-keyne/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0005be/pl14/liskeard/st.-keyne/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0005c8/dt2/dorchester/lower-burton/end-of-terrace-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0005c8/dt2/dorchester/lower-burton/end-of-terrace-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0005d0/ba10/bruton/shute-lane/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0005d0/ba10/bruton/shute-lane/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0005e1/ta19/ilton/postponed-merryfield-lane/detached-house/4-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0005e1/ta19/ilton/postponed-merryfield-lane/detached-house/4-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0005da/sp7/shaftesbury/foyle-hill/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0005da/sp7/shaftesbury/foyle-hill/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0005ef/dt6/bridport/the-green/terraced-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0005ef/dt6/bridport/the-green/terraced-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000606/dt2/dorchester/piddletrenthide/detached-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000606/dt2/dorchester/piddletrenthide/detached-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00060d/dt11/charlton-marshall/23.55-acres-at-bournemouth-road/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00060d/dt11/charlton-marshall/23.55-acres-at-bournemouth-road/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00060f/bh20/east-stoke/bindon-lane/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00060f/bh20/east-stoke/bindon-lane/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000613/dt6/bridport/shave-cross/other/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000613/dt6/bridport/shave-cross/other/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000636/ta18/crewkerne/cropmead-trading-estate/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000636/ta18/crewkerne/cropmead-trading-estate/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000643/ba20/yeovil/hendford/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000643/ba20/yeovil/hendford/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000645/dt9/sherborne/over-compton/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000645/dt9/sherborne/over-compton/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00064f/pl13/west-looe/portlooe/detached-bungalow/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00064f/pl13/west-looe/portlooe/detached-bungalow/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00064c/dt2/dorchester/askerswell/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00064c/dt2/dorchester/askerswell/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00065c/se10/london/2-x-tickets-to-see-pitbull/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00065c/se10/london/2-x-tickets-to-see-pitbull/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00065e/se10/london/2-x-tickets-to-see-pulp/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00065e/se10/london/2-x-tickets-to-see-pulp/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00065f/dt10/sturminster-newton/fiddleford/detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00065f/dt10/sturminster-newton/fiddleford/detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000669/dt9/sherborne/sandford-orcas/detached-bungalow/4-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000669/dt9/sherborne/sandford-orcas/detached-bungalow/4-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000677/ex22/bradworthy/great-close/barn",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000677/ex22/bradworthy/great-close/barn: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000678/dt9/sherborne/brook-street/end-of-terrace-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000678/dt9/sherborne/brook-street/end-of-terrace-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00067c/dt11/blandford-/wimborne-road/plot/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00067c/dt11/blandford-/wimborne-road/plot/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00068d/bh19/swanage/quarry-close/apartment/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00068d/bh19/swanage/quarry-close/apartment/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00068f/dt1/dorchester/high-west-street/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00068f/dt1/dorchester/high-west-street/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006aa/dt2/dorchester/turnerspuddle/semi-detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006aa/dt2/dorchester/turnerspuddle/semi-detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006b0/dt2/dorchester/plush/detached-house/4-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006b0/dt2/dorchester/plush/detached-house/4-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006b2/dt2/dorchester/higher-bockhampton/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006b2/dt2/dorchester/higher-bockhampton/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006c0/ba22/halstock/church-street/semi-detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006c0/ba22/halstock/church-street/semi-detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006c1/ba22/halstock/church-street/semi-detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006c1/ba22/halstock/church-street/semi-detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006c2/ba22/halstock/church-street/detached-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006c2/ba22/halstock/church-street/detached-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006c3/ba22/halstock/church-street/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006c3/ba22/halstock/church-street/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006ce/ta21/wellington/ashbrittle/detached-bungalow/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006ce/ta21/wellington/ashbrittle/detached-bungalow/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006d2/bh7/bournemouth/littledown-drive/detached-house/5-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006d2/bh7/bournemouth/littledown-drive/detached-house/5-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006d4/dt4/weymouth/the-esplanade/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006d4/dt4/weymouth/the-esplanade/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006d6/ex20/okehampton/exbourne/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006d6/ex20/okehampton/exbourne/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006df/bh20/wareham/northport/end-of-terrace-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006df/bh20/wareham/northport/end-of-terrace-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006e3/dt6/bridport/higher-street/retirement-property/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006e3/dt6/bridport/higher-street/retirement-property/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006e4/sp5/salisbury/faulstone-lane/terraced-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006e4/sp5/salisbury/faulstone-lane/terraced-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006ea/sp8/gillingham/lot-a-bowridge-hill/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006ea/sp8/gillingham/lot-a-bowridge-hill/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006e9/dt10/sturminster-newton/postponed-lot-b-great-down-lane/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006e9/dt10/sturminster-newton/postponed-lot-b-great-down-lane/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006ee/ex38/torrington/huntshaw/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006ee/ex38/torrington/huntshaw/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006f0/sp8/gillingham/lot-b-bay-road/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006f0/sp8/gillingham/lot-b-bay-road/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006f2/bh20/corfe-castle/east-street/semi-detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006f2/bh20/corfe-castle/east-street/semi-detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006f5/pl26/mevagissey/polkirt-hill/detached-house/4-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006f5/pl26/mevagissey/polkirt-hill/detached-house/4-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0006f8/dt9/sherborne/dalwoods/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0006f8/dt9/sherborne/dalwoods/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000706/ba4/shepton-mallet/town-street/link-detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000706/ba4/shepton-mallet/town-street/link-detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000708/ba22/yeovil/west-coker-road/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000708/ba22/yeovil/west-coker-road/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000709/ta19/ilminster/ditton-street/terraced-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000709/ta19/ilminster/ditton-street/terraced-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00070e/dt2/dorchester/postponed-lot-a-castle-hill-cottages/semi-detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00070e/dt2/dorchester/postponed-lot-a-castle-hill-cottages/semi-detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00070f/dt2/dorchester/postponed-lot-b-castle-hill-cottages/semi-detached-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00070f/dt2/dorchester/postponed-lot-b-castle-hill-cottages/semi-detached-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00071b/bh21/wimborne/wimborne-road/detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00071b/bh21/wimborne/wimborne-road/detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00071c/dt8/beaminster/seaborough/bungalow/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00071c/dt8/beaminster/seaborough/bungalow/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00071d/ta4/taunton/croford/other/1-bedroom",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00071d/ta4/taunton/croford/other/1-bedroom: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000730/dt11/blandford-forum/market-place/maisonette/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000730/dt11/blandford-forum/market-place/maisonette/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000748/tr13/helston/church-cottages/end-of-terrace-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000748/tr13/helston/church-cottages/end-of-terrace-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000752/dt7/lyme-regis/pooles-court/detached-house/1-bedroom",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000752/dt7/lyme-regis/pooles-court/detached-house/1-bedroom: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00075b/dt9/sherborne/bristol-road/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00075b/dt9/sherborne/bristol-road/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00075c/dt9/sherborne/lot-b---bristol-road/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00075c/dt9/sherborne/lot-b---bristol-road/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000766/dt11/blandford-forum/east-street/mid-terraced-house/5-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000766/dt11/blandford-forum/east-street/mid-terraced-house/5-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000768/dt6/bridport/south-street/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000768/dt6/bridport/south-street/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000773/tq1/torquay/upton-road/flat/1-bedroom",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000773/tq1/torquay/upton-road/flat/1-bedroom: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000779/sp5/salisbury/faulstone-lane/end-of-terrace-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000779/sp5/salisbury/faulstone-lane/end-of-terrace-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00077b/dt83as/beaminster/the-square/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00077b/dt83as/beaminster/the-square/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00077d/tr27/hayle/deveral-road/detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00077d/tr27/hayle/deveral-road/detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000783/pl26/st-austell/penwithick-road/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000783/pl26/st-austell/penwithick-road/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000784/ex12/seaton/fore-street/house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000784/ex12/seaton/fore-street/house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000787/bh14/poole/constitution-hill-road/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000787/bh14/poole/constitution-hill-road/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00078a/ba9/wincanton/lattiford/detached-house/5-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00078a/ba9/wincanton/lattiford/detached-house/5-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00078e/sn6/swindon/malmesbury-road/semi-detached-house/1-bedroom",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00078e/sn6/swindon/malmesbury-road/semi-detached-house/1-bedroom: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000791/dt3/weymouth/preston-road/flat/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000791/dt3/weymouth/preston-road/flat/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000798/pl2/par/trenovissick-road/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000798/pl2/par/trenovissick-road/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr000799/tr19/penzance/lands-end/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr000799/tr19/penzance/lands-end/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00079a/dt9/sherborne-/hawkins-hill/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00079a/dt9/sherborne-/hawkins-hill/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00079b/dt9/sherborne/bradford-lane/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00079b/dt9/sherborne/bradford-lane/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00079c/ex12/seaton/harbour-road/semi-detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00079c/ex12/seaton/harbour-road/semi-detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr00079f/sp6/fordingbridge/station-road/detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr00079f/sp6/fordingbridge/station-road/detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007a6/ex5/exeter/hen-street/semi-detached-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007a6/ex5/exeter/hen-street/semi-detached-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007b5/bh23/christchurch/millham-street/mid-terraced-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007b5/bh23/christchurch/millham-street/mid-terraced-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007b8/ba22/yeovil/north-cadbury/semi-detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007b8/ba22/yeovil/north-cadbury/semi-detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007b6/sp2/salisbury/pennys-lane/terraced-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007b6/sp2/salisbury/pennys-lane/terraced-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007b9/dt6/bridport/st-andrews-road/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007b9/dt6/bridport/st-andrews-road/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007ba/bh23/christchurch/lot-a-avon-farm/farm-house/5-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007ba/bh23/christchurch/lot-a-avon-farm/farm-house/5-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007bb/bh23/christchurch/lot-b-avon-farm/cottage/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007bb/bh23/christchurch/lot-b-avon-farm/cottage/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007be/bh20/wareham/water-meadow-lane/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007be/bh20/wareham/water-meadow-lane/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007c2/dt4/weymouth/lot-b-camp-road/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007c2/dt4/weymouth/lot-b-camp-road/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007c1/dt4/weymouth/lot-a-camp-road/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007c1/dt4/weymouth/lot-a-camp-road/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007c4/dt5/portland/weare-close/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007c4/dt5/portland/weare-close/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007c6/ex13/axminster/west-street/other/4-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007c6/ex13/axminster/west-street/other/4-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007c7/dt2/dorchester/dorchester-road/semi-detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007c7/dt2/dorchester/dorchester-road/semi-detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007d3/ta4/taunton/golden-hill/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007d3/ta4/taunton/golden-hill/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007d5/ex13/axminster/lyme-road/detached-bungalow/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007d5/ex13/axminster/lyme-road/detached-bungalow/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007d6/tr3/truro/cove-hill/mid-terraced-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007d6/tr3/truro/cove-hill/mid-terraced-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007d7/ta12/ilminster/merryfield-lane/detached-house/4-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007d7/ta12/ilminster/merryfield-lane/detached-house/4-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007d8/dt9/sherborne/middlemarsh/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007d8/dt9/sherborne/middlemarsh/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007da/dt11/blandford-forum/the-rings/mid-terraced-house/4-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007da/dt11/blandford-forum/the-rings/mid-terraced-house/4-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007dd/bh10/bournemouth/hyde-road/detached-house/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007dd/bh10/bournemouth/hyde-road/detached-house/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007de/ba8/henstridge-marsh/marsh-lane/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007de/ba8/henstridge-marsh/marsh-lane/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007df/hp13/high-wycombe/lot-a-green-hill/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007df/hp13/high-wycombe/lot-a-green-hill/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007e0/hp13/high-wycombe/lot-b-green-hill/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007e0/hp13/high-wycombe/lot-b-green-hill/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007e1/dt9/sherborne/st-marys-road/semi-detached-bungal/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007e1/dt9/sherborne/st-marys-road/semi-detached-bungal/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007e4/dt1/dorchester/grey-school-passage/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007e4/dt1/dorchester/grey-school-passage/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007e5/dt1/dorchester/high-west-street/other/studio",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007e5/dt1/dorchester/high-west-street/other/studio: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007e7/dt11/blandford-forum/farnham/detached-bungalow/3-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007e7/dt11/blandford-forum/farnham/detached-bungalow/3-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007e8/bh21/wimborne/ringwood-road/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007e8/bh21/wimborne/ringwood-road/land: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007eb/dt8/beaminster/seaborough/terraced-house/2-bedrooms",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007eb/dt8/beaminster/seaborough/terraced-house/2-bedrooms: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "url": "https://auctions.symondsandsampson.co.uk/property/dwr0007ed/bh21/wimborne/chapel-row/land",
+      "error": "RuntimeError: reader failed for https://auctions.symondsandsampson.co.uk/property/dwr0007ed/bh21/wimborne/chapel-row/land: HTTP Error 429: Too Many Requests"
+    }
+  ],
+  "complete": false
+}
