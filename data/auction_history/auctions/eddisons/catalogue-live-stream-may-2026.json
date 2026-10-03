@@ -1,0 +1,47 @@
+{
+  "auctioneer": "BTG Eddisons",
+  "source_auction_id": "btg-eddisons:live-stream-may-2026",
+  "auction_date": "2026-05-28",
+  "auction_date_start": "2026-05-28",
+  "auction_date_end": "2026-05-28",
+  "auction_date_basis": "single exact date on first-party previous-results archive",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "published_results_found": 154,
+  "visible_source_rows": 154,
+  "lots_captured": 154,
+  "source_duplicate_rows": 0,
+  "source_url": "https://www.btgeddisonspropertyauctions.com/auctions/live-stream/may-2026",
+  "pagination_reconciled": true,
+  "pages_expected": 2,
+  "pages_captured": 2,
+  "denominator_reconciled": true,
+  "denominator_basis": "published results found count on first-party catalogue",
+  "completion_scope": "all property cards across every retained catalogue page",
+  "source_evidence": [
+    {
+      "source_url": "https://www.btgeddisonspropertyauctions.com/auctions/live-stream/may-2026",
+      "retrieved_at": "2026-10-03T22:25:52.943095+00:00",
+      "sha256": "f7f7fec98858ce8c2130bbbf7195f234eece47fec09449f592b49a27dcdd0d9c",
+      "snapshot_path": "data/auction_history/sources/eddisons/catalogues/live-stream-may-2026/page-1-f7f7fec98858ce8c.json.gz",
+      "archive_snapshot_paths": [
+        "data/auction_history/sources/eddisons/catalogues/archive-1-6ac10cf32e55be6e.json.gz",
+        "data/auction_history/sources/eddisons/catalogues/archive-2-522b7ede0394724d.json.gz"
+      ],
+      "basis": "first-party retained auction catalogue page"
+    },
+    {
+      "source_url": "https://www.btgeddisonspropertyauctions.com/auctions/live-stream/may-2026?page=2",
+      "retrieved_at": "2026-10-03T22:25:59.294350+00:00",
+      "sha256": "0d388c06900a0aaf92f09a610634b54edaba1b2c468391b30f48d8e836e27e1f",
+      "snapshot_path": "data/auction_history/sources/eddisons/catalogues/live-stream-may-2026/page-2-0d388c06900a0aaf.json.gz",
+      "archive_snapshot_paths": [
+        "data/auction_history/sources/eddisons/catalogues/archive-1-6ac10cf32e55be6e.json.gz",
+        "data/auction_history/sources/eddisons/catalogues/archive-2-522b7ede0394724d.json.gz"
+      ],
+      "basis": "first-party retained auction catalogue page"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-03T22:25:59.840441+00:00"
+}

@@ -1,0 +1,36 @@
+{
+  "auctioneer": "BTG Eddisons",
+  "source_auction_id": "btg-eddisons:online-december-2025",
+  "auction_date": "2025-12-10",
+  "auction_date_start": "2025-12-10",
+  "auction_date_end": "2025-12-10",
+  "auction_date_basis": "single exact date on first-party previous-results archive",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "published_results_found": 64,
+  "visible_source_rows": 64,
+  "lots_captured": 64,
+  "source_duplicate_rows": 0,
+  "source_url": "https://www.btgeddisonspropertyauctions.com/auctions/online/december-2025",
+  "pagination_reconciled": true,
+  "pages_expected": 1,
+  "pages_captured": 1,
+  "denominator_reconciled": true,
+  "denominator_basis": "published results found count on first-party catalogue",
+  "completion_scope": "all property cards across every retained catalogue page",
+  "source_evidence": [
+    {
+      "source_url": "https://www.btgeddisonspropertyauctions.com/auctions/online/december-2025",
+      "retrieved_at": "2026-10-03T22:25:33.482806+00:00",
+      "sha256": "02792b9809ec613c2f58ec54e33685b37dcb9012dc83a98e7f7384aba0f17ebc",
+      "snapshot_path": "data/auction_history/sources/eddisons/catalogues/online-december-2025/page-1-02792b9809ec613c.json.gz",
+      "archive_snapshot_paths": [
+        "data/auction_history/sources/eddisons/catalogues/archive-1-6ac10cf32e55be6e.json.gz",
+        "data/auction_history/sources/eddisons/catalogues/archive-2-522b7ede0394724d.json.gz"
+      ],
+      "basis": "first-party retained auction catalogue page"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-03T22:25:33.709016+00:00"
+}

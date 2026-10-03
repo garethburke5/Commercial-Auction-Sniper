@@ -1,0 +1,69 @@
+{
+  "auctioneer": "BTG Eddisons",
+  "source_auction_id": "btg-eddisons:live-stream-september-2026",
+  "auction_date": null,
+  "auction_date_start": "2026-09-30",
+  "auction_date_end": "2026-10-01",
+  "auction_date_basis": "two-day live-stream range; source does not assign individual lots to a day",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "published_results_found": 321,
+  "visible_source_rows": 321,
+  "lots_captured": 321,
+  "source_duplicate_rows": 0,
+  "source_url": "https://www.btgeddisonspropertyauctions.com/auctions/live-stream/september-2026",
+  "pagination_reconciled": true,
+  "pages_expected": 4,
+  "pages_captured": 4,
+  "denominator_reconciled": true,
+  "denominator_basis": "published results found count on first-party catalogue",
+  "completion_scope": "all property cards across every retained catalogue page",
+  "source_evidence": [
+    {
+      "source_url": "https://www.btgeddisonspropertyauctions.com/auctions/live-stream/september-2026",
+      "retrieved_at": "2026-10-03T22:26:13.689013+00:00",
+      "sha256": "7f0b37bbb9e243f9629e26f51b26ec916d210c1f15ac5be54501633fba358ec8",
+      "snapshot_path": "data/auction_history/sources/eddisons/catalogues/live-stream-september-2026/page-1-7f0b37bbb9e243f9.json.gz",
+      "archive_snapshot_paths": [
+        "data/auction_history/sources/eddisons/catalogues/archive-1-6ac10cf32e55be6e.json.gz",
+        "data/auction_history/sources/eddisons/catalogues/archive-2-522b7ede0394724d.json.gz"
+      ],
+      "basis": "first-party retained auction catalogue page"
+    },
+    {
+      "source_url": "https://www.btgeddisonspropertyauctions.com/auctions/live-stream/september-2026?page=2",
+      "retrieved_at": "2026-10-03T22:26:20.196361+00:00",
+      "sha256": "6ee39102de452cc43eb7e2281ceeb133eaabf5fc6d283d18108b623e1ba7e1a8",
+      "snapshot_path": "data/auction_history/sources/eddisons/catalogues/live-stream-september-2026/page-2-6ee39102de452cc4.json.gz",
+      "archive_snapshot_paths": [
+        "data/auction_history/sources/eddisons/catalogues/archive-1-6ac10cf32e55be6e.json.gz",
+        "data/auction_history/sources/eddisons/catalogues/archive-2-522b7ede0394724d.json.gz"
+      ],
+      "basis": "first-party retained auction catalogue page"
+    },
+    {
+      "source_url": "https://www.btgeddisonspropertyauctions.com/auctions/live-stream/september-2026?page=3",
+      "retrieved_at": "2026-10-03T22:26:25.798130+00:00",
+      "sha256": "bfcff3c4e778d234fc7a34d10f9e0a65ee16f341edd90c6ab9d9c62ed6b6b4d5",
+      "snapshot_path": "data/auction_history/sources/eddisons/catalogues/live-stream-september-2026/page-3-bfcff3c4e778d234.json.gz",
+      "archive_snapshot_paths": [
+        "data/auction_history/sources/eddisons/catalogues/archive-1-6ac10cf32e55be6e.json.gz",
+        "data/auction_history/sources/eddisons/catalogues/archive-2-522b7ede0394724d.json.gz"
+      ],
+      "basis": "first-party retained auction catalogue page"
+    },
+    {
+      "source_url": "https://www.btgeddisonspropertyauctions.com/auctions/live-stream/september-2026?page=4",
+      "retrieved_at": "2026-10-03T22:26:27.727655+00:00",
+      "sha256": "476c1665755efc478ef31baae385945f210740bd8e29fbab5925f664caa5989b",
+      "snapshot_path": "data/auction_history/sources/eddisons/catalogues/live-stream-september-2026/page-4-476c1665755efc47.json.gz",
+      "archive_snapshot_paths": [
+        "data/auction_history/sources/eddisons/catalogues/archive-1-6ac10cf32e55be6e.json.gz",
+        "data/auction_history/sources/eddisons/catalogues/archive-2-522b7ede0394724d.json.gz"
+      ],
+      "basis": "first-party retained auction catalogue page"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-03T22:26:27.842419+00:00"
+}
