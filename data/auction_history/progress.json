@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-03T22:31:25.924395+00:00",
-  "individual_lot_records_captured": 164704,
-  "records_with_address": 155079,
+  "generated_at": "2026-10-03T22:49:33.201287+00:00",
+  "individual_lot_records_captured": 164724,
+  "records_with_address": 155099,
   "partial_lot_records": 9625,
   "exact_address_groups": 118510,
   "groups_with_repeat_appearances": 22976,
@@ -9,6 +9,7 @@
     "Acuitus": 5697,
     "Allsop": 43310,
     "Allsop Commercial": 66,
+    "Anderson & Garland": 20,
     "Auction House Beds & Bucks": 14,
     "Auction House Birmingham & Black Country": 102,
     "Auction House Cheshire, Staffordshire & Shropshire": 153,
@@ -57,7 +58,7 @@
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 1471,
+    "null": 1491,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -87,16 +88,16 @@
   "by_sector": {
     "commercial": 21519,
     "land": 9811,
-    "mixed-use": 13050,
-    "residential": 94562,
-    "unknown": 25762
+    "mixed-use": 13051,
+    "residential": 94568,
+    "unknown": 25775
   },
   "date_range": [
     "2002-10-31",
     "2026-11-20"
   ],
   "surviving_catalogues_completely_harvested": 924,
-  "catalogues_incomplete_or_unreconciled": 338,
+  "catalogues_incomplete_or_unreconciled": 339,
   "catalogue_fetch_or_parse_failures": 39,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -105,7 +106,7 @@
     "Legacy partial lots retain location and lot number; missing street addresses remain null."
   ],
   "paul_fosh_results": {
-    "checked_at": "2026-10-03T22:30:52.385626+00:00",
+    "checked_at": "2026-10-03T22:49:00.011712+00:00",
     "lots_captured": 5483,
     "current_run_unique_lots": 5482,
     "expected_public_results": 5482,
