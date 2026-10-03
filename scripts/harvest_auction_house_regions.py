@@ -39,6 +39,14 @@ REGIONS = (
     ("coventryandwarwickshire", "Auction House Coventry & Warwickshire", "auction-house-coventrywarwickshire"),
     ("manchester", "Auction House Manchester", "auction-house-manchester"),
     ("teesvalley", "Auction House North Yorkshire & Tees Valley", "auction-house-northyorkshireteesvalley"),
+    ("cumbria", "Auction House Cumbria", "auction-house-cumbria"),
+    ("sussexandhampshire", "Auction House Sussex & Hampshire", "auction-house-sussexhampshire"),
+    ("essex", "Auction House Essex", "auction-house-essex"),
+    ("leicestershire", "Auction House Leicestershire", "auction-house-leicestershire"),
+    ("scotland", "Auction House Scotland", "auction-house-scotland"),
+    ("northantsbedsandbucks", "Auction House Northants, Beds & Bucks", "auction-house-northantsbedsbucks"),
+    ("chesterfieldandnorthderbyshire", "Auction House Chesterfield & North Derbyshire", "auction-house-chesterfieldnorthderbyshire"),
+    ("northernireland", "Auction House Northern Ireland", "auction-house-northernireland"),
 )
 
 # Wales page 3 currently exposes visible result text but no stable lot redirect
