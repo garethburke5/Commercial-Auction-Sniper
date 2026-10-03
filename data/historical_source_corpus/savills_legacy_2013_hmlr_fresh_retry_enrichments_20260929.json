@@ -4,7 +4,7 @@
   "auctioneer": "Savills Auctions",
   "capture_mode": "fresh official HM Land Registry exact-transaction re-audit of unresolved 2013 legacy appearances",
   "captured_at_utc": "2026-09-29T04:23:31Z",
-  "source_note": "The official HM Land Registry Price Paid Data report builder was freshly re-run across all 163 still-addressless, priced Savills legacy appearances dated 2013. Eight unique compatible candidates were returned. Five were retained: three exact-price/locality/tenure/property-class transactions completing within 60 days and two exact-subclass leasehold flats completing within 120 days. One conflicting flat-versus-house candidate and two broad other-class later completions were rejected. Original Savills/PropertyAuctions evidence and every repeat appearance remain preserved.",
+  "source_note": "The official HM Land Registry Price Paid Data report builder was freshly re-run across all 163 still-addressless, priced Savills legacy appearances dated 2013. Eight unique compatible candidates were returned. Four were retained: three exact-price/locality/tenure/property-class transactions completing within 60 days and one exact-subclass leasehold flat completing within 120 days. One longer-window match was withdrawn because the same Land Registry transaction supports a later, closer auction appearance. One conflicting flat-versus-house candidate and two broad other-class later completions were rejected. Original Savills/PropertyAuctions evidence and every repeat appearance remain preserved.",
   "source_records": [
     {
       "source_url": "https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads",
@@ -55,19 +55,6 @@
     },
     {
       "target_shard": "savills/legacy-892",
-      "target_appearance_id": "Savills Auctions|propertyauctions:892|46",
-      "address": "91C Shirland Road, London, W9 2EL",
-      "address_basis": "conservative_official_hmlr_fresh_unique_exact_price_date_locality_tenure_specific_subclass_extended_completion_match",
-      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=500000&max_price=500000&min_date=2013-12-10&max_date=2014-04-09&relative_url_root=%2Fapp%2Fppd&postcode=W9",
-      "source_urls": [
-        "https://www.propertyauctions.com/Results/LotList.aspx?AID=892",
-        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=500000&max_price=500000&min_date=2013-12-10&max_date=2014-04-09&relative_url_root=%2Fapp%2Fppd&postcode=W9",
-        "http://landregistry.data.gov.uk/data/ppi/transaction/1ECBC55E-3706-47BF-A6C5-83D5514118F5/current"
-      ],
-      "evidence_note": "Saved Savills/PropertyAuctions AID 892 lot 46 is a vacant  flat in London W9 sold for exactly GBP 500,000 on 2013-12-10. A fresh official HM Land Registry exact-price query identifies 91C Shirland Road, London, W9 2EL as the sole compatible flat maisonette/leasehold transaction, completing 101 days later on 2014-03-21. The later completion is retained only because the specific flat/maisonette subclass and leasehold tenure also agree."
-    },
-    {
-      "target_shard": "savills/legacy-892",
       "target_appearance_id": "Savills Auctions|propertyauctions:892|80",
       "address": "9 Linthorpe Road, London, N16 5RE",
       "address_basis": "conservative_official_hmlr_fresh_unique_exact_price_date_locality_tenure_and_property_class_match",
@@ -81,4 +68,3 @@
     }
   ]
 }
-

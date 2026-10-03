@@ -32,6 +32,7 @@ from urllib.parse import quote_plus
 ROOT = Path(__file__).resolve().parents[1]
 APPEARANCE_ROOT = ROOT / "data/auction_history/appearances/savills"
 POSTCODE_DISTRICT = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?)\b", re.I)
+COMPLETION_DATE = re.compile(r"completing \d+ days later on (\d{4}-\d{2}-\d{2})")
 
 
 def normalized(value: object) -> str:
@@ -90,9 +91,14 @@ def address_from_ppd(row: list[str]) -> str:
     return ", ".join(parts)
 
 
-def load_legacy_rows() -> tuple[list[dict], dict[str, set[str]]]:
+def load_legacy_rows() -> tuple[
+    list[dict],
+    dict[str, set[str]],
+    set[tuple[str, int, str]],
+]:
     rows: list[dict] = []
     existing_addresses: dict[str, set[str]] = defaultdict(set)
+    existing_hmlr_transactions: set[tuple[str, int, str]] = set()
     for path in sorted(APPEARANCE_ROOT.glob("legacy-*.jsonl.gz")):
         with gzip.open(path, "rt", encoding="utf-8") as handle:
             for line in handle:
@@ -101,7 +107,18 @@ def load_legacy_rows() -> tuple[list[dict], dict[str, set[str]]]:
                 address = row.get("address")
                 if address:
                     existing_addresses[str(row.get("source_auction_id"))].add(normalized(address))
-    return rows, existing_addresses
+                    for evidence in row.get("address_enrichment_evidence", []):
+                        note = str(evidence.get("evidence_note") or "")
+                        if "HM Land Registry" not in note:
+                            continue
+                        completion = COMPLETION_DATE.search(note)
+                        if completion and row.get("sale_price") is not None:
+                            existing_hmlr_transactions.add((
+                                normalized(address),
+                                int(row["sale_price"]),
+                                completion.group(1),
+                            ))
+    return rows, existing_addresses, existing_hmlr_transactions
 
 
 def parse_ppd_arg(value: str) -> tuple[str, Path]:
@@ -144,7 +161,7 @@ def main() -> None:
         parser.error("uniqueness-min-days must satisfy 0 <= value <= min-days")
 
     ppd_paths = dict(args.ppd)
-    legacy_rows, existing_addresses = load_legacy_rows()
+    legacy_rows, existing_addresses, existing_hmlr_transactions = load_legacy_rows()
     targets = [
         row for row in legacy_rows
         if str(row.get("auction_date") or "")[:4] in ppd_paths
@@ -213,6 +230,10 @@ def main() -> None:
             counters["shared_transaction"] += 1
             continue
         address = address_from_ppd(ppd_row)
+        transaction_key = (normalized(address), int(row["sale_price"]), ppd_row[2][:10])
+        if transaction_key in existing_hmlr_transactions:
+            counters["transaction_already_used_by_existing_appearance"] += 1
+            continue
         auction_id = str(row.get("source_auction_id"))
         if normalized(address) in existing_addresses.get(auction_id, set()):
             counters["address_already_used_by_another_lot"] += 1

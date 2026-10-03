@@ -4,7 +4,7 @@
   "auctioneer": "Savills Auctions",
   "capture_mode": "conservative official HM Land Registry exact-transaction legacy address enrichment using completion days 61-90 and uniqueness days 0-90",
   "captured_at_utc": "2026-10-03T13:45:00Z",
-  "source_note": "The official HM Land Registry Price Paid Data was run across all 2,795 priced, addressless sold Savills legacy appearances in 2010, 2013, 2014, 2015, 2016, 2017, 2018. 56 matches were retained only where the exact hammer price, completion 61-90 days after auction, cumulative uniqueness across days 0-90, exact locality or postcode district, tenure and property class aligned to one compatible transaction used by no other lot. All no-result, ambiguous, class-conflicting, shared-transaction and already-used-address candidates remain unchanged. Original Savills/PropertyAuctions evidence and every repeat auction appearance remain preserved.",
+  "source_note": "The official HM Land Registry Price Paid Data was run across all 2,795 priced, addressless sold Savills legacy appearances in 2010, 2013, 2014, 2015, 2016, 2017, 2018. 53 matches were retained only where the exact hammer price, completion 61-90 days after auction, cumulative uniqueness across days 0-90, exact locality or postcode district, tenure and property class aligned to one compatible transaction not already supporting a closer later auction appearance. Three longer-window matches were withdrawn because the same Land Registry transaction supports a later, closer auction appearance. All no-result, ambiguous, class-conflicting, shared-transaction and already-used-address candidates remain unchanged. Original Savills/PropertyAuctions evidence and every repeat auction appearance remain preserved.",
   "source_records": [
     {
       "source_url": "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2010.csv",
@@ -218,19 +218,6 @@
         "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=454000&max_price=454000&min_date=2016-09-19&max_date=2016-12-18&relative_url_root=%2Fapp%2Fppd&town=Wembley"
       ],
       "evidence_note": "Saved Savills/PropertyAuctions AID 1005 lot 58 is a vacant freehold semi-detached house in Wembley, Middlesex sold for exactly GBP 454,000 on 2016-09-19. The official HM Land Registry result identifies 6, Rowan Close, Wembley, HA0 2PP as the sole compatible exact-price semi detached/freehold transaction, completing 81 days later on 2016-12-09."
-    },
-    {
-      "target_shard": "savills/legacy-1017",
-      "target_appearance_id": "Savills Auctions|propertyauctions:1017|114",
-      "address": "79, Radford Road, London, SE13 6SB",
-      "postcode": "SE13 6SB",
-      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
-      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=240000&max_price=240000&min_date=2017-02-13&max_date=2017-05-14&relative_url_root=%2Fapp%2Fppd&postcode=SE13",
-      "source_urls": [
-        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1017",
-        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=240000&max_price=240000&min_date=2017-02-13&max_date=2017-05-14&relative_url_root=%2Fapp%2Fppd&postcode=SE13"
-      ],
-      "evidence_note": "Saved Savills/PropertyAuctions AID 1017 lot 114 is a vacant leasehold maisonette in London SE13 sold for exactly GBP 240,000 on 2017-02-13. The official HM Land Registry result identifies 79, Radford Road, London, SE13 6SB as the sole compatible exact-price flat maisonette/leasehold transaction, completing 72 days later on 2017-04-26."
     },
     {
       "target_shard": "savills/legacy-1018",
@@ -520,19 +507,6 @@
     },
     {
       "target_shard": "savills/legacy-914",
-      "target_appearance_id": "Savills Auctions|propertyauctions:914|26",
-      "address": "85, Grange Road, Romford, RM3 7EA",
-      "postcode": "RM3 7EA",
-      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
-      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=225000&max_price=225000&min_date=2014-07-22&max_date=2014-10-20&relative_url_root=%2Fapp%2Fppd&town=Romford",
-      "source_urls": [
-        "https://www.propertyauctions.com/Results/LotList.aspx?AID=914",
-        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=225000&max_price=225000&min_date=2014-07-22&max_date=2014-10-20&relative_url_root=%2Fapp%2Fppd&town=Romford"
-      ],
-      "evidence_note": "Saved Savills/PropertyAuctions AID 914 lot 26 is a vacant freehold semi-detached house in Romford, Essex sold for exactly GBP 225,000 on 2014-07-22. The official HM Land Registry result identifies 85, Grange Road, Romford, RM3 7EA as the sole compatible exact-price semi detached/freehold transaction, completing 83 days later on 2014-10-13."
-    },
-    {
-      "target_shard": "savills/legacy-914",
       "target_appearance_id": "Savills Auctions|propertyauctions:914|3",
       "address": "118, Axminster Road, London, N7 6BT",
       "postcode": "N7 6BT",
@@ -582,19 +556,6 @@
         "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=295000&max_price=295000&min_date=2014-07-22&max_date=2014-10-20&relative_url_root=%2Fapp%2Fppd&postcode=SE25"
       ],
       "evidence_note": "Saved Savills/PropertyAuctions AID 914 lot 7 is a vacant freehold house in London SE25 sold for exactly GBP 295,000 on 2014-07-22. The official HM Land Registry result identifies 64, Oakley Road, London, SE25 4XQ as the sole compatible exact-price terraced/freehold transaction, completing 80 days later on 2014-10-10."
-    },
-    {
-      "target_shard": "savills/legacy-918",
-      "target_appearance_id": "Savills Auctions|propertyauctions:918|54",
-      "address": "168, Eversholt Street, London, NW1 1BL",
-      "postcode": "NW1 1BL",
-      "address_basis": "conservative_official_hmlr_cumulatively_unique_exact_price_completion_window_locality_tenure_and_property_class_match",
-      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=950000&max_price=950000&min_date=2014-09-15&max_date=2014-12-14&relative_url_root=%2Fapp%2Fppd&postcode=NW1",
-      "source_urls": [
-        "https://www.propertyauctions.com/Results/LotList.aspx?AID=918",
-        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=950000&max_price=950000&min_date=2014-09-15&max_date=2014-12-14&relative_url_root=%2Fapp%2Fppd&postcode=NW1"
-      ],
-      "evidence_note": "Saved Savills/PropertyAuctions AID 918 lot 54 is a vacant freehold building in London NW1 sold for exactly GBP 950,000 on 2014-09-15. The official HM Land Registry result identifies 168, Eversholt Street, London, NW1 1BL as the sole compatible exact-price other/freehold transaction, completing 64 days later on 2014-11-18."
     },
     {
       "target_shard": "savills/legacy-918",
@@ -780,13 +741,14 @@
     }
   ],
   "appearance_count": 0,
-  "appearances_enriched": 56,
-  "address_records_added": 56,
+  "appearances_enriched": 53,
+  "address_records_added": 53,
   "partial_records_added": 0,
   "rejection_counts": {
     "ambiguous": 707,
     "no_compatible_transaction": 2024,
-    "unique_candidate_before_requested_window": 8
+    "unique_candidate_before_requested_window": 8,
+    "transaction_already_used_by_existing_appearance": 3
   },
   "historical_completeness_declared": false
 }
