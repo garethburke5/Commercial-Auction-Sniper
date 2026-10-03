@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-03T18:25:36.614146+00:00",
+  "checked_at": "2026-10-03T19:24:17.349067+00:00",
   "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
   "date_range": [
     "2007-02-26",
@@ -7,44 +7,61 @@
   ],
   "auctions_discovered": 66,
   "auctions_captured": 66,
-  "auctions_reused": 0,
-  "auctions_fetched": 66,
+  "auctions_reused": 66,
+  "auctions_fetched": 0,
   "auctions_complete": 66,
   "appearances_captured": 3769,
-  "run_new_appearances": 3769,
-  "run_new_address_records": 3713,
-  "run_new_partial_lots": 56,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
+  "run_new_partial_lots": 0,
   "by_sector": {
-    "residential": 2709,
-    "land": 273,
     "commercial": 127,
+    "residential": 2709,
     "unknown": 652,
+    "land": 273,
     "mixed-use": 8
   },
   "archive_evidence": {
     "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
-    "retrieved_at": "2026-10-03T18:25:27.541360+00:00",
-    "sha256": "a1111e15310e805a0fa851b363f02f0bebbf59a492c6886cdbe69fcdb1a6778b",
-    "snapshot_path": "data/auction_history/sources/mchugh-legacy/auction-list-a1111e15310e805a.json.gz",
+    "retrieved_at": "2026-10-03T19:24:17.096722+00:00",
+    "sha256": "3ab96e51c95c98425990c4b1abf61b0adf8bcbed3208c3d5cd1a37666769476a",
+    "snapshot_path": "data/auction_history/sources/mchugh-legacy/auction-list-3ab96e51c95c9842.json.gz",
     "basis": "first-party legacy auction index"
   },
   "auctions": {
-    "2018-10-04": {
+    "2020-02-24": {
       "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2018-10-04",
-      "auction_date": "2018-10-04",
+      "source_auction_id": "mchugh-legacy:2020-02-24",
+      "auction_date": "2020-02-24",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "published_lots_offered": null,
-      "visible_source_rows": 61,
-      "lots_captured": 61,
+      "visible_source_rows": 122,
+      "lots_captured": 122,
       "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
       "pagination_reconciled": true,
       "denominator_reconciled": true,
       "denominator_basis": "all rows in the first-party unpaginated result table",
       "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
       "errors": [],
-      "checked_at": "2026-10-03T18:25:28.589201+00:00"
+      "checked_at": "2026-10-03T18:25:28.871177+00:00"
+    },
+    "2019-12-03": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh-legacy:2019-12-03",
+      "auction_date": "2019-12-03",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_lots_offered": null,
+      "visible_source_rows": 80,
+      "lots_captured": 80,
+      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "all rows in the first-party unpaginated result table",
+      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
+      "errors": [],
+      "checked_at": "2026-10-03T18:25:28.752516+00:00"
     },
     "2019-10-03": {
       "auctioneer": "McHugh & Co",
@@ -63,39 +80,22 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:28.687000+00:00"
     },
-    "2018-12-06": {
+    "2019-07-03": {
       "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2018-12-06",
-      "auction_date": "2018-12-06",
+      "source_auction_id": "mchugh-legacy:2019-07-03",
+      "auction_date": "2019-07-03",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "published_lots_offered": null,
-      "visible_source_rows": 65,
-      "lots_captured": 65,
+      "visible_source_rows": 91,
+      "lots_captured": 91,
       "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
       "pagination_reconciled": true,
       "denominator_reconciled": true,
       "denominator_basis": "all rows in the first-party unpaginated result table",
       "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
       "errors": [],
-      "checked_at": "2026-10-03T18:25:28.707441+00:00"
-    },
-    "2019-12-03": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2019-12-03",
-      "auction_date": "2019-12-03",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_lots_offered": null,
-      "visible_source_rows": 80,
-      "lots_captured": 80,
-      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "all rows in the first-party unpaginated result table",
-      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
-      "errors": [],
-      "checked_at": "2026-10-03T18:25:28.752516+00:00"
+      "checked_at": "2026-10-03T18:25:28.842960+00:00"
     },
     "2019-04-30": {
       "auctioneer": "McHugh & Co",
@@ -131,39 +131,39 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:28.834121+00:00"
     },
-    "2019-07-03": {
+    "2018-12-06": {
       "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2019-07-03",
-      "auction_date": "2019-07-03",
+      "source_auction_id": "mchugh-legacy:2018-12-06",
+      "auction_date": "2018-12-06",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "published_lots_offered": null,
-      "visible_source_rows": 91,
-      "lots_captured": 91,
+      "visible_source_rows": 65,
+      "lots_captured": 65,
       "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
       "pagination_reconciled": true,
       "denominator_reconciled": true,
       "denominator_basis": "all rows in the first-party unpaginated result table",
       "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
       "errors": [],
-      "checked_at": "2026-10-03T18:25:28.842960+00:00"
+      "checked_at": "2026-10-03T18:25:28.707441+00:00"
     },
-    "2020-02-24": {
+    "2018-10-04": {
       "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2020-02-24",
-      "auction_date": "2020-02-24",
+      "source_auction_id": "mchugh-legacy:2018-10-04",
+      "auction_date": "2018-10-04",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "published_lots_offered": null,
-      "visible_source_rows": 122,
-      "lots_captured": 122,
+      "visible_source_rows": 61,
+      "lots_captured": 61,
       "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
       "pagination_reconciled": true,
       "denominator_reconciled": true,
       "denominator_basis": "all rows in the first-party unpaginated result table",
       "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
       "errors": [],
-      "checked_at": "2026-10-03T18:25:28.871177+00:00"
+      "checked_at": "2026-10-03T18:25:28.589201+00:00"
     },
     "2018-07-04": {
       "auctioneer": "McHugh & Co",
@@ -182,23 +182,6 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:29.583202+00:00"
     },
-    "2018-02-26": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2018-02-26",
-      "auction_date": "2018-02-26",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_lots_offered": null,
-      "visible_source_rows": 70,
-      "lots_captured": 70,
-      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "all rows in the first-party unpaginated result table",
-      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
-      "errors": [],
-      "checked_at": "2026-10-03T18:25:29.710387+00:00"
-    },
     "2018-05-03": {
       "auctioneer": "McHugh & Co",
       "source_auction_id": "mchugh-legacy:2018-05-03",
@@ -215,6 +198,23 @@
       "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
       "errors": [],
       "checked_at": "2026-10-03T18:25:29.741255+00:00"
+    },
+    "2018-02-26": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh-legacy:2018-02-26",
+      "auction_date": "2018-02-26",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_lots_offered": null,
+      "visible_source_rows": 70,
+      "lots_captured": 70,
+      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "all rows in the first-party unpaginated result table",
+      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
+      "errors": [],
+      "checked_at": "2026-10-03T18:25:29.710387+00:00"
     },
     "2017-12-06": {
       "auctioneer": "McHugh & Co",
@@ -403,23 +403,6 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:30.859866+00:00"
     },
-    "2015-07-08": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2015-07-08",
-      "auction_date": "2015-07-08",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_lots_offered": null,
-      "visible_source_rows": 66,
-      "lots_captured": 66,
-      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "all rows in the first-party unpaginated result table",
-      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
-      "errors": [],
-      "checked_at": "2026-10-03T18:25:31.088978+00:00"
-    },
     "2015-10-07": {
       "auctioneer": "McHugh & Co",
       "source_auction_id": "mchugh-legacy:2015-10-07",
@@ -436,6 +419,23 @@
       "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
       "errors": [],
       "checked_at": "2026-10-03T18:25:31.105214+00:00"
+    },
+    "2015-07-08": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh-legacy:2015-07-08",
+      "auction_date": "2015-07-08",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_lots_offered": null,
+      "visible_source_rows": 66,
+      "lots_captured": 66,
+      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "all rows in the first-party unpaginated result table",
+      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
+      "errors": [],
+      "checked_at": "2026-10-03T18:25:31.088978+00:00"
     },
     "2015-04-29": {
       "auctioneer": "McHugh & Co",
@@ -471,23 +471,6 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:31.769083+00:00"
     },
-    "2014-10-01": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2014-10-01",
-      "auction_date": "2014-10-01",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_lots_offered": null,
-      "visible_source_rows": 49,
-      "lots_captured": 49,
-      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "all rows in the first-party unpaginated result table",
-      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
-      "errors": [],
-      "checked_at": "2026-10-03T18:25:31.786186+00:00"
-    },
     "2014-12-03": {
       "auctioneer": "McHugh & Co",
       "source_auction_id": "mchugh-legacy:2014-12-03",
@@ -505,22 +488,22 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:31.811686+00:00"
     },
-    "2014-04-30": {
+    "2014-10-01": {
       "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2014-04-30",
-      "auction_date": "2014-04-30",
+      "source_auction_id": "mchugh-legacy:2014-10-01",
+      "auction_date": "2014-10-01",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "published_lots_offered": null,
-      "visible_source_rows": 51,
-      "lots_captured": 51,
+      "visible_source_rows": 49,
+      "lots_captured": 49,
       "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
       "pagination_reconciled": true,
       "denominator_reconciled": true,
       "denominator_basis": "all rows in the first-party unpaginated result table",
       "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
       "errors": [],
-      "checked_at": "2026-10-03T18:25:31.940019+00:00"
+      "checked_at": "2026-10-03T18:25:31.786186+00:00"
     },
     "2014-07-14": {
       "auctioneer": "McHugh & Co",
@@ -539,22 +522,22 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:31.960572+00:00"
     },
-    "2013-12-04": {
+    "2014-04-30": {
       "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2013-12-04",
-      "auction_date": "2013-12-04",
+      "source_auction_id": "mchugh-legacy:2014-04-30",
+      "auction_date": "2014-04-30",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "published_lots_offered": null,
-      "visible_source_rows": 55,
-      "lots_captured": 55,
+      "visible_source_rows": 51,
+      "lots_captured": 51,
       "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
       "pagination_reconciled": true,
       "denominator_reconciled": true,
       "denominator_basis": "all rows in the first-party unpaginated result table",
       "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
       "errors": [],
-      "checked_at": "2026-10-03T18:25:32.046468+00:00"
+      "checked_at": "2026-10-03T18:25:31.940019+00:00"
     },
     "2014-02-26": {
       "auctioneer": "McHugh & Co",
@@ -573,6 +556,23 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:32.074083+00:00"
     },
+    "2013-12-04": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh-legacy:2013-12-04",
+      "auction_date": "2013-12-04",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_lots_offered": null,
+      "visible_source_rows": 55,
+      "lots_captured": 55,
+      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "all rows in the first-party unpaginated result table",
+      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
+      "errors": [],
+      "checked_at": "2026-10-03T18:25:32.046468+00:00"
+    },
     "2013-10-02": {
       "auctioneer": "McHugh & Co",
       "source_auction_id": "mchugh-legacy:2013-10-02",
@@ -590,23 +590,6 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:32.582091+00:00"
     },
-    "2013-05-01": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2013-05-01",
-      "auction_date": "2013-05-01",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_lots_offered": null,
-      "visible_source_rows": 36,
-      "lots_captured": 36,
-      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "all rows in the first-party unpaginated result table",
-      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
-      "errors": [],
-      "checked_at": "2026-10-03T18:25:32.689890+00:00"
-    },
     "2013-07-10": {
       "auctioneer": "McHugh & Co",
       "source_auction_id": "mchugh-legacy:2013-07-10",
@@ -623,6 +606,23 @@
       "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
       "errors": [],
       "checked_at": "2026-10-03T18:25:32.743435+00:00"
+    },
+    "2013-05-01": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh-legacy:2013-05-01",
+      "auction_date": "2013-05-01",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_lots_offered": null,
+      "visible_source_rows": 36,
+      "lots_captured": 36,
+      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "all rows in the first-party unpaginated result table",
+      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
+      "errors": [],
+      "checked_at": "2026-10-03T18:25:32.689890+00:00"
     },
     "2013-02-26": {
       "auctioneer": "McHugh & Co",
@@ -743,6 +743,23 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:33.573510+00:00"
     },
+    "2011-10-03": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh-legacy:2011-10-03",
+      "auction_date": "2011-10-03",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_lots_offered": null,
+      "visible_source_rows": 66,
+      "lots_captured": 66,
+      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "all rows in the first-party unpaginated result table",
+      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
+      "errors": [],
+      "checked_at": "2026-10-03T18:25:33.813334+00:00"
+    },
     "2011-07-04": {
       "auctioneer": "McHugh & Co",
       "source_auction_id": "mchugh-legacy:2011-07-04",
@@ -759,6 +776,23 @@
       "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
       "errors": [],
       "checked_at": "2026-10-03T18:25:33.681499+00:00"
+    },
+    "2011-05-10": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh-legacy:2011-05-10",
+      "auction_date": "2011-05-10",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_lots_offered": null,
+      "visible_source_rows": 35,
+      "lots_captured": 35,
+      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "all rows in the first-party unpaginated result table",
+      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
+      "errors": [],
+      "checked_at": "2026-10-03T18:25:33.805043+00:00"
     },
     "2011-02-22": {
       "auctioneer": "McHugh & Co",
@@ -794,40 +828,6 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:33.800520+00:00"
     },
-    "2011-05-10": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2011-05-10",
-      "auction_date": "2011-05-10",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_lots_offered": null,
-      "visible_source_rows": 35,
-      "lots_captured": 35,
-      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "all rows in the first-party unpaginated result table",
-      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
-      "errors": [],
-      "checked_at": "2026-10-03T18:25:33.805043+00:00"
-    },
-    "2011-10-03": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2011-10-03",
-      "auction_date": "2011-10-03",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_lots_offered": null,
-      "visible_source_rows": 66,
-      "lots_captured": 66,
-      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "all rows in the first-party unpaginated result table",
-      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
-      "errors": [],
-      "checked_at": "2026-10-03T18:25:33.813334+00:00"
-    },
     "2010-10-04": {
       "auctioneer": "McHugh & Co",
       "source_auction_id": "mchugh-legacy:2010-10-04",
@@ -845,23 +845,6 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:34.080602+00:00"
     },
-    "2010-05-11": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2010-05-11",
-      "auction_date": "2010-05-11",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_lots_offered": null,
-      "visible_source_rows": 36,
-      "lots_captured": 36,
-      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "all rows in the first-party unpaginated result table",
-      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
-      "errors": [],
-      "checked_at": "2026-10-03T18:25:34.546928+00:00"
-    },
     "2010-07-05": {
       "auctioneer": "McHugh & Co",
       "source_auction_id": "mchugh-legacy:2010-07-05",
@@ -878,6 +861,23 @@
       "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
       "errors": [],
       "checked_at": "2026-10-03T18:25:34.579171+00:00"
+    },
+    "2010-05-11": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh-legacy:2010-05-11",
+      "auction_date": "2010-05-11",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_lots_offered": null,
+      "visible_source_rows": 36,
+      "lots_captured": 36,
+      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "all rows in the first-party unpaginated result table",
+      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
+      "errors": [],
+      "checked_at": "2026-10-03T18:25:34.546928+00:00"
     },
     "2010-02-23": {
       "auctioneer": "McHugh & Co",
@@ -913,6 +913,23 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:34.718154+00:00"
     },
+    "2009-10-06": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh-legacy:2009-10-06",
+      "auction_date": "2009-10-06",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_lots_offered": null,
+      "visible_source_rows": 75,
+      "lots_captured": 75,
+      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "all rows in the first-party unpaginated result table",
+      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
+      "errors": [],
+      "checked_at": "2026-10-03T18:25:34.896139+00:00"
+    },
     "2009-07-06": {
       "auctioneer": "McHugh & Co",
       "source_auction_id": "mchugh-legacy:2009-07-06",
@@ -946,23 +963,6 @@
       "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
       "errors": [],
       "checked_at": "2026-10-03T18:25:34.856384+00:00"
-    },
-    "2009-10-06": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2009-10-06",
-      "auction_date": "2009-10-06",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_lots_offered": null,
-      "visible_source_rows": 75,
-      "lots_captured": 75,
-      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "all rows in the first-party unpaginated result table",
-      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
-      "errors": [],
-      "checked_at": "2026-10-03T18:25:34.896139+00:00"
     },
     "2009-02-23": {
       "auctioneer": "McHugh & Co",
@@ -1049,23 +1049,6 @@
       "errors": [],
       "checked_at": "2026-10-03T18:25:35.696962+00:00"
     },
-    "2007-11-28": {
-      "auctioneer": "McHugh & Co",
-      "source_auction_id": "mchugh-legacy:2007-11-28",
-      "auction_date": "2007-11-28",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_lots_offered": null,
-      "visible_source_rows": 47,
-      "lots_captured": 47,
-      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "all rows in the first-party unpaginated result table",
-      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
-      "errors": [],
-      "checked_at": "2026-10-03T18:25:35.765587+00:00"
-    },
     "2008-02-25": {
       "auctioneer": "McHugh & Co",
       "source_auction_id": "mchugh-legacy:2008-02-25",
@@ -1082,6 +1065,23 @@
       "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
       "errors": [],
       "checked_at": "2026-10-03T18:25:35.798885+00:00"
+    },
+    "2007-11-28": {
+      "auctioneer": "McHugh & Co",
+      "source_auction_id": "mchugh-legacy:2007-11-28",
+      "auction_date": "2007-11-28",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_lots_offered": null,
+      "visible_source_rows": 47,
+      "lots_captured": 47,
+      "source_url": "https://mchughauctions.co.uk/Auctions/AucList.aspx",
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "all rows in the first-party unpaginated result table",
+      "completion_scope": "all visible property rows in the first-party unpaginated legacy result table",
+      "errors": [],
+      "checked_at": "2026-10-03T18:25:35.765587+00:00"
     },
     "2007-10-01": {
       "auctioneer": "McHugh & Co",
