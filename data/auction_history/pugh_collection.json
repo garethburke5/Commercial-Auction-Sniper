@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-10-03T12:07:53.479951+00:00",
+  "checked_at": "2026-10-03T12:29:06.000028+00:00",
   "source_url": "https://www.pugh-auctions.com/property-search",
   "published_property_rows": 7010,
-  "observed_property_ids": 6631,
+  "observed_property_ids": 6644,
   "observed_source_ids": [
     "10088",
     "10113",
@@ -1340,6 +1340,7 @@
     "202602021355sq_d5qh",
     "202602021413sq_paar",
     "202602021430sq_d1rb",
+    "202602021533sq_827f",
     "202602021557sq_e633",
     "202602021637sq_bnai",
     "202602021639sq_fbnq",
@@ -1348,6 +1349,7 @@
     "202602030927sq_prc7",
     "202602031029sq_221e",
     "202602031135sq_txl2",
+    "202602031143sq_litw",
     "202602031207sq_anm2",
     "202602031219sq_lfe8",
     "202602031222sq_h0uz",
@@ -1356,6 +1358,7 @@
     "202602031252sq_3rng",
     "202602031300sq_ejvo",
     "202602031305sq_atm5",
+    "202602031314sq_g21a",
     "202602031316sq_v9dh",
     "202602031333sq_sxh3",
     "202602031336sq_nopz",
@@ -1370,6 +1373,7 @@
     "202602040921sq_wz9i",
     "202602041002sq_036o",
     "202602041004sq_wvlw",
+    "202602041302sq_s2ui",
     "202602041305sq_8k66",
     "202602041330sq_ea0m",
     "202602041358sq_wa0u",
@@ -1388,6 +1392,7 @@
     "202602050951sq_9dw1",
     "202602050952sq_mzza",
     "202602051009sq_ueu1",
+    "202602051058sq_dvkl",
     "202602051104sq_42vw",
     "202602051410sq_kbvx",
     "202602051517sq_iz48",
@@ -1412,6 +1417,7 @@
     "202602090943sq_hia6",
     "202602091101sq_87gq",
     "202602091103sq_6hc2",
+    "202602091120sq_oiqd",
     "202602091146sq_0skd",
     "202602091211sq_0k6e",
     "202602091225sq_pkpf",
@@ -1438,12 +1444,14 @@
     "202602111516sq_m2ws",
     "202602111803sq_n2kq",
     "202602111812sq_vjaa",
+    "202602112111sq_cwt0",
     "202602120901sq_2sxe",
     "202602120922sq_8xs9",
     "202602121029sq_q6c4",
     "202602121116sq_5nfs",
     "202602121124sq_feah",
     "202602121131sq_ojvt",
+    "202602121230sq_jts7",
     "202602121324sq_fg8b",
     "202602121406sq_gc9t",
     "202602121443sq_qca2",
@@ -1454,6 +1462,7 @@
     "202602131013sq_8ty8",
     "202602131111sq_314m",
     "202602131436sq_t3rh",
+    "202602131512sq_c8h0",
     "202602131556sq_x9dm",
     "202602131656sq_syf5",
     "202602131708sq_6lik",
@@ -1463,6 +1472,8 @@
     "202602132129sq_7mak",
     "202602160839sq_z5m9",
     "202602161129sq_o6n4",
+    "202602161135sq_a7gd",
+    "202602161244sq_6e0n",
     "202602161510sq_fc0f",
     "202602162201sq_fq18",
     "202602171035sq_8pwe",
@@ -1502,6 +1513,7 @@
     "202602231115sq_42p8",
     "202602231235sq_twsy",
     "202602231249sq_6cy5",
+    "202602231422sq_hmj0",
     "202602231634sq_26ds",
     "202602240857sq_2dyl",
     "202602241019sq_b8g1",
@@ -1520,6 +1532,7 @@
     "202602261209sq_ux2f",
     "202602261306sq_2ccp",
     "202602261538sq_iikv",
+    "202602261647sq_9j0n",
     "202602261657sq_0p0z",
     "202602270944sq_5ll4",
     "202602271026sq_nkks",
@@ -6733,6 +6746,7 @@
     93,
     94,
     95,
+    96,
     97,
     98,
     99,
@@ -7331,27 +7345,29 @@
     "346": 20,
     "347": 20,
     "1": 20,
-    "109": 19
+    "109": 20,
+    "96": 20
   },
-  "published_rows_reconciled": 6919,
+  "published_rows_reconciled": 6940,
   "archive_pagination_complete": false,
-  "property_appearances_captured": 6755,
-  "canonical_shard_rows": 6755,
+  "property_appearances_captured": 6774,
+  "canonical_shard_rows": 6774,
   "legacy_rows_enriched": 0,
   "run_new_appearances": 19,
   "run_new_address_records": 19,
   "run_new_partial_lots": 0,
   "run_by_sector": {
-    "land": 9,
-    "unknown": 4,
-    "residential": 4,
-    "commercial": 2
+    "residential": 8,
+    "commercial": 2,
+    "land": 5,
+    "unknown": 3,
+    "mixed-use": 1
   },
   "failures": [
     {
-      "page": 96,
-      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=96",
-      "error": "ValueError: Conflicting repeated appearance ('202601271313sq_wcix', '2026-03-24', '054') on https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=96"
+      "page": 350,
+      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=350",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=350"
     },
     {
       "page": 349,
@@ -7367,11 +7383,6 @@
       "page": 348,
       "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=348",
       "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=348"
-    },
-    {
-      "page": 350,
-      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=350",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=350"
     }
   ]
 }
