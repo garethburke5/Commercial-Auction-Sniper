@@ -24,8 +24,10 @@ python scripts/harvest_auction_house_national.py
 python scripts/harvest_auction_house_regions.py
 python scripts/harvest_bidx1_canonical.py
 python scripts/harvest_btg_eddisons_catalogues.py 4
+python scripts/harvest_sdl_legacy_catalogues.py --limit 10
 python scripts/harvest_anderson_garland_results.py
 python scripts/harvest_future_property_auctions.py --limit 12 --workers 3
+python scripts/harvest_town_country_results.py --workers 4
 python historical_corpus.py build
 ```
 
@@ -120,12 +122,30 @@ exactly to its published ``results found`` denominator. Online appearances use
 the published closing day; lots in two-day live-stream catalogues keep a null
 individual auction date while preserving the exact published date range.
 
+SDL Property Auctions collection traverses the retained first-party catalogue
+archive from May 2022 through November 2025, before the BTG-era Eddisons
+collector begins. Only featured cards with an exact catalogue date, stable SDL
+property ID, lot number, postcode-bearing address and guide price are admitted.
+Raw archive and catalogue HTML are preserved. These surviving featured subsets
+never count as complete auctions because their original catalogue denominators
+and non-featured rows are no longer exposed.
+
 Anderson & Garland collection preserves every sold-property block on its
 first-party recent-results page, including address text, description, image,
 guide and sale price. The page is curated rather than a dated catalogue: exact
 auction dates remain null and the records are explicitly excluded from complete
 catalogue counts. Rex listing IDs provide identity where retained; otherwise an
 exact source-heading hash is used without merging across other auctioneers.
+
+Town & Country Property Auctions collection traverses all pages of the
+first-party past-auctions archive. Stable lot UUIDs and exact closing timestamps
+preserve each appearance independently across the auctioneer's regional offices;
+addresses, outcomes, prices, descriptions and images are retained without
+collecting bidder or registrant data. Archive pagination is reconciled separately
+from unavailable original catalogue denominators, so no inferred grouping is
+marked as a complete auction. After one reconciled full pass, later runs fetch
+only page one unless a new UUID or changed page extent requires another full
+traversal.
 
 Future Property Auctions collection consumes the auctioneer's unauthenticated
 first-party BidJS archive. The manifest currently retains stable auction UUIDs
