@@ -228,6 +228,51 @@ def parse_grid_page(raw: bytes, requested_url: str, evidence: dict) -> tuple[lis
     return rows, result_count, max(page_numbers, default=1)
 
 
+
+def parse_detail_page(raw: bytes, source_row: dict, requested_url: str, evidence: dict) -> dict:
+    """Recover one exact appearance from its retained first-party detail page."""
+    soup = BeautifulSoup(raw, "lxml")
+    match = PROPERTY_RE.search(urlparse(requested_url).path)
+    if not match or match.group(1) != str(source_row.get("source_lot_id") or ""):
+        raise ValueError("detail URL does not match saved Pugh property identity")
+    heading_node = soup.select_one("h1")
+    heading = clean(heading_node.get_text(" ", strip=True)) if heading_node else None
+    if not heading or address_key(heading) != address_key(source_row.get("address")):
+        raise ValueError("detail-page address does not exactly match saved grid address")
+    text = clean(soup.get_text(" ", strip=True)) or ""
+    identity = re.search(
+        r"\bLot\s+(\d+[A-Za-z]?)\b.{0,240}?\bAuction(?:\s+Ends)?\s*:[^/]{0,120}?(\d{2}/\d{2}/\d{4})",
+        text, re.I,
+    )
+    if not identity:
+        raise ValueError("detail page has no exact lot and auction date")
+    lot_number = identity.group(1)
+    auction_date = datetime.strptime(identity.group(2), "%d/%m/%Y").date().isoformat()
+    source_id = str(source_row["source_lot_id"])
+    auction_id = f"pugh:{auction_date}:detail-page-recovery"
+    row = corpus.base_row(
+        "Pugh Auctioneers", auction_id, auction_date, lot_number, source_id, requested_url
+    )
+    row.update(
+        address=heading,
+        postcode=source_row.get("postcode"),
+        sector=corpus.sector(heading),
+        status=source_row.get("status"),
+        guide_price=source_row.get("guide_price"),
+        guide_price_high=source_row.get("guide_price_high"),
+        sale_price=source_row.get("sale_price"),
+        record_quality="address_record",
+        identity_method="source_property_id_detail_page_date_and_lot",
+        auction_date_basis="exact first-party Pugh detail-page auction date",
+        source_evidence={
+            **evidence,
+            "grid_source_evidence": source_row.get("source_evidence"),
+            "published_card_text": source_row.get("published_card_text"),
+            "published_detail_heading": heading,
+        },
+    )
+    return row
+
 def tail_grid_plan(result_count: int, first_failed_page: int, normal_page_size: int,
                    grid_page_size: int = GRID_PAGE_SIZE) -> dict:
     first_failed_position = (first_failed_page - 1) * normal_page_size
@@ -306,6 +351,27 @@ def fetch_grid_page(page: int) -> tuple[int, list[dict], int | None, int]:
     return page, rows, page_total, page_last
 
 
+
+def fetch_detail_page(source_row: dict) -> dict:
+    requested = str(source_row["original_url"])
+    final_url, raw = get(requests.Session(), requested)
+    match = PROPERTY_RE.search(urlparse(final_url).path)
+    if not match or match.group(1) != str(source_row.get("source_lot_id") or ""):
+        raise ValueError("detail page redirected to another property identity")
+    sha256, retrieved = corpus.digest(raw), corpus.now()
+    source_id = str(source_row["source_lot_id"])
+    snapshot = corpus.DATA / "sources/pugh" / (
+        f"property-detail-{slug(source_id)}-{sha256[:16]}.json.gz"
+    )
+    evidence = {
+        "source_url": requested, "final_url": final_url,
+        "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
+        "sha256": sha256, "retrieved_at": retrieved,
+        "basis": "exact lot number and auction date on retained first-party Pugh detail page",
+    }
+    corpus.save_gzip(snapshot, {"evidence": evidence, "html": raw.decode("utf-8", "replace")})
+    return parse_detail_page(raw, source_row, requested, evidence)
+
 def harvest() -> None:
     summary_path = corpus.DATA / "pugh_collection.json"
     try:
@@ -328,6 +394,10 @@ def harvest() -> None:
         if str(page).isdigit()
     }
     unresolved_rows = int(previous.get("unresolved_source_rows") or 0)
+    grid_tail_source_rows = int(previous.get("grid_tail_source_rows") or unresolved_rows)
+    detail_recovered_source_ids = {
+        str(value) for value in (previous.get("detail_recovered_source_ids") or [])
+    }
     source_rows_complete = bool(previous.get("source_rows_reconciled_complete"))
     existing_path = corpus.DATA / "appearances/pugh-auctions/property-search.jsonl.gz"
     existing = list(corpus.iter_rows(existing_path)) if existing_path.exists() else []
@@ -487,6 +557,7 @@ def harvest() -> None:
                 "rows": tail_rows,
             })
             unresolved_rows = len(tail_rows)
+            grid_tail_source_rows = len(tail_rows)
             grid_covered_pages.update(failed_pages)
             source_rows_complete = True
             failures = [{
@@ -543,15 +614,73 @@ def harvest() -> None:
             except Exception as exc:
                 failures.append({"kind": "unresolved_record_restore",
                                  "error": f"{type(exc).__name__}: {exc}"[:500]})
+
+    # The grid tail lacks dates, but its retained individual property pages still
+    # publish exact lot numbers and auction dates. Recover only exact identity and
+    # address matches; keep every unresolved/failed row outside appearance totals.
+    detail_pages_recovered_this_run = 0
+    unresolved_path = corpus.DATA / "sources/pugh/undated-property-search-tail-records.json.gz"
+    if unresolved_path.exists() and unresolved_rows:
+        try:
+            unresolved_payload = corpus.read_gzip(unresolved_path)
+            tail_rows_saved = list(unresolved_payload.get("rows") or [])
+        except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
+            tail_rows_saved = []
+            failures.append({"kind": "detail_recovery_source_read",
+                             "error": f"{type(exc).__name__}: {exc}"[:500]})
+        targets_by_id = {}
+        for source_row in tail_rows_saved:
+            source_id = str(source_row.get("source_lot_id") or "")
+            if source_id and source_id not in detail_recovered_source_ids:
+                targets_by_id.setdefault(source_id, source_row)
+        detail_failures = []
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            futures = {pool.submit(fetch_detail_page, row): source_id
+                       for source_id, row in targets_by_id.items()}
+            for future in as_completed(futures):
+                source_id = futures[future]
+                try:
+                    row = future.result()
+                    if row["appearance_id"] not in existing_appearance_ids:
+                        rows_to_write.append(row)
+                        run_new.append(row)
+                        existing_appearance_ids.add(row["appearance_id"])
+                    detail_recovered_source_ids.add(source_id)
+                    detail_pages_recovered_this_run += 1
+                    print(f"PUGH detail recovered property={source_id} "
+                          f"date={row['auction_date']} lot={row['lot_number']}", flush=True)
+                except Exception as exc:
+                    detail_failures.append({
+                        "kind": "detail_page_recovery", "source_lot_id": source_id,
+                        "url": targets_by_id[source_id].get("original_url"),
+                        "error": f"{type(exc).__name__}: {exc}"[:500],
+                    })
+        remaining = [row for row in tail_rows_saved
+                     if str(row.get("source_lot_id") or "") not in detail_recovered_source_ids]
+        unresolved_rows = len(remaining)
+        failures = [item for item in failures
+                    if item.get("kind") != "unresolved_source_rows_without_auction_date"]
+        failures.extend(detail_failures)
+        if remaining:
+            failures.append({
+                "kind": "unresolved_source_rows_without_auction_date",
+                "source_rows": unresolved_rows,
+                "unique_property_ids": len({str(row.get("source_lot_id")) for row in remaining}),
+                "record_path": str(unresolved_path.relative_to(corpus.ROOT)),
+                "error": "saved grid rows remain excluded until an exact first-party detail date and lot reconcile",
+            })
+        print(f"PUGH detail recovery recovered={detail_pages_recovered_this_run} "
+              f"remaining_source_rows={unresolved_rows}", flush=True)
+
     corpus.write_rows("pugh-auctions/property-search", rows_to_write)
     for path, rows in enriched_by_path.items():
         key = str(path.relative_to(corpus.DATA / "appearances")).removesuffix(".jsonl.gz")
         corpus.write_rows(key, rows)
     saved = list(corpus.iter_rows(existing_path)) if existing_path.exists() else []
     published_rows_reconciled = (sum(page_counts.get(str(page), 0)
-                                     for page in range(1, last_page + 1)) + unresolved_rows)
+                                     for page in range(1, last_page + 1)) + grid_tail_source_rows)
     complete = bool(result_count and not failures and
-                    len(set(pages_captured)) == last_page and
+                    len(set(pages_captured) | grid_covered_pages) == last_page and
                     published_rows_reconciled == result_count)
     summary = {"checked_at": corpus.now(), "source_url": INDEX,
                "published_property_rows": result_count, "observed_property_ids": len(observed),
@@ -560,7 +689,10 @@ def harvest() -> None:
                "published_rows_reconciled": published_rows_reconciled,
                "source_rows_reconciled_complete": source_rows_complete,
                "grid_covered_normal_pages": sorted(grid_covered_pages),
+               "grid_tail_source_rows": grid_tail_source_rows,
                "unresolved_source_rows": unresolved_rows,
+               "detail_pages_recovered_this_run": detail_pages_recovered_this_run,
+               "detail_recovered_source_ids": sorted(detail_recovered_source_ids),
                "archive_pagination_complete": complete,
                "property_appearances_captured": len(saved) + sum(len(v) for v in enriched_by_path.values()),
                "canonical_shard_rows": len(saved),
@@ -579,7 +711,9 @@ def harvest() -> None:
         "published_property_rows": result_count,
         "published_rows_reconciled": published_rows_reconciled,
         "source_rows_reconciled_complete": source_rows_complete,
+        "grid_tail_source_rows": grid_tail_source_rows,
         "unresolved_source_rows": unresolved_rows,
+        "detail_recovered_source_ids": sorted(detail_recovered_source_ids),
         "completion_scope": "all retained first-party property-search rows; original auction denominators unavailable",
         "errors": failures, "checked_at": corpus.now()})
     print(json.dumps({k: v for k, v in summary.items() if k != "observed_source_ids"}, indent=2), flush=True)

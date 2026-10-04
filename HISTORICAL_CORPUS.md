@@ -26,7 +26,7 @@ python scripts/harvest_bidx1_canonical.py
 python scripts/harvest_btg_eddisons_catalogues.py 4
 python scripts/harvest_sdl_legacy_catalogues.py --limit 10
 python scripts/harvest_anderson_garland_results.py
-python scripts/harvest_future_property_auctions.py --limit 16 --workers 3
+python scripts/harvest_future_property_auctions.py --limit 4 --workers 3
 python scripts/harvest_town_country_results.py --workers 4
 python scripts/harvest_brown_co_results.py
 python scripts/harvest_bagshaws_results.py
@@ -201,8 +201,11 @@ positions to be reconciled without repeating the failed probes. Cards that lack
 an auction date and lot number are retained with immutable snapshots under
 `data/auction_history/sources/pugh/`; they are deliberately excluded from the
 appearance database and its headline totals until another first-party source
-can establish an auction appearance. The Pugh state reports source-row
-reconciliation and appearance completeness separately.
+can establish an auction appearance. A strict detail-page recovery pass now
+revisits those saved tail rows and promotes a row only when the retained page's
+property identity, exact normalized address, auction date and lot number all
+reconcile; failed or ambiguous rows remain excluded. The Pugh state reports
+source-row reconciliation and appearance completeness separately.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt
 database, not a discovery counter. All legacy source rows are kept, including

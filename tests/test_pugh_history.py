@@ -2,6 +2,7 @@ from datetime import date
 
 from scripts.harvest_pugh_canonical import (
     bankable,
+    parse_detail_page,
     parse_grid_page,
     parse_page,
     strict_legacy_match,
@@ -90,3 +91,36 @@ def test_tail_grid_plan_reconciles_the_four_failed_twenty_row_pages():
         "overlap_rows": 60,
         "normal_overlap_pages": [345, 346, 347],
     }
+
+
+def test_detail_page_recovers_only_exact_published_date_lot_and_address():
+    html = b"""<html><body><div>Lot</div><div>058</div>
+    <div>Auction Ends: 15/07/2020 12:35</div>
+    <h1>2 Lowe Mill Lane, Hindley, Wigan, Lancashire WN2 3AF</h1></body></html>"""
+    source = {
+        "source_lot_id": "11115",
+        "original_url": "https://www.pugh-auctions.com/property/11115",
+        "address": "2 Lowe Mill Lane, Hindley, Wigan, Lancashire WN2 3AF",
+        "postcode": "WN2 3AF", "status": "sold", "sale_price": 57000,
+        "source_evidence": {"snapshot_path": "grid"},
+        "published_card_text": "058 View Property ... Sold for £57,000",
+    }
+    row = parse_detail_page(html, source, source["original_url"], {"snapshot_path": "detail"})
+    assert row["auction_date"] == "2020-07-15"
+    assert row["lot_number"] == "058"
+    assert row["source_lot_id"] == "11115"
+    assert row["sale_price"] == 57000
+    assert row["identity_method"] == "source_property_id_detail_page_date_and_lot"
+
+
+def test_detail_page_rejects_address_mismatch():
+    import pytest
+    html = b"""<html><body><div>Lot 018 Auction: February 2020 25/02/2020</div>
+    <h1>Different Address, Manchester M1 1AA</h1></body></html>"""
+    source = {
+        "source_lot_id": "9088",
+        "original_url": "https://www.pugh-auctions.com/property/9088",
+        "address": "170a - 170b Barton Lane, Eccles, Manchester M30 0FG",
+    }
+    with pytest.raises(ValueError, match="address"):
+        parse_detail_page(html, source, source["original_url"], {})

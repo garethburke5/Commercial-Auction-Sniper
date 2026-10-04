@@ -8,6 +8,7 @@ from scripts.harvest_future_property_auctions import (
     sanitized_snapshot,
     fetch_manifest,
     full_failure_cooldown,
+    recent_403_failures,
 )
 
 
@@ -197,3 +198,24 @@ def test_recent_all_failure_tranche_enters_bounded_cooldown():
     assert full_failure_cooldown(
         summary, datetime(2026, 10, 4, 7, 0, tzinfo=timezone.utc)
     ) is False
+
+
+def test_recent_403_catalogues_are_deferred_without_blocking_other_pending_ids():
+    summary = {
+        "checked_at": "2026-10-04T15:09:58+00:00",
+        "failures": [{
+            "auction_id": "8795", "auction_uuid": "blocked-uuid",
+            "error": "HTTPError: 403 Client Error",
+        }, {
+            "auction_id": "retry", "auction_uuid": "transient-uuid",
+            "error": "HTTPError: 503 Server Error",
+        }],
+    }
+    deferred = recent_403_failures(
+        summary, datetime(2026, 10, 6, 15, 0, tzinfo=timezone.utc)
+    )
+    assert [item["auction_uuid"] for item in deferred] == ["blocked-uuid"]
+    assert deferred[0]["checked_at"] == "2026-10-04T15:09:58+00:00"
+    assert recent_403_failures(
+        summary, datetime(2026, 10, 12, 16, 0, tzinfo=timezone.utc)
+    ) == []

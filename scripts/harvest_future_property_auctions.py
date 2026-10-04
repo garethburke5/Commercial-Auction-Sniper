@@ -35,6 +35,7 @@ HEADERS = {
 }
 PROPERTY_ID_RE = re.compile(r"property_details\.asp\?id=(\d+)", re.I)
 FAILURE_COOLDOWN_SECONDS = 2 * 60 * 60
+ITEM_FAILURE_COOLDOWN_SECONDS = 7 * 24 * 60 * 60
 
 
 def epoch_date(value: int | float | None) -> str | None:
@@ -79,6 +80,28 @@ def full_failure_cooldown(summary: dict, now: datetime | None = None) -> bool:
     current = now or datetime.now(timezone.utc)
     return 0 <= (current - checked).total_seconds() < FAILURE_COOLDOWN_SECONDS
 
+
+
+def recent_403_failures(summary: dict, now: datetime | None = None) -> list[dict]:
+    """Defer catalogue URLs that recently returned a source-level 403."""
+    current = now or datetime.now(timezone.utc)
+    inherited_checked = summary.get("checked_at")
+    records = list(summary.get("deferred_failures") or []) + list(summary.get("failures") or [])
+    kept = {}
+    for item in records:
+        auction_uuid = str(item.get("auction_uuid") or "")
+        if not auction_uuid or "403" not in str(item.get("error") or ""):
+            continue
+        try:
+            checked = datetime.fromisoformat(
+                str(item.get("checked_at") or inherited_checked).replace("Z", "+00:00")
+            )
+        except (TypeError, ValueError):
+            continue
+        age = (current - checked).total_seconds()
+        if 0 <= age < ITEM_FAILURE_COOLDOWN_SECONDS:
+            kept[auction_uuid] = {**item, "checked_at": checked.isoformat()}
+    return list(kept.values())
 
 def fetch_manifest() -> tuple[dict, dict, str | None]:
     """Refresh the archive index, falling back to its newest saved evidence.
@@ -330,7 +353,10 @@ def harvest(limit: int = 12, workers: int = 3) -> None:
             states[item["auction_id"]] = state
         else:
             pending.append(item)
-    selected = pending[:max(0, limit)] if limit else pending
+    deferred_failures = recent_403_failures(previous_summary)
+    deferred_uuids = {item["auction_uuid"] for item in deferred_failures}
+    eligible = [item for item in pending if item["auction_uuid"] not in deferred_uuids]
+    selected = eligible[:max(0, limit)] if limit else eligible
     run_rows, failures = [], []
 
     def capture(item: dict):
@@ -364,6 +390,7 @@ def harvest(limit: int = 12, workers: int = 3) -> None:
                 failures.append({
                     "auction_id": item["auction_id"], "auction_uuid": item["auction_uuid"],
                     "title": item["title"], "error": f"{type(exc).__name__}: {exc}"[:500],
+                    "checked_at": corpus.now(),
                 })
 
     merged = {row["appearance_id"]: row for row in existing}
@@ -379,6 +406,7 @@ def harvest(limit: int = 12, workers: int = 3) -> None:
         "catalogues_complete": len(completed),
         "catalogues_pending": len(manifest) - len(completed),
         "catalogues_attempted_this_run": len(selected),
+        "catalogues_deferred_recent_403": len(deferred_failures),
         "appearances_captured": total,
         "run_new_appearances": total - len(before_ids),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
@@ -387,7 +415,8 @@ def harvest(limit: int = 12, workers: int = 3) -> None:
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
         "privacy_note": "source snapshots exclude registrants, bidder/user UUIDs, full bid histories and reserve values",
         "manifest_refresh_error": manifest_refresh_error,
-        "archive_evidence": manifest_evidence, "auctions": states, "failures": failures,
+        "archive_evidence": manifest_evidence, "auctions": states,
+        "deferred_failures": deferred_failures, "failures": failures,
     }
     corpus.save_json(summary_path, summary)
     print(json.dumps(summary, indent=2), flush=True)
