@@ -15,6 +15,7 @@ from datetime import datetime, timezone
 import json
 import re
 import sys
+import time
 from pathlib import Path
 
 import requests
@@ -42,7 +43,15 @@ def epoch_date(value: int | float | None) -> str | None:
 
 
 def fetch_json(url: str) -> tuple[bytes, dict]:
-    response = requests.get(url, headers=HEADERS, timeout=150)
+    response = None
+    for attempt in range(4):
+        response = requests.get(url, headers=HEADERS, timeout=150)
+        if response.status_code not in {403, 429, 500, 502, 503, 504} or attempt == 3:
+            break
+        retry_after = response.headers.get("Retry-After", "")
+        delay = float(retry_after) if retry_after.isdigit() else 2.0 * (attempt + 1)
+        time.sleep(min(delay, 30.0))
+    assert response is not None
     response.raise_for_status()
     raw = response.content
     if len(raw) < 20 or "json" not in response.headers.get("content-type", "").lower():
