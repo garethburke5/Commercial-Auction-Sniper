@@ -5,6 +5,7 @@ from scripts.harvest_future_property_auctions import (
     manifest_rows,
     parse_auction,
     sanitized_snapshot,
+    fetch_manifest,
 )
 
 
@@ -87,3 +88,27 @@ def test_non_reconciling_payload_is_rejected():
 def test_epoch_date_is_utc_and_null_safe():
     assert epoch_date(1790863200000) == "2026-10-01"
     assert epoch_date(None) is None
+
+
+def test_manifest_refresh_can_reuse_saved_first_party_snapshot(monkeypatch, tmp_path):
+    import scripts.harvest_future_property_auctions as future
+
+    snapshot = tmp_path / "sources/future_property_auctions/archive-saved.json.gz"
+    snapshot.parent.mkdir(parents=True)
+    saved_payload = {"basicAuctionBidJSModelList": [{
+        "auctionUuid": UUID, "auctionId": 123, "auctionTitle": "Auction",
+        "auctionEndTime": 1790863200000,
+    }]}
+    future.corpus.save_gzip(snapshot, {
+        "evidence": {"retrieved_at": "2026-10-01T00:00:00+00:00", "snapshot_path": "saved"},
+        "payload": saved_payload,
+    })
+    monkeypatch.setattr(future.corpus, "DATA", tmp_path)
+    monkeypatch.setattr(future, "fetch_json", lambda _url: (_ for _ in ()).throw(
+        future.requests.HTTPError("403 Client Error")
+    ))
+
+    payload, evidence, error = fetch_manifest()
+    assert payload == saved_payload
+    assert evidence["snapshot_path"] == "saved"
+    assert "403 Client Error" in error
