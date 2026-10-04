@@ -18,6 +18,7 @@ on:
       - scripts/harvest_anderson_garland_results.py
       - scripts/harvest_sdl_legacy_catalogues.py
       - scripts/harvest_town_country_results.py
+      - scripts/harvest_brown_co_results.py
       - scripts/harvest_future_property_auctions.py
       - scripts/harvest_auction_house_northeast.py
       - scripts/harvest_auction_house_south_yorkshire.py
@@ -40,6 +41,7 @@ on:
       - tests/test_anderson_garland_results.py
       - tests/test_sdl_legacy_catalogues.py
       - tests/test_town_country_results.py
+      - tests/test_brown_co_results.py
       - tests/test_future_property_auctions.py
       - tests/test_auction_house_northeast.py
       - tests/test_auction_house_south_yorkshire.py
@@ -78,7 +80,7 @@ jobs:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4 lxml pytest
       - name: Verify admission, identities and completeness rules
-        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bidx1_history.py tests/test_strettons_results.py tests/test_cheffins_history.py tests/test_btg_eddisons_catalogues.py tests/test_anderson_garland_results.py tests/test_sdl_legacy_catalogues.py tests/test_town_country_results.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py tests/test_network_auctions.py tests/test_pattinson_history.py tests/test_future_property_auctions.py web_platform/tests/test_acuitus_admission.py
+        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bidx1_history.py tests/test_strettons_results.py tests/test_cheffins_history.py tests/test_btg_eddisons_catalogues.py tests/test_anderson_garland_results.py tests/test_sdl_legacy_catalogues.py tests/test_town_country_results.py tests/test_brown_co_results.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py tests/test_network_auctions.py tests/test_pattinson_history.py tests/test_future_property_auctions.py web_platform/tests/test_acuitus_admission.py
       - name: Bank every previously recovered legacy lot
         run: python -u historical_corpus.py bank-legacy
       - name: Bank evidenced lots from saved source-corpus shards
@@ -135,6 +137,10 @@ jobs:
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_town_country_results.py --workers 4
+      - name: Bank Brown and Co retained property-auction results
+        timeout-minutes: 10
+        continue-on-error: true
+        run: python -u scripts/harvest_brown_co_results.py
       - name: Bank Anderson and Garland retained auction results
         timeout-minutes: 5
         continue-on-error: true
@@ -212,6 +218,7 @@ jobs:
           if test -f data/auction_history/anderson_garland_collection.json; then git add data/auction_history/anderson_garland_collection.json; fi
           if test -f data/auction_history/sdl_property_auctions_collection.json; then git add data/auction_history/sdl_property_auctions_collection.json; fi
           if test -f data/auction_history/town_country_collection.json; then git add data/auction_history/town_country_collection.json; fi
+          if test -f data/auction_history/brown_co_collection.json; then git add data/auction_history/brown_co_collection.json; fi
           if test -f data/auction_history/future_property_auctions_collection.json; then git add data/auction_history/future_property_auctions_collection.json; fi
           if test -f data/auction_history/auction_house_northeast_collection.json; then git add data/auction_history/auction_house_northeast_collection.json; fi
           if test -f data/auction_history/auction_house_southyorkshire_collection.json; then git add data/auction_history/auction_house_southyorkshire_collection.json; fi
