@@ -25,7 +25,10 @@ def lease_chronology(model):
         doc['document_date'] = dated.isoformat() if dated else None
         doc['date_basis'] = 'Filename; execution date not independently established' if dated else None
         doc['temporal_status'] = 'SUPPORTING'
-        is_lease = 'lease' in str(doc.get('type', '')).lower()
+        if re.search(r'licen[cs]e\s+(?:for\s+)?alt(?:s|erations?)\b', name, re.I):
+            # A licence discussing the lease is not another occupational lease.
+            doc['type'] = 'licence for alterations'
+        is_lease = 'lease' in str(doc.get('type', '')).lower() and not re.search(r'licen[cs]e', doc['type'], re.I)
         if is_lease: doc['temporal_status'] = 'CONTINUING EFFECT UNCONFIRMED'
         if re.search(r'\bdraft\b|\bunsigned\b', name, re.I):doc['temporal_status'] = 'DRAFT / UNCERTAIN'
         if is_lease:

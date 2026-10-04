@@ -20,6 +20,13 @@ def test_age_does_not_mean_historic_or_superseded_and_ocr_does_not_create_dates(
     assert records[1]['term_start'] is None
 
 
+def test_alterations_licence_is_supporting_evidence_not_an_occupational_lease():
+    m=model();m['documents'].append({'document':'2012.09.14 Licence For Alts.pdf.pdf','type':'lease'})
+    docs,records=lease_chronology(m)
+    assert len(records)==2
+    assert docs[-1]['type']=='licence for alterations' and docs[-1]['temporal_status']=='SUPPORTING'
+
+
 def test_exact_explicit_terms_are_dated_without_claiming_current_occupation():
     m=model();m['findings']=[fact('Completed Lease.pdf','Lease term recorded','Term from 24 May 2023 to 23 May 2028','from and including 24 May 2023 to and including 23 May 2028')]
     docs,records=lease_chronology(m)
