@@ -1,0 +1,1903 @@
+{
+  "checked_at": "2026-10-04T20:21:46.955808+00:00",
+  "source_url": "https://edwardmellor.co.uk/auctions/catalogue-and-results-archive/",
+  "archive_auctions_discovered": 87,
+  "auction_pages_selected": 12,
+  "auction_pages_captured_total": 11,
+  "appearances_captured": 881,
+  "run_new_appearances": 881,
+  "run_new_address_records": 553,
+  "run_new_partial_lots": 328,
+  "by_sector": {
+    "residential": 458,
+    "unknown": 328,
+    "mixed-use": 38,
+    "commercial": 42,
+    "land": 15
+  },
+  "by_status": {
+    "sold": 220,
+    "sold_prior": 152,
+    "postponed": 62,
+    "available": 274,
+    "withdrawn": 89,
+    "sold_after": 84
+  },
+  "archive_evidence": {
+    "source_url": "https://edwardmellor.co.uk/auctions/catalogue-and-results-archive/",
+    "retrieved_at": "2026-10-04T20:17:29.811180+00:00",
+    "sha256": "30d868f5bbac080078e8d0ce57816941af6fea5f06b0b9bd35c9054e5fefa9e1",
+    "snapshot_path": "data/auction_history/sources/edward-mellor/archive-30d868f5bbac0800.json.gz",
+    "basis": "first-party catalogue and results archive"
+  },
+  "auctions": {
+    "30sep2026": {
+      "auctioneer": "Edward Mellor",
+      "source_auction_id": "edward-mellor:30sep2026",
+      "auction_date": null,
+      "auction_date_start": "2026-09-30",
+      "auction_date_end": "2026-10-01",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "visible_source_rows": 64,
+      "lots_captured": 64,
+      "address_records": 34,
+      "partial_lot_records": 30,
+      "detail_pages_enriched": 34,
+      "source_url": "https://edwardmellor.co.uk/auctions/30sep2026/",
+      "completion_scope": "every visible card on the first-party unpaginated result page; original offered denominator is not published",
+      "errors": [],
+      "detail_page_failures": [
+        {
+          "property_id": "10167757",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170757",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168691",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170689",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10171043",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169968",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170655",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170545",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169863",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170214",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170558",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10094228",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170959",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167297",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170096",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170212",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10157948",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169682",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170875",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170606",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170787",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170912",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170072",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170364",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169597",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10152969",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10171110",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10171060",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170213",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170581",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        }
+      ],
+      "checked_at": "2026-10-04T20:17:47.950763+00:00"
+    },
+    "09sep2026": {
+      "auctioneer": "Edward Mellor",
+      "source_auction_id": "edward-mellor:09sep2026",
+      "auction_date": null,
+      "auction_date_start": "2026-09-09",
+      "auction_date_end": "2026-09-10",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "visible_source_rows": 75,
+      "lots_captured": 75,
+      "address_records": 48,
+      "partial_lot_records": 27,
+      "detail_pages_enriched": 48,
+      "source_url": "https://edwardmellor.co.uk/auctions/09sep2026/",
+      "completion_scope": "every visible card on the first-party unpaginated result page; original offered denominator is not published",
+      "errors": [],
+      "detail_page_failures": [
+        {
+          "property_id": "10169565",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170212",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167757",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170214",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167297",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170364",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169863",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168460",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170787",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165091",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170213",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170533",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10134859",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169968",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170755",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168589",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169866",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170545",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170475",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170747",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170701",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10094228",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170698",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170558",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170715",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166994",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170151",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        }
+      ],
+      "checked_at": "2026-10-04T20:18:07.587304+00:00"
+    },
+    "12aug2026": {
+      "auctioneer": "Edward Mellor",
+      "source_auction_id": "edward-mellor:12aug2026",
+      "auction_date": null,
+      "auction_date_start": "2026-08-12",
+      "auction_date_end": "2026-08-13",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "visible_source_rows": 77,
+      "lots_captured": 77,
+      "address_records": 50,
+      "partial_lot_records": 27,
+      "detail_pages_enriched": 50,
+      "source_url": "https://edwardmellor.co.uk/auctions/12aug2026/",
+      "completion_scope": "every visible card on the first-party unpaginated result page; original offered denominator is not published",
+      "errors": [],
+      "detail_page_failures": [
+        {
+          "property_id": "10165091",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169854",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169996",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165129",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169817",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167757",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170167",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169966",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169156",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169697",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169968",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170214",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170195",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169848",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169748",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170155",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170212",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169866",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169704",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167297",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170151",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170161",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170213",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170109",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169875",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169987",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10170150",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        }
+      ],
+      "checked_at": "2026-10-04T20:18:29.786616+00:00"
+    },
+    "22jul2026": {
+      "auctioneer": "Edward Mellor",
+      "source_auction_id": "edward-mellor:22jul2026",
+      "auction_date": null,
+      "auction_date_start": "2026-07-22",
+      "auction_date_end": "2026-07-23",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "visible_source_rows": 67,
+      "lots_captured": 67,
+      "address_records": 39,
+      "partial_lot_records": 28,
+      "detail_pages_enriched": 39,
+      "source_url": "https://edwardmellor.co.uk/auctions/22jul2026/",
+      "completion_scope": "every visible card on the first-party unpaginated result page; original offered denominator is not published",
+      "errors": [],
+      "detail_page_failures": [
+        {
+          "property_id": "10168937",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168840",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169480",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169748",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169769",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169657",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169545",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169783",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169076",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169204",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169697",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169419",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169117",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169237",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169353",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165963",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169638",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169457",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169704",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10164853",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169322",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169398",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10163720",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169236",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165552",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169456",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169512",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168736",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        }
+      ],
+      "checked_at": "2026-10-04T20:18:48.212145+00:00"
+    },
+    "01jul2026": {
+      "auctioneer": "Edward Mellor",
+      "source_auction_id": "edward-mellor:01jul2026",
+      "auction_date": null,
+      "auction_date_start": "2026-07-01",
+      "auction_date_end": "2026-07-02",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "visible_source_rows": 78,
+      "lots_captured": 78,
+      "address_records": 52,
+      "partial_lot_records": 26,
+      "detail_pages_enriched": 52,
+      "source_url": "https://edwardmellor.co.uk/auctions/01jul2026/",
+      "completion_scope": "every visible card on the first-party unpaginated result page; original offered denominator is not published",
+      "errors": [],
+      "detail_page_failures": [
+        {
+          "property_id": "10166821",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169236",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169294",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167038",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165963",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168667",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169269",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168740",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169311",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169290",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168460",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168640",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169239",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169268",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168676",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167478",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167482",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169117",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169353",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168841",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168736",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168674",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169076",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169436",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169237",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168691",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        }
+      ],
+      "checked_at": "2026-10-04T20:19:13.770357+00:00"
+    },
+    "10jun2026": {
+      "auctioneer": "Edward Mellor",
+      "source_auction_id": "edward-mellor:10jun2026",
+      "auction_date": null,
+      "auction_date_start": "2026-06-10",
+      "auction_date_end": "2026-06-11",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "visible_source_rows": 93,
+      "lots_captured": 93,
+      "address_records": 58,
+      "partial_lot_records": 35,
+      "detail_pages_enriched": 58,
+      "source_url": "https://edwardmellor.co.uk/auctions/10jun2026/",
+      "completion_scope": "every visible card on the first-party unpaginated result page; original offered denominator is not published",
+      "errors": [],
+      "detail_page_failures": [
+        {
+          "property_id": "10168557",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168859",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168119",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167478",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168841",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168674",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168920",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167822",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168059",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167002",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168860",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168402",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168223",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168558",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168215",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168711",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168403",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168217",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168659",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168253",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168667",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168736",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168676",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168675",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168740",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168691",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168460",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168218",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168672",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167229",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166664",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10151180",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10164796",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10169092",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168670",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        }
+      ],
+      "checked_at": "2026-10-04T20:19:40.152438+00:00"
+    },
+    "13may2026": {
+      "auctioneer": "Edward Mellor",
+      "source_auction_id": "edward-mellor:13may2026",
+      "auction_date": null,
+      "auction_date_start": "2026-05-13",
+      "auction_date_end": "2026-05-14",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "visible_source_rows": 92,
+      "lots_captured": 92,
+      "address_records": 59,
+      "partial_lot_records": 33,
+      "detail_pages_enriched": 59,
+      "source_url": "https://edwardmellor.co.uk/auctions/13may2026/",
+      "completion_scope": "every visible card on the first-party unpaginated result page; original offered denominator is not published",
+      "errors": [],
+      "detail_page_failures": [
+        {
+          "property_id": "10164836",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168059",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168076",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168223",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167702",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167822",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168080",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167718",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167281",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168026",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168258",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168217",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10163431",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168065",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168334",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167489",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168176",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168119",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165770",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10159501",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165259",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167297",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168296",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165779",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166544",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168215",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168164",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167996",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167748",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167123",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10168218",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10157948",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167229",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        }
+      ],
+      "checked_at": "2026-10-04T20:20:08.873972+00:00"
+    },
+    "22apr2026": {
+      "auctioneer": "Edward Mellor",
+      "source_auction_id": "edward-mellor:22apr2026",
+      "auction_date": null,
+      "auction_date_start": "2026-04-22",
+      "auction_date_end": "2026-04-23",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "visible_source_rows": 99,
+      "lots_captured": 99,
+      "address_records": 52,
+      "partial_lot_records": 47,
+      "detail_pages_enriched": 52,
+      "source_url": "https://edwardmellor.co.uk/auctions/22apr2026/",
+      "completion_scope": "every visible card on the first-party unpaginated result page; original offered denominator is not published",
+      "errors": [],
+      "detail_page_failures": [
+        {
+          "property_id": "10164993",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167797",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167702",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167229",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167499",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165259",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167611",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167696",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167501",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167951",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167748",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167263",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167932",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167035",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167609",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167734",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167503",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167489",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167357",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167369",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167708",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167933",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167095",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167063",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167046",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165963",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10151701",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10159501",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10157948",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167711",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167727",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165770",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167576",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167586",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167297",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167795",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167906",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167511",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166544",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10164255",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167281",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167716",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167500",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10163431",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167383",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10164844",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167123",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        }
+      ],
+      "checked_at": "2026-10-04T20:20:39.421026+00:00"
+    },
+    "04mar2026": {
+      "auctioneer": "Edward Mellor",
+      "source_auction_id": "edward-mellor:04mar2026",
+      "auction_date": null,
+      "auction_date_start": "2026-03-04",
+      "auction_date_end": "2026-03-05",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "visible_source_rows": 69,
+      "lots_captured": 69,
+      "address_records": 47,
+      "partial_lot_records": 22,
+      "detail_pages_enriched": 47,
+      "source_url": "https://edwardmellor.co.uk/auctions/04mar2026/",
+      "completion_scope": "every visible card on the first-party unpaginated result page; original offered denominator is not published",
+      "errors": [],
+      "detail_page_failures": [
+        {
+          "property_id": "10166844",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166436",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166745",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166819",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166820",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166913",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166687",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167007",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165963",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166898",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165441",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166946",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10151713",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10164255",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166947",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166531",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166023",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10167043",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10162363",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166896",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165552",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10164720",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        }
+      ],
+      "checked_at": "2026-10-04T20:20:59.542718+00:00"
+    },
+    "11feb2026": {
+      "auctioneer": "Edward Mellor",
+      "source_auction_id": "edward-mellor:11feb2026",
+      "auction_date": null,
+      "auction_date_start": "2026-02-11",
+      "auction_date_end": "2026-02-12",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "visible_source_rows": 71,
+      "lots_captured": 71,
+      "address_records": 52,
+      "partial_lot_records": 19,
+      "detail_pages_enriched": 52,
+      "source_url": "https://edwardmellor.co.uk/auctions/11feb2026/",
+      "completion_scope": "every visible card on the first-party unpaginated result page; original offered denominator is not published",
+      "errors": [],
+      "detail_page_failures": [
+        {
+          "property_id": "10166072",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10072821",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166182",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165779",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165430",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166436",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166172",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165501",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166459",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165552",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166083",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166290",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10164720",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166023",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165342",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165996",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166350",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166460",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166060",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        }
+      ],
+      "checked_at": "2026-10-04T20:21:20.483639+00:00"
+    },
+    "21jan2026": {
+      "auctioneer": "Edward Mellor",
+      "source_auction_id": "edward-mellor:21jan2026",
+      "auction_date": null,
+      "auction_date_start": "2026-01-21",
+      "auction_date_end": "2026-01-22",
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "visible_source_rows": 96,
+      "lots_captured": 96,
+      "address_records": 62,
+      "partial_lot_records": 34,
+      "detail_pages_enriched": 62,
+      "source_url": "https://edwardmellor.co.uk/auctions/21jan2026/",
+      "completion_scope": "every visible card on the first-party unpaginated result page; original offered denominator is not published",
+      "errors": [],
+      "detail_page_failures": [
+        {
+          "property_id": "10165587",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165552",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10162286",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165465",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165467",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166079",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165411",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10159596",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10164694",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165379",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165634",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166083",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165722",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165784",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10085492",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10164952",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166060",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10161013",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165274",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165430",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165561",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165342",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165690",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165091",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165598",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165330",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165770",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10162764",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165501",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165779",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165873",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10165996",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10166026",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        },
+        {
+          "property_id": "10164817",
+          "kind": "detail",
+          "error": "ValueError: detail lot number conflicts with auction card"
+        }
+      ],
+      "checked_at": "2026-10-04T20:21:46.700697+00:00"
+    }
+  },
+  "failures": [
+    {
+      "slug": "25mar2026",
+      "url": "https://edwardmellor.co.uk/auctions/25mar2026",
+      "error": "ValueError: duplicate lot numbers within auction page"
+    }
+  ],
+  "catalogue_scope_warning": "visible result pages publish no original offered denominator"
+}
