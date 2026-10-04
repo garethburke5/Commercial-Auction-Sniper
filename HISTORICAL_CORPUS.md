@@ -28,6 +28,7 @@ python scripts/harvest_sdl_legacy_catalogues.py --limit 10
 python scripts/harvest_anderson_garland_results.py
 python scripts/harvest_future_property_auctions.py --limit 12 --workers 3
 python scripts/harvest_town_country_results.py --workers 4
+python scripts/harvest_brown_co_results.py
 python historical_corpus.py build
 ```
 
@@ -146,6 +147,13 @@ from unavailable original catalogue denominators, so no inferred grouping is
 marked as a complete auction. After one reconciled full pass, later runs fetch
 only page one unless a new UUID or changed page extent requires another full
 traversal.
+
+Brown&Co collection preserves every result card currently retained on the
+first-party property-and-land results page. Stable public EIG lot IDs keep each
+appearance independent, including genuine lot-zero properties; exact published
+start and end dates, addresses, outcomes, prices and images are retained. The
+page is rolling and publishes no archive denominator, so earlier saved rows are
+merged rather than removed and no original catalogue is marked complete.
 
 Future Property Auctions collection consumes the auctioneer's unauthenticated
 first-party BidJS archive. The manifest currently retains stable auction UUIDs
