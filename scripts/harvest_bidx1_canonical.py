@@ -45,8 +45,14 @@ AUCTIONS = {
     "3184": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
     "3185": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
     "3200": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
-    "3201": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
-    "3215": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
+}
+
+# Seen only in a combined first-party result URL; independent filters returned
+# no BidX1 result content on 2026-10-04. Retain as negative provenance so later
+# collection runs do not repeat known-empty probes.
+BLOCKED_AUCTIONS = {
+    "3201": "combined-page-only ID; independent filter returned no result content",
+    "3215": "combined-page-only ID; independent filter returned no result content",
 }
 
 
