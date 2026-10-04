@@ -36,7 +36,7 @@ class Site:
         proof=self.catalogue.root/'data/source_live_verification.json'
         if proof.exists():
             measured=json.loads(proof.read_text())
-            if measured.get('verified') and measured.get('snapshot_generated_at')==snapshot.get('generated_at'):
+            if measured.get('verified') and measured.get('schema_version',0)>=2 and measured.get('snapshot_generated_at')==snapshot.get('generated_at'):
                 return measured
         return reconcile(snapshot)
     def __init__(self, catalogue=None, origin=None):

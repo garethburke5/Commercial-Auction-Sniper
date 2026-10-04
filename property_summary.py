@@ -24,6 +24,10 @@ def _text(row):
 def _property_kind(low):
     if low.strip() in {'retail / office', 'retail and office'}:
         return 'RETAIL / OFFICE'
+    if re.search(r'\b(?:property|building|premises)\s+(?:comprises?|comprising|consists? of)\b.{0,80}\b(?:ground[ -]floor shop|retail premises|retail unit)\b', low):
+        # Tenant profiles can mention another brand such as "The Food Warehouse";
+        # that does not turn the subject ground-floor shop into a warehouse.
+        return 'RETAIL'
     if low.strip() in {'land', 'commercial land', 'land & development', 'land and development', 'development land'}:
         return "LAND"
     if any(x in low for x in ("industrial", "warehouse", "workshop", "factory")):

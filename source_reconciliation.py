@@ -47,14 +47,15 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
             'collector_executed':h.get('collector_executed',bool(h.get('checked_at'))),'status':'DEGRADED' if reasons else h.get('status','MISSING'),
             'current_catalogue_detected':current,'source_lot_count':source_count,'lots_discovered':metric('lots_discovered','detail_pages_discovered','discovered_lot_urls'),
             'parsed_count':parsed,'commercial_candidates':metric('commercial_candidates'),'mixed_use_candidates':metric('mixed_use_candidates'),
-            'commercial_mixed_candidates':qualifying,'residential_exclusions':exclusions[source],
+            'commercial_mixed_candidates':qualifying,'residential_exclusions':metric('residential_exclusions'),
+            'publication_residential_exclusions':exclusions[source],
             'quality_gate_rejections':h.get('quality_gate_rejections'),'classification_rejections':metric('classification_rejections','non_commercial_lots','noncommercial_excluded'),
             'qualifying_current_lots':len(source_rows),'production_rows':production[source],'published_rows':publish[source],
             'live_rows':live[source] if live is not None else None,'difference':publish[source]-live[source] if live is not None else None,
             'failure_reason':'; '.join(reasons) or None,'telemetry_missing':missing,
             'last_collection':h.get('checked_at'),'last_successful_collection':h.get('checked_at') if h.get('status')=='LIVE' else h.get('last_successful_collection'),
             'last_publication':snapshot.get('generated_at'),'live_checked_at':live_checked_at})
-    return {'schema_version':1,'generated_at':datetime.now(timezone.utc).isoformat(),'snapshot_generated_at':snapshot.get('generated_at'),
+    return {'schema_version':2,'generated_at':datetime.now(timezone.utc).isoformat(),'snapshot_generated_at':snapshot.get('generated_at'),
             'live_verification':'measured' if live is not None else 'not yet verified','sources':records,
             'degraded_sources':sum(r['status']=='DEGRADED' for r in records)}
 
