@@ -116,9 +116,10 @@ def parse_page(html: str, source_url: str, evidence: dict) -> list[dict]:
             if card.select_one(".grid-tagline") else None
         )
         image = card.select_one("img.grid-img[src]")
+        office_slug = re.sub(r"[^a-z0-9]+", "-", (office or "unknown").casefold()).strip("-")
         row = corpus.base_row(
             "Town & Country Property Auctions",
-            f"town-country:online-lot:{source_id}",
+            f"town-country:{office_slug}:online:{end_at.date().isoformat()}",
             end_at.date().isoformat(),
             None,
             source_id,
@@ -141,6 +142,9 @@ def parse_page(html: str, source_url: str, evidence: dict) -> list[dict]:
             auction_end_time=end_at.isoformat(),
             auction_date_basis="exact individual lot end timestamp published by source",
             source_office=office,
+            source_auction_id_basis=(
+                "exact published regional office and individual lot end date"
+            ),
             result_text=result_text,
             description=description,
             image_urls=[image["src"]] if image else [],
