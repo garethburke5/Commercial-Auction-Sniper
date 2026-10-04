@@ -91,10 +91,10 @@ jobs:
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_clive_emson_canonical.py --all-incomplete
-      - name: Enrich four oldest usable Clive Emson partial catalogues from lot pages
+      - name: Enrich up to six oldest usable Clive Emson partial catalogues from lot pages
         timeout-minutes: 15
         continue-on-error: true
-        run: python -u scripts/harvest_clive_emson_canonical.py --enrich-batch 4 --workers 4
+        run: python -u scripts/harvest_clive_emson_canonical.py --enrich-batch 6 --workers 4
       - name: Collect newly exposed or unreconciled Barnett Ross catalogues
         timeout-minutes: 25
         continue-on-error: true
