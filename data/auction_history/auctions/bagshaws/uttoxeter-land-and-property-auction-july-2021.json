@@ -1,0 +1,31 @@
+{
+  "auctioneer": "Bagshaws",
+  "source_auction_id": "bagshaws:2021-07-21:uttoxeter-land-and-property-auction-july-2021",
+  "auction_date": "2021-07-21",
+  "catalogue_complete": false,
+  "lots_captured": 1,
+  "source_url": "https://www.bagshaws.com/property-auction/uttoxeter-land-and-property-auction-july-2021/",
+  "completion_scope": "all explicit property cards and tabular result rows on the retained page; original catalogue denominator unavailable",
+  "source_evidence": {
+    "source_url": "https://www.bagshaws.com/property-auction/uttoxeter-land-and-property-auction-july-2021/",
+    "retrieved_at": "2026-10-04T14:26:34.541093+00:00",
+    "sha256": "d6cba249d217342ef89b3afd626372453d74f9846baecaf79c1efe63c9f78341",
+    "snapshot_path": "data/auction_history/sources/bagshaws/uttoxeter-land-and-property-auction-july-2021-d6cba249d217342e.json.gz",
+    "archive_evidence": {
+      "source_url": "https://www.bagshaws.com/bagshaws-property/auctions-archive/",
+      "retrieved_at": "2026-10-04T14:26:07.698861+00:00",
+      "sha256": "12042b163660d06c160ae55f8dd3568f99007e51f19bb82607a8fece49b6dc00",
+      "snapshot_path": "data/auction_history/sources/bagshaws/archive-12042b163660d06c.json.gz",
+      "basis": "first-party property auction archive manifest"
+    },
+    "basis": "first-party dated auction page property cards and result table rows"
+  },
+  "page_detail": {
+    "property_cards": 1,
+    "published_result_rows": 0,
+    "result_rows_matched_to_cards": 0,
+    "result_rows_without_matching_card": 0
+  },
+  "errors": [],
+  "checked_at": "2026-10-04T14:26:34.562814+00:00"
+}

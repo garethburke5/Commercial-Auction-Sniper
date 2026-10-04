@@ -1,0 +1,31 @@
+{
+  "auctioneer": "Bagshaws",
+  "source_auction_id": "bagshaws:2022-05-23:bakewell-land-and-property-auction-may-2022",
+  "auction_date": "2022-05-23",
+  "catalogue_complete": false,
+  "lots_captured": 1,
+  "source_url": "https://www.bagshaws.com/property-auction/bakewell-land-and-property-auction-may-2022/",
+  "completion_scope": "all explicit property cards and tabular result rows on the retained page; original catalogue denominator unavailable",
+  "source_evidence": {
+    "source_url": "https://www.bagshaws.com/property-auction/bakewell-land-and-property-auction-may-2022/",
+    "retrieved_at": "2026-10-04T14:26:29.978834+00:00",
+    "sha256": "cc0634af684744aad6170b46110f9e35cce924785540ebb2178b5a3501702f9d",
+    "snapshot_path": "data/auction_history/sources/bagshaws/bakewell-land-and-property-auction-may-2022-cc0634af684744aa.json.gz",
+    "archive_evidence": {
+      "source_url": "https://www.bagshaws.com/bagshaws-property/auctions-archive/",
+      "retrieved_at": "2026-10-04T14:26:07.698861+00:00",
+      "sha256": "12042b163660d06c160ae55f8dd3568f99007e51f19bb82607a8fece49b6dc00",
+      "snapshot_path": "data/auction_history/sources/bagshaws/archive-12042b163660d06c.json.gz",
+      "basis": "first-party property auction archive manifest"
+    },
+    "basis": "first-party dated auction page property cards and result table rows"
+  },
+  "page_detail": {
+    "property_cards": 1,
+    "published_result_rows": 0,
+    "result_rows_matched_to_cards": 0,
+    "result_rows_without_matching_card": 0
+  },
+  "errors": [],
+  "checked_at": "2026-10-04T14:26:30.002269+00:00"
+}
