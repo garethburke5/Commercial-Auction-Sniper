@@ -39,6 +39,14 @@ AUCTIONS = {
     "6854": {"discovery": "first-party indexed historical result set; 19 published results"},
     "7260": {"discovery": "first-party indexed historical result set; 19 published results"},
     "7445": {"discovery": "first-party indexed historical result set; 1 published result"},
+    # First-party combined UK result-page evidence captured 2026-10-04.
+    # Every ID is still fetched and reconciled independently before banking.
+    "2838": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
+    "3184": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
+    "3185": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
+    "3200": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
+    "3201": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
+    "3215": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
 }
 
 
