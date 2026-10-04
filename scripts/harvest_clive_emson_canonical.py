@@ -349,7 +349,7 @@ def enrich_one(row):
     return row["appearance_id"], fields, evidence
 
 
-def enrich_auction(auction_id, workers=4):
+def enrich_auction(auction_id, workers=4, fail_on_failures=True):
     shard = corpus.DATA / "appearances/clive-emson" / f"{auction_id}.jsonl.gz"
     state_file = state_path(auction_id)
     if not shard.exists() or not state_file.exists():
@@ -409,8 +409,20 @@ def enrich_auction(auction_id, workers=4):
         "failures": len(failures), "records_with_address": report["records_with_address"],
         "partial_lot_records": report["partial_lot_records"],
     }, indent=2), flush=True)
-    if failures:
+    result = {
+        "auction_id": str(auction_id),
+        "selected": len(selected),
+        "enriched": enriched,
+        "failures": failures,
+    }
+    if failures and fail_on_failures:
         raise SystemExit(1)
+    return result
+
+
+def enrichment_failure_is_terminal(failure):
+    error = str(failure.get("error") or "")
+    return "detail date" in error or "detail lot" in error
 
 
 def next_enrichment_auction():
@@ -426,12 +438,40 @@ def next_enrichment_auction():
         except (OSError, ValueError, TypeError):
             state = {}
         for failure in state.get("detail_enrichment_errors") or []:
-            error = str(failure.get("error") or "")
-            if "detail date" in error or "detail lot" in error:
+            if enrichment_failure_is_terminal(failure):
                 terminal_failures.add(failure.get("appearance_id"))
         if partial_ids - terminal_failures:
             candidates.append(auction_id)
     return candidates[0] if candidates else None
+
+
+def enrich_batch(limit, workers=4):
+    if limit < 1:
+        raise ValueError("enrichment batch limit must be positive")
+    batches = []
+    blocking_failures = []
+    for _ in range(limit):
+        target = next_enrichment_auction()
+        if not target:
+            break
+        result = enrich_auction(target, workers, fail_on_failures=False)
+        batches.append(result)
+        blocking_failures = [
+            failure for failure in result["failures"]
+            if not enrichment_failure_is_terminal(failure)
+        ]
+        if blocking_failures:
+            break
+    print(json.dumps({
+        "detail_catalogues_attempted": len(batches),
+        "detail_rows_selected": sum(item["selected"] for item in batches),
+        "run_detail_rows_enriched": sum(item["enriched"] for item in batches),
+        "run_detail_failures": sum(len(item["failures"]) for item in batches),
+        "stopped_after_source_failure": bool(blocking_failures),
+    }, indent=2), flush=True)
+    if blocking_failures:
+        raise SystemExit(1)
+    return batches
 
 
 def harvest(selected_id=None, all_incomplete=False):
@@ -523,6 +563,7 @@ if __name__ == "__main__":
     mode.add_argument("--all", action="store_true")
     mode.add_argument("--enrich-auction")
     mode.add_argument("--enrich-next", action="store_true")
+    mode.add_argument("--enrich-batch", type=int)
     parser.add_argument("--workers", type=int, default=4)
     args = parser.parse_args()
     if args.enrich_auction:
@@ -533,5 +574,7 @@ if __name__ == "__main__":
             enrich_auction(target, args.workers)
         else:
             print("All banked Clive Emson detail rows already have addresses", flush=True)
+    elif args.enrich_batch is not None:
+        enrich_batch(args.enrich_batch, args.workers)
     else:
         harvest(args.auction_id, args.all_incomplete)

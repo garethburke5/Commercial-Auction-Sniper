@@ -1,3 +1,5 @@
+import pytest
+
 import scripts.harvest_clive_emson_canonical as clive
 from scripts.harvest_clive_emson_canonical import detail_fields, discover, parse_catalogue
 
@@ -91,3 +93,51 @@ def test_next_enrichment_skips_catalogue_with_only_terminal_identity_failures(mo
         clive.corpus.save_json(clive.state_path(auction_id), state)
 
     assert clive.next_enrichment_auction() == "253"
+
+
+
+def test_enrich_batch_advances_past_terminal_identity_failure(monkeypatch):
+    targets = iter(["252", "253", None])
+    calls = []
+    monkeypatch.setattr(clive, "next_enrichment_auction", lambda: next(targets))
+
+    def fake_enrich(auction_id, workers, fail_on_failures):
+        calls.append((auction_id, fail_on_failures))
+        if auction_id == "252":
+            return {
+                "auction_id": auction_id,
+                "selected": 1,
+                "enriched": 0,
+                "failures": [{"error": "ValueError: detail date does not match catalogue"}],
+            }
+        return {
+            "auction_id": auction_id,
+            "selected": 3,
+            "enriched": 3,
+            "failures": [],
+        }
+
+    monkeypatch.setattr(clive, "enrich_auction", fake_enrich)
+    batches = clive.enrich_batch(4, workers=2)
+    assert [item["auction_id"] for item in batches] == ["252", "253"]
+    assert calls == [("252", False), ("253", False)]
+
+
+def test_enrich_batch_stops_after_source_failure(monkeypatch):
+    targets = iter(["252", "253"])
+    calls = []
+    monkeypatch.setattr(clive, "next_enrichment_auction", lambda: next(targets))
+
+    def fake_enrich(auction_id, workers, fail_on_failures):
+        calls.append(auction_id)
+        return {
+            "auction_id": auction_id,
+            "selected": 100,
+            "enriched": 0,
+            "failures": [{"error": "HTTPError: 403 Client Error"}],
+        }
+
+    monkeypatch.setattr(clive, "enrich_auction", fake_enrich)
+    with pytest.raises(SystemExit):
+        clive.enrich_batch(4)
+    assert calls == ["252"]
