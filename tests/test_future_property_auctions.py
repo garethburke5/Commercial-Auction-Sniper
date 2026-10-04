@@ -7,6 +7,7 @@ from scripts.harvest_future_property_auctions import (
     parse_auction,
     sanitized_snapshot,
     fetch_manifest,
+    failure_cooldown_seconds,
     full_failure_cooldown,
     recent_403_failures,
 )
@@ -208,6 +209,7 @@ def test_source_wide_403_tranche_uses_day_long_cooldown():
         "manifest_refresh_error": "HTTPError: 403 Client Error",
         "failures": [{"error": "HTTPError: 403 Client Error"} for _ in range(8)],
     }
+    assert failure_cooldown_seconds(summary) == 24 * 60 * 60
     assert full_failure_cooldown(
         summary, datetime(2026, 10, 5, 3, 0, tzinfo=timezone.utc)
     ) is True

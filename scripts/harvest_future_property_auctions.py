@@ -68,6 +68,17 @@ def fetch_json(url: str) -> tuple[bytes, dict]:
     return raw, response.json()
 
 
+def failure_cooldown_seconds(summary: dict) -> int:
+    """Return the bounded source cooldown represented by a run summary."""
+    failures = summary.get("failures") or []
+    source_wide_403 = (
+        bool(failures)
+        and "403" in str(summary.get("manifest_refresh_error") or "")
+        and all("403" in str(item.get("error") or "") for item in failures)
+    )
+    return SOURCE_403_COOLDOWN_SECONDS if source_wide_403 else FAILURE_COOLDOWN_SECONDS
+
+
 def full_failure_cooldown(summary: dict, now: datetime | None = None) -> bool:
     """Avoid repeating a tranche where every fresh request failed.
 
@@ -83,15 +94,8 @@ def full_failure_cooldown(summary: dict, now: datetime | None = None) -> bool:
         checked = datetime.fromisoformat(str(summary["checked_at"]).replace("Z", "+00:00"))
     except (KeyError, TypeError, ValueError):
         return False
-    source_wide_403 = (
-        "403" in str(summary.get("manifest_refresh_error") or "")
-        and all("403" in str(item.get("error") or "") for item in failures)
-    )
-    cooldown_seconds = (
-        SOURCE_403_COOLDOWN_SECONDS if source_wide_403 else FAILURE_COOLDOWN_SECONDS
-    )
     current = now or datetime.now(timezone.utc)
-    return 0 <= (current - checked).total_seconds() < cooldown_seconds
+    return 0 <= (current - checked).total_seconds() < failure_cooldown_seconds(summary)
 
 
 
@@ -335,7 +339,7 @@ def harvest(limit: int = 12, workers: int = 3) -> None:
     if full_failure_cooldown(previous_summary):
         print(json.dumps({
             "skipped": "recent tranche had no successful fresh auction payloads",
-            "cooldown_seconds": FAILURE_COOLDOWN_SECONDS,
+            "cooldown_seconds": failure_cooldown_seconds(previous_summary),
             "catalogues_pending": previous_summary.get("catalogues_pending"),
             "previous_checked_at": previous_summary.get("checked_at"),
         }), flush=True)
