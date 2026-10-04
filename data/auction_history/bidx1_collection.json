@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-10-04T10:11:20.900964+00:00",
-  "seed_auctions": 10,
+  "checked_at": "2026-10-04T10:21:08.835868+00:00",
+  "seed_auctions": 8,
   "catalogues_complete": 8,
   "property_appearances_captured": 72,
-  "run_new_appearances": 23,
-  "run_new_address_records": 23,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
   "by_sector": {
-    "commercial": 37,
-    "residential": 35
+    "residential": 35,
+    "commercial": 37
   },
   "auctions": {
     "4561": {
@@ -52,16 +52,5 @@
       "catalogue_complete": true
     }
   },
-  "failures": [
-    {
-      "auction_id": "3201",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3201&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "ValueError: source returned no expected BidX1 content"
-    },
-    {
-      "auction_id": "3215",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3215&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "ValueError: source returned no expected BidX1 content"
-    }
-  ]
+  "failures": []
 }
