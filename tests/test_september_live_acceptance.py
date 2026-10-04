@@ -43,7 +43,9 @@ def test_old_post_office_court_is_a_house_not_an_office():
 
 
 def test_bidx1_modal_is_not_address_and_buyers_fee_vat_is_not_property_vat():
-    lot=bidx1._detail('https://bidx1.com/en/en-gb/auction/property/108825','',None,fetcher=lambda _:page('bidx1_108825'))
+    with patch.object(bidx1, 'date', wraps=date) as clock:
+        clock.today.return_value=date(2026,9,26)
+        lot=bidx1._detail('https://bidx1.com/en/en-gb/auction/property/108825','',None,fetcher=lambda _:page('bidx1_108825'))
     assert lot.address=='1b Manor Park Crescent, Edgware, HA8 7NL'
     assert lot.lot_number=='Lot 13'
     assert lot.guide_price==275000

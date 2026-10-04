@@ -237,6 +237,8 @@ def run():
                     quality_rejections+=1; source_rejected+=1; rejection_reasons[reason]=rejection_reasons.get(reason,0)+1; continue
                 k=_key(item); current_by_key[k]=_merge_last_good(old_by_key.get(k),item)
         status=r.to_status_dict()
+        status["quality_gate_rejections"]=source_rejected
+        status["production_rows"]=sum(1 for x in current_by_key.values() if x.get("source")==r.source)
         if source_rejected: status["status"]="DEGRADED"; status["message"]=f"{status.get('message','')} Quality gate rejected {source_rejected} unsafe record(s).".strip()
         results.append(status)
         if _complete_authoritative(r) and not source_rejected: authoritative_scopes.append((r.source,set(r.scope_dates)))

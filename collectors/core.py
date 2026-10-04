@@ -272,7 +272,8 @@ class SourceResult:
             "scope_dates": list(self.scope_dates),
             "message": self.message,
             "checked_at": datetime.now(timezone.utc).isoformat(),
-            "reconciliation": self.reconciliation,
+            "collector_executed": True,
+            "reconciliation": {**self.reconciliation, "returned_lots": len(self.lots)},
         }
 
 def parse_money(text):

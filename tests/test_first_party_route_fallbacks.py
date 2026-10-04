@@ -1,5 +1,5 @@
 import unittest
-from datetime import date
+from datetime import date, datetime, timezone
 from unittest.mock import patch
 from bs4 import BeautifulSoup
 
@@ -38,7 +38,9 @@ class FirstPartyRouteFallbackTests(unittest.TestCase):
         <tr><td>29th September 2026</td><td><a href="/future-auctions/live">View Lots</a></td></tr>
         </table>'''
         s=BeautifulSoup(html,'lxml')
-        links=town_country._future_catalogue_links('https://south.townandcountrypropertyauctions.co.uk',s)
+        with patch.object(town_country, 'datetime', wraps=datetime) as clock:
+            clock.now.return_value=datetime(2026,9,1,tzinfo=timezone.utc)
+            links=town_country._future_catalogue_links('https://south.townandcountrypropertyauctions.co.uk',s)
         self.assertEqual(links,['https://south.townandcountrypropertyauctions.co.uk/future-auctions/live'])
 
     def test_harman_current_catalogue_date_comes_from_future_lot_headings(self):

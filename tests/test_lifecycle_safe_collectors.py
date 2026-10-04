@@ -28,7 +28,7 @@ class AuctionHouseLondonLifecycleTests(unittest.TestCase):
                 description='Sold Prior Retail Property',
             ).finalise()
 
-        with patch.object(ahl, 'soup', return_value=index), patch.object(ahl, 'detail_lot', side_effect=fake_detail):
+        with patch.object(ahl, 'soup', return_value=index), patch.object(ahl, 'detail_lot', side_effect=fake_detail), patch.object(ahl.base, '_future', return_value=True):
             lots, dates, failures, expected = ahl._collect_page(ahl.CURRENT)
 
         self.assertEqual(failures, 0)

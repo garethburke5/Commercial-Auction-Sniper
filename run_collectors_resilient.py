@@ -222,8 +222,13 @@ def _install_replacements():
 
 def run():
     _install_replacements()
+    previous=pipeline.load_old_snapshot()
     pipeline.run()
     moved = _finalize_published_snapshot()
+    from source_reconciliation import attach
+    path=Path("data/properties.json")
+    data=json.loads(path.read_text());attach(data,previous)
+    path.write_text(json.dumps(data,indent=2))
     print(f"PUBLICATION FINALIZER restored {moved} sold-prior/withdrawn/postponed lot(s) to the published board")
 
 

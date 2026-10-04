@@ -34,7 +34,8 @@ def _discover(s):
 
 def _row_status(text):
     if re.search(r"\bsold\s+prior\b", text or "", re.I): return "SOLD PRIOR"
-    if re.search(r"\bwithdrawn(?:\s*-\s*refer)?\b|\bpostponed\b", text or "", re.I): return "WITHDRAWN"
+    if re.search(r"\bpostponed\b", text or "", re.I): return "POSTPONED"
+    if re.search(r"\bwithdrawn(?:\s*-\s*refer)?\b", text or "", re.I): return "WITHDRAWN"
     return "CURRENT"
 
 
@@ -124,16 +125,22 @@ def _property_image(s, base):
 
 
 def _hydrate(url, auction_date=None):
-    s=soup(url,use_browser=False); main=s.find("main") or s; text=norm(main.get_text(" ",strip=True)); address=_address(s,text)
+    s=soup(url,use_browser=False)
+    main=s.select_one('article.property-content') or s.find('main') or s
+    text=norm(main.get_text(' ',strip=True)); address=_address(s,text)
     if not address or not _target_detail(text): return None
     status=_row_status(text); lotm=re.search(r"\bLot\s*(\d+[A-Z]?)\b",text,re.I); rent=parse_rent(text); lp_url,lp_status=legal_pack(s,url); title=None
-    for tag in s.find_all(["h1","h2","h3"]):
+    for tag in main.find_all(["h1","h2","h3","h4","p"]):
         value=norm(tag.get_text(" ",strip=True))
         if value and value!=address and len(value)<=220:
-            title=value
-            if any(k in value.lower() for k in ("shop","office","commercial","public house","warehouse","investment","mixed","retail")):break
+            if any(k in value.lower() for k in ("shop","office","commercial","public house","warehouse","investment","mixed","retail")):
+                title=value; break
+    header=s.select_one('.property-details.white-block')
+    head_text=norm(header.get_text(' ',strip=True)) if header else ''
+    price=re.search(r'£[\d,]+(?:\s*[-–]\s*£?[\d,]+)?\+?',head_text)
+    guide_text=price.group(0) if price else None
     return Lot(source=SOURCE,url=url,address=address,lot_number=f"Lot {lotm.group(1)}" if lotm else None,
-        auction_date=_parse_date(text) or auction_date,image_url=_property_image(s,url),guide_price=parse_guide(text),annual_rent=rent,
+        auction_date=_parse_date(head_text) or auction_date,image_url=_property_image(s,url),image_is_primary=True,guide_price=parse_guide('Guide '+guide_text) if guide_text else None,guide_price_text=guide_text,annual_rent=rent,
         tenure=parse_tenure(text),vat_status=parse_vat(text),legal_pack_status=lp_status,legal_pack_url=lp_url,description=text[:6500],
         occupation="Tenanted" if rent else ("Vacant / vacant possession" if re.search(r"vacant possession|\bvacant\b",text,re.I) else None),
         property_type=title,development_potential=True if re.search(r"development potential|redevelopment|subject to planning|stpp",text,re.I) else None,
@@ -148,7 +155,8 @@ def collect():
         # national production snapshot. Report it explicitly as DEGRADED so the
         # canonical pipeline preserves prior Barnett Ross data instead of treating
         # an empty parse as an authoritative zero or blocking every other source.
-        if not table_rows:return SourceResult(SOURCE,"DEGRADED",[],"Barnett Ross current catalogue is reachable but no authoritative catalogue rows were parsed; preserving prior data and publishing other validated sources.",discovered_count=0)
+        telemetry={'current_catalogue_detected':bool(table_rows or targets), 'source_lot_count':len(table_rows), 'lots_discovered':len(targets), 'lots_parsed':0}
+        if not table_rows:return SourceResult(SOURCE,"DEGRADED",[],"Barnett Ross current catalogue is reachable but no authoritative catalogue rows were parsed; preserving prior data and publishing other validated sources.",discovered_count=0,reconciliation=telemetry)
         if not targets:return SourceResult(SOURCE,"DEGRADED",[],f"Barnett Ross published {len(table_rows)} catalogue rows but no exact lot-detail pages were discovered; preserving prior data rather than classifying bare mixed residential/commercial table rows.",discovered_count=0)
         hydrated=[]; failures=0
         with ThreadPoolExecutor(max_workers=10) as ex:
@@ -158,10 +166,13 @@ def collect():
                     lot=future.result()
                     if lot:hydrated.append(lot)
                 except Exception:failures+=1
-        lots=sorted(hydrated,key=lambda x:(x.lot_number or "",x.address)); terminal=sum(1 for x in lots if x.status in {"SOLD PRIOR","WITHDRAWN"}); current=len(lots)-terminal; excluded=len(table_rows)-len(lots)
+        lots=sorted(hydrated,key=lambda x:(x.lot_number or "",x.address)); terminal=sum(1 for x in lots if x.status in {"SOLD PRIOR","WITHDRAWN","POSTPONED"}); current=len(lots)-terminal; excluded=len(table_rows)-len(lots)
+        from .publication_quality import MIXED
+        mixed=sum(bool(MIXED.search(x.description or "") or (re.search(r"shop|retail",x.description or "",re.I) and re.search(r"flat|residential",x.description or "",re.I))) for x in lots)
+        telemetry.update(commercial_candidates=len(lots)-mixed,mixed_use_candidates=mixed,lots_parsed=len(targets)-failures,commercial_mixed_candidates=len(lots),classification_rejections=max(0,len(targets)-failures-len(lots)),detail_failures=failures)
         status="DEGRADED" if failures or not lots else "LIVE"
         return SourceResult(SOURCE,status,lots,
             f"Barnett Ross authoritative mixed catalogue: {len(table_rows)} total catalogue rows reconciled; {len(targets)} exact lot-detail pages inspected; {current} live commercial/mixed-use lots; {terminal} sold-prior/withdrawn target lots retained; {excluded} residential/non-target or non-detail rows excluded rather than mislabelled; {failures} detail failures.",
-            expected_count=len(lots) if status=="LIVE" else None,discovered_count=len(lots),authoritative_snapshot=bool(status=="LIVE"),scope_dates=tuple(sorted({x.auction_date for x in lots if x.auction_date})))
+            expected_count=len(lots) if status=="LIVE" else None,discovered_count=len(lots),authoritative_snapshot=bool(status=="LIVE"),scope_dates=tuple(sorted({x.auction_date for x in lots if x.auction_date})),reconciliation=telemetry)
     except Exception as exc:
         return SourceResult(SOURCE,"DEGRADED",[],f"Barnett Ross collection degraded: {exc}; preserving prior data and publishing other validated sources.")
