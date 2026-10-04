@@ -1,10 +1,12 @@
 import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 from .core import Lot, SourceResult, norm, parse_guide, parse_rent, parse_tenure, parse_vat, is_commercial
 from .utils import soup, image_from_soup, legal_pack
+from .browser import get_bytes
+from .pdf_particulars import brochure_text
 
 SOURCE = "Barnett Ross"
 BASE = "https://www.barnettross.co.uk"
@@ -124,11 +126,35 @@ def _property_image(s, base):
     return generic if generic and not any(x in generic.lower() for x in bad) else None
 
 
+def _schedule_from_brochure(s, url, reader=None):
+    """Recover the exact lot's omitted tenancy schedule, never the full catalogue."""
+    for a in s.find_all('a', href=True):
+        target=urljoin(url,a['href']); parsed=urlparse(target)
+        if parsed.hostname != 'www.barnettross.co.uk' or not re.fullmatch(r'/details/\d{8}/\d+[A-Za-z]?\.pdf',parsed.path):continue
+        raw=(reader or (lambda link:brochure_text(get_bytes(link,max_bytes=12_000_000))))(target)
+        m=re.search(r'\bTENANCIES\s*&\s*ACCOMMODATION\b(.+?\bTotal\s*:\s*£\s*[\d,]+(?:\.\d+)?)',raw,re.I)
+        if not m or not re.search(r'Ann\.?\s*Excl\.?\s*Rental',m.group(1),re.I):return None
+        total=re.search(r'\bTotal\s*:\s*£\s*([\d,]+(?:\.\d+)?)',m.group(1),re.I)
+        return {'annual_rent':float(total.group(1).replace(',','')), 'text':'Tenancies & Accommodation '+norm(m.group(1)), 'url':target}
+    return None
+
+
+def _asset_type(text, fallback):
+    asset=re.split(r'\bProperty\s+',text,maxsplit=1)[-1]
+    asset=re.split(r'\b(?:Tenure|Accommodation|Tenancy|Note|VAT)\b',asset,maxsplit=1)[0]
+    if re.search(r'ground[ -]floor (?:retail|shop)',asset,re.I):
+        if re.search(r'\b(?:flats?|apartments?|residential accommodation)\b',asset,re.I):return 'Mixed Use'
+        if re.search(r'self[ -]contained office',asset,re.I):return 'Retail / Office'
+        return 'Retail'
+    return fallback
+
+
 def _hydrate(url, auction_date=None):
     s=soup(url,use_browser=False)
     main=s.select_one('article.property-content') or s.find('main') or s
     text=norm(main.get_text(' ',strip=True)); address=_address(s,text)
-    if not address or not _target_detail(text): return None
+    classification_text=re.sub(r'\bSituation\s+.*?(?=\bProperty\b|$)','',text,flags=re.S)
+    if not address or not _target_detail(classification_text): return None
     status=_row_status(text); lotm=re.search(r"\bLot\s*(\d+[A-Z]?)\b",text,re.I); rent=parse_rent(text); lp_url,lp_status=legal_pack(s,url); title=None
     for tag in main.find_all(["h1","h2","h3","h4","p"]):
         value=norm(tag.get_text(" ",strip=True))
@@ -139,11 +165,26 @@ def _hydrate(url, auction_date=None):
     head_text=norm(header.get_text(' ',strip=True)) if header else ''
     price=re.search(r'£[\d,]+(?:\s*[-–]\s*£?[\d,]+)?\+?',head_text)
     guide_text=price.group(0) if price else None
+    if rent is None and re.search(r'\binvestment\b',title or text[:300],re.I):
+        try:
+            recovered=_schedule_from_brochure(s,url)
+            if recovered:
+                rent=recovered['annual_rent'];text+=' '+recovered['text']+' Source particulars: '+recovered['url']
+        except Exception as exc:print('BARNETT_BROCHURE_UNAVAILABLE',url,type(exc).__name__)
+    tenancy=re.search(r'\bTenancy\s+(.+?)(?=\bNote\b|$)',text,re.I)
+    tenant=term=start=None
+    if tenancy:
+        evidence=tenancy.group(1)
+        m=re.search(r'lease to\s+(.+?)(?:\s+\(having.*?\))?\s+for a term of\s+(\d+ years)\s+from\s+(\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+\d{4})',evidence,re.I)
+        if m:
+            tenant,term,start=m.groups()
+            if re.search(r'holding over',evidence,re.I):term+=' (holding over)'
     return Lot(source=SOURCE,url=url,address=address,lot_number=f"Lot {lotm.group(1)}" if lotm else None,
         auction_date=_parse_date(head_text) or auction_date,image_url=_property_image(s,url),image_is_primary=True,guide_price=parse_guide('Guide '+guide_text) if guide_text else None,guide_price_text=guide_text,annual_rent=rent,
         tenure=parse_tenure(text),vat_status=parse_vat(text),legal_pack_status=lp_status,legal_pack_url=lp_url,description=text[:6500],
         occupation="Tenanted" if rent else ("Vacant / vacant possession" if re.search(r"vacant possession|\bvacant\b",text,re.I) else None),
-        property_type=title,development_potential=True if re.search(r"development potential|redevelopment|subject to planning|stpp",text,re.I) else None,
+        tenant=tenant,lease_term=term,lease_start=start,
+        property_type=_asset_type(text,title),development_potential=True if re.search(r"development potential|redevelopment|subject to planning|stpp",text,re.I) else None,
         fri=True if re.search(r"\bFRI\b|full repairing and insuring",text,re.I) else None,status=status).finalise()
 
 

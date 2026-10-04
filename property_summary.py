@@ -22,6 +22,8 @@ def _text(row):
 
 
 def _property_kind(low):
+    if low.strip() in {'retail / office', 'retail and office'}:
+        return 'RETAIL / OFFICE'
     if low.strip() in {'land', 'commercial land', 'land & development', 'land and development', 'development land'}:
         return "LAND"
     if any(x in low for x in ("industrial", "warehouse", "workshop", "factory")):

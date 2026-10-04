@@ -51,6 +51,12 @@ def income_facts(text):
         value = money(match.group())
         if value is None:
             continue
+        if re.search(r'\b(?:personal |temporary )?concession\s+from\s*$', before, re.I):
+            # "Current rent £16,540 ... personal concession from £18,300".
+            # The latter is the contractual baseline, not cash currently paid
+            # and not necessarily a historic rent.
+            facts['contractual_rent'] = value
+            continue
         # All rent fields represent annual amounts. Only annualise when the
         # source explicitly supplies a monthly/weekly period; never infer one.
         if MONTHLY.search(after):
