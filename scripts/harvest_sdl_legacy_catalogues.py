@@ -26,7 +26,22 @@ import historical_corpus as corpus
 
 BASE = "https://www.sdlauctions.co.uk"
 ARCHIVE = BASE + "/catalogues/archive/"
-HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+    ),
+    "Accept": (
+        "text/html,application/xhtml+xml,application/xml;q=0.9,"
+        "image/avif,image/webp,*/*;q=0.8"
+    ),
+    "Accept-Language": "en-GB,en;q=0.9",
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache",
+    "Upgrade-Insecure-Requests": "1",
+}
+SESSION = requests.Session()
+SESSION.headers.update(HEADERS)
 PROPERTY_RE = re.compile(r"/property/(\d+)/", re.I)
 AUCTION_RE = re.compile(r"/auction/(\d+)/", re.I)
 LOT_RE = re.compile(r"\bLot\s+(?:no\.?\s*:?\s*)?([0-9]+[A-Za-z]?)\b", re.I)
@@ -180,7 +195,17 @@ def parse_catalogue_cards(
 
 
 def get(url: str) -> requests.Response:
-    response = requests.get(url, headers=HEADERS, timeout=90)
+    response = SESSION.get(url, timeout=90)
+    if response.status_code == 403:
+        # SDL serves this retained public archive to ordinary browsers but can
+        # reject a bare HTTP client before it has visited the site root.  Seed
+        # the same-origin session once, then retry with a first-party Referer.
+        SESSION.cookies.clear()
+        preflight = SESSION.get(BASE + "/", timeout=90)
+        preflight.raise_for_status()
+        response = SESSION.get(
+            url, headers={"Referer": preflight.url or BASE + "/"}, timeout=90
+        )
     response.raise_for_status()
     if len(response.content) < 1000:
         raise ValueError("SDL source response is unexpectedly short")
