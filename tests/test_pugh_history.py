@@ -3,6 +3,7 @@ from datetime import date
 from scripts.harvest_pugh_canonical import (
     bankable,
     detail_404_blockers,
+    detail_failure_is_terminal,
     parse_detail_page,
     parse_grid_page,
     parse_page,
@@ -127,16 +128,23 @@ def test_detail_page_rejects_address_mismatch():
         parse_detail_page(html, source, source["original_url"], {})
 
 
-def test_detail_404_failures_become_stable_non_retry_blockers():
+def test_terminal_detail_failures_become_stable_non_retry_blockers():
     summary = {
         "failures": [
             {"kind": "detail_page_recovery", "source_lot_id": "11115",
              "error": "HTTPError: 404 Client Error: Not Found"},
+            {"kind": "detail_page_recovery", "source_lot_id": "no-evidence",
+             "error": "ValueError: detail page has no exact lot and auction date"},
             {"kind": "detail_page_recovery", "source_lot_id": "retry",
              "error": "HTTPError: 503 Server Error"},
         ]
     }
-    assert detail_404_blockers(summary) == [{
-        "kind": "detail_page_recovery", "source_lot_id": "11115",
-        "error": "HTTPError: 404 Client Error: Not Found",
-    }]
+    assert detail_404_blockers(summary) == [
+        {"kind": "detail_page_recovery", "source_lot_id": "11115",
+         "error": "HTTPError: 404 Client Error: Not Found"},
+        {"kind": "detail_page_recovery", "source_lot_id": "no-evidence",
+         "error": "ValueError: detail page has no exact lot and auction date"},
+    ]
+    assert detail_failure_is_terminal(summary["failures"][0])
+    assert detail_failure_is_terminal(summary["failures"][1])
+    assert not detail_failure_is_terminal(summary["failures"][2])

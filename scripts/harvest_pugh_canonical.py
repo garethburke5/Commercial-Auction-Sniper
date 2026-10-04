@@ -373,13 +373,22 @@ def fetch_detail_page(source_row: dict) -> dict:
     return parse_detail_page(raw, source_row, requested, evidence)
 
 
+def detail_failure_is_terminal(item: dict) -> bool:
+    """True when retrying the same retained detail page cannot add exact evidence."""
+    error = str(item.get("error") or "")
+    return (
+        "404 Client Error" in error
+        or "detail page has no exact lot and auction date" in error
+    )
+
+
 def detail_404_blockers(summary: dict) -> list[dict]:
-    """Promote retained detail-page 404s to a durable non-retry quarantine."""
+    """Promote terminal detail-page failures to a durable non-retry quarantine."""
     records = list(summary.get("detail_page_blockers") or [])
     records.extend(
         item for item in (summary.get("failures") or [])
         if item.get("kind") == "detail_page_recovery"
-        and "404 Client Error" in str(item.get("error") or "")
+        and detail_failure_is_terminal(item)
     )
     kept = {}
     for item in records:
@@ -676,7 +685,7 @@ def harvest() -> None:
                         "url": targets_by_id[source_id].get("original_url"),
                         "error": f"{type(exc).__name__}: {exc}"[:500],
                     }
-                    if "404 Client Error" in failure["error"]:
+                    if detail_failure_is_terminal(failure):
                         detail_blocked_source_ids.add(source_id)
                         detail_page_blockers.append(failure)
                     else:
