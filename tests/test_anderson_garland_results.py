@@ -1,4 +1,4 @@
-from scripts.harvest_anderson_garland_results import parse_results
+from scripts.harvest_anderson_garland_results import parse_listing_detail, parse_listings_index, parse_results
 
 
 HTML = """
@@ -39,3 +39,48 @@ def test_parse_results_rejects_page_without_results():
         assert "no sold result blocks" in str(exc)
     else:
         raise AssertionError("empty source page was accepted")
+
+
+def test_listing_index_reconciles_first_party_rex_urls():
+    html = """
+    <html><body><p>Found 2 results</p>
+    <a href="/listings/residential_sale-RX572185-stanley">One</a>
+    <a href="/listings/commercial_sale-RX577666-alston">Two</a>
+    <a href="/listings/residential_sale-RX572185-stanley">Duplicate image</a>
+    </body></html>
+    """
+    expected, urls = parse_listings_index(html, "https://aglandandproperty.com/listings?page=1")
+    assert expected == 2
+    assert urls == [
+        "https://aglandandproperty.com/listings/residential_sale-RX572185-stanley",
+        "https://aglandandproperty.com/listings/commercial_sale-RX577666-alston",
+    ]
+
+
+def test_detail_requires_explicit_sold_result_and_exact_auction_date():
+    html = """
+    <html><body><h1>1 Church Bank, Stanley DH9 0DU</h1>
+    <p>SOLD AT AUCTION FOR £165,000.</p>
+    <p>FOR SALE BY AUCTION - 6pm on MONDAY 12TH MAY 2025.</p>
+    <p>Guide Price £150,000. Freehold. Requires refurbishment.</p>
+    </body></html>
+    """
+    row = parse_listing_detail(
+        html,
+        "https://aglandandproperty.com/listings/residential_sale-RX572185-stanley",
+        {"sha256": "detail"},
+    )
+    assert row["appearance_id"] == "Anderson & Garland|listing:572185"
+    assert row["auction_date"] == "2025-05-12"
+    assert row["address"] == "1 Church Bank, Stanley DH9 0DU"
+    assert row["postcode"] == "DH9 0DU"
+    assert row["guide_price"] == 150000
+    assert row["sale_price"] == 165000
+    assert row["tenure"] == "Freehold"
+    assert row["status"] == "sold"
+
+    assert parse_listing_detail(
+        "<h1>Ordinary sale</h1><p>Sold STC £165,000</p>",
+        "https://aglandandproperty.com/listings/residential_sale-RX572185-stanley",
+        {},
+    ) is None
