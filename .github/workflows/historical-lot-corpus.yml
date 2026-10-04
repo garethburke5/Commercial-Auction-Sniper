@@ -208,7 +208,7 @@ jobs:
           test -s data/auction_history/progress.json
           git config user.name 'Auction Sniper History Bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add data/auction_history/appearances data/auction_history/sources data/auction_history/auctions data/auction_history/progress.json data/auction_history/auction_history.sqlite.gz
+          git add data/auction_history/appearances data/auction_history/sources data/auction_history/auctions data/auction_history/progress.json
           if test -f data/auction_history/paul_fosh_collection.json; then git add data/auction_history/paul_fosh_collection.json; fi
           if test -f data/auction_history/allsop_collection.json; then git add data/auction_history/allsop_collection.json; fi
           if test -f data/auction_history/commercial_expansion.json; then git add data/auction_history/commercial_expansion.json; fi
@@ -236,14 +236,34 @@ jobs:
           if test -f data/auction_history/auction_house_regions_collection.json; then git add data/auction_history/auction_house_regions_collection.json; fi
           if test -f data/auction_history/network_auctions_collection.json; then git add data/auction_history/network_auctions_collection.json; fi
           if test -f data/auction_history/pattinson_collection.json; then git add data/auction_history/pattinson_collection.json; fi
-          if git diff --cached --quiet; then exit 0; fi
+          database_backup=''
+          if test -f data/auction_history/auction_history.sqlite.gz; then
+            database_bytes=$(stat -c%s data/auction_history/auction_history.sqlite.gz)
+            if test "$database_bytes" -lt 99000000; then
+              git add data/auction_history/auction_history.sqlite.gz
+            else
+              database_backup="$RUNNER_TEMP/auction_history.sqlite.gz"
+              cp data/auction_history/auction_history.sqlite.gz "$database_backup"
+              git restore data/auction_history/auction_history.sqlite.gz
+              echo "Database is $database_bytes bytes; preserving it as an artifact instead of exceeding GitHub's 100 MB file limit."
+            fi
+          fi
+          if git diff --cached --quiet; then
+            if test -n "$database_backup"; then cp "$database_backup" data/auction_history/auction_history.sqlite.gz; fi
+            exit 0
+          fi
           git commit -m 'Bank historical auction lot records and source evidence'
+          pushed=false
           for attempt in 1 2 3 4; do
             git fetch origin main
             git rebase origin/main
-            if git push origin HEAD:main; then exit 0; fi
+            if git push origin HEAD:main; then
+              pushed=true
+              break
+            fi
           done
-          exit 1
+          if test -n "$database_backup"; then cp "$database_backup" data/auction_history/auction_history.sqlite.gz; fi
+          test "$pushed" = true
       - name: Preserve downloadable database
         if: always()
         uses: actions/upload-artifact@v4
