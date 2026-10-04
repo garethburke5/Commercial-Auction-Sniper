@@ -416,8 +416,21 @@ def enrich_auction(auction_id, workers=4):
 def next_enrichment_auction():
     candidates = []
     for path in sorted((corpus.DATA / "appearances/clive-emson").glob("*.jsonl.gz"), key=lambda p: int(p.stem.split(".")[0])):
-        if any(not row.get("address") for row in corpus.iter_rows(path)):
-            candidates.append(path.stem.split(".")[0])
+        auction_id = path.stem.split(".")[0]
+        partial_ids = {row["appearance_id"] for row in corpus.iter_rows(path) if not row.get("address")}
+        if not partial_ids:
+            continue
+        terminal_failures = set()
+        try:
+            state = json.loads(state_path(auction_id).read_text())
+        except (OSError, ValueError, TypeError):
+            state = {}
+        for failure in state.get("detail_enrichment_errors") or []:
+            error = str(failure.get("error") or "")
+            if "detail date" in error or "detail lot" in error:
+                terminal_failures.add(failure.get("appearance_id"))
+        if partial_ids - terminal_failures:
+            candidates.append(auction_id)
     return candidates[0] if candidates else None
 
 

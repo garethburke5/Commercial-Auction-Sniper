@@ -34,6 +34,7 @@ HEADERS = {
     "x-forwarded-client-id": "futureproperty",
 }
 PROPERTY_ID_RE = re.compile(r"property_details\.asp\?id=(\d+)", re.I)
+FAILURE_COOLDOWN_SECONDS = 2 * 60 * 60
 
 
 def epoch_date(value: int | float | None) -> str | None:
@@ -63,6 +64,20 @@ def fetch_json(url: str) -> tuple[bytes, dict]:
     if len(raw) < 20 or "json" not in response.headers.get("content-type", "").lower():
         raise ValueError("source did not return the expected JSON")
     return raw, response.json()
+
+
+def full_failure_cooldown(summary: dict, now: datetime | None = None) -> bool:
+    """Avoid immediately repeating a tranche where every fresh request failed."""
+    attempted = int(summary.get("catalogues_attempted_this_run") or 0)
+    failures = summary.get("failures") or []
+    if attempted <= 0 or len(failures) != attempted or summary.get("run_new_appearances"):
+        return False
+    try:
+        checked = datetime.fromisoformat(str(summary["checked_at"]).replace("Z", "+00:00"))
+    except (KeyError, TypeError, ValueError):
+        return False
+    current = now or datetime.now(timezone.utc)
+    return 0 <= (current - checked).total_seconds() < FAILURE_COOLDOWN_SECONDS
 
 
 def fetch_manifest() -> tuple[dict, dict, str | None]:
@@ -276,6 +291,20 @@ def sanitized_snapshot(payload: dict, evidence: dict) -> dict:
 
 
 def harvest(limit: int = 12, workers: int = 3) -> None:
+    summary_path = corpus.DATA / "future_property_auctions_collection.json"
+    try:
+        previous_summary = json.loads(summary_path.read_text())
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        previous_summary = {}
+    if full_failure_cooldown(previous_summary):
+        print(json.dumps({
+            "skipped": "recent tranche had no successful fresh auction payloads",
+            "cooldown_seconds": FAILURE_COOLDOWN_SECONDS,
+            "catalogues_pending": previous_summary.get("catalogues_pending"),
+            "previous_checked_at": previous_summary.get("checked_at"),
+        }), flush=True)
+        return
+
     manifest_payload, manifest_evidence, manifest_refresh_error = fetch_manifest()
     manifest = manifest_rows(manifest_payload)
 
@@ -360,7 +389,7 @@ def harvest(limit: int = 12, workers: int = 3) -> None:
         "manifest_refresh_error": manifest_refresh_error,
         "archive_evidence": manifest_evidence, "auctions": states, "failures": failures,
     }
-    corpus.save_json(corpus.DATA / "future_property_auctions_collection.json", summary)
+    corpus.save_json(summary_path, summary)
     print(json.dumps(summary, indent=2), flush=True)
     if failures:
         raise SystemExit(1)

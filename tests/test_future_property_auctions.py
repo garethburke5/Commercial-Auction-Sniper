@@ -1,4 +1,5 @@
 import pytest
+from datetime import datetime, timezone
 
 from scripts.harvest_future_property_auctions import (
     epoch_date,
@@ -6,6 +7,7 @@ from scripts.harvest_future_property_auctions import (
     parse_auction,
     sanitized_snapshot,
     fetch_manifest,
+    full_failure_cooldown,
 )
 
 
@@ -180,3 +182,18 @@ def test_fetch_json_retries_transient_connection_errors(monkeypatch):
 
     assert payload["ok"] is True
     assert sleeps == [2.0]
+
+
+def test_recent_all_failure_tranche_enters_bounded_cooldown():
+    summary = {
+        "checked_at": "2026-10-04T04:12:49+00:00",
+        "catalogues_attempted_this_run": 12,
+        "run_new_appearances": 0,
+        "failures": [{"auction_id": str(value)} for value in range(12)],
+    }
+    assert full_failure_cooldown(
+        summary, datetime(2026, 10, 4, 5, 0, tzinfo=timezone.utc)
+    ) is True
+    assert full_failure_cooldown(
+        summary, datetime(2026, 10, 4, 7, 0, tzinfo=timezone.utc)
+    ) is False

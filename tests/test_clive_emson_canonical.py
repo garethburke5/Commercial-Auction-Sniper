@@ -1,3 +1,4 @@
+import scripts.harvest_clive_emson_canonical as clive
 from scripts.harvest_clive_emson_canonical import detail_fields, discover, parse_catalogue
 
 
@@ -71,3 +72,22 @@ def test_detail_parser_requires_matching_lot_and_date_and_recovers_address():
     assert fields["tenure"] == "Freehold"
     assert fields["sale_price"] == 30000
     assert fields["image_urls"] == ["https://www.cliveemson.co.uk/Auc267/pics/45631-main.jpg"]
+
+
+def test_next_enrichment_skips_catalogue_with_only_terminal_identity_failures(monkeypatch, tmp_path):
+    monkeypatch.setattr(clive.corpus, "DATA", tmp_path)
+    for auction_id in ("252", "253"):
+        row = clive.corpus.base_row(
+            "Clive Emson", f"clive-emson:{auction_id}", "2024-09-18", "1", "1",
+            f"https://www.cliveemson.co.uk/properties/{auction_id}/1/",
+        )
+        clive.corpus.write_rows(f"clive-emson/{auction_id}", [row])
+        state = {"detail_enrichment_errors": []}
+        if auction_id == "252":
+            state["detail_enrichment_errors"] = [{
+                "appearance_id": row["appearance_id"],
+                "error": "ValueError: detail date '2024-10-03' does not match '2024-09-18'",
+            }]
+        clive.corpus.save_json(clive.state_path(auction_id), state)
+
+    assert clive.next_enrichment_auction() == "253"
