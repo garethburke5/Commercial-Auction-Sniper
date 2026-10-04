@@ -63,11 +63,8 @@ def test_result_statuses_are_separate_from_guides():
     assert status_and_price("Withdrawn", "Withdrawn") == ("withdrawn", None)
 
 
-def test_retained_catalogues_extend_live_index_without_overwriting_index_rows():
+def test_blocked_recovery_evidence_is_not_reprobed_as_a_catalogue():
     indexed = discover_auctions(INDEX)
     recovered = include_recovered_auctions(indexed)
-    assert [item["auction_id"] for item in recovered] == ["2765", "2766", "2767", "3605"]
-    assert recovered[-1]["updated_at"] == "2026-04-17T10:00:00.000Z"
-    assert recovered[0]["discovery_basis"] == (
-        "retained first-party past-auction page absent from live index"
-    )
+    assert [item["auction_id"] for item in recovered] == ["3605"]
+    assert recovered[0]["updated_at"] == "2026-04-17T10:00:00.000Z"

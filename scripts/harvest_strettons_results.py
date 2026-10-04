@@ -27,10 +27,11 @@ DETAIL = BASE + "/page-data/auctions/past-auctions/past-auction-details/{auction
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d+)?)", re.I)
 
-# First-party past-auction pages retained by Strettons but omitted from the
-# current compact index.  Dates and IDs are taken from those published pages;
-# each seed is admitted only if its complete page-data payload validates.
-RECOVERED_AUCTIONS = (
+# First-party past-auction HTML pages retained by Strettons but omitted from
+# the compact index. Their former page-data endpoints returned HTTP 404 on
+# 2026-10-04, so they are evidence pointers only and are never re-probed by the
+# collector until a usable lot source is found.
+BLOCKED_RECOVERED_AUCTIONS = (
     {
         "auction_id": "2765", "auction_date": "2025-07-10", "updated_at": None,
         "discovery_url": BASE + "/auctions/past-auctions/past-auction-details/2765/",
@@ -44,6 +45,9 @@ RECOVERED_AUCTIONS = (
         "discovery_url": BASE + "/auctions/past-auctions/past-auction-details/2767/",
     },
 )
+
+# Only recovered IDs with a live, reconcilable lot payload belong here.
+RECOVERED_AUCTIONS: tuple[dict, ...] = ()
 
 
 def clean(value) -> str | None:
@@ -271,6 +275,10 @@ def harvest(workers: int = 4) -> None:
         "checked_at": corpus.now(), "source_url": INDEX,
         "live_index_auctions": len(indexed_auctions),
         "recovered_catalogue_seeds": [item["auction_id"] for item in RECOVERED_AUCTIONS],
+        "blocked_recovery_evidence": [
+            {**item, "reason": "retained HTML survives but first-party page-data payload returns HTTP 404"}
+            for item in BLOCKED_RECOVERED_AUCTIONS
+        ],
         "auctions_discovered": len(auctions), "auctions_captured": len(states),
         "auctions_complete": sum(bool(state.get("catalogue_complete")) for state in states.values()),
         "auctions_reused": reused, "appearances_captured": total,
