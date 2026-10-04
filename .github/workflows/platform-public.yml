@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['web_platform/**', 'investment_details.py', 'property_summary.py', 'board_presentation.py', 'buyer_due_diligence.py', 'legal_pack_*.py', 'acquisition_*.py', 'source_reconciliation.py', 'packages.txt', 'tests/test_legal_pack*.py', '.github/workflows/platform-public.yml']
+    paths: ['web_platform/**', 'investment_details.py', 'property_summary.py', 'board_presentation.py', 'buyer_due_diligence.py', 'legal_pack_*.py', 'acquisition_*.py', 'source_reconciliation.py', 'scripts/verify_live_platform.py', 'packages.txt', 'tests/test_legal_pack*.py', '.github/workflows/platform-public.yml']
   workflow_run:
     workflows: ['Auction Sniper Publish Now', 'Auction Sniper Scan', 'Historical lot corpus collection', 'Commercial history expansion', 'Property gallery and fee evidence']
     types: [completed]
@@ -45,3 +45,12 @@ jobs:
           path: public-dist
       - uses: actions/deploy-pages@v4
         id: deployment
+      - name: Verify source-to-live publication
+        run: python scripts/verify_live_platform.py --origin "$SITE_ORIGIN"
+        env:
+          SITE_ORIGIN: ${{ steps.pages.outputs.base_url }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: source-to-live-reconciliation
+          path: data/source_live_verification.json

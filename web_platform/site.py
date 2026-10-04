@@ -4,6 +4,7 @@ import hashlib
 import math
 import os
 from collections import defaultdict
+from functools import cached_property
 from pathlib import Path
 from datetime import date
 from urllib.parse import quote
@@ -28,6 +29,16 @@ def uk_date(value):
         return value or 'Date to confirm'
 
 class Site:
+    @cached_property
+    def reconciliation(self):
+        from source_reconciliation import reconcile
+        snapshot=json.loads((self.catalogue.root/'data/properties.json').read_text())
+        proof=self.catalogue.root/'data/source_live_verification.json'
+        if proof.exists():
+            measured=json.loads(proof.read_text())
+            if measured.get('verified') and measured.get('snapshot_generated_at')==snapshot.get('generated_at'):
+                return measured
+        return reconcile(snapshot)
     def __init__(self, catalogue=None, origin=None):
         self.catalogue = catalogue or Catalogue()
         self.origin = (origin or os.environ.get('PUBLIC_ORIGIN') or 'http://localhost:8000').rstrip('/')
@@ -119,11 +130,9 @@ class Site:
             'Individual auction appearances with source evidence. Repeated appearances are preserved.',history=c.history())
         yield '/methodology/',self.page('/methodology/','How Auction Sniper works','methodology',
             'Understand source evidence, guide prices, missing information and conservative property-history matching.')
-        from source_reconciliation import reconcile
-        snapshot=json.loads((c.root/'data/properties.json').read_text())
         yield '/coverage/',self.page('/coverage/','Auctioneer coverage & collection health','coverage',
             'Measured collection and publication counts. Unknown counts are shown explicitly; historical records do not substitute for current stock.',
-            reconciliation=reconcile(snapshot),noindex=True)
+            reconciliation=self.reconciliation,noindex=True)
         yield '/glossary/', self.page('/glossary/','Glossary of property auction terms','glossary',
             'Clear explanations of commercial property yields, leases, auction fees, legal packs, VAT and auction terminology.',
             glossary=GROUPS, glossary_sources=SOURCES, glossary_reviewed=REVIEWED)
@@ -146,9 +155,7 @@ class Site:
         api_origin=os.environ.get('PRIVATE_API_ORIGIN','')
         enabled=bool(supabase.startswith('https://') and public_key and api_origin.startswith('https://'))
         yield '/platform-config.json',json.dumps({'accounts_enabled':enabled,'supabase_url':supabase if enabled else None,'supabase_key':public_key if enabled else None,'api_origin':api_origin if enabled else None,'billing_enabled':os.environ.get('BILLING_LIVE')=='true' and enabled})
-        from source_reconciliation import reconcile
-        snapshot=json.loads((self.catalogue.root/'data/properties.json').read_text())
-        yield '/source-reconciliation.json',json.dumps(reconcile(snapshot),ensure_ascii=False)
+        yield '/source-reconciliation.json',json.dumps(self.reconciliation,ensure_ascii=False)
         rows=self.catalogue.properties
         root=f'/board/{self.board_version}/'
         module=self.env.get_template('cards.html').module
