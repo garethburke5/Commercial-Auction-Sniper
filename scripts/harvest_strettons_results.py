@@ -27,6 +27,24 @@ DETAIL = BASE + "/page-data/auctions/past-auctions/past-auction-details/{auction
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d+)?)", re.I)
 
+# First-party past-auction pages retained by Strettons but omitted from the
+# current compact index.  Dates and IDs are taken from those published pages;
+# each seed is admitted only if its complete page-data payload validates.
+RECOVERED_AUCTIONS = (
+    {
+        "auction_id": "2765", "auction_date": "2025-07-10", "updated_at": None,
+        "discovery_url": BASE + "/auctions/past-auctions/past-auction-details/2765/",
+    },
+    {
+        "auction_id": "2766", "auction_date": "2025-09-11", "updated_at": None,
+        "discovery_url": BASE + "/auctions/past-auctions/past-auction-details/2766/",
+    },
+    {
+        "auction_id": "2767", "auction_date": "2025-10-23", "updated_at": None,
+        "discovery_url": BASE + "/auctions/past-auctions/past-auction-details/2767/",
+    },
+)
+
 
 def clean(value) -> str | None:
     value = re.sub(r"\s+", " ", str(value or "")).strip(" ,")
@@ -75,6 +93,18 @@ def discover_auctions(payload) -> list[dict]:
         raise ValueError("past-auction index contains no published auctions")
     return sorted(found, key=lambda value: value["auction_date"])
 
+
+
+def include_recovered_auctions(indexed: list[dict]) -> list[dict]:
+    """Merge retained first-party catalogue pages absent from the live index."""
+    found = {item["auction_id"]: item for item in indexed}
+    for recovered in RECOVERED_AUCTIONS:
+        found.setdefault(recovered["auction_id"], {
+            **recovered,
+            "summary": None,
+            "discovery_basis": "retained first-party past-auction page absent from live index",
+        })
+    return sorted(found.values(), key=lambda value: value["auction_date"])
 
 def property_url(item: dict) -> str:
     prefix = (
@@ -172,7 +202,8 @@ def harvest(workers: int = 4) -> None:
         "basis": "first-party past-auction index JSON",
     }
     corpus.save_gzip(index_snapshot, {"evidence": index_evidence, "payload": index})
-    auctions = discover_auctions(index)
+    indexed_auctions = discover_auctions(index)
+    auctions = include_recovered_auctions(indexed_auctions)
 
     path = corpus.DATA / "appearances/strettons/canonical.jsonl.gz"
     existing = list(corpus.iter_rows(path)) if path.exists() else []
@@ -238,6 +269,8 @@ def harvest(workers: int = 4) -> None:
     added = [row for key, row in merged.items() if key not in before_ids]
     summary = {
         "checked_at": corpus.now(), "source_url": INDEX,
+        "live_index_auctions": len(indexed_auctions),
+        "recovered_catalogue_seeds": [item["auction_id"] for item in RECOVERED_AUCTIONS],
         "auctions_discovered": len(auctions), "auctions_captured": len(states),
         "auctions_complete": sum(bool(state.get("catalogue_complete")) for state in states.values()),
         "auctions_reused": reused, "appearances_captured": total,

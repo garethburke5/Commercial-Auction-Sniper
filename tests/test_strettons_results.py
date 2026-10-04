@@ -1,5 +1,6 @@
 from scripts.harvest_strettons_results import (
     discover_auctions,
+    include_recovered_auctions,
     parse_detail,
     status_and_price,
 )
@@ -60,3 +61,13 @@ def test_result_statuses_are_separate_from_guides():
     assert status_and_price("Sold", "Sold for £251,000") == ("sold", 251000)
     assert status_and_price("Sold", "Sold prior to auction, for an undisclosed amount") == ("sold_prior", None)
     assert status_and_price("Withdrawn", "Withdrawn") == ("withdrawn", None)
+
+
+def test_retained_catalogues_extend_live_index_without_overwriting_index_rows():
+    indexed = discover_auctions(INDEX)
+    recovered = include_recovered_auctions(indexed)
+    assert [item["auction_id"] for item in recovered] == ["2765", "2766", "2767", "3605"]
+    assert recovered[-1]["updated_at"] == "2026-04-17T10:00:00.000Z"
+    assert recovered[0]["discovery_basis"] == (
+        "retained first-party past-auction page absent from live index"
+    )
