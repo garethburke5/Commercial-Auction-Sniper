@@ -224,9 +224,14 @@ def collect():
                     else:failures+=1
                 except Exception:failures+=1
         expected=len(targets)
+        telemetry={"current_catalogue_detected":bool(discovered_future),"source_lot_count":discovered_future,
+            "lots_discovered":discovered_future,"lots_parsed":discovered_future,"commercial_mixed_candidates":expected,
+            "classification_rejections":discovered_future-expected,"catalogue_pages":pages_read,
+            "detail_targets":expected,"details_parsed":len(lots)-fallbacks,"catalogue_fallbacks":fallbacks,
+            "detail_failures":failures,"parse_basis":"individual catalogue lot records, with separate detail outcomes"}
         if expected:
             status="LIVE" if failures==0 and len(lots)==expected else "DEGRADED";images=sum(1 for x in lots if x.image_url)
-            return SourceResult(SOURCE,status,lots,f"All-future Future Property Auctions sweep: {pages_read} catalogue pages inspected; {discovered_future} unique future catalogue lots encountered across dates {scope_dates}; {expected} commercial/mixed-use targets discovered; {len(lots)} captured; lot-bound property images {images}/{len(lots)} ({len(feed_images)} first-party export hero mappings available); {fallbacks} authoritative catalogue-card fallbacks; {failures} unrecovered detail failures.",expected_count=expected,discovered_count=expected,authoritative_snapshot=bool(status=="LIVE"),scope_dates=scope_dates)
-        if discovered_future:return SourceResult(SOURCE,"CATALOGUE PENDING",[],f"Future Property Auctions catalogue inspected across {pages_read} pages; {discovered_future} unique future lots encountered across dates {scope_dates}, but none classified commercial/mixed-use.",expected_count=0,discovered_count=0,authoritative_snapshot=True,scope_dates=scope_dates)
-        return SourceResult(SOURCE,"CATALOGUE PENDING",[],f"Future Property Auctions catalogue inspected across {pages_read} pages; no published future lots were discovered.",discovered_count=0,authoritative_snapshot=False,scope_dates=scope_dates)
+            return SourceResult(SOURCE,status,lots,f"All-future Future Property Auctions sweep: {pages_read} catalogue pages inspected; {discovered_future} unique future catalogue lots encountered across dates {scope_dates}; {expected} commercial/mixed-use targets discovered; {len(lots)} captured; lot-bound property images {images}/{len(lots)} ({len(feed_images)} first-party export hero mappings available); {fallbacks} authoritative catalogue-card fallbacks; {failures} unrecovered detail failures.",expected_count=expected,discovered_count=expected,authoritative_snapshot=bool(status=="LIVE"),scope_dates=scope_dates,reconciliation=telemetry)
+        if discovered_future:return SourceResult(SOURCE,"CATALOGUE PENDING",[],f"Future Property Auctions catalogue inspected across {pages_read} pages; {discovered_future} unique future lots encountered across dates {scope_dates}, but none classified commercial/mixed-use.",expected_count=0,discovered_count=0,authoritative_snapshot=True,scope_dates=scope_dates,reconciliation=telemetry)
+        return SourceResult(SOURCE,"CATALOGUE PENDING",[],f"Future Property Auctions catalogue inspected across {pages_read} pages; no published future lots were discovered.",discovered_count=0,authoritative_snapshot=False,scope_dates=scope_dates,reconciliation=telemetry)
     except Exception as exc:return SourceResult(SOURCE,"FAILED",[],f"Future Property Auctions collection failed: {type(exc).__name__}: {exc}")

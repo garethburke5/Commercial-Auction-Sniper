@@ -39,6 +39,11 @@ def render(report,standalone=False):
                 if report.get('company_number'):out.append('<p>Company number '+e(report['company_number'])+'. <a href="https://find-and-update.company-information.service.gov.uk/company/'+e(report['company_number'])+'">Official Companies House record ↗</a></p>')
                 out.append('<p>Current financial strength, group support and guarantees must be evidenced separately. An active registration is not a credit rating.</p>'+sources(report.get('tenant_evidence',[])))
                 if report.get('covenant'):out.append('<p>'+e(report['covenant'].get('interpretation'))+'</p>')
+            elif sid=='lease':
+                out.append('<p>Each rent remains attached to the document that states it. A document’s age alone does not prove that it is historic or superseded.</p>')
+                for record in report.get('lease_reconciliation',[]):
+                    out.append('<article class="ai-question"><h3>'+e(record['document'])+'</h3><p><b>Document date:</b> '+e(record.get('document_date') or 'Not established')+' · '+e(record.get('date_basis') or '')+'</p><p><b>Effect:</b> '+e(record['temporal_status'])+'</p><p><b>Rent in this document:</b> '+e(', '.join(money(r)+' p.a.' for r in record['rent_amounts']) or 'Not recovered')+'</p><p>'+e(record['term'])+'</p>'+sources(record['evidence'])+'</article>')
+                out.extend(finding(f) for f in report['findings'] if f['section']=='lease')
             elif sid=='cpse':out.append('<p>'+e(report['cpse'])+'</p>')
             elif sid=='opportunities':
                 out.extend(finding(f) for f in report.get('opportunities',[]))

@@ -38,6 +38,12 @@ def commercial_decision(item):
     """Reject residential assets; require particulars to prove mixed use."""
     asset = asset_text(item.get('description'))
     kind = str(item.get('property_type') or '')
+    if (re.search(r'\b(?:demolished|demolition has been completed)\b', asset, re.I)
+        and re.search(r'\bresidential development\b|\bdevelopment of \d+[^.;]{0,30}apartments\b', asset, re.I)
+        and not MIXED.search(asset)):
+        # A demolished pub with a housing scheme is residential development,
+        # not a current pub investment because its former use is in the address.
+        return False
     # Completed/substantially completed residential conversions are residential
     # now. Historic office use alone is not current commercial accommodation.
     if (re.search(r'conversion (?:works )?(?:have |has )?(?:already )?been carried out|(?:majority|substantially|completed).{0,65}conversion|converted (?:into|to) (?:a |an )?residential', asset, re.I)
@@ -47,7 +53,7 @@ def commercial_decision(item):
     # A collector-generated type is not independent evidence. In particular,
     # nearby restaurants previously caused flats to be labelled "Mixed Use".
     positive = bool(COMMERCIAL.search(asset) or MIXED.search(asset)
-                    or re.search(r'\b(?:estate agency|estate agents?|vet(?:erinary)? (?:surgery|practice|clinic)|ground[ -]floor shops?|shop\s+(?:let|leased|producing|tenanted)|commercial space|(?:hair|beauty) salon|barbers?|(?:block|parade) of (?:\d+|\w+) shops|sports? education facility)\b', asset, re.I))
+                    or re.search(r'\b(?:children[’\']s home|estate agency|estate agents?|vet(?:erinary)? (?:surgery|practice|clinic)|ground[ -]floor shops?|shop\s+(?:let|leased|producing|tenanted)|commercial space|(?:hair|beauty) salon|barbers?|(?:block|parade) of (?:\d+|\w+) shops|sports? education facility)\b', asset, re.I))
     residential = bool(RESIDENTIAL.search(asset+' '+str(item.get('address') or '')) or re.fullmatch(r'(?:Residential|House|Flat|Apartment|Bungalow)(?: / Residential)?', kind, re.I))
     if residential and not positive:
         return False

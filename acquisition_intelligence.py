@@ -7,6 +7,7 @@ import re,hashlib,json
 from collections import defaultdict
 from datetime import datetime,timezone
 from decimal import Decimal
+from acquisition_chronology import lease_chronology
 
 SECTIONS=[('buying','What you are buying'),('numbers','The numbers'),('view','Our first-pass view'),('covenant','Tenant & covenant'),('lease','The lease — in plain English'),('cpse','What the seller has told you / CPSE'),('title','Title & what is actually included'),('conditions','Special Auction Conditions'),('searches','Searches & property risks'),('costs','Costs Auction Sniper found'),('concerns','What concerns us'),('opportunities','Opportunities'),('unknowns','What we could not establish'),('questions','If we were buying it, the questions we would still ask'),('evidence','Full evidence')]
 TOPIC_SECTION={'tenant':'covenant','rent':'lease','expiry':'lease','breaks':'lease','reviews':'lease','repairs':'lease','insurance':'lease','service':'lease','ground':'lease','title':'title','plans':'title','rights':'title','conditions':'conditions','completion':'conditions','deposit':'conditions','vat':'conditions','seller-costs':'costs','buyer-fees':'costs','searches':'searches','environment':'searches','planning':'searches','epc':'searches'}
@@ -83,14 +84,15 @@ def build_acquisition(model,catalogue=None):
         if title in handled or not fs:continue
         topic=fs[0]['topic'];add('fact-'+hashlib.sha256(title.encode()).hexdigest()[:10],title,' '.join(dict.fromkeys(f['summary'] for f in fs)),
             'This is a specific term or observation recovered from the supplied evidence.','Read its qualifications and date alongside the original; it is not a guarantee of the property’s current condition.',fs[0]['action'],[e for f in fs for e in f['evidence']],TOPIC_SECTION.get(topic,'lease'),'INFORMATION')
-    documents=[]
-    for d in model.get('documents',[]):
-        doc=dict(d);name=d['document'];years=re.findall(r'\b((?:19|20)\d{2})[.\-/]\d{1,2}[.\-/]\d{1,2}',name)
-        doc['document_date']=years[0] if years else None
-        doc['temporal_status']='UNCERTAIN' if 'lease' in d.get('type','') else 'SUPPORTING'
-        if years and int(years[0])<datetime.now().year-2:doc['temporal_status']='HISTORIC / CHECK CONTINUING EFFECT'
-        if re.search(r'draft|unsigned',name,re.I):doc['temporal_status']='DRAFT / UNCERTAIN'
-        documents.append(doc)
+    documents,lease_reconciliation=lease_chronology(model)
+    differing_rents={r for lease_record in lease_reconciliation for r in lease_record['rent_amounts']}
+    if len(lease_reconciliation)>1 and len(differing_rents)>1:
+        evidence=[e for lease_record in lease_reconciliation for e in lease_record['evidence']]
+        found='; '.join(record['document']+': '+', '.join(money(r)+' p.a.' for r in record['rent_amounts']) for record in lease_reconciliation if record['rent_amounts'])
+        add('lease-rent-chronology','Separate leases record different rent amounts',found,
+            'Using an earlier or concessionary amount as current rent changes the apparent investment yield.',
+            'A later document does not automatically supersede every earlier document. The report keeps each rent attached to its source and does not select the highest amount as current income.',
+            'Confirm which lease, variations and concessions govern the current letting, and reconcile the current rent ledger.',evidence,'lease','NEEDS CHECKING')
     cpse=[d for d in documents if 'cpse' in d.get('type','').lower()]
     cpse_text=('CPSE means Commercial Property Standard Enquiries. Qualified replies such as “not known” or “buyer to rely on own enquiries” are not automatically defects. Only material gaps are raised below.' if cpse else 'Separate CPSE replies were not identified. The rest of the supplied pack has still been used for the transaction facts, costs and lease evidence. Absence of a CPSE document is not the same as absence of every answer.')
     lease=summary_for('Lease term recorded');completion=summary_for('Contractual completion period');tenure=c.get('tenure')
@@ -113,10 +115,10 @@ def build_acquisition(model,catalogue=None):
         'vat':summary_for('VAT depends on TOGC conditions') or 'Transaction VAT treatment not established','calculations':calculations,'costs':costs,
         'first_pass':f'{len(findings)} consolidated findings from {model.get("coverage",{}).get("text_documents",0)} documents. '+('Quantified costs and contingent liabilities need to be reflected in your bid.' if costs else 'The report separates evidenced facts from remaining gaps; it is not a buy recommendation.'),
         'findings':priority,'deep_dive':deep,'cpse':cpse_text,'opportunities':opportunities,'unknowns':unknowns,'questions':questions,'documents':documents,
-        'coverage':model.get('coverage',{}),'sections':SECTIONS,'evidence_review':model,'disclaimer':'Acquisition research, not legal, tax or valuation advice. Verify material conclusions against the source documents and with the appropriate professional.'}
+        'lease_reconciliation':lease_reconciliation,'coverage':model.get('coverage',{}),'sections':SECTIONS,'evidence_review':model,'disclaimer':'Acquisition research, not legal, tax or valuation advice. Verify material conclusions against the source documents and with the appropriate professional.'}
 
 def snapshot(report):
     """Actual server projection: the paid payload is not sent hidden in the DOM."""
-    out={k:v for k,v in report.items() if k not in ('evidence_review','findings','documents','questions','unknowns','opportunities','costs','market_context')}
+    out={k:v for k,v in report.items() if k not in ('evidence_review','findings','documents','questions','unknowns','opportunities','costs','market_context','lease_reconciliation')}
     out['findings']=report['findings'][:3];out['additional_findings']=max(0,len(report['findings'])-3);out['access']='snapshot'
     out['sections']=SECTIONS[:3];return out

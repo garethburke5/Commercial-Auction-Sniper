@@ -179,6 +179,13 @@ def _inspect_catalogue_with_fallback(url,auction_date):
     return ([],0,0),urls[-1]
 
 
+def _telemetry(lots, seen, rejected, failures=0):
+    return {"current_catalogue_detected":bool(seen),"source_lot_count":seen,
+            "lots_discovered":seen,"lots_parsed":seen,"commercial_mixed_candidates":len(lots),
+            "classification_rejections":rejected,"catalogue_failures":failures,
+            "parse_basis":"individual published catalogue lot records"}
+
+
 def _direct_current_catalogue_result(root_error=None):
     s=_fetch(FUTURE); d=_current_catalogue_date(s)
     if not d:
@@ -191,11 +198,11 @@ def _direct_current_catalogue_result(root_error=None):
     if lots:
         return SourceResult(SOURCE,"LIVE",lots,
             f"Harman Healy current catalogue recovered directly: {seen} lots inspected; {len(lots)} commercial/mixed published; {res} residential rejected.",
-            discovered_count=seen,scope_dates=scopes,authoritative_snapshot=True)
+            discovered_count=seen,scope_dates=scopes,authoritative_snapshot=True,reconciliation=_telemetry(lots,seen,res))
     if seen:
         return SourceResult(SOURCE,"CATALOGUE PENDING",[],
             f"Harman Healy current catalogue recovered directly: {seen} published lots inspected, all residential; no commercial/mixed-use inventory currently published.",
-            expected_count=0,discovered_count=seen,authoritative_snapshot=True,scope_dates=scopes)
+            expected_count=0,discovered_count=seen,authoritative_snapshot=True,scope_dates=scopes,reconciliation=_telemetry(lots,seen,res))
     raise RuntimeError("current catalogue route exposed no parseable lots") from root_error
 
 
@@ -221,13 +228,13 @@ def collect():
             except Exception: failures+=1
         if all_lots:
             status="LIVE" if failures==0 else "DEGRADED"
-            return SourceResult(SOURCE,status,all_lots,f"All-future Harman Healy sweep: {total_seen} lots inspected; {len(all_lots)} commercial/mixed published; {total_res} residential rejected; {failures} catalogue failures; {fallback_count} alternate-route recoveries.",discovered_count=total_seen,scope_dates=scopes)
+            return SourceResult(SOURCE,status,all_lots,f"All-future Harman Healy sweep: {total_seen} lots inspected; {len(all_lots)} commercial/mixed published; {total_res} residential rejected; {failures} catalogue failures; {fallback_count} alternate-route recoveries.",discovered_count=total_seen,scope_dates=scopes,reconciliation=_telemetry(all_lots,total_seen,total_res,failures))
         if total_seen and failures==0:
-            return SourceResult(SOURCE,"CATALOGUE PENDING",[],f"Harman Healy future catalogue inspected: {total_seen} published lots, all residential; no commercial/mixed-use inventory currently published; {fallback_count} alternate-route recoveries.",expected_count=0,discovered_count=total_seen,authoritative_snapshot=True,scope_dates=scopes)
+            return SourceResult(SOURCE,"CATALOGUE PENDING",[],f"Harman Healy future catalogue inspected: {total_seen} published lots, all residential; no commercial/mixed-use inventory currently published; {fallback_count} alternate-route recoveries.",expected_count=0,discovered_count=total_seen,authoritative_snapshot=True,scope_dates=scopes,reconciliation=_telemetry(all_lots,total_seen,total_res,failures))
         if failures:
             try: return _direct_current_catalogue_result()
             except Exception:
-                return SourceResult(SOURCE,"FAILED",[],f"Harman Healy published future catalogue could not be reliably inspected ({failures} failures).",discovered_count=total_seen,scope_dates=scopes)
+                return SourceResult(SOURCE,"FAILED",[],f"Harman Healy published future catalogue could not be reliably inspected ({failures} failures).",discovered_count=total_seen,scope_dates=scopes,reconciliation=_telemetry(all_lots,total_seen,total_res,failures))
         return SourceResult(SOURCE,"CATALOGUE PENDING",[],"Harman Healy future catalogue currently exposes no parseable lots.",discovered_count=0,scope_dates=scopes)
     except Exception as exc:
         return SourceResult(SOURCE,"FAILED",[],f"Harman Healy collection failed: {type(exc).__name__}: {exc}")
