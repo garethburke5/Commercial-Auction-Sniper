@@ -156,7 +156,7 @@ jobs:
       - name: Bank Edward Mellor retained auction result pages
         timeout-minutes: 20
         continue-on-error: true
-        run: python -u scripts/harvest_edward_mellor_results.py --limit 16 --workers 8
+        run: python -u scripts/harvest_edward_mellor_results.py --limit 20 --workers 8
       - name: Bank Future Property Auctions archived catalogues
         timeout-minutes: 30
         continue-on-error: true
