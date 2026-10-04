@@ -1,10 +1,16 @@
 {
-  "checked_at": "2026-10-04T08:12:24.131382+00:00",
+  "checked_at": "2026-10-04T09:07:05.376915+00:00",
   "source_url": "https://www.strettons.co.uk/data/past_auction.json",
-  "auctions_discovered": 4,
+  "live_index_auctions": 4,
+  "recovered_catalogue_seeds": [
+    "2765",
+    "2766",
+    "2767"
+  ],
+  "auctions_discovered": 7,
   "auctions_captured": 4,
   "auctions_complete": 4,
-  "auctions_reused": 0,
+  "auctions_reused": 4,
   "appearances_captured": 123,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
@@ -18,48 +24,12 @@
   },
   "index_evidence": {
     "source_url": "https://www.strettons.co.uk/data/past_auction.json",
-    "retrieved_at": "2026-10-04T08:12:23.764188+00:00",
+    "retrieved_at": "2026-10-04T09:07:04.989614+00:00",
     "sha256": "dfee6b2ca032ea077c67dcb88a21565047043d732d9c5cd5db30465c2488e9f6",
     "snapshot_path": "data/auction_history/sources/strettons/past-auction-index-dfee6b2ca032ea07.json.gz",
     "basis": "first-party past-auction index JSON"
   },
   "auctions": {
-    "3609": {
-      "auctioneer": "Strettons",
-      "source_auction_id": "strettons:3609",
-      "auction_date": "2026-07-28",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_lots_offered": null,
-      "visible_source_rows": 27,
-      "lots_captured": 27,
-      "source_url": "https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/3609/page-data.json",
-      "source_updated_at": "2026-10-04T08:00:08.397Z",
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "all rows in the first-party unpaginated Gatsby pageContext.properties array",
-      "completion_scope": "all embedded property rows in the first-party past-auction payload",
-      "errors": [],
-      "checked_at": "2026-10-04T08:12:24.002761+00:00"
-    },
-    "3610": {
-      "auctioneer": "Strettons",
-      "source_auction_id": "strettons:3610",
-      "auction_date": "2026-09-10",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_lots_offered": null,
-      "visible_source_rows": 24,
-      "lots_captured": 24,
-      "source_url": "https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/3610/page-data.json",
-      "source_updated_at": "2026-10-04T08:00:07.324Z",
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "all rows in the first-party unpaginated Gatsby pageContext.properties array",
-      "completion_scope": "all embedded property rows in the first-party past-auction payload",
-      "errors": [],
-      "checked_at": "2026-10-04T08:12:24.093294+00:00"
-    },
     "3605": {
       "auctioneer": "Strettons",
       "source_auction_id": "strettons:3605",
@@ -95,7 +65,62 @@
       "completion_scope": "all embedded property rows in the first-party past-auction payload",
       "errors": [],
       "checked_at": "2026-10-04T08:12:24.125121+00:00"
+    },
+    "3609": {
+      "auctioneer": "Strettons",
+      "source_auction_id": "strettons:3609",
+      "auction_date": "2026-07-28",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_lots_offered": null,
+      "visible_source_rows": 27,
+      "lots_captured": 27,
+      "source_url": "https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/3609/page-data.json",
+      "source_updated_at": "2026-10-04T08:00:08.397Z",
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "all rows in the first-party unpaginated Gatsby pageContext.properties array",
+      "completion_scope": "all embedded property rows in the first-party past-auction payload",
+      "errors": [],
+      "checked_at": "2026-10-04T08:12:24.002761+00:00"
+    },
+    "3610": {
+      "auctioneer": "Strettons",
+      "source_auction_id": "strettons:3610",
+      "auction_date": "2026-09-10",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_lots_offered": null,
+      "visible_source_rows": 24,
+      "lots_captured": 24,
+      "source_url": "https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/3610/page-data.json",
+      "source_updated_at": "2026-10-04T08:00:07.324Z",
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "all rows in the first-party unpaginated Gatsby pageContext.properties array",
+      "completion_scope": "all embedded property rows in the first-party past-auction payload",
+      "errors": [],
+      "checked_at": "2026-10-04T08:12:24.093294+00:00"
     }
   },
-  "failures": []
+  "failures": [
+    {
+      "auction_id": "2765",
+      "auction_date": "2025-07-10",
+      "url": "https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/2765/page-data.json",
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/2765/page-data.json"
+    },
+    {
+      "auction_id": "2767",
+      "auction_date": "2025-10-23",
+      "url": "https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/2767/page-data.json",
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/2767/page-data.json"
+    },
+    {
+      "auction_id": "2766",
+      "auction_date": "2025-09-11",
+      "url": "https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/2766/page-data.json",
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/2766/page-data.json"
+    }
+  ]
 }
