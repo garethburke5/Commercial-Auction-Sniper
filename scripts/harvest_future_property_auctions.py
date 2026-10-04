@@ -45,7 +45,13 @@ def epoch_date(value: int | float | None) -> str | None:
 def fetch_json(url: str) -> tuple[bytes, dict]:
     response = None
     for attempt in range(4):
-        response = requests.get(url, headers=HEADERS, timeout=150)
+        try:
+            response = requests.get(url, headers=HEADERS, timeout=150)
+        except requests.RequestException:
+            if attempt == 3:
+                raise
+            time.sleep(2.0 * (attempt + 1))
+            continue
         if response.status_code not in {403, 429, 500, 502, 503, 504} or attempt == 3:
             break
         retry_after = response.headers.get("Retry-After", "")

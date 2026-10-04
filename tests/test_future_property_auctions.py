@@ -148,3 +148,35 @@ def test_fetch_json_retries_transient_source_responses(monkeypatch):
     assert len(calls) == 3
     assert all(call[1]["headers"] == future.HEADERS for call in calls)
     assert sleeps == [2.0, 4.0]
+
+
+def test_fetch_json_retries_transient_connection_errors(monkeypatch):
+    import scripts.harvest_future_property_auctions as future
+
+    attempts = iter((future.requests.Timeout("source timed out"), None))
+    sleeps = []
+
+    class Response:
+        status_code = 200
+        headers = {"content-type": "application/json"}
+        content = b'{"ok": true, "padding": 1}'
+
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return {"ok": True, "padding": 1}
+
+    def get(*_args, **_kwargs):
+        result = next(attempts)
+        if result:
+            raise result
+        return Response()
+
+    monkeypatch.setattr(future.requests, "get", get)
+    monkeypatch.setattr(future.time, "sleep", sleeps.append)
+
+    _raw, payload = future.fetch_json("https://example.test/archive")
+
+    assert payload["ok"] is True
+    assert sleeps == [2.0]
