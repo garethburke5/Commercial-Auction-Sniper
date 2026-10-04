@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-04T06:23:13.448385+00:00",
+  "checked_at": "2026-10-04T06:41:55.495347+00:00",
   "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v1/auctionsArchived",
   "archive_auctions_discovered": 231,
   "archive_date_min": "2019-09-24",
@@ -8,8 +8,8 @@
   "catalogues_pending": 171,
   "catalogues_attempted_this_run": 12,
   "appearances_captured": 22601,
-  "run_new_appearances": 5103,
-  "run_new_address_records": 5103,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
   "by_status": {
     "unsold": 21220,
@@ -22,7 +22,7 @@
     "residential": 7034
   },
   "privacy_note": "source snapshots exclude registrants, bidder/user UUIDs, full bid histories and reserve values",
-  "manifest_refresh_error": null,
+  "manifest_refresh_error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v1/auctionsArchived",
   "archive_evidence": {
     "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v1/auctionsArchived",
     "retrieved_at": "2026-10-04T06:22:34.848295+00:00",
@@ -1375,6 +1375,34 @@
       "errors": [],
       "checked_at": "2026-10-04T03:10:47.858226+00:00"
     },
+    "10127": {
+      "auctioneer": "Future Property Auctions",
+      "source_auction_id": "future-property:6637e407-3b41-466f-8d1f-c6c6a7c1fb03",
+      "source_numeric_auction_id": "10127",
+      "auction_uuid": "6637e407-3b41-466f-8d1f-c6c6a7c1fb03",
+      "auction_title": "Timed Online Auction- Thursday 18th September 2025, 10am-3pm",
+      "auction_date": "2025-09-18",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_listing_count": 574,
+      "lots_captured": 574,
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "complete first-party BidJS listing map for this archived auction",
+      "completion_scope": "all listing UUIDs in the archived auction payload",
+      "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/6637e407-3b41-466f-8d1f-c6c6a7c1fb03",
+      "source_evidence": {
+        "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/6637e407-3b41-466f-8d1f-c6c6a7c1fb03",
+        "public_url": "https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/",
+        "retrieved_at": "2026-10-04T06:22:43.975518+00:00",
+        "sha256": "3e8c853c6b4f0b5544c418b0837388f0a82bc41012519ca8d0a9335a503b4c6b",
+        "snapshot_path": "data/auction_history/sources/future_property_auctions/10127/auction-3e8c853c6b4f0b55.json.gz",
+        "archive_snapshot_path": "data/auction_history/sources/future_property_auctions/archive-3ffc5e795dba43ea.json.gz",
+        "basis": "complete first-party public BidJS archived-auction payload"
+      },
+      "errors": [],
+      "checked_at": "2026-10-04T06:22:44.393174+00:00"
+    },
     "10150": {
       "auctioneer": "Future Property Auctions",
       "source_auction_id": "future-property:fa0559b8-60ad-40c2-af6a-723933daf70d",
@@ -1430,34 +1458,6 @@
       },
       "errors": [],
       "checked_at": "2026-10-04T06:22:43.441663+00:00"
-    },
-    "10127": {
-      "auctioneer": "Future Property Auctions",
-      "source_auction_id": "future-property:6637e407-3b41-466f-8d1f-c6c6a7c1fb03",
-      "source_numeric_auction_id": "10127",
-      "auction_uuid": "6637e407-3b41-466f-8d1f-c6c6a7c1fb03",
-      "auction_title": "Timed Online Auction- Thursday 18th September 2025, 10am-3pm",
-      "auction_date": "2025-09-18",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_listing_count": 574,
-      "lots_captured": 574,
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "complete first-party BidJS listing map for this archived auction",
-      "completion_scope": "all listing UUIDs in the archived auction payload",
-      "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/6637e407-3b41-466f-8d1f-c6c6a7c1fb03",
-      "source_evidence": {
-        "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/6637e407-3b41-466f-8d1f-c6c6a7c1fb03",
-        "public_url": "https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/",
-        "retrieved_at": "2026-10-04T06:22:43.975518+00:00",
-        "sha256": "3e8c853c6b4f0b5544c418b0837388f0a82bc41012519ca8d0a9335a503b4c6b",
-        "snapshot_path": "data/auction_history/sources/future_property_auctions/10127/auction-3e8c853c6b4f0b55.json.gz",
-        "archive_snapshot_path": "data/auction_history/sources/future_property_auctions/archive-3ffc5e795dba43ea.json.gz",
-        "basis": "complete first-party public BidJS archived-auction payload"
-      },
-      "errors": [],
-      "checked_at": "2026-10-04T06:22:44.393174+00:00"
     },
     "9950": {
       "auctioneer": "Future Property Auctions",
@@ -1515,34 +1515,6 @@
       "errors": [],
       "checked_at": "2026-10-04T06:22:47.599506+00:00"
     },
-    "9973": {
-      "auctioneer": "Future Property Auctions",
-      "source_auction_id": "future-property:14716a4c-cd5d-4b88-bace-0d75c2695e18",
-      "source_numeric_auction_id": "9973",
-      "auction_uuid": "14716a4c-cd5d-4b88-bace-0d75c2695e18",
-      "auction_title": "Timed Online Auction- Thursday 17th July 2025, 10am-3pm",
-      "auction_date": "2025-07-17",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_listing_count": 180,
-      "lots_captured": 180,
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "complete first-party BidJS listing map for this archived auction",
-      "completion_scope": "all listing UUIDs in the archived auction payload",
-      "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/14716a4c-cd5d-4b88-bace-0d75c2695e18",
-      "source_evidence": {
-        "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/14716a4c-cd5d-4b88-bace-0d75c2695e18",
-        "public_url": "https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/",
-        "retrieved_at": "2026-10-04T06:22:51.614238+00:00",
-        "sha256": "bdba0073bedf3bc9c00e0d8721b9e2f1e410e547395698a0f7f336823774f28b",
-        "snapshot_path": "data/auction_history/sources/future_property_auctions/9973/auction-bdba0073bedf3bc9.json.gz",
-        "archive_snapshot_path": "data/auction_history/sources/future_property_auctions/archive-3ffc5e795dba43ea.json.gz",
-        "basis": "complete first-party public BidJS archived-auction payload"
-      },
-      "errors": [],
-      "checked_at": "2026-10-04T06:22:51.746833+00:00"
-    },
     "9949": {
       "auctioneer": "Future Property Auctions",
       "source_auction_id": "future-property:f4dac08a-8322-4fff-bb17-8f6558c2b1b5",
@@ -1598,6 +1570,34 @@
       },
       "errors": [],
       "checked_at": "2026-10-04T06:22:59.563590+00:00"
+    },
+    "9973": {
+      "auctioneer": "Future Property Auctions",
+      "source_auction_id": "future-property:14716a4c-cd5d-4b88-bace-0d75c2695e18",
+      "source_numeric_auction_id": "9973",
+      "auction_uuid": "14716a4c-cd5d-4b88-bace-0d75c2695e18",
+      "auction_title": "Timed Online Auction- Thursday 17th July 2025, 10am-3pm",
+      "auction_date": "2025-07-17",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_listing_count": 180,
+      "lots_captured": 180,
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "complete first-party BidJS listing map for this archived auction",
+      "completion_scope": "all listing UUIDs in the archived auction payload",
+      "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/14716a4c-cd5d-4b88-bace-0d75c2695e18",
+      "source_evidence": {
+        "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/14716a4c-cd5d-4b88-bace-0d75c2695e18",
+        "public_url": "https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/",
+        "retrieved_at": "2026-10-04T06:22:51.614238+00:00",
+        "sha256": "bdba0073bedf3bc9c00e0d8721b9e2f1e410e547395698a0f7f336823774f28b",
+        "snapshot_path": "data/auction_history/sources/future_property_auctions/9973/auction-bdba0073bedf3bc9.json.gz",
+        "archive_snapshot_path": "data/auction_history/sources/future_property_auctions/archive-3ffc5e795dba43ea.json.gz",
+        "basis": "complete first-party public BidJS archived-auction payload"
+      },
+      "errors": [],
+      "checked_at": "2026-10-04T06:22:51.746833+00:00"
     },
     "9890": {
       "auctioneer": "Future Property Auctions",
@@ -1712,5 +1712,78 @@
       "checked_at": "2026-10-04T06:23:10.467432+00:00"
     }
   },
-  "failures": []
+  "failures": [
+    {
+      "auction_id": "9598",
+      "auction_uuid": "273a27c1-44e9-43f8-b996-b06264d4eb9c",
+      "title": "Timed Online Auction- Thursday 29th May 2025, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/273a27c1-44e9-43f8-b996-b06264d4eb9c"
+    },
+    {
+      "auction_id": "9597",
+      "auction_uuid": "8f0f4a2a-bac2-4a2b-b221-0f966da2d6f4",
+      "title": "Timed Online Auction- Thursday 15th May 2025, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/8f0f4a2a-bac2-4a2b-b221-0f966da2d6f4"
+    },
+    {
+      "auction_id": "9775",
+      "auction_uuid": "bc60aac2-343a-4012-928e-90cbd944ef84",
+      "title": "Timed Online Auction- Thursday 22nd May 2025, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/bc60aac2-343a-4012-928e-90cbd944ef84"
+    },
+    {
+      "auction_id": "9638",
+      "auction_uuid": "cfedf107-d5d5-4c0e-8881-04edc4e89807",
+      "title": "Timed Online Auction- Thursday 24th April 2025, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/cfedf107-d5d5-4c0e-8881-04edc4e89807"
+    },
+    {
+      "auction_id": "9445",
+      "auction_uuid": "7db57bcd-9eb2-4ab7-bf39-55a511133c6b",
+      "title": "Timed Online Auction- Thursday 17th April 2025, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/7db57bcd-9eb2-4ab7-bf39-55a511133c6b"
+    },
+    {
+      "auction_id": "9596",
+      "auction_uuid": "56065681-c068-41a5-94ce-1550eb12bbe7",
+      "title": "Timed Online Auction- Thursday 1st May 2025, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/56065681-c068-41a5-94ce-1550eb12bbe7"
+    },
+    {
+      "auction_id": "9441",
+      "auction_uuid": "cad581d2-a605-4772-83ce-62a5df37cfb9",
+      "title": "Timed Online Auction- Thursday 3rd April 2025, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/cad581d2-a605-4772-83ce-62a5df37cfb9"
+    },
+    {
+      "auction_id": "9521",
+      "auction_uuid": "74085114-95f7-4132-8a3f-717c1522c895",
+      "title": "Timed Online Auction- Thursday 27th March 2025, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/74085114-95f7-4132-8a3f-717c1522c895"
+    },
+    {
+      "auction_id": "9332",
+      "auction_uuid": "c106d68b-631c-4ea3-aaf4-aa35f46460fe",
+      "title": "Timed Online Auction- Thursday 20th March 2025, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/c106d68b-631c-4ea3-aaf4-aa35f46460fe"
+    },
+    {
+      "auction_id": "9331",
+      "auction_uuid": "1b9e1795-4fbc-4bc1-9d53-7772f74c7771",
+      "title": "Timed Online Auction- Thursday 6th March 2025, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/1b9e1795-4fbc-4bc1-9d53-7772f74c7771"
+    },
+    {
+      "auction_id": "9395",
+      "auction_uuid": "f12bb37a-9b68-4cac-bce0-a3f97c5a1175",
+      "title": "Timed Online Auction- Thursday 27th February 2025, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/f12bb37a-9b68-4cac-bce0-a3f97c5a1175"
+    },
+    {
+      "auction_id": "9268",
+      "auction_uuid": "77450c16-9afd-48a4-91ef-9025e069d4f7",
+      "title": "Timed Online Auction- Thursday 20th February 2025, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/77450c16-9afd-48a4-91ef-9025e069d4f7"
+    }
+  ]
 }
