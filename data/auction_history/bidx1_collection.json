@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-10-04T09:19:43.442366+00:00",
-  "seed_auctions": 4,
-  "catalogues_complete": 4,
-  "property_appearances_captured": 49,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "checked_at": "2026-10-04T10:11:20.900964+00:00",
+  "seed_auctions": 10,
+  "catalogues_complete": 8,
+  "property_appearances_captured": 72,
+  "run_new_appearances": 23,
+  "run_new_address_records": 23,
   "run_new_partial_lots": 0,
   "by_sector": {
-    "commercial": 19,
-    "residential": 30
+    "commercial": 37,
+    "residential": 35
   },
   "auctions": {
     "4561": {
@@ -30,7 +30,38 @@
       "published_result_count": 1,
       "lots_captured": 1,
       "catalogue_complete": true
+    },
+    "2838": {
+      "published_result_count": 20,
+      "lots_captured": 20,
+      "catalogue_complete": true
+    },
+    "3184": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
+    },
+    "3185": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
+    },
+    "3200": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     }
   },
-  "failures": []
+  "failures": [
+    {
+      "auction_id": "3201",
+      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3201&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
+      "error": "ValueError: source returned no expected BidX1 content"
+    },
+    {
+      "auction_id": "3215",
+      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3215&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
+      "error": "ValueError: source returned no expected BidX1 content"
+    }
+  ]
 }
