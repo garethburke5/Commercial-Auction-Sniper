@@ -26,7 +26,7 @@ python scripts/harvest_bidx1_canonical.py
 python scripts/harvest_btg_eddisons_catalogues.py 4
 python scripts/harvest_sdl_legacy_catalogues.py --limit 10
 python scripts/harvest_anderson_garland_results.py
-python scripts/harvest_edward_mellor_results.py --limit 12 --workers 8
+python scripts/harvest_edward_mellor_results.py --limit 16 --workers 8
 python scripts/harvest_future_property_auctions.py --limit 4 --workers 3
 python scripts/harvest_town_country_results.py --workers 4
 python scripts/harvest_brown_co_results.py
