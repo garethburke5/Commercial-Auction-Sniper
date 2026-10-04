@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-04T09:21:06.692979+00:00",
+  "checked_at": "2026-10-04T12:11:23.474065+00:00",
   "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v1/auctionsArchived",
   "archive_auctions_discovered": 231,
   "archive_date_min": "2019-09-24",
@@ -2050,16 +2050,16 @@
   },
   "failures": [
     {
-      "auction_id": "9279",
-      "auction_uuid": "41124e93-4491-4fe3-8c97-9f4628bfd007",
-      "title": "Timed Online Auction- Thursday 30th January 2025, 10am-3pm",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/41124e93-4491-4fe3-8c97-9f4628bfd007"
-    },
-    {
       "auction_id": "9179",
       "auction_uuid": "ed67e343-6356-4f93-9c05-07611d586d0e",
       "title": "Timed Online Auction- Thursday 23rd January 2025, 10am-3pm",
       "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/ed67e343-6356-4f93-9c05-07611d586d0e"
+    },
+    {
+      "auction_id": "9279",
+      "auction_uuid": "41124e93-4491-4fe3-8c97-9f4628bfd007",
+      "title": "Timed Online Auction- Thursday 30th January 2025, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/41124e93-4491-4fe3-8c97-9f4628bfd007"
     },
     {
       "auction_id": "9225",
@@ -2086,12 +2086,6 @@
       "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/641870a2-6e56-4f27-b32d-228c9c51f5fa"
     },
     {
-      "auction_id": "9091",
-      "auction_uuid": "f3500d1c-e2ca-44a3-b718-c3f164707888",
-      "title": "SPECIAL 150 LOT AUCTION on behalf of Asset Managers - Thursday 5th December 2024, 10am-3pm",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/f3500d1c-e2ca-44a3-b718-c3f164707888"
-    },
-    {
       "auction_id": "9001",
       "auction_uuid": "6fd7613a-7fe3-4a71-9bdd-c095e040d574",
       "title": "Timed Online Auction- Thursday 28th November 2024, 10am-3pm",
@@ -2102,6 +2096,12 @@
       "auction_uuid": "e10976f2-57d8-4aac-a2a5-4b37a5dc15de",
       "title": "Timed Online Auction- Thursday 14th November 2024, 10am-3pm",
       "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/e10976f2-57d8-4aac-a2a5-4b37a5dc15de"
+    },
+    {
+      "auction_id": "9091",
+      "auction_uuid": "f3500d1c-e2ca-44a3-b718-c3f164707888",
+      "title": "SPECIAL 150 LOT AUCTION on behalf of Asset Managers - Thursday 5th December 2024, 10am-3pm",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/f3500d1c-e2ca-44a3-b718-c3f164707888"
     },
     {
       "auction_id": "8947",
