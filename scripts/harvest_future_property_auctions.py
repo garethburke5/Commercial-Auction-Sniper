@@ -50,6 +50,45 @@ def fetch_json(url: str) -> tuple[bytes, dict]:
     return raw, response.json()
 
 
+def fetch_manifest() -> tuple[dict, dict, str | None]:
+    """Refresh the archive index, falling back to its newest saved evidence.
+
+    BidJS can temporarily refuse the archive-index request after a successful
+    collection run.  A retained first-party manifest is safe to reuse as a work
+    queue: individual auctions are still fetched afresh and must reconcile
+    before any appearance is admitted.
+    """
+    snapshot_dir = corpus.DATA / "sources/future_property_auctions"
+    try:
+        raw, payload = fetch_json(ARCHIVE_URL)
+    except requests.RequestException as exc:
+        candidates = []
+        for path in snapshot_dir.glob("archive-*.json.gz"):
+            try:
+                saved = corpus.read_gzip(path)
+                evidence = saved.get("evidence") or {}
+                payload = saved.get("payload")
+                manifest_rows(payload)
+                candidates.append((evidence.get("retrieved_at") or "", path, payload, evidence))
+            except (OSError, ValueError, TypeError, json.JSONDecodeError):
+                continue
+        if not candidates:
+            raise
+        _, path, payload, evidence = max(candidates, key=lambda item: item[0])
+        error = f"{type(exc).__name__}: {exc}"[:500]
+        return payload, evidence, error
+
+    manifest_sha, retrieved_at = corpus.digest(raw), corpus.now()
+    snapshot = snapshot_dir / f"archive-{manifest_sha[:16]}.json.gz"
+    evidence = {
+        "source_url": ARCHIVE_URL, "retrieved_at": retrieved_at, "sha256": manifest_sha,
+        "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
+        "basis": "first-party public BidJS archived-auction manifest",
+    }
+    corpus.save_gzip(snapshot, {"evidence": evidence, "payload": payload})
+    return payload, evidence, None
+
+
 def manifest_rows(payload: dict) -> list[dict]:
     rows = payload.get("basicAuctionBidJSModelList")
     if not isinstance(rows, list) or not rows:
@@ -222,15 +261,7 @@ def sanitized_snapshot(payload: dict, evidence: dict) -> dict:
 
 
 def harvest(limit: int = 12, workers: int = 3) -> None:
-    raw, manifest_payload = fetch_json(ARCHIVE_URL)
-    manifest_sha, retrieved_at = corpus.digest(raw), corpus.now()
-    manifest_snapshot = corpus.DATA / "sources/future_property_auctions" / f"archive-{manifest_sha[:16]}.json.gz"
-    manifest_evidence = {
-        "source_url": ARCHIVE_URL, "retrieved_at": retrieved_at, "sha256": manifest_sha,
-        "snapshot_path": str(manifest_snapshot.relative_to(corpus.ROOT)),
-        "basis": "first-party public BidJS archived-auction manifest",
-    }
-    corpus.save_gzip(manifest_snapshot, {"evidence": manifest_evidence, "payload": manifest_payload})
+    manifest_payload, manifest_evidence, manifest_refresh_error = fetch_manifest()
     manifest = manifest_rows(manifest_payload)
 
     appearance_path = corpus.DATA / "appearances/future_property_auctions/archive.jsonl.gz"
@@ -311,6 +342,7 @@ def harvest(limit: int = 12, workers: int = 3) -> None:
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
         "privacy_note": "source snapshots exclude registrants, bidder/user UUIDs, full bid histories and reserve values",
+        "manifest_refresh_error": manifest_refresh_error,
         "archive_evidence": manifest_evidence, "auctions": states, "failures": failures,
     }
     corpus.save_json(corpus.DATA / "future_property_auctions_collection.json", summary)
