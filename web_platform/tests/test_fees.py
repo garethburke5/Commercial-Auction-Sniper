@@ -82,7 +82,7 @@ def test_directory_and_house_page_render_same_evidence_without_changing_income(t
     assert prop.select_one('#property-target')['value'] == '10'
     assert prop.select_one('.yield-calculator .target-price').get_text() == '£100,000'
     for path, bundle in site.board_assets():
-        if not path.endswith('/index.json'):
+        if path.startswith('/board/') and not path.endswith('/index.json'):
             for markup in json.loads(bundle).values():
                 assert 'target-price' not in markup and 'GIY at guide' in markup
 
@@ -137,7 +137,7 @@ def test_card_markup_changes_invalidate_browser_bundles(tmp_path,monkeypatch):
     before=Site(EmptyCatalogue())
     (tmp_path/'templates').mkdir()
     (tmp_path/'static').mkdir()
-    for name in ('site.css','board.js','search.js'):
+    for name in ('site.css','board.js','search.js','workspace.js'):
         (tmp_path/'static'/name).write_bytes((module.HERE/'static'/name).read_bytes())
     (tmp_path/'templates/cards.html').write_text('changed card markup')
     monkeypatch.setattr(module,'HERE',tmp_path)

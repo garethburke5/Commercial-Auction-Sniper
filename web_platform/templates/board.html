@@ -15,6 +15,7 @@
       <div class="filter-actions"><button type="button" id="clear-filters" class="button outline">Clear filters</button><button type="submit" class="button">Apply filters</button></div>
     </details>
   </form>
+  <div class="save-search"><label>Search name<input id="search-name" maxlength="160" placeholder="e.g. North West retail, 10%+"></label><button class="button outline" id="save-search" type="button">Save this search</button><a href="{{ url('/account/') }}#my-searches">My searches →</a></div>
   <div class="board-toolbar"><div><h2>Current auction properties</h2><p id="result-count" role="status" aria-live="polite">Showing {{ (page-1)*50+1 if catalogue.properties else 0 }}–{{ [page*50,catalogue.properties|length]|min }} of {{ catalogue.properties|length }} lots</p></div>
     <div class="board-options"><label>Sort by<select id="sort-order"><option value="date">Auction date · soonest</option><option value="price">Guide price · lowest</option><option value="yield">GIY · highest</option></select></label><label>Show<select id="page-size"><option>10</option><option selected>50</option><option>100</option><option>All</option></select></label></div>
   </div>

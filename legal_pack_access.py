@@ -15,7 +15,7 @@ def property_context(property_id):
   if identity(row)==property_id:
    return {'id':property_id,'reference':row['address'],'guide':row.get('guide_price'),
     'rent':row.get('annual_rent'),'url':row.get('url'),'legal_pack_url':row.get('legal_pack_url'),
-    'source':row.get('source'),'description':row.get('description','')}
+    'source':row.get('source'),'description':row.get('description',''),'tenure':row.get('tenure'),'tenant':row.get('tenant'),'occupation':row.get('occupation'),'guide_price_upper':row.get('guide_price_upper')}
  return {}
 
 def is_direct_pack(url):

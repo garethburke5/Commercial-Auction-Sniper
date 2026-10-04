@@ -33,3 +33,16 @@ def test_pack_deduplicates_and_flags_real_legacy_office_signature():
  assert any(a.status=='conversion_required' for a in result.assets)
 def test_text_document_classifies():
  doc=ingest_bytes('EPC.txt',b'Energy rating C (58)');assert doc.doc_type==DocType.EPC
+
+def test_zip_traversal_and_symlink_are_rejected_without_losing_good_documents():
+ import stat
+ from zipfile import ZipInfo
+ bio=BytesIO()
+ with ZipFile(bio,'w') as z:
+  z.writestr('../outside.txt','unsafe')
+  z.writestr('/absolute.txt','unsafe')
+  link=ZipInfo('linked.txt');link.create_system=3;link.external_attr=(stat.S_IFLNK|0o777)<<16;z.writestr(link,'/etc/passwd')
+  z.writestr('nested/conditions.docx',make_docx_bytes())
+ result=ingest_pack([('auctioneer-pack.zip',bio.getvalue())])
+ assert len(result.documents)==1 and result.documents[0].name.endswith('conditions.docx')
+ assert sum(i.code=='UNSAFE_ARCHIVE_MEMBER' for i in result.issues)==3

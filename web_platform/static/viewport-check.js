@@ -10,3 +10,5 @@ document.querySelector('#plans').onclick=()=>document.querySelector('iframe').sr
 
 document.querySelector('#research').onclick=()=>document.querySelector('iframe').src='https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app/~/+/?embed=true&view=due-diligence';
 document.querySelector('#glossary').onclick=()=>document.querySelector('iframe').src='../glossary/?viewport-check='+Date.now();
+
+for(const [id,path] of [['account','account'],['deals','deals'],['owner','admin/deals']])document.getElementById(id).onclick=()=>document.querySelector('iframe').src='../'+path+'/?viewport-check='+Date.now();

@@ -1,0 +1,15 @@
+from source_reconciliation import reconcile
+
+def test_current_candidates_cannot_disappear_as_a_silent_authoritative_zero():
+    snapshot={'generated_at':'2099-01-01','properties':[], 'source_health':[{'source':'Barnett Ross','status':'LIVE','checked_at':'2099-01-01','authoritative_snapshot':True,'reconciliation':{'current_catalogue_detected':True,'source_lot_count':30,'lots_parsed':30,'commercial_mixed_candidates':8}}]}
+    r=next(r for r in reconcile(snapshot)['sources'] if r['auctioneer']=='Barnett Ross')
+    assert r['status']=='DEGRADED' and r['published_rows']==0
+    assert 'disappeared' in r['failure_reason'] and r['live_rows'] is None
+
+def test_missing_telemetry_is_unknown_not_zero_and_a_measured_zero_is_explained():
+    snapshot={'properties':[], 'source_health':[{'source':'Barnett Ross','status':'LIVE','reconciliation':{'current_catalogue_detected':True}}]}
+    r=next(r for r in reconcile(snapshot)['sources'] if r['auctioneer']=='Barnett Ross')
+    assert r['source_lot_count'] is None and r['status']=='DEGRADED'
+    snapshot['source_health'][0]['reconciliation'].update(commercial_mixed_candidates=0,classification_rejections=10,source_lot_count=10,lots_parsed=10)
+    r=next(r for r in reconcile(snapshot)['sources'] if r['auctioneer']=='Barnett Ross')
+    assert r['classification_rejections']==10 and r['failure_reason'] is None

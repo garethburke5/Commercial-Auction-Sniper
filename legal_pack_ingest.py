@@ -205,7 +205,14 @@ def ingest_pack(files:Iterable[tuple[str,bytes]],ocr=False,progress=None):
       result.issues.append(IngestIssue(filename,"ARCHIVE_LIMIT","Archive exceeds safe member/size limits.","error"));return
      result.assets.append(IngestAsset(filename,"zip","expanded",f"Expanded {len(members)} member(s).",digest,len(raw),container))
      for info in members:
-      member=f"{filename}::{info.filename}";process(member,z.read(info),filename,depth+1)
+      member=f"{filename}::{info.filename}"
+      from pathlib import PurePosixPath
+      import stat
+      unsafe=(info.filename.startswith(('/', '\\')) or '..' in PurePosixPath(info.filename.replace('\\','/')).parts or re.match(r'^[A-Za-z]:',info.filename) or stat.S_ISLNK(info.external_attr >> 16) or info.flag_bits & 1)
+      if unsafe or info.file_size > MAX_PACK_BYTES or (info.compress_size and info.file_size/info.compress_size>500):
+       result.issues.append(IngestIssue(member,'UNSAFE_ARCHIVE_MEMBER','Unsafe, encrypted or excessive-compression archive member rejected.','error'))
+       result.assets.append(IngestAsset(member,'binary','unsupported','Archive member rejected.'));continue
+      process(member,z.read(info),filename,depth+1)
    except Exception as e:result.issues.append(IngestIssue(filename,"ARCHIVE_FAILED",f"Archive expansion failed: {e}","error"))
    return
   if kind=="image":

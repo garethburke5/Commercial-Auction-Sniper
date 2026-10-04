@@ -29,14 +29,18 @@ def create_app(site=None):
         yield
         site.catalogue.close()
     app=FastAPI(title='Auction Sniper platform',lifespan=lifespan,docs_url=None,redoc_url=None)
+    from fastapi.middleware.cors import CORSMiddleware
+    from urllib.parse import urlsplit
+    public=urlsplit(site.origin)
+    app.add_middleware(CORSMiddleware,allow_origins=[public.scheme+'://'+public.netloc],allow_methods=['GET','POST','PUT','DELETE'],allow_headers=['Authorization','Content-Type'])
     app.mount('/static',StaticFiles(directory=HERE/'static'),name='static')
     @app.middleware('http')
     async def security(request,call_next):
         response=await call_next(request)
         response.headers['X-Content-Type-Options']='nosniff'
         response.headers['Referrer-Policy']='strict-origin-when-cross-origin'
-        response.headers['Content-Security-Policy']="default-src 'self'; img-src 'self' https:; style-src 'self'; script-src 'self'; frame-src https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
-        if request.url.path.startswith(('/api/account','/api/billing')):
+        response.headers['Content-Security-Policy']="default-src 'self'; img-src 'self' https:; style-src 'self'; script-src 'self'; connect-src 'self' https://*.supabase.co; frame-src https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+        if request.url.path.startswith('/api/'):
             response.headers['Cache-Control']='no-store';response.headers['X-Robots-Tag']='noindex'
         return response
     def user(authorization):
@@ -46,12 +50,15 @@ def create_app(site=None):
     def account(authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization)
         with a.db() as db: saved=[r[0] for r in db.execute('SELECT property_id FROM saved WHERE user_id=? ORDER BY created_at DESC',(uid,))]
-        return {'plan':a.plan(uid),'saved_properties':saved,'purchases':a.purchases(uid)}
+        from .workspace import dashboard
+        from .deals import workspace_rows
+        return {'plan':a.plan(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,site.catalogue.rows|workspace_rows(a))}
     @app.put('/api/account/saved/{property_id}')
     def save(property_id:str,authorization:str|None=Header(default=None)):
         import time
         uid,a,_=user(authorization)
-        if property_id not in site.catalogue.rows: raise HTTPException(404,'Unknown property')
+        from .deals import workspace_rows
+        if property_id not in site.catalogue.rows and property_id not in workspace_rows(a): raise HTTPException(404,'Unknown property')
         with a.db() as db: db.execute('INSERT OR IGNORE INTO saved VALUES (?,?,?)',(uid,property_id,int(time.time())))
         return {'saved':True}
     @app.delete('/api/account/saved/{property_id}')
@@ -79,6 +86,12 @@ def create_app(site=None):
         body=await request.body()
         if len(body)>1000000: raise HTTPException(413,'Request too large')
         _,b=private_services();return {'status':b.webhook(body,stripe_signature)}
+    from .review_api import install as install_reviews
+    install_reviews(app,site,user)
+    from .customer_api import install
+    install(app,site,user)
+    from .deals import install as install_deals
+    install_deals(app,site,user,private_services)
     @app.get('/sitemap.xml')
     def sitemap(): return Response(site.sitemap(pages),media_type='application/xml')
     @app.get('/robots.txt')

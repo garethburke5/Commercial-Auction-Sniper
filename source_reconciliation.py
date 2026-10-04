@@ -36,7 +36,8 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
         reasons=[]
         if h.get('status') in ('FAILED','DEGRADED','MISSING','NOT IMPLEMENTED'):reasons.append(h.get('message') or h.get('status'))
         if current and (qualifying or 0)>0 and publish[source]==0:reasons.append('Qualifying current candidates disappeared before publication')
-        if current and publish[source]==0 and not h.get('authoritative_snapshot'):reasons.append('Current catalogue detected but no qualifying public rows; reconciliation required')
+        if current and publish[source]==0 and qualifying is None:reasons.append('Current catalogue detected but no public rows or measured classification outcome; reconciliation required')
+        if qualifying and publish[source]<qualifying*.5:reasons.append(f'Candidate/publication drop: {qualifying} commercial/mixed-use candidates → {publish[source]} current rows; inspect dates and rejection evidence')
         if old[source]>=5 and publish[source]<old[source]*.5:reasons.append(f'Count collapse: {old[source]} still-current prior rows → {publish[source]} published')
         parsed=metric('lots_parsed','detail_pages_inspected')
         if source_count and parsed is not None and parsed<source_count*.8:reasons.append(f'Incomplete parsing: {parsed}/{source_count} source lots')
@@ -59,4 +60,10 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
 
 def attach(snapshot, previous=None):
     snapshot['source_reconciliation']=reconcile(snapshot,previous)
+    health={h['source']:h for h in snapshot.get('source_health',[])}
+    for record in snapshot['source_reconciliation']['sources']:
+        if record['status']=='DEGRADED' and record['auctioneer'] in health:
+            h=health[record['auctioneer']]
+            h['coverage_status']='DEGRADED'
+            h['coverage_failure_reason']=record['failure_reason']
     return snapshot

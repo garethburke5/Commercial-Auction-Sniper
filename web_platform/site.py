@@ -15,6 +15,7 @@ from .fees import load_fees, directory, fee_profile, estimate_fee
 from .particulars import structured_particulars
 from .enrichment import ordered_images
 from .glossary import GROUPS, SOURCES, REVIEWED
+from .workspace import observation
 
 HERE = Path(__file__).parent
 LIVE = 'https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app/'
@@ -34,6 +35,8 @@ class Site:
         self.prefix = '/' + self.base if self.base else ''
         self.env = Environment(loader=FileSystemLoader(HERE/'templates'), autoescape=select_autoescape())
         self.env.globals.update(money=money, uk_date=uk_date, url=lambda p: self.prefix+p, live=LIVE)
+        from .market_context import MarketContext
+        self.market=MarketContext(self.catalogue)
         self.fees = load_fees()
         self.fee_directory = directory(self.catalogue, self.fees)
         evidence_path = HERE/'property_evidence.json'
@@ -51,7 +54,7 @@ class Site:
             + (HERE/'templates/cards.html').read_bytes() + self.prefix.encode()
             + str(SEARCH_INDEX_VERSION).encode()).hexdigest()[:12]
         self.env.globals['asset_version'] = hashlib.sha256((HERE/'static/site.css').read_bytes()
-            + (HERE/'static/board.js').read_bytes() + (HERE/'static/search.js').read_bytes()).hexdigest()[:12]
+            + (HERE/'static/workspace.js').read_bytes() + (HERE/'static/board.js').read_bytes() + (HERE/'static/search.js').read_bytes()).hexdigest()[:12]
         self.env.globals.update(board_index=f'/board/{self.board_version}/index.json')
 
     def page(self, path, title, kind, description, **ctx):
@@ -90,9 +93,10 @@ class Site:
             gallery = ordered_images([{'url':row.get('image_url'),'label':'Auctioneer primary photograph'}] if row.get('image_url') else [], row['url'])
             if row.get('image_url'):
                 gallery += ordered_images(row.get('gallery_images') or evidence.get('gallery') or [], row['url'], row.get('image_url'))
+            context=self.market.for_property(row)
             yield row['path'], self.page(row['path'],row['address'],'property',
                 f"{row['source']} · {row.get('property_type') or 'Auction property'} · Guide {row['guide']}.",
-                row=row, history=c.history(row['address'], limit=100), noindex=not row['indexable'],
+                row=row, history=context['history'], market=context, noindex=not row['indexable'],
                 particulars=structured_particulars(detail_row), gallery=gallery,
                 fee=estimate_fee(row,fee_profile(row['source_slug'],self.fees),evidence))
         yield '/auctioneers/', self.page('/auctioneers/','Auctioneers & buyer fees','sources',
@@ -115,6 +119,11 @@ class Site:
             'Individual auction appearances with source evidence. Repeated appearances are preserved.',history=c.history())
         yield '/methodology/',self.page('/methodology/','How Auction Sniper works','methodology',
             'Understand source evidence, guide prices, missing information and conservative property-history matching.')
+        from source_reconciliation import reconcile
+        snapshot=json.loads((c.root/'data/properties.json').read_text())
+        yield '/coverage/',self.page('/coverage/','Auctioneer coverage & collection health','coverage',
+            'Measured collection and publication counts. Unknown counts are shown explicitly; historical records do not substitute for current stock.',
+            reconciliation=reconcile(snapshot),noindex=True)
         yield '/glossary/', self.page('/glossary/','Glossary of property auction terms','glossary',
             'Clear explanations of commercial property yields, leases, auction fees, legal packs, VAT and auction terminology.',
             glossary=GROUPS, glossary_sources=SOURCES, glossary_reviewed=REVIEWED)
@@ -122,11 +131,24 @@ class Site:
             'How the public Auction Sniper website handles browsing data and external links.')
         yield '/due-diligence/',self.page('/due-diligence/','Buyer due diligence','due-diligence',
             'Review legal-pack evidence, prioritise questions for your solicitor and save a readable report.',noindex=True)
+        spotlights=sorted(c.properties,key=lambda r:sum(bool(r.get(k)) for k in ('tenant','lease_expiry','tenure','annual_rent','area_sqft','image_url')),reverse=True)[:3]
+        yield '/deals/',self.page('/deals/','Commercial Deals','deals','Private deals, agent opportunities and clearly labelled commercial auction spotlights.',spotlights=spotlights)
+        yield '/admin/deals/',self.page('/admin/deals/','Owner listing workspace','deal-admin','Create and manage commercial property listings without editing code.',noindex=True)
+        yield '/account/',self.page('/account/','My Auction Sniper','account','Your shortlist, watched properties, private notes, searches and acquisition research.',noindex=True)
         yield '/plans/',self.page('/plans/','Useful for free. Deeper when you need it.','plans',
             'Commercial auction search stays free. Explore the planned Premium tools, property reports and professional services.')
 
     def board_assets(self):
         """Small search index; card bundles load only for the selected results."""
+        yield '/workspace-index.json',json.dumps({'rows':[observation(r) for r in self.catalogue.all_properties], 'generated_at':self.catalogue.generated_at},ensure_ascii=False)
+        supabase=os.environ.get('SUPABASE_URL','')
+        public_key=os.environ.get('SUPABASE_PUBLISHABLE_KEY','')
+        api_origin=os.environ.get('PRIVATE_API_ORIGIN','')
+        enabled=bool(supabase.startswith('https://') and public_key and api_origin.startswith('https://'))
+        yield '/platform-config.json',json.dumps({'accounts_enabled':enabled,'supabase_url':supabase if enabled else None,'supabase_key':public_key if enabled else None,'api_origin':api_origin if enabled else None,'billing_enabled':os.environ.get('BILLING_LIVE')=='true' and enabled})
+        from source_reconciliation import reconcile
+        snapshot=json.loads((self.catalogue.root/'data/properties.json').read_text())
+        yield '/source-reconciliation.json',json.dumps(reconcile(snapshot),ensure_ascii=False)
         rows=self.catalogue.properties
         root=f'/board/{self.board_version}/'
         module=self.env.get_template('cards.html').module
@@ -140,6 +162,6 @@ class Site:
 
     def sitemap(self, routes):
         good = {r['path'] for r in self.catalogue.all_properties if r['indexable']}
-        paths = [p for p in routes if p!='/due-diligence/' and (not p.startswith('/property/') or p in good)]
+        paths = [p for p in routes if p not in ('/due-diligence/','/account/','/admin/deals/','/coverage/') and (not p.startswith('/property/') or p in good)]
         return '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(
             '<url><loc>'+escape(self.origin+p)+'</loc></url>' for p in paths)+'</urlset>'

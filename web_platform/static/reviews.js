@@ -1,0 +1,11 @@
+(()=>{
+const panel=document.querySelector('#native-review');if(!panel)return;const params=new URLSearchParams(location.search);let id=params.get('review');const progress=document.querySelector('#review-progress');
+function ready(){return window.AuctionWorkspace?.signedIn();}
+function show(r){id=r.id;document.querySelector('#acquisition-result').innerHTML=r.html;document.querySelector('#unlock-review').hidden=r.access==='full'||!AuctionWorkspace.config()?.billing_enabled;document.querySelector('#download-review').hidden=false;progress.textContent=r.access==='full'?'Full review unlocked and saved to My Auction Sniper.':'Snapshot saved to My Auction Sniper.';}
+async function start(){if(!ready())return;panel.hidden=false;if(id){try{show(await AuctionWorkspace.api('/api/account/reviews/'+encodeURIComponent(id)));}catch(e){progress.textContent=e.message;}}}
+// Auth initialisation runs asynchronously. A short bounded check does not call any provider.
+let attempts=0;const timer=setInterval(()=>{if(ready()||++attempts>=20){clearInterval(timer);start();}},500);
+document.querySelector('#review-upload').onsubmit=async e=>{e.preventDefault();if(!params.get('property')){progress.textContent='Open Acquisition Intelligence from the property you are researching.';return;}const fd=new FormData(e.target);fd.append('property_id',params.get('property'));progress.textContent='Processing the complete pack. Keep this page open; scanned documents take longer.';try{show(await AuctionWorkspace.upload('/api/account/reviews',fd));}catch(e){progress.textContent=e.message;}};
+document.querySelector('#unlock-review').onclick=async()=>{try{const r=await AuctionWorkspace.api('/api/account/reviews/'+id+'/checkout','POST');if(r.url)location.assign(r.url);else show(await AuctionWorkspace.api('/api/account/reviews/'+id));}catch(e){progress.textContent=e.message;}};
+document.querySelector('#download-review').onclick=async()=>{try{const b=await AuctionWorkspace.download('/api/account/reviews/'+id+'/download');const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='auction-sniper-acquisition-review.html';a.click();URL.revokeObjectURL(a.href);}catch(e){progress.textContent=e.message;}};
+})();

@@ -15,6 +15,7 @@
       <div class="yield-metric"><dt>GIY at guide</dt><dd>{{ r.giy_text }}</dd></div>
       <div><dt>Tenure</dt><dd>{{ r.tenure or 'Not stated' }}</dd></div>
     </dl>
+    <div class="save-actions"><button data-save="{{ r.id }}" aria-pressed="false">♡ Save</button><button data-watch="{{ r.id }}" aria-pressed="false">◉ Watch</button></div>
     <details class="investment"><summary>Investment details</summary>
       {% if r.highlights %}<p class="highlights">{{ r.highlights[:3]|join(' · ') }}</p>{% endif %}
       <div class="chips">{% for chip in r.chips[:5] %}<span>{{ chip }}</span>{% endfor %}</div>

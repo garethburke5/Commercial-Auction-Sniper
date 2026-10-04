@@ -16,7 +16,7 @@ def render_buyer_due_diligence():
     @media(max-width:650px){[data-testid="stMainBlockContainer"]{padding:.65rem!important}}
     </style>''',unsafe_allow_html=True)
     context=property_context(st.query_params.get('property'))
-    st.markdown('### Analyse a legal pack')
+    st.markdown('### Auction Sniper Acquisition Intelligence')
     st.caption('Obtain the source documents → choose files → process → review the evidence and actions → save your report.')
     if context:
         st.markdown('**'+context['reference']+'**')
@@ -49,7 +49,7 @@ def render_buyer_due_diligence():
         try:
             catalogue=context if property_ref.strip()==context.get('reference','').strip() else {}
             result=analyse_uploaded_pack((property_ref or 'Uploaded legal pack').strip(),supplied,catalogue,ocr=use_ocr,progress=update)
-            report=result['report'];reports=st.session_state.setdefault('dd_reports',{})
+            report=result['report'];st.session_state.setdefault('dd_acquisitions',{})[report['report_id']]=result['acquisition'];reports=st.session_state.setdefault('dd_reports',{})
             reports[report['report_id']]=report
             while len(reports)>10:reports.pop(next(iter(reports)))
             st.session_state['dd_active_report']=report['report_id']
@@ -77,10 +77,15 @@ def render_buyer_due_diligence():
     keys=list(reports);active=st.session_state.get('dd_active_report',keys[-1])
     selected=st.selectbox('Reports in this session',keys,index=keys.index(active) if active in keys else len(keys)-1,format_func=lambda k:reports[k]['property']+' · '+reports[k]['created_at'][:16].replace('T',' '))
     model=reports[selected]
-    st.caption('Reports stay available during this session. Download the readable HTML to revisit it offline, or save JSON to reopen here. You can also keep a private copy in this browser using Keep report on this device. Reports are not yet saved to an account.')
+    st.caption('Your snapshot stays available during this session. Download the readable HTML below to revisit it offline. Account saving and full-review purchases require secure account and payment activation.')
     from legal_pack_exports import render_report_exports
-    st.iframe(render_report_exports(model),height='content',width=reader_width)
-    st.markdown(render_review_html(model),unsafe_allow_html=True)
+    st.caption('The free snapshot demonstrates the analysis. Full reviews, account saving and checkout will open after secure payment activation.')
+    from acquisition_intelligence import build_acquisition,snapshot
+    from acquisition_report import render
+    acquisition=st.session_state.get('dd_acquisitions',{}).get(selected) or build_acquisition(model,context)
+    free=snapshot(acquisition)
+    st.markdown(render(free),unsafe_allow_html=True)
+    st.download_button('Download acquisition snapshot',render(free,standalone=True),file_name='acquisition-snapshot.html',mime='text/html',on_click='ignore')
     originals=st.session_state.get('dd_originals',{}) if selected==st.session_state.get('dd_originals_report') else {}
     if originals:
         with st.expander('Retrieve an original uploaded document'):

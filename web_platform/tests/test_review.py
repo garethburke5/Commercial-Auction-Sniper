@@ -76,7 +76,9 @@ def test_rendered_review_preserves_search_hero_and_contextual_history(tmp_path):
     (tmp_path/'data/auction_history/progress.json').write_text(json.dumps({'individual_lot_records_captured':5,'by_sector':{'commercial':3,'mixed-use':2}}))
     c=Catalogue(tmp_path)
     c.history=lambda *args,**kwargs:[{'auctioneer':'Allsop','auction_date':'2024-09-01','lot_number':'10','guide_price':75000,'guide_price_high':80000,'sale_price':85000,'annual_rent':9000,'status':'sold','original_url':'https://example.org/old'}]
-    pages=dict(Site(c,'https://example.org/sniper').routes())
+    site=Site(c,'https://example.org/sniper')
+    site.market.for_property=lambda row:{'history':c.history(), 'comparables':[], 'metrics':{}}
+    pages=dict(site.routes())
     home=BeautifulSoup(pages['/'],'html.parser')
     assert home.select_one('input[name=min]') and not home.select_one('input[name=target]')
     assert 'Property history' not in home.select_one('nav[aria-label=Main]').get_text()

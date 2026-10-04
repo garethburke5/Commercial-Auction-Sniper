@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['web_platform/**', 'investment_details.py', 'property_summary.py', 'board_presentation.py', 'buyer_due_diligence.py', 'legal_pack_*.py', 'packages.txt', 'tests/test_legal_pack*.py', '.github/workflows/platform-public.yml']
+    paths: ['web_platform/**', 'investment_details.py', 'property_summary.py', 'board_presentation.py', 'buyer_due_diligence.py', 'legal_pack_*.py', 'acquisition_*.py', 'source_reconciliation.py', 'packages.txt', 'tests/test_legal_pack*.py', '.github/workflows/platform-public.yml']
   workflow_run:
     workflows: ['Auction Sniper Publish Now', 'Auction Sniper Scan', 'Historical lot corpus collection', 'Commercial history expansion', 'Property gallery and fee evidence']
     types: [completed]
@@ -36,6 +36,10 @@ jobs:
       - run: python -m web_platform.export --output public-dist --origin "$SITE_ORIGIN"
         env:
           SITE_ORIGIN: ${{ steps.pages.outputs.base_url }}
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+          PRIVATE_API_ORIGIN: ${{ vars.PRIVATE_API_ORIGIN }}
+          BILLING_LIVE: ${{ vars.BILLING_LIVE }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public-dist
