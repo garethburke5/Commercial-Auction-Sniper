@@ -200,6 +200,22 @@ def test_recent_all_failure_tranche_enters_bounded_cooldown():
     ) is False
 
 
+def test_source_wide_403_tranche_uses_day_long_cooldown():
+    summary = {
+        "checked_at": "2026-10-04T04:00:00+00:00",
+        "catalogues_attempted_this_run": 8,
+        "run_new_appearances": 0,
+        "manifest_refresh_error": "HTTPError: 403 Client Error",
+        "failures": [{"error": "HTTPError: 403 Client Error"} for _ in range(8)],
+    }
+    assert full_failure_cooldown(
+        summary, datetime(2026, 10, 5, 3, 0, tzinfo=timezone.utc)
+    ) is True
+    assert full_failure_cooldown(
+        summary, datetime(2026, 10, 5, 5, 0, tzinfo=timezone.utc)
+    ) is False
+
+
 def test_recent_403_catalogues_are_deferred_without_blocking_other_pending_ids():
     summary = {
         "checked_at": "2026-10-04T15:09:58+00:00",

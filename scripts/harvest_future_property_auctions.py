@@ -35,6 +35,7 @@ HEADERS = {
 }
 PROPERTY_ID_RE = re.compile(r"property_details\.asp\?id=(\d+)", re.I)
 FAILURE_COOLDOWN_SECONDS = 2 * 60 * 60
+SOURCE_403_COOLDOWN_SECONDS = 24 * 60 * 60
 ITEM_FAILURE_COOLDOWN_SECONDS = 7 * 24 * 60 * 60
 
 
@@ -68,7 +69,12 @@ def fetch_json(url: str) -> tuple[bytes, dict]:
 
 
 def full_failure_cooldown(summary: dict, now: datetime | None = None) -> bool:
-    """Avoid immediately repeating a tranche where every fresh request failed."""
+    """Avoid repeating a tranche where every fresh request failed.
+
+    A source-wide 403 is held for a full day so scheduled runs do not burn
+    through different catalogue UUIDs while the BidJS host is refusing both
+    its archive manifest and every selected auction payload.
+    """
     attempted = int(summary.get("catalogues_attempted_this_run") or 0)
     failures = summary.get("failures") or []
     if attempted <= 0 or len(failures) != attempted or summary.get("run_new_appearances"):
@@ -77,8 +83,15 @@ def full_failure_cooldown(summary: dict, now: datetime | None = None) -> bool:
         checked = datetime.fromisoformat(str(summary["checked_at"]).replace("Z", "+00:00"))
     except (KeyError, TypeError, ValueError):
         return False
+    source_wide_403 = (
+        "403" in str(summary.get("manifest_refresh_error") or "")
+        and all("403" in str(item.get("error") or "") for item in failures)
+    )
+    cooldown_seconds = (
+        SOURCE_403_COOLDOWN_SECONDS if source_wide_403 else FAILURE_COOLDOWN_SECONDS
+    )
     current = now or datetime.now(timezone.utc)
-    return 0 <= (current - checked).total_seconds() < FAILURE_COOLDOWN_SECONDS
+    return 0 <= (current - checked).total_seconds() < cooldown_seconds
 
 
 
