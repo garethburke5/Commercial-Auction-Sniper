@@ -204,7 +204,9 @@ appearance database and its headline totals until another first-party source
 can establish an auction appearance. A strict detail-page recovery pass now
 revisits those saved tail rows and promotes a row only when the retained page's
 property identity, exact normalized address, auction date and lot number all
-reconcile; failed or ambiguous rows remain excluded. The Pugh state reports
+reconcile; failed or ambiguous rows remain excluded. Detail URLs returning a
+confirmed HTTP 404 are quarantined as source blockers and are not repeatedly
+probed or counted as separate catalogue failures. The Pugh state reports
 source-row reconciliation and appearance completeness separately.
 
 `data/auction_history/progress.json` is the counted output of the rebuilt

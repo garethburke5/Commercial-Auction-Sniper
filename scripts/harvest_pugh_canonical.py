@@ -372,6 +372,22 @@ def fetch_detail_page(source_row: dict) -> dict:
     corpus.save_gzip(snapshot, {"evidence": evidence, "html": raw.decode("utf-8", "replace")})
     return parse_detail_page(raw, source_row, requested, evidence)
 
+
+def detail_404_blockers(summary: dict) -> list[dict]:
+    """Promote retained detail-page 404s to a durable non-retry quarantine."""
+    records = list(summary.get("detail_page_blockers") or [])
+    records.extend(
+        item for item in (summary.get("failures") or [])
+        if item.get("kind") == "detail_page_recovery"
+        and "404 Client Error" in str(item.get("error") or "")
+    )
+    kept = {}
+    for item in records:
+        source_id = str(item.get("source_lot_id") or "")
+        if source_id:
+            kept[source_id] = {**item, "source_lot_id": source_id}
+    return list(kept.values())
+
 def harvest() -> None:
     summary_path = corpus.DATA / "pugh_collection.json"
     try:
@@ -397,6 +413,10 @@ def harvest() -> None:
     grid_tail_source_rows = int(previous.get("grid_tail_source_rows") or unresolved_rows)
     detail_recovered_source_ids = {
         str(value) for value in (previous.get("detail_recovered_source_ids") or [])
+    }
+    detail_page_blockers = detail_404_blockers(previous)
+    detail_blocked_source_ids = {
+        str(item["source_lot_id"]) for item in detail_page_blockers
     }
     source_rows_complete = bool(previous.get("source_rows_reconciled_complete"))
     existing_path = corpus.DATA / "appearances/pugh-auctions/property-search.jsonl.gz"
@@ -631,7 +651,8 @@ def harvest() -> None:
         targets_by_id = {}
         for source_row in tail_rows_saved:
             source_id = str(source_row.get("source_lot_id") or "")
-            if source_id and source_id not in detail_recovered_source_ids:
+            if (source_id and source_id not in detail_recovered_source_ids
+                    and source_id not in detail_blocked_source_ids):
                 targets_by_id.setdefault(source_id, source_row)
         detail_failures = []
         with ThreadPoolExecutor(max_workers=8) as pool:
@@ -650,16 +671,27 @@ def harvest() -> None:
                     print(f"PUGH detail recovered property={source_id} "
                           f"date={row['auction_date']} lot={row['lot_number']}", flush=True)
                 except Exception as exc:
-                    detail_failures.append({
+                    failure = {
                         "kind": "detail_page_recovery", "source_lot_id": source_id,
                         "url": targets_by_id[source_id].get("original_url"),
                         "error": f"{type(exc).__name__}: {exc}"[:500],
-                    })
+                    }
+                    if "404 Client Error" in failure["error"]:
+                        detail_blocked_source_ids.add(source_id)
+                        detail_page_blockers.append(failure)
+                    else:
+                        detail_failures.append(failure)
         remaining = [row for row in tail_rows_saved
                      if str(row.get("source_lot_id") or "") not in detail_recovered_source_ids]
         unresolved_rows = len(remaining)
         failures = [item for item in failures
-                    if item.get("kind") != "unresolved_source_rows_without_auction_date"]
+                    if item.get("kind") not in {
+                        "unresolved_source_rows_without_auction_date",
+                        "detail_page_recovery",
+                    }]
+        detail_page_blockers = list({
+            str(item["source_lot_id"]): item for item in detail_page_blockers
+        }.values())
         failures.extend(detail_failures)
         if remaining:
             failures.append({
@@ -693,6 +725,8 @@ def harvest() -> None:
                "unresolved_source_rows": unresolved_rows,
                "detail_pages_recovered_this_run": detail_pages_recovered_this_run,
                "detail_recovered_source_ids": sorted(detail_recovered_source_ids),
+               "detail_blocked_source_ids": sorted(detail_blocked_source_ids),
+               "detail_page_blockers": detail_page_blockers,
                "archive_pagination_complete": complete,
                "property_appearances_captured": len(saved) + sum(len(v) for v in enriched_by_path.values()),
                "canonical_shard_rows": len(saved),
@@ -714,6 +748,8 @@ def harvest() -> None:
         "grid_tail_source_rows": grid_tail_source_rows,
         "unresolved_source_rows": unresolved_rows,
         "detail_recovered_source_ids": sorted(detail_recovered_source_ids),
+        "detail_blocked_source_ids": sorted(detail_blocked_source_ids),
+        "detail_page_blockers": detail_page_blockers,
         "completion_scope": "all retained first-party property-search rows; original auction denominators unavailable",
         "errors": failures, "checked_at": corpus.now()})
     print(json.dumps({k: v for k, v in summary.items() if k != "observed_source_ids"}, indent=2), flush=True)
