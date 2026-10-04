@@ -112,3 +112,39 @@ def test_manifest_refresh_can_reuse_saved_first_party_snapshot(monkeypatch, tmp_
     assert payload == saved_payload
     assert evidence["snapshot_path"] == "saved"
     assert "403 Client Error" in error
+
+
+def test_fetch_json_retries_transient_source_responses(monkeypatch):
+    import scripts.harvest_future_property_auctions as future
+
+    statuses = iter((403, 503, 200))
+    calls = []
+    sleeps = []
+
+    class Response:
+        def __init__(self, status_code):
+            self.status_code = status_code
+            self.headers = {"content-type": "application/json"}
+            self.content = b'{"ok": true, "padding": 1}'
+
+        def raise_for_status(self):
+            if self.status_code >= 400:
+                raise future.requests.HTTPError(f"{self.status_code} Client Error")
+
+        def json(self):
+            return {"ok": True, "padding": 1}
+
+    def get(url, **kwargs):
+        calls.append((url, kwargs))
+        return Response(next(statuses))
+
+    monkeypatch.setattr(future.requests, "get", get)
+    monkeypatch.setattr(future.time, "sleep", sleeps.append)
+
+    raw, payload = future.fetch_json("https://example.test/archive")
+
+    assert payload["ok"] is True
+    assert raw.startswith(b'{"ok": true')
+    assert len(calls) == 3
+    assert all(call[1]["headers"] == future.HEADERS for call in calls)
+    assert sleeps == [2.0, 4.0]
