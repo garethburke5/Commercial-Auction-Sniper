@@ -407,6 +407,8 @@ def harvest(limit: int = 12, workers: int = 3) -> None:
         "catalogues_pending": len(manifest) - len(completed),
         "catalogues_attempted_this_run": len(selected),
         "catalogues_deferred_recent_403": len(deferred_failures),
+        "catalogues_eligible_after_deferrals": len(eligible),
+        "selected_auction_uuids": [item["auction_uuid"] for item in selected],
         "appearances_captured": total,
         "run_new_appearances": total - len(before_ids),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
