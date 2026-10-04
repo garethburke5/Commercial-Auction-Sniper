@@ -29,6 +29,7 @@ python scripts/harvest_anderson_garland_results.py
 python scripts/harvest_future_property_auctions.py --limit 12 --workers 3
 python scripts/harvest_town_country_results.py --workers 4
 python scripts/harvest_brown_co_results.py
+python scripts/harvest_bagshaws_results.py
 python historical_corpus.py build
 ```
 
@@ -154,6 +155,15 @@ appearance independent, including genuine lot-zero properties; exact published
 start and end dates, addresses, outcomes, prices and images are retained. The
 page is rolling and publishes no archive denominator, so earlier saved rows are
 merged rather than removed and no original catalogue is marked complete.
+
+Bagshaws collection traverses the first-party dated property-auction archive and
+banks explicit property cards plus tabular result rows. Stable property URLs are
+scoped to the auction page so repeat appearances remain separate. Result rows
+enrich a card only on an exact normalized title, or an exact lot marker plus
+contained title tokens; unmatched results retain their own exact heading hash.
+Pages exposing narrative only create no synthetic lots, and no auction is marked
+complete because the original catalogue denominator is unavailable. Subsequent
+runs skip previously checked pages unless `--refresh` is requested.
 
 Future Property Auctions collection consumes the auctioneer's unauthenticated
 first-party BidJS archive. The manifest currently retains stable auction UUIDs
