@@ -54,6 +54,7 @@ def test_cards_preserve_stable_uuid_exact_end_and_partial_location():
     by_id = {row["source_lot_id"]: row for row in rows}
     sold = by_id["f4d6f493-7d4a-426f-9911-c5da23775fbc"]
     assert sold["appearance_id"].endswith("|online:f4d6f493-7d4a-426f-9911-c5da23775fbc")
+    assert sold["source_auction_id"] == "town-country:scotland-office:online:2026-10-02"
     assert sold["auction_date"] == "2026-10-02"
     assert sold["auction_end_time"] == "2026-10-02T19:24:05.260000+00:00"
     assert sold["address"].endswith("ML3 7PL")
