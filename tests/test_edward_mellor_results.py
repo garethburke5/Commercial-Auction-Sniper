@@ -56,7 +56,7 @@ def test_card_and_detail_enrichment():
     assert enriched["sector"] == "residential"
 
 
-def test_conflicting_detail_lot_is_rejected():
+def test_conflicting_detail_lot_keeps_address_but_quarantines_date():
     auction = {
         "slug": "09sep2026", "url": "https://edwardmellor.co.uk/auctions/09sep2026/",
         "auction_date_start": "2026-09-09", "auction_date_end": "2026-09-10",
@@ -68,9 +68,15 @@ def test_conflicting_detail_lot_is_rejected():
     </section>
     """
     row = parse_auction_page(page, auction, {})[0]
-    try:
-        parse_detail("<h1>House</h1><p>LOT 3</p>", row)
-    except ValueError as exc:
-        assert "conflicts" in str(exc)
-    else:
-        raise AssertionError("conflicting lot number should fail")
+    enriched = parse_detail(
+        """
+        <h1>House</h1><p>LOT 3</p>
+        <p>Appearing At Auction Wednesday 9th September 2026</p>
+        <p>224 King Street, Dukinfield, SK16 4TY</p>
+        """,
+        row,
+    )
+    assert enriched["detail_appearance_matches"] is False
+    assert enriched["detail_lot_numbers"] == ["3"]
+    assert enriched["auction_date"] is None
+    assert enriched["address"] == "224 King Street, Dukinfield, SK16 4TY"

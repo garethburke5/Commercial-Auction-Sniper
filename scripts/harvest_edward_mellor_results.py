@@ -39,6 +39,7 @@ MONTHS = {name.lower(): number for number, name in enumerate(
      "July", "August", "September", "October", "November", "December"), 1
 )}
 _local = __import__("threading").local()
+DETAIL_REPAIR_VERSION = 1
 
 
 def clean(value) -> str | None:
@@ -189,9 +190,6 @@ def parse_auction_page(html: str, auction: dict, evidence: dict) -> list[dict]:
         seen.add(property_id)
     if not rows:
         raise ValueError("auction page contains no stable property cards")
-    lots = [row["lot_number"] for row in rows]
-    if len(lots) != len(set(lots)):
-        raise ValueError("duplicate lot numbers within auction page")
     return rows
 
 
@@ -217,15 +215,18 @@ def detail_address(soup: BeautifulSoup, locality: str | None) -> tuple[str | Non
 def parse_detail(html: str, row: dict) -> dict:
     soup = BeautifulSoup(html, "lxml")
     text = clean(soup.get_text(" ", strip=True)) or ""
-    lot_match = LOT_RE.search(text)
-    if lot_match and lot_match.group(1).upper() != row["lot_number"]:
-        raise ValueError("detail lot number conflicts with auction card")
+    detail_lots = sorted({value.upper() for value in LOT_RE.findall(text)})
+    appearance_matches = not detail_lots or row["lot_number"] in detail_lots
+    row["detail_lot_numbers"] = detail_lots
+    row["detail_appearance_matches"] = appearance_matches
     exact = re.search(
         r"Appearing\s+At\s+Auction(?:\s+[A-Za-z]+)?\s+"
         r"(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})", text, re.I)
-    if exact and exact.group(2).lower() in MONTHS:
-        row["auction_date"] = ordinal_date(exact.group(1), exact.group(2), exact.group(3))
-        row["auction_date_basis"] = "exact first-party detail-page auction date"
+    if exact and exact.group(2).lower() in MONTHS and appearance_matches:
+        exact_date = ordinal_date(exact.group(1), exact.group(2), exact.group(3))
+        if row["auction_date_start"] <= exact_date <= row["auction_date_end"]:
+            row["auction_date"] = exact_date
+            row["auction_date_basis"] = "exact first-party detail-page auction date"
     address, postcode = detail_address(soup, row.get("locality"))
     if address:
         row["address"], row["postcode"] = address, postcode
@@ -268,7 +269,11 @@ def harvest(limit: int = 12, workers: int = 8, year_min: int = 2021, refresh: bo
     summary_path = corpus.DATA / "edward_mellor_collection.json"
     previous = json.loads(summary_path.read_text()) if summary_path.exists() else {}
     previous_states = previous.get("auctions") if isinstance(previous.get("auctions"), dict) else {}
-    selected = auctions if refresh else [item for item in auctions if item["slug"] not in previous_states]
+    selected = auctions if refresh else [
+        item for item in auctions
+        if item["slug"] not in previous_states
+        or previous_states[item["slug"]].get("detail_repair_version", 0) < DETAIL_REPAIR_VERSION
+    ]
     if limit > 0:
         selected = selected[:limit]
 
@@ -276,6 +281,7 @@ def harvest(limit: int = 12, workers: int = 8, year_min: int = 2021, refresh: bo
     existing_path = corpus.DATA / "appearances/edward-mellor/canonical.jsonl.gz"
     existing = list(corpus.iter_rows(existing_path)) if existing_path.exists() else []
     before_ids = {row["appearance_id"] for row in existing}
+    before_address = {row["appearance_id"]: bool(row.get("address")) for row in existing}
     merged = {row["appearance_id"]: row for row in existing}
     failures = []
 
@@ -340,7 +346,12 @@ def harvest(limit: int = 12, workers: int = 8, year_min: int = 2021, refresh: bo
                 "lots_captured": len(enriched),
                 "address_records": sum(bool(row.get("address")) for row in enriched),
                 "partial_lot_records": sum(not row.get("address") for row in enriched),
+                "duplicate_lot_numbers": sorted(
+                    lot for lot, count in Counter(row["lot_number"] for row in enriched).items()
+                    if count > 1
+                ),
                 "detail_pages_enriched": sum(bool(row.get("detail_source_evidence")) for row in enriched),
+                "detail_repair_version": DETAIL_REPAIR_VERSION,
                 "source_url": resolved,
                 "completion_scope": "every visible card on the first-party unpaginated result page; original offered denominator is not published",
                 "errors": [],
@@ -367,6 +378,10 @@ def harvest(limit: int = 12, workers: int = 8, year_min: int = 2021, refresh: bo
         "run_new_appearances": total - len(before_ids),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
         "run_new_partial_lots": sum(not row.get("address") for row in added),
+        "run_upgraded_address_records": sum(
+            key in before_address and not before_address[key] and bool(row.get("address"))
+            for key, row in merged.items()
+        ),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "archive_evidence": archive_evidence, "auctions": states, "failures": failures,
