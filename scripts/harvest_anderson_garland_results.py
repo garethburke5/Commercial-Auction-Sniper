@@ -178,7 +178,7 @@ def parse_listing_detail(html: str, url: str, evidence: dict) -> dict | None:
     if not heading:
         raise ValueError(f"auction listing {source_id} has no address heading")
     postcode_match = corpus.PC.search(heading)
-    guide_match = GUIDE_RE.search(text)
+    guide_match = re.search(r"(?:Guide(?: Price)?|Estimate)\s*:?\s*£\s*([\d,]+(?:\.\d+)?)", text, re.I)
     description = next((
         clean(node.get_text(" ", strip=True))
         for node in soup.find_all(["p", "div"])
