@@ -306,6 +306,31 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
     if not raw_rows:
         raise ValueError("result table contains no lot rows")
 
+    # A few 2014/15 image scans render the top of a leading ``5`` so faintly
+    # that Tesseract reads late-sequence lots 51-59 as 31-39. Repair only when
+    # all of the surrounding evidence is deterministic: this is an OCR parse,
+    # the observed 3x label duplicates an earlier row, the preceding row is
+    # the immediately prior 5x lot, and the expected 5x label is otherwise
+    # absent. Genuine duplicate labels and every other discontinuity remain
+    # hard failures below.
+    if "OCR" in str(evidence.get("basis") or "").upper():
+        original_labels = [lot.upper() for lot, _ in raw_rows]
+        counts = Counter(original_labels)
+        repaired_rows = []
+        for lot, body in raw_rows:
+            previous = repaired_rows[-1][0] if repaired_rows else None
+            if (re.fullmatch(r"3\d", lot)
+                    and counts[lot.upper()] > 1
+                    and previous and previous.isdigit()):
+                expected_number = int(previous) + 1
+                expected_label = str(expected_number)
+                if (51 <= expected_number <= 59
+                        and int(lot) == expected_number - 20
+                        and expected_label not in original_labels):
+                    lot = expected_label
+            repaired_rows.append((lot, body))
+        raw_rows = repaired_rows
+
     labels = [lot.upper() for lot, _ in raw_rows]
     if len(labels) != len(set(labels)):
         raise ValueError("duplicate lot labels in result PDF")

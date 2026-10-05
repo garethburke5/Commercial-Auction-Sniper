@@ -189,6 +189,44 @@ AQ | 32 HUMBER ROAD, COVENTRY CV3 1BA £106,000
     assert rows[4]["sale_price"] == 106000
 
 
+@pytest.mark.parametrize(
+    ("previous", "misread", "repaired"),
+    [("50", "31", "51"), ("57", "38", "58"), ("58", "39", "59")],
+)
+def test_ocr_faint_leading_five_is_repaired_only_from_duplicate_sequence_evidence(
+        previous, misread, repaired):
+    text = f"""
+Auction : 24 February 2015 Results
+Lot Address Result
+{misread} | EARLIER ADDRESS, BIRMINGHAM £31,000
+{previous} | PREVIOUS ADDRESS, BIRMINGHAM £50,000
+{misread} | REPAIRED ADDRESS, BIRMINGHAM £51,000
+"""
+    ocr_expected = {
+        **expected("2015-02-24"),
+        "result_url": "https://www.cottons.co.uk/uploads/Results-24-Feb-2015.pdf",
+    }
+    state, rows = parse_result_text(text, ocr_expected, {"basis": "OCR"})
+    assert [row["lot_number"] for row in rows][-2:] == [previous, repaired]
+    assert repaired not in state["missing_base_lot_numbers"]
+
+
+def test_ocr_duplicate_is_not_repaired_without_exact_five_sequence_evidence():
+    text = """
+Auction : 24 February 2015 Results
+Lot Address Result
+31 | EARLIER ADDRESS, BIRMINGHAM £31,000
+49 | PREVIOUS ADDRESS, BIRMINGHAM £49,000
+31 | DUPLICATE ADDRESS, BIRMINGHAM £31,000
+"""
+    ocr_expected = {
+        **expected("2015-02-24"),
+        "result_url": "https://www.cottons.co.uk/uploads/Results-24-Feb-2015.pdf",
+    }
+    with pytest.raises(ValueError, match="duplicate lot labels"):
+        parse_result_text(text, ocr_expected, {"basis": "OCR"})
+
+
 def test_blank_address_cell_is_retained_as_a_partial_lot():
     text = RESULT_TEXT.replace(
         "4 2 Factory Road, Birmingham WITHDRAWN",
