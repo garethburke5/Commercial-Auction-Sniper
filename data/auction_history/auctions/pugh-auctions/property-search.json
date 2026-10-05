@@ -3,17 +3,18 @@
   "source_auction_id": "pugh:property-search-archive",
   "auction_date": null,
   "catalogue_complete": false,
-  "archive_pagination_complete": false,
+  "archive_pagination_complete": true,
   "lots_captured": 6842,
   "source_url": "https://www.pugh-auctions.com/property-search",
   "pages_expected": 351,
   "published_property_rows": 7012,
-  "published_rows_reconciled": 7010,
+  "published_rows_reconciled": 7012,
   "source_rows_reconciled_complete": true,
-  "grid_tail_source_rows": 70,
+  "grid_tail_source_rows": 72,
   "unresolved_source_rows": 0,
-  "undated_tail_source_rows": 70,
+  "undated_tail_source_rows": 72,
   "undated_tail_appearances_captured": 68,
+  "undated_tail_existing_appearances_enriched": 3,
   "detail_recovered_source_ids": [],
   "detail_blocked_source_ids": [
     "11115",
@@ -504,5 +505,5 @@
   ],
   "completion_scope": "all retained first-party property-search rows; original auction denominators unavailable",
   "errors": [],
-  "checked_at": "2026-10-05T17:44:09.622238+00:00"
+  "checked_at": "2026-10-05T18:16:22.530239+00:00"
 }

@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-05T17:44:09.618125+00:00",
+  "checked_at": "2026-10-05T18:16:22.526454+00:00",
   "source_url": "https://www.pugh-auctions.com/property-search",
   "published_property_rows": 7012,
   "observed_property_ids": 6712,
@@ -7416,7 +7416,7 @@
     "109": 20,
     "96": 20
   },
-  "published_rows_reconciled": 7010,
+  "published_rows_reconciled": 7012,
   "source_rows_reconciled_complete": true,
   "grid_covered_normal_pages": [
     348,
@@ -7424,10 +7424,11 @@
     350,
     351
   ],
-  "grid_tail_source_rows": 70,
+  "grid_tail_source_rows": 72,
   "unresolved_source_rows": 0,
-  "undated_tail_source_rows": 70,
+  "undated_tail_source_rows": 72,
   "undated_tail_appearances_captured": 68,
+  "undated_tail_existing_appearances_enriched": 3,
   "detail_pages_recovered_this_run": 0,
   "detail_recovered_source_ids": [],
   "detail_blocked_source_ids": [
@@ -7917,18 +7918,13 @@
       "error": "TooManyRedirects: Exceeded 30 redirects."
     }
   ],
-  "archive_pagination_complete": false,
+  "archive_pagination_complete": true,
   "property_appearances_captured": 6842,
   "canonical_shard_rows": 6842,
   "legacy_rows_enriched": 0,
-  "run_new_appearances": 68,
-  "run_new_address_records": 68,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_by_sector": {
-    "unknown": 53,
-    "land": 5,
-    "residential": 9,
-    "mixed-use": 1
-  },
+  "run_by_sector": {},
   "failures": []
 }
