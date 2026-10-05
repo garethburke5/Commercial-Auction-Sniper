@@ -4,37 +4,16 @@
   "auction_date": "2015-06-03",
   "catalogue_complete": false,
   "source_rows_complete": false,
-  "visible_result_rows": 55,
-  "lots_captured": 55,
-  "published_lots_offered": 56,
-  "lettered_additional_rows": 0,
-  "missing_base_lot_numbers": [
-    41
-  ],
-  "pagination_reconciled": true,
-  "denominator_reconciled": false,
-  "denominator_basis": "continuous published base lot sequence in the complete first-party result table",
-  "completion_scope": "every row in the retained first-party result PDF; later catalogue enrichment may add property detail",
+  "lots_captured": 0,
   "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-3rd-June-as-of-5th-June.pdf",
-  "errors": [
-    {
-      "error": "non-contiguous result lot sequence",
-      "missing": [
-        41
-      ]
-    }
-  ],
-  "checked_at": "2026-10-05T08:44:06.309534+00:00",
-  "ocr_recovered": true,
-  "ocr_version": 3,
-  "source_evidence": {
-    "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-3rd-June-as-of-5th-June.pdf",
-    "retrieved_at": "2026-10-05T08:44:00.682288+00:00",
-    "sha256": "397423541fed3082734e93b4dcd86b1aad84b815fff84bbf53b00d7704349d1e",
-    "snapshot_path": "data/auction_history/sources/cottons/results/2015-06-03-397423541fed3082.pdf.gz",
-    "archive_snapshot_path": "data/auction_history/sources/cottons/archive-14aad1760a30a3af.json.gz",
-    "basis": "OCR of retained first-party complete auction result PDF",
-    "ocr_engine": "Tesseract PSM 4 with Poppler 300dpi lossless rasterisation",
-    "ocr_version": 3
-  }
+  "source_blocked": true,
+  "source_blocker": {
+    "auction_id": "cottons:2015-06-03:1f896c6a852b",
+    "auction_date": "2015-06-03",
+    "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-3rd-June-as-of-5th-June.pdf",
+    "error": "ValueError: result PDF contains no usable text",
+    "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
+  },
+  "errors": [],
+  "checked_at": "2026-10-05T09:17:57.899408+00:00"
 }

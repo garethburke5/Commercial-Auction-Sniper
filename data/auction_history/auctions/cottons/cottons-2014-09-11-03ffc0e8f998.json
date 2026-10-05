@@ -2,18 +2,30 @@
   "auctioneer": "Cottons",
   "source_auction_id": "cottons:2014-09-11:03ffc0e8f998",
   "auction_date": "2014-09-11",
-  "catalogue_complete": false,
-  "source_rows_complete": false,
-  "lots_captured": 0,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "visible_result_rows": 65,
+  "lots_captured": 65,
+  "published_lots_offered": 65,
+  "lettered_additional_rows": 0,
+  "missing_base_lot_numbers": [],
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "continuous published base lot sequence in the complete first-party result table",
+  "completion_scope": "every row in the retained first-party result PDF; later catalogue enrichment may add property detail",
   "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/11th-Sept-Results-as-of-23rd-Sept.pdf",
-  "source_blocked": true,
-  "source_blocker": {
-    "auction_id": "cottons:2014-09-11:03ffc0e8f998",
-    "auction_date": "2014-09-11",
-    "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/11th-Sept-Results-as-of-23rd-Sept.pdf",
-    "error": "ValueError: result PDF contains no usable text",
-    "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
-  },
   "errors": [],
-  "checked_at": "2026-10-05T04:41:53.057958+00:00"
+  "checked_at": "2026-10-05T09:17:44.858200+00:00",
+  "ocr_recovered": true,
+  "ocr_version": 3,
+  "source_evidence": {
+    "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/11th-Sept-Results-as-of-23rd-Sept.pdf",
+    "retrieved_at": "2026-10-05T09:17:40.490906+00:00",
+    "sha256": "6b93a737f0a041b97b18623fcc40d02f545134c1f0c33340fbdcb98c47984972",
+    "snapshot_path": "data/auction_history/sources/cottons/results/2014-09-11-6b93a737f0a041b9.pdf.gz",
+    "archive_snapshot_path": "data/auction_history/sources/cottons/archive-976b54114ce01d3a.json.gz",
+    "basis": "OCR of retained first-party complete auction result PDF",
+    "ocr_engine": "Tesseract PSM 4 with Poppler 300dpi lossless rasterisation",
+    "ocr_version": 3
+  }
 }
