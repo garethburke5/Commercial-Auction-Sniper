@@ -40,6 +40,7 @@ python scripts/harvest_cottons_results.py 16 8
 python scripts/harvest_harman_healy_results.py
 python scripts/harvest_lsh_results.py
 python scripts/harvest_knight_frank_results.py 12
+python scripts/harvest_auction_estates_results.py 8
 python historical_corpus.py build
 ```
 
@@ -256,6 +257,13 @@ pack links are preserved where published. The source calls this a selection of
 recent sales, so its retained grid can be source-row complete while the original
 auction catalogues remain explicitly incomplete. Repeated identical card
 presentations are preserved in the raw snapshot but do not inflate appearances.
+
+Auction Estates collection traverses every dated option in the first-party
+results selector back to December 2016. Each unpaginated catalogue is marked
+complete only when its visible property cards and distinct appearance identities
+reconcile to the catalogue's own published result denominator. All property
+types and outcomes are retained with immutable page snapshots; repeat property
+IDs on different auction dates remain separate appearances.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The

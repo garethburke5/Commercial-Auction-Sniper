@@ -1,0 +1,23 @@
+{
+  "auctioneer": "Auction Estates",
+  "source_auction_id": "auction-estates:2022-10-20",
+  "auction_date": "2022-10-20",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "published_lots_offered": 48,
+  "visible_source_rows": 48,
+  "lots_captured": 48,
+  "source_url": "https://www.auctionestates.co.uk/auction-results?propertyType=&minPrice=&maxPrice=&soldStatus=&sortValue=default",
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "source_evidence": {
+    "source_url": "https://www.auctionestates.co.uk/auction-results?propertyType=&minPrice=&maxPrice=&soldStatus=&sortValue=default",
+    "retrieved_at": "2026-10-05T23:21:49.225691+00:00",
+    "sha256": "cfdb8f816b496b10dd7139661721a9469d1393ec1469d0cbef09073ae80477ba",
+    "snapshot_path": "data/auction_history/sources/auction-estates/results-2022-10-20-cfdb8f816b496b10.json.gz",
+    "basis": "first-party dated auction-results catalogue",
+    "auction_date": "2022-10-20"
+  },
+  "errors": [],
+  "checked_at": "2026-10-05T23:26:09.367778+00:00"
+}
