@@ -4,6 +4,8 @@ from scripts.harvest_pugh_canonical import (
     bankable,
     detail_404_blockers,
     detail_failure_is_terminal,
+    enrich_resolved_tail_rows,
+    fetch_reconciled_grid_tail,
     parse_detail_page,
     parse_grid_page,
     parse_page,
@@ -96,6 +98,30 @@ def test_tail_grid_plan_reconciles_the_four_failed_twenty_row_pages():
     }
 
 
+def test_live_grid_tail_refresh_reconciles_archive_growth(monkeypatch):
+    overlap_ids = [f"overlap-{index}" for index in range(60)]
+    tail_rows = [{"source_lot_id": f"tail-{index}"} for index in range(72)]
+
+    def fake_page(page):
+        offset = (page - 345) * 20
+        ids = overlap_ids[offset:offset + 20]
+        return page, [], 7012, 351, 20, ids
+
+    def fake_grid(page):
+        rows = ([{"source_lot_id": value} for value in overlap_ids] + tail_rows[:20]
+                if page == 87 else tail_rows[20:])
+        return page, rows, 7012, 88
+
+    monkeypatch.setattr("scripts.harvest_pugh_canonical.fetch_page", fake_page)
+    monkeypatch.setattr("scripts.harvest_pugh_canonical.fetch_grid_page", fake_grid)
+    rows, first_position, plan = fetch_reconciled_grid_tail(7012, 348, 20)
+    assert first_position == 6941
+    assert len(rows) == 72
+    assert rows[0]["source_position"] == 6941
+    assert rows[-1]["source_position"] == 7012
+    assert plan["last_grid_page"] == 88
+
+
 def test_detail_page_recovers_only_exact_published_date_lot_and_address():
     html = b"""<html><body><div>Lot</div><div>058</div>
     <div>Auction Ends: 15/07/2020 12:35</div>
@@ -185,3 +211,28 @@ def test_promotes_saved_undated_cards_without_inventing_date_or_lot():
     assert promoted[0]["record_quality"] == "address_record"
     assert promoted[0]["source_evidence"]["source_positions"] == [7001, 7002]
     assert promoted[0]["source_evidence"]["source_row_occurrences"] == 2
+
+
+def test_enriches_one_strict_dated_match_with_final_grid_result():
+    existing = [{
+        "appearance_id": "Pugh Auctioneers|pugh:2020-07-14:auction|10950",
+        "source_lot_id": "10950", "auction_date": "2020-07-14", "lot_number": "056",
+        "address": "20 High Street, Barnsley, South Yorkshire S73 0AA",
+        "status": "sold", "sale_price": None, "guide_price": 60000,
+        "guide_price_high": None, "source_evidence": {"snapshot_path": "dated"},
+    }]
+    tail = [{
+        "source_lot_id": "10950",
+        "address": "20 High Street, Barnsley, South Yorkshire S73 0AA",
+        "status": "sold", "sale_price": 65000, "guide_price": None,
+        "guide_price_high": None, "published_card_text": "Sold for £65,000",
+        "source_position": 7011, "source_evidence": {"snapshot_path": "grid"},
+    }]
+    rows = enrich_resolved_tail_rows(tail, existing)
+    assert len(rows) == 1
+    assert rows[0]["appearance_id"] == existing[0]["appearance_id"]
+    assert rows[0]["auction_date"] == "2020-07-14" and rows[0]["lot_number"] == "056"
+    assert rows[0]["sale_price"] == 65000
+    assert rows[0]["guide_price"] == 60000
+    observation = rows[0]["source_evidence"]["undated_tail_observation"]
+    assert observation["source_positions"] == [7011]

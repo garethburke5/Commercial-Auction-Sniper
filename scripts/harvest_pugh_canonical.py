@@ -330,6 +330,56 @@ def promote_undated_tail_rows(source_rows: list[dict], resolved_source_ids: set[
         promoted.append(row)
     return promoted
 
+
+def enrich_resolved_tail_rows(source_rows: list[dict], existing_rows: list[dict]) -> list[dict]:
+    """Merge final grid-card results into one strict existing dated appearance."""
+    grouped: dict[str, list[dict]] = defaultdict(list)
+    for source_row in source_rows:
+        source_id = str(source_row.get("source_lot_id") or "")
+        if source_id:
+            grouped[source_id].append(source_row)
+    dated_by_id: dict[str, list[dict]] = defaultdict(list)
+    for row in existing_rows:
+        source_id = str(row.get("source_lot_id") or "")
+        if source_id and row.get("auction_date"):
+            dated_by_id[source_id].append(row)
+
+    enriched = []
+    for source_id, occurrences in grouped.items():
+        candidates = dated_by_id.get(source_id, [])
+        if len(candidates) != 1:
+            continue
+        old = candidates[0]
+        address_keys = {address_key(item.get("address")) for item in occurrences}
+        if len(address_keys) != 1 or address_key(old.get("address")) not in address_keys:
+            raise ValueError(f"Conflicting resolved Pugh tail address for property {source_id}")
+        source_row = occurrences[0]
+        observation = {
+            "grid_source_evidence": source_row.get("source_evidence"),
+            "published_card_text": source_row.get("published_card_text"),
+            "source_positions": [item.get("source_position") for item in occurrences],
+            "source_row_occurrences": len(occurrences),
+            "basis": "retained first-party final grid card matched by stable property ID and exact address",
+        }
+        enriched.append({
+            **old,
+            "status": source_row.get("status") or old.get("status") or "unknown",
+            "sale_price": (old.get("sale_price") if old.get("sale_price") is not None
+                           else source_row.get("sale_price")),
+            "guide_price": (old.get("guide_price") if old.get("guide_price") is not None
+                            else source_row.get("guide_price")),
+            "guide_price_high": (old.get("guide_price_high")
+                                 if old.get("guide_price_high") is not None
+                                 else source_row.get("guide_price_high")),
+            "source_status_text": source_row.get("published_card_text"),
+            "source_evidence": {
+                **(old.get("source_evidence") or {}),
+                "undated_tail_observation": observation,
+            },
+        })
+    return enriched
+
+
 def tail_grid_plan(result_count: int, first_failed_page: int, normal_page_size: int,
                    grid_page_size: int = GRID_PAGE_SIZE) -> dict:
     first_failed_position = (first_failed_page - 1) * normal_page_size
@@ -342,6 +392,36 @@ def tail_grid_plan(result_count: int, first_failed_page: int, normal_page_size: 
         "overlap_rows": overlap_rows,
         "normal_overlap_pages": list(range(normal_overlap_first, first_failed_page)),
     }
+
+
+def fetch_reconciled_grid_tail(result_count: int, first_failed_page: int,
+                               normal_page_size: int) -> tuple[list[dict], int, dict]:
+    """Fetch the live grid tail and prove its boundary against list-page IDs."""
+    plan = tail_grid_plan(result_count, first_failed_page, normal_page_size)
+    overlap_ids = []
+    for page in plan["normal_overlap_pages"]:
+        overlap_ids.extend(fetch_page(page)[5])
+    grid_results = [
+        fetch_grid_page(page)
+        for page in range(plan["first_grid_page"], plan["last_grid_page"] + 1)
+    ]
+    if any(total != result_count for _, _, total, _ in grid_results):
+        raise ValueError("Published result count changed in grid fallback")
+    if any(last != plan["last_grid_page"] for _, _, _, last in grid_results):
+        raise ValueError("Grid fallback page count did not reconcile")
+    first_grid_rows = grid_results[0][1]
+    first_grid_ids = [row["source_lot_id"] for row in first_grid_rows]
+    if first_grid_ids[:plan["overlap_rows"]] != overlap_ids:
+        raise ValueError("Grid/list boundary source IDs did not match exactly")
+    tail_rows = first_grid_rows[plan["overlap_rows"]:]
+    for _, rows, _, _ in grid_results[1:]:
+        tail_rows.extend(rows)
+    first_position = (first_failed_page - 1) * normal_page_size + 1
+    for offset, row in enumerate(tail_rows):
+        row["source_position"] = first_position + offset
+    if first_position - 1 + len(tail_rows) != result_count:
+        raise ValueError("Hybrid list/grid row count did not equal published total")
+    return tail_rows, first_position, plan
 
 
 def bankable(row: dict, today=None) -> bool:
@@ -610,27 +690,9 @@ def harvest() -> None:
     if (repair_mode and result_count and failed_pages and
             failed_pages == list(range(failed_pages[0], last_page + 1))):
         try:
-            plan = tail_grid_plan(result_count, failed_pages[0], first_source_rows)
-            overlap_ids = []
-            for page in plan["normal_overlap_pages"]:
-                normal = fetch_page(page)
-                overlap_ids.extend(normal[5])
-            grid_results = [fetch_grid_page(page)
-                            for page in range(plan["first_grid_page"], plan["last_grid_page"] + 1)]
-            if any(total != result_count for _, _, total, _ in grid_results):
-                raise ValueError("Published result count changed in grid fallback")
-            if any(last != plan["last_grid_page"] for _, _, _, last in grid_results):
-                raise ValueError("Grid fallback page count did not reconcile")
-            first_grid_rows = grid_results[0][1]
-            first_grid_ids = [row["source_lot_id"] for row in first_grid_rows]
-            if first_grid_ids[:plan["overlap_rows"]] != overlap_ids:
-                raise ValueError("Grid/list boundary source IDs did not match exactly")
-            tail_rows = first_grid_rows[plan["overlap_rows"]:]
-            for _, rows, _, _ in grid_results[1:]:
-                tail_rows.extend(rows)
-            first_position = (failed_pages[0] - 1) * first_source_rows + 1
-            for offset, row in enumerate(tail_rows):
-                row["source_position"] = first_position + offset
+            tail_rows, first_position, _ = fetch_reconciled_grid_tail(
+                result_count, failed_pages[0], first_source_rows
+            )
             observed.update(row["source_lot_id"] for row in tail_rows)
             normal_reconciled = sum(page_counts.get(str(page), 0)
                                     for page in range(1, failed_pages[0]))
@@ -659,6 +721,41 @@ def harvest() -> None:
                   f"positions={first_position}-{result_count}", flush=True)
         except Exception as exc:
             failures.append({"kind": "grid_tail_recovery", "url": grid_page_url(1),
+                             "error": f"{type(exc).__name__}: {exc}"[:500]})
+            print("FAILED", failures[-1], flush=True)
+    elif (source_rows_complete and result_count and grid_covered_pages and
+          int(previous.get("published_rows_reconciled") or 0) != result_count):
+        # Pugh inserts newly published property rows into the same archive. A
+        # prior complete tail therefore needs a bounded boundary refresh when
+        # its advertised result count changes; known detail blockers stay
+        # quarantined and are not retried.
+        try:
+            first_failed_page = min(grid_covered_pages)
+            tail_rows, first_position, _ = fetch_reconciled_grid_tail(
+                result_count, first_failed_page, first_source_rows
+            )
+            observed.update(row["source_lot_id"] for row in tail_rows)
+            unresolved_path = corpus.DATA / "sources/pugh/undated-property-search-tail-records.json.gz"
+            corpus.save_gzip(unresolved_path, {
+                "checked_at": corpus.now(), "source_url": INDEX,
+                "published_property_rows": result_count,
+                "source_positions": [first_position, result_count],
+                "rows": tail_rows,
+            })
+            unresolved_rows = len(tail_rows)
+            grid_tail_source_rows = len(tail_rows)
+            failures = [{
+                "kind": "unresolved_source_rows_without_auction_date",
+                "source_rows": unresolved_rows,
+                "unique_property_ids": len({row["source_lot_id"] for row in tail_rows}),
+                "source_positions": [first_position, result_count],
+                "record_path": str(unresolved_path.relative_to(corpus.ROOT)),
+                "error": "Pugh archive grew; refreshed first-party grid rows await exact-detail recovery or null-preserving promotion",
+            }]
+            print(f"PUGH refreshed dynamic grid tail source_rows={unresolved_rows} "
+                  f"positions={first_position}-{result_count}", flush=True)
+        except Exception as exc:
+            failures.append({"kind": "grid_tail_growth_recovery", "url": grid_page_url(1),
                              "error": f"{type(exc).__name__}: {exc}"[:500]})
             print("FAILED", failures[-1], flush=True)
     elif source_rows_complete and unresolved_rows:
@@ -708,6 +805,7 @@ def harvest() -> None:
     detail_pages_recovered_this_run = 0
     undated_tail_source_rows = 0
     undated_tail_appearances_captured = 0
+    undated_tail_existing_appearances_enriched = 0
     unresolved_path = corpus.DATA / "sources/pugh/undated-property-search-tail-records.json.gz"
     if unresolved_path.exists() and unresolved_rows:
         try:
@@ -717,11 +815,17 @@ def harvest() -> None:
             tail_rows_saved = []
             failures.append({"kind": "detail_recovery_source_read",
                              "error": f"{type(exc).__name__}: {exc}"[:500]})
+        known_exact_source_ids = {
+            str(row.get("source_lot_id"))
+            for row in [*existing, *rows_to_write]
+            if row.get("source_lot_id") and row.get("auction_date")
+        }
         targets_by_id = {}
         for source_row in tail_rows_saved:
             source_id = str(source_row.get("source_lot_id") or "")
             if (source_id and source_id not in detail_recovered_source_ids
-                    and source_id not in detail_blocked_source_ids):
+                    and source_id not in detail_blocked_source_ids
+                    and source_id not in known_exact_source_ids):
                 targets_by_id.setdefault(source_id, source_row)
         detail_failures = []
         with ThreadPoolExecutor(max_workers=8) as pool:
@@ -762,6 +866,11 @@ def harvest() -> None:
             str(item["source_lot_id"]): item for item in detail_page_blockers
         }.values())
         failures.extend(detail_failures)
+        enriched_tail_rows = enrich_resolved_tail_rows(
+            remaining, [*existing, *rows_to_write]
+        )
+        undated_tail_existing_appearances_enriched = len(enriched_tail_rows)
+        rows_to_write.extend(enriched_tail_rows)
         resolved_source_ids = {
             str(row.get("source_lot_id"))
             for row in [*existing, *rows_to_write]
@@ -800,6 +909,7 @@ def harvest() -> None:
                "unresolved_source_rows": unresolved_rows,
                "undated_tail_source_rows": undated_tail_source_rows,
                "undated_tail_appearances_captured": undated_tail_appearances_captured,
+               "undated_tail_existing_appearances_enriched": undated_tail_existing_appearances_enriched,
                "detail_pages_recovered_this_run": detail_pages_recovered_this_run,
                "detail_recovered_source_ids": sorted(detail_recovered_source_ids),
                "detail_blocked_source_ids": sorted(detail_blocked_source_ids),
@@ -826,6 +936,7 @@ def harvest() -> None:
         "unresolved_source_rows": unresolved_rows,
         "undated_tail_source_rows": undated_tail_source_rows,
         "undated_tail_appearances_captured": undated_tail_appearances_captured,
+        "undated_tail_existing_appearances_enriched": undated_tail_existing_appearances_enriched,
         "detail_recovered_source_ids": sorted(detail_recovered_source_ids),
         "detail_blocked_source_ids": sorted(detail_blocked_source_ids),
         "detail_page_blockers": detail_page_blockers,
