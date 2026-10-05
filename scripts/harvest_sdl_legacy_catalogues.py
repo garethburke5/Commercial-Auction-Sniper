@@ -247,22 +247,51 @@ def get(url: str) -> requests.Response:
     return response
 
 
+def load_saved_archive(summary_path: Path, root: Path = corpus.ROOT) -> tuple[str, dict]:
+    """Recover the last immutable archive snapshot when SDL blocks CI egress."""
+    summary = json.loads(summary_path.read_text())
+    evidence = summary.get("archive_evidence") or {}
+    snapshot_rel = evidence.get("snapshot_path")
+    if not snapshot_rel:
+        raise ValueError("SDL summary has no saved archive snapshot path")
+    snapshot_path = root / snapshot_rel
+    payload = corpus.read_gzip(snapshot_path)
+    html = payload.get("html")
+    saved_evidence = payload.get("evidence") or evidence
+    if not html or corpus.digest(html.encode("utf-8")) != saved_evidence.get("sha256"):
+        raise ValueError("saved SDL archive snapshot failed integrity validation")
+    return html, saved_evidence
+
+
 def harvest(limit: int = 10) -> None:
-    archive_response = get(ARCHIVE)
-    archive_raw = archive_response.content
-    archive_html = archive_raw.decode("utf-8", "replace")
-    archive_sha = corpus.digest(archive_raw)
-    archive_snapshot = (
-        corpus.DATA / "sources/sdl-property-auctions"
-        / f"archive-{archive_sha[:16]}.json.gz"
-    )
-    archive_evidence = {
-        "source_url": archive_response.url, "retrieved_at": corpus.now(),
-        "sha256": archive_sha,
-        "snapshot_path": str(archive_snapshot.relative_to(corpus.ROOT)),
-        "basis": "first-party retained catalogue archive after SDL brand consolidation",
-    }
-    corpus.save_gzip(archive_snapshot, {"evidence": archive_evidence, "html": archive_html})
+    summary_path = corpus.DATA / "sdl_property_auctions_collection.json"
+    try:
+        archive_response = get(ARCHIVE)
+        archive_raw = archive_response.content
+        archive_html = archive_raw.decode("utf-8", "replace")
+        archive_sha = corpus.digest(archive_raw)
+        archive_snapshot = (
+            corpus.DATA / "sources/sdl-property-auctions"
+            / f"archive-{archive_sha[:16]}.json.gz"
+        )
+        archive_evidence = {
+            "source_url": archive_response.url, "retrieved_at": corpus.now(),
+            "sha256": archive_sha,
+            "snapshot_path": str(archive_snapshot.relative_to(corpus.ROOT)),
+            "basis": "first-party retained catalogue archive after SDL brand consolidation",
+        }
+        corpus.save_gzip(archive_snapshot, {"evidence": archive_evidence, "html": archive_html})
+    except requests.RequestException as exc:
+        if not summary_path.exists():
+            raise
+        archive_html, archive_evidence = load_saved_archive(summary_path)
+        archive_evidence = dict(archive_evidence)
+        archive_evidence.update(
+            reused_at=corpus.now(),
+            fallback_basis="immutable saved first-party archive snapshot",
+            live_fetch_error=f"{type(exc).__name__}: {exc}"[:500],
+        )
+        print("SDL live archive blocked; reusing saved snapshot", flush=True)
     catalogues = discover_catalogues(archive_html)
 
     appearance_path = corpus.DATA / "appearances/sdl-property-auctions/featured-catalogue-lots.jsonl.gz"
@@ -381,7 +410,7 @@ def harvest(limit: int = 10) -> None:
         "failures": failures,
         "scope_warning": "featured retained rows only; no catalogue is counted complete",
     }
-    corpus.save_json(corpus.DATA / "sdl_property_auctions_collection.json", summary)
+    corpus.save_json(summary_path, summary)
     print(json.dumps(summary, indent=2), flush=True)
     if failures:
         raise SystemExit(1)

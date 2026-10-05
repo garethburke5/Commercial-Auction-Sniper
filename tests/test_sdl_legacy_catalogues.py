@@ -1,5 +1,9 @@
+import gzip
+import json
+
 from scripts.harvest_sdl_legacy_catalogues import (
-    discover_catalogues, parse_catalogue_cards, parse_catalogue_identity,
+    discover_catalogues, load_saved_archive, parse_catalogue_cards,
+    parse_catalogue_identity,
 )
 
 
@@ -138,3 +142,21 @@ def test_prose_property_link_does_not_capture_multiple_card_container():
     apartment = {row["property_id"]: row for row in rows}["49099"]
     assert apartment["lot_number"] == "100"
     assert apartment["address"] == "Apartment 216, 15 Hatton Garden, Liverpool L3 2HA"
+
+
+def test_saved_archive_fallback_validates_immutable_snapshot(tmp_path):
+    archive_bytes = ARCHIVE.encode()
+    import hashlib
+    evidence = {
+        "sha256": hashlib.sha256(archive_bytes).hexdigest(),
+        "snapshot_path": "saved/archive.json.gz",
+    }
+    snapshot = tmp_path / evidence["snapshot_path"]
+    snapshot.parent.mkdir()
+    with gzip.open(snapshot, "wt") as handle:
+        json.dump({"evidence": evidence, "html": ARCHIVE}, handle)
+    summary = tmp_path / "summary.json"
+    summary.write_text(json.dumps({"archive_evidence": evidence}))
+    html, loaded_evidence = load_saved_archive(summary, tmp_path)
+    assert html == ARCHIVE
+    assert loaded_evidence == evidence
