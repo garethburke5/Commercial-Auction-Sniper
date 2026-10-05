@@ -31,25 +31,29 @@ permissions:
 jobs:
   collection_scope:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     outputs:
       collect: ${{ steps.scope.outputs.collect }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - id: scope
         env:
           EVENT_NAME: ${{ github.event_name }}
           BEFORE: ${{ github.event.before }}
           AFTER: ${{ github.sha }}
+          REPOSITORY: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           python - <<'PYTHON'
-          import os, subprocess
+          import os, json, urllib.request
           full = os.environ['EVENT_NAME'] != 'push'
           if not full:
-              files = subprocess.check_output(['git','diff','--name-only',os.environ['BEFORE'],os.environ['AFTER']],text=True).splitlines()
+              url = 'https://api.github.com/repos/'+os.environ['REPOSITORY']+'/compare/'+os.environ['BEFORE']+'...'+os.environ['AFTER']
+              request = urllib.request.Request(url, headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
+              with urllib.request.urlopen(request,timeout=30) as response:
+                  files = [f['filename'] for f in json.load(response)['files']]
               derivation_only = {'collectors/core.py','collectors/financials.py','collectors/publication_quality.py'}
-              full = any((p.startswith('collectors/') and p not in derivation_only) or p.startswith(('run_collectors','config/')) for p in files)
+              # GitHub caps comparison files at 300: use a full scan if truncated.
+              full = len(files)>=300 or any((p.startswith('collectors/') and p not in derivation_only) or p.startswith(('run_collectors','config/')) for p in files)
           with open(os.environ['GITHUB_OUTPUT'],'a') as f:
               f.write('collect='+str(full).lower()+'\n')
           print('Fresh source collection required:', full)

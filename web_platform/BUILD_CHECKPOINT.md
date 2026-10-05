@@ -75,6 +75,9 @@ Legacy analysis host: https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.s
 - Production re-read found two stale part-let statuses despite explicit source
   Occupation: Vacant. Added regressions for potential rent ranges/monthly equivalents
   and made that explicit source field clear unsupported current income.
+- Live verification now compares guide/yield/status fields as well as IDs and
+  collection time: financial revalidation deliberately retains both, so ID-only
+  checks had allowed a stale financial index to pass.
 - Derived-fact-only pushes revalidate and publish without launching another full
   source scan. Collector-route/configuration changes and manual runs still collect.
 - Earlier Streamlit owner authentication request timed out. Its analysis UI remains

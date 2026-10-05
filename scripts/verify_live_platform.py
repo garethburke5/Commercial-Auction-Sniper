@@ -7,6 +7,7 @@ import requests
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from source_reconciliation import reconcile
 from web_platform.catalogue import identity
+from web_platform.board import enrich_board_row
 from collectors.publication_quality import publication_exclusion
 from board_presentation import current_board_row
 
@@ -18,12 +19,21 @@ def verify(origin,snapshot):
     if urlsplit(index_url).netloc!=urlsplit(origin).netloc:raise ValueError('Unexpected index host')
     response=requests.get(index_url,timeout=(8,30));response.raise_for_status();index=response.json()
     if index.get('generated_at')!=snapshot.get('generated_at'):raise ValueError('Live snapshot does not match production')
-    expected={identity(r) for r in snapshot['properties'] if current_board_row(r) and not publication_exclusion(r)}
+    expected_rows={identity(r):enrich_board_row(dict(r)) for r in snapshot['properties'] if current_board_row(r) and not publication_exclusion(r)}
+    expected=set(expected_rows)
+    # Revalidation intentionally retains collection time and identities. Compare
+    # the customer-visible facts too, so stale rent/yield cannot pass an ID check.
+    fact_fields=('address','source','tenure','property_type','auction_date','guide_price','giy','giy_min','unavailable')
+    mismatches=[{'id':r['id'],'fields':[k for k in fact_fields if r.get(k)!=expected_rows[r['id']].get(k)]}
+                for r in index['rows'] if r['id'] in expected_rows]
+    mismatches=[r for r in mismatches if r['fields']]
+    if mismatches:raise ValueError('Live property facts do not match production: '+json.dumps(mismatches[:10]))
     actual={r['id'] for r in index['rows']}
     checked=datetime.now(timezone.utc).isoformat()
     report=reconcile(snapshot,live_rows=index['rows'],live_checked_at=checked)
     report.update(index_url=index_url,expected_properties=len(expected),live_properties=len(actual),
         missing_ids=sorted(expected-actual),unexpected_ids=sorted(actual-expected),duplicate_index_rows=len(index['rows'])-len(actual))
+    report['facts_verified']=True
     report['verified']=expected==actual and not report['duplicate_index_rows']
     return report
 
