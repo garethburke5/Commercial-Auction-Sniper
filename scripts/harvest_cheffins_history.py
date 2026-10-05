@@ -11,6 +11,8 @@ from __future__ import annotations
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
+import gzip
+from io import BytesIO
 import json
 import re
 import sys
@@ -19,6 +21,7 @@ from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
+from pypdf import PdfReader
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import historical_corpus as corpus
@@ -37,6 +40,12 @@ DATE_RE = re.compile(
     r"Nov(?:ember)?|Dec(?:ember)?)\s+(?:19|20)\d{2})\s*\|", re.I,
 )
 MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d+)?)", re.I)
+ADDENDUM_RE = re.compile(r"https://cdn\.eigpropertyauctions\.co\.uk/[^\"']+/addendum\.pdf", re.I)
+ADDENDUM_LOT_RE = re.compile(
+    r"(?ims)^\s*LOT\s+0*([0-9]+[A-Z]?)\s*(?:[-\u2013\u2014]\s*)?(.+?)\s*$"
+    r"(.*?)(?=^\s*LOT\s+0*[0-9]+[A-Z]?\b|^\s*ENTRIES\b|\Z)"
+)
+ADDENDUM_RECOVERY_VERSION = 1
 DATE_RECOVERY = {
     "549": {
         "auction_date": "2019-06-19",
@@ -92,13 +101,82 @@ def status_and_price(status_text: str | None, price_text: str | None) -> tuple[s
     return "unknown", None
 
 
+def parse_addendum(text: str, missing_lots: set[str]) -> list[dict]:
+    """Return evidenced missing lot headings from a first-party linked addendum."""
+    recovered = []
+    for match in ADDENDUM_LOT_RE.finditer(text.replace("\r", "")):
+        lot_number = match.group(1).upper()
+        if lot_number not in missing_lots:
+            continue
+        address = clean(match.group(2))
+        body = clean(match.group(3)) or ""
+        if not address:
+            continue
+        lower = body.casefold()
+        if "sold prior" in lower:
+            status = "sold_prior"
+        elif "sold after" in lower:
+            status = "sold_after"
+        elif "withdrawn" in lower:
+            status = "withdrawn"
+        elif re.search(r"\bsold\b", lower):
+            status = "sold"
+        else:
+            status = "unknown"
+        recovered.append({
+            "lot_number": lot_number,
+            "address": address,
+            "status": status,
+            "guide_price": parse_money(body) if "guide" in lower else None,
+            "source_text": clean(" ".join(filter(None, [address, body]))),
+        })
+    return recovered
+
+
+def addendum_rows(text: str, catalogue: dict, auction_date: str, evidence: dict,
+                   existing_rows: list[dict]) -> list[dict]:
+    existing_lots = {str(row.get("lot_number") or "").upper() for row in existing_rows}
+    expected_lots = {str(number) for number in range(1, catalogue["published_lots"] + 1)}
+    missing_lots = expected_lots - existing_lots
+    rows = []
+    for position, item in enumerate(parse_addendum(text, missing_lots), len(existing_rows) + 1):
+        lot_number, address = item["lot_number"], item["address"]
+        source_id = f"addendum-lot-{lot_number.casefold()}"
+        postcode_match = corpus.PC.search(address)
+        row = corpus.base_row("Cheffins", f"cheffins:{catalogue['catalogue_id']}", auction_date,
+                              lot_number, source_id, evidence["source_url"])
+        row.update(
+            appearance_id=(f"Cheffins|catalogue:{catalogue['catalogue_id']}|"
+                           f"addendum-lot:{lot_number}"),
+            address=address,
+            postcode=postcode_match.group().upper() if postcode_match else None,
+            locality=address,
+            property_type=None,
+            description=None,
+            sector=corpus.sector(address),
+            status=item["status"],
+            guide_price=item["guide_price"],
+            sale_price=None,
+            property_id=None,
+            identity_method="source_catalogue_and_addendum_lot_number",
+            record_quality="address_record",
+            source_position=position,
+            source_status_text=item["source_text"],
+            source_result_text=None,
+            source_evidence=evidence,
+        )
+        rows.append(row)
+    return rows
+
+
 def node_text(node, selector: str) -> str | None:
     match = node.select_one(selector)
     return clean(match.get_text(" ", strip=True)) if match else None
 
 
 def parse_catalogue(html: str, catalogue: dict, evidence: dict,
-                    auction_date_override: str | None = None) -> tuple[dict, list[dict]]:
+                    auction_date_override: str | None = None,
+                    recovered_rows: list[dict] | None = None) -> tuple[dict, list[dict]]:
     soup = BeautifulSoup(html, "lxml")
     page_text = clean(soup.get_text(" ", strip=True)) or ""
     date_match = DATE_RE.search(page_text)
@@ -142,6 +220,7 @@ def parse_catalogue(html: str, catalogue: dict, evidence: dict,
         row["appearance_id"] = f"Cheffins|catalogue:{catalogue['catalogue_id']}|property:{source_id}"
         rows.append(row)
 
+    rows.extend(recovered_rows or [])
     identities = [row["source_lot_id"] for row in rows]
     unique = len(set(identities)) == len(identities)
     expected = catalogue["published_lots"]
@@ -159,6 +238,8 @@ def parse_catalogue(html: str, catalogue: dict, evidence: dict,
                  f"published denominator {expected} exceeds {len(rows)} retained source cards",
              "auction_date_basis": ("exact date on catalogue page" if date_match else
                                       "exact date and lot count on first-party sale preview"),
+             "addendum_recovery_version": ADDENDUM_RECOVERY_VERSION,
+             "addendum_lots_recovered": len(recovered_rows or []),
              "source_sha256": evidence["sha256"],
              "errors": [] if unique else ["duplicate source property identities"],
              "checked_at": corpus.now()}
@@ -204,7 +285,9 @@ def harvest(workers: int = 6) -> None:
         if (old_state and (old_rows or old_state.get("lots_captured") == 0) and
                 old_state.get("source_rows_complete") and
                 old_state.get("published_lots_offered") == catalogue["published_lots"] and
-                old_state.get("lots_captured") == len(old_rows)):
+                old_state.get("lots_captured") == len(old_rows) and
+                (old_state.get("catalogue_complete") or
+                 old_state.get("addendum_recovery_version") == ADDENDUM_RECOVERY_VERSION)):
             states[catalogue["catalogue_id"]] = old_state
             run_rows.extend(old_rows)
             reused += 1
@@ -244,6 +327,30 @@ def harvest(workers: int = 6) -> None:
             evidence["auction_date_sha256"] = recovery_sha
             date_override = recovery["auction_date"]
         state, rows = parse_catalogue(html, catalogue, evidence, date_override)
+        addendum_match = ADDENDUM_RE.search(html)
+        if addendum_match and not state["catalogue_complete"]:
+            addendum_raw, addendum_url = get(addendum_match.group(0))
+            addendum_sha = corpus.digest(addendum_raw)
+            addendum_snapshot = corpus.DATA / "sources/cheffins" / (
+                f"catalogue-{catalogue['catalogue_id']}-addendum-{addendum_sha[:16]}.pdf.gz"
+            )
+            addendum_snapshot.parent.mkdir(parents=True, exist_ok=True)
+            with gzip.open(addendum_snapshot, "wb") as handle:
+                handle.write(addendum_raw)
+            addendum_evidence = {
+                "source_url": addendum_url,
+                "catalogue_url": resolved,
+                "retrieved_at": corpus.now(),
+                "sha256": addendum_sha,
+                "snapshot_path": str(addendum_snapshot.relative_to(corpus.ROOT)),
+                "catalogue_snapshot_path": evidence["snapshot_path"],
+                "basis": "first-party catalogue-linked published auction addendum",
+            }
+            addendum_text = "\n".join(page.extract_text() or "" for page in PdfReader(BytesIO(addendum_raw)).pages)
+            recovered = addendum_rows(addendum_text, catalogue, state["auction_date"],
+                                      addendum_evidence, rows)
+            state, rows = parse_catalogue(html, catalogue, evidence, date_override, recovered)
+            state["addendum_source_evidence"] = addendum_evidence
         return catalogue["catalogue_id"], state, rows
 
     with ThreadPoolExecutor(max_workers=max(1, min(workers, 8))) as pool:
