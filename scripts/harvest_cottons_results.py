@@ -17,7 +17,7 @@ import json
 import re
 import sys
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import unquote, urljoin
 
 import requests
 from bs4 import BeautifulSoup
@@ -42,7 +42,9 @@ RESULT_SUFFIX_RE = re.compile(
     r"(?:"
     r"SOLD\s+(?:PRIOR|BEFORE|AFTER|POST)|"
     r"SOLD(?:\s+AT)?\s+£\s*[\d,]+(?:\.\d{1,2})?|"
-    r"NOT\s+OFFERED|WITHDRAWN|POSTPONED|UNSOLD|SOLD|"
+    r"SALE\s+AGREED\s+PRIOR\s+TO\s+AUCTION|"
+    r"NOT\s+(?:OFFERED|AVAILABLE)|UNDER\s+OFFER|"
+    r"WITHDRAWN|POSTPONED|UNSOLD|SOLD|"
     r"AVAILABLE(?:\s*@|\s+AT)?\s*£\s*[\d,]+(?:\.\d{1,2})?|"
     r"£\s*[\d,]+(?:\.\d{1,2})?\s*(?:AVAILABLE)?"
     r")\s*$",
@@ -109,6 +111,12 @@ def result_semantics(value: str) -> tuple[str, int | None, int | None]:
     amount = int(round(float(money_match.group(1).replace(",", "")))) if money_match else None
     if "NOT OFFERED" in text:
         return "not_offered", None, None
+    if "NOT AVAILABLE" in text:
+        return "not_available", None, None
+    if "UNDER OFFER" in text:
+        return "under_offer", None, None
+    if "SALE AGREED PRIOR TO AUCTION" in text:
+        return "sold_prior", None, None
     if "WITHDRAWN" in text:
         return "withdrawn", None, None
     if "POSTPONED" in text:
@@ -137,11 +145,31 @@ def split_result_row(value: str) -> tuple[str, str]:
 
 
 def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, list[dict]]:
-    heading_date = parse_date(text[:1600])
-    if heading_date != expected["auction_date"]:
+    try:
+        heading_date = parse_date(text[:1600])
+    except ValueError:
+        heading_date = None
+    if heading_date and heading_date != expected["auction_date"]:
         raise ValueError(
             f"result PDF date mismatch: expected {expected['auction_date']}, saw {heading_date}"
         )
+    url_date = None
+    if not heading_date:
+        try:
+            url_date = parse_date(unquote(expected["result_url"]).replace("-", " "))
+        except ValueError:
+            numeric = re.search(r"(?:^|\D)(\d{1,2})[-_](\d{1,2})[-_](\d{2}|20\d{2})(?:\D|$)",
+                                unquote(expected["result_url"]))
+            if numeric:
+                day, month, year = map(int, numeric.groups())
+                url_date = date(year if year >= 2000 else 2000 + year, month, day).isoformat()
+        if url_date != expected["auction_date"]:
+            raise ValueError("result PDF has no date corroborating the archive row")
+    date_basis = (
+        "exact date printed on archive row and corroborated by result PDF heading"
+        if heading_date else
+        "exact date printed on archive row and corroborated by result PDF filename"
+    )
 
     # Preserve address punctuation at line wraps (notably a trailing comma)
     # while normalising extraction whitespace.
@@ -203,7 +231,7 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
             property_id=None,
             identity_method="exact_auction_date_and_published_lot_number",
             record_quality="address_record",
-            auction_date_basis="exact date printed on archive row and corroborated by result PDF heading",
+            auction_date_basis=date_basis,
             source_position=position,
             source_result_text=result_text,
             source_evidence=evidence,

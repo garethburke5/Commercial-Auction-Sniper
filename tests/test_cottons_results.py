@@ -83,3 +83,14 @@ def test_status_semantics_do_not_treat_available_price_as_sale():
     assert result_semantics("AVAILABLE @ £42,000") == ("available", None, 42000)
     assert result_semantics("SOLD AFTER") == ("sold_after", None, None)
     assert result_semantics("NOT OFFERED") == ("not_offered", None, None)
+    assert result_semantics("UNDER OFFER") == ("under_offer", None, None)
+    assert result_semantics("NOT AVAILABLE") == ("not_available", None, None)
+    assert result_semantics("SALE AGREED PRIOR TO AUCTION") == ("sold_prior", None, None)
+
+
+def test_filename_can_corroborate_archive_date_when_pdf_heading_omits_it():
+    text = RESULT_TEXT.replace("9 th September 2026 Results\n", "")
+    state, rows = parse_result_text(text, expected(), {})
+    assert state["catalogue_complete"] is True
+    assert len(rows) == 4
+    assert rows[0]["auction_date_basis"].endswith("result PDF filename")
