@@ -39,6 +39,7 @@ python scripts/harvest_bagshaws_results.py
 python scripts/harvest_cottons_results.py 16 8
 python scripts/harvest_harman_healy_results.py
 python scripts/harvest_lsh_results.py
+python scripts/harvest_knight_frank_results.py 12
 python historical_corpus.py build
 ```
 
@@ -246,6 +247,15 @@ is marked complete only after its explicit lot denominator, every page and every
 distinct identity reconcile. Because this grid is newest-first, saved pages are
 reused only while the denominator is unchanged; any count change triggers a full
 pagination refresh so shifted page boundaries cannot omit or duplicate lots.
+
+Knight Frank Auctions collection reconciles every card in the first-party
+recently-sold page against its explicit source-row count, then enriches each
+stable EIG property identity from its retained detail page. Exact auction dates,
+lot numbers, property types, tenure, occupancy, results, prices, images and legal
+pack links are preserved where published. The source calls this a selection of
+recent sales, so its retained grid can be source-row complete while the original
+auction catalogues remain explicitly incomplete. Repeated identical card
+presentations are preserved in the raw snapshot but do not inflate appearances.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The
