@@ -15,7 +15,10 @@ import gzip
 import hashlib
 import json
 import re
+import shutil
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from urllib.parse import unquote, urljoin
 
@@ -344,6 +347,37 @@ def extract_pdf_text(raw: bytes) -> str:
     return text
 
 
+def extract_pdf_text_ocr(raw: bytes) -> str:
+    """OCR a retained image-only result PDF using free runner binaries."""
+    if not shutil.which("pdftoppm") or not shutil.which("tesseract"):
+        raise RuntimeError("OCR requires pdftoppm and tesseract")
+    with tempfile.TemporaryDirectory(prefix="cottons-ocr-") as directory:
+        work = Path(directory)
+        source = work / "result.pdf"
+        source.write_bytes(raw)
+        prefix = work / "page"
+        subprocess.run(
+            ["pdftoppm", "-jpeg", "-r", "220", str(source), str(prefix)],
+            check=True,
+            capture_output=True,
+            timeout=180,
+        )
+        pages = []
+        for image in sorted(work.glob("page-*.jpg")):
+            completed = subprocess.run(
+                ["tesseract", str(image), "stdout", "--psm", "6"],
+                check=True,
+                capture_output=True,
+                text=True,
+                timeout=120,
+            )
+            pages.append(completed.stdout)
+        text = "\n".join(pages)
+        if len(text.strip()) < 100:
+            raise ValueError("OCR produced no usable result text")
+        return text
+
+
 def get(url: str) -> requests.Response:
     response = requests.get(url, headers=HEADERS, timeout=90)
     response.raise_for_status()
@@ -352,7 +386,7 @@ def get(url: str) -> requests.Response:
     return response
 
 
-def harvest(limit: int = 16) -> None:
+def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
     archive_response = get(ARCHIVE)
     archive_raw = archive_response.content
     archive_html = archive_raw.decode("utf-8", "replace")
@@ -376,7 +410,7 @@ def harvest(limit: int = 16) -> None:
     for row in existing:
         rows_by_auction.setdefault(row["source_auction_id"], []).append(row)
 
-    states, pending, failures, blockers, reused = {}, [], [], [], 0
+    states, pending, ocr_pending, failures, blockers, reused = {}, [], [], [], [], 0
     for item in discovered:
         state_name = item["auction_id"].replace(":", "-") + ".json"
         state_path = corpus.DATA / "auctions/cottons" / state_name
@@ -387,7 +421,14 @@ def harvest(limit: int = 16) -> None:
         saved_rows = rows_by_auction.get(item["auction_id"], [])
         if state and state.get("source_blocked"):
             states[item["auction_id"]] = state
-            blockers.append(state["source_blocker"])
+            reason = str(state.get("source_blocker", {}).get("reason") or "")
+            snapshots = sorted((corpus.DATA / "sources/cottons/results").glob(
+                f"{item['auction_date']}-*.pdf.gz"
+            ))
+            if ("image-only" in reason and not state.get("ocr_attempted") and snapshots):
+                ocr_pending.append((item, state, snapshots[-1]))
+            else:
+                blockers.append(state["source_blocker"])
             continue
         if (state and state.get("catalogue_complete") and saved_rows and
                 state.get("lots_captured") == len(saved_rows)):
@@ -395,6 +436,49 @@ def harvest(limit: int = 16) -> None:
             reused += 1
         else:
             pending.append(item)
+
+    ocr_attempted = 0
+    ocr_recovered = 0
+    for item, blocked_state, snapshot in ocr_pending[:max(0, ocr_limit)]:
+        state_name = item["auction_id"].replace(":", "-") + ".json"
+        ocr_attempted += 1
+        try:
+            raw = gzip.decompress(snapshot.read_bytes())
+            evidence = {
+                "source_url": item["result_url"],
+                "retrieved_at": corpus.now(),
+                "sha256": corpus.digest(raw),
+                "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
+                "archive_snapshot_path": archive_evidence["snapshot_path"],
+                "basis": "OCR of retained first-party complete auction result PDF",
+                "ocr_engine": "Tesseract with Poppler 220dpi rasterisation",
+            }
+            state, rows = parse_result_text(extract_pdf_text_ocr(raw), item, evidence)
+            state["ocr_recovered"] = True
+            state["source_evidence"] = evidence
+            corpus.save_json(corpus.DATA / "auctions/cottons" / state_name, state)
+            states[item["auction_id"]] = state
+            for row in rows:
+                merged[row["appearance_id"]] = row
+            ocr_recovered += len(rows)
+            print("COTTONS OCR", item["auction_date"], len(rows), "lots",
+                  state["catalogue_complete"], flush=True)
+        except Exception as exc:
+            blocker = {
+                **blocked_state["source_blocker"],
+                "reason": "retained image-only result PDF failed bounded OCR recovery",
+                "ocr_error": f"{type(exc).__name__}: {exc}"[:500],
+            }
+            blocked_state.update(
+                source_blocker=blocker,
+                ocr_attempted=True,
+                ocr_checked_at=corpus.now(),
+            )
+            corpus.save_json(corpus.DATA / "auctions/cottons" / state_name, blocked_state)
+            states[item["auction_id"]] = blocked_state
+            blockers.append(blocker)
+    for _, state, _ in ocr_pending[max(0, ocr_limit):]:
+        blockers.append(state["source_blocker"])
 
     for item in pending[:max(0, limit)]:
         state_name = item["auction_id"].replace(":", "-") + ".json"
@@ -477,6 +561,8 @@ def harvest(limit: int = 16) -> None:
         "result_sheets_reused": reused,
         "result_sheets_attempted_this_run": min(len(pending), max(0, limit)),
         "result_sheets_pending": max(0, len(pending) - max(0, limit)),
+        "ocr_sheets_attempted_this_run": ocr_attempted,
+        "ocr_appearances_recovered_this_run": ocr_recovered,
         "appearances_captured": total,
         "run_new_appearances": total - len(before_ids),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
@@ -494,4 +580,7 @@ def harvest(limit: int = 16) -> None:
 
 
 if __name__ == "__main__":
-    harvest(int(sys.argv[1]) if len(sys.argv) > 1 else 16)
+    harvest(
+        int(sys.argv[1]) if len(sys.argv) > 1 else 16,
+        int(sys.argv[2]) if len(sys.argv) > 2 else 4,
+    )

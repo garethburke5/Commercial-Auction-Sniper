@@ -31,7 +31,7 @@ python scripts/harvest_future_property_auctions.py --limit 4 --workers 3
 python scripts/harvest_town_country_results.py --workers 4
 python scripts/harvest_brown_co_results.py
 python scripts/harvest_bagshaws_results.py
-python scripts/harvest_cottons_results.py 16
+python scripts/harvest_cottons_results.py 16 4
 python historical_corpus.py build
 ```
 
@@ -174,7 +174,7 @@ published lot row, address, outcome and result or available price. Exact auction
 date plus printed lot number provides appearance identity. A sheet is complete
 only when its distinct published lot labels and continuous base lot sequence
 reconcile; lettered additional lots remain separate rows. Raw archive HTML and
-compressed source PDFs are retained for provenance.
+compressed source PDFs are retained for provenance. Image-only PDFs are OCRed from those saved snapshots in bounded groups of four; failed OCR is quarantined after one attempt rather than probed repeatedly.
 
 Future Property Auctions collection consumes the auctioneer's unauthenticated
 first-party BidJS archive. The manifest currently retains stable auction UUIDs

@@ -195,10 +195,17 @@ jobs:
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_network_auctions.py 6
+      - name: Ensure OCR tools for retained Cottons scans
+        timeout-minutes: 5
+        run: |
+          if ! command -v tesseract >/dev/null || ! command -v pdftoppm >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y tesseract-ocr poppler-utils
+          fi
       - name: Bank Cottons retained result PDFs
         timeout-minutes: 15
         continue-on-error: true
-        run: python -u scripts/harvest_cottons_results.py 16
+        run: python -u scripts/harvest_cottons_results.py 16 4
       - name: Bank retained sold Pattinson online-auction property pages
         timeout-minutes: 10
         continue-on-error: true
