@@ -39,7 +39,15 @@ DATE_RE = re.compile(
     r"\s*[-/. ]*\s*(\d{2}|20\d{2})\b",
     re.I,
 )
-ROW_RE = re.compile(r"^(\d+[A-Za-z]?)\s+(.+)$")
+# Tesseract preserves the source table's vertical rules inconsistently. The
+# first row can also be read as a capital I and printed lot numbers may retain
+# a trailing full stop. Accept those layout artefacts without relaxing the
+# requirement for a numbered row at the beginning of the line.
+ROW_RE = re.compile(
+    r"^(\d+[A-Za-z]?|I)[.)}]?(?:\s*[_|{}]+\s*|\s+)(.+)$",
+    re.I,
+)
+OCR_VERSION = 2
 MONEY_RE = re.compile(r"£\s*([\d][\d,.]*)", re.I)
 RESULT_SUFFIX_RE = re.compile(
     r"(?:"
@@ -153,7 +161,7 @@ def result_semantics(value: str) -> tuple[str, int | None, int | None]:
     return "unknown", None, None
 
 
-def split_result_row(value: str) -> tuple[str, str]:
+def split_result_row(value: str) -> tuple[str | None, str]:
     match = RESULT_SUFFIX_RE.search(value or "")
     if not match:
         address = clean(value)
@@ -161,8 +169,9 @@ def split_result_row(value: str) -> tuple[str, str]:
             raise ValueError("result row has no address")
         return address, ""
     address = clean(value[:match.start()])
-    if not address:
-        raise ValueError("result row has no address")
+    # A small number of complete result tables publish a lot and outcome while
+    # leaving its address cell blank. Preserve that evidenced appearance as a
+    # partial lot instead of discarding the row or inventing an address.
     return address, clean(match.group()) or ""
 
 
@@ -266,10 +275,18 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
                         r"[A-Za-z]+\s+20\d{2}\s+Results", line, re.I):
             continue
         match = ROW_RE.match(line)
+        # The first printed 1 is occasionally recognised as a capital I. It
+        # is safe to repair only before any numbered row has been admitted;
+        # later prose beginning with I remains continuation text.
+        if (match and match.group(1).casefold() == "i"
+                and (current_lot is not None or raw_rows)):
+            match = None
         if match:
             if current_lot is not None:
                 raw_rows.append((current_lot, " ".join(current_parts)))
             current_lot, first = match.groups()
+            if current_lot.casefold() == "i":
+                current_lot = "1"
             current_parts = [first]
         elif current_lot is not None:
             current_parts.append(line)
@@ -289,7 +306,7 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
     for position, (lot_number, body) in enumerate(raw_rows, 1):
         address, result_text = split_result_row(body)
         status, sale_price, available_price = result_semantics(result_text)
-        postcode_match = corpus.PC.search(address)
+        postcode_match = corpus.PC.search(address or "")
         source_auction_id = expected["auction_id"]
         row = corpus.base_row(
             "Cottons", source_auction_id, expected["auction_date"],
@@ -300,13 +317,13 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
             address=address,
             postcode=postcode_match.group().upper() if postcode_match else None,
             locality=address,
-            sector=corpus.sector(address),
+            sector=corpus.sector(address or ""),
             sale_price=sale_price,
             available_price=available_price,
             status=status,
             property_id=None,
             identity_method="exact_auction_date_and_published_lot_number",
-            record_quality="address_record",
+            record_quality="address_record" if address else "partial_lot",
             auction_date_basis=date_basis,
             source_position=position,
             source_result_text=result_text or None,
@@ -365,7 +382,10 @@ def extract_pdf_text_ocr(raw: bytes) -> str:
         pages = []
         for image in sorted(work.glob("page-*.jpg")):
             completed = subprocess.run(
-                ["tesseract", str(image), "stdout", "--psm", "6"],
+                # PSM 4 preserves the result table's row ordering. PSM 6
+                # treated the whole page as one block and dropped most rows
+                # from retained 2017 scans.
+                ["tesseract", str(image), "stdout", "--psm", "4"],
                 check=True,
                 capture_output=True,
                 text=True,
@@ -425,7 +445,9 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
             snapshots = sorted((corpus.DATA / "sources/cottons/results").glob(
                 f"{item['auction_date']}-*.pdf.gz"
             ))
-            if ("image-only" in reason and not state.get("ocr_attempted") and snapshots):
+            if ("image-only" in reason
+                    and state.get("ocr_version", 0) < OCR_VERSION
+                    and snapshots):
                 ocr_pending.append((item, state, snapshots[-1]))
             else:
                 blockers.append(state["source_blocker"])
@@ -451,10 +473,12 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
                 "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
                 "archive_snapshot_path": archive_evidence["snapshot_path"],
                 "basis": "OCR of retained first-party complete auction result PDF",
-                "ocr_engine": "Tesseract with Poppler 220dpi rasterisation",
+                "ocr_engine": "Tesseract PSM 4 with Poppler 220dpi rasterisation",
+                "ocr_version": OCR_VERSION,
             }
             state, rows = parse_result_text(extract_pdf_text_ocr(raw), item, evidence)
             state["ocr_recovered"] = True
+            state["ocr_version"] = OCR_VERSION
             state["source_evidence"] = evidence
             corpus.save_json(corpus.DATA / "auctions/cottons" / state_name, state)
             states[item["auction_id"]] = state
@@ -472,6 +496,7 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
             blocked_state.update(
                 source_blocker=blocker,
                 ocr_attempted=True,
+                ocr_version=OCR_VERSION,
                 ocr_checked_at=corpus.now(),
             )
             corpus.save_json(corpus.DATA / "auctions/cottons" / state_name, blocked_state)

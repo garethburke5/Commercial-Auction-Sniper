@@ -143,3 +143,37 @@ def test_address_only_outcome_is_retained_as_unknown_and_contact_footer_is_ignor
     assert rows[-1]["address"] == "88 Gayhurst Drive, Yardley, Birmingham B25 8YN"
     assert rows[-1]["status"] == "unknown"
     assert rows[-1]["source_result_text"] is None
+
+
+def test_ocr_table_artifacts_preserve_a_complete_numbered_sequence():
+    text = """
+Auction : 25 May 2017 Results Sheet as at 26 May 2017
+Lot Address Result
+I 27 NORWICH ROAD, WALSALL, WS2 9UR SOLD PRIOR
+2__| 52 PROSSER STREET, WOLVERHAMPTON, WV10 9AR £57,000
+3. | 51 BARLOW ROAD, WEDNESBURY, WS10 9QB £97,000
+4 } 22 ALLEN CLOSE, GREAT BARR, BIRMINGHAM, B43 5PT NOT OFFERED
+Entries will be closing shortly for our next Auction
+"""
+    ocr_expected = {
+        **expected("2017-05-25"),
+        "result_url": "https://www.cottons.co.uk/uploads/Results-25th-May-17.pdf",
+    }
+    state, rows = parse_result_text(text, ocr_expected, {"basis": "OCR"})
+    assert state["catalogue_complete"] is True
+    assert [row["lot_number"] for row in rows] == ["1", "2", "3", "4"]
+    assert rows[0]["status"] == "sold_prior"
+    assert rows[1]["sale_price"] == 57000
+    assert rows[3]["status"] == "not_offered"
+
+
+def test_blank_address_cell_is_retained_as_a_partial_lot():
+    text = RESULT_TEXT.replace(
+        "4 2 Factory Road, Birmingham WITHDRAWN",
+        "4 NOT OFFERED",
+    )
+    state, rows = parse_result_text(text, expected(), {})
+    assert state["catalogue_complete"] is True
+    assert rows[-1]["address"] is None
+    assert rows[-1]["record_quality"] == "partial_lot"
+    assert rows[-1]["status"] == "not_offered"
