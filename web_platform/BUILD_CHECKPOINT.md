@@ -39,6 +39,47 @@ Legacy analysis host: https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.s
   no horizontal overflow. These UI checks do not imply live provider activation.
 - No new historical/source expansion was launched for this correction.
 
+## 5 October afternoon continuation — regional coverage and income evidence
+
+- `6384b3ed1dba678d8a312751f069aeddd030b09f` extends the existing Auction House
+  regional collector to current homepage catalogues and online lot routes; hydrates
+  all discovered categories before classification. Midlands, Kent, South Yorkshire,
+  Northern Ireland and Oxfordshire are configured through the existing collector.
+  Essex shares East Anglia; Notts/Derby and Staffordshire storefronts share Midlands.
+  Other canonical regional lot links remain owned by their original regional feed.
+- Source registry records evidenced family/region relationships separately from
+  inventory equivalence. Eddisons/SDL/Mark Jenkinson unique inventory reconciliation
+  is outstanding. New candidate auctioneers are assessments, NOT captured coverage.
+- Explicit storefront advertised/discovered/parsed/rejected/fallback counts prevent
+  silent zero/completeness claims. Partial identifiable commercial lots survive with
+  unknown dates null. Shared online URL/date duplicates retain source-brand evidence.
+- Financial normalization separates hypothetical/post-conversion income from current
+  passing rent. Composite shop/residential/ground-rent components retain source text;
+  ambiguous decimal source totals are only corrected with matching component sums.
+  Current GIY excludes potential and historic-only rent.
+- Public property pages reuse already-banked exact-address/postcode observations for
+  guide/rent/tenant/lease/status timelines; capture time is explicitly distinguished
+  from transaction time. Historic sale yield requires a recorded actual sale and
+  passing rent. Comparable material differences are shown when evidenced.
+- Homepage upcoming auctions count actual captured rows, and hide on refined search.
+  Individual target-yield tool starts blank; user input still calculates the price.
+- Final combined regression suite: 668 passed plus eight subtests. The exact Pages
+  publication gate passed 85 tests. Full export: 1,552 pages.
+- Pages run 37336848297 succeeded with source-to-live ID verification. Live HTTP
+  inspection confirms four upcoming cards, no permanent search-naming row, and
+  Plans & Pricing £0/£15/£25. The browser service timed out twice, so NEW desktop/
+  mobile visual verification remains outstanding; do not claim it was performed.
+- Publication run 37336848982 revalidated/published existing facts successfully as
+  `294ccaba8`; full refreshed collector scan was still running at this checkpoint.
+  Re-read its result and production/live snapshots before claiming recovered lots.
+- Production re-read found two stale part-let statuses despite explicit source
+  Occupation: Vacant. Added regressions for potential rent ranges/monthly equivalents
+  and made that explicit source field clear unsupported current income.
+- Derived-fact-only pushes revalidate and publish without launching another full
+  source scan. Collector-route/configuration changes and manual runs still collect.
+- Earlier Streamlit owner authentication request timed out. Its analysis UI remains
+  unverified/stale; do not reset browser credential protection to bypass this.
+
 ## Earlier implemented and published work
 
 - Device My Auction Sniper: separate Save and Watch, saved searches, private device

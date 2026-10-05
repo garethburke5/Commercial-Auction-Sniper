@@ -51,3 +51,12 @@ def test_development_value_is_not_potential_rent_and_empty_unit_has_no_current_i
  assert f.get('annual_rent') is None and f['potential_income']==100000
  lot=Lot('Example','https://example.test/p','1 High Street',annual_rent=18,description=text).finalise()
  assert lot.annual_rent is None and lot.gross_yield is None
+
+
+@pytest.mark.parametrize('amount,particulars',[
+ (5700,"Former bookmaker's shop. VACANT POSSESSION. Surrounded by occupied commercial premises. Potential rents of £5,200 - £5,700 p.a."),
+ (39996,'The property has most recently been occupied by The Original Factory Shop. Potential annual rent: £40,000 per year Monthly equivalent: £3,333 per month. Nearby occupiers include William Hill.'),
+])
+def test_explicit_source_vacancy_clears_stale_part_let_inference(amount,particulars):
+ lot=Lot('Example','https://example.test/p','1 High Street',annual_rent=amount,guide_price=100000,occupation='Part Vacant / Part Let',description='Status: Available Type: Commercial Ownership: Freehold Occupation: Vacant Rateable Value: Search '+particulars).finalise()
+ assert lot.occupation=='Vacant' and lot.annual_rent is None and lot.gross_yield is None

@@ -129,6 +129,7 @@ def income_components(text):
         if re.search(r'\b(?:previous|historic|former|potential|estimated|projected|conversion|could|would)\b',prefix,re.I):continue
         label=m['label'].strip();kind='ground_rent' if 'ground rent' in label.lower() else 'residential' if re.search('flat|apartment|residential',label,re.I) else 'commercial'
         value=money(m['amount'])
+        if value is None:continue
         if MONTHLY.match(m['period']):value*=12
         key=(kind,label.lower(),value)
         if key in seen:continue

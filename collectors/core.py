@@ -121,6 +121,10 @@ def clean_description(text):
 
 def normalize_occupation(occupation, description):
     current = norm(occupation)
+    # An explicit first-party occupation field outranks a stale inferred status.
+    # Neighbouring occupiers and a former tenant do not make the subject partly let.
+    if re.search(r'\bOccupation:\s*Vacant(?: Possession)?\s+(?:Rateable|Tenure|Ownership|Description|\*|The property)',description or '',re.I) and not LET_EVIDENCE.search(current_income_text(description)):
+        return "Vacant"
     if re.search(r"\bcurrently (?:a|an) (?:large )?empty (?:commercial|retail|industrial) (?:unit|property|building)\b",description or "",re.I) and not LET_EVIDENCE.search(current_income_text(description)):
         return "Vacant"
     if re.search(r'\bpart(?:ly)?[ -](?:vacant|let)\b', clean_description(description), re.I):
