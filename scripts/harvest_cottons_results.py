@@ -167,6 +167,12 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
             if numeric:
                 day, month, year = map(int, numeric.groups())
                 url_date = date(year if year >= 2000 else 2000 + year, month, day).isoformat()
+            else:
+                compact = re.search(r"(?<!\d)(\d{2})(\d{2})(20\d{2}|\d{2})(?!\d)",
+                                    unquote(expected["result_url"]))
+                if compact:
+                    day, month, year = map(int, compact.groups())
+                    url_date = date(year if year >= 2000 else 2000 + year, month, day).isoformat()
         if url_date != expected["auction_date"]:
             raise ValueError("result PDF has no date corroborating the archive row")
     date_basis = (
@@ -316,7 +322,7 @@ def harvest(limit: int = 12) -> None:
     for row in existing:
         rows_by_auction.setdefault(row["source_auction_id"], []).append(row)
 
-    states, pending, failures, reused = {}, [], [], 0
+    states, pending, failures, blockers, reused = {}, [], [], [], 0
     for item in discovered:
         state_name = item["auction_id"].replace(":", "-") + ".json"
         state_path = corpus.DATA / "auctions/cottons" / state_name
@@ -325,6 +331,10 @@ def harvest(limit: int = 12) -> None:
         except (OSError, json.JSONDecodeError):
             state = None
         saved_rows = rows_by_auction.get(item["auction_id"], [])
+        if state and state.get("source_blocked"):
+            states[item["auction_id"]] = state
+            blockers.append(state["source_blocker"])
+            continue
         if (state and state.get("catalogue_complete") and saved_rows and
                 state.get("lots_captured") == len(saved_rows)):
             states[item["auction_id"]] = state
@@ -356,12 +366,33 @@ def harvest(limit: int = 12) -> None:
             for row in rows:
                 merged[row["appearance_id"]] = row
             print("COTTONS", item["auction_date"], len(rows), "lots", state["catalogue_complete"], flush=True)
-        except Exception as exc:
-            failures.append({
+        except requests.HTTPError as exc:
+            status_code = exc.response.status_code if exc.response is not None else None
+            failure = {
                 "auction_id": item["auction_id"],
                 "auction_date": item["auction_date"],
                 "url": item["result_url"],
                 "error": f"{type(exc).__name__}: {exc}"[:500],
+            }
+            if status_code == 404:
+                blocker = {**failure, "status_code": 404,
+                           "reason": "first-party archive result link returns HTTP 404"}
+                state = {
+                    "auctioneer": "Cottons", "source_auction_id": item["auction_id"],
+                    "auction_date": item["auction_date"], "catalogue_complete": False,
+                    "source_rows_complete": False, "lots_captured": 0,
+                    "source_url": item["result_url"], "source_blocked": True,
+                    "source_blocker": blocker, "errors": [], "checked_at": corpus.now(),
+                }
+                corpus.save_json(corpus.DATA / "auctions/cottons" / state_name, state)
+                states[item["auction_id"]] = state
+                blockers.append(blocker)
+            else:
+                failures.append(failure)
+        except Exception as exc:
+            failures.append({
+                "auction_id": item["auction_id"], "auction_date": item["auction_date"],
+                "url": item["result_url"], "error": f"{type(exc).__name__}: {exc}"[:500],
             })
 
     total = corpus.write_rows("cottons/canonical", list(merged.values()))
@@ -371,6 +402,7 @@ def harvest(limit: int = 12) -> None:
         "source_url": ARCHIVE,
         "result_sheets_discovered": len(discovered),
         "result_sheets_complete": sum(bool(state.get("catalogue_complete")) for state in states.values()),
+        "result_sheets_blocked": len(blockers),
         "result_sheets_reused": reused,
         "result_sheets_attempted_this_run": min(len(pending), max(0, limit)),
         "result_sheets_pending": max(0, len(pending) - max(0, limit)),
@@ -381,6 +413,7 @@ def harvest(limit: int = 12) -> None:
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
         "archive_evidence": archive_evidence,
+        "source_blockers": blockers,
         "failures": failures,
     }
     corpus.save_json(corpus.DATA / "cottons_collection.json", summary)

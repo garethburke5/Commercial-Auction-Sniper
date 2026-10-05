@@ -96,6 +96,16 @@ def test_filename_can_corroborate_archive_date_when_pdf_heading_omits_it():
     assert len(rows) == 4
     assert rows[0]["auction_date_basis"].endswith("result PDF filename")
 
+    compact_expected = {
+        **expected("2023-05-24"),
+        "result_url": "https://www.cottons.co.uk/uploads/Results-24052023.pdf",
+    }
+    compact_text = text.replace("£125,000", "£125,000")
+    compact_text = compact_text.replace("2026", "2023")
+    state, rows = parse_result_text(compact_text, compact_expected, {})
+    assert state["catalogue_complete"] is True
+    assert rows[0]["auction_date"] == "2023-05-24"
+
 
 def test_repeated_page_headers_are_not_appended_to_the_previous_result():
     text = RESULT_TEXT.replace(
