@@ -4,16 +4,19 @@
   "auction_date": null,
   "catalogue_complete": false,
   "archive_pagination_complete": false,
-  "lots_captured": 6774,
+  "lots_captured": 6842,
   "source_url": "https://www.pugh-auctions.com/property-search",
   "pages_expected": 351,
   "published_property_rows": 7012,
   "published_rows_reconciled": 7010,
   "source_rows_reconciled_complete": true,
   "grid_tail_source_rows": 70,
-  "unresolved_source_rows": 70,
+  "unresolved_source_rows": 0,
+  "undated_tail_source_rows": 70,
+  "undated_tail_appearances_captured": 68,
   "detail_recovered_source_ids": [],
   "detail_blocked_source_ids": [
+    "11115",
     "202508071608sq_nlsh",
     "202509021043sq_eh1m",
     "202511041437sq_oq21",
@@ -491,23 +494,15 @@
       "source_lot_id": "202609140959sq_q7n5",
       "url": "https://www.pugh-auctions.com/property/202609140959sq_q7n5",
       "error": "ValueError: detail page has no exact lot and auction date"
-    }
-  ],
-  "completion_scope": "all retained first-party property-search rows; original auction denominators unavailable",
-  "errors": [
+    },
     {
       "kind": "detail_page_recovery",
       "source_lot_id": "11115",
       "url": "https://www.pugh-auctions.com/property/11115",
       "error": "TooManyRedirects: Exceeded 30 redirects."
-    },
-    {
-      "kind": "unresolved_source_rows_without_auction_date",
-      "source_rows": 70,
-      "unique_property_ids": 69,
-      "record_path": "data/auction_history/sources/pugh/undated-property-search-tail-records.json.gz",
-      "error": "saved grid rows remain excluded until an exact first-party detail date and lot reconcile"
     }
   ],
-  "checked_at": "2026-10-05T16:33:41.703272+00:00"
+  "completion_scope": "all retained first-party property-search rows; original auction denominators unavailable",
+  "errors": [],
+  "checked_at": "2026-10-05T17:44:09.622238+00:00"
 }
