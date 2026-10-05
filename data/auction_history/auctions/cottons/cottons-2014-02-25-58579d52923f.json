@@ -1,0 +1,19 @@
+{
+  "auctioneer": "Cottons",
+  "source_auction_id": "cottons:2014-02-25:58579d52923f",
+  "auction_date": "2014-02-25",
+  "catalogue_complete": false,
+  "source_rows_complete": false,
+  "lots_captured": 0,
+  "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-sheet-25th-Feb-as-of-14th-March.pdf",
+  "source_blocked": true,
+  "source_blocker": {
+    "auction_id": "cottons:2014-02-25:58579d52923f",
+    "auction_date": "2014-02-25",
+    "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-sheet-25th-Feb-as-of-14th-March.pdf",
+    "error": "ValueError: result PDF contains no usable text",
+    "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
+  },
+  "errors": [],
+  "checked_at": "2026-10-05T04:58:46.214589+00:00"
+}
