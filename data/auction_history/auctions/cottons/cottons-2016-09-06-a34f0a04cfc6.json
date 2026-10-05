@@ -12,8 +12,11 @@
     "auction_date": "2016-09-06",
     "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-6th-Sept-as-of-26th-Sept-2016.pdf",
     "error": "ValueError: result PDF contains no usable text",
-    "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
+    "reason": "retained image-only result PDF failed bounded OCR recovery",
+    "ocr_error": "ValueError: result table header is absent"
   },
   "errors": [],
-  "checked_at": "2026-10-05T04:41:46.257330+00:00"
+  "checked_at": "2026-10-05T04:41:46.257330+00:00",
+  "ocr_attempted": true,
+  "ocr_checked_at": "2026-10-05T06:18:39.957447+00:00"
 }

@@ -1,0 +1,19 @@
+{
+  "auctioneer": "Cottons",
+  "source_auction_id": "cottons:2011-02-17:7cc6dbe0fb4c",
+  "auction_date": "2011-02-17",
+  "catalogue_complete": false,
+  "source_rows_complete": false,
+  "lots_captured": 0,
+  "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results.pdf",
+  "source_blocked": true,
+  "source_blocker": {
+    "auction_id": "cottons:2011-02-17:7cc6dbe0fb4c",
+    "auction_date": "2011-02-17",
+    "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results.pdf",
+    "error": "ValueError: result PDF contains no usable text",
+    "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
+  },
+  "errors": [],
+  "checked_at": "2026-10-05T06:18:45.113261+00:00"
+}
