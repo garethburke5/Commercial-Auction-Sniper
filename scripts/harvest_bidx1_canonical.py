@@ -9,7 +9,7 @@ invented. Residential and commercial lots are retained together.
 from __future__ import annotations
 
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import re
 import sys
@@ -123,6 +123,26 @@ def exact_label(soup: BeautifulSoup, labels: set[str]) -> str | None:
     return None
 
 
+def embedded_closing_date(soup: BeautifulSoup, evidence: dict) -> str | None:
+    """Recover the exact source date from BidX1's public closing countdown.
+
+    Withdrawn-prior pages suppress the human-readable ``Closing Time`` label,
+    but retain a server-rendered ``_seconds-to-closing`` value.  Combining that
+    first-party value with the exact snapshot retrieval timestamp reconstructs
+    the page's closing timestamp independently for each property.
+    """
+    countdown = soup.select_one('input#_seconds-to-closing[value]')
+    retrieved_at = evidence.get("retrieved_at")
+    if not countdown or not retrieved_at:
+        return None
+    try:
+        retrieved = datetime.fromisoformat(str(retrieved_at).replace("Z", "+00:00"))
+        seconds = int(countdown.get("value"))
+    except (TypeError, ValueError):
+        return None
+    return (retrieved + timedelta(seconds=seconds)).date().isoformat()
+
+
 def parse_detail(html: str, source_url: str, auction_id: str,
                  index_row: dict, evidence: dict,
                  auction_date_override: str | None = None) -> dict:
@@ -132,10 +152,11 @@ def parse_detail(html: str, source_url: str, auction_id: str,
     if not source_match or source_match.group(1) != index_row["source_id"]:
         raise ValueError("detail URL/property ID mismatch")
     date_match = DATE_RE.search(text)
-    if not date_match and not auction_date_override:
+    countdown_date = embedded_closing_date(soup, evidence) if not date_match else None
+    if not date_match and not countdown_date and not auction_date_override:
         raise ValueError("detail page has no exact closing date")
     auction_date = (datetime.strptime(date_match.group(1), "%d/%m/%Y").date().isoformat()
-                    if date_match else auction_date_override)
+                    if date_match else countdown_date or auction_date_override)
     address = heading_address(soup)
     if not address:
         raise ValueError("detail page has no postcode-bearing address heading")
@@ -175,6 +196,9 @@ def parse_detail(html: str, source_url: str, auction_id: str,
         sale_price=sale_price, status=status, property_id=index_row["source_id"],
         identity_method="source_property_id", record_quality="address_record",
         auction_date_basis=("exact individual lot closing date published by source" if date_match else
+            "exact individual lot closing date reconstructed from the first-party "
+            "server-rendered seconds-to-closing value and snapshot retrieval timestamp"
+            if countdown_date else
             f"same exact BidX1 auction ID {auction_id}; all dated sibling detail pages publish {auction_date}"),
         source_evidence=evidence, index_result_text=index_row.get("index_text"),
     )

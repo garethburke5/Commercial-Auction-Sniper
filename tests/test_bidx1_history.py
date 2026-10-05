@@ -55,3 +55,21 @@ def test_withdrawn_prior_accepts_only_explicit_reconciled_auction_date():
     assert row["status"] == "withdrawn_prior"
     assert row["sector"] == "commercial"
     assert "same exact BidX1 auction ID 4561" in row["auction_date_basis"]
+
+
+def test_withdrawn_prior_recovers_exact_date_from_public_closing_countdown():
+    html = """
+    <html><body><h2>1 Aveley House, Iliffe Close, Reading, RG1 2QF</h2>
+    <ul><li>Auction</li><li>United Kingdom</li><li>Apartments</li><li>Residential</li></ul>
+    <h4>Withdrawn Prior</h4><h4>Property Summary</h4>
+    <input id="_seconds-to-closing" value="-90433588" hidden>
+    </body></html>
+    """
+    index_row = {"source_id": "93568", "lot_number": None, "index_text": "Withdrawn Prior"}
+    evidence = {"sha256": "ghi", "retrieved_at": "2026-10-05T04:21:28.483298+00:00"}
+    row = parse_detail(html, "https://bidx1.com/en/en-gb/auction/property/93568",
+                       "5857", index_row, evidence)
+    assert row["auction_date"] == "2023-11-23"
+    assert row["status"] == "withdrawn_prior"
+    assert row["record_quality"] == "address_record"
+    assert "seconds-to-closing" in row["auction_date_basis"]
