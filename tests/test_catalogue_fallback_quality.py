@@ -13,7 +13,7 @@ def test_card_fallback_does_not_certify_detail_capture_or_authoritative_pruning(
          patch.object(collector.base,'_fetch',return_value=page), \
          patch.object(collector.base,'_direct_first_party_lot',return_value=None), \
          patch.object(collector,'detail_lot',return_value=None):
-        result=collector._collect_region('wales')
+        result=collector._collect_event_region('wales')
     assert len(result.lots)==1
     assert result.status=='DEGRADED' and not result.authoritative_snapshot
     assert result.reconciliation['detail_pages_inspected']==0

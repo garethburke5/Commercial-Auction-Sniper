@@ -4,11 +4,11 @@
   const cash = value => new Intl.NumberFormat('en-GB', {style:'currency',currency:'GBP',maximumFractionDigits:0}).format(value);
   function targetPrices(value) {
     const target=Number(value);
-    if (!Number.isFinite(target) || target<1 || target>30) return;
+    const valid=String(value).trim()!=='' && Number.isFinite(target) && target>=1 && target<=30;
     document.querySelectorAll('[data-rent]').forEach(card => {
       const rent=Number(card.dataset.rent), price=card.querySelector('.target-price'), label=card.querySelector('.target-label');
       if (label) label.textContent=String(target);
-      if (price) price.textContent=rent>0 ? cash(rent/(target/100)) : 'Not stated';
+      if (price) price.textContent=!valid ? 'Choose a target yield from 1% to 30%' : rent>0 ? cash(rent/(target/100)) : 'Current rent not stated';
     });
   }
   const propertyTarget=document.querySelector('#property-target');
@@ -171,6 +171,7 @@
       const meaningful=['q','source','min','max','yield','tenure','status'].some(k=>applied.get(k)?.trim());
       const saveSearch=document.querySelector('#save-search');
       saveSearch.hidden=!meaningful;
+      const upcoming=document.querySelector('.upcoming-auctions');if(upcoming)upcoming.hidden=meaningful;
       saveSearch.dataset.query=applied.toString();
     }catch(e){if(sequence!==request)return;error.textContent='The catalogue could not be loaded. Your existing results are still available. Reload the page and try again.';error.hidden=false;}
     finally{if(sequence===request)results.removeAttribute('aria-busy');}

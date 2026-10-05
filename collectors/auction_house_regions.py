@@ -26,6 +26,11 @@ REGIONS = {
     "bedsandbucks": ("Auction House Beds & Bucks", "Auction House Beds & Bucks"),
     "leicestershire": ("Auction House Leicestershire", "Auction House Leicestershire"),
     "teesvalley": ("Auction House North Yorkshire & Tees Valley", "Auction House North Yorkshire & Tees Valley"),
+    "midlands": ("Auction House Midlands", "Auction House Midlands"),
+    "kent": ("Auction House Kent", "Auction House Kent"),
+    "southyorkshire": ("Auction House South Yorkshire", "Auction House South Yorkshire"),
+    "northernireland": ("Auction House Northern Ireland", "Auction House Northern Ireland"),
+    "oxfordshire": ("Auction House Oxfordshire", "Auction House Oxfordshire"),
     "national": ("Auction House National Online", "National Online Auction"),
 }
 
@@ -85,7 +90,7 @@ def _is_event_href(href,slug):
 def _is_lot_href(href,slug):
     parsed=urlparse(urljoin(BASE,href or "")); host=(parsed.hostname or "").lower(); path=parsed.path.rstrip("/").lower()
     if re.fullmatch(rf"/{re.escape(slug)}/auction/lot/\d+",path): return True
-    if host==f"{slug}.auctionhouse.co.uk":
+    if host in {f"{slug}.auctionhouse.co.uk", "online.auctionhouse.co.uk"}:
         if re.fullmatch(r"/lot/(?:redirect/)?\d+",path): return True
         if re.fullmatch(r"/lot/details/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",path): return True
     return False

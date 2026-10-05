@@ -63,7 +63,7 @@ class AuctionHouseTerminalHistoryTests(unittest.TestCase):
         ), patch.object(resilient.base, "_fetch", return_value=page), patch.object(
             resilient, "detail_lot", side_effect=fake_detail
         ):
-            result = resilient._collect_region("northwest")
+            result = resilient._collect_event_region("northwest")
 
         self.assertEqual(result.status, "LIVE")
         self.assertEqual(result.expected_count, 2)

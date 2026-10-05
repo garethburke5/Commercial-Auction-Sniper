@@ -69,6 +69,17 @@ class Site:
             + (HERE/'static/workspace.js').read_bytes() + (HERE/'static/board.js').read_bytes() + (HERE/'static/search.js').read_bytes()).hexdigest()[:12]
         self.env.globals.update(board_index=f'/board/{self.board_version}/index.json')
 
+    @cached_property
+    def upcoming(self):
+        events=defaultdict(list)
+        today=date.today().isoformat()
+        for row in self.catalogue.properties:
+            day=str(row.get('auction_date') or '')[:10]
+            if day and day>=today:events[(day,row['source_slug'])].append(row)
+        return [{'date':day,'slug':source,'source':rows[0]['source'],'count':len(rows),
+                 'path':f'/auctions/{source}/{day}/'}
+                for (day,source),rows in sorted(events.items())][:4]
+
     def page(self, path, title, kind, description, **ctx):
         schema = {'@context':'https://schema.org','@type':'WebPage','name':title,'url':self.origin+path,'description':description}
         if kind == 'glossary':
@@ -89,7 +100,7 @@ class Site:
         pages = max(1, math.ceil(len(c.properties)/50))
         yield '/', self.page('/', 'UK commercial auction properties & investment research', 'home',
             'Explore UK commercial auction property with evidenced rent, lease, guide prices and source links.',
-            rows=c.properties[:50], board=True, page=1, pages=pages)
+            rows=c.properties[:50], board=True, page=1, pages=pages, upcoming=self.upcoming)
         for page in range(1,pages+1):
             path = '/properties/' if page == 1 else f'/properties/page/{page}/'
             yield path, self.page(path,'Current auction properties','list','Commercial and mixed-use lots from the published Auction Sniper catalogue.',

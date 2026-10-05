@@ -115,7 +115,7 @@ def _enrich_item(item):
         lot=Lot(**payload); enriched=enrich_common_fields(lot,str(payload.get("description") or "")).to_dict(); out=dict(item)
         for k,v in enriched.items():
             if k=="source_id": continue
-            if k in {'annual_rent','gross_yield','occupation','historic_rent','ground_rent','service_charge','erv','arrears','guide_price_upper','guide_price_text'}:
+            if k in {'annual_rent','gross_yield','occupation','historic_rent','potential_income','income_components','ground_rent','service_charge','erv','arrears','guide_price_upper','guide_price_text'}:
                 out[k]=v
                 continue
             if out.get(k) in (None,"","UNKNOWN","NOT FOUND") and v not in (None,"","UNKNOWN","NOT FOUND"): out[k]=v
@@ -145,7 +145,7 @@ def _merge_last_good(old,new):
     if not old: return dict(new)
     out=dict(old)
     for k,v in new.items():
-        if k in {'annual_rent','gross_yield','historic_rent','ground_rent','service_charge','erv','arrears','guide_price_upper','guide_price_text'}:
+        if k in {'annual_rent','gross_yield','historic_rent','potential_income','income_components','ground_rent','service_charge','erv','arrears','guide_price_upper','guide_price_text'}:
             out[k]=v
         elif k=="description":
             new_desc=clean_description(v); old_desc=clean_description(out.get(k))

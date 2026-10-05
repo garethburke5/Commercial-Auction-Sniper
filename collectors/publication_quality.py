@@ -93,6 +93,11 @@ def canonical_url(url):
 
 def lot_identity(item):
     source = re.sub(r'\s+', ' ', str(item.get('source') or '').strip().lower())
+    parsed=urlsplit(str(item.get('url') or ''))
+    if source.startswith('auction house ') and parsed.hostname=='online.auctionhouse.co.uk':
+        # Syndicated regional storefronts share one underlying auction appearance.
+        # This changes current publication identity only, never historic auctioneer provenance.
+        return ('auction-house-online', canonical_url(item.get('url')), str(item.get('auction_date') or '')[:10])
     day = str(item.get('auction_date') or '')[:10]
     lot = re.sub(r'^lot\s*', '', str(item.get('lot_number') or '').strip(), flags=re.I).upper()
     if re.fullmatch(r'\d+(?:\.\d+)?[A-Z]?', lot):
@@ -126,7 +131,7 @@ def prepare_publication(snapshot):
         # be revived by merging an older snapshot into a currently vacant lot.
         try:
             normal = Lot(**{k:v for k,v in item.items() if k in allowed}).to_dict()
-            for key in ('annual_rent', 'gross_yield', 'historic_rent', 'erv', 'ground_rent', 'service_charge', 'arrears', 'occupation', 'guide_price_upper', 'guide_price_text', 'area_sqft', 'area_sqm'):
+            for key in ('annual_rent', 'gross_yield', 'historic_rent', 'erv', 'potential_income', 'income_components', 'property_type', 'ground_rent', 'service_charge', 'arrears', 'occupation', 'guide_price_upper', 'guide_price_text', 'area_sqft', 'area_sqm'):
                 item[key] = normal[key]
         except (TypeError, ValueError):
             pass
@@ -135,8 +140,11 @@ def prepare_publication(snapshot):
             duplicates += 1
             old = kept[key]
             score = lambda x: (str(x.get('collected_at') or ''), bool(x.get('image_is_primary')), len(str(x.get('description') or '')))
+            brands=sorted(set(old.get('source_brands',[]) + item.get('source_brands',[]) + [old.get('source'),item.get('source')]) - {None})
             if score(item) <= score(old):
+                old['source_brands']=brands
                 continue
+            item['source_brands']=brands
         kept[key] = item
     snapshot['properties'] = list(kept.values())
     snapshot['excluded_properties'] = list({(x.get('source'), canonical_url(x.get('url'))):x for x in excluded}.values())

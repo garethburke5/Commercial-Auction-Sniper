@@ -5,7 +5,7 @@ from typing import Optional
 import hashlib
 import re
 from urllib.parse import urljoin
-from .financials import money, guide_range, income_facts, current_income_text
+from .financials import money, guide_range, income_facts, current_income_text, income_components
 
 MONEY_RE = re.compile(r"(?:£\s*)+([\d,]+(?:\.\d{1,2})?)")
 
@@ -65,7 +65,7 @@ LET_EVIDENCE = re.compile(
     r"\btenancy details\b|\bcurrent (?:gross )?income\b|\bproducing\s+£",
     re.I,
 )
-VACANT_EVIDENCE = re.compile(r"\bvacant(?: possession)?\b", re.I)
+VACANT_EVIDENCE = re.compile(r"\bvacant(?: possession)?\b|\bcurrently (?:a|an) (?:large )?empty (?:commercial|retail|industrial) (?:unit|property|building)\b", re.I)
 
 
 def norm(text):
@@ -121,6 +121,8 @@ def clean_description(text):
 
 def normalize_occupation(occupation, description):
     current = norm(occupation)
+    if re.search(r"\bcurrently (?:a|an) (?:large )?empty (?:commercial|retail|industrial) (?:unit|property|building)\b",description or "",re.I) and not LET_EVIDENCE.search(current_income_text(description)):
+        return "Vacant"
     if re.search(r'\bpart(?:ly)?[ -](?:vacant|let)\b', clean_description(description), re.I):
         return "Part Vacant / Part Let"
     if current.lower() not in {"vacant", "vacant possession"} and not current.lower().startswith("vacant -"):
@@ -145,6 +147,8 @@ class Lot:
     guide_price_upper: Optional[float] = None
     guide_price_text: Optional[str] = None
     annual_rent: Optional[float] = None
+    potential_income: Optional[float] = None
+    income_components: list = field(default_factory=list)
     historic_rent: Optional[float] = None
     arrears: Optional[float] = None
     auction_id: Optional[str] = None
@@ -204,11 +208,21 @@ class Lot:
             self.guide_price_upper = upper or self.guide_price_upper
             self.guide_price_text = self.guide_price_text or price_text
         finances = income_facts(self.description)
-        for key in ('historic_rent', 'erv', 'ground_rent', 'service_charge', 'arrears'):
+        for key in ('historic_rent', 'erv', 'potential_income', 'ground_rent', 'service_charge', 'arrears'):
             if getattr(self, key) is None and key in finances:
                 setattr(self, key, finances[key])
-        if self.annual_rent is not None and 'annual_rent' not in finances and self.annual_rent in [finances.get(k) for k in ('historic_rent', 'erv', 'ground_rent', 'service_charge')]:
+        if self.annual_rent is not None and 'annual_rent' not in finances and self.annual_rent in [finances.get(k) for k in ('historic_rent', 'erv', 'potential_income', 'ground_rent', 'service_charge')]:
             self.annual_rent = None
+        components = income_components(self.description)
+        if components:
+            self.income_components = components
+            component_total=sum(c['annual_rent'] for c in components)
+            punctuation_error=(self.annual_rent is not None and abs(component_total-self.annual_rent*1000)<0.01
+                and re.search(r'Total(?: annual)? Income\s*:\s*£[\d]+\.\d{3}\b',self.description,re.I))
+            if self.annual_rent is None or punctuation_error:
+                self.annual_rent = component_total
+            if {'commercial','residential'} <= {c['component'] for c in components}:
+                self.property_type = 'Mixed Use'
         self.occupation = normalize_occupation(self.occupation, self.description)
         occ = (self.occupation or "").strip().lower()
         wholly_vacant = occ in {"vacant", "vacant possession"} or occ.startswith("vacant -")

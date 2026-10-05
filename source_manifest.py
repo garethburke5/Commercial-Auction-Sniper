@@ -121,3 +121,9 @@ def append_missing_health(source_health, path=CONFIG):
             "checked_at": None,
         })
     return manifest_coverage(source_health, path)
+
+
+def source_registry(path=Path("config/source_registry.json")):
+    """Brand/network relationships, separate from evidence of actual inventory."""
+    if not Path(path).exists(): return []
+    return json.loads(Path(path).read_text()).get('sources',[])

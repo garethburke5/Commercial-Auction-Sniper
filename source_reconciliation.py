@@ -3,7 +3,7 @@ from collections import Counter
 from datetime import datetime, timezone, date
 from board_presentation import current_board_row
 from collectors.publication_quality import publication_exclusion, MIXED
-from source_manifest import load_target_sources, _source_aliases
+from source_manifest import load_target_sources, _source_aliases, source_registry
 
 def counts(rows):
     return Counter(r.get('source') for r in rows if current_board_row(r))
@@ -17,11 +17,12 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
     old=counts((previous or {}).get('properties',[]))
     live=counts(live_rows) if live_rows is not None else None
     exclusions=Counter(r.get('source') for r in snapshot.get('excluded_properties',[]) if str(r.get('publication_exclusion','')).startswith('Pure residential'))
+    registry=source_registry()
     records=[]
     for source in sorted(set(required+expansion+list(health))):
         h=health.get(source,{})
         if source in aliases:
-            records.append({'auctioneer':source,'status':'MERGED SOURCE','successor':aliases[source],'collector_configured':False,'failure_reason':'Represented by successor; not a duplicate inventory.'});continue
+            records.append({'auctioneer':source,'status':'MERGED SOURCE','successor':aliases[source],'collector_configured':False,'failure_reason':'Configured successor mapping; unique inventory reconciliation remains required.'});continue
         t=h.get('reconciliation') or {}
         def metric(*names):
             return next((t[k] for k in names if k in t),None)
@@ -42,6 +43,8 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
         parsed=metric('lots_parsed','detail_pages_inspected')
         if source_count and parsed is not None and parsed<source_count*.8:reasons.append(f'Incomplete parsing: {parsed}/{source_count} source lots')
         if live is not None and live[source]!=publish[source]:reasons.append(f'Published/live mismatch: {publish[source]} → {live[source]}')
+        if source_count and parsed is not None and t.get('shared_feed_lots') and parsed+t['shared_feed_lots']>=source_count*.8:
+            reasons=[r for r in reasons if not r.startswith('Incomplete parsing:')]
         missing=[n for n,v in [('source_lot_count',source_count),('parsed_count',parsed),('commercial_candidates',qualifying)] if v is None]
         records.append({'auctioneer':source,'collector_configured':h.get('status') not in (None,'NOT IMPLEMENTED','MISSING'),
             'collector_executed':h.get('collector_executed',bool(h.get('checked_at'))),'status':'DEGRADED' if reasons else h.get('status','MISSING'),
@@ -55,7 +58,15 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
             'failure_reason':'; '.join(reasons) or None,'telemetry_missing':missing,
             'last_collection':h.get('checked_at'),'last_successful_collection':h.get('checked_at') if h.get('status')=='LIVE' else h.get('last_successful_collection'),
             'last_publication':snapshot.get('generated_at'),'live_checked_at':live_checked_at})
-    return {'schema_version':2,'generated_at':datetime.now(timezone.utc).isoformat(),'snapshot_generated_at':snapshot.get('generated_at'),
+    for record in records:
+        matches=[r for r in registry if r.get('source')==record['auctioneer']]
+        record['source_registry']=matches
+        t=(health.get(record['auctioneer'],{}).get('reconciliation') or {})
+        record['last_successful_discovery']=t.get('last_successful_discovery')
+        record['last_successful_harvest']=t.get('last_successful_harvest')
+        record['records_banked']=t.get('records_banked')
+        record['storefronts']=t.get('storefronts',[])
+    return {'schema_version':2,'source_registry':registry,'generated_at':datetime.now(timezone.utc).isoformat(),'snapshot_generated_at':snapshot.get('generated_at'),
             'live_verification':'measured' if live is not None else 'not yet verified','sources':records,
             'degraded_sources':sum(r['status']=='DEGRADED' for r in records)}
 

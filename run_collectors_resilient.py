@@ -217,6 +217,8 @@ def _install_replacements():
             upgraded.append(_collect_bidx1_with_reserve_proxy)
         else:
             upgraded.append(collector)
+    for name in ("collect_midlands","collect_kent","collect_south_yorkshire","collect_northern_ireland","collect_oxfordshire"):
+        if not any(getattr(c,"__name__","")==name for c in upgraded): upgraded.append(getattr(regional,name))
     pipeline.COLLECTORS = upgraded
 
 

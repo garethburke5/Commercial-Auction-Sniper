@@ -79,8 +79,8 @@ def test_directory_and_house_page_render_same_evidence_without_changing_income(t
     assert index.select_one('.fee-detail') and index.select_one('time[datetime]')
     assert 'View properties & fees' in index.get_text()
     prop = BeautifulSoup(pages[site.catalogue.properties[0]['path']], 'html.parser')
-    assert prop.select_one('#property-target')['value'] == '10'
-    assert prop.select_one('.yield-calculator .target-price').get_text() == '£100,000'
+    assert prop.select_one('#property-target').get('value') is None
+    assert prop.select_one('.yield-calculator .target-price').get_text() == 'Choose a target yield'
     for path, bundle in site.board_assets():
         if path.startswith('/board/') and not path.endswith('/index.json'):
             for markup in json.loads(bundle).values():

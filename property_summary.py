@@ -85,6 +85,8 @@ def _has_conversion_potential(low):
 
 def _is_ground_rent_investment(row, low, development):
     """Only classify the asset itself as ground rent, never an incidental lease cost."""
+    if any(c.get("component") in {"commercial","residential"} for c in row.get("income_components",[])):
+        return False
     primary = _norm(row.get("property_type")).lower()
     opening = low[:260]
     explicit_primary = bool(re.search(r"\bground rents? investment\b|\bground rent portfolio\b", primary))

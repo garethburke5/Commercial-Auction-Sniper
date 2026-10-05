@@ -75,7 +75,7 @@ def _restore_fallback_details(fallback, previous):
     return Lot(**payload).finalise(), True
 
 
-def _collect_region(slug):
+def _collect_event_region(slug):
     source, auctioneer_label = base.REGIONS[slug]
     try:
         events = base._future_events(slug, auctioneer_label)
@@ -243,6 +243,126 @@ def _collect_region(slug):
         )
 
 
+# Source homepage catalogues include online sales which are absent from event diaries.
+# Shared regional storefronts point at the same individual lots; collect once per
+# canonical feed and preserve their visible trading/regional identities in health.
+SHARED_STOREFRONTS = {'eastanglia': ('essex',),
+                     'midlands': ('nottsandderby', 'staffordshire')}
+
+def _home_inventory(page, page_url):
+    heading = next((h.get_text(' ',strip=True) for h in page.select('h3,h4')
+                    if 'Current auction lots' in h.get_text()), '')
+    total = re.search(r'Current auction lots\s*\((\d+) Lots?\)', heading, re.I)
+    if not total: raise ValueError('Current catalogue count/markup missing')
+    cards = {}
+    for a in page.select('.home-lot-wrapper-link[href]'):
+        href = urljoin(page_url,a['href']).split('?')[0]
+        path = urlparse(href).path
+        if not re.search(r'/auction/lot/\d+$|/lot/(?:redirect/)?\d+$|/lot/details/[a-f0-9-]+$',path,re.I): continue
+        text = norm(a.get_text(' ',strip=True));address = a.select_one('.grid-address')
+        image = a.select_one('img.lot-image')
+        m = re.search(r'\bLot\s+(\d+[A-Z]?)\b',text,re.I)
+        cards[href] = (text, norm(address.get_text(' ',strip=True)) if address else text,
+                       'Lot '+m.group(1) if m else None, None,
+                       urljoin(page_url,image.get('data-src') or image.get('src')) if image and (image.get('data-src') or image.get('src')) else None,
+                       _terminal_status(text))
+    return int(total.group(1)), cards
+
+def _collect_region(slug):
+    from concurrent.futures import ThreadPoolExecutor
+    from datetime import date, datetime, timezone
+    from .publication_quality import commercial_decision, asset_text
+    from .core import is_commercial
+    source = base.REGIONS[slug][0]
+    result = _collect_event_region(slug)
+    # Reuse good event records; do not re-fetch already hydrated detail pages.
+    excluded_known = {x.url for x in result.lots if commercial_decision(x.to_dict()) is False}
+    known = {x.url:x for x in result.lots if x.url not in excluded_known}
+    targets = {}; storefronts=[]; failures=[]; total = 0
+    for branch in (slug,)+SHARED_STOREFRONTS.get(slug,()):
+        url = base.BASE+'/'+branch
+        try:
+            count,cards = _home_inventory(base._fetch(url),url)
+            storefronts.append({'region':branch,'source_url':url,'source_lot_count':count,
+                               'lots_discovered':len(cards)})
+            total += count;targets.update(cards)
+            if len(cards)!=count:failures.append(f'{branch}: catalogue advertises {count}, discovered {len(cards)} lot links')
+        except Exception as exc:failures.append(f'{branch}: {type(exc).__name__}: {exc}')
+    # If a shared storefront routes a lot to a canonical regional URL, that
+    # region owns the record. This avoids duplicating Birmingham/Coventry in Midlands.
+    shared = {}
+    for href in list(targets):
+        m=re.search(r'^/([^/]+)/auction/lot/\d+$',urlparse(href).path)
+        if m and m.group(1)!=slug:
+            shared[href]=m.group(1);targets.pop(href)
+    parsed = len([u for u in targets if u in known or u in excluded_known]); rejected=len(excluded_known); residential=len(excluded_known)
+    fallback_count=0; detail_errors=[]; outcomes=[]
+    def hydrate(item):
+        href,(card,address,lotno,_,image,status)=item
+        try:
+            ds=base._fetch(href)
+            # Parse the actual property's auction date, never a date from navigation.
+            marker=ds.find(string=re.compile(r'For Sale By Auction',re.I))
+            raw=norm(marker) if marker else norm((ds.select_one('.lot-highlights') or ds.select_one('.lot-details') or ds).get_text(' ',strip=True))
+            day=base._parse_date(raw)
+            when=day.isoformat() if day else None
+            lot=detail_lot(source,href,seed=card,lot_number=lotno,auction_date=when,
+                           force_commercial=True,suppress_prior=False,page_soup=ds)
+            if lot and (not lot.address or lot.address.startswith('http') or 'Property for Auction' in lot.address):lot.address=address
+            if lot and not ds.select_one('.lot-details .preline'):
+                direct=base._direct_first_party_lot(source,href,card,address,lotno,when,image,fetcher=lambda u:ds,suppress_prior=False)
+                if direct:lot=direct
+            if not lot or len(lot.description or '')<30:raise ValueError('No usable lot particulars')
+            decision=commercial_decision(lot.to_dict())
+            if decision is False or (decision is None and not is_commercial(asset_text(lot.description)) and not _is_target_card(card)):
+                return href,None,'residential' if decision is False else 'noncommercial',None
+            if not when: # Keep an identifiable current-listed lot with its date unknown.
+                lot.auction_date=None
+            lot.status=status or lot.status or 'CURRENT'
+            if not lot.image_url:lot.image_url=image
+            return href,lot.finalise(),'parsed',None
+        except Exception as exc:
+            # Bank an identifiable source-listed commercial lot, with unknowns null.
+            # Failure is measured and prevents an authoritative completeness claim.
+            lot=base._fallback_catalogue_lot(source,href,card,address,lotno,None,image) if _is_target_card(card) else None
+            if lot:lot.status=status or lot.status or 'CURRENT'
+            return href,lot,'fallback' if lot else 'failed',str(exc)
+    remaining=[x for x in targets.items() if x[0] not in known and x[0] not in excluded_known]
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        for href,lot,outcome,error in pool.map(hydrate,remaining):
+            outcomes.append({'url':href,'outcome':outcome,'reason':error})
+            if outcome in {'parsed','residential','noncommercial'}:parsed+=1
+            if outcome=='residential':residential+=1
+            if outcome in {'residential','noncommercial'}:rejected+=1
+            if outcome=='fallback':fallback_count+=1
+            if error:detail_errors.append(href)
+            if lot:known[href]=lot
+    lots=list(known.values())
+    current=[x for x in lots if not x.auction_date or x.auction_date>=date.today().isoformat()]
+    mixed=sum(1 for x in current if re.search(r'mixed[ -]use',str(x.property_type or ''),re.I))
+    complete = bool(storefronts) and not failures and not detail_errors and result.status not in {'FAILED','DEGRADED'}
+    status = ('LIVE' if lots else 'CATALOGUE PENDING') if complete else 'DEGRADED'
+    now=datetime.now(timezone.utc).isoformat()
+    telemetry=dict(result.reconciliation or {})
+    telemetry.update(current_catalogue_detected=bool(total),source_lot_count=len(targets)+len(shared),
+        advertised_source_lot_count=total,discovered_lot_urls=len(targets)+len(shared),
+        detail_pages_inspected=parsed,commercial_mixed_candidates=len(current),
+        commercial_candidates=len(current)-mixed,mixed_use_candidates=mixed,
+        residential_exclusions=residential,classification_rejections=rejected,
+        detail_failures=len(detail_errors),catalogue_fallbacks=fallback_count,
+        shared_feed_lots=len(shared),shared_feed_routes=sorted(set(shared.values())),
+        storefronts=storefronts,lot_outcomes=outcomes,
+        last_successful_discovery=now if storefronts and not failures else None,
+        last_successful_harvest=now if complete else None)
+    message=(f'Current regional storefronts: {total} advertised links; {len(targets)} unique owned lots; '
+             f'{len(shared)} routed to other canonical regional feeds; {parsed} detail records; '
+             f'{len(current)} commercial/mixed-use candidates; {rejected} classification exclusions; '
+             f'{len(detail_errors)} detail failures. '+ '; '.join(failures))
+    return SourceResult(source,status,lots,message,expected_count=len(lots),
+        discovered_count=len(targets)+len(shared),authoritative_snapshot=complete,
+        scope_dates=tuple(sorted({x.auction_date for x in lots if x.auction_date})),reconciliation=telemetry)
+
+
 def collect_east_anglia(): return _collect_region("eastanglia")
 def collect_west_yorkshire(): return _collect_region("westyorkshire")
 def collect_sussex_hampshire(): return _collect_region("sussexandhampshire")
@@ -263,3 +383,9 @@ def collect_beds_bucks(): return _collect_region("bedsandbucks")
 def collect_leicestershire(): return _collect_region("leicestershire")
 def collect_tees_valley(): return _collect_region("teesvalley")
 def collect_national_online(): return _collect_region("national")
+
+def collect_midlands(): return _collect_region("midlands")
+def collect_kent(): return _collect_region("kent")
+def collect_south_yorkshire(): return _collect_region("southyorkshire")
+def collect_northern_ireland(): return _collect_region("northernireland")
+def collect_oxfordshire(): return _collect_region("oxfordshire")

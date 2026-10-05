@@ -304,8 +304,8 @@ def enrich_common_fields(lot, text):
 
 def detail_lot(source, url, seed="", lot_number=None, auction_date=None,
                force_commercial=False, use_browser=False, strict_commercial=False,
-               suppress_prior=True):
-    s = soup(url, use_browser=use_browser)
+               suppress_prior=True, page_soup=None):
+    s = page_soup if page_soup is not None else soup(url, use_browser=use_browser)
     if source == 'Auction House London' and s.select_one('.lot-main'):
         from .auction_house_london_detail import parse_lot
         return parse_lot(s,url,lot_number,auction_date)
