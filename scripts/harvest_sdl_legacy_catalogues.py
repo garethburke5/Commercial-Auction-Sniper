@@ -44,6 +44,7 @@ SESSION = requests.Session()
 SESSION.headers.update(HEADERS)
 PROPERTY_RE = re.compile(r"/property/(\d+)/", re.I)
 AUCTION_RE = re.compile(r"/auction/(\d+)/", re.I)
+URL_DATE_RE = re.compile(r"(20\d{2}-\d{2}-\d{2})")
 LOT_RE = re.compile(r"\bLot\s+(?:no\.?\s*:?\s*)?([0-9]+[A-Za-z]?)\b", re.I)
 DATE_RE = re.compile(
     r"\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s+"
@@ -105,19 +106,45 @@ def parse_catalogue_identity(html: str, source_url: str) -> tuple[str, str]:
     soup = BeautifulSoup(html, "lxml")
     text = clean(soup.get_text(" ", strip=True)) or ""
     date_match = DATE_RE.search(text)
-    if not date_match:
-        raise ValueError("catalogue page has no exact auction date")
-    auction_date = datetime.strptime(
-        " ".join(date_match.groups()), "%d %B %Y"
-    ).date().isoformat()
+    text_date = (
+        datetime.strptime(" ".join(date_match.groups()), "%d %B %Y").date().isoformat()
+        if date_match else None
+    )
     auction_ids = []
+    dated_auctions = []
     for anchor in soup.find_all("a", href=True):
-        match = AUCTION_RE.search(urljoin(source_url, anchor["href"]))
+        auction_url = urljoin(source_url, anchor["href"])
+        match = AUCTION_RE.search(auction_url)
         if match and match.group(1) not in auction_ids:
             auction_ids.append(match.group(1))
+        url_date = URL_DATE_RE.search(auction_url)
+        pair = (match.group(1), url_date.group(1)) if match and url_date else None
+        if pair and pair not in dated_auctions:
+            dated_auctions.append(pair)
+
+    source_hint = parse_hint(urlsplit(source_url).path.replace("-", " "))
+    month_matches = [pair for pair in dated_auctions if pair[1][:7] == source_hint]
+    if len(month_matches) == 1:
+        return month_matches[0]
+    if len(month_matches) > 1:
+        raise ValueError(
+            f"catalogue has multiple auction identities for {source_hint}: "
+            f"{month_matches}"
+        )
+
+    exact_matches = [pair for pair in dated_auctions if pair[1] == text_date]
+    if len(exact_matches) == 1:
+        return exact_matches[0]
+    if len(exact_matches) > 1:
+        raise ValueError(
+            f"catalogue has multiple auction identities for {text_date}: "
+            f"{exact_matches}"
+        )
+    if not text_date:
+        raise ValueError("catalogue page has no exact auction date")
     if len(auction_ids) != 1:
         raise ValueError(f"catalogue auction identity is ambiguous: {auction_ids}")
-    return auction_ids[0], auction_date
+    return auction_ids[0], text_date
 
 
 def _card_for(anchor):
@@ -127,7 +154,15 @@ def _card_for(anchor):
         if node is None:
             break
         text = clean(node.get_text(" ", strip=True)) or ""
-        if LOT_RE.search(text) and GUIDE_RE.search(text) and corpus.PC.search(text):
+        property_ids = {
+            match.group(1)
+            for child in node.find_all("a", href=True)
+            if (match := PROPERTY_RE.search(child["href"]))
+        }
+        if (
+            len(property_ids) == 1
+            and LOT_RE.search(text) and GUIDE_RE.search(text) and corpus.PC.search(text)
+        ):
             return node
     return None
 
@@ -237,7 +272,7 @@ def harvest(limit: int = 10) -> None:
     for row in existing:
         existing_by_auction.setdefault(row["source_auction_id"], []).append(row)
 
-    states, pending = {}, []
+    states, blocked, pending = {}, {}, []
     for item in catalogues:
         state_key = re.sub(r"[^a-z0-9]+", "-", urlsplit(item["url"]).path.casefold()).strip("-")
         state_path = corpus.DATA / "auctions/sdl-property-auctions" / f"{state_key}.json"
@@ -245,7 +280,9 @@ def harvest(limit: int = 10) -> None:
             state = json.loads(state_path.read_text()) if state_path.exists() else None
         except (OSError, json.JSONDecodeError):
             state = None
-        if state and state.get("source_rows_captured") and not state.get("errors"):
+        if state and state.get("terminal_unavailable"):
+            blocked[state_key] = state
+        elif state and state.get("source_rows_captured") and not state.get("errors"):
             states[state_key] = state
         else:
             pending.append((state_key, state_path, item))
@@ -253,6 +290,7 @@ def harvest(limit: int = 10) -> None:
     selected = pending[:max(0, limit)] if limit else pending
     run_rows, failures = [], []
     for state_key, state_path, item in selected:
+        response = None
         try:
             response = get(item["url"])
             raw = response.content
@@ -289,10 +327,34 @@ def harvest(limit: int = 10) -> None:
             run_rows.extend(rows)
             print("SDL", len(states), "/", len(catalogues), "catalogue pages", len(run_rows), "run lots", flush=True)
         except Exception as exc:
-            failures.append({
+            failure = {
                 "catalogue_url": item["url"], "month_hint": item["month_hint"],
                 "error": f"{type(exc).__name__}: {exc}"[:500],
-            })
+            }
+            final_path = urlsplit(response.url).path.rstrip("/") if response else None
+            archive_path = urlsplit(ARCHIVE).path.rstrip("/")
+            terminal_paths = {archive_path, "/buy-property"}
+            if response is not None and final_path in terminal_paths:
+                state = {
+                    "auctioneer": "SDL Property Auctions",
+                    "source_auction_id": None, "auction_date": None,
+                    "catalogue_complete": False, "source_rows_captured": 0,
+                    "lots_captured": 0, "published_lots_offered": None,
+                    "pagination_reconciled": False, "denominator_reconciled": False,
+                    "terminal_unavailable": True,
+                    "completion_scope": (
+                        "retained catalogue link now resolves to the archive index; "
+                        "no lot rows are exposed"
+                    ),
+                    "incomplete_reason": "first-party catalogue page is no longer retained",
+                    "source_url": item["url"], "final_url": response.url,
+                    "errors": [failure["error"]], "checked_at": corpus.now(),
+                }
+                corpus.save_json(state_path, state)
+                blocked[state_key] = state
+                print("SDL terminal unavailable", item["url"], flush=True)
+            else:
+                failures.append(failure)
 
     merged = {row["appearance_id"]: row for row in existing}
     for row in run_rows:
@@ -305,7 +367,8 @@ def harvest(limit: int = 10) -> None:
         "checked_at": corpus.now(), "source_url": ARCHIVE,
         "catalogue_links_discovered": len(catalogues),
         "catalogue_pages_captured": len(states),
-        "catalogue_pages_pending": len(catalogues) - len(states),
+        "catalogue_pages_blocked": len(blocked),
+        "catalogue_pages_pending": len(catalogues) - len(states) - len(blocked),
         "catalogue_pages_attempted_this_run": len(selected),
         "complete_catalogues": 0,
         "appearances_captured": total,
@@ -314,6 +377,7 @@ def harvest(limit: int = 10) -> None:
         "run_new_partial_lots": sum(not row.get("address") for row in added),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
         "archive_evidence": archive_evidence, "catalogues": states,
+        "blocked_catalogues": blocked,
         "failures": failures,
         "scope_warning": "featured retained rows only; no catalogue is counted complete",
     }

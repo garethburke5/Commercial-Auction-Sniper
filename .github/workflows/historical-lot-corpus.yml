@@ -138,7 +138,7 @@ jobs:
       - name: Bank retained SDL legacy catalogue lot cards
         timeout-minutes: 15
         continue-on-error: true
-        run: python -u scripts/harvest_sdl_legacy_catalogues.py --limit 10
+        run: python -u scripts/harvest_sdl_legacy_catalogues.py --limit 48
       - name: Bank Town and Country retained online results
         timeout-minutes: 15
         continue-on-error: true

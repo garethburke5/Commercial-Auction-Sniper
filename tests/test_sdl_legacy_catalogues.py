@@ -52,6 +52,36 @@ def test_catalogue_requires_one_exact_auction_identity():
     assert auction_date == "2024-01-31"
 
 
+def test_catalogue_identity_ignores_prior_auction_navigation_link():
+    html = CATALOGUE.replace(
+        '<a href="/auction/1237/national-property-auction-2024-01-31/">',
+        '<a href="/auction/1200/national-property-auction-2023-12-14/">Prior auction</a>'
+        '<a href="/auction/1237/national-property-auction-2024-01-31/">',
+    )
+    auction_id, auction_date = parse_catalogue_identity(
+        html, "https://www.sdlauctions.co.uk/catalogues/january-2024/"
+    )
+    assert auction_id == "1237"
+    assert auction_date == "2024-01-31"
+
+
+def test_catalogue_month_and_dated_auction_link_override_publication_date():
+    html = CATALOGUE.replace(
+        "Thursday 31st January 2024 at 9:00am",
+        "Article updated Monday 5th February 2024",
+    ).replace(
+        "</body>",
+        '<a href="/auction/1200/national-property-auction-2023-12-14/">Prior auction</a>'
+        "</body>",
+    )
+    auction_id, auction_date = parse_catalogue_identity(
+        html,
+        "https://www.sdlauctions.co.uk/catalogues/january-2024-national-property-auction-catalogue/",
+    )
+    assert auction_id == "1237"
+    assert auction_date == "2024-01-31"
+
+
 def test_featured_cards_become_strict_address_appearances():
     rows = parse_catalogue_cards(
         CATALOGUE,
@@ -91,3 +121,20 @@ def test_cards_without_stable_property_identity_are_not_admitted():
         assert "no fully evidenced" in str(exc)
     else:
         raise AssertionError("identity-free catalogue cards were admitted")
+
+
+def test_prose_property_link_does_not_capture_multiple_card_container():
+    html = CATALOGUE.replace(
+        '<section class="featured">',
+        '<section class="featured">'
+        '<p>Read about <a href="/property/49099/apartment-for-auction-liverpool/">'
+        'this apartment</a> and the other featured opportunity.</p>',
+    )
+    rows = parse_catalogue_cards(
+        html, "https://www.sdlauctions.co.uk/catalogues/january-2024/",
+        "1237", "2024-01-31", {},
+    )
+    assert len(rows) == 2
+    apartment = {row["property_id"]: row for row in rows}["49099"]
+    assert apartment["lot_number"] == "100"
+    assert apartment["address"] == "Apartment 216, 15 Hatton Garden, Liverpool L3 2HA"
