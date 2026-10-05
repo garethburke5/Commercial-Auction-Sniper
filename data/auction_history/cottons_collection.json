@@ -1,37 +1,37 @@
 {
-  "checked_at": "2026-10-05T03:23:03.099722+00:00",
+  "checked_at": "2026-10-05T03:36:33.488168+00:00",
   "source_url": "https://www.cottons.co.uk/auction-archive/",
   "result_sheets_discovered": 134,
-  "result_sheets_complete": 29,
+  "result_sheets_complete": 38,
   "result_sheets_blocked": 1,
-  "result_sheets_reused": 21,
+  "result_sheets_reused": 29,
   "result_sheets_attempted_this_run": 12,
-  "result_sheets_pending": 101,
-  "appearances_captured": 1235,
-  "run_new_appearances": 314,
-  "run_new_address_records": 314,
+  "result_sheets_pending": 92,
+  "appearances_captured": 1528,
+  "run_new_appearances": 293,
+  "run_new_address_records": 293,
   "run_new_partial_lots": 0,
   "by_status": {
-    "sold": 605,
-    "available": 336,
-    "sold_after": 94,
-    "not_offered": 118,
-    "not_available": 6,
-    "sold_prior": 71,
-    "withdrawn": 3,
+    "sold": 758,
+    "available": 413,
+    "sold_prior": 96,
+    "not_offered": 143,
+    "sold_after": 103,
+    "not_available": 9,
+    "withdrawn": 4,
     "under_offer": 2
   },
   "by_sector": {
-    "unknown": 1021,
-    "land": 121,
-    "residential": 90,
-    "commercial": 3
+    "unknown": 1262,
+    "residential": 107,
+    "land": 152,
+    "commercial": 7
   },
   "archive_evidence": {
     "source_url": "https://www.cottons.co.uk/auction-archive/",
-    "retrieved_at": "2026-10-05T03:22:58.274429+00:00",
-    "sha256": "2a29afbaa544624d33196bcef4cb1e3ca78c105f83b15d569017793f3c78a32e",
-    "snapshot_path": "data/auction_history/sources/cottons/archive-2a29afbaa544624d.json.gz",
+    "retrieved_at": "2026-10-05T03:36:26.295613+00:00",
+    "sha256": "3b94e89ee2a4d749a846895731ce28e02cbc1e88c1df341fb96ec811f1a5d569",
+    "snapshot_path": "data/auction_history/sources/cottons/archive-3b94e89ee2a4d749.json.gz",
     "basis": "first-party auction archive"
   },
   "source_blockers": [
@@ -46,16 +46,16 @@
   ],
   "failures": [
     {
-      "auction_id": "cottons:2023-05-24:48f3729f2ead",
-      "auction_date": "2023-05-24",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2023/05/Results-24052023.pdf",
-      "error": "ValueError: result outcome missing from row '172 COURT LANE, ERDINGTON, BIRMINGHAM B23 5RG WITHDRAWN AFTER'"
+      "auction_id": "cottons:2020-12-16:9d98ae343fc7",
+      "auction_date": "2020-12-16",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2020/12/results-16-dec.pdf",
+      "error": "ValueError: result PDF has no date corroborating the archive row"
     },
     {
-      "auction_id": "cottons:2023-03-29:f0182efff454",
-      "auction_date": "2023-03-29",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2023/04/Results-290323.pdf",
-      "error": "ValueError: result outcome missing from row 'THE RED LION, WITLEY ROAD, HOLT HEATH, WORCESTER WR6 6LX AVAILABLE @ £500,000 PLUS VAT'"
+      "auction_id": "cottons:2020-09-16:f871da68e34b",
+      "auction_date": "2020-09-16",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2020/11/Results-16-Sept-2.pdf",
+      "error": "ValueError: result PDF has no date corroborating the archive row"
     }
   ]
 }
