@@ -42,6 +42,12 @@ RECOVERED_AUCTION_IDS = (
     "30204", "29583", "29309", "29062", "28114",
     "27492", "27142", "26762", "26294", "25896",
     "25283", "24772", "24098", "23643", "22767", "22307",
+    # Earlier catalogues independently recovered from indexed first-party
+    # catalogue pages.  Keep the IDs explicit so the collector never scans
+    # numeric space or treats an unrelated endpoint as an auction.
+    "19304", "18857", "18224",
+    "12403", "11672", "11123",
+    "6365",
 )
 
 
