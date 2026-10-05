@@ -13,10 +13,11 @@
     "url": "https://www.cottons.co.uk/wp-content/uploads/2018/02/Auction-Results-14-02-18.pdf",
     "error": "ValueError: result PDF contains no usable text",
     "reason": "retained image-only result PDF failed bounded OCR recovery",
-    "ocr_error": "ValueError: result table header is absent"
+    "ocr_error": "ValueError: duplicate lot labels in result PDF"
   },
   "errors": [],
   "checked_at": "2026-10-05T04:25:37.947756+00:00",
   "ocr_attempted": true,
-  "ocr_checked_at": "2026-10-05T04:58:41.724191+00:00"
+  "ocr_checked_at": "2026-10-05T06:44:20.787515+00:00",
+  "ocr_version": 2
 }
