@@ -81,6 +81,7 @@ def test_pdf_date_must_match_archive_date():
 def test_status_semantics_do_not_treat_available_price_as_sale():
     assert result_semantics("£42,000") == ("sold", 42000, None)
     assert result_semantics("AVAILABLE @ £42,000") == ("available", None, 42000)
+    assert result_semantics("AVAILABLE @ 135,000") == ("available", None, 135000)
     assert result_semantics("SOLD AFTER") == ("sold_after", None, None)
     assert result_semantics("NOT OFFERED") == ("not_offered", None, None)
     assert result_semantics("UNDER OFFER") == ("under_offer", None, None)

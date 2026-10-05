@@ -45,7 +45,7 @@ RESULT_SUFFIX_RE = re.compile(
     r"SALE\s+AGREED\s+PRIOR\s+TO\s+AUCTION|"
     r"NOT\s+(?:OFFERED|AVAILABLE)|UNDER\s+OFFER|"
     r"WITHDRAWN|POSTPONED|UNSOLD|SOLD|"
-    r"AVAILABLE(?:\s*@|\s+AT)?\s*£\s*[\d,]+(?:\.\d{1,2})?|"
+    r"AVAILABLE(?:\s*@|\s+AT)?\s*£?\s*[\d,]+(?:\.\d{1,2})?|"
     r"£\s*[\d,]+(?:\.\d{1,2})?\s*(?:AVAILABLE)?"
     r")\s*$",
     re.I,
@@ -124,6 +124,10 @@ def result_semantics(value: str) -> tuple[str, int | None, int | None]:
     if "UNSOLD" in text:
         return "unsold", None, None
     if "AVAILABLE" in text:
+        if amount is None:
+            available_match = re.search(r"AVAILABLE(?:\s*@|\s+AT)?\s*£?\s*([\d,]+(?:\.\d{1,2})?)", text)
+            if available_match:
+                amount = int(round(float(available_match.group(1).replace(",", ""))))
         return "available", None, amount
     if re.search(r"SOLD\s+(?:PRIOR|BEFORE)", text):
         return "sold_prior", amount, None
@@ -288,7 +292,7 @@ def get(url: str) -> requests.Response:
     return response
 
 
-def harvest(limit: int = 8) -> None:
+def harvest(limit: int = 12) -> None:
     archive_response = get(ARCHIVE)
     archive_raw = archive_response.content
     archive_html = archive_raw.decode("utf-8", "replace")
@@ -386,4 +390,4 @@ def harvest(limit: int = 8) -> None:
 
 
 if __name__ == "__main__":
-    harvest(int(sys.argv[1]) if len(sys.argv) > 1 else 8)
+    harvest(int(sys.argv[1]) if len(sys.argv) > 1 else 12)
