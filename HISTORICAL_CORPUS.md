@@ -38,6 +38,7 @@ python scripts/harvest_brown_co_results.py
 python scripts/harvest_bagshaws_results.py
 python scripts/harvest_cottons_results.py 16 8
 python scripts/harvest_harman_healy_results.py
+python scripts/harvest_lsh_results.py
 python historical_corpus.py build
 ```
 
@@ -236,6 +237,15 @@ published lot denominator reconcile exactly. Immutable page snapshots preserve
 the result text, property summary and images. Once complete, later runs fetch
 the archive head and reuse unchanged full-page snapshots; an increased
 denominator re-fetches the previous partial tail and every newly added page.
+
+LSH Auctions collection traverses the complete first-party retained
+past-auctions grid. It preserves every address-bearing residential, commercial,
+mixed-use and land row under the source's stable EIG lot UUID, including sold,
+sale-agreed, sold-prior, withdrawn, postponed and unsold outcomes. The archive
+is marked complete only after its explicit lot denominator, every page and every
+distinct identity reconcile. Because this grid is newest-first, saved pages are
+reused only while the denominator is unchanged; any count change triggers a full
+pagination refresh so shifted page boundaries cannot omit or duplicate lots.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The

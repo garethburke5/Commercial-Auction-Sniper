@@ -1,0 +1,138 @@
+{
+  "auctioneer": "LSH Auctions",
+  "source_auction_id": "lsh:retained-past-auctions",
+  "auction_date": null,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "published_lots_offered": 584,
+  "visible_source_rows": 584,
+  "lots_captured": 584,
+  "source_url": "https://propertyauctions.lsh.co.uk/past-auctions?page=1&order=RecentlyEnded&lotResultType=All",
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "completion_scope": "every lot card across every page of the first-party retained past-auctions grid",
+  "source_evidence": [
+    {
+      "source_url": "https://propertyauctions.lsh.co.uk/past-auctions?page=1&order=RecentlyEnded&lotResultType=All",
+      "retrieved_at": "2026-10-05T22:09:34.746090+00:00",
+      "sha256": "883e572a137c01c47ef71e42f64b296763d16b35c4796c1f97624cb0206c68ad",
+      "snapshot_path": "data/auction_history/sources/lsh/past-auctions-page-1-883e572a137c01c4.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 1,
+      "total_pages": 12,
+      "published_archive_lots": 584
+    },
+    {
+      "source_url": "https://propertyauctions.lsh.co.uk/past-auctions?page=2&order=RecentlyEnded&lotResultType=All",
+      "retrieved_at": "2026-10-05T22:08:38.954573+00:00",
+      "sha256": "ac5f6f5d1b06b3b93592a0fe7f2583b6a2acf5c8910990aa3fbf2205315db60d",
+      "snapshot_path": "data/auction_history/sources/lsh/past-auctions-page-2-ac5f6f5d1b06b3b9.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 2,
+      "total_pages": 12,
+      "published_archive_lots": 584
+    },
+    {
+      "source_url": "https://propertyauctions.lsh.co.uk/past-auctions?page=3&order=RecentlyEnded&lotResultType=All",
+      "retrieved_at": "2026-10-05T22:08:39.091558+00:00",
+      "sha256": "ae94390b09ee7af734193e7a0e526893996301f75a8dfa67bac04a9047481efa",
+      "snapshot_path": "data/auction_history/sources/lsh/past-auctions-page-3-ae94390b09ee7af7.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 3,
+      "total_pages": 12,
+      "published_archive_lots": 584
+    },
+    {
+      "source_url": "https://propertyauctions.lsh.co.uk/past-auctions?page=4&order=RecentlyEnded&lotResultType=All",
+      "retrieved_at": "2026-10-05T22:08:39.245238+00:00",
+      "sha256": "944470f6cc8a2b4e98ff3e891375a6f5e5a0e0178a698fb0afd8649d95fc3632",
+      "snapshot_path": "data/auction_history/sources/lsh/past-auctions-page-4-944470f6cc8a2b4e.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 4,
+      "total_pages": 12,
+      "published_archive_lots": 584
+    },
+    {
+      "source_url": "https://propertyauctions.lsh.co.uk/past-auctions?page=5&order=RecentlyEnded&lotResultType=All",
+      "retrieved_at": "2026-10-05T22:08:39.415811+00:00",
+      "sha256": "6c7d67b29d1c3bb4c9a4353edb8e8bae58985a6cbc1a0be95e41b5e08a5ee74c",
+      "snapshot_path": "data/auction_history/sources/lsh/past-auctions-page-5-6c7d67b29d1c3bb4.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 5,
+      "total_pages": 12,
+      "published_archive_lots": 584
+    },
+    {
+      "source_url": "https://propertyauctions.lsh.co.uk/past-auctions?page=6&order=RecentlyEnded&lotResultType=All",
+      "retrieved_at": "2026-10-05T22:08:39.531215+00:00",
+      "sha256": "1832504ed37dbce025a1b28f57e3127e8f7e8c522b1aefe5d4da894bf30e6f4b",
+      "snapshot_path": "data/auction_history/sources/lsh/past-auctions-page-6-1832504ed37dbce0.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 6,
+      "total_pages": 12,
+      "published_archive_lots": 584
+    },
+    {
+      "source_url": "https://propertyauctions.lsh.co.uk/past-auctions?page=7&order=RecentlyEnded&lotResultType=All",
+      "retrieved_at": "2026-10-05T22:08:39.703804+00:00",
+      "sha256": "b8fa8eacd4257ecbff0bd2fb42b9d377e46a834c2a1dd16cb37fba1c9ccaf3e2",
+      "snapshot_path": "data/auction_history/sources/lsh/past-auctions-page-7-b8fa8eacd4257ecb.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 7,
+      "total_pages": 12,
+      "published_archive_lots": 584
+    },
+    {
+      "source_url": "https://propertyauctions.lsh.co.uk/past-auctions?page=8&order=RecentlyEnded&lotResultType=All",
+      "retrieved_at": "2026-10-05T22:08:39.866591+00:00",
+      "sha256": "35c80537d731b07777854a41ec1588430fa04e83471acd20c389cd544f790823",
+      "snapshot_path": "data/auction_history/sources/lsh/past-auctions-page-8-35c80537d731b077.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 8,
+      "total_pages": 12,
+      "published_archive_lots": 584
+    },
+    {
+      "source_url": "https://propertyauctions.lsh.co.uk/past-auctions?page=9&order=RecentlyEnded&lotResultType=All",
+      "retrieved_at": "2026-10-05T22:08:39.996759+00:00",
+      "sha256": "7e92e2db8b09fbd64b4615da9912095b228184b2d26fbb4813fcaf0718f4da45",
+      "snapshot_path": "data/auction_history/sources/lsh/past-auctions-page-9-7e92e2db8b09fbd6.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 9,
+      "total_pages": 12,
+      "published_archive_lots": 584
+    },
+    {
+      "source_url": "https://propertyauctions.lsh.co.uk/past-auctions?page=10&order=RecentlyEnded&lotResultType=All",
+      "retrieved_at": "2026-10-05T22:08:40.170761+00:00",
+      "sha256": "e61060614e3801d9fc361a4bc1932795d7d2234187af955c44fb4eb0bd3d8e5e",
+      "snapshot_path": "data/auction_history/sources/lsh/past-auctions-page-10-e61060614e3801d9.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 10,
+      "total_pages": 12,
+      "published_archive_lots": 584
+    },
+    {
+      "source_url": "https://propertyauctions.lsh.co.uk/past-auctions?page=11&order=RecentlyEnded&lotResultType=All",
+      "retrieved_at": "2026-10-05T22:08:40.297343+00:00",
+      "sha256": "1d1e0c5e37f572dfb816d33d6b37ad8301932278395d0dc1d3a77232d45f0732",
+      "snapshot_path": "data/auction_history/sources/lsh/past-auctions-page-11-1d1e0c5e37f572df.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 11,
+      "total_pages": 12,
+      "published_archive_lots": 584
+    },
+    {
+      "source_url": "https://propertyauctions.lsh.co.uk/past-auctions?page=12&order=RecentlyEnded&lotResultType=All",
+      "retrieved_at": "2026-10-05T22:08:40.408141+00:00",
+      "sha256": "8a5c45b35d8c5666a68a2ca916b99e718baebe2e7ccf94f632b85c7e7679d8a2",
+      "snapshot_path": "data/auction_history/sources/lsh/past-auctions-page-12-8a5c45b35d8c5666.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 12,
+      "total_pages": 12,
+      "published_archive_lots": 584
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-05T22:09:36.494453+00:00"
+}
