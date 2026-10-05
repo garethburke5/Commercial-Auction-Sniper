@@ -112,6 +112,9 @@ def test_filename_can_corroborate_archive_date_when_pdf_heading_omits_it():
     for auction_date, result_url in [
         ("2020-12-16", "https://www.cottons.co.uk/wp-content/uploads/2020/12/results-16-dec.pdf"),
         ("2020-09-16", "https://www.cottons.co.uk/wp-content/uploads/2020/11/Results-16-Sept-2.pdf"),
+        ("2018-09-18", "https://www.cottons.co.uk/uploads/Results18Sept18at161018.pdf"),
+        ("2018-07-12", "https://www.cottons.co.uk/uploads/12Jul2018results.pdf"),
+        ("2018-05-24", "https://www.cottons.co.uk/uploads/24MayResults.pdf"),
     ]:
         day_month_expected = {**expected(auction_date), "result_url": result_url}
         state, rows = parse_result_text(text, day_month_expected, {})

@@ -177,38 +177,56 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
         try:
             url_date = parse_date(unquote(expected["result_url"]).replace("-", " "))
         except ValueError:
+            source_url = unquote(expected["result_url"])
             numeric = re.search(r"(?:^|\D)(\d{1,2})[-_](\d{1,2})[-_](\d{2}|20\d{2})(?:\D|$)",
-                                unquote(expected["result_url"]))
+                                source_url)
             if numeric:
                 day, month, year = map(int, numeric.groups())
-                url_date = date(year if year >= 2000 else 2000 + year, month, day).isoformat()
-            else:
-                compact = re.search(r"(?<!\d)(\d{2})(\d{2})(20\d{2}|\d{2})(?!\d)",
-                                    unquote(expected["result_url"]))
-                if compact:
+                candidate = date(year if year >= 2000 else 2000 + year, month, day).isoformat()
+                if candidate == expected["auction_date"]:
+                    url_date = candidate
+            if url_date is None:
+                for compact in re.finditer(r"(?<!\d)(\d{2})(\d{2})(20\d{2}|\d{2})(?!\d)",
+                                           source_url):
                     day, month, year = map(int, compact.groups())
-                    url_date = date(year if year >= 2000 else 2000 + year, month, day).isoformat()
-                else:
-                    # A small number of retained filenames publish only the
-                    # day and month (for example, results-16-dec.pdf).  Use
-                    # that solely to corroborate the exact dated archive row;
-                    # never infer a year from the upload directory.
-                    filename = unquote(expected["result_url"]).rsplit("/", 1)[-1]
-                    filename = filename.replace("-", " ").replace("_", " ")
-                    day_month = re.search(
-                        r"\b\d{1,2}\s*(?:st|nd|rd|th)?\s*"
-                        r"(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|"
-                        r"June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|"
-                        r"Nov(?:ember)?|Dec(?:ember)?)\b",
-                        filename,
-                        re.I,
+                    candidate = date(year if year >= 2000 else 2000 + year, month, day).isoformat()
+                    if candidate == expected["auction_date"]:
+                        url_date = candidate
+                        break
+            filename = source_url.rsplit("/", 1)[-1]
+            if url_date is None:
+                named_compact = re.search(
+                    r"(?<!\d)(\d{1,2})"
+                    r"(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|"
+                    r"June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|"
+                    r"Nov(?:ember)?|Dec(?:ember)?)"
+                    r"(20\d{2}|\d{2})",
+                    filename,
+                    re.I,
+                )
+                if named_compact:
+                    candidate = parse_date(" ".join(named_compact.groups()))
+                    if candidate == expected["auction_date"]:
+                        url_date = candidate
+            # A small number of retained filenames publish only the day and
+            # month. Use that solely to corroborate the exact dated archive
+            # row; never infer a year from the upload directory.
+            if url_date is None:
+                filename = filename.replace("-", " ").replace("_", " ")
+                day_month = re.search(
+                    r"\b\d{1,2}\s*(?:st|nd|rd|th)?\s*"
+                    r"(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|"
+                    r"June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|"
+                    r"Nov(?:ember)?|Dec(?:ember)?)",
+                    filename,
+                    re.I,
+                )
+                if day_month:
+                    candidate = parse_date(
+                        f"{day_month.group()} {expected['auction_date'][:4]}"
                     )
-                    if day_month:
-                        candidate = parse_date(
-                            f"{day_month.group()} {expected['auction_date'][:4]}"
-                        )
-                        if candidate == expected["auction_date"]:
-                            url_date = candidate
+                    if candidate == expected["auction_date"]:
+                        url_date = candidate
         if url_date != expected["auction_date"]:
             raise ValueError("result PDF has no date corroborating the archive row")
     date_basis = (
@@ -426,10 +444,27 @@ def harvest(limit: int = 12) -> None:
             else:
                 failures.append(failure)
         except Exception as exc:
-            failures.append({
+            failure = {
                 "auction_id": item["auction_id"], "auction_date": item["auction_date"],
                 "url": item["result_url"], "error": f"{type(exc).__name__}: {exc}"[:500],
-            })
+            }
+            if isinstance(exc, ValueError) and str(exc) == "result PDF contains no usable text":
+                blocker = {
+                    **failure,
+                    "reason": "retained first-party result PDF is image-only and requires OCR enrichment",
+                }
+                state = {
+                    "auctioneer": "Cottons", "source_auction_id": item["auction_id"],
+                    "auction_date": item["auction_date"], "catalogue_complete": False,
+                    "source_rows_complete": False, "lots_captured": 0,
+                    "source_url": item["result_url"], "source_blocked": True,
+                    "source_blocker": blocker, "errors": [], "checked_at": corpus.now(),
+                }
+                corpus.save_json(corpus.DATA / "auctions/cottons" / state_name, state)
+                states[item["auction_id"]] = state
+                blockers.append(blocker)
+            else:
+                failures.append(failure)
 
     total = corpus.write_rows("cottons/canonical", list(merged.values()))
     added = [row for key, row in merged.items() if key not in before_ids]
