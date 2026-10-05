@@ -63,8 +63,8 @@ Legacy analysis host: https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.s
   passing rent. Comparable material differences are shown when evidenced.
 - Homepage upcoming auctions count actual captured rows, and hide on refined search.
   Individual target-yield tool starts blank; user input still calculates the price.
-- Final combined regression suite: 668 passed plus eight subtests. The exact Pages
-  publication gate passed 85 tests. Full export: 1,552 pages.
+- Final combined regression suite: 669 passed plus eight subtests. The exact Pages
+  publication gate passed 86 tests. Full export: 1,552 pages.
 - Pages run 37336848297 succeeded with source-to-live ID verification. Live HTTP
   inspection confirms four upcoming cards, no permanent search-naming row, and
   Plans & Pricing £0/£15/£25. The browser service timed out twice, so NEW desktop/
@@ -80,6 +80,15 @@ Legacy analysis host: https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.s
   checks had allowed a stale financial index to pass.
 - Derived-fact-only pushes revalidate and publish without launching another full
   source scan. Collector-route/configuration changes and manual runs still collect.
+- Final deployment `6fbeebc8`, Pages run `37339282127`, succeeded. Its stronger
+  fact verification matched all 782 published/live property IDs and guide/yield/
+  status fields. Live HTTP property checks confirm Maybole and Alloway Street are
+  Vacant with current rent and GIY not stated; Crouch Hill shows £111,244 rent,
+  7.1% GIY, £43,000 commercial + £68,244 residential components. Target input is
+  blank and retained. These are HTTP/data checks, not new browser visual checks.
+- At handoff, refreshed regional collection run `37336848982` remains running.
+  Do not count recovered source stock until its snapshot, logs and live deployment
+  are checked. No new historical harvest operation was started by this tranche.
 - Earlier Streamlit owner authentication request timed out. Its analysis UI remains
   unverified/stale; do not reset browser credential protection to bypass this.
 
