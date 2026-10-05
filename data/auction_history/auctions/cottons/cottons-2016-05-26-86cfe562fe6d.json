@@ -1,0 +1,19 @@
+{
+  "auctioneer": "Cottons",
+  "source_auction_id": "cottons:2016-05-26:86cfe562fe6d",
+  "auction_date": "2016-05-26",
+  "catalogue_complete": false,
+  "source_rows_complete": false,
+  "lots_captured": 0,
+  "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-26th-May-as-of-9th-June-2016.pdf",
+  "source_blocked": true,
+  "source_blocker": {
+    "auction_id": "cottons:2016-05-26:86cfe562fe6d",
+    "auction_date": "2016-05-26",
+    "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-26th-May-as-of-9th-June-2016.pdf",
+    "error": "ValueError: result PDF contains no usable text",
+    "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
+  },
+  "errors": [],
+  "checked_at": "2026-10-05T04:41:47.235314+00:00"
+}
