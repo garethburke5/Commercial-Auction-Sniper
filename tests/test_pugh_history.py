@@ -7,6 +7,7 @@ from scripts.harvest_pugh_canonical import (
     parse_detail_page,
     parse_grid_page,
     parse_page,
+    promote_undated_tail_rows,
     strict_legacy_match,
     tail_grid_plan,
 )
@@ -137,6 +138,8 @@ def test_terminal_detail_failures_become_stable_non_retry_blockers():
              "error": "ValueError: detail page has no exact lot and auction date"},
             {"kind": "detail_page_recovery", "source_lot_id": "retry",
              "error": "HTTPError: 503 Server Error"},
+            {"kind": "detail_page_recovery", "source_lot_id": "loop",
+             "error": "TooManyRedirects: Exceeded 30 redirects"},
         ]
     }
     assert detail_404_blockers(summary) == [
@@ -144,7 +147,41 @@ def test_terminal_detail_failures_become_stable_non_retry_blockers():
          "error": "HTTPError: 404 Client Error: Not Found"},
         {"kind": "detail_page_recovery", "source_lot_id": "no-evidence",
          "error": "ValueError: detail page has no exact lot and auction date"},
+        {"kind": "detail_page_recovery", "source_lot_id": "loop",
+         "error": "TooManyRedirects: Exceeded 30 redirects"},
     ]
     assert detail_failure_is_terminal(summary["failures"][0])
     assert detail_failure_is_terminal(summary["failures"][1])
     assert not detail_failure_is_terminal(summary["failures"][2])
+    assert detail_failure_is_terminal(summary["failures"][3])
+
+
+def test_promotes_saved_undated_cards_without_inventing_date_or_lot():
+    evidence = {"snapshot_path": "data/auction_history/sources/pugh/grid.json.gz"}
+    rows = [
+        {"source_lot_id": "tail1", "address": "1 Tail Road, Leeds LS1 1AA",
+         "postcode": "LS1 1AA", "status": "sold", "sale_price": 125000,
+         "guide_price": None, "guide_price_high": None,
+         "original_url": "https://www.pugh-auctions.com/property/tail1",
+         "published_card_text": "1 Tail Road, Leeds LS1 1AA Sold for £125,000",
+         "source_position": 7001, "source_evidence": evidence},
+        {"source_lot_id": "tail1", "address": "1 Tail Road, Leeds LS1 1AA",
+         "postcode": "LS1 1AA", "status": "sold", "sale_price": 125000,
+         "guide_price": None, "guide_price_high": None,
+         "original_url": "https://www.pugh-auctions.com/property/tail1",
+         "published_card_text": "1 Tail Road, Leeds LS1 1AA Sold for £125,000",
+         "source_position": 7002, "source_evidence": evidence},
+        {"source_lot_id": "resolved", "address": "2 Known Road, York YO1 2BB",
+         "postcode": "YO1 2BB", "status": "withdrawn", "sale_price": None,
+         "guide_price": None, "guide_price_high": None,
+         "original_url": "https://www.pugh-auctions.com/property/resolved",
+         "published_card_text": "2 Known Road, York YO1 2BB Withdrawn",
+         "source_position": 7003, "source_evidence": evidence},
+    ]
+    promoted = promote_undated_tail_rows(rows, {"resolved"})
+    assert len(promoted) == 1
+    assert promoted[0]["appearance_id"] == "Pugh Auctioneers|undated-tail:tail1"
+    assert promoted[0]["auction_date"] is None and promoted[0]["lot_number"] is None
+    assert promoted[0]["record_quality"] == "address_record"
+    assert promoted[0]["source_evidence"]["source_positions"] == [7001, 7002]
+    assert promoted[0]["source_evidence"]["source_row_occurrences"] == 2

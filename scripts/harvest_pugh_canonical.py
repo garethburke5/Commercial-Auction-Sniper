@@ -254,6 +254,7 @@ def parse_detail_page(raw: bytes, source_row: dict, requested_url: str, evidence
         "Pugh Auctioneers", auction_id, auction_date, lot_number, source_id, requested_url
     )
     row.update(
+        appearance_id=f"Pugh Auctioneers|undated-tail:{source_id}",
         address=heading,
         postcode=source_row.get("postcode"),
         sector=corpus.sector(heading),
@@ -272,6 +273,62 @@ def parse_detail_page(raw: bytes, source_row: dict, requested_url: str, evidence
         },
     )
     return row
+
+
+def promote_undated_tail_rows(source_rows: list[dict], resolved_source_ids: set[str]) -> list[dict]:
+    """Bank retained address-bearing grid cards without inventing date/lot fields.
+
+    The grid is a reconciled first-party auction-property source. Its final
+    cards retain a stable property ID, address and published result/guide, but
+    the broken list renderer omits auction date and lot number. Preserve those
+    nulls and suppress a card when that property ID already has an exact dated
+    appearance. Duplicate grid occurrences are provenance, not new lots.
+    """
+    grouped: dict[str, list[dict]] = defaultdict(list)
+    for source_row in source_rows:
+        source_id = str(source_row.get("source_lot_id") or "")
+        if source_id:
+            grouped[source_id].append(source_row)
+
+    promoted = []
+    for source_id, occurrences in grouped.items():
+        if source_id in resolved_source_ids:
+            continue
+        address_keys = {address_key(item.get("address")) for item in occurrences}
+        if len(address_keys) != 1:
+            raise ValueError(f"Conflicting undated Pugh addresses for property {source_id}")
+        source_row = occurrences[0]
+        row = corpus.base_row(
+            "Pugh Auctioneers", "pugh:undated-property-search-tail", None, None,
+            source_id, str(source_row.get("original_url") or INDEX),
+        )
+        row.update(
+            appearance_id=f"Pugh Auctioneers|undated-tail:{source_id}",
+            address=source_row.get("address"),
+            postcode=source_row.get("postcode"),
+            locality=source_row.get("address"),
+            sector=corpus.sector(" ".join(filter(None, [
+                source_row.get("address"), source_row.get("published_card_text"),
+            ]))),
+            status=source_row.get("status") or "unknown",
+            guide_price=source_row.get("guide_price"),
+            guide_price_high=source_row.get("guide_price_high"),
+            sale_price=source_row.get("sale_price"),
+            record_quality="address_record" if source_row.get("address") else "partial_lot",
+            identity_method="source_property_id_undated_tail",
+            auction_date_basis="not published on retained grid card; null preserved",
+            source_position=source_row.get("source_position"),
+            source_status_text=source_row.get("published_card_text"),
+            source_evidence={
+                "grid_source_evidence": source_row.get("source_evidence"),
+                "published_card_text": source_row.get("published_card_text"),
+                "source_positions": [item.get("source_position") for item in occurrences],
+                "source_row_occurrences": len(occurrences),
+                "basis": "retained first-party Pugh grid card with stable property identity; missing date and lot remain null",
+            },
+        )
+        promoted.append(row)
+    return promoted
 
 def tail_grid_plan(result_count: int, first_failed_page: int, normal_page_size: int,
                    grid_page_size: int = GRID_PAGE_SIZE) -> dict:
@@ -379,6 +436,7 @@ def detail_failure_is_terminal(item: dict) -> bool:
     return (
         "404 Client Error" in error
         or "detail page has no exact lot and auction date" in error
+        or "TooManyRedirects" in error
     )
 
 
@@ -644,10 +702,12 @@ def harvest() -> None:
                 failures.append({"kind": "unresolved_record_restore",
                                  "error": f"{type(exc).__name__}: {exc}"[:500]})
 
-    # The grid tail lacks dates, but its retained individual property pages still
-    # publish exact lot numbers and auction dates. Recover only exact identity and
-    # address matches; keep every unresolved/failed row outside appearance totals.
+    # The grid tail lacks dates. Prefer exact date/lot evidence from retained
+    # individual property pages; otherwise preserve the stable first-party card
+    # as an undated appearance without inventing either field.
     detail_pages_recovered_this_run = 0
+    undated_tail_source_rows = 0
+    undated_tail_appearances_captured = 0
     unresolved_path = corpus.DATA / "sources/pugh/undated-property-search-tail-records.json.gz"
     if unresolved_path.exists() and unresolved_rows:
         try:
@@ -692,7 +752,7 @@ def harvest() -> None:
                         detail_failures.append(failure)
         remaining = [row for row in tail_rows_saved
                      if str(row.get("source_lot_id") or "") not in detail_recovered_source_ids]
-        unresolved_rows = len(remaining)
+        undated_tail_source_rows = len(remaining)
         failures = [item for item in failures
                     if item.get("kind") not in {
                         "unresolved_source_rows_without_auction_date",
@@ -702,16 +762,22 @@ def harvest() -> None:
             str(item["source_lot_id"]): item for item in detail_page_blockers
         }.values())
         failures.extend(detail_failures)
-        if remaining:
-            failures.append({
-                "kind": "unresolved_source_rows_without_auction_date",
-                "source_rows": unresolved_rows,
-                "unique_property_ids": len({str(row.get("source_lot_id")) for row in remaining}),
-                "record_path": str(unresolved_path.relative_to(corpus.ROOT)),
-                "error": "saved grid rows remain excluded until an exact first-party detail date and lot reconcile",
-            })
+        resolved_source_ids = {
+            str(row.get("source_lot_id"))
+            for row in [*existing, *rows_to_write]
+            if row.get("source_lot_id") and row.get("auction_date")
+        }
+        promoted = promote_undated_tail_rows(remaining, resolved_source_ids)
+        undated_tail_appearances_captured = len(promoted)
+        for row in promoted:
+            rows_to_write.append(row)
+            if row["appearance_id"] not in existing_appearance_ids:
+                run_new.append(row)
+                existing_appearance_ids.add(row["appearance_id"])
+        unresolved_rows = 0
         print(f"PUGH detail recovery recovered={detail_pages_recovered_this_run} "
-              f"remaining_source_rows={unresolved_rows}", flush=True)
+              f"undated_source_rows={undated_tail_source_rows} "
+              f"undated_appearances={undated_tail_appearances_captured}", flush=True)
 
     corpus.write_rows("pugh-auctions/property-search", rows_to_write)
     for path, rows in enriched_by_path.items():
@@ -732,6 +798,8 @@ def harvest() -> None:
                "grid_covered_normal_pages": sorted(grid_covered_pages),
                "grid_tail_source_rows": grid_tail_source_rows,
                "unresolved_source_rows": unresolved_rows,
+               "undated_tail_source_rows": undated_tail_source_rows,
+               "undated_tail_appearances_captured": undated_tail_appearances_captured,
                "detail_pages_recovered_this_run": detail_pages_recovered_this_run,
                "detail_recovered_source_ids": sorted(detail_recovered_source_ids),
                "detail_blocked_source_ids": sorted(detail_blocked_source_ids),
@@ -756,6 +824,8 @@ def harvest() -> None:
         "source_rows_reconciled_complete": source_rows_complete,
         "grid_tail_source_rows": grid_tail_source_rows,
         "unresolved_source_rows": unresolved_rows,
+        "undated_tail_source_rows": undated_tail_source_rows,
+        "undated_tail_appearances_captured": undated_tail_appearances_captured,
         "detail_recovered_source_ids": sorted(detail_recovered_source_ids),
         "detail_blocked_source_ids": sorted(detail_blocked_source_ids),
         "detail_page_blockers": detail_page_blockers,
