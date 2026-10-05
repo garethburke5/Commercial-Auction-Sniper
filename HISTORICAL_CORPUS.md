@@ -26,7 +26,7 @@ python scripts/harvest_bidx1_canonical.py
 python scripts/harvest_btg_eddisons_catalogues.py 4
 python scripts/harvest_sdl_legacy_catalogues.py --limit 10
 python scripts/harvest_anderson_garland_results.py
-python scripts/harvest_edward_mellor_results.py --limit 20 --workers 8
+python scripts/harvest_edward_mellor_results.py --limit 24 --workers 8
 python scripts/harvest_future_property_auctions.py --limit 4 --workers 3
 python scripts/harvest_town_country_results.py --workers 4
 python scripts/harvest_brown_co_results.py
@@ -140,7 +140,7 @@ auction dates remain null and the records are explicitly excluded from complete
 catalogue counts. Rex listing IDs provide identity where retained; otherwise an
 exact source-heading hash is used without merging across other auctioneers.
 
-Edward Mellor collection discovers retained first-party result pages from the auction archive and resumes through twelve previously uncaptured catalogues per run. Every visible card is preserved by exact auction slug, lot number and stable property ID. Retained detail pages may add the full address, tenure, images and the exact lot-level auction date only when the property ID and lot number reconcile. Two-day headings remain a date range rather than an invented lot date, and catalogues remain incomplete when the original offered denominator is unpublished.\n\nTown & Country Property Auctions collection traverses all pages of the
+Edward Mellor collection discovers retained first-party result pages from the auction archive and resumes through up to 24 previously uncaptured catalogues per run. Every visible card is preserved by exact auction slug, lot number and stable property ID. Retained detail pages may add the full address, tenure, images and the exact lot-level auction date only when the property ID and lot number reconcile. Two-day headings remain a date range rather than an invented lot date, and catalogues remain incomplete when the original offered denominator is unpublished.\n\nTown & Country Property Auctions collection traverses all pages of the
 first-party past-auctions archive. Stable lot UUIDs and exact closing timestamps
 preserve each appearance independently across the auctioneer's regional offices;
 addresses, outcomes, prices, descriptions and images are retained without
