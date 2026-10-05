@@ -44,10 +44,11 @@ DATE_RE = re.compile(
 # a trailing full stop. Accept those layout artefacts without relaxing the
 # requirement for a numbered row at the beginning of the line.
 ROW_RE = re.compile(
-    r"^(\d+[A-Za-z]?|I)[.)}]?(?:\s*[_|{}]+\s*|\s+)(.+)$",
+    r"^(\d+[A-Za-z]?|I|LI|L1|I1|AQ)[.)}\]]?(?:\s*[_|{}]+\s*|\s+)(.+)$",
     re.I,
 )
-OCR_VERSION = 2
+OCR_VERSION = 3
+OCR_DPI = 300
 MONEY_RE = re.compile(r"£\s*([\d][\d,.]*)", re.I)
 RESULT_SUFFIX_RE = re.compile(
     r"(?:"
@@ -285,8 +286,18 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
             if current_lot is not None:
                 raw_rows.append((current_lot, " ".join(current_parts)))
             current_lot, first = match.groups()
-            if current_lot.casefold() == "i":
-                current_lot = "1"
+            # At 300 dpi Tesseract consistently renders two particular digit
+            # shapes as letters in these tables: 11 as ``LI``/``L1``/``I1``
+            # and 40 as ``AQ``. Neither token is a valid printed Cottons lot
+            # label, so repair only these exact start-of-row artefacts. The
+            # later duplicate and sequence checks still reject ambiguity.
+            current_lot = {
+                "i": "1",
+                "li": "11",
+                "l1": "11",
+                "i1": "11",
+                "aq": "40",
+            }.get(current_lot.casefold(), current_lot)
             current_parts = [first]
         elif current_lot is not None:
             current_parts.append(line)
@@ -374,13 +385,13 @@ def extract_pdf_text_ocr(raw: bytes) -> str:
         source.write_bytes(raw)
         prefix = work / "page"
         subprocess.run(
-            ["pdftoppm", "-jpeg", "-r", "220", str(source), str(prefix)],
+            ["pdftoppm", "-png", "-r", str(OCR_DPI), str(source), str(prefix)],
             check=True,
             capture_output=True,
             timeout=180,
         )
         pages = []
-        for image in sorted(work.glob("page-*.jpg")):
+        for image in sorted(work.glob("page-*.png")):
             completed = subprocess.run(
                 # PSM 4 preserves the result table's row ordering. PSM 6
                 # treated the whole page as one block and dropped most rows
@@ -473,7 +484,7 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
                 "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
                 "archive_snapshot_path": archive_evidence["snapshot_path"],
                 "basis": "OCR of retained first-party complete auction result PDF",
-                "ocr_engine": "Tesseract PSM 4 with Poppler 220dpi rasterisation",
+                "ocr_engine": f"Tesseract PSM 4 with Poppler {OCR_DPI}dpi lossless rasterisation",
                 "ocr_version": OCR_VERSION,
             }
             state, rows = parse_result_text(extract_pdf_text_ocr(raw), item, evidence)

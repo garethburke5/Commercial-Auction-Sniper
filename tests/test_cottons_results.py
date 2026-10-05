@@ -167,6 +167,28 @@ Entries will be closing shortly for our next Auction
     assert rows[3]["status"] == "not_offered"
 
 
+def test_ocr_digit_shape_artifacts_are_repaired_without_relaxing_sequence_checks():
+    text = """
+Auction : 26 May 2016 Results Sheet as at 09 June 2016
+Lot Address Result
+10 | 3B HIGH STREET, LYE, DY9 8JT AVAILABLE @ £35,000
+LI] 6B HIGH STREET, LYE, DY9 8JT AVAILABLE @ £50,000
+12 | 12 DALEWOOD CROFT, BIRMINGHAM B26 1NB £116,000
+39 | 30 HUMBER ROAD, COVENTRY CV3 1BA £113,000
+AQ | 32 HUMBER ROAD, COVENTRY CV3 1BA £106,000
+41 | 178 MERRIDALE STREET WEST, WOLVERHAMPTON WV3 0RP £64,000
+"""
+    ocr_expected = {
+        **expected("2016-05-26"),
+        "result_url": "https://www.cottons.co.uk/uploads/Results-26th-May-16.pdf",
+    }
+    state, rows = parse_result_text(text, ocr_expected, {"basis": "OCR"})
+    assert [row["lot_number"] for row in rows] == ["10", "11", "12", "39", "40", "41"]
+    assert state["missing_base_lot_numbers"] == list(range(1, 10)) + list(range(13, 39))
+    assert rows[1]["available_price"] == 50000
+    assert rows[4]["sale_price"] == 106000
+
+
 def test_blank_address_cell_is_retained_as_a_partial_lot():
     text = RESULT_TEXT.replace(
         "4 2 Factory Road, Birmingham WITHDRAWN",

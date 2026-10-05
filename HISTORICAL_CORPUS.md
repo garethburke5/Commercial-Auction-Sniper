@@ -176,7 +176,8 @@ only when its distinct published lot labels and continuous base lot sequence
 reconcile; lettered additional lots remain separate rows. Raw archive HTML and
 compressed source PDFs are retained for provenance. Image-only PDFs are OCRed
 from those saved snapshots in bounded groups of four. The OCR pass uses
-table-aware page segmentation and versions its parsing rules, so a materially
+300-dpi lossless rasterisation, table-aware page segmentation and versions its
+parsing rules, so a materially
 improved parser may revisit an earlier quarantine once while unchanged failures
 are not probed repeatedly.
 
