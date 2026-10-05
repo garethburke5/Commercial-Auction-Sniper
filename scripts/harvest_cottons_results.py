@@ -352,7 +352,7 @@ def get(url: str) -> requests.Response:
     return response
 
 
-def harvest(limit: int = 12) -> None:
+def harvest(limit: int = 16) -> None:
     archive_response = get(ARCHIVE)
     archive_raw = archive_response.content
     archive_html = archive_raw.decode("utf-8", "replace")
@@ -494,4 +494,4 @@ def harvest(limit: int = 12) -> None:
 
 
 if __name__ == "__main__":
-    harvest(int(sys.argv[1]) if len(sys.argv) > 1 else 12)
+    harvest(int(sys.argv[1]) if len(sys.argv) > 1 else 16)

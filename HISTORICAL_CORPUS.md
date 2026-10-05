@@ -31,7 +31,7 @@ python scripts/harvest_future_property_auctions.py --limit 4 --workers 3
 python scripts/harvest_town_country_results.py --workers 4
 python scripts/harvest_brown_co_results.py
 python scripts/harvest_bagshaws_results.py
-python scripts/harvest_cottons_results.py 12
+python scripts/harvest_cottons_results.py 16
 python historical_corpus.py build
 ```
 
