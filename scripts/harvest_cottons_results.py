@@ -1,0 +1,352 @@
+"""Bank Cottons' first-party historical property-auction result sheets.
+
+The public archive links result PDFs back to 2001.  Each PDF is a finite result
+table with an exact auction date, lot number, address and outcome.  Collection
+is deliberately bounded and resumable; complete saved sheets are never fetched
+again.  Catalogue PDFs can enrich these appearances later, but are not needed
+to establish the result-sheet rows themselves.
+"""
+from __future__ import annotations
+
+from collections import Counter
+from datetime import date
+from io import BytesIO
+import gzip
+import hashlib
+import json
+import re
+import sys
+from pathlib import Path
+from urllib.parse import urljoin
+
+import requests
+from bs4 import BeautifulSoup
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import historical_corpus as corpus
+
+
+BASE = "https://www.cottons.co.uk"
+ARCHIVE = BASE + "/auction-archive/"
+HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
+DATE_RE = re.compile(
+    r"\b(\d{1,2})\s*(?:st|nd|rd|th)?\s*[-/. ]*\s*"
+    r"(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|"
+    r"Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)"
+    r"\s*[-/. ]*\s*(\d{2}|20\d{2})\b",
+    re.I,
+)
+ROW_RE = re.compile(r"^(\d+[A-Za-z]?)\s+(.+)$")
+MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d{1,2})?)", re.I)
+RESULT_SUFFIX_RE = re.compile(
+    r"(?:"
+    r"SOLD\s+(?:PRIOR|BEFORE|AFTER|POST)|"
+    r"SOLD(?:\s+AT)?\s+£\s*[\d,]+(?:\.\d{1,2})?|"
+    r"NOT\s+OFFERED|WITHDRAWN|POSTPONED|UNSOLD|SOLD|"
+    r"AVAILABLE(?:\s*@|\s+AT)?\s*£\s*[\d,]+(?:\.\d{1,2})?|"
+    r"£\s*[\d,]+(?:\.\d{1,2})?\s*(?:AVAILABLE)?"
+    r")\s*$",
+    re.I,
+)
+FOOTER_RE = re.compile(
+    r"^(?:entries|our next auction|next auction|auctioneers?|cottons|telephone|tel\b|"
+    r"important notice|please note|www\.)",
+    re.I,
+)
+
+
+def clean(value) -> str | None:
+    value = re.sub(r"\s+", " ", str(value or "")).strip(" ,")
+    return value or None
+
+
+def parse_date(value: str) -> str:
+    match = DATE_RE.search(value or "")
+    if not match:
+        raise ValueError(f"missing auction date in {value!r}")
+    day, month, year = match.groups()
+    month_key = month.casefold()[:3]
+    months = {
+        "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
+        "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12,
+    }
+    full_year = int(year) if len(year) == 4 else 2000 + int(year)
+    return date(full_year, months[month_key], int(day)).isoformat()
+
+
+def stable_auction_id(auction_date: str, result_url: str) -> str:
+    digest = hashlib.sha256(result_url.encode()).hexdigest()[:12]
+    return f"cottons:{auction_date}:{digest}"
+
+
+def discover_result_sheets(html: str) -> list[dict]:
+    soup = BeautifulSoup(html, "lxml")
+    found = {}
+    for anchor in soup.find_all("a", href=True):
+        label = clean(anchor.get_text(" ", strip=True)) or ""
+        href = urljoin(ARCHIVE, anchor["href"])
+        if not (href.lower().split("?", 1)[0].endswith(".pdf") and
+                re.search(r"result", f"{label} {href}", re.I)):
+            continue
+        container = anchor.find_parent("tr") or anchor.parent
+        context = clean(container.get_text(" ", strip=True) if container else label) or ""
+        auction_date = parse_date(context)
+        auction_id = stable_auction_id(auction_date, href)
+        found[auction_id] = {
+            "auction_id": auction_id,
+            "auction_date": auction_date,
+            "result_url": href,
+            "archive_text": context,
+        }
+    if not found:
+        raise ValueError("archive contains no dated result PDF links")
+    return sorted(found.values(), key=lambda item: (item["auction_date"], item["result_url"]), reverse=True)
+
+
+def result_semantics(value: str) -> tuple[str, int | None, int | None]:
+    text = (clean(value) or "").upper()
+    money_match = MONEY_RE.search(text)
+    amount = int(round(float(money_match.group(1).replace(",", "")))) if money_match else None
+    if "NOT OFFERED" in text:
+        return "not_offered", None, None
+    if "WITHDRAWN" in text:
+        return "withdrawn", None, None
+    if "POSTPONED" in text:
+        return "postponed", None, None
+    if "UNSOLD" in text:
+        return "unsold", None, None
+    if "AVAILABLE" in text:
+        return "available", None, amount
+    if re.search(r"SOLD\s+(?:PRIOR|BEFORE)", text):
+        return "sold_prior", amount, None
+    if re.search(r"SOLD\s+(?:AFTER|POST)", text):
+        return "sold_after", amount, None
+    if text.startswith("SOLD") or amount is not None:
+        return "sold", amount, None
+    return "unknown", None, None
+
+
+def split_result_row(value: str) -> tuple[str, str]:
+    match = RESULT_SUFFIX_RE.search(value or "")
+    if not match:
+        raise ValueError(f"result outcome missing from row {value!r}")
+    address = clean(value[:match.start()])
+    if not address:
+        raise ValueError("result row has no address")
+    return address, clean(match.group()) or ""
+
+
+def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, list[dict]]:
+    heading_date = parse_date(text[:1600])
+    if heading_date != expected["auction_date"]:
+        raise ValueError(
+            f"result PDF date mismatch: expected {expected['auction_date']}, saw {heading_date}"
+        )
+
+    # Preserve address punctuation at line wraps (notably a trailing comma)
+    # while normalising extraction whitespace.
+    lines = [re.sub(r"\s+", " ", line).strip()
+             for line in text.replace("\u00a0", " ").splitlines()]
+    lines = [line for line in lines if line]
+    header = next((i for i, line in enumerate(lines)
+                   if re.search(r"\bLot\b", line, re.I)
+                   and re.search(r"\bAddress\b", line, re.I)
+                   and re.search(r"\bResult\b", line, re.I)), None)
+    if header is None:
+        raise ValueError("result table header is absent")
+
+    raw_rows: list[tuple[str, str]] = []
+    current_lot = None
+    current_parts: list[str] = []
+    for line in lines[header + 1:]:
+        if FOOTER_RE.search(line):
+            break
+        match = ROW_RE.match(line)
+        if match:
+            if current_lot is not None:
+                raw_rows.append((current_lot, " ".join(current_parts)))
+            current_lot, first = match.groups()
+            current_parts = [first]
+        elif current_lot is not None:
+            current_parts.append(line)
+    if current_lot is not None:
+        raw_rows.append((current_lot, " ".join(current_parts)))
+    if not raw_rows:
+        raise ValueError("result table contains no lot rows")
+
+    labels = [lot.upper() for lot, _ in raw_rows]
+    if len(labels) != len(set(labels)):
+        raise ValueError("duplicate lot labels in result PDF")
+    base_numbers = {int(re.match(r"\d+", label).group()) for label in labels}
+    max_lot = max(base_numbers)
+    missing = sorted(set(range(1, max_lot + 1)) - base_numbers)
+
+    rows = []
+    for position, (lot_number, body) in enumerate(raw_rows, 1):
+        address, result_text = split_result_row(body)
+        status, sale_price, available_price = result_semantics(result_text)
+        postcode_match = corpus.PC.search(address)
+        source_auction_id = expected["auction_id"]
+        row = corpus.base_row(
+            "Cottons", source_auction_id, expected["auction_date"],
+            lot_number, lot_number.upper(), expected["result_url"],
+        )
+        row.update(
+            appearance_id=f"Cottons|{source_auction_id}|lot:{lot_number.upper()}",
+            address=address,
+            postcode=postcode_match.group().upper() if postcode_match else None,
+            locality=address,
+            sector=corpus.sector(address),
+            sale_price=sale_price,
+            available_price=available_price,
+            status=status,
+            property_id=None,
+            identity_method="exact_auction_date_and_published_lot_number",
+            record_quality="address_record",
+            auction_date_basis="exact date printed on archive row and corroborated by result PDF heading",
+            source_position=position,
+            source_result_text=result_text,
+            source_evidence=evidence,
+        )
+        rows.append(row)
+
+    complete = not missing
+    state = {
+        "auctioneer": "Cottons",
+        "source_auction_id": expected["auction_id"],
+        "auction_date": expected["auction_date"],
+        "catalogue_complete": complete,
+        "source_rows_complete": complete,
+        "visible_result_rows": len(rows),
+        "lots_captured": len(rows),
+        "published_lots_offered": max_lot,
+        "lettered_additional_rows": len(rows) - len(base_numbers),
+        "missing_base_lot_numbers": missing,
+        "pagination_reconciled": True,
+        "denominator_reconciled": complete,
+        "denominator_basis": "continuous published base lot sequence in the complete first-party result table",
+        "completion_scope": "every row in the retained first-party result PDF; later catalogue enrichment may add property detail",
+        "source_url": expected["result_url"],
+        "errors": [] if complete else [{"error": "non-contiguous result lot sequence", "missing": missing}],
+        "checked_at": corpus.now(),
+    }
+    return state, rows
+
+
+def extract_pdf_text(raw: bytes) -> str:
+    from pypdf import PdfReader
+
+    reader = PdfReader(BytesIO(raw))
+    text = "\n".join(page.extract_text() or "" for page in reader.pages)
+    if len(text.strip()) < 100:
+        raise ValueError("result PDF contains no usable text")
+    return text
+
+
+def get(url: str) -> requests.Response:
+    response = requests.get(url, headers=HEADERS, timeout=90)
+    response.raise_for_status()
+    if len(response.content) < 100:
+        raise ValueError("source response is unexpectedly short")
+    return response
+
+
+def harvest(limit: int = 8) -> None:
+    archive_response = get(ARCHIVE)
+    archive_raw = archive_response.content
+    archive_html = archive_raw.decode("utf-8", "replace")
+    archive_sha = corpus.digest(archive_raw)
+    archive_snapshot = corpus.DATA / "sources/cottons" / f"archive-{archive_sha[:16]}.json.gz"
+    archive_evidence = {
+        "source_url": archive_response.url,
+        "retrieved_at": corpus.now(),
+        "sha256": archive_sha,
+        "snapshot_path": str(archive_snapshot.relative_to(corpus.ROOT)),
+        "basis": "first-party auction archive",
+    }
+    corpus.save_gzip(archive_snapshot, {"evidence": archive_evidence, "html": archive_html})
+    discovered = discover_result_sheets(archive_html)
+
+    appearances_path = corpus.DATA / "appearances/cottons/canonical.jsonl.gz"
+    existing = list(corpus.iter_rows(appearances_path)) if appearances_path.exists() else []
+    before_ids = {row["appearance_id"] for row in existing}
+    merged = {row["appearance_id"]: row for row in existing}
+    rows_by_auction: dict[str, list[dict]] = {}
+    for row in existing:
+        rows_by_auction.setdefault(row["source_auction_id"], []).append(row)
+
+    states, pending, failures, reused = {}, [], [], 0
+    for item in discovered:
+        state_name = item["auction_id"].replace(":", "-") + ".json"
+        state_path = corpus.DATA / "auctions/cottons" / state_name
+        try:
+            state = json.loads(state_path.read_text()) if state_path.exists() else None
+        except (OSError, json.JSONDecodeError):
+            state = None
+        saved_rows = rows_by_auction.get(item["auction_id"], [])
+        if (state and state.get("catalogue_complete") and saved_rows and
+                state.get("lots_captured") == len(saved_rows)):
+            states[item["auction_id"]] = state
+            reused += 1
+        else:
+            pending.append(item)
+
+    for item in pending[:max(0, limit)]:
+        state_name = item["auction_id"].replace(":", "-") + ".json"
+        try:
+            response = get(item["result_url"])
+            raw = response.content
+            sha = corpus.digest(raw)
+            snapshot = corpus.DATA / "sources/cottons/results" / (
+                f"{item['auction_date']}-{sha[:16]}.pdf.gz"
+            )
+            corpus.atomic(snapshot, gzip.compress(raw, mtime=0))
+            evidence = {
+                "source_url": response.url,
+                "retrieved_at": corpus.now(),
+                "sha256": sha,
+                "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
+                "archive_snapshot_path": archive_evidence["snapshot_path"],
+                "basis": "first-party complete auction result PDF",
+            }
+            state, rows = parse_result_text(extract_pdf_text(raw), item, evidence)
+            corpus.save_json(corpus.DATA / "auctions/cottons" / state_name, state)
+            states[item["auction_id"]] = state
+            for row in rows:
+                merged[row["appearance_id"]] = row
+            print("COTTONS", item["auction_date"], len(rows), "lots", state["catalogue_complete"], flush=True)
+        except Exception as exc:
+            failures.append({
+                "auction_id": item["auction_id"],
+                "auction_date": item["auction_date"],
+                "url": item["result_url"],
+                "error": f"{type(exc).__name__}: {exc}"[:500],
+            })
+
+    total = corpus.write_rows("cottons/canonical", list(merged.values()))
+    added = [row for key, row in merged.items() if key not in before_ids]
+    summary = {
+        "checked_at": corpus.now(),
+        "source_url": ARCHIVE,
+        "result_sheets_discovered": len(discovered),
+        "result_sheets_complete": sum(bool(state.get("catalogue_complete")) for state in states.values()),
+        "result_sheets_reused": reused,
+        "result_sheets_attempted_this_run": min(len(pending), max(0, limit)),
+        "result_sheets_pending": max(0, len(pending) - max(0, limit)),
+        "appearances_captured": total,
+        "run_new_appearances": total - len(before_ids),
+        "run_new_address_records": sum(bool(row.get("address")) for row in added),
+        "run_new_partial_lots": sum(not row.get("address") for row in added),
+        "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
+        "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
+        "archive_evidence": archive_evidence,
+        "failures": failures,
+    }
+    corpus.save_json(corpus.DATA / "cottons_collection.json", summary)
+    print(json.dumps(summary, indent=2), flush=True)
+    if failures:
+        raise SystemExit(1)
+
+
+if __name__ == "__main__":
+    harvest(int(sys.argv[1]) if len(sys.argv) > 1 else 8)

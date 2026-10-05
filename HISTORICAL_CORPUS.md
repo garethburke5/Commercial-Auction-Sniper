@@ -31,6 +31,7 @@ python scripts/harvest_future_property_auctions.py --limit 4 --workers 3
 python scripts/harvest_town_country_results.py --workers 4
 python scripts/harvest_brown_co_results.py
 python scripts/harvest_bagshaws_results.py
+python scripts/harvest_cottons_results.py 8
 python historical_corpus.py build
 ```
 
@@ -165,6 +166,15 @@ contained title tokens; unmatched results retain their own exact heading hash.
 Pages exposing narrative only create no synthetic lots, and no auction is marked
 complete because the original catalogue denominator is unavailable. Subsequent
 runs skip previously checked pages unless `--refresh` is requested.
+
+Cottons collection follows the first-party auction archive's dated result PDFs,
+which survive from 2001 onward. Each bounded run resumes with the newest incomplete
+sheets, corroborates the archive date against the PDF heading, and preserves every
+published lot row, address, outcome and result or available price. Exact auction
+date plus printed lot number provides appearance identity. A sheet is complete
+only when its distinct published lot labels and continuous base lot sequence
+reconcile; lettered additional lots remain separate rows. Raw archive HTML and
+compressed source PDFs are retained for provenance.
 
 Future Property Auctions collection consumes the auctioneer's unauthenticated
 first-party BidJS archive. The manifest currently retains stable auction UUIDs
