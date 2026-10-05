@@ -24,6 +24,10 @@ python scripts/harvest_auction_house_national.py
 python scripts/harvest_auction_house_regions.py
 python scripts/harvest_bidx1_canonical.py
 python scripts/harvest_btg_eddisons_catalogues.py 4
+python scripts/harvest_eddisons_insights.py
+python scripts/harvest_mchugh_results.py 8
+python scripts/harvest_mchugh_legacy.py 8
+python scripts/harvest_phillip_arnold_results.py 8
 python scripts/harvest_sdl_legacy_catalogues.py --limit 10
 python scripts/harvest_smith_sons_results.py
 python scripts/harvest_anderson_garland_results.py
@@ -126,6 +130,24 @@ only when distinct first-party property identities and captured pages reconcile
 exactly to its published ``results found`` denominator. Online appearances use
 the published closing day; lots in two-day live-stream catalogues keep a null
 individual auction date while preserving the exact published date range.
+
+BTG Eddisons' retained monthly sold-result articles are collected separately
+from complete catalogues. Every published property block is preserved, but the
+records remain explicitly partial because the articles contain selected sold
+examples and publish a month rather than an exact auction day.
+
+McHugh & Co collection preserves both the current first-party results archive
+and the older retained auction-table site. The modern pass records every visible
+property card and keeps catalogue completeness false whenever the published
+offered count disagrees with the source rows. The legacy pass reconciles each
+unpaginated table independently and scopes stable identities to its exact
+auction date, retaining residential, commercial and land lots together.
+
+Phillip Arnold collection traverses every retained first-party result table and
+banks all visible lot rows, including withdrawn and reoffered properties. Stable
+detail identities and exact auction dates preserve repeat appearances. Published
+offered totals are kept as evidence; any disagreement with the visible row count
+keeps the catalogue incomplete rather than discarding or inventing lots.
 
 SDL Property Auctions collection traverses the retained first-party catalogue
 archive from May 2022 through November 2025, before the BTG-era Eddisons
