@@ -173,6 +173,27 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
                 if compact:
                     day, month, year = map(int, compact.groups())
                     url_date = date(year if year >= 2000 else 2000 + year, month, day).isoformat()
+                else:
+                    # A small number of retained filenames publish only the
+                    # day and month (for example, results-16-dec.pdf).  Use
+                    # that solely to corroborate the exact dated archive row;
+                    # never infer a year from the upload directory.
+                    filename = unquote(expected["result_url"]).rsplit("/", 1)[-1]
+                    filename = filename.replace("-", " ").replace("_", " ")
+                    day_month = re.search(
+                        r"\b\d{1,2}\s*(?:st|nd|rd|th)?\s*"
+                        r"(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|"
+                        r"June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|"
+                        r"Nov(?:ember)?|Dec(?:ember)?)\b",
+                        filename,
+                        re.I,
+                    )
+                    if day_month:
+                        candidate = parse_date(
+                            f"{day_month.group()} {expected['auction_date'][:4]}"
+                        )
+                        if candidate == expected["auction_date"]:
+                            url_date = candidate
         if url_date != expected["auction_date"]:
             raise ValueError("result PDF has no date corroborating the archive row")
     date_basis = (
