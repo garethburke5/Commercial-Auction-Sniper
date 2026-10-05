@@ -614,6 +614,46 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
                     "source_url": item["result_url"], "source_blocked": True,
                     "source_blocker": blocker, "errors": [], "checked_at": corpus.now(),
                 }
+                # Do not force a newly retained image-only sheet to wait for a
+                # second workflow. Apply the same bounded OCR admission path
+                # immediately when this run still has OCR capacity. The
+                # snapshot and exact archive date are already preserved, and
+                # parse_result_text retains all duplicate/sequence checks.
+                if ocr_attempted < max(0, ocr_limit):
+                    ocr_attempted += 1
+                    try:
+                        ocr_evidence = {
+                            **evidence,
+                            "basis": "OCR of retained first-party complete auction result PDF",
+                            "ocr_engine": f"Tesseract PSM 4 with Poppler {OCR_DPI}dpi lossless rasterisation",
+                            "ocr_version": OCR_VERSION,
+                        }
+                        state, rows = parse_result_text(
+                            extract_pdf_text_ocr(raw), item, ocr_evidence
+                        )
+                        state["ocr_recovered"] = True
+                        state["ocr_version"] = OCR_VERSION
+                        state["source_evidence"] = ocr_evidence
+                        corpus.save_json(corpus.DATA / "auctions/cottons" / state_name, state)
+                        states[item["auction_id"]] = state
+                        for row in rows:
+                            merged[row["appearance_id"]] = row
+                        ocr_recovered += len(rows)
+                        print("COTTONS OCR", item["auction_date"], len(rows), "lots",
+                              state["catalogue_complete"], flush=True)
+                        continue
+                    except Exception as ocr_exc:
+                        blocker = {
+                            **blocker,
+                            "reason": "retained image-only result PDF failed bounded OCR recovery",
+                            "ocr_error": f"{type(ocr_exc).__name__}: {ocr_exc}"[:500],
+                        }
+                        state.update(
+                            source_blocker=blocker,
+                            ocr_attempted=True,
+                            ocr_version=OCR_VERSION,
+                            ocr_checked_at=corpus.now(),
+                        )
                 corpus.save_json(corpus.DATA / "auctions/cottons" / state_name, state)
                 states[item["auction_id"]] = state
                 blockers.append(blocker)
