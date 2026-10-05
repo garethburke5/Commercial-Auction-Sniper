@@ -17,17 +17,19 @@ def use_type(r):
     return None
 
 def occupancy(r):
+    if positive(evidenced_rent(r)):return 'Investment'
     if re.search(r'vacant',str(r.get('vacancy') or r.get('occupation') or ''),re.I):return 'Vacant'
-    if positive(r.get('annual_rent')):return 'Investment'
     return None
 
 def positive(v):return isinstance(v,(int,float)) and not isinstance(v,bool) and v>0
 
 def evidenced_rent(r):
     from collectors.financials import income_facts
+    from collectors.core import normalize_occupation
     rent=r.get('annual_rent')
     if not positive(rent):return None
-    if re.search(r'^(?:vacant|vacant possession)$',str(r.get('vacancy') or r.get('occupation') or ''),re.I):return None
+    occupation=normalize_occupation(r.get('vacancy') or r.get('occupation'),r.get('description') or '')
+    if re.search(r'^vacant(?: possession)?(?: -|$)',occupation or '',re.I):return None
     facts=income_facts(r.get('description') or '')
     if not facts.get('annual_rent') and rent in [facts.get(k) for k in ('historic_rent','potential_income','erv','ground_rent')]:return None
     if str(r.get('rent_basis') or r.get('income_basis') or '').lower() in {'historic','potential','erv','estimated'}:return None

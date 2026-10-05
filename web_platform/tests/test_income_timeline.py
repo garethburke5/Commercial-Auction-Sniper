@@ -9,6 +9,7 @@ def test_historical_sale_yield_requires_sale_and_passing_rent():
  assert metrics(dict(r,occupation='Vacant'))['sale_giy'] is None
  assert metrics(dict(r,description='Potential income of £30,000 per annum.'))['sale_giy'] is None
  assert metrics(dict(r,rent_basis='historic'))['sale_giy'] is None
+ assert metrics(dict(r,occupation='Part Vacant / Part Let',description='Occupation: Vacant Rateable Value: Search Potential rent £29,000 - £30,000 pa.'))['sale_giy'] is None
 
 def test_observation_timeline_exact_address_tenure_and_source(site):
  row=site.catalogue.properties[0]
