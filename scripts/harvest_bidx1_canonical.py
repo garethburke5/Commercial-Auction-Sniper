@@ -45,6 +45,11 @@ AUCTIONS = {
     "3184": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
     "3185": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
     "3200": {"discovery": "first-party indexed historical result set; combined UK page evidence"},
+    # Independently filterable first-party UK result sets verified 2026-10-05.
+    "3182": {"discovery": "first-party indexed historical result set; 10 published results"},
+    "5857": {"discovery": "first-party indexed historical result set; 24 published results"},
+    "7569": {"discovery": "first-party indexed historical result set; 4 published results"},
+    "7593": {"discovery": "first-party indexed historical result set; 1 published result"},
 }
 
 # Seen only in a combined first-party result URL; independent filters returned
