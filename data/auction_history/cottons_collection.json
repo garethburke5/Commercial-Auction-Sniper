@@ -1,0 +1,58 @@
+{
+  "checked_at": "2026-10-05T02:18:42.284425+00:00",
+  "source_url": "https://www.cottons.co.uk/auction-archive/",
+  "result_sheets_discovered": 134,
+  "result_sheets_complete": 4,
+  "result_sheets_reused": 0,
+  "result_sheets_attempted_this_run": 8,
+  "result_sheets_pending": 126,
+  "appearances_captured": 167,
+  "run_new_appearances": 167,
+  "run_new_address_records": 167,
+  "run_new_partial_lots": 0,
+  "by_status": {
+    "sold": 79,
+    "sold_prior": 9,
+    "available": 40,
+    "sold_after": 19,
+    "not_offered": 20
+  },
+  "by_sector": {
+    "unknown": 143,
+    "residential": 14,
+    "land": 10
+  },
+  "archive_evidence": {
+    "source_url": "https://www.cottons.co.uk/auction-archive/",
+    "retrieved_at": "2026-10-05T02:18:36.698433+00:00",
+    "sha256": "27dfc54999f1e52717b1f4aeaaad82afe6365ede9ce64e6d7c8779c3f96ecc59",
+    "snapshot_path": "data/auction_history/sources/cottons/archive-27dfc54999f1e527.json.gz",
+    "basis": "first-party auction archive"
+  },
+  "failures": [
+    {
+      "auction_id": "cottons:2026-04-22:56b50b5b95d6",
+      "auction_date": "2026-04-22",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2026/05/Auction-Results-22nd-April-2026.2.pdf",
+      "error": "ValueError: result outcome missing from row '182 HIGH STREET, CHASETOWN, BURNTWOOD, STAFFORDSHIRE WS7 3XH UNDER OFFER'"
+    },
+    {
+      "auction_id": "cottons:2026-02-25:e1bc48215a1d",
+      "auction_date": "2026-02-25",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2026/02/Auction-Results-25th-February-2026.pdf",
+      "error": "ValueError: result outcome missing from row 'FGRS 14 & 16 HARDEN CLOSE, WALSALL WS3 1BU NOT AVAILABLE'"
+    },
+    {
+      "auction_id": "cottons:2025-12-10:9a2957ae5bf8",
+      "auction_date": "2025-12-10",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2026/01/Auction-Results-3-10th-December-2025.pdf",
+      "error": "ValueError: result outcome missing from row '34 C & D MARKET STREET, TAMWORTH, STAFFORDSHIRE B79 7LR SALE AGREED PRIOR TO AUCTION'"
+    },
+    {
+      "auction_id": "cottons:2025-09-10:e07101a5fe59",
+      "auction_date": "2025-09-10",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2025/09/Results-10-Sept-2025.pdf",
+      "error": "ValueError: missing auction date in 'Lot Address Result\\n1   26 HICKMAN ROAD, SPARKBROOK,  BIRMINGHAM    B11 1NE £250,000\\n2   29 MOUNTFORD STREET, SPARKHILL, BIRMINGHAM    B11 3LZ £121,000\\n3   57 ELECTRIC AVENUE, BIRMINGHAM    B6 7DY £115,000\\n4   73 NORTON EAST ROAD, NORTON CANES, CANNOCK, STAFFORDSHIRE    WS11 9RR £132,000\\n5   83 REDHILL ROAD, NORTHFIELD, BIRMINGHAM    B31 3JS SOLD AFTER\\n6   FLAT 3, 316 HAGLEY ROAD, BIRMINGHAM    B17 8BH £59,000\\n7   342 SOHO ROAD, HANDSWORTH, BIRMINGHAM  "
+    }
+  ]
+}
