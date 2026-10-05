@@ -2,18 +2,30 @@
   "auctioneer": "Cottons",
   "source_auction_id": "cottons:2015-12-03:f668f3f640f6",
   "auction_date": "2015-12-03",
-  "catalogue_complete": false,
-  "source_rows_complete": false,
-  "lots_captured": 0,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "visible_result_rows": 51,
+  "lots_captured": 51,
+  "published_lots_offered": 49,
+  "lettered_additional_rows": 2,
+  "missing_base_lot_numbers": [],
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "continuous published base lot sequence in the complete first-party result table",
+  "completion_scope": "every row in the retained first-party result PDF; later catalogue enrichment may add property detail",
   "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-3rd-December-2015.pdf",
-  "source_blocked": true,
-  "source_blocker": {
-    "auction_id": "cottons:2015-12-03:f668f3f640f6",
-    "auction_date": "2015-12-03",
-    "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-3rd-December-2015.pdf",
-    "error": "ValueError: result PDF contains no usable text",
-    "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
-  },
   "errors": [],
-  "checked_at": "2026-10-05T04:41:48.712851+00:00"
+  "checked_at": "2026-10-05T08:43:44.820598+00:00",
+  "ocr_recovered": true,
+  "ocr_version": 3,
+  "source_evidence": {
+    "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-3rd-December-2015.pdf",
+    "retrieved_at": "2026-10-05T08:43:39.802169+00:00",
+    "sha256": "0579fb49034dd99b53c005e866d3faa7e403d181c7efdc9003f1bc9ed0eaa2db",
+    "snapshot_path": "data/auction_history/sources/cottons/results/2015-12-03-0579fb49034dd99b.pdf.gz",
+    "archive_snapshot_path": "data/auction_history/sources/cottons/archive-14aad1760a30a3af.json.gz",
+    "basis": "OCR of retained first-party complete auction result PDF",
+    "ocr_engine": "Tesseract PSM 4 with Poppler 300dpi lossless rasterisation",
+    "ocr_version": 3
+  }
 }

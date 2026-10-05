@@ -2,18 +2,30 @@
   "auctioneer": "Cottons",
   "source_auction_id": "cottons:2015-07-14:54a15e219b16",
   "auction_date": "2015-07-14",
-  "catalogue_complete": false,
-  "source_rows_complete": false,
-  "lots_captured": 0,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "visible_result_rows": 59,
+  "lots_captured": 59,
+  "published_lots_offered": 59,
+  "lettered_additional_rows": 0,
+  "missing_base_lot_numbers": [],
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "continuous published base lot sequence in the complete first-party result table",
+  "completion_scope": "every row in the retained first-party result PDF; later catalogue enrichment may add property detail",
   "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-14th-July-as-of-12th-Aug.pdf",
-  "source_blocked": true,
-  "source_blocker": {
-    "auction_id": "cottons:2015-07-14:54a15e219b16",
-    "auction_date": "2015-07-14",
-    "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-14th-July-as-of-12th-Aug.pdf",
-    "error": "ValueError: result PDF contains no usable text",
-    "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
-  },
   "errors": [],
-  "checked_at": "2026-10-05T04:41:50.307330+00:00"
+  "checked_at": "2026-10-05T08:44:00.680940+00:00",
+  "ocr_recovered": true,
+  "ocr_version": 3,
+  "source_evidence": {
+    "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-14th-July-as-of-12th-Aug.pdf",
+    "retrieved_at": "2026-10-05T08:43:54.882746+00:00",
+    "sha256": "ebe72c57b15c3871e1ca8442ede091b165d31ec27bafd71472f4e79503b36de4",
+    "snapshot_path": "data/auction_history/sources/cottons/results/2015-07-14-ebe72c57b15c3871.pdf.gz",
+    "archive_snapshot_path": "data/auction_history/sources/cottons/archive-14aad1760a30a3af.json.gz",
+    "basis": "OCR of retained first-party complete auction result PDF",
+    "ocr_engine": "Tesseract PSM 4 with Poppler 300dpi lossless rasterisation",
+    "ocr_version": 3
+  }
 }

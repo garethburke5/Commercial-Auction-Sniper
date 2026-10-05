@@ -1,42 +1,42 @@
 {
-  "checked_at": "2026-10-05T08:27:08.079486+00:00",
+  "checked_at": "2026-10-05T08:44:08.646490+00:00",
   "source_url": "https://www.cottons.co.uk/auction-archive/",
   "result_sheets_discovered": 134,
-  "result_sheets_complete": 105,
-  "result_sheets_blocked": 26,
-  "result_sheets_reused": 94,
-  "result_sheets_attempted_this_run": 11,
+  "result_sheets_complete": 110,
+  "result_sheets_blocked": 19,
+  "result_sheets_reused": 105,
+  "result_sheets_attempted_this_run": 3,
   "result_sheets_pending": 0,
-  "ocr_sheets_attempted_this_run": 4,
-  "ocr_appearances_recovered_this_run": 109,
-  "appearances_captured": 5846,
-  "run_new_appearances": 887,
-  "run_new_address_records": 887,
+  "ocr_sheets_attempted_this_run": 8,
+  "ocr_appearances_recovered_this_run": 414,
+  "appearances_captured": 6260,
+  "run_new_appearances": 414,
+  "run_new_address_records": 414,
   "run_new_partial_lots": 0,
   "by_status": {
-    "sold": 3049,
-    "available": 1490,
-    "sold_prior": 473,
-    "not_offered": 473,
-    "unknown": 80,
-    "sold_after": 203,
-    "not_available": 39,
-    "withdrawn": 31,
-    "under_offer": 7,
+    "sold": 3269,
+    "available": 1581,
+    "not_offered": 508,
+    "sold_prior": 511,
+    "not_available": 44,
+    "sold_after": 214,
+    "unknown": 89,
+    "withdrawn": 35,
+    "under_offer": 8,
     "unsold": 1
   },
   "by_sector": {
-    "unknown": 4925,
-    "land": 493,
-    "commercial": 64,
-    "residential": 362,
-    "mixed-use": 2
+    "unknown": 5258,
+    "land": 525,
+    "residential": 399,
+    "commercial": 75,
+    "mixed-use": 3
   },
   "archive_evidence": {
     "source_url": "https://www.cottons.co.uk/auction-archive/",
-    "retrieved_at": "2026-10-05T08:26:39.190187+00:00",
-    "sha256": "dbdc04c35726a39f7115f428729cf64e3647ad2659c58eb4cbcb1567041e8046",
-    "snapshot_path": "data/auction_history/sources/cottons/archive-dbdc04c35726a39f.json.gz",
+    "retrieved_at": "2026-10-05T08:43:25.856741+00:00",
+    "sha256": "14aad1760a30a3af99e07bb98037fcb5b57d5bf5a14113f958ca13a35b9a1bc5",
+    "snapshot_path": "data/auction_history/sources/cottons/archive-14aad1760a30a3af.json.gz",
     "basis": "first-party auction archive"
   },
   "source_blockers": [
@@ -55,63 +55,6 @@
       "error": "ValueError: result PDF contains no usable text",
       "reason": "retained image-only result PDF failed bounded OCR recovery",
       "ocr_error": "ValueError: result table header is absent"
-    },
-    {
-      "auction_id": "cottons:2016-05-26:86cfe562fe6d",
-      "auction_date": "2016-05-26",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-26th-May-as-of-9th-June-2016.pdf",
-      "error": "ValueError: result PDF contains no usable text",
-      "reason": "retained image-only result PDF failed bounded OCR recovery",
-      "ocr_error": "ValueError: result table header is absent"
-    },
-    {
-      "auction_id": "cottons:2016-04-14:144cb148ad36",
-      "auction_date": "2016-04-14",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-14th-April-2016.pdf",
-      "error": "ValueError: result PDF contains no usable text",
-      "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
-    },
-    {
-      "auction_id": "cottons:2016-02-23:54ed2b3a1f38",
-      "auction_date": "2016-02-23",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/RESULTS-SHEET-23rd-February-2016.pdf",
-      "error": "ValueError: result PDF contains no usable text",
-      "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
-    },
-    {
-      "auction_id": "cottons:2015-12-03:f668f3f640f6",
-      "auction_date": "2015-12-03",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-3rd-December-2015.pdf",
-      "error": "ValueError: result PDF contains no usable text",
-      "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
-    },
-    {
-      "auction_id": "cottons:2015-10-15:57fd7c47511f",
-      "auction_date": "2015-10-15",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-sheet-update-15th-Oct-as-of-20-Nov-2015.pdf",
-      "error": "ValueError: result PDF contains no usable text",
-      "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
-    },
-    {
-      "auction_id": "cottons:2015-09-10:15c6c688fedb",
-      "auction_date": "2015-09-10",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-sheet-10th-Sept-15-as-22nd-Jan16.pdf",
-      "error": "ValueError: result PDF contains no usable text",
-      "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
-    },
-    {
-      "auction_id": "cottons:2015-07-14:54a15e219b16",
-      "auction_date": "2015-07-14",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-14th-July-as-of-12th-Aug.pdf",
-      "error": "ValueError: result PDF contains no usable text",
-      "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
-    },
-    {
-      "auction_id": "cottons:2015-06-03:1f896c6a852b",
-      "auction_date": "2015-06-03",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-3rd-June-as-of-5th-June.pdf",
-      "error": "ValueError: result PDF contains no usable text",
-      "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
     },
     {
       "auction_id": "cottons:2015-04-16:a3a061d6348f",
@@ -222,6 +165,13 @@
       "auction_id": "cottons:2011-02-17:7cc6dbe0fb4c",
       "auction_date": "2011-02-17",
       "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results.pdf",
+      "error": "ValueError: result PDF contains no usable text",
+      "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
+    },
+    {
+      "auction_id": "cottons:2016-09-06:a34f0a04cfc6",
+      "auction_date": "2016-09-06",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-6th-Sept-as-of-26th-Sept-2016.pdf",
       "error": "ValueError: result PDF contains no usable text",
       "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
     }
