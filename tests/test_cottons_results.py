@@ -83,6 +83,7 @@ def test_status_semantics_do_not_treat_available_price_as_sale():
     assert result_semantics("AVAILABLE @ £42,000") == ("available", None, 42000)
     assert result_semantics("AVAILABLE @ 135,000") == ("available", None, 135000)
     assert result_semantics("AVAILABLE @ £500,000 PLUS VAT") == ("available", None, 500000)
+    assert result_semantics("AVAILABLE @ £7.750") == ("available", None, 7750)
     assert result_semantics("SOLD AFTER") == ("sold_after", None, None)
     assert result_semantics("WITHDRAWN AFTER") == ("withdrawn", None, None)
     assert result_semantics("NOT OFFERED") == ("not_offered", None, None)
@@ -127,3 +128,15 @@ def test_repeated_page_headers_are_not_appended_to_the_previous_result():
     assert state["catalogue_complete"] is True
     assert rows[1]["address"] == "14 Market Road, Birmingham, B12 8AA"
     assert rows[1]["source_result_text"] == "SOLD PRIOR"
+
+
+def test_address_only_outcome_is_retained_as_unknown_and_contact_footer_is_ignored():
+    text = RESULT_TEXT.replace(
+        "4 2 Factory Road, Birmingham WITHDRAWN",
+        "4 88 Gayhurst Drive, Yardley, Birmingham B25 8YN\nContact: sales@cottons.co.uk",
+    )
+    state, rows = parse_result_text(text, expected(), {})
+    assert state["catalogue_complete"] is True
+    assert rows[-1]["address"] == "88 Gayhurst Drive, Yardley, Birmingham B25 8YN"
+    assert rows[-1]["status"] == "unknown"
+    assert rows[-1]["source_result_text"] is None

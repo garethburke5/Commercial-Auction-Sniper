@@ -37,21 +37,21 @@ DATE_RE = re.compile(
     re.I,
 )
 ROW_RE = re.compile(r"^(\d+[A-Za-z]?)\s+(.+)$")
-MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d{1,2})?)", re.I)
+MONEY_RE = re.compile(r"£\s*([\d][\d,.]*)", re.I)
 RESULT_SUFFIX_RE = re.compile(
     r"(?:"
     r"SOLD\s+(?:PRIOR|BEFORE|AFTER|POST)|"
-    r"SOLD(?:\s+AT)?\s+£\s*[\d,]+(?:\.\d{1,2})?|"
+    r"SOLD(?:\s+AT)?\s+£\s*[\d,.]+|"
     r"SALE\s+AGREED\s+PRIOR\s+TO\s+AUCTION|"
     r"NOT\s+(?:OFFERED|AVAILABLE)|UNDER\s+OFFER|"
     r"WITHDRAWN(?:\s+AFTER)?|POSTPONED|UNSOLD|SOLD|"
-    r"AVAILABLE(?:\s*@|\s+AT)?\s*£?\s*[\d,]+(?:\.\d{1,2})?(?:\s+PLUS\s+VAT)?|"
-    r"£\s*[\d,]+(?:\.\d{1,2})?\s*(?:AVAILABLE)?"
+    r"AVAILABLE(?:\s*@|\s+AT)?\s*£?\s*[\d,.]+(?:\s+PLUS\s+VAT)?|"
+    r"£\s*[\d,.]+\s*(?:AVAILABLE)?"
     r")\s*$",
     re.I,
 )
 FOOTER_RE = re.compile(
-    r"^(?:entries|our next auction|next auction|auctioneers?|cottons|telephone|tel\b|"
+    r"^(?:entries|our next auction|next auction|auctioneers?|cottons|contact\b|telephone|tel\b|"
     r"important notice|please note|www\.)",
     re.I,
 )
@@ -108,7 +108,14 @@ def discover_result_sheets(html: str) -> list[dict]:
 def result_semantics(value: str) -> tuple[str, int | None, int | None]:
     text = (clean(value) or "").upper()
     money_match = MONEY_RE.search(text)
-    amount = int(round(float(money_match.group(1).replace(",", "")))) if money_match else None
+    amount = None
+    if money_match:
+        token = money_match.group(1)
+        if re.fullmatch(r"\d{1,3}(?:\.\d{3})+", token):
+            token = token.replace(".", "")
+        else:
+            token = token.replace(",", "")
+        amount = int(round(float(token)))
     if "NOT OFFERED" in text:
         return "not_offered", None, None
     if "NOT AVAILABLE" in text:
@@ -125,9 +132,14 @@ def result_semantics(value: str) -> tuple[str, int | None, int | None]:
         return "unsold", None, None
     if "AVAILABLE" in text:
         if amount is None:
-            available_match = re.search(r"AVAILABLE(?:\s*@|\s+AT)?\s*£?\s*([\d,]+(?:\.\d{1,2})?)", text)
+            available_match = re.search(r"AVAILABLE(?:\s*@|\s+AT)?\s*£?\s*([\d][\d,.]*)", text)
             if available_match:
-                amount = int(round(float(available_match.group(1).replace(",", ""))))
+                token = available_match.group(1)
+                if re.fullmatch(r"\d{1,3}(?:\.\d{3})+", token):
+                    token = token.replace(".", "")
+                else:
+                    token = token.replace(",", "")
+                amount = int(round(float(token)))
         return "available", None, amount
     if re.search(r"SOLD\s+(?:PRIOR|BEFORE)", text):
         return "sold_prior", amount, None
@@ -141,7 +153,10 @@ def result_semantics(value: str) -> tuple[str, int | None, int | None]:
 def split_result_row(value: str) -> tuple[str, str]:
     match = RESULT_SUFFIX_RE.search(value or "")
     if not match:
-        raise ValueError(f"result outcome missing from row {value!r}")
+        address = clean(value)
+        if not address:
+            raise ValueError("result row has no address")
+        return address, ""
     address = clean(value[:match.start()])
     if not address:
         raise ValueError("result row has no address")
@@ -273,7 +288,7 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
             record_quality="address_record",
             auction_date_basis=date_basis,
             source_position=position,
-            source_result_text=result_text,
+            source_result_text=result_text or None,
             source_evidence=evidence,
         )
         rows.append(row)
