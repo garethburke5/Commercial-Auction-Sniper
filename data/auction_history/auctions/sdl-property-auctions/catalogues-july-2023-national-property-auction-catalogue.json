@@ -1,0 +1,24 @@
+{
+  "auctioneer": "SDL Property Auctions",
+  "source_auction_id": "sdl:1078",
+  "auction_date": "2023-07-27",
+  "catalogue_complete": false,
+  "source_rows_captured": 11,
+  "lots_captured": 11,
+  "published_lots_offered": null,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all featured lot cards retained on the first-party catalogue landing page",
+  "incomplete_reason": "original catalogue denominator and non-featured lot rows are no longer exposed",
+  "source_url": "https://www.sdlauctions.co.uk/catalogues/july-2023-national-property-auction-catalogue/",
+  "source_evidence": {
+    "source_url": "https://www.sdlauctions.co.uk/catalogues/july-2023-national-property-auction-catalogue/",
+    "retrieved_at": "2026-10-05T11:33:21.210053+00:00",
+    "sha256": "dadb1e0831ee3225e747128843e276e3566935187a359f62089950d9aef6290b",
+    "snapshot_path": "data/auction_history/sources/sdl-property-auctions/catalogues/1078-dadb1e0831ee3225.json.gz",
+    "archive_snapshot_path": "data/auction_history/sources/sdl-property-auctions/archive-c7db2e0ce9fb2d2e.json.gz",
+    "basis": "featured lot card on retained first-party dated SDL catalogue page"
+  },
+  "errors": [],
+  "checked_at": "2026-10-05T11:33:21.274704+00:00"
+}

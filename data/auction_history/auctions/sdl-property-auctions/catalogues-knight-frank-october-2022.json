@@ -1,0 +1,20 @@
+{
+  "auctioneer": "SDL Property Auctions",
+  "source_auction_id": null,
+  "auction_date": null,
+  "catalogue_complete": false,
+  "source_rows_captured": 0,
+  "lots_captured": 0,
+  "published_lots_offered": null,
+  "pagination_reconciled": false,
+  "denominator_reconciled": false,
+  "terminal_unavailable": true,
+  "completion_scope": "retained catalogue link now resolves to the archive index; no lot rows are exposed",
+  "incomplete_reason": "first-party catalogue page is no longer retained",
+  "source_url": "https://www.sdlauctions.co.uk/catalogues/knight-frank-october-2022/",
+  "final_url": "https://www.sdlauctions.co.uk/catalogues/archive/",
+  "errors": [
+    "ValueError: catalogue page has no exact auction date"
+  ],
+  "checked_at": "2026-10-05T11:30:49.057623+00:00"
+}

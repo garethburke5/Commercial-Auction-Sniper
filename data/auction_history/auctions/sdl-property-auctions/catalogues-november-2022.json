@@ -1,0 +1,24 @@
+{
+  "auctioneer": "SDL Property Auctions",
+  "source_auction_id": "sdl:642",
+  "auction_date": "2022-11-24",
+  "catalogue_complete": false,
+  "source_rows_captured": 10,
+  "lots_captured": 10,
+  "published_lots_offered": null,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all featured lot cards retained on the first-party catalogue landing page",
+  "incomplete_reason": "original catalogue denominator and non-featured lot rows are no longer exposed",
+  "source_url": "https://www.sdlauctions.co.uk/catalogues/november-2022/",
+  "source_evidence": {
+    "source_url": "https://www.sdlauctions.co.uk/catalogues/november-2022/",
+    "retrieved_at": "2026-10-05T11:30:49.692616+00:00",
+    "sha256": "92beb925735e3e55856c621e45d5c7c22eddd23ee35f400b804d76f7fca55d76",
+    "snapshot_path": "data/auction_history/sources/sdl-property-auctions/catalogues/642-92beb925735e3e55.json.gz",
+    "archive_snapshot_path": "data/auction_history/sources/sdl-property-auctions/archive-5256669c5e5e0dc1.json.gz",
+    "basis": "featured lot card on retained first-party dated SDL catalogue page"
+  },
+  "errors": [],
+  "checked_at": "2026-10-05T11:30:49.740812+00:00"
+}

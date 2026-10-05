@@ -1,0 +1,24 @@
+{
+  "auctioneer": "SDL Property Auctions",
+  "source_auction_id": "sdl:1051",
+  "auction_date": "2023-01-26",
+  "catalogue_complete": false,
+  "source_rows_captured": 10,
+  "lots_captured": 10,
+  "published_lots_offered": null,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all featured lot cards retained on the first-party catalogue landing page",
+  "incomplete_reason": "original catalogue denominator and non-featured lot rows are no longer exposed",
+  "source_url": "https://www.sdlauctions.co.uk/catalogues/january-2023/",
+  "source_evidence": {
+    "source_url": "https://www.sdlauctions.co.uk/catalogues/january-2023/",
+    "retrieved_at": "2026-10-05T11:33:19.558583+00:00",
+    "sha256": "7add10c392cef2aa9c19f6301a1cd0029a9ad8d590fe8fb23051859bbb9fd1f4",
+    "snapshot_path": "data/auction_history/sources/sdl-property-auctions/catalogues/1051-7add10c392cef2aa.json.gz",
+    "archive_snapshot_path": "data/auction_history/sources/sdl-property-auctions/archive-c7db2e0ce9fb2d2e.json.gz",
+    "basis": "featured lot card on retained first-party dated SDL catalogue page"
+  },
+  "errors": [],
+  "checked_at": "2026-10-05T11:33:19.638084+00:00"
+}
