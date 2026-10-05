@@ -1,4 +1,6 @@
-from scripts.harvest_cheffins_history import discover_catalogues, parse_catalogue, status_and_price
+from scripts.harvest_cheffins_history import (
+    addendum_rows, discover_catalogues, parse_addendum, parse_catalogue, status_and_price,
+)
 
 
 def test_archive_discovers_only_catalogues_with_published_denominators():
@@ -72,3 +74,38 @@ def test_exact_date_override_keeps_zero_card_catalogue_explicitly_partial():
     assert state["catalogue_complete"] is False
     assert state["lots_captured"] == 0
     assert state["auction_date_basis"] == "exact date and lot count on first-party sale preview"
+
+
+def test_addendum_recovers_only_missing_evidenced_lots():
+    text = """
+    EASTERN COUNTIES PROPERTY AUCTIONS
+    LOT 07 - 35-37 High Street, Balsham
+    Auction guide price has been lowered to £275,000+.
+    LOT 13 - Building plot adjacent to 19 Saxon Drive, Burwell
+    Withdrawn.
+    LOT 14 - 112 Ross Street, Cambridge
+    Withdrawn
+    LOT 15 - 12.16 acres of land at First Turf Fen Drove, Warboys
+    Late entry to catalogue.
+    ENTRIES INVITED FOR NEXT AUCTION
+    """
+    recovered = parse_addendum(text, {"7", "13", "14"})
+    assert [(row["lot_number"], row["address"], row["status"]) for row in recovered] == [
+        ("7", "35-37 High Street, Balsham", "unknown"),
+        ("13", "Building plot adjacent to 19 Saxon Drive, Burwell", "withdrawn"),
+        ("14", "112 Ross Street, Cambridge", "withdrawn"),
+    ]
+    assert recovered[0]["guide_price"] == 275000
+
+
+def test_addendum_rows_are_address_grade_and_can_complete_catalogue():
+    catalogue = {"catalogue_id": "565", "published_lots": 2,
+        "url": "https://www.cheffins.co.uk/property-auctions/catalogue-view,june-2023_565.htm"}
+    existing = [{"lot_number": "1"}]
+    evidence = {"source_url": "https://cdn.example/addendum.pdf"}
+    rows = addendum_rows("LOT 2 Highway Cottage, 65 Chishill Road, Heydon, Royston, SG8 8PN",
+                          catalogue, "2023-06-14", evidence, existing)
+    assert len(rows) == 1
+    assert rows[0]["appearance_id"] == "Cheffins|catalogue:565|addendum-lot:2"
+    assert rows[0]["postcode"] == "SG8 8PN"
+    assert rows[0]["record_quality"] == "address_record"
