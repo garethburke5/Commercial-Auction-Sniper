@@ -14,7 +14,18 @@
   "completion_scope": "all retained cards on the first-party unpaginated catalogue page",
   "partial_reason": "published denominator 26 exceeds 25 retained source cards",
   "auction_date_basis": "exact date on catalogue page",
-  "source_sha256": "95264219dd3e5f47934280da9367a24a2199d7b087a7935b8916db775ae00fd5",
+  "addendum_recovery_version": 1,
+  "addendum_lots_recovered": 0,
+  "source_sha256": "cd1ea2e090a4f46d11eb47a0e00b1a08ed1d9bae99e93800ab6d47b5f305c028",
   "errors": [],
-  "checked_at": "2026-10-03T21:36:39.727272+00:00"
+  "checked_at": "2026-10-05T16:35:22.352038+00:00",
+  "addendum_source_evidence": {
+    "source_url": "https://cdn.eigpropertyauctions.co.uk/ams/images/32/auction/949/addendum.pdf",
+    "catalogue_url": "https://www.cheffins.co.uk/property-auctions/catalogue-view,march-2017_531.htm",
+    "retrieved_at": "2026-10-05T16:35:22.063511+00:00",
+    "sha256": "be5adee6f4dbae0c9426ea8dab40d170965ea47a8174cf4cae14209c28d5260f",
+    "snapshot_path": "data/auction_history/sources/cheffins/catalogue-531-addendum-be5adee6f4dbae0c.pdf.gz",
+    "catalogue_snapshot_path": "data/auction_history/sources/cheffins/catalogue-531-cd1ea2e090a4f46d.json.gz",
+    "basis": "first-party catalogue-linked published auction addendum"
+  }
 }
