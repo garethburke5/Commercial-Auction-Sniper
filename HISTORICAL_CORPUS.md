@@ -25,6 +25,7 @@ python scripts/harvest_auction_house_regions.py
 python scripts/harvest_bidx1_canonical.py
 python scripts/harvest_btg_eddisons_catalogues.py 4
 python scripts/harvest_sdl_legacy_catalogues.py --limit 10
+python scripts/harvest_smith_sons_results.py
 python scripts/harvest_anderson_garland_results.py
 python scripts/harvest_edward_mellor_results.py --limit 24 --workers 8
 python scripts/harvest_future_property_auctions.py --limit 4 --workers 3
@@ -133,6 +134,13 @@ property ID, lot number, postcode-bearing address and guide price are admitted.
 Raw archive and catalogue HTML are preserved. These surviving featured subsets
 never count as complete auctions because their original catalogue denominators
 and non-featured rows are no longer exposed.
+
+Smith & Sons collection follows every sale currently retained on the
+first-party past-auctions page. Each unpaginated result page is marked complete
+only when its distinct lot cards reconcile exactly to the explicit property
+denominator published on both the archive and catalogue. Residential,
+commercial and land rows, repeated property appearances, guide ranges, outcomes
+and sale prices are preserved with immutable page snapshots.
 
 Anderson & Garland collection preserves every sold-property block on its
 first-party recent-results page, including address text, description, image,
