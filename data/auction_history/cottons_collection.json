@@ -1,43 +1,44 @@
 {
-  "checked_at": "2026-10-05T02:33:25.691704+00:00",
+  "checked_at": "2026-10-05T02:47:15.541883+00:00",
   "source_url": "https://www.cottons.co.uk/auction-archive/",
   "result_sheets_discovered": 134,
-  "result_sheets_complete": 11,
-  "result_sheets_reused": 4,
+  "result_sheets_complete": 17,
+  "result_sheets_reused": 11,
   "result_sheets_attempted_this_run": 8,
-  "result_sheets_pending": 122,
-  "appearances_captured": 446,
-  "run_new_appearances": 279,
-  "run_new_address_records": 279,
+  "result_sheets_pending": 115,
+  "appearances_captured": 768,
+  "run_new_appearances": 322,
+  "run_new_address_records": 322,
   "run_new_partial_lots": 0,
   "by_status": {
-    "sold": 194,
-    "sold_after": 37,
-    "available": 133,
-    "not_offered": 47,
-    "sold_prior": 29,
-    "under_offer": 2,
-    "not_available": 2,
-    "withdrawn": 2
+    "sold": 351,
+    "available": 220,
+    "not_offered": 82,
+    "sold_after": 65,
+    "sold_prior": 42,
+    "not_available": 3,
+    "withdrawn": 3,
+    "under_offer": 2
   },
   "by_sector": {
-    "unknown": 372,
-    "residential": 43,
-    "land": 31
+    "unknown": 648,
+    "residential": 59,
+    "land": 59,
+    "commercial": 2
   },
   "archive_evidence": {
     "source_url": "https://www.cottons.co.uk/auction-archive/",
-    "retrieved_at": "2026-10-05T02:33:21.085646+00:00",
-    "sha256": "b85aa0485444e8213be1764d6edb8dafe28ebffabd22bf3edaf6a8a960abc2db",
-    "snapshot_path": "data/auction_history/sources/cottons/archive-b85aa0485444e821.json.gz",
+    "retrieved_at": "2026-10-05T02:47:10.909627+00:00",
+    "sha256": "7f9ee93f90ef9ed751dcfdf329516056e7c41d999e7512336e3c3eb7274ffcb8",
+    "snapshot_path": "data/auction_history/sources/cottons/archive-7f9ee93f90ef9ed7.json.gz",
     "basis": "first-party auction archive"
   },
   "failures": [
     {
-      "auction_id": "cottons:2025-09-10:e07101a5fe59",
-      "auction_date": "2025-09-10",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2025/09/Results-10-Sept-2025.pdf",
-      "error": "ValueError: result outcome missing from row '12A ST. JOHN STREET, BROMSGROVE, WORCESTERSHIRE B61 8QY £114,000 Auction 10 September 2025 Results Lot Address Result'"
+      "auction_id": "cottons:2024-09-11:7a6116daf939",
+      "auction_date": "2024-09-11",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2024/09/11th-Sept-2024-Results.pdf",
+      "error": "ValueError: result outcome missing from row '13 & 13A WALSALL ROAD, WILLENHALL, WEST MIDLANDS WV13 2EG AVAILABLE @ 135,000'"
     }
   ]
 }
