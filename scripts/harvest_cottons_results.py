@@ -44,8 +44,8 @@ RESULT_SUFFIX_RE = re.compile(
     r"SOLD(?:\s+AT)?\s+£\s*[\d,]+(?:\.\d{1,2})?|"
     r"SALE\s+AGREED\s+PRIOR\s+TO\s+AUCTION|"
     r"NOT\s+(?:OFFERED|AVAILABLE)|UNDER\s+OFFER|"
-    r"WITHDRAWN|POSTPONED|UNSOLD|SOLD|"
-    r"AVAILABLE(?:\s*@|\s+AT)?\s*£?\s*[\d,]+(?:\.\d{1,2})?|"
+    r"WITHDRAWN(?:\s+AFTER)?|POSTPONED|UNSOLD|SOLD|"
+    r"AVAILABLE(?:\s*@|\s+AT)?\s*£?\s*[\d,]+(?:\.\d{1,2})?(?:\s+PLUS\s+VAT)?|"
     r"£\s*[\d,]+(?:\.\d{1,2})?\s*(?:AVAILABLE)?"
     r")\s*$",
     re.I,
