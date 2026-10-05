@@ -31,6 +31,7 @@ def test_private_deal_admin_and_report_routes_are_owner_scoped(site,tmp_path,mon
         assert c.put('/api/admin/deals/example',json=d,headers={'Authorization':'owner'}).status_code==200
         assert c.put('/api/admin/deals/example',json=d,headers={'Authorization':'owner'}).status_code==409
         assert c.put('/api/account/saved/deal:example',headers={'Authorization':'alice'}).status_code==200
+        with a.db() as db:db.execute('INSERT INTO subscriptions VALUES (?,?,?,?,?)',('sub-alice','alice','investor','active',int(time.time())+3600))
         assert c.put('/api/account/workspace/deal:example',json={'watched':True,'notes':'Private negotiation'},headers={'Authorization':'alice'}).status_code==200
         assert c.get('/api/account',headers={'Authorization':'bob'}).json()['workspace']['properties']==[]
 
@@ -49,6 +50,7 @@ def test_comparables_respect_use_occupancy_tenure_and_full_address():
 
 def test_watch_is_independent_and_scoped(tmp_path):
     a=Accounts(tmp_path/'a.sqlite');row={'id':'p','address':'1 High Street','path':'/property/p/','guide_price':250000,'status':'CURRENT'}
+    with a.db() as db:db.execute('INSERT INTO subscriptions VALUES (?,?,?,?,?)',('sub-alice','alice','investor','active',int(time.time())+3600))
     update(a,'alice','p',{'watched':True,'notes':'private','target_price':220000},row)
     assert dashboard(a,'bob',{'p':row})['properties']==[]
     row['guide_price']=225000;row['status']='SOLD PRIOR'

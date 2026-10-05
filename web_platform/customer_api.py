@@ -24,7 +24,7 @@ def install(app,site,user):
         return workspace.update(a,uid,pid,body.model_dump(exclude_unset=True),row)
     @app.put('/api/account/searches/{sid}')
     def save_search(sid:str,body:Search,authorization:str|None=Header(default=None)):
-        uid,a,_=user(authorization);workspace.initialise(a)
+        uid,a,_=user(authorization);a.require(uid,'saved_searches');workspace.initialise(a)
         if not re.fullmatch(r'[a-zA-Z0-9-]{1,80}',sid):raise HTTPException(400,'Invalid search ID')
         from urllib.parse import parse_qsl,urlencode
         allowed={'q','source','min','max','yield','status','tenure','sort'}

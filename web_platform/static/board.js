@@ -167,6 +167,11 @@
       for(let n=left;n<=Math.min(pages,left+4);n++)pageLink(n,String(n));
       if(page<pages)pageLink(page+1,'Next ›');
       if(writeUrl){const params=parameters(page).toString();history.pushState({},'',location.pathname+(params?'?'+params:''));}
+      const applied=parameters(1);
+      const meaningful=['q','source','min','max','yield','tenure','status'].some(k=>applied.get(k)?.trim());
+      const saveSearch=document.querySelector('#save-search');
+      saveSearch.hidden=!meaningful;
+      saveSearch.dataset.query=applied.toString();
     }catch(e){if(sequence!==request)return;error.textContent='The catalogue could not be loaded. Your existing results are still available. Reload the page and try again.';error.hidden=false;}
     finally{if(sequence===request)results.removeAttribute('aria-busy');}
   }

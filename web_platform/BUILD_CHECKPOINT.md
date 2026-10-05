@@ -1,11 +1,36 @@
-# Operational checkpoint — 4 October 2026
+# Operational checkpoint — 5 October 2026
 
 Resume by checking current main, Actions and production, not by repeating this build.
 
 Public site: https://garethburke5.github.io/Commercial-Auction-Sniper/
 Legacy analysis host: https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app/
 
-## Implemented and published
+## Current customer-product course correction (supersedes the device access model below)
+
+- Search keeps its normal Search → Refine → Results flow. Save this search is a
+  contextual action after meaningful criteria are applied; naming happens in a
+  dialog for entitled members, never in a permanent search-form row.
+- Card Save/Watch controls sit beside the lot number; the property research link
+  remains the primary action. Anonymous Save explains free registration. Watch
+  and saved-search clicks show membership value and Plans & Pricing.
+- Configurable public offer: Free £0, Premium Investor £15/month, Professional &
+  Business £25/month in `plan_catalogue.json`. Explicit activation information
+  remains separate from the named tiers. No invented report allowances.
+- Registered Save remains free. Server checks require paid entitlements for Watch,
+  saved searches, private-note editing and saved bid targets. Expired membership
+  pauses event generation, while retaining data and allowing removal/clearing.
+- Free accounts can still buy their own Full Acquisition Review without any
+  subscription; owner/report binding is regression-tested.
+- Acquisition Intelligence now leads with investor terms, costs, risks and
+  opportunities, ZIP/multiple-document input, free Snapshot + Deep Dive and PAYG
+  full review. Remaining questions follow the analysis.
+- Existing device records remain readable/exportable; they cannot grant paid
+  entitlements. Account, private-service and Stripe activation inputs still apply.
+- 82 publication-suite regressions pass. Deployment and live interaction checks
+  are the next step for this course correction; do not claim them from tests alone.
+- No new historical/source expansion was launched for this correction.
+
+## Earlier implemented and published work
 
 - Device My Auction Sniper: separate Save and Watch, saved searches, private device
   notes, bid targets, recent views, import/export and observed change history.

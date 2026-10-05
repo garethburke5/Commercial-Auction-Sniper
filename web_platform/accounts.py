@@ -14,9 +14,7 @@ from pathlib import Path
 import jwt
 from fastapi import HTTPException
 
-PLANS = {'free':frozenset({'save'}), 'investor':frozenset({'save','intelligence','alerts'}),
-         'professional':frozenset({'save','intelligence','alerts','reports'}),
-         'business':frozenset({'save','intelligence','alerts','reports','api'})}
+from .plans import ENTITLEMENTS as PLANS
 
 class Accounts:
     def __init__(self, path):

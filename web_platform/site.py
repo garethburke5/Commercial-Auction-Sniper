@@ -17,6 +17,7 @@ from .particulars import structured_particulars
 from .enrichment import ordered_images
 from .glossary import GROUPS, SOURCES, REVIEWED
 from .workspace import observation
+from .plans import CATALOGUE as PLAN_CATALOGUE
 
 HERE = Path(__file__).parent
 LIVE = 'https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app/'
@@ -45,7 +46,7 @@ class Site:
         self.base = self.origin.split('://', 1)[-1].partition('/')[2]
         self.prefix = '/' + self.base if self.base else ''
         self.env = Environment(loader=FileSystemLoader(HERE/'templates'), autoescape=select_autoescape())
-        self.env.globals.update(money=money, uk_date=uk_date, url=lambda p: self.prefix+p, live=LIVE)
+        self.env.globals.update(money=money, uk_date=uk_date, url=lambda p: self.prefix+p, live=LIVE, plans=PLAN_CATALOGUE)
         from .market_context import MarketContext
         self.market=MarketContext(self.catalogue)
         self.fees = load_fees()
@@ -138,14 +139,14 @@ class Site:
             glossary=GROUPS, glossary_sources=SOURCES, glossary_reviewed=REVIEWED)
         yield '/privacy/',self.page('/privacy/','Privacy and cookies','privacy',
             'How the public Auction Sniper website handles browsing data and external links.')
-        yield '/due-diligence/',self.page('/due-diligence/','Buyer due diligence','due-diligence',
-            'Review legal-pack evidence, prioritise questions for your solicitor and save a readable report.',noindex=True)
+        yield '/due-diligence/',self.page('/due-diligence/','Acquisition Intelligence','due-diligence',
+            'Turn a legal pack into a clear, investor-focused acquisition review — key terms, costs, risks, opportunities and the questions that still need answering.',noindex=True)
         spotlights=sorted(c.properties,key=lambda r:sum(bool(r.get(k)) for k in ('tenant','lease_expiry','tenure','annual_rent','area_sqft','image_url')),reverse=True)[:3]
         yield '/deals/',self.page('/deals/','Commercial Deals','deals','Private deals, agent opportunities and clearly labelled commercial auction spotlights.',spotlights=spotlights)
         yield '/admin/deals/',self.page('/admin/deals/','Owner listing workspace','deal-admin','Create and manage commercial property listings without editing code.',noindex=True)
         yield '/account/',self.page('/account/','My Auction Sniper','account','Your shortlist, watched properties, private notes, searches and acquisition research.',noindex=True)
-        yield '/plans/',self.page('/plans/','Useful for free. Deeper when you need it.','plans',
-            'Commercial auction search stays free. Explore the planned Premium tools, property reports and professional services.')
+        yield '/plans/',self.page('/plans/','Plans & Pricing','plans',
+            'Find your next investment for free. Add monitoring and deeper research, or review one property with a pay-as-you-go Acquisition Review.')
 
     def board_assets(self):
         """Small search index; card bundles load only for the selected results."""
@@ -154,7 +155,7 @@ class Site:
         public_key=os.environ.get('SUPABASE_PUBLISHABLE_KEY','')
         api_origin=os.environ.get('PRIVATE_API_ORIGIN','')
         enabled=bool(supabase.startswith('https://') and public_key and api_origin.startswith('https://'))
-        yield '/platform-config.json',json.dumps({'accounts_enabled':enabled,'supabase_url':supabase if enabled else None,'supabase_key':public_key if enabled else None,'api_origin':api_origin if enabled else None,'billing_enabled':os.environ.get('BILLING_LIVE')=='true' and enabled})
+        yield '/platform-config.json',json.dumps({'accounts_enabled':enabled,'supabase_url':supabase if enabled else None,'supabase_key':public_key if enabled else None,'api_origin':api_origin if enabled else None,'billing_enabled':os.environ.get('BILLING_LIVE')=='true' and enabled,'plans':PLAN_CATALOGUE})
         yield '/source-reconciliation.json',json.dumps(self.reconciliation,ensure_ascii=False)
         rows=self.catalogue.properties
         root=f'/board/{self.board_version}/'

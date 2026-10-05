@@ -53,3 +53,24 @@ full-report revisit/download, listing/enquiry ownership, backups and restoration
 Use Stripe sandbox first; do not charge a real customer to test activation.
 Subscription report credits are **not allocated** until a costed allowance is
 chosen. One-off report access is currently the complete-delivery route.
+
+## Course correction — 5 October 2026
+
+The public offer is configured in `plan_catalogue.json`: Free £0, Premium
+Investor £15/month and Professional & Business £25/month. Before enabling
+checkout, configure the corresponding Stripe monthly GBP prices and match their
+Price IDs to this catalogue. Do not claim an activated subscription while the
+private host, identity provider or checkout remain unavailable.
+
+Save requires a registered account and remains free. Watch, saved searches,
+alerts, private note editing and saved bid targets require active membership.
+Server entitlement checks cover direct workspace writes and saved searches;
+expired subscriptions stop generating watch events. Previous customer records
+are preserved, and users can still stop a watch or clear their data. Earlier
+device backups remain readable/exportable, but cannot activate membership.
+
+Full Acquisition Reviews remain separately purchasable by free accounts, bound
+to the owner and exact report. No included review allowance or member discount
+is promised until costs and fulfilment are established. The ordinary property
+yield calculator remains free. Professional exports mean research exports, not
+a restriction on downloading a customer's own stored data.

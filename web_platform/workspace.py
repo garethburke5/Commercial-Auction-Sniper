@@ -32,6 +32,11 @@ def initialise(accounts):
         ''')
 
 def update(accounts,user,pid,body,row):
+    # Enforce in the service as well as the UI: no direct API or import bypass.
+    # A former subscriber can always stop a watch or clear their own data.
+    if body.get('watched'): accounts.require(user,'watch')
+    if body.get('notes'): accounts.require(user,'notes')
+    if body.get('target_price') is not None: accounts.require(user,'bid_targets')
     initialise(accounts)
     if len(body.get('notes',''))>10000:raise HTTPException(400,'Note exceeds 10,000 characters')
     with accounts.db() as db:
@@ -46,11 +51,13 @@ def update(accounts,user,pid,body,row):
 
 def dashboard(accounts,user,rows):
     initialise(accounts)
+    from .plans import ENTITLEMENTS
+    monitoring = 'watch' in ENTITLEMENTS[accounts.plan(user)]
     with accounts.db() as db:
         items=[dict(r) for r in db.execute('SELECT * FROM workspace WHERE user_id=?',(user,))]
         for item in items:
             pid=item['property_id'];row=rows.get(pid)
-            if item['watched'] and row:
+            if monitoring and item['watched'] and row:
                 current=observation(row);old=json.loads(item['observation'] or '{}')
                 for event in changes(old,current):
                     eid=hashlib.sha256(json.dumps([user,pid,old,current,event],sort_keys=True).encode()).hexdigest()
@@ -64,7 +71,7 @@ def dashboard(accounts,user,rows):
             if rows.get(e['property_id']):e['property']=observation(rows[e['property_id']])
         searches=[dict(r) for r in db.execute('SELECT search_id,name,query,digest,created_at FROM saved_searches WHERE user_id=? ORDER BY created_at DESC',(user,))]
         reviews=[dict(r) for r in db.execute('SELECT id,property_id,created_at FROM reviews WHERE user_id=? ORDER BY created_at DESC',(user,))]
-    return {'properties':items,'events':events,'saved_searches':searches,'reviews':reviews}
+    return {'properties':items,'events':events,'saved_searches':searches,'reviews':reviews,'monitoring_enabled':monitoring}
 
 def full_review_allowed(accounts,user,report_id,property_id):
     with accounts.db() as db:

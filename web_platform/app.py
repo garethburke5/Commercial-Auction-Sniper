@@ -7,7 +7,7 @@ from fastapi.responses import HTMLResponse, Response, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from .site import Site,HERE
-from .accounts import Accounts,authenticated_user
+from .accounts import Accounts,authenticated_user,PLANS
 from .billing import Billing
 
 @lru_cache(maxsize=1)
@@ -52,7 +52,8 @@ def create_app(site=None):
         with a.db() as db: saved=[r[0] for r in db.execute('SELECT property_id FROM saved WHERE user_id=? ORDER BY created_at DESC',(uid,))]
         from .workspace import dashboard
         from .deals import workspace_rows
-        return {'plan':a.plan(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,site.catalogue.rows|workspace_rows(a))}
+        plan=a.plan(uid)
+        return {'plan':plan,'features':sorted(PLANS[plan]),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,site.catalogue.rows|workspace_rows(a))}
     @app.put('/api/account/saved/{property_id}')
     def save(property_id:str,authorization:str|None=Header(default=None)):
         import time
