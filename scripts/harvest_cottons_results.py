@@ -317,15 +317,24 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
         original_labels = [lot.upper() for lot, _ in raw_rows]
         counts = Counter(original_labels)
         repaired_rows = []
-        for lot, body in raw_rows:
+        for index, (lot, body) in enumerate(raw_rows):
             previous = repaired_rows[-1][0] if repaired_rows else None
             if (re.fullmatch(r"3\d", lot)
                     and counts[lot.upper()] > 1
                     and previous and previous.isdigit()):
                 expected_number = int(previous) + 1
                 expected_label = str(expected_number)
+                following = raw_rows[index + 1][0] if index + 1 < len(raw_rows) else None
+                bracketed = bool(
+                    following and following.isdigit()
+                    and int(following) == expected_number + 1
+                )
                 if (51 <= expected_number <= 59
                         and int(lot) == expected_number - 20
+                        and expected_label not in original_labels):
+                    lot = expected_label
+                elif (expected_number == 50
+                        and bracketed
                         and expected_label not in original_labels):
                     lot = expected_label
             repaired_rows.append((lot, body))

@@ -205,7 +205,7 @@ jobs:
       - name: Bank Cottons retained result PDFs
         timeout-minutes: 15
         continue-on-error: true
-        run: python -u scripts/harvest_cottons_results.py 16 8
+        run: python -u scripts/harvest_cottons_results.py 16 16
       - name: Bank retained sold Pattinson online-auction property pages
         timeout-minutes: 10
         continue-on-error: true

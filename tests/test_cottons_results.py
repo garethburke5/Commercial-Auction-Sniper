@@ -227,6 +227,24 @@ Lot Address Result
         parse_result_text(text, ocr_expected, {"basis": "OCR"})
 
 
+def test_ocr_lot_50_is_repaired_only_when_bracketed_by_49_and_51():
+    text = """
+Auction : 17 February 2011 Results
+Lot Address Result
+39 | EARLIER ADDRESS, BIRMINGHAM £39,000
+49 | PREVIOUS ADDRESS, BIRMINGHAM £49,000
+39 | REPAIRED ADDRESS, BIRMINGHAM £50,000
+51 | FOLLOWING ADDRESS, BIRMINGHAM £51,000
+"""
+    ocr_expected = {
+        **expected("2011-02-17"),
+        "result_url": "https://www.cottons.co.uk/uploads/Results-17-Feb-2011.pdf",
+    }
+    state, rows = parse_result_text(text, ocr_expected, {"basis": "OCR"})
+    assert [row["lot_number"] for row in rows][-3:] == ["49", "50", "51"]
+    assert 50 not in state["missing_base_lot_numbers"]
+
+
 def test_blank_address_cell_is_retained_as_a_partial_lot():
     text = RESULT_TEXT.replace(
         "4 2 Factory Road, Birmingham WITHDRAWN",
