@@ -2,18 +2,30 @@
   "auctioneer": "Cottons",
   "source_auction_id": "cottons:2014-04-10:68d76a60f67c",
   "auction_date": "2014-04-10",
-  "catalogue_complete": false,
-  "source_rows_complete": false,
-  "lots_captured": 0,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "visible_result_rows": 52,
+  "lots_captured": 52,
+  "published_lots_offered": 52,
+  "lettered_additional_rows": 0,
+  "missing_base_lot_numbers": [],
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "continuous published base lot sequence in the complete first-party result table",
+  "completion_scope": "every row in the retained first-party result PDF; later catalogue enrichment may add property detail",
   "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-10th-April-2014.pdf",
-  "source_blocked": true,
-  "source_blocker": {
-    "auction_id": "cottons:2014-04-10:68d76a60f67c",
-    "auction_date": "2014-04-10",
-    "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-10th-April-2014.pdf",
-    "error": "ValueError: result PDF contains no usable text",
-    "reason": "retained first-party result PDF is image-only and requires OCR enrichment"
-  },
   "errors": [],
-  "checked_at": "2026-10-05T04:58:45.782764+00:00"
+  "checked_at": "2026-10-05T09:33:15.663155+00:00",
+  "ocr_recovered": true,
+  "ocr_version": 3,
+  "source_evidence": {
+    "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-10th-April-2014.pdf",
+    "retrieved_at": "2026-10-05T09:33:09.356583+00:00",
+    "sha256": "c81831f4ad6adee26ee0d9b1da9a778297c75de86ea2847ebdf1c540b4d8a165",
+    "snapshot_path": "data/auction_history/sources/cottons/results/2014-04-10-c81831f4ad6adee2.pdf.gz",
+    "archive_snapshot_path": "data/auction_history/sources/cottons/archive-cc992e6c01ca0ff7.json.gz",
+    "basis": "OCR of retained first-party complete auction result PDF",
+    "ocr_engine": "Tesseract PSM 4 with Poppler 300dpi lossless rasterisation",
+    "ocr_version": 3
+  }
 }
