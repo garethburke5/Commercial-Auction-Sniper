@@ -1,37 +1,39 @@
 {
-  "checked_at": "2026-10-05T03:51:27.778761+00:00",
+  "checked_at": "2026-10-05T04:08:19.066564+00:00",
   "source_url": "https://www.cottons.co.uk/auction-archive/",
   "result_sheets_discovered": 134,
-  "result_sheets_complete": 47,
+  "result_sheets_complete": 54,
   "result_sheets_blocked": 1,
-  "result_sheets_reused": 38,
+  "result_sheets_reused": 47,
   "result_sheets_attempted_this_run": 12,
-  "result_sheets_pending": 83,
-  "appearances_captured": 1904,
-  "run_new_appearances": 376,
-  "run_new_address_records": 376,
+  "result_sheets_pending": 74,
+  "appearances_captured": 2244,
+  "run_new_appearances": 340,
+  "run_new_address_records": 340,
   "run_new_partial_lots": 0,
   "by_status": {
-    "sold": 965,
-    "sold_prior": 133,
-    "not_offered": 185,
-    "sold_after": 116,
-    "available": 486,
-    "not_available": 13,
-    "withdrawn": 4,
-    "under_offer": 2
+    "sold": 1151,
+    "available": 562,
+    "sold_after": 132,
+    "not_offered": 202,
+    "sold_prior": 168,
+    "not_available": 14,
+    "withdrawn": 6,
+    "under_offer": 2,
+    "unknown": 6,
+    "unsold": 1
   },
   "by_sector": {
-    "unknown": 1580,
-    "land": 185,
-    "residential": 128,
-    "commercial": 11
+    "unknown": 1829,
+    "residential": 168,
+    "land": 224,
+    "commercial": 23
   },
   "archive_evidence": {
     "source_url": "https://www.cottons.co.uk/auction-archive/",
-    "retrieved_at": "2026-10-05T03:51:23.628315+00:00",
-    "sha256": "42041ce48eea8afcbf5a7a65e53743da131a5f0c80b9515f48a3004d4073d32d",
-    "snapshot_path": "data/auction_history/sources/cottons/archive-42041ce48eea8afc.json.gz",
+    "retrieved_at": "2026-10-05T04:08:09.401029+00:00",
+    "sha256": "05466536122b23882c4404ccdfbfca7df3ba1cfa7623f39cc789601913c0ddc2",
+    "snapshot_path": "data/auction_history/sources/cottons/archive-05466536122b2388.json.gz",
     "basis": "first-party auction archive"
   },
   "source_blockers": [
@@ -46,16 +48,28 @@
   ],
   "failures": [
     {
-      "auction_id": "cottons:2020-05-20:75e6b8552d01",
-      "auction_date": "2020-05-20",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2020/06/Results-20-May-2020.pdf",
-      "error": "ValueError: result outcome missing from row '88 GAYHURST DRIVE, YARDLEY, BIRMINGHAM B25 8YN Contact: sales@cottons.co.uk'"
+      "auction_id": "cottons:2018-09-18:ffbbfc640b95",
+      "auction_date": "2018-09-18",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2018/10/Results18Sept18at161018.pdf",
+      "error": "ValueError: result PDF has no date corroborating the archive row"
     },
     {
-      "auction_id": "cottons:2020-02-19:dfc542fb53c8",
-      "auction_date": "2020-02-19",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2020/05/Results-19-feb-2020-2.pdf",
-      "error": "ValueError: result outcome missing from row 'FGR 55 THE RAYWOODS, NUNEATON, WARWICKSHIRE CV10 7JY AVAILABLE @ £7.750'"
+      "auction_id": "cottons:2018-07-12:6fb27f4d14d6",
+      "auction_date": "2018-07-12",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2018/07/12Jul2018results.pdf",
+      "error": "ValueError: result PDF has no date corroborating the archive row"
+    },
+    {
+      "auction_id": "cottons:2018-05-24:940ccfdf979e",
+      "auction_date": "2018-05-24",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2018/05/24MayResults.pdf",
+      "error": "ValueError: result PDF has no date corroborating the archive row"
+    },
+    {
+      "auction_id": "cottons:2018-02-14:98270732bb1a",
+      "auction_date": "2018-02-14",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2018/02/Auction-Results-14-02-18.pdf",
+      "error": "ValueError: result PDF contains no usable text"
     }
   ]
 }
