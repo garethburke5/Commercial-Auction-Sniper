@@ -1,44 +1,80 @@
 {
-  "checked_at": "2026-10-05T02:47:15.541883+00:00",
+  "checked_at": "2026-10-05T03:07:38.175954+00:00",
   "source_url": "https://www.cottons.co.uk/auction-archive/",
   "result_sheets_discovered": 134,
-  "result_sheets_complete": 17,
-  "result_sheets_reused": 11,
-  "result_sheets_attempted_this_run": 8,
-  "result_sheets_pending": 115,
-  "appearances_captured": 768,
-  "run_new_appearances": 322,
-  "run_new_address_records": 322,
+  "result_sheets_complete": 21,
+  "result_sheets_reused": 17,
+  "result_sheets_attempted_this_run": 12,
+  "result_sheets_pending": 105,
+  "appearances_captured": 921,
+  "run_new_appearances": 153,
+  "run_new_address_records": 153,
   "run_new_partial_lots": 0,
   "by_status": {
-    "sold": 351,
-    "available": 220,
-    "not_offered": 82,
-    "sold_after": 65,
-    "sold_prior": 42,
-    "not_available": 3,
+    "sold": 417,
+    "not_offered": 93,
+    "not_available": 6,
+    "sold_prior": 43,
+    "available": 268,
+    "sold_after": 89,
     "withdrawn": 3,
     "under_offer": 2
   },
   "by_sector": {
-    "unknown": 648,
-    "residential": 59,
-    "land": 59,
+    "unknown": 772,
+    "land": 76,
+    "residential": 71,
     "commercial": 2
   },
   "archive_evidence": {
     "source_url": "https://www.cottons.co.uk/auction-archive/",
-    "retrieved_at": "2026-10-05T02:47:10.909627+00:00",
-    "sha256": "7f9ee93f90ef9ed751dcfdf329516056e7c41d999e7512336e3c3eb7274ffcb8",
-    "snapshot_path": "data/auction_history/sources/cottons/archive-7f9ee93f90ef9ed7.json.gz",
+    "retrieved_at": "2026-10-05T03:07:27.479143+00:00",
+    "sha256": "1d8b34ed03a174dd5e3e996a140bc4c49bf003b9c401b60cbe95b834d426c98c",
+    "snapshot_path": "data/auction_history/sources/cottons/archive-1d8b34ed03a174dd.json.gz",
     "basis": "first-party auction archive"
   },
   "failures": [
     {
-      "auction_id": "cottons:2024-09-11:7a6116daf939",
-      "auction_date": "2024-09-11",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2024/09/11th-Sept-2024-Results.pdf",
-      "error": "ValueError: result outcome missing from row '13 & 13A WALSALL ROAD, WILLENHALL, WEST MIDLANDS WV13 2EG AVAILABLE @ 135,000'"
+      "auction_id": "cottons:2023-09-13:a01ba76011e3",
+      "auction_date": "2023-09-13",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2023/09/13th-September-2023-Results-2.pdf",
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.cottons.co.uk/wp-content/uploads/2023/09/13th-September-2023-Results-2.pdf"
+    },
+    {
+      "auction_id": "cottons:2023-05-24:48f3729f2ead",
+      "auction_date": "2023-05-24",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2023/05/Results-24052023.pdf",
+      "error": "ValueError: result PDF has no date corroborating the archive row"
+    },
+    {
+      "auction_id": "cottons:2023-03-29:f0182efff454",
+      "auction_date": "2023-03-29",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2023/04/Results-290323.pdf",
+      "error": "ValueError: result PDF has no date corroborating the archive row"
+    },
+    {
+      "auction_id": "cottons:2023-02-15:72aadd3bf35b",
+      "auction_date": "2023-02-15",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2023/02/results-150223.pdf",
+      "error": "ValueError: result PDF has no date corroborating the archive row"
+    },
+    {
+      "auction_id": "cottons:2022-12-14:84478490507a",
+      "auction_date": "2022-12-14",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2022/12/results-14122022.pdf",
+      "error": "ValueError: result PDF has no date corroborating the archive row"
+    },
+    {
+      "auction_id": "cottons:2022-10-26:e9f8e7e23223",
+      "auction_date": "2022-10-26",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2022/10/results-26102022.pdf",
+      "error": "ValueError: result PDF has no date corroborating the archive row"
+    },
+    {
+      "auction_id": "cottons:2022-09-14:f924f349cb5a",
+      "auction_date": "2022-09-14",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2022/09/Results-14092022.pdf",
+      "error": "ValueError: result PDF has no date corroborating the archive row"
     }
   ]
 }
