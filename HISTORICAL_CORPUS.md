@@ -41,6 +41,7 @@ python scripts/harvest_harman_healy_results.py
 python scripts/harvest_lsh_results.py
 python scripts/harvest_knight_frank_results.py 12
 python scripts/harvest_auction_estates_results.py 8
+python scripts/harvest_hollis_morgan_results.py 4
 python historical_corpus.py build
 ```
 
@@ -264,6 +265,15 @@ complete only when its visible property cards and distinct appearance identities
 reconcile to the catalogue's own published result denominator. All property
 types and outcomes are retained with immutable page snapshots; repeat property
 IDs on different auction dates remain separate appearances.
+
+Hollis Morgan collection banks every URL-bearing property entry in the twelve
+retained first-party 2014-2015 result catalogues. Exact printed auction dates,
+addresses, guide prices, outcomes, sold prices and stable property IDs are
+preserved with ordered per-page PDF text snapshots and binary hashes. Combined
+pages whose PDF hyperlink annotations cannot be safely mapped back to printed
+sub-lots remain partial rather than receiving guessed addresses or lot numbers.
+The surviving URL rows are reconciled, but the original catalogues remain
+explicitly incomplete where one property entry represents multiple lot numbers.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The

@@ -1,0 +1,24 @@
+{
+  "auctioneer": "Hollis Morgan",
+  "source_auction_id": "hollis-morgan:2015-04-15",
+  "auction_date": "2015-04-15",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_url_bearing_rows": 27,
+  "lots_captured": 27,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "incomplete_reason": "original lot denominator is not consistently separable where a PDF property entry represents multiple lot numbers",
+  "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-apr2015.pdf",
+  "source_evidence": {
+    "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-apr2015.pdf",
+    "retrieved_at": "2026-10-05T23:45:45.470827+00:00",
+    "sha256": "5ec4b306dda9c9cc16aece47d3a89907c00f1afa8b81a90c12dab04295489260",
+    "snapshot_path": "data/auction_history/sources/hollis-morgan/hm-apr2015-5ec4b306dda9c9cc.json.gz",
+    "basis": "first-party result-catalogue PDF text extraction",
+    "source_media_type": "application/pdf",
+    "snapshot_payload": "ordered per-page extracted text"
+  },
+  "errors": [],
+  "checked_at": "2026-10-05T23:45:45.482686+00:00"
+}
