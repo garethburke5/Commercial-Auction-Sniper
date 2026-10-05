@@ -135,12 +135,15 @@ Raw archive and catalogue HTML are preserved. These surviving featured subsets
 never count as complete auctions because their original catalogue denominators
 and non-featured rows are no longer exposed.
 
-Smith & Sons collection follows every sale currently retained on the
-first-party past-auctions page. Each unpaginated result page is marked complete
-only when its distinct lot cards reconcile exactly to the explicit property
-denominator published on both the archive and catalogue. Residential,
-commercial and land rows, repeated property appearances, guide ranges, outcomes
-and sale prices are preserved with immutable page snapshots.
+Smith & Sons collection follows the current first-party past-auctions index and
+explicitly recovered older catalogue identities whose result pages remain
+public. Because the catalogue defaults to 20 cards, the collector requests its
+50-row view and marks a sale complete only when all captured cards and stable
+per-property identities reconcile exactly to the explicit result denominator.
+Source-repeated displayed lot labels are reported rather than rewritten.
+Complete snapshots are reparsed locally instead of repeatedly fetched.
+Residential, commercial and land rows, repeated property appearances, guide
+ranges, outcomes and sale prices are preserved with immutable page snapshots.
 
 Anderson & Garland collection preserves every sold-property block on its
 first-party recent-results page, including address text, description, image,

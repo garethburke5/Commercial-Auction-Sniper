@@ -10,16 +10,17 @@
   "source_url": "https://www.smithandsons.net/auctionproperties/1380794",
   "pagination_reconciled": true,
   "denominator_reconciled": true,
-  "denominator_basis": "explicit property count on archive and retained unpaginated result page",
-  "completion_scope": "every property card on the first-party retained result page",
+  "duplicate_lot_labels": {},
+  "denominator_basis": "matching explicit property counts on archive and retained result page",
+  "completion_scope": "every property card in the 50-row view of the first-party retained result page",
   "source_evidence": {
-    "source_url": "https://www.smithandsons.net/auctionproperties/1380794",
-    "retrieved_at": "2026-10-05T14:01:35.386800+00:00",
-    "sha256": "85628bae5ce2c2548fb563cc6b5fccf20ab17b62a006d5332862ac5f37a1fd21",
-    "snapshot_path": "data/auction_history/sources/smith-sons/auction-1380794-85628bae5ce2c254.json.gz",
+    "source_url": "https://www.smithandsons.net/auctionproperties/1380794?pp=50",
+    "retrieved_at": "2026-10-05T14:14:38.239817+00:00",
+    "sha256": "ffae8cb73967c6176e849c854e2458fe50450469f2b15bf2948c117055c7df68",
+    "snapshot_path": "data/auction_history/sources/smith-sons/auction-1380794-ffae8cb73967c617.json.gz",
     "archive_snapshot_path": "data/auction_history/sources/smith-sons/past-auctions-fdf5c8f7145ce9df.json.gz",
-    "basis": "first-party unpaginated auction result page"
+    "basis": "current first-party past-auctions index; first-party 50-row auction result view"
   },
   "errors": [],
-  "checked_at": "2026-10-05T14:01:35.418222+00:00"
+  "checked_at": "2026-10-05T14:14:38.328698+00:00"
 }

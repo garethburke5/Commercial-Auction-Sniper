@@ -1,6 +1,12 @@
 import pytest
 
-from scripts.harvest_smith_sons_results import parse_archive, parse_catalogue, status_and_price
+from scripts.harvest_smith_sons_results import (
+    catalogue_identity,
+    full_catalogue_url,
+    parse_archive,
+    parse_catalogue,
+    status_and_price,
+)
 
 
 ARCHIVE = """
@@ -54,3 +60,45 @@ def test_catalogue_rejects_missing_published_rows():
 def test_status_parser_does_not_invent_non_sold_prices():
     assert status_and_price("Sold Prior £99,500") == ("sold_prior", 99500)
     assert status_and_price("Available £75,000") == ("available", None)
+
+
+def test_catalogue_identity_recovers_date_and_denominator_from_retained_page():
+    assert catalogue_identity(CATALOGUE, "https://www.smithandsons.net/auctionproperties/1248572?pp=50") == {
+        "auction_id": "1248572", "auction_date": "2026-07-15", "published_lots": 2,
+        "source_url": "https://www.smithandsons.net/auctionproperties/1248572",
+    }
+    assert full_catalogue_url("https://www.smithandsons.net/auctionproperties/1248572") == (
+        "https://www.smithandsons.net/auctionproperties/1248572?pp=50"
+    )
+
+
+def test_catalogue_preserves_addressless_source_card_as_partial_lot():
+    partial_html = CATALOGUE.replace(
+        '<p class="property-address-list"><a href="/auctionproperties/47-parkside-road">'
+        '47 Parkside Road, Birkenhead, CH42 5NY</a></p>',
+        '<a class="more-details-btn" href="/auctionproperties/47-parkside-road">More Details</a>',
+    )
+    auction = parse_archive(ARCHIVE)[0]
+    rows, state = parse_catalogue(partial_html, auction, {"sha256": "abc"})
+    assert state["catalogue_complete"] is True
+    assert rows[1]["address"] is None and rows[1]["postcode"] is None
+    assert rows[1]["original_url"].endswith("/47-parkside-road")
+    assert rows[1]["record_quality"] == "partial_lot"
+
+
+def test_catalogue_accepts_unambiguous_duplicate_displayed_lot_label():
+    duplicate_html = CATALOGUE.replace(
+        '<span class="lot-number-number">2A</span>',
+        '<span class="lot-number-number">1</span>',
+    )
+    auction = parse_archive(ARCHIVE)[0]
+    rows, state = parse_catalogue(duplicate_html, auction, {"sha256": "abc"})
+    assert len(rows) == 2 and len({row["appearance_id"] for row in rows}) == 2
+    assert state["duplicate_lot_labels"] == {"1": 2}
+
+
+def test_date_parser_accepts_source_heading_without_ordinal_suffix():
+    plain_heading = CATALOGUE.replace("Auction 15th July 2026", "Auction 15 July 2026")
+    auction = parse_archive(ARCHIVE)[0]
+    rows, state = parse_catalogue(plain_heading, auction, {"sha256": "abc"})
+    assert len(rows) == 2 and state["auction_date"] == "2026-07-15"

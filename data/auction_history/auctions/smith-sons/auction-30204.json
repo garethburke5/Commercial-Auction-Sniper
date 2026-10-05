@@ -1,0 +1,26 @@
+{
+  "auctioneer": "Smith & Sons",
+  "source_auction_id": "smith-sons:30204",
+  "auction_date": "2023-12-06",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "published_lots_offered": 32,
+  "visible_source_rows": 32,
+  "lots_captured": 32,
+  "source_url": "https://www.smithandsons.net/auctionproperties/30204",
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "duplicate_lot_labels": {},
+  "denominator_basis": "explicit property count on retained result page",
+  "completion_scope": "every property card in the 50-row view of the first-party retained result page",
+  "source_evidence": {
+    "source_url": "https://www.smithandsons.net/auctionproperties/30204?pp=50",
+    "retrieved_at": "2026-10-05T14:08:49.188924+00:00",
+    "sha256": "630275959a037186c02a7c5c7014c35ac0f9dad3f41d5fcd7c8a936c353ebc9a",
+    "snapshot_path": "data/auction_history/sources/smith-sons/auction-30204-630275959a037186.json.gz",
+    "archive_snapshot_path": "data/auction_history/sources/smith-sons/past-auctions-fdf5c8f7145ce9df.json.gz",
+    "basis": "retained first-party catalogue recovered beyond current archive; first-party 50-row auction result view"
+  },
+  "errors": [],
+  "checked_at": "2026-10-05T14:14:58.876646+00:00"
+}
