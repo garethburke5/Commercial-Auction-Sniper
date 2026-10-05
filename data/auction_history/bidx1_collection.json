@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-10-05T00:06:39.171473+00:00",
-  "seed_auctions": 8,
-  "catalogues_complete": 8,
-  "property_appearances_captured": 72,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "checked_at": "2026-10-05T01:10:20.169784+00:00",
+  "seed_auctions": 12,
+  "catalogues_complete": 11,
+  "property_appearances_captured": 101,
+  "run_new_appearances": 29,
+  "run_new_address_records": 29,
   "run_new_partial_lots": 0,
   "by_sector": {
-    "residential": 35,
-    "commercial": 37
+    "residential": 57,
+    "commercial": 44
   },
   "auctions": {
     "4561": {
@@ -50,7 +50,84 @@
       "published_result_count": 1,
       "lots_captured": 1,
       "catalogue_complete": true
+    },
+    "3182": {
+      "published_result_count": 10,
+      "lots_captured": 10,
+      "catalogue_complete": true
+    },
+    "5857": {
+      "published_result_count": 24,
+      "lots_captured": 14,
+      "catalogue_complete": false
+    },
+    "7569": {
+      "published_result_count": 4,
+      "lots_captured": 4,
+      "catalogue_complete": true
+    },
+    "7593": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     }
   },
-  "failures": []
+  "failures": [
+    {
+      "auction_id": "5857",
+      "error": "catalogue did not reconcile",
+      "details": [
+        {
+          "source_id": "93363",
+          "url": "https://bidx1.com/en/en-gb/auction/property/93363",
+          "error": "undated prior outcome has no single reconciled sibling auction date"
+        },
+        {
+          "source_id": "93568",
+          "url": "https://bidx1.com/en/en-gb/auction/property/93568",
+          "error": "undated prior outcome has no single reconciled sibling auction date"
+        },
+        {
+          "source_id": "93569",
+          "url": "https://bidx1.com/en/en-gb/auction/property/93569",
+          "error": "undated prior outcome has no single reconciled sibling auction date"
+        },
+        {
+          "source_id": "93572",
+          "url": "https://bidx1.com/en/en-gb/auction/property/93572",
+          "error": "undated prior outcome has no single reconciled sibling auction date"
+        },
+        {
+          "source_id": "93583",
+          "url": "https://bidx1.com/en/en-gb/auction/property/93583",
+          "error": "undated prior outcome has no single reconciled sibling auction date"
+        },
+        {
+          "source_id": "93362",
+          "url": "https://bidx1.com/en/en-gb/auction/property/93362",
+          "error": "undated prior outcome has no single reconciled sibling auction date"
+        },
+        {
+          "source_id": "93566",
+          "url": "https://bidx1.com/en/en-gb/auction/property/93566",
+          "error": "undated prior outcome has no single reconciled sibling auction date"
+        },
+        {
+          "source_id": "93565",
+          "url": "https://bidx1.com/en/en-gb/auction/property/93565",
+          "error": "undated prior outcome has no single reconciled sibling auction date"
+        },
+        {
+          "source_id": "91987",
+          "url": "https://bidx1.com/en/en-gb/auction/property/91987",
+          "error": "undated prior outcome has no single reconciled sibling auction date"
+        },
+        {
+          "source_id": "93883",
+          "url": "https://bidx1.com/en/en-gb/auction/property/93883",
+          "error": "undated prior outcome has no single reconciled sibling auction date"
+        }
+      ]
+    }
+  ]
 }
