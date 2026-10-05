@@ -1,8 +1,9 @@
 # Private-service activation — current boundary
 
-The public Pages deployment is operational without account/payment secrets. It
-ships a useful **device workspace**, explicitly labelled. This is not an activated
-cloud account service. Free Save is never paywalled.
+The public Pages deployment is operational without account/payment secrets.
+Registered Save is free; Watch, saved searches and alerts require membership.
+Earlier device records remain readable/exportable. This is not an activated
+cloud account service: registration and checkout explain their activation boundary.
 
 ## Required operator inputs
 

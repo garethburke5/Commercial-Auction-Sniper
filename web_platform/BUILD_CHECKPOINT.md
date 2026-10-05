@@ -26,8 +26,17 @@ Legacy analysis host: https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.s
   full review. Remaining questions follow the analysis.
 - Existing device records remain readable/exportable; they cannot grant paid
   entitlements. Account, private-service and Stripe activation inputs still apply.
-- 82 publication-suite regressions pass. Deployment and live interaction checks
-  are the next step for this course correction; do not claim them from tests alone.
+- Published code revision `9ce9083fc7dbeef756943c34b9ece51627135bfc` through
+  successful Pages run `37261012916`, including all 82 publication-suite tests
+  and source-to-live verification. No concurrent platform edits were overwritten.
+- Live browser verification, 5 October: initial search has no saved-search row or
+  contextual action; applying `Admiral` returns four lots and reveals Save this
+  search. Its membership dialog, the separate paid Watch dialog and free-account
+  Save dialog all work. Compact card controls remain beside the lot number.
+  Plans & Pricing shows £0/£15/£25, separate PAYG and an honest activation boundary.
+  Acquisition Intelligence uses the investor-focused proposition. Search, dialogs
+  and pricing were checked at 390px; document width equals viewport width, with
+  no horizontal overflow. These UI checks do not imply live provider activation.
 - No new historical/source expansion was launched for this correction.
 
 ## Earlier implemented and published work
@@ -60,9 +69,13 @@ at 390px. Commercial Deals labels and real comparable evidence were inspected.
 All ten Barnett Ross lots were customer-findable after the first production repair.
 Do not repeat those implementations.
 
-Later browser access timed out during Streamlit sign-in. Recovery and reset also
-failed. Therefore the newer Streamlit analysis interface has NOT been confirmed
-live. HTTP/deployment checks are not a substitute for that visual verification.
+On 5 October browser access recovered. The public embedded and standalone
+Streamlit analysis workspace visibly still says “Analyse a legal pack”, whereas
+current main's `buyer_due_diligence.py` says “Auction Sniper Acquisition
+Intelligence”. Therefore that deployment remains stale; the newer analysis has
+NOT been verified live. Streamlit Community Cloud is signed out and needs owner
+authentication to inspect its configured branch/entry point and deployment logs.
+Do not restart harvesting or report the newer analysis as live from repo tests.
 
 ## Source publication checkpoint
 
@@ -127,7 +140,8 @@ Do not rebuild or restart harvesting. Re-read
    Follow up the actual degraded source stages, especially McHugh transport.
    Deployments create fresh reconciliation artifacts automatically; persisted
    live proof is only displayed when its generation matches the current snapshot.
-2. Restore browser access and complete Streamlit deployment verification.
+2. Complete owner Streamlit sign-in, inspect its actual deployment configuration
+   and logs, repair the stale analysis deployment, then verify its report flow.
 3. Activate the existing private service with owner-supplied provider configuration;
    exercise signup, report purchase/refund and owner listing flows in sandbox.
 4. Continue measured upstream telemetry for the remaining configured source estate.
