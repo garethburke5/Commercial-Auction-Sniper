@@ -168,7 +168,7 @@ jobs:
       - name: Bank Future Property Auctions archived catalogues
         timeout-minutes: 30
         continue-on-error: true
-        run: python -u scripts/harvest_future_property_auctions.py --limit 8 --workers 3
+        run: python -u scripts/harvest_future_property_auctions.py --limit 12 --workers 3
       - name: Collect Auction House North East online results
         timeout-minutes: 20
         continue-on-error: true
