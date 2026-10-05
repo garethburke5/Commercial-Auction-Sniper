@@ -37,6 +37,7 @@ python scripts/harvest_town_country_results.py --workers 4
 python scripts/harvest_brown_co_results.py
 python scripts/harvest_bagshaws_results.py
 python scripts/harvest_cottons_results.py 16 8
+python scripts/harvest_harman_healy_results.py
 python historical_corpus.py build
 ```
 
@@ -225,6 +226,16 @@ come only from the public highest bid for a source-marked sold lot; unsuccessful
 bids are not mislabelled as results. Sanitized immutable snapshots omit
 registrants, bidder/user identifiers, full bid histories and unpublished reserve
 values while retaining the response hash and all fields used by the collector.
+
+Harman Healy collection traverses the complete first-party retained
+past-auctions grid. Every address-bearing lot card is preserved, including
+residential, commercial, mixed-use and land appearances, using the source's
+stable EIG lot identity and the published individual lot end date. The archive
+is marked complete only when all pages, distinct identities and the explicit
+published lot denominator reconcile exactly. Immutable page snapshots preserve
+the result text, property summary and images. Once complete, later runs fetch
+the archive head and reuse unchanged full-page snapshots; an increased
+denominator re-fetches the previous partial tail and every newly added page.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The
