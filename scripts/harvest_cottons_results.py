@@ -189,6 +189,15 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
     for line in lines[header + 1:]:
         if FOOTER_RE.search(line):
             break
+        # Multi-page result sheets repeat their title and table heading. They
+        # are page furniture, not continuation text for the preceding address.
+        if (re.search(r"\bLot\b", line, re.I)
+                and re.search(r"\bAddress\b", line, re.I)
+                and re.search(r"\bResult\b", line, re.I)):
+            continue
+        if re.fullmatch(r"(?:Auction\s+)?\d{1,2}\s*(?:st|nd|rd|th)?\s+"
+                        r"[A-Za-z]+\s+20\d{2}\s+Results", line, re.I):
+            continue
         match = ROW_RE.match(line)
         if match:
             if current_lot is not None:

@@ -94,3 +94,14 @@ def test_filename_can_corroborate_archive_date_when_pdf_heading_omits_it():
     assert state["catalogue_complete"] is True
     assert len(rows) == 4
     assert rows[0]["auction_date_basis"].endswith("result PDF filename")
+
+
+def test_repeated_page_headers_are_not_appended_to_the_previous_result():
+    text = RESULT_TEXT.replace(
+        "3 Land adjacent",
+        "Auction 9 September 2026 Results\nLot Address Result\n3 Land adjacent",
+    )
+    state, rows = parse_result_text(text, expected(), {})
+    assert state["catalogue_complete"] is True
+    assert rows[1]["address"] == "14 Market Road, Birmingham, B12 8AA"
+    assert rows[1]["source_result_text"] == "SOLD PRIOR"
