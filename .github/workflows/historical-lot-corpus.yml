@@ -59,6 +59,7 @@ on:
       - scripts/harvest_john_francis_results.py
       - scripts/harvest_swift_property_auctions.py
       - scripts/harvest_sharpes_results.py
+      - scripts/harvest_seel_catalogues.py
       - tests/test_historical_corpus.py
       - tests/test_clive_emson_canonical.py
       - tests/test_barnett_ross_history.py
@@ -105,6 +106,7 @@ on:
       - tests/test_john_francis_results.py
       - tests/test_swift_property_auctions.py
       - tests/test_sharpes_results.py
+      - tests/test_seel_catalogues.py
       - web_platform/tests/test_acuitus_admission.py
       - .github/workflows/historical-lot-corpus.yml
       - data/historical_source_corpus/**
@@ -132,9 +134,16 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4 lxml pypdf pytest
+      - name: Ensure PDF text extraction is available
+        timeout-minutes: 5
+        run: |
+          if ! command -v pdftotext >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y poppler-utils
+          fi
       - name: Verify admission, identities and completeness rules
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
-        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bidx1_history.py tests/test_strettons_results.py tests/test_cheffins_history.py tests/test_btg_eddisons_catalogues.py tests/test_anderson_garland_results.py tests/test_edward_mellor_results.py tests/test_edward_mellor_pdfs.py tests/test_sdl_legacy_catalogues.py tests/test_smith_sons_results.py tests/test_town_country_results.py tests/test_brown_co_results.py tests/test_bagshaws_results.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py tests/test_network_auctions.py tests/test_cottons_results.py tests/test_pattinson_history.py tests/test_harman_healy_history.py tests/test_lsh_history.py tests/test_goldings_results.py tests/test_maggs_allen_results.py tests/test_sutton_kersh_results.py tests/test_knight_frank_history.py tests/test_auction_estates_history.py tests/test_hollis_morgan_history.py tests/test_dedman_gray_results.py tests/test_john_francis_results.py tests/test_swift_property_auctions.py tests/test_sharpes_results.py tests/test_future_property_auctions.py web_platform/tests/test_acuitus_admission.py
+        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bidx1_history.py tests/test_strettons_results.py tests/test_cheffins_history.py tests/test_btg_eddisons_catalogues.py tests/test_anderson_garland_results.py tests/test_edward_mellor_results.py tests/test_edward_mellor_pdfs.py tests/test_sdl_legacy_catalogues.py tests/test_smith_sons_results.py tests/test_town_country_results.py tests/test_brown_co_results.py tests/test_bagshaws_results.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py tests/test_network_auctions.py tests/test_cottons_results.py tests/test_pattinson_history.py tests/test_harman_healy_history.py tests/test_lsh_history.py tests/test_goldings_results.py tests/test_maggs_allen_results.py tests/test_sutton_kersh_results.py tests/test_knight_frank_history.py tests/test_auction_estates_history.py tests/test_hollis_morgan_history.py tests/test_dedman_gray_results.py tests/test_john_francis_results.py tests/test_swift_property_auctions.py tests/test_sharpes_results.py tests/test_seel_catalogues.py tests/test_future_property_auctions.py web_platform/tests/test_acuitus_admission.py
       - name: Refresh the complete Harman Healy retained archive
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 10
@@ -195,6 +204,11 @@ jobs:
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_sharpes_results.py --workers 12
+      - name: Bank retained Seel complete catalogue PDFs
+        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        timeout-minutes: 20
+        continue-on-error: true
+        run: python -u scripts/harvest_seel_catalogues.py
       - name: Bank every previously recovered legacy lot
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         run: python -u historical_corpus.py bank-legacy
@@ -370,7 +384,7 @@ jobs:
         run: python -u historical_corpus.py harvest-paul-fosh --workers 3
       - name: Verify retained legacy auctioneer collectors
         if: inputs.focus == 'retained-legacy' || startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
-        run: python -m pytest -q tests/test_eddisons_insights.py tests/test_mchugh_catalogue.py tests/test_mchugh_current_route.py tests/test_mchugh_legacy.py tests/test_mchugh_results.py tests/test_phillip_arnold_results.py tests/test_harman_healy_history.py tests/test_lsh_history.py tests/test_goldings_results.py tests/test_maggs_allen_results.py tests/test_sutton_kersh_results.py tests/test_edward_mellor_pdfs.py tests/test_knight_frank_history.py tests/test_auction_estates_history.py tests/test_hollis_morgan_history.py tests/test_dedman_gray_results.py tests/test_john_francis_results.py tests/test_swift_property_auctions.py tests/test_sharpes_results.py
+        run: python -m pytest -q tests/test_eddisons_insights.py tests/test_mchugh_catalogue.py tests/test_mchugh_current_route.py tests/test_mchugh_legacy.py tests/test_mchugh_results.py tests/test_phillip_arnold_results.py tests/test_harman_healy_history.py tests/test_lsh_history.py tests/test_goldings_results.py tests/test_maggs_allen_results.py tests/test_sutton_kersh_results.py tests/test_edward_mellor_pdfs.py tests/test_knight_frank_history.py tests/test_auction_estates_history.py tests/test_hollis_morgan_history.py tests/test_dedman_gray_results.py tests/test_john_francis_results.py tests/test_swift_property_auctions.py tests/test_sharpes_results.py tests/test_seel_catalogues.py
 
       - name: Refresh the retained Harman Healy past-auctions grid
         if: inputs.focus == 'retained-legacy' || startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
@@ -443,6 +457,12 @@ jobs:
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_sharpes_results.py --workers 12
+
+      - name: Bank retained Seel complete catalogue PDFs
+        if: inputs.focus == 'retained-legacy' || startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        timeout-minutes: 20
+        continue-on-error: true
+        run: python -u scripts/harvest_seel_catalogues.py
 
       - name: Refresh retained Eddisons sold-result articles
         if: inputs.focus == 'retained-legacy' || startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
@@ -524,6 +544,7 @@ jobs:
           if test -f data/auction_history/hollis_morgan_collection.json; then git add data/auction_history/hollis_morgan_collection.json; fi
           if test -f data/auction_history/swift_property_auctions_collection.json; then git add data/auction_history/swift_property_auctions_collection.json; fi
           if test -f data/auction_history/sharpes_collection.json; then git add data/auction_history/sharpes_collection.json; fi
+          if test -f data/auction_history/seel_collection.json; then git add data/auction_history/seel_collection.json; fi
           database_backup=''
           if test -f data/auction_history/auction_history.sqlite.gz; then
             database_bytes=$(stat -c%s data/auction_history/auction_history.sqlite.gz)

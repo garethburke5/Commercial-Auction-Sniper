@@ -50,6 +50,7 @@ python scripts/harvest_dedman_gray_results.py --workers 8
 python scripts/harvest_john_francis_results.py --workers 8
 python scripts/harvest_swift_property_auctions.py --workers 8
 python scripts/harvest_sharpes_results.py --workers 12
+python scripts/harvest_seel_catalogues.py
 python historical_corpus.py build
 ```
 
@@ -207,6 +208,15 @@ appearances separate from modern cards. A sheet is complete only when its
 distinct printed labels include a continuous base-lot sequence; lettered lots
 remain independent additional appearances. Raw PDFs and the archive page are
 saved as immutable provenance.
+
+Seel & Co collection banks the complete numbered order-of-sale tables in 16
+first-party catalogue PDFs retained from December 2019 through April 2022.
+Every printed residential, commercial and land row is preserved using the
+exact catalogue date plus lot number, together with its address, guide or
+published outcome and immutable raw PDF. A catalogue is complete only when the
+table reconciles exactly to a contiguous published 1..N denominator. The
+October 2021 revisions remain explicitly deferred because their surviving PDFs
+do not expose a machine-readable complete order-of-sale denominator.
 
 Town & Country Property Auctions collection traverses all pages of the
 first-party past-auctions archive. Stable lot UUIDs and exact closing timestamps
