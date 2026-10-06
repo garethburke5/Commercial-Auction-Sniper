@@ -53,15 +53,19 @@ jobs:
                   files = [f['filename'] for f in json.load(response)['files']]
               derivation_only = {'collectors/core.py','collectors/financials.py','collectors/publication_quality.py'}
               # GitHub caps comparison files at 300: use a full scan if truncated.
-              full = len(files)>=300 or any((p.startswith('collectors/') and p not in derivation_only) or p.startswith(('run_collectors','config/')) for p in files)
+              full = len(files)>=300 or any((p.startswith('collectors/') and p not in derivation_only) or p.startswith(('run_collectors','config/')) or p in {'.github/workflows/auction-sniper-publish-now.yml', '.github/workflows/auction-sniper-scan.yml'} for p in files)
           with open(os.environ['GITHUB_OUTPUT'],'a') as f:
               f.write('collect='+str(full).lower()+'\n')
           print('Fresh source collection required:', full)
           PYTHON
   repair_published_snapshot:
+    needs: collection_scope
+    if: needs.collection_scope.outputs.collect != 'true'
     uses: ./.github/workflows/auction-sniper-revalidate.yml
   production:
-    needs: [repair_published_snapshot, collection_scope]
+    # New collectors must produce their telemetry before the scan validates it.
+    # Revalidating yesterday's snapshot first deadlocks newly enabled sources.
+    needs: collection_scope
     if: needs.collection_scope.outputs.collect == 'true'
     uses: ./.github/workflows/auction-sniper-scan.yml
     secrets: inherit
