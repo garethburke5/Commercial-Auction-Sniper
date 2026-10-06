@@ -565,7 +565,11 @@ jobs:
           pushed=false
           for attempt in 1 2 3 4; do
             git fetch origin main
-            git rebase origin/main
+            # Collectors can leave a tracked generated file outside the
+            # publication allow-list. Preserve it while rebasing instead of
+            # losing an otherwise valid historical checkpoint when main moves.
+            git status --short
+            git rebase --autostash origin/main
             if git push origin HEAD:main; then
               pushed=true
               break
