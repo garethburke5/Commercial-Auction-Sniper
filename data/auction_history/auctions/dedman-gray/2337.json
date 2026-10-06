@@ -1,0 +1,35 @@
+{
+  "auctioneer": "Dedman Gray",
+  "source_auction_id": "dedman-gray:2337",
+  "auction_date": "2023-05-24",
+  "source_url": "https://ams-webtemplates.eigroup.co.uk/embed/script/auction/4a7995f2-9c5d-4ca4-a92d-84f05a99af25/2337/105",
+  "lots_captured": 40,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "completion_scope": "every visible row in the first-party unpaginated result catalogue",
+  "visible_source_rows": 40,
+  "distinct_appearance_identities": 40,
+  "heading_date_matches_archive": true,
+  "fallback_identity_positions": [],
+  "catalogue_complete": true,
+  "source_evidence": {
+    "source_url": "https://ams-webtemplates.eigroup.co.uk/embed/script/auction/4a7995f2-9c5d-4ca4-a92d-84f05a99af25/2337/105",
+    "public_archive_url": "https://www.dedmangray.co.uk/auction/?q=1&tid=119",
+    "retrieved_at": "2026-10-06T13:11:33.804105+00:00",
+    "sha256": "f9d3ad8000030ef3d64cd8b0876b6d813ad4d429a722d8590e17639defb77f60",
+    "snapshot_path": "data/auction_history/sources/dedman-gray/auction-2337-f9d3ad8000030ef3.json.gz",
+    "basis": "first-party retained unpaginated EIG result catalogue",
+    "archive_evidence": {
+      "source_url": "https://ams-webtemplates.eigroup.co.uk/embed/script/auction/4a7995f2-9c5d-4ca4-a92d-84f05a99af25/3993/119",
+      "public_archive_url": "https://www.dedmangray.co.uk/auction/?q=1&tid=119",
+      "retrieved_at": "2026-10-06T13:10:53.712018+00:00",
+      "sha256": "f77572e971abe6f11c07410c603bd545e9626ce4228f0afb679d51c7fda2e230",
+      "snapshot_path": "data/auction_history/sources/dedman-gray/archive-f77572e971abe6f1.json.gz",
+      "basis": "first-party retained EIG results archive",
+      "catalogues_discovered": 86
+    }
+  },
+  "errors": [],
+  "checked_at": "2026-10-06T13:11:33.844909+00:00"
+}

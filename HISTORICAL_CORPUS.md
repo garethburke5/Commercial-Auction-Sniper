@@ -46,6 +46,7 @@ python scripts/harvest_sutton_kersh_results.py --catalogues 8 --workers 6
 python scripts/harvest_knight_frank_results.py 12
 python scripts/harvest_auction_estates_results.py 8
 python scripts/harvest_hollis_morgan_results.py 4
+python scripts/harvest_dedman_gray_results.py --workers 8
 python historical_corpus.py build
 ```
 
@@ -328,6 +329,14 @@ being guessed. Shared-page lots are separate partial records. Ordered per-page
 text snapshots and binary hashes preserve the evidence. All surviving source
 rows are banked, while original catalogues remain explicitly incomplete where
 their offered denominator or one-to-one row mapping cannot be reconciled.
+
+Dedman Gray collection traverses the first-party retained EIG results archive
+back to February 2013. Every unpaginated catalogue row is preserved with its
+stable source lot ID, exact archive date, lot number, address, postcode,
+description, image, outcome and published result price. Residential,
+commercial, mixed-use and land lots are retained. A catalogue is complete only
+when every visible row has a distinct appearance identity and its published
+heading day and month reconcile with the archive date.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The
