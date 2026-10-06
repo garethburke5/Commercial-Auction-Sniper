@@ -31,7 +31,11 @@ from bs4 import BeautifulSoup
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data/auction_history"
 BASE = "https://auctions.savills.co.uk/"
-PC = re.compile(r"\b(?:GIR\s?0AA|[A-PR-UWYZ][A-HK-Y]?\d[\dA-HJKSTUW]?\s?\d[ABD-HJLNP-UW-Z]{2})\b", re.I)
+PC = re.compile(
+    r"\b(?:GIR\s?0AA|[A-PR-UWYZ](?:\d[\dA-HJKPSTUW]?|[A-HK-Y]\d[\dABEHMNPRV-Y]?)"
+    r"\s?\d[ABD-HJLNP-UW-Z]{2})\b",
+    re.I,
+)
 PUBLIC_FIELDS = (
     "id auction_id name lot_number suffix total_lot_number description condition_report "
     "low_estimate high_estimate hammer_price is_residential is_commercial is_developer "

@@ -124,6 +124,11 @@ def test_source_corpus_enriches_exact_appearance_without_duplication(tmp_path, m
     assert len(enriched[0]["address_enrichment_evidence"]) == 1
 
 
+def test_postcode_pattern_accepts_london_outward_code_suffix():
+    assert h.PC.fullmatch("WC1X 9PD")
+    assert h.PC.search("Land at Granville Square, London WC1X 9PD").group() == "WC1X 9PD"
+
+
 def test_source_corpus_exact_partial_lot_is_idempotent(tmp_path, monkeypatch):
     monkeypatch.setattr(h, "ROOT", tmp_path)
     monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")

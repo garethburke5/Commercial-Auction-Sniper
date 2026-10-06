@@ -1,0 +1,55 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative reconciliation of previously saved Savills 2018 property evidence",
+  "captured_at_utc": "2026-10-06T20:20:00Z",
+  "source_note": "Two full addresses preserved in earlier Savills 2018 flat source files are applied only to the unique compatible legacy PropertyAuctions appearances on the same exact auction dates. Neither saved source publishes a complete catalogue or lot number, so no new appearance or catalogue-completeness claim is made.",
+  "appearance_enrichments": [
+    {
+      "target_shard": "savills/legacy-1068",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1068|80",
+      "address": "Land at 38 & 38a Granville Square, Kings Cross, London WC1X 9PD",
+      "postcode": "WC1X 9PD",
+      "address_basis": "conservative_saved_source_exact_auction_date_unique_postcode_district_locality_and_vacant_freehold_site_class_match",
+      "source_url": "https://londondevelopmentsites.com/tag/green/page/2/",
+      "source_urls": [
+        "https://londondevelopmentsites.com/tag/green/page/2/",
+        "http://catalogue.auctions.savills.co.uk/",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1068"
+      ],
+      "evidence_note": "The previously saved 8 May 2018 development-site article identifies land at 38 & 38a Granville Square, Kings Cross, London WC1X 9PD, approximately 100 sq m with a GBP 800,000+ guide in the Savills auction held on 9 May 2018. The legacy AID 1068 result contains one and only one London WC1X vacant freehold site: lot 80. Exact auction date, unique postcode district, locality and property class agree; the address is enriched without inferring an unprinted source lot number or auction result.",
+      "original_saved_sources": [
+        "data/historical_source_corpus_savills_2018_2018-05-09_granville_square_20260920_0411.json",
+        "data/historical_source_corpus_savills_2018_property_rows_20260920_0128.json"
+      ]
+    },
+    {
+      "target_shard": "savills/legacy-1072",
+      "target_appearance_id": "Savills Auctions|propertyauctions:1072|66",
+      "address": "17 Lyndhurst Gardens, Hampstead, London NW3",
+      "address_basis": "conservative_saved_source_exact_auction_date_unique_postcode_district_locality_and_vacant_freehold_building_class_match",
+      "source_url": "https://londondevelopmentsites.com/category/auction/page/2/",
+      "source_urls": [
+        "https://londondevelopmentsites.com/category/auction/page/2/",
+        "https://en.wikipedia.org/wiki/The_Hoo%2C_Hampstead",
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=1072"
+      ],
+      "evidence_note": "The previously saved property record identifies 17 Lyndhurst Gardens, Hampstead, London NW3 as a Grade II listed 11,377 sq ft institutional/office building that failed to sell at Savills on 26 November 2018. The legacy AID 1072 result contains one and only one London NW3 vacant freehold building: lot 66, shown available after the auction. Exact auction date, unique postcode district, locality, building class and compatible unsold/available outcome agree. No full postcode is inferred.",
+      "original_saved_sources": [
+        "data/historical_source_corpus_savills_2018_property_rows_20260920_0200.json"
+      ]
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 2,
+  "address_records_added": 2,
+  "partial_records_added": 0,
+  "historical_completeness_declared": false,
+  "reconciliation": {
+    "candidate_policy": "Require exact auction date, one compatible addressless legacy appearance in the stated postcode district or locality, and agreement on property class. Leave all non-unique or weaker clues unchanged.",
+    "legacy_candidates_checked": 2,
+    "unique_compatible_matches": 2,
+    "identity_policy": "Update only the named existing appearance IDs. Preserve every appearance and all original source evidence; do not create an additional appearance from the same saved property clue."
+  }
+}

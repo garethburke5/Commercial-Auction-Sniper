@@ -68,7 +68,12 @@ and 126 only after date, lot, locality, property class and price checks. These
 enrichments retain the original result-grid evidence and do not declare either
 catalogue complete. Content-addressed source snapshots are immutable across
 repeat bank runs, and later base-shard regeneration preserves additive address
-evidence rather than erasing it.
+evidence rather than erasing it. Two saved 2018 property records similarly
+complete the unique compatible AID 1068 lot 80 and AID 1072 lot 66 addresses
+after exact date, postcode-district/locality and property-class checks. The UK
+postcode parser accepts valid outward-code suffixes such as ``WC1X`` and
+``SW1V`` so already banked addressed rows participate in exact grouping without
+changing or merging their appearance identities.
 
 Paul Fosh collection traverses and reconciles the entire paginated public results
 set, retaining all addresses, published lot end dates, outcomes, prices and detail
