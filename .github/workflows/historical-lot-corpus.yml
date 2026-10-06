@@ -190,7 +190,7 @@ jobs:
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_swift_property_auctions.py --workers 8
-      - name: Collect retained Sharpes Auctions results
+      - name: Collect retained Sharpes traditional and modern results
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
@@ -438,7 +438,7 @@ jobs:
         continue-on-error: true
         run: python -u scripts/harvest_swift_property_auctions.py --workers 8
 
-      - name: Collect retained Sharpes Auctions results
+      - name: Collect retained Sharpes traditional and modern results
         if: inputs.focus == 'retained-legacy' || startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true

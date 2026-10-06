@@ -1,4 +1,4 @@
-"""Bank Sharpes Auctions' retained first-party traditional-auction results."""
+"""Bank Sharpes Auctions' retained first-party traditional and modern results."""
 from __future__ import annotations
 
 import argparse
@@ -20,7 +20,10 @@ import historical_corpus as corpus
 
 
 BASE = "https://www.sharpesauctions.co.uk"
-ARCHIVE_URL = BASE + "/previous-auctions.php?type=traditional"
+ARCHIVE_URLS = {
+    "traditional": BASE + "/previous-auctions.php?type=traditional",
+    "modern": BASE + "/previous-auctions.php?type=modern",
+}
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 DATE_RE = re.compile(r"(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})", re.I)
 MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d+)?)\s*([MK])?", re.I)
@@ -54,7 +57,7 @@ def get(url: str) -> tuple[bytes, str]:
     raise RuntimeError(f"failed to fetch {url}: {error}")
 
 
-def discover(html: str) -> list[dict]:
+def discover(html: str, auction_type: str = "traditional") -> list[dict]:
     soup = BeautifulSoup(html, "lxml")
     catalogues = {}
     for link in soup.select('a[href*="previous-auction-properties.php?date="]'):
@@ -64,7 +67,15 @@ def discover(html: str) -> list[dict]:
         date = match.group(1)
         if exact_date(link.get_text(" ", strip=True)) != date:
             raise ValueError(f"archive link date text disagrees with {date}")
-        item = {"source_id": date, "auction_date": date, "source_url": urljoin(BASE, link.get("href") or "")}
+        source_id = date if auction_type == "traditional" else f"{auction_type}-{date}"
+        source_auction_id = f"sharpes:{date}" if auction_type == "traditional" else f"sharpes:{auction_type}:{date}"
+        item = {
+            "source_id": source_id,
+            "source_auction_id": source_auction_id,
+            "auction_type": auction_type,
+            "auction_date": date,
+            "source_url": urljoin(BASE, link.get("href") or ""),
+        }
         prior = catalogues.setdefault(date, item)
         if prior != item:
             raise ValueError(f"auction {date} has conflicting archive metadata")
@@ -120,7 +131,7 @@ def parse_catalogue(html: str, item: dict, evidence: dict) -> tuple[list[dict], 
         image = card.select_one(".products_table_thumb img[src]")
         original_url = property_link.get("href")
         row = corpus.base_row(
-            "Sharpes Auctions", f"sharpes:{item['source_id']}", item["auction_date"],
+            "Sharpes Auctions", item.get("source_auction_id", f"sharpes:{item['source_id']}"), item["auction_date"],
             lot_match.group(1), source_lot_id, original_url,
         )
         row.update(
@@ -139,6 +150,7 @@ def parse_catalogue(html: str, item: dict, evidence: dict) -> tuple[list[dict], 
             source_result_text=result_text,
             source_price_text=price_text,
             source_detail_url=urljoin(BASE, detail_link.get("href") or ""),
+            auction_type=item.get("auction_type", "traditional"),
             auction_date_basis="exact date in first-party archive URL, link text and result heading",
             source_evidence=evidence,
         )
@@ -160,18 +172,23 @@ def state_path(source_id: str) -> Path:
 
 
 def harvest(workers: int = 8, refresh: bool = False) -> dict:
-    archive_raw, archive_resolved = get(ARCHIVE_URL)
-    archive_html = archive_raw.decode("utf-8", "replace")
-    catalogues = discover(archive_html)
-    archive_sha = corpus.digest(archive_raw)
-    archive_snapshot = corpus.DATA / "sources/sharpes" / f"archive-{archive_sha[:16]}.json.gz"
-    archive_evidence = {
-        "source_url": archive_resolved, "retrieved_at": corpus.now(), "sha256": archive_sha,
-        "snapshot_path": str(archive_snapshot.relative_to(corpus.ROOT)),
-        "basis": "first-party retained traditional-auction archive",
-        "catalogues_discovered": len(catalogues),
-    }
-    corpus.save_gzip(archive_snapshot, {"evidence": archive_evidence, "html": archive_html})
+    catalogues, archive_evidence_by_type = [], {}
+    for auction_type, archive_url in ARCHIVE_URLS.items():
+        archive_raw, archive_resolved = get(archive_url)
+        archive_html = archive_raw.decode("utf-8", "replace")
+        discovered = discover(archive_html, auction_type)
+        archive_sha = corpus.digest(archive_raw)
+        archive_snapshot = corpus.DATA / "sources/sharpes" / f"archive-{auction_type}-{archive_sha[:16]}.json.gz"
+        archive_evidence = {
+            "source_url": archive_resolved, "retrieved_at": corpus.now(), "sha256": archive_sha,
+            "snapshot_path": str(archive_snapshot.relative_to(corpus.ROOT)),
+            "basis": f"first-party retained {auction_type}-auction archive",
+            "catalogues_discovered": len(discovered),
+        }
+        corpus.save_gzip(archive_snapshot, {"evidence": archive_evidence, "html": archive_html})
+        archive_evidence_by_type[auction_type] = archive_evidence
+        catalogues.extend(discovered)
+    catalogues.sort(key=lambda item: (item["auction_date"], item["auction_type"]))
     pending = []
     for item in catalogues:
         path = state_path(item["source_id"])
@@ -196,8 +213,8 @@ def harvest(workers: int = 8, refresh: bool = False) -> dict:
                 evidence = {
                     "source_url": resolved, "retrieved_at": corpus.now(), "sha256": sha,
                     "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
-                    "basis": "first-party retained unpaginated traditional-auction results",
-                    "archive_evidence": archive_evidence,
+                    "basis": f"first-party retained unpaginated {item['auction_type']}-auction results",
+                    "archive_evidence": archive_evidence_by_type[item["auction_type"]],
                 }
                 corpus.save_gzip(snapshot, {"evidence": evidence, "html": html})
                 rows, reconciliation = parse_catalogue(html, item, evidence)
@@ -205,8 +222,9 @@ def harvest(workers: int = 8, refresh: bool = False) -> dict:
                     raise ValueError(f"catalogue reconciliation failed: {reconciliation}")
                 total = corpus.write_rows(f"sharpes/{item['source_id']}", rows)
                 state = {
-                    "auctioneer": "Sharpes Auctions", "source_auction_id": f"sharpes:{item['source_id']}",
-                    "auction_date": item["auction_date"], "source_url": resolved, "lots_captured": total,
+                    "auctioneer": "Sharpes Auctions", "source_auction_id": item["source_auction_id"],
+                    "auction_type": item["auction_type"], "auction_date": item["auction_date"],
+                    "source_url": resolved, "lots_captured": total,
                     "source_rows_complete": True, "pagination_reconciled": True,
                     "denominator_reconciled": True,
                     "completion_scope": "every property card in the first-party unpaginated result page",
@@ -230,7 +248,7 @@ def harvest(workers: int = 8, refresh: bool = False) -> dict:
     added = [row for row in all_rows if row["appearance_id"] not in before_ids]
     complete_states = [state for state in states if state.get("catalogue_complete")]
     summary = {
-        "checked_at": corpus.now(), "source_url": archive_resolved,
+        "checked_at": corpus.now(), "source_urls": ARCHIVE_URLS,
         "catalogues_discovered": len(catalogues), "catalogues_captured": len(states),
         "catalogues_complete": len(complete_states), "appearances_captured": len(all_ids),
         "address_records": sum(bool(row.get("address")) for row in all_rows),
@@ -239,6 +257,7 @@ def harvest(workers: int = 8, refresh: bool = False) -> dict:
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
         "run_new_partial_lots": sum(not row.get("address") for row in added),
         "date_range": [catalogues[0]["auction_date"], catalogues[-1]["auction_date"]],
+        "by_auction_type": dict(Counter(row.get("auction_type") or "traditional" for row in all_rows)),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in all_rows)),
         "by_status": dict(Counter(row.get("status") or "unknown" for row in all_rows)),
         "failures": failures,

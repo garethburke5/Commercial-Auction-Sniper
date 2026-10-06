@@ -4,9 +4,16 @@ from scripts import harvest_sharpes_results as sharpes
 def test_discover_requires_url_and_text_date_to_match():
     html = '<a href="previous-auction-properties.php?date=2018-02-06">6th February 2018</a>'
     assert sharpes.discover(html) == [{
-        "source_id": "2018-02-06", "auction_date": "2018-02-06",
+        "source_id": "2018-02-06", "source_auction_id": "sharpes:2018-02-06",
+        "auction_type": "traditional", "auction_date": "2018-02-06",
         "source_url": "https://www.sharpesauctions.co.uk/previous-auction-properties.php?date=2018-02-06",
     }]
+
+
+def test_discover_scopes_modern_catalogues_separately():
+    html = '<a href="previous-auction-properties.php?date=2024-03-07">7th March 2024</a>'
+    assert sharpes.discover(html, "modern")[0]["source_id"] == "modern-2024-03-07"
+    assert sharpes.discover(html, "modern")[0]["source_auction_id"] == "sharpes:modern:2024-03-07"
 
 
 def test_parse_catalogue_preserves_identity_prices_and_outcome():

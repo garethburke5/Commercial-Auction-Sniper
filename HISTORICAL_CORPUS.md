@@ -356,11 +356,11 @@ lot denominators must all reconcile before a catalogue is complete. Addresses,
 descriptions, guides, outcomes, prices, legal-pack links, images and raw page
 snapshots are retained without filtering residential or unknown-sector lots.
 
-Sharpes Auctions collection traverses every dated catalogue in the first-party
-traditional-auction results archive. Each unpaginated page is banked with its
+Sharpes Auctions collection traverses every dated catalogue in both first-party
+traditional- and modern-auction results archives. Each unpaginated page is banked with its
 stable property route ID, exact auction date, lot number, address, postcode,
 guide, outcome, published sold price and image. Repeat appearances are scoped to
-their auction date. A catalogue is complete only when every visible property
+their auction date and auction type. A catalogue is complete only when every visible property
 card has one distinct identity and the page heading agrees with the archive URL
 and link date; malformed or duplicated cards keep it incomplete.
 
