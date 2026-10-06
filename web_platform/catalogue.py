@@ -54,6 +54,7 @@ class Catalogue:
             self.rows.setdefault(row['id'], row)
         self.all_properties = list(self.rows.values())
         self.properties = sorted((r for r in self.all_properties if r['id'] in current_ids and current_board_row(r)), key=lambda r: (r.get('auction_date') or '9999-12-31', r['address']))
+        self.current_sources = sorted({name for row in self.properties for name in [row['source']]+list(row.get('source_brands') or [])})
         self.sources = {r['source_slug']: r['source'] for r in self.all_properties}
         self.progress = json.loads((self.root / 'data/auction_history/progress.json').read_text())
         self.history_path = None

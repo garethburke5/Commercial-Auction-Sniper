@@ -5,8 +5,12 @@ from board_presentation import current_board_row
 from collectors.publication_quality import publication_exclusion, MIXED
 from source_manifest import load_target_sources, _source_aliases, source_registry
 
+def source_names(row):
+    # Shared feed aliases are evidence of distribution, not additional properties.
+    return set([row.get('source')] + list(row.get('source_brands') or [])) - {None}
+
 def counts(rows):
-    return Counter(r.get('source') for r in rows if current_board_row(r))
+    return Counter(name for r in rows if current_board_row(r) for name in source_names(r))
 
 def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
     required, expansion=load_target_sources(); aliases=_source_aliases()
@@ -29,7 +33,7 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
         source_count=metric('source_lot_count','detail_pages_discovered','discovered_lot_urls')
         if source_count is None and t.get('catalogues'):
             source_count=sum(c.get('expected_lots',0) for c in t['catalogues'])
-        source_rows=[r for r in raw if r.get('source')==source and current_board_row(r)]
+        source_rows=[r for r in raw if source in source_names(r) and current_board_row(r)]
         qualifying=metric('commercial_mixed_candidates','commercial_mixed_lots','commercial_lots')
         current=t.get('current_catalogue_detected')
         if current is None and source_rows: current=True
@@ -53,7 +57,7 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
             'commercial_mixed_candidates':qualifying,'residential_exclusions':metric('residential_exclusions'),
             'publication_residential_exclusions':exclusions[source],
             'quality_gate_rejections':h.get('quality_gate_rejections'),'classification_rejections':metric('classification_rejections','non_commercial_lots','noncommercial_excluded'),
-            'qualifying_current_lots':len(source_rows),'production_rows':production[source],'published_rows':publish[source],
+            'qualifying_current_lots':len(source_rows),'shared_feed_rows':sum(r.get('source')!=source for r in source_rows),'production_rows':production[source],'published_rows':publish[source],
             'live_rows':live[source] if live is not None else None,'difference':publish[source]-live[source] if live is not None else None,
             'failure_reason':'; '.join(reasons) or None,'telemetry_missing':missing,
             'last_collection':h.get('checked_at'),'last_successful_collection':h.get('checked_at') if h.get('status')=='LIVE' else h.get('last_successful_collection'),

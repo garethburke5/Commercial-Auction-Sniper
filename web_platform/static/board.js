@@ -128,7 +128,7 @@
   }
   function matches(row){
     if(!window.AuctionSniperSearch.matches(row,control('q').value))return false;
-    const selected=sources();if(selected.length && !selected.includes(row.source))return false;
+    const selected=sources();if(selected.length && ![row.source,...(row.source_brands||[])].some(name=>selected.includes(name)))return false;
     const tenure=control('tenure').value.toLowerCase();if(tenure && (row.tenure||'').toLowerCase()!==tenure)return false;
     const status=control('status').value;if(status==='available'&&row.unavailable)return false;
     if(status==='unavailable'&&!row.unavailable)return false;

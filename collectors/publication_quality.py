@@ -20,6 +20,8 @@ def asset_text(description):
     text = re.sub(r'\b(?:It is a (?:small )?village|The village)\b[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
     text = re.sub(r'\b(?:Conveniently located for|(?:well )?(?:serviced|served) by|(?:a (?:good |further )?range of )?amenities (?:including|such as)|adjoins the)\b[^.;]*(?:[.;]|$)',
                   ' ',text,flags=re.I)
+    # Local amenities are not part of the lot, even without a Location heading.
+    text = re.sub(r'\b(?:Located in (?:the |a )?(?:charming |popular |sought.after )?(?:village|town)|(?:The (?:flat|house|property) is )?a short walk from)\b[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
     # Auction House's Location section describes surrounding shops/roads, not
     # the accommodation being sold. A house on a mixed-use road is still a house.
     text = re.sub(r'\bLocation\s*:\s*.*?(?=\b(?:Accommodation|Tenancy|Tenure|Planning|Note|EPC Rating|Exterior|VAT)\s*:|$)', ' ', text)
@@ -55,6 +57,12 @@ def commercial_decision(item):
     positive = bool(COMMERCIAL.search(asset) or MIXED.search(asset)
                     or re.search(r'\b(?:children[’\']s home|estate agency|estate agents?|vet(?:erinary)? (?:surgery|practice|clinic)|ground[ -]floor shops?|shop\s+(?:let|leased|producing|tenanted)|commercial space|(?:hair|beauty) salon|barbers?|(?:block|parade) of (?:\d+|\w+) shops|sports? education facility)\b', asset, re.I))
     residential = bool(RESIDENTIAL.search(asset+' '+str(item.get('address') or '')) or re.fullmatch(r'(?:Residential|House|Flat|Apartment|Bungalow)(?: / Residential)?', kind, re.I))
+    # A study/office within a family house is domestic accommodation. Require
+    # independent commercial evidence before turning that house into mixed use.
+    if residential and re.search(r'^(?:.{0,100}\b)(?:farmhouse|cottage|(?:detached|terraced) house)\b', asset, re.I):
+        without_study = re.sub(r'\boffice space\b', '', asset, flags=re.I)
+        if not COMMERCIAL.search(without_study) and not MIXED.search(without_study):
+            positive = False
     if residential and not positive:
         return False
     if positive:

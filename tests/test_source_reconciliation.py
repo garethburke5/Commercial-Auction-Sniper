@@ -13,3 +13,12 @@ def test_missing_telemetry_is_unknown_not_zero_and_a_measured_zero_is_explained(
     snapshot['source_health'][0]['reconciliation'].update(commercial_mixed_candidates=0,classification_rejections=10,source_lot_count=10,lots_parsed=10)
     r=next(r for r in reconcile(snapshot)['sources'] if r['auctioneer']=='Barnett Ross')
     assert r['classification_rejections']==10 and r['failure_reason'] is None
+
+
+def test_shared_feed_remains_findable_without_creating_duplicate_properties():
+ row={'source':'Auction House North West','source_brands':['Auction House Midlands','Auction House North West'],'auction_date':'2099-10-14','address':'1 High Street AB1 2CD','description':'A shop investment.'}
+ snapshot={'properties':[row], 'source_health':[{'source':'Auction House Midlands','status':'LIVE','reconciliation':{'current_catalogue_detected':True,'source_lot_count':1,'lots_parsed':1,'commercial_mixed_candidates':1}}]}
+ r=next(r for r in reconcile(snapshot,live_rows=[row])['sources'] if r['auctioneer']=='Auction House Midlands')
+ assert r['published_rows']==r['live_rows']==r['shared_feed_rows']==1
+ assert r['failure_reason'] is None
+ assert len(snapshot['properties'])==1

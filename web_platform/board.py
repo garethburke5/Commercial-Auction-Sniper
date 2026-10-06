@@ -8,9 +8,9 @@ from board_presentation import catalogue_status
 from investment_details import _investment_facts
 from property_summary import build_opportunity_summary
 
-SEARCH_INDEX_VERSION = 2
+SEARCH_INDEX_VERSION = 3
 SEARCH_FIELDS = ('address', 'description', 'tenant', 'tenancy_schedule', 'property_type',
-                 'source', 'tenure', 'occupation', 'nearby_occupiers', 'lease_term',
+                 'source', 'source_brands', 'tenure', 'occupation', 'nearby_occupiers', 'lease_term',
                  'fri', 'break_clause', 'parking', 'development_potential',
                  'refurbishment', 'listed_status', 'asset_management')
 
@@ -62,5 +62,5 @@ def enrich_board_row(row):
 
 
 def index_row(row, chunk):
-    return {k:row.get(k) for k in ('id','address','source','tenure','property_type','auction_date',
+    return {k:row.get(k) for k in ('id','address','source','source_brands','tenure','property_type','auction_date',
                                  'guide_price','giy','giy_min','unavailable')} | {'chunk':chunk, 'search_text':search_text(row)}
