@@ -1,0 +1,38 @@
+{
+  "auctioneer": "Edward Mellor",
+  "source_auction_id": "edward-mellor-pdf:2014-02-04:0cf69593c06f",
+  "auction_date": "2014-02-04",
+  "catalogue_complete": false,
+  "source_rows_complete": false,
+  "visible_result_rows": 87,
+  "lots_captured": 87,
+  "published_lots_offered": 93,
+  "lettered_additional_rows": 0,
+  "missing_base_lot_numbers": [
+    34,
+    35,
+    36,
+    37,
+    38,
+    39
+  ],
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "denominator_basis": "continuous published base lot sequence in complete first-party result sheet",
+  "completion_scope": "every numbered row in the retained first-party result PDF",
+  "source_url": "https://edwardmellor.co.uk/pdf/archive/20140201_February_Auction_Results.pdf",
+  "errors": [
+    {
+      "error": "non-contiguous result lot sequence",
+      "missing": [
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ]
+    }
+  ],
+  "checked_at": "2026-10-06T06:59:19.192727+00:00"
+}

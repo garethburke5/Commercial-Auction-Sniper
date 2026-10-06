@@ -1,29 +1,30 @@
 {
-  "checked_at": "2026-10-06T06:25:49.087238+00:00",
+  "checked_at": "2026-10-06T06:59:21.827532+00:00",
   "source_url": "https://edwardmellor.co.uk/auctions/catalogue-and-results-archive/",
   "result_pdfs_discovered": 55,
-  "result_pdfs_complete": 23,
-  "result_pdfs_completed_this_run": 7,
-  "result_pdfs_pending": 32,
-  "appearances_captured": 1742,
-  "run_new_appearances": 582,
-  "run_new_address_records": 582,
+  "result_pdfs_complete": 26,
+  "result_pdfs_completed_this_run": 3,
+  "result_pdfs_pending": 29,
+  "appearances_captured": 2396,
+  "run_new_appearances": 654,
+  "run_new_address_records": 654,
   "run_new_partial_lots": 0,
   "by_status": {
-    "sold": 536,
-    "available": 474,
-    "sold_after": 197,
-    "sold_prior": 169,
-    "not_offered": 188,
+    "sold": 712,
+    "available": 601,
+    "sold_after": 224,
+    "sold_prior": 236,
+    "not_offered": 254,
     "under_offer": 6,
-    "withdrawn": 54,
-    "unknown": 118
+    "withdrawn": 59,
+    "unknown": 288,
+    "postponed": 16
   },
   "by_sector": {
-    "unknown": 1577,
-    "residential": 82,
-    "land": 62,
-    "commercial": 21
+    "unknown": 2161,
+    "residential": 116,
+    "land": 90,
+    "commercial": 29
   },
   "completed_source_urls": [
     "https://edwardmellor.co.uk/pdf/archive/20101001_Auction_Results_October_2010.pdf",
@@ -48,13 +49,16 @@
     "https://edwardmellor.co.uk/pdf/archive/20130301_Auction_Results_March_2013.pdf",
     "https://edwardmellor.co.uk/pdf/archive/20130319_Auction_Results_March_2013.pdf",
     "https://edwardmellor.co.uk/pdf/archive/20130501_Auction_Results_May_2013.pdf",
-    "https://edwardmellor.co.uk/pdf/archive/20130601_June_Auction_Results.pdf"
+    "https://edwardmellor.co.uk/pdf/archive/20130601_June_Auction_Results.pdf",
+    "https://edwardmellor.co.uk/pdf/archive/20130901_September_Auction_Results.pdf",
+    "https://edwardmellor.co.uk/pdf/archive/20131001_October_2013_Auction_Results.pdf",
+    "https://edwardmellor.co.uk/pdf/archive/20150201_February_Auction_Results.pdf"
   ],
   "archive_evidence": {
     "source_url": "https://edwardmellor.co.uk/auctions/catalogue-and-results-archive/",
-    "retrieved_at": "2026-10-06T06:25:38.993499+00:00",
-    "sha256": "0a38d06a47de49d0d140999e9b43ef678c772b4366091799fbf49b4ad8794175",
-    "snapshot_path": "data/auction_history/sources/edward-mellor-pdfs/archive-0a38d06a47de49d0.json.gz",
+    "retrieved_at": "2026-10-06T06:59:13.565020+00:00",
+    "sha256": "569f69dd73768a2bbb4cb3ac1530be292ce57b57a9fcd49d1620d5596d3817bd",
+    "snapshot_path": "data/auction_history/sources/edward-mellor-pdfs/archive-569f69dd73768a2b.json.gz",
     "basis": "first-party catalogue and results archive"
   },
   "failures": [
