@@ -23,7 +23,7 @@ def verify(origin,snapshot):
     expected=set(expected_rows)
     # Revalidation intentionally retains collection time and identities. Compare
     # the customer-visible facts too, so stale rent/yield cannot pass an ID check.
-    fact_fields=('address','source','tenure','property_type','auction_date','guide_price','giy','giy_min','unavailable')
+    fact_fields=('address','source','source_brands','tenure','property_type','auction_date','guide_price','giy','giy_min','unavailable')
     mismatches=[{'id':r['id'],'fields':[k for k in fact_fields if r.get(k)!=expected_rows[r['id']].get(k)]}
                 for r in index['rows'] if r['id'] in expected_rows]
     mismatches=[r for r in mismatches if r['fields']]

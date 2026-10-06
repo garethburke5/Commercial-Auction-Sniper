@@ -483,7 +483,11 @@
     {
       "auctioneer": "Wilsons Property Auctions",
       "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
-      "collector_verified": false
+      "collector_verified": false,
+      "current_catalogue_detected": true,
+      "checked_on": "2026-10-06",
+      "source_url": "https://www.wilsonsauctions.com/auctions/land-property-auctions",
+      "failure_reason": "Upcoming UK property events and featured lots observed; full event catalogue traversal has not yet been implemented. Featured lots do not establish full inventory."
     },
     {
       "auctioneer": "Sutton Kersh",
@@ -495,7 +499,10 @@
     {
       "auctioneer": "Cheffins",
       "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
-      "collector_verified": false
+      "collector_verified": false,
+      "checked_on": "2026-10-06",
+      "source_url": "https://www.cheffins.co.uk/property-auctions.htm",
+      "failure_reason": "Main Current Catalogue still links to September sale; October CPN/timed-sale routes need direct lot reconciliation. Network access to these catalogue hosts was denied; current lot count remains unknown."
     },
     {
       "auctioneer": "Edward Mellor",
@@ -506,8 +513,10 @@
     },
     {
       "auctioneer": "Under The Hammer",
-      "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
-      "collector_verified": false
+      "state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "collector_verified": true,
+      "collector_module": "collectors.under_the_hammer",
+      "scope": "Complete public catalogue API pagination and current-lot classification; past rows excluded from current board"
     },
     {
       "auctioneer": "Hollis Morgan",
@@ -522,7 +531,11 @@
     {
       "auctioneer": "iamsold",
       "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
-      "collector_verified": false
+      "collector_verified": false,
+      "current_catalogue_detected": true,
+      "checked_on": "2026-10-06",
+      "source_url": "https://www.iamsold.co.uk/properties/",
+      "failure_reason": "National commercial search returned 132 advertised properties across 14 pages; current collector and full detail reconciliation not yet implemented. This is a discovery count, not captured commercial inventory."
     },
     {
       "auctioneer": "Connells Property Auctions",

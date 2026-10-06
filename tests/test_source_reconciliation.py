@@ -22,3 +22,14 @@ def test_shared_feed_remains_findable_without_creating_duplicate_properties():
  assert r['published_rows']==r['live_rows']==r['shared_feed_rows']==1
  assert r['failure_reason'] is None
  assert len(snapshot['properties'])==1
+
+def test_zero_candidates_require_evidence_for_all_source_lots():
+ snapshot={'properties':[], 'source_health':[{'source':'Barnett Ross','status':'LIVE','reconciliation':{'current_catalogue_detected':True,'source_lot_count':30,'lots_parsed':30,'commercial_mixed_candidates':0,'classification_rejections':2}}]}
+ r=next(r for r in reconcile(snapshot)['sources'] if r['auctioneer']=='Barnett Ross')
+ assert r['status']=='DEGRADED' and 'Unexplained zero' in r['failure_reason']
+
+def test_confirmed_unimplemented_current_source_is_visible_not_omitted(monkeypatch):
+ monkeypatch.setattr('source_reconciliation.priority_assessments',lambda:[{'auctioneer':'Current Gap','collector_verified':False,'current_catalogue_detected':True}])
+ r=next(r for r in reconcile({'properties':[]})['sources'] if r['auctioneer']=='Current Gap')
+ assert r['status']=='DEGRADED' and not r['collector_configured'] and not r['collector_executed']
+ assert r['source_lot_count'] is None and r['live_rows'] is None

@@ -127,3 +127,9 @@ def source_registry(path=Path("config/source_registry.json")):
     """Brand/network relationships, separate from evidence of actual inventory."""
     if not Path(path).exists(): return []
     return json.loads(Path(path).read_text()).get('sources',[])
+
+
+def priority_assessments(path=Path("config/source_registry.json")):
+    """Confirmed current-coverage gaps, including sources not enabled yet."""
+    if not Path(path).exists(): return []
+    return json.loads(Path(path).read_text()).get('priority_assessments',[])
