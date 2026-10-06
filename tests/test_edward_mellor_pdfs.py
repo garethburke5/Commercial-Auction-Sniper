@@ -1,5 +1,9 @@
+import sys
+from types import SimpleNamespace
+
 from scripts.harvest_edward_mellor_pdfs import (
-    discover_result_pdfs, parse_auction_date, parse_result_text, result_semantics
+    discover_result_pdfs, extract_pdf_text, parse_auction_date, parse_result_text,
+    result_semantics
 )
 
 
@@ -45,3 +49,13 @@ def test_missing_base_lot_keeps_sheet_incomplete():
     assert state["missing_base_lot_numbers"] == [2]
     assert result_semantics("AVAILABLE IN DECEMBER") == ("available", None, None)
     assert result_semantics("MAKE US AN OFFER!") == ("available", None, None)
+    assert result_semantics("WTHDRAWN") == ("withdrawn", None, None)
+
+
+def test_pdf_extractor_has_dependency_fallback(monkeypatch):
+    monkeypatch.setattr("scripts.harvest_edward_mellor_pdfs.shutil.which", lambda _: None)
+    page = SimpleNamespace(extract_text=lambda: "RESULTS " + "lot text " * 20)
+    reader = SimpleNamespace(pages=[page])
+    fake_pypdf = SimpleNamespace(PdfReader=lambda _: reader)
+    monkeypatch.setitem(sys.modules, "pypdf", fake_pypdf)
+    assert extract_pdf_text(b"pdf bytes").startswith("RESULTS")

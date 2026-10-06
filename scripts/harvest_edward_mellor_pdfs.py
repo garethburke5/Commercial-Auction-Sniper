@@ -9,10 +9,12 @@ from __future__ import annotations
 
 from collections import Counter
 from datetime import date
+from io import BytesIO
 import gzip
 import hashlib
 import json
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -40,7 +42,8 @@ RESULT_RE = re.compile(
     r"\b(?:SOLD(?:\s+(?:AT\s+£[\d,]+|PRIOR|POST|AFTER))?|"
     r"AVAILABLE(?:\s+(?:AT\s+£[\d,]+|IN\s+[A-Z]+))?|"
     r"MAKE\s+(?:US\s+AN\s+OFFER|A\s+BID)!*|"
-    r"NOT\s+OFFERED|UNDER\s+OFFER|WITHDRAWN|POSTPONED|UNSOLD)\b.*$",
+    r"NOT\s+OFFERED|UNDER\s+OFFER|WTHDRAWN|WITHDRAWN|POSTPONED|UNSOLD|"
+    r"REFER\s+TO\s+AUCTIONEER)\b.*$",
     re.I,
 )
 MONEY_RE = re.compile(r"£\s*([\d,]+)")
@@ -90,7 +93,7 @@ def result_semantics(value: str) -> tuple[str, int | None, int | None]:
         return "not_offered", None, None
     if "UNDER OFFER" in text:
         return "under_offer", None, None
-    if "WITHDRAWN" in text:
+    if "WITHDRAWN" in text or "WTHDRAWN" in text:
         return "withdrawn", None, None
     if "POSTPONED" in text:
         return "postponed", None, None
@@ -193,15 +196,23 @@ def parse_result_text(text: str, source_url: str, evidence: dict) -> tuple[dict,
 
 
 def extract_pdf_text(raw: bytes) -> str:
-    with tempfile.TemporaryDirectory(prefix="edward-mellor-pdf-") as directory:
-        source = Path(directory) / "result.pdf"
-        output = Path(directory) / "result.txt"
-        source.write_bytes(raw)
-        subprocess.run(
-            ["pdftotext", "-layout", str(source), str(output)],
-            check=True, capture_output=True, timeout=90,
-        )
-        text = output.read_text(errors="replace")
+    if shutil.which("pdftotext"):
+        with tempfile.TemporaryDirectory(prefix="edward-mellor-pdf-") as directory:
+            source = Path(directory) / "result.pdf"
+            output = Path(directory) / "result.txt"
+            source.write_bytes(raw)
+            subprocess.run(
+                ["pdftotext", "-layout", str(source), str(output)],
+                check=True, capture_output=True, timeout=90,
+            )
+            text = output.read_text(errors="replace")
+    else:
+        # GitHub's base runner does not provide Poppler until the later
+        # Cottons OCR step. pypdf is already a project dependency and retains
+        # the line boundaries in these text-native result sheets.
+        from pypdf import PdfReader
+        reader = PdfReader(BytesIO(raw))
+        text = "\n".join(page.extract_text() or "" for page in reader.pages)
     if len(text.strip()) < 100:
         raise ValueError("result PDF contains no usable text")
     return text
@@ -246,22 +257,55 @@ def harvest(limit: int = 8) -> None:
     completed_this_run = []
     states = []
 
+    # A failed runner may already have persisted the immutable PDF before its
+    # extractor proved unavailable. Reuse those snapshots instead of probing
+    # the same source URL again. Result sheets are monthly and the archive URL
+    # embeds YYYYMM, while the PDF heading independently supplies the exact day.
+    used_snapshots = {
+        row.get("source_evidence", {}).get("snapshot_path") for row in existing
+    }
+    cached_by_month = {}
+    results_dir = corpus.DATA / "sources/edward-mellor-pdfs/results"
+    for snapshot in sorted(results_dir.glob("*.pdf.gz")) if results_dir.exists() else []:
+        relative = str(snapshot.relative_to(corpus.ROOT))
+        if relative in used_snapshots:
+            continue
+        try:
+            raw = gzip.decompress(snapshot.read_bytes())
+            text = extract_pdf_text(raw)
+            cached_by_month[parse_auction_date(text)[:7]] = (snapshot, raw, text)
+        except Exception:
+            continue
+
     for item in pending[:max(0, limit)]:
         try:
-            response = get(item["url"])
-            raw = response.content
+            url_month_match = re.search(r"/(20\d{2})(\d{2})\d{2}[_-]", item["url"])
+            url_month = (f"{url_month_match.group(1)}-{url_month_match.group(2)}"
+                         if url_month_match else None)
+            cached = cached_by_month.pop(url_month, None)
+            if cached:
+                snapshot, raw, pdf_text = cached
+                resolved_url = item["url"]
+                basis = "cached first-party complete auction result PDF from prior failed extractor run"
+            else:
+                response = get(item["url"])
+                raw = response.content
+                resolved_url = response.url
+                sha = corpus.digest(raw)
+                snapshot = results_dir / f"{sha[:16]}.pdf.gz"
+                corpus.atomic(snapshot, gzip.compress(raw, mtime=0))
+                pdf_text = extract_pdf_text(raw)
+                basis = "first-party complete auction result PDF"
             sha = corpus.digest(raw)
-            snapshot = corpus.DATA / "sources/edward-mellor-pdfs/results" / f"{sha[:16]}.pdf.gz"
-            corpus.atomic(snapshot, gzip.compress(raw, mtime=0))
             evidence = {
-                "source_url": response.url,
+                "source_url": resolved_url,
                 "retrieved_at": corpus.now(),
                 "sha256": sha,
                 "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
                 "archive_snapshot_path": archive_evidence["snapshot_path"],
-                "basis": "first-party complete auction result PDF",
+                "basis": basis,
             }
-            state, rows = parse_result_text(extract_pdf_text(raw), response.url, evidence)
+            state, rows = parse_result_text(pdf_text, resolved_url, evidence)
             state_name = state["source_auction_id"].replace(":", "-") + ".json"
             corpus.save_json(corpus.DATA / "auctions/edward-mellor-pdfs" / state_name, state)
             for row in rows:
