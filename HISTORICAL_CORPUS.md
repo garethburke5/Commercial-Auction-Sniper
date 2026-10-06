@@ -290,14 +290,14 @@ index's published month; conflicts remain null and are reported. The unpaginated
 group remains incomplete because the source publishes neither the original
 catalogue denominator nor every historic catalogue row.
 
-Sutton Kersh collection resumes from the oldest incomplete auction in the
-first-party dated results archive, which currently retains 107 periods back to
-May 2011. Every row keeps its exact auction date, published lot number, stable
-period/property identity, address, outcome, price, description, image and legal
-pack link where exposed. A catalogue is complete only after every 48-row page
-and distinct property identity reconcile exactly to the source's published
-property denominator. Completed immutable pages are reused on later runs, so
-the bounded workflow deepens the archive without repeating finished catalogues.
+Sutton Kersh's first-party dated results archive is fully banked: 11,401
+appearances across all 107 retained periods back to May 2011. Every row keeps
+its exact auction date, published lot number, stable period/property identity,
+address, outcome, price, description, image and legal pack link where exposed.
+Each catalogue is complete only because every 48-row page and distinct property
+identity reconciles exactly to the source's published property denominator.
+Completed immutable pages are reused on later runs, making refreshes idempotent
+unless the first-party archive adds or changes a published period.
 
 Knight Frank Auctions collection reconciles every card in the first-party
 recently-sold page against its explicit source-row count, then enriches each
