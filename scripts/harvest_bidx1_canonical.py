@@ -50,6 +50,41 @@ AUCTIONS = {
     "5857": {"discovery": "first-party indexed historical result set; 24 published results"},
     "7569": {"discovery": "first-party indexed historical result set; 4 published results"},
     "7593": {"discovery": "first-party indexed historical result set; 1 published result"},
+    # Older first-party result URLs retained by the public search index.  The
+    # source URLs sometimes combine several IDs, but each ID below was fetched
+    # independently and reconciled to its own published result count before it
+    # was admitted here (2026-10-06).
+    "2221": {"discovery": "first-party indexed historical result set; 10 published results"},
+    "2454": {"discovery": "first-party indexed historical result set; 10 published results"},
+    "2767": {"discovery": "first-party indexed historical result set; 5 published results"},
+    "2808": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "2852": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "2860": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "2886": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "2916": {"discovery": "first-party indexed historical result set; 2 published results"},
+    "2936": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "3083": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "4321": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "4451": {"discovery": "first-party indexed historical result set; 9 published results"},
+    "4506": {"discovery": "first-party indexed historical result set; 2 published results"},
+    "4547": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "4553": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "5711": {"discovery": "first-party indexed historical result set; 15 published results"},
+    "5969": {"discovery": "first-party indexed historical result set; 20 published results"},
+    "6016": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "6024": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "6293": {"discovery": "first-party indexed historical result set; 23 published results"},
+    "6366": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "6378": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "7024": {"discovery": "first-party indexed historical result set; 29 published results"},
+    "7147": {"discovery": "first-party indexed historical result set; 19 published results"},
+    "7215": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "7263": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "7269": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "7379": {"discovery": "first-party indexed historical result set; 20 published results"},
+    "7386": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "7432": {"discovery": "first-party indexed historical result set; 1 published result"},
+    "7455": {"discovery": "first-party indexed historical result set; 1 published result"},
 }
 
 # Seen only in a combined first-party result URL; independent filters returned

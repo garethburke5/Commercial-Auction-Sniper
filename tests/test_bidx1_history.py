@@ -2,7 +2,14 @@ from scripts.harvest_bidx1_canonical import AUCTIONS, parse_detail, parse_index,
 
 
 def test_only_individually_verified_first_party_auction_ids_are_seeded():
-    assert set(AUCTIONS) == {"2838", "3182", "3184", "3185", "3200", "4561", "5857", "6854", "7260", "7445", "7569", "7593"}
+    assert set(AUCTIONS) == {
+        "2221", "2454", "2767", "2808", "2838", "2852", "2860", "2886",
+        "2916", "2936", "3083", "3182", "3184", "3185",
+        "3200", "4321", "4451", "4506", "4547", "4553", "4561", "5711",
+        "5857", "5969", "6016", "6024", "6293", "6366", "6378", "6854",
+        "7024", "7147", "7215", "7260", "7263", "7269", "7379", "7386",
+        "7432", "7445", "7455", "7569", "7593",
+    }
     assert all("first-party indexed historical result set" in item["discovery"]
                for item in AUCTIONS.values())
 
