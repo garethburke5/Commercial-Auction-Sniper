@@ -106,11 +106,28 @@ includes both. The new results wording makes this distinction explicit.
   public API remains accessible from this operator workspace. Freshly traversed
   440/440 records with the existing collector; 25 qualifying current lots (13
   commercial, 12 mixed-use). Source-only snapshot integration passed the UNCHANGED
-  full publication gate at 938 rows; publication/live verification still to follow.
+  full publication gate at 938 rows. Published in `63646073def8f57181d762298281f2720a85f4d5`;
+  Pages run `37534930968` succeeded, including source-to-live verification: 938/938.
+  Customer filter independently shows all 25 lots, primary photographs display,
+  and 18 Northgate's detail page shows source evidence, current rent and GIY.
+  Fresh public 390px viewport has document width 390px with no horizontal overflow.
   Capture runtime and original scheduled error are retained in source health.
 - Fixed last-known-good retention for explicit DEGRADED discovery outages as well
   as FAILED outages. Past lots remain excluded; unavailable catalogues are unknown,
   not falsely absent. No new historical auctioneer expansion was started.
+- Live account page still explicitly awaits account sign-in and email activation.
+  These, checkout and paid-report access remain commercial-release blockers; the
+  visible plans/dashboard are not evidence that the private services are active.
+- Final live analysis check: reboot completed at 21:47 UTC; engine `439af9d32cff`
+  matches the deployed source. A fresh three-document synthetic ZIP produced the
+  correct £3,300 cost, one Deep Dive, readable full-review panel and a downloadable
+  HTML carrying the same engine ID. This verifies deployment/presentation, NOT the
+  substantive Newbury report. The phone form renders at 390px without overflow;
+  phone-frame file-chooser automation timed out, so mobile upload is not signed off.
+- Retain authenticated Streamlit owner session. No new credentials were created.
+  Next: remaining current gaps (Wilsons/iamsold/Cheffins and registry assessments),
+  sustainable scheduled Under The Hammer collection (Actions 403 persists), source
+  health, real-pack quality, then account/billing/report-access activation.
 
 ## Earlier 5 October checkpoint
 
