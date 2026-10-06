@@ -269,6 +269,12 @@ def fetch_catalogue(catalogue: dict, workers: int) -> tuple[list[dict], list[dic
 
 
 def harvest(catalogues: int = 8, workers: int = 6, refresh: bool = False) -> None:
+    # Validate the bank before touching the network.  A damaged canonical file
+    # must fail fast rather than downloading and snapshotting another batch that
+    # cannot be merged safely.
+    appearance_path = corpus.DATA / "appearances/sutton_kersh/canonical.jsonl.gz"
+    existing = list(corpus.iter_rows(appearance_path)) if appearance_path.exists() else []
+
     archive_raw, archive_resolved = get(ARCHIVE_URL)
     archive_html = archive_raw.decode("utf-8", "replace")
     manifest = parse_manifest(archive_html)
@@ -327,8 +333,6 @@ def harvest(catalogues: int = 8, workers: int = 6, refresh: bool = False) -> Non
                 {"period_id": catalogue["period_id"], "auction_date": catalogue["auction_date"], "error": f"{type(exc).__name__}: {exc}"[:500]}
             )
 
-    appearance_path = corpus.DATA / "appearances/sutton_kersh/canonical.jsonl.gz"
-    existing = list(corpus.iter_rows(appearance_path)) if appearance_path.exists() else []
     before_ids = {row["appearance_id"] for row in existing}
     merged = {row["appearance_id"]: row for row in existing}
     merged.update({row["appearance_id"]: row for row in observed})

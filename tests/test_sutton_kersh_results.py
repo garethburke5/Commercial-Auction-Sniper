@@ -1,5 +1,8 @@
 from pathlib import Path
+import gzip
 import sys
+
+import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -90,3 +93,24 @@ def test_blank_published_lot_number_is_retained_as_null():
     assert row["guide_price"] == 125000
     assert row["sale_price"] is None
     assert row["record_quality"] == "address_record"
+
+
+def test_harvest_rejects_damaged_bank_before_network(tmp_path, monkeypatch):
+    bank = tmp_path / "appearances/sutton_kersh/canonical.jsonl.gz"
+    bank.parent.mkdir(parents=True)
+    with gzip.open(bank, "wt", encoding="utf-8") as handle:
+        handle.write('{"appearance_id": broken}\n')
+
+    network_called = False
+
+    def unexpected_network_call(*_args, **_kwargs):
+        nonlocal network_called
+        network_called = True
+        raise AssertionError("network should not be touched for a damaged bank")
+
+    monkeypatch.setattr(sutton.corpus, "DATA", tmp_path)
+    monkeypatch.setattr(sutton, "get", unexpected_network_call)
+
+    with pytest.raises(ValueError):
+        sutton.harvest(catalogues=1, workers=1)
+    assert network_called is False
