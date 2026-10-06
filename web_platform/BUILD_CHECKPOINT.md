@@ -18,6 +18,43 @@ Do not restart completed course corrections or the corpus. The homepage currentl
 counts available lots separately from sold/withdrawn/postponed lots; the catalogue
 includes both. The new results wording makes this distinction explicit.
 
+## 6 October live-product continuation
+
+- Upcoming Auctions is now a thin rail ABOVE search, preserving the approved
+  design. Desktop and 390px phone layout were opened on the public site; no
+  page-wide horizontal overflow. Collection time is retained on revalidation.
+- Auction House shared regional brands now participate in source counts and
+  customer filtering without duplicating property rows. Six residential lots
+  were quarantined after distinguishing nearby amenities/domestic studies from
+  the actual accommodation. Public board verified at 905 rows (834 available,
+  71 sold/withdrawn/postponed) before the next fresh scan.
+- Current collectors added: Sutton Kersh (74 details, five qualifying), Edward
+  Mellor (49 details, three qualifying), Under The Hammer (440 public records,
+  224 past, 25 qualifying current). All are complete source traversals, not
+  hard-coded property patches. Mellor two-day auction dates stay null unless
+  the source supplies an exact individual lot day. UTH uses its official first
+  image, separate from its floorplan. New rows require production/live validation.
+- Fixed Publish Now deadlock: fresh collection runs BEFORE its candidate quality
+  gate; old-snapshot revalidation is a separate path for derivation-only changes.
+  Confirmed old failure explicitly named missing Sutton Kersh/Edward Mellor health.
+  Superseded scan cancelled so the latest source revision can publish once.
+- Confirmed current gaps are now included in reconciliation even before a
+  collector is enabled. Unknown counts remain null. A zero qualifying result
+  needs complete parsing/exclusion evidence; otherwise health is degraded.
+- Wilsons: upcoming UK events/featured rows discovered, full catalogue traversal
+  still outstanding. iamsold: national commercial discovery works, detail collector
+  outstanding. Cheffins: main catalogue link refers to September; CPN/timed route
+  network-denied from this runtime, current count unknown. No historical source
+  expansion was started.
+- Newbury supplied HTML 4f6afcc315519c90 is legacy Evidence review v2, not the
+  current Acquisition Intelligence renderer. Live embedded Streamlit still shows
+  “Analyse a legal pack”, while main shows “Auction Sniper Acquisition Intelligence”.
+  Its board snapshot is 29 September. Exact legacy generating SHA is unavailable.
+  Added engine release/content fingerprint to newly processed reports and UI;
+  old reports never inherit a claim that today's engine processed them. The raw
+  540-page Newbury pack is not supplied here, so no full reprocessing is claimed.
+  Owner access/restart of Streamlit remains necessary for live engine verification.
+
 # Operational checkpoint — 5 October 2026
 
 Resume by checking current main, Actions and production, not by repeating this build.

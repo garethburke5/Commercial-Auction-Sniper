@@ -84,6 +84,15 @@ def test_snapshot_calculations_and_no_full_payload():
     assert len(free['findings'])<=3 and '£3,300' in render(free)
     full['property']='<script>alert(1)</script>';assert '<script>alert' not in render(full)
 
+def test_report_keeps_original_engine_identity_when_reopened():
+    from acquisition_build import engine_identity
+    original=model();original['engine']=engine_identity()
+    report=build_acquisition(original,{'guide':250000})
+    assert snapshot(report)['engine']==original['engine']
+    assert original['engine']['build'] in render(snapshot(report),standalone=True)
+    # Reopening an old evidence report cannot claim it was processed by today's engine.
+    assert build_acquisition(model())['engine'] is None
+
 def test_deals_vacant_has_no_income_yield_and_unsafe_urls_rejected():
     d=Deal(address='1 Market Street',listing_type='Private deal',price=100000,annual_rent=10000,occupancy='Vacant')
     assert public(d.model_dump())['giy'] is None

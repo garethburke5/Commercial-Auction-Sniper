@@ -2,7 +2,8 @@
 import json
 import streamlit as st
 from legal_pack_access import property_context,is_direct_pack,fetch_public_pack
-from legal_pack_report import render_review_html,validate_saved_review
+from legal_pack_report import validate_saved_review
+from acquisition_build import engine_identity
 
 def render_buyer_due_diligence():
     st.markdown('''<style>
@@ -17,7 +18,9 @@ def render_buyer_due_diligence():
     </style>''',unsafe_allow_html=True)
     context=property_context(st.query_params.get('property'))
     st.markdown('### Auction Sniper Acquisition Intelligence')
-    st.caption('Obtain the source documents → choose files → process → review the evidence and actions → save your report.')
+    st.caption('Turn a legal pack into a clear, investor-focused acquisition review — key terms, costs, risks, opportunities and the questions that still need answering.')
+    engine=engine_identity()
+    st.caption(engine['release']+' · engine '+engine['build'])
     if context:
         st.markdown('**'+context['reference']+'**')
         st.link_button('View / download legal pack ↗',context.get('legal_pack_url') or context['url'])

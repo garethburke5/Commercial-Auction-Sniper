@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass,asdict
 from typing import Any,Iterable
 import time
+from acquisition_build import engine_identity
 from legal_pack_ingest import ingest_pack
 from legal_pack_engine import analyse_pack
 from legal_pack_report import build_report,render_text,render_review_text
@@ -27,6 +28,7 @@ def analyse_uploaded_pack(property_ref:str,files:Iterable[tuple[str,bytes]],cata
  cost.estimated_gross_margin_gbp=round(cost.sale_price_ex_vat_gbp-cost.ai_cost_gbp-cost.infrastructure_cost_gbp,2)
  coverage={"uploaded_files":len(file_list),"expanded_items":ingested.expanded_files,"machine_read_documents":len(ingested.documents),"analysed":counts["analysed"],"partial":counts["partial"],"visual_review_required":counts["visual_review_required"],"conversion_required":counts["conversion_required"],"unsupported":counts["unsupported"],"duplicates":len(ingested.duplicates)}
  incomplete=bool(ingested.issues or due.missing or due.conflicts or counts["visual_review_required"] or counts["conversion_required"] or counts["unsupported"] or counts["partial"])
+ model['engine']=engine_identity()
  model['coverage']['uploaded_files']=len(file_list)
  model['coverage']['total_bytes']=ingested.total_bytes
  from acquisition_intelligence import build_acquisition

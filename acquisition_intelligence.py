@@ -109,7 +109,7 @@ def build_acquisition(model,catalogue=None):
     deep=next((f for id in ('rent-concession','title-relationships','seller-fee','vat-togc') for f in findings if f['id']==id),None)
     priority=sorted(findings,key=lambda f:({'CRITICAL / RED FLAG':0,'NEEDS CHECKING':1,'INFORMATION':2}[f['severity']],f['id']))
     opportunities=[f for f in findings if f['id']=='rent-agreement']
-    return {'schema_version':'3.0','product':'Auction Sniper Acquisition Intelligence','report_id':model['report_id'],'property':model['property'],'created_at':model['created_at'],
+    return {'schema_version':'3.0','engine':model.get('engine'),'product':'Auction Sniper Acquisition Intelligence','report_id':model['report_id'],'property':model['property'],'created_at':model['created_at'],
         'what_you_are_buying':description,'guide':guide,'guide_upper':upper,'rent':rent,'tenant':tenant,'company_number':company_number,'tenant_evidence':tenant_evidence,'tenure':tenure,
         'lease':lease or 'Operative lease term not established','completion':completion or 'Completion deadline not established','deposit':deposit,
         'vat':summary_for('VAT depends on TOGC conditions') or 'Transaction VAT treatment not established','calculations':calculations,'costs':costs,
