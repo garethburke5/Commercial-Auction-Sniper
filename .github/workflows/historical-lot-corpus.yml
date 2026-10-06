@@ -261,6 +261,11 @@ jobs:
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_edward_mellor_results.py --limit 24 --workers 8
+      - name: Bank Edward Mellor retained legacy result PDFs
+        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        timeout-minutes: 15
+        continue-on-error: true
+        run: python -u scripts/harvest_edward_mellor_pdfs.py 8
       - name: Bank Future Property Auctions archived catalogues
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 30
@@ -438,6 +443,7 @@ jobs:
           if test -f data/auction_history/phillip_arnold_collection.json; then git add data/auction_history/phillip_arnold_collection.json; fi
           if test -f data/auction_history/anderson_garland_collection.json; then git add data/auction_history/anderson_garland_collection.json; fi
           if test -f data/auction_history/edward_mellor_collection.json; then git add data/auction_history/edward_mellor_collection.json; fi
+          if test -f data/auction_history/edward_mellor_pdf_collection.json; then git add data/auction_history/edward_mellor_pdf_collection.json; fi
           if test -f data/auction_history/sdl_property_auctions_collection.json; then git add data/auction_history/sdl_property_auctions_collection.json; fi
           if test -f data/auction_history/smith_sons_collection.json; then git add data/auction_history/smith_sons_collection.json; fi
           if test -f data/auction_history/town_country_collection.json; then git add data/auction_history/town_country_collection.json; fi

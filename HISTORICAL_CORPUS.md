@@ -32,6 +32,7 @@ python scripts/harvest_sdl_legacy_catalogues.py --limit 10
 python scripts/harvest_smith_sons_results.py
 python scripts/harvest_anderson_garland_results.py
 python scripts/harvest_edward_mellor_results.py --limit 24 --workers 8
+python scripts/harvest_edward_mellor_pdfs.py 8
 python scripts/harvest_future_property_auctions.py --limit 4 --workers 3
 python scripts/harvest_town_country_results.py --workers 4
 python scripts/harvest_brown_co_results.py
@@ -182,7 +183,25 @@ auction dates remain null and the records are explicitly excluded from complete
 catalogue counts. Rex listing IDs provide identity where retained; otherwise an
 exact source-heading hash is used without merging across other auctioneers.
 
-Edward Mellor collection discovers retained first-party result pages from the auction archive and resumes through up to 24 previously uncaptured catalogues per run. Every visible card is preserved by exact auction slug, lot number and stable property ID. Retained detail pages may add the full address, tenure, images and the exact lot-level auction date only when the property ID and lot number reconcile. Two-day headings remain a date range rather than an invented lot date, and catalogues remain incomplete when the original offered denominator is unpublished.\n\nTown & Country Property Auctions collection traverses all pages of the
+Edward Mellor collection discovers retained first-party result pages from the
+auction archive and resumes through up to 24 previously uncaptured catalogues
+per run. Every visible card is preserved by exact auction slug, lot number and
+stable property ID. Retained detail pages may add the full address, tenure,
+images and the exact lot-level auction date only when the property ID and lot
+number reconcile. Two-day headings remain a date range rather than an invented
+lot date, and catalogues remain incomplete when the original offered
+denominator is unpublished.
+
+Edward Mellor's separate legacy-PDF pass resumes oldest-first through the
+first-party result sheets retained from 2010 onward. It preserves every printed
+lot row, exact auction date, address text, outcome and published sold or
+available price. Exact result-sheet URL plus date and lot number keeps these
+appearances separate from modern cards. A sheet is complete only when its
+distinct printed labels include a continuous base-lot sequence; lettered lots
+remain independent additional appearances. Raw PDFs and the archive page are
+saved as immutable provenance.
+
+Town & Country Property Auctions collection traverses all pages of the
 first-party past-auctions archive. Stable lot UUIDs and exact closing timestamps
 preserve each appearance independently across the auctioneer's regional offices;
 addresses, outcomes, prices, descriptions and images are retained without
