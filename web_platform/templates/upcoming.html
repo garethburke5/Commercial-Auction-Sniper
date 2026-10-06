@@ -1,1 +1,10 @@
-<section class="upcoming-auctions" aria-labelledby="upcoming-heading"><div class="upcoming-heading"><h2 id="upcoming-heading">Upcoming auctions</h2><a class="textlink" href="{{ url('/auctions/') }}">Full calendar →</a></div><div class="upcoming-grid">{% for event in upcoming %}<article><h3>{{ event.source }}</h3><time datetime="{{ event.date }}">{{ uk_date(event.date) }}</time><p>{{ event.count }} captured commercial / mixed-use lot{{ 's' if event.count!=1 else '' }}</p><a class="textlink" href="{{ url(event.path) }}">View lots →</a></article>{% endfor %}</div></section>
+<nav class="upcoming-auctions" aria-labelledby="upcoming-heading">
+  <h2 id="upcoming-heading"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2v6m10-6v6M3 11h18"/></svg>Upcoming auctions</h2>
+  <ol class="upcoming-rail">{% for event in upcoming %}
+    <li><a class="upcoming-event" href="{{ url(event.path) }}" title="{{ event.source }} · {{ uk_date(event.date) }} · {{ event.count }} commercial / mixed-use lots">
+      <time datetime="{{ event.date }}" class="upcoming-date{{ ' is-today' if event.day_label=='Today' else '' }}" aria-label="{{ uk_date(event.date) }}">{{ event.day_label }}</time>
+      <span class="upcoming-house">{{ event.source }}</span><span class="upcoming-count">{{ event.count }} lot{{ 's' if event.count!=1 else '' }}</span>
+    </a></li>{% endfor %}
+  </ol>
+  <a class="upcoming-calendar" href="{{ url('/auctions/') }}">Full calendar <span aria-hidden="true">→</span></a>
+</nav>

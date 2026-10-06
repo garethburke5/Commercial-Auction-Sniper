@@ -28,9 +28,30 @@ def test_observation_timeline_exact_address_tenure_and_source(site):
 def test_upcoming_counts_actual_rows_and_yield_has_no_preset(site):
  from bs4 import BeautifulSoup
  pages=dict(site.routes());home=BeautifulSoup(pages['/'],'html.parser')
- assert len(home.select('.upcoming-grid article'))==1
+ assert len(home.select('.upcoming-rail li'))==1
  assert site.upcoming[0]['count']==len(site.catalogue.properties)
  assert site.upcoming[0]['path'] in pages
  property_page=BeautifulSoup(pages[site.catalogue.properties[0]['path']],'html.parser')
  assert property_page.select_one('#property-target').get('value') is None
  assert 'Choose a target yield' in property_page.get_text()
+
+
+def test_upcoming_is_thin_navigation_before_search(site):
+ from bs4 import BeautifulSoup
+ home=BeautifulSoup(dict(site.routes())['/'],'html.parser')
+ strip=home.select_one('.upcoming-auctions')
+ assert strip.name=='nav' and strip.find_next('form')['id']=='property-filters'
+ assert len(strip.select('a.upcoming-event'))==len(site.upcoming)
+ assert 'captured' not in strip.get_text().lower()
+ assert 'catalogue lots' in home.select_one('#result-count').text
+ assert 'sold / withdrawn / postponed' in home.select_one('#result-count').text
+ assert strip.select_one('.upcoming-calendar')['href'].endswith('/auctions/')
+
+def test_upcoming_uk_calendar_labels():
+ from datetime import date
+ from web_platform.site import upcoming_day_label
+ today=date(2026,10,6)
+ assert upcoming_day_label('2026-10-06',today)=='Today'
+ assert upcoming_day_label('2026-10-07',today)=='Tomorrow'
+ assert upcoming_day_label('2026-10-09',today)=='9 Oct'
+ assert upcoming_day_label('2027-01-01',date(2026,12,31))=='Tomorrow'

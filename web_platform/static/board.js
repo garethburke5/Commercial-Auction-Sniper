@@ -155,7 +155,7 @@
       if(visible.some(r=>!html[r.id]))throw Error('Catalogue changed');
       // Only build-generated escaped HTML from our own origin is inserted.
       results.innerHTML=visible.length?'<div class="cards">'+visible.map(r=>html[r.id]).join('')+'</div>':'<div class="empty-results"><h3>No properties match these filters</h3><p>Try a wider area or clear your filters.</p></div>';
-      counter.textContent=`Showing ${visible.length?start+1:0}–${start+visible.length} of ${rows.length} lots`;
+      counter.textContent=`Showing ${visible.length?start+1:0}–${start+visible.length} of ${rows.length} catalogue lots · ${rows.filter(r=>!r.unavailable).length} available · ${rows.filter(r=>r.unavailable).length} sold / withdrawn / postponed`;
       pager.replaceChildren();
       function pageLink(n,label){
         const a=document.createElement('a');a.textContent=label;a.dataset.page=n;

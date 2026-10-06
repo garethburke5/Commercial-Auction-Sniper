@@ -6,7 +6,8 @@ import os
 from collections import defaultdict
 from functools import cached_property
 from pathlib import Path
-from datetime import date
+from datetime import date, datetime, timedelta
+from zoneinfo import ZoneInfo
 from urllib.parse import quote
 from xml.sax.saxutils import escape
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -28,6 +29,16 @@ def uk_date(value):
         return f'{d.day} {d:%B %Y}'
     except ValueError:
         return value or 'Date to confirm'
+
+def upcoming_day_label(value, today=None):
+    """Relative wording uses the auction's UK calendar day, including at UTC midnight."""
+    today = today or datetime.now(ZoneInfo('Europe/London')).date()
+    day = date.fromisoformat(value)
+    if day == today:
+        return 'Today'
+    if day == today + timedelta(days=1):
+        return 'Tomorrow'
+    return f'{day.day} {day:%b}'
 
 class Site:
     @cached_property
@@ -72,11 +83,11 @@ class Site:
     @cached_property
     def upcoming(self):
         events=defaultdict(list)
-        today=date.today().isoformat()
+        today=datetime.now(ZoneInfo('Europe/London')).date().isoformat()
         for row in self.catalogue.properties:
             day=str(row.get('auction_date') or '')[:10]
             if day and day>=today:events[(day,row['source_slug'])].append(row)
-        return [{'date':day,'slug':source,'source':rows[0]['source'],'count':len(rows),
+        return [{'date':day,'slug':source,'source':rows[0]['source'],'count':len(rows),'day_label':upcoming_day_label(day),
                  'path':f'/auctions/{source}/{day}/'}
                 for (day,source),rows in sorted(events.items())][:4]
 

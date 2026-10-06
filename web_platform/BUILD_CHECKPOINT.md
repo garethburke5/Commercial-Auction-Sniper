@@ -1,3 +1,23 @@
+# Priority switch — 6 October 2026 (user instruction)
+
+Do not add another historical auctioneer after Seel. Existing scheduled harvesting
+and banking may continue; do not start new historical source expansion until the
+following customer priorities are finished and live-verified, in this order:
+
+1. Approved thin Upcoming Auctions strip above Search (approved mockup).
+2. Current Auction House UK / North West reconciliation.
+3. Current missing-source coverage: Wilsons, Sutton Kersh, Under The Hammer,
+   iamsold, Edward Mellor, Cheffins and already-confirmed gaps.
+4. Source-health / silent-zero protection.
+5. Newbury Acquisition Intelligence report against improved main and stale
+   Streamlit deployment (report 4f6afcc315519c90; supplied HTML, not the raw pack).
+6. Outstanding customer-facing work.
+7. Desktop/mobile live verification.
+
+Do not restart completed course corrections or the corpus. The homepage currently
+counts available lots separately from sold/withdrawn/postponed lots; the catalogue
+includes both. The new results wording makes this distinction explicit.
+
 # Operational checkpoint — 5 October 2026
 
 Resume by checking current main, Actions and production, not by repeating this build.
