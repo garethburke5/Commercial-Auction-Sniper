@@ -617,6 +617,8 @@ def parse_paul_fosh(text, url, evidence):
 
 def harvest_paul_fosh(workers=3):
     state_file = DATA / "paul_fosh_collection.json"
+    shard_file = DATA / "appearances/paul_fosh/results.jsonl.gz"
+    before_ids = {row["appearance_id"] for row in iter_rows(shard_file)} if shard_file.exists() else set()
     def page(n):
         url = f"https://auction.paulfosh.com/past-auctions?Page={n}&lotResultType=All&order=RecentlyEnded&viewType=Grid"
         response = fetch(url)
@@ -633,8 +635,13 @@ def harvest_paul_fosh(workers=3):
     failures = []
     def checkpoint():
         retained = write_rows("paul_fosh/results", list(byid.values()))
+        current_ids = set(byid)
         save_json(state_file, {"checked_at": now(), "lots_captured": retained,
                               "current_run_unique_lots": len(byid), "expected_public_results": expected,
+                              "run_new_appearances": len(current_ids - before_ids),
+                              "run_new_address_records": sum(bool(byid[key].get("address")) for key in current_ids - before_ids),
+                              "run_new_partial_lots": sum(not byid[key].get("address") for key in current_ids - before_ids),
+                              "retained_not_in_current_public_pagination": len(before_ids - current_ids),
                               "pages_captured": sorted(pages), "pages_expected": math.ceil(expected / 50),
                               "results_complete": len(byid) == expected and len(pages) == math.ceil(expected / 50) and not failures,
                               "failures": failures, "date_basis": "individual published lot end dates; not inferred auction-container dates"})

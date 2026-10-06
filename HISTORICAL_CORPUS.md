@@ -59,6 +59,9 @@ Paul Fosh collection traverses and reconciles the entire paginated public result
 set, retaining all addresses, published lot end dates, outcomes, prices and detail
 links. Its lot end dates are labelled as such; they are not silently assumed to
 be a separate catalogue's date. Listing UUIDs preserve stable source identity.
+Each run reports new address and partial records separately, reconciles the
+current public denominator and retains earlier UUIDs that have fallen out of the
+live pagination instead of silently deleting historical appearances.
 
 Allsop collection traverses the first-party past-auction manifest and each
 catalogue's paginated public search results, prioritising commercial catalogues
