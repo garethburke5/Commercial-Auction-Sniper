@@ -209,14 +209,15 @@ distinct printed labels include a continuous base-lot sequence; lettered lots
 remain independent additional appearances. Raw PDFs and the archive page are
 saved as immutable provenance.
 
-Seel & Co collection banks the complete numbered order-of-sale tables in 16
-first-party catalogue PDFs retained from December 2019 through April 2022.
-Every printed residential, commercial and land row is preserved using the
-exact catalogue date plus lot number, together with its address, guide or
-published outcome and immutable raw PDF. A catalogue is complete only when the
-table reconciles exactly to a contiguous published 1..N denominator. The
-October 2021 revisions remain explicitly deferred because their surviving PDFs
-do not expose a machine-readable complete order-of-sale denominator.
+Seel & Co collection banks 17 complete first-party catalogue PDFs retained from
+December 2019 through April 2022. Every printed residential, commercial and
+land row is preserved using the exact catalogue date plus lot number, together
+with its address, guide or published outcome and immutable raw PDF. A catalogue
+is complete only when its order-of-sale table or numbered detail pages reconcile
+exactly to a contiguous published 1..N denominator. The October 2021 catalogue
+is recovered from all 36 numbered detail pages; four pages use OCR where the
+PDF's native text is absent or corrupt, and one confidential lot remains an
+explicit partial lot rather than receiving a speculative address.
 
 Town & Country Property Auctions collection traverses all pages of the
 first-party past-auctions archive. Stable lot UUIDs and exact closing timestamps

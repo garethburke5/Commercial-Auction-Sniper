@@ -1,4 +1,10 @@
-from scripts.harvest_seel_catalogues import parse_catalogue, parse_segment
+import pytest
+
+from scripts.harvest_seel_catalogues import (
+    parse_catalogue,
+    parse_detail_catalogue,
+    parse_segment,
+)
 
 
 def item(rows=4):
@@ -45,3 +51,45 @@ def test_missing_number_keeps_catalogue_incomplete():
         assert "do not reconcile" in str(exc)
     else:
         raise AssertionError("non-contiguous catalogue was accepted")
+
+
+def detail_page(page_number, text, extraction="native_pdf_text"):
+    return {"page_number": page_number, "text": text, "extraction": extraction}
+
+
+def test_numbered_detail_pages_preserve_ocr_ranges_and_partial_lots():
+    pages = [
+        detail_page(10, """Lot 1
+Three bedroom house.
+Auction Guide £27,000
+68 Herbert Street, Treherbert, CF42 5HA
+SOLD"""),
+        detail_page(11, """Lot 2
+Parcel of land with potential.
+Auction Guide £5,000 - £10,000
+Parcel A Saron Road, Ammanford, SA18 3LN""", "ocr_first_party_pdf_page"),
+        detail_page(12, """Lot 3
+Confidential sale of an office investment.
+Auction Guide £435,000
+Cardiff Central
+S O L D  P R I O R"""),
+    ]
+    state, rows = parse_detail_catalogue(pages, item(3), {"sha256": "abc"})
+    assert state["catalogue_complete"] is True
+    assert state["ocr_page_numbers"] == [11]
+    assert [row["lot_number"] for row in rows] == ["1", "2", "3"]
+    assert rows[1]["guide_price"] == 5000
+    assert rows[1]["guide_price_high"] == 10000
+    assert rows[1]["source_page_extraction"] == "ocr_first_party_pdf_page"
+    assert rows[2]["address"] is None
+    assert rows[2]["record_quality"] == "partial_lot"
+    assert rows[2]["status"] == "sold_prior"
+
+
+def test_numbered_detail_pages_require_exact_contiguous_denominator():
+    pages = [
+        detail_page(10, "Lot 1\nAuction Guide £1,000\nFirst Road, Cardiff, CF1 1AA"),
+        detail_page(12, "Lot 3\nAuction Guide £3,000\nThird Road, Cardiff, CF3 3AA"),
+    ]
+    with pytest.raises(ValueError, match="do not reconcile"):
+        parse_detail_catalogue(pages, item(3), {})

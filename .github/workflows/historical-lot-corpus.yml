@@ -134,12 +134,12 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4 lxml pypdf pytest
-      - name: Ensure PDF text extraction is available
+      - name: Ensure PDF and OCR extraction is available
         timeout-minutes: 5
         run: |
-          if ! command -v pdftotext >/dev/null; then
+          if ! command -v pdftotext >/dev/null || ! command -v pdftoppm >/dev/null || ! command -v tesseract >/dev/null; then
             sudo apt-get update
-            sudo apt-get install -y poppler-utils
+            sudo apt-get install -y poppler-utils tesseract-ocr
           fi
       - name: Verify admission, identities and completeness rules
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')

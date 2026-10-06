@@ -1,13 +1,13 @@
 {
-  "checked_at": "2026-10-06T18:38:18.444957+00:00",
+  "checked_at": "2026-10-06T19:05:10.889289+00:00",
   "source": "Seel & Co first-party retained catalogue PDFs",
   "catalogues_discovered": 17,
-  "catalogues_banked": 16,
-  "catalogues_complete": 16,
-  "catalogues_deferred": 1,
-  "appearances_captured": 424,
-  "address_records": 424,
-  "partial_lots": 0,
+  "catalogues_banked": 17,
+  "catalogues_complete": 17,
+  "catalogues_deferred": 0,
+  "appearances_captured": 460,
+  "address_records": 459,
+  "partial_lots": 1,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
@@ -16,24 +16,19 @@
     "2022-04-05"
   ],
   "by_status": {
-    "unknown": 370,
+    "unknown": 371,
     "postponed": 9,
     "withdrawn": 21,
-    "sold_prior": 24
+    "sold_prior": 26,
+    "sold": 33
   },
   "by_sector": {
-    "unknown": 309,
-    "land": 71,
-    "mixed-use": 3,
-    "commercial": 15,
-    "residential": 26
+    "unknown": 318,
+    "land": 82,
+    "mixed-use": 5,
+    "commercial": 20,
+    "residential": 35
   },
-  "deferred_catalogues": [
-    {
-      "auction_date": "2021-10-26",
-      "source_url": "https://www.seelauctions.co.uk/wp-content/uploads/2021/10/Seel-Co-October-Auction-Catalogue-7.pdf",
-      "reason": "retained revisions have no machine-readable complete order-of-sale denominator"
-    }
-  ],
+  "deferred_catalogues": [],
   "failures": []
 }

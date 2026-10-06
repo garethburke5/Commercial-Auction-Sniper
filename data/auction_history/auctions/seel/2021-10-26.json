@@ -1,0 +1,31 @@
+{
+  "auctioneer": "Seel & Co",
+  "source_auction_id": "seel-catalogue:2021-10-26",
+  "auction_date": "2021-10-26",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "published_lots": 36,
+  "visible_detail_lot_pages": 36,
+  "lots_captured": 36,
+  "missing_lot_numbers": [],
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "complete contiguous 1..N numbered property detail-page sequence in first-party catalogue PDF",
+  "completion_scope": "every numbered property detail page in the retained first-party catalogue",
+  "ocr_page_numbers": [
+    21,
+    26,
+    39,
+    40
+  ],
+  "source_url": "https://www.seelauctions.co.uk/wp-content/uploads/2021/10/Seel-Co-October-Auction-Catalogue-7.pdf",
+  "source_evidence": {
+    "source_url": "https://www.seelauctions.co.uk/wp-content/uploads/2021/10/Seel-Co-October-Auction-Catalogue-7.pdf",
+    "retrieved_at": "2026-10-06T19:03:48.577663+00:00",
+    "sha256": "d71b1d32a0d78e90d9cfd5881ec326e65f2cfd6ad991d72dcecf90c3f356e510",
+    "basis": "first-party complete auction catalogue PDF and printed order-of-sale table",
+    "snapshot_path": "data/auction_history/sources/seel/catalogues/2021-10-26-d71b1d32a0d78e90.pdf.gz"
+  },
+  "errors": [],
+  "checked_at": "2026-10-06T19:04:09.396947+00:00"
+}

@@ -1,10 +1,10 @@
 """Bank Seel & Co's retained first-party auction catalogue PDFs.
 
 The former Seel Auctions WordPress media library still exposes complete
-catalogues from December 2019 to April 2022.  Their printed order-of-sale
-tables are finite denominators: each row has an exact lot number, address and
-usually a guide or outcome.  This collector keeps the raw PDF, rejects any
-non-contiguous table, and never refetches a reconciled catalogue.
+catalogues from December 2019 to April 2022.  Printed order-of-sale tables, or
+the complete contiguous sequence of numbered detail pages where no table is
+present, provide finite denominators.  This collector keeps the raw PDF,
+rejects any non-contiguous source, and never refetches a reconciled catalogue.
 """
 from __future__ import annotations
 
@@ -45,11 +45,11 @@ CATALOGUES = [
     ("2022-02-22", 29, f"{BASE}/2022/02/February-2022-Auction-Catalogue-3.pdf"),
     ("2022-04-05", 31, f"{BASE}/2022/04/April-2022-Auction-Catalogue.pdf"),
 ]
-DEFERRED = [{
-    "auction_date": "2021-10-26",
-    "source_url": f"{BASE}/2021/10/Seel-Co-October-Auction-Catalogue-7.pdf",
-    "reason": "retained revisions have no machine-readable complete order-of-sale denominator",
-}]
+DETAIL_CATALOGUES = [
+    ("2021-10-26", 36, f"{BASE}/2021/10/Seel-Co-October-Auction-Catalogue-7.pdf"),
+]
+ALL_CATALOGUES = sorted(CATALOGUES + DETAIL_CATALOGUES)
+DEFERRED = []
 MAX_SNAPSHOT_BLOB = 12_000_000
 SNAPSHOT_PART_BYTES = 8_000_000
 MARKER_RE = re.compile(r"(?m)^(\d{1,3})(?:\x03)?\s+")
@@ -86,6 +86,46 @@ def extract_pdf_text(raw: bytes) -> str:
     return text
 
 
+def extract_detail_pages(raw: bytes, ocr_pages=(21, 26, 39, 40)) -> list[dict]:
+    """Extract every PDF page, OCRing image-only property detail pages."""
+    for command in ("pdftotext", "pdftoppm", "tesseract"):
+        if not shutil.which(command):
+            raise RuntimeError(f"{command} is required for Seel detail-page reconciliation")
+    with tempfile.TemporaryDirectory(prefix="seel-detail-catalogue-") as directory:
+        directory = Path(directory)
+        source = directory / "catalogue.pdf"
+        output = directory / "catalogue.txt"
+        source.write_bytes(raw)
+        subprocess.run(
+            ["pdftotext", "-raw", str(source), str(output)],
+            check=True, capture_output=True, timeout=120,
+        )
+        native_pages = output.read_text(errors="replace").split("\f")
+        pages = [
+            {"page_number": number, "text": text, "extraction": "native_pdf_text"}
+            for number, text in enumerate(native_pages, 1)
+        ]
+        for page_number in ocr_pages:
+            if page_number > len(pages):
+                raise ValueError(f"catalogue has no page {page_number} required for OCR")
+            prefix = directory / f"page-{page_number}"
+            subprocess.run(
+                ["pdftoppm", "-f", str(page_number), "-l", str(page_number),
+                 "-r", "200", "-png", "-singlefile", str(source), str(prefix)],
+                check=True, capture_output=True, timeout=120,
+            )
+            result = subprocess.run(
+                ["tesseract", str(prefix) + ".png", "stdout"],
+                check=True, capture_output=True, timeout=120,
+            )
+            pages[page_number - 1] = {
+                "page_number": page_number,
+                "text": result.stdout.decode("utf-8", "replace"),
+                "extraction": "ocr_first_party_pdf_page",
+            }
+    return pages
+
+
 def order_page(text: str, expected_rows: int) -> str:
     candidates = []
     for page in text.split("\f"):
@@ -112,7 +152,8 @@ def sequential_markers(page: str, expected_rows: int) -> list[re.Match]:
 
 def status_semantics(text: str | None) -> str:
     value = (clean(text) or "").upper()
-    if "SOLD PRIOR" in value:
+    compact = re.sub(r"[^A-Z]", "", value)
+    if "SOLDPRIOR" in compact:
         return "sold_prior"
     if "WITHDRAWN" in value:
         return "withdrawn"
@@ -121,6 +162,117 @@ def status_semantics(text: str | None) -> str:
     if re.search(r"\bSOLD\b", value):
         return "sold"
     return "unknown"
+
+
+def parse_detail_catalogue(pages: list[dict], item: tuple[str, int, str], evidence: dict) -> tuple[dict, list[dict]]:
+    """Parse a catalogue whose complete denominator is its numbered detail pages."""
+    auction_date, expected_rows, source_url = item
+    numbered = {}
+    for page in pages:
+        matches = re.findall(r"(?im)^\s*Lot\s+(\d{1,3})\s*$", page["text"])
+        for label in matches:
+            number = int(label)
+            if number in numbered:
+                raise ValueError(f"duplicate detail page for lot {number}")
+            numbered[number] = page
+    labels = sorted(numbered)
+    if labels != list(range(1, expected_rows + 1)):
+        raise ValueError(
+            f"detail pages do not reconcile: expected 1..{expected_rows}, got {labels}"
+        )
+
+    rows = []
+    for number in labels:
+        page = numbered[number]
+        raw_text = page["text"].replace("\x03", "")
+        lines = [clean(line) for line in raw_text.splitlines()]
+        lines = [line for line in lines if line]
+        heading_index = next(
+            index for index, line in enumerate(lines)
+            if re.fullmatch(rf"Lot\s+{number}", line, re.I)
+        )
+        guide_index = next(
+            (index for index in range(heading_index + 1, len(lines))
+             if re.search(r"Auction\s+Guide", lines[index], re.I)),
+            None,
+        )
+        if guide_index is not None:
+            title = clean(" ".join(lines[heading_index + 1:guide_index]))
+            guide_text = lines[guide_index]
+            address_start = guide_index + 1
+            address_lines = []
+            for line in lines[address_start:address_start + 6]:
+                address_lines.append(line)
+                if corpus.PC.search(line):
+                    break
+            address_candidate = clean(" ".join(address_lines))
+            address = address_candidate if corpus.PC.search(address_candidate or "") else None
+        else:
+            guide_text = None
+            title = None
+            address = None
+            for paragraph in re.split(r"\n\s*\n", raw_text):
+                value = clean(paragraph)
+                if value and corpus.PC.search(value):
+                    address = value
+                    break
+            if address:
+                before_address = raw_text[:raw_text.find(address.split()[0])]
+                title = clean(re.sub(rf"(?i)^.*?Lot\s+{number}\s*", "", before_address, flags=re.S))
+
+        guide_amounts = [int(value.replace(",", "")) for value in MONEY_RE.findall(guide_text or "")]
+        postcode_match = corpus.PC.search(address or "")
+        lot_number = str(number)
+        auction_id = f"seel-catalogue:{auction_date}"
+        row = corpus.base_row(
+            "Seel & Co", auction_id, auction_date, lot_number, lot_number, source_url,
+        )
+        row.update(
+            appearance_id=f"Seel & Co|{auction_id}|lot:{lot_number}",
+            address=address,
+            postcode=postcode_match.group().upper() if postcode_match else None,
+            locality=address or title,
+            sector=corpus.sector(" ".join(value for value in (title, address) if value)),
+            guide_price=guide_amounts[0] if guide_amounts else None,
+            guide_price_high=guide_amounts[1] if len(guide_amounts) > 1 else None,
+            status=status_semantics(raw_text),
+            description=title,
+            property_id=None,
+            identity_method="exact_first_party_catalogue_date_and_printed_detail_lot_number",
+            record_quality="address_record" if address else "partial_lot",
+            auction_date_basis="exact date printed on first-party catalogue cover",
+            source_position=number,
+            source_page_number=page["page_number"],
+            source_page_extraction=page["extraction"],
+            source_price_text=guide_text,
+            source_evidence=evidence,
+        )
+        rows.append(row)
+
+    state = {
+        "auctioneer": "Seel & Co",
+        "source_auction_id": f"seel-catalogue:{auction_date}",
+        "auction_date": auction_date,
+        "catalogue_complete": True,
+        "source_rows_complete": True,
+        "published_lots": expected_rows,
+        "visible_detail_lot_pages": len(rows),
+        "lots_captured": len(rows),
+        "missing_lot_numbers": [],
+        "pagination_reconciled": True,
+        "denominator_reconciled": True,
+        "denominator_basis": "complete contiguous 1..N numbered property detail-page sequence in first-party catalogue PDF",
+        "completion_scope": "every numbered property detail page in the retained first-party catalogue",
+        "ocr_page_numbers": sorted(
+            page["page_number"] for page in numbered.values()
+            if page["extraction"] == "ocr_first_party_pdf_page"
+        ),
+        "source_url": source_url,
+        "source_evidence": evidence,
+        "errors": [],
+        "checked_at": corpus.now(),
+    }
+    return state, rows
 
 
 def parse_segment(segment: str) -> tuple[str | None, str | None, int | None, str]:
@@ -254,7 +406,7 @@ def save_pdf_snapshot(auction_date: str, sha: str, raw: bytes) -> dict:
 def harvest() -> None:
     summary_path = corpus.DATA / "seel_collection.json"
     existing = []
-    for auction_date, _, _ in CATALOGUES:
+    for auction_date, _, _ in ALL_CATALOGUES:
         shard = corpus.DATA / "appearances/seel" / f"{auction_date}.jsonl.gz"
         if shard.exists():
             existing.extend(corpus.iter_rows(shard))
@@ -263,7 +415,7 @@ def harvest() -> None:
     failures = []
     states = []
     cache_dir = Path(os.environ["SEEL_PDF_CACHE"]) if os.environ.get("SEEL_PDF_CACHE") else None
-    for item in CATALOGUES:
+    for item in ALL_CATALOGUES:
         auction_date, expected_rows, source_url = item
         state_path = corpus.DATA / "auctions/seel" / f"{auction_date}.json"
         shard_path = corpus.DATA / "appearances/seel" / f"{auction_date}.jsonl.gz"
@@ -283,10 +435,17 @@ def harvest() -> None:
                 "source_url": resolved_url,
                 "retrieved_at": corpus.now(),
                 "sha256": sha,
-                "basis": "first-party complete auction catalogue PDF and printed order-of-sale table",
+                "basis": (
+                    "first-party complete auction catalogue PDF and contiguous numbered detail pages"
+                    if item in DETAIL_CATALOGUES else
+                    "first-party complete auction catalogue PDF and printed order-of-sale table"
+                ),
             }
             evidence.update(save_pdf_snapshot(auction_date, sha, raw))
-            state, rows = parse_catalogue(extract_pdf_text(raw), item, evidence)
+            if item in DETAIL_CATALOGUES:
+                state, rows = parse_detail_catalogue(extract_detail_pages(raw), item, evidence)
+            else:
+                state, rows = parse_catalogue(extract_pdf_text(raw), item, evidence)
             corpus.save_json(state_path, state)
             corpus.write_rows(f"seel/{auction_date}", rows)
             states.append(state)
@@ -305,7 +464,7 @@ def harvest() -> None:
     summary = {
         "checked_at": corpus.now(),
         "source": "Seel & Co first-party retained catalogue PDFs",
-        "catalogues_discovered": len(CATALOGUES) + len(DEFERRED),
+        "catalogues_discovered": len(ALL_CATALOGUES) + len(DEFERRED),
         "catalogues_banked": len(states),
         "catalogues_complete": sum(bool(state.get("catalogue_complete")) for state in states),
         "catalogues_deferred": len(DEFERRED),
