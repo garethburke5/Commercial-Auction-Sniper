@@ -115,3 +115,70 @@ def test_source_corpus_enriches_exact_appearance_without_duplication(tmp_path, m
     assert enriched[0]["postcode"] == "SE1 5PT"
     assert enriched[0]["record_quality"] == "address_record"
     assert enriched[0]["address_enrichment_evidence"][0]["source_url"].endswith("sav52.pdf")
+
+    snapshot = next((h.DATA / "sources/source-corpus").glob("*.json.gz"))
+    snapshot_bytes = snapshot.read_bytes()
+    assert h.bank_source_corpus() == 0
+    assert snapshot.read_bytes() == snapshot_bytes
+    enriched = list(h.iter_rows(h.DATA / "appearances/savills/legacy-973.jsonl.gz"))
+    assert len(enriched[0]["address_enrichment_evidence"]) == 1
+
+
+def test_source_corpus_exact_partial_lot_is_idempotent(tmp_path, monkeypatch):
+    monkeypatch.setattr(h, "ROOT", tmp_path)
+    monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")
+    corpus = tmp_path / "data/historical_source_corpus"
+    corpus.mkdir(parents=True)
+    (corpus / "test.json").write_text(json.dumps({
+        "auctioneer": "Savills Auctions",
+        "lot_records": [{
+            "source_record_id": "savills-nottingham:2014-01-23:lot:2",
+            "source_auction_id": "savills-nottingham:2014-01-23",
+            "auction_date": "2014-01-23",
+            "lot_number": "2",
+            "address": None,
+            "locality": "Bridgnorth, Shropshire",
+            "property_type": "Former fish and chip shop",
+            "result_price_gbp": 73000,
+            "source_url": "https://example.test/nottingham-results",
+        }]
+    }))
+
+    assert h.bank_source_corpus() == 1
+    assert h.bank_source_corpus() == 1
+    rows = list(h.iter_rows(h.DATA / "appearances/source-corpus/test.jsonl.gz"))
+    assert len(rows) == 1
+    assert rows[0]["appearance_id"] == "source-corpus|savills-nottingham:2014-01-23:lot:2"
+    assert rows[0]["record_quality"] == "partial_lot"
+
+
+def test_later_base_source_does_not_erase_earlier_address_enrichment(tmp_path, monkeypatch):
+    monkeypatch.setattr(h, "ROOT", tmp_path)
+    monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")
+    corpus = tmp_path / "data/historical_source_corpus"
+    corpus.mkdir(parents=True)
+    base = {
+        "auctioneer": "Savills Auctions",
+        "lot_records": [{
+            "source_record_id": "saved:lot:1",
+            "auction_date": "2014-01-23",
+            "lot_number": "1",
+            "address": None,
+            "source_url": "https://example.test/base",
+        }],
+    }
+    (corpus / "z_base.json").write_text(json.dumps(base))
+    assert h.bank_source_corpus() == 1
+    (corpus / "a_enrichment.json").write_text(json.dumps({
+        "appearance_enrichments": [{
+            "target_shard": "source-corpus/z_base",
+            "target_appearance_id": "source-corpus|saved:lot:1",
+            "address": "1 High Street, London SW1A 1AA",
+            "source_url": "https://example.test/evidence",
+        }],
+    }))
+
+    assert h.bank_source_corpus() == 1
+    rows = list(h.iter_rows(h.DATA / "appearances/source-corpus/z_base.jsonl.gz"))
+    assert rows[0]["address"] == "1 High Street, London SW1A 1AA"
+    assert rows[0]["address_enrichment_evidence"][0]["source_url"].endswith("evidence")

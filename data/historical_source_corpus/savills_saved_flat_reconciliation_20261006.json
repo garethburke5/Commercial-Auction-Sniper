@@ -1,0 +1,89 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative reconciliation of previously saved Savills lot evidence",
+  "captured_at_utc": "2026-10-06T20:00:00Z",
+  "source_note": "Two numbered commercial lots from Savills Nottingham's 23 January 2014 results report are admitted as partial appearances because the surviving report supplies an exact auction date and lot number but no street address. Two separately saved 22 June 2015 London catalogue records are used only to enrich the exact matching legacy appearances. No catalogue is declared complete.",
+  "lot_records": [
+    {
+      "source_record_id": "savills-nottingham:2014-01-23:lot:2",
+      "source_auction_id": "savills-nottingham:2014-01-23",
+      "record_type": "lot",
+      "auction_date": "2014-01-23",
+      "lot_number": "2",
+      "address": null,
+      "locality": "Bridgnorth, Shropshire",
+      "property_type": "Former fish and chip shop",
+      "guide_price_gbp": 50000,
+      "result_price_gbp": 73000,
+      "result_status": "sold",
+      "notes": "Partial record retained because the surviving Savills results report identifies the auction, numbered commercial lot, guide and result but not a street address.",
+      "source_url": "https://ca.marketscreener.com/quote/stock/SAVILLS-PLC-4006034/news/Savills-plc-Hungry-bidders-generate-2-5m-at-Savills-Nottingham-auction-17880717/",
+      "source_urls": [
+        "https://ca.marketscreener.com/quote/stock/SAVILLS-PLC-4006034/news/Savills-plc-Hungry-bidders-generate-2-5m-at-Savills-Nottingham-auction-17880717/"
+      ]
+    },
+    {
+      "source_record_id": "savills-nottingham:2014-01-23:lot:10",
+      "source_auction_id": "savills-nottingham:2014-01-23",
+      "record_type": "lot",
+      "auction_date": "2014-01-23",
+      "lot_number": "10",
+      "address": null,
+      "locality": "Stoke-on-Trent",
+      "property_type": "Commercial cafe investment",
+      "guide_price_gbp": 25000,
+      "result_price_gbp": 46000,
+      "result_status": "sold",
+      "rent_pa_gbp": 4200,
+      "tenant": "JJ's Cafe",
+      "notes": "Offered on behalf of receivers. Partial record retained because the surviving Savills results report does not expose the street address.",
+      "source_url": "https://ca.marketscreener.com/quote/stock/SAVILLS-PLC-4006034/news/Savills-plc-Hungry-bidders-generate-2-5m-at-Savills-Nottingham-auction-17880717/",
+      "source_urls": [
+        "https://ca.marketscreener.com/quote/stock/SAVILLS-PLC-4006034/news/Savills-plc-Hungry-bidders-generate-2-5m-at-Savills-Nottingham-auction-17880717/"
+      ]
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "savills/legacy-956",
+      "target_appearance_id": "Savills Auctions|propertyauctions:956|34",
+      "address": "Springfield Bowls Club, 1-31 Western Gardens, Ealing, London W5 3RS",
+      "postcode": "W5 3RS",
+      "address_basis": "exact_saved_catalogue_date_lot_locality_property_class_and_result_match",
+      "source_url": "https://abcdocz.com/doc/920458/savills-auctions",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=956",
+        "https://abcdocz.com/doc/920458/savills-auctions"
+      ],
+      "evidence_note": "The saved 22 June 2015 Savills catalogue record identifies Springfield Bowls Club, 1-31 Western Gardens, Ealing, London W5 3RS with a GBP 450,000 guide. The legacy AID 956 result has one matching London W5 investment freehold site at lot 34, sold for GBP 450,000. Date, unique lot crosswalk, locality, property class and price agree."
+    },
+    {
+      "target_shard": "savills/legacy-956",
+      "target_appearance_id": "Savills Auctions|propertyauctions:956|126",
+      "address": "Land at London Road, Wheatley, Near Oxford, Oxfordshire OX33 1JH",
+      "postcode": "OX33 1JH",
+      "address_basis": "exact_saved_catalogue_date_lot_locality_property_class_and_price_match",
+      "source_url": "https://abcdocz.com/doc/920458/savills-auctions",
+      "source_urls": [
+        "https://www.propertyauctions.com/Results/LotList.aspx?AID=956",
+        "https://abcdocz.com/doc/920458/savills-auctions"
+      ],
+      "evidence_note": "The saved 22 June 2015 Savills catalogue record identifies Land at London Road, Wheatley, Near Oxford, Oxfordshire OX33 1JH with a GBP 600,000 guide. The legacy AID 956 result has one matching vacant freehold land lot in Wheatley near Oxford at lot 126, sold for GBP 625,000. Date, unique lot crosswalk, locality and property class agree."
+    }
+  ],
+  "appearance_count": 2,
+  "appearances_enriched": 2,
+  "address_records_added": 2,
+  "partial_records_added": 2,
+  "historical_completeness_declared": false,
+  "reconciliation": {
+    "original_saved_sources": [
+      "data/historical_source_corpus_savills_nottingham_2014_01_23.json",
+      "data/historical_source_corpus_savills_2015_lot_harvest_20260919_1343.json",
+      "data/source_diagnostics/savills_2018_2010_catalogue_map.json"
+    ],
+    "identity_policy": "Admit only exact date plus numbered lot records. Enrich only exact existing appearance IDs after date, locality, property class and price cross-checks. Do not infer identities from addresses alone."
+  }
+}

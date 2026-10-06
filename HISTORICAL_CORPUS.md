@@ -60,6 +60,16 @@ The second traverses all previously identified modern catalogue IDs and every
 page, retaining the lot-level structured data embedded in the public website.
 Run `harvest-savills --ids 241 --refresh` to recheck one auction.
 
+Previously saved Savills evidence is also reconciled conservatively. The 23
+January 2014 Nottingham results report contributes two numbered commercial
+appearances whose missing street addresses remain null. A separately saved 22
+June 2015 London catalogue supplies exact addresses for legacy AID 956 lots 34
+and 126 only after date, lot, locality, property class and price checks. These
+enrichments retain the original result-grid evidence and do not declare either
+catalogue complete. Content-addressed source snapshots are immutable across
+repeat bank runs, and later base-shard regeneration preserves additive address
+evidence rather than erasing it.
+
 Paul Fosh collection traverses and reconciles the entire paginated public results
 set, retaining all addresses, published lot end dates, outcomes, prices and detail
 links. Its lot end dates are labelled as such; they are not silently assumed to

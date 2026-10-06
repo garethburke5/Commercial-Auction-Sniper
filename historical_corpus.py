@@ -446,8 +446,12 @@ def bank_source_corpus():
         payload_auctioneer = clean(payload.get("auctioneer")) or None
         original = source_path.read_bytes()
         snapshot = DATA / "sources/source-corpus" / (digest(original)[:20] + ".json.gz")
-        save_gzip(snapshot, {"imported_at": now(), "origin_file": str(source_path.relative_to(ROOT)),
-                             "origin_sha256": digest(original), "payload": payload})
+        # The content hash makes this a permanent source snapshot.  Do not
+        # rewrite it on every idempotent bank run just to change imported_at:
+        # stable bytes make the stored provenance genuinely immutable.
+        if not snapshot.exists():
+            save_gzip(snapshot, {"imported_at": now(), "origin_file": str(source_path.relative_to(ROOT)),
+                                 "origin_sha256": digest(original), "payload": payload})
         rows = []
         for raw in lot_rows:
             if not isinstance(raw, dict):
@@ -506,7 +510,23 @@ def bank_source_corpus():
                 "origin_sha256": digest(original)}
             rows.append(row)
         if rows:
-            total += write_rows("source-corpus/" + source_path.stem, rows)
+            target_key = "source-corpus/" + source_path.stem
+            target_shard = DATA / "appearances" / (target_key + ".jsonl.gz")
+            # A later source file can regenerate the same base shard after an
+            # earlier enrichment file has updated it.  Carry those additive
+            # address fields forward so source ordering cannot erase evidence.
+            if target_shard.exists():
+                old_by_id = {row["appearance_id"]: row for row in iter_rows(target_shard)}
+                for row in rows:
+                    old = old_by_id.get(row["appearance_id"], {})
+                    evidence = old.get("address_enrichment_evidence")
+                    if isinstance(evidence, list) and evidence:
+                        row["address_enrichment_evidence"] = evidence
+                    if (not row.get("address") and old.get("address") and evidence):
+                        for field in ("address", "postcode", "record_quality", "address_basis"):
+                            if old.get(field) is not None:
+                                row[field] = old[field]
+            total += write_rows(target_key, rows)
         for enrichment in enrichment_rows:
             if not isinstance(enrichment, dict):
                 continue
