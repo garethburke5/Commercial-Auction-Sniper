@@ -1,0 +1,34 @@
+{
+  "auctioneer": "John Francis",
+  "source_auction_id": "john-francis:1638",
+  "auction_date": "2020-05-13",
+  "source_url": "https://www.johnfrancis.co.uk/pages/lotlist?aid=1638&show=past",
+  "lots_captured": 0,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "completion_scope": "every distinct lot ID in the first-party unpaginated lot list",
+  "visible_source_rows": 0,
+  "distinct_appearance_identities": 0,
+  "heading_auction_date": "2020-05-13",
+  "heading_date_matches_archive": true,
+  "malformed_source_rows": [],
+  "catalogue_complete": true,
+  "source_evidence": {
+    "source_url": "https://www.johnfrancis.co.uk/pages/lotlist?aid=1638&show=past",
+    "retrieved_at": "2026-10-06T14:08:29.786951+00:00",
+    "sha256": "3879bdbba122cdf79d94ef43122740fab76aec1a49ad0ff26c41dc6950309772",
+    "snapshot_path": "data/auction_history/sources/john-francis/auction-1638-3879bdbba122cdf7.json.gz",
+    "basis": "first-party retained unpaginated auction lot list",
+    "archive_evidence": {
+      "source_url": "https://www.johnfrancis.co.uk/pages/past_auctions",
+      "retrieved_at": "2026-10-06T14:07:40.334921+00:00",
+      "sha256": "ed2747644fa400bcb9a25c33605d0907ae5886f392c8eabbc864fcf063a9bd6a",
+      "snapshot_path": "data/auction_history/sources/john-francis/archive-ed2747644fa400bc.json.gz",
+      "basis": "first-party retained past-auctions table",
+      "catalogues_discovered": 80
+    }
+  },
+  "errors": [],
+  "checked_at": "2026-10-06T14:08:29.806710+00:00"
+}

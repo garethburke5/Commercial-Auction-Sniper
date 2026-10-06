@@ -47,6 +47,7 @@ python scripts/harvest_knight_frank_results.py 12
 python scripts/harvest_auction_estates_results.py 8
 python scripts/harvest_hollis_morgan_results.py 4
 python scripts/harvest_dedman_gray_results.py --workers 8
+python scripts/harvest_john_francis_results.py --workers 8
 python historical_corpus.py build
 ```
 
@@ -337,6 +338,13 @@ description, image, outcome and published result price. Residential,
 commercial, mixed-use and land lots are retained. A catalogue is complete only
 when every visible row has a distinct appearance identity and its published
 heading day and month reconcile with the archive date.
+
+John Francis collection traverses every retained first-party auction lot list
+back to September 2013. Each unpaginated list is preserved with its exact
+archive date, venue, stable EIG lot ID, lot number, address, postcode, result
+and published sale price. All property types and repeat appearances are kept.
+A catalogue is complete only when every distinct visible lot ID is represented
+once and the lot-list heading date agrees exactly with the archive date.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The
