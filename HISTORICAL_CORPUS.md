@@ -39,6 +39,7 @@ python scripts/harvest_bagshaws_results.py
 python scripts/harvest_cottons_results.py 16 8
 python scripts/harvest_harman_healy_results.py
 python scripts/harvest_lsh_results.py
+python scripts/harvest_goldings_results.py
 python scripts/harvest_knight_frank_results.py 12
 python scripts/harvest_auction_estates_results.py 8
 python scripts/harvest_hollis_morgan_results.py 4
@@ -249,6 +250,15 @@ is marked complete only after its explicit lot denominator, every page and every
 distinct identity reconcile. Because this grid is newest-first, saved pages are
 reused only while the denominator is unchanged; any count change triggers a full
 pagination refresh so shifted page boundaries cannot omit or duplicate lots.
+
+Goldings Auctions collection traverses the first-party dated result archive and
+preserves every surviving address-bearing lot card back to December 2015. Each
+sale's published lots-offered figure is retained as its denominator. A catalogue
+is complete only when distinct source lot IDs reconcile exactly to that figure;
+catalogues with removed or additional retained cards remain explicitly
+incomplete while every visible residential, commercial, mixed-use and land
+appearance is still banked. Immutable archive and catalogue snapshots preserve
+the source result text, prices, property type, description and images.
 
 Knight Frank Auctions collection reconciles every card in the first-party
 recently-sold page against its explicit source-row count, then enriches each

@@ -1,0 +1,30 @@
+{
+  "auction_date": "2020-07-22",
+  "published_date": "Wednesday, 22 July 2020",
+  "published_lots_offered": 13,
+  "published_percent_sold": "92%",
+  "published_total_raised": 2383500,
+  "source_url": "https://www.goldingsauctions.co.uk/auction/22-07-2020/",
+  "source_auction_id": "goldings:22-07-2020",
+  "auctioneer": "Goldings Auctions",
+  "catalogue_complete": false,
+  "source_rows_complete": false,
+  "visible_source_rows": 0,
+  "lots_captured": 0,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all surviving lot cards in the dated first-party result catalogue",
+  "source_evidence": {
+    "source_url": "https://www.goldingsauctions.co.uk/auction/22-07-2020/",
+    "retrieved_at": "2026-10-06T02:12:08.073608+00:00",
+    "sha256": "47199305e86601f20994240d4f27468fd85896634f8edde8c7e64a8f2d0aea18",
+    "snapshot_path": "data/auction_history/sources/goldings/catalogue-22-07-2020-47199305e86601f2.json.gz",
+    "basis": "first-party dated auction result lot cards",
+    "published_lots_offered": 13
+  },
+  "reconciliation_errors": [
+    "visible source rows 0 do not equal published lots offered 13"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T02:12:44.349728+00:00"
+}

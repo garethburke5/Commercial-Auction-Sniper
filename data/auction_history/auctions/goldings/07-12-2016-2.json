@@ -1,0 +1,30 @@
+{
+  "auction_date": "2016-12-07",
+  "published_date": "Wednesday, 7 December 2016",
+  "published_lots_offered": 17,
+  "published_percent_sold": "100%",
+  "published_total_raised": 2196500,
+  "source_url": "https://www.goldingsauctions.co.uk/auction/07-12-2016-2/",
+  "source_auction_id": "goldings:07-12-2016-2",
+  "auctioneer": "Goldings Auctions",
+  "catalogue_complete": false,
+  "source_rows_complete": false,
+  "visible_source_rows": 15,
+  "lots_captured": 15,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all surviving lot cards in the dated first-party result catalogue",
+  "source_evidence": {
+    "source_url": "https://www.goldingsauctions.co.uk/auction/07-12-2016-2/",
+    "retrieved_at": "2026-10-06T02:12:07.693351+00:00",
+    "sha256": "555a24ae0713a025bccb2835d0cca1665332becabe1f061d10a1d4bbcd923535",
+    "snapshot_path": "data/auction_history/sources/goldings/catalogue-07-12-2016-2-555a24ae0713a025.json.gz",
+    "basis": "first-party dated auction result lot cards",
+    "published_lots_offered": 17
+  },
+  "reconciliation_errors": [
+    "visible source rows 15 do not equal published lots offered 17"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T02:12:44.010267+00:00"
+}

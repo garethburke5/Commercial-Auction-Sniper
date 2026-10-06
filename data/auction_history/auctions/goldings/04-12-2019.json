@@ -1,0 +1,30 @@
+{
+  "auction_date": "2019-12-04",
+  "published_date": "Wednesday, 4 December 2019",
+  "published_lots_offered": 11,
+  "published_percent_sold": "64%",
+  "published_total_raised": 1244000,
+  "source_url": "https://www.goldingsauctions.co.uk/auction/04-12-2019/",
+  "source_auction_id": "goldings:04-12-2019",
+  "auctioneer": "Goldings Auctions",
+  "catalogue_complete": false,
+  "source_rows_complete": false,
+  "visible_source_rows": 12,
+  "lots_captured": 12,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all surviving lot cards in the dated first-party result catalogue",
+  "source_evidence": {
+    "source_url": "https://www.goldingsauctions.co.uk/auction/04-12-2019/",
+    "retrieved_at": "2026-10-06T02:12:08.031381+00:00",
+    "sha256": "7a2bc0bf888e1f16d6398dc0f05877cbe3d6a8045c4a7ac99b5be7f2afcd39a3",
+    "snapshot_path": "data/auction_history/sources/goldings/catalogue-04-12-2019-7a2bc0bf888e1f16.json.gz",
+    "basis": "first-party dated auction result lot cards",
+    "published_lots_offered": 11
+  },
+  "reconciliation_errors": [
+    "visible source rows 12 do not equal published lots offered 11"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T02:12:44.321186+00:00"
+}
