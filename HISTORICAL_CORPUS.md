@@ -421,3 +421,10 @@ can be refreshed explicitly. The broader operation must next recover missing
 legacy street addresses, revisit missing years/sources, import and validate other
 auctioneers' existing raw lots, and add adapters for all recoverable UK sources.
 The operation is not complete merely because currently known URLs are exhausted.
+
+Edward Mellor's bounded PDF pass retains definitive 404/410 result links as
+terminal source blockers in its collection summary. A missing source is never
+counted complete, but it no longer consumes a harvest slot on every run while
+later first-party result sheets remain usable. Transient download and parser
+failures still fail the pass. Successfully banked sheets with non-contiguous
+published numbering remain explicitly incomplete and are not downloaded again.

@@ -1,0 +1,72 @@
+{
+  "auctioneer": "Edward Mellor",
+  "source_auction_id": "edward-mellor-pdf:2017-06-19:cf017fb3a44d",
+  "auction_date": "2017-06-19",
+  "catalogue_complete": false,
+  "source_rows_complete": false,
+  "visible_result_rows": 58,
+  "lots_captured": 57,
+  "published_lots_offered": 73,
+  "lettered_additional_rows": 2,
+  "identical_duplicate_source_rows": 1,
+  "duplicate_source_lot_numbers": [
+    "41"
+  ],
+  "missing_base_lot_numbers": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59
+  ],
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "denominator_basis": "continuous published base lot sequence in complete first-party result sheet",
+  "completion_scope": "every numbered row in the retained first-party result PDF",
+  "source_url": "https://edwardmellor.co.uk/pdf/archive/20170601_June_Auction_Results_2017.pdf",
+  "errors": [
+    {
+      "error": "non-contiguous result lot sequence",
+      "missing": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59
+      ]
+    },
+    {
+      "error": "identical duplicate source rows were collapsed conservatively",
+      "lot_numbers": [
+        "41"
+      ]
+    }
+  ],
+  "checked_at": "2026-10-06T07:15:19.062598+00:00"
+}

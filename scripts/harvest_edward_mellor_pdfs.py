@@ -53,6 +53,10 @@ MONTHS = {name.upper(): number for number, name in enumerate(
 )}
 
 
+class SourceObjectUnavailable(ValueError):
+    """The first-party object exists as a link but is not a usable file."""
+
+
 def clean(value) -> str | None:
     value = re.sub(r"\s+", " ", str(value or "")).strip(" ,")
     return value or None
@@ -134,9 +138,27 @@ def parse_result_text(text: str, source_url: str, evidence: dict) -> tuple[dict,
     if not raw_rows:
         raise ValueError("result sheet contains no numbered lot rows")
 
+    source_row_count = len(raw_rows)
+    deduplicated_rows = []
+    first_body_by_label = {}
+    duplicate_source_rows = []
+    for lot, body in raw_rows:
+        label = lot.upper()
+        if label in first_body_by_label:
+            current_body = clean(body) or ""
+            first_body = clean(first_body_by_label[label]) or ""
+            if not (
+                current_body == first_body
+                or current_body.startswith(first_body)
+                or first_body.startswith(current_body)
+            ):
+                raise ValueError(f"conflicting duplicate lot label {label} in result sheet")
+            duplicate_source_rows.append(label)
+            continue
+        first_body_by_label[label] = body
+        deduplicated_rows.append((lot, body))
+    raw_rows = deduplicated_rows
     labels = [lot.upper() for lot, _ in raw_rows]
-    if len(labels) != len(set(labels)):
-        raise ValueError("duplicate lot labels in result sheet")
     base_numbers = {int(re.match(r"\d+", label).group()) for label in labels}
     max_lot = max(base_numbers)
     missing = sorted(set(range(1, max_lot + 1)) - base_numbers)
@@ -172,24 +194,34 @@ def parse_result_text(text: str, source_url: str, evidence: dict) -> tuple[dict,
         )
         rows.append(row)
 
-    complete = not missing
+    complete = not missing and not duplicate_source_rows
+    errors = []
+    if missing:
+        errors.append({"error": "non-contiguous result lot sequence", "missing": missing})
+    if duplicate_source_rows:
+        errors.append({
+            "error": "identical duplicate source rows were collapsed conservatively",
+            "lot_numbers": duplicate_source_rows,
+        })
     state = {
         "auctioneer": "Edward Mellor",
         "source_auction_id": source_auction_id,
         "auction_date": auction_date,
         "catalogue_complete": complete,
         "source_rows_complete": complete,
-        "visible_result_rows": len(rows),
+        "visible_result_rows": source_row_count,
         "lots_captured": len(rows),
         "published_lots_offered": max_lot,
         "lettered_additional_rows": len(rows) - len(base_numbers),
+        "identical_duplicate_source_rows": len(duplicate_source_rows),
+        "duplicate_source_lot_numbers": duplicate_source_rows,
         "missing_base_lot_numbers": missing,
         "pagination_reconciled": True,
         "denominator_reconciled": complete,
         "denominator_basis": "continuous published base lot sequence in complete first-party result sheet",
         "completion_scope": "every numbered row in the retained first-party result PDF",
         "source_url": source_url,
-        "errors": [] if complete else [{"error": "non-contiguous result lot sequence", "missing": missing}],
+        "errors": errors,
         "checked_at": corpus.now(),
     }
     return state, rows
@@ -223,7 +255,31 @@ def get(url: str) -> requests.Response:
     response.raise_for_status()
     if len(response.content) < 100:
         raise ValueError("source response is unexpectedly short")
+    if url.lower().split("?", 1)[0].endswith(".pdf"):
+        raw = response.content
+        if not raw.startswith(b"%PDF-") or b"%%EOF" not in raw[-4096:]:
+            raise SourceObjectUnavailable(
+                f"first-party PDF response is truncated or malformed ({len(raw)} bytes)"
+            )
     return response
+
+
+def terminal_source_failure(exc: Exception) -> bool:
+    """Return true only for a definitive missing first-party object.
+
+    A removed PDF must remain visibly incomplete, but it should not consume one
+    of the bounded harvest slots on every run while later result sheets remain
+    available. Transient transport and parser failures are deliberately not
+    classified here.
+    """
+    return (
+        isinstance(exc, SourceObjectUnavailable)
+        or (
+            isinstance(exc, requests.HTTPError)
+            and exc.response is not None
+            and exc.response.status_code in {404, 410}
+        )
+    )
 
 
 def harvest(limit: int = 8) -> None:
@@ -247,12 +303,35 @@ def harvest(limit: int = 8) -> None:
     summary_path = corpus.DATA / "edward_mellor_pdf_collection.json"
     previous = json.loads(summary_path.read_text()) if summary_path.exists() else {}
     completed_urls = set(previous.get("completed_source_urls") or [])
-    pending = [item for item in discovered if item["url"] not in completed_urls]
-
+    terminal_failures = {
+        failure["url"]: failure
+        for failure in previous.get("terminal_source_failures") or []
+        if failure.get("url")
+    }
+    # Migrate a definitive 404/410 recorded by the older summary format.
+    for failure in previous.get("failures") or []:
+        if failure.get("url") and re.search(r"\b(?:404|410) Client Error\b", failure.get("error", "")):
+            terminal_failures[failure["url"]] = failure
     appearances_path = corpus.DATA / "appearances/edward-mellor-pdfs/canonical.jsonl.gz"
     existing = list(corpus.iter_rows(appearances_path)) if appearances_path.exists() else []
     before_ids = {row["appearance_id"] for row in existing}
     merged = {row["appearance_id"]: row for row in existing}
+    processed_urls = set(previous.get("processed_source_urls") or []) | completed_urls
+    # Older summaries recorded only complete URLs. Recover the exact successful
+    # fetches from the URL-derived suffix already embedded in every appearance
+    # ID, including banked sheets whose published numbering has gaps.
+    existing_source_keys = {
+        str(row.get("source_auction_id") or "").rsplit(":", 1)[-1]
+        for row in existing
+    }
+    for item in discovered:
+        prepared_url = requests.utils.requote_uri(item["url"])
+        if hashlib.sha256(prepared_url.encode()).hexdigest()[:12] in existing_source_keys:
+            processed_urls.add(item["url"])
+    pending = [
+        item for item in discovered
+        if item["url"] not in processed_urls and item["url"] not in terminal_failures
+    ]
     failures = []
     completed_this_run = []
     states = []
@@ -311,15 +390,21 @@ def harvest(limit: int = 8) -> None:
             for row in rows:
                 merged[row["appearance_id"]] = row
             states.append(state)
+            processed_urls.add(item["url"])
             if state["catalogue_complete"]:
                 completed_urls.add(item["url"])
                 completed_this_run.append(item["url"])
             print("EDWARD MELLOR PDF", state["auction_date"], len(rows), "lots", state["catalogue_complete"], flush=True)
         except Exception as exc:
-            failures.append({
+            failure = {
                 "url": item["url"], "label": item["label"],
                 "error": f"{type(exc).__name__}: {exc}"[:500],
-            })
+            }
+            if terminal_source_failure(exc):
+                failure["terminal"] = True
+                terminal_failures[item["url"]] = failure
+            else:
+                failures.append(failure)
 
     total = corpus.write_rows("edward-mellor-pdfs/canonical", list(merged.values()))
     added = [row for key, row in merged.items() if key not in before_ids]
@@ -328,8 +413,18 @@ def harvest(limit: int = 8) -> None:
         "source_url": ARCHIVE,
         "result_pdfs_discovered": len(discovered),
         "result_pdfs_complete": len(completed_urls),
+        "result_pdfs_banked": len(processed_urls),
+        "result_pdfs_incomplete_banked": len(processed_urls - completed_urls),
         "result_pdfs_completed_this_run": len(completed_this_run),
         "result_pdfs_pending": max(0, len(discovered) - len(completed_urls)),
+        "result_pdfs_unbanked": sum(
+            item["url"] not in processed_urls for item in discovered
+        ),
+        "result_pdfs_usable_pending": sum(
+            item["url"] not in processed_urls and item["url"] not in terminal_failures
+            for item in discovered
+        ),
+        "result_pdfs_terminal_source_failures": len(terminal_failures),
         "appearances_captured": total,
         "run_new_appearances": total - len(before_ids),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
@@ -337,7 +432,9 @@ def harvest(limit: int = 8) -> None:
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
         "completed_source_urls": sorted(completed_urls),
+        "processed_source_urls": sorted(processed_urls),
         "archive_evidence": archive_evidence,
+        "terminal_source_failures": sorted(terminal_failures.values(), key=lambda item: item["url"]),
         "failures": failures,
     }
     corpus.save_json(summary_path, summary)

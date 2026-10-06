@@ -1,9 +1,12 @@
 import sys
 from types import SimpleNamespace
 
+import pytest
+import requests
+
 from scripts.harvest_edward_mellor_pdfs import (
     discover_result_pdfs, extract_pdf_text, parse_auction_date, parse_result_text,
-    result_semantics
+    result_semantics, terminal_source_failure
 )
 
 
@@ -52,6 +55,27 @@ def test_missing_base_lot_keeps_sheet_incomplete():
     assert result_semantics("WTHDRAWN") == ("withdrawn", None, None)
 
 
+def test_exact_duplicate_source_row_is_banked_once_but_not_complete():
+    text = """
+    RESULTS - AUCTION 19TH JUNE 2017
+    LOT 1 ONE ROAD MANCHESTER SOLD AT £10,000
+    LOT 2 TWO ROAD MANCHESTER AVAILABLE
+    LOT 2 TWO ROAD MANCHESTER AVAILABLE
+    """
+    state, rows = parse_result_text(text, "https://example.test/results.pdf", {})
+    assert [row["lot_number"] for row in rows] == ["1", "2"]
+    assert state["visible_result_rows"] == 3
+    assert state["lots_captured"] == 2
+    assert state["identical_duplicate_source_rows"] == 1
+    assert state["catalogue_complete"] is False
+
+    with pytest.raises(ValueError, match="conflicting duplicate lot label"):
+        parse_result_text(text.replace("TWO ROAD MANCHESTER AVAILABLE", "TWO ROAD MANCHESTER AVAILABLE", 1).replace(
+            "LOT 2 TWO ROAD MANCHESTER AVAILABLE\n    LOT 2 TWO ROAD MANCHESTER AVAILABLE",
+            "LOT 2 TWO ROAD MANCHESTER AVAILABLE\n    LOT 2 OTHER ROAD MANCHESTER SOLD",
+        ), "https://example.test/results.pdf", {})
+
+
 def test_pdf_extractor_has_dependency_fallback(monkeypatch):
     monkeypatch.setattr("scripts.harvest_edward_mellor_pdfs.shutil.which", lambda _: None)
     page = SimpleNamespace(extract_text=lambda: "RESULTS " + "lot text " * 20)
@@ -59,3 +83,15 @@ def test_pdf_extractor_has_dependency_fallback(monkeypatch):
     fake_pypdf = SimpleNamespace(PdfReader=lambda _: reader)
     monkeypatch.setitem(sys.modules, "pypdf", fake_pypdf)
     assert extract_pdf_text(b"pdf bytes").startswith("RESULTS")
+
+
+def test_only_definitive_missing_source_is_terminal():
+    response = requests.Response()
+    response.status_code = 404
+    missing = requests.HTTPError("404 Client Error", response=response)
+    assert terminal_source_failure(missing) is True
+
+    response.status_code = 503
+    transient = requests.HTTPError("503 Server Error", response=response)
+    assert terminal_source_failure(transient) is False
+    assert terminal_source_failure(ValueError("bad PDF text")) is False

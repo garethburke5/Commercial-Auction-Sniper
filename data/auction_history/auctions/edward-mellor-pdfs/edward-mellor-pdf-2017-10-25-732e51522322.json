@@ -1,0 +1,60 @@
+{
+  "auctioneer": "Edward Mellor",
+  "source_auction_id": "edward-mellor-pdf:2017-10-25:732e51522322",
+  "auction_date": "2017-10-25",
+  "catalogue_complete": false,
+  "source_rows_complete": false,
+  "visible_result_rows": 47,
+  "lots_captured": 47,
+  "published_lots_offered": 59,
+  "lettered_additional_rows": 5,
+  "missing_base_lot_numbers": [
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56
+  ],
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "denominator_basis": "continuous published base lot sequence in complete first-party result sheet",
+  "completion_scope": "every numbered row in the retained first-party result PDF",
+  "source_url": "https://edwardmellor.co.uk/pdf/archive/20171001_October_Auction_Results_2017.pdf",
+  "errors": [
+    {
+      "error": "non-contiguous result lot sequence",
+      "missing": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ]
+    }
+  ],
+  "checked_at": "2026-10-06T07:12:25.039809+00:00"
+}
