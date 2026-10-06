@@ -3,6 +3,8 @@ from io import BytesIO
 from zipfile import ZipFile
 import pytest
 from legal_pack_service import analyse_uploaded_pack
+from acquisition_intelligence import snapshot
+from acquisition_report import render
 
 
 @pytest.mark.parametrize('vat,expected', [
@@ -32,6 +34,10 @@ def test_plain_special_conditions_reach_the_investor_calculations(vat, expected)
     assert report['rent'] is None and 'Gross Initial Yield (GIY)' not in calculations
     assert len(report['costs']) == 1  # Deposit never added as an acquisition fee.
     assert calculations['Seller-cost contribution']['evidence'][0]['document'].endswith('sale/Special-Conditions.txt')
+    free=snapshot(report)
+    assert free['deep_dive']['id'] not in {f['id'] for f in free['findings']}
+    assert 'Completion: Completion:' not in render(free)
+    assert '0 additional consolidated findings' not in render(free)
     if not vat:
         assert 'VAT rate' not in next(f['meaning'] for f in report['findings'] if f['id']=='seller-fee')
 

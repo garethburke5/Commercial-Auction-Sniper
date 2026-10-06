@@ -42,7 +42,13 @@ def apply(path=DATA, today=None):
     archive = list(data.get("archive") or [])
     health = list(data.get("source_health") or [])
 
-    failed_sources = {str(h.get("source") or "") for h in health if str(h.get("status") or "").upper() == "FAILED"}
+    failed_sources = {
+        str(h.get("source") or "") for h in health
+        if str(h.get("status") or "").upper() == "FAILED"
+        or (str(h.get("status") or "").upper() == "DEGRADED"
+            and h.get("authoritative_snapshot") is False
+            and (h.get("reconciliation") or {}).get("discovery_failures"))
+    }
     preserved = Counter()
     kept_archive = []
     existing = {(str(x.get("source") or ""), str(x.get("url") or "")) for x in properties}

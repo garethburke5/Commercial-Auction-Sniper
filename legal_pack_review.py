@@ -92,7 +92,7 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
        # A contingent default cost is not a fixed acquisition contribution.
        continue
       if title=='Additional seller fees':summary='The conditions state: “'+norm(m.group(0))+'”. Confirm the exact calculation and VAT treatment.'
-      elif title=='Contractual completion period':summary='Completion: '+norm(m.group(0))+'.'
+      elif title=='Contractual completion period':summary='Completion: '+re.sub(r'^completion\s*:\s*','',norm(m.group(0)),flags=re.I)+'.'
       elif title=='Deposit recorded in the sale conditions':summary='Deposit: '+re.search(r'\d+(?:\.\d+)?%',m.group(0)).group(0)+' of the price. This is not an additional acquisition fee.'
       add(topic,title,summary,action,evidence(d,page,m,90),level,True)
   for topic,title,pattern,action in TOPICS:

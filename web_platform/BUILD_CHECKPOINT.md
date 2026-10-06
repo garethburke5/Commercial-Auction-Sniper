@@ -83,6 +83,37 @@ includes both. The new results wording makes this distinction explicit.
 
 # Operational checkpoint — 5 October 2026
 
+## 6 October evening — owner access and live analysis recovery
+
+- User authenticated Streamlit through GitHub and explicitly requested the session
+  be retained. Owner dashboard confirmed `garethburke5`, `main`, `app.py`. Rebooted
+  the existing app; its repository clone took approximately nine minutes. The
+  live screen now shows Acquisition Intelligence 3, not the legacy v2 interface.
+- Ran a clearly labelled synthetic ZIP through the LIVE app: three nested text
+  documents were processed; seller contribution £2,750 + VAT was calculated as
+  £3,300 with source filename. This is not a reprocessing of the Newbury pack.
+- End-to-end ingestion tests exposed narrow ordinary-wording gaps in seller fees,
+  deposit and completion clauses. Fixed these without treating default-only costs
+  as unconditional fees, inventing VAT commentary, or using historic rent as GIY.
+- Live visual review found CSS overriding the full-review panel's text contrast.
+  Fixed panel/primary-button contrast, duplicate Deep Dive presentation and repeated
+  completion wording. Multiple lease documents no longer collapse into one header
+  term. Combined relevant regression suite: 24 passed.
+- Both pending production scans succeeded. Fresh persisted/live verification:
+  913/913 rows; Sutton Kersh five and Edward Mellor three are customer-findable;
+  North West 24, Midlands eight, Coventry two, Hull one are represented live.
+- Under The Hammer: GitHub Actions received HTTP 403 (health degraded). The same
+  public API remains accessible from this operator workspace. Freshly traversed
+  440/440 records with the existing collector; 25 qualifying current lots (13
+  commercial, 12 mixed-use). Source-only snapshot integration passed the UNCHANGED
+  full publication gate at 938 rows; publication/live verification still to follow.
+  Capture runtime and original scheduled error are retained in source health.
+- Fixed last-known-good retention for explicit DEGRADED discovery outages as well
+  as FAILED outages. Past lots remain excluded; unavailable catalogues are unknown,
+  not falsely absent. No new historical auctioneer expansion was started.
+
+## Earlier 5 October checkpoint
+
 Resume by checking current main, Actions and production, not by repeating this build.
 
 Public site: https://garethburke5.github.io/Commercial-Auction-Sniper/

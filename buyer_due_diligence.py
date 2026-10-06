@@ -14,6 +14,9 @@ def render_buyer_due_diligence():
     [data-testid="stFileUploader"] section{background:#fff!important;color:#183149!important;border-color:#acbbc8!important}
     [data-testid="stMarkdownContainer"] p,[data-testid="stWidgetLabel"] p{color:#183149}
     .stApp .dd-report p,.stApp .dd-report summary,.stApp .dd-report li,.stApp .dd-report h1,.stApp .dd-report h2,.stApp .dd-report h3,.stApp .dd-report blockquote{color:#183149!important}
+    .stApp .dd-report .ai-paywall h2,.stApp .dd-report .ai-paywall p{color:#fff!important}
+    .stApp [data-testid="stBaseButton-primary"]{background:#006c5d!important;border-color:#006c5d!important}
+    .stApp [data-testid="stBaseButton-primary"] p{color:#fff!important}
     @media(max-width:650px){[data-testid="stMainBlockContainer"]{padding:.65rem!important}}
     </style>''',unsafe_allow_html=True)
     context=property_context(st.query_params.get('property'))

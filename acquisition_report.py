@@ -23,7 +23,9 @@ def render(report,standalone=False):
     if snap:
         out.extend(finding(f) for f in report['findings'])
         if report.get('deep_dive'):out.append('<section class="ai-deep"><p class="dd-kicker">AUCTION SNIPER DEEP DIVE</p>'+finding(report['deep_dive'])+'</section>')
-        out.append('<section class="ai-paywall"><h2>Go deeper before you bid</h2><p>'+str(report.get('additional_findings',0))+' additional consolidated findings, the full document register, transaction evidence and remaining questions are available in the full review.</p><p>Full-review purchases open when secure accounts and payments are activated. You have not been charged.</p></section>')
+        remaining=report.get('additional_findings',0)
+        depth=(str(remaining)+' additional consolidated findings, plus the ' if remaining else 'The ')
+        out.append('<section class="ai-paywall"><h2>Go deeper before you bid</h2><p>'+depth+'full document register, transaction evidence and remaining questions are available in the full review.</p><p>Full-review purchases open when secure accounts and payments are activated. You have not been charged.</p></section>')
     else:
         market=report.get('market_context') or {}
         if market.get('history') or market.get('comparables'):

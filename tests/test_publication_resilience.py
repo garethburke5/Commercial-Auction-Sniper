@@ -53,3 +53,18 @@ def test_failed_source_preserves_future_stale_inventory(tmp_path, monkeypatch):
     assert data["source_health"][0]["status"] == "DEGRADED"
     assert data["integrity"]["temporary_outage_sources_preserved"] == {"Example Auctions": 1}
     assert data["integrity"]["zero_inventory_outage_sources"] == []
+
+
+def test_degraded_discovery_outage_retains_future_rows_without_claiming_freshness(tmp_path, monkeypatch):
+    monkeypatch.setattr(publication_resilience, "manifest_coverage", lambda health: {"acceptance_ready": True})
+    row = {"source":"Example Auctions", "url":"https://example.test/lot/1",
+           "auction_date":"2026-10-13", "status":"STALE SOURCE"}
+    path = _write(tmp_path, archive=[row,dict(row,url='https://example.test/lot/2',auction_date='2026-09-01')],
+        health=[{"source":"Example Auctions", "status":"DEGRADED", "authoritative_snapshot":False,
+                 "checked_at":"2026-10-06", "reconciliation":{"discovery_failures":["HTTP 403"]}}])
+    data = publication_resilience.apply(path,today=date(2026,10,6))
+    assert len(data['properties']) == 1 and len(data['archive']) == 1
+    health = data['source_health'][0]
+    assert health['status'] == 'DEGRADED' and not health['authoritative_snapshot']
+    assert health['reconciliation']['discovery_failures'] == ['HTTP 403']
+    assert data['integrity']['temporary_outage_sources_preserved'] == {'Example Auctions':1}

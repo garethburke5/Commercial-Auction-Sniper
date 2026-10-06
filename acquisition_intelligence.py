@@ -97,6 +97,8 @@ def build_acquisition(model,catalogue=None):
     cpse=[d for d in documents if 'cpse' in d.get('type','').lower()]
     cpse_text=('CPSE means Commercial Property Standard Enquiries. Qualified replies such as “not known” or “buyer to rely on own enquiries” are not automatically defects. Only material gaps are raised below.' if cpse else 'Separate CPSE replies were not identified. The rest of the supplied pack has still been used for the transaction facts, costs and lease evidence. Absence of a CPSE document is not the same as absence of every answer.')
     lease=summary_for('Lease term recorded');completion=summary_for('Contractual completion period');tenure=c.get('tenure')
+    if len(lease_reconciliation)>1:
+        lease=f'{len(lease_reconciliation)} separate lease documents; operative terms require reconciliation.'
     description=f"{('A '+tenure.lower()+' commercial property') if tenure else 'A commercial property'} at {model['property']}"
     if tenant:description+=f', with {tenant} named as tenant'+(' in the supplied lease' if tenant_evidence else ' in the auction particulars')
     description+='.'
@@ -121,5 +123,9 @@ def build_acquisition(model,catalogue=None):
 def snapshot(report):
     """Actual server projection: the paid payload is not sent hidden in the DOM."""
     out={k:v for k,v in report.items() if k not in ('evidence_review','findings','documents','questions','unknowns','opportunities','costs','market_context','lease_reconciliation')}
-    out['findings']=report['findings'][:3];out['additional_findings']=max(0,len(report['findings'])-3);out['access']='snapshot'
+    deep_id=(report.get('deep_dive') or {}).get('id')
+    out['findings']=[f for f in report['findings'] if f.get('id')!=deep_id][:3]
+    shown={f['id'] for f in out['findings']}
+    if deep_id:shown.add(deep_id)
+    out['additional_findings']=sum(f['id'] not in shown for f in report['findings']);out['access']='snapshot'
     out['sections']=SECTIONS[:3];return out

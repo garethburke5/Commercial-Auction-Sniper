@@ -89,7 +89,7 @@ def collect_under_the_hammer():
         except Exception as exc:reason=str(exc);failures.append(identity+': '+reason)
         outcomes.append({'url':BASE+'/property/'+identity,'outcome':outcome,'reason':reason})
     mixed=sum('mixed' in (l.property_type or '').lower() for l in lots)
-    t={'current_catalogue_detected':any(p.get('status')=='upcoming' for p in rows.values()),'source_lot_count':expected,
+    t={'current_catalogue_detected':any(p.get('status')=='upcoming' for p in rows.values()) if rows or not failures else None,'source_lot_count':expected,
         'discovered_lot_urls':len(rows),'detail_pages_inspected':parsed,'commercial_mixed_candidates':len(lots),
         'commercial_candidates':len(lots)-mixed,'mixed_use_candidates':mixed,'residential_exclusions':residential,
         'classification_rejections':residential+other,'past_auction_exclusions':past,'detail_failures':len(rows)-parsed,

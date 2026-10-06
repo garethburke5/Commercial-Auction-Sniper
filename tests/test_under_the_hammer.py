@@ -24,3 +24,10 @@ def test_incomplete_pagination_cannot_certify_authoritative_zero(monkeypatch):
  r=c.collect_under_the_hammer()
  assert r.status=='DEGRADED' and not r.authoritative_snapshot
  assert r.reconciliation['source_lot_count']==30 and r.reconciliation['discovery_failures']
+
+def test_unreachable_catalogue_is_unknown_not_a_confirmed_absence(monkeypatch):
+ def failed(offset):raise RuntimeError('Source unavailable')
+ monkeypatch.setattr(c,'fetch_page',failed)
+ r=c.collect_under_the_hammer()
+ assert r.status=='DEGRADED' and r.reconciliation['current_catalogue_detected'] is None
+ assert r.reconciliation['source_lot_count'] is None
