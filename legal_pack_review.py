@@ -73,10 +73,14 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
   'The contract addresses completion where the seller is not yet the registered proprietor. This does not prove that this is the present position.', 'Reconcile the named seller, current registers and transfer chain; establish whether the condition will apply.','NEEDS CHECKING'),
  ('vat','VAT depends on TOGC conditions',r'VAT is payable unless.{0,100}going concern',
   'VAT is payable unless the transaction qualifies as a TOGC.', 'Confirm the seller’s option, buyer requirements and fallback VAT cash requirement with your solicitor and tax adviser.','NEEDS CHECKING'),
- ('deposit','Deposit recorded in the sale conditions',r'(?:\bdeposit\s*:?\s*\d+(?:\.\d+)?% of the (?:purchase )?price|\d+(?:\.\d+)?% of the price.{0,180}(?:stakeholder|deposit))',
+ ('deposit','Deposit recorded in the sale conditions',r'(?:\bdeposit\s*(?:\(see condition[^)]*\))?\s*:?\s*\d+(?:\.\d+)?% of the (?:purchase )?price|\d+(?:\.\d+)?% of the price.{0,180}(?:stakeholder|deposit))',
   'The source records the deposit as a percentage of the price.', 'Check payment timing and the full deposit clause. Do not add the deposit again as a fee.','INFORMATION'),
- ('completion','Contractual completion period',r'(?:\b\d+ working days from the contract date|\bcompletion\s*:\s*\d+ working days after the auction)',
+ ('completion','Contractual completion period',r'\b(?:completion\s*:\s*)?(?:\d+|one|two|three|four|five|six|eight|ten|twenty)\s+(?:(?:working|business)\s+)?(?:days|weeks)\s+(?:from|after)\s+the\s+(?:contract date|auction)',
   'The source specifies a completion period measured from the contract date.', 'Ask your solicitor to confirm the actual completion date and funding deadline.','NEEDS CHECKING'),
+ ('buyer-fees','Auctioneer fee recorded in the sale conditions',r'(?:buyer|purchaser) shall pay (?:the )?(?:buyer[’\x27]s )?auctioneer[’\x27]?s? fee(?: of)?\s*£[\d,.]+(?:\s*(?:plus|\+|including|inclusive of)\s*VAT)?',
+  'The sale conditions state a lot-specific auctioneer fee.', 'Confirm the lot-specific fee and completion statement; this is separate from the deposit.','INFORMATION'),
+ ('vat','Seller states no option to tax',r'\bno VAT option has been made\b|\b(?:the )?(?:seller|property) has not (?:been )?opted (?:to|for) tax\b',
+  'The sale conditions state that no VAT option has been made. This is the seller’s published position, not an independent tax determination.', 'Check for subsequent addenda or option-to-tax evidence and confirm the transaction treatment.','INFORMATION'),
  ('seller-costs','Search-cost reimbursement',r'(?:purchaser|buyer).{0,90}(?:cost of any searches|searches or disbursements).{0,220}',
   'The conditions require reimbursement of search costs or disbursements; the amount needs confirmation.', 'Request an itemised amount, including any costs for searches that are still outstanding.','NEEDS CHECKING'),
  ]
@@ -88,12 +92,13 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
     for topic,title,pattern,summary,action,level in rules:
      m=re.search(pattern,text,re.I)
      if m:
-      if title=='Additional seller fees' and re.search(r'(?:if|in the event).{0,90}(?:default|fail|breach)|(?:default|late completion).{0,60}(?:fees|costs)',text[max(0,m.start()-140):m.end()+100],re.I):
+      if title in ('Additional seller fees','Auctioneer fee recorded in the sale conditions') and re.search(r'(?:if|in the event).{0,90}(?:default|fail|breach)|(?:default|late completion).{0,60}(?:fees|costs)',text[max(0,m.start()-140):m.end()+100],re.I):
        # A contingent default cost is not a fixed acquisition contribution.
        continue
       if title=='Additional seller fees':summary='The conditions state: “'+norm(m.group(0))+'”. Confirm the exact calculation and VAT treatment.'
       elif title=='Contractual completion period':summary='Completion: '+re.sub(r'^completion\s*:\s*','',norm(m.group(0)),flags=re.I)+'.'
       elif title=='Deposit recorded in the sale conditions':summary='Deposit: '+re.search(r'\d+(?:\.\d+)?%',m.group(0)).group(0)+' of the price. This is not an additional acquisition fee.'
+      elif title=='Auctioneer fee recorded in the sale conditions':summary='The conditions state: “'+norm(m.group(0))+'”.'
       add(topic,title,summary,action,evidence(d,page,m,90),level,True)
   for topic,title,pattern,action in TOPICS:
    # One short lead per document/topic. All originals remain in the inventory.

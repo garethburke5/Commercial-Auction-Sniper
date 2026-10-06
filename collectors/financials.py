@@ -45,6 +45,7 @@ def income_facts(text):
     current = []
     explicit_totals = []
     explicit_current = []
+    whole_property_current = []
     for match in MONEY.finditer(text):
         before = text[max(0, match.start()-150):match.start()]
         # Keep sentence boundaries: a historic rent in the previous sentence
@@ -70,6 +71,9 @@ def income_facts(text):
         current_labels = list(CURRENT.finditer(before))
         current_pos = max((m.start() for m in current_labels), default=-1)
         label_pos, label = max(labels, default=(-1, None))
+        if current_labels and re.search(r'\bwould\s+(?:come to|generate|produce|yield|be|rent)|\bwe would expect\b',before,re.I):
+            facts['potential_income']=value
+            continue
         # 'Previously let at' remains historic even though it contains 'let at'.
         if label == 'historic_rent' and not re.search(r'\bcurrent(?:ly)?\b', before[label_pos:], re.I):
             facts['historic_rent'] = value
@@ -95,11 +99,15 @@ def income_facts(text):
             continue
         if 0 < value <= 100000000:
             current.append(value)
+            if re.search(r'\b(?:entire|whole)\s+(?:property|lot|building)\s+(?:is\s+)?(?:currently\s+)?(?:producing|generating|yielding)\b[^£]{0,75}$',before,re.I):
+                whole_property_current.append(value)
             if re.search(r'\b(?:total current (?:gross )?(?:(?:restaurant|commercial|shop|office) )?(?:rent|income)|current (?:gross )?(?:(?:restaurant|commercial|shop|office) )?(?:rent|income)|currently producing|passing rent)\b[^£]{0,70}$',before,re.I):
                 explicit_current.append(value)
             if re.search(r'\btotal\b[^£]{0,70}$', before, re.I):
                 explicit_totals.append(value)
-    if len(set(explicit_current)) == 1:
+    if len(set(whole_property_current)) == 1:
+        facts['annual_rent'] = whole_property_current[0]
+    elif len(set(explicit_current)) == 1:
         facts['annual_rent'] = explicit_current[0]
     elif explicit_totals:
         facts['annual_rent'] = explicit_totals[0]

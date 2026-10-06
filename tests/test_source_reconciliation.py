@@ -1,4 +1,20 @@
 from source_reconciliation import reconcile
+from source_reconciliation import attach
+
+def test_restored_rows_refresh_reconciliation_without_losing_collapse_baseline():
+    rows=[{'source':'Barnett Ross','address':f'{i} High Street','auction_date':'2099-01-01','description':'A shop investment.'} for i in range(10)]
+    snapshot={'properties':[], 'source_health':[{'source':'Barnett Ross','status':'DEGRADED','message':'Source unavailable','reconciliation':{'current_catalogue_detected':None,'discovery_failures':['timeout']}}]}
+    attach(snapshot,{'properties':rows})
+    snapshot['properties']=rows[:8]
+    attach(snapshot)
+    record=next(r for r in snapshot['source_reconciliation']['sources'] if r['auctioneer']=='Barnett Ross')
+    assert record['published_rows']==8 and record['previous_published_current_rows']==10
+    assert record['status']=='DEGRADED' and 'Count collapse' not in record['failure_reason']
+    assert snapshot['source_health'][0]['published_rows']==8
+    snapshot['properties']=rows[:2]
+    attach(snapshot)
+    record=next(r for r in snapshot['source_reconciliation']['sources'] if r['auctioneer']=='Barnett Ross')
+    assert 'Count collapse: 10' in record['failure_reason']
 
 def test_current_candidates_cannot_disappear_as_a_silent_authoritative_zero():
     snapshot={'generated_at':'2099-01-01','properties':[], 'source_health':[{'source':'Barnett Ross','status':'LIVE','checked_at':'2099-01-01','authoritative_snapshot':True,'reconciliation':{'current_catalogue_detected':True,'source_lot_count':30,'lots_parsed':30,'commercial_mixed_candidates':8}}]}

@@ -95,7 +95,7 @@ def clean_description(text):
     else:
         chrome = DESCRIPTION_CHROME.search(value)
         fallback = _first_marker(value, DESCRIPTION_FALLBACK_START_MARKERS, case_sensitive=True)
-        if fallback and (chrome or fallback[0] <= 2500):
+        if fallback and (chrome or fallback[0] <= 80):
             pos, marker = fallback
             value = value[pos + len(marker):].strip(" :-|")
 

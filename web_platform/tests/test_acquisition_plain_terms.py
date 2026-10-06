@@ -54,3 +54,39 @@ def test_default_cost_is_not_counted_as_an_unconditional_acquisition_fee():
         'SPECIAL CONDITIONS OF SALE. If the buyer fails to complete, the buyer shall pay the seller legal costs of £2,750 plus VAT. '
         'This default charge is not payable on ordinary completion.'.encode())])
     assert not result['acquisition']['costs']
+
+
+def test_worded_completion_and_lot_specific_auction_fee_are_extracted():
+    result = analyse_uploaded_pack('Synthetic investment', [('Special-Conditions.txt',
+        ('SPECIAL CONDITIONS OF SALE. Deposit (see CONDITION G2) 10% of the PRICE. '
+         'Agreed completion date: Six weeks from the contract date. '
+         'The buyer shall pay the auctioneer’s fee of £1,500 plus VAT. '
+         'NO VAT OPTION HAS BEEN MADE.').encode())],
+        {'guide':190000,'annual_rent':26700,'auctioneer_fee':3000})
+    report=result['acquisition']
+    calculations={c['label']:c for c in report['calculations']}
+    assert calculations['Deposit at guide']['value']=='£19,000'
+    assert calculations['Gross Initial Yield (GIY)']['value']=='14.1%'
+    assert 'Six weeks from the contract date' in report['completion']
+    assert calculations['Auctioneer fee']['value']=='£1,800 including VAT'
+    assert calculations['Auctioneer fee']['evidence'][0]['document']=='Special-Conditions.txt'
+    assert len(report['costs'])==1 and report['costs'][0]['amount']==1800
+    assert 'no VAT option has been made' in report['vat']
+    assert 'No VAT payable' not in report['vat']
+
+
+def test_conflicting_lot_specific_fees_are_not_silently_selected():
+    files=[(f'Special-Conditions-{i}.txt',
+        f'SPECIAL CONDITIONS OF SALE. The buyer shall pay the auctioneer fee of £{fee} plus VAT.'.encode())
+        for i,fee in enumerate((1500,2000))]
+    report=analyse_uploaded_pack('Synthetic investment',files,{'guide':190000,'auctioneer_fee':3000})['acquisition']
+    assert any(f['id']=='fee-conflict' for f in report['findings'])
+    assert not report['costs']
+
+
+def test_conflicting_vat_statements_remain_explicit():
+    files=[('Special-Conditions.txt',b'SPECIAL CONDITIONS OF SALE. NO VAT OPTION HAS BEEN MADE.'),
+           ('Special-Conditions-Addendum.txt',b'SPECIAL CONDITIONS OF SALE. VAT is payable unless the transaction is a transfer of a going concern.')]
+    report=analyse_uploaded_pack('Synthetic investment',files,{'guide':190000})['acquisition']
+    assert report['vat']=='Different VAT statements require reconciliation.'
+    assert any(f['id']=='vat-conflict' for f in report['findings'])

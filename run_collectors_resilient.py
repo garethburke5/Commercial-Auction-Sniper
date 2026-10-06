@@ -227,7 +227,9 @@ def _install_replacements():
         if not any(getattr(c,"__name__","")==name for c in upgraded): upgraded.append(getattr(regional,name))
     from collectors.current_property_catalogues import collect_sutton_kersh, collect_edward_mellor
     from collectors.under_the_hammer import collect_under_the_hammer
-    for collector in (collect_sutton_kersh, collect_edward_mellor, collect_under_the_hammer):
+    from collectors.iamsold import collect_iamsold
+    from collectors.wilsons import collect_wilsons
+    for collector in (collect_sutton_kersh, collect_edward_mellor, collect_under_the_hammer, collect_iamsold, collect_wilsons):
         if not any(getattr(c,'__name__','')==collector.__name__ for c in upgraded):upgraded.append(collector)
     pipeline.COLLECTORS = upgraded
 

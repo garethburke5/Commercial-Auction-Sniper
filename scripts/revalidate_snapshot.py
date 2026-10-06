@@ -32,6 +32,8 @@ def revalidate(path=Path('data/properties.json')):
     path.write_text(json.dumps(data,indent=2))
     _finalize_published_snapshot(path)
     data=json.loads(path.read_text())
+    from source_reconciliation import attach
+    attach(data)
     integrity=data.setdefault('integrity',{})
     integrity['publication_revision']=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
     integrity['revalidated_at']=datetime.now(timezone.utc).isoformat()

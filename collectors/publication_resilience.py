@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import json
 from collections import Counter
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from source_manifest import manifest_coverage
@@ -34,8 +34,20 @@ def _status(row):
     return str(row.get("status") or "").strip().upper().replace("_", " ")
 
 
-def apply(path=DATA, today=None):
-    today = today or date.today()
+def _current_enough(row, today, now):
+    day=_day(row)
+    if day is not None:return day>=today
+    # Rolling online catalogues can advertise live lots without a fixed date.
+    # Retain recent evidence briefly during an outage, never indefinitely.
+    try:captured=datetime.fromisoformat(str(row.get('collected_at') or '').replace('Z','+00:00'))
+    except ValueError:return False
+    if captured.tzinfo is None:captured=captured.replace(tzinfo=timezone.utc)
+    return timedelta(0)<=now-captured<=timedelta(hours=48)
+
+
+def apply(path=DATA, today=None, now=None):
+    now=now or datetime.now(timezone.utc)
+    today = today or now.date()
     path = Path(path)
     data = json.loads(path.read_text(encoding="utf-8"))
     properties = list(data.get("properties") or [])
@@ -57,7 +69,7 @@ def apply(path=DATA, today=None):
         source = str(row.get("source") or "")
         day = _day(row)
         key = (source, str(row.get("url") or ""))
-        if source in failed_sources and _status(row) == "STALE SOURCE" and day and day >= today and key not in existing:
+        if source in failed_sources and _status(row) == "STALE SOURCE" and _current_enough(row,today,now) and key not in existing:
             row["status"] = "CURRENT"
             properties.append(row)
             existing.add(key)
@@ -75,7 +87,7 @@ def apply(path=DATA, today=None):
         h["status"] = "DEGRADED"
         h["authoritative_snapshot"] = False
         if retained_total:
-            h["message"] = (original + " " if original else "") + f"Temporary collector outage: retained {retained_total} last-known-good row(s); {preserved[source]} still-future row(s) preserved on the public board."
+            h["message"] = (original + " " if original else "") + f"Temporary collector outage: retained {retained_total} last-known-good row(s); {preserved[source]} eligible current row(s) restored on the public board. Undated rows expire after 48 hours without fresh evidence."
         else:
             h["zero_inventory_outage"] = True
             zero_inventory_outages.append(source)
@@ -96,6 +108,9 @@ def apply(path=DATA, today=None):
     from .publication_quality import prepare_publication
     prepare_publication(data)
     refresh_quality_telemetry(data)
+    # Reconcile the rows customers actually receive, after outage restoration.
+    from source_reconciliation import attach
+    attach(data)
     path.write_text(json.dumps(data, indent=2), encoding="utf-8")
     print("SOURCE RESILIENCE", json.dumps({"failed_sources": sorted(failed_sources), "preserved_future_rows": dict(preserved), "zero_inventory_outages": sorted(zero_inventory_outages), "acceptance_ready": coverage.get("acceptance_ready")}, sort_keys=True))
     return data

@@ -18,6 +18,41 @@ Do not restart completed course corrections or the corpus. The homepage currentl
 counts available lots separately from sold/withdrawn/postponed lots; the catalogue
 includes both. The new results wording makes this distinction explicit.
 
+## 6 October late evening — current coverage and report terms
+
+- Added production-integrated current collectors for iamsold and Wilsons. No new
+  historical auctioneer was added. iamsold: 275 unique details fully parsed,
+  110 qualifying (68 commercial, 42 mixed-use), 165 classification exclusions,
+  zero discovery/detail failures. Scope is its national commercial, hotel,
+  garage/parking and land categories; residential categories are not claimed.
+  Fixed the source pagination mismatch (10-item pager, 12-item actual pages),
+  requiring reconciliation to each published category denominator.
+- Wilsons: seven UK event catalogues, 37 advertised current records plus one
+  ended record, all 38 parsed. One qualifying mixed-use opportunity; 36
+  classification exclusions and one ended lot excluded. Source-designated images,
+  guide ranges and visible lot statuses are preserved by both collectors.
+- Publication candidate: 938 -> 1,049 rows. Source-health counts now reconcile
+  AFTER outage preservation; count-collapse baselines survive revalidation.
+  Undated rolling stock can survive an explicit source outage for no more than
+  48 hours from actual collection. Do not describe stale evidence as fresh.
+- Acquisition extraction now handles worded completion periods, deposit clauses
+  containing condition references, lot-specific auctioneer fees and explicit
+  seller no-option-to-tax statements. Conflicting fees/VAT stay unresolved.
+  781 tests plus eight subtests pass. A recovered real seven-page Newbury
+  conditions PDF was processed locally and its exact terms/calculations checked.
+- Newbury source recovery: 37 of 38 documents match the supplied legacy report
+  by SHA256. The recovered special conditions are a DIFFERENT version:
+  seller costs £4,500 + VAT versus £2,000 + VAT in the report's original.
+  Do not combine them or claim exact original-pack end-to-end verification.
+  The newly recovered Lot 243 ZIP belongs to Shipley, not Newbury. No private
+  documents or raw reports are committed. Need the original amended Newbury
+  conditions/ZIP before that exact-pack sign-off.
+- Pending after this batch: Cheffins current route, remaining degraded current
+  sources (including UTH GitHub-runner 403), broader regional reconciliation,
+  and provider activation for real accounts/payments. Existing owner Streamlit
+  session is authenticated through GitHub; do not request sign-in unnecessarily.
+  Publication/live outcomes below must be updated after checking deployment.
+
 ## 6 October live-product continuation
 
 - Upcoming Auctions is now a thin rail ABOVE search, preserving the approved

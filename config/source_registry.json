@@ -482,12 +482,13 @@
   "priority_assessments": [
     {
       "auctioneer": "Wilsons Property Auctions",
-      "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
-      "collector_verified": false,
+      "state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "collector_verified": true,
       "current_catalogue_detected": true,
       "checked_on": "2026-10-06",
       "source_url": "https://www.wilsonsauctions.com/auctions/land-property-auctions",
-      "failure_reason": "Upcoming UK property events and featured lots observed; full event catalogue traversal has not yet been implemented. Featured lots do not establish full inventory."
+      "collector_module": "collectors.wilsons",
+      "scope": "Current/upcoming UK property event lot-summary feed reconciled against event totalCount; Republic of Ireland excluded."
     },
     {
       "auctioneer": "Sutton Kersh",
@@ -530,12 +531,13 @@
     },
     {
       "auctioneer": "iamsold",
-      "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
-      "collector_verified": false,
+      "state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "collector_verified": true,
       "current_catalogue_detected": true,
       "checked_on": "2026-10-06",
       "source_url": "https://www.iamsold.co.uk/properties/",
-      "failure_reason": "National commercial search returned 132 advertised properties across 14 pages; current collector and full detail reconciliation not yet implemented. This is a discovery count, not captured commercial inventory."
+      "collector_module": "collectors.iamsold",
+      "scope": "National commercial, hotel, garage and land categories; all pages traversed and details classified. Residential categories not traversed."
     },
     {
       "auctioneer": "Connells Property Auctions",
