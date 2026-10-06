@@ -1,0 +1,102 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2023-02-14",
+  "auction_date": "2023-02-14",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 9,
+  "lots_captured": 9,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32235771/bristol-city/bristol/mina-road",
+      "retrieved_at": "2026-10-06T03:05:13.401568+00:00",
+      "sha256": "581dc3ebc182c42fca239d9b2c1681b01576d7197ae6a6cb2af3486f721cde50",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32235771-581dc3ebc182c42f.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32235771"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32233933/bristol-city/bristol/church-road-3",
+      "retrieved_at": "2026-10-06T03:05:13.440624+00:00",
+      "sha256": "e5ba5484da613d6df4da72d54e4e8e9582992a71221aa514e9f10e7d08b24b6c",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32233933-e5ba5484da613d6d.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32233933"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32233839/bristol-city/bristol/bower-ashton-terrace",
+      "retrieved_at": "2026-10-06T03:05:13.476044+00:00",
+      "sha256": "9b343137202106c15fee88cb81c3434660f648a21affeda2c383015727c49e19",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32233839-9b343137202106c1.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32233839"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32233765/bristol-city/bristol/elmgrove-avenue",
+      "retrieved_at": "2026-10-06T03:05:13.511392+00:00",
+      "sha256": "af2910bb44cf56708b4f6c5f593e770e51e90e79950a8ee42823077033a3ec69",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32233765-af2910bb44cf5670.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32233765"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32233410/bristol-city/bristol/chesterfield-road",
+      "retrieved_at": "2026-10-06T03:05:13.548977+00:00",
+      "sha256": "2ad90690fde84e8a7f7371456b5fe783479ec0cd2bdda1e2af144fb14e67b8b2",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32233410-2ad90690fde84e8a.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32233410"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32233352/south-gloucestershire/bristol/syston-way",
+      "retrieved_at": "2026-10-06T03:05:13.585008+00:00",
+      "sha256": "6eab5bdb99cc30eddd05842567650fd0cb9fcc7793ada9cac97a0d8f7d9d3bc0",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32233352-6eab5bdb99cc30ed.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32233352"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32235791/south-gloucestershire/bristol/kestrel-close",
+      "retrieved_at": "2026-10-06T03:05:14.891881+00:00",
+      "sha256": "8a041a32953759afa4245dbcd7aac62c027648c2929d1de74239c30ffc7c11a3",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32235791-8a041a32953759af.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32235791"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32233785/bristol-city/bristol/hotwell-road",
+      "retrieved_at": "2026-10-06T03:05:14.959801+00:00",
+      "sha256": "3129e172dc56258da0b4c81579531391cdeb7298252c113472740996a183fbcb",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32233785-3129e172dc56258d.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32233785"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32233812/bristol-city/bristol/gunters-hill",
+      "retrieved_at": "2026-10-06T03:05:15.965540+00:00",
+      "sha256": "a7f43d80aae75efe6a87315deb6fe483e97e6f0586b505bb91c20e323125af14",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32233812-a7f43d80aae75efe.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32233812"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.535450+00:00"
+}

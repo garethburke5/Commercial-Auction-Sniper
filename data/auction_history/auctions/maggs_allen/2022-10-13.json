@@ -1,0 +1,86 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2022-10-13",
+  "auction_date": "2022-10-13",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 7,
+  "lots_captured": 7,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32219233/bristol-city/bristol/the-crescent-1",
+      "retrieved_at": "2026-10-06T03:05:15.070664+00:00",
+      "sha256": "ac7e69b508f7d04f1b1ef095987d9ffd92c02582fd778b06a108154dcc8dc1da",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32219233-ac7e69b508f7d04f.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32219233"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32219591/bristol-city/bristol/north-view",
+      "retrieved_at": "2026-10-06T03:05:15.502151+00:00",
+      "sha256": "2adaf41f9f59afce49e63f65fb599495ed2bacbbd2f7d87a4d087ade7d63aae6",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32219591-2adaf41f9f59afce.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32219591"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32219251/south-gloucestershire/bristol/ash-lane-1",
+      "retrieved_at": "2026-10-06T03:05:15.753038+00:00",
+      "sha256": "d327e28188c38bc444957687a4789f0c6dab5ed9e3dd3bd7c1c34de08832a989",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32219251-d327e28188c38bc4.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32219251"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32219192/south-gloucestershire/bristol/court-lane",
+      "retrieved_at": "2026-10-06T03:05:15.790463+00:00",
+      "sha256": "e7215ff486256a61c93b4ddc71296a7ecf38a6f67b0231dfa578bb4227667e64",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32219192-e7215ff486256a61.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32219192"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32233007/bristol-city/bristol/south-road-2",
+      "retrieved_at": "2026-10-06T03:05:16.000157+00:00",
+      "sha256": "5322dcb03a5a5dfbc63f6e668c80afe1aed836b66595ec8f6d92f48be81b85f5",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32233007-5322dcb03a5a5dfb.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32233007"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32219303/south-gloucestershire/bristol/wentworth",
+      "retrieved_at": "2026-10-06T03:05:16.033978+00:00",
+      "sha256": "c2344cbd7bf8db7345fe3bc9b04b36d027b34b08761f7233bff651f175f7e615",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32219303-c2344cbd7bf8db73.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32219303"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32219177/bristol-city/bristol/south-road-1",
+      "retrieved_at": "2026-10-06T03:05:16.070135+00:00",
+      "sha256": "fc5fbe886e08f9bfd58991ea20a38a5dbf50d6ac640e4ff7ceeb9687273948db",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32219177-fc5fbe886e08f9bf.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32219177"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.536943+00:00"
+}

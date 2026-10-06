@@ -1,0 +1,70 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2023-07-27",
+  "auction_date": "2023-07-27",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 5,
+  "lots_captured": 5,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32494020/bristol-city/bristol/kennington-avenue",
+      "retrieved_at": "2026-10-06T03:05:12.931604+00:00",
+      "sha256": "4dea05d64b06932db4531d75556e5c7fc8192686700befd5fef9bf3b0c80e4fe",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32494020-4dea05d64b06932d.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32494020"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32493976/south-gloucestershire/bristol/bude-road",
+      "retrieved_at": "2026-10-06T03:05:12.967387+00:00",
+      "sha256": "c2a5f3caf0e7ed139be52fdde6e8a9124dbdfa4b69ff4003d8e4d76e56f4bfd3",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32493976-c2a5f3caf0e7ed13.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32493976"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32494047/bristol-city/bristol/vyvyan-road",
+      "retrieved_at": "2026-10-06T03:05:14.602230+00:00",
+      "sha256": "432c3fbf9d609335c910cba7bfb7d775eafe52b946951c4ec10622cfe8ef4f6a",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32494047-432c3fbf9d609335.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32494047"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32493988/bristol-city/bristol/cromwell-road",
+      "retrieved_at": "2026-10-06T03:05:14.638720+00:00",
+      "sha256": "7313e955fe182668d2321331e87fb8c8fbc58a2f6b1b577080c5f20bd10a82b7",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32493988-7313e955fe182668.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32493988"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32494003/wiltshire/westbury/maristow-street",
+      "retrieved_at": "2026-10-06T03:05:15.287294+00:00",
+      "sha256": "ddb01771464779d3de07086048ad7aabfe325678b9976b5eb171bad1d476f70c",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32494003-ddb01771464779d3.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32494003"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.534758+00:00"
+}

@@ -1,0 +1,62 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2023-04-27",
+  "auction_date": "2023-04-27",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 4,
+  "lots_captured": 4,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32356323/bristol-city/bristol/redhill-drive",
+      "retrieved_at": "2026-10-06T03:05:13.118942+00:00",
+      "sha256": "42d251fa415a2a30b83bf44bd3bc0a91227260b46c234f124ab23640f2cf043e",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32356323-42d251fa415a2a30.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32356323"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32356255/bristol-city/bristol/oldfield-place",
+      "retrieved_at": "2026-10-06T03:05:13.155203+00:00",
+      "sha256": "e0de8aacb65dbfda63a7bc9e90e0ab6c5027c55de9e69c810ce1bd1c72834b91",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32356255-e0de8aacb65dbfda.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32356255"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32356232/south-gloucestershire/bristol/parkwall-crescent",
+      "retrieved_at": "2026-10-06T03:05:13.190805+00:00",
+      "sha256": "962f10f3c06f22138216a71b6fad52bdce1ee1a85b218ffa2dfb7b936a996311",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32356232-962f10f3c06f2213.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32356232"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32356358/south-gloucestershire/bristol/st-james-street",
+      "retrieved_at": "2026-10-06T03:05:14.855272+00:00",
+      "sha256": "227bade0a9c3933b36094eed066eba3a0a5027a8d1a31e62e50e790499c8be39",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32356358-227bade0a9c3933b.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32356358"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.535099+00:00"
+}

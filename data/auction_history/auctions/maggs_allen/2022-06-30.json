@@ -1,0 +1,78 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2022-06-30",
+  "auction_date": "2022-06-30",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 6,
+  "lots_captured": 6,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32218657/bristol-city/bristol/queens-parade",
+      "retrieved_at": "2026-10-06T03:05:13.796014+00:00",
+      "sha256": "c5af7afa077f8ed66a70be27ab0e3b2c566b075d2539a67571ec79f28ab55528",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32218657-c5af7afa077f8ed6.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32218657"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32218642/-/bristol/conham-hill",
+      "retrieved_at": "2026-10-06T03:05:13.833346+00:00",
+      "sha256": "f175392645f6e7cbaae42f55363d6fd3dda2311dbb1897f3dc3ea1579041bd1e",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32218642-f175392645f6e7cb.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32218642"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32218582/bristol-city/bristol/401",
+      "retrieved_at": "2026-10-06T03:05:15.105401+00:00",
+      "sha256": "ca872fced0183584c51a74e760749552a2bd46bbd67eae7d47a5e1f297b9c1f2",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32218582-ca872fced0183584.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32218582"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32218536/bristol-city/bristol/christmas-steps",
+      "retrieved_at": "2026-10-06T03:05:15.575187+00:00",
+      "sha256": "6df66a40865ecfbb1642012405c9a43b89bb016428ea09f4d4723435255774a9",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32218536-6df66a40865ecfbb.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32218536"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32218608/bristol-city/bristol/brockhurst-gardens",
+      "retrieved_at": "2026-10-06T03:05:16.170451+00:00",
+      "sha256": "0246c6beb37fd301314ce65c2a3cbbe94cb89d18571522adda346a26fdbe51f4",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32218608-0246c6beb37fd301.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32218608"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32218558/bristol-city/bristol/claverham-road",
+      "retrieved_at": "2026-10-06T03:05:16.204218+00:00",
+      "sha256": "b34d4ac0abd9aa98d4038ce50197365cda115a3fa1b6b3dff58b49e6a84dffbe",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32218558-b34d4ac0abd9aa98.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32218558"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.535960+00:00"
+}

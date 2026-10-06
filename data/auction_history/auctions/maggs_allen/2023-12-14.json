@@ -1,0 +1,126 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2023-12-14",
+  "auction_date": "2023-12-14",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 12,
+  "lots_captured": 12,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32846717/bristol-city/bristol/west-street-2",
+      "retrieved_at": "2026-10-06T03:05:12.333422+00:00",
+      "sha256": "351dd4b1f36d20881850b29958a5396de47d3eeff7747707b4e42c16625c80d8",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32846717-351dd4b1f36d2088.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32846717"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32846654/bristol-city/bristol/fair-furlong",
+      "retrieved_at": "2026-10-06T03:05:12.391048+00:00",
+      "sha256": "51a2459deafb4352ffc581608660d7bc9da84f163f5e7ee35268abc2e2ba2cec",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32846654-51a2459deafb4352.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32846654"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32779719/bristol-city/bristol/oberon-avenue-1",
+      "retrieved_at": "2026-10-06T03:05:12.446264+00:00",
+      "sha256": "e8e5d526b9505a8efa8bc8be531b014a293996a6381362a8bef6667cf8a7c86f",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32779719-e8e5d526b9505a8e.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32779719"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32779700/bristol-city/bristol/west-street-6",
+      "retrieved_at": "2026-10-06T03:05:12.515438+00:00",
+      "sha256": "9ef73f01d28486b322bde873f465c261910f34273b002e051269bf2256b1a1c2",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32779700-9ef73f01d28486b3.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32779700"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32779667/bristol-city/bristol/fir-tree-lane-1",
+      "retrieved_at": "2026-10-06T03:05:12.554064+00:00",
+      "sha256": "bdefa78775dff997afd8ca8ef02b2095ab9f0b1d718f3ca45dffbe90c7a68439",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32779667-bdefa78775dff997.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32779667"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32779653/bristol-city/bristol/grove-park-terrace-1",
+      "retrieved_at": "2026-10-06T03:05:12.591725+00:00",
+      "sha256": "7603a1ec63767590a56e677eae083f6cdabd556271d031694c5e070d1c93e5a9",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32779653-7603a1ec63767590.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32779653"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32846882/bristol-city/bristol/dongola-road",
+      "retrieved_at": "2026-10-06T03:05:14.386163+00:00",
+      "sha256": "04bf9532aee5cf222375c444aa01ab45c49fe0da9837ed97da10e061fd1016fe",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32846882-04bf9532aee5cf22.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32846882"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32846601/bristol-city/bristol/summerhill-road",
+      "retrieved_at": "2026-10-06T03:05:14.425180+00:00",
+      "sha256": "e637fcd337a883f8099a265d53fb629dc944cc79608fe672b46aded129f28f6c",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32846601-e637fcd337a883f8.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32846601"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32779730/bristol-city/bristol/dongola-road-1",
+      "retrieved_at": "2026-10-06T03:05:14.462044+00:00",
+      "sha256": "de8cb2cb31c3696fddd1d970c18ccbd6316342670e267c069897d4c053514fd1",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32779730-de8cb2cb31c3696f.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32779730"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32779618/bristol-city/bristol/summerhill-road-1",
+      "retrieved_at": "2026-10-06T03:05:14.531256+00:00",
+      "sha256": "d3c95cb4a75552de754e4bb06d12ac25d3262c3cf6cb7dd90c134cacb82bbd14",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32779618-d3c95cb4a75552de.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32779618"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32779681/bristol-city/bristol/oldmead-walk-1",
+      "retrieved_at": "2026-10-06T03:05:15.682646+00:00",
+      "sha256": "199c4ff7b42b3d18ad8bf71f1b5f9403c40a00b9060117a8bbf56da7cacf726d",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32779681-199c4ff7b42b3d18.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32779681"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32779638/bristol-city/bristol/hill-avenue-1",
+      "retrieved_at": "2026-10-06T03:05:15.931214+00:00",
+      "sha256": "c6d20f3293dc896d96bbec0ad65f13a7d40e59947eb7eb50f7a050ce590561bf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32779638-c6d20f3293dc896d.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32779638"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.534040+00:00"
+}

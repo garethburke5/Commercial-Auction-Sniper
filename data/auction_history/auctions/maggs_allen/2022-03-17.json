@@ -1,0 +1,78 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2022-03-17",
+  "auction_date": "2022-03-17",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 6,
+  "lots_captured": 6,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32216521/south-gloucestershire/bristol/overnhill-road",
+      "retrieved_at": "2026-10-06T03:05:14.010605+00:00",
+      "sha256": "3947a84033d2950ba6142bc432565e0b998cdd18ec846e6e9ba2b2409417bd88",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32216521-3947a84033d2950b.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32216521"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32216360/bristol-city/bristol/25",
+      "retrieved_at": "2026-10-06T03:05:14.052199+00:00",
+      "sha256": "aa551bff613c114a388bcdf5a5eebde3e16fec95c42a6f00d7287c00c62f2548",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32216360-aa551bff613c114a.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32216360"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32216565/bristol-city/bristol/burnell-drive",
+      "retrieved_at": "2026-10-06T03:05:15.177370+00:00",
+      "sha256": "71f68e71fc988e84bf35008ac0a54b61ea0cef95b24887cd973d4a18bfc153a1",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32216565-71f68e71fc988e84.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32216565"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32216861/south-gloucestershire/bristol/ash-lane",
+      "retrieved_at": "2026-10-06T03:05:15.826570+00:00",
+      "sha256": "90bddc5585de2297b9fac5b6ae70a64f31e4c113d216be08fbdb12eb99d6a055",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32216861-90bddc5585de2297.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32216861"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32216608/south-gloucestershire/bristol/gloucester-road-1",
+      "retrieved_at": "2026-10-06T03:05:15.861289+00:00",
+      "sha256": "e9278136a3ecbe1e8b867bce6821d975b2081f901a7d044778272c45fee1ce06",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32216608-e9278136a3ecbe1e.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32216608"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32216493/bristol-city/bristol/arley-hill",
+      "retrieved_at": "2026-10-06T03:05:16.273678+00:00",
+      "sha256": "cd6e55a69c55911b8eb3985d0527cff04ab76456754c7264c1cbd3ac3df513b6",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32216493-cd6e55a69c55911b.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32216493"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.536508+00:00"
+}

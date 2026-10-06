@@ -1,0 +1,70 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2023-09-14",
+  "auction_date": "2023-09-14",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 5,
+  "lots_captured": 5,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32597652/bristol-city/bristol/rugby-road",
+      "retrieved_at": "2026-10-06T03:05:12.737064+00:00",
+      "sha256": "7985de054909269ce9f149e6e139b437ef616bdc16b5bff8188d11bf4f90a8a4",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32597652-7985de054909269c.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32597652"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32597356/south-gloucestershire/bristol/lydney-road",
+      "retrieved_at": "2026-10-06T03:05:12.771580+00:00",
+      "sha256": "3f4da58dbe15a915bb8a9682492c3f9af28df0595744697debbda573f62198d5",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32597356-3f4da58dbe15a915.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32597356"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32597312/somerset/yeovil/the-avenue",
+      "retrieved_at": "2026-10-06T03:05:12.808896+00:00",
+      "sha256": "fdc5e7811be6b0d978b12baaf3b40b1dd092cda3a80274d76a5627b234ed6d69",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32597312-fdc5e7811be6b0d9.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32597312"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32597253/bristol-city/bristol/nottingham-street",
+      "retrieved_at": "2026-10-06T03:05:12.852638+00:00",
+      "sha256": "61e737dc11c4931d8696bf5e88849e3f791ee620eafec8d77bf1bd13ce31f2ee",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32597253-61e737dc11c4931d.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32597253"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32597432/bristol-city/bristol/wells-road",
+      "retrieved_at": "2026-10-06T03:05:14.567050+00:00",
+      "sha256": "685982993fb769aebed8efddd306186e5f99d8fe3c646784517da8b15ec7c432",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32597432-685982993fb769ae.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32597432"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.534583+00:00"
+}

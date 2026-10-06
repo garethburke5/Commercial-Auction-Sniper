@@ -1,0 +1,54 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2023-11-16",
+  "auction_date": "2023-11-16",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 3,
+  "lots_captured": 3,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32732561/south-gloucestershire/bristol/little-meadow",
+      "retrieved_at": "2026-10-06T03:05:12.627882+00:00",
+      "sha256": "610c587747840a535ad3cf10217fb2dfd15970414484abbccd7483d9664063e5",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32732561-610c587747840a53.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32732561"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32732530/bristol-city/bristol/gatton-road",
+      "retrieved_at": "2026-10-06T03:05:12.663893+00:00",
+      "sha256": "503e20a03404a933eb1905bbc36d87b05f2cb6042fc375bb9d84a7d8f3934d00",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32732530-503e20a03404a933.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32732530"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32732486/bristol-city/bristol/woodcroft-avenue",
+      "retrieved_at": "2026-10-06T03:05:12.699427+00:00",
+      "sha256": "93c145bbfadcfafc29bef9a8824507470597455b1ba960a70480389edf5cf156",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32732486-93c145bbfadcfafc.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32732486"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.534400+00:00"
+}

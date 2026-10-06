@@ -1,0 +1,39 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:april-2024",
+  "auction_date": null,
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 1,
+  "lots_captured": 1,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/33061006/south-gloucestershire/bristol/gloucester-road-6",
+      "retrieved_at": "2026-10-06T03:05:15.248996+00:00",
+      "sha256": "00f4b3d285bce3fbce21e1e06b3217e3b7b89ade6cfab102b9892140205b2927",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-33061006-00f4b3d285bce3fb.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "33061006"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published",
+    "exact auction date unavailable for one or more retained rows"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.537072+00:00"
+}

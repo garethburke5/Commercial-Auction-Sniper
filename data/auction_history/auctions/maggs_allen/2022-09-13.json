@@ -1,0 +1,70 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2022-09-13",
+  "auction_date": "2022-09-13",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 5,
+  "lots_captured": 5,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32232994/south-gloucestershire/bristol/gloucester-road-3",
+      "retrieved_at": "2026-10-06T03:05:13.620038+00:00",
+      "sha256": "77ff578bda52d605a303815cc3e4cd3048506cdc19f0123f24db8266cc41374c",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32232994-77ff578bda52d605.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32232994"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32219597/bristol-city/bristol/southmead-road",
+      "retrieved_at": "2026-10-06T03:05:13.724943+00:00",
+      "sha256": "fbb365545aec81f2503ebc9fd409c8f40a23dfcd296b90536fab896f06f2be59",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32219597-fbb365545aec81f2.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32219597"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32219150/bristol-city/bristol/james-place",
+      "retrieved_at": "2026-10-06T03:05:13.759816+00:00",
+      "sha256": "9d5106c6b13553e191e153a477ffe89e4adcbab3ebe505a180dee536f14fe744",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32219150-9d5106c6b13553e1.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32219150"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32219590/south-gloucestershire/bristol/gloucester-road-2",
+      "retrieved_at": "2026-10-06T03:05:15.466586+00:00",
+      "sha256": "6e8f2f001741cbca3d84a74681a72ad8b142f78f0475347da9741098520e1b93",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32219590-6e8f2f001741cbca.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32219590"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32218717/bristol-city/bristol/broadleys-avenue",
+      "retrieved_at": "2026-10-06T03:05:16.135192+00:00",
+      "sha256": "926ca7c7b8accb4d50f7ae16919d5b7250d90b805c25d3da8cd4df3a24ef6543",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32218717-926ca7c7b8accb4d.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32218717"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.535625+00:00"
+}

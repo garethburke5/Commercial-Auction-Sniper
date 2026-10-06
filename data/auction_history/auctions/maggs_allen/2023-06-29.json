@@ -1,0 +1,54 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2023-06-29",
+  "auction_date": "2023-06-29",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 3,
+  "lots_captured": 3,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32442547/bristol-city/bristol/lewin-street",
+      "retrieved_at": "2026-10-06T03:05:14.673512+00:00",
+      "sha256": "967f29c902d936e39918170f32114f591de54fa860585f368a79cb01b6607daf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32442547-967f29c902d936e3.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32442547"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32442460/bristol-city/bristol/fishponds-road-3",
+      "retrieved_at": "2026-10-06T03:05:14.707723+00:00",
+      "sha256": "4bc17a3cbd8cf4c05df568d7a34a7aac1d5df2e254e5d119c4c2bee624f08895",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32442460-4bc17a3cbd8cf4c0.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32442460"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32442596/bristol-city/bristol/east-street-3",
+      "retrieved_at": "2026-10-06T03:05:15.358984+00:00",
+      "sha256": "2c9d36080d5f1d390d8265976547bb8465cf5266d86def2cad93bce14ac929bd",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32442596-2c9d36080d5f1d39.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32442596"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.536783+00:00"
+}

@@ -1,0 +1,54 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2022-04-26",
+  "auction_date": "2022-04-26",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 3,
+  "lots_captured": 3,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32218313/bristol-city/bristol/southfield-road",
+      "retrieved_at": "2026-10-06T03:05:13.941109+00:00",
+      "sha256": "2bfa9ffb0eb04fabf77639a26e574332fcde2b1e0a5e4b7e72ca8c5f9727299c",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32218313-2bfa9ffb0eb04fab.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32218313"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32218232/bristol-city/bristol/norman-road",
+      "retrieved_at": "2026-10-06T03:05:13.976175+00:00",
+      "sha256": "57b3377b0f09606d6d8b90c6e1bf514d34b853275bd5af2867ed7d7ecd63a314",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32218232-57b3377b0f09606d.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32218232"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32218274/gloucestershire/bristol/new-station-road",
+      "retrieved_at": "2026-10-06T03:05:15.141447+00:00",
+      "sha256": "8212dfdecd2176f41026eb8507e66386e76046a7756310be82f18c87858a979b",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32218274-8212dfdecd2176f4.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32218274"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.536357+00:00"
+}

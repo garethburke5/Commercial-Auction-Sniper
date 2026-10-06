@@ -40,6 +40,7 @@ python scripts/harvest_cottons_results.py 16 8
 python scripts/harvest_harman_healy_results.py
 python scripts/harvest_lsh_results.py
 python scripts/harvest_goldings_results.py
+python scripts/harvest_maggs_allen_results.py
 python scripts/harvest_knight_frank_results.py 12
 python scripts/harvest_auction_estates_results.py 8
 python scripts/harvest_hollis_morgan_results.py 4
@@ -259,6 +260,15 @@ catalogues with removed or additional retained cards remain explicitly
 incomplete while every visible residential, commercial, mixed-use and land
 appearance is still banked. Immutable archive and catalogue snapshots preserve
 the source result text, prices, property type, description and images.
+
+Maggs & Allen collection preserves every distinct property row in the
+first-party retained sold-results selection. Stable source property IDs, full
+addresses, guide and sold prices, descriptions and images are retained. Detail
+pages supply exact auction dates only when their narrative agrees with the
+index's published month; conflicts remain null and are reported. The unpaginated
+``n=0`` index is reconciled independently, while every reconstructed auction
+group remains incomplete because the source publishes neither the original
+catalogue denominator nor every historic catalogue row.
 
 Knight Frank Auctions collection reconciles every card in the first-party
 recently-sold page against its explicit source-row count, then enriches each

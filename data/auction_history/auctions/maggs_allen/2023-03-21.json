@@ -1,0 +1,62 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2023-03-21",
+  "auction_date": "2023-03-21",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 4,
+  "lots_captured": 4,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32354714/bristol-city/bristol/heron-road",
+      "retrieved_at": "2026-10-06T03:05:13.226132+00:00",
+      "sha256": "e15d03d0c7989b28775a856cc4cce1c2155ad98b1f9d501443dde2f3457a383f",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32354714-e15d03d0c7989b28.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32354714"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32354672/bristol-city/bristol/whitehall-road",
+      "retrieved_at": "2026-10-06T03:05:13.261140+00:00",
+      "sha256": "2d8c63ea41077c94b24b60ba0898e2018027cfc7a2c85975fe1a6b06f6041e40",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32354672-2d8c63ea41077c94.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32354672"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32354655/south-gloucestershire/bristol/mortimer-road",
+      "retrieved_at": "2026-10-06T03:05:13.328536+00:00",
+      "sha256": "13d19a6d75f81cdc2aad8194a732dde38b3ace9b738e5389f9cd0467b71e8a6f",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32354655-13d19a6d75f81cdc.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32354655"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32354585/south-gloucestershire/bristol/hanham-road",
+      "retrieved_at": "2026-10-06T03:05:13.365435+00:00",
+      "sha256": "b011a405475bc97af9c261bc6e5a3e1fcf2f7b8e3395c24981911d641b4d9e9d",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32354585-b011a405475bc97a.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32354585"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.535299+00:00"
+}

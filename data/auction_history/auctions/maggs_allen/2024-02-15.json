@@ -1,0 +1,86 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2024-02-15",
+  "auction_date": "2024-02-15",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 7,
+  "lots_captured": 7,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32902915/somerset/shepton-mallet/charlton-road-1",
+      "retrieved_at": "2026-10-06T03:05:12.093225+00:00",
+      "sha256": "3281dea5d7a5fd0c8dc27e2b90ce6274a93e3f21d57cdd3a0033e21d278549e0",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32902915-3281dea5d7a5fd0c.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32902915"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32902882/south-gloucestershire/bristol/mackie-road-1",
+      "retrieved_at": "2026-10-06T03:05:12.130568+00:00",
+      "sha256": "1f733afc83e0862f8580eef538a084a3ca2e17db0f0f7194961529c5743e0d5e",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32902882-1f733afc83e0862f.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32902882"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32902896/bristol-city/bristol/roman-road-1",
+      "retrieved_at": "2026-10-06T03:05:12.166286+00:00",
+      "sha256": "26efce326b4eb12c7206a6c31981cdecc34b7f4b11cdd21a1ac343ffcdb3a1f3",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32902896-26efce326b4eb12c.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32902896"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32902862/bristol-city/bristol/belfry-avenue-1",
+      "retrieved_at": "2026-10-06T03:05:12.201200+00:00",
+      "sha256": "c67a1d9e66708771fc14b53e19515f6c2fa8c892217bbfcf256a3ae5c3c24846",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32902862-c67a1d9e66708771.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32902862"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32902815/south-gloucestershire/bristol/high-street-14",
+      "retrieved_at": "2026-10-06T03:05:12.241588+00:00",
+      "sha256": "7d80aec6cd3eaa40d29ab1251dad7d4dd1f888d4e263a452d9f34dfe14387b78",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32902815-7d80aec6cd3eaa40.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32902815"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32902790/south-gloucestershire/bristol/elmdale-crescent-1",
+      "retrieved_at": "2026-10-06T03:05:12.282928+00:00",
+      "sha256": "fe28df6ae2f433705982ce5fc9a0e9158b3884219410afbaf7ac066fa2c55dd7",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32902790-fe28df6ae2f43370.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32902790"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32902934/wiltshire/hannington-swindon/hannington-1",
+      "retrieved_at": "2026-10-06T03:05:15.647858+00:00",
+      "sha256": "5a4eccd06d7b6ee31f6922005cae762dd4adae9c576a41452c0e245c7a14b4e4",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32902934-5a4eccd06d7b6ee3.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32902934"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.533823+00:00"
+}

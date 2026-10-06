@@ -1,0 +1,62 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2022-02-08",
+  "auction_date": "2022-02-08",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 4,
+  "lots_captured": 4,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32216291/south-gloucestershire/bristol/bromley-heath-road",
+      "retrieved_at": "2026-10-06T03:05:14.125156+00:00",
+      "sha256": "0e806bea3a27c1ac364d5ba607951214a5efb1b7090561eec396c34567cd33d6",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32216291-0e806bea3a27c1ac.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32216291"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32216276/south-gloucestershire/bristol/star-barn-road",
+      "retrieved_at": "2026-10-06T03:05:14.161589+00:00",
+      "sha256": "85c2fe7f3375673e3928711fc93dd70ed0524963849868816202c84b39131e65",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32216276-85c2fe7f3375673e.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32216276"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32216242/bristol-city/bristol/douglas-road",
+      "retrieved_at": "2026-10-06T03:05:14.197593+00:00",
+      "sha256": "b19b5cbbe9ab38badbb58c42c5f2d864b78dcf95beb9c283f1e19054df48b49e",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32216242-b19b5cbbe9ab38ba.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32216242"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/31988256/bristol-city/bristol/chelsea-road",
+      "retrieved_at": "2026-10-06T03:05:14.234011+00:00",
+      "sha256": "697b402b60164d15cd356ad702ff9b79120e78734bc51ee920d7888f3705c12f",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-31988256-697b402b60164d15.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "31988256"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.536669+00:00"
+}

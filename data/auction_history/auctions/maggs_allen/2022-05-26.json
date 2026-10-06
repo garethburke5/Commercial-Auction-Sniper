@@ -1,0 +1,54 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2022-05-26",
+  "auction_date": "2022-05-26",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 3,
+  "lots_captured": 3,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32218316/-/bristol/northville-road",
+      "retrieved_at": "2026-10-06T03:05:13.904588+00:00",
+      "sha256": "aeff4c1cb01805089cd6db29cc418d92764a2df55c6f8e2c5eda928cd21ced6f",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32218316-aeff4c1cb0180508.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32218316"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32218296/bristol-city/bristol/church-road-1",
+      "retrieved_at": "2026-10-06T03:05:15.609279+00:00",
+      "sha256": "8af62721dd4a77d37e5936314260df2572c105ff4319e367cd1db73c750dd0bc",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32218296-8af62721dd4a77d3.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32218296"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32218462/bristol-city/bristol/south-hayes",
+      "retrieved_at": "2026-10-06T03:05:16.238605+00:00",
+      "sha256": "f7cf4510fd5079f632468beda2af17b638ebae65284dd8de1368e8fb4f63e67a",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32218462-f7cf4510fd5079f6.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32218462"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.536228+00:00"
+}

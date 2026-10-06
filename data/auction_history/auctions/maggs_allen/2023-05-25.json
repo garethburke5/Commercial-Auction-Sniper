@@ -1,0 +1,78 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2023-05-25",
+  "auction_date": "2023-05-25",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 6,
+  "lots_captured": 6,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32356921/south-gloucestershire/bristol/hampton-street",
+      "retrieved_at": "2026-10-06T03:05:13.003082+00:00",
+      "sha256": "56e7553ea11190d59cac5f91f9ba304f52d7cb92a0fae57404f56980c67ff55c",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32356921-56e7553ea11190d5.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32356921"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32356853/bristol-city/bristol/savoy-road",
+      "retrieved_at": "2026-10-06T03:05:13.040244+00:00",
+      "sha256": "4707726b8f3d75f04c286cf41deb93cf19209003103c8cb38096ad319548003c",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32356853-4707726b8f3d75f0.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32356853"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32356845/south-gloucestershire/bristol/heath-court",
+      "retrieved_at": "2026-10-06T03:05:13.083499+00:00",
+      "sha256": "e7f8b81846e4aad5bb75a900ca808de82bdc2618adaa99de6d96a1d22517f36b",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32356845-e7f8b81846e4aad5.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32356845"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32356903/south-gloucestershire/bristol/high-street-6",
+      "retrieved_at": "2026-10-06T03:05:14.750113+00:00",
+      "sha256": "644ead960055fe3d6878cd36f8dbf19efb21f08cacc26bab7e6bd76a6c3c7428",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32356903-644ead960055fe3d.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32356903"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32356883/bristol-city/bristol/st-stephens-avenue",
+      "retrieved_at": "2026-10-06T03:05:14.785081+00:00",
+      "sha256": "eed480ead9349dbabe7ae9cabb2b7c9bca7003aa433cfc6fe65958ea2f43d620",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32356883-eed480ead9349dba.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32356883"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/32356863/south-gloucestershire/bristol/quakers-road",
+      "retrieved_at": "2026-10-06T03:05:14.819689+00:00",
+      "sha256": "c43026366db6dde027ab598fe33b0255b2cd73488030d065d7dab5865d004fbe",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-32356863-c43026366db6dde0.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "32356863"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.534939+00:00"
+}

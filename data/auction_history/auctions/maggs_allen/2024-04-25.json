@@ -1,0 +1,86 @@
+{
+  "auctioneer": "Maggs & Allen",
+  "source_auction_id": "maggs-allen:2024-04-25",
+  "auction_date": "2024-04-25",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "published_lots_offered": null,
+  "visible_source_rows": 7,
+  "lots_captured": 7,
+  "pagination_reconciled": true,
+  "denominator_reconciled": false,
+  "completion_scope": "all rows retained for this date or month in the first-party recent-results selection; not the original catalogue",
+  "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+  "source_evidence": [
+    {
+      "source_url": "https://www.maggsandallen.co.uk/search-auction-sold/?bid=2&orderby=lot_no&n=0&showsold=on&showstc=on",
+      "retrieved_at": "2026-10-06T03:06:28.920623+00:00",
+      "sha256": "7ac08f22546c2c11eb6339d945dd60e28878b6d5cfd19b0bc06d7708cb8f5ccf",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/retained-results-7ac08f22546c2c11.json.gz",
+      "basis": "first-party retained auction-results property grid",
+      "pagination_request": "n=0",
+      "visible_source_rows": 108
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/33061135/bristol-city/bristol/st-nicholas-road-1",
+      "retrieved_at": "2026-10-06T03:05:11.946394+00:00",
+      "sha256": "af010e5d51dad714f3ee8739babeb779065e4e876272a96eacf0a0933da5ec4f",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-33061135-af010e5d51dad714.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "33061135"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/33061043/south-gloucestershire/bristol/the-stream-1",
+      "retrieved_at": "2026-10-06T03:05:11.992954+00:00",
+      "sha256": "f27978e9734e4c4540d854c1bdb479942b422a4cf1cc5499c28fcc63f7ecd7eb",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-33061043-f27978e9734e4c45.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "33061043"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/33061165/bristol-city/bristol/lansdown-place-1",
+      "retrieved_at": "2026-10-06T03:05:14.268979+00:00",
+      "sha256": "95f3b3bf79295ae2ba0a776459d17b83c4291715803d743cb7550985975f97b4",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-33061165-95f3b3bf79295ae2.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "33061165"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/33061108/bristol-city/bristol/warden-road-1",
+      "retrieved_at": "2026-10-06T03:05:14.307950+00:00",
+      "sha256": "63af02edeb79ea284addb550c5949f8f00377413ee0725caba462f1dbfb84fd5",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-33061108-63af02edeb79ea28.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "33061108"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/33061027/bristol-city/bristol/claremont-road-2",
+      "retrieved_at": "2026-10-06T03:05:14.348605+00:00",
+      "sha256": "4543a5f0fadc8680c519e9decf51bc360886c5dd65932697fe0bcdff452a6942",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-33061027-4543a5f0fadc8680.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "33061027"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/33061090/bristol-city/bristol/whitehall-road-2",
+      "retrieved_at": "2026-10-06T03:05:15.211582+00:00",
+      "sha256": "e429be3a8bd1fb35bbce0e8ab7952f60b749c4d939c67719fba6f9e8ac8b292e",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-33061090-e429be3a8bd1fb35.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "33061090"
+    },
+    {
+      "source_url": "https://www.maggsandallen.co.uk/property-details/33061062/bristol-city/bristol/upper-sandhurst-road-1",
+      "retrieved_at": "2026-10-06T03:05:15.896541+00:00",
+      "sha256": "1b55eace41da9816190ae650a92078f49001a4fbf063d996c64abecf186007ae",
+      "snapshot_path": "data/auction_history/sources/maggs_allen/detail-33061062-1b55eace41da9816.json.gz",
+      "basis": "first-party auction property detail page",
+      "source_property_id": "33061062"
+    }
+  ],
+  "reconciliation_errors": [
+    "original offered-lot denominator is not published"
+  ],
+  "errors": [],
+  "checked_at": "2026-10-06T03:06:32.533290+00:00"
+}
