@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-06T05:11:55.956716+00:00",
+  "checked_at": "2026-10-06T05:27:15.552290+00:00",
   "source_url": "https://edwardmellor.co.uk/auctions/catalogue-and-results-archive/",
   "result_pdfs_discovered": 55,
   "result_pdfs_complete": 8,
@@ -11,12 +11,11 @@
   "run_new_partial_lots": 0,
   "by_status": {
     "sold": 163,
-    "available": 172,
+    "available": 176,
     "sold_after": 87,
     "sold_prior": 54,
     "not_offered": 37,
     "under_offer": 2,
-    "unknown": 4,
     "withdrawn": 15
   },
   "by_sector": {
@@ -37,10 +36,51 @@
   ],
   "archive_evidence": {
     "source_url": "https://edwardmellor.co.uk/auctions/catalogue-and-results-archive/",
-    "retrieved_at": "2026-10-06T05:11:55.889512+00:00",
-    "sha256": "cf7a954bf8a7fc8175f9ba5ca2a913c8e85336f538cc88809775da8513db8a0f",
-    "snapshot_path": "data/auction_history/sources/edward-mellor-pdfs/archive-cf7a954bf8a7fc81.json.gz",
+    "retrieved_at": "2026-10-06T05:27:08.495202+00:00",
+    "sha256": "b34d0577ec348330589aee042531ce20b6296454764f2d00a5efcc0b38399cc0",
+    "snapshot_path": "data/auction_history/sources/edward-mellor-pdfs/archive-b34d0577ec348330.json.gz",
     "basis": "first-party catalogue and results archive"
   },
-  "failures": []
+  "failures": [
+    {
+      "url": "https://edwardmellor.co.uk/pdf/archive/20111027_October_Auction_Results_2011.pdf",
+      "label": "October Auction Results 2011",
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: 'pdftotext'"
+    },
+    {
+      "url": "https://edwardmellor.co.uk/pdf/archive/20111209_December_Auction_Results_2011.pdf",
+      "label": "December Auction Results 2011",
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: 'pdftotext'"
+    },
+    {
+      "url": "https://edwardmellor.co.uk/pdf/archive/20120209_February_Auction_Results_2012.pdf",
+      "label": "February Auction Results 2012",
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: 'pdftotext'"
+    },
+    {
+      "url": "https://edwardmellor.co.uk/pdf/archive/20120313_March_Auction_Results.pdf",
+      "label": "March Auction Results",
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: 'pdftotext'"
+    },
+    {
+      "url": "https://edwardmellor.co.uk/pdf/archive/20120501_May_Auction_Results.pdf",
+      "label": "May Auction Results",
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: 'pdftotext'"
+    },
+    {
+      "url": "https://edwardmellor.co.uk/pdf/archive/20120607_June_Auction_Results.pdf",
+      "label": "June Auction Results",
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: 'pdftotext'"
+    },
+    {
+      "url": "https://edwardmellor.co.uk/pdf/archive/20120701_July_Auction_Results_2012.pdf",
+      "label": "July Auction Results 2012",
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: 'pdftotext'"
+    },
+    {
+      "url": "https://edwardmellor.co.uk/pdf/archive/20120901_September_Auction_Results_2012.pdf",
+      "label": "September Auction Results 2012",
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: 'pdftotext'"
+    }
+  ]
 }

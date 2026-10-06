@@ -1,0 +1,61 @@
+{
+  "auctioneer": "Sutton Kersh",
+  "source_auction_id": "sutton-kersh:71",
+  "source_period_id": "71",
+  "auction_date": "2014-07-17",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "published_lots_offered": 105,
+  "visible_source_rows": 105,
+  "lots_captured": 105,
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "completion_scope": "all rows in the first-party dated result catalogue",
+  "source_url": "https://www.suttonkersh.co.uk/properties/listview/?auctionPeriod=71&perPage=48&section=auction&start=0",
+  "source_evidence": [
+    {
+      "source_url": "https://www.suttonkersh.co.uk/properties/listview/?auctionPeriod=71&perPage=48&section=auction&start=0",
+      "retrieved_at": "2026-10-06T05:17:42.458766+00:00",
+      "sha256": "4d868bac7d046276b1ca44a7cb60435ce030cb83ca091532347e82e8ab0d997a",
+      "snapshot_path": "data/auction_history/sources/sutton_kersh/period-71-start-0-4d868bac7d046276.json.gz",
+      "basis": "first-party dated auction result page",
+      "period_id": "71",
+      "start": 0,
+      "page_size": 48,
+      "visible_source_rows": 48
+    },
+    {
+      "source_url": "https://www.suttonkersh.co.uk/properties/listview/?auctionPeriod=71&perPage=48&section=auction&start=48",
+      "retrieved_at": "2026-10-06T05:17:43.804339+00:00",
+      "sha256": "dd2579e527373bb5c68b2d19c0af12c643c634ad9c8f3002832b5c5d2d1db48d",
+      "snapshot_path": "data/auction_history/sources/sutton_kersh/period-71-start-48-dd2579e527373bb5.json.gz",
+      "basis": "first-party dated auction result page",
+      "period_id": "71",
+      "start": 48,
+      "page_size": 48,
+      "visible_source_rows": 48
+    },
+    {
+      "source_url": "https://www.suttonkersh.co.uk/properties/listview/?auctionPeriod=71&perPage=48&section=auction&start=96",
+      "retrieved_at": "2026-10-06T05:17:44.539357+00:00",
+      "sha256": "d953ce00b335efc56c475d075b680e1c59348f0a8621db3f192a95f998b9075a",
+      "snapshot_path": "data/auction_history/sources/sutton_kersh/period-71-start-96-d953ce00b335efc5.json.gz",
+      "basis": "first-party dated auction result page",
+      "period_id": "71",
+      "start": 96,
+      "page_size": 48,
+      "visible_source_rows": 9
+    }
+  ],
+  "archive_evidence": {
+    "source_url": "https://www.suttonkersh.co.uk/auctions-property/auction-results/",
+    "retrieved_at": "2026-10-06T05:17:13.837236+00:00",
+    "sha256": "dda3853e412f02f8a864ee895df900984216148cf1f22e493e1ffb924e26e8e6",
+    "snapshot_path": "data/auction_history/sources/sutton_kersh/archive-dda3853e412f02f8.json.gz",
+    "basis": "first-party dated auction-results archive",
+    "published_auction_periods": 107
+  },
+  "reconciliation_errors": [],
+  "errors": [],
+  "checked_at": "2026-10-06T05:17:45.262862+00:00"
+}
