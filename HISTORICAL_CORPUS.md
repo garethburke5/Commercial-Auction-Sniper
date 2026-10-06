@@ -48,6 +48,7 @@ python scripts/harvest_auction_estates_results.py 8
 python scripts/harvest_hollis_morgan_results.py 4
 python scripts/harvest_dedman_gray_results.py --workers 8
 python scripts/harvest_john_francis_results.py --workers 8
+python scripts/harvest_swift_property_auctions.py --workers 8
 python historical_corpus.py build
 ```
 
@@ -345,6 +346,14 @@ archive date, venue, stable EIG lot ID, lot number, address, postcode, result
 and published sale price. All property types and repeat appearances are kept.
 A catalogue is complete only when every distinct visible lot ID is represented
 once and the lot-list heading date agrees exactly with the archive date.
+
+Swift Property Auctions collection traverses the complete first-party results
+archive and banks every property card from each unpaginated catalogue. Stable
+property IDs are scoped to the published auction ID so repeat appearances remain
+separate. Exact archive dates, result-page headings, visible cards and published
+lot denominators must all reconcile before a catalogue is complete. Addresses,
+descriptions, guides, outcomes, prices, legal-pack links, images and raw page
+snapshots are retained without filtering residential or unknown-sector lots.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The

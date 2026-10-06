@@ -1,0 +1,35 @@
+{
+  "auctioneer": "Swift Property Auctions",
+  "source_auction_id": "swift:77596",
+  "auction_date": "2025-12-19",
+  "source_url": "https://www.swiftpropertyauctions.co.uk/previous-auctions/77596",
+  "lots_captured": 1,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "completion_scope": "every property card in the first-party unpaginated result page",
+  "published_lot_denominator": 1,
+  "visible_source_rows": 1,
+  "distinct_appearance_identities": 1,
+  "heading_auction_date": "2025-12-19",
+  "heading_date_matches_archive": true,
+  "malformed_source_rows": [],
+  "catalogue_complete": true,
+  "source_evidence": {
+    "source_url": "https://www.swiftpropertyauctions.co.uk/previous-auctions/77596",
+    "retrieved_at": "2026-10-06T15:02:40.815723+00:00",
+    "sha256": "af9542f6869dffa33c17924e141d517d0c58d7bd0aa96b99a354c91377cd1ef4",
+    "snapshot_path": "data/auction_history/sources/swift-property-auctions/auction-77596-af9542f6869dffa3.json.gz",
+    "basis": "first-party unpaginated auction result page",
+    "archive_evidence": {
+      "source_url": "https://www.swiftpropertyauctions.co.uk/previous-auctions",
+      "retrieved_at": "2026-10-06T15:02:29.417179+00:00",
+      "sha256": "b153bec17f32e5079158cb26d7cafbab921bd97c37b3b51e35dd16ac4877fb3a",
+      "snapshot_path": "data/auction_history/sources/swift-property-auctions/archive-b153bec17f32e507.json.gz",
+      "basis": "first-party retained results archive with exact dates and lot denominators",
+      "catalogues_discovered": 15
+    }
+  },
+  "errors": [],
+  "checked_at": "2026-10-06T15:02:40.822442+00:00"
+}
