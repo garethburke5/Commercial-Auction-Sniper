@@ -1,11 +1,10 @@
-"""Bank Hollis Morgan's retained first-party 2014-2015 results catalogues.
+"""Bank Hollis Morgan's retained first-party 2010-2015 results catalogues.
 
-Those first-party PDF result catalogues expose one stable property URL per
-surviving property entry, along with its address, guide and outcome.  We bank
-every URL-bearing entry and retain page-text snapshots.  The original lot
-denominator is not consistently machine-reconcilable (some entries cover
-multiple lot numbers), so the catalogues remain explicitly incomplete even
-when every surviving URL-bearing row has been captured.
+Later first-party PDF result catalogues expose stable property URLs. Earlier
+catalogues predate those links, so their printed lot labels provide strict
+identity instead. Shared-page legacy lots remain partial rather than receiving
+speculative address mappings. The original denominator is not consistently
+machine-reconcilable, so catalogues remain explicitly incomplete.
 """
 from __future__ import annotations
 
@@ -29,7 +28,8 @@ import historical_corpus as corpus
 
 BASE = "https://www.hollismorgan.co.uk"
 ARCHIVE_TEMPLATE = BASE + "/auctions/auction-archive/auction-archive-{year}.html"
-YEARS = (2014, 2015)
+YEARS = tuple(range(2010, 2016))
+EXPECTED_PDFS = {2010: 3, 2011: 6, 2012: 6, 2013: 6, 2014: 6, 2015: 6}
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 PROPERTY_RE = re.compile(
     r"https?://www\.hollismorgan\.co\.uk/property/\s*(\d[\d ]{5,})\s*/result_auction",
@@ -68,17 +68,26 @@ def manifest(html: str, year: int, page_url: str) -> list[dict]:
             "label": label,
             "pdf_url": urljoin(page_url, link.get("href") or ""),
         })
-    if len(out) != 6 or len({item["pdf_url"] for item in out}) != len(out):
-        raise ValueError(f"Hollis Morgan {year} archive exposes {len(out)} distinct result PDFs, expected 6")
+    expected = EXPECTED_PDFS[year]
+    if len(out) != expected or len({item["pdf_url"] for item in out}) != len(out):
+        raise ValueError(
+            f"Hollis Morgan {year} archive exposes {len(out)} distinct result PDFs, expected {expected}"
+        )
     return out
 
 
-def auction_date(page_texts: list[str]) -> str:
-    match = DATE_RE.search("\n".join(page_texts[:4]))
-    if not match:
-        raise ValueError("exact auction date is absent from result catalogue")
-    value = f"{match.group(1)} {match.group(2)} {match.group(3)}"
-    return datetime.strptime(value.title(), "%d %B %Y").date().isoformat()
+def auction_date(page_texts: list[str], year: int | None = None, month: int | None = None) -> str | None:
+    for match in DATE_RE.finditer("\n".join(page_texts)):
+        value = f"{match.group(1)} {match.group(2)} {match.group(3)}"
+        parsed = datetime.strptime(value.title(), "%d %B %Y").date()
+        if year is not None and parsed.year != year:
+            continue
+        if month is not None and parsed.month != month:
+            continue
+        return parsed.isoformat()
+    if year is not None or month is not None:
+        return None
+    raise ValueError("exact auction date is absent from result catalogue")
 
 
 def ordered_unique(values: list[str]) -> list[str]:
@@ -182,8 +191,83 @@ def status_and_price(value: str | None) -> tuple[str, int | None]:
     return status, money(match.group(1), match.group(2)) if match else None
 
 
-def parse_pages(page_texts: list[str], pdf_slug: str, pdf_url: str, evidence: dict) -> tuple[list[dict], str]:
-    date = auction_date(page_texts)
+def legacy_page_lots(text: str) -> tuple[list[str], str]:
+    """Return detail-page lot labels and text that safely belongs to them."""
+    upper = text.upper()
+    if "GUIDE" not in upper or "TERMS & CONDITIONS" in upper or "EPC: LOT" in upper:
+        return [], text
+    matches = list(LOT_RE.finditer(text))
+    lots = ordered_unique([match.group(1).upper() for match in matches])
+    if not lots:
+        return [], text
+    if len(lots) <= 4:
+        return lots, text
+    # Some early PDFs append a prior-sale marketing montage to a current lot
+    # page. Only an explicit leading lot belongs to that detail page.
+    if matches[0].start() < 300:
+        return [matches[0].group(1).upper()], text[:matches[1].start()]
+    return [], text
+
+
+def parse_legacy_pages(
+    page_texts: list[str], pdf_slug: str, pdf_url: str, evidence: dict, date: str | None,
+) -> list[dict]:
+    rows = []
+    seen_lots = set()
+    for page_number, text in enumerate(page_texts, 1):
+        lots, scoped_text = legacy_page_lots(text)
+        lots = [lot for lot in lots if lot not in seen_lots]
+        if not lots:
+            continue
+        seen_lots.update(lots)
+        guides = [money(number, scale) for number, scale in GUIDE_RE.findall(scoped_text)]
+        outcomes = result_phrases(scoped_text)
+        single = len(lots) == 1
+        outcome = outcomes[0] if single and len(outcomes) == 1 else None
+        result_status, sale_price = status_and_price(outcome)
+        for ordinal, lot in enumerate(lots, 1):
+            source_token = f"{pdf_slug}:page:{page_number}:row:{ordinal}:lot:{lot}"
+            auction_id = f"hollis-morgan:{date or pdf_slug}"
+            row = corpus.base_row("Hollis Morgan", auction_id, date, lot, source_token, pdf_url)
+            row.update(
+                appearance_id=f"Hollis Morgan|{date or pdf_slug}|{source_token}",
+                # Pre-URL PDF text extraction interleaves property and solicitor
+                # columns. Preserve the page text but do not promote either
+                # postcode into an address without a stable row-level anchor.
+                address=None,
+                postcode=None,
+                locality=None,
+                sector=corpus.sector(scoped_text),
+                guide_price=guides[0] if single and len(guides) == 1 else None,
+                sale_price=sale_price if single else None,
+                status=result_status if single else "unknown",
+                property_id=None,
+                identity_method="first_party_auction_date_plus_pdf_page_row_and_printed_lot",
+                record_quality="partial_lot",
+                source_page=page_number,
+                source_row_ordinal=ordinal,
+                source_result_text=outcome if single else None,
+                source_catalogue_url=pdf_url,
+                auction_date_basis=(
+                    "exact date printed in first-party result catalogue"
+                    if date else "unknown exact day; first-party archive month retained in PDF slug"
+                ),
+                source_evidence={**evidence, "page": page_number},
+            )
+            rows.append(row)
+    return rows
+
+
+def parse_pages(
+    page_texts: list[str], pdf_slug: str, pdf_url: str, evidence: dict,
+    year: int | None = None, month: int | None = None,
+) -> tuple[list[dict], str | None]:
+    date = auction_date(page_texts, year, month)
+    if not any(PROPERTY_RE.search(text) for text in page_texts):
+        rows = parse_legacy_pages(page_texts, pdf_slug, pdf_url, evidence, date)
+        if not rows:
+            raise ValueError(f"{pdf_slug} contains no evidenced printed lot rows")
+        return rows, date
     rows = []
     for page_number, text in enumerate(page_texts, 1):
         property_matches = list(PROPERTY_RE.finditer(text))
@@ -284,8 +368,9 @@ def harvest(workers: int = 4) -> None:
         corpus.save_gzip(snapshot, {"evidence": evidence, "html": html})
         archive_evidence.append(evidence)
         items.extend(manifest(html, year, resolved))
-    if len(items) != 12:
-        raise ValueError(f"discovered {len(items)} retained result PDFs, expected 12")
+    expected_total = sum(EXPECTED_PDFS.values())
+    if len(items) != expected_total:
+        raise ValueError(f"discovered {len(items)} retained result PDFs, expected {expected_total}")
 
     state_dir = corpus.DATA / "auctions/hollis-morgan"
     cached, pending = {}, []
@@ -326,32 +411,45 @@ def harvest(workers: int = 4) -> None:
                 "snapshot_payload": "ordered per-page extracted text",
             }
             corpus.save_gzip(snapshot, {"evidence": evidence, "pages": pages})
-        rows, date = parse_pages(pages, slug, pdf_url, evidence)
+        month_name = slug.removeprefix("hm-").removesuffix(str(item["year"]))
+        month = {
+            "feb": 2, "february": 2, "mar": 3, "march": 3,
+            "apr": 4, "april": 4, "may": 5, "june": 6, "july": 7,
+            "sep": 9, "sept": 9, "september": 9,
+            "oct": 10, "october": 10, "nov": 11, "november": 11,
+            "dec": 12, "december": 12,
+        }[month_name]
+        rows, date = parse_pages(pages, slug, pdf_url, evidence, item["year"], month)
         all_rows.extend(rows)
+        source_format = "stable_property_urls" if any(row.get("property_id") for row in rows) else "printed_lot_labels"
         state = {
             "auctioneer": "Hollis Morgan",
-            "source_auction_id": f"hollis-morgan:{date}",
+            "source_auction_id": f"hollis-morgan:{date or slug}",
             "auction_date": date,
+            "archive_year": item["year"],
+            "archive_label": item["label"],
+            "source_format": source_format,
             "catalogue_complete": False,
             "source_rows_complete": True,
-            "published_url_bearing_rows": len(rows),
+            "published_source_rows": len(rows),
+            "published_url_bearing_rows": len(rows) if source_format == "stable_property_urls" else 0,
             "lots_captured": len(rows),
             "pagination_reconciled": True,
             "denominator_reconciled": False,
-            "incomplete_reason": "original lot denominator is not consistently separable where a PDF property entry represents multiple lot numbers",
+            "incomplete_reason": "original lot denominator is not consistently reconcilable; shared-page legacy lots remain partial rather than receiving speculative address mappings",
             "source_url": pdf_url,
             "source_evidence": evidence,
             "errors": [],
             "checked_at": corpus.now(),
         }
-        corpus.save_json(state_dir / f"{date}.json", state)
+        corpus.save_json(state_dir / f"{date or slug}.json", state)
         states.append(state)
 
     before_path = corpus.DATA / "appearances/hollis-morgan/canonical.jsonl.gz"
     before = {row["appearance_id"] for row in corpus.iter_rows(before_path)} if before_path.exists() else set()
     total = corpus.write_rows("hollis-morgan/canonical", all_rows)
     added = [row for row in all_rows if row["appearance_id"] not in before]
-    dates = sorted(state["auction_date"] for state in states)
+    dates = sorted(state["auction_date"] for state in states if state["auction_date"])
     summary = {
         "checked_at": corpus.now(),
         "archive_urls": [item["source_url"] for item in archive_evidence],
@@ -359,6 +457,10 @@ def harvest(workers: int = 4) -> None:
         "catalogues_source_rows_complete": len(states),
         "catalogues_original_denominator_reconciled": 0,
         "appearances_captured": total,
+        "address_records": sum(bool(row.get("address")) for row in all_rows),
+        "partial_lots": sum(not row.get("address") for row in all_rows),
+        "catalogues_by_source_format": dict(Counter(state["source_format"] for state in states)),
+        "catalogues_with_unknown_exact_date": sum(state["auction_date"] is None for state in states),
         "run_new_appearances": len(added),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
         "run_new_partial_lots": sum(not row.get("address") for row in added),

@@ -266,14 +266,16 @@ reconcile to the catalogue's own published result denominator. All property
 types and outcomes are retained with immutable page snapshots; repeat property
 IDs on different auction dates remain separate appearances.
 
-Hollis Morgan collection banks every URL-bearing property entry in the twelve
-retained first-party 2014-2015 result catalogues. Exact printed auction dates,
-addresses, guide prices, outcomes, sold prices and stable property IDs are
-preserved with ordered per-page PDF text snapshots and binary hashes. Combined
-pages whose PDF hyperlink annotations cannot be safely mapped back to printed
-sub-lots remain partial rather than receiving guessed addresses or lot numbers.
-The surviving URL rows are reconciled, but the original catalogues remain
-explicitly incomplete where one property entry represents multiple lot numbers.
+Hollis Morgan collection banks the 33 retained first-party result catalogues
+from September 2010 through November 2015. Later catalogues preserve exact
+printed dates, addresses, guide prices, outcomes, sold prices and stable
+property IDs. Pre-URL catalogues use exact printed lot labels and PDF source
+positions for appearance identity; because their extracted columns interleave
+property and solicitor details, address and postcode remain null rather than
+being guessed. Shared-page lots are separate partial records. Ordered per-page
+text snapshots and binary hashes preserve the evidence. All surviving source
+rows are banked, while original catalogues remain explicitly incomplete where
+their offered denominator or one-to-one row mapping cannot be reconciled.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The
