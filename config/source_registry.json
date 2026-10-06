@@ -487,8 +487,10 @@
     },
     {
       "auctioneer": "Sutton Kersh",
-      "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
-      "collector_verified": false
+      "state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "collector_verified": true,
+      "collector_module": "collectors.current_property_catalogues",
+      "scope": "Current catalogue detail traversal; historical collectors unchanged"
     },
     {
       "auctioneer": "Cheffins",
@@ -497,8 +499,10 @@
     },
     {
       "auctioneer": "Edward Mellor",
-      "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
-      "collector_verified": false
+      "state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "collector_verified": true,
+      "collector_module": "collectors.current_property_catalogues",
+      "scope": "Current catalogue detail traversal; historical collectors unchanged"
     },
     {
       "auctioneer": "Under The Hammer",

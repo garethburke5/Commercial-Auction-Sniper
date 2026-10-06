@@ -25,6 +25,7 @@ def asset_text(description):
     # Auction House's Location section describes surrounding shops/roads, not
     # the accommodation being sold. A house on a mixed-use road is still a house.
     text = re.sub(r'\bLocation\s*:\s*.*?(?=\b(?:Accommodation|Tenancy|Tenure|Planning|Note|EPC Rating|Exterior|VAT)\s*:|$)', ' ', text)
+    text = re.sub(r'[^.;]*(?:are all within easy reach|renowned Rows)[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
     text = re.sub(r'\bmixed[ -]use\s+(?:road|street|area|neighbourhood)\b','',text,flags=re.I)
     # Brochure SITUATION sections describe nearby shops/cafes and cannot turn a
     # flat or house into a commercial asset. Later factual sections remain.
@@ -40,6 +41,15 @@ def commercial_decision(item):
     """Reject residential assets; require particulars to prove mixed use."""
     asset = asset_text(item.get('description'))
     kind = str(item.get('property_type') or '')
+    # The current opportunity can be residential despite a former commercial name.
+    if (re.search(r'former public house conversion',asset,re.I)
+        and re.search(r'(?:bedroom|bed)[ -](?:home|flat)|bedroom home|terraced property',asset,re.I)
+        and not MIXED.search(asset)):
+        return False
+    if (re.search(r'residential development site|planning permission for (?:a )?\d+[ -]apartment residential scheme',asset,re.I)
+        and re.search(r'(?:land|site) (?:at the rear of |of )?former|former .{0,35}hotel',asset,re.I)
+        and not MIXED.search(asset)):
+        return False
     if (re.search(r'\b(?:demolished|demolition has been completed)\b', asset, re.I)
         and re.search(r'\bresidential development\b|\bdevelopment of \d+[^.;]{0,30}apartments\b', asset, re.I)
         and not MIXED.search(asset)):
