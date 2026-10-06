@@ -55,6 +55,32 @@ includes both. The new results wording makes this distinction explicit.
   540-page Newbury pack is not supplied here, so no full reprocessing is claimed.
   Owner access/restart of Streamlit remains necessary for live engine verification.
 
+## Deployment checkpoint — 6 October, 20:08 UTC
+
+- Re-read persisted production and verified the live public index: 905/905 rows
+  matched, including exact source-brand facts. North West: 138 source lots parsed,
+  28 commercial/mixed-use candidates, four publication exclusions, 24 published
+  and 24 live. This is the pre-refresh snapshot, not the new collector output.
+- Found and fixed the remaining regional-identity loss in the EARLY production
+  finalizer, before publication deduplication. Commit `8524cdc55d89` unions source
+  brands when an identical online URL/date is shared. The actual-finalizer
+  regression passes; this needs a fresh scan because old deduplicated rows have
+  already lost those identities. Do not repeat the earlier consumer-only fix.
+- Production run `37521620496` is collecting the three new current catalogues
+  (Sutton Kersh, Edward Mellor, Under The Hammer). Run `37522592334` is queued with
+  the early-finalizer correction. Allow these to finish; do not launch overlapping
+  scans. The 33 locally collected qualifying rows are NOT yet claimed live.
+- Pages runs `37521620921`, `37522273225` and `37522592130` succeeded. Legal Pack
+  Engine Tests `37522273286` succeeded. No new historical sources were started.
+- Streamlit owner profile shows Sign in, with no authenticated management session.
+  Automatic browser approval review rejected opening its authentication origin
+  because the user previously required a stop-and-ask at sign-in. Ask for owner
+  sign-in before trying that flow again; do not bypass this refusal. The old
+  analysis heading is still live. The new engine fingerprint is on main, not
+  verified deployed in Streamlit.
+- Phone check: 390px frame, 130px upcoming rail, document width 390px, and normal
+  scrolling verified. Desktop rail approximately 86px. Screenshots were preserved.
+
 # Operational checkpoint — 5 October 2026
 
 Resume by checking current main, Actions and production, not by repeating this build.
