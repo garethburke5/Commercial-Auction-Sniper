@@ -169,8 +169,14 @@ def _finalize_published_snapshot(path=Path("data/properties.json"), today=None):
             by_key[key] = item
             continue
         duplicate_count += 1
+        # Preserve every evidenced storefront BEFORE this early deduplication.
+        # prepare_publication cannot recover brands already discarded here.
+        brands=sorted(set(existing.get('source_brands',[]) + item.get('source_brands',[]) + [existing.get('source'),item.get('source')]) - {None})
         if _record_score(item) > _record_score(existing):
+            item['source_brands']=brands
             by_key[key] = item
+        else:
+            existing['source_brands']=brands
 
     properties = list(by_key.values())
     properties.sort(

@@ -20,3 +20,19 @@ def test_tenant_brand_does_not_override_the_subject_retail_property():
     title,_=build_opportunity_summary({'property_type':'Commercial investment','annual_rent':78800,
         'description':'The property comprises a ground floor shop with ancillary accommodation above. Tenant Profile: The retailer operates shops under The Food Warehouse brand.'})
     assert title=='RETAIL INVESTMENT'
+
+
+def test_actual_production_finalizer_retains_shared_auction_house_brands(tmp_path):
+    import json
+    from datetime import date
+    from run_collectors_resilient import _finalize_published_snapshot
+    from source_reconciliation import counts
+    row={'source':'Auction House National Online','url':'https://online.auctionhouse.co.uk/lot/details/abc','address':'1 High Street, AB1 2CD','auction_date':'2099-10-12','description':'A freehold retail shop investment let at £12,000 per annum.','status':'CURRENT'}
+    other=dict(row,source='Auction House Coventry & Warwickshire')
+    path=tmp_path/'snapshot.json'
+    path.write_text(json.dumps({'properties':[row,other],'archive':[],'source_health':[]}))
+    _finalize_published_snapshot(path,today=date(2099,10,6))
+    result=json.loads(path.read_text())['properties']
+    assert len(result)==1
+    assert counts(result)['Auction House Coventry & Warwickshire']==1
+    assert result[0]['source_brands']==['Auction House Coventry & Warwickshire','Auction House National Online']
