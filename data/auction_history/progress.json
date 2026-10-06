@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-06T07:18:42.487614+00:00",
-  "individual_lot_records_captured": 235051,
-  "records_with_address": 227139,
+  "generated_at": "2026-10-06T07:41:07.269822+00:00",
+  "individual_lot_records_captured": 236052,
+  "records_with_address": 228140,
   "partial_lot_records": 7912,
-  "exact_address_groups": 140856,
-  "groups_with_repeat_appearances": 32459,
+  "exact_address_groups": 141657,
+  "groups_with_repeat_appearances": 32605,
   "by_auctioneer": {
     "Acuitus": 5697,
     "Allsop": 43310,
@@ -68,7 +68,7 @@
     "Savills Commercial": 2,
     "Smith & Sons": 1007,
     "Strettons": 123,
-    "Sutton Kersh": 4119,
+    "Sutton Kersh": 5120,
     "Symonds & Sampson": 213,
     "Town & Country Property Auctions": 2769,
     "Unknown auctioneer": 14
@@ -90,8 +90,8 @@
     "2014": 8222,
     "2015": 7586,
     "2016": 8285,
-    "2017": 7724,
-    "2018": 6962,
+    "2017": 8469,
+    "2018": 7218,
     "2019": 6206,
     "2020": 9029,
     "2021": 12724,
@@ -102,19 +102,19 @@
     "2026": 39556
   },
   "by_sector": {
-    "commercial": 31618,
-    "land": 14455,
-    "mixed-use": 30678,
-    "residential": 118362,
-    "unknown": 39938
+    "commercial": 31652,
+    "land": 14482,
+    "mixed-use": 30774,
+    "residential": 118622,
+    "unknown": 40522
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 1395,
+  "surviving_catalogues_completely_harvested": 1403,
   "catalogues_incomplete_or_unreconciled": 618,
-  "catalogue_fetch_or_parse_failures": 70,
+  "catalogue_fetch_or_parse_failures": 71,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -122,7 +122,7 @@
     "Legacy partial lots retain location and lot number; missing street addresses remain null."
   ],
   "paul_fosh_results": {
-    "checked_at": "2026-10-06T07:05:32.078992+00:00",
+    "checked_at": "2026-10-06T07:40:01.295922+00:00",
     "lots_captured": 5490,
     "current_run_unique_lots": 5489,
     "expected_public_results": 5489,
