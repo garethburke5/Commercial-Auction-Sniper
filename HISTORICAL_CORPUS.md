@@ -49,6 +49,7 @@ python scripts/harvest_hollis_morgan_results.py 4
 python scripts/harvest_dedman_gray_results.py --workers 8
 python scripts/harvest_john_francis_results.py --workers 8
 python scripts/harvest_swift_property_auctions.py --workers 8
+python scripts/harvest_sharpes_results.py --workers 12
 python historical_corpus.py build
 ```
 
@@ -354,6 +355,14 @@ separate. Exact archive dates, result-page headings, visible cards and published
 lot denominators must all reconcile before a catalogue is complete. Addresses,
 descriptions, guides, outcomes, prices, legal-pack links, images and raw page
 snapshots are retained without filtering residential or unknown-sector lots.
+
+Sharpes Auctions collection traverses every dated catalogue in the first-party
+traditional-auction results archive. Each unpaginated page is banked with its
+stable property route ID, exact auction date, lot number, address, postcode,
+guide, outcome, published sold price and image. Repeat appearances are scoped to
+their auction date. A catalogue is complete only when every visible property
+card has one distinct identity and the page heading agrees with the archive URL
+and link date; malformed or duplicated cards keep it incomplete.
 
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The
