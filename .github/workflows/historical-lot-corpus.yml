@@ -50,6 +50,7 @@ on:
       - scripts/harvest_lsh_results.py
       - scripts/harvest_goldings_results.py
       - scripts/harvest_maggs_allen_results.py
+      - scripts/harvest_sutton_kersh_results.py
       - scripts/harvest_knight_frank_results.py
       - scripts/harvest_auction_estates_results.py
       - scripts/harvest_hollis_morgan_results.py
@@ -90,6 +91,7 @@ on:
       - tests/test_lsh_history.py
       - tests/test_goldings_results.py
       - tests/test_maggs_allen_results.py
+      - tests/test_sutton_kersh_results.py
       - tests/test_knight_frank_history.py
       - tests/test_auction_estates_history.py
       - tests/test_hollis_morgan_history.py
@@ -122,7 +124,7 @@ jobs:
       - run: pip install requests beautifulsoup4 lxml pypdf pytest
       - name: Verify admission, identities and completeness rules
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
-        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bidx1_history.py tests/test_strettons_results.py tests/test_cheffins_history.py tests/test_btg_eddisons_catalogues.py tests/test_anderson_garland_results.py tests/test_edward_mellor_results.py tests/test_sdl_legacy_catalogues.py tests/test_smith_sons_results.py tests/test_town_country_results.py tests/test_brown_co_results.py tests/test_bagshaws_results.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py tests/test_network_auctions.py tests/test_cottons_results.py tests/test_pattinson_history.py tests/test_harman_healy_history.py tests/test_lsh_history.py tests/test_goldings_results.py tests/test_maggs_allen_results.py tests/test_knight_frank_history.py tests/test_auction_estates_history.py tests/test_hollis_morgan_history.py tests/test_future_property_auctions.py web_platform/tests/test_acuitus_admission.py
+        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bidx1_history.py tests/test_strettons_results.py tests/test_cheffins_history.py tests/test_btg_eddisons_catalogues.py tests/test_anderson_garland_results.py tests/test_edward_mellor_results.py tests/test_sdl_legacy_catalogues.py tests/test_smith_sons_results.py tests/test_town_country_results.py tests/test_brown_co_results.py tests/test_bagshaws_results.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py tests/test_network_auctions.py tests/test_cottons_results.py tests/test_pattinson_history.py tests/test_harman_healy_history.py tests/test_lsh_history.py tests/test_goldings_results.py tests/test_maggs_allen_results.py tests/test_sutton_kersh_results.py tests/test_knight_frank_history.py tests/test_auction_estates_history.py tests/test_hollis_morgan_history.py tests/test_future_property_auctions.py web_platform/tests/test_acuitus_admission.py
       - name: Refresh the complete Harman Healy retained archive
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 10
@@ -143,6 +145,11 @@ jobs:
         timeout-minutes: 10
         continue-on-error: true
         run: python -u scripts/harvest_maggs_allen_results.py
+      - name: Resume oldest Sutton Kersh result catalogues
+        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        timeout-minutes: 15
+        continue-on-error: true
+        run: python -u scripts/harvest_sutton_kersh_results.py --catalogues 8 --workers 6
       - name: Refresh the retained Knight Frank recently-sold archive
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
@@ -328,7 +335,7 @@ jobs:
         run: python -u historical_corpus.py harvest-paul-fosh --workers 3
       - name: Verify retained legacy auctioneer collectors
         if: inputs.focus == 'retained-legacy' || startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
-        run: python -m pytest -q tests/test_eddisons_insights.py tests/test_mchugh_catalogue.py tests/test_mchugh_current_route.py tests/test_mchugh_legacy.py tests/test_mchugh_results.py tests/test_phillip_arnold_results.py tests/test_harman_healy_history.py tests/test_lsh_history.py tests/test_goldings_results.py tests/test_maggs_allen_results.py tests/test_knight_frank_history.py tests/test_auction_estates_history.py tests/test_hollis_morgan_history.py
+        run: python -m pytest -q tests/test_eddisons_insights.py tests/test_mchugh_catalogue.py tests/test_mchugh_current_route.py tests/test_mchugh_legacy.py tests/test_mchugh_results.py tests/test_phillip_arnold_results.py tests/test_harman_healy_history.py tests/test_lsh_history.py tests/test_goldings_results.py tests/test_maggs_allen_results.py tests/test_sutton_kersh_results.py tests/test_knight_frank_history.py tests/test_auction_estates_history.py tests/test_hollis_morgan_history.py
 
       - name: Refresh the retained Harman Healy past-auctions grid
         if: inputs.focus == 'retained-legacy' || startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
@@ -353,6 +360,12 @@ jobs:
         timeout-minutes: 10
         continue-on-error: true
         run: python -u scripts/harvest_maggs_allen_results.py
+
+      - name: Resume oldest Sutton Kersh result catalogues
+        if: inputs.focus == 'retained-legacy' || startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        timeout-minutes: 15
+        continue-on-error: true
+        run: python -u scripts/harvest_sutton_kersh_results.py --catalogues 8 --workers 6
 
       - name: Refresh the retained Knight Frank recently-sold archive
         if: inputs.focus == 'retained-legacy' || startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
@@ -445,6 +458,7 @@ jobs:
           if test -f data/auction_history/lsh_collection.json; then git add data/auction_history/lsh_collection.json; fi
           if test -f data/auction_history/goldings_collection.json; then git add data/auction_history/goldings_collection.json; fi
           if test -f data/auction_history/maggs_allen_collection.json; then git add data/auction_history/maggs_allen_collection.json; fi
+          if test -f data/auction_history/sutton_kersh_collection.json; then git add data/auction_history/sutton_kersh_collection.json; fi
           if test -f data/auction_history/knight_frank_collection.json; then git add data/auction_history/knight_frank_collection.json; fi
           if test -f data/auction_history/auction_estates_collection.json; then git add data/auction_history/auction_estates_collection.json; fi
           if test -f data/auction_history/hollis_morgan_collection.json; then git add data/auction_history/hollis_morgan_collection.json; fi

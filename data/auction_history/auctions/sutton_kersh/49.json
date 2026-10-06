@@ -1,0 +1,50 @@
+{
+  "auctioneer": "Sutton Kersh",
+  "source_auction_id": "sutton-kersh:49",
+  "source_period_id": "49",
+  "auction_date": "2011-05-11",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "published_lots_offered": 73,
+  "visible_source_rows": 73,
+  "lots_captured": 73,
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "completion_scope": "all rows in the first-party dated result catalogue",
+  "source_url": "https://www.suttonkersh.co.uk/properties/listview/?auctionPeriod=49&perPage=48&section=auction&start=0",
+  "source_evidence": [
+    {
+      "source_url": "https://www.suttonkersh.co.uk/properties/listview/?auctionPeriod=49&perPage=48&section=auction&start=0",
+      "retrieved_at": "2026-10-06T04:05:21.600826+00:00",
+      "sha256": "1d19c4f1ec99c37201c04f728621d2389405bf87864eedf2ff069dcb9dc8dab9",
+      "snapshot_path": "data/auction_history/sources/sutton_kersh/period-49-start-0-1d19c4f1ec99c372.json.gz",
+      "basis": "first-party dated auction result page",
+      "period_id": "49",
+      "start": 0,
+      "page_size": 48,
+      "visible_source_rows": 48
+    },
+    {
+      "source_url": "https://www.suttonkersh.co.uk/properties/listview/?auctionPeriod=49&perPage=48&section=auction&start=48",
+      "retrieved_at": "2026-10-06T04:05:27.297076+00:00",
+      "sha256": "7f26188df3d8d05403cea41c303ac90e5d8b82456df37eee2b57d74b0e5f8dba",
+      "snapshot_path": "data/auction_history/sources/sutton_kersh/period-49-start-48-7f26188df3d8d054.json.gz",
+      "basis": "first-party dated auction result page",
+      "period_id": "49",
+      "start": 48,
+      "page_size": 48,
+      "visible_source_rows": 25
+    }
+  ],
+  "archive_evidence": {
+    "source_url": "https://www.suttonkersh.co.uk/auctions-property/auction-results/",
+    "retrieved_at": "2026-10-06T04:05:16.720035+00:00",
+    "sha256": "dda3853e412f02f8a864ee895df900984216148cf1f22e493e1ffb924e26e8e6",
+    "snapshot_path": "data/auction_history/sources/sutton_kersh/archive-dda3853e412f02f8.json.gz",
+    "basis": "first-party dated auction-results archive",
+    "published_auction_periods": 107
+  },
+  "reconciliation_errors": [],
+  "errors": [],
+  "checked_at": "2026-10-06T04:05:27.695797+00:00"
+}

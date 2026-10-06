@@ -41,6 +41,7 @@ python scripts/harvest_harman_healy_results.py
 python scripts/harvest_lsh_results.py
 python scripts/harvest_goldings_results.py
 python scripts/harvest_maggs_allen_results.py
+python scripts/harvest_sutton_kersh_results.py --catalogues 8 --workers 6
 python scripts/harvest_knight_frank_results.py 12
 python scripts/harvest_auction_estates_results.py 8
 python scripts/harvest_hollis_morgan_results.py 4
@@ -269,6 +270,15 @@ index's published month; conflicts remain null and are reported. The unpaginated
 ``n=0`` index is reconciled independently, while every reconstructed auction
 group remains incomplete because the source publishes neither the original
 catalogue denominator nor every historic catalogue row.
+
+Sutton Kersh collection resumes from the oldest incomplete auction in the
+first-party dated results archive, which currently retains 107 periods back to
+May 2011. Every row keeps its exact auction date, published lot number, stable
+period/property identity, address, outcome, price, description, image and legal
+pack link where exposed. A catalogue is complete only after every 48-row page
+and distinct property identity reconcile exactly to the source's published
+property denominator. Completed immutable pages are reused on later runs, so
+the bounded workflow deepens the archive without repeating finished catalogues.
 
 Knight Frank Auctions collection reconciles every card in the first-party
 recently-sold page against its explicit source-row count, then enriches each
