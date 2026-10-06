@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-06T09:15:06.622079+00:00",
-  "individual_lot_records_captured": 238709,
-  "records_with_address": 230797,
+  "generated_at": "2026-10-06T09:41:48.512510+00:00",
+  "individual_lot_records_captured": 239560,
+  "records_with_address": 231648,
   "partial_lot_records": 7912,
-  "exact_address_groups": 143806,
-  "groups_with_repeat_appearances": 32991,
+  "exact_address_groups": 144463,
+  "groups_with_repeat_appearances": 33137,
   "by_auctioneer": {
     "Acuitus": 5697,
     "Allsop": 43310,
@@ -53,12 +53,12 @@
     "Harman Healy": 1507,
     "Hollis Morgan": 813,
     "Knight Frank Auctions": 284,
-    "LSH Auctions": 584,
+    "LSH Auctions": 585,
     "Maggs & Allen": 108,
     "McHugh & Co": 13926,
     "Network Auctions": 1202,
     "Pattinson Auctions": 449,
-    "Paul Fosh Auctions": 5490,
+    "Paul Fosh Auctions": 5491,
     "Phillip Arnold Auctions": 2416,
     "Pugh Auctioneers": 6844,
     "SDL Property Auctions": 443,
@@ -68,7 +68,7 @@
     "Savills Commercial": 2,
     "Smith & Sons": 1007,
     "Strettons": 123,
-    "Sutton Kersh": 7777,
+    "Sutton Kersh": 8626,
     "Symonds & Sampson": 213,
     "Town & Country Property Auctions": 2769,
     "Unknown auctioneer": 14
@@ -94,27 +94,27 @@
     "2018": 7783,
     "2019": 6875,
     "2020": 9777,
-    "2021": 13399,
-    "2022": 14110,
+    "2021": 13591,
+    "2022": 14767,
     "2023": 21043,
     "2024": 27717,
     "2025": 42638,
-    "2026": 39556
+    "2026": 39558
   },
   "by_sector": {
-    "commercial": 31721,
-    "land": 14546,
-    "mixed-use": 31067,
-    "residential": 119961,
-    "unknown": 41414
+    "commercial": 31746,
+    "land": 14574,
+    "mixed-use": 31145,
+    "residential": 120457,
+    "unknown": 41638
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 1427,
+  "surviving_catalogues_completely_harvested": 1435,
   "catalogues_incomplete_or_unreconciled": 618,
-  "catalogue_fetch_or_parse_failures": 71,
+  "catalogue_fetch_or_parse_failures": 70,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -122,37 +122,29 @@
     "Legacy partial lots retain location and lot number; missing street addresses remain null."
   ],
   "paul_fosh_results": {
-    "checked_at": "2026-10-06T07:40:01.295922+00:00",
-    "lots_captured": 5490,
-    "current_run_unique_lots": 5489,
-    "expected_public_results": 5489,
+    "checked_at": "2026-10-06T09:40:41.842739+00:00",
+    "lots_captured": 5491,
+    "current_run_unique_lots": 5040,
+    "expected_public_results": 5490,
     "pages_captured": [
       1,
       2,
       3,
       4,
       5,
-      6,
       7,
       8,
-      9,
       10,
-      11,
-      12,
       13,
       14,
       15,
-      16,
       17,
       18,
       19,
       20,
-      21,
       22,
-      23,
       24,
       25,
-      26,
       27,
       28,
       29,
@@ -161,7 +153,6 @@
       32,
       33,
       34,
-      35,
       36,
       37,
       38,
@@ -239,8 +230,45 @@
       110
     ],
     "pages_expected": 110,
-    "results_complete": true,
-    "failures": [],
+    "results_complete": false,
+    "failures": [
+      {
+        "page": 6,
+        "error": "TimeoutError: The read operation timed out"
+      },
+      {
+        "page": 9,
+        "error": "TimeoutError: The read operation timed out"
+      },
+      {
+        "page": 11,
+        "error": "TimeoutError: The read operation timed out"
+      },
+      {
+        "page": 12,
+        "error": "TimeoutError: The read operation timed out"
+      },
+      {
+        "page": 16,
+        "error": "TimeoutError: The read operation timed out"
+      },
+      {
+        "page": 21,
+        "error": "TimeoutError: The read operation timed out"
+      },
+      {
+        "page": 23,
+        "error": "TimeoutError: The read operation timed out"
+      },
+      {
+        "page": 26,
+        "error": "TimeoutError: The read operation timed out"
+      },
+      {
+        "page": 35,
+        "error": "TimeoutError: The read operation timed out"
+      }
+    ],
     "date_basis": "individual published lot end dates; not inferred auction-container dates"
   }
 }
