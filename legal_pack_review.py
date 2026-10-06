@@ -63,7 +63,7 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
       'evidence':[ev],'source':ev['document'],'fact':fact})
  # High-priority sale clauses. Conditional language stays conditional.
  rules=[
- ('seller-costs','Additional seller fees',r'(?:buyer|purchaser) shall (?:also )?contribute\s*£[\d,.]+.{0,170}?(?:fees|costs)',
+ ('seller-costs','Additional seller fees',r'(?:buyer|purchaser) (?:shall|must|will) (?:also )?(?:contribute\s*£[\d,.]+.{0,170}?(?:fees|costs)|pay (?:the )?seller(?:[’\x27]s)? (?:legal|agent(?:[’\x27]s)?) (?:fees|costs)(?: of)?\s*£[\d,.]+(?:\s*(?:plus|\+|including|inclusive of)\s*VAT(?: at \d+(?:\.\d+)?%)?)?)',
   'The conditions require a contribution towards seller costs.', 'Obtain a completion statement confirming this contribution, VAT and every other seller charge.','CRITICAL / RED FLAG'),
  ('seller-costs','Buyer may have to fund rent arrears',r'on completion.{0,110}?(?:buyer|purchaser).{0,60}?pay.{0,65}?arrears of rent.{0,80}',
   'The conditions require the buyer to pay the seller any rent arrears, if present, in addition to the price.', 'Obtain a current arrears ledger, quantify the exposure and ask your solicitor who bears collection risk.','CRITICAL / RED FLAG'),
@@ -73,9 +73,9 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
   'The contract addresses completion where the seller is not yet the registered proprietor. This does not prove that this is the present position.', 'Reconcile the named seller, current registers and transfer chain; establish whether the condition will apply.','NEEDS CHECKING'),
  ('vat','VAT depends on TOGC conditions',r'VAT is payable unless.{0,100}going concern',
   'VAT is payable unless the transaction qualifies as a TOGC.', 'Confirm the seller’s option, buyer requirements and fallback VAT cash requirement with your solicitor and tax adviser.','NEEDS CHECKING'),
- ('deposit','Deposit recorded in the sale conditions',r'\d+(?:\.\d+)?% of the price.{0,180}(?:stakeholder|deposit)',
+ ('deposit','Deposit recorded in the sale conditions',r'(?:\bdeposit\s*:?\s*\d+(?:\.\d+)?% of the (?:purchase )?price|\d+(?:\.\d+)?% of the price.{0,180}(?:stakeholder|deposit))',
   'The source records the deposit as a percentage of the price.', 'Check payment timing and the full deposit clause. Do not add the deposit again as a fee.','INFORMATION'),
- ('completion','Contractual completion period',r'\b\d+ working days from the contract date',
+ ('completion','Contractual completion period',r'(?:\b\d+ working days from the contract date|\bcompletion\s*:\s*\d+ working days after the auction)',
   'The source specifies a completion period measured from the contract date.', 'Ask your solicitor to confirm the actual completion date and funding deadline.','NEEDS CHECKING'),
  ('seller-costs','Search-cost reimbursement',r'(?:purchaser|buyer).{0,90}(?:cost of any searches|searches or disbursements).{0,220}',
   'The conditions require reimbursement of search costs or disbursements; the amount needs confirmation.', 'Request an itemised amount, including any costs for searches that are still outstanding.','NEEDS CHECKING'),
@@ -88,6 +88,9 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
     for topic,title,pattern,summary,action,level in rules:
      m=re.search(pattern,text,re.I)
      if m:
+      if title=='Additional seller fees' and re.search(r'(?:if|in the event).{0,90}(?:default|fail|breach)|(?:default|late completion).{0,60}(?:fees|costs)',text[max(0,m.start()-140):m.end()+100],re.I):
+       # A contingent default cost is not a fixed acquisition contribution.
+       continue
       if title=='Additional seller fees':summary='The conditions state: “'+norm(m.group(0))+'”. Confirm the exact calculation and VAT treatment.'
       elif title=='Contractual completion period':summary='Completion: '+norm(m.group(0))+'.'
       elif title=='Deposit recorded in the sale conditions':summary='Deposit: '+re.search(r'\d+(?:\.\d+)?%',m.group(0)).group(0)+' of the price. This is not an additional acquisition fee.'

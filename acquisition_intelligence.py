@@ -49,12 +49,13 @@ def build_acquisition(model,catalogue=None):
     costs=[]
     ev=evidence_for('Additional seller fees')
     if ev:
-        text=' '.join(e['excerpt'] for e in ev);m=re.search(r'contribute\s*£\s*([\d,.]+)\s*(plus VAT|\+\s*VAT|including VAT)?',text,re.I)
+        text=' '.join(e['excerpt'] for e in ev);m=re.search(r'(?:contribute|pay (?:the )?seller(?:[’\x27]s)? (?:legal|agent(?:[’\x27]s)?) (?:fees|costs)(?: of)?)\s*£\s*([\d,.]+)\s*(plus VAT|\+\s*VAT|including VAT|inclusive of VAT)?',text,re.I)
         if m:
             base=float(m.group(1).replace(',',''));extra=bool(m.group(2) and re.search(r'plus|\+',m.group(2),re.I));vat=round(base*.2,2) if extra else 0;total=base+vat
             costs.append({'label':'Seller’s legal / agent contribution','amount':total,'base':base,'vat':vat,'evidence':ev,'basis':'20% VAT calculation' if extra else 'Published amount'})
-            calculations.append({'label':'Seller-cost contribution','value':money(total)+(' including VAT' if extra else ''),'working':money(base)+(f' + {money(vat)} VAT at 20% = {money(total)}.' if extra else '.'),'evidence':ev})
-            add('seller-fee','Budget for the seller’s costs',norm(summary_for('Additional seller fees')), 'This is payable in addition to the price and the auctioneer’s own fee.',f'At a 20% VAT rate, the stated fixed contribution models to {money(total)}. Any unusual wording in the clause still needs confirmation.','Request a completion statement confirming the fixed contribution and all other charges.',ev,'costs',impact=money(total))
+            calculations.append({'label':'Seller-cost contribution','value':money(total)+(' including VAT' if m.group(2) else ''),'working':money(base)+(f' + {money(vat)} VAT at 20% = {money(total)}.' if extra else '.'),'evidence':ev})
+            meaning=(f'At a 20% VAT rate, the stated fixed contribution models to {money(total)}.' if extra else f'The fixed contribution is {money(total)}'+(' including VAT.' if m.group(2) else ', as published.'))
+            add('seller-fee','Budget for the seller’s costs',norm(summary_for('Additional seller fees')), 'This is payable in addition to the price and the auctioneer’s own fee.',meaning,'Request a completion statement confirming the fixed contribution and all other charges.',ev,'costs',impact=money(total))
     fee=c.get('auctioneer_fee')
     if isinstance(fee,(int,float)):costs.append({'label':'Estimated auctioneer fee','amount':fee,'basis':'Verified auctioneer terms, calculated at guide','evidence':[]})
     if costs:
