@@ -1,0 +1,2456 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "captured_at_utc": "2026-10-07T12:20:00Z",
+  "capture_mode": "complete_results_grid_with_first_party_catalogue_reconciliation",
+  "scope": "All 135 numbered result rows from the surviving PropertyAuctions AID 682 grid for the 21 June 2010 Savills National sale. The archived first-party Savills page identifies the sale date and states a total of 135 lots across seven catalogue pages; its first 20 rows reconcile one-for-one with the secondary grid on lot number, locality and result, apart from the first-party type label for lot 19 being undefined. The secondary page's stale Offered: 130 summary is not used as the denominator because the same page visibly contains lots 1 through 135 and the first-party total is 135. Street addresses are unavailable for 134 rows and remain null; lot 38 preserves its separately recovered exact address and description under the existing stable appearance ID.",
+  "source_summary": "PropertyAuctions AID 682 result grid: 135 numbered rows; archived Savills Auc 682 page: 21 June 2010, total 135 lots, page 1 of 7.",
+  "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+  "first_party_source_url": "https://web.archive.org/web/20100628010854/http://auctions.savills.co.uk/Lond_previous_auction_detail.asp?auc=682%26date=21/06/10",
+  "source_auction_id": "savills-national-2010-06-21",
+  "auction_date": "2010-06-21",
+  "catalogue_lot_count": 135,
+  "catalogue_complete": true,
+  "completion_scope": "The source row set contains every numbered lot 1-135 exactly once and reconciles to the archived first-party catalogue total of 135; no result pagination remains.",
+  "lots": [
+    {
+      "source_record_id": "savills-national-2010-06-21-lot1",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "1",
+      "address": null,
+      "locality": "London SE12",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 211000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "1",
+        "type": "Vacant Flat",
+        "location": "London SE12",
+        "result": "£211,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot2",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "2",
+      "address": null,
+      "locality": "Feltham",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 95000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "2",
+        "type": "Vacant Flat",
+        "location": "Feltham",
+        "result": "£95,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot3",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "3",
+      "address": null,
+      "locality": "London W11",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 395000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "3",
+        "type": "Vacant Flat",
+        "location": "London W11",
+        "result": "£395,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot4",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "4",
+      "address": null,
+      "locality": "London SW16",
+      "property_type": "Vacant Flat",
+      "available_price_gbp": 135000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "4",
+        "type": "Vacant Flat",
+        "location": "London SW16",
+        "result": "Available at £135,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot5",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "5",
+      "address": null,
+      "locality": "London SW4",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 401000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "5",
+        "type": "Vacant Flat",
+        "location": "London SW4",
+        "result": "£401,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot6",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "6",
+      "address": null,
+      "locality": "London W2",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 389000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "6",
+        "type": "Vacant Flat",
+        "location": "London W2",
+        "result": "£389,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot7",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "7",
+      "address": null,
+      "locality": "London E16",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 131000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "7",
+        "type": "Vacant Flat",
+        "location": "London E16",
+        "result": "£131,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot8",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "8",
+      "address": null,
+      "locality": "London E7",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 392000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "8",
+        "type": "Vacant Freehold House",
+        "location": "London E7",
+        "result": "£392,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot9",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "9",
+      "address": null,
+      "locality": "Hounslow",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 205000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "9",
+        "type": "Vacant Freehold House",
+        "location": "Hounslow",
+        "result": "£205,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot10",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "10",
+      "address": null,
+      "locality": "Watford",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": null,
+      "result_status": "sold prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "10",
+        "type": "Vacant Freehold House",
+        "location": "Watford",
+        "result": "Sold Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot11",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "11",
+      "address": null,
+      "locality": "London NW9",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 280000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "11",
+        "type": "Vacant Freehold House",
+        "location": "London NW9",
+        "result": "£280,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot12",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "12",
+      "address": null,
+      "locality": "London SE6",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 209000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "12",
+        "type": "Vacant Freehold House",
+        "location": "London SE6",
+        "result": "£209,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot13",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "13",
+      "address": null,
+      "locality": "London SE13",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 190000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "13",
+        "type": "Vacant Freehold House",
+        "location": "London SE13",
+        "result": "£190,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot14",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "14",
+      "address": null,
+      "locality": "London NW2",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 297000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "14",
+        "type": "Vacant Freehold House",
+        "location": "London NW2",
+        "result": "£297,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot15",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "15",
+      "address": null,
+      "locality": "London SE25",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 180000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "15",
+        "type": "Vacant Freehold House",
+        "location": "London SE25",
+        "result": "£180,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot16",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "16",
+      "address": null,
+      "locality": "London NW10",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 290000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "16",
+        "type": "Vacant Freehold House",
+        "location": "London NW10",
+        "result": "£290,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot17",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "17",
+      "address": null,
+      "locality": "London SW6",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 656000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "17",
+        "type": "Vacant Freehold House",
+        "location": "London SW6",
+        "result": "£656,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot18",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "18",
+      "address": null,
+      "locality": "London NW7",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": null,
+      "result_status": "sold prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "18",
+        "type": "Vacant Freehold House",
+        "location": "London NW7",
+        "result": "Sold Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot19",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "19",
+      "address": null,
+      "locality": "London N19",
+      "property_type": "Investment Other",
+      "available_price_gbp": 730000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "19",
+        "type": "Investment Other",
+        "location": "London N19",
+        "result": "Available at £730,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot20",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "20",
+      "address": null,
+      "locality": "London SW6",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 752000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "20",
+        "type": "Vacant Freehold House",
+        "location": "London SW6",
+        "result": "£752,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot21",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "21",
+      "address": null,
+      "locality": "London SW6",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 866000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "21",
+        "type": "Vacant Freehold House",
+        "location": "London SW6",
+        "result": "£866,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot22",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "22",
+      "address": null,
+      "locality": "Borehamwood",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 206000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "22",
+        "type": "Vacant Freehold House",
+        "location": "Borehamwood",
+        "result": "£206,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot23",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "23",
+      "address": null,
+      "locality": "London NW10",
+      "property_type": "Vacant Freehold House",
+      "available_price_gbp": 260000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "23",
+        "type": "Vacant Freehold House",
+        "location": "London NW10",
+        "result": "Available at £260,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot24",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "24",
+      "address": null,
+      "locality": "Sutton",
+      "property_type": "Vacant Leasehold House",
+      "result_price_gbp": 153500,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "24",
+        "type": "Vacant Leasehold House",
+        "location": "Sutton",
+        "result": "£153,500"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot25",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "25",
+      "address": null,
+      "locality": "Sutton",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": null,
+      "result_status": "sold prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "25",
+        "type": "Vacant Flat",
+        "location": "Sutton",
+        "result": "Sold Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot26",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "26",
+      "address": null,
+      "locality": "London E3",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 820000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "26",
+        "type": "Vacant Freehold House",
+        "location": "London E3",
+        "result": "£820,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot27",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "27",
+      "address": null,
+      "locality": "London E3",
+      "property_type": "Land",
+      "result_price_gbp": 203000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "27",
+        "type": "Land",
+        "location": "London E3",
+        "result": "£203,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot28",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "28",
+      "address": null,
+      "locality": "London SW16",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": null,
+      "result_status": "withdrawn prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "28",
+        "type": "Vacant Freehold House",
+        "location": "London SW16",
+        "result": "Withdrawn Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot29",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "29",
+      "address": null,
+      "locality": "Ellens Green",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 301000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "29",
+        "type": "Vacant Freehold House",
+        "location": "Ellens Green",
+        "result": "£301,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot30",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "30",
+      "address": null,
+      "locality": "Thornton Heath",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 186000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "30",
+        "type": "Vacant Freehold House",
+        "location": "Thornton Heath",
+        "result": "£186,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot31",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "31",
+      "address": null,
+      "locality": "Epsom",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 226000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "31",
+        "type": "Vacant Freehold House",
+        "location": "Epsom",
+        "result": "£226,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot32",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "32",
+      "address": null,
+      "locality": "London W11",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 377000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "32",
+        "type": "Vacant Flat",
+        "location": "London W11",
+        "result": "£377,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot33",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "33",
+      "address": null,
+      "locality": "Harrow",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 133000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "33",
+        "type": "Vacant Flat",
+        "location": "Harrow",
+        "result": "£133,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot34",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "34",
+      "address": null,
+      "locality": "Hounslow",
+      "property_type": "Other",
+      "result_price_gbp": null,
+      "result_status": "sold post",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "34",
+        "type": "Other",
+        "location": "Hounslow",
+        "result": "Sold Post"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot35",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "35",
+      "address": null,
+      "locality": "London SE17",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 500000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "35",
+        "type": "Vacant Freehold House",
+        "location": "London SE17",
+        "result": "£500,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot36",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "36",
+      "address": null,
+      "locality": "London W14",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 1145000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "36",
+        "type": "Vacant Freehold House",
+        "location": "London W14",
+        "result": "£1.145M"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot37",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "37",
+      "address": null,
+      "locality": "London SW6",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 645000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "37",
+        "type": "Vacant Freehold House",
+        "location": "London SW6",
+        "result": "£645,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot38",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "38",
+      "address": "6 The Birches, Grove Park, Camberwell, London SE5 8LL",
+      "locality": "London SE5",
+      "property_type": "Vacant one-bedroom purpose-built flat requiring modernisation",
+      "result_price_gbp": 751000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "38",
+        "type": "Vacant Freehold House",
+        "location": "London SE5",
+        "result": "£751,000"
+      },
+      "tenure": "Leasehold; new 125-year lease from completion; ground rent £200 per annum rising",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+        "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/camberwellgrove.pdf",
+        "https://crappistmartin.github.io/images/camberwellgrove.pdf"
+      ],
+      "source_document_sha256": "bcb912e08377979f0353f0b7d5fe90162a427855ba8bf511d17c5a65f2c0fa43",
+      "notes": "Surviving Savills lot page supplies the exact address and residential description; the complete results grid confirms lot 38 sold for £751,000."
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot39",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "39",
+      "address": null,
+      "locality": "London SE14",
+      "property_type": "Investment Flat",
+      "result_price_gbp": 141000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "39",
+        "type": "Investment Flat",
+        "location": "London SE14",
+        "result": "£141,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot40",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "40",
+      "address": null,
+      "locality": "Croydon",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 203000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "40",
+        "type": "Vacant Freehold House",
+        "location": "Croydon",
+        "result": "£203,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot41",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "41",
+      "address": null,
+      "locality": "London W14",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 555000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "41",
+        "type": "Vacant Freehold House",
+        "location": "London W14",
+        "result": "£555,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot42",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "42",
+      "address": null,
+      "locality": "London SW6",
+      "property_type": "Vacant Freehold House",
+      "available_price_gbp": 630000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "42",
+        "type": "Vacant Freehold House",
+        "location": "London SW6",
+        "result": "Available at £630,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot43",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "43",
+      "address": null,
+      "locality": "London SW1X",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 930000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "43",
+        "type": "Vacant Flat",
+        "location": "London SW1X",
+        "result": "£930,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot44",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "44",
+      "address": null,
+      "locality": "London SW3",
+      "property_type": "Investment Flat",
+      "available_price_gbp": 125000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "44",
+        "type": "Investment Flat",
+        "location": "London SW3",
+        "result": "Available at £125,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot45",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "45",
+      "address": null,
+      "locality": "London N7",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": null,
+      "result_status": "sold prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "45",
+        "type": "Vacant Freehold House",
+        "location": "London N7",
+        "result": "Sold Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot46",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "46",
+      "address": null,
+      "locality": "London E5",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 321000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "46",
+        "type": "Vacant Freehold House",
+        "location": "London E5",
+        "result": "£321,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot47",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "47",
+      "address": null,
+      "locality": "London N4",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 310000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "47",
+        "type": "Vacant Freehold House",
+        "location": "London N4",
+        "result": "£310,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot48",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "48",
+      "address": null,
+      "locality": "London W9",
+      "property_type": "Investment Freehold Building",
+      "result_price_gbp": null,
+      "result_status": "withdrawn prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "48",
+        "type": "Investment Freehold Building",
+        "location": "London W9",
+        "result": "Withdrawn Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot49",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "49",
+      "address": null,
+      "locality": "London E16",
+      "property_type": "Other",
+      "result_price_gbp": 380000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "49",
+        "type": "Other",
+        "location": "London E16",
+        "result": "£380,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot50",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "50",
+      "address": null,
+      "locality": "Richmond",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 434000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "50",
+        "type": "Vacant Flat",
+        "location": "Richmond",
+        "result": "£434,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot51",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "51",
+      "address": null,
+      "locality": "London W1H",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": null,
+      "result_status": "withdrawn prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "51",
+        "type": "Vacant Flat",
+        "location": "London W1H",
+        "result": "Withdrawn Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot52",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "52",
+      "address": null,
+      "locality": "London NW3",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": null,
+      "result_status": "sold prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "52",
+        "type": "Vacant Flat",
+        "location": "London NW3",
+        "result": "Sold Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot53",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "53",
+      "address": null,
+      "locality": "London NW3",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": null,
+      "result_status": "sold prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "53",
+        "type": "Vacant Flat",
+        "location": "London NW3",
+        "result": "Sold Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot54",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "54",
+      "address": null,
+      "locality": "London E5",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 220000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "54",
+        "type": "Vacant Freehold House",
+        "location": "London E5",
+        "result": "£220,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot55",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "55",
+      "address": null,
+      "locality": "Redhill",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 165000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "55",
+        "type": "Vacant Freehold House",
+        "location": "Redhill",
+        "result": "£165,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot56",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "56",
+      "address": null,
+      "locality": "Brighton",
+      "property_type": "Land",
+      "available_price_gbp": 250000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "56",
+        "type": "Land",
+        "location": "Brighton",
+        "result": "Available at £250,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot57",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "57",
+      "address": null,
+      "locality": "London W6",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 260000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "57",
+        "type": "Vacant Flat",
+        "location": "London W6",
+        "result": "£260,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot58",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "58",
+      "address": null,
+      "locality": "London W4",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 311000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "58",
+        "type": "Vacant Flat",
+        "location": "London W4",
+        "result": "£311,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot59",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "59",
+      "address": null,
+      "locality": "Hayes",
+      "property_type": "Vacant Freehold House",
+      "available_price_gbp": 200000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "59",
+        "type": "Vacant Freehold House",
+        "location": "Hayes",
+        "result": "Available at £200,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot60",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "60",
+      "address": null,
+      "locality": "Tolworth",
+      "property_type": "Investment Freehold House",
+      "available_price_gbp": 145000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "60",
+        "type": "Investment Freehold House",
+        "location": "Tolworth",
+        "result": "Available at £145,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot61",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "61",
+      "address": null,
+      "locality": "Newbury",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 158000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "61",
+        "type": "Investment Freehold House",
+        "location": "Newbury",
+        "result": "£158,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot62",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "62",
+      "address": null,
+      "locality": "Newbury",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 157000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "62",
+        "type": "Investment Freehold House",
+        "location": "Newbury",
+        "result": "£157,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot63",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "63",
+      "address": null,
+      "locality": "Newbury",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 155000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "63",
+        "type": "Investment Freehold House",
+        "location": "Newbury",
+        "result": "£155,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot64",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "64",
+      "address": null,
+      "locality": "Newbury",
+      "property_type": "Investment Freehold House",
+      "available_price_gbp": 156000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "64",
+        "type": "Investment Freehold House",
+        "location": "Newbury",
+        "result": "Available at £156,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot65",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "65",
+      "address": null,
+      "locality": "Newbury",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 150000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "65",
+        "type": "Investment Freehold House",
+        "location": "Newbury",
+        "result": "£150,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot66",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "66",
+      "address": null,
+      "locality": "Newbury",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 155000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "66",
+        "type": "Investment Freehold House",
+        "location": "Newbury",
+        "result": "£155,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot67",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "67",
+      "address": null,
+      "locality": "London SW14",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 615000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "67",
+        "type": "Vacant Freehold House",
+        "location": "London SW14",
+        "result": "£615,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot68",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "68",
+      "address": null,
+      "locality": "London W14",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 332000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "68",
+        "type": "Vacant Flat",
+        "location": "London W14",
+        "result": "£332,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot69",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "69",
+      "address": null,
+      "locality": "London SW11",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": null,
+      "result_status": "withdrawn prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "69",
+        "type": "Vacant Freehold House",
+        "location": "London SW11",
+        "result": "Withdrawn Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot70",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "70",
+      "address": null,
+      "locality": "Croydon",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 165000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "70",
+        "type": "Vacant Freehold House",
+        "location": "Croydon",
+        "result": "£165,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot71",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "71",
+      "address": null,
+      "locality": "Pinner",
+      "property_type": "Other",
+      "result_price_gbp": 720000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "71",
+        "type": "Other",
+        "location": "Pinner",
+        "result": "£720,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot72",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "72",
+      "address": null,
+      "locality": "London SE15",
+      "property_type": "Other",
+      "result_price_gbp": 461000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "72",
+        "type": "Other",
+        "location": "London SE15",
+        "result": "£461,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot73",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "73",
+      "address": null,
+      "locality": "London SE22",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 430000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "73",
+        "type": "Vacant Freehold House",
+        "location": "London SE22",
+        "result": "£430,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot74",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "74",
+      "address": null,
+      "locality": "London E15",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 197000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "74",
+        "type": "Vacant Freehold House",
+        "location": "London E15",
+        "result": "£197,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot75",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "75",
+      "address": null,
+      "locality": "Padworth",
+      "property_type": "Vacant Freehold House",
+      "available_price_gbp": 170000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "75",
+        "type": "Vacant Freehold House",
+        "location": "Padworth",
+        "result": "Available at £170,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot76",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "76",
+      "address": null,
+      "locality": "Teddington",
+      "property_type": "Retail",
+      "result_price_gbp": null,
+      "result_status": "sold prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "76",
+        "type": "Retail",
+        "location": "Teddington",
+        "result": "Sold Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot77",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "77",
+      "address": null,
+      "locality": "Enfield",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 224000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "77",
+        "type": "Vacant Freehold House",
+        "location": "Enfield",
+        "result": "£224,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot78",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "78",
+      "address": null,
+      "locality": "London E9",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 190000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "78",
+        "type": "Vacant Freehold House",
+        "location": "London E9",
+        "result": "£190,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot79",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "79",
+      "address": null,
+      "locality": "London E7",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 77000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "79",
+        "type": "Vacant Flat",
+        "location": "London E7",
+        "result": "£77,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot80",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "80",
+      "address": null,
+      "locality": "London E9",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 249000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "80",
+        "type": "Vacant Freehold House",
+        "location": "London E9",
+        "result": "£249,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot81",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "81",
+      "address": null,
+      "locality": "Orpington",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 162000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "81",
+        "type": "Vacant Freehold House",
+        "location": "Orpington",
+        "result": "£162,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot82",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "82",
+      "address": null,
+      "locality": "London SW6",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": null,
+      "result_status": "sold prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "82",
+        "type": "Vacant Freehold House",
+        "location": "London SW6",
+        "result": "Sold Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot83",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "83",
+      "address": null,
+      "locality": "London",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 156000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "83",
+        "type": "Vacant Freehold House",
+        "location": "London",
+        "result": "£156,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot84",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "84",
+      "address": null,
+      "locality": "London E18",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": null,
+      "result_status": "sold prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "84",
+        "type": "Vacant Flat",
+        "location": "London E18",
+        "result": "Sold Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot85",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "85",
+      "address": null,
+      "locality": "London E10",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": null,
+      "result_status": "sold prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "85",
+        "type": "Vacant Flat",
+        "location": "London E10",
+        "result": "Sold Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot86",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "86",
+      "address": null,
+      "locality": "Northolt",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 163000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "86",
+        "type": "Vacant Flat",
+        "location": "Northolt",
+        "result": "£163,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot87",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "87",
+      "address": null,
+      "locality": "London NW2",
+      "property_type": "Investment Flat",
+      "result_price_gbp": 125000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "87",
+        "type": "Investment Flat",
+        "location": "London NW2",
+        "result": "£125,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot88",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "88",
+      "address": null,
+      "locality": "Wembley",
+      "property_type": "Investment Flat",
+      "result_price_gbp": 169000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "88",
+        "type": "Investment Flat",
+        "location": "Wembley",
+        "result": "£169,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot89",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "89",
+      "address": null,
+      "locality": "London W9",
+      "property_type": "Retail",
+      "available_price_gbp": 960000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "89",
+        "type": "Retail",
+        "location": "London W9",
+        "result": "Available at £960,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot90",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "90",
+      "address": null,
+      "locality": "London W12",
+      "property_type": "Investment Other",
+      "available_price_gbp": 575000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "90",
+        "type": "Investment Other",
+        "location": "London W12",
+        "result": "Available at £575,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot91",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "91",
+      "address": null,
+      "locality": "Southall",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 148000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "91",
+        "type": "Investment Freehold House",
+        "location": "Southall",
+        "result": "£148,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot92",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "92",
+      "address": null,
+      "locality": "London SW6",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 501000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "92",
+        "type": "Investment Freehold House",
+        "location": "London SW6",
+        "result": "£501,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot93",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "93",
+      "address": null,
+      "locality": "Teddington",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 333000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "93",
+        "type": "Investment Freehold House",
+        "location": "Teddington",
+        "result": "£333,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot94",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "94",
+      "address": null,
+      "locality": "London SE13",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 152000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "94",
+        "type": "Vacant Flat",
+        "location": "London SE13",
+        "result": "£152,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot95",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "95",
+      "address": null,
+      "locality": "London E7",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 183000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "95",
+        "type": "Investment Freehold House",
+        "location": "London E7",
+        "result": "£183,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot96",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "96",
+      "address": null,
+      "locality": "London E12",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 156000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "96",
+        "type": "Investment Freehold House",
+        "location": "London E12",
+        "result": "£156,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot97",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "97",
+      "address": null,
+      "locality": "London SE12",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 140500,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "97",
+        "type": "Vacant Flat",
+        "location": "London SE12",
+        "result": "£140,500"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot98",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "98",
+      "address": null,
+      "locality": "South Croydon",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 157000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "98",
+        "type": "Vacant Flat",
+        "location": "South Croydon",
+        "result": "£157,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot99",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "99",
+      "address": null,
+      "locality": "Ongar",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 290000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "99",
+        "type": "Vacant Freehold House",
+        "location": "Ongar",
+        "result": "£290,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot100",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "100",
+      "address": null,
+      "locality": "London E6",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 201000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "100",
+        "type": "Vacant Freehold House",
+        "location": "London E6",
+        "result": "£201,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot101",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "101",
+      "address": null,
+      "locality": "St Albans",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 220000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "101",
+        "type": "Vacant Freehold House",
+        "location": "St Albans",
+        "result": "£220,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot102",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "102",
+      "address": null,
+      "locality": "London W11",
+      "property_type": "Vacant Freehold House",
+      "available_price_gbp": 975000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "102",
+        "type": "Vacant Freehold House",
+        "location": "London W11",
+        "result": "Available at £975,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot103",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "103",
+      "address": null,
+      "locality": "London SW9",
+      "property_type": "Investment Freehold House",
+      "available_price_gbp": 685000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "103",
+        "type": "Investment Freehold House",
+        "location": "London SW9",
+        "result": "Available at £685,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot104",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "104",
+      "address": null,
+      "locality": "London E2",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 475000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "104",
+        "type": "Vacant Flat",
+        "location": "London E2",
+        "result": "£475,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot105",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "105",
+      "address": null,
+      "locality": "London E10",
+      "property_type": "Other",
+      "result_price_gbp": 343000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "105",
+        "type": "Other",
+        "location": "London E10",
+        "result": "£343,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot106",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "106",
+      "address": null,
+      "locality": "Brightlingsea",
+      "property_type": "Other",
+      "result_price_gbp": 455000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "106",
+        "type": "Other",
+        "location": "Brightlingsea",
+        "result": "£455,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot107",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "107",
+      "address": null,
+      "locality": "London N9",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 142000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "107",
+        "type": "Investment Freehold House",
+        "location": "London N9",
+        "result": "£142,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot108",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "108",
+      "address": null,
+      "locality": "London E11",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 178000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "108",
+        "type": "Investment Freehold House",
+        "location": "London E11",
+        "result": "£178,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot109",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "109",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 239000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "109",
+        "type": "Investment Freehold House",
+        "location": "London E17",
+        "result": "£239,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot110",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "110",
+      "address": null,
+      "locality": "London N10",
+      "property_type": "Investment Flat",
+      "result_price_gbp": 198000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "110",
+        "type": "Investment Flat",
+        "location": "London N10",
+        "result": "£198,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot111",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "111",
+      "address": null,
+      "locality": "Carmathenshire",
+      "property_type": "Other",
+      "available_price_gbp": 250000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "111",
+        "type": "Other",
+        "location": "Carmathenshire",
+        "result": "Available at £250,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot112",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "112",
+      "address": null,
+      "locality": "Cambridge",
+      "property_type": "Investment Freehold House",
+      "result_price_gbp": 212000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "112",
+        "type": "Investment Freehold House",
+        "location": "Cambridge",
+        "result": "£212,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot113",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "113",
+      "address": null,
+      "locality": "Buxton",
+      "property_type": "Vacant Flat",
+      "available_price_gbp": 165000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "113",
+        "type": "Vacant Flat",
+        "location": "Buxton",
+        "result": "Available at £165,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot114",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "114",
+      "address": null,
+      "locality": "London SW10",
+      "property_type": "Investment Flat",
+      "result_price_gbp": 180000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "114",
+        "type": "Investment Flat",
+        "location": "London SW10",
+        "result": "£180,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot115",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "115",
+      "address": null,
+      "locality": "London E16",
+      "property_type": "Vacant Freehold House",
+      "available_price_gbp": 156000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "115",
+        "type": "Vacant Freehold House",
+        "location": "London E16",
+        "result": "Available at £156,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot116",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "116",
+      "address": null,
+      "locality": "London SE13",
+      "property_type": "Retail",
+      "available_price_gbp": 180000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "116",
+        "type": "Retail",
+        "location": "London SE13",
+        "result": "Available at £180,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot117",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "117",
+      "address": null,
+      "locality": "Thornton Heath",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": 125000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "117",
+        "type": "Vacant Flat",
+        "location": "Thornton Heath",
+        "result": "£125,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot118",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "118",
+      "address": null,
+      "locality": "Croydon",
+      "property_type": "Investment Freehold House",
+      "available_price_gbp": 249000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "118",
+        "type": "Investment Freehold House",
+        "location": "Croydon",
+        "result": "Available at £249,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot119",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "119",
+      "address": null,
+      "locality": "Purley",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 205000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "119",
+        "type": "Vacant Freehold House",
+        "location": "Purley",
+        "result": "£205,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot120",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "120",
+      "address": null,
+      "locality": "Hemel Hempstead",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 315000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "120",
+        "type": "Vacant Freehold House",
+        "location": "Hemel Hempstead",
+        "result": "£315,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot121",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "121",
+      "address": null,
+      "locality": "Appleton",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": null,
+      "result_status": "withdrawn prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "121",
+        "type": "Vacant Freehold House",
+        "location": "Appleton",
+        "result": "Withdrawn Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot122",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "122",
+      "address": null,
+      "locality": "London SE19",
+      "property_type": "Other",
+      "result_price_gbp": 213000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "122",
+        "type": "Other",
+        "location": "London SE19",
+        "result": "£213,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot123",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "123",
+      "address": null,
+      "locality": "London N9",
+      "property_type": "Investment Flat",
+      "result_price_gbp": 99000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "123",
+        "type": "Investment Flat",
+        "location": "London N9",
+        "result": "£99,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot124",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "124",
+      "address": null,
+      "locality": "London NW10",
+      "property_type": "Investment Flat",
+      "result_price_gbp": 115000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "124",
+        "type": "Investment Flat",
+        "location": "London NW10",
+        "result": "£115,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot125",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "125",
+      "address": null,
+      "locality": "Leigh-on-Sea",
+      "property_type": "Vacant Flat",
+      "result_price_gbp": null,
+      "result_status": "sold prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "125",
+        "type": "Vacant Flat",
+        "location": "Leigh-on-Sea",
+        "result": "Sold Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot126",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "126",
+      "address": null,
+      "locality": "Bacton",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": 131000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "126",
+        "type": "Vacant Freehold House",
+        "location": "Bacton",
+        "result": "£131,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot127",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "127",
+      "address": null,
+      "locality": "Holyport",
+      "property_type": "Vacant Freehold House",
+      "available_price_gbp": 330000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "127",
+        "type": "Vacant Freehold House",
+        "location": "Holyport",
+        "result": "Available at £330,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot128",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "128",
+      "address": null,
+      "locality": "Sunbury-on-Thames",
+      "property_type": "Land",
+      "result_price_gbp": 10000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "128",
+        "type": "Land",
+        "location": "Sunbury-on-Thames",
+        "result": "£10,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot129",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "129",
+      "address": null,
+      "locality": "London SW4",
+      "property_type": "Other",
+      "result_price_gbp": 30000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "129",
+        "type": "Other",
+        "location": "London SW4",
+        "result": "£30,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot130",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "130",
+      "address": null,
+      "locality": "Barnet",
+      "property_type": "Vacant Flat",
+      "available_price_gbp": 110000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "130",
+        "type": "Vacant Flat",
+        "location": "Barnet",
+        "result": "Available at £110,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot131",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "131",
+      "address": null,
+      "locality": "Tunbridge Wells",
+      "property_type": "Vacant Flat",
+      "available_price_gbp": 127000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "131",
+        "type": "Vacant Flat",
+        "location": "Tunbridge Wells",
+        "result": "Available at £127,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot132",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "132",
+      "address": null,
+      "locality": "London SW4",
+      "property_type": "Investment Other",
+      "result_price_gbp": 65000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "132",
+        "type": "Investment Other",
+        "location": "London SW4",
+        "result": "£65,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot133",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "133",
+      "address": null,
+      "locality": "Cardiff",
+      "property_type": "Ground Rent",
+      "result_price_gbp": 40500,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "133",
+        "type": "Ground Rent",
+        "location": "Cardiff",
+        "result": "£40,500"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot134",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "134",
+      "address": null,
+      "locality": "Swansea",
+      "property_type": "Ground Rent",
+      "result_price_gbp": 75000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "134",
+        "type": "Ground Rent",
+        "location": "Swansea",
+        "result": "£75,000"
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-06-21-lot135",
+      "source_auction_id": "savills-national-2010-06-21",
+      "auction_date": "2010-06-21",
+      "lot_number": "135",
+      "address": null,
+      "locality": "Swanse",
+      "property_type": "Ground Rent",
+      "result_price_gbp": 28000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=682",
+      "raw_source": {
+        "lot": "135",
+        "type": "Ground Rent",
+        "location": "Swanse",
+        "result": "£28,000"
+      }
+    }
+  ]
+}
