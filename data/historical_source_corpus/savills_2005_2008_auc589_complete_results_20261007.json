@@ -1,0 +1,704 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "captured_at_utc": "2026-10-07T15:10:00Z",
+  "capture_mode": "complete_secondary_result_grid_with_first_party_catalogue_reconciliation",
+  "scope": "All 25 numbered result rows from the surviving PropertyAuctions AID 589 grid for the 8 December 2008 Savills Commercial sale. The archived first-party Savills page identifies the sale date, states a total of 25 lots across two catalogue pages and exposes lots 1-20 on page 1. Those first 20 rows reconcile to the secondary grid; first-party property types are retained where the two sources use different labels. The secondary grid exposes every numbered lot 1-25 exactly once and reports Offered: 25. Street addresses and postcodes are not exposed and remain null.",
+  "source_auction_id": "savills-commercial-auc589",
+  "auction_date": "2008-12-08",
+  "catalogue_lot_count": 25,
+  "catalogue_complete": true,
+  "completion_scope": "all numbered lots 1-25 appear exactly once in the result grid and reconcile to both the first-party total of 25 and the secondary Offered: 25 denominator",
+  "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=589",
+  "first_party_source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+  "source_summary": {
+    "heading": "8TH DECEMBER 2008 SAVILLS (COMMERCIAL)",
+    "offered": 25,
+    "rows_observed": 25,
+    "unique_lot_numbers": 25,
+    "first_party_rows_cross_checked": 20,
+    "first_party_catalogue_total": 25,
+    "first_party_catalogue_pages": 2,
+    "secondary_result_pages": 1
+  },
+  "raw_table_text": "1\tLeisure\tLondon E1\t£305,000\n2\tOffice\tKingston-upon-Hull\tSold Post\n3\tLeisure\tLondon SW2\t£950,000\n4\tGarage\tLondon SW17\tAvailable\n5\tOffice\tRichmond-upon-Thames\t£1.7M\n6\tRetail\tLondon SE15\tRefer\n7\tRetail\tLondon SE15\tRefer\n8\tRetail\tLondon SE15\tRefer\n9\tOffice\tLondon N17\t£1.1M\n10\tMixed Use\tAldershot\tAvailable\n11\tMixed Use\tAldershot\tWithdrawn Prior\n12\tMixed Use\tAldershot\tWithdrawn Prior\n13\tMixed Use\tAldershot\tWithdrawn Prior\n14\tLeisure\tFeltham\t£1.17M\n15\tOffice\tFeltham\t£331,000\n16\tRetail\tLondon SW2\t£71,000\n17\tOffice\tLondon N17\t£180,000\n18\tOffice\tSouthend-on-Sea\t£800,000\n19\tRetail\tAldershot\tWithdrawn Prior\n20\tRetail\tWolverton\tAvailable\n21\tRetail\tWolverton\tWithdrawn Prior\n22\tLeisure\tWakefield\t£525,000\n23\tOffice\tStiffords Bridge\tWithdrawn Prior\n24\tRetail\tLondon SE22\t£355,000\n25\tLeisure\tRoydon\t£144,000",
+  "appearance_count": 25,
+  "address_records_added": 0,
+  "partial_records_added": 25,
+  "reconciliation": {
+    "first_party_catalogue_total": 25,
+    "reported_offered": 25,
+    "source_rows_observed": 25,
+    "unique_lot_numbers": 25,
+    "result_pagination_pages": 1,
+    "reconciliation_shortfall": 0,
+    "status": "complete surviving result grid"
+  },
+  "lots": [
+    {
+      "source_record_id": "savills-commercial-auc589-pos1",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "1",
+      "address": null,
+      "locality": "London E1",
+      "property_type": "Leisure",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=1",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 305000,
+      "raw_source": {
+        "first_party_grid": "Leisure London E1 £305,000",
+        "secondary_grid": {
+          "lot": "1",
+          "type": "Leisure",
+          "location": "London E1",
+          "result": "£305,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos2",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "2",
+      "address": null,
+      "locality": "Kingston-upon-Hull",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=2",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Sold Post",
+      "raw_source": {
+        "first_party_grid": "Office Kingston-upon-Hull Sold Post",
+        "secondary_grid": {
+          "lot": "2",
+          "type": "Office",
+          "location": "Kingston-upon-Hull",
+          "result": "Sold Post"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos3",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "3",
+      "address": null,
+      "locality": "London SW2",
+      "property_type": "Leisure",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=3",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 950000,
+      "raw_source": {
+        "first_party_grid": "Leisure London SW2 £950,000",
+        "secondary_grid": {
+          "lot": "3",
+          "type": "Leisure",
+          "location": "London SW2",
+          "result": "£950,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos4",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "4",
+      "address": null,
+      "locality": "London SW17",
+      "property_type": "Motor Trade",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=4",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Motor Trade London SW17 Available",
+        "secondary_grid": {
+          "lot": "4",
+          "type": "Garage",
+          "location": "London SW17",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos5",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "5",
+      "address": null,
+      "locality": "Richmond-upon-Thames",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=5",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 1700000,
+      "raw_source": {
+        "first_party_grid": "Office Richmond-upon-Thames £1.7M",
+        "secondary_grid": {
+          "lot": "5",
+          "type": "Office",
+          "location": "Richmond-upon-Thames",
+          "result": "£1.7M"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos6",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "6",
+      "address": null,
+      "locality": "London SE15",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=6",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Refer",
+      "raw_source": {
+        "first_party_grid": "Retail London SE15 Refer",
+        "secondary_grid": {
+          "lot": "6",
+          "type": "Retail",
+          "location": "London SE15",
+          "result": "Refer"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos7",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "7",
+      "address": null,
+      "locality": "London SE15",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=7",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Refer",
+      "raw_source": {
+        "first_party_grid": "Retail London SE15 Refer",
+        "secondary_grid": {
+          "lot": "7",
+          "type": "Retail",
+          "location": "London SE15",
+          "result": "Refer"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos8",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "8",
+      "address": null,
+      "locality": "London SE15",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=8",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Refer",
+      "raw_source": {
+        "first_party_grid": "Retail London SE15 Refer",
+        "secondary_grid": {
+          "lot": "8",
+          "type": "Retail",
+          "location": "London SE15",
+          "result": "Refer"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos9",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "9",
+      "address": null,
+      "locality": "London N17",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=9",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 1100000,
+      "raw_source": {
+        "first_party_grid": "Office London N17 £1.1M",
+        "secondary_grid": {
+          "lot": "9",
+          "type": "Office",
+          "location": "London N17",
+          "result": "£1.1M"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos10",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "10",
+      "address": null,
+      "locality": "Aldershot",
+      "property_type": "Various",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=10",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Various Aldershot Available",
+        "secondary_grid": {
+          "lot": "10",
+          "type": "Mixed Use",
+          "location": "Aldershot",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos11",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "11",
+      "address": null,
+      "locality": "Aldershot",
+      "property_type": "Various",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=11",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "first_party_grid": "Various Aldershot Withdrawn Prior",
+        "secondary_grid": {
+          "lot": "11",
+          "type": "Mixed Use",
+          "location": "Aldershot",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos12",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "12",
+      "address": null,
+      "locality": "Aldershot",
+      "property_type": "Various",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=12",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "first_party_grid": "Various Aldershot Withdrawn Prior",
+        "secondary_grid": {
+          "lot": "12",
+          "type": "Mixed Use",
+          "location": "Aldershot",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos13",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "13",
+      "address": null,
+      "locality": "Aldershot",
+      "property_type": "Various",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=13",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "first_party_grid": "Various Aldershot Withdrawn Prior",
+        "secondary_grid": {
+          "lot": "13",
+          "type": "Mixed Use",
+          "location": "Aldershot",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos14",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "14",
+      "address": null,
+      "locality": "Feltham",
+      "property_type": "Leisure",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=14",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 1170000,
+      "raw_source": {
+        "first_party_grid": "Leisure Feltham £1.17M",
+        "secondary_grid": {
+          "lot": "14",
+          "type": "Leisure",
+          "location": "Feltham",
+          "result": "£1.17M"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos15",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "15",
+      "address": null,
+      "locality": "Feltham",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=15",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 331000,
+      "raw_source": {
+        "first_party_grid": "Office Feltham £331,000",
+        "secondary_grid": {
+          "lot": "15",
+          "type": "Office",
+          "location": "Feltham",
+          "result": "£331,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos16",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "16",
+      "address": null,
+      "locality": "London SW2",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=16",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 71000,
+      "raw_source": {
+        "first_party_grid": "Retail London SW2 £71,000",
+        "secondary_grid": {
+          "lot": "16",
+          "type": "Retail",
+          "location": "London SW2",
+          "result": "£71,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos17",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "17",
+      "address": null,
+      "locality": "London N17",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=17",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 180000,
+      "raw_source": {
+        "first_party_grid": "Office London N17 £180,000",
+        "secondary_grid": {
+          "lot": "17",
+          "type": "Office",
+          "location": "London N17",
+          "result": "£180,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos18",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "18",
+      "address": null,
+      "locality": "Southend-on-Sea",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=18",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 800000,
+      "raw_source": {
+        "first_party_grid": "Office Southend-on-Sea £800,000",
+        "secondary_grid": {
+          "lot": "18",
+          "type": "Office",
+          "location": "Southend-on-Sea",
+          "result": "£800,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos19",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "19",
+      "address": null,
+      "locality": "Aldershot",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=19",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "first_party_grid": "Retail Aldershot Withdrawn Prior",
+        "secondary_grid": {
+          "lot": "19",
+          "type": "Retail",
+          "location": "Aldershot",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos20",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "20",
+      "address": null,
+      "locality": "Wolverton",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=589&pos=20",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Retail Wolverton Available",
+        "secondary_grid": {
+          "lot": "20",
+          "type": "Retail",
+          "location": "Wolverton",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos21",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "21",
+      "address": null,
+      "locality": "Wolverton",
+      "property_type": "Retail",
+      "result_price_gbp": null,
+      "result_status": "Withdrawn Prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=589",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "raw_source": {
+        "lot": "21",
+        "type": "Retail",
+        "location": "Wolverton",
+        "result": "Withdrawn Prior"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 25-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos22",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "22",
+      "address": null,
+      "locality": "Wakefield",
+      "property_type": "Leisure",
+      "result_price_gbp": 525000,
+      "result_status": "Sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=589",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "raw_source": {
+        "lot": "22",
+        "type": "Leisure",
+        "location": "Wakefield",
+        "result": "£525,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 25-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos23",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "23",
+      "address": null,
+      "locality": "Stiffords Bridge",
+      "property_type": "Office",
+      "result_price_gbp": null,
+      "result_status": "Withdrawn Prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=589",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "raw_source": {
+        "lot": "23",
+        "type": "Office",
+        "location": "Stiffords Bridge",
+        "result": "Withdrawn Prior"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 25-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos24",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "24",
+      "address": null,
+      "locality": "London SE22",
+      "property_type": "Retail",
+      "result_price_gbp": 355000,
+      "result_status": "Sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=589",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "raw_source": {
+        "lot": "24",
+        "type": "Retail",
+        "location": "London SE22",
+        "result": "£355,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 25-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc589-pos25",
+      "source_auction_id": "savills-commercial-auc589",
+      "auction_date": "2008-12-08",
+      "lot_number": "25",
+      "address": null,
+      "locality": "Roydon",
+      "property_type": "Leisure",
+      "result_price_gbp": 144000,
+      "result_status": "Sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=589",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020649id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=589&date=08/12/2008",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=589"
+      ],
+      "raw_source": {
+        "lot": "25",
+        "type": "Leisure",
+        "location": "Roydon",
+        "result": "£144,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 25-lot denominator; street address and postcode are not exposed."
+    }
+  ]
+}
