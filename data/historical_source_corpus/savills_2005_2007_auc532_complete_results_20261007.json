@@ -1,0 +1,1126 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "captured_at_utc": "2026-10-07T20:05:00Z",
+  "capture_mode": "complete_secondary_result_grid_with_first_party_catalogue_reconciliation",
+  "scope": "All 43 numbered result rows from the surviving PropertyAuctions AID 532 grid for the 10 December 2007 Savills Commercial sale. The archived first-party Savills page identifies the sale date, states a total of 43 lots across three catalogue pages and exposes lots 1-20 on page 1. Those first 20 rows reconcile to the secondary grid. The secondary grid exposes every numbered lot 1-43 exactly once and reports Offered: 43. Street addresses and postcodes are not exposed and remain null.",
+  "source_auction_id": "savills-commercial-auc532",
+  "auction_date": "2007-12-10",
+  "catalogue_lot_count": 43,
+  "catalogue_complete": true,
+  "completion_scope": "all numbered lots 1-43 appear exactly once in the result grid and reconcile to both the first-party total of 43 and the secondary Offered: 43 denominator",
+  "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+  "first_party_source_url": "https://web.archive.org/web/20090701020514id_/http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+  "source_summary": {
+    "heading": "10TH DECEMBER 2007 SAVILLS (COMMERCIAL)",
+    "offered": 43,
+    "rows_observed": 43,
+    "unique_lot_numbers": 43,
+    "first_party_rows_cross_checked": 20,
+    "first_party_catalogue_total": 43,
+    "first_party_catalogue_pages": 3,
+    "secondary_result_pages": 1
+  },
+  "raw_table_text": "1\tRetail\tFleet\t£440,000\n2\tRetail\tKingston-upon-Thames\tAvailable\n3\tInvestment Other\tNewbury\tWithdrawn Prior\n4\tRetail\tBanbury\t£403,000\n5\tRetail\tSouthend-on-Sea\t£70,000\n6\tOffice\tEdinburgh\t£1.3M\n7\tIndustrial\tAshford\tAvailable\n8\tRetail\tPoole\tWithdrawn Prior\n9\tLand\tNewcastle upon Tyne\tAvailable\n10\tIndustrial\tSpalding\tWithdrawn Prior\n11\tOffice\tNottingham\t£3.5M\n12\tRetail\tCamberley\tAvailable\n13\tRetail\tStonehouse\t£226,000\n14\tOffice\tTeddington\tAvailable\n15\tIndustrial\tPortsmouth\tSold Post\n16\tLeisure\tHampton Court\tAvailable\n17\tRetail\tGloucester\t£550,000\n18\tRetail\tTaunton\tWithdrawn Prior\n19\tIndustrial\tWalsall\t£690,000\n20\tLeisure\tSouth Molton\tAvailable\n21\tRetail\tSaltcoats\tWithdrawn Prior\n22\tIndustrial\tCheltenham\tSold Post\n23\tInvestment Freehold Building\tCoventry\tAvailable\n24\tOffice\tAlton\tWithdrawn Prior\n25\tRetail\tHaverhill\tWithdrawn Prior\n26\tRetail\tAberdeen\tAvailable\n27\tRetail\tHaverhill\tWithdrawn Prior\n28\tRetail\tArbroath\tWithdrawn Prior\n29\tRetail\tDunfermline\tWithdrawn Prior\n30\tRetail\tSouthwark\t£355,000\n31\tIndustrial\tBirmingham\t£905,000\n32\tIndustrial\tSouthend-on-Sea\t£275,000\n33\tGround Rent\tHartlepool\t£862,000\n34\tRetail\tCrediton\tWithdrawn Prior\n35\tRetail\tHartlepool\tWithdrawn Prior\n36\tRetail\tHartlepool\tWithdrawn Prior\n37\tLeisure\tOkehampton\t£483,000\n38\tRetail\tNorthampton\tAvailable\n39\tLand\tLincoln\t£600,000\n40\tLand\tTeddington\tAvailable\n41\tVacant Freehold House\tKingston-upon-Hull\t£74,000\n42\tVacant Freehold House\tEnfield\t£207,000\n43\tMixed Use\tRichmond-upon-Thames\t£125,000",
+  "appearance_count": 43,
+  "address_records_added": 0,
+  "partial_records_added": 43,
+  "reconciliation": {
+    "first_party_catalogue_total": 43,
+    "reported_offered": 43,
+    "source_rows_observed": 43,
+    "unique_lot_numbers": 43,
+    "result_pagination_pages": 1,
+    "reconciliation_shortfall": 0,
+    "status": "complete surviving result grid"
+  },
+  "lots": [
+    {
+      "source_record_id": "savills-commercial-auc532-pos1",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "1",
+      "address": null,
+      "locality": "Fleet",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=1",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "first_party_grid": "Retail Fleet £440,000",
+        "secondary_grid": {
+          "lot": "1",
+          "type": "Retail",
+          "location": "Fleet",
+          "result": "£440,000"
+        }
+      },
+      "result_price_gbp": 440000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos2",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "2",
+      "address": null,
+      "locality": "Kingston-upon-Thames",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=2",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Retail Kingston-upon-Thames Available",
+        "secondary_grid": {
+          "lot": "2",
+          "type": "Retail",
+          "location": "Kingston-upon-Thames",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos3",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "3",
+      "address": null,
+      "locality": "Newbury",
+      "property_type": "Investment",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=3",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "first_party_grid": "Investment Newbury Withdrawn Prior",
+        "secondary_grid": {
+          "lot": "3",
+          "type": "Investment Other",
+          "location": "Newbury",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos4",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "4",
+      "address": null,
+      "locality": "Banbury",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=4",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "first_party_grid": "Retail Banbury £403,000",
+        "secondary_grid": {
+          "lot": "4",
+          "type": "Retail",
+          "location": "Banbury",
+          "result": "£403,000"
+        }
+      },
+      "result_price_gbp": 403000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos5",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "5",
+      "address": null,
+      "locality": "Southend-on-Sea",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=5",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "first_party_grid": "Retail Southend-on-Sea £70,000",
+        "secondary_grid": {
+          "lot": "5",
+          "type": "Retail",
+          "location": "Southend-on-Sea",
+          "result": "£70,000"
+        }
+      },
+      "result_price_gbp": 70000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos6",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "6",
+      "address": null,
+      "locality": "Edinburgh",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=6",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "first_party_grid": "Office Edinburgh £1.3M",
+        "secondary_grid": {
+          "lot": "6",
+          "type": "Office",
+          "location": "Edinburgh",
+          "result": "£1.3M"
+        }
+      },
+      "result_price_gbp": 1300000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos7",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "7",
+      "address": null,
+      "locality": "Ashford",
+      "property_type": "Industrial",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=7",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Industrial Ashford Available",
+        "secondary_grid": {
+          "lot": "7",
+          "type": "Industrial",
+          "location": "Ashford",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos8",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "8",
+      "address": null,
+      "locality": "Poole",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=8",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "first_party_grid": "Retail Poole Withdrawn Prior",
+        "secondary_grid": {
+          "lot": "8",
+          "type": "Retail",
+          "location": "Poole",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos9",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "9",
+      "address": null,
+      "locality": "Newcastle upon Tyne",
+      "property_type": "Land",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=9",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Land Newcastle upon Tyne Available",
+        "secondary_grid": {
+          "lot": "9",
+          "type": "Land",
+          "location": "Newcastle upon Tyne",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos10",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "10",
+      "address": null,
+      "locality": "Spalding",
+      "property_type": "Industrial",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=10",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "first_party_grid": "Industrial Spalding Withdrawn Prior",
+        "secondary_grid": {
+          "lot": "10",
+          "type": "Industrial",
+          "location": "Spalding",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos11",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "11",
+      "address": null,
+      "locality": "Nottingham",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=11",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "first_party_grid": "Office Nottingham £3.5M",
+        "secondary_grid": {
+          "lot": "11",
+          "type": "Office",
+          "location": "Nottingham",
+          "result": "£3.5M"
+        }
+      },
+      "result_price_gbp": 3500000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos12",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "12",
+      "address": null,
+      "locality": "Camberley",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=12",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Retail Camberley Available",
+        "secondary_grid": {
+          "lot": "12",
+          "type": "Retail",
+          "location": "Camberley",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos13",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "13",
+      "address": null,
+      "locality": "Stonehouse",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=13",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "first_party_grid": "Retail Stonehouse £226,000",
+        "secondary_grid": {
+          "lot": "13",
+          "type": "Retail",
+          "location": "Stonehouse",
+          "result": "£226,000"
+        }
+      },
+      "result_price_gbp": 226000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos14",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "14",
+      "address": null,
+      "locality": "Teddington",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=14",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Office Teddington Available",
+        "secondary_grid": {
+          "lot": "14",
+          "type": "Office",
+          "location": "Teddington",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos15",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "15",
+      "address": null,
+      "locality": "Portsmouth",
+      "property_type": "Industrial",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=15",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold Post",
+      "raw_source": {
+        "first_party_grid": "Industrial Portsmouth Sold Post",
+        "secondary_grid": {
+          "lot": "15",
+          "type": "Industrial",
+          "location": "Portsmouth",
+          "result": "Sold Post"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos16",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "16",
+      "address": null,
+      "locality": "Hampton Court",
+      "property_type": "Leisure",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=16",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Leisure Hampton Court Available",
+        "secondary_grid": {
+          "lot": "16",
+          "type": "Leisure",
+          "location": "Hampton Court",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos17",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "17",
+      "address": null,
+      "locality": "Gloucester",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=17",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "first_party_grid": "Retail Gloucester £550,000",
+        "secondary_grid": {
+          "lot": "17",
+          "type": "Retail",
+          "location": "Gloucester",
+          "result": "£550,000"
+        }
+      },
+      "result_price_gbp": 550000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos18",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "18",
+      "address": null,
+      "locality": "Taunton",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=18",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "first_party_grid": "Retail Taunton Withdrawn Prior",
+        "secondary_grid": {
+          "lot": "18",
+          "type": "Retail",
+          "location": "Taunton",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos19",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "19",
+      "address": null,
+      "locality": "Walsall",
+      "property_type": "Industrial",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=19",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "first_party_grid": "Industrial Walsall £690,000",
+        "secondary_grid": {
+          "lot": "19",
+          "type": "Industrial",
+          "location": "Walsall",
+          "result": "£690,000"
+        }
+      },
+      "result_price_gbp": 690000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos20",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "20",
+      "address": null,
+      "locality": "South Molton",
+      "property_type": "Leisure",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020514id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=532&date=10/12/2007",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=532&pos=20",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Leisure South Molton Available",
+        "secondary_grid": {
+          "lot": "20",
+          "type": "Leisure",
+          "location": "South Molton",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos21",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "21",
+      "address": null,
+      "locality": "Saltcoats",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "21",
+          "type": "Retail",
+          "location": "Saltcoats",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos22",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "22",
+      "address": null,
+      "locality": "Cheltenham",
+      "property_type": "Industrial",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold Post",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "22",
+          "type": "Industrial",
+          "location": "Cheltenham",
+          "result": "Sold Post"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos23",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "23",
+      "address": null,
+      "locality": "Coventry",
+      "property_type": "Investment Freehold Building",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "23",
+          "type": "Investment Freehold Building",
+          "location": "Coventry",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos24",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "24",
+      "address": null,
+      "locality": "Alton",
+      "property_type": "Office",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "24",
+          "type": "Office",
+          "location": "Alton",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos25",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "25",
+      "address": null,
+      "locality": "Haverhill",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "25",
+          "type": "Retail",
+          "location": "Haverhill",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos26",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "26",
+      "address": null,
+      "locality": "Aberdeen",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "26",
+          "type": "Retail",
+          "location": "Aberdeen",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos27",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "27",
+      "address": null,
+      "locality": "Haverhill",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "27",
+          "type": "Retail",
+          "location": "Haverhill",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos28",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "28",
+      "address": null,
+      "locality": "Arbroath",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "28",
+          "type": "Retail",
+          "location": "Arbroath",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos29",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "29",
+      "address": null,
+      "locality": "Dunfermline",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "29",
+          "type": "Retail",
+          "location": "Dunfermline",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos30",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "30",
+      "address": null,
+      "locality": "Southwark",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "30",
+          "type": "Retail",
+          "location": "Southwark",
+          "result": "£355,000"
+        }
+      },
+      "result_price_gbp": 355000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos31",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "31",
+      "address": null,
+      "locality": "Birmingham",
+      "property_type": "Industrial",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "31",
+          "type": "Industrial",
+          "location": "Birmingham",
+          "result": "£905,000"
+        }
+      },
+      "result_price_gbp": 905000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos32",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "32",
+      "address": null,
+      "locality": "Southend-on-Sea",
+      "property_type": "Industrial",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "32",
+          "type": "Industrial",
+          "location": "Southend-on-Sea",
+          "result": "£275,000"
+        }
+      },
+      "result_price_gbp": 275000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos33",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "33",
+      "address": null,
+      "locality": "Hartlepool",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "33",
+          "type": "Ground Rent",
+          "location": "Hartlepool",
+          "result": "£862,000"
+        }
+      },
+      "result_price_gbp": 862000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos34",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "34",
+      "address": null,
+      "locality": "Crediton",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "34",
+          "type": "Retail",
+          "location": "Crediton",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos35",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "35",
+      "address": null,
+      "locality": "Hartlepool",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "35",
+          "type": "Retail",
+          "location": "Hartlepool",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos36",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "36",
+      "address": null,
+      "locality": "Hartlepool",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "36",
+          "type": "Retail",
+          "location": "Hartlepool",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos37",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "37",
+      "address": null,
+      "locality": "Okehampton",
+      "property_type": "Leisure",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "37",
+          "type": "Leisure",
+          "location": "Okehampton",
+          "result": "£483,000"
+        }
+      },
+      "result_price_gbp": 483000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos38",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "38",
+      "address": null,
+      "locality": "Northampton",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "38",
+          "type": "Retail",
+          "location": "Northampton",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos39",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "39",
+      "address": null,
+      "locality": "Lincoln",
+      "property_type": "Land",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "39",
+          "type": "Land",
+          "location": "Lincoln",
+          "result": "£600,000"
+        }
+      },
+      "result_price_gbp": 600000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos40",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "40",
+      "address": null,
+      "locality": "Teddington",
+      "property_type": "Land",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "40",
+          "type": "Land",
+          "location": "Teddington",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos41",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "41",
+      "address": null,
+      "locality": "Kingston-upon-Hull",
+      "property_type": "Vacant Freehold House",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "41",
+          "type": "Vacant Freehold House",
+          "location": "Kingston-upon-Hull",
+          "result": "£74,000"
+        }
+      },
+      "result_price_gbp": 74000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos42",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "42",
+      "address": null,
+      "locality": "Enfield",
+      "property_type": "Vacant Freehold House",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "42",
+          "type": "Vacant Freehold House",
+          "location": "Enfield",
+          "result": "£207,000"
+        }
+      },
+      "result_price_gbp": 207000
+    },
+    {
+      "source_record_id": "savills-commercial-auc532-pos43",
+      "source_auction_id": "savills-commercial-auc532",
+      "auction_date": "2007-12-10",
+      "lot_number": "43",
+      "address": null,
+      "locality": "Richmond-upon-Thames",
+      "property_type": "Mixed Use",
+      "notes": "Surviving secondary result-grid row; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=532",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=532"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "43",
+          "type": "Mixed Use",
+          "location": "Richmond-upon-Thames",
+          "result": "£125,000"
+        }
+      },
+      "result_price_gbp": 125000
+    }
+  ]
+}
