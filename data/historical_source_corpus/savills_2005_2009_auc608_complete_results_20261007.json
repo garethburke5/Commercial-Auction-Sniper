@@ -1,0 +1,969 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "captured_at_utc": "2026-10-07T12:58:00Z",
+  "capture_mode": "complete_secondary_result_grid_with_first_party_catalogue_reconciliation",
+  "scope": "All 36 numbered result rows from the surviving PropertyAuctions AID 608 grid for the 23 February 2009 Savills Commercial sale. The archived first-party Savills page identifies the sale date, states a total of 36 lots and exposes lots 1-20 on page 1; those rows agree with the secondary grid apart from lot 6, where the later secondary result is retained only in raw provenance and the archived first-party Available at £2.05M outcome governs. The secondary grid exposes every numbered lot 1-36 exactly once and reports Offered: 36. Street addresses and postcodes are not exposed and remain null.",
+  "source_auction_id": "savills-commercial-auc608",
+  "auction_date": "2009-02-23",
+  "catalogue_lot_count": 36,
+  "catalogue_complete": true,
+  "completion_scope": "all numbered lots 1-36 appear exactly once in the result grid and reconcile to both the first-party total of 36 and the secondary Offered: 36 denominator",
+  "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+  "first_party_source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+  "source_summary": {
+    "heading": "23RD FEBRUARY 2009 SAVILLS (COMMERCIAL)",
+    "offered": 36,
+    "rows_observed": 36,
+    "unique_lot_numbers": 36,
+    "first_party_rows_cross_checked": 20,
+    "first_party_catalogue_total": 36,
+    "first_party_catalogue_pages": 2,
+    "secondary_result_pages": 1,
+    "result_discrepancies": {
+      "6": {
+        "first_party": "Available at £2.05M",
+        "secondary": "Sold Post",
+        "governing_value": "first_party"
+      }
+    }
+  },
+  "raw_table_text": "1\tRetail\tLondon NW1\t£550,000\n2\tRetail\tLondon SE27\t£134,000\n3\tLand\tHampton\t£39,000\n4\tIndustrial\tHampton\t£200,000\n5\tRetail\tErdington\tAvailable at £1.48M\n6\tLeisure\tLondon W1T\tSold Post\n7\tOffice\tSt Albans\tAvailable at £350,000\n8\tVacant Flat\tNottingham\t£170,000\n9\tIndustrial\tNorthampton\tAvailable at £530,000\n10\tIndustrial\tNorthampton\tAvailable at £625,000\n11\tRetail\tBuxton\t£54,000\n12\tRetail\tFeltham\t£126,000\n13\tLand\tChigwell\t£49,000\n14\tLand\tChigwell\t£26,000\n15\tRetail\tLondon SE15\t£73,000\n16\tOffice\tWare\t£500,000\n17\tLand\tWare\tWith Lot 16\n18\tIndustrial\tPeterhead\t£167,000\n19\tGround Rent\tNottingham\t£110,000\n20\tRetail\tLondon N22\t£130,000\n21\tDevelopment\tHigh Wycombe\t£53,000\n22\tDevelopment\tLondon E1\t£451,000\n23\tLand\tAshford\t£220,000\n24\tLand\tWare\t£79,000\n25\tDevelopment\tWindrush\tAvailable at £800,000\n26\tIndustrial\tPeterborough\t£101,000\n27\tLand\tWraysbury\t£159,500\n28\tIndustrial\tBirmingham\tWithdrawn Prior\n29\tLand\tSevenoaks\t£22,000\n30\tLeisure\tColne\t£60,000\n31\tDevelopment\tReading\tWithdrawn Prior\n32\tLand\tDidcot\t£7,500\n33\tLand\tCirencester\t£25,000\n34\tDevelopment\tWallingford\t£64,000\n35\tLeisure\tPeterborough\t£56,000\n36\tVacant Freehold House\tPeterborough\tSold Prior",
+  "appearance_count": 36,
+  "address_records_added": 0,
+  "partial_records_added": 36,
+  "reconciliation": {
+    "first_party_catalogue_total": 36,
+    "reported_offered": 36,
+    "source_rows_observed": 36,
+    "unique_lot_numbers": 36,
+    "result_pagination_pages": 1,
+    "reconciliation_shortfall": 0,
+    "status": "complete surviving result grid"
+  },
+  "lots": [
+    {
+      "source_record_id": "savills-commercial-auc608-pos1",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "1",
+      "address": null,
+      "locality": "London NW1",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=1",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 550000,
+      "raw_source": {
+        "first_party_grid": "Retail London NW1 £550,000",
+        "secondary_grid": {
+          "lot": "1",
+          "type": "Retail",
+          "location": "London NW1",
+          "result": "£550,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos2",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "2",
+      "address": null,
+      "locality": "London SE27",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=2",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 134000,
+      "raw_source": {
+        "first_party_grid": "Retail London SE27 £134,000",
+        "secondary_grid": {
+          "lot": "2",
+          "type": "Retail",
+          "location": "London SE27",
+          "result": "£134,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos3",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "3",
+      "address": null,
+      "locality": "Hampton",
+      "property_type": "Land",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=3",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 39000,
+      "raw_source": {
+        "first_party_grid": "Land Hampton £39,000",
+        "secondary_grid": {
+          "lot": "3",
+          "type": "Land",
+          "location": "Hampton",
+          "result": "£39,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos4",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "4",
+      "address": null,
+      "locality": "Hampton",
+      "property_type": "Industrial",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=4",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 200000,
+      "raw_source": {
+        "first_party_grid": "Industrial Hampton £200,000",
+        "secondary_grid": {
+          "lot": "4",
+          "type": "Industrial",
+          "location": "Hampton",
+          "result": "£200,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos5",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "5",
+      "address": null,
+      "locality": "Erdington",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=5",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Retail Erdington Available at £1.48M",
+        "secondary_grid": {
+          "lot": "5",
+          "type": "Retail",
+          "location": "Erdington",
+          "result": "Available at £1.48M"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos6",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "6",
+      "address": null,
+      "locality": "London W1T",
+      "property_type": "Leisure",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=6",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Leisure London W1T Available at £2.05M",
+        "secondary_grid": {
+          "lot": "6",
+          "type": "Leisure",
+          "location": "London W1T",
+          "result": "Sold Post"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos7",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "7",
+      "address": null,
+      "locality": "St Albans",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=7",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Office St Albans Available at £350,000",
+        "secondary_grid": {
+          "lot": "7",
+          "type": "Office",
+          "location": "St Albans",
+          "result": "Available at £350,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos8",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "8",
+      "address": null,
+      "locality": "Nottingham",
+      "property_type": "Vacant Flat",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=8",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 170000,
+      "raw_source": {
+        "first_party_grid": "Vacant Flat Nottingham £170,000",
+        "secondary_grid": {
+          "lot": "8",
+          "type": "Vacant Flat",
+          "location": "Nottingham",
+          "result": "£170,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos9",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "9",
+      "address": null,
+      "locality": "Northampton",
+      "property_type": "Industrial",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=9",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Industrial Northampton Available at £530,000",
+        "secondary_grid": {
+          "lot": "9",
+          "type": "Industrial",
+          "location": "Northampton",
+          "result": "Available at £530,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos10",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "10",
+      "address": null,
+      "locality": "Northampton",
+      "property_type": "Industrial",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=10",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_grid": "Industrial Northampton Available at £625,000",
+        "secondary_grid": {
+          "lot": "10",
+          "type": "Industrial",
+          "location": "Northampton",
+          "result": "Available at £625,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos11",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "11",
+      "address": null,
+      "locality": "Buxton",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=11",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 54000,
+      "raw_source": {
+        "first_party_grid": "Retail Buxton £54,000",
+        "secondary_grid": {
+          "lot": "11",
+          "type": "Retail",
+          "location": "Buxton",
+          "result": "£54,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos12",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "12",
+      "address": null,
+      "locality": "Feltham",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=12",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 126000,
+      "raw_source": {
+        "first_party_grid": "Retail Feltham £126,000",
+        "secondary_grid": {
+          "lot": "12",
+          "type": "Retail",
+          "location": "Feltham",
+          "result": "£126,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos13",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "13",
+      "address": null,
+      "locality": "Chigwell",
+      "property_type": "Land",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=13",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 49000,
+      "raw_source": {
+        "first_party_grid": "Land Chigwell £49,000",
+        "secondary_grid": {
+          "lot": "13",
+          "type": "Land",
+          "location": "Chigwell",
+          "result": "£49,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos14",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "14",
+      "address": null,
+      "locality": "Chigwell",
+      "property_type": "Land",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=14",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 26000,
+      "raw_source": {
+        "first_party_grid": "Land Chigwell £26,000",
+        "secondary_grid": {
+          "lot": "14",
+          "type": "Land",
+          "location": "Chigwell",
+          "result": "£26,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos15",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "15",
+      "address": null,
+      "locality": "London SE15",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=15",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 73000,
+      "raw_source": {
+        "first_party_grid": "Retail London SE15 £73,000",
+        "secondary_grid": {
+          "lot": "15",
+          "type": "Retail",
+          "location": "London SE15",
+          "result": "£73,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos16",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "16",
+      "address": null,
+      "locality": "Ware",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=16",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 500000,
+      "raw_source": {
+        "first_party_grid": "Office Ware £500,000",
+        "secondary_grid": {
+          "lot": "16",
+          "type": "Office",
+          "location": "Ware",
+          "result": "£500,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos17",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "17",
+      "address": null,
+      "locality": "Ware",
+      "property_type": "Land",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=17",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "With Lot 16",
+      "raw_source": {
+        "first_party_grid": "Land Ware With Lot 16",
+        "secondary_grid": {
+          "lot": "17",
+          "type": "Land",
+          "location": "Ware",
+          "result": "With Lot 16"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos18",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "18",
+      "address": null,
+      "locality": "Peterhead",
+      "property_type": "Industrial",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=18",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 167000,
+      "raw_source": {
+        "first_party_grid": "Industrial Peterhead £167,000",
+        "secondary_grid": {
+          "lot": "18",
+          "type": "Industrial",
+          "location": "Peterhead",
+          "result": "£167,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos19",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "19",
+      "address": null,
+      "locality": "Nottingham",
+      "property_type": "Ground Rent",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=19",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 110000,
+      "raw_source": {
+        "first_party_grid": "Ground Rent Nottingham £110,000",
+        "secondary_grid": {
+          "lot": "19",
+          "type": "Ground Rent",
+          "location": "Nottingham",
+          "result": "£110,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos20",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "20",
+      "address": null,
+      "locality": "London N22",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "http://auctions.savills.co.uk:80/commercial/comm_previous_auction_lot.asp?Auc=608&pos=20",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "result_status": "Sold",
+      "result_price_gbp": 130000,
+      "raw_source": {
+        "first_party_grid": "Retail London N22 £130,000",
+        "secondary_grid": {
+          "lot": "20",
+          "type": "Retail",
+          "location": "London N22",
+          "result": "£130,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos21",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "21",
+      "address": null,
+      "locality": "High Wycombe",
+      "property_type": "Development",
+      "result_price_gbp": 53000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "21",
+        "type": "Development",
+        "location": "High Wycombe",
+        "result": "£53,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos22",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "22",
+      "address": null,
+      "locality": "London E1",
+      "property_type": "Development",
+      "result_price_gbp": 451000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "22",
+        "type": "Development",
+        "location": "London E1",
+        "result": "£451,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos23",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "23",
+      "address": null,
+      "locality": "Ashford",
+      "property_type": "Land",
+      "result_price_gbp": 220000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "23",
+        "type": "Land",
+        "location": "Ashford",
+        "result": "£220,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos24",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "24",
+      "address": null,
+      "locality": "Ware",
+      "property_type": "Land",
+      "result_price_gbp": 79000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "24",
+        "type": "Land",
+        "location": "Ware",
+        "result": "£79,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos25",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "25",
+      "address": null,
+      "locality": "Windrush",
+      "property_type": "Development",
+      "available_price_gbp": 800000,
+      "result_status": "available",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "25",
+        "type": "Development",
+        "location": "Windrush",
+        "result": "Available at £800,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos26",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "26",
+      "address": null,
+      "locality": "Peterborough",
+      "property_type": "Industrial",
+      "result_price_gbp": 101000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "26",
+        "type": "Industrial",
+        "location": "Peterborough",
+        "result": "£101,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos27",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "27",
+      "address": null,
+      "locality": "Wraysbury",
+      "property_type": "Land",
+      "result_price_gbp": 159500,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "27",
+        "type": "Land",
+        "location": "Wraysbury",
+        "result": "£159,500"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos28",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "28",
+      "address": null,
+      "locality": "Birmingham",
+      "property_type": "Industrial",
+      "result_price_gbp": null,
+      "result_status": "withdrawn prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "28",
+        "type": "Industrial",
+        "location": "Birmingham",
+        "result": "Withdrawn Prior"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos29",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "29",
+      "address": null,
+      "locality": "Sevenoaks",
+      "property_type": "Land",
+      "result_price_gbp": 22000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "29",
+        "type": "Land",
+        "location": "Sevenoaks",
+        "result": "£22,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos30",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "30",
+      "address": null,
+      "locality": "Colne",
+      "property_type": "Leisure",
+      "result_price_gbp": 60000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "30",
+        "type": "Leisure",
+        "location": "Colne",
+        "result": "£60,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos31",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "31",
+      "address": null,
+      "locality": "Reading",
+      "property_type": "Development",
+      "result_price_gbp": null,
+      "result_status": "withdrawn prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "31",
+        "type": "Development",
+        "location": "Reading",
+        "result": "Withdrawn Prior"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos32",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "32",
+      "address": null,
+      "locality": "Didcot",
+      "property_type": "Land",
+      "result_price_gbp": 7500,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "32",
+        "type": "Land",
+        "location": "Didcot",
+        "result": "£7,500"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos33",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "33",
+      "address": null,
+      "locality": "Cirencester",
+      "property_type": "Land",
+      "result_price_gbp": 25000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "33",
+        "type": "Land",
+        "location": "Cirencester",
+        "result": "£25,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos34",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "34",
+      "address": null,
+      "locality": "Wallingford",
+      "property_type": "Development",
+      "result_price_gbp": 64000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "34",
+        "type": "Development",
+        "location": "Wallingford",
+        "result": "£64,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos35",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "35",
+      "address": null,
+      "locality": "Peterborough",
+      "property_type": "Leisure",
+      "result_price_gbp": 56000,
+      "result_status": "sold",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "35",
+        "type": "Leisure",
+        "location": "Peterborough",
+        "result": "£56,000"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    },
+    {
+      "source_record_id": "savills-commercial-auc608-pos36",
+      "source_auction_id": "savills-commercial-auc608",
+      "auction_date": "2009-02-23",
+      "lot_number": "36",
+      "address": null,
+      "locality": "Peterborough",
+      "property_type": "Vacant Freehold House",
+      "result_price_gbp": null,
+      "result_status": "sold prior",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=608",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020716id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=608&date=23/02/2009",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=608"
+      ],
+      "raw_source": {
+        "lot": "36",
+        "type": "Vacant Freehold House",
+        "location": "Peterborough",
+        "result": "Sold Prior"
+      },
+      "notes": "Surviving secondary result row reconciled to the archived first-party Savills 36-lot denominator; street address and postcode are not exposed."
+    }
+  ]
+}
