@@ -119168,7 +119168,7 @@
       },
       "quality_gate_rejections": 0,
       "production_rows": 29,
-      "published_rows": 24
+      "published_rows": 21
     },
     {
       "source": "Auction House Lincolnshire, North Notts & South Yorks",
@@ -119408,7 +119408,9 @@
       },
       "quality_gate_rejections": 0,
       "production_rows": 11,
-      "published_rows": 11
+      "published_rows": 2,
+      "coverage_status": "DEGRADED",
+      "coverage_failure_reason": "Candidate/publication drop: 11 commercial/mixed-use candidates \u2192 2 current rows; inspect dates and rejection evidence; Count collapse: 9 still-current prior rows \u2192 2 published"
     },
     {
       "source": "Auction House Manchester",
@@ -129983,8 +129985,8 @@
       "Under The Hammer": 25
     },
     "zero_inventory_outage_sources": [],
-    "publication_revision": "94b1a00be4f5dd4fae29e63a4e429fb83e509c2b",
-    "revalidated_at": "2026-10-06T23:15:38.968021+00:00"
+    "publication_revision": "d3fb976ec040a1ca13bfd52ed1c5057a3603bba0",
+    "revalidated_at": "2026-10-07T00:16:15.890488+00:00"
   },
   "excluded_properties": [
     {
@@ -134004,7 +134006,7 @@
         "assessment": "Corporate grouping is not proof that every legacy catalogue lot is ingested; unique-inventory reconciliation outstanding."
       }
     ],
-    "generated_at": "2026-10-06T23:15:38.965865+00:00",
+    "generated_at": "2026-10-07T00:16:15.888576+00:00",
     "snapshot_generated_at": "2026-10-06T23:13:51.086857+00:00",
     "live_verification": "not yet verified",
     "sources": [
@@ -134706,7 +134708,7 @@
         "auctioneer": "Auction House Lincolnshire, North Notts & South Yorks",
         "collector_configured": true,
         "collector_executed": true,
-        "status": "LIVE",
+        "status": "DEGRADED",
         "current_catalogue_detected": true,
         "source_lot_count": 49,
         "lots_discovered": 49,
@@ -134718,14 +134720,14 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 38,
-        "qualifying_current_lots": 11,
+        "qualifying_current_lots": 2,
         "shared_feed_rows": 0,
-        "production_rows": 11,
-        "published_rows": 11,
+        "production_rows": 2,
+        "published_rows": 2,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 9,
-        "failure_reason": null,
+        "failure_reason": "Candidate/publication drop: 11 commercial/mixed-use candidates \u2192 2 current rows; inspect dates and rejection evidence; Count collapse: 9 still-current prior rows \u2192 2 published",
         "telemetry_missing": [],
         "current_source_assessment": null,
         "last_collection": "2026-10-06T23:13:40.525793+00:00",
@@ -135110,10 +135112,10 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 109,
-        "qualifying_current_lots": 24,
+        "qualifying_current_lots": 21,
         "shared_feed_rows": 0,
-        "production_rows": 24,
-        "published_rows": 24,
+        "production_rows": 21,
+        "published_rows": 21,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 24,
@@ -137094,6 +137096,6 @@
         "storefronts": []
       }
     ],
-    "degraded_sources": 13
+    "degraded_sources": 14
   }
 }
