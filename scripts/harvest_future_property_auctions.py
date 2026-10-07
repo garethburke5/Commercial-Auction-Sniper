@@ -171,13 +171,18 @@ def manifest_rows(payload: dict) -> list[dict]:
         if not uuid or auction_id is None or uuid in seen:
             raise ValueError("archive manifest contains a missing or duplicate identity")
         seen.add(uuid)
+        title = corpus.plain(row.get("auctionTitle"))
+        if title and title.casefold() == "test auction":
+            continue
         normalized.append({
             "auction_uuid": uuid,
             "auction_id": str(auction_id),
-            "title": corpus.plain(row.get("auctionTitle")),
+            "title": title,
             "auction_end_time": row.get("auctionEndTime"),
             "auction_date": epoch_date(row.get("auctionEndTime")),
         })
+    if not normalized:
+        raise ValueError("archive manifest has no non-test auctions")
     return normalized
 
 

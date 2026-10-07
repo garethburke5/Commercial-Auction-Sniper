@@ -62,6 +62,24 @@ def test_manifest_requires_stable_distinct_auction_identities():
         ]})
 
 
+def test_manifest_excludes_explicit_test_auction_rows():
+    payload = {"basicAuctionBidJSModelList": [
+        {
+            "auctionUuid": UUID, "auctionId": 123, "auctionTitle": "Real Auction",
+            "auctionEndTime": 1790863200000,
+        },
+        {
+            "auctionUuid": "test-uuid", "auctionId": 124,
+            "auctionTitle": "  TEST AUCTION  ", "auctionEndTime": 1790863200000,
+        },
+    ]}
+    rows = manifest_rows(payload)
+    assert [row["auction_uuid"] for row in rows] == [UUID]
+
+    with pytest.raises(ValueError, match="no non-test auctions"):
+        manifest_rows({"basicAuctionBidJSModelList": [payload["basicAuctionBidJSModelList"][1]]})
+
+
 def test_complete_payload_banks_address_outcome_price_and_provenance():
     rows, state = parse_auction(PAYLOAD, MANIFEST, {"sha256": "abc", "source_url": "api"})
     assert len(rows) == 1 and state["catalogue_complete"] is True
