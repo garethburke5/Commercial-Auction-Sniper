@@ -1,0 +1,68 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "conservative official HM Land Registry exact-transaction address enrichment",
+  "captured_at_utc": "2026-10-07T06:10:00Z",
+  "source_note": "Nine sold, numeric-price vacant freehold house rows from the complete first-party Savills Nottingham result grid dated 13 May 2010 were checked against official HM Land Registry 2010 Price Paid Data. Two rows were retained because each had exactly one compatible transaction matching the exact auction price, published locality, freehold tenure and house property class and completing within 180 days of the auction. The broad Nottingham row had 14 compatible candidates and six other rows had none, so those seven rows remain partial. Original appearances and provenance remain preserved; this enrichment adds no appearances and makes no new catalogue-completeness claim.",
+  "saved_source_snapshot": "data/historical_source_corpus/savills_nottingham_2010_05_13_aid677_complete_grid_20261007.json",
+  "source_records": [
+    {
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=677",
+      "source_name": "PropertyAuctions first-party Savills result grid",
+      "record_identity": "Savills Nottingham 13 May 2010, AID 677",
+      "evidence_excerpt": "The complete result grid identifies lot 4 as a vacant freehold house in Kirkby-in-Ashfield sold for GBP 77,000 and lot 30 as a vacant freehold house in Rainworth sold for GBP 67,500."
+    },
+    {
+      "source_url": "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2010.csv",
+      "source_name": "HM Land Registry Price Paid Data",
+      "record_identity": "Official 2010 transactions {7A1BD276-1181-4099-8BC0-6CFB9E478F44} and {C809A4B2-965A-4BF0-B29B-F919A0652295}",
+      "evidence_excerpt": "The official records identify freehold house transactions at 17 Forest Street, Kirkby in Ashfield, NG17 7DT for GBP 77,000 on 10 June 2010 and 10 Vera Crescent, Rainworth, NG21 0EU for GBP 67,500 on 16 June 2010."
+    }
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "source-corpus/savills_nottingham_2010_05_13_aid677_complete_grid_20261007",
+      "target_appearance_id": "source-corpus|savills-nottingham-aid677-lot-4",
+      "address": "17 Forest Street, Kirkby in Ashfield, Nottingham, NG17 7DT",
+      "postcode": "NG17 7DT",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_locality_tenure_property_class_and_short_completion_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=77000&max_price=77000&min_date=2010-05-13&max_date=2010-11-09&relative_url_root=%2Fapp%2Fppd&town=Kirkby-in-Ashfield",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=677",
+        "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2010.csv",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=77000&max_price=77000&min_date=2010-05-13&max_date=2010-11-09&relative_url_root=%2Fapp%2Fppd&town=Kirkby-in-Ashfield"
+      ],
+      "evidence_note": "Savills Nottingham AID 677 lot 4 is a vacant freehold house in Kirkby-in-Ashfield sold for exactly GBP 77,000 on 13 May 2010. Official HM Land Registry transaction {7A1BD276-1181-4099-8BC0-6CFB9E478F44} is the sole compatible exact-price freehold house transaction in that locality within 180 days and identifies 17 Forest Street, completing 28 days later on 10 June 2010."
+    },
+    {
+      "target_shard": "source-corpus/savills_nottingham_2010_05_13_aid677_complete_grid_20261007",
+      "target_appearance_id": "source-corpus|savills-nottingham-aid677-lot-30",
+      "address": "10 Vera Crescent, Rainworth, Mansfield, NG21 0EU",
+      "postcode": "NG21 0EU",
+      "address_basis": "conservative_official_hmlr_unique_exact_price_locality_tenure_property_class_and_short_completion_match",
+      "source_url": "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=67500&max_price=67500&min_date=2010-05-13&max_date=2010-11-09&relative_url_root=%2Fapp%2Fppd&town=Rainworth",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=677",
+        "https://price-paid-data.publicdata.landregistry.gov.uk/pp-2010.csv",
+        "https://landregistry.data.gov.uk/app/ppd/search?limit=100&min_price=67500&max_price=67500&min_date=2010-05-13&max_date=2010-11-09&relative_url_root=%2Fapp%2Fppd&town=Rainworth"
+      ],
+      "evidence_note": "Savills Nottingham AID 677 lot 30 is a vacant freehold house in Rainworth sold for exactly GBP 67,500 on 13 May 2010. Official HM Land Registry transaction {C809A4B2-965A-4BF0-B29B-F919A0652295} is the sole compatible exact-price freehold house transaction in that locality within 180 days and identifies 10 Vera Crescent, completing 34 days later on 16 June 2010."
+    }
+  ],
+  "appearance_count": 0,
+  "appearances_enriched": 2,
+  "address_records_added": 2,
+  "partial_records_added": 0,
+  "exact_price_locality_candidates_checked": 9,
+  "candidates_retained": 2,
+  "ambiguous_candidates_left_partial": 1,
+  "no_compatible_result_left_partial": 6,
+  "historical_completeness_declared": false,
+  "reconciliation": {
+    "source_lot_rows_added": 0,
+    "existing_appearances_enriched": 2,
+    "unresolved_candidates": 7,
+    "status": "two unique address matches retained; all ambiguous or unmatched rows unchanged"
+  }
+}
