@@ -258,10 +258,10 @@ def test_recent_403_catalogues_are_deferred_without_blocking_other_pending_ids()
         }],
     }
     deferred = recent_403_failures(
-        summary, datetime(2026, 10, 6, 15, 0, tzinfo=timezone.utc)
+        summary, datetime(2026, 10, 5, 15, 0, tzinfo=timezone.utc)
     )
     assert [item["auction_uuid"] for item in deferred] == ["blocked-uuid"]
     assert deferred[0]["checked_at"] == "2026-10-04T15:09:58+00:00"
     assert recent_403_failures(
-        summary, datetime(2026, 10, 12, 16, 0, tzinfo=timezone.utc)
+        summary, datetime(2026, 10, 5, 16, 0, tzinfo=timezone.utc)
     ) == []

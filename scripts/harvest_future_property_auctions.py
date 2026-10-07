@@ -36,7 +36,7 @@ HEADERS = {
 PROPERTY_ID_RE = re.compile(r"property_details\.asp\?id=(\d+)", re.I)
 FAILURE_COOLDOWN_SECONDS = 2 * 60 * 60
 SOURCE_403_COOLDOWN_SECONDS = 24 * 60 * 60
-ITEM_FAILURE_COOLDOWN_SECONDS = 7 * 24 * 60 * 60
+ITEM_FAILURE_COOLDOWN_SECONDS = 24 * 60 * 60
 
 
 def epoch_date(value: int | float | None) -> str | None:
@@ -100,7 +100,7 @@ def full_failure_cooldown(summary: dict, now: datetime | None = None) -> bool:
 
 
 def recent_403_failures(summary: dict, now: datetime | None = None) -> list[dict]:
-    """Defer catalogue URLs that recently returned a source-level 403."""
+    """Defer catalogue URLs for one day after a source-level 403."""
     current = now or datetime.now(timezone.utc)
     inherited_checked = summary.get("checked_at")
     records = list(summary.get("deferred_failures") or []) + list(summary.get("failures") or [])
