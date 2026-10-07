@@ -12,6 +12,9 @@ from web_platform.tests.test_acquisition_workspace import model
 
 def full_report():
     report = build_acquisition(model(), {'guide': 250000, 'rent': 35000})
+    # Legacy stored reports still support their original export format. New
+    # investigation reports ignore inserted commercial_brief narratives.
+    report.pop('investigation')
     report['commercial_brief'] = {
         'as_of': '2026-10-07', 'status': 'Reviewed source specimen',
         'summary': 'A two-unit retail investment.', 'conclusion': 'Resolve the title plan before committing.',

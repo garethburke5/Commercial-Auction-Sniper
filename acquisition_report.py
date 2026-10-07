@@ -257,6 +257,9 @@ def render(report, standalone=False):
     """Concise paid report, with complete evidence available separately on screen."""
     if report.get('access') == 'snapshot':
         return _render_legacy(report, standalone=standalone)
+    if report.get('investigation'):
+        from acquisition_premium import render_html
+        return render_html(report, standalone)
     brief = commercial_brief(report)
     e = lambda value: escape(str(value if value is not None else ''))
     p = lambda value, cls='': '<p' + (' class="' + cls + '"' if cls else '') + '>' + e(value) + '</p>' if value else ''

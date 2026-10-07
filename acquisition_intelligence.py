@@ -16,7 +16,7 @@ def money(v):return '£'+format(float(v),',.0f' if float(v).is_integer() else ',
 def amount(text):
     m=re.search(r'£\s*([\d,]+(?:\.\d{1,2})?)',text or '');return float(m.group(1).replace(',','')) if m else None
 
-def build_acquisition(model,catalogue=None):
+def build_acquisition(model,catalogue=None,*,research=None,open_review=None):
     c=catalogue or {};source_findings=model.get('findings',[]);facts=[f for f in source_findings if f.get('fact')]
     findings=[];groups=defaultdict(list)
     for f in source_findings:groups[f['title']].append(f)
@@ -171,7 +171,7 @@ def build_acquisition(model,catalogue=None):
     deep=next((f for id in ('rent-concession','title-relationships','seller-fee','vat-togc') for f in findings if f['id']==id),None)
     priority=sorted(findings,key=lambda f:({'CRITICAL / RED FLAG':0,'NEEDS CHECKING':1,'INFORMATION':2}[f['severity']],f['id']))
     opportunities=[f for f in findings if f['id']=='rent-agreement']
-    return {'schema_version':'3.0','engine':model.get('engine'),'product':'Auction Sniper Acquisition Intelligence','report_id':model['report_id'],'property':model['property'],'created_at':model['created_at'],
+    report = {'schema_version':'4.0','engine':model.get('engine'),'product':'Auction Sniper Acquisition Intelligence','report_id':model['report_id'],'property':model['property'],'created_at':model['created_at'],
         'what_you_are_buying':description,'guide':guide,'guide_upper':upper,'rent':rent,'tenant':tenant,'company_number':company_number,'tenant_evidence':tenant_evidence,'tenure':tenure,
         'lease':lease or 'Operative lease term not established','completion':completion or 'Completion deadline not established','deposit':deposit,
         'vat':('Different VAT statements require reconciliation.' if 'VAT depends on TOGC conditions' in groups and 'Seller states no option to tax' in groups else summary_for('Seller states no option to tax') or summary_for('VAT depends on TOGC conditions') or 'Transaction VAT treatment not established'),'calculations':calculations,'costs':costs,
@@ -179,10 +179,32 @@ def build_acquisition(model,catalogue=None):
         'findings':priority,'deep_dive':deep,'cpse':cpse_text,'opportunities':opportunities,'unknowns':unknowns,'questions':questions,'documents':documents,
         'listing_status':c.get('status'),'auction_date':c.get('auction_date'),'catalogue_as_of':c.get('collected_at'),'tenancy_schedule':c.get('tenancy_schedule',[]),'lease_details':model.get('lease_details',[]),
         'lease_reconciliation':lease_reconciliation,'coverage':model.get('coverage',{}),'sections':SECTIONS,'evidence_review':model,'disclaimer':'Acquisition research, not legal, tax or valuation advice. Verify material conclusions against the source documents and with the appropriate professional.'}
+    # Reuse the existing document-scoped extractor when the newer detailed
+    # extractor could not recover a value. A single lease's amount is not
+    # promoted to current passing rent or combined across historical versions.
+    for lease_detail in report['lease_details']:
+        chronology = next((x for x in lease_reconciliation if x['document']==lease_detail['document']), {})
+        if lease_detail.get('annual_rent') is None and len(chronology.get('rent_amounts',[]))==1:
+            lease_detail['annual_rent']=chronology['rent_amounts'][0]
+            lease_detail['rent_basis']='Single amount in this lease; chronology and current collection require verification'
+            lease_detail['evidence']=list(lease_detail.get('evidence',[]))+chronology.get('evidence',[])
+        if not lease_detail.get('term') and chronology.get('term') not in (None,'No reliable term recovered'):
+            lease_detail['term']={'text':chronology['term'],'uncertain':bool(re.search(r'uncertain|visual confirmation|unclear',chronology['term'],re.I)),'evidence':chronology.get('evidence',[])}
+    from acquisition_investigation import investigate
+    from acquisition_amendments import apply_amendments
+    from acquisition_quality import paid_report_status, acceptance_issues
+    apply_amendments(report, research or c.get('research'))
+    report['market_context'] = c.get('market_context', {})
+    report['investigation'] = investigate(report, model, c, research, open_review)
+    report['quality_status'] = dict(paid_report_status(report), outstanding=acceptance_issues(report))
+    return report
 
 def snapshot(report):
     """Actual server projection: the paid payload is not sent hidden in the DOM."""
-    out={k:v for k,v in report.items() if k not in ('evidence_review','findings','documents','questions','unknowns','opportunities','costs','market_context','lease_reconciliation','commercial_brief','lease_details','quality_review','tenancy_schedule')}
+    out={k:v for k,v in report.items() if k not in ('evidence_review','findings','documents','questions','unknowns','opportunities','costs','market_context','lease_reconciliation','commercial_brief','lease_details','quality_review','tenancy_schedule','investigation','research','open_review','source_pages','report_media')}
+    from acquisition_quality import paid_report_status
+    out.pop('amendment_review', None)
+    out['quality_status'] = paid_report_status()
     deep_id=(report.get('deep_dive') or {}).get('id')
     out['findings']=[f for f in report['findings'] if f.get('id')!=deep_id][:3]
     shown={f['id'] for f in out['findings']}

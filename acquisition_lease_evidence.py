@@ -40,7 +40,8 @@ def _matches(document, pattern, limit=3):
 
 def _uncertain_date(text):
     """Two adjacent month names expose common PDF overlay/OCR amendment errors."""
-    return bool(re.search(MONTH + r"\s*" + MONTH, text, re.I)
+    unknown_month = any(not re.fullmatch(MONTH, m.group(1), re.I) for m in re.finditer(r'\b\d{1,2}\s+([A-Za-z]+)\s+(?:19|20)\d{2}\b', text))
+    return bool(unknown_month or re.search(MONTH + r"\s*" + MONTH, text, re.I)
                 or re.search(r"\[\s*\]", text)
                 or re.search(r"\b(?:tbc|to be confirmed|insert date)\b", text, re.I))
 
@@ -58,6 +59,8 @@ def extract_lease_evidence(documents):
         })
 
     for document in documents:
+        if re.search(r'licen[cs]e\s+(?:for\s+)?alt(?:s|erations?)\b', document.name, re.I):
+            continue
         if getattr(document.doc_type, "value", document.doc_type) != "lease":
             continue
         pages = list(_pages(document))
@@ -69,6 +72,13 @@ def extract_lease_evidence(documents):
                "term": None, "breaks": [], "reviews": [], "repairs": [], "service_charge": [],
                "security": None, "guarantee": "No separately identified guarantor established",
                "rent_deposit": "No existing deposit established from the lease text"}
+        first_page = pages[0] if pages else None
+        if first_page:
+            page, front = first_page
+            dated = re.search(r'(?:(\d{1,2}\s+'+MONTH+r')\s+DATED\s+((?:19|20)\d{2})|DATED\s+(\d{1,2}\s+'+MONTH+r'\s+(?:19|20)\d{2}))',front,re.I)
+            if dated:
+                row['lease_date'] = norm(dated.group(3) or dated.group(1)+' '+dated.group(2))
+                row['lease_date_evidence'] = [_evidence(document,page,dated.group())]
 
         parties = _matches(document,
             r"\(2\)\s*([A-Z][A-Z ,.&'’()\-]{2,140}?)\s+of\s+.{3,180}?\(Tenant\)", 1)

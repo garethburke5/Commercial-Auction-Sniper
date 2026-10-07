@@ -32,9 +32,9 @@ def install(app,site,user):
         from .fees import estimate_fee,fee_profile
         context=dict(row,guide=row.get('guide_price'),rent=row.get('annual_rent'))
         context['auctioneer_fee']=estimate_fee(row,fee_profile(row['source_slug'],site.fees),site.evidence.get(row['url'],{})).get('amount')
+        context['market_context']=site.market.for_property(row)
         result=analyse_uploaded_pack(row['address'],supplied,context,ocr=os.getenv('REVIEW_OCR','true')=='true')
         report=result['acquisition'];rid=uuid.uuid4().hex;report['report_id']=rid
-        report['market_context']=site.market.for_property(row)
         with a.db() as db:db.execute('INSERT INTO reviews VALUES (?,?,?,?,?)',(rid,uid,property_id,json.dumps(report),int(time.time())))
         return {'id':rid,'report':snapshot(report),'html':render(snapshot(report))}
     @app.get('/api/account/reviews/{rid}')
@@ -51,7 +51,12 @@ def install(app,site,user):
     def download(rid:str,format:str='html',authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization);r,report=owned(a,uid,rid)
         full=unlocked(a,uid,rid,r['property_id']);projection=report if full else snapshot(report)
-        if format not in ('html','docx'):raise HTTPException(400,'Unsupported report format')
+        if format not in ('html','docx','pdf'):raise HTTPException(400,'Unsupported report format')
+        if format=='pdf':
+            if not full:raise HTTPException(403,'Unlock this review to download the acquisition report')
+            if not report.get('investigation'):raise HTTPException(409,'This older report needs reanalysis before PDF export')
+            from acquisition_premium import render_pdf
+            return Response(render_pdf(projection),media_type='application/pdf',headers={'Content-Disposition':f'attachment; filename="acquisition-{rid}.pdf"','Cache-Control':'no-store'})
         if format=='docx':
             if not full:raise HTTPException(403,'Unlock this review to download the acquisition report')
             from acquisition_document import render_docx
@@ -61,4 +66,7 @@ def install(app,site,user):
     def checkout_review(rid:str,authorization:str|None=Header(default=None)):
         uid,a,b=user(authorization);r,report=owned(a,uid,rid)
         if unlocked(a,uid,rid,r['property_id']):return {'already_unlocked':True}
+        from acquisition_quality import paid_report_status
+        quality=paid_report_status(report)
+        if not quality['purchase_available']:raise HTTPException(503,quality['message'])
         return {'url':b.purchase(uid,'legal_pack_report','review:'+rid)}

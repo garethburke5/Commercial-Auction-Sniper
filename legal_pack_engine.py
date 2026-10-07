@@ -28,7 +28,8 @@ def classify_document(name,text=""):
  # Explicit document roles outrank incidental references inside correspondence,
  # common conditions and bidder instructions.
  label=name.lower()
- if re.search(r'rent authority|id requirements|common auction conditions|auctioneer terms|deposit terms|form of purchase agreement|terms and conditions for remote bidders',label):return DocType.OTHER
+ if re.search(r'schedule of dilapidations|title information|commercial\s*-.*\blot\s*\d+', label):return DocType.OTHER
+ if re.search(r'rent authority|id requirements|common auction conditions|auctioneer terms|deposit terms|form of purchase agreement|terms and conditions for remote bidders|licen[cs]e\s+(?:for\s+)?alt(?:s|erations?)\b',label):return DocType.OTHER
  if re.search(r'official copy of register|official copy \(register\)',label):return DocType.TITLE_REGISTER
  if re.search(r'rent(?:al)? schedule',label):
   return DocType.ARREARS if re.search(r'\b(?:receipts|received|payment|paid|credited)\b',text,re.I) else DocType.TENANCY_SCHEDULE

@@ -14,6 +14,9 @@ def render_docx(report):
     """Return DOCX bytes for a full report; a free snapshot cannot be exported."""
     if report.get('access') == 'snapshot':
         raise ValueError('A full report is required for the commercial document')
+    if report.get('investigation'):
+        from acquisition_premium import render_docx as render_investor_docx
+        return render_investor_docx(report)
     from docx import Document
     from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
     from docx.enum.text import WD_ALIGN_PARAGRAPH

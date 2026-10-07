@@ -13,8 +13,12 @@ REPORT_PRICE_GBP=25.00;VAT_RATE=0.20
 class AnalysisCost:
  input_files:int=0;expanded_files:int=0;accepted_documents:int=0;visual_review_items:int=0;conversion_required_items:int=0;unsupported_items:int=0;duplicate_files:int=0;total_bytes:int=0;total_pages:int=0;extracted_chars:int=0;elapsed_seconds:float=0.0;ai_cost_gbp:float=0.0;infrastructure_cost_gbp:float=0.0;sale_price_ex_vat_gbp:float=REPORT_PRICE_GBP;vat_gbp:float=REPORT_PRICE_GBP*VAT_RATE;sale_price_inc_vat_gbp:float=REPORT_PRICE_GBP*(1+VAT_RATE);estimated_gross_margin_gbp:float=REPORT_PRICE_GBP
 
-def analyse_uploaded_pack(property_ref:str,files:Iterable[tuple[str,bytes]],catalogue:dict[str,Any]|None=None,*,ocr=False,progress=None)->dict[str,Any]:
- started=time.perf_counter();file_list=list(files);ingested=ingest_pack(file_list,ocr=ocr,progress=progress);due=analyse_pack(property_ref,ingested.documents,catalogue or {})
+def analyse_uploaded_pack(property_ref:str,files:Iterable[tuple[str,bytes]],catalogue:dict[str,Any]|None=None,*,ocr=False,progress=None,research=None,open_review=None,verified_transcriptions=None,reasoning_backend=None)->dict[str,Any]:
+ started=time.perf_counter();file_list=list(files);ingested=ingest_pack(file_list,ocr=ocr,progress=progress)
+ if verified_transcriptions:
+  from acquisition_transcription import apply_transcriptions
+  ingested.documents=apply_transcriptions(ingested.documents,verified_transcriptions)
+ due=analyse_pack(property_ref,ingested.documents,catalogue or {})
  # Legacy specialist facts remain available only when their quoted evidence
  # actually occurs in the supplied document. Generic topic flags use the new
  # review model and never inherit the former property-specific conclusions.
@@ -32,5 +36,15 @@ def analyse_uploaded_pack(property_ref:str,files:Iterable[tuple[str,bytes]],cata
  model['coverage']['uploaded_files']=len(file_list)
  model['coverage']['total_bytes']=ingested.total_bytes
  from acquisition_intelligence import build_acquisition
- acquisition=build_acquisition(model,catalogue or {})
+ model['source_pages']=[{'document':d.name,'document_sha256':d.sha256,'page':p.get('page'),'text':p.get('text',''),'ocr':p.get('ocr',False)} for d in ingested.documents for p in (d.metadata.get('pages') or [{'page':None,'text':d.text}])]
+ acquisition=build_acquisition(model,catalogue or {},research=research,open_review=open_review)
+ if reasoning_backend is not None:
+  if open_review is not None:raise ValueError('Supply a reasoning backend or an existing review, not both')
+  from acquisition_evidence_graph import reasoning_packet
+  # The callback sees the complete source packet, including the investigation's
+  # unresolved questions. The normal builder validates its returned provenance,
+  # coverage and arbitrary findings; it never treats review completion as approval.
+  reviewed=reasoning_backend(reasoning_packet(acquisition,acquisition['investigation']))
+  if not isinstance(reviewed,dict):raise ValueError('Reasoning backend must return a structured review')
+  acquisition=build_acquisition(model,catalogue or {},research=research,open_review=reviewed)
  return {"property":property_ref,"acquisition":acquisition,"report":model,"report_text":render_review_text(model),"analysis":due.to_dict(),"ingestion":{"coverage":coverage,"documents":[{"name":d.name,"type":d.doc_type.value,"sha256":d.sha256,"metadata":d.metadata} for d in ingested.documents],"assets":[asdict(a) for a in ingested.assets],"issues":[asdict(i) for i in ingested.issues],"duplicates":ingested.duplicates},"commercial":{"price_ex_vat_gbp":REPORT_PRICE_GBP,"vat_rate":VAT_RATE,"price_inc_vat_gbp":round(REPORT_PRICE_GBP*(1+VAT_RATE),2)},"cost_ledger":asdict(cost),"status":"completed_with_warnings" if incomplete else "completed"}

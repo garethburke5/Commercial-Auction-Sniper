@@ -61,7 +61,7 @@ def test_expired_membership_stops_monitoring_but_preserves_and_can_clear_owned_d
     assert not dashboard(a,'paid',{'p':changed})['properties'][0]['watched']
 
 
-def test_free_account_can_purchase_its_own_full_review_without_subscription(site,tmp_path,monkeypatch):
+def test_quality_hold_blocks_report_checkout_for_free_account(site,tmp_path,monkeypatch):
     a=Accounts(tmp_path/'accounts.sqlite');initialise(a);calls=[]
     billing=SimpleNamespace(purchase=lambda *args:(calls.append(args) or 'https://checkout.stripe.com/test'))
     monkeypatch.setattr(module,'authenticated_user',lambda header:header)
@@ -71,8 +71,9 @@ def test_free_account_can_purchase_its_own_full_review_without_subscription(site
     with TestClient(module.create_app(site)) as c:
         assert a.plan('free')=='free'
         assert c.post('/api/account/reviews/r/checkout',headers={'Authorization':'other'}).status_code==404
-        assert c.post('/api/account/reviews/r/checkout',headers={'Authorization':'free'}).status_code==200
-        assert calls==[('free','legal_pack_report','review:r')]
+        response=c.post('/api/account/reviews/r/checkout',headers={'Authorization':'free'})
+        assert response.status_code==503 and 'quality' in response.json()['detail']
+        assert calls==[]
 
 
 def test_public_offer_controls_and_configurable_prices(site,monkeypatch):

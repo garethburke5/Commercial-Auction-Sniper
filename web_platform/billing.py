@@ -49,6 +49,11 @@ class Billing:
 
     def purchase(self,user,product,property_id):
         """Server-priced one-off order. Payment never automatically publishes a listing."""
+        if product == 'legal_pack_report':
+            from acquisition_quality import paid_report_status
+            quality = paid_report_status()
+            if not quality['purchase_available']:
+                raise HTTPException(503, quality['message'])
         self.configured()
         if product not in self.one_off_prices:raise HTTPException(400,'Product is not available')
         self.accounts.ensure(user)
