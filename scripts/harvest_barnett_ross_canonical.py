@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import re
 import sys
@@ -33,6 +33,7 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; Commercial-Auction-Sniper his
 LOT_RE = re.compile(r"^(?:\d+[A-Za-z]?|[A-Za-z])$")
 PROPERTY_RE = re.compile(r"property\.php\?id=(\d+)", re.I)
 DETAIL_PDF_RE = re.compile(r"(?:^|[/'\"])(details/(20\d{4})/([^/'\"?]+)\.pdf)", re.I)
+DATE_PARSER_VERSION = 2
 
 
 def get(session: requests.Session, url: str, attempts: int = 4) -> tuple[str, bytes]:
@@ -70,14 +71,52 @@ def discover(raw: bytes) -> list[dict]:
     return sorted(found.values(), key=lambda item: (item["token"], int(item["day"] or 0)))
 
 
-def auction_date(text: str) -> str | None:
+def auction_dates(text: str) -> list[str]:
+    dates = []
     matches = re.findall(r"\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})\b", text, re.I)
-    for day, month, year in reversed(matches):
+    for day, month, year in matches:
         try:
-            return datetime.strptime(f"{day} {month} {year}", "%d %B %Y").date().isoformat()
+            dates.append(datetime.strptime(f"{day} {month} {year}", "%d %B %Y").date().isoformat())
         except ValueError:
             continue
-    return None
+    return dates
+
+
+def auction_date(text: str) -> str | None:
+    dates = auction_dates(text)
+    return dates[-1] if dates else None
+
+
+def catalogue_date(auction: dict, text: str) -> tuple[str | None, str]:
+    """Resolve an exact date without admitting the site's global next-auction banner."""
+    key = str(auction.get("key") or "")
+    token = str(auction.get("token") or key.split("-", 1)[0])
+    day_text = auction.get("day")
+    if day_text is None and "-" in key:
+        day_text = key.split("-", 1)[1]
+    if not re.fullmatch(r"20\d{4}", token):
+        return None, "unresolved"
+
+    year, month = int(token[:4]), int(token[4:])
+    day = int(day_text or 0)
+    if day:
+        try:
+            return datetime(year, month, day).date().isoformat(), "archive_url"
+        except ValueError:
+            return None, "invalid_archive_url_day"
+
+    # Month-only legacy links often expose their exact date in the catalogue
+    # body. Accept only dates adjacent to the archive token: the shared page
+    # header advertises the next current auction and otherwise contaminates
+    # every historical catalogue.
+    month_start = datetime(year, month, 1).date()
+    earliest = month_start - timedelta(days=7)
+    latest = month_start + timedelta(days=40)
+    plausible = [value for value in auction_dates(text)
+                 if earliest <= datetime.strptime(value, "%Y-%m-%d").date() <= latest]
+    if plausible:
+        return plausible[-1], "catalogue_body"
+    return None, "month_only_unresolved"
 
 
 def status_and_prices(value: str | None) -> tuple[str, int | None, int | None]:
@@ -107,9 +146,7 @@ def status_and_prices(value: str | None) -> tuple[str, int | None, int | None]:
 
 def parse_catalogue(raw: bytes, auction: dict, evidence: dict) -> tuple[list[dict], dict]:
     soup = BeautifulSoup(raw, "html.parser")
-    date = auction_date(soup.get_text(" ", strip=True))
-    if not date:
-        raise ValueError("Official catalogue does not expose an exact auction date")
+    date, date_basis = catalogue_date(auction, soup.get_text(" ", strip=True))
     rows = []
     visible = 0
     missing_identity = []
@@ -158,7 +195,8 @@ def parse_catalogue(raw: bytes, auction: dict, evidence: dict) -> tuple[list[dic
                    identity_method=identity_method, source_evidence=evidence)
         rows.append(row)
     complete = bool(visible and not missing_identity and len(rows) == visible and len(seen) == visible)
-    return rows, {"auction_date": date, "visible_lot_rows": visible,
+    return rows, {"auction_date": date, "auction_date_basis": date_basis,
+                  "date_parser_version": DATE_PARSER_VERSION, "visible_lot_rows": visible,
                   "distinct_property_ids": len(seen), "missing_property_id_lots": missing_identity,
                   "catalogue_complete": complete}
 
@@ -167,11 +205,26 @@ def state_path(key: str) -> Path:
     return corpus.DATA / "auctions/barnett-ross" / f"{key}.json"
 
 
-def is_complete(key: str) -> bool:
+def load_state(key: str) -> dict | None:
     try:
-        return bool(json.loads(state_path(key).read_text()).get("catalogue_complete"))
+        return json.loads(state_path(key).read_text())
     except (OSError, ValueError, TypeError):
+        return None
+
+
+def is_complete(key: str) -> bool:
+    state = load_state(key)
+    return bool(state and state.get("catalogue_complete"))
+
+
+def date_needs_repair(auction: dict) -> bool:
+    state = load_state(auction["key"])
+    if not state:
+        return True
+    if int(state.get("date_parser_version") or 0) >= DATE_PARSER_VERSION:
         return False
+    resolved, _ = catalogue_date(auction, str(state.get("auction_date") or ""))
+    return resolved != state.get("auction_date")
 
 
 def collection_summary(auctions: list[dict]) -> dict:
@@ -185,13 +238,15 @@ def collection_summary(auctions: list[dict]) -> dict:
     return {"checked_at": corpus.now(), "catalogues_discovered": len(auctions),
             "catalogue_states_present": len(states), "catalogues_complete": len(complete),
             "lots_captured": sum(int(state.get("lots_captured") or 0) for state in complete),
+            "auction_dates_unresolved": sum(not state.get("auction_date") for state in states),
             "first_auction_date": min((state.get("auction_date") for state in states if state.get("auction_date")), default=None),
             "last_auction_date": max((state.get("auction_date") for state in states if state.get("auction_date")), default=None),
             "incomplete_catalogues": [auction["key"] for auction in auctions if not is_complete(auction["key"])],
             "complete": bool(auctions) and len(complete) == len(auctions)}
 
 
-def harvest(selected_key: str | None = None, all_incomplete: bool = False) -> None:
+def harvest(selected_key: str | None = None, all_incomplete: bool = False,
+            repair_dates: bool = False) -> None:
     session = requests.Session()
     index_url, index_raw = get(session, INDEX)
     auctions = discover(index_raw)
@@ -207,13 +262,17 @@ def harvest(selected_key: str | None = None, all_incomplete: bool = False) -> No
             raise SystemExit(f"Catalogue {selected_key} is not present in the public archive")
     elif all_incomplete:
         selected = [auction for auction in auctions if not is_complete(auction["key"])]
+    elif repair_dates:
+        selected = [auction for auction in auctions if date_needs_repair(auction)]
     else:
         selected = auctions
 
     added = []
     failures = []
+    date_corrections = []
     for auction in selected:
         try:
+            previous = load_state(auction["key"])
             final_url, raw = get(session, auction["url"])
             snapshot = corpus.DATA / "sources/barnett-ross" / f"{auction['key']}-{corpus.digest(raw)[:16]}.json.gz"
             evidence = {"source_url": final_url, "source_index_url": index_url,
@@ -235,6 +294,11 @@ def harvest(selected_key: str | None = None, all_incomplete: bool = False) -> No
                      "errors": [] if reconciliation["catalogue_complete"] else ["Visible rows and property IDs did not reconcile"],
                      "checked_at": corpus.now()}
             corpus.save_json(state_path(auction["key"]), state)
+            old_date = previous.get("auction_date") if previous else None
+            if previous and old_date != reconciliation["auction_date"]:
+                date_corrections.append({"auction_key": auction["key"], "old_date": old_date,
+                                         "new_date": reconciliation["auction_date"],
+                                         "appearances": len(rows)})
             print(f"BANKED Barnett Ross {auction['key']} {len(rows)} rows complete={state['catalogue_complete']}", flush=True)
         except Exception as exc:
             failures.append({"auction_key": auction["key"], "url": auction["url"],
@@ -244,6 +308,9 @@ def harvest(selected_key: str | None = None, all_incomplete: bool = False) -> No
 
     summary = collection_summary(auctions)
     summary.update({"run_new_appearances": len(added),
+                    "run_corrected_auction_dates": len(date_corrections),
+                    "run_corrected_appearances": sum(item["appearances"] for item in date_corrections),
+                    "date_corrections": date_corrections,
                     "run_new_address_records": sum(bool(row.get("address")) for row in added),
                     "run_new_partial_lots": sum(not row.get("address") for row in added),
                     "run_by_sector": dict(Counter(row.get("sector") for row in added)),
@@ -259,6 +326,7 @@ if __name__ == "__main__":
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--auction-key")
     mode.add_argument("--all-incomplete", action="store_true")
+    mode.add_argument("--repair-dates", action="store_true")
     mode.add_argument("--all", action="store_true")
     args = parser.parse_args()
-    harvest(args.auction_key, args.all_incomplete)
+    harvest(args.auction_key, args.all_incomplete, args.repair_dates)

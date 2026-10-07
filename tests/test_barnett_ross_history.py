@@ -1,4 +1,4 @@
-from scripts.harvest_barnett_ross_canonical import discover, parse_catalogue, status_and_prices
+from scripts.harvest_barnett_ross_canonical import catalogue_date, discover, parse_catalogue, status_and_prices
 
 
 def test_archive_discovery_excludes_non_uk_and_preserves_duplicate_month_days():
@@ -19,7 +19,8 @@ def test_catalogue_rows_reconcile_and_keep_all_property_sectors():
       <td class="address">9 Residential Close, Harrow HA1 1AA</td><td>Harrow</td><td>\xc2\xa3881,000</td></tr>
     </table>'''
     rows, reconciliation = parse_catalogue(raw, {"key": "202609-10"}, {"source_url": "x"})
-    assert reconciliation == {"auction_date": "2026-09-10", "visible_lot_rows": 2,
+    assert reconciliation == {"auction_date": "2026-09-10", "auction_date_basis": "archive_url",
+                              "date_parser_version": 2, "visible_lot_rows": 2,
                               "distinct_property_ids": 2, "missing_property_id_lots": [],
                               "catalogue_complete": True}
     assert [row["source_lot_id"] for row in rows] == ["4872925", "4872936"]
@@ -35,6 +36,8 @@ def test_linkless_legacy_row_uses_exact_auction_and_lot_identity():
         raw, {"key": "200211-0"}, {"source_url": "https://example.test/catalogue"}
     )
     assert reconciliation["catalogue_complete"] is True
+    assert reconciliation["auction_date"] == "2002-10-31"
+    assert reconciliation["auction_date_basis"] == "catalogue_body"
     assert reconciliation["missing_property_id_lots"] == []
     assert rows[0]["source_lot_id"] == "archive-row:a"
     assert rows[0]["identity_method"] == "auction_lot_number"
@@ -51,6 +54,26 @@ def test_legacy_pdf_particulars_are_stable_source_identity():
     assert reconciliation["catalogue_complete"] is True
     assert rows[0]["source_lot_id"] == "details/201112/a.pdf"
     assert rows[0]["original_url"].endswith("/details/201112/A.pdf")
+
+
+def test_sitewide_next_auction_date_is_not_applied_to_month_only_archive():
+    raw = b'''<div id="auctionBar">Thursday, 22nd October 2026 Auction</div><table>
+    <tr onclick="document.location='/property.php?id=123'"><td>1</td>
+    <td class="address">1 Archive Road, London N1 1AA</td><td>London</td><td>Sold Prior</td>
+    </tr></table>'''
+    rows, reconciliation = parse_catalogue(raw, {"key": "201610-0"}, {"source_url": "x"})
+    assert reconciliation["auction_date"] is None
+    assert reconciliation["auction_date_basis"] == "month_only_unresolved"
+    assert reconciliation["catalogue_complete"] is True
+    assert rows[0]["auction_date"] is None
+
+
+def test_exact_archive_url_day_overrides_unrelated_page_dates():
+    resolved, basis = catalogue_date(
+        {"key": "202305-25"}, "Thursday, 13th July 2023 Auction"
+    )
+    assert resolved == "2023-05-25"
+    assert basis == "archive_url"
 
 
 def test_result_semantics_remain_distinct():

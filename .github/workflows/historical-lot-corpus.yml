@@ -235,11 +235,11 @@ jobs:
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_clive_emson_canonical.py --enrich-batch 6 --workers 4
-      - name: Collect newly exposed or unreconciled Barnett Ross catalogues
+      - name: Repair implausible Barnett Ross dates and collect new catalogues
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 25
         continue-on-error: true
-        run: python -u scripts/harvest_barnett_ross_canonical.py --all-incomplete
+        run: python -u scripts/harvest_barnett_ross_canonical.py --repair-dates
       - name: Traverse and bank the retained Pugh property archive
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 25

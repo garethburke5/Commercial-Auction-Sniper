@@ -14,7 +14,7 @@ python historical_allsop.py --workers 1
 python scripts/harvest_acuitus_canonical.py --all-incomplete
 python scripts/harvest_clive_emson_canonical.py --all-incomplete
 python scripts/harvest_clive_emson_canonical.py --enrich-next --workers 4
-python scripts/harvest_barnett_ross_canonical.py --all-incomplete
+python scripts/harvest_barnett_ross_canonical.py --repair-dates
 python scripts/harvest_auction_house_northeast.py
 python scripts/harvest_auction_house_south_yorkshire.py
 python scripts/harvest_auction_house_north_west.py
@@ -108,6 +108,12 @@ November 2002 and banks every visible UK result row, including residential and
 lettered lots. Modern property IDs, intermediate PDF paths, and the earliest
 catalogues' exact auction-plus-lot numbers provide stable appearance identity.
 Linkless legacy rows keep property_id null and are never merged across auctions.
+Exact days in first-party archive URLs take precedence over page chrome. Month-only
+catalogues accept body dates only when adjacent to the archive month; otherwise
+auction_date stays null so the sitewide next-auction banner cannot contaminate
+historical appearances. --repair-dates revisits only states with implausible legacy
+dates or newly discovered catalogues, and marks checked states to prevent zero-row
+re-probes.
 Each unpaginated catalogue is complete only when every visible row reconciles to
 one distinct evidenced identity; Spain-only sales are explicitly excluded.
 
