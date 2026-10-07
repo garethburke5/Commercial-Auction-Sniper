@@ -44,6 +44,8 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
         if current is None and source_rows: current=True
         if current is None and any(d>=date.today().isoformat() for d in h.get('scope_dates',[])) and h.get('lots_seen',0)>0: current=True
         reasons=[]
+        if source_count and current is None and publish[source]==0:
+            reasons.append('Source lots detected but catalogue currency and zero publication remain unverified')
         if not h and assessment:
             reasons.append(assessment.get('failure_reason') or 'Current-source coverage gap: no production collection or published source-health evidence')
         if h.get('status') in ('FAILED','DEGRADED','MISSING','NOT IMPLEMENTED'):reasons.append(h.get('message') or h.get('status'))

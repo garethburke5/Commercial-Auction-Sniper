@@ -365,3 +365,17 @@ Do not rebuild or restart harvesting. Re-read
    exercise signup, report purchase/refund and owner listing flows in sandbox.
 4. Continue measured upstream telemetry for the remaining configured source estate.
    Null stages and degraded sources are still outstanding, not complete coverage.
+
+
+## Launch continuation — 7 October 2026
+
+Launch remains blocked; do not enable billing or describe paid monitoring as operational.
+
+- Recovered prior implementation/handover and checked the live Pages account boundary. Supabase, a persistent private API host, Stripe prices/webhooks and SMTP are still unconfigured in the accessible environment. Existing private journeys pass mocked provider tests; no real provider acceptance has occurred.
+- Investigated failed production scan 37627992526. Its 13:48 UTC candidate had 1,062 rows; classification contamination caused two rich-detail thresholds to fail. Fixed agency-credit and unpunctuated Location scoping, preserved real salon/industrial/yard evidence, excluded unproved land parcels. The corrected candidate has 1,057 rows and passes the existing publication gate without reduced thresholds. A fresh scan will be triggered by the scan-workflow change.
+- Added hourly freshness workflow (14-hour maximum, two six-hour collection intervals plus grace) and degraded unexplained zero publication where source lots exist but catalogue currency is unknown. GitHub Actions failures are visible alarms; no external notification delivery is claimed.
+- Recovered the complete 38-document Newbury pack and the exact amended special conditions (hash 46616fa2abf54f3b4b334eb66ce259451dcb99e659ecf198e04faaf9422401b3). Real processing: 540 pages, 57 OCR pages, one unread page (asbestos report page 19). Private PDFs/results stay outside this public repository.
+- Corrected document roles (rent-authority/ID/common-condition documents are not occupational leases; freehold register, rent schedule and environmental report identified), lease party extraction, LLP proprietor, qualified title exclusion, fee-version conflicts and pennies. Review models 2,400 seller contribution + 1,800 auctioneer fee = 4,200 fixed charges; 100 capped disbursements and 372.83 works balance remain separate and qualified. Default notice charge preserves numeric/written inconsistency rather than adding it as fixed.
+- Visually checked amended conditions page 4 and Arcade lease page 7: the latter contains overlapping edited date text, so final operative-date confirmation remains necessary. Complete pack commercial acceptance is still OPEN: reconcile income components, ground rents, breaks/repair terms, CPSE/search findings and unread/plan evidence before selling the review.
+- Corrected mixed shop/ground-rent investment board labelling.
+- Validation before publication: 807 tests + 8 subtests passed, followed by focused coverage for the contingent default-charge finding. Next: verify deployment/fresh scan, then configure providers and run test-mode registration → saves → membership → report purchase → verified webhook → owner-only report revisit, including mobile. Scheduled monitoring/email delivery remains unbuilt/unactivated; existing watches run on account return.

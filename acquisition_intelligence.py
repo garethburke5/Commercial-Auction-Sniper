@@ -12,7 +12,7 @@ from acquisition_chronology import lease_chronology
 SECTIONS=[('buying','What you are buying'),('numbers','The numbers'),('view','Our first-pass view'),('covenant','Tenant & covenant'),('lease','The lease — in plain English'),('cpse','What the seller has told you / CPSE'),('title','Title & what is actually included'),('conditions','Special Auction Conditions'),('searches','Searches & property risks'),('costs','Costs Auction Sniper found'),('concerns','What concerns us'),('opportunities','Opportunities'),('unknowns','What we could not establish'),('questions','If we were buying it, the questions we would still ask'),('evidence','Full evidence')]
 TOPIC_SECTION={'tenant':'covenant','rent':'lease','expiry':'lease','breaks':'lease','reviews':'lease','repairs':'lease','insurance':'lease','service':'lease','ground':'lease','title':'title','plans':'title','rights':'title','conditions':'conditions','completion':'conditions','deposit':'conditions','vat':'conditions','seller-costs':'costs','buyer-fees':'costs','searches':'searches','environment':'searches','planning':'searches','epc':'searches'}
 def norm(x):return re.sub(r'\s+',' ',str(x or '')).strip()
-def money(v):return '£'+format(float(v),',.0f') if isinstance(v,(int,float,Decimal)) else 'Not established'
+def money(v):return '£'+format(float(v),',.0f' if float(v).is_integer() else ',.2f') if isinstance(v,(int,float,Decimal)) else 'Not established'
 def amount(text):
     m=re.search(r'£\s*([\d,]+(?:\.\d{1,2})?)',text or '');return float(m.group(1).replace(',','')) if m else None
 
@@ -38,6 +38,12 @@ def build_acquisition(model,catalogue=None):
         if m:tenant=m.group(1)
         n=re.search(r'registered (?:number|no\.?)[\s:]*(\d{8}|[A-Z]{2}\d{6})',text,re.I)
         if n:company_number=n.group(1).upper()
+    party_facts=groups.get('Tenant identified in lease party clause',[])
+    if party_facts:
+        parties=list(dict.fromkeys(re.sub(r'^The lease party clause identifies | as tenant\..*$', '', f['summary']) for f in party_facts))
+        tenant='; '.join(parties)
+        tenant_evidence += evidence_for('Tenant identified in lease party clause')
+        if len(parties)>1:company_number=None
     calculations=[]
     if guide and rent is not None:
         calculations.append({'label':'Gross Initial Yield (GIY)','value':f'{rent/(upper or guide)*100:.1f}%','working':f'{money(rent)} current annual rent ÷ {money(upper or guide)} '+('upper guide' if upper else 'guide')+' × 100. Before fees, tax, voids and costs.','basis':'Published current particulars; reconcile with the operative lease and payment ledger.'})
@@ -48,14 +54,23 @@ def build_acquisition(model,catalogue=None):
         calculations.append({'label':'Deposit at guide','value':money(deposit),'working':f'{m.group(1)}% × {money(guide)}. Part of the purchase price, not an additional cost.','evidence':evidence_for('Deposit recorded in the sale conditions')})
     costs=[]
     ev=evidence_for('Additional seller fees')
-    if ev:
-        text=' '.join(e['excerpt'] for e in ev);m=re.search(r'(?:contribute|pay (?:the )?seller(?:[’\x27]s)? (?:legal|agent(?:[’\x27]s)?) (?:fees|costs)(?: of)?)\s*£\s*([\d,.]+)\s*(plus VAT|\+\s*VAT|including VAT|inclusive of VAT)?',text,re.I)
+    seller_terms={}
+    for f in groups.get('Additional seller fees',[]):
+        m=re.search(r'(?:contribute|pay (?:the )?seller(?:[’\x27]s)? (?:legal|agent(?:[’\x27]s)?) (?:fees|costs)(?: of)?)\s*£\s*([\d,.]+)\s*(plus VAT|\+\s*VAT|including VAT|inclusive of VAT)?',f.get('summary',''),re.I)
         if m:
-            base=float(m.group(1).replace(',',''));extra=bool(m.group(2) and re.search(r'plus|\+',m.group(2),re.I));vat=round(base*.2,2) if extra else 0;total=base+vat
+            base=float(m[1].replace(',',''));extra=bool(m[2] and re.search(r'plus|\+',m[2],re.I));vat=round(base*.2,2) if extra else 0
+            seller_terms[(base,vat,bool(m[2]))]=(base+vat,extra)
+    if len(seller_terms)==1:
+            (base,vat,vat_stated),(total,extra)=next(iter(seller_terms.items()))
             costs.append({'label':'Seller’s legal / agent contribution','amount':total,'base':base,'vat':vat,'evidence':ev,'basis':'20% VAT calculation' if extra else 'Published amount'})
-            calculations.append({'label':'Seller-cost contribution','value':money(total)+(' including VAT' if m.group(2) else ''),'working':money(base)+(f' + {money(vat)} VAT at 20% = {money(total)}.' if extra else '.'),'evidence':ev})
-            meaning=(f'At a 20% VAT rate, the stated fixed contribution models to {money(total)}.' if extra else f'The fixed contribution is {money(total)}'+(' including VAT.' if m.group(2) else ', as published.'))
+            calculations.append({'label':'Seller-cost contribution','value':money(total)+(' including VAT' if vat_stated else ''),'working':money(base)+(f' + {money(vat)} VAT at 20% = {money(total)}.' if extra else '.'),'evidence':ev})
+            meaning=(f'At a 20% VAT rate, the stated fixed contribution models to {money(total)}.' if extra else f'The fixed contribution is {money(total)}'+(' including VAT.' if vat_stated else ', as published.'))
             add('seller-fee','Budget for the seller’s costs',norm(summary_for('Additional seller fees')), 'This is payable in addition to the price and the auctioneer’s own fee.',meaning,'Request a completion statement confirming the fixed contribution and all other charges.',ev,'costs',impact=money(total))
+    elif len(seller_terms)>1:
+        add('seller-fee-conflict','Different seller contributions need reconciliation',summary_for('Additional seller fees'),
+            'Different supplied conditions state different contributions or VAT terms.',
+            'No seller contribution has been selected or added to the quantified total.',
+            'Confirm the operative conditions and any superseding addendum.',ev,'costs')
     fee_evidence=evidence_for('Auctioneer fee recorded in the sale conditions')
     fee_terms={}
     for f in groups.get('Auctioneer fee recorded in the sale conditions',[]):
@@ -74,7 +89,20 @@ def build_acquisition(model,catalogue=None):
     elif isinstance(c.get('auctioneer_fee'),(int,float)):
         costs.append({'label':'Estimated auctioneer fee','amount':c['auctioneer_fee'],'basis':'Verified auctioneer terms, calculated at guide','evidence':[]})
     if costs:
-        known=sum(x['amount'] for x in costs);calculations.append({'label':'Quantified additional costs','value':money(known),'working':' + '.join(money(x['amount']) for x in costs)+'. Excludes SDLT/LTT/LBTT, your advisers, unquantified searches, arrears and other liabilities.'})
+        known=sum(x['amount'] for x in costs);calculations.append({'label':'Quantified additional costs','value':money(known),'working':' + '.join(money(x['amount']) for x in costs)+'. Fixed quantified contributions only. Excludes capped disbursements, disputed contributions, SDLT/LTT/LBTT, your advisers, unquantified searches, arrears and other liabilities.'})
+    if 'Capped seller disbursements' in groups:
+        caps={amount(f.get('summary','')) for f in groups['Capped seller disbursements']} - {None}
+        cap_text=(', '.join(money(v) for v in sorted(caps)))
+        add('disbursements-cap','Seller disbursements are capped, not a fixed fee',summary_for('Capped seller disbursements'),
+            'Actual disbursements may increase completion cash beyond the fixed contributions.',
+            'The stated cap is '+cap_text+'. The actual charge and VAT treatment remain unconfirmed; the cap has not been added as a fixed fee.' if len(caps)==1 else 'Different caps require reconciliation; none has been selected.',
+            'Obtain an itemised completion statement confirming actual disbursements and whether VAT falls within the cap.',evidence_for('Capped seller disbursements'),'costs',impact=('Up to '+cap_text+' as stated; VAT treatment unconfirmed.') if len(caps)==1 else 'Conflicting caps')
+    if 'Outstanding works balance disclosed' in groups:
+        balances={amount(f.get('summary','')) for f in groups['Outstanding works balance disclosed']} - {None}
+        add('works-balance','An outstanding works balance needs allocation',summary_for('Outstanding works balance disclosed'),
+            'A disclosed unpaid invoice may affect the completion arrangements.',
+            'Disclosure alone does not establish that the buyer owes this amount. It has not been included in fixed buyer costs.',
+            'Obtain the invoice and written confirmation of who pays, whether it will be discharged at completion, and any rights transferred.',evidence_for('Outstanding works balance disclosed'),'concerns',impact=', '.join(money(v) for v in sorted(balances))+' disclosed; buyer liability unconfirmed.')
     if 'Buyer may have to fund rent arrears' in groups:
         add('arrears','The buyer may have to fund arrears',summary_for('Buyer may have to fund rent arrears'),'Paying the seller for unpaid rent transfers recovery risk to the buyer.','No arrears amount is established. This is a contingent liability, not proof that the tenant is in arrears.','Obtain a dated tenant rent ledger and confirm the amount payable and rights transferred.',evidence_for('Buyer may have to fund rent arrears'),'concerns','CRITICAL / RED FLAG','Unquantified; add the actual balance to cash required if applicable.')
     if 'Search-cost reimbursement' in groups:
@@ -90,6 +118,11 @@ def build_acquisition(model,catalogue=None):
             evidence_for('Seller states no option to tax')+evidence_for('VAT depends on TOGC conditions'),'conditions')
     if 'Restrictions on enquiries or objections' in groups:
         add('enquiries','Resolve material questions before bidding',summary_for('Restrictions on enquiries or objections'),'The contractual ability to object after the auction may be restricted.','The restriction is part of the proposed bargain. It does not itself prove a title defect.','Obtain answers to the specific outstanding title, arrears and cost questions before bidding.',evidence_for('Restrictions on enquiries or objections'),'conditions')
+    if 'Title extent excludes accommodation' in groups:
+        add('title-exclusion','Check the accommodation excluded from the title',summary_for('Title extent excludes accommodation'),
+            'The apparent building and the legal estate being sold may cover different space.',
+            'The exclusion applies to the part described in the register; it must not be generalised to the whole building.',
+            'Overlay the coloured title plan, lease plans and sale plan and confirm the exact estate included.',evidence_for('Title extent excludes accommodation'),'title')
     rents=groups.get('Rent amount recorded in this document',[])
     if rent and any(amount(f.get('summary',''))==rent for f in rents):
         add('rent-agreement','Catalogue and lease amount agree',f'The current particulars state {money(rent)} p.a.; at least one supplied lease extract records the same annual amount.','Agreement is useful evidence, but it is different from proof of payment.','Use the published current rent for GIY; do not substitute historic or concessionary figures.','Reconcile the operative lease, expiry and any subsequent variation with the current payment ledger.',[e for f in rents if amount(f.get('summary',''))==rent for e in f['evidence']],'lease','INFORMATION')
@@ -100,7 +133,7 @@ def build_acquisition(model,catalogue=None):
         add('title-relationships','Different title owners are not automatically a contradiction','Different registered proprietor names occur in the pack’s separate title registers.','A commercial investment can include freehold and occupational leasehold titles with different owners.','Compare each title’s estate, plan and lease relationship before comparing its owner to the seller. Do not treat the tenant’s registered interest as evidence that the seller cannot sell the freehold.','Confirm a title-by-title sale schedule showing the estate sold, tenant demise, retained land and registration chain.',[e for f in proprietors for e in f['evidence']]+evidence_for('Title number in this document'),'title','INFORMATION')
     # Only precise, evidenced facts enter the concise narrative. Keyword matches
     # remain in Full evidence instead of being reissued as dozens of warnings.
-    handled={'Additional seller fees','Auctioneer fee recorded in the sale conditions','Deposit recorded in the sale conditions','Rent amount recorded in this document','Registered proprietor recorded','Title number in this document','Concessionary rent period','Tenant named in the lease','VAT depends on TOGC conditions'}
+    handled={'Additional seller fees','Capped seller disbursements','Outstanding works balance disclosed','Title extent excludes accommodation','Auctioneer fee recorded in the sale conditions','Deposit recorded in the sale conditions','Rent amount recorded in this document','Registered proprietor recorded','Title number in this document','Concessionary rent period','Tenant named in the lease','VAT depends on TOGC conditions'}
     for title,items in groups.items():
         fs=[f for f in items if f.get('fact')]
         if title in handled or not fs:continue

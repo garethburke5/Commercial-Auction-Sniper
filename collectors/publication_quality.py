@@ -16,6 +16,8 @@ MIXED = re.compile(r'\bmixed[ -]use\b|\b(?:commercial|retail|shop)\s*(?:and|&|/)
 def asset_text(description):
     """Exclude vicinity and agency prose from evidence about the asset itself."""
     text = clean_description(str(description or ''))
+    # A marketing credit is not an occupational estate-agency tenancy.
+    text = re.sub(r'^Joint Agents?\s*:\s*.*?(?=\s(?:A|An|The|This)\s|[.;]|$)', ' ', text)
     text = re.split(r'\b(?:Our Nearest Office|Important notices?|For more property information|Popular Searches)\b|\b(?:Viewings?|To view)\s*:', text, flags=re.I)[0]
     text = re.sub(r'\b(?:It is a (?:small )?village|The village)\b[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
     text = re.sub(r'\b(?:Conveniently located for|(?:well )?(?:serviced|served) by|(?:a (?:good |further )?range of )?amenities (?:including|such as)|adjoins the)\b[^.;]*(?:[.;]|$)',
@@ -24,7 +26,7 @@ def asset_text(description):
     text = re.sub(r'\b(?:Located in (?:the |a )?(?:charming |popular |sought.after )?(?:village|town)|(?:The (?:flat|house|property) is )?a short walk from)\b[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
     # Auction House's Location section describes surrounding shops/roads, not
     # the accommodation being sold. A house on a mixed-use road is still a house.
-    text = re.sub(r'\bLocation\s*:\s*.*?(?=\b(?:Accommodation|Tenancy|Tenure|Planning|Note|EPC Rating|Exterior|VAT)\s*:|$)', ' ', text)
+    text = re.sub(r'\bLocation(?:\s*:\s*|\s+(?=The\b|Directly\b)).*?(?=\b(?:Accommodation|Tenancy|Tenure|Planning|Note|EPC Rating|Exterior|VAT)\s*(?::|-)|$)', ' ', text)
     text = re.sub(r'[^.;]*(?:are all within easy reach|renowned Rows)[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
     text = re.sub(r'\bmixed[ -]use\s+(?:road|street|area|neighbourhood)\b','',text,flags=re.I)
     # Brochure SITUATION sections describe nearby shops/cafes and cannot turn a
@@ -65,6 +67,7 @@ def commercial_decision(item):
     # A collector-generated type is not independent evidence. In particular,
     # nearby restaurants previously caused flats to be labelled "Mixed Use".
     positive = bool(COMMERCIAL.search(asset) or MIXED.search(asset)
+                    or re.search(r'\b(?:hairdressing salon|haulage yard|storage building|industrial development opportunity)\b', asset, re.I)
                     or re.search(r'\b(?:children[’\']s home|estate agency|estate agents?|vet(?:erinary)? (?:surgery|practice|clinic)|ground[ -]floor shops?|shop\s+(?:let|leased|producing|tenanted)|commercial space|(?:hair|beauty) salon|barbers?|(?:block|parade) of (?:\d+|\w+) shops|sports? education facility)\b', asset, re.I))
     residential = bool(RESIDENTIAL.search(asset+' '+str(item.get('address') or '')) or re.fullmatch(r'(?:Residential|House|Flat|Apartment|Bungalow)(?: / Residential)?', kind, re.I))
     # A study/office within a family house is domestic accommodation. Require
@@ -100,6 +103,9 @@ def publication_exclusion(item):
         return 'Pure residential: no commercial or mixed-use particulars'
     if item.get('source') == 'Barnard Marcus' and commercial_decision(item) is None:
         return 'Unverified commercial use: no asset particulars prove eligibility'
+    if (commercial_decision(item) is None
+        and re.search(r'\bparcels? of (?:freehold )?land\b', asset_text(item.get('description')), re.I)):
+        return 'Unverified commercial use: land parcels have no established commercial use'
     return None
 
 

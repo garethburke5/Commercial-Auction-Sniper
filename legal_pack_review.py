@@ -63,6 +63,12 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
       'evidence':[ev],'source':ev['document'],'fact':fact})
  # High-priority sale clauses. Conditional language stays conditional.
  rules=[
+ ('seller-costs','Contingent notice-to-complete charge',r'\bif\b.{0,80}?notice to complete.{0,170}?sum of\s*£\s*[\d,.]+(?:\s*\([^)]{1,90}\))?(?:\s*plus.{0,45}VAT)?',
+  'The conditions disclose a contingent default charge.', 'Check the trigger, reconcile any difference between the numeric and written amount, and confirm VAT; do not budget it as an ordinary fixed completion fee.','NEEDS CHECKING'),
+ ('seller-costs','Capped seller disbursements',r'\bdisbursements\s+(?:limited to|capped at|not exceeding)\s*£\s*[\d,.]+',
+  'The conditions cap seller disbursements.', 'Confirm the actual disbursements payable and whether the cap includes VAT.','NEEDS CHECKING'),
+ ('seller-costs','Outstanding works balance disclosed',r'\b(?:outstanding (?:sum|balance|amount)(?: of)?\s*£\s*[\d,.]+.{0,160}?(?:works?|repairs?)|£\s*[\d,.]+\s+(?:is |remains? )?outstanding.{0,160}?(?:works?|repairs?))',
+  'The conditions disclose an outstanding works balance.', 'Obtain the invoice and confirm who must pay it, when, and whether any liability passes to the buyer.','NEEDS CHECKING'),
  ('seller-costs','Additional seller fees',r'(?:buyer|purchaser) (?:shall|must|will) (?:also )?(?:contribute\s*£[\d,.]+.{0,170}?(?:fees|costs)|pay (?:the )?seller(?:[’\x27]s)? (?:legal|agent(?:[’\x27]s)?) (?:fees|costs)(?: of)?\s*£[\d,.]+(?:\s*(?:plus|\+|including|inclusive of)\s*VAT(?: at \d+(?:\.\d+)?%)?)?)',
   'The conditions require a contribution towards seller costs.', 'Obtain a completion statement confirming this contribution, VAT and every other seller charge.','CRITICAL / RED FLAG'),
  ('seller-costs','Buyer may have to fund rent arrears',r'on completion.{0,110}?(?:buyer|purchaser).{0,60}?pay.{0,65}?arrears of rent.{0,80}',
@@ -98,7 +104,7 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
       if title=='Additional seller fees':summary='The conditions state: “'+norm(m.group(0))+'”. Confirm the exact calculation and VAT treatment.'
       elif title=='Contractual completion period':summary='Completion: '+re.sub(r'^completion\s*:\s*','',norm(m.group(0)),flags=re.I)+'.'
       elif title=='Deposit recorded in the sale conditions':summary='Deposit: '+re.search(r'\d+(?:\.\d+)?%',m.group(0)).group(0)+' of the price. This is not an additional acquisition fee.'
-      elif title=='Auctioneer fee recorded in the sale conditions':summary='The conditions state: “'+norm(m.group(0))+'”.'
+      elif title in ('Auctioneer fee recorded in the sale conditions','Capped seller disbursements','Outstanding works balance disclosed','Contingent notice-to-complete charge'):summary='The conditions state: “'+norm(m.group(0))+'”.'
       add(topic,title,summary,action,evidence(d,page,m,90),level,True)
   for topic,title,pattern,action in TOPICS:
    # One short lead per document/topic. All originals remain in the inventory.
@@ -134,9 +140,10 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
    text=norm(page['text'])
    for topic,title,pattern,action in [
     ('title','Title number in this document',r'(?:title number(?: / Rhif teitl)?|under title number)\s*[:\n]?\s*([A-Z]{1,3}\d{3,8})','Reconcile the interest and extent of this title with all other titles and the sale conditions.'),
-    ('title','Registered proprietor recorded',r'PROPRIETOR:\s*([A-Z][A-Z &()’\'-]+LIMITED)','Compare the registered proprietor with the contractual seller and any intervening transfer.'),
+    ('title','Registered proprietor recorded',r'PROPRIETOR:\s*([A-Z][A-Z &()’\'-]+?(?:LIMITED|LLP))\b','Compare the registered proprietor with the contractual seller and any intervening transfer.'),
+    ('title','Title extent excludes accommodation',r'NOTE:\s*[^.]{0,250}\bexcluded from the title\b','Reconcile the coloured title plan and excluded accommodation against the actual sale extent.'),
     ('rent','Rent amount recorded in this document',r'(?:initial rent|annual rent|yearly rent)\s*[:\-]?\s*£\s*[\d,]+(?:\.\d{2})?|£[\d,]+(?:\.\d{2})?\)?\s+per annum','Confirm which letting and period this amount applies to; do not assume it is the current rent.'),
-    ('expiry','Lease term recorded',r'\b(?:\d+|five|ten|fifteen|twenty) years (?:from|commencing).{0,60}?\b20\d{2}\b','Check the operative lease, contractual end date, breaks and current occupation.'),
+    ('expiry','Lease term recorded',r'\b(?:\d+|five|ten|fifteen|twenty) years (?:from|commencing).{0,160}?\b20\d{2}\b','Check the operative lease, contractual end date, breaks and current occupation; unresolved brackets or conflicting words need visual confirmation.'),
    ]:
     m=re.search(pattern,text,re.I)
     if m:
@@ -152,6 +159,7 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
    text=norm(page['text'])
    rules=[]
    if d.doc_type.value=='lease':rules=[
+    ('tenant','Tenant identified in lease party clause',r'\(2\)\s*(.{2,150}?)\s+of\s+.{1,180}?\(Tenant\)',lambda m:'The lease party clause identifies '+norm(m.group(1))+' as tenant. This is distinct from a trading or rent-payment name.', 'Confirm current occupation and any assignment against the named legal tenant.'),
     ('tenant','Tenant named in the lease',r'\(2\)\s*([A-Z][A-Z ()&.,’\'-]+?LIMITED)\s*\(registered',lambda m:'The lease names '+m.group(1)+'. Verify current occupation and any assignment.', 'Confirm the current legal tenant and covenant; a historic lease party is not necessarily today’s tenant.'),
     ('rent','Concessionary rent period',r'Concessionary Rent\s+(.{1,90}?)\s+Concessionary Rent Period\s+(.{1,180}?Term Commencement Date)',lambda m:'Concessionary rent: '+m.group(1)+'. Period: '+m.group(2)+'.', 'Confirm when this concession ended and reconcile the currently payable rent with the payment ledger.'),
    ]

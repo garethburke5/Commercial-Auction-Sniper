@@ -67,6 +67,9 @@ jobs:
       - name: Validate candidate snapshot before publish
         run: python -m scripts.validate_publication
 
+      - name: Require a fresh collection timestamp
+        run: python -m scripts.check_collection_freshness --max-age-hours 14
+
       - name: Preserve validated snapshot artifact
         uses: actions/upload-artifact@v4
         with:

@@ -85,6 +85,10 @@ def _has_conversion_potential(low):
 
 def _is_ground_rent_investment(row, low, development):
     """Only classify the asset itself as ground rent, never an incidental lease cost."""
+    # A mixed income investment can contain flat ground rents alongside shops.
+    # The ground-rent phrase must not erase the occupational commercial income.
+    if re.search(r'\b(?:retail units?|shops?|commercial units?)\b.{0,90}\b(?:and|with)\b.{0,50}\b(?:residential )?ground rent', low):
+        return False
     if any(c.get("component") in {"commercial","residential"} for c in row.get("income_components",[])):
         return False
     primary = _norm(row.get("property_type")).lower()

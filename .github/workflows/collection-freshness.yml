@@ -1,0 +1,23 @@
+name: Current collection freshness
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '43 * * * *'
+  push:
+    branches: [main]
+    paths: ['scripts/check_collection_freshness.py', '.github/workflows/collection-freshness.yml']
+permissions:
+  contents: read
+jobs:
+  freshness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Require publication within two scan intervals plus grace
+        run: python -m scripts.check_collection_freshness --max-age-hours 14

@@ -90,3 +90,33 @@ def test_conflicting_vat_statements_remain_explicit():
     report=analyse_uploaded_pack('Synthetic investment',files,{'guide':190000})['acquisition']
     assert report['vat']=='Different VAT statements require reconciliation.'
     assert any(f['id']=='vat-conflict' for f in report['findings'])
+
+
+def test_cap_and_disclosed_works_balance_remain_separate_from_fixed_buyer_costs():
+    text=('SYNTHETIC SPECIAL CONDITIONS OF SALE. The buyer shall contribute £2000 plus VAT and '
+          'disbursements limited to £100 towards the legal fees of the seller. '
+          'Example Tenant have an outstanding amount of £372.83 for electrical works that were carried out. '
+          'The Buyer shall pay the Buyer’s Auctioneer fee of £1500 plus VAT.')
+    report=analyse_uploaded_pack('Synthetic investment',[('Special-Conditions.txt',text.encode())])['acquisition']
+    assert sum(c['amount'] for c in report['costs'])==4200
+    findings={f['id']:f for f in report['findings']}
+    assert '£100' in findings['disbursements-cap']['impact']
+    assert '£372.83' in findings['works-balance']['impact']
+    assert 'buyer liability unconfirmed' in findings['works-balance']['impact']
+    assert findings['works-balance']['evidence'][0]['document']=='Special-Conditions.txt'
+
+
+def test_conflicting_seller_fee_versions_cannot_silently_choose_the_first():
+    files=[(f'Special-Conditions-{i}.txt',f'SPECIAL CONDITIONS OF SALE. The buyer shall contribute £{fee} plus VAT towards the legal fees of the seller.'.encode()) for i,fee in enumerate((4500,2000))]
+    report=analyse_uploaded_pack('Synthetic investment',files)['acquisition']
+    assert not report['costs']
+    assert any(f['id']=='seller-fee-conflict' for f in report['findings'])
+
+
+def test_contingent_default_charge_preserves_conflicting_worded_amount():
+    text='SPECIAL CONDITIONS OF SALE. If the SELLER serves a notice to complete on the BUYER pursuant to condition G7 then the BUYER will pay on demand the sum of £500 (five hundred and fifty pounds) plus disbursements and VAT.'
+    report=analyse_uploaded_pack('Synthetic investment',[('Special-Conditions.txt',text.encode())])['acquisition']
+    assert not report['costs']
+    f=next(f for f in report['findings'] if f['title']=='Contingent notice-to-complete charge')
+    assert '£500' in f['found'] and 'five hundred and fifty' in f['found']
+    assert 'numeric and written' in f['next_step']
