@@ -121,7 +121,7 @@ def test_manifest_refresh_can_reuse_saved_first_party_snapshot(monkeypatch, tmp_
 def test_fetch_json_retries_transient_source_responses(monkeypatch):
     import scripts.harvest_future_property_auctions as future
 
-    statuses = iter((403, 503, 200))
+    statuses = iter((503, 200))
     calls = []
     sleeps = []
 
@@ -149,9 +149,37 @@ def test_fetch_json_retries_transient_source_responses(monkeypatch):
 
     assert payload["ok"] is True
     assert raw.startswith(b'{"ok": true')
-    assert len(calls) == 3
+    assert len(calls) == 2
     assert all(call[1]["headers"] == future.HEADERS for call in calls)
-    assert sleeps == [2.0, 4.0]
+    assert sleeps == [2.0]
+
+
+def test_fetch_json_does_not_retry_forbidden_response(monkeypatch):
+    import scripts.harvest_future_property_auctions as future
+
+    calls = []
+    sleeps = []
+
+    class Response:
+        status_code = 403
+        headers = {"content-type": "text/html"}
+        content = b"forbidden response body"
+
+        def raise_for_status(self):
+            raise future.requests.HTTPError("403 Client Error")
+
+    def get(url, **kwargs):
+        calls.append((url, kwargs))
+        return Response()
+
+    monkeypatch.setattr(future.requests, "get", get)
+    monkeypatch.setattr(future.time, "sleep", sleeps.append)
+
+    with pytest.raises(future.requests.HTTPError, match="403"):
+        future.fetch_json("https://example.test/archive")
+
+    assert len(calls) == 1
+    assert sleeps == []
 
 
 def test_fetch_json_retries_transient_connection_errors(monkeypatch):

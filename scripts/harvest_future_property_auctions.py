@@ -55,7 +55,7 @@ def fetch_json(url: str) -> tuple[bytes, dict]:
                 raise
             time.sleep(2.0 * (attempt + 1))
             continue
-        if response.status_code not in {403, 429, 500, 502, 503, 504} or attempt == 3:
+        if response.status_code not in {429, 500, 502, 503, 504} or attempt == 3:
             break
         retry_after = response.headers.get("Retry-After", "")
         delay = float(retry_after) if retry_after.isdigit() else 2.0 * (attempt + 1)
