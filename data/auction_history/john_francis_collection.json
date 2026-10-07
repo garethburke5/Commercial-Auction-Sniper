@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-10-07T03:38:27.495179+00:00",
+  "checked_at": "2026-10-07T03:43:29.682123+00:00",
   "source_url": "https://www.johnfrancis.co.uk/pages/past_auctions",
-  "archive_available": true,
-  "catalogue_discovery_basis": "first_party_retained_past_auctions_table",
+  "archive_available": false,
+  "catalogue_discovery_basis": "saved_first_party_catalogue_states_after_archive_failure",
   "catalogues_discovered": 80,
   "catalogues_captured": 80,
   "catalogues_complete": 80,
@@ -32,6 +32,12 @@
     "sold_after": 49,
     "postponed": 5
   },
-  "failures": [],
-  "complete": true
+  "failures": [
+    {
+      "source_id": "archive",
+      "source_url": "https://www.johnfrancis.co.uk/pages/past_auctions",
+      "error": "failed to fetch https://www.johnfrancis.co.uk/pages/past_auctions: 403 Client Error: Forbidden for url: https://www.johnfrancis.co.uk/pages/past_auctions"
+    }
+  ],
+  "complete": false
 }
