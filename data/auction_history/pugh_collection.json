@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-07T02:12:56.379619+00:00",
+  "checked_at": "2026-10-07T02:48:51.569447+00:00",
   "source_url": "https://www.pugh-auctions.com/property-search",
-  "published_property_rows": 7023,
+  "published_property_rows": 7044,
   "observed_property_ids": 6712,
   "observed_source_ids": [
     "10088",
@@ -6717,7 +6717,7 @@
     "rightmove_93121146",
     "rightmove_93655437"
   ],
-  "pages_expected": 352,
+  "pages_expected": 353,
   "pages_captured_this_run": [
     1,
     2,
@@ -7927,6 +7927,11 @@
   "run_new_partial_lots": 0,
   "run_by_sector": {},
   "failures": [
+    {
+      "page": 353,
+      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=353",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=353"
+    },
     {
       "page": 352,
       "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=352",
