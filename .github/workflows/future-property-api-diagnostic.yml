@@ -141,7 +141,7 @@ jobs:
 
       - name: Publish diagnostic evidence
         run: |
-          if git diff --quiet -- data/auction_history/future_property_endpoint_diagnostic.json; then
+          if [ -z "$(git status --porcelain -- data/auction_history/future_property_endpoint_diagnostic.json)" ]; then
             echo "No diagnostic change"
             exit 0
           fi
