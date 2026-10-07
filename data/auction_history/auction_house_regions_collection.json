@@ -1,13 +1,24 @@
 {
-  "checked_at": "2026-10-07T12:30:43.564706+00:00",
+  "checked_at": "2026-10-07T13:35:24.315825+00:00",
   "regions_requested": 19,
   "regions_complete": 18,
   "regions_blocked": 1,
-  "pages_captured": 96,
-  "source_rows": 2332,
-  "overlapping_existing_rows": 2332,
+  "pages_captured": 94,
+  "source_rows": 2326,
+  "overlapping_existing_rows": 2326,
   "run_new_appearances": 0,
-  "failures": [],
+  "failures": [
+    {
+      "page": 1,
+      "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions",
+      "error": "ValueError: page exposed zero lot rows"
+    },
+    {
+      "page": 4,
+      "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions?page=4",
+      "error": "ValueError: page exposed zero lot rows"
+    }
+  ],
   "blocked_pages": [
     {
       "page": 3,
@@ -20,9 +31,9 @@
       "auctioneer": "Auction House Wales",
       "source_url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions",
       "pages_expected": 16,
-      "pages_captured": 15,
-      "current_archive_rows": 219,
-      "overlapping_existing_rows": 219,
+      "pages_captured": 13,
+      "current_archive_rows": 213,
+      "overlapping_existing_rows": 213,
       "run_new_appearances": 0,
       "property_appearances_captured": 223,
       "address_records": 223,
@@ -38,23 +49,32 @@
         "no_bids": 3
       },
       "page_counts": {
-        "1": 12,
-        "2": 8,
-        "4": 6,
-        "5": 8,
-        "6": 2,
-        "7": 9,
-        "8": 17,
-        "9": 16,
-        "10": 14,
-        "11": 5,
-        "12": 27,
+        "2": 14,
+        "5": 6,
+        "6": 10,
+        "7": 4,
+        "8": 12,
+        "9": 10,
+        "10": 21,
+        "11": 9,
+        "12": 13,
         "13": 30,
         "14": 30,
         "15": 30,
-        "16": 5
+        "16": 24
       },
-      "failures": [],
+      "failures": [
+        {
+          "page": 1,
+          "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions",
+          "error": "ValueError: page exposed zero lot rows"
+        },
+        {
+          "page": 4,
+          "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions?page=4",
+          "error": "ValueError: page exposed zero lot rows"
+        }
+      ],
       "blocked_pages": [
         {
           "page": 3,

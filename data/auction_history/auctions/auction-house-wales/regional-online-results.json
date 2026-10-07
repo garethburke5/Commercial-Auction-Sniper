@@ -5,7 +5,7 @@
   "catalogue_complete": false,
   "archive_pagination_complete": false,
   "lots_captured": 223,
-  "current_archive_rows": 219,
+  "current_archive_rows": 213,
   "source_property_ids": [
     "110148",
     "110149",
@@ -205,14 +205,8 @@
     "351670",
     "354028",
     "356099",
-    "357355",
-    "358769",
-    "358894",
-    "359336",
     "360204",
-    "360350",
     "360608",
-    "360673",
     "362228",
     "362624",
     "363601",
@@ -228,7 +222,18 @@
     "98734"
   ],
   "completion_scope": "all rows across every retained first-party dedicated regional results page",
-  "errors": [],
+  "errors": [
+    {
+      "page": 1,
+      "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions",
+      "error": "ValueError: page exposed zero lot rows"
+    },
+    {
+      "page": 4,
+      "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions?page=4",
+      "error": "ValueError: page exposed zero lot rows"
+    }
+  ],
   "blocked_pages": [
     {
       "page": 3,
@@ -239,5 +244,5 @@
   "notes": [
     "Original auction catalogue denominators are not published by this retained results table"
   ],
-  "checked_at": "2026-10-07T12:30:08.607841+00:00"
+  "checked_at": "2026-10-07T13:34:45.186409+00:00"
 }
