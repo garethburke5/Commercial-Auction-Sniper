@@ -9,11 +9,18 @@ from .workspace import initialise, dashboard
 from .plans import ENTITLEMENTS
 
 
+def healthy_sources(snapshot, now=None):
+    """One evidence gate for scheduled checks and account-page observations."""
+    if check(snapshot, now=now):
+        return set()
+    return {h['source'] for h in snapshot.get('source_health', [])
+            if h.get('status') == 'LIVE' and h.get('coverage_status') != 'DEGRADED'}
+
+
 def refresh(accounts, rows, snapshot, now=None):
     if errors := check(snapshot, now=now):
         raise ValueError('; '.join(errors))
-    healthy = {h['source'] for h in snapshot.get('source_health', [])
-               if h.get('status') == 'LIVE' and h.get('coverage_status') != 'DEGRADED'}
+    healthy = healthy_sources(snapshot, now=now)
     trustworthy = {pid: row for pid, row in rows.items() if row.get('source') in healthy}
     initialise(accounts)
     with accounts.db() as db:

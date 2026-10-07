@@ -45,6 +45,12 @@ class IngestResult:
  documents:list[PackDocument]=field(default_factory=list);issues:list[IngestIssue]=field(default_factory=list);duplicates:list[str]=field(default_factory=list);assets:list[IngestAsset]=field(default_factory=list);total_bytes:int=0;total_pages:int=0;expanded_files:int=0
 
 def _clean(text):return "\n".join(line.rstrip() for line in (text or "").replace("\x00","").splitlines()).strip()
+def substantive_text(text):
+ """A machine-readable registry footer does not make a scanned deed readable."""
+ value=re.sub(r'This official copy is incomplete without the preceding notes page\.?',' ',text,flags=re.I)
+ value=re.sub(r'Docusign Envelope ID:\s*[0-9A-F-]{30,40}',' ',value,flags=re.I)
+ value=re.sub(r'(?m)^\s*(?:Page\s+)?\d+(?:\s+of\s+\d+)?\s*$',' ',value,flags=re.I)
+ return re.sub(r'\W','',value)
 def _sha(raw):return hashlib.sha256(raw).hexdigest()
 def _looks_text(raw):
  if not raw:return True
@@ -99,7 +105,7 @@ def extract_pdf(raw,ocr=False,progress=None,budget=None):
   supported=bool(shutil.which('pdftoppm') and shutil.which('tesseract'))
   for i,text in enumerate(texts,1):
    txt=_clean(text);used_ocr=False;problem=None
-   if len(re.sub(r'\W','',txt))<45 and ocr:
+   if len(substantive_text(txt))<45 and ocr:
     if not supported:problem='OCR is unavailable on this server.'
     elif budget['ocr']>=MAX_OCR_PAGES:problem='OCR page limit reached; review this page manually.'
     else:
@@ -112,7 +118,7 @@ def extract_pdf(raw,ocr=False,progress=None,budget=None):
       converted=subprocess.run(['tesseract',prefix+'.png','stdout','-l','eng','--psm','3'],capture_output=True,timeout=30,check=True,env=env)
       txt=_clean(converted.stdout.decode('utf-8','replace'));used_ocr=True;ocr_pages.append(i)
      except Exception as exc:problem=f'OCR did not complete ({type(exc).__name__}); review the original page.'
-   if len(re.sub(r'\W','',txt))<45 or problem:unread.append(i)
+   if len(substantive_text(txt))<45 or problem:unread.append(i)
    pages.append({'page':i,'text':txt,'chars':len(txt),'ocr':used_ocr,'issue':problem})
    if txt:chunks.append(f'\n--- PAGE {i} ---\n{txt}')
   return ''.join(chunks).strip(),{'pages':pages,'page_count':count,'extraction':method+(' + Tesseract OCR' if ocr_pages else ''),'ocr_pages':ocr_pages,'unread_pages':unread,'ocr_requested':ocr}

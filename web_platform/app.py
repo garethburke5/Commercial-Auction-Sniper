@@ -56,8 +56,23 @@ def create_app(site=None):
         with a.db() as db: saved=[r[0] for r in db.execute('SELECT property_id FROM saved WHERE user_id=? ORDER BY created_at DESC',(uid,))]
         from .workspace import dashboard
         from .deals import workspace_rows
+        from .catalogue import Catalogue
+        from .monitoring import healthy_sources
         plan=a.plan(uid)
-        return {'plan':plan,'features':sorted(PLANS[plan]),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,site.catalogue.rows|workspace_rows(a))}
+        # Bind source-health evidence to the same current snapshot as its rows.
+        # The API can stay alive while the host replaces the canonical snapshot.
+        try:
+            current=Catalogue(site.catalogue.root)
+            healthy=healthy_sources(current.snapshot)
+            rows=current.rows
+            trusted={pid:row for pid,row in rows.items() if row.get('source') in healthy}
+        except (OSError,ValueError,KeyError,TypeError):
+            # A temporarily unreadable snapshot must not erase saved properties
+            # or turn an old public-page cache into fresh monitoring evidence.
+            rows=site.catalogue.rows
+            trusted={}
+        deals=workspace_rows(a)
+        return {'plan':plan,'features':sorted(PLANS[plan]),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals)}
     @app.put('/api/account/saved/{property_id}')
     def save(property_id:str,authorization:str|None=Header(default=None)):
         import time

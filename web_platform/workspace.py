@@ -49,16 +49,18 @@ def update(accounts,user,pid,body,row):
         db.execute('INSERT OR REPLACE INTO workspace VALUES (?,?,?,?,?,?,?)',(user,pid,int(entry['watched']),entry['notes'],entry['target_price'],entry['observation'],int(time.time())))
     return {'updated':True}
 
-def dashboard(accounts,user,rows):
+def dashboard(accounts,user,rows,*,monitoring_rows=None):
     initialise(accounts)
     from .plans import ENTITLEMENTS
     monitoring = 'watch' in ENTITLEMENTS[accounts.plan(user)]
+    observed_rows = rows if monitoring_rows is None else monitoring_rows
     with accounts.db() as db:
         items=[dict(r) for r in db.execute('SELECT * FROM workspace WHERE user_id=?',(user,))]
         for item in items:
             pid=item['property_id'];row=rows.get(pid)
-            if monitoring and item['watched'] and row:
-                current=observation(row);old=json.loads(item['observation'] or '{}')
+            observed=observed_rows.get(pid)
+            if monitoring and item['watched'] and observed:
+                current=observation(observed);old=json.loads(item['observation'] or '{}')
                 for event in changes(old,current):
                     eid=hashlib.sha256(json.dumps([user,pid,old,current,event],sort_keys=True).encode()).hexdigest()
                     db.execute('INSERT OR IGNORE INTO watch_events VALUES (?,?,?,?,?)',(eid,user,pid,json.dumps(event),int(time.time())))

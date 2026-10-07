@@ -111,7 +111,7 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
    # Exclude tables of contents, generic advertisements and irrelevant document roles.
    if topic in ('title','rights','plans') and d.doc_type.value not in ('title_register','title_plan','transfer','lease','special_conditions'):continue
    if topic in ('deposit','buyer-fees','seller-costs','completion','conditions') and d.doc_type.value not in ('special_conditions','other'):continue
-   if topic in ('rent','tenant','leases','expiry','breaks','reviews','repairs','service','insurance','ground') and d.doc_type.value not in ('lease','special_conditions','cpse1','cpse2','tenancy_schedule','transfer'):continue
+   if topic in ('rent','tenant','leases','expiry','breaks','reviews','repairs','service','insurance','ground') and d.doc_type.value not in ('lease','special_conditions','cpse1','cpse2','cpse7','tenancy_schedule','transfer'):continue
    if topic=='epc' and d.doc_type.value!='epc':continue
    if topic=='environment' and d.doc_type.value not in ('environmental','asbestos','search'):continue
    if any(f['topic']==topic and f['source']==d.name and f['fact'] for f in findings):continue
@@ -170,6 +170,12 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
    for topic,title,pattern,summary,action in rules:
     m=re.search(pattern,text,re.I)
     if m:add(topic,title,summary(m),action,evidence(d,page,m,80),'INFORMATION',True)
+ # Document-scoped outcomes supplement the broad topic index. These are kept
+ # separate so a keyword hit can never be mistaken for an investment conclusion.
+ from acquisition_lease_evidence import extract_lease_evidence
+ from acquisition_property_evidence import extract_property_evidence
+ lease_details=extract_lease_evidence(docs)
+ transaction_findings=lease_details['findings']+extract_property_evidence(docs)
  # Catalogue is separately labelled, never masquerading as a legal-pack finding.
  context=[]
  for key,label in [('rent','Published current annual rent'),('guide','Published guide price')]:
@@ -177,8 +183,11 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
   if isinstance(value,(int,float)) and value>=0:context.append({'label':label,'value':f'£{value:,.0f}','source':'Published auction particulars — not independently confirmed by the legal pack'})
  kinds={d.doc_type.value for d in docs};missing=[]
  for kind,label in [('special_conditions','Special Conditions of Sale'),('title_register','Official title register'),('title_plan','Title / transfer plan'),('lease','Occupational lease if the property is let'),('epc','EPC or evidenced exemption')]:
-  if kind not in kinds:missing.append(label+' — not identified in the supplied files.')
- if not kinds.intersection({'cpse1','cpse2'}):missing.append('Commercial property enquiry replies (CPSE or equivalent) were not identified.')
+  if kind not in kinds:
+   if kind=='title_plan' and any(re.search(r'\b(?:Building|Property) Plan\b',d.text,re.I) for d in docs):
+    missing.append('Plans are embedded in supplied deeds; visually reconcile the coloured title, lease and sale extents.')
+   else:missing.append(label+' — not identified in the supplied files.')
+ if not kinds.intersection({'cpse1','cpse2','cpse7'}):missing.append('Commercial property enquiry replies (CPSE or equivalent) were not identified.')
  if not kinds.intersection({'arrears','tenancy_schedule'}):missing.append('A separately identified current rent/payment and arrears ledger was not supplied; a tenancy schedule in conditions does not prove payments.')
  by_topic={key:[f for f in findings if f['topic']==key] for key,_,_,_ in TOPICS}
  uncertainties=[]
@@ -215,5 +224,6 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
   'report_id':hashlib.sha256((property_ref+'|'+ '|'.join(sorted(d.sha256 for d in docs))).encode()).hexdigest()[:16],
   'created_at':datetime.now(timezone.utc).isoformat(),'summary':'Resolve the highlighted contractual and evidence gaps before relying on the pack. This is an evidence review, not a buy recommendation.',
   'observations':observations,'counts':dict(counts),'context':context,'findings':findings,'sections':sections,'documents':manifest,'missing':missing,'uncertainties':uncertainties,'questions':questions,'issues':issues,
+  'lease_details':lease_details['leases'],'transaction_findings':transaction_findings,
   'coverage':{'files':len(ingestion.assets),'text_documents':sum(bool(d.text.strip()) for d in docs),'pages':ingestion.total_pages,'ocr_pages':sum(len(d.metadata.get('ocr_pages',[])) for d in docs),'unread_pages':sum(len(d.metadata.get('unread_pages',[])) for d in docs)},
   'disclaimer':'This report does not constitute legal advice. Automated extraction and OCR can miss or misread facts. Confirm material wording, plans, dates, amounts and legal effects with the original documents and the purchaser’s solicitor. A missing finding is not evidence that a risk or obligation is absent.'}

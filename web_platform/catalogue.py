@@ -31,6 +31,7 @@ class Catalogue:
     def __init__(self, root=ROOT):
         self.root = Path(root)
         snapshot = json.loads((self.root / 'data/properties.json').read_text())
+        self.snapshot = snapshot
         self.generated_at = snapshot.get('generated_at')
         self.rows = {}
         current_ids = {identity(r) for r in snapshot['properties']}

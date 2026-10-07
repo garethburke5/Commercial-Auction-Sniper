@@ -6,7 +6,7 @@ missing legal/financial facts, and preserves the complete underlying evidence.
 import re,hashlib,json
 from collections import defaultdict
 from datetime import datetime,timezone
-from decimal import Decimal
+from decimal import Decimal,ROUND_HALF_UP
 from acquisition_chronology import lease_chronology
 
 SECTIONS=[('buying','What you are buying'),('numbers','The numbers'),('view','Our first-pass view'),('covenant','Tenant & covenant'),('lease','The lease — in plain English'),('cpse','What the seller has told you / CPSE'),('title','Title & what is actually included'),('conditions','Special Auction Conditions'),('searches','Searches & property risks'),('costs','Costs Auction Sniper found'),('concerns','What concerns us'),('opportunities','Opportunities'),('unknowns','What we could not establish'),('questions','If we were buying it, the questions we would still ask'),('evidence','Full evidence')]
@@ -39,6 +39,10 @@ def build_acquisition(model,catalogue=None):
         n=re.search(r'registered (?:number|no\.?)[\s:]*(\d{8}|[A-Z]{2}\d{6})',text,re.I)
         if n:company_number=n.group(1).upper()
     party_facts=groups.get('Tenant identified in lease party clause',[])
+    long_lease_documents={r['document'] for r in model.get('lease_details',[]) if r.get('interest')=='Residential long lease'}
+    # Original flat lease parties are not necessarily today's ground-rent
+    # payers, and must not become the headline commercial tenant covenant.
+    party_facts=[f for f in party_facts if any(e.get('document') not in long_lease_documents for e in f.get('evidence',[]))]
     if party_facts:
         parties=list(dict.fromkeys(re.sub(r'^The lease party clause identifies | as tenant\..*$', '', f['summary']) for f in party_facts))
         tenant='; '.join(parties)
@@ -46,7 +50,7 @@ def build_acquisition(model,catalogue=None):
         if len(parties)>1:company_number=None
     calculations=[]
     if guide and rent is not None:
-        calculations.append({'label':'Gross Initial Yield (GIY)','value':f'{rent/(upper or guide)*100:.1f}%','working':f'{money(rent)} current annual rent ÷ {money(upper or guide)} '+('upper guide' if upper else 'guide')+' × 100. Before fees, tax, voids and costs.','basis':'Published current particulars; reconcile with the operative lease and payment ledger.'})
+        calculations.append({'label':'Gross Initial Yield (GIY)','value':str((Decimal(str(rent))/Decimal(str(upper or guide))*100).quantize(Decimal('0.1'),rounding=ROUND_HALF_UP))+'%','working':f'{money(rent)} current annual rent ÷ {money(upper or guide)} '+('upper guide' if upper else 'guide')+' × 100. Before fees, tax, voids and costs.','basis':'Published current particulars; reconcile with the operative lease and payment ledger.'})
     dep=summary_for('Deposit recorded in the sale conditions');deposit=None
     m=re.search(r'(\d+(?:\.\d+)?)%',dep)
     if m and guide:
@@ -139,9 +143,10 @@ def build_acquisition(model,catalogue=None):
         if title in handled or not fs:continue
         topic=fs[0]['topic'];add('fact-'+hashlib.sha256(title.encode()).hexdigest()[:10],title,' '.join(dict.fromkeys(f['summary'] for f in fs)),
             'This is a specific term or observation recovered from the supplied evidence.','Read its qualifications and date alongside the original; it is not a guarantee of the property’s current condition.',fs[0]['action'],[e for f in fs for e in f['evidence']],TOPIC_SECTION.get(topic,'lease'),'INFORMATION')
+    findings.extend(model.get('transaction_findings',[]))
     documents,lease_reconciliation=lease_chronology(model)
     differing_rents={r for lease_record in lease_reconciliation for r in lease_record['rent_amounts']}
-    if len(lease_reconciliation)>1 and len(differing_rents)>1:
+    if len(lease_reconciliation)>1 and len(differing_rents)>1 and not c.get('tenancy_schedule'):
         evidence=[e for lease_record in lease_reconciliation for e in lease_record['evidence']]
         found='; '.join(record['document']+': '+', '.join(money(r)+' p.a.' for r in record['rent_amounts']) for record in lease_reconciliation if record['rent_amounts'])
         add('lease-rent-chronology','Separate leases record different rent amounts',found,
@@ -172,11 +177,12 @@ def build_acquisition(model,catalogue=None):
         'vat':('Different VAT statements require reconciliation.' if 'VAT depends on TOGC conditions' in groups and 'Seller states no option to tax' in groups else summary_for('Seller states no option to tax') or summary_for('VAT depends on TOGC conditions') or 'Transaction VAT treatment not established'),'calculations':calculations,'costs':costs,
         'first_pass':f'{len(findings)} consolidated findings from {model.get("coverage",{}).get("text_documents",0)} documents. '+('Quantified costs and contingent liabilities need to be reflected in your bid.' if costs else 'The report separates evidenced facts from remaining gaps; it is not a buy recommendation.'),
         'findings':priority,'deep_dive':deep,'cpse':cpse_text,'opportunities':opportunities,'unknowns':unknowns,'questions':questions,'documents':documents,
+        'listing_status':c.get('status'),'auction_date':c.get('auction_date'),'catalogue_as_of':c.get('collected_at'),'tenancy_schedule':c.get('tenancy_schedule',[]),'lease_details':model.get('lease_details',[]),
         'lease_reconciliation':lease_reconciliation,'coverage':model.get('coverage',{}),'sections':SECTIONS,'evidence_review':model,'disclaimer':'Acquisition research, not legal, tax or valuation advice. Verify material conclusions against the source documents and with the appropriate professional.'}
 
 def snapshot(report):
     """Actual server projection: the paid payload is not sent hidden in the DOM."""
-    out={k:v for k,v in report.items() if k not in ('evidence_review','findings','documents','questions','unknowns','opportunities','costs','market_context','lease_reconciliation')}
+    out={k:v for k,v in report.items() if k not in ('evidence_review','findings','documents','questions','unknowns','opportunities','costs','market_context','lease_reconciliation','commercial_brief','lease_details','quality_review','tenancy_schedule')}
     deep_id=(report.get('deep_dive') or {}).get('id')
     out['findings']=[f for f in report['findings'] if f.get('id')!=deep_id][:3]
     shown={f['id'] for f in out['findings']}

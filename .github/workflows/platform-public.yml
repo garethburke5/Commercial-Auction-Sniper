@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['web_platform/**', 'investment_details.py', 'property_summary.py', 'board_presentation.py', 'buyer_due_diligence.py', 'legal_pack_*.py', 'acquisition_*.py', 'source_reconciliation.py', 'scripts/verify_live_platform.py', 'packages.txt', 'tests/test_legal_pack*.py', '.github/workflows/platform-public.yml']
+    paths: ['web_platform/**', 'investment_details.py', 'property_summary.py', 'board_presentation.py', 'buyer_due_diligence.py', 'legal_pack_*.py', 'acquisition_*.py', 'source_reconciliation.py', 'scripts/verify_live_platform.py', 'packages.txt', 'tests/test_legal_pack*.py', 'tests/test_acquisition*.py', 'tests/test_registry_scan_coverage.py', '.github/workflows/platform-public.yml']
   workflow_run:
     workflows: ['Auction Sniper Publish Now', 'Auction Sniper Scan', 'Historical lot corpus collection', 'Commercial history expansion', 'Property gallery and fee evidence']
     types: [completed]
@@ -30,7 +30,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install -r web_platform/requirements.txt pytest beautifulsoup4 requests lxml pypdf python-docx openpyxl
-      - run: python -m pytest web_platform/tests tests/test_legal_pack_engine.py tests/test_legal_pack_report.py tests/test_legal_pack_ingest.py tests/test_legal_pack_service.py tests/test_legal_pack_review.py tests/test_legal_evidence_provenance.py -q
+      - run: python -m pytest web_platform/tests tests/test_legal_pack_engine.py tests/test_legal_pack_report.py tests/test_legal_pack_ingest.py tests/test_legal_pack_service.py tests/test_legal_pack_review.py tests/test_legal_evidence_provenance.py tests/test_acquisition_lease_evidence.py tests/test_acquisition_property_evidence.py tests/test_registry_scan_coverage.py -q
       - uses: actions/configure-pages@v5
         id: pages
       - run: python -m web_platform.export --output public-dist --origin "$SITE_ORIGIN"

@@ -9,7 +9,7 @@ from typing import Any, Iterable
 import hashlib, re
 
 class DocType(str,Enum):
- SPECIAL_CONDITIONS="special_conditions"; LEASE="lease"; TRANSFER="transfer"; TITLE_REGISTER="title_register"; TITLE_PLAN="title_plan"; CPSE1="cpse1"; CPSE2="cpse2"; EPC="epc"; VAT="vat"; COURT="court"; SEARCH="search"; ENVIRONMENTAL="environmental"; ASBESTOS="asbestos"; HEALTH_SAFETY="health_safety"; ARREARS="arrears"; TENANCY_SCHEDULE="tenancy_schedule"; OTHER="other"
+ SPECIAL_CONDITIONS="special_conditions"; LEASE="lease"; TRANSFER="transfer"; TITLE_REGISTER="title_register"; TITLE_PLAN="title_plan"; CPSE1="cpse1"; CPSE2="cpse2"; CPSE7="cpse7"; EPC="epc"; VAT="vat"; COURT="court"; SEARCH="search"; ENVIRONMENTAL="environmental"; ASBESTOS="asbestos"; HEALTH_SAFETY="health_safety"; ARREARS="arrears"; TENANCY_SCHEDULE="tenancy_schedule"; OTHER="other"
 @dataclass
 class Evidence:
  document:str; document_type:str; excerpt:str=""; page:int|None=None; clause:str|None=None; confidence:float=1.0
@@ -23,14 +23,15 @@ class PackDocument: name:str; doc_type:DocType; text:str=""; sha256:str=""; meta
 class DueDiligenceReport:
  property_ref:str; assessment:str="AMBER"; assessment_text:str="Important matters require resolution before bidding."; findings:dict[str,Finding]=field(default_factory=dict); conflicts:list[dict[str,Any]]=field(default_factory=list); missing:list[str]=field(default_factory=list); documents_reviewed:list[str]=field(default_factory=list); questions:list[str]=field(default_factory=list); processing:dict[str,Any]=field(default_factory=dict)
  def to_dict(self): return asdict(self)
-DOC_PATTERNS={DocType.SPECIAL_CONDITIONS:("special condition",),DocType.CPSE1:("cpse 1","cpse1"),DocType.CPSE2:("cpse 2","cpse2"),DocType.EPC:("epc","energy performance"),DocType.VAT:("vat","option to tax","ott"),DocType.COURT:("court","consent order","judgment","drafting in dispute"),DocType.ASBESTOS:("asbestos",),DocType.HEALTH_SAFETY:("health & safety","health _ safety","risk assessment"),DocType.ENVIRONMENTAL:("sitesolutions","environmental"),DocType.ARREARS:("arrears","payment history"),DocType.TENANCY_SCHEDULE:("tenancy schedule",),DocType.TITLE_REGISTER:("official copy (register)","register - cym","title register"),DocType.TITLE_PLAN:("title plan",),DocType.TRANSFER:("tp1","transfer of part"),DocType.LEASE:("lease",),DocType.SEARCH:("search","land charges","water and drainage","chancel")}
+DOC_PATTERNS={DocType.SPECIAL_CONDITIONS:("special condition",),DocType.CPSE1:("cpse 1","cpse1"),DocType.CPSE2:("cpse 2","cpse2"),DocType.CPSE7:("cpse 7","cpse7"),DocType.EPC:("epc","energy performance"),DocType.VAT:("vat","option to tax","ott"),DocType.COURT:("court","consent order","judgment","drafting in dispute"),DocType.ASBESTOS:("asbestos",),DocType.HEALTH_SAFETY:("health & safety","health _ safety","risk assessment"),DocType.ENVIRONMENTAL:("sitesolutions","environmental"),DocType.ARREARS:("arrears","payment history"),DocType.TENANCY_SCHEDULE:("tenancy schedule",),DocType.TITLE_REGISTER:("official copy (register)","register - cym","title register"),DocType.TITLE_PLAN:("title plan",),DocType.TRANSFER:("tp1","transfer of part"),DocType.LEASE:("lease",),DocType.SEARCH:("search","land charges","water and drainage","chancel")}
 def classify_document(name,text=""):
  # Explicit document roles outrank incidental references inside correspondence,
  # common conditions and bidder instructions.
  label=name.lower()
  if re.search(r'rent authority|id requirements|common auction conditions|auctioneer terms|deposit terms|form of purchase agreement|terms and conditions for remote bidders',label):return DocType.OTHER
  if re.search(r'official copy of register|official copy \(register\)',label):return DocType.TITLE_REGISTER
- if re.search(r'rent(?:al)? schedule',label):return DocType.TENANCY_SCHEDULE
+ if re.search(r'rent(?:al)? schedule',label):
+  return DocType.ARREARS if re.search(r'\b(?:receipts|received|payment|paid|credited)\b',text,re.I) else DocType.TENANCY_SCHEDULE
  if 'groundsure' in label:return DocType.ENVIRONMENTAL
  # A VAT clause inside a lease must not reclassify the lease as a VAT document.
  for h in (name.lower(),text[:1200].lower()):

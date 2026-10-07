@@ -48,9 +48,14 @@ def install(app,site,user):
         projection=report if full else snapshot(report)
         return {'id':rid,'access':'full' if full else 'snapshot','report':projection,'html':render(projection)}
     @app.get('/api/account/reviews/{rid}/download')
-    def download(rid:str,authorization:str|None=Header(default=None)):
+    def download(rid:str,format:str='html',authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization);r,report=owned(a,uid,rid)
         full=unlocked(a,uid,rid,r['property_id']);projection=report if full else snapshot(report)
+        if format not in ('html','docx'):raise HTTPException(400,'Unsupported report format')
+        if format=='docx':
+            if not full:raise HTTPException(403,'Unlock this review to download the acquisition report')
+            from acquisition_document import render_docx
+            return Response(render_docx(projection),media_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document',headers={'Content-Disposition':f'attachment; filename="acquisition-{rid}.docx"','Cache-Control':'no-store'})
         return HTMLResponse(render(projection,True),headers={'Content-Disposition':f'attachment; filename="acquisition-{rid}.html"','Cache-Control':'no-store'})
     @app.post('/api/account/reviews/{rid}/checkout')
     def checkout_review(rid:str,authorization:str|None=Header(default=None)):

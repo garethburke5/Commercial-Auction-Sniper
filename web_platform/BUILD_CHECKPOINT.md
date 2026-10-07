@@ -388,3 +388,60 @@ Owner explicitly confirmed none of Stripe, Supabase or private hosting is set up
 Published launch fixes at 2fe5b22f2664735de6b3035c01ec9c53c5fb4eb3. Full scan 37638742162, legal-engine CI and freshness workflow all succeeded. Production snapshot advanced to 15:13 UTC; final successful Pages run 37642870774 passed source-to-live verification. Browser confirmed 1,060 catalogue rows (883 available, 177 terminal), 39 houses, correct Newbury Retail Investment label and SOLD state. At 390px, catalogue/account/plans each fit within the viewport; paid activation message remains visible. Real registration/checkout cannot be accepted before provider setup.
 
 Added a tested private scheduled watch command; it processes active membership only, preserves outage/missing-row baselines and is idempotent. Scheduling is not yet running, and email/saved-search-match delivery remains open. Added optional Docker/Render deployment template and liveness endpoint. Docker image build, persistent-volume restart, backup/restore and actual provider tests remain host acceptance gates. See ACTIVATION.md for exact setup, including owner-controlled accounts, SMTP sender domain and single-instance storage.
+# Newbury source quality approval — 7 October 2026
+
+The real Newbury source-reviewed specimen is now a five-page acquisition report
+in DOCX/PDF, with a matching HTML version and expandable source appendix. It was
+checked against 38 supplied PDFs / 540 pages, including the amended special
+conditions supplied on 5 October. Source hashes were verified before export.
+The private pack, reviewed narrative and report files must not be committed to
+this public repository. The public code contains reusable extraction/rendering
+changes and synthetic regression fixtures only.
+
+The material ingestion defect was footer-only scans: Land Registry and DocuSign
+text made image-only deed pages appear readable. The full rerun now uses OCR on
+151 pages (previously 57). Five remaining text-poor pages were visually checked:
+three plan/appendix divider pages and two blank deed reverses. These are not
+missing substantive lease clauses. Embedded title/lease plans remain a visual
+conveyancing check; the report no longer says the pack has no title plan.
+
+The source audit reconciled four lease rents to the published total; recovered
+both commercial tenant breaks, including the Arcade break missing from the
+catalogue summary; preserved edited lease dates; distinguished individual
+covenants, ground rents and the receipt ledger; and disclosed blank tenant
+execution blocks in the supplied counterparts. It also reviewed the actual
+insurance exclusion, modelled flood/ground risks, historic fire/asbestos
+findings, service-charge inconsistencies, search extent and amended conditions.
+The report prioritises these issues and does not convert a modelled hazard,
+historic survey, neighbouring paid CIL entry or disclosed electrical balance
+into an unsupported current defect or fixed buyer liability.
+
+Approval scope: this is the source-reviewed Newbury research specimen, not
+legal clearance to buy or blanket approval of unattended analysis of every
+future pack. The concise `commercial_brief` is an editorial projection; generic
+extraction retains all findings and may need source review and editing for a
+complex property. Do not claim the generic parser alone produces the audited
+specimen. Keep this source-checking standard for paid fulfilment.
+
+Validation: 840 regression tests and 8 subtests passed after the final changes.
+The complete PDF/OCR rerun produced four lease records with rents
+20,000 / 6,500 / 100 / 100 and both commercial breaks. Final DOCX was rendered
+to PDF and every page visually reviewed; exactly five pages, no clipping or
+blank overflow page. Engine build `cf1ea801562f`.
+
+Implementation: Acquisition Intelligence 4 adds document-scoped lease/property
+outcomes, CPSE7 recognition, careful headline tenant selection, consistent yield
+rounding and concise printable HTML/DOCX. Paid Word export remains owner- and
+report-purchase-bound and is revoked after refund; free snapshots never receive
+the editorial brief. Evidence and original engine identity remain attached.
+
+Parallel established launch work found and fixed a real account-page bypass of
+scheduled monitoring's source-health gate. Account visits now use the same
+current-snapshot freshness/health protection for watch events while retaining
+saved-property display and independently current private deals. Malformed or
+stale collection cannot silently update the monitoring baseline.
+
+Provider setup remains owner-dependent. Existing source coverage gaps and
+unimplemented scheduled email/saved-search delivery remain open; they are not
+made operational by this report approval. No new source/history expansion was
+undertaken in this session.
