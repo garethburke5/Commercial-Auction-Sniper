@@ -187,3 +187,8 @@ def test_later_base_source_does_not_erase_earlier_address_enrichment(tmp_path, m
     rows = list(h.iter_rows(h.DATA / "appearances/source-corpus/z_base.jsonl.gz"))
     assert rows[0]["address"] == "1 High Street, London SW1A 1AA"
     assert rows[0]["address_enrichment_evidence"][0]["source_url"].endswith("evidence")
+
+
+def test_historical_workflow_stages_every_collection_summary():
+    workflow = (Path(__file__).resolve().parents[1] / ".github/workflows/historical-lot-corpus.yml").read_text()
+    assert "git add data/auction_history/*_collection.json" in workflow

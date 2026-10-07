@@ -499,6 +499,9 @@ jobs:
           git config user.name 'Auction Sniper History Bot'
           git config user.email 'actions@users.noreply.github.com'
           git add data/auction_history/appearances data/auction_history/sources data/auction_history/auctions data/auction_history/progress.json
+          # Every collector summary is historical provenance. Stage the glob so a new
+          # retained collector cannot silently leave stale run-gain counters on main.
+          git add data/auction_history/*_collection.json
           if test -f data/auction_history/paul_fosh_collection.json; then git add data/auction_history/paul_fosh_collection.json; fi
           if test -f data/auction_history/allsop_collection.json; then git add data/auction_history/allsop_collection.json; fi
           if test -f data/auction_history/commercial_expansion.json; then git add data/auction_history/commercial_expansion.json; fi
