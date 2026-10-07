@@ -180,26 +180,68 @@ def state_path(source_id: str) -> Path:
     return corpus.DATA / "auctions/john-francis" / f"{source_id}.json"
 
 
+def retained_catalogues() -> list[dict]:
+    """Recover the known catalogue manifest from saved first-party states.
+
+    The archive occasionally returns a blanket 403 while its already-published
+    lot lists and our evidence remain valid.  Retaining this manifest lets an
+    idempotent run report the source outage and zero actual gains instead of
+    leaving a previous run's gain counters in place.
+    """
+    catalogues = []
+    for path in sorted((corpus.DATA / "auctions/john-francis").glob("*.json")):
+        state = json.loads(path.read_text())
+        source_id = str(state.get("source_auction_id") or "").removeprefix("john-francis:")
+        auction_date = state.get("auction_date")
+        if not source_id or not auction_date:
+            continue
+        catalogues.append({
+            "source_id": source_id,
+            "auction_date": auction_date,
+            "venue": state.get("source_venue"),
+            "source_url": state.get("source_url") or urljoin(BASE, f"/pages/lotlist?aid={source_id}&show=past"),
+        })
+    return sorted(catalogues, key=lambda item: (item["auction_date"], int(item["source_id"])))
+
+
 def fetch_catalogue(item: dict) -> tuple[dict, bytes, str]:
     raw, resolved = get(item["source_url"])
     return item, raw, resolved
 
 
 def harvest(limit: int | None = None, workers: int = 8, refresh: bool = False) -> dict:
-    archive_raw, archive_resolved = get(ARCHIVE_URL)
-    archive_html = archive_raw.decode("utf-8", "replace")
-    catalogues = discover(archive_html)
-    archive_sha = corpus.digest(archive_raw)
-    archive_snapshot = corpus.DATA / "sources/john-francis" / f"archive-{archive_sha[:16]}.json.gz"
-    archive_evidence = {
-        "source_url": archive_resolved,
-        "retrieved_at": corpus.now(),
-        "sha256": archive_sha,
-        "snapshot_path": str(archive_snapshot.relative_to(corpus.ROOT)),
-        "basis": "first-party retained past-auctions table",
-        "catalogues_discovered": len(catalogues),
-    }
-    corpus.save_gzip(archive_snapshot, {"evidence": archive_evidence, "html": archive_html})
+    failures = []
+    archive_available = True
+    discovery_basis = "first_party_retained_past_auctions_table"
+    try:
+        archive_raw, archive_resolved = get(ARCHIVE_URL)
+        archive_html = archive_raw.decode("utf-8", "replace")
+        catalogues = discover(archive_html)
+        archive_sha = corpus.digest(archive_raw)
+        archive_snapshot = corpus.DATA / "sources/john-francis" / f"archive-{archive_sha[:16]}.json.gz"
+        archive_evidence = {
+            "source_url": archive_resolved,
+            "retrieved_at": corpus.now(),
+            "sha256": archive_sha,
+            "snapshot_path": str(archive_snapshot.relative_to(corpus.ROOT)),
+            "basis": "first-party retained past-auctions table",
+            "catalogues_discovered": len(catalogues),
+        }
+        corpus.save_gzip(archive_snapshot, {"evidence": archive_evidence, "html": archive_html})
+    except Exception as exc:
+        archive_available = False
+        archive_resolved = ARCHIVE_URL
+        catalogues = retained_catalogues()
+        discovery_basis = "saved_first_party_catalogue_states_after_archive_failure"
+        failures.append({"source_id": "archive", "source_url": ARCHIVE_URL, "error": str(exc)})
+        archive_evidence = {
+            "source_url": ARCHIVE_URL,
+            "retrieved_at": corpus.now(),
+            "basis": "saved first-party catalogue states after archive fetch failure",
+            "catalogues_discovered": len(catalogues),
+            "archive_available": False,
+            "error": str(exc),
+        }
 
     pending = []
     for item in catalogues:
@@ -213,7 +255,6 @@ def harvest(limit: int | None = None, workers: int = 8, refresh: bool = False) -
     before_ids = set()
     for path in (corpus.DATA / "appearances/john-francis").glob("*.jsonl.gz"):
         before_ids.update(row["appearance_id"] for row in corpus.iter_rows(path))
-    failures = []
     with ThreadPoolExecutor(max_workers=max(1, min(workers, 12))) as pool:
         futures = {pool.submit(fetch_catalogue, item): item for item in pending}
         for future in as_completed(futures):
@@ -271,6 +312,8 @@ def harvest(limit: int | None = None, workers: int = 8, refresh: bool = False) -
     summary = {
         "checked_at": corpus.now(),
         "source_url": archive_resolved,
+        "archive_available": archive_available,
+        "catalogue_discovery_basis": discovery_basis,
         "catalogues_discovered": len(catalogues),
         "catalogues_captured": len(states),
         "catalogues_complete": len(complete_states),
@@ -280,7 +323,7 @@ def harvest(limit: int | None = None, workers: int = 8, refresh: bool = False) -
         "run_new_appearances": len(added),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
         "run_new_partial_lots": sum(not row.get("address") for row in added),
-        "date_range": [catalogues[0]["auction_date"], catalogues[-1]["auction_date"]],
+        "date_range": [catalogues[0]["auction_date"], catalogues[-1]["auction_date"]] if catalogues else [None, None],
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in all_rows)),
         "by_status": dict(Counter(row.get("status") or "unknown" for row in all_rows)),
         "failures": failures,

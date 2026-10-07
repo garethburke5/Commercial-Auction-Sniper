@@ -1,3 +1,5 @@
+import json
+
 from scripts import harvest_john_francis_results as john
 
 
@@ -61,3 +63,41 @@ def test_parse_catalogue_requires_matching_heading_date():
     assert rows == []
     assert reconciliation["heading_date_matches_archive"] is False
     assert reconciliation["catalogue_complete"] is False
+
+
+def test_archive_failure_uses_retained_states_and_resets_run_gains(tmp_path, monkeypatch):
+    state_dir = tmp_path / "auctions/john-francis"
+    state_dir.mkdir(parents=True)
+    (state_dir / "166.json").write_text(json.dumps({
+        "source_auction_id": "john-francis:166",
+        "auction_date": "2013-09-26",
+        "source_url": "https://www.johnfrancis.co.uk/pages/lotlist?aid=166&show=past",
+        "catalogue_complete": True,
+    }))
+    appearance_dir = tmp_path / "appearances/john-francis"
+    appearance_dir.mkdir(parents=True)
+    (appearance_dir / "166.jsonl.gz").touch()
+    row = {
+        "appearance_id": "John Francis|john-francis:166|3628",
+        "address": "123 Sandy Road, Llanelli, SA15 4DH",
+        "sector": "residential",
+        "status": "sold",
+    }
+    monkeypatch.setattr(john.corpus, "DATA", tmp_path)
+    monkeypatch.setattr(john.corpus, "iter_rows", lambda path: iter([row]))
+    monkeypatch.setattr(john, "get", lambda url: (_ for _ in ()).throw(RuntimeError("403 Forbidden")))
+
+    summary = john.harvest()
+
+    assert summary["archive_available"] is False
+    assert summary["catalogue_discovery_basis"] == "saved_first_party_catalogue_states_after_archive_failure"
+    assert summary["catalogues_discovered"] == 1
+    assert summary["appearances_captured"] == 1
+    assert summary["run_new_appearances"] == 0
+    assert summary["run_new_address_records"] == 0
+    assert summary["failures"] == [{
+        "source_id": "archive",
+        "source_url": john.ARCHIVE_URL,
+        "error": "403 Forbidden",
+    }]
+    assert json.loads((tmp_path / "john_francis_collection.json").read_text())["run_new_appearances"] == 0
