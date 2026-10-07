@@ -46,6 +46,10 @@ def create_app(site=None):
     def user(authorization):
         uid=authenticated_user(authorization);accounts,billing=private_services();accounts.ensure(uid)
         return uid,accounts,billing
+    @app.get('/healthz')
+    def health():
+        # Liveness only: no secrets, customer counts or activation claims.
+        return {'status':'ok'}
     @app.get('/api/account')
     def account(authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization)

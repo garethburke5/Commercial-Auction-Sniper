@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import date
 from unittest.mock import patch
 
 from bs4 import BeautifulSoup
@@ -39,7 +40,8 @@ def test_ahl_classifies_details_even_without_commercial_teaser():
         description='Ground floor retail unit let to Betfred.' if url.endswith('unlabelled') else 'A two-bedroom terraced house. Location: Shops and supermarket nearby. Accommodation: Two bedrooms.'
         return Lot(source,url,'North Street' if url.endswith('unlabelled') else '1 High Street',auction_date='2026-10-07',description=description,status='CURRENT')
     stats={}
-    with patch.object(ahl,'soup',return_value=index),patch.object(ahl,'detail_lot',side_effect=detail):
+    with patch.object(ahl,'soup',return_value=index),patch.object(ahl,'detail_lot',side_effect=detail), patch.object(ahl.base,'date',wraps=date) as clock:
+        clock.today.return_value=date(2026,10,7)
         lots,dates,failures,discovered=ahl._collect_page(ahl.CURRENT,reconciliation=stats)
     assert discovered==2 and failures==0 and len(lots)==1
     assert stats['detail_pages_inspected']==2 and stats['noncommercial_excluded']==1

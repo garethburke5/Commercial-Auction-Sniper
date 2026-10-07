@@ -1,0 +1,40 @@
+# Review the provider's price before creating this paid service.
+# Use this blueprint path explicitly; this file does not provision anything itself.
+services:
+  - type: web
+    name: auction-sniper-private-api
+    runtime: docker
+    plan: 1c-2g
+    region: frankfurt
+    dockerfilePath: ./web_platform/Dockerfile
+    dockerContext: .
+    healthCheckPath: /healthz
+    disk:
+      name: private-account-data
+      mountPath: /var/data
+      sizeGB: 5
+    envVars:
+      - key: ACCOUNT_DATABASE_PATH
+        value: /var/data/accounts.sqlite
+      - key: PUBLIC_ORIGIN
+        value: https://garethburke5.github.io/Commercial-Auction-Sniper
+      - key: BILLING_LIVE
+        value: "false"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: AUTH_ISSUER
+        sync: false
+      - key: PRIVATE_API_ORIGIN
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_PRICE_INVESTOR
+        sync: false
+      - key: STRIPE_PRICE_PROFESSIONAL
+        sync: false
+      - key: STRIPE_PRICE_LEGAL_PACK_REPORT
+        sync: false

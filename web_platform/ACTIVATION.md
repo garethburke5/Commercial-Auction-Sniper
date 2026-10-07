@@ -75,3 +75,48 @@ to the owner and exact report. No included review allowance or member discount
 is promised until costs and fulfilment are established. The ordinary property
 yield calculator remains free. Professional exports mean research exports, not
 a restriction on downloading a customer's own stored data.
+
+## Owner setup confirmed missing — 7 October 2026
+
+The owner confirmed that Stripe, Supabase and a private API host do not yet exist.
+This is an account-creation boundary, not a missing secret that can be recovered.
+
+1. Create the owner-controlled Supabase project and Stripe sandbox. The owner must
+   complete Stripe business verification before live payment activation.
+2. Configure production SMTP for Supabase magic links, with a verified sender
+   domain and `https://garethburke5.github.io/Commercial-Auction-Sniper/account/`
+   as the redirect. Supabase's default mail service is not for public sign-ups.
+3. Deployment is prepared as `web_platform/Dockerfile`, including PDF/OCR tools,
+   a single Uvicorn worker, and `/healthz`. `web_platform/render.example.yaml`
+   is an optional Render blueprint (2 GB compute, 5 GB persistent disk). It is
+   inert until imported; review the provider's displayed recurring cost first.
+   The container needs its mounted `/var/data` directory. Never deploy SQLite on
+   an ephemeral filesystem or increase the instance count. A real container build
+   and persistence/restart test still require the host; no Docker daemon was
+   available in the implementation workspace.
+4. Enter provider secrets directly in host settings. Set the four public Pages
+   variables described above, keeping `BILLING_LIVE=false` during sandbox tests.
+   Bind the two monthly plans and one-off report to their configured Stripe prices.
+5. Verify customer registration/email return, account isolation, Save, paid Watch,
+   failed/expired checkout, signed webhook retries, cancellation/refund and
+   purchased-report revisit/download. Confirm report quality, customer terms,
+   support contact, retention and database backup/restore before live billing.
+
+### Watch worker
+
+`python -m web_platform.monitoring` records watch events without a browser visit.
+Run it on the private host every 15 minutes with the same persistent
+`ACCOUNT_DATABASE_PATH` and refreshed canonical snapshot as the API. It stops
+on data older than 14 hours, withholds degraded-source observations, checks paid
+entitlement, preserves missing-property baselines and deduplicates retries.
+Do not copy private data into public CI. The command is tested, but no host
+schedule exists yet. With Render, a separate cron/worker cannot mount the web
+service's disk: run scheduling in the same service, or move state to managed
+PostgreSQL before separating workers. Email and saved-search match delivery
+remain unimplemented and must not be sold as operational.
+
+Provider references checked 7 October 2026:
+- https://supabase.com/docs/guides/auth/auth-smtp
+- https://docs.stripe.com/get-started/account/set-up
+- https://render.com/docs/disks
+- https://render.com/docs/blueprint-spec

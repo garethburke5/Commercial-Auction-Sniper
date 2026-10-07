@@ -379,3 +379,12 @@ Launch remains blocked; do not enable billing or describe paid monitoring as ope
 - Visually checked amended conditions page 4 and Arcade lease page 7: the latter contains overlapping edited date text, so final operative-date confirmation remains necessary. Complete pack commercial acceptance is still OPEN: reconcile income components, ground rents, breaks/repair terms, CPSE/search findings and unread/plan evidence before selling the review.
 - Corrected mixed shop/ground-rent investment board labelling.
 - Validation before publication: 807 tests + 8 subtests passed, followed by focused coverage for the contingent default-charge finding. Next: verify deployment/fresh scan, then configure providers and run test-mode registration → saves → membership → report purchase → verified webhook → owner-only report revisit, including mobile. Scheduled monitoring/email delivery remains unbuilt/unactivated; existing watches run on account return.
+
+
+### Activation clarification and live proof — 7 October 2026
+
+Owner explicitly confirmed none of Stripe, Supabase or private hosting is set up. The next owner action is account creation/verification, followed by secure configuration. Do not keep searching for nonexistent provider credentials.
+
+Published launch fixes at 2fe5b22f2664735de6b3035c01ec9c53c5fb4eb3. Full scan 37638742162, legal-engine CI and freshness workflow all succeeded. Production snapshot advanced to 15:13 UTC; final successful Pages run 37642870774 passed source-to-live verification. Browser confirmed 1,060 catalogue rows (883 available, 177 terminal), 39 houses, correct Newbury Retail Investment label and SOLD state. At 390px, catalogue/account/plans each fit within the viewport; paid activation message remains visible. Real registration/checkout cannot be accepted before provider setup.
+
+Added a tested private scheduled watch command; it processes active membership only, preserves outage/missing-row baselines and is idempotent. Scheduling is not yet running, and email/saved-search-match delivery remains open. Added optional Docker/Render deployment template and liveness endpoint. Docker image build, persistent-volume restart, backup/restore and actual provider tests remain host acceptance gates. See ACTIVATION.md for exact setup, including owner-controlled accounts, SMTP sender domain and single-instance storage.

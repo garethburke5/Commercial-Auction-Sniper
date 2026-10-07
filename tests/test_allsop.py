@@ -37,7 +37,10 @@ class AllsopCollectorTests(unittest.TestCase):
 
     def test_extracts_lot_overview_from_canonical_landing_markup(self):
         html='''<section><p>Next commercial auction 7th October 2026</p><article><div>Commercial LOT - Oct 2026</div><div>FEATURED LOT</div><h3>Sheffield S10</h3><p>Substantial Freehold Retail, Supermarket &amp; Car Park Investment</p><img src="/media/auction/lot-44.jpg" alt="Sheffield investment" /><a href="/lot-overview/substantial-freehold-retail-supermarket-car-park-investment-in-sheffield/c261001-044">View lot</a></article></section>'''
-        found={};_extract_targets(BeautifulSoup(html,"lxml"),found)
+        found={}
+        with patch('collectors.allsop.date', wraps=date) as clock:
+            clock.today.return_value=date(2026,10,7)
+            _extract_targets(BeautifulSoup(html,"lxml"),found)
         self.assertEqual(len(found),1);url=next(iter(found))
         self.assertIn("Commercial LOT - Oct 2026",found[url]["card"])
         self.assertEqual(found[url]["image"],"https://www.allsop.co.uk/media/auction/lot-44.jpg")
