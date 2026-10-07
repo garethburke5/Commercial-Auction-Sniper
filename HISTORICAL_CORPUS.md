@@ -396,6 +396,14 @@ their auction date and auction type. A catalogue is complete only when every vis
 card has one distinct identity and the page heading agrees with the archive URL
 and link date; malformed or duplicated cards keep it incomplete.
 
+Cheffins collection reconciles its first-party result archive's published lot
+denominator against every retained card and catalogue-linked addendum. Where an
+older page has dropped a card, an identity-only partial row is banked only when
+the surviving lot numbers are unique integers in the published 1..N sequence
+and therefore prove the exact missing lot number. Address, property type,
+outcome and price remain null, zero-card or lettered sequences are not inferred,
+and a gap row never makes the catalogue complete.
+
 Pugh's retained first-party property-search archive is captured as a canonical
 appearance source across residential, commercial, mixed-use and land rows. The
 first pass reconciles every published result page and banks property IDs,

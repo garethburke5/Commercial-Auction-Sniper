@@ -1,5 +1,6 @@
 from scripts.harvest_cheffins_history import (
-    addendum_rows, discover_catalogues, parse_addendum, parse_catalogue, status_and_price,
+    addendum_rows, denominator_gap_rows, discover_catalogues, parse_addendum,
+    parse_catalogue, status_and_price,
 )
 
 
@@ -109,3 +110,24 @@ def test_addendum_rows_are_address_grade_and_can_complete_catalogue():
     assert rows[0]["appearance_id"] == "Cheffins|catalogue:565|addendum-lot:2"
     assert rows[0]["postcode"] == "SG8 8PN"
     assert rows[0]["record_quality"] == "address_record"
+
+
+def test_denominator_gap_rows_bank_only_unambiguous_numeric_holes():
+    catalogue = {"catalogue_id": "530", "published_lots": 4,
+        "url": "https://www.cheffins.co.uk/property-auctions/catalogue-view,june-2017_530.htm"}
+    rows = denominator_gap_rows(catalogue, "2017-06-21", {"sha256": "abc"},
+                                [{"lot_number": "1"}, {"lot_number": "2"},
+                                 {"lot_number": "4"}])
+    assert len(rows) == 1
+    assert rows[0]["lot_number"] == "3"
+    assert rows[0]["address"] is None
+    assert rows[0]["record_quality"] == "partial_lot"
+    assert rows[0]["identity_method"] == "published_denominator_and_retained_numeric_gap"
+
+
+def test_denominator_gap_rows_refuse_zero_card_and_lettered_sequences():
+    catalogue = {"catalogue_id": "549", "published_lots": 3,
+        "url": "https://www.cheffins.co.uk/property-auctions/catalogue-view,june-2019_549.htm"}
+    assert denominator_gap_rows(catalogue, "2019-06-19", {}, []) == []
+    assert denominator_gap_rows(catalogue, "2019-06-19", {},
+                                [{"lot_number": "1"}, {"lot_number": "2A"}]) == []

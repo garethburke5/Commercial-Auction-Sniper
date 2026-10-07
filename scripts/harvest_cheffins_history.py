@@ -45,7 +45,7 @@ ADDENDUM_LOT_RE = re.compile(
     r"(?ims)^\s*LOT\s+0*([0-9]+[A-Z]?)\s*(?:[-\u2013\u2014]\s*)?(.+?)\s*$"
     r"(.*?)(?=^\s*LOT\s+0*[0-9]+[A-Z]?\b|^\s*ENTRIES\b|\Z)"
 )
-ADDENDUM_RECOVERY_VERSION = 1
+ADDENDUM_RECOVERY_VERSION = 2
 DATE_RECOVERY = {
     "549": {
         "auction_date": "2019-06-19",
@@ -164,6 +164,61 @@ def addendum_rows(text: str, catalogue: dict, auction_date: str, evidence: dict,
             source_status_text=item["source_text"],
             source_result_text=None,
             source_evidence=evidence,
+        )
+        rows.append(row)
+    return rows
+
+
+def denominator_gap_rows(catalogue: dict, auction_date: str, evidence: dict,
+                         existing_rows: list[dict]) -> list[dict]:
+    """Bank identity-only rows for unambiguous holes in a numbered catalogue.
+
+    Cheffins' archive supplies an exact published denominator, while some old
+    catalogue pages have dropped individual detail cards (usually withdrawn
+    lots).  When every retained identity is a unique integer in the published
+    1..N range, a hole is an evidenced auction appearance even though its
+    address and outcome are no longer public.  Zero-card and lettered-number
+    catalogues deliberately remain untouched.
+    """
+    lot_numbers = [str(row.get("lot_number") or "").strip() for row in existing_rows]
+    if not lot_numbers or any(not number.isdigit() for number in lot_numbers):
+        return []
+    retained = [int(number) for number in lot_numbers]
+    published = catalogue["published_lots"]
+    if len(set(retained)) != len(retained) or any(number < 1 or number > published
+                                                  for number in retained):
+        return []
+    missing = sorted(set(range(1, published + 1)) - set(retained))
+    if len(existing_rows) + len(missing) != published:
+        return []
+    rows = []
+    for position, number in enumerate(missing, len(existing_rows) + 1):
+        lot_number = str(number)
+        source_id = f"published-gap-{lot_number}"
+        row_evidence = dict(evidence)
+        row_evidence["basis"] = (
+            "first-party published lot denominator and missing integer identity "
+            "within the retained catalogue sequence"
+        )
+        row = corpus.base_row("Cheffins", f"cheffins:{catalogue['catalogue_id']}",
+                              auction_date, lot_number, source_id, catalogue["url"])
+        row.update(
+            appearance_id=(f"Cheffins|catalogue:{catalogue['catalogue_id']}|"
+                           f"published-gap:{lot_number}"),
+            address=None,
+            postcode=None,
+            locality=None,
+            property_type=None,
+            description=None,
+            sector="unknown",
+            status="unknown",
+            property_id=None,
+            identity_method="published_denominator_and_retained_numeric_gap",
+            record_quality="partial_lot",
+            source_position=position,
+            source_status_text=None,
+            source_result_text=None,
+            source_evidence=row_evidence,
         )
         rows.append(row)
     return rows
@@ -351,6 +406,20 @@ def harvest(workers: int = 6) -> None:
                                       addendum_evidence, rows)
             state, rows = parse_catalogue(html, catalogue, evidence, date_override, recovered)
             state["addendum_source_evidence"] = addendum_evidence
+        if not state["catalogue_complete"]:
+            visible_rows = len(rows)
+            gaps = denominator_gap_rows(catalogue, state["auction_date"], evidence, rows)
+            if gaps:
+                rows.extend(gaps)
+                state["visible_source_rows"] = visible_rows
+                state["lots_captured"] = len(rows)
+                state["inferred_gap_lots_banked"] = len(gaps)
+                state["partial_reason"] = (
+                    f"{len(gaps)} published lot identities survive only as gaps in the "
+                    "retained first-party numeric sequence; address and result remain null"
+                )
+            else:
+                state["inferred_gap_lots_banked"] = 0
         return catalogue["catalogue_id"], state, rows
 
     with ThreadPoolExecutor(max_workers=max(1, min(workers, 8))) as pool:
