@@ -314,7 +314,7 @@ jobs:
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 30
         continue-on-error: true
-        run: python -u scripts/harvest_future_property_auctions.py --limit 12 --workers 3
+        run: python -u scripts/harvest_future_property_auctions.py --limit 18 --workers 3
       - name: Collect Auction House North East online results
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
