@@ -157,6 +157,58 @@ def test_source_corpus_exact_partial_lot_is_idempotent(tmp_path, monkeypatch):
     assert rows[0]["record_quality"] == "partial_lot"
 
 
+def test_source_corpus_can_bank_a_reconciled_complete_catalogue(tmp_path, monkeypatch):
+    monkeypatch.setattr(h, "ROOT", tmp_path)
+    monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")
+    corpus = tmp_path / "data/historical_source_corpus"
+    corpus.mkdir(parents=True)
+    lots = [{
+        "source_record_id": f"savills-nottingham-aid677-lot-{lot}",
+        "source_auction_id": "savills-nottingham-aid677",
+        "auction_date": "2010-05-13",
+        "lot_number": str(lot),
+        "address": None,
+        "locality": locality,
+        "property_type": "Retail",
+        "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=677",
+    } for lot, locality in ((1, "Nottingham"), (2, "Hucknall"))]
+    (corpus / "complete.json").write_text(json.dumps({
+        "auctioneer": "Savills Auctions",
+        "catalogue_complete": True,
+        "catalogue_lot_count": 2,
+        "captured_at_utc": "2026-10-07T05:00:00Z",
+        "lots": lots,
+    }))
+
+    assert h.bank_source_corpus() == 2
+    state = json.loads((h.DATA / "auctions/source-corpus/complete.json").read_text())
+    assert state["source_auction_id"] == "source-corpus:savills-nottingham-aid677"
+    assert state["catalogue_complete"] is True
+    assert state["lots_captured"] == state["expected_raw_records"] == 2
+
+
+def test_source_corpus_refuses_false_complete_catalogue_claim(tmp_path, monkeypatch):
+    monkeypatch.setattr(h, "ROOT", tmp_path)
+    monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")
+    corpus = tmp_path / "data/historical_source_corpus"
+    corpus.mkdir(parents=True)
+    (corpus / "incomplete.json").write_text(json.dumps({
+        "auctioneer": "Savills Auctions",
+        "catalogue_complete": True,
+        "catalogue_lot_count": 2,
+        "lots": [{
+            "source_record_id": "only-one",
+            "source_auction_id": "savills-nottingham-aid677",
+            "auction_date": "2010-05-13",
+            "lot_number": "1",
+            "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=677",
+        }],
+    }))
+
+    with pytest.raises(ValueError, match="does not reconcile"):
+        h.bank_source_corpus()
+
+
 def test_later_base_source_does_not_erase_earlier_address_enrichment(tmp_path, monkeypatch):
     monkeypatch.setattr(h, "ROOT", tmp_path)
     monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")

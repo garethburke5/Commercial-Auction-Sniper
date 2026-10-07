@@ -489,6 +489,7 @@ def bank_source_corpus():
                 tenure=plain(raw.get("tenure")),
                 guide_price=money(raw.get("guide_price_gbp") or raw.get("guide_gbp") or raw.get("guide_price")),
                 guide_price_high=money(raw.get("guide_price_high_gbp")),
+                available_price=money(raw.get("available_price_gbp") or raw.get("available_price")),
                 sale_price=money(raw.get("result_price_gbp") or raw.get("hammer_gbp") or
                                  raw.get("result_gbp") or raw.get("sale_price")),
                 annual_rent=money(raw.get("rent_pa_gbp") or raw.get("annual_rent")),
@@ -531,6 +532,31 @@ def bank_source_corpus():
                             if old.get(field) is not None:
                                 row[field] = old[field]
             total += write_rows(target_key, rows)
+            if payload.get("catalogue_complete") is True:
+                expected = payload.get("catalogue_lot_count") or payload.get("expected_lot_count")
+                try:
+                    expected = int(expected)
+                except (TypeError, ValueError):
+                    raise ValueError(f"Complete source corpus lacks a numeric lot count: {source_path}")
+                auction_ids = {row["source_auction_id"] for row in rows}
+                auction_dates = {row.get("auction_date") for row in rows}
+                if (len(rows) != expected or len({row["appearance_id"] for row in rows}) != expected or
+                        len(auction_ids) != 1 or len(auction_dates) != 1 or None in auction_dates):
+                    raise ValueError(f"Complete source corpus does not reconcile: {source_path}")
+                state = {
+                    "auctioneer": rows[0]["auctioneer"],
+                    "source_auction_id": next(iter(auction_ids)),
+                    "auction_date": next(iter(auction_dates)),
+                    "catalogue_complete": True,
+                    "completion_scope": clean(payload.get("completion_scope")) or
+                        "all published rows in the surviving first-party catalogue reconciled to its stated lot count",
+                    "lots_captured": len(rows),
+                    "raw_records_observed": len(lot_rows),
+                    "expected_raw_records": expected,
+                    "errors": [],
+                    "checked_at": clean(payload.get("captured_at_utc")) or now(),
+                }
+                save_json(DATA / "auctions/source-corpus" / (source_path.stem + ".json"), state)
         for enrichment in enrichment_rows:
             if not isinstance(enrichment, dict):
                 continue
