@@ -53,6 +53,11 @@ def grid_page_url(page: int) -> str:
                                       "include-sold": "on", "page": page})
 
 
+def reverse_page_url(page: int) -> str:
+    """Oldest-first list view used when the site's deepest newest-first pages fail."""
+    return INDEX + "?" + urlencode({**PARAMS, "order-results": "date-asc", "page": page})
+
+
 def get(session: requests.Session, url: str, attempts: int = 4) -> tuple[str, bytes]:
     for attempt in range(attempts):
         try:
@@ -394,6 +399,46 @@ def tail_grid_plan(result_count: int, first_failed_page: int, normal_page_size: 
     }
 
 
+def fetch_reconciled_reverse_tail(result_count: int, first_failed_page: int,
+                                  normal_page_size: int) -> tuple[list[dict], int, dict]:
+    """Recover a broken newest-first tail from shallow oldest-first list pages.
+
+    Pugh's final newest-first pages can return HTTP 500 even though the same
+    dated table rows remain reachable after reversing the published date sort.
+    Fetch one full overlap page beyond the missing tail and require its stable
+    property-ID sequence to be the exact reverse of the last good newest-first
+    page before admitting any recovered row.
+    """
+    first_position = (first_failed_page - 1) * normal_page_size + 1
+    missing_rows = result_count - first_position + 1
+    if first_failed_page <= 1 or missing_rows <= 0:
+        raise ValueError("Reverse-tail plan has no valid boundary")
+    reverse_pages = math.ceil((missing_rows + normal_page_size) / normal_page_size)
+    reverse_results = [fetch_reverse_page(page) for page in range(1, reverse_pages + 1)]
+    if any(total != result_count for _, _, total, _, _, _ in reverse_results):
+        raise ValueError("Published result count changed in reverse-tail fallback")
+    ascending_rows = []
+    ascending_ids = []
+    for _, rows, _, _, source_rows, source_ids in reverse_results:
+        if source_rows != len(source_ids):
+            raise ValueError("Reverse-tail source row count did not reconcile")
+        ascending_rows.extend(rows)
+        ascending_ids.extend(source_ids)
+    if len(ascending_ids) < missing_rows + normal_page_size:
+        raise ValueError("Reverse-tail fallback did not expose a full overlap page")
+    boundary_ids = fetch_page(first_failed_page - 1)[5]
+    if ascending_ids[missing_rows:missing_rows + normal_page_size] != list(reversed(boundary_ids)):
+        raise ValueError("Oldest/newest list boundary source IDs did not match exactly")
+    tail_rows = list(reversed(ascending_rows[:missing_rows]))
+    for offset, row in enumerate(tail_rows):
+        row["source_position"] = first_position + offset
+    return tail_rows, first_position, {
+        "reverse_pages": list(range(1, reverse_pages + 1)),
+        "missing_rows": missing_rows,
+        "boundary_page": first_failed_page - 1,
+    }
+
+
 def fetch_reconciled_grid_tail(result_count: int, first_failed_page: int,
                                normal_page_size: int) -> tuple[list[dict], int, dict]:
     """Fetch the live grid tail and prove its boundary against list-page IDs."""
@@ -469,6 +514,25 @@ def fetch_page(page: int) -> tuple[int, list[dict], int | None, int, int, list[s
                 "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
                 "sha256": sha256, "retrieved_at": retrieved,
                 "basis": "visible row in Pugh's retained first-party property-search archive"}
+    corpus.save_gzip(snapshot, {"evidence": evidence, "html": raw.decode("utf-8", "replace")})
+    parsed, page_total, page_last, source_rows = parse_page(raw, requested, evidence)
+    return page, parsed, page_total, page_last, source_rows, list_source_ids(raw)
+
+
+def fetch_reverse_page(page: int) -> tuple[int, list[dict], int | None, int, int, list[str]]:
+    """Fetch and parse one shallow oldest-first list page."""
+    requested = reverse_page_url(page)
+    final_url, raw = get(requests.Session(), requested)
+    sha256, retrieved = corpus.digest(raw), corpus.now()
+    snapshot = corpus.DATA / "sources/pugh" / (
+        f"property-search-date-asc-page-{page:03d}-{sha256[:16]}.json.gz"
+    )
+    evidence = {
+        "source_url": requested, "final_url": final_url,
+        "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
+        "sha256": sha256, "retrieved_at": retrieved,
+        "basis": "dated row in Pugh's retained oldest-first property-search list",
+    }
     corpus.save_gzip(snapshot, {"evidence": evidence, "html": raw.decode("utf-8", "replace")})
     parsed, page_total, page_last, source_rows = parse_page(raw, requested, evidence)
     return page, parsed, page_total, page_last, source_rows, list_source_ids(raw)
@@ -558,6 +622,11 @@ def harvest() -> None:
     }
     unresolved_rows = int(previous.get("unresolved_source_rows") or 0)
     grid_tail_source_rows = int(previous.get("grid_tail_source_rows") or unresolved_rows)
+    reverse_tail_source_rows = int(previous.get("reverse_tail_source_rows") or 0)
+    reverse_covered_pages = {
+        int(page) for page in (previous.get("reverse_covered_normal_pages") or [])
+        if str(page).isdigit()
+    }
     detail_recovered_source_ids = {
         str(value) for value in (previous.get("detail_recovered_source_ids") or [])
     }
@@ -681,14 +750,73 @@ def harvest() -> None:
             if failures and not full_scan and not repair_mode:
                 break
 
-    # Pugh's final all-types list pages return HTTP 500, while the same rows
-    # remain visible in the 80-card grid. Reconcile the grid boundary against
-    # known list rows and preserve its undated cards separately. This proves
-    # source-row pagination without inflating the auction-appearance count.
+    # Pugh's deepest newest-first pages can fail while the same dated table
+    # rows remain available on shallow oldest-first pages. Prefer that exact
+    # reverse-order recovery, with a full-page identity overlap check, before
+    # falling back to the undated grid.
     failed_pages = sorted(int(item["page"]) for item in failures
                           if str(item.get("page", "")).isdigit())
-    if (repair_mode and result_count and failed_pages and
-            failed_pages == list(range(failed_pages[0], last_page + 1))):
+    contiguous_failed_tail = bool(
+        failed_pages and failed_pages == list(range(failed_pages[0], last_page + 1))
+    )
+    if repair_mode and result_count and contiguous_failed_tail:
+        try:
+            tail_rows, first_position, reverse_plan = fetch_reconciled_reverse_tail(
+                result_count, failed_pages[0], first_source_rows
+            )
+            observed.update(row["source_lot_id"] for row in tail_rows)
+            for page in failed_pages:
+                page_counts[str(page)] = (
+                    result_count - first_source_rows * (last_page - 1)
+                    if page == last_page else first_source_rows
+                )
+                if page not in pages_captured:
+                    pages_captured.append(page)
+            for row in tail_rows:
+                if not bankable(row):
+                    continue
+                lot_key = str(row.get("lot_number") or "").lstrip("0").lower()
+                match = strict_legacy_match(
+                    row, legacy.get((address_key(row.get("address")), lot_key), [])
+                )
+                if match:
+                    path, old = match
+                    enriched_by_path[path].append({
+                        **old, **row, "appearance_id": old["appearance_id"],
+                        "source_evidence": {
+                            **row["source_evidence"],
+                            "prior_source_evidence": old.get("source_evidence"),
+                        },
+                    })
+                    continue
+                rows_to_write.append(row)
+                if row["appearance_id"] not in existing_appearance_ids:
+                    run_new.append(row)
+                    existing_appearance_ids.add(row["appearance_id"])
+            reverse_tail_source_rows = len(tail_rows)
+            reverse_covered_pages.update(failed_pages)
+            source_rows_complete = True
+            unresolved_rows = 0
+            grid_tail_source_rows = 0
+            failures = []
+            print(
+                f"PUGH recovered dated reverse tail rows={len(tail_rows)} "
+                f"positions={first_position}-{result_count} "
+                f"reverse_pages={reverse_plan['reverse_pages']}",
+                flush=True,
+            )
+        except Exception as exc:
+            failures.append({
+                "kind": "reverse_tail_recovery",
+                "url": reverse_page_url(1),
+                "error": f"{type(exc).__name__}: {exc}"[:500],
+            })
+            print("FAILED", failures[-1], flush=True)
+
+    # If reverse sorting is unavailable or its boundary cannot be proven, the
+    # same rows may still survive as undated cards in the grid.
+    if (repair_mode and result_count and contiguous_failed_tail and
+            not reverse_covered_pages):
         try:
             tail_rows, first_position, _ = fetch_reconciled_grid_tail(
                 result_count, failed_pages[0], first_source_rows
@@ -906,6 +1034,8 @@ def harvest() -> None:
                "source_rows_reconciled_complete": source_rows_complete,
                "grid_covered_normal_pages": sorted(grid_covered_pages),
                "grid_tail_source_rows": grid_tail_source_rows,
+               "reverse_tail_source_rows": reverse_tail_source_rows,
+               "reverse_covered_normal_pages": sorted(reverse_covered_pages),
                "unresolved_source_rows": unresolved_rows,
                "undated_tail_source_rows": undated_tail_source_rows,
                "undated_tail_appearances_captured": undated_tail_appearances_captured,
@@ -933,6 +1063,8 @@ def harvest() -> None:
         "published_rows_reconciled": published_rows_reconciled,
         "source_rows_reconciled_complete": source_rows_complete,
         "grid_tail_source_rows": grid_tail_source_rows,
+        "reverse_tail_source_rows": reverse_tail_source_rows,
+        "reverse_covered_normal_pages": sorted(reverse_covered_pages),
         "unresolved_source_rows": unresolved_rows,
         "undated_tail_source_rows": undated_tail_source_rows,
         "undated_tail_appearances_captured": undated_tail_appearances_captured,
