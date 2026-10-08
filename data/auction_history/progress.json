@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-08T15:14:27.433587+00:00",
-  "individual_lot_records_captured": 269502,
-  "records_with_address": 259945,
-  "partial_lot_records": 9557,
-  "exact_address_groups": 152018,
-  "groups_with_repeat_appearances": 37187,
+  "generated_at": "2026-10-08T15:39:31.758322+00:00",
+  "individual_lot_records_captured": 269863,
+  "records_with_address": 259974,
+  "partial_lot_records": 9889,
+  "exact_address_groups": 152037,
+  "groups_with_repeat_appearances": 37190,
   "by_auctioneer": {
     "Acuitus": 5697,
-    "Allsop": 43835,
+    "Allsop": 44167,
     "Allsop Commercial": 66,
     "Anderson & Garland": 26,
     "Auction Estates": 2028,
@@ -28,7 +28,7 @@
     "Auction House North East": 533,
     "Auction House North West": 385,
     "Auction House North Yorkshire & Tees Valley": 32,
-    "Auction House Northants, Beds & Bucks": 12,
+    "Auction House Northants, Beds & Bucks": 13,
     "Auction House Northern Ireland": 6,
     "Auction House Notts & Derby": 281,
     "Auction House Scotland": 3,
@@ -60,7 +60,7 @@
     "McHugh & Co": 13926,
     "Network Auctions": 1202,
     "Pattinson Auctions": 449,
-    "Paul Fosh Auctions": 5545,
+    "Paul Fosh Auctions": 5573,
     "Phillip Arnold Auctions": 2416,
     "Pugh Auctioneers": 6844,
     "SDL Property Auctions": 443,
@@ -79,7 +79,7 @@
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 4130,
+    "null": 4129,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -91,7 +91,7 @@
     "2010": 2294,
     "2011": 3308,
     "2012": 3628,
-    "2013": 5477,
+    "2013": 5809,
     "2014": 8537,
     "2015": 7926,
     "2016": 8656,
@@ -104,20 +104,20 @@
     "2023": 24438,
     "2024": 37036,
     "2025": 43957,
-    "2026": 39137
+    "2026": 39167
   },
   "by_sector": {
-    "commercial": 37081,
-    "land": 16411,
-    "mixed-use": 39109,
-    "residential": 131445,
-    "unknown": 45456
+    "commercial": 37084,
+    "land": 16428,
+    "mixed-use": 39110,
+    "residential": 131673,
+    "unknown": 45568
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 1839,
+  "surviving_catalogues_completely_harvested": 1840,
   "catalogues_incomplete_or_unreconciled": 618,
   "catalogue_fetch_or_parse_failures": 75,
   "limits": [
@@ -127,14 +127,14 @@
     "Legacy partial lots retain location and lot number; missing street addresses remain null."
   ],
   "paul_fosh_results": {
-    "checked_at": "2026-10-08T14:40:05.971048+00:00",
-    "lots_captured": 5545,
-    "current_run_unique_lots": 5544,
-    "expected_public_results": 5544,
-    "run_new_appearances": 12,
-    "run_new_address_records": 12,
+    "checked_at": "2026-10-08T15:38:29.402398+00:00",
+    "lots_captured": 5573,
+    "current_run_unique_lots": 5571,
+    "expected_public_results": 5571,
+    "run_new_appearances": 28,
+    "run_new_address_records": 28,
     "run_new_partial_lots": 0,
-    "retained_not_in_current_public_pagination": 1,
+    "retained_not_in_current_public_pagination": 2,
     "pages_captured": [
       1,
       2,
@@ -246,11 +246,317 @@
       108,
       109,
       110,
-      111
+      111,
+      112
     ],
-    "pages_expected": 111,
-    "results_complete": true,
-    "failures": [],
+    "pages_expected": 112,
+    "results_complete": false,
+    "failures": [
+      {
+        "page": 37,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 38,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 39,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 40,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 41,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 42,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 43,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 44,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 45,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 46,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 47,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 48,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 49,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 50,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 51,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 52,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 53,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 54,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 55,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 56,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 57,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 58,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 59,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 60,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 61,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 62,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 63,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 64,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 65,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 66,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 67,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 68,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 69,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 70,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 71,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 72,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 73,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 74,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 75,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 76,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 77,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 78,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 79,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 80,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 81,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 82,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 83,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 84,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 85,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 86,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 87,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 88,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 89,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 90,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 91,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 92,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 93,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 94,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 95,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 96,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 97,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 98,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 99,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 100,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 101,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 102,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 103,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 104,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 105,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 106,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 107,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 108,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 109,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 110,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 111,
+        "error": "Result count changed during traversal"
+      },
+      {
+        "page": 112,
+        "error": "Result count changed during traversal"
+      }
+    ],
     "date_basis": "individual published lot end dates; not inferred auction-container dates"
   }
 }
