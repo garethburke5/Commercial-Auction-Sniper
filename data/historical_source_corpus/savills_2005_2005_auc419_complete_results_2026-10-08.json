@@ -1,0 +1,2288 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "captured_at_utc": "2026-10-08T06:01:06Z",
+  "capture_mode": "complete_secondary_result_grid_with_first_party_catalogue_reconciliation",
+  "scope": "All 91 lot-labelled result rows from the surviving PropertyAuctions AID 419 grid for the 12 December 2005 Savills Commercial sale. The archived first-party Savills page identifies the date, states a total of 91 lots across 5 catalogue pages and exposes lots 1-20 on page 1. Those first 20 rows reconcile to the secondary grid. The secondary grid exposes 91 distinct lot labels exactly once and reports Offered: 91. Street addresses and postcodes are not exposed and remain null.",
+  "source_auction_id": "savills-commercial-auc419",
+  "auction_date": "2005-12-12",
+  "catalogue_lot_count": 91,
+  "catalogue_complete": true,
+  "completion_scope": "all 91 lot labels appear exactly once in the result grid and reconcile to both the first-party total of 91 and the secondary Offered: 91 denominator",
+  "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+  "first_party_source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+  "source_summary": {
+    "heading": "12 DECEMBER 2005 SAVILLS (COMMERCIAL)",
+    "offered": 91,
+    "rows_observed": 91,
+    "unique_lot_numbers": 91,
+    "first_party_rows_cross_checked": 20,
+    "first_party_catalogue_total": 91,
+    "first_party_catalogue_pages": 5,
+    "secondary_result_pages": 1
+  },
+  "raw_table_text": "1\tRetail\tBrixham\t£600,000\n2\tRetail\tBletchley\t£327,000\n3\tRetail\tChessington\t£1.15M\n4\tOffice\tRedhill\t£2.06M\n5\tLeisure\tAlcester\t£625,000\n6\tInvestment Other\tSouthend-on-Sea\t£926,000\n7\tInvestment Other\tDoncaster\t7-9 £18,000\n8\tInvestment Other\tDoncaster\t7-9 £18,000\n9\tInvestment Other\tDoncaster\t7-9 £18,000\n10\tRetail\tBathgate\tAvailable at £1.8M\n11\tRetail\tHalesowen\t£427,500\n12\tGround Rent\tDoncaster\t£75,000\n13\tGround Rent\tDoncaster\t£86,000\n14\tRetail\tCrewe\t14-23 Withdrawn under offer\n15\tRetail\tCrewe\t14-23 Withdrawn under offer\n16\tRetail\tCrewe\t14-23 Withdrawn under offer\n17\tRetail\tCrewe\t14-23 Withdrawn under offer\n18\tRetail\tCrewe\t14-23 Withdrawn under offer\n19\tRetail\tCrewe\t14-23 Withdrawn under offer\n20\tRetail\tCrewe\t14-23 Withdrawn under offer\n21\tRetail\tCrewe\t14-23 Withdrawn under offer\n22\tRetail\tCrewe\t14-23 Withdrawn under offer\n23\tLand\tCrewe\t14-23 Withdrawn under offer\n24\tLeisure\tHereford\t£600,000\n25\tRetail\tFalkirk\tAvailable at £1.2M\n26\tGround Rent\tDoncaster\t£68,000\n27\tGround Rent\tDoncaster\t£70,000\n28\tOffice\tSlough\tAvailable at £1.1M\n29\tRetail\tOld Woking\t£1.6M\n30\tGround Rent\tDoncaster\t£45,000\n31\tGround Rent\tDonc\t£31,000\n32\tRetail\tDoncaster\t£221,000\n33\tRetail\tDoncaster\t£226,000\n34\tLeisure\tBroseley\t£545,000\n35\tLeisure\tBromley\tWithdrawn Prior\n36\tInvestment Other\tDerby\tWithdrawn Prior\n37\tGround Rent\tDoncaster\t£36,000\n38\tGround Rent\tDoncaster\t£33,000\n39\tOffice\tTunbridge Wells\tWithdrawn Prior\n40\tRetail\tCamberley\tAvailable at £1.45M\n41\tRetail\tDoncaster\t£110,000\n42\tRetail\tDoncast\t£122,000\n43\tRetail\tDoncaster\t£133,000\n44\tOther\tDevelopment Opportunity in London E1\t£1.28M\n45\tIndustrial\tDidcot\tAvailable at £350,000\n46\tLand\tMaidenhead\t£57,000\n47\tLeisure\tSandbach\t£430,000\n48\tGround Rent\tDoncaster\t£9,500\n49\tGround Rent\tDoncaster\t£30,000\n50\tOther\tDevelopment Opportunity in London E14\t£410,000\n51\tInvestment Other\tGlasgow\tAvailable at £2.6M\n52\tRetail\tDoncaster\t£110,000\n53\tRetail\tDoncaster\t£235,000\n54\tRetail\tOdiham\t£230,000\n55\tInvestment Other\tChalfont St Giles\t£290,000\n56\tRetail\tSt Ives\t£236,000\n57\tIndustrial\tWeybridge\tAvailable at £525,000\n58\tOffice\tRedditch\tAvailable at £750,000\n59\tOffice\tRedditch\tAvailable at £900,000\n60\tGround Rent\tDoncaster\t£21,000\n61\tGround Rent\tDoncaster\t£25,000\n62\tIndustrial\tTewkesbury\tAvailable at £195,500\n63\tIndustrial\tTewkesbury\tAvailable at £192,500\n64\tOffice\tLondon SW4\tWithdrawn Prior\n65\tLeisure\tLondon SE1\t£1.1M\n66\tLeisure\tLiverpool\t£1.2M\n67\tRetail\tCrawley\t£155,000\n68\tGround Rent\tDoncaster\t£40,000\n69\tGround Rent\tDoncaster\t£60,000\n70\tGround Rent\tDoncaster\t£30,000\n71\tGround Rent\tDoncaster\t£22,000\n72\tLeisure\tDurham\t£270,000\n73\tOther\tDevelopment Opportunity in Wembley\t£575,000\n74\tLand\tLoughborough\t£35,000\n75\tOther\tDevelopment Opportunity in Birmingham\t£750,000\n76\tOther\tDevelopment Opportunity in Northwood\tAvailable at £950,000\n77\tLand\tRanby\tWithdrawn Prior\n78\tLand\tBournemouth\t£800,000\n79\tGround Rent\tDoncaster\t£26,000\n80\tGround Rent\tDoncaster\t£20,000\n81\tLand\tNottingham\t£30,000\n82\tLand\tBoston\t£27,000\n83\tInvestment Freehold Building\tDoncaster\t£174,000\n84\tGarage\tDoncaster\tWithdrawn Prior\n85\tOffice\tWest Drayton\tAvailable at £140,000\n86\tLand\tNorthwood\t£37,500\n87\tLand\tNorthwood\t£37,500\n88\tGround Rent\tDoncaster\t£76,000\n89\tGround Rent\tDoncaster\t£20,000\n90\tGround Rent\tMexborough\t£20,000\n91\tIndustrial\tMexborough\t£321,000",
+  "appearance_count": 91,
+  "address_records_added": 0,
+  "partial_records_added": 91,
+  "reconciliation": {
+    "first_party_catalogue_total": 91,
+    "reported_offered": 91,
+    "source_rows_observed": 91,
+    "unique_lot_numbers": 91,
+    "result_pagination_pages": 1,
+    "reconciliation_shortfall": 0,
+    "status": "complete surviving result grid"
+  },
+  "lots": [
+    {
+      "source_record_id": "savills-commercial-auc419-pos1",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "1",
+      "address": null,
+      "locality": "Brixham",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=1",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "1",
+          "type": "Retail",
+          "location": "Brixham",
+          "result": "£600,000"
+        },
+        "first_party_grid": "Retail Brixham £600,000"
+      },
+      "result_price_gbp": 600000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos2",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "2",
+      "address": null,
+      "locality": "Bletchley",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=2",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "2",
+          "type": "Retail",
+          "location": "Bletchley",
+          "result": "£327,000"
+        },
+        "first_party_grid": "Retail Bletchley £327,000"
+      },
+      "result_price_gbp": 327000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos3",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "3",
+      "address": null,
+      "locality": "Chessington",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=3",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "3",
+          "type": "Retail",
+          "location": "Chessington",
+          "result": "£1.15M"
+        },
+        "first_party_grid": "Retail Chessington £1.15M"
+      },
+      "result_price_gbp": 1150000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos4",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "4",
+      "address": null,
+      "locality": "Redhill",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=4",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "4",
+          "type": "Office",
+          "location": "Redhill",
+          "result": "£2.06M"
+        },
+        "first_party_grid": "Office Redhill £2.06M"
+      },
+      "result_price_gbp": 2060000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos5",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "5",
+      "address": null,
+      "locality": "Alcester",
+      "property_type": "Leisure",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=5",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "5",
+          "type": "Leisure",
+          "location": "Alcester",
+          "result": "£625,000"
+        },
+        "first_party_grid": "Leisure Alcester £625,000"
+      },
+      "result_price_gbp": 625000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos6",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "6",
+      "address": null,
+      "locality": "Southend-on-Sea",
+      "property_type": "Investment",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=6",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "6",
+          "type": "Investment Other",
+          "location": "Southend-on-Sea",
+          "result": "£926,000"
+        },
+        "first_party_grid": "Investment Southend-on-Sea £926,000"
+      },
+      "result_price_gbp": 926000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos7",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "7",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Investment",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=7",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "7",
+          "type": "Investment Other",
+          "location": "Doncaster",
+          "result": "7-9 £18,000"
+        },
+        "first_party_grid": "Investment Doncaster 7-9 £18,000"
+      },
+      "result_price_gbp": 18000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos8",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "8",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Investment",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=8",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "8",
+          "type": "Investment Other",
+          "location": "Doncaster",
+          "result": "7-9 £18,000"
+        },
+        "first_party_grid": "Investment Doncaster 7-9 £18,000"
+      },
+      "result_price_gbp": 18000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos9",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "9",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Investment",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=9",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "9",
+          "type": "Investment Other",
+          "location": "Doncaster",
+          "result": "7-9 £18,000"
+        },
+        "first_party_grid": "Investment Doncaster 7-9 £18,000"
+      },
+      "result_price_gbp": 18000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos10",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "10",
+      "address": null,
+      "locality": "Bathgate",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=10",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "10",
+          "type": "Retail",
+          "location": "Bathgate",
+          "result": "Available at £1.8M"
+        },
+        "first_party_grid": "Retail Bathgate Available at £1.8M"
+      },
+      "available_price_gbp": 1800000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos11",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "11",
+      "address": null,
+      "locality": "Halesowen",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=11",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "11",
+          "type": "Retail",
+          "location": "Halesowen",
+          "result": "£427,500"
+        },
+        "first_party_grid": "Retail Halesowen £427,500"
+      },
+      "result_price_gbp": 427500
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos12",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "12",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=12",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "12",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£75,000"
+        },
+        "first_party_grid": "Ground Rent Doncaster £75,000"
+      },
+      "result_price_gbp": 75000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos13",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "13",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=13",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "13",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£86,000"
+        },
+        "first_party_grid": "Ground Rent Doncaster £86,000"
+      },
+      "result_price_gbp": 86000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos14",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "14",
+      "address": null,
+      "locality": "Crewe",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=14",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "14-23 Withdrawn under offer",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "14",
+          "type": "Retail",
+          "location": "Crewe",
+          "result": "14-23 Withdrawn under offer"
+        },
+        "first_party_grid": "Retail Crewe 14-23 Withdrawn under offer"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos15",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "15",
+      "address": null,
+      "locality": "Crewe",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=15",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "14-23 Withdrawn under offer",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "15",
+          "type": "Retail",
+          "location": "Crewe",
+          "result": "14-23 Withdrawn under offer"
+        },
+        "first_party_grid": "Retail Crewe 14-23 Withdrawn under offer"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos16",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "16",
+      "address": null,
+      "locality": "Crewe",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=16",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "14-23 Withdrawn under offer",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "16",
+          "type": "Retail",
+          "location": "Crewe",
+          "result": "14-23 Withdrawn under offer"
+        },
+        "first_party_grid": "Retail Crewe 14-23 Withdrawn under offer"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos17",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "17",
+      "address": null,
+      "locality": "Crewe",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=17",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "14-23 Withdrawn under offer",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "17",
+          "type": "Retail",
+          "location": "Crewe",
+          "result": "14-23 Withdrawn under offer"
+        },
+        "first_party_grid": "Retail Crewe 14-23 Withdrawn under offer"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos18",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "18",
+      "address": null,
+      "locality": "Crewe",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=18",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "14-23 Withdrawn under offer",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "18",
+          "type": "Retail",
+          "location": "Crewe",
+          "result": "14-23 Withdrawn under offer"
+        },
+        "first_party_grid": "Retail Crewe 14-23 Withdrawn under offer"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos19",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "19",
+      "address": null,
+      "locality": "Crewe",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=19",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "14-23 Withdrawn under offer",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "19",
+          "type": "Retail",
+          "location": "Crewe",
+          "result": "14-23 Withdrawn under offer"
+        },
+        "first_party_grid": "Retail Crewe 14-23 Withdrawn under offer"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos20",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "20",
+      "address": null,
+      "locality": "Crewe",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills row cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020228id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=419&date=12/12/2005",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=419&pos=20",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "14-23 Withdrawn under offer",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "20",
+          "type": "Retail",
+          "location": "Crewe",
+          "result": "14-23 Withdrawn under offer"
+        },
+        "first_party_grid": "Retail Crewe 14-23 Withdrawn under offer"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos21",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "21",
+      "address": null,
+      "locality": "Crewe",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "14-23 Withdrawn under offer",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "21",
+          "type": "Retail",
+          "location": "Crewe",
+          "result": "14-23 Withdrawn under offer"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos22",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "22",
+      "address": null,
+      "locality": "Crewe",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "14-23 Withdrawn under offer",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "22",
+          "type": "Retail",
+          "location": "Crewe",
+          "result": "14-23 Withdrawn under offer"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos23",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "23",
+      "address": null,
+      "locality": "Crewe",
+      "property_type": "Land",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "14-23 Withdrawn under offer",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "23",
+          "type": "Land",
+          "location": "Crewe",
+          "result": "14-23 Withdrawn under offer"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos24",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "24",
+      "address": null,
+      "locality": "Hereford",
+      "property_type": "Leisure",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "24",
+          "type": "Leisure",
+          "location": "Hereford",
+          "result": "£600,000"
+        }
+      },
+      "result_price_gbp": 600000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos25",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "25",
+      "address": null,
+      "locality": "Falkirk",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "25",
+          "type": "Retail",
+          "location": "Falkirk",
+          "result": "Available at £1.2M"
+        }
+      },
+      "available_price_gbp": 1200000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos26",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "26",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "26",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£68,000"
+        }
+      },
+      "result_price_gbp": 68000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos27",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "27",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "27",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£70,000"
+        }
+      },
+      "result_price_gbp": 70000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos28",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "28",
+      "address": null,
+      "locality": "Slough",
+      "property_type": "Office",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "28",
+          "type": "Office",
+          "location": "Slough",
+          "result": "Available at £1.1M"
+        }
+      },
+      "available_price_gbp": 1100000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos29",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "29",
+      "address": null,
+      "locality": "Old Woking",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "29",
+          "type": "Retail",
+          "location": "Old Woking",
+          "result": "£1.6M"
+        }
+      },
+      "result_price_gbp": 1600000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos30",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "30",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "30",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£45,000"
+        }
+      },
+      "result_price_gbp": 45000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos31",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "31",
+      "address": null,
+      "locality": "Donc",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "31",
+          "type": "Ground Rent",
+          "location": "Donc",
+          "result": "£31,000"
+        }
+      },
+      "result_price_gbp": 31000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos32",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "32",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "32",
+          "type": "Retail",
+          "location": "Doncaster",
+          "result": "£221,000"
+        }
+      },
+      "result_price_gbp": 221000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos33",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "33",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "33",
+          "type": "Retail",
+          "location": "Doncaster",
+          "result": "£226,000"
+        }
+      },
+      "result_price_gbp": 226000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos34",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "34",
+      "address": null,
+      "locality": "Broseley",
+      "property_type": "Leisure",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "34",
+          "type": "Leisure",
+          "location": "Broseley",
+          "result": "£545,000"
+        }
+      },
+      "result_price_gbp": 545000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos35",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "35",
+      "address": null,
+      "locality": "Bromley",
+      "property_type": "Leisure",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "35",
+          "type": "Leisure",
+          "location": "Bromley",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos36",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "36",
+      "address": null,
+      "locality": "Derby",
+      "property_type": "Investment Other",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "36",
+          "type": "Investment Other",
+          "location": "Derby",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos37",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "37",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "37",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£36,000"
+        }
+      },
+      "result_price_gbp": 36000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos38",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "38",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "38",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£33,000"
+        }
+      },
+      "result_price_gbp": 33000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos39",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "39",
+      "address": null,
+      "locality": "Tunbridge Wells",
+      "property_type": "Office",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "39",
+          "type": "Office",
+          "location": "Tunbridge Wells",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos40",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "40",
+      "address": null,
+      "locality": "Camberley",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "40",
+          "type": "Retail",
+          "location": "Camberley",
+          "result": "Available at £1.45M"
+        }
+      },
+      "available_price_gbp": 1450000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos41",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "41",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "41",
+          "type": "Retail",
+          "location": "Doncaster",
+          "result": "£110,000"
+        }
+      },
+      "result_price_gbp": 110000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos42",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "42",
+      "address": null,
+      "locality": "Doncast",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "42",
+          "type": "Retail",
+          "location": "Doncast",
+          "result": "£122,000"
+        }
+      },
+      "result_price_gbp": 122000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos43",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "43",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "43",
+          "type": "Retail",
+          "location": "Doncaster",
+          "result": "£133,000"
+        }
+      },
+      "result_price_gbp": 133000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos44",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "44",
+      "address": null,
+      "locality": "Development Opportunity in London E1",
+      "property_type": "Other",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "44",
+          "type": "Other",
+          "location": "Development Opportunity in London E1",
+          "result": "£1.28M"
+        }
+      },
+      "result_price_gbp": 1280000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos45",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "45",
+      "address": null,
+      "locality": "Didcot",
+      "property_type": "Industrial",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "45",
+          "type": "Industrial",
+          "location": "Didcot",
+          "result": "Available at £350,000"
+        }
+      },
+      "available_price_gbp": 350000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos46",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "46",
+      "address": null,
+      "locality": "Maidenhead",
+      "property_type": "Land",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "46",
+          "type": "Land",
+          "location": "Maidenhead",
+          "result": "£57,000"
+        }
+      },
+      "result_price_gbp": 57000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos47",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "47",
+      "address": null,
+      "locality": "Sandbach",
+      "property_type": "Leisure",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "47",
+          "type": "Leisure",
+          "location": "Sandbach",
+          "result": "£430,000"
+        }
+      },
+      "result_price_gbp": 430000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos48",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "48",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "48",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£9,500"
+        }
+      },
+      "result_price_gbp": 9500
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos49",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "49",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "49",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£30,000"
+        }
+      },
+      "result_price_gbp": 30000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos50",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "50",
+      "address": null,
+      "locality": "Development Opportunity in London E14",
+      "property_type": "Other",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "50",
+          "type": "Other",
+          "location": "Development Opportunity in London E14",
+          "result": "£410,000"
+        }
+      },
+      "result_price_gbp": 410000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos51",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "51",
+      "address": null,
+      "locality": "Glasgow",
+      "property_type": "Investment Other",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "51",
+          "type": "Investment Other",
+          "location": "Glasgow",
+          "result": "Available at £2.6M"
+        }
+      },
+      "available_price_gbp": 2600000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos52",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "52",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "52",
+          "type": "Retail",
+          "location": "Doncaster",
+          "result": "£110,000"
+        }
+      },
+      "result_price_gbp": 110000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos53",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "53",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "53",
+          "type": "Retail",
+          "location": "Doncaster",
+          "result": "£235,000"
+        }
+      },
+      "result_price_gbp": 235000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos54",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "54",
+      "address": null,
+      "locality": "Odiham",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "54",
+          "type": "Retail",
+          "location": "Odiham",
+          "result": "£230,000"
+        }
+      },
+      "result_price_gbp": 230000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos55",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "55",
+      "address": null,
+      "locality": "Chalfont St Giles",
+      "property_type": "Investment Other",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "55",
+          "type": "Investment Other",
+          "location": "Chalfont St Giles",
+          "result": "£290,000"
+        }
+      },
+      "result_price_gbp": 290000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos56",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "56",
+      "address": null,
+      "locality": "St Ives",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "56",
+          "type": "Retail",
+          "location": "St Ives",
+          "result": "£236,000"
+        }
+      },
+      "result_price_gbp": 236000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos57",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "57",
+      "address": null,
+      "locality": "Weybridge",
+      "property_type": "Industrial",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "57",
+          "type": "Industrial",
+          "location": "Weybridge",
+          "result": "Available at £525,000"
+        }
+      },
+      "available_price_gbp": 525000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos58",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "58",
+      "address": null,
+      "locality": "Redditch",
+      "property_type": "Office",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "58",
+          "type": "Office",
+          "location": "Redditch",
+          "result": "Available at £750,000"
+        }
+      },
+      "available_price_gbp": 750000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos59",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "59",
+      "address": null,
+      "locality": "Redditch",
+      "property_type": "Office",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "59",
+          "type": "Office",
+          "location": "Redditch",
+          "result": "Available at £900,000"
+        }
+      },
+      "available_price_gbp": 900000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos60",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "60",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "60",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£21,000"
+        }
+      },
+      "result_price_gbp": 21000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos61",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "61",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "61",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£25,000"
+        }
+      },
+      "result_price_gbp": 25000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos62",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "62",
+      "address": null,
+      "locality": "Tewkesbury",
+      "property_type": "Industrial",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "62",
+          "type": "Industrial",
+          "location": "Tewkesbury",
+          "result": "Available at £195,500"
+        }
+      },
+      "available_price_gbp": 195500
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos63",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "63",
+      "address": null,
+      "locality": "Tewkesbury",
+      "property_type": "Industrial",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "63",
+          "type": "Industrial",
+          "location": "Tewkesbury",
+          "result": "Available at £192,500"
+        }
+      },
+      "available_price_gbp": 192500
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos64",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "64",
+      "address": null,
+      "locality": "London SW4",
+      "property_type": "Office",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "64",
+          "type": "Office",
+          "location": "London SW4",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos65",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "65",
+      "address": null,
+      "locality": "London SE1",
+      "property_type": "Leisure",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "65",
+          "type": "Leisure",
+          "location": "London SE1",
+          "result": "£1.1M"
+        }
+      },
+      "result_price_gbp": 1100000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos66",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "66",
+      "address": null,
+      "locality": "Liverpool",
+      "property_type": "Leisure",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "66",
+          "type": "Leisure",
+          "location": "Liverpool",
+          "result": "£1.2M"
+        }
+      },
+      "result_price_gbp": 1200000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos67",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "67",
+      "address": null,
+      "locality": "Crawley",
+      "property_type": "Retail",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "67",
+          "type": "Retail",
+          "location": "Crawley",
+          "result": "£155,000"
+        }
+      },
+      "result_price_gbp": 155000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos68",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "68",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "68",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£40,000"
+        }
+      },
+      "result_price_gbp": 40000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos69",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "69",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "69",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£60,000"
+        }
+      },
+      "result_price_gbp": 60000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos70",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "70",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "70",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£30,000"
+        }
+      },
+      "result_price_gbp": 30000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos71",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "71",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "71",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£22,000"
+        }
+      },
+      "result_price_gbp": 22000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos72",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "72",
+      "address": null,
+      "locality": "Durham",
+      "property_type": "Leisure",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "72",
+          "type": "Leisure",
+          "location": "Durham",
+          "result": "£270,000"
+        }
+      },
+      "result_price_gbp": 270000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos73",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "73",
+      "address": null,
+      "locality": "Development Opportunity in Wembley",
+      "property_type": "Other",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "73",
+          "type": "Other",
+          "location": "Development Opportunity in Wembley",
+          "result": "£575,000"
+        }
+      },
+      "result_price_gbp": 575000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos74",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "74",
+      "address": null,
+      "locality": "Loughborough",
+      "property_type": "Land",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "74",
+          "type": "Land",
+          "location": "Loughborough",
+          "result": "£35,000"
+        }
+      },
+      "result_price_gbp": 35000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos75",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "75",
+      "address": null,
+      "locality": "Development Opportunity in Birmingham",
+      "property_type": "Other",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "75",
+          "type": "Other",
+          "location": "Development Opportunity in Birmingham",
+          "result": "£750,000"
+        }
+      },
+      "result_price_gbp": 750000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos76",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "76",
+      "address": null,
+      "locality": "Development Opportunity in Northwood",
+      "property_type": "Other",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "76",
+          "type": "Other",
+          "location": "Development Opportunity in Northwood",
+          "result": "Available at £950,000"
+        }
+      },
+      "available_price_gbp": 950000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos77",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "77",
+      "address": null,
+      "locality": "Ranby",
+      "property_type": "Land",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "77",
+          "type": "Land",
+          "location": "Ranby",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos78",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "78",
+      "address": null,
+      "locality": "Bournemouth",
+      "property_type": "Land",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "78",
+          "type": "Land",
+          "location": "Bournemouth",
+          "result": "£800,000"
+        }
+      },
+      "result_price_gbp": 800000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos79",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "79",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "79",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£26,000"
+        }
+      },
+      "result_price_gbp": 26000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos80",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "80",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "80",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£20,000"
+        }
+      },
+      "result_price_gbp": 20000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos81",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "81",
+      "address": null,
+      "locality": "Nottingham",
+      "property_type": "Land",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "81",
+          "type": "Land",
+          "location": "Nottingham",
+          "result": "£30,000"
+        }
+      },
+      "result_price_gbp": 30000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos82",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "82",
+      "address": null,
+      "locality": "Boston",
+      "property_type": "Land",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "82",
+          "type": "Land",
+          "location": "Boston",
+          "result": "£27,000"
+        }
+      },
+      "result_price_gbp": 27000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos83",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "83",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Investment Freehold Building",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "83",
+          "type": "Investment Freehold Building",
+          "location": "Doncaster",
+          "result": "£174,000"
+        }
+      },
+      "result_price_gbp": 174000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos84",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "84",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Garage",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "84",
+          "type": "Garage",
+          "location": "Doncaster",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos85",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "85",
+      "address": null,
+      "locality": "West Drayton",
+      "property_type": "Office",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Available",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "85",
+          "type": "Office",
+          "location": "West Drayton",
+          "result": "Available at £140,000"
+        }
+      },
+      "available_price_gbp": 140000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos86",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "86",
+      "address": null,
+      "locality": "Northwood",
+      "property_type": "Land",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "86",
+          "type": "Land",
+          "location": "Northwood",
+          "result": "£37,500"
+        }
+      },
+      "result_price_gbp": 37500
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos87",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "87",
+      "address": null,
+      "locality": "Northwood",
+      "property_type": "Land",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "87",
+          "type": "Land",
+          "location": "Northwood",
+          "result": "£37,500"
+        }
+      },
+      "result_price_gbp": 37500
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos88",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "88",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "88",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£76,000"
+        }
+      },
+      "result_price_gbp": 76000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos89",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "89",
+      "address": null,
+      "locality": "Doncaster",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "89",
+          "type": "Ground Rent",
+          "location": "Doncaster",
+          "result": "£20,000"
+        }
+      },
+      "result_price_gbp": 20000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos90",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "90",
+      "address": null,
+      "locality": "Mexborough",
+      "property_type": "Ground Rent",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "90",
+          "type": "Ground Rent",
+          "location": "Mexborough",
+          "result": "£20,000"
+        }
+      },
+      "result_price_gbp": 20000
+    },
+    {
+      "source_record_id": "savills-commercial-auc419-pos91",
+      "source_auction_id": "savills-commercial-auc419",
+      "auction_date": "2005-12-12",
+      "lot_number": "91",
+      "address": null,
+      "locality": "Mexborough",
+      "property_type": "Industrial",
+      "notes": "Surviving secondary result-grid row within a catalogue whose total and first page were reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=419",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=419"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "91",
+          "type": "Industrial",
+          "location": "Mexborough",
+          "result": "£321,000"
+        }
+      },
+      "result_price_gbp": 321000
+    }
+  ]
+}
