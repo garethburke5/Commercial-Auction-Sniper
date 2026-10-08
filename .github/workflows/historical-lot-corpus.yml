@@ -209,6 +209,11 @@ jobs:
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_seel_catalogues.py
+      - name: Bank newly completed Bond Wolfe result catalogues
+        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        timeout-minutes: 10
+        continue-on-error: true
+        run: python -u scripts/harvest_bond_wolfe_history.py
       - name: Bank every previously recovered legacy lot
         if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         run: python -u historical_corpus.py bank-legacy
