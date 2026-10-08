@@ -116597,7 +116597,7 @@
       },
       "quality_gate_rejections": 0,
       "production_rows": 68,
-      "published_rows": 67
+      "published_rows": 47
     },
     {
       "source": "Auction House East Anglia",
@@ -118967,7 +118967,7 @@
       },
       "quality_gate_rejections": 0,
       "production_rows": 5,
-      "published_rows": 4
+      "published_rows": 3
     },
     {
       "source": "Auction House Cumbria",
@@ -126568,7 +126568,9 @@
       },
       "quality_gate_rejections": 0,
       "production_rows": 169,
-      "published_rows": 166
+      "published_rows": 13,
+      "coverage_status": "DEGRADED",
+      "coverage_failure_reason": "Candidate/publication drop: 169 commercial/mixed-use candidates \u2192 13 current rows; inspect dates and rejection evidence; Count collapse: 165 still-current prior rows \u2192 13 published"
     },
     {
       "source": "Acuitus",
@@ -130458,7 +130460,7 @@
       },
       "quality_gate_rejections": 0,
       "production_rows": 0,
-      "published_rows": 1,
+      "published_rows": 0,
       "coverage_status": "DEGRADED",
       "coverage_failure_reason": "30 advertised UK event lots plus 0 ended record(s); 31/31 detailed records parsed; 0 commercial/mixed-use. https://www.wilsonsauctions.com/auctions/land-property-auction-scotland-5592: Catalogue denominator mismatch: 8/7 lots Temporary collector outage: retained 1 last-known-good row(s); 1 eligible current row(s) restored on the public board. Undated rows expire after 48 hours without fresh evidence."
     },
@@ -131358,8 +131360,8 @@
       "Wilsons Property Auctions": 1
     },
     "zero_inventory_outage_sources": [],
-    "publication_revision": "6801cb81daf7cfd27e3dc0f77d9303e8db035b29",
-    "revalidated_at": "2026-10-07T21:04:57.668816+00:00"
+    "publication_revision": "2645001153ad9b4bd02f11b38b6e7e6b89a4454d",
+    "revalidated_at": "2026-10-08T23:08:27.297183+00:00"
   },
   "excluded_properties": [
     {
@@ -135616,7 +135618,7 @@
         "assessment": "Corporate grouping is not proof that every legacy catalogue lot is ingested; unique-inventory reconciliation outstanding."
       }
     ],
-    "generated_at": "2026-10-07T21:04:57.667001+00:00",
+    "generated_at": "2026-10-08T23:08:27.295013+00:00",
     "snapshot_generated_at": "2026-10-07T15:13:34.799908+00:00",
     "live_verification": "not yet verified",
     "sources": [
@@ -135708,7 +135710,7 @@
         "auctioneer": "Allsop Commercial",
         "collector_configured": true,
         "collector_executed": true,
-        "status": "LIVE",
+        "status": "DEGRADED",
         "current_catalogue_detected": true,
         "source_lot_count": 169,
         "lots_discovered": 169,
@@ -135720,14 +135722,14 @@
         "publication_residential_exclusions": 2,
         "quality_gate_rejections": 0,
         "classification_rejections": null,
-        "qualifying_current_lots": 166,
+        "qualifying_current_lots": 13,
         "shared_feed_rows": 0,
-        "production_rows": 166,
-        "published_rows": 166,
+        "production_rows": 13,
+        "published_rows": 13,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 165,
-        "failure_reason": null,
+        "failure_reason": "Candidate/publication drop: 169 commercial/mixed-use candidates \u2192 13 current rows; inspect dates and rejection evidence; Count collapse: 165 still-current prior rows \u2192 13 published",
         "telemetry_missing": [],
         "current_source_assessment": null,
         "last_collection": "2026-10-07T15:13:28.165606+00:00",
@@ -136389,10 +136391,10 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 312,
-        "qualifying_current_lots": 67,
+        "qualifying_current_lots": 47,
         "shared_feed_rows": 0,
-        "production_rows": 67,
-        "published_rows": 67,
+        "production_rows": 47,
+        "published_rows": 47,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 68,
@@ -137263,10 +137265,10 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 42,
-        "qualifying_current_lots": 4,
+        "qualifying_current_lots": 3,
         "shared_feed_rows": 0,
-        "production_rows": 4,
-        "published_rows": 4,
+        "production_rows": 3,
+        "published_rows": 3,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 5,
@@ -138631,10 +138633,10 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 31,
-        "qualifying_current_lots": 1,
+        "qualifying_current_lots": 0,
         "shared_feed_rows": 0,
-        "production_rows": 1,
-        "published_rows": 1,
+        "production_rows": 0,
+        "published_rows": 0,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 1,
@@ -138706,6 +138708,6 @@
         "storefronts": []
       }
     ],
-    "degraded_sources": 15
+    "degraded_sources": 16
   }
 }
