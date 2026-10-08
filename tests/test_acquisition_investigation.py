@@ -132,15 +132,6 @@ def test_multiple_lease_versions_do_not_establish_multi_let_investment():
     assert r['investigation']['profile']['multi_let'] is None
 
 
-def test_checkout_cannot_be_enabled_by_provider_configuration():
-    from fastapi import HTTPException
-    from web_platform.billing import Billing
-    billing=Billing(None,'configured','configured',{},'https://example.org',{'legal_pack_report':'price_configured'})
-    with pytest.raises(HTTPException) as error:
-        billing.purchase('user','legal_pack_report','review:test')
-    assert error.value.status_code==503 and 'quality' in error.value.detail
-
-
 def test_banked_market_context_enters_brief_without_becoming_verified_valuation():
     from acquisition_presentation import make_brief
     c=cat();c['market_context']={'comparables':[{'address':'3 Main Street','url':'https://example.org/lot','guide_price':175000,'auction_date':'2025-01-01','source':'Auctioneer','status':'unsold'}]}
@@ -168,29 +159,3 @@ def test_uploaded_pack_invokes_full_source_reasoning_backend():
     assert any(f['id']=='assignment-consent' for f in r['investigation']['findings'])
     assert r['investigation']['open_review']['completed']
     assert not r['quality_status']['purchase_available']
-
-
-def test_pdf_export_remains_owner_purchase_and_refund_bound(tmp_path):
-    import json,time
-    from types import SimpleNamespace
-    from fastapi import FastAPI
-    from fastapi.testclient import TestClient
-    from web_platform.accounts import Accounts
-    from web_platform.workspace import initialise
-    from web_platform.review_api import install
-    accounts=Accounts(tmp_path/'reports.sqlite');initialise(accounts)
-    report=build_acquisition(model(),cat())
-    with accounts.db() as db:
-        db.execute('INSERT INTO reviews VALUES (?,?,?,?,?)',('r','alice','p',json.dumps(report),int(time.time())))
-    app=FastAPI();install(app,SimpleNamespace(),lambda header:(header,accounts,None))
-    url='/api/account/reviews/r/download?format=pdf'
-    with TestClient(app) as client:
-        assert client.get(url,headers={'Authorization':'bob'}).status_code==404
-        assert client.get(url,headers={'Authorization':'alice'}).status_code==403
-        with accounts.db() as db:
-            db.execute("INSERT INTO purchases(order_id,user_id,product,property_id,price_id,status,created_at) VALUES ('o','alice','legal_pack_report','review:r','price','paid_awaiting_fulfilment',?)",(int(time.time()),))
-        response=client.get(url,headers={'Authorization':'alice'})
-        assert response.status_code==200 and response.content.startswith(b'%PDF')
-        assert response.headers['cache-control']=='no-store'
-        with accounts.db() as db:db.execute("UPDATE purchases SET status='refund_review'")
-        assert client.get(url,headers={'Authorization':'alice'}).status_code==403

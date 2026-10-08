@@ -1,5 +1,6 @@
 """An unpaid request must never reach OCR, research or a model provider."""
 import json,time
+import pytest
 from fastapi.testclient import TestClient
 from web_platform.accounts import Accounts
 from web_platform.tests.test_platform import site
@@ -87,3 +88,40 @@ def test_paid_but_unconfigured_service_does_not_run_extraction(site,tmp_path,mon
         rid=c.post('/api/account/reviews',data={'property_id':pid},headers={'Authorization':'alice'}).json()['id'];pay(a,rid)
         r=c.post(f'/api/account/reviews/{rid}/analyse',files={'files':('p.pdf',b'x')},headers={'Authorization':'alice'})
         assert r.status_code==503 and 'No document analysis has started' in r.text
+
+
+# API acceptance checks run with the platform dependencies, not the collector suite.
+def test_checkout_cannot_be_enabled_by_provider_configuration():
+    from fastapi import HTTPException
+    from web_platform.billing import Billing
+    billing=Billing(None,'configured','configured',{},'https://example.org',{'legal_pack_report':'price_configured'})
+    with pytest.raises(HTTPException) as error:
+        billing.purchase('user','legal_pack_report','review:test')
+    assert error.value.status_code==503 and 'quality' in error.value.detail
+
+def test_pdf_export_remains_owner_purchase_and_refund_bound(tmp_path):
+    import json,time
+    from types import SimpleNamespace
+    from fastapi import FastAPI
+    from fastapi.testclient import TestClient
+    from web_platform.accounts import Accounts
+    from web_platform.workspace import initialise
+    from web_platform.review_api import install
+    accounts=Accounts(tmp_path/'reports.sqlite');initialise(accounts)
+    from acquisition_intelligence import build_acquisition
+    from web_platform.tests.test_acquisition_workspace import model
+    report=build_acquisition(model(),{'guide':200000,'rent':20000,'tenure':'Freehold','country':'England'})
+    with accounts.db() as db:
+        db.execute('INSERT INTO reviews VALUES (?,?,?,?,?)',('r','alice','p',json.dumps(report),int(time.time())))
+    app=FastAPI();install(app,SimpleNamespace(),lambda header:(header,accounts,None))
+    url='/api/account/reviews/r/download?format=pdf'
+    with TestClient(app) as client:
+        assert client.get(url,headers={'Authorization':'bob'}).status_code==404
+        assert client.get(url,headers={'Authorization':'alice'}).status_code==403
+        with accounts.db() as db:
+            db.execute("INSERT INTO purchases(order_id,user_id,product,property_id,price_id,status,created_at) VALUES ('o','alice','legal_pack_report','review:r','price','paid_awaiting_fulfilment',?)",(int(time.time()),))
+        response=client.get(url,headers={'Authorization':'alice'})
+        assert response.status_code==200 and response.content.startswith(b'%PDF')
+        assert response.headers['cache-control']=='no-store'
+        with accounts.db() as db:db.execute("UPDATE purchases SET status='refund_review'")
+        assert client.get(url,headers={'Authorization':'alice'}).status_code==403
