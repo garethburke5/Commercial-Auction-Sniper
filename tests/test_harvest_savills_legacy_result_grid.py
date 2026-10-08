@@ -1,7 +1,12 @@
 import json
 
 import scripts.harvest_savills_legacy_result_grid as collector
-from scripts.harvest_savills_legacy_result_grid import parse_first_party, parse_secondary, reconcile
+from scripts.harvest_savills_legacy_result_grid import (
+    parse_first_party,
+    parse_secondary,
+    reconcile,
+    reconcile_fragments,
+)
 
 
 SECONDARY = b"""
@@ -139,3 +144,86 @@ def test_reconciliation_accepts_fixed_width_invest_abbreviation():
     )
 
     assert payload["lots"][0]["property_type"] == "Invest Other"
+
+
+def test_fragment_reconciliation_preserves_exact_fields_and_adds_missing_partial():
+    offered, secondary = parse_secondary(SECONDARY)
+    exact_rows = [
+        {
+            "source_record_id": "savills-commercial-2006-10-16-lot1",
+            "source_auction_id": "savills-commercial-2006-10-16",
+            "auction_date": "2006-10-16",
+            "lot_number": "1",
+            "address": "1 High Street, London SW1A 1AA",
+            "property_type": "Freehold retail investment",
+            "tenure": "Freehold",
+            "annual_rent": 20_000,
+            "source_url": "https://web.archive.org/lot1",
+            "source_urls": ["https://web.archive.org/lot1"],
+            "notes": "Exact lot page.",
+        },
+        {
+            "source_record_id": "savills-commercial-2006-10-16-lot2",
+            "source_auction_id": "savills-commercial-2006-10-16",
+            "auction_date": "2006-10-16",
+            "lot_number": "2",
+            "address": "2 Park Road, Leeds LS1 1AA",
+            "property_type": "Residential",
+            "source_url": "https://web.archive.org/lot2",
+            "source_urls": ["https://web.archive.org/lot2"],
+            "notes": "Exact lot page.",
+        },
+    ]
+
+    payload = reconcile_fragments(
+        463,
+        "2006-10-16",
+        "savills-commercial-2006-10-16",
+        offered,
+        secondary,
+        exact_rows,
+        "2026-10-08T10:00:00Z",
+        "data/source_diagnostics/snapshot.json",
+        "abc123",
+    )
+
+    assert payload["catalogue_complete"] is True
+    assert payload["appearance_count"] == 3
+    assert payload["address_records"] == 2
+    assert payload["partial_records"] == 1
+    assert payload["lots"][0]["annual_rent"] == 20_000
+    assert payload["lots"][0]["result_price_gbp"] == 1_500_000
+    assert payload["lots"][1]["result_status"] == "Available"
+    assert payload["lots"][2]["address"] is None
+    assert payload["lots"][2]["lot_number"] == "A"
+
+
+def test_fragment_migration_removes_only_target_rows(tmp_path, monkeypatch):
+    corpus = tmp_path / "corpus"
+    corpus.mkdir()
+    source = corpus / "fragments.json"
+    source.write_text(json.dumps({
+        "lots": [
+            {"source_auction_id": "target", "lot_number": "1"},
+            {"source_auction_id": "other", "lot_number": "2"},
+        ]
+    }))
+    monkeypatch.setattr(collector, "ROOT", tmp_path)
+
+    assert collector.migrate_fragment_sources("target", [source]) == 1
+    payload = json.loads(source.read_text())
+    assert payload["lots"] == [{"source_auction_id": "other", "lot_number": "2"}]
+    assert payload["appearance_count"] == 1
+
+
+def test_fragment_migration_removes_empty_replaced_source(tmp_path, monkeypatch):
+    corpus = tmp_path / "corpus"
+    corpus.mkdir()
+    source = corpus / "fragments.json"
+    source.write_text(json.dumps({
+        "lots": [{"source_auction_id": "target", "lot_number": "1"}]
+    }))
+    monkeypatch.setattr(collector, "ROOT", tmp_path)
+
+    assert collector.migrate_fragment_sources("target", [source]) == 1
+    assert not source.exists()

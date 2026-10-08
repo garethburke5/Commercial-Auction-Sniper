@@ -1,0 +1,747 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "captured_at_utc": "2026-10-08T10:14:44Z",
+  "capture_mode": "complete_secondary_result_grid_with_exact_first_party_lot_pages",
+  "scope": "All 21 distinct lot-labelled rows from PropertyAuctions AID 632 for the 15 July 2009 Savills Commercial sale. The result grid reports Offered: 21; 20 identities independently reconcile to exact archived first-party Savills lot pages and retain their full address, postcode, tenure, guide, rent and lease fields. The remaining row is retained as a partial lot without inferring an address.",
+  "source_auction_id": "savills-commercial-2009-07-15",
+  "auction_date": "2009-07-15",
+  "catalogue_lot_count": 21,
+  "catalogue_complete": true,
+  "completion_scope": "all 21 lot labels appear exactly once on the single result page and reconcile to its Offered: 21 denominator; 20 are independently matched to exact first-party pages",
+  "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=632",
+  "saved_source_snapshot": "data/source_diagnostics/savills_aid632_result_grid_20261008.json",
+  "saved_source_snapshot_sha256": "0897c34beb4d61b76a35cdf12340dcbe1a5045f299f43bccf5c96e25dfd4f5df",
+  "source_summary": {
+    "offered": 21,
+    "rows_observed": 21,
+    "unique_lot_numbers": 21,
+    "first_party_exact_rows_cross_checked": 20,
+    "result_pagination_pages": 1
+  },
+  "raw_table_text": "1\tRetail\tLudlow\t£452,000\n2\tOffice\tUxbridge\t£505,000\n3\tLeisure\tPwllgloyw\t£137,000\n4\tIndustrial\tSandy\t£117,000\n5\tGarage\tEvesham\tAvailable\n6\tOffice\tBirmingham\tSold Prior\n7\tDevelopment\tLondon NW1\t£1.76M\n8\tDevelopment\tMalvern\tAvailable\n9\tDevelopment\tSilchester\tSold Post\n10\tGround Rent\tWalsall\tSold Prior\n11\tGround Rent\tWalsall\tSold Prior\n12\tGround Rent\tWalsall\tSold Prior\n13\tGround Rent\tWalsall\tSold Prior\n14\tLand\tRickmansworth\t£130,000\n15\tDevelopment\tCardiff\tAvailable\n16\tDevelopment\tLittlestone-on-Sea\t£392,000\n17\tDevelopment\tPeterborough\tSold Prior\n18\tIndustrial\tBasildon\t£126,000\n19\tGround Rent\tCorby\tSold Prior\n20\tRetail\tHainault\tSold Prior\n21\tLand\tBirmingham\t£183,000",
+  "appearance_count": 21,
+  "address_records": 20,
+  "partial_records": 1,
+  "reconciliation": {
+    "reported_offered": 21,
+    "source_rows_observed": 21,
+    "unique_lot_numbers": 21,
+    "first_party_exact_rows": 20,
+    "result_pagination_pages": 1,
+    "reconciliation_shortfall": 0,
+    "status": "complete surviving result grid"
+  },
+  "lots": [
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot1",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "1",
+      "address": "35 Bull Ring, Ludlow, Shropshire SY8 1AA",
+      "property_type": "Freehold retail investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 350000,
+      "guide_price_high_gbp": 375000,
+      "annual_rent": 26000,
+      "tenant": "The Edinburgh Woollen Mill Limited",
+      "lease_details": "Let until 2020",
+      "notes": "Surviving original Savills lot page records the numbered address, postcode, tenure, tenant, passing rent and guide range. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084356id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=1",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084356id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=1",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=1",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Ludlow",
+      "result_status": "Sold",
+      "result_price_gbp": 452000,
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot1",
+          "source_url": "https://web.archive.org/web/20090624084356id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=1"
+        },
+        "secondary_grid": {
+          "lot": "1",
+          "type": "Retail",
+          "location": "Ludlow",
+          "result": "£452,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot2",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "2",
+      "address": "Q-Matic House, The Crossway, Uxbridge, Middlesex UB10 0JH",
+      "property_type": "Freehold office building",
+      "tenure": "Freehold",
+      "guide_price_gbp": 200000,
+      "guide_price_high_gbp": 250000,
+      "size": "287.91 sq m (3,098 sq ft)",
+      "notes": "Surviving original Savills lot page records full vacant possession, five parking spaces and potential change of use subject to consents. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084451id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=2",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084451id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=2",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=2",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Uxbridge",
+      "result_status": "Sold",
+      "result_price_gbp": 505000,
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot2",
+          "source_url": "https://web.archive.org/web/20090624084451id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=2"
+        },
+        "secondary_grid": {
+          "lot": "2",
+          "type": "Office",
+          "location": "Uxbridge",
+          "result": "£505,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot3",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "3",
+      "address": "The Seland Newydd, Brecon, Pwllgloyw, Powys LD3 9PY",
+      "property_type": "Freehold public house in rural location",
+      "tenure": "Freehold",
+      "guide_price_gbp": 100000,
+      "size": "Total site area about 0.48 hectares (1.19 acres), including 0.24 hectares (0.58 acres) of woodland fronting the River Honddu",
+      "notes": "Surviving original Savills lot page records a public house with letting rooms and three-bedroom manager's accommodation, car park, paddock, beer garden and woodland. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084501id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=3",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084501id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=3",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=3",
+        "http://www.propertyauctions.com/data/full_text/savc/july2009/shedacc3.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Pwllgloyw",
+      "result_status": "Sold",
+      "result_price_gbp": 137000,
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot3",
+          "source_url": "https://web.archive.org/web/20090624084501id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=3"
+        },
+        "secondary_grid": {
+          "lot": "3",
+          "type": "Leisure",
+          "location": "Pwllgloyw",
+          "result": "£137,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot4",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "4",
+      "address": "Unit 7, Blaydon Road, Middlefield Industrial Estate, Sandy, Bedfordshire SG19 1RB",
+      "property_type": "Freehold industrial/office ground rent investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 80000,
+      "guide_price_high_gbp": 90000,
+      "annual_rent": 5750,
+      "tenant": "Easi-Dec Access Limited",
+      "lease_details": "Let until 2078; 2009 rent review due",
+      "notes": "Surviving original Savills lot page records the numbered unit, industrial-estate address, postcode, tenant, lease expiry, passing rent and guide range. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084512id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=4",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084512id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=4",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=4",
+        "http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc4.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Sandy",
+      "result_status": "Sold",
+      "result_price_gbp": 117000,
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot4",
+          "source_url": "https://web.archive.org/web/20090624084512id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=4"
+        },
+        "secondary_grid": {
+          "lot": "4",
+          "type": "Industrial",
+          "location": "Sandy",
+          "result": "£117,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot5",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "5",
+      "address": "Petrol Filling Station and Convenience Store, A46 Evesham By-pass, Evesham, Worcestershire WR11 4TP",
+      "property_type": "Petrol filling station and convenience store investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 2800000,
+      "guide_price_high_gbp": 2900000,
+      "annual_rent": 193469,
+      "tenant": "Somerfield Stores Limited",
+      "lease_details": "Let until 2028 with five-yearly upward-only rent reviews",
+      "notes": "Surviving original Savills lot page records the A46 address, postcode, tenant, lease expiry, passing rent and guide range. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084517id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=5",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084517id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=5",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=5",
+        "http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc5.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Evesham",
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot5",
+          "source_url": "https://web.archive.org/web/20090624084517id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=5"
+        },
+        "secondary_grid": {
+          "lot": "5",
+          "type": "Garage",
+          "location": "Evesham",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot6",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "6",
+      "address": "2210-2215 The Crescent, Birmingham Business Park, Birmingham B37 7YE",
+      "property_type": "Freehold office investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 1200000,
+      "guide_price_high_gbp": 1300000,
+      "annual_rent": 155070,
+      "tenant": "Halifax Equitable Limited",
+      "lease_details": "Let until 2015",
+      "size": "757.02 sq m (8,148 sq ft) net internal area",
+      "notes": "Surviving original Savills lot page records the numbered premises, postcode, tenant, lease expiry, passing rent, floor area and guide range. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084523id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=6",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084523id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=6",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=6",
+        "http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc6.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Birmingham",
+      "result_status": "Sold Prior",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot6",
+          "source_url": "https://web.archive.org/web/20090624084523id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=6"
+        },
+        "secondary_grid": {
+          "lot": "6",
+          "type": "Office",
+          "location": "Birmingham",
+          "result": "Sold Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot7",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "7",
+      "address": "14 & 15 Mandela Street, Camden, London NW1 0DU",
+      "property_type": "Freehold development opportunity",
+      "tenure": "Freehold",
+      "guide_price_gbp": 1500000,
+      "guide_price_high_gbp": 1700000,
+      "size": "606.72 sq m (6,531 sq ft) gross internal area",
+      "notes": "Surviving original Savills lot page records planning permission for seven live/work units and full vacant possession. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084528id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=7",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084528id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=7",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=7",
+        "http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc7.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "London NW1",
+      "result_status": "Sold",
+      "result_price_gbp": 1760000,
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot7",
+          "source_url": "https://web.archive.org/web/20090624084528id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=7"
+        },
+        "secondary_grid": {
+          "lot": "7",
+          "type": "Development",
+          "location": "London NW1",
+          "result": "£1.76M"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot8",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "8",
+      "address": "The International Gospel Centre, Ranelagh Road, Malvern, Worcestershire WR14 1BQ",
+      "property_type": "Former convent and redevelopment opportunity",
+      "tenure": "Predominantly freehold, with a small section held on a 999-year lease from 25 February 1998",
+      "guide_price_gbp": 850000,
+      "guide_price_high_gbp": 950000,
+      "notes": "Surviving original Savills lot page records C2 use, listed buildings, planning permission subject to a Section 106 agreement and full vacant possession. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084533id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=8",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084533id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=8",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=8",
+        "http://www.propertyauctions.com/data/full_text/savc/july2009/shedacc8.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Malvern",
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot8",
+          "source_url": "https://web.archive.org/web/20090624084533id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=8"
+        },
+        "secondary_grid": {
+          "lot": "8",
+          "type": "Development",
+          "location": "Malvern",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot9",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "9",
+      "address": "Romans Hotel, Little London Road, Silchester, Hampshire RG7 2PN",
+      "property_type": "Freehold 25-bedroom country house hotel",
+      "tenure": "Freehold",
+      "guide_price_gbp": 900000,
+      "guide_price_high_gbp": 1000000,
+      "size": "Site area 1.01 hectares (2.50 acres)",
+      "notes": "Surviving original Savills lot page records vacant possession, restaurant, bar, conference, leisure and manager's accommodation facilities, and development or change-of-use potential subject to consent. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084538id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=9",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084538id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=9",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=9",
+        "http://www.propertyauctions.com/data/full_text/savc/july2009/shedacc9.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Silchester",
+      "result_status": "Sold Post",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot9",
+          "source_url": "https://web.archive.org/web/20090624084538id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=9"
+        },
+        "secondary_grid": {
+          "lot": "9",
+          "type": "Development",
+          "location": "Silchester",
+          "result": "Sold Post"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot10",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "10",
+      "address": "Flats 1-25 (Odd) Manorhouse Close, Lord Street, Walsall WS1 4DS",
+      "property_type": "Residential ground-rent investment in long-leasehold flats",
+      "tenure": "Freehold subject to a headlease",
+      "guide_price_gbp": 80000,
+      "guide_price_high_gbp": 90000,
+      "rent_text": "The source states a combined £11,388 per annum across four separately offered ground-rent lots; it is not attributed to this lot alone.",
+      "notes": "Surviving original Savills lot page identifies this as one of four separate ground-rent lots within a 48-flat development. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084401id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=10",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084401id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=10",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=10",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Walsall",
+      "result_status": "Sold Prior",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot10",
+          "source_url": "https://web.archive.org/web/20090624084401id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=10"
+        },
+        "secondary_grid": {
+          "lot": "10",
+          "type": "Ground Rent",
+          "location": "Walsall",
+          "result": "Sold Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot11",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "11",
+      "address": "14-36 (Even) Manorhouse Close, Lord Street, Walsall WS1 4DS",
+      "property_type": "Residential ground-rent investment in long-leasehold flats",
+      "tenure": "Freehold subject to a headlease",
+      "guide_price_gbp": 20000,
+      "guide_price_high_gbp": 30000,
+      "rent_text": "The source states a combined £11,388 per annum across four separately offered ground-rent lots; it is not attributed to this lot alone.",
+      "notes": "Surviving original Savills lot page identifies this as one of four separate ground-rent lots within a 48-flat development. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084406id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=11",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084406id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=11",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=11",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Walsall",
+      "result_status": "Sold Prior",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot11",
+          "source_url": "https://web.archive.org/web/20090624084406id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=11"
+        },
+        "secondary_grid": {
+          "lot": "11",
+          "type": "Ground Rent",
+          "location": "Walsall",
+          "result": "Sold Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot12",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "12",
+      "address": "38-60 (Even) Manorhouse Close, Lord Street, Walsall WS1 4DS",
+      "property_type": "Ground-rent flats",
+      "tenure": "Freehold subject to a peppercorn headlease to Walton Property Management Limited",
+      "guide_price_gbp": 20000,
+      "guide_price_high_gbp": 30000,
+      "rent_text": "Combined ground rent £11,388 pa across 48 flats; page states the property was to be offered as four separate lots",
+      "notes": "Surviving original Savills lot page records the even-numbered address range, postcode, 48 flats and combined ground rent. It is banked as the identifiable Lot 12 page without inferring four unenumerated sub-lot identities. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084411id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084411id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12",
+        "http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc12.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Walsall",
+      "result_status": "Sold Prior",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot12",
+          "source_url": "https://web.archive.org/web/20090624084411id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=12"
+        },
+        "secondary_grid": {
+          "lot": "12",
+          "type": "Ground Rent",
+          "location": "Walsall",
+          "result": "Sold Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot13",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "13",
+      "address": "62-84 (Even) Manorhouse Close, Lord Street, Walsall WS1 4DS",
+      "property_type": "Residential ground-rent investment in long-leasehold flats",
+      "tenure": "Freehold subject to a headlease",
+      "guide_price_gbp": 20000,
+      "guide_price_high_gbp": 30000,
+      "rent_text": "The source states a combined £11,388 per annum across four separately offered ground-rent lots; it is not attributed to this lot alone.",
+      "notes": "Surviving original Savills lot page identifies this as one of four separate ground-rent lots within a 48-flat development. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084416id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=13",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084416id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=13",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=13",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Walsall",
+      "result_status": "Sold Prior",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot13",
+          "source_url": "https://web.archive.org/web/20090624084416id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=13"
+        },
+        "secondary_grid": {
+          "lot": "13",
+          "type": "Ground Rent",
+          "location": "Walsall",
+          "result": "Sold Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot14",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "14",
+      "address": "Land at Moor Lane, Rickmansworth, Hertfordshire WD3 1LQ",
+      "property_type": "Freehold agricultural land investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 100000,
+      "annual_rent": 1035,
+      "tenant": "Secure agricultural tenant",
+      "size": "18.62 hectares (46 acres)",
+      "notes": "Surviving original Savills lot page records a written Agricultural Holdings Act tenancy, Green Belt and Local Wildlife Site designations, and the guide as £100,000+. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084421id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=14",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084421id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=14",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=14",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Rickmansworth",
+      "result_status": "Sold",
+      "result_price_gbp": 130000,
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot14",
+          "source_url": "https://web.archive.org/web/20090624084421id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=14"
+        },
+        "secondary_grid": {
+          "lot": "14",
+          "type": "Land",
+          "location": "Rickmansworth",
+          "result": "£130,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot15",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "15",
+      "address": "Woodlands, Leckwith Road, Leckwith, Cardiff CF11 8AS",
+      "property_type": "Freehold former care home, Use Class C2",
+      "tenure": "Freehold",
+      "guide_price_gbp": 500000,
+      "guide_price_high_gbp": 600000,
+      "size": "1,384.52 sq m (14,903 sq ft) on about 2.12 hectares (5.24 acres)",
+      "notes": "Surviving original Savills lot page records 37 bedrooms and potential alternative use subject to consents. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084426id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=15",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084426id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=15",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=15",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Cardiff",
+      "result_status": "Available",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot15",
+          "source_url": "https://web.archive.org/web/20090624084426id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=15"
+        },
+        "secondary_grid": {
+          "lot": "15",
+          "type": "Development",
+          "location": "Cardiff",
+          "result": "Available"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot16",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "16",
+      "address": "Foreshore, Coast Road, New Romney, Littlestone-on-Sea, Kent TN28 8QZ",
+      "property_type": "Freehold 14-bedroom former care home",
+      "tenure": "Freehold",
+      "guide_price_gbp": 250000,
+      "guide_price_high_gbp": 300000,
+      "size": "440.94 sq m (4,746 sq ft) gross internal area on about 0.10 hectares (0.25 acres)",
+      "notes": "Surviving original Savills lot page records C2 use and development potential subject to consents. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084433id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084433id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16",
+        "http://www.propertyauctions.com/data/full_text/savc/july2009/shedacc16.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Littlestone-on-Sea",
+      "result_status": "Sold",
+      "result_price_gbp": 392000,
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot16",
+          "source_url": "https://web.archive.org/web/20090624084433id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=16"
+        },
+        "secondary_grid": {
+          "lot": "16",
+          "type": "Development",
+          "location": "Littlestone-on-Sea",
+          "result": "£392,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot17",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "17",
+      "address": "12 Dogsthorpe Road, Dogsthorpe, Peterborough PE1 3AA",
+      "property_type": "Freehold former care home",
+      "tenure": "Freehold",
+      "result_status": "Sold Prior",
+      "size": "Site area 0.13 hectares (0.32 acres)",
+      "notes": "Surviving original Savills lot page records C2 use, alternative-use potential subject to consents, full vacant possession and an instruction from Peterborough City Council. The page says to refer to the auctioneers for both guide and result, so no price is inferred. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084436id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084436id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17",
+        "http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc17.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Peterborough",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot17",
+          "source_url": "https://web.archive.org/web/20090624084436id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=17"
+        },
+        "secondary_grid": {
+          "lot": "17",
+          "type": "Development",
+          "location": "Peterborough",
+          "result": "Sold Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot18",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "18",
+      "address": "27 Nobel Square, Burnt Mills Industrial Estate, off Courtauld Road, Basildon, Essex SS13 1LP",
+      "property_type": "Freehold warehouse/office building",
+      "tenure": "Freehold",
+      "guide_price_gbp": 100000,
+      "guide_price_high_gbp": 110000,
+      "size": "481.20 sq m (5,180 sq ft) gross internal area",
+      "notes": "Surviving original Savills lot page records five car-parking spaces and the established industrial-estate location. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084441id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084441id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18",
+        "http://www.propertyauctions.com/data/full_text/savc/july2009/shedtenacc18.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Basildon",
+      "result_status": "Sold",
+      "result_price_gbp": 126000,
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot18",
+          "source_url": "https://web.archive.org/web/20090624084441id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=18"
+        },
+        "secondary_grid": {
+          "lot": "18",
+          "type": "Industrial",
+          "location": "Basildon",
+          "result": "£126,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot19",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "19",
+      "address": "50, 52, 54 & 56 Nash Close, off Gainsborough Road, Corby, Northamptonshire NN18 0QU",
+      "property_type": "Freehold residential ground-rent investment in four houses",
+      "tenure": "Freehold",
+      "guide_price_gbp": 20000,
+      "guide_price_high_gbp": 30000,
+      "annual_rent": 2196,
+      "lease_details": "Four houses let on 125-year leases with five-yearly reviews to RPI or HPI",
+      "notes": "Surviving original Savills lot page preserves all four house numbers, postcode, tenure, passing rent and lease basis. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084446id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=19",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084446id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=19",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=19",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Corby",
+      "result_status": "Sold Prior",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot19",
+          "source_url": "https://web.archive.org/web/20090624084446id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=19"
+        },
+        "secondary_grid": {
+          "lot": "19",
+          "type": "Ground Rent",
+          "location": "Corby",
+          "result": "Sold Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot20",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "20",
+      "address": "277 New North Road, Hainault, Ilford, Essex IG6 3AP",
+      "property_type": "Freehold part-vacant retail and residential investment",
+      "tenure": "Freehold",
+      "result_status": "Sold Prior",
+      "annual_rent": 6900,
+      "lease_details": "First-floor flat let on an AST holding over; ground-floor shop vacant",
+      "notes": "Surviving original Savills lot page records a sold-prior outcome without publishing a price; no price is inferred. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "source_url": "https://web.archive.org/web/20090624084456id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=20",
+      "source_urls": [
+        "https://web.archive.org/web/20090624084456id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=20",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=20",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "locality": "Hainault",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-commercial-2009-07-15-lot20",
+          "source_url": "https://web.archive.org/web/20090624084456id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=20"
+        },
+        "secondary_grid": {
+          "lot": "20",
+          "type": "Retail",
+          "location": "Hainault",
+          "result": "Sold Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2009-07-15-lot21",
+      "source_auction_id": "savills-commercial-2009-07-15",
+      "auction_date": "2009-07-15",
+      "lot_number": "21",
+      "address": null,
+      "locality": "Birmingham",
+      "property_type": "Land",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=632",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=632"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "21",
+          "type": "Land",
+          "location": "Birmingham",
+          "result": "£183,000"
+        }
+      },
+      "result_price_gbp": 183000
+    }
+  ]
+}

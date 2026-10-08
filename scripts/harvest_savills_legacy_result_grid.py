@@ -13,6 +13,7 @@ page-one partial rows are removed from the mixed legacy source so the normal
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 from collections import Counter
@@ -107,6 +108,162 @@ def normalized_type(value: str) -> str:
     # "Invest" in the fixed-width type column; the secondary grid preserves
     # the expanded label.
     return re.sub(r"\binvest\b", "investment", normalized)
+
+
+def location_matches_address(location: str, address: str) -> bool:
+    """Require a meaningful result-grid place token in the exact address."""
+    location_tokens = {
+        token for token in re.findall(r"[a-z0-9]+", clean(location).casefold())
+        if len(token) >= 3
+    }
+    address_tokens = set(re.findall(r"[a-z0-9]+", clean(address).casefold()))
+    return bool(location_tokens & address_tokens)
+
+
+def collect_fragment_rows(source_auction_id: str, source_paths: list[Path]) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for source_path in source_paths:
+        payload = json.loads(source_path.read_text())
+        rows.extend(
+            dict(row) for row in payload.get("lots", [])
+            if row.get("source_auction_id") == source_auction_id
+        )
+    counts = Counter(clean(row.get("lot_number")).casefold() for row in rows)
+    if not rows or any(not lot or count != 1 for lot, count in counts.items()):
+        raise ValueError(f"Exact fragments do not contain one row per lot label: {counts}")
+    return sorted(rows, key=lambda row: (int(clean(row["lot_number"])) if clean(row["lot_number"]).isdigit() else 10**9, clean(row["lot_number"])))
+
+
+def reconcile_fragments(
+    aid: int,
+    auction_date: str,
+    source_auction_id: str,
+    offered: int,
+    secondary_rows: list[dict[str, str]],
+    exact_rows: list[dict[str, object]],
+    captured_at: str,
+    snapshot_path: str,
+    snapshot_sha256: str,
+) -> dict[str, object]:
+    """Complete a fragmented exact-lot capture with a reconciled result grid."""
+    counts = Counter(row["lot"].casefold() for row in secondary_rows)
+    if len(secondary_rows) != offered or len(counts) != offered or any(count != 1 for count in counts.values()):
+        raise ValueError(
+            f"Secondary rows do not reconcile: {len(secondary_rows)} rows, {len(counts)} unique, {offered} offered"
+        )
+    secondary_by_lot = {row["lot"].casefold(): row for row in secondary_rows}
+    exact_by_lot = {clean(row["lot_number"]).casefold(): row for row in exact_rows}
+    if not set(exact_by_lot) < set(secondary_by_lot):
+        raise ValueError("Exact fragments must be a strict subset of the complete result grid")
+    for lot, exact in exact_by_lot.items():
+        secondary = secondary_by_lot[lot]
+        if not location_matches_address(secondary["location"], clean(exact.get("address"))):
+            raise ValueError(
+                f"Lot {lot} result-grid location {secondary['location']!r} is absent from exact address "
+                f"{exact.get('address')!r}"
+            )
+
+    secondary_url = SECONDARY_URL.format(aid=aid)
+    lots: list[dict[str, object]] = []
+    for secondary in secondary_rows:
+        lot_label = secondary["lot"]
+        exact = exact_by_lot.get(lot_label.casefold())
+        result = secondary["result"]
+        available = result.casefold().startswith("available")
+        result_price = None if available else money(result)
+        result_status = "Available" if available else ("Sold" if result_price is not None else result)
+        if exact:
+            row = dict(exact)
+            row["locality"] = secondary["location"]
+            row["result_status"] = result_status
+            if result_price is not None:
+                row["result_price_gbp"] = result_price
+            else:
+                row.pop("result_price_gbp", None)
+            source_urls = list(dict.fromkeys([*row.get("source_urls", []), secondary_url]))
+            row["source_urls"] = source_urls
+            row["raw_source"] = {
+                "first_party_exact_lot_page": {
+                    "source_record_id": row["source_record_id"],
+                    "source_url": row["source_url"],
+                },
+                "secondary_grid": secondary,
+            }
+            row["notes"] = clean(row.get("notes")) + (
+                " The complete result grid independently matches this lot number and locality and supplies the result."
+            )
+        else:
+            row = {
+                "source_record_id": f"{source_auction_id}-lot{lot_label}",
+                "source_auction_id": source_auction_id,
+                "auction_date": auction_date,
+                "lot_number": lot_label,
+                "address": None,
+                "locality": secondary["location"],
+                "property_type": secondary["type"],
+                "result_status": result_status,
+                "notes": (
+                    "Surviving result-grid row within a catalogue whose offered denominator and all lot labels "
+                    "reconcile exactly; the street address and postcode are not exposed and remain null."
+                ),
+                "source_url": secondary_url,
+                "source_urls": [secondary_url],
+                "raw_source": {"secondary_grid": secondary},
+            }
+            if result_price is not None:
+                row["result_price_gbp"] = result_price
+        lots.append(row)
+
+    address_count = sum(bool(row.get("address")) for row in lots)
+    raw_table_text = "\n".join(
+        "\t".join((row["lot"], row["type"], row["location"], row["result"])) for row in secondary_rows
+    )
+    return {
+        "schema": "historical_source_corpus_v1",
+        "schema_version": 1,
+        "auctioneer": "Savills Auctions",
+        "captured_at_utc": captured_at,
+        "capture_mode": "complete_secondary_result_grid_with_exact_first_party_lot_pages",
+        "scope": (
+            f"All {offered} distinct lot-labelled rows from PropertyAuctions AID {aid} for the "
+            f"{datetime.strptime(auction_date, '%Y-%m-%d').strftime('%-d %B %Y')} Savills Commercial sale. "
+            f"The result grid reports Offered: {offered}; {len(exact_rows)} identities independently reconcile "
+            "to exact archived first-party Savills lot pages and retain their full address, postcode, tenure, "
+            "guide, rent and lease fields. The remaining row is retained as a partial lot without inferring an address."
+        ),
+        "source_auction_id": source_auction_id,
+        "auction_date": auction_date,
+        "catalogue_lot_count": offered,
+        "catalogue_complete": True,
+        "completion_scope": (
+            f"all {offered} lot labels appear exactly once on the single result page and reconcile to its "
+            f"Offered: {offered} denominator; {len(exact_rows)} are independently matched to exact first-party pages"
+        ),
+        "source_url": secondary_url,
+        "saved_source_snapshot": snapshot_path,
+        "saved_source_snapshot_sha256": snapshot_sha256,
+        "source_summary": {
+            "offered": offered,
+            "rows_observed": len(secondary_rows),
+            "unique_lot_numbers": len(counts),
+            "first_party_exact_rows_cross_checked": len(exact_rows),
+            "result_pagination_pages": 1,
+        },
+        "raw_table_text": raw_table_text,
+        "appearance_count": len(lots),
+        "address_records": address_count,
+        "partial_records": len(lots) - address_count,
+        "reconciliation": {
+            "reported_offered": offered,
+            "source_rows_observed": len(secondary_rows),
+            "unique_lot_numbers": len(counts),
+            "first_party_exact_rows": len(exact_rows),
+            "result_pagination_pages": 1,
+            "reconciliation_shortfall": offered - len(lots),
+            "status": "complete surviving result grid",
+        },
+        "lots": lots,
+    }
 
 
 def reconcile(
@@ -340,6 +497,60 @@ def migrate_mixed_source(aid: int, mixed_source: Path = MIXED_SOURCE) -> int:
     return removed
 
 
+def migrate_fragment_sources(source_auction_id: str, source_paths: list[Path]) -> int:
+    """Remove explicitly consolidated rows and leave auditable staging files."""
+    removed_total = 0
+    for source_path in source_paths:
+        payload = json.loads(source_path.read_text())
+        before = list(payload.get("lots", []))
+        payload["lots"] = [row for row in before if row.get("source_auction_id") != source_auction_id]
+        removed = len(before) - len(payload["lots"])
+        if not removed:
+            raise ValueError(f"Fragment source {source_path.name} has no rows for {source_auction_id}")
+        removed_total += removed
+        payload["appearance_count"] = len(payload["lots"])
+        if payload["lots"]:
+            payload["scope"] = (
+                f"{len(payload['lots'])} individually identifiable exact archived Savills lot-page appearances "
+                f"remain after {removed} rows for {source_auction_id} were consolidated into a complete per-auction source."
+            )
+            payload["completeness_note"] = (
+                "The remaining rows are individually admitted exact pages only; their catalogues are not declared complete."
+            )
+            atomic_json(source_path, payload)
+        else:
+            # The replacement source preserves every row and its provenance;
+            # retaining an empty input would create a misleading incomplete
+            # catalogue entry in progress metrics.
+            source_path.unlink()
+        derived_shard(source_path).unlink(missing_ok=True)
+    return removed_total
+
+
+def write_secondary_snapshot(
+    aid: int,
+    offered: int,
+    secondary_rows: list[dict[str, str]],
+    captured_at: str,
+    capture_date: str,
+) -> tuple[str, str]:
+    snapshot_path = ROOT / "data/source_diagnostics" / f"savills_aid{aid}_result_grid_{capture_date}.json"
+    payload = {
+        "source_url": SECONDARY_URL.format(aid=aid),
+        "captured_at_utc": captured_at,
+        "reported_offered": offered,
+        "rows_observed": len(secondary_rows),
+        "unique_lot_numbers": len({row["lot"].casefold() for row in secondary_rows}),
+        "result_pagination_pages": 1,
+        "rows": secondary_rows,
+    }
+    rendered = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+    snapshot_path.write_text(rendered)
+    relative = str(snapshot_path.relative_to(ROOT))
+    return relative, hashlib.sha256(rendered.encode()).hexdigest()
+
+
 def retarget_address_enrichments(aid: int, target: Path) -> int:
     """Move internal enrichment pointers with rows split from the mixed shard."""
     target_prefix = f"source-corpus|savills-commercial-auc{aid}-pos"
@@ -373,7 +584,14 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--aid", required=True, type=int)
     parser.add_argument("--date", required=True, help="Exact auction date in YYYY-MM-DD form")
-    parser.add_argument("--first-party-url", required=True)
+    parser.add_argument("--first-party-url")
+    parser.add_argument(
+        "--fragment-source",
+        action="append",
+        default=[],
+        help="Source-corpus JSON containing exact rows to consolidate; may be repeated",
+    )
+    parser.add_argument("--source-auction-id", help="Stable ID shared by rows in --fragment-source files")
     parser.add_argument("--capture-date", default=date.today().strftime("%Y%m%d"))
     args = parser.parse_args()
     datetime.strptime(args.date, "%Y-%m-%d")
@@ -381,37 +599,66 @@ def main() -> None:
     session.headers["User-Agent"] = USER_AGENT
     secondary_response = session.get(SECONDARY_URL.format(aid=args.aid), timeout=60)
     secondary_response.raise_for_status()
-    primary_response = session.get(args.first_party_url, timeout=60)
-    primary_response.raise_for_status()
     offered, secondary_rows = parse_secondary(secondary_response.content)
-    first_total, first_pages, first_rows = parse_first_party(primary_response.content)
     captured_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-    payload = reconcile(
-        args.aid, args.date, primary_response.url, offered, secondary_rows,
-        first_total, first_pages, first_rows, captured_at,
-    )
-    target = CORPUS / (
-        f"savills_2005_{args.date[:4]}_auc{args.aid}_complete_results_{args.capture_date}.json"
-    )
-    if target.exists():
-        raise FileExistsError(target)
-    staging_source = locate_staging_source(args.aid)
-    removed = migrate_mixed_source(args.aid, staging_source)
-    atomic_json(target, payload)
-    enrichments_retargeted = retarget_address_enrichments(args.aid, target)
-    # The general shard writer intentionally retains rows that disappear from a
-    # later fetch.  Here the disappearance is an explicit, evidenced migration
-    # into a complete per-auction shard, so force the mixed derived shard to be
-    # regenerated from its updated source rather than merging the superseded
-    # rows back in.
-    derived_shard(staging_source).unlink(missing_ok=True)
+    if args.fragment_source:
+        if not args.source_auction_id:
+            parser.error("--source-auction-id is required with --fragment-source")
+        fragment_paths = [
+            Path(value) if Path(value).is_absolute() else CORPUS / value
+            for value in args.fragment_source
+        ]
+        exact_rows = collect_fragment_rows(args.source_auction_id, fragment_paths)
+        snapshot_path, snapshot_sha256 = write_secondary_snapshot(
+            args.aid, offered, secondary_rows, captured_at, args.capture_date
+        )
+        payload = reconcile_fragments(
+            args.aid,
+            args.date,
+            args.source_auction_id,
+            offered,
+            secondary_rows,
+            exact_rows,
+            captured_at,
+            snapshot_path,
+            snapshot_sha256,
+        )
+        target = CORPUS / f"savills_{args.date.replace('-', '_')}_aid{args.aid}_complete_results_{args.capture_date}.json"
+        if target.exists():
+            raise FileExistsError(target)
+        removed = migrate_fragment_sources(args.source_auction_id, fragment_paths)
+        atomic_json(target, payload)
+        enrichments_retargeted = 0
+        staging_source: Path | None = None
+    else:
+        if not args.first_party_url:
+            parser.error("--first-party-url is required unless --fragment-source is used")
+        primary_response = session.get(args.first_party_url, timeout=60)
+        primary_response.raise_for_status()
+        first_total, first_pages, first_rows = parse_first_party(primary_response.content)
+        payload = reconcile(
+            args.aid, args.date, primary_response.url, offered, secondary_rows,
+            first_total, first_pages, first_rows, captured_at,
+        )
+        target = CORPUS / (
+            f"savills_2005_{args.date[:4]}_auc{args.aid}_complete_results_{args.capture_date}.json"
+        )
+        if target.exists():
+            raise FileExistsError(target)
+        staging_source = locate_staging_source(args.aid)
+        removed = migrate_mixed_source(args.aid, staging_source)
+        atomic_json(target, payload)
+        enrichments_retargeted = retarget_address_enrichments(args.aid, target)
+        # The shard writer retains vanished rows. Delete the evidenced staging
+        # shard so the bank pass regenerates it without superseded appearances.
+        derived_shard(staging_source).unlink(missing_ok=True)
     print(json.dumps({
         "source_file": str(target.relative_to(ROOT)),
         "lots_reconciled": len(payload["lots"]),
         "legacy_rows_replaced": removed,
         "net_appearances": len(payload["lots"]) - removed,
         "address_enrichments_retargeted": enrichments_retargeted,
-        "staging_source": str(staging_source.relative_to(ROOT)),
+        "staging_source": str(staging_source.relative_to(ROOT)) if staging_source else None,
     }, indent=2))
 
 
