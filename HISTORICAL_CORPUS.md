@@ -39,6 +39,7 @@ python scripts/harvest_brown_co_results.py
 python scripts/harvest_bagshaws_results.py
 python scripts/harvest_cottons_results.py 16 8
 python scripts/harvest_harman_healy_results.py
+python scripts/harvest_propertyauctions_aid832.py
 python scripts/harvest_lsh_results.py
 python scripts/harvest_goldings_results.py
 python scripts/harvest_maggs_allen_results.py
@@ -74,6 +75,14 @@ after exact date, postcode-district/locality and property-class checks. The UK
 postcode parser accepts valid outward-code suffixes such as ``WC1X`` and
 ``SW1V`` so already banked addressed rows participate in exact grouping without
 changing or merging their appearance identities.
+
+The retained PropertyAuctions result grid for Allsop Residential's 29 May 2013
+sale is captured separately with its exact surviving title and date.  It banks
+all 372 distinct published rows (numeric lots 1--361 plus 11 lettered lots), not
+the headline 332 ``offered`` figure.  The grid is accepted as complete only
+while its single-page state, headline totals, continuous base-lot extent and
+exact lettered-lot set all reconcile.  Its locality-only rows remain partial
+lots with null addresses rather than speculative address identities.
 
 Paul Fosh collection traverses and reconciles the entire paginated public results
 set, retaining all addresses, published lot end dates, outcomes, prices and detail
