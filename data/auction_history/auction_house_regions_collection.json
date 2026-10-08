@@ -1,88 +1,58 @@
 {
-  "checked_at": "2026-10-08T17:25:41.043866+00:00",
+  "checked_at": "2026-10-08T18:42:12.679607+00:00",
   "regions_requested": 19,
-  "regions_complete": 18,
-  "regions_blocked": 1,
-  "pages_captured": 94,
-  "source_rows": 2324,
-  "overlapping_existing_rows": 2324,
-  "run_new_appearances": 0,
-  "failures": [
-    {
-      "page": 1,
-      "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions",
-      "error": "ValueError: page exposed zero lot rows"
-    },
-    {
-      "page": 4,
-      "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions?page=4",
-      "error": "ValueError: page exposed zero lot rows"
-    }
-  ],
-  "blocked_pages": [
-    {
-      "page": 3,
-      "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions?page=3",
-      "reason": "visible result rows currently expose no stable lot redirect IDs"
-    }
-  ],
+  "regions_complete": 19,
+  "regions_blocked": 0,
+  "pages_captured": 97,
+  "source_rows": 2580,
+  "overlapping_existing_rows": 2332,
+  "run_new_appearances": 248,
+  "failures": [],
+  "blocked_pages": [],
   "regions": [
     {
       "auctioneer": "Auction House Wales",
       "source_url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions",
       "pages_expected": 16,
-      "pages_captured": 13,
-      "current_archive_rows": 213,
-      "overlapping_existing_rows": 213,
-      "run_new_appearances": 0,
-      "property_appearances_captured": 223,
-      "address_records": 223,
+      "pages_captured": 16,
+      "current_archive_rows": 469,
+      "overlapping_existing_rows": 221,
+      "run_new_appearances": 248,
+      "property_appearances_captured": 471,
+      "address_records": 471,
       "partial_lots": 0,
       "earliest_lot_end_date": "2020-03-05",
-      "latest_lot_end_date": "2026-09-29",
+      "latest_lot_end_date": "2026-10-07",
       "by_status": {
-        "sold": 141,
-        "sold_prior": 46,
-        "sold_after": 27,
+        "sold": 269,
+        "sold_prior": 78,
+        "sold_after": 69,
+        "no_bids": 9,
         "withdrawn": 1,
-        "last_bid": 5,
-        "no_bids": 3
+        "postponed": 21,
+        "last_bid": 24
       },
       "page_counts": {
-        "2": 14,
-        "5": 6,
-        "6": 10,
-        "7": 4,
-        "8": 17,
-        "9": 7,
-        "10": 19,
-        "11": 14,
-        "12": 13,
+        "1": 30,
+        "2": 30,
+        "3": 30,
+        "4": 30,
+        "5": 30,
+        "6": 30,
+        "7": 30,
+        "8": 30,
+        "9": 30,
+        "10": 30,
+        "11": 30,
+        "12": 30,
         "13": 30,
         "14": 30,
         "15": 30,
         "16": 19
       },
-      "failures": [
-        {
-          "page": 1,
-          "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions",
-          "error": "ValueError: page exposed zero lot rows"
-        },
-        {
-          "page": 4,
-          "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions?page=4",
-          "error": "ValueError: page exposed zero lot rows"
-        }
-      ],
-      "blocked_pages": [
-        {
-          "page": 3,
-          "url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions?page=3",
-          "reason": "visible result rows currently expose no stable lot redirect IDs"
-        }
-      ],
-      "archive_pagination_complete": false
+      "failures": [],
+      "blocked_pages": [],
+      "archive_pagination_complete": true
     },
     {
       "auctioneer": "Auction House Notts & Derby",
