@@ -123,11 +123,19 @@ def reasoning_packet(report, investigation):
     payload = {'instructions': REVIEW_INSTRUCTIONS,
                'property': report.get('property'),
                'profile': investigation.get('profile'),
+               'investment': {key: report.get(key) for key in (
+                   'guide', 'guide_upper', 'rent', 'assessment_price',
+                   'assessment_price_basis', 'tenure', 'listing_status',
+                   'auction_date', 'catalogue_as_of', 'costs', 'vat',
+                   'lease_reconciliation', 'amendment_review')},
+               'market': investigation.get('market'),
+               'income_reconciled': investigation.get('income_reconciled'),
+               'scenarios': investigation.get('scenarios'),
                'demises': investigation.get('demises'),
                'systematic_findings': investigation.get('findings'),
                'research_questions': investigation.get('research_questions'),
                'sources': sources}
-    payload['evidence_digest'] = sha256(json.dumps(sources, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+    payload['evidence_digest'] = sha256(json.dumps(payload, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
     return payload
 
 
@@ -139,7 +147,19 @@ def validate_open_review(result, packet):
         errors.append('Review is not bound to the current evidence packet')
     if not result.get('reviewer'):
         errors.append('Reviewer identity or backend/model version missing')
-    for finding in result.get('findings', []):
+    findings = result.get('findings', [])
+    if not isinstance(findings, list) or any(not isinstance(f, dict) for f in findings):
+        return {'completed': False, 'provenance_valid': False,
+                'investment_approved': False, 'errors': ['Invalid findings structure'],
+                'findings': [], 'unreviewed_source_ids': sorted(source_ids)}
+    findings = [dict(f, topic=f.get('topic') or 'investment') for f in findings]
+    seen = set()
+    for finding in findings:
+        if not finding.get('id') or finding['id'] in seen:
+            errors.append('Finding identity missing or duplicated')
+        seen.add(finding.get('id'))
+        if not norm(finding.get('title')) or not norm(finding.get('topic')):
+            errors.append('Finding title or topic missing')
         if finding.get('state') not in STATES:
             errors.append('Finding lacks a valid evidence state')
         if finding.get('materiality') not in MATERIALITIES:
@@ -154,11 +174,17 @@ def validate_open_review(result, packet):
     unresolved = set(result.get('unreviewed_source_ids', []))
     if not (reviewed | unresolved) <= source_ids or reviewed & unresolved:
         errors.append('Invalid source-review coverage')
+    if any(not set(f.get('evidence_ids') or []) <= reviewed for f in findings):
+        errors.append('Finding cites evidence not recorded as reviewed')
+    requests = result.get('research_requests', [])
+    if not isinstance(requests, list) or any(not isinstance(r, dict) or not norm(r.get('question')) for r in requests):
+        errors.append('Invalid research request structure')
     if reviewed | unresolved != source_ids:
         errors.append('Review does not account for every evidence item')
     return {'completed': not errors and not unresolved, 'provenance_valid': not errors,
             'errors': sorted(set(errors)), 'unreviewed_source_ids': sorted(unresolved),
             'reviewer': result.get('reviewer'),
-            'findings': result.get('findings', []) if not errors else [],
+            'findings': findings if not errors else [],
             'limitations': result.get('limitations', []),
+            'research_requests': result.get('research_requests', []),
             'investment_approved': False}

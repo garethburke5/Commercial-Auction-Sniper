@@ -121,11 +121,13 @@ def test_board_preserves_income_semantics_and_guide_range():
     assert let['facts']['GIY at guide']=='10.0–20.0%'
 
 
-def test_board_json_and_embedded_research_are_served(site):
+def test_board_json_and_payment_first_research_are_served(site):
     with TestClient(create_app(site)) as client:
         assert client.get(site.env.globals['board_index']).json()['rows']
         response=client.get('/due-diligence/')
-        assert response.status_code==200 and 'view=due-diligence' in response.text
+        assert response.status_code==200 and 'Create my free snapshot' in response.text
+        assert 'id="review-upload" hidden' in response.text
+        assert 'view=due-diligence' not in response.text
         assert 'frame-src https://commercial-auction-sniper' in response.headers['content-security-policy']
 
 

@@ -12,6 +12,27 @@ def compact(value):
     return re.sub(r'\s+', ' ', str(value or '')).strip()
 
 
+def lease_terms(demise):
+    """Keep amended OCR dates out of the investor table; preserve raw evidence."""
+    term=demise.get('term') or {}
+    text=compact(term.get('text') or 'Term not reliably recovered')
+    if term.get('uncertain'):
+        text=('Stated five-year term; amended expiry date requires confirmation.'
+              if re.search(r'FIVE|5 years',text,re.I) else 'Amended term requires confirmation.')
+    else:
+        text=compact(re.sub(r'[\[\]]','',re.sub(r'^Contractual Term:\s*','',text)))
+        m=re.search(r'FIVE years.*?to and including (.+)',text,re.I)
+        if m:text='Five-year term ending '+m[1]
+    if demise.get('lease_date'):text='Lease dated '+demise['lease_date']+'. '+text
+    for b in demise.get('breaks',[]):
+        if b.get('uncertain'):text+=' Break date amended; verify executed wording.'
+        else:text+=' '+(b.get('party') or 'Party unconfirmed')+' break: '+compact(re.sub(r'[\[\]]','',b.get('date_raw','')))+'.'
+        notice=compact(b.get('notice_raw'))
+        if notice:text+=' Notice: '+notice+'.'
+        if b.get('conditions_raw'):text+=' Subject to break conditions.'
+    return text
+
+
 def make_brief(report):
     if report.get('access') == 'snapshot':
         raise ValueError('Full report required')
@@ -34,7 +55,7 @@ def make_brief(report):
     def h(text):return {'kind':'h','text':text}
     def table(headers,rows,widths):return {'kind':'table','headers':headers,'rows':rows,'widths':widths}
     def by_id(key):return next((f for f in fs if f['id']==key),None)
-    def finding_text(f):return compact(f['finding'])+' '+refs(f.get('evidence'))
+    def finding_text(f):return compact(f.get('summary') or f['finding'])+' '+refs(f.get('evidence'))
     commercial=[d for d in ds if not d['residential_reversion']]
     principal=max(commercial,key=lambda d:d.get('annual_rent') or 0) if commercial else None
     gates=[f for f in fs if f['materiality']=='decision_gate']
@@ -49,29 +70,47 @@ def make_brief(report):
     if inv['profile']['vacant']:summary='Vacant '+str(report.get('tenure') or '').lower()+' commercial interest. Value depends on lettability, permitted use and the cost of bringing it into occupation.'
     attraction=(f"The stated rent produces {yield_value:.2f}% gross at {cash(price)} before costs." if yield_value is not None else 'A dependable current income yield has not been established.')
     concentration=by_id('income-concentration')
+    market=inv['market']
+    price_assessment=('Comparable achieved sales are available, but their differences require adjustment before treating the price as supported.'
+                      if market['price_support']=='evidence_requires_adjustment' else
+                      'The price remains inconclusive against market value: comparable achieved sales have not been established.')
+    income_assessment=('Lease rents reconcile to the advertised total; current collection and tenant affordability remain unverified.'
+                       if inv['income_reconciled'] else
+                       'The advertised rent has not been reconciled to a dependable current lease schedule.')
+    if inv['profile']['vacant']:
+        income_assessment='There is no current contracted income; the return depends on the cost and time needed to secure occupation.'
+    priorities='; '.join(f['title'].rstrip('.') for f in gates[:3])
+    executive=attraction+' '+income_assessment
+    if concentration and principal:
+        executive+=f" The principal letting supplies {ratio(principal['annual_rent'],rent):.1f}% of income."
+    if priorities:executive+=' Decision priorities: '+priorities+'.'
+    executive+=' '+price_assessment
     conclusion=attraction+' '
-    if concentration:conclusion+=f"However, {ratio(principal['annual_rent'],rent):.1f}% of income comes from one commercial letting. "
-    if gates:conclusion+='The decision turns on '+', '.join(dict.fromkeys(f['topic'] for f in gates[:4]))+' evidence. '
-    conclusion+='The available market evidence is insufficient to demonstrate fair value. The investment could become assessable once the major evidence gaps are resolved and unrecovered works and vacancy costs are priced; the headline yield alone does not establish a bargain.'
+    if inv['scenarios'] and principal:
+        downside=next((x for x in inv['scenarios'] if x['label']=='Full-year void: '+principal['label']),None)
+        if downside:
+            conclusion+=f"A year without the principal rent reduces income to {cash(downside['rent'])} ({downside['yield']:.2f}% gross), before holding costs. "
+    if gates:
+        conclusion+='An acquisition case requires satisfactory evidence on '+', '.join(dict.fromkeys(f['topic'] for f in gates))+' and a funded allowance for liabilities that cannot be recovered. '
+    elif inv['profile']['vacant']:
+        conclusion+='The acquisition case depends on a costed route to occupation and substantiated demand. '
+    else:
+        conclusion+='The income case depends on operative lease terms, current collection and recoverable landlord expenditure. '
+    conclusion+=price_assessment
     page1=[p('AUCTION SNIPER  /  ACQUISITION INTELLIGENCE','kicker'),
            p(report['property'],'title'),p(('Sold investment review' if sold else 'Acquisition review')+'  |  Evidence checked '+str(report.get('created_at',''))[:10],'meta')]
     media=report.get('report_media') or {}
     if media.get('photo_path'):page1.extend([{'kind':'photo','path':media['photo_path'],'url':media.get('photo_url')},p(media.get('photo_credit',''),'caption')])
-    metrics=[('Reported sale' if sold else 'Price basis',cash(price)),('Reserved rent',cash(rent)+' pa' if rent is not None else 'Not established'),('Gross yield',f'{yield_value:.2f}%' if yield_value is not None else 'Not established'),('Known fixed fees',cash(fees) if fees else 'Not established')]
-    page1.extend([{'kind':'metrics','items':metrics},p(summary),h('Investment assessment'),p(conclusion)])
-    if sold:page1.append(p('Allsop reports the lot sold. This is a retrospective specimen; completion and any subsequent availability have not been verified. The original guide was '+cash(report.get('guide'))+' to '+cash(report.get('guide_upper'))+'.','small'))
+    metrics=[('Reported sale' if 'reported sale' in report.get('assessment_price_basis','').lower() else 'Price basis',cash(price)),('Reserved rent',cash(rent)+' pa' if rent is not None else 'Not established'),('Gross yield',f'{yield_value:.2f}%' if yield_value is not None else 'Not established'),('Known fixed fees',cash(fees) if fees else 'Not established')]
+    page1.extend([{'kind':'metrics','items':metrics},p(summary),h('Investment assessment'),p(executive)])
+    if sold:page1.append(p('The source reports the lot sold. This is a retrospective specimen; completion and any subsequent availability have not been verified. The original guide was '+cash(report.get('guide'))+' to '+cash(report.get('guide_upper'))+'.','small'))
     result_record=next((r for r in inv['external_research']['records'] if r['kind']=='subject_sale_result'),None)
     if result_record:page1.append(p('Price/status source '+ref_record(result_record)+'. Yield = reserved rent ÷ stated price; this is not a net operating return.','small'))
 
     page2=[h('Income and ownership'),p('The lease schedule distinguishes contractual rent from money actually collected. Original residential lease parties are not necessarily the current ground-rent payers.','small')]
     rows=[]
     for d in ds:
-        term=d.get('term') or {}; words=compact(term.get('text') or 'Term not reliably recovered')
-        words=re.sub(r'^Contractual Term:\s*','',words)
-        terms=words
-        if d.get('lease_date'):terms='Dated '+d['lease_date']+'. '+terms
-        if d['breaks']:terms+=' Break: '+ '; '.join(compact(b.get('date_raw')) for b in d['breaks'])+'.'
-        if term.get('uncertain') or any(b.get('uncertain') for b in d['breaks']):terms+=' Printed/OCR date needs checking.'
+        terms=lease_terms(d)
         tenant=(d.get('tenant') or 'Legal tenant not reliably recovered') if not d['residential_reversion'] else 'Long-lease interest; current payer unverified'
         rows.append([d['label']+' '+refs(d['evidence']),tenant,cash(d['annual_rent']),terms])
     page2.append(table(['Interest','Tenant or interest','Annual rent','Lease term and break'],rows,[.24,.23,.12,.41]))
@@ -98,12 +137,12 @@ def make_brief(report):
             page3.append(p(f"{d['label']}: {provenance} EPC {epc.get('rating')}{score}, valid to {epc.get('valid_until')}; assessment area {epc.get('floor_area_sqm')} m². {epc['scope_note']} "+refs([epc['source']]),'small'))
     important=[]
     insurance=by_id('cover-hazard-interaction')
-    if insurance:important.append(['Insurance and ground risk',insurance['finding']+' '+insurance['consequence'],insurance['resolution']+' '+refs(insurance['evidence'])])
+    if insurance:important.append(['Decision: insurance',insurance['finding']+' '+insurance['consequence'],insurance['resolution']+' '+refs(insurance['evidence'])])
     title=by_id('title-exclusion')
-    if title:important.append(['Legal extent',title['finding']+' '+title['consequence'],title['resolution']+' '+refs(title['evidence'])])
+    if title:important.append(['Decision: legal extent',title['finding']+' '+title['consequence'],title['resolution']+' '+refs(title['evidence'])])
     condition=[f for f in fs if re.search('^(fire-actions|asbestos-sample|service-charge-table)',f['id'])]
     if condition:
-        important.append(['Building expenditure', ' '.join(f['finding'] for f in condition), 'Obtain current fire-action closure, asbestos management and a survey/repair budget. Test each cost against lease recovery rights; no works allowance is established. '+refs([e for f in condition for e in f['evidence']])])
+        important.append(['Cost exposure: building', ' '.join(f['finding'] for f in condition), 'Obtain current fire-action closure, asbestos management and a survey/repair budget. Test each cost against lease recovery rights; no works allowance is established. '+refs([e for f in condition for e in f['evidence']])])
     for f in gates:
         if f['topic'] not in ('energy','insurance') and f['id']!='title-exclusion':important.append([f['title'],f['finding']+' '+f['consequence'],f['resolution']+' '+refs(f['evidence'])])
     for f in fs:
@@ -126,7 +165,15 @@ def make_brief(report):
     context=[r for r in records if r['kind'] in ('planning_context','occupation_history','marketing_history')]
     if context:page4.append(h('Local change and history'))
     for r in context:page4.append(p((r.get('description') or r['quote'])+' '+ref_record(r)))
-    page4.extend([h('What remains unproved'),p('No independently supported ERV, vacant-possession value, maximum bid or reletting period has been established. The same-property asking price is useful marketing context, but cannot demonstrate a discount to underlying value. Any alternative-use upside also depends on title, planning, consent, possession and a costed scheme.')])
+    market_limit=('Achieved rent comparables require adjustment for the subject unit and lease before supporting an ERV.'
+                  if market['erv_support']=='evidence_requires_adjustment' else
+                  'The evidence does not establish an ERV or a dependable reletting period.')
+    market_limit+=' No adjusted valuation or maximum bid is established.'
+    if any(r['kind']=='subject_asking_sale' for r in records):
+        market_limit+=' Previous asking prices show marketing expectations, not the value a purchaser achieved.'
+    if inv['profile']['development'] or inv['profile']['long_lease_reversions']:
+        market_limit+=' Alternative-use value also requires control of the relevant space, possession, consents and a costed scheme.'
+    page4.extend([h('Implications for price and rent'),p(market_limit)])
 
     page5=[h('Acquisition cash and downside')]
     costs=[[c['label'],cash(c['amount']),c.get('basis','')+' '+refs(c.get('evidence'))] for c in report.get('costs',[])]
@@ -140,8 +187,8 @@ def make_brief(report):
     if scenarios:
         page5.append({'kind':'chart','chart':'downside','title':'Annual income if the principal letting is interrupted','rows':[(s['label'],s['rent']) for s in scenarios if s['label']=='Contract rent collected' or (principal and principal['label'] in s['label'])]})
         page5.append(p('Illustrative lost-rent cases, not forecasts. Other rents remain unchanged; business rates, incentives, works and reletting fees would reduce returns further. At the price used, gross yields are '+', '.join(f"{s['yield']:.2f}%" for s in scenarios if s['label']=='Contract rent collected' or (principal and principal['label'] in s['label']))+'.','small'))
-    page5.append(h('Resolution before reliance'))
-    page5.append(p('Resolve the principal energy/title/insurance questions; reconcile executed lease terms and collection; obtain costed building works and enforceable recovery shares; then test price against achieved market evidence. A favourable answer in one area does not remove the other exposures.','small'))
+    page5.append(h('Acquisition conclusion'))
+    page5.append(p(conclusion,'small'))
     # Compact source key. Per-finding page anchors and full extracts remain in the
     # HTML appendix; the PDF keeps only the sources actually cited above.
     source_rows=[]
@@ -151,4 +198,4 @@ def make_brief(report):
     page5.append({'kind':'sources','rows':source_rows})
     visual_note=' These pages were visually checked and their dispositions recorded.' if inv.get('visual_review_complete') and report['coverage'].get('unread_pages') else ''
     page5.append(p(f"Scope: {report['coverage'].get('pages',0)} supplied PDF pages; {report['coverage'].get('unread_pages',0)} pages without substantive machine text."+visual_note+' Full evidence and remaining checks are in the accompanying HTML. Research is not legal, tax or valuation advice.','caption'))
-    return {'pages':[{'title':t,'blocks':b} for t,b in zip(['Investment snapshot','Income and ownership','Material risks','Market and history','Cash and downside'],[page1,page2,page3,page4,page5])], 'references':source_rows,'conclusion':conclusion,'status':'Research specimen - quality approval withheld','appendix_findings':fs,'selection_note':'Related findings are grouped in this brief. The full investigation, including routine discrepancies and incomplete review coverage, remains available in the HTML evidence appendix.'}
+    return {'pages':[{'title':t,'blocks':b} for t,b in zip(['Investment snapshot','Income and ownership','Material risks','Market and history','Cash and downside'],[page1,page2,page3,page4,page5])], 'references':source_rows,'conclusion':conclusion,'executive_assessment':executive,'status':'Research specimen - quality approval withheld','appendix_findings':fs,'selection_note':'Related findings are grouped in this brief. The full investigation, including routine discrepancies and incomplete review coverage, remains available in the HTML evidence appendix.'}

@@ -38,10 +38,14 @@ cloud account service: registration and checkout explain their activation bounda
 - Save = shortlist; Watch = guide/status/date/legal-pack/detail observations and
   a change log. Changes are checked on return; scheduled email delivery is not
   claimed or activated. Digest preferences are stored for subsequent delivery.
-- Account report upload → complete pack processing → private persisted report →
-  server-projected free snapshot → Stripe one-off order bound to that report →
-  signed webhook → full owner-only report/download. Redirects cannot unlock it.
-  Purchases/refunds/disputes remain subject to existing server-side checks.
+- Listing-only free snapshot → report-specific Checkout → verified signed webhook
+  → authenticated legal-pack upload/processing → immutable owner-only report.
+  No OCR/research/model work runs for the free snapshot. Subscriptions currently
+  grant no report allowance. Concurrent processing is claimed once; failed runs
+  retain the purchase and permit at most three attempts before support review.
+  Refund/dispute states revoke processing and access. Existing reports remain readable.
+  The public Streamlit prototype cannot start new pack analysis; existing session
+  snapshots remain downloadable.
 - Owner listing form → validated draft/live state with optimistic concurrency,
   promotional expiry, public deals API, enquiry inbox and first-party counters.
   Payment never bypasses publication validation or constitutes endorsement.
@@ -76,13 +80,17 @@ is promised until costs and fulfilment are established. The ordinary property
 yield calculator remains free. Professional exports mean research exports, not
 a restriction on downloading a customer's own stored data.
 
-## Owner setup confirmed missing — 7 October 2026
+## Account connections checked — 8 October 2026
 
-The owner confirmed that Stripe, Supabase and a private API host do not yet exist.
-This is an account-creation boundary, not a missing secret that can be recovered.
+Supabase, Stripe sandbox and Render connections are verified. The confirmed Render
+workspace has no services. The two monthly sandbox prices have been created and
+checked against `plan_catalogue.json`; no live-mode account has been confirmed.
+No paid hosting has been provisioned. Auth URL changes are owner-confirmed, not
+independently read back. Account connections do not activate the public journeys.
 
-1. Create the owner-controlled Supabase project and Stripe sandbox. The owner must
-   complete Stripe business verification before live payment activation.
+1. Complete Stripe business verification before live payment activation. The
+   dedicated sandbox is sufficient for integration tests. The one-off report price
+   remains unconfigured until product quality and the commercial offer are agreed.
 2. Configure production SMTP for Supabase magic links, with a verified sender
    domain and `https://garethburke5.github.io/Commercial-Auction-Sniper/account/`
    as the redirect. Supabase's default mail service is not for public sign-ups.
@@ -120,3 +128,28 @@ Provider references checked 7 October 2026:
 - https://docs.stripe.com/get-started/account/set-up
 - https://render.com/docs/disks
 - https://render.com/docs/blueprint-spec
+
+
+## Investigation runtime boundary — 8 October 2026
+
+`acquisition_pipeline.investigate_acquisition` is the shared service path for
+bounded research, evidence reconciliation, an open-ended review, one targeted
+follow-up research pass and resynthesis against the new evidence digest. The
+packet includes price, income, costs, VAT, chronology, market evidence and sources.
+Provider-returned claims must reference sources recorded as reviewed. Provenance
+validation does not establish factual or investment approval.
+
+The host must supply callable `app.state.acquisition_reasoner` and
+`app.state.acquisition_researcher` providers. No concrete production provider,
+credentials, execution budget or full-pack live-provider validation is configured
+by this change. The paid upload route fails before extraction without both
+providers. The service ledger marks provider costs/margin unknown instead of
+claiming zero cost. Do not enable checkout just because these callables exist:
+`acquisition_quality.py` remains a separate closed product-approval gate.
+
+Remaining work: production provider adapter and measured cost/resource limits;
+independent real-pack analytical acceptance; private deployment and secure secrets;
+SMTP and complete sandbox customer journeys; recovery of interrupted processing;
+backup/restore and scheduled monitoring. Do not resume historical recovery in place
+of these launch tasks. Guide/achieved-price preservation still requires its scoped
+follow-up; no archive backfill was run for this change.

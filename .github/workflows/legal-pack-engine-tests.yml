@@ -49,4 +49,4 @@ jobs:
       - run: python -m pip install pytest pypdf python-docx openpyxl reportlab matplotlib fastapi stripe PyJWT python-multipart httpx
       - run: python -m pytest -q tests/test_legal_pack_engine.py tests/test_legal_pack_ingest.py tests/test_legal_pack_report.py tests/test_legal_pack_service.py tests/test_property_intelligence.py tests/test_legal_evidence_provenance.py tests/test_acquisition_lease_evidence.py tests/test_acquisition_property_evidence.py tests/test_registry_scan_coverage.py
       - run: python -m py_compile legal_pack_engine.py legal_pack_ingest.py legal_pack_report.py legal_pack_service.py property_intelligence.py
-      - run: python -m pytest -q tests/test_acquisition_investigation.py
+      - run: python -m pytest -q tests/test_acquisition_investigation.py tests/test_acquisition_pipeline.py

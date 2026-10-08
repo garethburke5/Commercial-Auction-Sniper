@@ -99,12 +99,12 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
 
     def add(key, title, finding, consequence, resolution, evidence=(),
             state='unresolved', materiality='price_sensitive', topic='investment',
-            exposed_rent=None, reasoning=None):
+            exposed_rent=None, reasoning=None, summary=None):
         item = {'id': key, 'title': title, 'finding': finding, 'state': state,
                 'materiality': materiality, 'topic': topic, 'consequence': consequence,
                 'resolution': resolution, 'evidence_ids': ledger.add_many(evidence),
                 'evidence': list(evidence), 'exposed_annual_rent': exposed_rent,
-                'reasoning': reasoning or consequence}
+                'reasoning': reasoning or consequence, 'summary': summary or finding}
         findings.append(item)
         return item
 
@@ -211,7 +211,10 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
                 'The letting date, certificate requirement and MEES scope must be assessed together. Potential consequences include improvement expenditure, enforcement, restricted reletting and lender/resale objections; no breach or works cost is established.' + rent_note,
                 'Match the exact unit and assessment extent on the official EPC register; obtain the certificate or documented non-requirement, and check any PRS exemption, its evidence, expiry and purchaser position.',
                 row['evidence'] + row.get('lease_date_evidence',[]) + ([e for e in candidate.get('evidence', [])] if candidate else []) + [_source(r) for r in primary_guidance+negative_checks],
-                state='unresolved' if candidate else 'missing', materiality='decision_gate', topic='energy', exposed_rent=row.get('annual_rent'))
+                state='unresolved' if candidate else 'missing', materiality='decision_gate', topic='energy', exposed_rent=row.get('annual_rent'),
+                summary=finding+(' Listed status does not automatically remove EPC or MEES obligations; establish the lawful basis and practicable improvements.' if profile['listed'] else '')+
+                    (' The recorded register searches were inconclusive for this demise; they do not prove non-compliance.' if negative_checks else '')+
+                    (' The letting must be assessed against the applicable EPC and MEES rules in force at its date.' if primary_guidance else 'Applicable regulation still requires primary-source verification.'))
     question('energy-research', 'Resolve EPC and exemption evidence for each commercial demise.',
              'A certificate for another unit does not demonstrate compliance of the income-producing accommodation.', ['epc', 'exemptions'])
 

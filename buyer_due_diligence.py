@@ -5,7 +5,7 @@ from legal_pack_access import property_context,is_direct_pack,fetch_public_pack
 from legal_pack_report import validate_saved_review
 from acquisition_build import engine_identity
 
-def render_buyer_due_diligence():
+def _render_legacy_analysis_workspace():
     st.markdown('''<style>
     .stApp{background:#f5f7fa;color:#183149;color-scheme:light}
     .stApp h1,.stApp h2,.stApp h3,.stApp h4,[data-testid="stCaptionContainer"],[data-testid="stExpander"] details>summary{color:#183149!important}
@@ -96,3 +96,25 @@ def render_buyer_due_diligence():
     if originals:
         with st.expander('Retrieve an original uploaded document'):
             name=st.selectbox('Source document',list(originals));st.download_button('Download original document',originals[name],file_name=name,mime='application/octet-stream',on_click='ignore')
+
+
+
+def render_buyer_due_diligence():
+    """The public prototype must not bypass account/payment cost controls."""
+    import os
+    from urllib.parse import urlencode
+    st.markdown('### Auction Sniper Acquisition Intelligence')
+    st.info('Legal-pack analysis will run through your Auction Sniper account after a verified purchase. Paid reports remain under quality validation; this prototype cannot start new analysis.')
+    base=os.getenv('PUBLIC_ORIGIN','https://garethburke5.github.io/Commercial-Auction-Sniper').rstrip('/')
+    query=urlencode({'property':st.query_params.get('property')}) if st.query_params.get('property') else ''
+    st.link_button('Open Auction Sniper research',base+'/due-diligence/'+('?' + query if query else ''))
+    # Keep completed session work retrievable without permitting another run.
+    reports=st.session_state.get('dd_reports',{})
+    if reports:
+        from acquisition_intelligence import build_acquisition,snapshot
+        from acquisition_report import render
+        for rid,model in reports.items():
+            acquisition=st.session_state.get('dd_acquisitions',{}).get(rid) or build_acquisition(model,{})
+            st.download_button('Download saved snapshot: '+model['property'],
+                render(snapshot(acquisition),standalone=True),
+                file_name='acquisition-'+rid+'.html',mime='text/html',key='saved-'+rid)
