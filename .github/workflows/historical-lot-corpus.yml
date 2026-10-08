@@ -127,6 +127,12 @@ concurrency:
 
 jobs:
   collect:
+    # Owner priority instruction, 8 October 2026: pause discretionary archive
+    # recovery after its saved checkpoint while Acquisition Intelligence is fixed.
+    # This workflow traverses historical catalogues. Current-stock scans, normal
+    # observation banking and public-site publication have separate workflows.
+    # Resume only after an explicit review of the owner's launch priorities.
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 55
     steps:
