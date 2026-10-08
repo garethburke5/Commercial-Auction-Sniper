@@ -32,6 +32,7 @@ MIXED_SHARD = (
     / "data/auction_history/appearances/source-corpus"
     / "savills_2005_2009_saved_catalogue_grid_lots_20260928.jsonl.gz"
 )
+MIXED_SOURCE_KEY = f"source-corpus/{MIXED_SOURCE.stem}"
 SECONDARY_URL = "https://propertyauctions.com/Results/LotList.aspx?AID={aid}"
 USER_AGENT = "Commercial-Auction-Sniper historical corpus/1.0"
 LOT_LABEL_RE = re.compile(r"(?:\d+[A-Za-z]?|[A-Za-z])")
@@ -281,6 +282,35 @@ def migrate_mixed_source(aid: int) -> int:
     return removed
 
 
+def retarget_address_enrichments(aid: int, target: Path) -> int:
+    """Move internal enrichment pointers with rows split from the mixed shard."""
+    target_prefix = f"source-corpus|savills-commercial-auc{aid}-pos"
+    target_shard = f"source-corpus/{target.stem}"
+    changed = 0
+    for source_path in sorted(CORPUS.glob("*.json")):
+        if source_path == target:
+            continue
+        payload = json.loads(source_path.read_text())
+        enrichments = payload.get("appearance_enrichments")
+        if not isinstance(enrichments, list):
+            continue
+        file_changed = False
+        for enrichment in enrichments:
+            if not isinstance(enrichment, dict):
+                continue
+            target_appearance = clean(enrichment.get("target_appearance_id"))
+            current_shard = clean(enrichment.get("target_shard"))
+            if target_appearance.startswith(target_prefix) and current_shard != target_shard:
+                if not current_shard.startswith("source-corpus/"):
+                    raise ValueError(f"Unexpected enrichment shard for {target_appearance}: {current_shard}")
+                enrichment["target_shard"] = target_shard
+                changed += 1
+                file_changed = True
+        if file_changed:
+            atomic_json(source_path, payload)
+    return changed
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--aid", required=True, type=int)
@@ -309,6 +339,7 @@ def main() -> None:
         raise FileExistsError(target)
     removed = migrate_mixed_source(args.aid)
     atomic_json(target, payload)
+    enrichments_retargeted = retarget_address_enrichments(args.aid, target)
     # The general shard writer intentionally retains rows that disappear from a
     # later fetch.  Here the disappearance is an explicit, evidenced migration
     # into a complete per-auction shard, so force the mixed derived shard to be
@@ -320,6 +351,7 @@ def main() -> None:
         "lots_reconciled": len(payload["lots"]),
         "legacy_rows_replaced": removed,
         "net_appearances": len(payload["lots"]) - removed,
+        "address_enrichments_retargeted": enrichments_retargeted,
     }, indent=2))
 
 

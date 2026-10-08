@@ -1,3 +1,6 @@
+import json
+
+import scripts.harvest_savills_legacy_result_grid as collector
 from scripts.harvest_savills_legacy_result_grid import parse_first_party, parse_secondary, reconcile
 
 
@@ -45,3 +48,30 @@ def test_parsers_and_reconciliation_preserve_lots_and_prices():
     assert payload["lots"][1]["result_status"] == "Available"
     assert payload["lots"][2]["lot_number"] == "A"
     assert payload["lots"][2]["result_status"] == "Withdrawn Prior"
+
+
+def test_retargets_address_enrichment_when_lots_leave_mixed_shard(tmp_path, monkeypatch):
+    corpus = tmp_path / "corpus"
+    corpus.mkdir()
+    enrichment_path = corpus / "saved_enrichment.json"
+    enrichment_path.write_text(json.dumps({
+        "appearance_enrichments": [
+            {
+                "target_shard": collector.MIXED_SOURCE_KEY,
+                "target_appearance_id": "source-corpus|savills-commercial-auc438-pos12",
+                "address": "Flat 2, School House, Merstham, RH1 3AZ",
+            },
+            {
+                "target_shard": collector.MIXED_SOURCE_KEY,
+                "target_appearance_id": "source-corpus|savills-commercial-auc428-pos1",
+                "address": "Unrelated address",
+            },
+        ]
+    }))
+    target = corpus / "savills_2005_2006_auc438_complete_results_20261008.json"
+    monkeypatch.setattr(collector, "CORPUS", corpus)
+
+    assert collector.retarget_address_enrichments(438, target) == 1
+    enrichments = json.loads(enrichment_path.read_text())["appearance_enrichments"]
+    assert enrichments[0]["target_shard"] == f"source-corpus/{target.stem}"
+    assert enrichments[1]["target_shard"] == collector.MIXED_SOURCE_KEY

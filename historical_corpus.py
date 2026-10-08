@@ -722,6 +722,12 @@ def build_database():
         try:
             try:
                 return _build_database()
+            except sqlite3.IntegrityError:
+                # Constraint failures describe invalid corpus state (usually
+                # duplicate appearance IDs), not a damaged staging inode.
+                # Retrying the same rows in memory only hides the distinction
+                # and wastes a full second rebuild.
+                raise
             except sqlite3.DatabaseError as error:
                 # Some overlay filesystems can invalidate a large SQLite
                 # staging inode while it is still open. The source shards are

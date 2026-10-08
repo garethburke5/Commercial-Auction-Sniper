@@ -259,3 +259,17 @@ def test_database_builder_retries_disk_staging_error_in_memory(tmp_path, monkeyp
     monkeypatch.setattr(h, "_build_database", fake_build)
     assert h.build_database() == {"individual_lot_records_captured": 1}
     assert attempts == [False, True]
+
+
+def test_database_builder_does_not_retry_integrity_failures(tmp_path, monkeypatch):
+    monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")
+    attempts = []
+
+    def fake_build(in_memory=False):
+        attempts.append(in_memory)
+        raise h.sqlite3.IntegrityError("duplicate appearance")
+
+    monkeypatch.setattr(h, "_build_database", fake_build)
+    with pytest.raises(h.sqlite3.IntegrityError, match="duplicate appearance"):
+        h.build_database()
+    assert attempts == [False]
