@@ -201,6 +201,15 @@ def harvest(
         "auction_date": auction_date,
         "source_auction_id": source_auction_id,
         "lot_enumeration_complete": reconciled,
+        "catalogue_complete": reconciled,
+        "catalogue_lot_count": expected_rows,
+        "completion_scope": (
+            f"all {expected_rows} first-party lot identities captured exactly once from "
+            f"{pages} reconciled search pages"
+            if inventory_method == "search_api"
+            else f"all {expected_rows} first-party lot identities captured exactly once from "
+            "the complete retained sitemap lot-page inventory"
+        ),
         "published_rows": len(rows),
         "source_reported_rows": expected_rows,
         "reconciliation_shortfall": expected_rows - len(rows),
