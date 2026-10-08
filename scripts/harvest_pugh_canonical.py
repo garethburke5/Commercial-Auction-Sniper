@@ -53,9 +53,9 @@ def grid_page_url(page: int) -> str:
                                       "include-sold": "on", "page": page})
 
 
-def reverse_page_url(page: int) -> str:
+def reverse_page_url(page: int, order_value: str) -> str:
     """Oldest-first list view used when the site's deepest newest-first pages fail."""
-    return INDEX + "?" + urlencode({**PARAMS, "order-results": "date-asc", "page": page})
+    return INDEX + "?" + urlencode({**PARAMS, "order-results": order_value, "page": page})
 
 
 def get(session: requests.Session, url: str, attempts: int = 4) -> tuple[str, bytes]:
@@ -399,6 +399,30 @@ def tail_grid_plan(result_count: int, first_failed_page: int, normal_page_size: 
     }
 
 
+def discover_oldest_first_order_value() -> str:
+    """Read Pugh's own sort selector instead of guessing a query value."""
+    requested = page_url(1)
+    _, raw = get(requests.Session(), requested)
+    soup = BeautifulSoup(raw, "lxml")
+    options = soup.select("select option")
+    candidates = []
+    for option in options:
+        value = clean(option.get("value"))
+        label = clean(option.get_text(" ", strip=True))
+        marker = f"{value or ''} {label or ''}".casefold()
+        if value and "date" in marker and ("oldest" in marker or "asc" in marker):
+            candidates.append(value)
+    candidates = list(dict.fromkeys(candidates))
+    if len(candidates) != 1:
+        published = [
+            {"value": clean(option.get("value")), "label": clean(option.get_text(" ", strip=True))}
+            for option in options
+            if "date" in f"{option.get('value') or ''} {option.get_text(' ', strip=True)}".casefold()
+        ]
+        raise ValueError(f"Could not identify one oldest-first date sort option: {published!r}")
+    return candidates[0]
+
+
 def fetch_reconciled_reverse_tail(result_count: int, first_failed_page: int,
                                   normal_page_size: int) -> tuple[list[dict], int, dict]:
     """Recover a broken newest-first tail from shallow oldest-first list pages.
@@ -414,7 +438,10 @@ def fetch_reconciled_reverse_tail(result_count: int, first_failed_page: int,
     if first_failed_page <= 1 or missing_rows <= 0:
         raise ValueError("Reverse-tail plan has no valid boundary")
     reverse_pages = math.ceil((missing_rows + normal_page_size) / normal_page_size)
-    reverse_results = [fetch_reverse_page(page) for page in range(1, reverse_pages + 1)]
+    order_value = discover_oldest_first_order_value()
+    reverse_results = [
+        fetch_reverse_page(page, order_value) for page in range(1, reverse_pages + 1)
+    ]
     if any(total != result_count for _, _, total, _, _, _ in reverse_results):
         raise ValueError("Published result count changed in reverse-tail fallback")
     ascending_rows = []
@@ -436,6 +463,7 @@ def fetch_reconciled_reverse_tail(result_count: int, first_failed_page: int,
         "reverse_pages": list(range(1, reverse_pages + 1)),
         "missing_rows": missing_rows,
         "boundary_page": first_failed_page - 1,
+        "order_value": order_value,
     }
 
 
@@ -519,9 +547,9 @@ def fetch_page(page: int) -> tuple[int, list[dict], int | None, int, int, list[s
     return page, parsed, page_total, page_last, source_rows, list_source_ids(raw)
 
 
-def fetch_reverse_page(page: int) -> tuple[int, list[dict], int | None, int, int, list[str]]:
+def fetch_reverse_page(page: int, order_value: str) -> tuple[int, list[dict], int | None, int, int, list[str]]:
     """Fetch and parse one shallow oldest-first list page."""
-    requested = reverse_page_url(page)
+    requested = reverse_page_url(page, order_value)
     final_url, raw = get(requests.Session(), requested)
     sha256, retrieved = corpus.digest(raw), corpus.now()
     snapshot = corpus.DATA / "sources/pugh" / (
@@ -638,6 +666,13 @@ def harvest() -> None:
     existing_path = corpus.DATA / "appearances/pugh-auctions/property-search.jsonl.gz"
     existing = list(corpus.iter_rows(existing_path)) if existing_path.exists() else []
     existing_appearance_ids = {str(row.get("appearance_id")) for row in existing if row.get("appearance_id")}
+    undated_existing_by_source_id = {
+        str(row["source_lot_id"]): row for row in existing
+        if row.get("source_lot_id")
+        and not row.get("auction_date")
+        and row.get("identity_method") == "source_property_id_undated_tail"
+    }
+    reverse_tail_upgraded_undated = 0
     legacy = legacy_pugh_rows()
     enriched_by_path, rows_to_write = defaultdict(list), []
     observed = set(observed_before)
@@ -756,16 +791,22 @@ def harvest() -> None:
     # falling back to the undated grid.
     failed_pages = sorted(int(item["page"]) for item in failures
                           if str(item.get("page", "")).isdigit())
-    contiguous_failed_tail = bool(
-        failed_pages and failed_pages == list(range(failed_pages[0], last_page + 1))
+    unresolved_tail_pages = set(failed_pages) | grid_covered_pages
+    recovery_start_page = min(unresolved_tail_pages) if unresolved_tail_pages else None
+    known_tail_pages = unresolved_tail_pages | reverse_covered_pages
+    recoverable_tail = bool(
+        recovery_start_page
+        and set(range(recovery_start_page, last_page + 1)).issubset(known_tail_pages)
     )
-    if repair_mode and result_count and contiguous_failed_tail:
+    reverse_tail_recovered = False
+    if repair_mode and result_count and recoverable_tail:
         try:
             tail_rows, first_position, reverse_plan = fetch_reconciled_reverse_tail(
-                result_count, failed_pages[0], first_source_rows
+                result_count, recovery_start_page, first_source_rows
             )
             observed.update(row["source_lot_id"] for row in tail_rows)
-            for page in failed_pages:
+            recovered_pages = list(range(recovery_start_page, last_page + 1))
+            for page in recovered_pages:
                 page_counts[str(page)] = (
                     result_count - first_source_rows * (last_page - 1)
                     if page == last_page else first_source_rows
@@ -774,6 +815,19 @@ def harvest() -> None:
                     pages_captured.append(page)
             for row in tail_rows:
                 if not bankable(row):
+                    continue
+                old_undated = undated_existing_by_source_id.get(str(row.get("source_lot_id") or ""))
+                if old_undated:
+                    row = {
+                        **old_undated, **row,
+                        "appearance_id": old_undated["appearance_id"],
+                        "source_evidence": {
+                            **row["source_evidence"],
+                            "prior_undated_source_evidence": old_undated.get("source_evidence"),
+                        },
+                    }
+                    rows_to_write.append(row)
+                    reverse_tail_upgraded_undated += 1
                     continue
                 lot_key = str(row.get("lot_number") or "").lstrip("0").lower()
                 match = strict_legacy_match(
@@ -794,36 +848,39 @@ def harvest() -> None:
                     run_new.append(row)
                     existing_appearance_ids.add(row["appearance_id"])
             reverse_tail_source_rows = len(tail_rows)
-            reverse_covered_pages.update(failed_pages)
+            reverse_covered_pages.update(recovered_pages)
+            grid_covered_pages.clear()
             source_rows_complete = True
             unresolved_rows = 0
             grid_tail_source_rows = 0
             failures = []
+            reverse_tail_recovered = True
             print(
                 f"PUGH recovered dated reverse tail rows={len(tail_rows)} "
                 f"positions={first_position}-{result_count} "
-                f"reverse_pages={reverse_plan['reverse_pages']}",
+                f"reverse_pages={reverse_plan['reverse_pages']} "
+                f"upgraded_undated={reverse_tail_upgraded_undated}",
                 flush=True,
             )
         except Exception as exc:
             failures.append({
                 "kind": "reverse_tail_recovery",
-                "url": reverse_page_url(1),
+                "url": page_url(1),
                 "error": f"{type(exc).__name__}: {exc}"[:500],
             })
             print("FAILED", failures[-1], flush=True)
 
     # If reverse sorting is unavailable or its boundary cannot be proven, the
     # same rows may still survive as undated cards in the grid.
-    if (repair_mode and result_count and contiguous_failed_tail and
-            not reverse_covered_pages):
+    if (repair_mode and result_count and recoverable_tail and
+            not reverse_tail_recovered):
         try:
             tail_rows, first_position, _ = fetch_reconciled_grid_tail(
-                result_count, failed_pages[0], first_source_rows
+                result_count, recovery_start_page, first_source_rows
             )
             observed.update(row["source_lot_id"] for row in tail_rows)
             normal_reconciled = sum(page_counts.get(str(page), 0)
-                                    for page in range(1, failed_pages[0]))
+                                    for page in range(1, recovery_start_page))
             if normal_reconciled + len(tail_rows) != result_count:
                 raise ValueError("Hybrid list/grid row count did not equal published total")
             unresolved_path = corpus.DATA / "sources/pugh/undated-property-search-tail-records.json.gz"
@@ -835,7 +892,7 @@ def harvest() -> None:
             })
             unresolved_rows = len(tail_rows)
             grid_tail_source_rows = len(tail_rows)
-            grid_covered_pages.update(failed_pages)
+            grid_covered_pages.update(range(recovery_start_page, last_page + 1))
             source_rows_complete = True
             failures = [{
                 "kind": "unresolved_source_rows_without_auction_date",
@@ -1036,6 +1093,7 @@ def harvest() -> None:
                "grid_tail_source_rows": grid_tail_source_rows,
                "reverse_tail_source_rows": reverse_tail_source_rows,
                "reverse_covered_normal_pages": sorted(reverse_covered_pages),
+               "reverse_tail_upgraded_undated": reverse_tail_upgraded_undated,
                "unresolved_source_rows": unresolved_rows,
                "undated_tail_source_rows": undated_tail_source_rows,
                "undated_tail_appearances_captured": undated_tail_appearances_captured,
@@ -1065,6 +1123,7 @@ def harvest() -> None:
         "grid_tail_source_rows": grid_tail_source_rows,
         "reverse_tail_source_rows": reverse_tail_source_rows,
         "reverse_covered_normal_pages": sorted(reverse_covered_pages),
+        "reverse_tail_upgraded_undated": reverse_tail_upgraded_undated,
         "unresolved_source_rows": unresolved_rows,
         "undated_tail_source_rows": undated_tail_source_rows,
         "undated_tail_appearances_captured": undated_tail_appearances_captured,
