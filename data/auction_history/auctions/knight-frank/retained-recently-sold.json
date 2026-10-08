@@ -4,12 +4,12 @@
   "auction_date": null,
   "catalogue_complete": false,
   "source_rows_complete": true,
-  "published_source_rows": 285,
-  "visible_source_rows": 285,
+  "published_source_rows": 286,
+  "visible_source_rows": 286,
   "duplicate_source_presentations": 1,
-  "distinct_source_identities": 284,
-  "lots_captured": 284,
-  "detail_pages_enriched": 284,
+  "distinct_source_identities": 285,
+  "lots_captured": 285,
+  "detail_pages_enriched": 285,
   "source_url": "https://www.knightfrankauctions.com/recently-sold/",
   "pagination_reconciled": true,
   "denominator_reconciled": true,
@@ -17,12 +17,12 @@
   "source_evidence": [
     {
       "source_url": "https://www.knightfrankauctions.com/recently-sold/",
-      "retrieved_at": "2026-10-08T16:07:10.539686+00:00",
-      "sha256": "98f2294fe5ab3ff6834bce25c815a898f239eae96dfa03e06636a6179ebebfd5",
-      "snapshot_path": "data/auction_history/sources/knight-frank/recently-sold-98f2294fe5ab3ff6.json.gz",
+      "retrieved_at": "2026-10-08T17:11:05.537813+00:00",
+      "sha256": "b11e7faa2883edd4efe61a2d65b5c95f5715b3bf1a277b6085691d62bd14df2a",
+      "snapshot_path": "data/auction_history/sources/knight-frank/recently-sold-b11e7faa2883edd4.json.gz",
       "basis": "first-party retained recently-sold grid",
-      "published_source_rows": 285,
-      "distinct_source_identities": 284
+      "published_source_rows": 286,
+      "distinct_source_identities": 285
     },
     {
       "retrieved_at": "2026-10-05T23:12:06.103871+00:00",
@@ -457,8 +457,19 @@
       ],
       "source_url": "https://www.knightfrankauctions.com/property/gp_22024/120a-ashley-gardens-thirleby-road-westminster-london-sw1p-1hl/",
       "snapshot_member": "gp_22024"
+    },
+    {
+      "retrieved_at": "2026-10-08T17:11:05.878235+00:00",
+      "sha256": "350fe8f25f7bb620a8c03d970dbd6f24ad5d41065596797e39031a02236576a9",
+      "snapshot_path": "data/auction_history/sources/knight-frank/detail-pages-001-350fe8f25f7bb620.json.gz",
+      "basis": "first-party property detail pages",
+      "members": [
+        "371218"
+      ],
+      "source_url": "https://www.knightfrankauctions.com/property/371218/3-peper-harow-house-peper-harow-park-peper-harow-godalming-surrey-gu8-6bg/",
+      "snapshot_member": "371218"
     }
   ],
   "errors": [],
-  "checked_at": "2026-10-08T16:07:10.593850+00:00"
+  "checked_at": "2026-10-08T17:11:05.933537+00:00"
 }
