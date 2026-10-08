@@ -1,0 +1,2985 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "captured_at_utc": "2026-10-08T13:18:15Z",
+  "capture_mode": "complete_secondary_result_grid_with_exact_first_party_lot_pages",
+  "scope": "All 123 distinct lot-labelled rows from PropertyAuctions AID 720 for the 7 December 2010 Savills sale. The result grid separately reports Offered: 113; 4 identities independently reconcile to exact archived first-party Savills lot pages and retain their full address, postcode, tenure, guide, rent and lease fields. The remaining 119 rows are retained as partial lots without inferring addresses.",
+  "source_auction_id": "savills-national-2010-12-07",
+  "auction_date": "2010-12-07",
+  "catalogue_lot_count": 123,
+  "catalogue_complete": true,
+  "completion_scope": "all 123 lot labels appear exactly once on the single result page; the page separately reports Offered: 113, and 4 rows are independently matched to exact first-party pages",
+  "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+  "saved_source_snapshot": "data/source_diagnostics/savills_aid720_result_grid_20261008.json",
+  "saved_source_snapshot_sha256": "4f6e400b175adec5d8902a9eb6b8acf0113a5339bcd36fdd654ddba4ea954c11",
+  "source_summary": {
+    "offered": 113,
+    "catalogue_rows": 123,
+    "rows_observed": 123,
+    "unique_lot_numbers": 123,
+    "first_party_exact_rows_cross_checked": 4,
+    "result_pagination_pages": 1
+  },
+  "raw_table_text": "1\tVacant Leasehold House\tLondon W4\t£362,000\n2\tVacant Freehold House\tLondon E17\t£130,000\n3\tVacant Flat\tLondon W2\tWithdrawn Prior\n4\tVacant Freehold House\tLondon E3\t£405,000\n5\tVacant Flat\tLondon SW6\t£361,000\n6\tVacant Flat\tLondon SE22\t£170,000\n7\tVacant Freehold House\tLondon E15\t£196,000\n8\tVacant Freehold House\tLondon E17\t£209,000\n9\tVacant Freehold House\tLondon N17\t£178,000\n10\tVacant Flat\tLondon N1\t£392,000\n11\tVacant Freehold House\tLondon W12\t£281,000\n12\tVacant Freehold House\tFeltham\t£193,000\n13\tVacant Flat\tLondon SW6\tSold Post\n14\tVacant Freehold House\tLondon E6\t£185,000\n15\tVacant Freehold House\tLondon E5\t£202,000\n16\tVacant Freehold House\tLondon E17\t£165,000\n17\tVacant Freehold House\tThornton Heath\t£195,000\n18\tVacant Flat\tCarshalton\t£112,000\n19\tVacant Flat\tLondon SE26\t£181,000\n20\tVacant Flat\tLondon SE26\t£104,000\n21\tVacant Freehold House\tLondon NW6\t£888,000\n22\tVacant Freehold House\tLondon NW6\t£543,000\n23\tVacant Freehold House\tLondon N11\tSold Prior\n24\tVacant Freehold House\tLondon E17\tWithdrawn Prior\n25\tVacant Freehold House\tLondon E17\tWithdrawn Prior\n26\tVacant Freehold House\tLondon E17\tWithdrawn Prior\n27\tVacant Flat\tLondon E17\t£158,000\n28\tVacant Freehold House\tLondon SE1\tAvailable at £825,000\n29\tVacant Freehold House\tLondon SW6\t£480,000\n30\tInvestment Flat\tLondon SW11\t£350,000\n31\tVacant Freehold House\tLondon SW18\t£730,000\n32\tInvestment Flat\tLondon SW16\t£279,000\n33\tVacant Flat\tLondon E17\tAvailable at £100,000\n34\tVacant Flat\tLondon W9\tAvailable at £260,000\n35\tVacant Flat\tLondon SE3\t£132,000\n36\tVacant Freehold House\tLondon SE15\t£310,000\n37\tVacant Freehold House\tLondon SW19\t£183,000\n38\tVacant Freehold House\tHounslow\t£237,000\n39\tVacant Flat\tHove\t£145,000\n40\tVacant Flat\tHove\t£141,000\n41\tVacant Flat\tLondon SE4\t£168,000\n42\tVacant Flat\tLondon SE4\tAvailable at £170,000\n43\tVacant Flat\tLondon W1\t£785,000\n44\tVacant Flat\tLondon W1\t£1.1975M\n45\tInvestment Flat\tLondon E8\t£803,000\n46\tVacant Freehold House\tLondon WC1\tSold Prior\n47\tVacant Flat\tLondon NW8\t£176,000\n48\tVacant Freehold House\tLondon N3\t£515,000\n49\tVacant Freehold House\tLondon N3\t£501,000\n50\tVacant Freehold House\tLondon SE23\t£332,500\n51\tVacant Freehold House\tLondon E5\tSold Post\n52\tVacant Flat\tLondon W12\t£221,000\n53\tInvestment Freehold House\tLondon W10\t£805,000\n54\tVacant Freehold House\tIsleworth\t£288,000\n55\tVacant Freehold House\tLondon SW12\t£311,000\n56\tVacant Flat\tLondon SE25\t£133,000\n57\tVacant Flat\tLondon SE25\t£132,000\n58\tVacant Flat\tLondon NW8\tAvailable at £485,000\n59\tInvestment Flat\tLondon NW8\tSold Prior\n60\tVacant Flat\tLondon SW6\t£302,000\n61\tVacant Freehold House\tLondon SE17\tAvailable at £500,000\n62\tVacant Freehold House\tHounslow\tWithdrawn Prior\n63\tVacant Flat\tHounslow\tAvailable at £145,000\n64\tVacant Freehold House\tSanderstead\t£250,000\n65\tVacant Flat\tBeckenham\tAvailable at £165,000\n66\tVacant Flat\tLondon N2\t£231,000\n67\tVacant Flat\tLondon SW4\t£223,000\n68\tVacant Flat\tLondon W12\t£220,000\n69\tVacant Flat\tLondon W7\tSold Post\n70\tVacant Flat\tLondon SE15\tSold Post\n71\tVacant Flat\tLondon SE16\tAvailable at £160,000\n72\tVacant Freehold House\tSt Albans\t£323,000\n73\tVacant Freehold House\tNorthampton\t£72,000\n74\tVacant Freehold House\tLondon N16\t£665,000\n75\tInvestment Flat\tLondon E14\t£120,000\n76\tVacant Freehold House\tLondon E13\t£156,000\n77\tInvestment Flat\tLondon W2\tAvailable at £185,000\n78\tVacant Freehold House\tLondon E5\tSold Post\n79\tVacant Flat\tBorehamwood\t£138,000\n80\tVacant Freehold House\tRedbridge\t£237,000\n81\tVacant Flat\tLuton\t£30,500\n82\tVacant Flat\tLuton\t£35,000\n83\tVacant Freehold House\tLondon N8\t£650,000\n84\tVacant Freehold House\tUxbridge\t£250,000\n85\tInvestment Flat\tLondon SE9\tAvailable at £125,000\n86\tVacant Freehold House\tEgham\t£402,000\n87\tVacant Flat\tLondon SE15\t£200,000\n88\tVacant Freehold House\tLondon SE15\tAvailable at £240,000\n89\tInvestment Flat\tSouth Harrow\t£135,000\n90\tInvestment Flat\tLondon E4\t£99,000\n91\tInvestment Flat\tLondon W13\t£130,000\n92\tInvestment Flat\tLondon E10\t£121,000\n93\tInvestment Flat\tLondon SW2\tSold Post\n94\tVacant Freehold House\tLondon E17\t£214,000\n95\tVacant Flat\tLondon W2\t£371,000\n96\tVacant Flat\tSherborne\tAvailable at £140,000\n97\tVacant Flat\tLondon N15\tWithdrawn Prior\n98\tVacant Flat\tLondon SE13\tAvailable at £99,000\n99\tVacant Flat\tLondon E15\t£106,000\n100\tVacant Freehold House\tLondon SW6\t£1,010,000\n101\tVacant Freehold House\tLondon E6\t£191,000\n102\tVacant Flat\tLondon SE26\tSold Post\n103\tVacant Freehold House\tHounslow\t£180,000\n104\tVacant Freehold House\tHounslow\t£184,000\n105\tVacant Freehold House\tHounslow\t£180,000\n106\tVacant Freehold House\tHounslow\t£185,000\n107\tVacant Freehold House\tSlough\tAvailable at £850,000\n108\tVacant Freehold House\tRainham\tAvailable at £300,000\n109\tInvestment Freehold House\tLondon NW10\tAvailable at £720,000\n110\tInvestment Flat\tLondon NW10\tSold Post\n111\tVacant Flat\tLeeds\tWithdrawn Prior\n112\tVacant Freehold House\tPreston\t£56,000\n113\tVacant Freehold House\tHull\t£29,000\n114\tOther\tNear Craigallachie\t£123,000\n115\tOther\tLondon E17\t£154,000\n116\tLand\tWembley\t£12,500\n117\tOther\tLondon E17\tWithdrawn Prior\n118\tOther\tLondon E17\tWithdrawn Prior\n119\tOther\tLondon E17\t£5,500\n120\tGround Rent\tOngar\tWithdrawn Prior\n121\tGround Rent\tLancing\t£33,000\n122\tGround Rent\tLancing\t£15,000\n123\tLand\tLondon N17\t£20,500",
+  "appearance_count": 123,
+  "address_records": 4,
+  "partial_records": 119,
+  "reconciliation": {
+    "reported_offered": 113,
+    "source_rows_observed": 123,
+    "unique_lot_numbers": 123,
+    "first_party_exact_rows": 4,
+    "result_pagination_pages": 1,
+    "reconciliation_shortfall": 0,
+    "status": "complete surviving result grid"
+  },
+  "lots": [
+    {
+      "source_record_id": "savills-national-2010-12-07-lot1",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "1",
+      "address": null,
+      "locality": "London W4",
+      "property_type": "Vacant Leasehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "1",
+          "type": "Vacant Leasehold House",
+          "location": "London W4",
+          "result": "£362,000"
+        }
+      },
+      "result_price_gbp": 362000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot2",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "2",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "2",
+          "type": "Vacant Freehold House",
+          "location": "London E17",
+          "result": "£130,000"
+        }
+      },
+      "result_price_gbp": 130000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot3",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "3",
+      "address": null,
+      "locality": "London W2",
+      "property_type": "Vacant Flat",
+      "result_status": "Withdrawn Prior",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "3",
+          "type": "Vacant Flat",
+          "location": "London W2",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot4",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "4",
+      "address": null,
+      "locality": "London E3",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "4",
+          "type": "Vacant Freehold House",
+          "location": "London E3",
+          "result": "£405,000"
+        }
+      },
+      "result_price_gbp": 405000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot5",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "5",
+      "address": null,
+      "locality": "London SW6",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "5",
+          "type": "Vacant Flat",
+          "location": "London SW6",
+          "result": "£361,000"
+        }
+      },
+      "result_price_gbp": 361000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot6",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "6",
+      "address": "180B Underhill Road, East Dulwich, London SE22 0QH",
+      "property_type": "Vacant one-bedroom garden flat",
+      "tenure": "Leasehold; new 125-year lease from completion; ground rent £200 per annum rising",
+      "result_price_gbp": 170000,
+      "result_status": "Sold",
+      "source_url": "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/underhillroad.pdf",
+      "source_urls": [
+        "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/underhillroad.pdf",
+        "https://crappistmartin.github.io/images/underhillroad.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "source_document_sha256": "ef89110203cbe8a93458e876905a11c35564451770a96a2466d169bae6862d75",
+      "notes": "Surviving Savills lot page: Tuesday 7 December 2010, lot 6, sold £170,000; full address and residential description preserved. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "locality": "London SE22",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-national-2010-12-07-lot6",
+          "source_url": "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/underhillroad.pdf"
+        },
+        "secondary_grid": {
+          "lot": "6",
+          "type": "Vacant Flat",
+          "location": "London SE22",
+          "result": "£170,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot7",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "7",
+      "address": null,
+      "locality": "London E15",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "7",
+          "type": "Vacant Freehold House",
+          "location": "London E15",
+          "result": "£196,000"
+        }
+      },
+      "result_price_gbp": 196000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot8",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "8",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "8",
+          "type": "Vacant Freehold House",
+          "location": "London E17",
+          "result": "£209,000"
+        }
+      },
+      "result_price_gbp": 209000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot9",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "9",
+      "address": null,
+      "locality": "London N17",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "9",
+          "type": "Vacant Freehold House",
+          "location": "London N17",
+          "result": "£178,000"
+        }
+      },
+      "result_price_gbp": 178000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot10",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "10",
+      "address": null,
+      "locality": "London N1",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "10",
+          "type": "Vacant Flat",
+          "location": "London N1",
+          "result": "£392,000"
+        }
+      },
+      "result_price_gbp": 392000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot11",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "11",
+      "address": null,
+      "locality": "London W12",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "11",
+          "type": "Vacant Freehold House",
+          "location": "London W12",
+          "result": "£281,000"
+        }
+      },
+      "result_price_gbp": 281000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot12",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "12",
+      "address": null,
+      "locality": "Feltham",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "12",
+          "type": "Vacant Freehold House",
+          "location": "Feltham",
+          "result": "£193,000"
+        }
+      },
+      "result_price_gbp": 193000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot13",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "13",
+      "address": null,
+      "locality": "London SW6",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold Post",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "13",
+          "type": "Vacant Flat",
+          "location": "London SW6",
+          "result": "Sold Post"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot14",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "14",
+      "address": null,
+      "locality": "London E6",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "14",
+          "type": "Vacant Freehold House",
+          "location": "London E6",
+          "result": "£185,000"
+        }
+      },
+      "result_price_gbp": 185000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot15",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "15",
+      "address": null,
+      "locality": "London E5",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "15",
+          "type": "Vacant Freehold House",
+          "location": "London E5",
+          "result": "£202,000"
+        }
+      },
+      "result_price_gbp": 202000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot16",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "16",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "16",
+          "type": "Vacant Freehold House",
+          "location": "London E17",
+          "result": "£165,000"
+        }
+      },
+      "result_price_gbp": 165000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot17",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "17",
+      "address": null,
+      "locality": "Thornton Heath",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "17",
+          "type": "Vacant Freehold House",
+          "location": "Thornton Heath",
+          "result": "£195,000"
+        }
+      },
+      "result_price_gbp": 195000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot18",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "18",
+      "address": null,
+      "locality": "Carshalton",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "18",
+          "type": "Vacant Flat",
+          "location": "Carshalton",
+          "result": "£112,000"
+        }
+      },
+      "result_price_gbp": 112000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot19",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "19",
+      "address": null,
+      "locality": "London SE26",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "19",
+          "type": "Vacant Flat",
+          "location": "London SE26",
+          "result": "£181,000"
+        }
+      },
+      "result_price_gbp": 181000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot20",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "20",
+      "address": null,
+      "locality": "London SE26",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "20",
+          "type": "Vacant Flat",
+          "location": "London SE26",
+          "result": "£104,000"
+        }
+      },
+      "result_price_gbp": 104000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot21",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "21",
+      "address": null,
+      "locality": "London NW6",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "21",
+          "type": "Vacant Freehold House",
+          "location": "London NW6",
+          "result": "£888,000"
+        }
+      },
+      "result_price_gbp": 888000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot22",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "22",
+      "address": null,
+      "locality": "London NW6",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "22",
+          "type": "Vacant Freehold House",
+          "location": "London NW6",
+          "result": "£543,000"
+        }
+      },
+      "result_price_gbp": 543000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot23",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "23",
+      "address": null,
+      "locality": "London N11",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold Prior",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "23",
+          "type": "Vacant Freehold House",
+          "location": "London N11",
+          "result": "Sold Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot24",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "24",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Withdrawn Prior",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "24",
+          "type": "Vacant Freehold House",
+          "location": "London E17",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot25",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "25",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Withdrawn Prior",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "25",
+          "type": "Vacant Freehold House",
+          "location": "London E17",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot26",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "26",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Withdrawn Prior",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "26",
+          "type": "Vacant Freehold House",
+          "location": "London E17",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot27",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "27",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "27",
+          "type": "Vacant Flat",
+          "location": "London E17",
+          "result": "£158,000"
+        }
+      },
+      "result_price_gbp": 158000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot28",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "28",
+      "address": null,
+      "locality": "London SE1",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "28",
+          "type": "Vacant Freehold House",
+          "location": "London SE1",
+          "result": "Available at £825,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot29",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "29",
+      "address": null,
+      "locality": "London SW6",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "29",
+          "type": "Vacant Freehold House",
+          "location": "London SW6",
+          "result": "£480,000"
+        }
+      },
+      "result_price_gbp": 480000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot30",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "30",
+      "address": null,
+      "locality": "London SW11",
+      "property_type": "Investment Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "30",
+          "type": "Investment Flat",
+          "location": "London SW11",
+          "result": "£350,000"
+        }
+      },
+      "result_price_gbp": 350000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot31",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "31",
+      "address": null,
+      "locality": "London SW18",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "31",
+          "type": "Vacant Freehold House",
+          "location": "London SW18",
+          "result": "£730,000"
+        }
+      },
+      "result_price_gbp": 730000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot32",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "32",
+      "address": null,
+      "locality": "London SW16",
+      "property_type": "Investment Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "32",
+          "type": "Investment Flat",
+          "location": "London SW16",
+          "result": "£279,000"
+        }
+      },
+      "result_price_gbp": 279000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot33",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "33",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Vacant Flat",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "33",
+          "type": "Vacant Flat",
+          "location": "London E17",
+          "result": "Available at £100,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot34",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "34",
+      "address": null,
+      "locality": "London W9",
+      "property_type": "Vacant Flat",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "34",
+          "type": "Vacant Flat",
+          "location": "London W9",
+          "result": "Available at £260,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot35",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "35",
+      "address": null,
+      "locality": "London SE3",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "35",
+          "type": "Vacant Flat",
+          "location": "London SE3",
+          "result": "£132,000"
+        }
+      },
+      "result_price_gbp": 132000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot36",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "36",
+      "address": "10 Chadwick Road, Peckham, London SE15 4RA",
+      "property_type": "Vacant two-bedroom mid-terrace house requiring upgrading",
+      "tenure": "Freehold",
+      "result_price_gbp": 310000,
+      "result_status": "Sold",
+      "source_url": "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/chadwickroad.pdf",
+      "source_urls": [
+        "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/chadwickroad.pdf",
+        "https://crappistmartin.github.io/images/chadwickroad.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "source_document_sha256": "84d64f88afd2a881a970c9c29e104c92766012b74c5c8c9e6a9f72524a76c499",
+      "notes": "Surviving Savills lot page: Tuesday 7 December 2010, lot 36, sold £310,000; full address and residential description preserved. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "locality": "London SE15",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-national-2010-12-07-lot36",
+          "source_url": "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/chadwickroad.pdf"
+        },
+        "secondary_grid": {
+          "lot": "36",
+          "type": "Vacant Freehold House",
+          "location": "London SE15",
+          "result": "£310,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot37",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "37",
+      "address": null,
+      "locality": "London SW19",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "37",
+          "type": "Vacant Freehold House",
+          "location": "London SW19",
+          "result": "£183,000"
+        }
+      },
+      "result_price_gbp": 183000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot38",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "38",
+      "address": null,
+      "locality": "Hounslow",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "38",
+          "type": "Vacant Freehold House",
+          "location": "Hounslow",
+          "result": "£237,000"
+        }
+      },
+      "result_price_gbp": 237000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot39",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "39",
+      "address": null,
+      "locality": "Hove",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "39",
+          "type": "Vacant Flat",
+          "location": "Hove",
+          "result": "£145,000"
+        }
+      },
+      "result_price_gbp": 145000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot40",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "40",
+      "address": null,
+      "locality": "Hove",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "40",
+          "type": "Vacant Flat",
+          "location": "Hove",
+          "result": "£141,000"
+        }
+      },
+      "result_price_gbp": 141000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot41",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "41",
+      "address": null,
+      "locality": "London SE4",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "41",
+          "type": "Vacant Flat",
+          "location": "London SE4",
+          "result": "£168,000"
+        }
+      },
+      "result_price_gbp": 168000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot42",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "42",
+      "address": null,
+      "locality": "London SE4",
+      "property_type": "Vacant Flat",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "42",
+          "type": "Vacant Flat",
+          "location": "London SE4",
+          "result": "Available at £170,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot43",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "43",
+      "address": null,
+      "locality": "London W1",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "43",
+          "type": "Vacant Flat",
+          "location": "London W1",
+          "result": "£785,000"
+        }
+      },
+      "result_price_gbp": 785000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot44",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "44",
+      "address": null,
+      "locality": "London W1",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "44",
+          "type": "Vacant Flat",
+          "location": "London W1",
+          "result": "£1.1975M"
+        }
+      },
+      "result_price_gbp": 1197500
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot45",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "45",
+      "address": null,
+      "locality": "London E8",
+      "property_type": "Investment Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "45",
+          "type": "Investment Flat",
+          "location": "London E8",
+          "result": "£803,000"
+        }
+      },
+      "result_price_gbp": 803000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot46",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "46",
+      "address": null,
+      "locality": "London WC1",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold Prior",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "46",
+          "type": "Vacant Freehold House",
+          "location": "London WC1",
+          "result": "Sold Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot47",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "47",
+      "address": null,
+      "locality": "London NW8",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "47",
+          "type": "Vacant Flat",
+          "location": "London NW8",
+          "result": "£176,000"
+        }
+      },
+      "result_price_gbp": 176000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot48",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "48",
+      "address": null,
+      "locality": "London N3",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "48",
+          "type": "Vacant Freehold House",
+          "location": "London N3",
+          "result": "£515,000"
+        }
+      },
+      "result_price_gbp": 515000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot49",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "49",
+      "address": null,
+      "locality": "London N3",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "49",
+          "type": "Vacant Freehold House",
+          "location": "London N3",
+          "result": "£501,000"
+        }
+      },
+      "result_price_gbp": 501000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot50",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "50",
+      "address": null,
+      "locality": "London SE23",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "50",
+          "type": "Vacant Freehold House",
+          "location": "London SE23",
+          "result": "£332,500"
+        }
+      },
+      "result_price_gbp": 332500
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot51",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "51",
+      "address": null,
+      "locality": "London E5",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold Post",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "51",
+          "type": "Vacant Freehold House",
+          "location": "London E5",
+          "result": "Sold Post"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot52",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "52",
+      "address": null,
+      "locality": "London W12",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "52",
+          "type": "Vacant Flat",
+          "location": "London W12",
+          "result": "£221,000"
+        }
+      },
+      "result_price_gbp": 221000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot53",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "53",
+      "address": null,
+      "locality": "London W10",
+      "property_type": "Investment Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "53",
+          "type": "Investment Freehold House",
+          "location": "London W10",
+          "result": "£805,000"
+        }
+      },
+      "result_price_gbp": 805000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot54",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "54",
+      "address": null,
+      "locality": "Isleworth",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "54",
+          "type": "Vacant Freehold House",
+          "location": "Isleworth",
+          "result": "£288,000"
+        }
+      },
+      "result_price_gbp": 288000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot55",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "55",
+      "address": null,
+      "locality": "London SW12",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "55",
+          "type": "Vacant Freehold House",
+          "location": "London SW12",
+          "result": "£311,000"
+        }
+      },
+      "result_price_gbp": 311000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot56",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "56",
+      "address": null,
+      "locality": "London SE25",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "56",
+          "type": "Vacant Flat",
+          "location": "London SE25",
+          "result": "£133,000"
+        }
+      },
+      "result_price_gbp": 133000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot57",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "57",
+      "address": null,
+      "locality": "London SE25",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "57",
+          "type": "Vacant Flat",
+          "location": "London SE25",
+          "result": "£132,000"
+        }
+      },
+      "result_price_gbp": 132000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot58",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "58",
+      "address": null,
+      "locality": "London NW8",
+      "property_type": "Vacant Flat",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "58",
+          "type": "Vacant Flat",
+          "location": "London NW8",
+          "result": "Available at £485,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot59",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "59",
+      "address": null,
+      "locality": "London NW8",
+      "property_type": "Investment Flat",
+      "result_status": "Sold Prior",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "59",
+          "type": "Investment Flat",
+          "location": "London NW8",
+          "result": "Sold Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot60",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "60",
+      "address": null,
+      "locality": "London SW6",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "60",
+          "type": "Vacant Flat",
+          "location": "London SW6",
+          "result": "£302,000"
+        }
+      },
+      "result_price_gbp": 302000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot61",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "61",
+      "address": null,
+      "locality": "London SE17",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "61",
+          "type": "Vacant Freehold House",
+          "location": "London SE17",
+          "result": "Available at £500,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot62",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "62",
+      "address": null,
+      "locality": "Hounslow",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Withdrawn Prior",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "62",
+          "type": "Vacant Freehold House",
+          "location": "Hounslow",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot63",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "63",
+      "address": null,
+      "locality": "Hounslow",
+      "property_type": "Vacant Flat",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "63",
+          "type": "Vacant Flat",
+          "location": "Hounslow",
+          "result": "Available at £145,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot64",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "64",
+      "address": null,
+      "locality": "Sanderstead",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "64",
+          "type": "Vacant Freehold House",
+          "location": "Sanderstead",
+          "result": "£250,000"
+        }
+      },
+      "result_price_gbp": 250000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot65",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "65",
+      "address": null,
+      "locality": "Beckenham",
+      "property_type": "Vacant Flat",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "65",
+          "type": "Vacant Flat",
+          "location": "Beckenham",
+          "result": "Available at £165,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot66",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "66",
+      "address": null,
+      "locality": "London N2",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "66",
+          "type": "Vacant Flat",
+          "location": "London N2",
+          "result": "£231,000"
+        }
+      },
+      "result_price_gbp": 231000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot67",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "67",
+      "address": null,
+      "locality": "London SW4",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "67",
+          "type": "Vacant Flat",
+          "location": "London SW4",
+          "result": "£223,000"
+        }
+      },
+      "result_price_gbp": 223000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot68",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "68",
+      "address": null,
+      "locality": "London W12",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "68",
+          "type": "Vacant Flat",
+          "location": "London W12",
+          "result": "£220,000"
+        }
+      },
+      "result_price_gbp": 220000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot69",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "69",
+      "address": null,
+      "locality": "London W7",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold Post",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "69",
+          "type": "Vacant Flat",
+          "location": "London W7",
+          "result": "Sold Post"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot70",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "70",
+      "address": "10A Marmont Road, Peckham, London SE15 5TE",
+      "property_type": "Vacant one-bedroom garden flat requiring upgrading",
+      "tenure": "Leasehold; new 125-year lease from completion; ground rent £200 per annum rising",
+      "result_status": "Sold Post",
+      "source_url": "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/marmontroad.pdf",
+      "source_urls": [
+        "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/marmontroad.pdf",
+        "https://crappistmartin.github.io/images/marmontroad.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "source_document_sha256": "60bb0e0b8c4a217709758ecf1d052cf0098fce3f20823d399ded7f8237f5a669",
+      "notes": "Surviving Savills lot page: Tuesday 7 December 2010, lot 70, sold post; full address and residential description preserved. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "locality": "London SE15",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-national-2010-12-07-lot70",
+          "source_url": "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/marmontroad.pdf"
+        },
+        "secondary_grid": {
+          "lot": "70",
+          "type": "Vacant Flat",
+          "location": "London SE15",
+          "result": "Sold Post"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot71",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "71",
+      "address": null,
+      "locality": "London SE16",
+      "property_type": "Vacant Flat",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "71",
+          "type": "Vacant Flat",
+          "location": "London SE16",
+          "result": "Available at £160,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot72",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "72",
+      "address": null,
+      "locality": "St Albans",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "72",
+          "type": "Vacant Freehold House",
+          "location": "St Albans",
+          "result": "£323,000"
+        }
+      },
+      "result_price_gbp": 323000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot73",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "73",
+      "address": null,
+      "locality": "Northampton",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "73",
+          "type": "Vacant Freehold House",
+          "location": "Northampton",
+          "result": "£72,000"
+        }
+      },
+      "result_price_gbp": 72000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot74",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "74",
+      "address": null,
+      "locality": "London N16",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "74",
+          "type": "Vacant Freehold House",
+          "location": "London N16",
+          "result": "£665,000"
+        }
+      },
+      "result_price_gbp": 665000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot75",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "75",
+      "address": null,
+      "locality": "London E14",
+      "property_type": "Investment Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "75",
+          "type": "Investment Flat",
+          "location": "London E14",
+          "result": "£120,000"
+        }
+      },
+      "result_price_gbp": 120000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot76",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "76",
+      "address": null,
+      "locality": "London E13",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "76",
+          "type": "Vacant Freehold House",
+          "location": "London E13",
+          "result": "£156,000"
+        }
+      },
+      "result_price_gbp": 156000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot77",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "77",
+      "address": null,
+      "locality": "London W2",
+      "property_type": "Investment Flat",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "77",
+          "type": "Investment Flat",
+          "location": "London W2",
+          "result": "Available at £185,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot78",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "78",
+      "address": null,
+      "locality": "London E5",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold Post",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "78",
+          "type": "Vacant Freehold House",
+          "location": "London E5",
+          "result": "Sold Post"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot79",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "79",
+      "address": null,
+      "locality": "Borehamwood",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "79",
+          "type": "Vacant Flat",
+          "location": "Borehamwood",
+          "result": "£138,000"
+        }
+      },
+      "result_price_gbp": 138000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot80",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "80",
+      "address": null,
+      "locality": "Redbridge",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "80",
+          "type": "Vacant Freehold House",
+          "location": "Redbridge",
+          "result": "£237,000"
+        }
+      },
+      "result_price_gbp": 237000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot81",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "81",
+      "address": null,
+      "locality": "Luton",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "81",
+          "type": "Vacant Flat",
+          "location": "Luton",
+          "result": "£30,500"
+        }
+      },
+      "result_price_gbp": 30500
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot82",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "82",
+      "address": null,
+      "locality": "Luton",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "82",
+          "type": "Vacant Flat",
+          "location": "Luton",
+          "result": "£35,000"
+        }
+      },
+      "result_price_gbp": 35000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot83",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "83",
+      "address": null,
+      "locality": "London N8",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "83",
+          "type": "Vacant Freehold House",
+          "location": "London N8",
+          "result": "£650,000"
+        }
+      },
+      "result_price_gbp": 650000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot84",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "84",
+      "address": null,
+      "locality": "Uxbridge",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "84",
+          "type": "Vacant Freehold House",
+          "location": "Uxbridge",
+          "result": "£250,000"
+        }
+      },
+      "result_price_gbp": 250000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot85",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "85",
+      "address": null,
+      "locality": "London SE9",
+      "property_type": "Investment Flat",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "85",
+          "type": "Investment Flat",
+          "location": "London SE9",
+          "result": "Available at £125,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot86",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "86",
+      "address": null,
+      "locality": "Egham",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "86",
+          "type": "Vacant Freehold House",
+          "location": "Egham",
+          "result": "£402,000"
+        }
+      },
+      "result_price_gbp": 402000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot87",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "87",
+      "address": "13A Consort Road, Peckham, London SE15 2PH",
+      "property_type": "Vacant three-room garden flat requiring upgrading",
+      "tenure": "Leasehold; new 125-year lease from completion; ground rent £200 per annum rising",
+      "result_price_gbp": 200000,
+      "result_status": "Sold",
+      "source_url": "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/13consortroad.pdf",
+      "source_urls": [
+        "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/13consortroad.pdf",
+        "https://crappistmartin.github.io/images/13consortroad.pdf",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "source_document_sha256": "f798eda261031d1f5298d41025ff35cbc7c93ee23db421a33724ddbc59b1b95d",
+      "notes": "Surviving Savills lot page: Tuesday 7 December 2010, lot 87, sold £200,000; full address and residential description preserved. The complete result grid independently matches this lot number and locality and supplies the result.",
+      "locality": "London SE15",
+      "raw_source": {
+        "first_party_exact_lot_page": {
+          "source_record_id": "savills-national-2010-12-07-lot87",
+          "source_url": "https://raw.githubusercontent.com/crappistmartin/crappistmartin.github.io/c56dda87ed02f15e5de8d4ac6315f63638e4767e/images/13consortroad.pdf"
+        },
+        "secondary_grid": {
+          "lot": "87",
+          "type": "Vacant Flat",
+          "location": "London SE15",
+          "result": "£200,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot88",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "88",
+      "address": null,
+      "locality": "London SE15",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "88",
+          "type": "Vacant Freehold House",
+          "location": "London SE15",
+          "result": "Available at £240,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot89",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "89",
+      "address": null,
+      "locality": "South Harrow",
+      "property_type": "Investment Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "89",
+          "type": "Investment Flat",
+          "location": "South Harrow",
+          "result": "£135,000"
+        }
+      },
+      "result_price_gbp": 135000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot90",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "90",
+      "address": null,
+      "locality": "London E4",
+      "property_type": "Investment Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "90",
+          "type": "Investment Flat",
+          "location": "London E4",
+          "result": "£99,000"
+        }
+      },
+      "result_price_gbp": 99000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot91",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "91",
+      "address": null,
+      "locality": "London W13",
+      "property_type": "Investment Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "91",
+          "type": "Investment Flat",
+          "location": "London W13",
+          "result": "£130,000"
+        }
+      },
+      "result_price_gbp": 130000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot92",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "92",
+      "address": null,
+      "locality": "London E10",
+      "property_type": "Investment Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "92",
+          "type": "Investment Flat",
+          "location": "London E10",
+          "result": "£121,000"
+        }
+      },
+      "result_price_gbp": 121000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot93",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "93",
+      "address": null,
+      "locality": "London SW2",
+      "property_type": "Investment Flat",
+      "result_status": "Sold Post",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "93",
+          "type": "Investment Flat",
+          "location": "London SW2",
+          "result": "Sold Post"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot94",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "94",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "94",
+          "type": "Vacant Freehold House",
+          "location": "London E17",
+          "result": "£214,000"
+        }
+      },
+      "result_price_gbp": 214000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot95",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "95",
+      "address": null,
+      "locality": "London W2",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "95",
+          "type": "Vacant Flat",
+          "location": "London W2",
+          "result": "£371,000"
+        }
+      },
+      "result_price_gbp": 371000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot96",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "96",
+      "address": null,
+      "locality": "Sherborne",
+      "property_type": "Vacant Flat",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "96",
+          "type": "Vacant Flat",
+          "location": "Sherborne",
+          "result": "Available at £140,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot97",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "97",
+      "address": null,
+      "locality": "London N15",
+      "property_type": "Vacant Flat",
+      "result_status": "Withdrawn Prior",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "97",
+          "type": "Vacant Flat",
+          "location": "London N15",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot98",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "98",
+      "address": null,
+      "locality": "London SE13",
+      "property_type": "Vacant Flat",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "98",
+          "type": "Vacant Flat",
+          "location": "London SE13",
+          "result": "Available at £99,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot99",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "99",
+      "address": null,
+      "locality": "London E15",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "99",
+          "type": "Vacant Flat",
+          "location": "London E15",
+          "result": "£106,000"
+        }
+      },
+      "result_price_gbp": 106000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot100",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "100",
+      "address": null,
+      "locality": "London SW6",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "100",
+          "type": "Vacant Freehold House",
+          "location": "London SW6",
+          "result": "£1,010,000"
+        }
+      },
+      "result_price_gbp": 1010000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot101",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "101",
+      "address": null,
+      "locality": "London E6",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "101",
+          "type": "Vacant Freehold House",
+          "location": "London E6",
+          "result": "£191,000"
+        }
+      },
+      "result_price_gbp": 191000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot102",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "102",
+      "address": null,
+      "locality": "London SE26",
+      "property_type": "Vacant Flat",
+      "result_status": "Sold Post",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "102",
+          "type": "Vacant Flat",
+          "location": "London SE26",
+          "result": "Sold Post"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot103",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "103",
+      "address": null,
+      "locality": "Hounslow",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "103",
+          "type": "Vacant Freehold House",
+          "location": "Hounslow",
+          "result": "£180,000"
+        }
+      },
+      "result_price_gbp": 180000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot104",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "104",
+      "address": null,
+      "locality": "Hounslow",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "104",
+          "type": "Vacant Freehold House",
+          "location": "Hounslow",
+          "result": "£184,000"
+        }
+      },
+      "result_price_gbp": 184000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot105",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "105",
+      "address": null,
+      "locality": "Hounslow",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "105",
+          "type": "Vacant Freehold House",
+          "location": "Hounslow",
+          "result": "£180,000"
+        }
+      },
+      "result_price_gbp": 180000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot106",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "106",
+      "address": null,
+      "locality": "Hounslow",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "106",
+          "type": "Vacant Freehold House",
+          "location": "Hounslow",
+          "result": "£185,000"
+        }
+      },
+      "result_price_gbp": 185000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot107",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "107",
+      "address": null,
+      "locality": "Slough",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "107",
+          "type": "Vacant Freehold House",
+          "location": "Slough",
+          "result": "Available at £850,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot108",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "108",
+      "address": null,
+      "locality": "Rainham",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "108",
+          "type": "Vacant Freehold House",
+          "location": "Rainham",
+          "result": "Available at £300,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot109",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "109",
+      "address": null,
+      "locality": "London NW10",
+      "property_type": "Investment Freehold House",
+      "result_status": "Available",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "109",
+          "type": "Investment Freehold House",
+          "location": "London NW10",
+          "result": "Available at £720,000"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot110",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "110",
+      "address": null,
+      "locality": "London NW10",
+      "property_type": "Investment Flat",
+      "result_status": "Sold Post",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "110",
+          "type": "Investment Flat",
+          "location": "London NW10",
+          "result": "Sold Post"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot111",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "111",
+      "address": null,
+      "locality": "Leeds",
+      "property_type": "Vacant Flat",
+      "result_status": "Withdrawn Prior",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "111",
+          "type": "Vacant Flat",
+          "location": "Leeds",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot112",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "112",
+      "address": null,
+      "locality": "Preston",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "112",
+          "type": "Vacant Freehold House",
+          "location": "Preston",
+          "result": "£56,000"
+        }
+      },
+      "result_price_gbp": 56000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot113",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "113",
+      "address": null,
+      "locality": "Hull",
+      "property_type": "Vacant Freehold House",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "113",
+          "type": "Vacant Freehold House",
+          "location": "Hull",
+          "result": "£29,000"
+        }
+      },
+      "result_price_gbp": 29000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot114",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "114",
+      "address": null,
+      "locality": "Near Craigallachie",
+      "property_type": "Other",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "114",
+          "type": "Other",
+          "location": "Near Craigallachie",
+          "result": "£123,000"
+        }
+      },
+      "result_price_gbp": 123000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot115",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "115",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Other",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "115",
+          "type": "Other",
+          "location": "London E17",
+          "result": "£154,000"
+        }
+      },
+      "result_price_gbp": 154000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot116",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "116",
+      "address": null,
+      "locality": "Wembley",
+      "property_type": "Land",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "116",
+          "type": "Land",
+          "location": "Wembley",
+          "result": "£12,500"
+        }
+      },
+      "result_price_gbp": 12500
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot117",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "117",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Other",
+      "result_status": "Withdrawn Prior",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "117",
+          "type": "Other",
+          "location": "London E17",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot118",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "118",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Other",
+      "result_status": "Withdrawn Prior",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "118",
+          "type": "Other",
+          "location": "London E17",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot119",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "119",
+      "address": null,
+      "locality": "London E17",
+      "property_type": "Other",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "119",
+          "type": "Other",
+          "location": "London E17",
+          "result": "£5,500"
+        }
+      },
+      "result_price_gbp": 5500
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot120",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "120",
+      "address": null,
+      "locality": "Ongar",
+      "property_type": "Ground Rent",
+      "result_status": "Withdrawn Prior",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "120",
+          "type": "Ground Rent",
+          "location": "Ongar",
+          "result": "Withdrawn Prior"
+        }
+      }
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot121",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "121",
+      "address": null,
+      "locality": "Lancing",
+      "property_type": "Ground Rent",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "121",
+          "type": "Ground Rent",
+          "location": "Lancing",
+          "result": "£33,000"
+        }
+      },
+      "result_price_gbp": 33000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot122",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "122",
+      "address": null,
+      "locality": "Lancing",
+      "property_type": "Ground Rent",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "122",
+          "type": "Ground Rent",
+          "location": "Lancing",
+          "result": "£15,000"
+        }
+      },
+      "result_price_gbp": 15000
+    },
+    {
+      "source_record_id": "savills-national-2010-12-07-lot123",
+      "source_auction_id": "savills-national-2010-12-07",
+      "auction_date": "2010-12-07",
+      "lot_number": "123",
+      "address": null,
+      "locality": "London N17",
+      "property_type": "Land",
+      "result_status": "Sold",
+      "notes": "Surviving result-grid row within a catalogue whose offered denominator and all lot labels reconcile exactly; the street address and postcode are not exposed and remain null.",
+      "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=720",
+      "source_urls": [
+        "https://propertyauctions.com/Results/LotList.aspx?AID=720"
+      ],
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "123",
+          "type": "Land",
+          "location": "London N17",
+          "result": "£20,500"
+        }
+      },
+      "result_price_gbp": 20500
+    }
+  ]
+}

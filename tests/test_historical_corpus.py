@@ -187,6 +187,36 @@ def test_source_corpus_can_bank_a_reconciled_complete_catalogue(tmp_path, monkey
     assert state["lots_captured"] == state["expected_raw_records"] == 2
 
 
+def test_retired_source_corpus_replaces_prior_shard_with_empty_tombstone(tmp_path, monkeypatch):
+    monkeypatch.setattr(h, "ROOT", tmp_path)
+    monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")
+    corpus = tmp_path / "data/historical_source_corpus"
+    corpus.mkdir(parents=True)
+    source = corpus / "retired.json"
+    source.write_text(json.dumps({
+        "auctioneer": "Savills Auctions",
+        "lots": [{
+            "source_record_id": "retired-lot-1",
+            "source_auction_id": "retired-sale",
+            "auction_date": "2010-01-01",
+            "lot_number": "1",
+            "source_url": "https://example.test/retired",
+        }],
+    }))
+    assert h.bank_source_corpus() == 1
+    shard = h.DATA / "appearances/source-corpus/retired.jsonl.gz"
+    assert len(list(h.iter_rows(shard))) == 1
+
+    source.write_text(json.dumps({
+        "auctioneer": "Savills Auctions",
+        "lots": [],
+        "retire_empty_derived_shard": True,
+    }))
+    assert h.bank_source_corpus() == 0
+    assert shard.exists()
+    assert list(h.iter_rows(shard)) == []
+
+
 def test_source_corpus_refuses_false_complete_catalogue_claim(tmp_path, monkeypatch):
     monkeypatch.setattr(h, "ROOT", tmp_path)
     monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")

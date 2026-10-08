@@ -452,7 +452,14 @@ def bank_source_corpus():
             # an explicit tombstone so a transient empty fetch can never erase
             # previously banked evidence.
             if payload.get("retire_empty_derived_shard") is True:
-                (DATA / "appearances/source-corpus" / (source_path.stem + ".jsonl.gz")).unlink(missing_ok=True)
+                target = DATA / "appearances/source-corpus" / (source_path.stem + ".jsonl.gz")
+                if target.exists():
+                    # Replace an existing derived shard with an empty gzip
+                    # tombstone. Some synced worktrees restore deleted tracked
+                    # shards, while an explicit replacement cannot resurrect
+                    # rows. Do not create tombstones for sources that never
+                    # produced a derived shard.
+                    atomic(target, gzip.compress(b"", mtime=0))
             continue
         payload_auctioneer = clean(payload.get("auctioneer")) or None
         original = source_path.read_bytes()

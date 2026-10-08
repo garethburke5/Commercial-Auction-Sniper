@@ -1,0 +1,1317 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "captured_at_utc": "2026-10-08T13:12:52Z",
+  "capture_mode": "complete_first_party_result_and_preauction_grid_reconciliation",
+  "scope": "All 40 lot positions in Savills Commercial Auc 698 on 11 October 2010. The archived results page preserves lots 1-20 and reports 40 lots across two pages; the archived pre-auction page two preserves the remaining 20 rows. Exact saved lot fragments retain richer address and property fields. Pre-auction-only rows retain null final results.",
+  "source_auction_id": "savills-commercial-auc698",
+  "auction_date": "2010-10-11",
+  "catalogue_lot_count": 40,
+  "catalogue_complete": true,
+  "completion_scope": "all 40 lot labels appear exactly once across the two archived first-party grids and match the complete set of persisted exact fragments",
+  "source_url": "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010",
+  "source_urls": [
+    "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010",
+    "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+  ],
+  "saved_source_snapshot": "data/source_diagnostics/savills_auc698_first_party_grids_20261008.json",
+  "saved_source_snapshot_sha256": "8b46e9e9705e477471487038550309b7da6fdb4f7faf5ee8782ded614b911a52",
+  "source_summary": {
+    "first_party_catalogue_total": 40,
+    "result_page_rows": 20,
+    "preauction_page_rows": 20,
+    "rows_observed": 40,
+    "unique_lot_numbers": 40,
+    "result_pagination_pages": 2
+  },
+  "appearance_count": 40,
+  "address_records": 21,
+  "partial_records": 19,
+  "reconciliation": {
+    "first_party_catalogue_total": 40,
+    "source_rows_observed": 40,
+    "unique_lot_numbers": 40,
+    "reconciliation_shortfall": 0,
+    "status": "complete first-party lot sequence",
+    "final_result_rows": 20,
+    "preauction_only_rows": 20
+  },
+  "lots": [
+    {
+      "source_record_id": "savills-commercial-auc698-pos1",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "1",
+      "address": "41 High Street, Rushden, Northamptonshire NN10 0FB",
+      "property_type": "Freehold retail investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 100000,
+      "guide_price_high_gbp": 120000,
+      "result_price_gbp": 154000,
+      "rent_pa_gbp": 11500,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20100927200414id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=1",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 1, Rushden retail, sold for GBP154,000. Let to Moorwell Trading Limited until 2014. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Rushden",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200414id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=1",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos1",
+          "source_url": "https://web.archive.org/web/20100927200414id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=1"
+        },
+        "first_party_grid": {
+          "lot": "1",
+          "type": "Retail",
+          "location": "Rushden",
+          "result": "£154,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos2",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "2",
+      "address": "1 Finkle Street, Thorne, South Yorkshire DN8 5TW",
+      "property_type": "Freehold retail investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 100000,
+      "guide_price_high_gbp": 120000,
+      "result_price_gbp": 123000,
+      "rent_pa_gbp": 9500,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20100927200508id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=2",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 2, Thorne retail, sold for GBP123,000. Let to Ladbrokes Limited until 2012. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Thorne",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200508id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=2",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos2",
+          "source_url": "https://web.archive.org/web/20100927200508id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=2"
+        },
+        "first_party_grid": {
+          "lot": "2",
+          "type": "Retail",
+          "location": "Thorne",
+          "result": "£123,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos3",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "3",
+      "address": "49 Stubbs Lane, Braintree, Essex CM7 3NR",
+      "property_type": "Freehold retail and residential premises",
+      "tenure": "Freehold",
+      "guide_price_gbp": 115000,
+      "guide_price_high_gbp": 130000,
+      "result_price_gbp": 145000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20100927200518id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=3",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 3, Braintree retail, sold for GBP145,000. Includes a five-bedroom upper maisonette. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Braintree",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200518id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=3",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos3",
+          "source_url": "https://web.archive.org/web/20100927200518id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=3"
+        },
+        "first_party_grid": {
+          "lot": "3",
+          "type": "Retail",
+          "location": "Braintree",
+          "result": "£145,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos4",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "4",
+      "address": "Unit 3 Arisdale Avenue, South Ockendon, Essex RM15 5AS",
+      "property_type": "Freehold leisure investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 425000,
+      "guide_price_high_gbp": 475000,
+      "result_price_gbp": 475000,
+      "rent_pa_gbp": 45900,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20100927200524id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=4",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 4, South Ockendon leisure, sold for GBP475,000. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "South Ockendon",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200524id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=4",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos4",
+          "source_url": "https://web.archive.org/web/20100927200524id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=4"
+        },
+        "first_party_grid": {
+          "lot": "4",
+          "type": "Leisure",
+          "location": "South Ockendon",
+          "result": "£475,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos5",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "5",
+      "address": "46 Church Street, Reigate, Surrey RH2 0AJ",
+      "property_type": "Virtual freehold retail investment",
+      "tenure": "Virtual freehold",
+      "guide_price_gbp": 1100000,
+      "guide_price_high_gbp": 1200000,
+      "rent_pa_gbp": 75000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20100927200529id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=5",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 5, Reigate retail. Let to Jack Wills Limited until 2028. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Reigate",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200529id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=5",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos5",
+          "source_url": "https://web.archive.org/web/20100927200529id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=5"
+        },
+        "first_party_grid": {
+          "lot": "5",
+          "type": "Retail",
+          "location": "Reigate",
+          "result": "Available at £1.15M"
+        },
+        "first_party_grid_stage": "result"
+      },
+      "result_price_gbp": 1150000
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos6",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "6",
+      "address": "13 Maryland Road, Wood Green, London N22 5AR",
+      "property_type": "Freehold property formerly used for supported living",
+      "tenure": "Freehold",
+      "guide_price_gbp": 180000,
+      "guide_price_high_gbp": 200000,
+      "result_price_gbp": 312500,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20100927200535id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=6",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 6, Wood Green vacant property, sold for GBP312,500. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Wood Green, London",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200535id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=6",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos6",
+          "source_url": "https://web.archive.org/web/20100927200535id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=6"
+        },
+        "first_party_grid": {
+          "lot": "6",
+          "type": "Vacant",
+          "location": "Wood Green, London",
+          "result": "£312,500"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos7",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "7",
+      "address": "41-43 London Street, Norwich, Norfolk NR2 1HU",
+      "property_type": "Freehold retail investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 650000,
+      "guide_price_high_gbp": 700000,
+      "result_price_gbp": 755000,
+      "rent_pa_gbp": 50500,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20100927200539id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=7",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 7, Norwich retail, sold for GBP755,000. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Norwich",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200539id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=7",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos7",
+          "source_url": "https://web.archive.org/web/20100927200539id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=7"
+        },
+        "first_party_grid": {
+          "lot": "7",
+          "type": "Retail",
+          "location": "Norwich",
+          "result": "£755,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos8",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "8",
+      "address": "179-181 Dawes Road, Fulham, London SW6 7QP",
+      "property_type": "Freehold double-fronted retail premises",
+      "tenure": "Freehold",
+      "guide_price_gbp": 225000,
+      "guide_price_high_gbp": 250000,
+      "rent_pa_gbp": 600,
+      "result_status": "Sold Post",
+      "source_url": "https://web.archive.org/web/20100927200547id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=8",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 8, Fulham retail, sold post. The page states ERV GBP27,000; the GBP600 field is the current rent reserved, not ERV. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Fulham, London",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200547id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=8",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos8",
+          "source_url": "https://web.archive.org/web/20100927200547id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=8"
+        },
+        "first_party_grid": {
+          "lot": "8",
+          "type": "Retail",
+          "location": "Fulham, London",
+          "result": "Sold Post"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos9",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "9",
+      "address": "76 High Street, Runcorn, Cheshire WA7 1JH",
+      "property_type": "Freehold office investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 110000,
+      "guide_price_high_gbp": 120000,
+      "rent_pa_gbp": 18000,
+      "result_status": "Sold Post",
+      "source_url": "https://web.archive.org/web/20100927200552id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=9",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 9, Runcorn office, sold post. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Runcorn",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200552id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=9",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos9",
+          "source_url": "https://web.archive.org/web/20100927200552id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=9"
+        },
+        "first_party_grid": {
+          "lot": "9",
+          "type": "Office",
+          "location": "Runcorn",
+          "result": "Sold Post"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos10",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "10",
+      "address": "37-39 Churchfield Road & 28-29 Burlington Mews, Acton, London W3 6AY",
+      "property_type": "Two freehold retail and residential premises",
+      "tenure": "Freehold",
+      "guide_price_gbp": 1200000,
+      "guide_price_high_gbp": 1300000,
+      "rent_pa_gbp": 108652,
+      "result_status": "Available",
+      "source_url": "https://web.archive.org/web/20100927200416id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=10",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 10, Acton retail/residential, available. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Acton, London",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200416id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=10",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos10",
+          "source_url": "https://web.archive.org/web/20100927200416id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=10"
+        },
+        "first_party_grid": {
+          "lot": "10",
+          "type": "Retail",
+          "location": "Acton, London",
+          "result": "Available"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos11",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "11",
+      "address": "179-181 Stamford Street Central, Ashton-under-Lyne, Lancashire OL6 7PZ",
+      "property_type": "Freehold part-vacant retail investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 300000,
+      "guide_price_high_gbp": 350000,
+      "result_price_gbp": 300000,
+      "rent_pa_gbp": 12000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20100927200422id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=11",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 11, Ashton-under-Lyne retail, sold for GBP300,000. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Ashton-under-Lyne",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200422id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=11",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos11",
+          "source_url": "https://web.archive.org/web/20100927200422id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=11"
+        },
+        "first_party_grid": {
+          "lot": "11",
+          "type": "Retail",
+          "location": "Ashton-under-Lyne",
+          "result": "£300,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos12",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "12",
+      "address": "Basement Car Park, 20-26 Lambs Conduit Street, Holborn, London WC1N 3LE",
+      "property_type": "Virtual freehold vacant car park",
+      "tenure": "Virtual freehold",
+      "guide_price_gbp": 230000,
+      "guide_price_high_gbp": 250000,
+      "result_status": "Available",
+      "source_url": "https://web.archive.org/web/20100927200426id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=12",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 12, Holborn motor-trade/car-park lot, available. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Holborn, London",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200426id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=12",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos12",
+          "source_url": "https://web.archive.org/web/20100927200426id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=12"
+        },
+        "first_party_grid": {
+          "lot": "12",
+          "type": "Motor Trade",
+          "location": "Holborn, London",
+          "result": "Available"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos13",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "13",
+      "address": "Sun Rise Inn, Corton Road, Lowestoft, Suffolk NR32 4PL",
+      "property_type": "Freehold leisure investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 250000,
+      "guide_price_high_gbp": 260000,
+      "result_price_gbp": 200000,
+      "rent_pa_gbp": 38000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20100927200431id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=13",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 13, Lowestoft leisure, sold for GBP200,000. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Lowestoft",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200431id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=13",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos13",
+          "source_url": "https://web.archive.org/web/20100927200431id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=13"
+        },
+        "first_party_grid": {
+          "lot": "13",
+          "type": "Leisure",
+          "location": "Lowestoft",
+          "result": "£200,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos14",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "14",
+      "address": "Unit 4, Service Bay, Bush Fair, Harlow, Essex CM18 6LX",
+      "property_type": "Long leasehold workshop and retail premises",
+      "tenure": "Long leasehold",
+      "guide_price_gbp": 20000,
+      "guide_price_high_gbp": 30000,
+      "result_price_gbp": 34000,
+      "rent_pa_gbp": 6000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20100927200438id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=14",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 14, Harlow retail, sold for GBP34,000. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Harlow",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200438id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=14",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos14",
+          "source_url": "https://web.archive.org/web/20100927200438id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=14"
+        },
+        "first_party_grid": {
+          "lot": "14",
+          "type": "Retail",
+          "location": "Harlow",
+          "result": "£34,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos15",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "15",
+      "address": "19 High Street, Thornton Heath, Surrey CR7 8RU",
+      "property_type": "Freehold retail and residential investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 350000,
+      "guide_price_high_gbp": 375000,
+      "rent_pa_gbp": 33700,
+      "result_status": "Withdrawn Prior",
+      "source_url": "https://web.archive.org/web/20100927200443id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=15",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 15, Thornton Heath retail/residential, withdrawn prior. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Thornton Heath",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200443id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=15",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos15",
+          "source_url": "https://web.archive.org/web/20100927200443id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=15"
+        },
+        "first_party_grid": {
+          "lot": "15",
+          "type": "Retail",
+          "location": "Thornton Heath",
+          "result": "Withdrawn Prior"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos16",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "16",
+      "address": "282 Cowley Road, Oxford, Oxfordshire OX4 1UR",
+      "property_type": "Freehold retail premises with residential upper floors",
+      "tenure": "Freehold",
+      "guide_price_gbp": 160000,
+      "guide_price_high_gbp": 180000,
+      "result_price_gbp": 252000,
+      "rent_pa_gbp": 20000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20100927200448id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=16",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 16, Oxford retail, sold for GBP252,000. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Oxford",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200448id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=16",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos16",
+          "source_url": "https://web.archive.org/web/20100927200448id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=16"
+        },
+        "first_party_grid": {
+          "lot": "16",
+          "type": "Retail",
+          "location": "Oxford",
+          "result": "£252,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos17",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "17",
+      "address": "201-205 Maple Road, Penge, London SE20 8HU",
+      "property_type": "Freehold retail and residential investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 450000,
+      "guide_price_high_gbp": 500000,
+      "rent_pa_gbp": 45834,
+      "result_status": "Withdrawn Prior",
+      "source_url": "https://web.archive.org/web/20100927200452id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=17",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 17, Penge retail/residential, withdrawn prior. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Penge, London",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200452id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=17",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos17",
+          "source_url": "https://web.archive.org/web/20100927200452id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=17"
+        },
+        "first_party_grid": {
+          "lot": "17",
+          "type": "Retail",
+          "location": "Penge, London",
+          "result": "Withdrawn Prior"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos18",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "18",
+      "address": "80/80A Brunswick Park Road, New Southgate, London N11 1JJ",
+      "property_type": "Freehold retail and residential building",
+      "tenure": "Freehold",
+      "guide_price_gbp": 80000,
+      "guide_price_high_gbp": 90000,
+      "result_price_gbp": 80000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20100927200458id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=18",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 18, New Southgate retail, sold for GBP80,000. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "New Southgate, London",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200458id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=18",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos18",
+          "source_url": "https://web.archive.org/web/20100927200458id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=18"
+        },
+        "first_party_grid": {
+          "lot": "18",
+          "type": "Retail",
+          "location": "New Southgate, London",
+          "result": "£80,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos19",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "19",
+      "address": "2A North Bridge Street, Sunderland, Tyne & Wear SR5 1AD",
+      "property_type": "Freehold retail building",
+      "tenure": "Freehold",
+      "guide_price_gbp": 40000,
+      "result_status": "Sold Prior",
+      "source_url": "https://web.archive.org/web/20100927200504id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=19",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 19, Sunderland retail, sold prior. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Sunderland",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200504id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=19",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos19",
+          "source_url": "https://web.archive.org/web/20100927200504id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=19"
+        },
+        "first_party_grid": {
+          "lot": "19",
+          "type": "Retail",
+          "location": "Sunderland",
+          "result": "Sold Prior"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos20",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "20",
+      "address": "25 Meeting House Lane, Peckham, London SE15 2UN",
+      "property_type": "Freehold retail and residential investment",
+      "tenure": "Freehold",
+      "guide_price_gbp": 240000,
+      "guide_price_high_gbp": 250000,
+      "rent_pa_gbp": 23800,
+      "result_status": "Withdrawn Prior",
+      "source_url": "https://web.archive.org/web/20100927200513id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=20",
+      "notes": "Exact archived Savills lot page reconciled to manifest lot 20, Peckham retail/residential, withdrawn prior. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "locality": "Peckham, London",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200513id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=20",
+        "https://web.archive.org/web/20110406190638id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=698&date=11/10/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos20",
+          "source_url": "https://web.archive.org/web/20100927200513id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=20"
+        },
+        "first_party_grid": {
+          "lot": "20",
+          "type": "Retail",
+          "location": "Peckham, London",
+          "result": "Withdrawn Prior"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos21",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "21",
+      "address": null,
+      "locality": "Blackpool",
+      "property_type": "Office",
+      "guide_price_gbp": 160000,
+      "guide_price_high_gbp": 180000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; the surviving page supplies lot number, type, locality and guide range but not a street address or result. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos21",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "21",
+          "type": "Office",
+          "location": "Blackpool",
+          "result": "£160,000-£180,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos22",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "22",
+      "address": "Car Parking Space No. 8, Bryanston Mews West, Marylebone, London W1H 2DX",
+      "property_type": "Long-leasehold secure underground car-parking space",
+      "tenure": "New lease of approximately 74 years from completion",
+      "guide_price_gbp": 40000,
+      "guide_price_high_gbp": 50000,
+      "rent_text": "Estimated rental value stated as £5,000-£6,000 per annum; this is not passing rent.",
+      "notes": "Surviving original Savills lot page identifies space number 8 and states that this and nine other spaces could be sold singly or in combinations. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_url": "https://web.archive.org/web/20101003012009id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22",
+      "source_urls": [
+        "https://web.archive.org/web/20101003012009id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22",
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "source_identity_aliases": [
+        {
+          "source_auction_id": "savills-commercial-2010-10-11",
+          "source_record_id": "savills-commercial-2010-10-11-lot22"
+        }
+      ],
+      "locality": "Marylebone, London",
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos22",
+          "source_url": "https://web.archive.org/web/20101003012009id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22"
+        },
+        "first_party_grid": {
+          "lot": "22",
+          "type": "Motor Trade",
+          "location": "Marylebone, London",
+          "result": "£40,000-£50,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      },
+      "result_status": null
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos23",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "23",
+      "address": null,
+      "locality": "Marylebone, London",
+      "property_type": "Motor Trade",
+      "guide_price_gbp": 40000,
+      "guide_price_high_gbp": 50000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos23",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "23",
+          "type": "Motor Trade",
+          "location": "Marylebone, London",
+          "result": "£40,000-£50,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos24",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "24",
+      "address": null,
+      "locality": "Marylebone, London",
+      "property_type": "Motor Trade",
+      "guide_price_gbp": 40000,
+      "guide_price_high_gbp": 50000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos24",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "24",
+          "type": "Motor Trade",
+          "location": "Marylebone, London",
+          "result": "£40,000-£50,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos25",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "25",
+      "address": null,
+      "locality": "Marylebone, London",
+      "property_type": "Motor Trade",
+      "guide_price_gbp": 40000,
+      "guide_price_high_gbp": 50000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos25",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "25",
+          "type": "Motor Trade",
+          "location": "Marylebone, London",
+          "result": "£40,000-£50,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos26",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "26",
+      "address": null,
+      "locality": "Marylebone, London",
+      "property_type": "Motor Trade",
+      "guide_price_gbp": 40000,
+      "guide_price_high_gbp": 50000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos26",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "26",
+          "type": "Motor Trade",
+          "location": "Marylebone, London",
+          "result": "£40,000-£50,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos27",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "27",
+      "address": null,
+      "locality": "Marylebone, London",
+      "property_type": "Motor Trade",
+      "guide_price_gbp": 40000,
+      "guide_price_high_gbp": 50000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos27",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "27",
+          "type": "Motor Trade",
+          "location": "Marylebone, London",
+          "result": "£40,000-£50,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos28",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "28",
+      "address": null,
+      "locality": "Marylebone, London",
+      "property_type": "Motor Trade",
+      "guide_price_gbp": 40000,
+      "guide_price_high_gbp": 50000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos28",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "28",
+          "type": "Motor Trade",
+          "location": "Marylebone, London",
+          "result": "£40,000-£50,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos29",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "29",
+      "address": null,
+      "locality": "Marylebone, London",
+      "property_type": "Motor Trade",
+      "guide_price_gbp": 40000,
+      "guide_price_high_gbp": 50000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos29",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "29",
+          "type": "Motor Trade",
+          "location": "Marylebone, London",
+          "result": "£40,000-£50,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos30",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "30",
+      "address": null,
+      "locality": "Marylebone, London",
+      "property_type": "Motor Trade",
+      "guide_price_gbp": 40000,
+      "guide_price_high_gbp": 50000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos30",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "30",
+          "type": "Motor Trade",
+          "location": "Marylebone, London",
+          "result": "£40,000-£50,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos31",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "31",
+      "address": null,
+      "locality": "Marylebone, London",
+      "property_type": "Motor Trade",
+      "guide_price_gbp": 40000,
+      "guide_price_high_gbp": 50000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos31",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "31",
+          "type": "Motor Trade",
+          "location": "Marylebone, London",
+          "result": "£40,000-£50,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos32",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "32",
+      "address": null,
+      "locality": "Croydon",
+      "property_type": "Development",
+      "guide_price_gbp": 125000,
+      "guide_price_high_gbp": 150000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos32",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "32",
+          "type": "Development",
+          "location": "Croydon",
+          "result": "£125,000-£150,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos33",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "33",
+      "address": null,
+      "locality": "Melton Mowbray",
+      "property_type": "Vacant",
+      "guide_price_gbp": 170000,
+      "guide_price_high_gbp": 190000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. A possible later repeat is not linked here because the October individual lot page did not survive. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos33",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "33",
+          "type": "Vacant",
+          "location": "Melton Mowbray",
+          "result": "£170,000-£190,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos34",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "34",
+      "address": null,
+      "locality": "Wood Green, London",
+      "property_type": "Office",
+      "guide_price_gbp": 90000,
+      "guide_price_high_gbp": 100000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos34",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "34",
+          "type": "Office",
+          "location": "Wood Green, London",
+          "result": "£90,000-£100,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos35",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "35",
+      "address": null,
+      "locality": "Crawley",
+      "property_type": "Industrial",
+      "guide_price_gbp": 120000,
+      "guide_price_high_gbp": 140000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos35",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "35",
+          "type": "Industrial",
+          "location": "Crawley",
+          "result": "£120,000-£140,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos36",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "36",
+      "address": null,
+      "locality": "Swanbridge",
+      "property_type": "Land",
+      "guide_price_gbp": null,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; the surviving page publishes no guide price and supplies no street address or result. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos36",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "36",
+          "type": "Land",
+          "location": "Swanbridge",
+          "result": ""
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos37",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "37",
+      "address": null,
+      "locality": "Harefield",
+      "property_type": "Office",
+      "guide_price_gbp": 110000,
+      "guide_price_high_gbp": 120000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos37",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "37",
+          "type": "Office",
+          "location": "Harefield",
+          "result": "£110,000-£120,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos38",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "38",
+      "address": null,
+      "locality": "Wood Green, London",
+      "property_type": "Vacant",
+      "guide_price_gbp": 180000,
+      "guide_price_high_gbp": 200000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos38",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "38",
+          "type": "Vacant",
+          "location": "Wood Green, London",
+          "result": "£180,000-£200,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos39",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "39",
+      "address": null,
+      "locality": "Denmead",
+      "property_type": "Land",
+      "guide_price_gbp": 70000,
+      "guide_price_high_gbp": 75000,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos39",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "39",
+          "type": "Land",
+          "location": "Denmead",
+          "result": "£70,000-£75,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc698-pos40",
+      "source_auction_id": "savills-commercial-auc698",
+      "auction_date": "2010-10-11",
+      "lot_number": "40",
+      "address": null,
+      "locality": "Catford, London",
+      "property_type": "Retail",
+      "guide_price_gbp": 25000,
+      "guide_price_high_gbp": 35500,
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2",
+      "notes": "Identifiable first-party pre-auction catalogue row; street address and result are unavailable in the surviving page. Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-auc698-pos40",
+          "source_url": "https://web.archive.org/web/20100927200236id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=698&sort=type_sub&order=a&page=2"
+        },
+        "first_party_grid": {
+          "lot": "40",
+          "type": "Retail",
+          "location": "Catford, London",
+          "result": "£25,000-£35,500"
+        },
+        "first_party_grid_stage": "pre_auction"
+      }
+    }
+  ]
+}

@@ -3,30 +3,12 @@
   "schema_version": 1,
   "auctioneer": "Savills Auctions",
   "capture_mode": "saved_exact_wayback_lot_pages",
-  "scope": "1 individually identifiable exact archived Savills lot-page appearances remain after 2 rows for savills-commercial-2010-12-13 were consolidated into a complete per-auction source.",
+  "scope": "All 1 rows for savills-commercial-auc698 were consolidated into a complete per-auction source.",
   "saved_source_snapshot": "data/source_diagnostics/savills_legacy_document_surface_recovery.json",
   "saved_source_snapshot_sha256": "cecd0c9a7bade235f5bcce153924516b39a7808740acaeb9ad75b36df3df9da7",
-  "lots": [
-    {
-      "source_record_id": "savills-commercial-2010-10-11-lot22",
-      "source_auction_id": "savills-commercial-2010-10-11",
-      "auction_date": "2010-10-11",
-      "lot_number": "22",
-      "address": "Car Parking Space No. 8, Bryanston Mews West, Marylebone, London W1H 2DX",
-      "property_type": "Long-leasehold secure underground car-parking space",
-      "tenure": "New lease of approximately 74 years from completion",
-      "guide_price_gbp": 40000,
-      "guide_price_high_gbp": 50000,
-      "rent_text": "Estimated rental value stated as £5,000-£6,000 per annum; this is not passing rent.",
-      "notes": "Surviving original Savills lot page identifies space number 8 and states that this and nine other spaces could be sold singly or in combinations.",
-      "source_url": "https://web.archive.org/web/20101003012009id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22",
-      "source_urls": [
-        "https://web.archive.org/web/20101003012009id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22",
-        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22"
-      ]
-    }
-  ],
+  "lots": [],
   "catalogues_complete": false,
-  "completeness_note": "The remaining rows are individually admitted exact pages only; their catalogues are not declared complete.",
-  "appearance_count": 1
+  "completeness_note": "This staging source is retired; use the reconciled replacement source.",
+  "appearance_count": 0,
+  "retire_empty_derived_shard": true
 }

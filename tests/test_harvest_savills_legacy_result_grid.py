@@ -238,6 +238,44 @@ def test_fragment_reconciliation_uses_locality_when_exact_address_is_missing():
     assert "remaining 2 rows" in payload["scope"]
 
 
+def test_fragment_reconciliation_keeps_catalogue_rows_excluded_from_offered_statistic():
+    offered, secondary = parse_secondary(SECONDARY)
+    secondary.append({
+        "lot": "4",
+        "type": "Residential",
+        "location": "Bristol",
+        "result": "Withdrawn",
+    })
+    exact_rows = [{
+        "source_record_id": "sale-lot1",
+        "source_auction_id": "sale",
+        "auction_date": "2006-10-16",
+        "lot_number": "1",
+        "address": "1 High Street, London",
+        "source_url": "https://example.test/lot1",
+    }]
+
+    payload = reconcile_fragments(
+        463,
+        "2006-10-16",
+        "sale",
+        offered,
+        secondary,
+        exact_rows,
+        "2026-10-08T12:30:00Z",
+        "data/source_diagnostics/snapshot.json",
+        "abc123",
+        catalogue_total=4,
+    )
+
+    assert payload["catalogue_complete"] is True
+    assert payload["catalogue_lot_count"] == 4
+    assert payload["source_summary"]["offered"] == 3
+    assert payload["source_summary"]["catalogue_rows"] == 4
+    assert payload["appearance_count"] == 4
+    assert payload["lots"][-1]["result_status"] == "Withdrawn"
+
+
 def test_first_party_fragment_reconciliation_keeps_preauction_results_null():
     result_rows = [
         {"lot": "1", "type": "Investment", "location": "London", "result": "£1.5M"},
@@ -306,7 +344,7 @@ def test_fragment_migration_removes_only_target_rows(tmp_path, monkeypatch):
     assert payload["appearance_count"] == 1
 
 
-def test_fragment_migration_removes_empty_replaced_source(tmp_path, monkeypatch):
+def test_fragment_migration_retires_empty_replaced_source(tmp_path, monkeypatch):
     corpus = tmp_path / "corpus"
     corpus.mkdir()
     source = corpus / "fragments.json"
@@ -316,4 +354,45 @@ def test_fragment_migration_removes_empty_replaced_source(tmp_path, monkeypatch)
     monkeypatch.setattr(collector, "ROOT", tmp_path)
 
     assert collector.migrate_fragment_sources("target", [source]) == 1
-    assert not source.exists()
+    payload = json.loads(source.read_text())
+    assert payload["lots"] == []
+    assert payload["appearance_count"] == 0
+    assert payload["retire_empty_derived_shard"] is True
+
+
+def test_fragment_alias_is_normalized_without_losing_provenance(tmp_path):
+    source = tmp_path / "fragments.json"
+    source.write_text(json.dumps({
+        "lots": [{
+            "source_auction_id": "dated-sale-id",
+            "source_record_id": "dated-sale-id-lot22",
+            "lot_number": "22",
+            "address": "22 High Street",
+        }]
+    }))
+
+    rows = collector.collect_fragment_rows("auction-id", [source], ("dated-sale-id",))
+
+    assert rows[0]["source_auction_id"] == "auction-id"
+    assert rows[0]["source_record_id"] == "auction-id-pos22"
+    assert rows[0]["source_identity_aliases"] == [{
+        "source_auction_id": "dated-sale-id",
+        "source_record_id": "dated-sale-id-lot22",
+    }]
+
+
+def test_fragment_migration_removes_alias_rows(tmp_path, monkeypatch):
+    source = tmp_path / "fragments.json"
+    source.write_text(json.dumps({
+        "lots": [
+            {"source_auction_id": "target", "lot_number": "1"},
+            {"source_auction_id": "target-alias", "lot_number": "2"},
+            {"source_auction_id": "other", "lot_number": "3"},
+        ]
+    }))
+    monkeypatch.setattr(collector, "ROOT", tmp_path)
+
+    assert collector.migrate_fragment_sources("target", [source], ("target-alias",)) == 2
+    assert json.loads(source.read_text())["lots"] == [
+        {"source_auction_id": "other", "lot_number": "3"}
+    ]
