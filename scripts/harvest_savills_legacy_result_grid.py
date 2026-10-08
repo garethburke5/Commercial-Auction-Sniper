@@ -4,7 +4,7 @@
 The archived Savills catalogue establishes the auction date, offered total,
 page extent, and its first visible lot page.  PropertyAuctions exposes the
 complete result grid for the same AID.  This collector requires the two totals
-to agree, requires one secondary row per numbered lot, and cross-checks every
+to agree, requires one secondary row per lot label, and cross-checks every
 first-party row before writing a complete source-corpus shard.  Existing
 page-one partial rows are removed from the mixed legacy source so the normal
 ``bank-source-corpus`` pass can replace them without duplicate appearances.
@@ -34,6 +34,7 @@ MIXED_SHARD = (
 )
 SECONDARY_URL = "https://propertyauctions.com/Results/LotList.aspx?AID={aid}"
 USER_AGENT = "Commercial-Auction-Sniper historical corpus/1.0"
+LOT_LABEL_RE = re.compile(r"(?:\d+[A-Za-z]?|[A-Za-z])")
 
 
 def clean(value: object) -> str:
@@ -61,12 +62,12 @@ def parse_secondary(html: bytes) -> tuple[int, list[dict[str, str]]]:
         rows = []
         for tr in table.find_all("tr"):
             cells = [clean(cell.get_text(" ", strip=True)) for cell in tr.find_all(["th", "td"])]
-            if len(cells) == 4 and re.fullmatch(r"\d+[A-Za-z]?", cells[0]):
+            if len(cells) == 4 and LOT_LABEL_RE.fullmatch(cells[0]):
                 rows.append({"lot": cells[0], "type": cells[1], "location": cells[2], "result": cells[3]})
         if rows:
             candidates.append(rows)
     if not candidates:
-        raise ValueError("Secondary result grid contains no numbered lot rows")
+        raise ValueError("Secondary result grid contains no lot-labelled rows")
     rows = max(candidates, key=len)
     return offered, rows
 
@@ -89,12 +90,12 @@ def parse_first_party(html: bytes) -> tuple[int, int, list[dict[str, str]]]:
         rows = []
         for tr in table.find_all("tr"):
             cells = [clean(cell.get_text(" ", strip=True)) for cell in tr.find_all(["th", "td"])]
-            if len(cells) >= 4 and re.fullmatch(r"\d+[A-Za-z]?", cells[0]):
+            if len(cells) >= 4 and LOT_LABEL_RE.fullmatch(cells[0]):
                 rows.append({"lot": cells[0], "type": cells[1], "location": cells[2], "result": cells[3]})
         if rows:
             candidates.append(rows)
     if not candidates:
-        raise ValueError("First-party catalogue contains no numbered lot rows")
+        raise ValueError("First-party catalogue contains no lot-labelled rows")
     return total, max(pages), max(candidates, key=len)
 
 
@@ -196,12 +197,12 @@ def reconcile(
         "captured_at_utc": captured_at,
         "capture_mode": "complete_secondary_result_grid_with_first_party_catalogue_reconciliation",
         "scope": (
-            f"All {offered} numbered result rows from the surviving PropertyAuctions AID {aid} grid for the "
+            f"All {offered} lot-labelled result rows from the surviving PropertyAuctions AID {aid} grid for the "
             f"{datetime.strptime(auction_date, '%Y-%m-%d').strftime('%-d %B %Y')} Savills Commercial sale. "
             f"The archived first-party Savills page identifies the date, states a total of {first_party_total} "
             f"lots across {first_party_pages} catalogue pages and exposes lots 1-{len(first_party_rows)} on page 1. "
             f"Those first {len(first_party_rows)} rows reconcile to the secondary grid. The secondary grid exposes "
-            f"{offered} distinct numbered lots exactly once and reports Offered: {offered}. Street addresses and "
+            f"{offered} distinct lot labels exactly once and reports Offered: {offered}. Street addresses and "
             "postcodes are not exposed and remain null."
         ),
         "source_auction_id": source_auction_id,
@@ -209,7 +210,7 @@ def reconcile(
         "catalogue_lot_count": offered,
         "catalogue_complete": True,
         "completion_scope": (
-            f"all {offered} numbered lots appear exactly once in the result grid and reconcile to both the "
+            f"all {offered} lot labels appear exactly once in the result grid and reconcile to both the "
             f"first-party total of {first_party_total} and the secondary Offered: {offered} denominator"
         ),
         "source_url": secondary_url,

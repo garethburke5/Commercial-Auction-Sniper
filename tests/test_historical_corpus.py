@@ -244,3 +244,18 @@ def test_later_base_source_does_not_erase_earlier_address_enrichment(tmp_path, m
 def test_historical_workflow_stages_every_collection_summary():
     workflow = (Path(__file__).resolve().parents[1] / ".github/workflows/historical-lot-corpus.yml").read_text()
     assert "git add data/auction_history/*_collection.json" in workflow
+
+
+def test_database_builder_retries_disk_staging_error_in_memory(tmp_path, monkeypatch):
+    monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")
+    attempts = []
+
+    def fake_build(in_memory=False):
+        attempts.append(in_memory)
+        if not in_memory:
+            raise h.sqlite3.DatabaseError("malformed staging inode")
+        return {"individual_lot_records_captured": 1}
+
+    monkeypatch.setattr(h, "_build_database", fake_build)
+    assert h.build_database() == {"individual_lot_records_captured": 1}
+    assert attempts == [False, True]

@@ -20,6 +20,7 @@ import math
 from pathlib import Path
 import re
 import sqlite3
+import sys
 import threading
 import time
 from types import SimpleNamespace
@@ -719,19 +720,27 @@ def build_database():
     with (DATA / ".build.lock").open("w") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         try:
-            return _build_database()
+            try:
+                return _build_database()
+            except sqlite3.DatabaseError as error:
+                # Some overlay filesystems can invalidate a large SQLite
+                # staging inode while it is still open. The source shards are
+                # authoritative, so retry once in memory and serialize only
+                # after SQLite's integrity check succeeds.
+                print(f"SQLITE_DISK_STAGING_RETRY {type(error).__name__}: {error}", file=sys.stderr, flush=True)
+                return _build_database(in_memory=True)
         finally:
-            for stale in DATA.glob(".auction-history-*.sqlite"):
+            for stale in DATA.glob(".auction-history-*.sqlite*"):
                 stale.unlink(missing_ok=True)
 
 
-def _build_database():
+def _build_database(in_memory=False):
     target = DATA / "auction_history.sqlite"
     # Do not reuse a fixed SQLite staging inode. Overlay filesystems can retain
     # a bad page-cache state after an interrupted build; a unique database also
     # makes the atomic replacement boundary unambiguous.
     temp = DATA / f".auction-history-{time.time_ns()}-{threading.get_ident()}.sqlite"
-    con = sqlite3.connect(temp)
+    con = sqlite3.connect(":memory:" if in_memory else temp)
     con.executescript("""
         CREATE TABLE appearances (appearance_id TEXT PRIMARY KEY, auctioneer TEXT NOT NULL,
           auction_id TEXT NOT NULL, auction_date TEXT, lot_number TEXT, source_lot_id TEXT,
@@ -781,8 +790,12 @@ def _build_database():
     paul_state = DATA / "paul_fosh_collection.json"
     if paul_state.exists():
         report["paul_fosh_results"] = json.loads(paul_state.read_text())
+    serialized = con.serialize() if in_memory else None
     con.close()
-    temp.replace(target)
+    if serialized is not None:
+        atomic(target, serialized)
+    else:
+        temp.replace(target)
     atomic(target.with_suffix(".sqlite.gz"), gzip.compress(target.read_bytes(), compresslevel=6, mtime=0))
     save_json(DATA / "progress.json", report)
     print(json.dumps(report, indent=2), flush=True)

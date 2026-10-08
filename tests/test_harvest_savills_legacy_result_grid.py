@@ -2,19 +2,21 @@ from scripts.harvest_savills_legacy_result_grid import parse_first_party, parse_
 
 
 SECONDARY = b"""
-<div id="resultsListContainer">Offered: 2<table>
+<div id="resultsListContainer">Offered: 3<table>
 <tr><th>Lot</th><th>Type</th><th>Location</th><th>Result</th></tr>
 <tr><td>1</td><td>Investment  Other</td><td>London</td><td>&pound;1.5M</td></tr>
 <tr><td>2</td><td>Residential</td><td>Leeds</td><td>Available at &pound;90,000</td></tr>
+<tr><td>A</td><td>Land</td><td>Taunton</td><td>Withdrawn Prior</td></tr>
 </table></div>
 """
 
 FIRST_PARTY = b"""
-<p>Previous Commercial Property Auction 16/10/2006 with a total of 2 Lots.</p>
+<p>Previous Commercial Property Auction 16/10/2006 with a total of 3 Lots.</p>
 <a href="?auc=1&page=2">2</a><table>
 <tr><th>Lot</th><th>Type</th><th>Location</th><th>Results</th></tr>
 <tr><td>1</td><td>Investment</td><td>London</td><td>&pound;1.5M</td></tr>
 <tr><td>2</td><td>Residential</td><td>Leeds</td><td>Available at &pound;90,000</td></tr>
+<tr><td>A</td><td>Land</td><td>Taunton</td><td>Withdrawn Prior</td></tr>
 </table>
 """
 
@@ -34,10 +36,12 @@ def test_parsers_and_reconciliation_preserve_lots_and_prices():
         "2026-10-08T02:00:00Z",
     )
 
-    assert offered == total == payload["appearance_count"] == 2
+    assert offered == total == payload["appearance_count"] == 3
     assert pages == 2
     assert payload["catalogue_complete"] is True
     assert payload["lots"][0]["property_type"] == "Investment"
     assert payload["lots"][0]["result_price_gbp"] == 1_500_000
     assert payload["lots"][1]["available_price_gbp"] == 90_000
     assert payload["lots"][1]["result_status"] == "Available"
+    assert payload["lots"][2]["lot_number"] == "A"
+    assert payload["lots"][2]["result_status"] == "Withdrawn Prior"
