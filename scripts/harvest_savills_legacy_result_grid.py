@@ -157,10 +157,11 @@ def reconcile_fragments(
         raise ValueError("Exact fragments must be a strict subset of the complete result grid")
     for lot, exact in exact_by_lot.items():
         secondary = secondary_by_lot[lot]
-        if not location_matches_address(secondary["location"], clean(exact.get("address"))):
+        exact_location = clean(exact.get("address") or exact.get("locality"))
+        if not location_matches_address(secondary["location"], exact_location):
             raise ValueError(
-                f"Lot {lot} result-grid location {secondary['location']!r} is absent from exact address "
-                f"{exact.get('address')!r}"
+                f"Lot {lot} result-grid location {secondary['location']!r} is absent from exact address/locality "
+                f"{exact_location!r}"
             )
 
     secondary_url = SECONDARY_URL.format(aid=aid)
@@ -171,7 +172,11 @@ def reconcile_fragments(
         result = secondary["result"]
         available = result.casefold().startswith("available")
         result_price = None if available else money(result)
-        result_status = "Available" if available else ("Sold" if result_price is not None else result)
+        result_status = (
+            "Available"
+            if available
+            else ("Sold" if result_price is not None else (result or None))
+        )
         if exact:
             row = dict(exact)
             row["locality"] = secondary["location"]
@@ -180,7 +185,13 @@ def reconcile_fragments(
                 row["result_price_gbp"] = result_price
             else:
                 row.pop("result_price_gbp", None)
-            source_urls = list(dict.fromkeys([*row.get("source_urls", []), secondary_url]))
+            source_urls = list(
+                dict.fromkeys(
+                    value
+                    for value in [row.get("source_url"), *row.get("source_urls", []), secondary_url]
+                    if value
+                )
+            )
             row["source_urls"] = source_urls
             row["raw_source"] = {
                 "first_party_exact_lot_page": {
@@ -218,6 +229,12 @@ def reconcile_fragments(
     raw_table_text = "\n".join(
         "\t".join((row["lot"], row["type"], row["location"], row["result"])) for row in secondary_rows
     )
+    remaining = offered - len(exact_rows)
+    remaining_note = (
+        "The remaining row is retained as a partial lot without inferring an address."
+        if remaining == 1
+        else f"The remaining {remaining} rows are retained as partial lots without inferring addresses."
+    )
     return {
         "schema": "historical_source_corpus_v1",
         "schema_version": 1,
@@ -229,7 +246,7 @@ def reconcile_fragments(
             f"{datetime.strptime(auction_date, '%Y-%m-%d').strftime('%-d %B %Y')} Savills Commercial sale. "
             f"The result grid reports Offered: {offered}; {len(exact_rows)} identities independently reconcile "
             "to exact archived first-party Savills lot pages and retain their full address, postcode, tenure, "
-            "guide, rent and lease fields. The remaining row is retained as a partial lot without inferring an address."
+            f"guide, rent and lease fields. {remaining_note}"
         ),
         "source_auction_id": source_auction_id,
         "auction_date": auction_date,

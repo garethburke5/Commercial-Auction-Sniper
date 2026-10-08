@@ -199,6 +199,45 @@ def test_fragment_reconciliation_preserves_exact_fields_and_adds_missing_partial
     assert payload["lots"][2]["lot_number"] == "A"
 
 
+def test_fragment_reconciliation_uses_locality_when_exact_address_is_missing():
+    offered, secondary = parse_secondary(SECONDARY)
+    secondary[0]["result"] = ""
+    exact_rows = [
+        {
+            "source_record_id": "sale-lot1",
+            "source_auction_id": "sale",
+            "auction_date": "2006-10-16",
+            "lot_number": "1",
+            "address": None,
+            "locality": "London",
+            "property_type": "Retail",
+            "source_url": "https://example.test/lot1",
+        }
+    ]
+
+    payload = reconcile_fragments(
+        463,
+        "2006-10-16",
+        "sale",
+        offered,
+        secondary,
+        exact_rows,
+        "2026-10-08T12:30:00Z",
+        "data/source_diagnostics/snapshot.json",
+        "abc123",
+    )
+
+    assert payload["catalogue_complete"] is True
+    assert payload["lots"][0]["address"] is None
+    assert payload["lots"][0]["locality"] == "London"
+    assert payload["lots"][0]["result_status"] is None
+    assert payload["lots"][0]["source_urls"] == [
+        "https://example.test/lot1",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=463",
+    ]
+    assert "remaining 2 rows" in payload["scope"]
+
+
 def test_first_party_fragment_reconciliation_keeps_preauction_results_null():
     result_rows = [
         {"lot": "1", "type": "Investment", "location": "London", "result": "£1.5M"},
