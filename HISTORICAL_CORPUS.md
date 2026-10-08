@@ -76,13 +76,14 @@ postcode parser accepts valid outward-code suffixes such as ``WC1X`` and
 ``SW1V`` so already banked addressed rows participate in exact grouping without
 changing or merging their appearance identities.
 
-The retained PropertyAuctions result grids for Allsop Residential's 29 May and
-17 July 2013 sales are captured separately with their exact surviving titles and
-dates.  They bank all 372 and 332 distinct published rows respectively, rather
-than the lower headline ``offered`` figures.  A grid is accepted as complete
-only while its single-page state, headline totals, continuous base-lot extent
-and exact lettered-lot set all reconcile.  Its locality-only rows remain partial
-lots with null addresses rather than speculative address identities.
+The retained PropertyAuctions result grids for Allsop Residential's 29 May,
+17 July and 18 September 2013 sales are captured separately with their exact
+surviving titles and dates.  They bank all 372, 332 and 255 distinct published
+rows respectively, rather than the lower headline ``offered`` figures.  A grid
+is accepted as complete only while its single-page state, headline totals,
+continuous base-lot extent and exact lettered-lot set all reconcile.  Its
+locality-only rows remain partial lots with null addresses rather than
+speculative address identities.
 
 Paul Fosh collection traverses and reconciles the entire paginated public results
 set, retaining all addresses, published lot end dates, outcomes, prices and detail

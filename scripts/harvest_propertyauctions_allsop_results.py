@@ -77,6 +77,16 @@ SPECS = {
             "317E", "317F", "317G", "317H",
         }),
     ),
+    834: AuctionSpec(
+        aid=834,
+        title="18TH SEPT 2013 ALLSOP RESIDENTIAL AUCTION - CUMBERLAND HOTEL",
+        auction_date="2013-09-18",
+        offered=230,
+        sold=180,
+        published_rows=255,
+        base_lots=250,
+        lettered_lots=frozenset({"73A", "73B", "73C", "150A", "150B"}),
+    ),
 }
 
 
@@ -102,7 +112,7 @@ def parse_result(text: str) -> tuple[str | None, float | None, float | None]:
         return "sold", money(normalized), None
     if lowered.startswith("available at"):
         return "available", None, money(normalized)
-    for label in ("sold prior", "sold post", "withdrawn", "available", "unsold", "sold"):
+    for label in ("sold prior", "sold post", "withdrawn prior", "withdrawn", "available", "unsold", "sold"):
         if lowered.startswith(label):
             return label, None, None
     return lowered or None, None, None
