@@ -105,3 +105,37 @@ def test_reconciliation_preserves_later_result_updates_and_missing_type_suppleme
         "first_party_result": "Available at £1.6M",
         "secondary_result": "£1.5M",
     }]
+
+
+def test_locates_auction_in_the_one_saved_grid_source(tmp_path, monkeypatch):
+    corpus = tmp_path / "corpus"
+    corpus.mkdir()
+    (corpus / "savills_2005_saved_catalogue_grid_lots_20261003.json").write_text(json.dumps({
+        "lots": [{"source_auction_id": "savills-commercial-auc412"}]
+    }))
+    (corpus / "savills_2005_2009_saved_catalogue_grid_lots_20260928.json").write_text(json.dumps({
+        "lots": []
+    }))
+    monkeypatch.setattr(collector, "CORPUS", corpus)
+
+    assert collector.locate_staging_source(412).name == "savills_2005_saved_catalogue_grid_lots_20261003.json"
+
+
+def test_reconciliation_accepts_fixed_width_invest_abbreviation():
+    offered, secondary = parse_secondary(SECONDARY)
+    total, pages, primary = parse_first_party(FIRST_PARTY)
+    primary[0]["type"] = "Invest Other"
+
+    payload = reconcile(
+        371,
+        "2005-05-16",
+        "https://web.archive.org/web/1id_/http://example.test/catalogue?auc=371",
+        offered,
+        secondary,
+        total,
+        pages,
+        primary,
+        "2026-10-08T04:00:00Z",
+    )
+
+    assert payload["lots"][0]["property_type"] == "Invest Other"

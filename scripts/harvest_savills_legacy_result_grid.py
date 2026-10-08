@@ -33,6 +33,7 @@ MIXED_SHARD = (
     / "savills_2005_2009_saved_catalogue_grid_lots_20260928.jsonl.gz"
 )
 MIXED_SOURCE_KEY = f"source-corpus/{MIXED_SOURCE.stem}"
+STAGING_SOURCE_GLOB = "savills_*saved_catalogue_grid_lots_*.json"
 SECONDARY_URL = "https://propertyauctions.com/Results/LotList.aspx?AID={aid}"
 USER_AGENT = "Commercial-Auction-Sniper historical corpus/1.0"
 LOT_LABEL_RE = re.compile(r"(?:\d+[A-Za-z]?|[A-Za-z])")
@@ -101,7 +102,11 @@ def parse_first_party(html: bytes) -> tuple[int, int, list[dict[str, str]]]:
 
 
 def normalized_type(value: str) -> str:
-    return re.sub(r"\bother\b", "", clean(value).lower()).strip()
+    normalized = re.sub(r"\bother\b", "", clean(value).lower()).strip()
+    # The oldest saved first-party grids abbreviate "Investment" to
+    # "Invest" in the fixed-width type column; the secondary grid preserves
+    # the expanded label.
+    return re.sub(r"\binvest\b", "investment", normalized)
 
 
 def reconcile(
@@ -275,8 +280,28 @@ def atomic_json(path: Path, payload: object) -> None:
     temporary.replace(path)
 
 
-def migrate_mixed_source(aid: int) -> int:
-    mixed = json.loads(MIXED_SOURCE.read_text())
+def locate_staging_source(aid: int) -> Path:
+    """Return the one saved page-one source that still owns this auction."""
+    source_auction_id = f"savills-commercial-auc{aid}"
+    matches = []
+    for source_path in sorted(CORPUS.glob(STAGING_SOURCE_GLOB)):
+        payload = json.loads(source_path.read_text())
+        if any(row.get("source_auction_id") == source_auction_id for row in payload.get("lots", [])):
+            matches.append(source_path)
+    if len(matches) != 1:
+        raise ValueError(
+            f"Expected one saved catalogue-grid source for Auc {aid}; found {len(matches)}: "
+            + ", ".join(path.name for path in matches)
+        )
+    return matches[0]
+
+
+def derived_shard(source_path: Path) -> Path:
+    return ROOT / "data/auction_history/appearances/source-corpus" / f"{source_path.stem}.jsonl.gz"
+
+
+def migrate_mixed_source(aid: int, mixed_source: Path = MIXED_SOURCE) -> int:
+    mixed = json.loads(mixed_source.read_text())
     source_auction_id = f"savills-commercial-auc{aid}"
     before = list(mixed["lots"])
     mixed["lots"] = [row for row in before if row.get("source_auction_id") != source_auction_id]
@@ -311,7 +336,7 @@ def migrate_mixed_source(aid: int) -> int:
     mixed["appearance_count"] = len(remaining)
     mixed["grid_rows_with_surviving_metadata"] = len(remaining) - link_only
     mixed["link_only_partial_rows"] = link_only
-    atomic_json(MIXED_SOURCE, mixed)
+    atomic_json(mixed_source, mixed)
     return removed
 
 
@@ -370,7 +395,8 @@ def main() -> None:
     )
     if target.exists():
         raise FileExistsError(target)
-    removed = migrate_mixed_source(args.aid)
+    staging_source = locate_staging_source(args.aid)
+    removed = migrate_mixed_source(args.aid, staging_source)
     atomic_json(target, payload)
     enrichments_retargeted = retarget_address_enrichments(args.aid, target)
     # The general shard writer intentionally retains rows that disappear from a
@@ -378,13 +404,14 @@ def main() -> None:
     # into a complete per-auction shard, so force the mixed derived shard to be
     # regenerated from its updated source rather than merging the superseded
     # rows back in.
-    MIXED_SHARD.unlink(missing_ok=True)
+    derived_shard(staging_source).unlink(missing_ok=True)
     print(json.dumps({
         "source_file": str(target.relative_to(ROOT)),
         "lots_reconciled": len(payload["lots"]),
         "legacy_rows_replaced": removed,
         "net_appearances": len(payload["lots"]) - removed,
         "address_enrichments_retargeted": enrichments_retargeted,
+        "staging_source": str(staging_source.relative_to(ROOT)),
     }, indent=2))
 
 
