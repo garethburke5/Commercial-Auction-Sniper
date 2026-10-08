@@ -5,6 +5,7 @@ from scripts.harvest_savills_legacy_result_grid import (
     parse_first_party,
     parse_secondary,
     reconcile,
+    reconcile_first_party_fragments,
     reconcile_fragments,
 )
 
@@ -196,6 +197,56 @@ def test_fragment_reconciliation_preserves_exact_fields_and_adds_missing_partial
     assert payload["lots"][1]["result_status"] == "Available"
     assert payload["lots"][2]["address"] is None
     assert payload["lots"][2]["lot_number"] == "A"
+
+
+def test_first_party_fragment_reconciliation_keeps_preauction_results_null():
+    result_rows = [
+        {"lot": "1", "type": "Investment", "location": "London", "result": "£1.5M"},
+        {"lot": "2", "type": "Residential", "location": "Leeds", "result": "Withdrawn Prior"},
+    ]
+    supplemental_rows = [
+        {"lot": "3", "type": "Retail", "location": "Oldham", "result": "£30,000+"},
+    ]
+    exact_rows = [
+        {
+            "source_record_id": f"sale-lot{lot}",
+            "source_auction_id": "sale",
+            "auction_date": "2010-12-13",
+            "lot_number": lot,
+            "address": "1 High Street, London" if lot == "1" else None,
+            "property_type": None,
+            "source_url": f"https://example.test/lot{lot}",
+        }
+        for lot in ("1", "2", "3")
+    ]
+
+    payload = reconcile_first_party_fragments(
+        719,
+        "2010-12-13",
+        "sale",
+        3,
+        result_rows,
+        3,
+        supplemental_rows,
+        exact_rows,
+        "2026-10-08T12:00:00Z",
+        "https://example.test/results",
+        "https://example.test/preauction-page-2",
+        "data/source_diagnostics/snapshot.json",
+        "abc123",
+    )
+
+    assert payload["catalogue_complete"] is True
+    assert payload["appearance_count"] == 3
+    assert payload["address_records"] == 1
+    assert payload["partial_records"] == 2
+    assert payload["lots"][0]["result_price_gbp"] == 1_500_000
+    assert payload["lots"][1]["result_status"] == "Withdrawn Prior"
+    assert payload["lots"][2]["locality"] == "Oldham"
+    assert payload["lots"][2]["property_type"] == "Retail"
+    assert payload["lots"][2]["guide_price_gbp"] == 30_000
+    assert payload["lots"][2]["result_status"] is None
+    assert "result_price_gbp" not in payload["lots"][2]
 
 
 def test_fragment_migration_removes_only_target_rows(tmp_path, monkeypatch):

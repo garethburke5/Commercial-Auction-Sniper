@@ -3,7 +3,7 @@
   "schema_version": 1,
   "auctioneer": "Savills Auctions",
   "capture_mode": "saved_exact_wayback_lot_pages",
-  "scope": "3 individually identifiable exact archived Savills lot-page appearances remain after 9 rows for savills-commercial-2009-07-15 were consolidated into a complete per-auction source.",
+  "scope": "1 individually identifiable exact archived Savills lot-page appearances remain after 2 rows for savills-commercial-2010-12-13 were consolidated into a complete per-auction source.",
   "saved_source_snapshot": "data/source_diagnostics/savills_legacy_document_surface_recovery.json",
   "saved_source_snapshot_sha256": "cecd0c9a7bade235f5bcce153924516b39a7808740acaeb9ad75b36df3df9da7",
   "lots": [
@@ -24,46 +24,9 @@
         "https://web.archive.org/web/20101003012009id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22",
         "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=22"
       ]
-    },
-    {
-      "source_record_id": "savills-commercial-2010-12-13-lot21",
-      "source_auction_id": "savills-commercial-2010-12-13",
-      "auction_date": "2010-12-13",
-      "lot_number": "21",
-      "address": "1-11 Hurrell Court, Hurrell Lane, Thornton-Le-Dale, Pickering, North Yorkshire YO18 7QR",
-      "property_type": "Eleven freehold retirement homes",
-      "tenure": "Freehold",
-      "guide_price_gbp": 700000,
-      "guide_price_high_gbp": 800000,
-      "annual_rent": 46252.5,
-      "size": "Typical gross internal area about 60.04 sq m (646 sq ft)",
-      "notes": "Surviving original Savills lot page records eleven two-bedroom retirement bungalows, total current rent of £46,252.50 per annum and six vacant bungalows.",
-      "source_url": "https://web.archive.org/web/20101130101205id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21",
-      "source_urls": [
-        "https://web.archive.org/web/20101130101205id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21",
-        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21"
-      ]
-    },
-    {
-      "source_record_id": "savills-commercial-2010-12-13-lot23",
-      "source_auction_id": "savills-commercial-2010-12-13",
-      "auction_date": "2010-12-13",
-      "lot_number": "23",
-      "address": "'Claremont', 37 Scalford Road, Melton Mowbray, Leicestershire LE13 1JY",
-      "property_type": "Freehold former care home, Use Class C2",
-      "tenure": "Freehold",
-      "guide_price_gbp": 170000,
-      "guide_price_high_gbp": 190000,
-      "size": "406.42 sq m (4,375 sq ft)",
-      "notes": "Surviving original Savills lot page records twelve resident bedrooms, vacant possession and potential conversion subject to consents.",
-      "source_url": "https://web.archive.org/web/20101130101210id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=23",
-      "source_urls": [
-        "https://web.archive.org/web/20101130101210id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=23",
-        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=23"
-      ]
     }
   ],
   "catalogues_complete": false,
-  "completeness_note": "Any remaining rows are individually admitted exact pages only; their catalogues are not declared complete.",
-  "appearance_count": 3
+  "completeness_note": "The remaining rows are individually admitted exact pages only; their catalogues are not declared complete.",
+  "appearance_count": 1
 }

@@ -266,6 +266,157 @@ def reconcile_fragments(
     }
 
 
+def guide_range(text: str) -> tuple[int | None, int | None]:
+    """Return the lower and optional upper values from a first-party guide."""
+    values = [money(value) for value in re.findall(r"£\s*[\d,]+(?:\.\d+)?\s*[MK]?", text, re.I)]
+    values = [value for value in values if value is not None]
+    return (values[0] if values else None, values[1] if len(values) > 1 else None)
+
+
+def reconcile_first_party_fragments(
+    aid: int,
+    auction_date: str,
+    source_auction_id: str,
+    first_total: int,
+    result_rows: list[dict[str, str]],
+    supplemental_total: int,
+    supplemental_rows: list[dict[str, str]],
+    exact_rows: list[dict[str, object]],
+    captured_at: str,
+    result_url: str,
+    supplemental_url: str,
+    snapshot_path: str,
+    snapshot_sha256: str,
+) -> dict[str, object]:
+    """Reconcile archived result-page and pre-auction-page fragments.
+
+    Some late legacy catalogues have a preserved results page one but only a
+    pre-auction capture for page two.  This path proves the full lot sequence
+    while retaining null result fields for the pre-auction-only rows.
+    """
+    if first_total != supplemental_total:
+        raise ValueError(
+            f"First-party page totals disagree: result {first_total}, supplemental {supplemental_total}"
+        )
+    combined = [*result_rows, *supplemental_rows]
+    counts = Counter(row["lot"].casefold() for row in combined)
+    if len(combined) != first_total or len(counts) != first_total or any(count != 1 for count in counts.values()):
+        raise ValueError(
+            f"First-party fragments do not reconcile: {len(combined)} rows, "
+            f"{len(counts)} unique, {first_total} total"
+        )
+    exact_by_lot = {clean(row["lot_number"]).casefold(): row for row in exact_rows}
+    if set(exact_by_lot) != set(counts):
+        missing = sorted(set(counts) - set(exact_by_lot))
+        extra = sorted(set(exact_by_lot) - set(counts))
+        raise ValueError(f"Exact fragments disagree with first-party rows; missing={missing}, extra={extra}")
+
+    result_lots = {row["lot"].casefold() for row in result_rows}
+    lots: list[dict[str, object]] = []
+    for grid in combined:
+        lot_key = grid["lot"].casefold()
+        row = dict(exact_by_lot[lot_key])
+        is_result = lot_key in result_lots
+        page_url = result_url if is_result else supplemental_url
+        row["locality"] = grid["location"]
+        if not row.get("property_type"):
+            row["property_type"] = grid["type"]
+        source_urls = list(dict.fromkeys([
+            *([row.get("source_url")] if row.get("source_url") else []),
+            *row.get("source_urls", []),
+            page_url,
+        ]))
+        row["source_urls"] = source_urls
+        row["raw_source"] = {
+            "preserved_exact_fragment": {
+                "source_record_id": row["source_record_id"],
+                "source_url": row.get("source_url"),
+            },
+            "first_party_grid": grid,
+            "first_party_grid_stage": "result" if is_result else "pre_auction",
+        }
+        if is_result:
+            result = grid["result"]
+            result_price = money(result)
+            row["result_status"] = "Sold" if result_price is not None else result
+            if result_price is not None:
+                row["result_price_gbp"] = result_price
+            row["notes"] = clean(row.get("notes")) + (
+                " The archived first-party results grid independently matches this lot number and locality "
+                "and supplies its result."
+            )
+        else:
+            guide_low, guide_high = guide_range(grid["result"])
+            if guide_low is not None:
+                row["guide_price_gbp"] = guide_low
+            if guide_high is not None:
+                row["guide_price_high_gbp"] = guide_high
+            else:
+                row.pop("guide_price_high_gbp", None)
+            row.pop("result_price_gbp", None)
+            row["result_status"] = None
+            recovered_note = (
+                "Archived first-party pre-auction page-two row. It supplies this lot number, type, locality "
+                "and guide; no final result or street address is exposed and both remain null."
+            )
+            if clean(row.get("notes")).startswith("Explicit incomplete lot placeholder"):
+                row["notes"] = recovered_note
+                row["source_url"] = page_url
+            else:
+                row["notes"] = clean(row.get("notes")) + " " + recovered_note
+        lots.append(row)
+
+    lots.sort(key=lambda row: int(clean(row["lot_number"])))
+    address_count = sum(bool(row.get("address")) for row in lots)
+    return {
+        "schema": "historical_source_corpus_v1",
+        "schema_version": 1,
+        "auctioneer": "Savills Auctions",
+        "captured_at_utc": captured_at,
+        "capture_mode": "complete_first_party_result_and_preauction_grid_reconciliation",
+        "scope": (
+            f"All {first_total} lot positions in Savills Commercial Auc {aid} on "
+            f"{datetime.strptime(auction_date, '%Y-%m-%d').strftime('%-d %B %Y')}. The archived results page "
+            f"preserves lots 1-{len(result_rows)} and reports {first_total} lots across two pages; the archived "
+            f"pre-auction page two preserves the remaining {len(supplemental_rows)} rows. Exact saved lot "
+            "fragments retain richer address and property fields. Pre-auction-only rows retain null final results."
+        ),
+        "source_auction_id": source_auction_id,
+        "auction_date": auction_date,
+        "catalogue_lot_count": first_total,
+        "catalogue_complete": True,
+        "completion_scope": (
+            f"all {first_total} lot labels appear exactly once across the two archived first-party grids and "
+            "match the complete set of persisted exact fragments"
+        ),
+        "source_url": result_url,
+        "source_urls": [result_url, supplemental_url],
+        "saved_source_snapshot": snapshot_path,
+        "saved_source_snapshot_sha256": snapshot_sha256,
+        "source_summary": {
+            "first_party_catalogue_total": first_total,
+            "result_page_rows": len(result_rows),
+            "preauction_page_rows": len(supplemental_rows),
+            "rows_observed": len(combined),
+            "unique_lot_numbers": len(counts),
+            "result_pagination_pages": 2,
+        },
+        "appearance_count": len(lots),
+        "address_records": address_count,
+        "partial_records": len(lots) - address_count,
+        "reconciliation": {
+            "first_party_catalogue_total": first_total,
+            "source_rows_observed": len(combined),
+            "unique_lot_numbers": len(counts),
+            "reconciliation_shortfall": first_total - len(lots),
+            "status": "complete first-party lot sequence",
+            "final_result_rows": len(result_rows),
+            "preauction_only_rows": len(supplemental_rows),
+        },
+        "lots": lots,
+    }
+
+
 def reconcile(
     aid: int,
     auction_date: str,
@@ -551,9 +702,45 @@ def write_secondary_snapshot(
     return relative, hashlib.sha256(rendered.encode()).hexdigest()
 
 
+def write_first_party_fragment_snapshot(
+    aid: int,
+    result_url: str,
+    result_rows: list[dict[str, str]],
+    supplemental_url: str,
+    supplemental_rows: list[dict[str, str]],
+    catalogue_total: int,
+    captured_at: str,
+    capture_date: str,
+) -> tuple[str, str]:
+    snapshot_path = ROOT / "data/source_diagnostics" / f"savills_auc{aid}_first_party_grids_{capture_date}.json"
+    payload = {
+        "captured_at_utc": captured_at,
+        "catalogue_lot_count": catalogue_total,
+        "pages": [
+            {"source_url": result_url, "stage": "result", "rows": result_rows},
+            {"source_url": supplemental_url, "stage": "pre_auction", "rows": supplemental_rows},
+        ],
+        "rows_observed": len(result_rows) + len(supplemental_rows),
+        "unique_lot_numbers": len({row["lot"].casefold() for row in [*result_rows, *supplemental_rows]}),
+    }
+    rendered = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+    snapshot_path.write_text(rendered)
+    relative = str(snapshot_path.relative_to(ROOT))
+    return relative, hashlib.sha256(rendered.encode()).hexdigest()
+
+
 def retarget_address_enrichments(aid: int, target: Path) -> int:
     """Move internal enrichment pointers with rows split from the mixed shard."""
-    target_prefix = f"source-corpus|savills-commercial-auc{aid}-pos"
+    return retarget_address_enrichments_for_source(f"savills-commercial-auc{aid}", target)
+
+
+def retarget_address_enrichments_for_source(source_auction_id: str, target: Path) -> int:
+    """Move enrichment pointers when one auction is consolidated into a new shard."""
+    target_prefixes = (
+        f"source-corpus|{source_auction_id}-pos",
+        f"source-corpus|{source_auction_id}-lot",
+    )
     target_shard = f"source-corpus/{target.stem}"
     changed = 0
     for source_path in sorted(CORPUS.glob("*.json")):
@@ -569,7 +756,7 @@ def retarget_address_enrichments(aid: int, target: Path) -> int:
                 continue
             target_appearance = clean(enrichment.get("target_appearance_id"))
             current_shard = clean(enrichment.get("target_shard"))
-            if target_appearance.startswith(target_prefix) and current_shard != target_shard:
+            if target_appearance.startswith(target_prefixes) and current_shard != target_shard:
                 if not current_shard.startswith("source-corpus/"):
                     raise ValueError(f"Unexpected enrichment shard for {target_appearance}: {current_shard}")
                 enrichment["target_shard"] = target_shard
@@ -586,6 +773,10 @@ def main() -> None:
     parser.add_argument("--date", required=True, help="Exact auction date in YYYY-MM-DD form")
     parser.add_argument("--first-party-url")
     parser.add_argument(
+        "--supplemental-first-party-url",
+        help="Archived first-party page that supplies the remaining pre-auction lot rows",
+    )
+    parser.add_argument(
         "--fragment-source",
         action="append",
         default=[],
@@ -597,9 +788,13 @@ def main() -> None:
     datetime.strptime(args.date, "%Y-%m-%d")
     session = requests.Session()
     session.headers["User-Agent"] = USER_AGENT
-    secondary_response = session.get(SECONDARY_URL.format(aid=args.aid), timeout=60)
-    secondary_response.raise_for_status()
-    offered, secondary_rows = parse_secondary(secondary_response.content)
+    first_party_fragment_mode = bool(
+        args.fragment_source and args.first_party_url and args.supplemental_first_party_url
+    )
+    if not first_party_fragment_mode:
+        secondary_response = session.get(SECONDARY_URL.format(aid=args.aid), timeout=60)
+        secondary_response.raise_for_status()
+        offered, secondary_rows = parse_secondary(secondary_response.content)
     captured_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     if args.fragment_source:
         if not args.source_auction_id:
@@ -609,26 +804,61 @@ def main() -> None:
             for value in args.fragment_source
         ]
         exact_rows = collect_fragment_rows(args.source_auction_id, fragment_paths)
-        snapshot_path, snapshot_sha256 = write_secondary_snapshot(
-            args.aid, offered, secondary_rows, captured_at, args.capture_date
-        )
-        payload = reconcile_fragments(
-            args.aid,
-            args.date,
-            args.source_auction_id,
-            offered,
-            secondary_rows,
-            exact_rows,
-            captured_at,
-            snapshot_path,
-            snapshot_sha256,
-        )
-        target = CORPUS / f"savills_{args.date.replace('-', '_')}_aid{args.aid}_complete_results_{args.capture_date}.json"
+        if first_party_fragment_mode:
+            result_response = session.get(args.first_party_url, timeout=60)
+            result_response.raise_for_status()
+            supplemental_response = session.get(args.supplemental_first_party_url, timeout=60)
+            supplemental_response.raise_for_status()
+            first_total, first_pages, result_rows = parse_first_party(result_response.content)
+            supplemental_total, _, supplemental_rows = parse_first_party(supplemental_response.content)
+            if first_pages < 2:
+                raise ValueError("First-party result page does not prove a second catalogue page")
+            snapshot_path, snapshot_sha256 = write_first_party_fragment_snapshot(
+                args.aid,
+                result_response.url,
+                result_rows,
+                supplemental_response.url,
+                supplemental_rows,
+                first_total,
+                captured_at,
+                args.capture_date,
+            )
+            payload = reconcile_first_party_fragments(
+                args.aid,
+                args.date,
+                args.source_auction_id,
+                first_total,
+                result_rows,
+                supplemental_total,
+                supplemental_rows,
+                exact_rows,
+                captured_at,
+                result_response.url,
+                supplemental_response.url,
+                snapshot_path,
+                snapshot_sha256,
+            )
+        else:
+            snapshot_path, snapshot_sha256 = write_secondary_snapshot(
+                args.aid, offered, secondary_rows, captured_at, args.capture_date
+            )
+            payload = reconcile_fragments(
+                args.aid,
+                args.date,
+                args.source_auction_id,
+                offered,
+                secondary_rows,
+                exact_rows,
+                captured_at,
+                snapshot_path,
+                snapshot_sha256,
+            )
+        target = CORPUS / f"savills_{args.date.replace('-', '_')}_auc{args.aid}_complete_results_{args.capture_date}.json"
         if target.exists():
             raise FileExistsError(target)
         removed = migrate_fragment_sources(args.source_auction_id, fragment_paths)
         atomic_json(target, payload)
-        enrichments_retargeted = 0
+        enrichments_retargeted = retarget_address_enrichments_for_source(args.source_auction_id, target)
         staging_source: Path | None = None
     else:
         if not args.first_party_url:

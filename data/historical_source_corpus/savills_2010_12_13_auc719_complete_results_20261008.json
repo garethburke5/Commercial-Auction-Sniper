@@ -1,0 +1,751 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "captured_at_utc": "2026-10-08T11:27:25Z",
+  "capture_mode": "complete_first_party_result_and_preauction_grid_reconciliation",
+  "scope": "All 24 lot positions in Savills Commercial Auc 719 on 13 December 2010. The archived results page preserves lots 1-20 and reports 24 lots across two pages; the archived pre-auction page two preserves the remaining 4 rows. Exact saved lot fragments retain richer address and property fields. Pre-auction-only rows retain null final results.",
+  "source_auction_id": "savills-commercial-2010-12-13",
+  "auction_date": "2010-12-13",
+  "catalogue_lot_count": 24,
+  "catalogue_complete": true,
+  "completion_scope": "all 24 lot labels appear exactly once across the two archived first-party grids and match the complete set of persisted exact fragments",
+  "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+  "source_urls": [
+    "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+    "https://web.archive.org/web/20101129010404id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=a&page=2"
+  ],
+  "saved_source_snapshot": "data/source_diagnostics/savills_auc719_first_party_grids_20261008.json",
+  "saved_source_snapshot_sha256": "70a461987511d8aefc5b928099135fc44ca4a30ca5ab28be376f465f8223fdda",
+  "source_summary": {
+    "first_party_catalogue_total": 24,
+    "result_page_rows": 20,
+    "preauction_page_rows": 4,
+    "rows_observed": 24,
+    "unique_lot_numbers": 24,
+    "result_pagination_pages": 2
+  },
+  "appearance_count": 24,
+  "address_records": 3,
+  "partial_records": 21,
+  "reconciliation": {
+    "first_party_catalogue_total": 24,
+    "source_rows_observed": 24,
+    "unique_lot_numbers": 24,
+    "reconciliation_shortfall": 0,
+    "status": "complete first-party lot sequence",
+    "final_result_rows": 20,
+    "preauction_only_rows": 4
+  },
+  "lots": [
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot1",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "1",
+      "address": null,
+      "locality": "Wapping, London",
+      "property_type": "Retail",
+      "result_price_gbp": 219000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; the surviving manifest supplies lot number, type, locality and result but not a street address. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot1",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "1",
+          "type": "Retail",
+          "location": "Wapping, London",
+          "result": "£219,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot2",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "2",
+      "address": null,
+      "locality": "Shepherds Bush, London",
+      "property_type": "Retail",
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot2",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "2",
+          "type": "Retail",
+          "location": "Shepherds Bush, London",
+          "result": "Available at £850,000"
+        },
+        "first_party_grid_stage": "result"
+      },
+      "result_price_gbp": 850000
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot3",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "3",
+      "address": null,
+      "locality": "Colchester",
+      "property_type": "Vacant",
+      "result_price_gbp": 175000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot3",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "3",
+          "type": "Vacant",
+          "location": "Colchester",
+          "result": "£175,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot4",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "4",
+      "address": null,
+      "locality": "Pickering",
+      "property_type": "Vacant",
+      "result_status": "Withdrawn Prior",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot4",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "4",
+          "type": "Vacant",
+          "location": "Pickering",
+          "result": "Withdrawn Prior"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot5",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "5",
+      "address": null,
+      "locality": "Abergavenny",
+      "property_type": "",
+      "result_price_gbp": 450000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; the type cell and street address are absent from the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot5",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "5",
+          "type": "",
+          "location": "Abergavenny",
+          "result": "£450,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot6",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "6",
+      "address": null,
+      "locality": "Rotherham",
+      "property_type": "Office",
+      "result_price_gbp": 760000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot6",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "6",
+          "type": "Office",
+          "location": "Rotherham",
+          "result": "£760,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot7",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "7",
+      "address": null,
+      "locality": "Camberwell, London",
+      "property_type": "Retail",
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot7",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "7",
+          "type": "Retail",
+          "location": "Camberwell, London",
+          "result": "Available at £115,000"
+        },
+        "first_party_grid_stage": "result"
+      },
+      "result_price_gbp": 115000
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot8",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "8",
+      "address": null,
+      "locality": "Uxbridge",
+      "property_type": "Retail",
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot8",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "8",
+          "type": "Retail",
+          "location": "Uxbridge",
+          "result": "Available at £550,000"
+        },
+        "first_party_grid_stage": "result"
+      },
+      "result_price_gbp": 550000
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot9",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "9",
+      "address": null,
+      "locality": "Reigate",
+      "property_type": "Retail",
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot9",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "9",
+          "type": "Retail",
+          "location": "Reigate",
+          "result": "Available at £1.1M"
+        },
+        "first_party_grid_stage": "result"
+      },
+      "result_price_gbp": 1100000
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot10",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "10",
+      "address": null,
+      "locality": "Grimsby",
+      "property_type": "Motor Trade",
+      "result_price_gbp": 1750000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot10",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "10",
+          "type": "Motor Trade",
+          "location": "Grimsby",
+          "result": "£1.75M"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot11",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "11",
+      "address": null,
+      "locality": "Grimsby",
+      "property_type": "Ground Rent",
+      "result_price_gbp": 600000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot11",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "11",
+          "type": "Ground Rent",
+          "location": "Grimsby",
+          "result": "£600,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot12",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "12",
+      "address": null,
+      "locality": "Grimsby",
+      "property_type": "Motor Trade",
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot12",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "12",
+          "type": "Motor Trade",
+          "location": "Grimsby",
+          "result": "Available at £400,000"
+        },
+        "first_party_grid_stage": "result"
+      },
+      "result_price_gbp": 400000
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot13",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "13",
+      "address": null,
+      "locality": "Grimsby",
+      "property_type": "Motor Trade",
+      "result_status": "Sold Prior",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot13",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "13",
+          "type": "Motor Trade",
+          "location": "Grimsby",
+          "result": "Sold Prior"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot14",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "14",
+      "address": null,
+      "locality": "Grimsby",
+      "property_type": "Motor Trade",
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot14",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "14",
+          "type": "Motor Trade",
+          "location": "Grimsby",
+          "result": "Available at £100,000"
+        },
+        "first_party_grid_stage": "result"
+      },
+      "result_price_gbp": 100000
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot15",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "15",
+      "address": null,
+      "locality": "Stoke-on-Trent",
+      "property_type": "Leisure",
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot15",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "15",
+          "type": "Leisure",
+          "location": "Stoke-on-Trent",
+          "result": "Available at £450,000"
+        },
+        "first_party_grid_stage": "result"
+      },
+      "result_price_gbp": 450000
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot16",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "16",
+      "address": null,
+      "locality": "New Brighton",
+      "property_type": "",
+      "result_status": "Withdrawn Prior",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; the type cell and street address are absent from the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot16",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "16",
+          "type": "",
+          "location": "New Brighton",
+          "result": "Withdrawn Prior"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot17",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "17",
+      "address": null,
+      "locality": "Nuneaton",
+      "property_type": "Retail",
+      "result_price_gbp": 160000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot17",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "17",
+          "type": "Retail",
+          "location": "Nuneaton",
+          "result": "£160,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot18",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "18",
+      "address": null,
+      "locality": "Wood Green, London",
+      "property_type": "Vacant",
+      "result_price_gbp": 490000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot18",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "18",
+          "type": "Vacant",
+          "location": "Wood Green, London",
+          "result": "£490,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot19",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "19",
+      "address": null,
+      "locality": "Wood Green, London",
+      "property_type": "Vacant",
+      "result_price_gbp": 494000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot19",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "19",
+          "type": "Vacant",
+          "location": "Wood Green, London",
+          "result": "£494,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot20",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "20",
+      "address": null,
+      "locality": "Ellesmere Port",
+      "property_type": "Motor Trade",
+      "result_price_gbp": 330000,
+      "result_status": "Sold",
+      "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+      "notes": "Identifiable first-party catalogue row; street address unavailable in the surviving manifest. The archived first-party results grid independently matches this lot number and locality and supplies its result.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot20",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "20",
+          "type": "Motor Trade",
+          "location": "Ellesmere Port",
+          "result": "£330,000"
+        },
+        "first_party_grid_stage": "result"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot21",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "21",
+      "address": "1-11 Hurrell Court, Hurrell Lane, Thornton-Le-Dale, Pickering, North Yorkshire YO18 7QR",
+      "property_type": "Eleven freehold retirement homes",
+      "tenure": "Freehold",
+      "guide_price_gbp": 700000,
+      "guide_price_high_gbp": 800000,
+      "annual_rent": 46252.5,
+      "size": "Typical gross internal area about 60.04 sq m (646 sq ft)",
+      "notes": "Surviving original Savills lot page records eleven two-bedroom retirement bungalows, total current rent of £46,252.50 per annum and six vacant bungalows. The archived first-party pre-auction page-two grid independently matches this lot number and supplies its type, locality and guide; no final result is exposed and remains null.",
+      "source_url": "https://web.archive.org/web/20101130101205id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21",
+      "source_urls": [
+        "https://web.archive.org/web/20101130101205id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21",
+        "https://web.archive.org/web/20101129010404id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=a&page=2"
+      ],
+      "locality": "Pickering",
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot21",
+          "source_url": "https://web.archive.org/web/20101130101205id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=21"
+        },
+        "first_party_grid": {
+          "lot": "21",
+          "type": "Investment",
+          "location": "Pickering",
+          "result": "£700,000-£800,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      },
+      "result_status": null
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot22",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "22",
+      "address": null,
+      "locality": "Oldham",
+      "property_type": "Retail",
+      "result_status": null,
+      "source_url": "https://web.archive.org/web/20101129010404id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=a&page=2",
+      "notes": "Archived first-party pre-auction page-two row. It supplies this lot number, type, locality and guide; no final result or street address is exposed and both remain null.",
+      "source_urls": [
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+        "https://web.archive.org/web/20101129010404id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=a&page=2"
+      ],
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot22",
+          "source_url": "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010"
+        },
+        "first_party_grid": {
+          "lot": "22",
+          "type": "Retail",
+          "location": "Oldham",
+          "result": "£30,000+"
+        },
+        "first_party_grid_stage": "pre_auction"
+      },
+      "guide_price_gbp": 30000
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot23",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "23",
+      "address": "'Claremont', 37 Scalford Road, Melton Mowbray, Leicestershire LE13 1JY",
+      "property_type": "Freehold former care home, Use Class C2",
+      "tenure": "Freehold",
+      "guide_price_gbp": 170000,
+      "guide_price_high_gbp": 190000,
+      "size": "406.42 sq m (4,375 sq ft)",
+      "notes": "Surviving original Savills lot page records twelve resident bedrooms, vacant possession and potential conversion subject to consents. The archived first-party pre-auction page-two grid independently matches this lot number and supplies its type, locality and guide; no final result is exposed and remains null.",
+      "source_url": "https://web.archive.org/web/20101130101210id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=23",
+      "source_urls": [
+        "https://web.archive.org/web/20101130101210id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=23",
+        "http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=23",
+        "https://web.archive.org/web/20101129010404id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=a&page=2"
+      ],
+      "locality": "Melton Mowbray",
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot23",
+          "source_url": "https://web.archive.org/web/20101130101210id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction_lot.asp?pos=23"
+        },
+        "first_party_grid": {
+          "lot": "23",
+          "type": "Vacant",
+          "location": "Melton Mowbray",
+          "result": "£170,000-£190,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      },
+      "result_status": null
+    },
+    {
+      "source_record_id": "savills-commercial-2010-12-13-lot24",
+      "source_auction_id": "savills-commercial-2010-12-13",
+      "auction_date": "2010-12-13",
+      "lot_number": "24",
+      "address": "16 Palmerston Road, Wood Green, London N22 8RG",
+      "property_type": "Freehold property formerly used for supported living",
+      "tenure": "Freehold",
+      "guide_price_gbp": 250000,
+      "guide_price_high_gbp": 280000,
+      "source_url": "https://web.archive.org/web/20101130101215id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=24",
+      "source_urls": [
+        "https://web.archive.org/web/20101130101215id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=24",
+        "https://web.archive.org/web/20110406190643id_/http://auctions.savills.co.uk/commercial/comm_previous_auction_detail.asp?auc=719&date=13/12/2010",
+        "https://web.archive.org/web/20101129010404id_/http://auctions.savills.co.uk:80/commercial/comm_current_auction.asp?auc=719&sort=type_sub&order=a&page=2"
+      ],
+      "notes": "Exact archived pre-auction lot page. Vacant former supported-living accommodation with development potential subject to consents; gross internal area 176.53 sq m (1,900 sq ft). The archived first-party pre-auction page-two grid independently matches this lot number and supplies its type, locality and guide; no final result is exposed and remains null.",
+      "locality": "Wood Green, London",
+      "raw_source": {
+        "preserved_exact_fragment": {
+          "source_record_id": "savills-commercial-2010-12-13-lot24",
+          "source_url": "https://web.archive.org/web/20101130101215id_/http://auctions.savills.co.uk/commercial/comm_current_auction_lot.asp?pos=24"
+        },
+        "first_party_grid": {
+          "lot": "24",
+          "type": "Vacant",
+          "location": "Wood Green, London",
+          "result": "£250,000-£280,000"
+        },
+        "first_party_grid_stage": "pre_auction"
+      },
+      "result_status": null
+    }
+  ]
+}
