@@ -124,15 +124,32 @@ def reconcile(
     first_by_lot = {row["lot"].lower(): row for row in first_party_rows}
     if len(first_by_lot) != len(first_party_rows):
         raise ValueError("First-party page contains duplicate lot numbers")
+    result_updates: list[dict[str, str]] = []
+    type_supplements: list[dict[str, str]] = []
     for lot, primary in first_by_lot.items():
         secondary = secondary_by_lot.get(lot)
         if secondary is None:
             raise ValueError(f"First-party lot {lot} is absent from secondary grid")
-        for field in ("location", "result"):
-            if clean(primary[field]).casefold() != clean(secondary[field]).casefold():
-                raise ValueError(f"Lot {lot} {field} disagrees: {primary[field]!r} vs {secondary[field]!r}")
-        if normalized_type(primary["type"]) != normalized_type(secondary["type"]):
+        if clean(primary["location"]).casefold() != clean(secondary["location"]).casefold():
+            raise ValueError(
+                f"Lot {lot} location disagrees: {primary['location']!r} vs {secondary['location']!r}"
+            )
+        primary_type = normalized_type(primary["type"])
+        secondary_type = normalized_type(secondary["type"])
+        if primary_type and secondary_type and primary_type != secondary_type:
             raise ValueError(f"Lot {lot} type disagrees: {primary['type']!r} vs {secondary['type']!r}")
+        if not primary_type and secondary_type:
+            type_supplements.append({
+                "lot": primary["lot"],
+                "first_party_type": primary["type"],
+                "secondary_type": secondary["type"],
+            })
+        if clean(primary["result"]).casefold() != clean(secondary["result"]).casefold():
+            result_updates.append({
+                "lot": primary["lot"],
+                "first_party_result": primary["result"],
+                "secondary_result": secondary["result"],
+            })
 
     secondary_url = SECONDARY_URL.format(aid=aid)
     original_catalogue_url = re.sub(r"^https://web\.archive\.org/web/[^/]+/", "", first_party_url)
@@ -141,15 +158,17 @@ def reconcile(
     for secondary in secondary_rows:
         lot = secondary["lot"]
         primary = first_by_lot.get(lot.lower())
-        chosen_type = primary["type"] if primary else secondary["type"]
+        chosen_type = primary["type"] if primary and clean(primary["type"]) else secondary["type"]
         chosen_location = primary["location"] if primary else secondary["location"]
         result = secondary["result"]
         available = result.lower().startswith("available")
         result_price = None if available else money(result)
         result_status = "Available" if available else ("Sold" if result_price is not None else result)
+        result_changed = bool(primary and clean(primary["result"]).casefold() != clean(result).casefold())
         note = (
-            "Archived first-party Savills row cross-checked against the surviving secondary grid; "
-            "street address and postcode are not exposed."
+            "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; "
+            + ("the secondary grid preserves a later result observation; " if result_changed else "")
+            + "street address and postcode are not exposed."
             if primary else
             "Surviving secondary result-grid row within a catalogue whose total and first page were "
             "reconciled to the archived first-party Savills catalogue; street address and postcode are not exposed."
@@ -202,7 +221,9 @@ def reconcile(
             f"{datetime.strptime(auction_date, '%Y-%m-%d').strftime('%-d %B %Y')} Savills Commercial sale. "
             f"The archived first-party Savills page identifies the date, states a total of {first_party_total} "
             f"lots across {first_party_pages} catalogue pages and exposes lots 1-{len(first_party_rows)} on page 1. "
-            f"Those first {len(first_party_rows)} rows reconcile to the secondary grid. The secondary grid exposes "
+            f"Those first {len(first_party_rows)} lot identities reconcile to the secondary grid; "
+            f"{len(result_updates)} later result updates and {len(type_supplements)} missing-type supplement are "
+            "preserved from the secondary grid. The secondary grid exposes "
             f"{offered} distinct lot labels exactly once and reports Offered: {offered}. Street addresses and "
             "postcodes are not exposed and remain null."
         ),
@@ -222,6 +243,8 @@ def reconcile(
             "rows_observed": len(secondary_rows),
             "unique_lot_numbers": len(lot_counts),
             "first_party_rows_cross_checked": len(first_party_rows),
+            "later_result_updates": len(result_updates),
+            "secondary_type_supplements": len(type_supplements),
             "first_party_catalogue_total": first_party_total,
             "first_party_catalogue_pages": first_party_pages,
             "secondary_result_pages": 1,
@@ -238,6 +261,8 @@ def reconcile(
             "result_pagination_pages": 1,
             "reconciliation_shortfall": offered - len(lots),
             "status": "complete surviving result grid",
+            "result_updates": result_updates,
+            "type_supplements": type_supplements,
         },
         "lots": lots,
     }
@@ -262,18 +287,26 @@ def migrate_mixed_source(aid: int) -> int:
     catalogue_ids = {row.get("source_auction_id") for row in remaining}
     link_only = sum(not any(row.get(key) for key in ("property_type", "locality", "result_status")) for row in remaining)
     migrated = sorted({int(value) for value in re.findall(r"Auc (\d+)", mixed.get("scope", ""))} | {aid})
-    dates = sorted(row["auction_date"] for row in remaining if row.get("auction_date"))
-    first = datetime.strptime(dates[0], "%Y-%m-%d").strftime("%-d %B %Y")
-    last = datetime.strptime(dates[-1], "%Y-%m-%d").strftime("%-d %B %Y")
-    mixed["scope"] = (
-        f"{len(remaining)} individually identifiable appearances from the preserved first catalogue page of "
-        f"{len(catalogue_ids)} Savills commercial auctions dated {first} through {last}. The saved grid text "
-        f"retains type, locality and result for {len(remaining) - link_only} appearances; {link_only} later row "
-        "retains only its exact individual lot link because the saved text sample was truncated. Street addresses "
-        "are unknown and remain null. These are page-one recoveries only; none of the underlying catalogues is "
-        f"declared complete. {', '.join('Auc ' + str(value) for value in migrated[:-1])} and Auc {migrated[-1]} "
-        "were migrated to their own complete sources."
-    )
+    migrated_text = ", ".join(f"Auc {value}" for value in migrated[:-1])
+    migrated_text += (" and " if migrated_text else "") + f"Auc {migrated[-1]}"
+    if remaining:
+        dates = sorted(row["auction_date"] for row in remaining if row.get("auction_date"))
+        first = datetime.strptime(dates[0], "%Y-%m-%d").strftime("%-d %B %Y")
+        last = datetime.strptime(dates[-1], "%Y-%m-%d").strftime("%-d %B %Y")
+        mixed["scope"] = (
+            f"{len(remaining)} individually identifiable appearances from the preserved first catalogue page of "
+            f"{len(catalogue_ids)} Savills commercial auctions dated {first} through {last}. The saved grid text "
+            f"retains type, locality and result for {len(remaining) - link_only} appearances; {link_only} later row "
+            "retains only its exact individual lot link because the saved text sample was truncated. Street addresses "
+            "are unknown and remain null. These are page-one recoveries only; none of the underlying catalogues is "
+            f"declared complete. {migrated_text} were migrated to their own complete sources."
+        )
+    else:
+        mixed["scope"] = (
+            "No appearances remain in this preserved page-one staging source. Every saved catalogue-grid row was "
+            f"migrated into a reconciled complete per-auction source: {migrated_text}."
+        )
+        mixed["retire_empty_derived_shard"] = True
     mixed["catalogue_grids_replayed"] = len(catalogue_ids)
     mixed["appearance_count"] = len(remaining)
     mixed["grid_rows_with_surviving_metadata"] = len(remaining) - link_only

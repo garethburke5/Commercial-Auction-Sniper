@@ -447,6 +447,12 @@ def bank_source_corpus():
         enrichment_rows = payload.get("appearance_enrichments")
         enrichment_rows = enrichment_rows if isinstance(enrichment_rows, list) else []
         if not lot_rows and not enrichment_rows:
+            # A staging source can become intentionally empty after every row
+            # has been migrated into reconciled per-auction sources.  Require
+            # an explicit tombstone so a transient empty fetch can never erase
+            # previously banked evidence.
+            if payload.get("retire_empty_derived_shard") is True:
+                (DATA / "appearances/source-corpus" / (source_path.stem + ".jsonl.gz")).unlink(missing_ok=True)
             continue
         payload_auctioneer = clean(payload.get("auctioneer")) or None
         original = source_path.read_bytes()

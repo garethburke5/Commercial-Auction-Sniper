@@ -1,0 +1,558 @@
+{
+  "schema": "historical_source_corpus_v1",
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "captured_at_utc": "2026-10-08T07:02:53Z",
+  "capture_mode": "complete_secondary_result_grid_with_first_party_catalogue_reconciliation",
+  "scope": "All 18 lot-labelled result rows from the surviving PropertyAuctions AID 620 grid for the 11 May 2009 Savills Commercial sale. The archived first-party Savills page identifies the date, states a total of 18 lots across 1 catalogue pages and exposes lots 1-18 on page 1. Those first 18 lot identities reconcile to the secondary grid; 2 later result updates and 1 missing-type supplement are preserved from the secondary grid. The secondary grid exposes 18 distinct lot labels exactly once and reports Offered: 18. Street addresses and postcodes are not exposed and remain null.",
+  "source_auction_id": "savills-commercial-auc620",
+  "auction_date": "2009-05-11",
+  "catalogue_lot_count": 18,
+  "catalogue_complete": true,
+  "completion_scope": "all 18 lot labels appear exactly once in the result grid and reconcile to both the first-party total of 18 and the secondary Offered: 18 denominator",
+  "source_url": "https://propertyauctions.com/Results/LotList.aspx?AID=620",
+  "first_party_source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+  "source_summary": {
+    "heading": "11 MAY 2009 SAVILLS (COMMERCIAL)",
+    "offered": 18,
+    "rows_observed": 18,
+    "unique_lot_numbers": 18,
+    "first_party_rows_cross_checked": 18,
+    "later_result_updates": 2,
+    "secondary_type_supplements": 1,
+    "first_party_catalogue_total": 18,
+    "first_party_catalogue_pages": 1,
+    "secondary_result_pages": 1
+  },
+  "raw_table_text": "1\tRetail\tGreat Dunmow\t£171,000\n2\tRetail\tLymington\tSold Prior\n3\tOffice\tBirmingham\tSold Post\n4\tOffice\tLondon W1T\t£1.43M\n5\tInvestment Other\tLondon EC2A\t£1.665M\n6\tOther\tBallater\t£310,000\n7\tDevelopment\tManchester\t£1.2M\n8\tRetail\tLondon N16\t£545,000\n9\tRetail\tMiddlewich\tSold\n10\tRetail\tHainault\t£230,000\n11\tInvestment Other\tLondon N16\tWithdrawn Prior\n12\tLand\tSlaughterford\t£240,000\n13\tRetail\tSouthend-on-Sea\tWithdrawn Prior\n14\tOther\tHemsworth\tSold Post\n15\tOffice\tSt Albans\tWithdrawn Prior\n16\tOther\tBlackpool\t£98,000\n17\tRetail\tManchester\t£51,000\n18\tLand\tElsenham\t£15,000",
+  "appearance_count": 18,
+  "address_records_added": 0,
+  "partial_records_added": 18,
+  "reconciliation": {
+    "first_party_catalogue_total": 18,
+    "reported_offered": 18,
+    "source_rows_observed": 18,
+    "unique_lot_numbers": 18,
+    "result_pagination_pages": 1,
+    "reconciliation_shortfall": 0,
+    "status": "complete surviving result grid",
+    "result_updates": [
+      {
+        "lot": "1",
+        "first_party_result": "Available at £180,000",
+        "secondary_result": "£171,000"
+      },
+      {
+        "lot": "3",
+        "first_party_result": "Refer",
+        "secondary_result": "Sold Post"
+      }
+    ],
+    "type_supplements": [
+      {
+        "lot": "7",
+        "first_party_type": "",
+        "secondary_type": "Development"
+      }
+    ]
+  },
+  "lots": [
+    {
+      "source_record_id": "savills-commercial-auc620-pos1",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "1",
+      "address": null,
+      "locality": "Great Dunmow",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; the secondary grid preserves a later result observation; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=1",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "1",
+          "type": "Retail",
+          "location": "Great Dunmow",
+          "result": "£171,000"
+        },
+        "first_party_grid": "Retail Great Dunmow Available at £180,000"
+      },
+      "result_price_gbp": 171000
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos2",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "2",
+      "address": null,
+      "locality": "Lymington",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=2",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "2",
+          "type": "Retail",
+          "location": "Lymington",
+          "result": "Sold Prior"
+        },
+        "first_party_grid": "Retail Lymington Sold Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos3",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "3",
+      "address": null,
+      "locality": "Birmingham",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; the secondary grid preserves a later result observation; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=3",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold Post",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "3",
+          "type": "Office",
+          "location": "Birmingham",
+          "result": "Sold Post"
+        },
+        "first_party_grid": "Office Birmingham Refer"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos4",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "4",
+      "address": null,
+      "locality": "London W1T",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=4",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "4",
+          "type": "Office",
+          "location": "London W1T",
+          "result": "£1.43M"
+        },
+        "first_party_grid": "Office London W1T £1.43M"
+      },
+      "result_price_gbp": 1430000
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos5",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "5",
+      "address": null,
+      "locality": "London EC2A",
+      "property_type": "Investment",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=5",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "5",
+          "type": "Investment Other",
+          "location": "London EC2A",
+          "result": "£1.665M"
+        },
+        "first_party_grid": "Investment London EC2A £1.665M"
+      },
+      "result_price_gbp": 1665000
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos6",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "6",
+      "address": null,
+      "locality": "Ballater",
+      "property_type": "Other",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=6",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "6",
+          "type": "Other",
+          "location": "Ballater",
+          "result": "£310,000"
+        },
+        "first_party_grid": "Other Ballater £310,000"
+      },
+      "result_price_gbp": 310000
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos7",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "7",
+      "address": null,
+      "locality": "Manchester",
+      "property_type": "Development",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=7",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "7",
+          "type": "Development",
+          "location": "Manchester",
+          "result": "£1.2M"
+        },
+        "first_party_grid": " Manchester £1.2M"
+      },
+      "result_price_gbp": 1200000
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos8",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "8",
+      "address": null,
+      "locality": "London N16",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=8",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "8",
+          "type": "Retail",
+          "location": "London N16",
+          "result": "£545,000"
+        },
+        "first_party_grid": "Retail London N16 £545,000"
+      },
+      "result_price_gbp": 545000
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos9",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "9",
+      "address": null,
+      "locality": "Middlewich",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=9",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "9",
+          "type": "Retail",
+          "location": "Middlewich",
+          "result": "Sold"
+        },
+        "first_party_grid": "Retail Middlewich Sold"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos10",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "10",
+      "address": null,
+      "locality": "Hainault",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=10",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "10",
+          "type": "Retail",
+          "location": "Hainault",
+          "result": "£230,000"
+        },
+        "first_party_grid": "Retail Hainault £230,000"
+      },
+      "result_price_gbp": 230000
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos11",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "11",
+      "address": null,
+      "locality": "London N16",
+      "property_type": "Investment",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=11",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "11",
+          "type": "Investment Other",
+          "location": "London N16",
+          "result": "Withdrawn Prior"
+        },
+        "first_party_grid": "Investment London N16 Withdrawn Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos12",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "12",
+      "address": null,
+      "locality": "Slaughterford",
+      "property_type": "Land",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=12",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "12",
+          "type": "Land",
+          "location": "Slaughterford",
+          "result": "£240,000"
+        },
+        "first_party_grid": "Land Slaughterford £240,000"
+      },
+      "result_price_gbp": 240000
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos13",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "13",
+      "address": null,
+      "locality": "Southend-on-Sea",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=13",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "13",
+          "type": "Retail",
+          "location": "Southend-on-Sea",
+          "result": "Withdrawn Prior"
+        },
+        "first_party_grid": "Retail Southend-on-Sea Withdrawn Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos14",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "14",
+      "address": null,
+      "locality": "Hemsworth",
+      "property_type": "Other",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=14",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold Post",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "14",
+          "type": "Other",
+          "location": "Hemsworth",
+          "result": "Sold Post"
+        },
+        "first_party_grid": "Other Hemsworth Sold Post"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos15",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "15",
+      "address": null,
+      "locality": "St Albans",
+      "property_type": "Office",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=15",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Withdrawn Prior",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "15",
+          "type": "Office",
+          "location": "St Albans",
+          "result": "Withdrawn Prior"
+        },
+        "first_party_grid": "Office St Albans Withdrawn Prior"
+      }
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos16",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "16",
+      "address": null,
+      "locality": "Blackpool",
+      "property_type": "Other",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=16",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "16",
+          "type": "Other",
+          "location": "Blackpool",
+          "result": "£98,000"
+        },
+        "first_party_grid": "Other Blackpool £98,000"
+      },
+      "result_price_gbp": 98000
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos17",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "17",
+      "address": null,
+      "locality": "Manchester",
+      "property_type": "Retail",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=17",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "17",
+          "type": "Retail",
+          "location": "Manchester",
+          "result": "£51,000"
+        },
+        "first_party_grid": "Retail Manchester £51,000"
+      },
+      "result_price_gbp": 51000
+    },
+    {
+      "source_record_id": "savills-commercial-auc620-pos18",
+      "source_auction_id": "savills-commercial-auc620",
+      "auction_date": "2009-05-11",
+      "lot_number": "18",
+      "address": null,
+      "locality": "Elsenham",
+      "property_type": "Land",
+      "notes": "Archived first-party Savills lot identity cross-checked against the surviving secondary grid; street address and postcode are not exposed.",
+      "source_url": "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+      "source_urls": [
+        "https://web.archive.org/web/20090701020812id_/https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "https://auctions.savills.co.uk:80/commercial/comm_previous_auction_detail.asp?auc=620&date=11/05/2009",
+        "http://auctions.savills.co.uk/commercial/comm_previous_auction_lot.asp?Auc=620&pos=18",
+        "https://propertyauctions.com/Results/LotList.aspx?AID=620"
+      ],
+      "result_status": "Sold",
+      "raw_source": {
+        "secondary_grid": {
+          "lot": "18",
+          "type": "Land",
+          "location": "Elsenham",
+          "result": "£15,000"
+        },
+        "first_party_grid": "Land Elsenham £15,000"
+      },
+      "result_price_gbp": 15000
+    }
+  ]
+}

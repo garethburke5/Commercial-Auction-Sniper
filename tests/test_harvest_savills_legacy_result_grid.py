@@ -75,3 +75,33 @@ def test_retargets_address_enrichment_when_lots_leave_mixed_shard(tmp_path, monk
     enrichments = json.loads(enrichment_path.read_text())["appearance_enrichments"]
     assert enrichments[0]["target_shard"] == f"source-corpus/{target.stem}"
     assert enrichments[1]["target_shard"] == collector.MIXED_SOURCE_KEY
+
+
+def test_reconciliation_preserves_later_result_updates_and_missing_type_supplements():
+    offered, secondary = parse_secondary(SECONDARY)
+    total, pages, primary = parse_first_party(FIRST_PARTY)
+    primary[0]["result"] = "Available at £1.6M"
+    primary[2]["type"] = ""
+
+    payload = reconcile(
+        463,
+        "2006-10-16",
+        "https://web.archive.org/web/1id_/http://example.test/catalogue?auc=463",
+        offered,
+        secondary,
+        total,
+        pages,
+        primary,
+        "2026-10-08T02:00:00Z",
+    )
+
+    assert payload["lots"][0]["result_price_gbp"] == 1_500_000
+    assert payload["lots"][0]["raw_source"]["first_party_grid"].endswith("Available at £1.6M")
+    assert payload["lots"][2]["property_type"] == "Land"
+    assert payload["source_summary"]["later_result_updates"] == 1
+    assert payload["source_summary"]["secondary_type_supplements"] == 1
+    assert payload["reconciliation"]["result_updates"] == [{
+        "lot": "1",
+        "first_party_result": "Available at £1.6M",
+        "secondary_result": "£1.5M",
+    }]
