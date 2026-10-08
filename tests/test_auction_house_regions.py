@@ -12,7 +12,7 @@ HTML = """
 <table>
 <tr><th>Address</th><th></th><th>Auctioneer</th><th>Auction Ended</th><th>Guide</th><th>Result</th></tr>
 <tr>
-<td><a aria-label="20 Norton Street, Knighton, Powys, LD7 1ET" href="https://online.auctionhouse.co.uk/lot/redirect/400001"></a></td>
+<td><a aria-label="20 Norton Street, Knighton, Powys, LD7 1ET" href="https://wales.auctionhouse.co.uk/lot/redirect/400001"></a></td>
 <td>20 Norton Street, Knighton, Powys, LD7 1ET</td>
 <td>Auction House Wales</td><td>29/09/2026 13:00</td><td>£95,000</td><td>No Bids</td>
 </tr>

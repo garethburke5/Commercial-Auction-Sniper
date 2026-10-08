@@ -23,7 +23,10 @@ import historical_corpus as corpus
 
 
 BASE = "https://www.auctionhouse.co.uk"
-LOT_RE = re.compile(r"https?://online\.auctionhouse\.co\.uk/lot/redirect/(\d+)", re.I)
+LOT_RE = re.compile(
+    r"https?://(?:[a-z0-9-]+\.)?auctionhouse\.co\.uk/lot/redirect/(\d+)",
+    re.I,
+)
 DATE_RE = re.compile(r"^\d{2}/\d{2}/\d{4}\s+\d{2}:\d{2}$")
 MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d+)?)", re.I)
 
@@ -49,15 +52,10 @@ REGIONS = (
     ("northernireland", "Auction House Northern Ireland", "auction-house-northernireland"),
 )
 
-# Wales page 3 currently exposes visible result text but no stable lot redirect
-# IDs to the first-party HTML client. Repeating the same zero-identity probe on
-# every scheduled run cannot produce defensible appearances. Keep it explicit
-# and revisit only when a source-ID recovery path is added.
-KNOWN_BLOCKED_PAGES = {
-    "wales": {
-        3: "visible result rows currently expose no stable lot redirect IDs",
-    },
-}
+# A regional archive can serve its stable redirect IDs from either the shared
+# ``online`` host or its own first-party regional subdomain. Pages stay in this
+# explicit map only while neither form exposes a defensible source identity.
+KNOWN_BLOCKED_PAGES: dict[str, dict[int, str]] = {}
 
 
 def clean(value: str | None) -> str | None:
