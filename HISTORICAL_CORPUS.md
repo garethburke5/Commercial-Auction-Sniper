@@ -77,9 +77,10 @@ postcode parser accepts valid outward-code suffixes such as ``WC1X`` and
 changing or merging their appearance identities.
 
 The retained PropertyAuctions result grids for Allsop Residential's 29 May,
-17 July and 18 September 2013 sales are captured separately with their exact
-surviving titles and dates.  They bank all 372, 332 and 255 distinct published
-rows respectively, rather than the lower headline ``offered`` figures.  A grid
+17 July, 18 September and 31 October 2013 sales are captured separately with
+their exact surviving titles and dates.  They bank all 372, 332, 255 and 232
+distinct published rows respectively, rather than the lower headline
+``offered`` figures.  A grid
 is accepted as complete only while its single-page state, headline totals,
 continuous base-lot extent and exact lettered-lot set all reconcile.  Its
 locality-only rows remain partial lots with null addresses rather than

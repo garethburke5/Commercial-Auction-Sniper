@@ -14,6 +14,7 @@ def test_retained_allsop_specs_preserve_complete_numbering_invariants():
     assert SPECS[832].published_rows == SPECS[832].base_lots + len(SPECS[832].lettered_lots)
     assert SPECS[833].published_rows == SPECS[833].base_lots + len(SPECS[833].lettered_lots)
     assert SPECS[834].published_rows == SPECS[834].base_lots + len(SPECS[834].lettered_lots)
+    assert SPECS[835].published_rows == SPECS[835].base_lots + len(SPECS[835].lettered_lots)
     assert SPECS[833].auction_date == "2013-07-17"
     assert SPECS[833].lettered_lots == frozenset({
         "96A", "96B", "96C", "96D", "317A", "317B", "317C", "317D",
@@ -22,3 +23,9 @@ def test_retained_allsop_specs_preserve_complete_numbering_invariants():
 
     assert SPECS[834].auction_date == "2013-09-18"
     assert SPECS[834].lettered_lots == frozenset({"73A", "73B", "73C", "150A", "150B"})
+
+    assert SPECS[835].auction_date == "2013-10-31"
+    assert SPECS[835].offered == 200
+    assert SPECS[835].sold == 160
+    assert SPECS[835].lettered_lots == frozenset({"55A", "55B"})
+

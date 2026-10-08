@@ -87,6 +87,16 @@ SPECS = {
         base_lots=250,
         lettered_lots=frozenset({"73A", "73B", "73C", "150A", "150B"}),
     ),
+    835: AuctionSpec(
+        aid=835,
+        title="31ST OCT - ALLSOP RESIDENTIAL",
+        auction_date="2013-10-31",
+        offered=200,
+        sold=160,
+        published_rows=232,
+        base_lots=230,
+        lettered_lots=frozenset({"55A", "55B"}),
+    ),
 }
 
 
@@ -259,3 +269,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
