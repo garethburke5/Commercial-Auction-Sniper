@@ -1,10 +1,81 @@
 import json
+import gzip
+import hashlib
+import sqlite3
+import subprocess
+import sys
+import textwrap
+from pathlib import Path
 from bs4 import BeautifulSoup
 import pytest
 
 from web_platform import cloudflare
 from web_platform.site import Site
 from web_platform.tests.test_platform import site
+
+
+@pytest.mark.parametrize('missing_sqlite', [False, True])
+def test_export_and_history_with_or_without_stdlib_sqlite(site, tmp_path, missing_sqlite):
+    # A fresh interpreter reproduces the deployment failure before any application
+    # imports. The fallback uses the real binary driver, never a mock connection.
+    original = dict(site.catalogue.properties[0], auction_date='2025-01-01',
+                    guide_price=90000, source='Historical fixture auctioneer',
+                    auctioneer='Historical fixture auctioneer')
+    database = tmp_path / 'fixture.sqlite'
+    with sqlite3.connect(database) as db:
+        db.execute('CREATE TABLE appearances(address TEXT, auction_date TEXT, sector TEXT, record_json TEXT)')
+        db.execute('INSERT INTO appearances VALUES (?,?,?,?)',
+                   (original['address'], original['auction_date'], 'commercial', json.dumps(original)))
+    packed = site.catalogue.root / 'data/auction_history/auction_history.sqlite.gz'
+    packed.write_bytes(gzip.compress(database.read_bytes()))
+    before = hashlib.sha256(packed.read_bytes()).hexdigest()
+    script = textwrap.dedent('''
+        import importlib.abc, sys
+        from pathlib import Path
+        missing = sys.argv[3] == 'True'
+        if missing:
+            class NoSystemSQLite(importlib.abc.MetaPathFinder):
+                def find_spec(self, fullname, path, target=None):
+                    if fullname == '_sqlite3':
+                        raise ModuleNotFoundError("No module named '_sqlite3'", name='_sqlite3')
+            sys.meta_path.insert(0, NoSystemSQLite())
+            try:
+                import sqlite3
+            except ModuleNotFoundError as exc:
+                assert exc.name == '_sqlite3'
+            else:
+                raise AssertionError('The deployment failure was not reproduced')
+        from web_platform import cloudflare
+        import sqlite3
+        assert ('pysqlite3' in sys.modules) == missing
+        from web_platform.catalogue import Catalogue
+        from web_platform.site import Site
+        from web_platform.market_context import MarketContext
+        root, output = Path(sys.argv[1]), Path(sys.argv[2])
+        catalogue = Catalogue(root)
+        assert catalogue.history()[0]['source'] == 'Historical fixture auctioneer'
+        row = catalogue.properties[0]
+        assert MarketContext(catalogue).for_property(row)['history'][0]['guide_price'] == 90000
+        with sqlite3.connect(catalogue.history_path.as_uri() + '?mode=ro', uri=True) as db:
+            try:
+                db.execute('DELETE FROM appearances')
+            except sqlite3.OperationalError:
+                pass
+            else:
+                raise AssertionError('Historical query connection must be read-only')
+        import web_platform.export as exporter
+        exporter.Site = lambda origin: Site(catalogue, origin)
+        cloudflare.build(output)
+        assert (output / 'index.html').exists()
+        assert 'Historical fixture auctioneer' in (output / 'history/index.html').read_text()
+        assert not list(output.rglob('*.sqlite*'))
+    ''')
+    result = subprocess.run([sys.executable, '-c', script, str(site.catalogue.root),
+                             str(tmp_path / 'export'), str(missing_sqlite)],
+                            cwd=Path(__file__).resolve().parents[2],
+                            capture_output=True, text=True, timeout=60)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert hashlib.sha256(packed.read_bytes()).hexdigest() == before
 
 
 def test_domain_export_has_root_links_canonicals_and_keeps_private_data_out(site, tmp_path, monkeypatch):

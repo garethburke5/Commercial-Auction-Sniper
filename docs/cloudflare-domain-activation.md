@@ -10,6 +10,20 @@ The same static exporter and safety checks are reused; `wrangler.jsonc` declares
 only `public-dist` as assets, with canonical trailing slashes and real 404 pages.
 No Worker script or new API runtime is introduced.
 
+**23:42 deployment diagnosis:** The owner created the Worker and started build
+`998145af`. Cloning and dependency installation succeeded, but Cloudflare's
+asdf-installed Python 3.12.15 lacked its `_sqlite3` extension. The exporter failed
+on import before publishing. The original eight local checks did not reproduce
+this provider-specific interpreter defect.
+
+The Cloudflare requirements file now adds a pinned, self-contained SQLite wheel.
+Only the Cloudflare entry point selects it, and only when `_sqlite3` is missing;
+healthy Python installations retain the standard driver. The existing renderer,
+read-only corpus queries and account/backend dependency file are reused unchanged.
+Update the **build command** below before rebuilding the latest `main` revision.
+The deploy command and four build variables stay as configured. A successful
+Cloudflare retry still needs to be observed; no domain connection is confirmed.
+
 ## Verified position
 
 The existing public static renderer supports a domain root without the old GitHub
@@ -19,16 +33,23 @@ keeps Workers/Pages preview hosts out of search indexes, and checks the free lim
 directory so stale files cannot be carried into the upload. Only that output
 directory is published; the repository, databases and private reports are not.
 
-Eight local tests passed: real renderer output at the custom-domain root,
+Ten local tests passed: real renderer output at the custom-domain root,
 canonical/sitemap/asset links, absence of private credential markers, default
 account/payment gates, preview-host indexing rules, unsafe origin rejection,
-stale output rejection and free-plan limit failures. This is packaging acceptance,
+stale output rejection and free-plan limit failures. Two fresh-interpreter cases
+also export real fixture pages and historical records with normal SQLite and
+with `_sqlite3` deliberately unavailable, using the real bundled driver. They
+verify read-only query enforcement and that the compressed corpus is unchanged.
+CI installs the same build dependency so this regression is exercised there.
+This is packaging acceptance,
 not a live Cloudflare deployment or a new investment-quality approval.
 
 The GitHub-to-Cloudflare sign-in returned "Unable to sign in" twice, including
 one fresh sign-in after the owner confirmed GitHub is the right method. No
-Cloudflare project, DNS record, custom domain or certificate has been created or
-changed by this work. Stop retrying that browser sign-in route.
+Cloudflare project, DNS record, custom domain or certificate was created by that
+remote sign-in attempt. The owner subsequently created the Worker in their own
+browser; that does not provide this agent with a Cloudflare session. Stop retrying
+the failed remote sign-in route.
 
 ## Cloudflare Workers Static Assets settings
 
@@ -43,7 +64,7 @@ any GitHub integration authorisation; no API token or password belongs in chat.
 | Worker name | `auction-geek` (must match `wrangler.jsonc`) |
 | Production branch | `main` |
 | Root directory | Repository root |
-| Build command | `python -m pip install -r web_platform/requirements.txt && python -m web_platform.cloudflare` |
+| Build command | `python -m pip install -r web_platform/requirements-cloudflare.txt && python -m web_platform.cloudflare` |
 | Deploy command | `npx wrangler@4 deploy` |
 | Static asset output | `public-dist`, already declared in `wrangler.jsonc` |
 | `PYTHON_VERSION` | `3.12` |
@@ -96,6 +117,7 @@ implementation is duplicated. Report-quality and billing gates remain unchanged.
 
 ## Provider references checked
 
+- https://pypi.org/project/pysqlite3-binary/0.5.4.post2/
 - https://developers.cloudflare.com/workers/best-practices/workers-best-practices/
 - https://developers.cloudflare.com/workers/ci-cd/builds/build-image/
 - https://developers.cloudflare.com/workers/ci-cd/builds/limits-and-pricing/

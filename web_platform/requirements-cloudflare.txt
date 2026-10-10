@@ -1,0 +1,5 @@
+# Reuse the existing renderer dependencies; this extra driver is build-only.
+-r requirements.txt
+# Cloudflare's asdf Python can lack _sqlite3. Use a self-contained Linux wheel.
+--only-binary=pysqlite3-binary
+pysqlite3-binary==0.5.4.post2; sys_platform == "linux" and platform_machine == "x86_64"

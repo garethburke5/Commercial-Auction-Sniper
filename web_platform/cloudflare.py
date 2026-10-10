@@ -1,9 +1,35 @@
 """Cloudflare Static Assets packaging around the existing public-only exporter."""
 import argparse
+import importlib
 import os
+import sys
 from pathlib import Path
 from urllib.parse import urlsplit
 
+
+def _ensure_sqlite():
+    """Repair the build interpreter only when its optional SQLite extension is absent."""
+    try:
+        importlib.import_module('sqlite3')
+    except ModuleNotFoundError as exc:
+        if exc.name != '_sqlite3':
+            raise
+        try:
+            driver = importlib.import_module('pysqlite3')
+        except ModuleNotFoundError as fallback_error:
+            raise RuntimeError(
+                'This Python lacks SQLite support. Install the Cloudflare build '
+                'dependencies: python -m pip install -r '
+                'web_platform/requirements-cloudflare.txt'
+            ) from fallback_error
+        # Restrict this compatibility shim to the static-build entry point;
+        # catalogue and market-history imports must share the same DB-API driver.
+        sys.modules['sqlite3'] = driver
+        sys.modules['sqlite3.dbapi2'] = driver.dbapi2
+        print(f'Cloudflare build: using bundled SQLite {driver.sqlite_version}')
+
+
+_ensure_sqlite()
 from .export import export
 
 DEFAULT_ORIGIN = 'https://auctiongeek.co.uk'
