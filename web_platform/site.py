@@ -102,6 +102,9 @@ class Site:
         if path != '/': crumbs.append((title,path))
         structured = [schema, {'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[
             {'@type':'ListItem','position':i+1,'name':label,'item':self.origin+p} for i,(label,p) in enumerate(crumbs)]}]
+        if path == '/':
+            structured.append({'@context':'https://schema.org','@type':'WebSite',
+                'name':'Auction Geek','url':self.origin+'/'})
         return self.env.get_template('page.html').render(title=title, kind=kind, description=description,
             canonical=self.origin+path, path=path, crumbs=crumbs, catalogue=self.catalogue,
             structured=json.dumps(structured).replace('<','\\u003c'), **ctx)
@@ -114,7 +117,7 @@ class Site:
             rows=c.properties[:50], board=True, page=1, pages=pages, upcoming=self.upcoming)
         for page in range(1,pages+1):
             path = '/properties/' if page == 1 else f'/properties/page/{page}/'
-            yield path, self.page(path,'Current auction properties','list','Commercial and mixed-use lots from the published Auction Sniper catalogue.',
+            yield path, self.page(path,'Current auction properties','list','Commercial and mixed-use lots from the published Auction Geek catalogue.',
                 rows=c.properties[(page-1)*50:page*50], page=page,pages=pages,board=True)
         for row in c.all_properties:
             evidence = self.evidence.get(row['url'], {})
@@ -151,7 +154,7 @@ class Site:
                 'Captured commercial lots for this auction. Check the auctioneer for catalogue changes.',rows=rows)
         yield '/history/',self.page('/history/','Commercial auction history','history',
             'Individual auction appearances with source evidence. Repeated appearances are preserved.',history=c.history())
-        yield '/methodology/',self.page('/methodology/','How Auction Sniper works','methodology',
+        yield '/methodology/',self.page('/methodology/','How Auction Geek works','methodology',
             'Understand source evidence, guide prices, missing information and conservative property-history matching.')
         yield '/coverage/',self.page('/coverage/','Auctioneer coverage & collection health','coverage',
             'Measured collection and publication counts. Unknown counts are shown explicitly; historical records do not substitute for current stock.',
@@ -160,13 +163,13 @@ class Site:
             'Clear explanations of commercial property yields, leases, auction fees, legal packs, VAT and auction terminology.',
             glossary=GROUPS, glossary_sources=SOURCES, glossary_reviewed=REVIEWED)
         yield '/privacy/',self.page('/privacy/','Privacy and cookies','privacy',
-            'How the public Auction Sniper website handles browsing data and external links.')
+            'How the public Auction Geek website handles browsing data and external links.')
         yield '/due-diligence/',self.page('/due-diligence/','Acquisition Intelligence','due-diligence',
             'Turn a legal pack into a clear, investor-focused acquisition review — key terms, costs, risks, opportunities and the questions that still need answering.',noindex=True)
         spotlights=sorted(c.properties,key=lambda r:sum(bool(r.get(k)) for k in ('tenant','lease_expiry','tenure','annual_rent','area_sqft','image_url')),reverse=True)[:3]
         yield '/deals/',self.page('/deals/','Commercial Deals','deals','Private deals, agent opportunities and clearly labelled commercial auction spotlights.',spotlights=spotlights)
         yield '/admin/deals/',self.page('/admin/deals/','Owner listing workspace','deal-admin','Create and manage commercial property listings without editing code.',noindex=True)
-        yield '/account/',self.page('/account/','My Auction Sniper','account','Your shortlist, watched properties, private notes, searches and acquisition research.',noindex=True)
+        yield '/account/',self.page('/account/','My Auction Geek','account','Your shortlist, watched properties, private notes, searches and acquisition research.',noindex=True)
         yield '/plans/',self.page('/plans/','Plans & Pricing','plans',
             'Find your next investment for free. Add monitoring and deeper research, or review one property with a pay-as-you-go Acquisition Review.')
 

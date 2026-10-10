@@ -220,7 +220,7 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
     'empty':'No reliable clause was identified automatically. This is not confirmation that the obligation or risk is absent. '+action}
     for key,title,_,action in TOPICS]
  observations=[f for f in findings if f['fact'] and f['severity']!='CRITICAL / RED FLAG' and f['title'] in ('Contractual completion period','Deposit recorded in the sale conditions','VAT depends on TOGC conditions','Rent amount recorded in this document','Concessionary rent period','Tenant named in the lease','Energy rating in the certificate','Certificate expiry recorded')]
- return {'schema_version':VERSION,'product':'Auction Sniper — Buyer Due Diligence Report','property':property_ref,
+ return {'schema_version':VERSION,'product':'Auction Geek — Buyer Due Diligence Report','property':property_ref,
   'report_id':hashlib.sha256((property_ref+'|'+ '|'.join(sorted(d.sha256 for d in docs))).encode()).hexdigest()[:16],
   'created_at':datetime.now(timezone.utc).isoformat(),'summary':'Resolve the highlighted contractual and evidence gaps before relying on the pack. This is an evidence review, not a buy recommendation.',
   'observations':observations,'counts':dict(counts),'context':context,'findings':findings,'sections':sections,'documents':manifest,'missing':missing,'uncertainties':uncertainties,'questions':questions,'issues':issues,

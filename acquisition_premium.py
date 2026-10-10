@@ -77,8 +77,8 @@ def render_pdf(report):
                 mid=(len(items)+1)//2
                 t=Table([[items[:mid],items[mid:]]],colWidths=[width/2]*2);t.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'),('LEFTPADDING',(0,0),(-1,-1),0),('RIGHTPADDING',(0,0),(-1,-1),10)]));story.extend([para('Source key','h'),t])
     def foot(canvas,doc):
-        canvas.setFont('Investor',7);canvas.setFillColor(colors.HexColor(GREY));canvas.drawString(44,27,'AUCTION SNIPER  |  '+brief['status']);canvas.drawRightString(A4[0]-44,27,str(doc.page))
-    doc=SimpleDocTemplate(out,pagesize=A4,leftMargin=44,rightMargin=44,topMargin=35,bottomMargin=43,title=report['property']+' - Acquisition Intelligence',author='Auction Sniper')
+        canvas.setFont('Investor',7);canvas.setFillColor(colors.HexColor(GREY));canvas.drawString(44,27,'AUCTION GEEK  |  '+brief['status']);canvas.drawRightString(A4[0]-44,27,str(doc.page))
+    doc=SimpleDocTemplate(out,pagesize=A4,leftMargin=44,rightMargin=44,topMargin=35,bottomMargin=43,title=report['property']+' - Acquisition Intelligence',author='Auction Geek')
     doc.build(story,onFirstPage=foot,onLaterPages=foot)
     return out.getvalue()
 
@@ -184,7 +184,7 @@ def render_docx(report):
                 # long repeated table; exact links also remain in HTML.
                 txt='\n'.join(r['id']+' '+r['label'] for r in b['rows'])
                 paragraph(txt,size=6.5)
-    foot=section.footer.paragraphs[0];foot.text='AUCTION SNIPER  |  '+brief['status']+'  |  '
+    foot=section.footer.paragraphs[0];foot.text='AUCTION GEEK  |  '+brief['status']+'  |  '
     fld=OxmlElement('w:fldSimple');fld.set(qn('w:instr'),'PAGE');foot._p.append(fld)
     for run in foot.runs:run.font.size=Pt(7)
     out=BytesIO();doc.save(out);return out.getvalue()

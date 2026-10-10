@@ -14,7 +14,7 @@ function show(r){
  document.querySelector('#download-review-docx').hidden=r.access!=='full'||!complete;
  document.querySelector('#download-review-pdf').hidden=r.access!=='full'||!complete||!r.report?.investigation;
  if(r.processing_allowed)progress.textContent='Payment verified. Upload the legal pack to start your purchased analysis.';
- else if(r.access==='full')progress.textContent='Full review saved to My Auction Sniper.';
+ else if(r.access==='full')progress.textContent='Full review saved to My Auction Geek.';
  else progress.textContent='Free listing snapshot saved. '+(r.report?.quality_status?.message||'');
  const url=new URL(location.href);url.searchParams.set('review',id);history.replaceState(null,'',url);
 }
@@ -34,6 +34,6 @@ uploadForm.onsubmit=async e=>{
 };
 document.querySelector('#unlock-review').onclick=async()=>{try{const r=await AuctionWorkspace.api('/api/account/reviews/'+id+'/checkout','POST');if(r.url)location.assign(r.url);else show(await AuctionWorkspace.api('/api/account/reviews/'+id));}catch(e){progress.textContent=e.message;}};
 for(const [button,format] of [['download-review','html'],['download-review-pdf','pdf'],['download-review-docx','docx']]){
- document.querySelector('#'+button).onclick=async()=>{try{const b=await AuctionWorkspace.download('/api/account/reviews/'+id+'/download?format='+format);const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='auction-sniper-acquisition-review.'+format;a.click();URL.revokeObjectURL(a.href);}catch(e){progress.textContent=e.message;}};
+ document.querySelector('#'+button).onclick=async()=>{try{const b=await AuctionWorkspace.download('/api/account/reviews/'+id+'/download?format='+format);const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='auction-geek-acquisition-review.'+format;a.click();URL.revokeObjectURL(a.href);}catch(e){progress.textContent=e.message;}};
 }
 })();

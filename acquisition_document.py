@@ -141,7 +141,7 @@ def render_docx(report):
     footer = section.footer.paragraphs[0]
     footer.paragraph_format.space_before = Pt(3)
     footer.paragraph_format.tab_stops.add_tab_stop(Cm(17.6), WD_ALIGN_PARAGRAPH.RIGHT)
-    run = footer.add_run('Auction Sniper Acquisition Intelligence')
+    run = footer.add_run('Auction Geek Acquisition Intelligence')
     run.font.size = Pt(7.5)
     footer.add_run('\t')
     for index, instruction in enumerate(('PAGE', 'NUMPAGES')):
@@ -152,10 +152,10 @@ def render_docx(report):
         footer._p.append(field)
     doc.core_properties.title = clean(report.get('property') or 'Property acquisition report')
     doc.core_properties.subject = 'Commercial property acquisition review'
-    doc.core_properties.author = 'Auction Sniper'
+    doc.core_properties.author = 'Auction Geek'
     doc.core_properties.keywords = 'acquisition, commercial property, legal pack'
 
-    paragraph('AUCTION SNIPER  ACQUISITION INTELLIGENCE', size=8, bold=True, after=8)
+    paragraph('AUCTION GEEK  ACQUISITION INTELLIGENCE', size=8, bold=True, after=8)
     paragraph(report.get('property') or 'Property acquisition report', style='Title')
     note(str(brief.get('as_of') or '') + '  |  ' + str(brief.get('status') or 'Acquisition review'))
     paragraph(brief.get('summary'), size=10.5)

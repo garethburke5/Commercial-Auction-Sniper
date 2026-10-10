@@ -6,7 +6,7 @@ def test_report_leads_with_forward_rent_and_sources():
  r=analyse_pack("8 Red Street, Carmarthen",docs,{"guide":180000,"rent":34000})
  model=build_report(r,{"guide":180000,"rent":34000})
  text=render_text(model)
- assert model["product"]=="Auction Sniper — Buyer Due Diligence Report"
+ assert model["product"]=="Auction Geek — Buyer Due Diligence Report"
  assert model["sections"][0]["title"]=="Investment Assessment"
  assert "£34,000" in model["sections"][0]["paragraphs"][0]
  assert "£20,000" in model["sections"][0]["paragraphs"][0]

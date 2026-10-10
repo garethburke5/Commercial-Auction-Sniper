@@ -20,7 +20,7 @@ def _render_legacy_analysis_workspace():
     @media(max-width:650px){[data-testid="stMainBlockContainer"]{padding:.65rem!important}}
     </style>''',unsafe_allow_html=True)
     context=property_context(st.query_params.get('property'))
-    st.markdown('### Auction Sniper Acquisition Intelligence')
+    st.markdown('### Auction Geek Acquisition Intelligence')
     st.caption('Turn a legal pack into a clear, investor-focused acquisition review — key terms, costs, risks, opportunities and the questions that still need answering.')
     engine=engine_identity()
     st.caption(engine['release']+' · engine '+engine['build'])
@@ -65,7 +65,7 @@ def _render_legacy_analysis_workspace():
             st.success('Report ready. Check the document register for OCR and visual-review limitations.')
         except Exception as exc:
             progress.empty();st.error(f'Analysis could not complete: {exc}. Your previous report remains available below.')
-    with st.expander('Reopen a saved Auction Sniper report'):
+    with st.expander('Reopen a saved Auction Geek report'):
         saved=st.file_uploader('Saved report JSON',type=['json'],key='dd_saved_report')
         if st.button('Open saved report',disabled=saved is None):
             try:
@@ -103,11 +103,11 @@ def render_buyer_due_diligence():
     """The public prototype must not bypass account/payment cost controls."""
     import os
     from urllib.parse import urlencode
-    st.markdown('### Auction Sniper Acquisition Intelligence')
-    st.info('Legal-pack analysis will run through your Auction Sniper account after a verified purchase. Paid reports remain under quality validation; this prototype cannot start new analysis.')
-    base=os.getenv('PUBLIC_ORIGIN','https://garethburke5.github.io/Commercial-Auction-Sniper').rstrip('/')
+    st.markdown('### Auction Geek Acquisition Intelligence')
+    st.info('Legal-pack analysis will run through your Auction Geek account after a verified purchase. Paid reports remain under quality validation; this prototype cannot start new analysis.')
+    base=os.getenv('PUBLIC_ORIGIN','https://auctiongeek.co.uk').rstrip('/')
     query=urlencode({'property':st.query_params.get('property')}) if st.query_params.get('property') else ''
-    st.link_button('Open Auction Sniper research',base+'/due-diligence/'+('?' + query if query else ''))
+    st.link_button('Open Auction Geek research',base+'/due-diligence/'+('?' + query if query else ''))
     # Keep completed session work retrievable without permitting another run.
     reports=st.session_state.get('dd_reports',{})
     if reports:

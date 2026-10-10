@@ -1,4 +1,4 @@
-"""Professional-English report assembly for Auction Sniper Legal Pack Intelligence.
+"""Professional-English report assembly for Auction Geek Legal Pack Intelligence.
 Consumes structured findings; it does not re-interpret raw legal documents.
 """
 from __future__ import annotations
@@ -38,7 +38,7 @@ def build_report(report,catalogue:dict[str,Any]|None=None)->dict[str,Any]:
  if report.missing:sections.append({"title":"Missing or Unverified Information","rating":"AMBER","items":[{"item":x,"action":"Obtain and review before relying on the relevant conclusion."} for x in report.missing]})
  if report.questions:sections.append({"title":"Questions to Resolve Before Bidding","items":[{"question":x} for x in report.questions]})
  sections.append({"title":"Documents Reviewed","items":[{"document":x} for x in report.documents_reviewed]})
- return {"product":"Auction Sniper — Buyer Due Diligence Report","property":report.property_ref,"guide":catalogue.get("guide"),"assessment":report.assessment,"sections":sections,"disclaimer":"This report is an investment due-diligence aid. It summarises and cross-checks information identified in the supplied documents and does not constitute legal advice or replace review by the purchaser's solicitor, surveyor, accountant or other professional adviser.","processing":report.processing}
+ return {"product":"Auction Geek — Buyer Due Diligence Report","property":report.property_ref,"guide":catalogue.get("guide"),"assessment":report.assessment,"sections":sections,"disclaimer":"This report is an investment due-diligence aid. It summarises and cross-checks information identified in the supplied documents and does not constitute legal advice or replace review by the purchaser's solicitor, surveyor, accountant or other professional adviser.","processing":report.processing}
 def render_text(model:dict[str,Any])->str:
  out=[model["product"],model["property"],f"Overall assessment: {model['assessment']}",""]
  for s in model["sections"]:
@@ -69,8 +69,8 @@ REVIEW_CSS='''
 def validate_saved_review(raw):
  if len(raw)>8*1024*1024:raise ValueError('Saved report exceeds the 8 MB limit.')
  try:model=json.loads(raw)
- except (ValueError,UnicodeError) as exc:raise ValueError('Choose an Auction Sniper JSON report.') from exc
- if not isinstance(model,dict) or model.get('schema_version')!='2.0':raise ValueError('This is not a supported Auction Sniper report.')
+ except (ValueError,UnicodeError) as exc:raise ValueError('Choose an Auction Geek JSON report.') from exc
+ if not isinstance(model,dict) or model.get('schema_version')!='2.0':raise ValueError('This is not a supported Auction Geek report.')
  if not re.fullmatch(r'[a-f0-9]{16}',str(model.get('report_id',''))):raise ValueError('Invalid report identifier.')
  for k in ('property','report_id','created_at','summary','disclaimer'):
   if not isinstance(model.get(k),str) or len(model[k])>5000:raise ValueError('Invalid report content.')
@@ -110,7 +110,7 @@ def render_review_html(model,standalone=False):
    sources.append('<p class="dd-source">'+esc(e['document']+location+(' · OCR: verify against the scan' if e.get('ocr') else ''))+'</p><blockquote>'+esc(e['excerpt'])+'</blockquote>')
   return '<article class="dd-finding '+cls+'"><span class="dd-badge">'+esc(f['severity'])+'</span><h3>'+esc(f['title'])+'</h3><p>'+esc(f['summary'])+'</p><p class="dd-action"><b>Action:</b> '+esc(f['action'])+'</p><details><summary>Source evidence</summary>'+''.join(sources)+'</details></article>'
  cov=model['coverage'];out=['<style>'+REVIEW_CSS+'</style><article class="dd-report">',
-  '<p class="dd-kicker">AUCTION SNIPER / BUYER DUE DILIGENCE</p><h1>'+esc(model['property'])+'</h1>',
+  '<p class="dd-kicker">AUCTION GEEK / BUYER DUE DILIGENCE</p><h1>'+esc(model['property'])+'</h1>',
   '<p class="dd-muted">Report '+esc(model['report_id'])+' · '+esc(model['created_at'][:10])+' · Evidence review v2</p>',
   '<section id="dd-executive"><h2>Executive summary</h2><p>'+esc(model['summary'])+'</p></section><div class="dd-stats">']
  for n,label in [(cov.get('uploaded_files',cov['files']),'files supplied'),(cov['pages'],'pages processed'),(cov['ocr_pages'],'pages read with OCR'),(cov['unread_pages'],'pages with unread text')]:out.append('<div class="dd-stat"><b>'+esc(n)+'</b><span>'+label+'</span></div>')
@@ -159,5 +159,5 @@ def render_review_html(model,standalone=False):
   out.append('<details><summary>Document fingerprint</summary><code>'+esc(d['sha256'])+'</code></details></div>')
  out.append('</section><footer>'+esc(model['disclaimer'])+'</footer></article>')
  html=''.join(out)
- if standalone:html='<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>'+esc(model['property'])+' — Auction Sniper report</title></head><body style="margin:0;padding:16px;background:#eff3f6">'+html+'</body></html>'
+ if standalone:html='<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>'+esc(model['property'])+' — Auction Geek report</title></head><body style="margin:0;padding:16px;background:#eff3f6">'+html+'</body></html>'
  return html

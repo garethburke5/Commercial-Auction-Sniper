@@ -22,7 +22,7 @@ try:
 except Exception:
     PdfReader=None
 
-st.set_page_config(page_title="Auction Sniper", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Auction Geek", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
 
 BUILD = "V6.80"
 CACHE = Path("auction_sniper_cache.json")
@@ -379,7 +379,7 @@ def _row_is_allowed(x):
     source=(x.get("source") or "")
     desc=(x.get("desc") or "").lower()
 
-    # Historical auction records are deliberately retained. Auction Sniper is a
+    # Historical auction records are deliberately retained. Auction Geek is a
     # cumulative commercial-auction database, not an upcoming-only board.
     # Past, sold-prior and withdrawn lots remain searchable and can be filtered
     # by lifecycle/status in the UI rather than being deleted here.
@@ -2863,7 +2863,7 @@ def _acuitus_current():
         return []
 
 
-# V6.57: serve troublesome auction-house photos from Auction Sniper itself.
+# V6.57: serve troublesome auction-house photos from Auction Geek itself.
 # Direct hotlinks and data: URIs have both proved unreliable in Streamlit Cloud.
 STATIC_IMAGE_DIR=Path('static/property_images')
 STATIC_IMAGE_DIR.mkdir(parents=True,exist_ok=True)
@@ -3404,7 +3404,7 @@ def _v654_priority_boot_rows():
                 pass
     return _clean_rows(out)
 
-st.markdown('<nav aria-label="Auction Sniper"><a href="https://garethburke5.github.io/Commercial-Auction-Sniper/" target="_top">Auction Sniper home</a> · <a href="https://garethburke5.github.io/Commercial-Auction-Sniper/auctions/" target="_top">Auction calendar</a> · <a href="https://garethburke5.github.io/Commercial-Auction-Sniper/history/" target="_top">Property history</a></nav>',unsafe_allow_html=True)
+st.markdown('<nav aria-label="Auction Geek"><a href="https://auctiongeek.co.uk/" target="_top">Auction Geek home</a> · <a href="https://auctiongeek.co.uk/auctions/" target="_top">Auction calendar</a> · <a href="https://auctiongeek.co.uk/history/" target="_top">Property history</a></nav>',unsafe_allow_html=True)
 rows,health,updated=load_rows()
 # The main board is CURRENT/UPCOMING only. Completed, sold-prior and withdrawn
 # records remain preserved in data/properties.json for history/research, but they
@@ -3426,7 +3426,7 @@ try:
 except Exception:
     pass
 st.markdown(
-    '<div class="hero"><div><div class="brand">AUCTION <b>SNIPER</b></div>'
+    '<div class="hero"><div><div class="brand">AUCTION <b>GEEK</b></div>'
     '<div class="tagline">UK commercial auction deal scanner</div>'
     f'<div class="sub">{BUILD} · {html.escape(updated or "")}</div></div>'
     f'<div class="badge">{sum(available_row(r) for r in rows)} available lots<br><small>{sum(bool(catalogue_status(r)) for r in rows)} sold / withdrawn / postponed</small></div></div>',

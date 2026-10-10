@@ -14,7 +14,7 @@ def _render_legacy(report,standalone=False):
     snap=report.get('access')=='snapshot';out=['<style>'+REVIEW_CSS+'''
 .ai-findings{display:grid;gap:16px}.ai-finding{padding:22px;background:#fff;border:1px solid #d4dfe6;border-radius:9px}.ai-level{font-size:.68rem;font-weight:800;letter-spacing:.08em;color:#496174}.ai-numbers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.ai-number{padding:16px;background:#edf5f2;border-radius:9px}.ai-number strong{font-size:1.25rem;display:block;color:#006c5d}.ai-deep{border:2px solid #138474;border-radius:12px;padding:22px;background:#f3faf7}.ai-evidence{font-size:.83rem}.ai-evidence blockquote{max-height:none}.ai-steps{display:flex;gap:10px;flex-wrap:wrap}.ai-steps a{padding:6px;border-bottom:1px solid #a7bcbf}.ai-question{padding:16px;background:#f2f5f8;margin:12px 0}.ai-docs{width:100%;border-collapse:collapse}.ai-docs td,.ai-docs th{border-bottom:1px solid #d6e1e5;padding:10px;text-align:left}.ai-paywall{padding:24px;background:#163946;color:white!important;border-radius:10px;margin:25px 0}.ai-paywall h2,.ai-paywall p{color:white!important}.ai-paywall a{color:#a7efdc!important}
 @media(max-width:650px){.ai-numbers{grid-template-columns:1fr 1fr}.ai-finding,.ai-deep{padding:16px}.ai-docs,.ai-docs tbody,.ai-docs tr,.ai-docs td{display:block}.ai-docs thead{display:none}}
-</style><article class="dd-report"><p class="dd-kicker">AUCTION SNIPER / ACQUISITION INTELLIGENCE</p><h1>'''+e(report['property'])+'</h1><p class="dd-muted">'+('Free acquisition snapshot' if snap else 'Full acquisition review')+' · '+e(report['created_at'][:10])+' · '+e(report['report_id'])+engine_label+'</p>',
+</style><article class="dd-report"><p class="dd-kicker">AUCTION GEEK / ACQUISITION INTELLIGENCE</p><h1>'''+e(report['property'])+'</h1><p class="dd-muted">'+('Free acquisition snapshot' if snap else 'Full acquisition review')+' · '+e(report['created_at'][:10])+' · '+e(report['report_id'])+engine_label+'</p>',
     '<h2>What you are buying</h2><p>'+e(report['what_you_are_buying'])+'</p><div class="ai-numbers">']
     for label,v in [('Guide price',money(report.get('guide'))),('Current annual rent',money(report.get('rent'))),('Tenant',report.get('tenant') or 'Not established'),('Tenure',report.get('tenure') or 'Not established'),('Lease',report.get('lease')),('Completion',report.get('completion'))]:out.append('<div class="ai-number"><small>'+label+'</small><strong>'+e(v)+'</strong></div>')
     out.append('</div><h2>The numbers</h2><div class="ai-numbers">')
@@ -22,14 +22,14 @@ def _render_legacy(report,standalone=False):
     out.append('</div><p><b>VAT / TOGC:</b> '+e(report.get('vat'))+'</p><h2>Our first-pass view</h2><p>'+e(report.get('first_pass'))+'</p>')
     if snap:
         out.extend(finding(f) for f in report['findings'])
-        if report.get('deep_dive'):out.append('<section class="ai-deep"><p class="dd-kicker">AUCTION SNIPER DEEP DIVE</p>'+finding(report['deep_dive'])+'</section>')
+        if report.get('deep_dive'):out.append('<section class="ai-deep"><p class="dd-kicker">AUCTION GEEK DEEP DIVE</p>'+finding(report['deep_dive'])+'</section>')
         remaining=report.get('additional_findings',0)
         depth=(str(remaining)+' additional consolidated findings, plus the ' if remaining else 'The ')
         out.append('<section class="ai-paywall"><h2>Go deeper before you bid</h2><p>'+depth+'full document register, transaction evidence and remaining questions are available in the full review.</p><p>Full-review purchases open when secure accounts and payments are activated. You have not been charged.</p></section>')
     else:
         market=report.get('market_context') or {}
         if market.get('history') or market.get('comparables'):
-            out.append('<section><h2>Auction Sniper Market Context</h2><p>Guide prices are asking evidence, not completed sales. Historical appearances retain their own dates and sources.</p>')
+            out.append('<section><h2>Auction Geek Market Context</h2><p>Guide prices are asking evidence, not completed sales. Historical appearances retain their own dates and sources.</p>')
             for label,key in [('Previous appearances','history'),('Comparable auction evidence','comparables')]:
                 if market.get(key):out.append('<h3>'+label+'</h3>')
                 for r in market.get(key,[]):
@@ -274,7 +274,7 @@ def render(report, standalone=False):
         return '<span class="acq-source">' + e(value) + '</span>' if value else ''
     title = report.get('property') or 'Property acquisition report'
     out = ['<style>' + COMPACT_CSS + '</style><article class="acq-report">',
-           '<section class="acq-page" id="decision"><p class="acq-kicker">AUCTION SNIPER · ACQUISITION INTELLIGENCE</p>',
+           '<section class="acq-page" id="decision"><p class="acq-kicker">AUCTION GEEK · ACQUISITION INTELLIGENCE</p>',
            '<h1>' + e(title) + '</h1>', p(str(brief.get('as_of') or '') + ' · ' + str(brief.get('status') or 'Acquisition review'), 'acq-meta'),
            p(brief.get('summary'), 'acq-intro'), '<h3>Acquisition conclusion</h3>', p(brief.get('conclusion')),
            '<table class="acq-key-table"><tbody>']

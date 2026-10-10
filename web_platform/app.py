@@ -32,7 +32,7 @@ def create_app(site=None):
     async def lifespan(app):
         yield
         site.catalogue.close()
-    app=FastAPI(title='Auction Sniper platform',lifespan=lifespan,docs_url=None,redoc_url=None)
+    app=FastAPI(title='Auction Geek platform',lifespan=lifespan,docs_url=None,redoc_url=None)
     from acquisition_provider import provider_factory_from_environment
     app.state.acquisition_provider_factory=provider_factory_from_environment()
     from fastapi.middleware.cors import CORSMiddleware

@@ -13,4 +13,4 @@ def test_end_to_end_uploaded_pack_service():
  assert result['ingestion']['coverage']['visual_review_required']==1 and result['ingestion']['coverage']['conversion_required']==1
  assert result['status']=='completed_with_warnings'
  assert any(i['code']=='LEGACY_OFFICE' for i in result['ingestion']['issues'])
- assert 'Auction Sniper — Buyer Due Diligence Report' in result['report_text']
+ assert 'Auction Geek — Buyer Due Diligence Report' in result['report_text']

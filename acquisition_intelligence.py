@@ -9,7 +9,7 @@ from datetime import datetime,timezone
 from decimal import Decimal,ROUND_HALF_UP
 from acquisition_chronology import lease_chronology
 
-SECTIONS=[('buying','What you are buying'),('numbers','The numbers'),('view','Our first-pass view'),('covenant','Tenant & covenant'),('lease','The lease — in plain English'),('cpse','What the seller has told you / CPSE'),('title','Title & what is actually included'),('conditions','Special Auction Conditions'),('searches','Searches & property risks'),('costs','Costs Auction Sniper found'),('concerns','What concerns us'),('opportunities','Opportunities'),('unknowns','What we could not establish'),('questions','If we were buying it, the questions we would still ask'),('evidence','Full evidence')]
+SECTIONS=[('buying','What you are buying'),('numbers','The numbers'),('view','Our first-pass view'),('covenant','Tenant & covenant'),('lease','The lease — in plain English'),('cpse','What the seller has told you / CPSE'),('title','Title & what is actually included'),('conditions','Special Auction Conditions'),('searches','Searches & property risks'),('costs','Costs Auction Geek found'),('concerns','What concerns us'),('opportunities','Opportunities'),('unknowns','What we could not establish'),('questions','If we were buying it, the questions we would still ask'),('evidence','Full evidence')]
 TOPIC_SECTION={'tenant':'covenant','rent':'lease','expiry':'lease','breaks':'lease','reviews':'lease','repairs':'lease','insurance':'lease','service':'lease','ground':'lease','title':'title','plans':'title','rights':'title','conditions':'conditions','completion':'conditions','deposit':'conditions','vat':'conditions','seller-costs':'costs','buyer-fees':'costs','searches':'searches','environment':'searches','planning':'searches','epc':'searches'}
 def norm(x):return re.sub(r'\s+',' ',str(x or '')).strip()
 def money(v):return '£'+format(float(v),',.0f' if float(v).is_integer() else ',.2f') if isinstance(v,(int,float,Decimal)) else 'Not established'
@@ -171,7 +171,7 @@ def build_acquisition(model,catalogue=None,*,research=None,open_review=None):
     deep=next((f for id in ('rent-concession','title-relationships','seller-fee','vat-togc') for f in findings if f['id']==id),None)
     priority=sorted(findings,key=lambda f:({'CRITICAL / RED FLAG':0,'NEEDS CHECKING':1,'INFORMATION':2}[f['severity']],f['id']))
     opportunities=[f for f in findings if f['id']=='rent-agreement']
-    report = {'schema_version':'4.0','engine':model.get('engine'),'product':'Auction Sniper Acquisition Intelligence','report_id':model['report_id'],'property':model['property'],'created_at':model['created_at'],
+    report = {'schema_version':'4.0','engine':model.get('engine'),'product':'Auction Geek Acquisition Intelligence','report_id':model['report_id'],'property':model['property'],'created_at':model['created_at'],
         'what_you_are_buying':description,'guide':guide,'guide_upper':upper,'rent':rent,'tenant':tenant,'company_number':company_number,'tenant_evidence':tenant_evidence,'tenure':tenure,
         'lease':lease or 'Operative lease term not established','completion':completion or 'Completion deadline not established','deposit':deposit,
         'vat':('Different VAT statements require reconciliation.' if 'VAT depends on TOGC conditions' in groups and 'Seller states no option to tax' in groups else summary_for('Seller states no option to tax') or summary_for('VAT depends on TOGC conditions') or 'Transaction VAT treatment not established'),'calculations':calculations,'costs':costs,

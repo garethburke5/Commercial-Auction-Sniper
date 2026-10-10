@@ -162,3 +162,17 @@ The public Worker and apex HTTPS host have passed the bounded checks above.
 HTTP/www redirects, mobile interaction, bot-push propagation and the separate
 account/payment/report-quality gates remain outstanding. Do not infer paid-launch
 readiness from successful static hosting.
+
+## HTTPS and WWW acceptance — 11 October 2026, 00:35 BST
+
+The owner enabled Always Use HTTPS, added the proxied www A record using the
+Cloudflare originless placeholder, and deployed the WWW redirect rule.
+Independent HTTP checks now confirm:
+- HTTPS apex returns 200.
+- HTTP apex and both HTTP/HTTPS www return 301 to https://auctiongeek.co.uk/.
+- A www properties URL retains its path and both query parameters exactly.
+- Cloudflare build ee1028b9-d334-45b2-80fb-49fb4ba2d0ba for d7ff9580 completed
+  successfully with the apex custom domain preserved in Wrangler.
+
+These checks complete the hosting/redirect work above. Account, billing and
+Acquisition Intelligence acceptance remain separate.

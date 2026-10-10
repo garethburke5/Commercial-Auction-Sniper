@@ -96,7 +96,7 @@ document.addEventListener('click',async e=>{
   }
   if(b.dataset.removeSearch){await api('/api/account/searches/'+b.dataset.removeSearch,'DELETE');state.searches=state.searches.filter(s=>s.id!==b.dataset.removeSearch);render();}
   if(b.id==='export-workspace'){
-   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({schema_version:1,...state},null,2)],{type:'application/json'}));a.download='auction-sniper-workspace.json';a.click();URL.revokeObjectURL(a.href);
+   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({schema_version:1,...state},null,2)],{type:'application/json'}));a.download='auction-geek-workspace.json';a.click();URL.revokeObjectURL(a.href);
   }
   if(b.id==='account-signout'){await auth.auth.signOut();session=null;features.clear();state=empty();location.assign(root+'/account/');}
   if(b.dataset.subscribe){
@@ -134,7 +134,7 @@ document.querySelector('#import-workspace')?.addEventListener('change',async e=>
  try{
   await initialized;if(session)throw Error('Sign out to open an earlier device backup; account data is unchanged.');
   const f=e.target.files[0];if(!f)return;if(f.size>2000000)throw Error('Workspace file is too large');
-  const v=JSON.parse(await f.text());if(v.schema_version!==1||!v.properties||typeof v.properties!=='object'||!Array.isArray(v.searches))throw Error('Choose an Auction Sniper workspace export');
+  const v=JSON.parse(await f.text());if(v.schema_version!==1||!v.properties||typeof v.properties!=='object'||!Array.isArray(v.searches))throw Error('Choose an Auction Geek workspace export');
   state={...state,properties:{...state.properties,...v.properties},searches:[...state.searches,...v.searches].slice(0,100),events:state.events};persist();render();notice('Earlier records opened. Paid monitoring remains paused.');
  }catch(err){notice(err.message);}
 });

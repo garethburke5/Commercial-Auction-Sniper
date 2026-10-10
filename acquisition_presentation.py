@@ -97,7 +97,7 @@ def make_brief(report):
     else:
         conclusion+='The income case depends on operative lease terms, current collection and recoverable landlord expenditure. '
     conclusion+=price_assessment
-    page1=[p('AUCTION SNIPER  /  ACQUISITION INTELLIGENCE','kicker'),
+    page1=[p('AUCTION GEEK  /  ACQUISITION INTELLIGENCE','kicker'),
            p(report['property'],'title'),p(('Sold investment review' if sold else 'Acquisition review')+'  |  Evidence checked '+str(report.get('created_at',''))[:10],'meta')]
     media=report.get('report_media') or {}
     if media.get('photo_path'):page1.extend([{'kind':'photo','path':media['photo_path'],'url':media.get('photo_url')},p(media.get('photo_credit',''),'caption')])
