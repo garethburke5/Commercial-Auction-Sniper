@@ -71,9 +71,8 @@ Acquisition Intelligence quality gate remains closed.
 
 ## Still required before operational acceptance
 
-- Deploy and verify the private API's actual database connection and restart
-  persistence. Use the Supabase pooler connection for the restricted backend
-  login, stored solely in Render environment settings.
+- Actual restricted-login connectivity is verified below. Still exercise a
+  real owner's saved account data across a restart as part of journey acceptance.
 - Complete Supabase production email configuration and test an actual verified
   owner sign-in. Bind `ADMIN_ACCOUNT_IDS` to that account's verified issuer/sub
   hash, never its editable profile. Check all four read-only preview tiers.
@@ -131,8 +130,12 @@ the `auth` schema. Browser `anon` and `authenticated` roles still cannot use the
 private schema. The Supabase security adviser returned no findings.
 
 The environment update automatically started Render deployment
-`dep-db53pejbc2fs73e7m340`. Actual runtime connectivity and owner sign-in still
-require separate verification; saved environment settings alone are not proof.
+`dep-db53pejbc2fs73e7m340`, which reached `live` at 13:37:42 UTC. Its application
+log records `GET /api/readiness` returning HTTP 200 at 13:37:44 UTC. That route
+returns 200 only after the account service opens its configured database and
+successfully executes `SELECT 1`. Supabase also records an `auction_api` pooler
+connection. This verifies actual runtime connectivity, not just saved settings.
+Owner sign-in and per-account restart persistence remain separate acceptance steps.
 The sign-in site URL and exact `/account/` redirect were verified in Supabase.
 Custom SMTP is disabled, so public email registration remains unactivated.
 
@@ -141,3 +144,11 @@ or refreshing its catalogue. It retains the same identifiers, source facts,
 classification, yield and workspace observations. Public rendering still uses
 the full summaries. The website/account suite passed 102 tests, with four
 PostgreSQL integration tests reserved for the existing database-enabled CI job.
+On commit `e204f20`, both the public platform workflow and private PostgreSQL
+integration workflow passed (the latter exercises all 11 storage/access checks).
+
+The current Render service uses a public repository URL rather than a connected
+Git-provider credential. Such services require a manual deploy after code changes;
+the API's `autoDeploy` flag alone is not proof that a push will deploy. The tested
+catalogue optimisation requires a newer deployment than `dep-db53pejbc2fs73e7m340`.
+No paid plan, additional service or production email provider was added.
