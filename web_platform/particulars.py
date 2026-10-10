@@ -8,7 +8,8 @@ TITLES = ('Description', 'Key Investment Points', 'Accommodation', 'Tenancy', 'L
           'Other Important Information')
 HEADINGS = {'particulars': 'Description', 'property': 'Description', 'description': 'Description',
     'summary': 'Key Investment Points', 'property summary': 'Key Investment Points',
-    'key features': 'Key Investment Points', 'accommodation': 'Accommodation',
+    'key features': 'Key Investment Points', 'key investment points': 'Key Investment Points',
+    'accommodation': 'Accommodation',
     'tenancy schedule': 'Tenancy', 'tenancy': 'Tenancy', 'tenancies': 'Tenancy',
     'lease': 'Lease', 'tenure': 'Tenure', 'planning': 'Planning / Development Potential',
     'vat': 'VAT', 'epc': 'EPC', 'epc rating': 'EPC', 'energy performance certificate': 'EPC',

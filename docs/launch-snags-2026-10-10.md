@@ -45,3 +45,36 @@ Owner login/preview cannot be accepted as live until the existing private
 backend, Supabase configuration and owner allowlist are deployed and tested.
 No paid services or report-quality approval are activated by these changes.
 Historical recovery and wider feature expansion remain deferred.
+
+## Production verification
+
+- Release `36a7004` passed 189 public-platform tests and 814 collector/engine
+  tests (plus eight subtests). The existing full collection completed
+  successfully in run `38042650170`.
+- The resulting 10 October 10:16 UTC production snapshot contains all 49
+  Acuitus lots for 29 October: 48 current and one withdrawn prior. There are
+  zero detail failures or eligibility exclusions. Liverpool lot 43 retains
+  the £400,000 guide, £38,000 passing rent, 9.5% GIY and virtual-freehold tenure.
+- A follow-up regression confirms that a source status of Sold Post maps to
+  the existing unavailable SOLD lifecycle, retaining the source wording in
+  the particulars. It cannot become available again through collection.
+- The corrected Coral heading, inaccessible-upper-accommodation note and
+  specialist-use reletting wording are verified on the live board and detail
+  page. The keyword search finds the property correctly.
+- Minimum/maximum guides are adjacent and ordered correctly at phone (390px)
+  and desktop widths. A £150,000–£200,000 live filter returned qualifying
+  results; the phone page has no horizontal overflow. The neutral placeholder
+  is live.
+- Before the refreshed snapshot, the live coverage page correctly displayed
+  Acuitus as DEGRADED with zero published rows, rather than LIVE. It explicitly
+  distinguishes collected stock from independently verified publication.
+- The live account page confirms sign-in is not activated. Owner-tier previews
+  are implemented and permission-tested but remain pending live activation.
+- Public deployment `38044508489` passed the source-to-live check. Browser
+  verification confirmed 49 Acuitus auction cards, the withdrawn badge, the
+  Liverpool detail page, its current/historic income distinction and source link.
+- Live review exposed a flattened particulars block incorrectly grouped under
+  VAT. The existing exact-page evidence adapter now retains Acuitus's original
+  headings and summary bullets. All 49 saved source pages were processed through
+  that adapter, retaining provenance. A regression checks that lease expiry and
+  unexercised breaks remain outside VAT and that source metadata is excluded.

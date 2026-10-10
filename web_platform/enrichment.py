@@ -94,6 +94,21 @@ def lot_fee(text, host):
 def extract_html(raw, row):
     url=row['url'];host=urlsplit(url).hostname or '';s=BeautifulSoup(raw,'html.parser')
     values=[];sections=[]
+    if host in ('acuitus.co.uk','www.acuitus.co.uk'):
+        # Reuse exact-page section evidence instead of guessing headings from
+        # a flattened description. Printed duplicates and catalogue facts are
+        # not part of the property narrative.
+        for duplicate in s.select('.propinfo.info .printonly'):
+            duplicate.decompose()
+        summary=s.select_one('main .propdeets-left .summary')
+        if summary:
+            sections.append({'title':'Key Investment Points','text':'\n'.join(
+                n.get_text(' ',strip=True) for n in summary.select('p,li'))})
+        for label in s.select('.propinfo.info .label'):
+            body='\n'.join(n.get_text(' ',strip=True) for n in label.parent.find_all(['p','dl'],recursive=False))
+            if body:sections.append({'title':label.get_text(' ',strip=True),'text':body})
+        for note in s.select('.propinfo.tenancy p.smallprint'):
+            sections.append({'title':'Tenancy','text':note.get_text(' ',strip=True)})
     if 'auctions.savills.co.uk' in host:
         match=re.search(r"lot:\s*JSON.parse\('((?:\\.|[^'])*)'\)",raw)
         if match:
@@ -143,7 +158,7 @@ def fetch(row):
         result={'gallery':ordered_images(values,url,row.get('image_url'))}
         version=detail.get('version') or {}
         result['sections']=[{'title':title,'text':'\n'.join(BeautifulSoup(str(x.get('value') or ''),'html.parser').get_text(' ',strip=True) for x in version.get(field,[]))} for field,title in [('features','Key Investment Points'),('description','Description'),('accommodation_bullets','Accommodation'),('tenure_bullets','Tenure')] if version.get(field)]
-    elif any(host==d or host.endswith('.'+d) for d in SELECTORS) or host in ('auctionhouselondon.co.uk','auctions.savills.co.uk'):
+    elif any(host==d or host.endswith('.'+d) for d in SELECTORS) or host in ('auctionhouselondon.co.uk','auctions.savills.co.uk','acuitus.co.uk','www.acuitus.co.uk'):
         source=url.replace('http:','https:',1)
         response=requests.get(source,timeout=(8,22));response.raise_for_status()
         result=extract_html(response.text,row)
