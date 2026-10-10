@@ -21,8 +21,40 @@ Only the Cloudflare entry point selects it, and only when `_sqlite3` is missing;
 healthy Python installations retain the standard driver. The existing renderer,
 read-only corpus queries and account/backend dependency file are reused unchanged.
 Update the **build command** below before rebuilding the latest `main` revision.
-The deploy command and four build variables stay as configured. A successful
-Cloudflare retry still needs to be observed; no domain connection is confirmed.
+The deploy command and four build variables stay as configured. The successful
+Cloudflare retry and root-domain checks are now recorded below.
+
+## Live hosting checkpoint — 11 October 2026, 00:12 BST
+
+The owner supplied the successful build `eb4bc42f` for commit
+`ce3463c547ac481304518137fc6458e1ee03c3e3`. The provider log confirms
+the bundled SQLite driver worked, 1,908 useful public pages were exported and
+the deploy completed in approximately seven minutes. Worker version:
+`1f27c93d-0f6f-4c4d-8265-09a30083d889`.
+
+The existing `scripts/verify_live_platform.py` was run against
+`https://auction-geek.garethburke5.workers.dev` using the exact source snapshot
+from that deployed commit. All 874 expected current listings and their checked
+customer-visible facts matched, with no missing, unexpected or duplicate IDs.
+This verifies publication fidelity, not source completeness: the reconciliation
+still reported 40 degraded sources, which require separate existing launch review.
+
+The owner then attached the root domain through the Worker's Domains tab.
+Independent HTTP checks confirmed:
+- `https://auctiongeek.co.uk/` returns 200 and the expected
+  `/board/52c1e5f52013/index.json` link.
+- The canonical URL is `https://auctiongeek.co.uk/`; the sitemap returns 200.
+- The apex does not carry the preview host's `X-Robots-Tag: noindex`.
+- Public configuration still has accounts and billing disabled.
+- Plain HTTP currently returns 200 without redirecting to HTTPS.
+- The `www` HTTPS probe failed at this environment's proxy; its DNS/redirect
+  configuration has not passed acceptance. Local DNS resolution was unavailable
+  for both apex and www, so it cannot independently establish missing DNS.
+
+The confirmed apex custom domain is recorded in `wrangler.jsonc` for future
+deployments. Still finish and verify HTTP-to-HTTPS and www redirects, mobile
+browser acceptance and automatic propagation of collector pushes. A later
+deployment of the updated configuration must also be checked.
 
 ## Verified position
 
@@ -41,8 +73,8 @@ also export real fixture pages and historical records with normal SQLite and
 with `_sqlite3` deliberately unavailable, using the real bundled driver. They
 verify read-only query enforcement and that the compressed corpus is unchanged.
 CI installs the same build dependency so this regression is exercised there.
-This is packaging acceptance,
-not a live Cloudflare deployment or a new investment-quality approval.
+These local checks establish packaging acceptance. Live hosting acceptance is
+recorded below; neither constitutes investment-quality approval.
 
 The GitHub-to-Cloudflare sign-in returned "Unable to sign in" twice, including
 one fresh sign-in after the owner confirmed GitHub is the right method. No
@@ -126,6 +158,7 @@ implementation is duplicated. Report-quality and billing gates remain unchanged.
 - https://developers.cloudflare.com/workers/platform/limits/
 - https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits
 
-Provider deployment, DNS, HTTPS, build duration and bot-push propagation still
-need live acceptance. Local tests or a repository commit are not evidence that
-Cloudflare hosting is active.
+The public Worker and apex HTTPS host have passed the bounded checks above.
+HTTP/www redirects, mobile interaction, bot-push propagation and the separate
+account/payment/report-quality gates remain outstanding. Do not infer paid-launch
+readiness from successful static hosting.

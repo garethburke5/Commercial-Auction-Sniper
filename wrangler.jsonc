@@ -6,5 +6,11 @@
     "directory": "./public-dist",
     "html_handling": "force-trailing-slash",
     "not_found_handling": "404-page"
-  }
+  },
+  "routes": [
+    {
+      "pattern": "auctiongeek.co.uk",
+      "custom_domain": true
+    }
+  ]
 }
