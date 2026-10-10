@@ -35,6 +35,20 @@ def test_no_duplicate_url_variants():
     assert identity(a)==identity(dict(a,url='https://x/lot/32?view=grid'))
     assert identity(a)!=identity(dict(a,auction_date='2026-02-01'))
 
+def test_private_catalogue_preserves_account_observations_without_public_summaries(site,monkeypatch):
+    from web_platform.workspace import observation
+    def unexpected(*args,**kwargs):
+        raise AssertionError('Private account catalogue must not generate public summaries')
+    monkeypatch.setattr('web_platform.board.build_opportunity_summary',unexpected)
+    monkeypatch.setattr('web_platform.board._investment_facts',unexpected)
+    private=Catalogue(site.catalogue.root,summaries=False)
+    assert set(private.rows)==set(site.catalogue.rows)
+    assert [r['id'] for r in private.properties]==[r['id'] for r in site.catalogue.properties]
+    for pid,row in private.rows.items():
+        assert observation(row)==observation(site.catalogue.rows[pid])
+        for field in ('description','annual_rent','historic_rent','tenure','property_type'):
+            assert row.get(field)==site.catalogue.rows[pid].get(field)
+
 def test_http_private_fails_closed_and_slug_redirect(site,monkeypatch):
     monkeypatch.delenv('AUTH_ISSUER',raising=False)
     with TestClient(create_app(site)) as client:

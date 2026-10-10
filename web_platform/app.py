@@ -22,8 +22,10 @@ def private_services():
     return accounts,billing
 
 def create_app(site=None):
-    site=site or Site()
     api_only=os.getenv('PRIVATE_API_ONLY','false')=='true'
+    if site is None:
+        from .catalogue import Catalogue
+        site=Site(Catalogue(summaries=not api_only))
     pages={} if api_only else dict(site.routes())
     board_assets={} if api_only else dict(site.board_assets())
     @asynccontextmanager
@@ -85,7 +87,7 @@ def create_app(site=None):
         # Bind source-health evidence to the same current snapshot as its rows.
         # The API can stay alive while the host replaces the canonical snapshot.
         try:
-            current=Catalogue(site.catalogue.root)
+            current=Catalogue(site.catalogue.root,summaries=False)
             healthy=healthy_sources(current.snapshot)
             rows=current.rows
             trusted={pid:row for pid,row in rows.items() if row.get('source') in healthy}

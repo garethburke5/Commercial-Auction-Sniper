@@ -33,7 +33,8 @@ That PostgreSQL 17 CI run passed all 11 provider/storage checks on commit
 The wider local account/investigation suite passed 137 checks (four PostgreSQL
 checks were skipped locally and exercised in CI). The free Render service is
 `auction-sniper-private-api` (`srv-db52g3jbc2fs73e380ag`); its initial build
-succeeded. Database credentials and actual owner sign-in remain unconfigured.
+succeeded. The later owner-approved activation checkpoint below supersedes the
+initial credential status; actual owner website sign-in remains unverified.
 
 ## Production research/review provider
 
@@ -108,10 +109,35 @@ Private documents and source extractions are not committed to this repository.
   described as approved or independently provider-validated.
 - Supabase dashboard authentication succeeded. The actual shared-pooler host
   was retrieved. There are still no registered website users.
-- Automatic approval review rejected enabling login for the restricted
+- At this initial checkpoint, automatic approval review rejected enabling login for the restricted
   `auction_api` role and provisioning its credential. The role remains NOLOGIN;
   no database credential was installed in Render. Explicit owner approval for
   that scoped backend access is needed. Do not retry through another route.
 - Owner preview remains implemented and tested, but cannot yet be exercised
   against the real owner account. The production analysis provider still needs
   its API key and explicit model configuration in secure host environment settings.
+
+## Owner-approved database activation — 10 October, afternoon
+
+The owner explicitly approved the restricted backend login and secure Render
+credential storage. Migration `activate_private_backend_login` succeeded. A
+fresh generated application credential was saved only in the Render service's
+`ACCOUNT_DATABASE_URL` environment setting; no credential is in this repository.
+The existing database administrator password was not changed.
+
+Readback confirms `auction_api` can log in and use `auction_private`, with no
+superuser, create-database, create-role or RLS-bypass privilege and no access to
+the `auth` schema. Browser `anon` and `authenticated` roles still cannot use the
+private schema. The Supabase security adviser returned no findings.
+
+The environment update automatically started Render deployment
+`dep-db53pejbc2fs73e7m340`. Actual runtime connectivity and owner sign-in still
+require separate verification; saved environment settings alone are not proof.
+The sign-in site URL and exact `/account/` redirect were verified in Supabase.
+Custom SMTP is disabled, so public email registration remains unactivated.
+
+The private API now avoids generating public opportunity summaries when loading
+or refreshing its catalogue. It retains the same identifiers, source facts,
+classification, yield and workspace observations. Public rendering still uses
+the full summaries. The website/account suite passed 102 tests, with four
+PostgreSQL integration tests reserved for the existing database-enabled CI job.

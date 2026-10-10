@@ -28,7 +28,7 @@ def money(value):
     return f'£{float(value):,.0f}' if isinstance(value, (int, float)) else 'Not stated'
 
 class Catalogue:
-    def __init__(self, root=ROOT):
+    def __init__(self, root=ROOT, *, summaries=True):
         self.root = Path(root)
         snapshot = json.loads((self.root / 'data/properties.json').read_text())
         self.snapshot = snapshot
@@ -51,7 +51,7 @@ class Catalogue:
             row['description'] = re.sub(r'<[^>]+>', ' ', row.get('description') or '').strip()
             row['indexable'] = bool(row.get('auction_date') and len(row['description']) >= 180 and
                                     any(row.get(k) for k in ('tenure','annual_rent','area_sqft','lease_term')))
-            enrich_board_row(row)
+            enrich_board_row(row,summaries=summaries)
             self.rows.setdefault(row['id'], row)
         self.all_properties = list(self.rows.values())
         self.properties = sorted((r for r in self.all_properties if r['id'] in current_ids and current_board_row(r)), key=lambda r: (r.get('auction_date') or '9999-12-31', r['address']))
