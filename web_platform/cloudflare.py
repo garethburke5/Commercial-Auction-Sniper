@@ -1,0 +1,53 @@
+"""Cloudflare Pages packaging around the existing public-only static exporter."""
+import argparse
+import os
+from pathlib import Path
+from urllib.parse import urlsplit
+
+from .export import export
+
+DEFAULT_ORIGIN = 'https://auctiongeek.co.uk'
+MAX_FILES = 20_000
+MAX_ASSET_BYTES = 25 * 1024 * 1024
+HEADERS = '''/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+
+/platform-config.json
+  Cache-Control: no-cache
+
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
+'''
+
+
+def build(destination='public-dist', origin=DEFAULT_ORIGIN):
+    """Export for the domain root; fail before deployment if free-plan limits fail."""
+    parsed = urlsplit(origin)
+    if (parsed.scheme != 'https' or not parsed.hostname or parsed.username
+            or parsed.password or parsed.port or parsed.path not in ('', '/')
+            or parsed.query or parsed.fragment):
+        raise ValueError('Cloudflare SITE_ORIGIN must be an HTTPS domain root')
+    dest = Path(destination)
+    if dest.exists() and any(dest.iterdir()):
+        raise ValueError('Use an empty build directory to avoid publishing stale files')
+    export(dest, origin.rstrip('/'))
+    (dest / '_headers').write_text(HEADERS, encoding='utf-8')
+    files = [p for p in dest.rglob('*') if p.is_file()]
+    if len(files) > MAX_FILES:
+        raise ValueError('Public export exceeds the Cloudflare Pages free-plan file limit')
+    if any(p.stat().st_size > MAX_ASSET_BYTES for p in files):
+        raise ValueError('Public export contains an asset over the Cloudflare Pages size limit')
+    print(f'Cloudflare public export ready: {len(files)} files; domain {origin.rstrip("/")}')
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--output', default='public-dist')
+    parser.add_argument('--origin', default=os.getenv('SITE_ORIGIN') or DEFAULT_ORIGIN)
+    args = parser.parse_args()
+    build(args.output, args.origin)
