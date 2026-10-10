@@ -31,6 +31,7 @@ def test_domain_export_has_root_links_canonicals_and_keeps_private_data_out(site
     assert not config['accounts_enabled'] and not config['billing_enabled']
     assert (dest / '404.html').is_file()
     headers = (dest / '_headers').read_text()
+    assert 'https://:version.:subdomain.workers.dev/*\n  X-Robots-Tag: noindex' in headers
     assert 'https://:project.pages.dev/*\n  X-Robots-Tag: noindex' in headers
     assert 'https://:version.:project.pages.dev/*\n  X-Robots-Tag: noindex' in headers
     for path in dest.rglob('*'):

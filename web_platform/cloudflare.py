@@ -1,4 +1,4 @@
-"""Cloudflare Pages packaging around the existing public-only static exporter."""
+"""Cloudflare Static Assets packaging around the existing public-only exporter."""
 import argparse
 import os
 from pathlib import Path
@@ -16,6 +16,9 @@ HEADERS = '''/*
 
 /platform-config.json
   Cache-Control: no-cache
+
+https://:version.:subdomain.workers.dev/*
+  X-Robots-Tag: noindex
 
 https://:project.pages.dev/*
   X-Robots-Tag: noindex
@@ -39,9 +42,9 @@ def build(destination='public-dist', origin=DEFAULT_ORIGIN):
     (dest / '_headers').write_text(HEADERS, encoding='utf-8')
     files = [p for p in dest.rglob('*') if p.is_file()]
     if len(files) > MAX_FILES:
-        raise ValueError('Public export exceeds the Cloudflare Pages free-plan file limit')
+        raise ValueError('Public export exceeds the Cloudflare free-plan file limit')
     if any(p.stat().st_size > MAX_ASSET_BYTES for p in files):
-        raise ValueError('Public export contains an asset over the Cloudflare Pages size limit')
+        raise ValueError('Public export contains an asset over the Cloudflare size limit')
     print(f'Cloudflare public export ready: {len(files)} files; domain {origin.rstrip("/")}')
 
 
