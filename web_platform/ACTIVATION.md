@@ -153,3 +153,18 @@ SMTP and complete sandbox customer journeys; recovery of interrupted processing;
 backup/restore and scheduled monitoring. Do not resume historical recovery in place
 of these launch tasks. Guide/achieved-price preservation still requires its scoped
 follow-up; no archive backfill was run for this change.
+
+
+### Owner access and customer-tier preview
+
+Reuse the existing `ADMIN_ACCOUNT_IDS` server allowlist of verified, hashed
+account IDs. Owner status comes from this allowlist, never browser input or
+editable Supabase metadata. A verified owner sees Source health, Manage listings
+and View as controls. Preview supports visitor, free, investor and professional
+tiers, uses an empty read-only workspace, and grants no report purchase or
+subscription entitlement. Leaving preview restores the actual account.
+
+These controls require the same deployed private API and configured Supabase
+registration as normal accounts. A connected provider plugin alone does not
+activate website login. Do not advertise owner login as operational until the
+deployed authenticated journey has been checked.

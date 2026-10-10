@@ -7,7 +7,7 @@ from fastapi.responses import HTMLResponse, Response, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from .site import Site,HERE
-from .accounts import Accounts,authenticated_user,PLANS
+from .accounts import Accounts,authenticated_user,PLANS,is_owner,require_owner
 from .billing import Billing
 
 @lru_cache(maxsize=1)
@@ -72,7 +72,14 @@ def create_app(site=None):
             rows=site.catalogue.rows
             trusted={}
         deals=workspace_rows(a)
-        return {'plan':plan,'features':sorted(PLANS[plan]),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals)}
+        return {'plan':plan,'features':sorted(PLANS[plan]),'is_owner':is_owner(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals)}
+    @app.get('/api/admin/preview/{plan}')
+    def owner_preview(plan:str,authorization:str|None=Header(default=None)):
+        uid,_,_=user(authorization);require_owner(uid)
+        if plan not in ('visitor','free','investor','professional'):
+            raise HTTPException(400,'Unknown preview tier')
+        return {'plan':plan,'features':[] if plan=='visitor' else sorted(PLANS[plan]),
+                'read_only':True,'purchased_report_access':False}
     @app.put('/api/account/saved/{property_id}')
     def save(property_id:str,authorization:str|None=Header(default=None)):
         import time

@@ -146,3 +146,9 @@
 .income-breakdown details{font-size:.82rem;font-weight:400}
 @media(max-width:1000px){.upcoming-auctions{gap:12px}.upcoming-auctions h2{flex-basis:116px;font-size:.59rem}.upcoming-rail li{padding:0 10px}}
 @media(max-width:700px){.upcoming-auctions{display:grid;grid-template-columns:1fr auto;gap:8px 12px;padding:10px 12px;margin-bottom:20px}.upcoming-auctions h2{font-size:.61rem}.upcoming-calendar{font-size:.68rem;padding:3px 0;grid-column:2;grid-row:1}.upcoming-rail{grid-column:1/-1;display:flex;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scroll-snap-type:x proximity;padding:3px 0 5px}.upcoming-rail li{flex:0 0 170px;scroll-snap-align:start;padding:0 12px}.upcoming-rail li:first-child{padding-left:0;border-left:0}.upcoming-house{font-size:.74rem}.upcoming-event{min-height:59px}}
+
+/* Keep price bounds together in reading and keyboard order on every viewport. */
+.guide-range{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;grid-column:span 2}
+@media(max-width:560px){.guide-range{grid-column:1/-1;gap:.65rem}}
+
+.owner-controls{display:flex;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1rem}.owner-controls[hidden]{display:none}.owner-controls p{flex-basis:100%;margin:0}.owner-controls label{display:flex;gap:.5rem;align-items:center}

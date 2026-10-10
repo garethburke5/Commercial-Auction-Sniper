@@ -70,7 +70,8 @@ def _profile(report, model, catalogue):
     tenure = norm(report.get('tenure'))
     occupation = norm(catalogue.get('occupation') or catalogue.get('vacancy'))
     docs = ' '.join(d.get('document', '') for d in model.get('documents', []))
-    return {'use': catalogue.get('property_type') or 'Use not established',
+    from property_summary import specialist_use
+    return {'use': specialist_use(catalogue) or catalogue.get('property_type') or 'Use not established',
             'jurisdiction': catalogue.get('country') or catalogue.get('jurisdiction') or 'Not established',
             'tenure': tenure or 'Not established',
             'vacant': bool(re.search(r'^vacant', occupation, re.I)),

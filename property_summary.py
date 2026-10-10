@@ -21,7 +21,38 @@ def _text(row):
     )))
 
 
+def specialist_use(row):
+    """Compound 'office' uses describe the asset, not general office space.
+
+    Ignore location/nearby occupiers and ancillary rooms. A former inaccessible
+    flat does not establish a second lettable income stream.
+    """
+    primary = _norm(row.get('property_type')).lower()
+    if re.search(r'mixed[ -]use', primary):
+        return None
+    text = _norm(row.get('description') or row.get('desc'))
+    text = re.split(r'\b(?:Location|Situation|Nearby occupiers|Local amenities)\b', text, flags=re.I)[0]
+    text = re.sub(r'[^.;]*(?:nearby|adjacent to|opposite|close to)[^.;]*[.;]?', '', text, flags=re.I)
+    text = primary + ' ' + text[:1000]
+    for pattern, label in ((r'\bbetting (?:office|shop)\b', 'Betting shop'),
+                           (r'\bpost office\b', 'Post office'),
+                           (r'\bticket office\b', 'Ticket office'),
+                           (r'\bbooking office\b', 'Booking office')):
+        match = re.search(pattern, text, re.I)
+        if match and not re.search(r'\bformer(?:ly)?\s*$', text[max(0,match.start()-15):match.start()], re.I):
+            return label
+    return None
+
+
+def inaccessible_upper_parts(row):
+    text = _norm(row.get('description') or row.get('desc'))
+    return bool(re.search(r'\b(?:former flat|upper (?:floor|parts)|first floor)\b[^.]{0,140}\b(?:no access|inaccessible)\b', text, re.I))
+
+
 def _property_kind(low):
+    special = specialist_use({'property_type': low})
+    if special:
+        return special.upper()
     if low.strip() in {'retail / office', 'retail and office'}:
         return 'RETAIL / OFFICE'
     if re.search(r'\b(?:property|building|premises)\s+(?:comprises?|comprising|consists? of)\b.{0,80}\b(?:ground[ -]floor shop|retail premises|retail unit)\b', low):
@@ -116,7 +147,7 @@ def _title(row, low):
     rent = row.get("rent") if row.get("rent") is not None else row.get("annual_rent")
     occupation = _norm(row.get("occupation")).lower()
     # Source-confirmed use wins over possible future uses and nearby occupiers.
-    primary = _property_kind(' '+_norm(row.get('property_type')).lower()+' ')
+    primary = _property_kind(specialist_use(row) or ' '+_norm(row.get('property_type')).lower()+' ')
     kind = primary if primary != 'COMMERCIAL' else _property_kind(" " + low + " ")
     mixed = _norm(row.get('property_type')).lower() in {'mixed use','mixed-use'} or any(x in low for x in (
         "mixed use", "mixed-use", "mixed commercial/residential", "mixed commercial / residential",
@@ -283,6 +314,9 @@ def build_opportunity_summary(row):
     low = text.lower()
     headline = _title(row, low)
     highlights = []
+
+    if inaccessible_upper_parts(row):
+        highlights.append('Former upper accommodation: no access; lettability not established')
 
     if not (row.get('rent') or row.get('annual_rent')) and re.search(r"(?:nil|nill|peppercorn)\s+rent", low):
         highlights.append("Tenant in situ · nil rent")

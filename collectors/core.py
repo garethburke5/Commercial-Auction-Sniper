@@ -200,6 +200,8 @@ class Lot:
 
     def finalise(self):
         self.description = clean_description(self.description)
+        from property_summary import specialist_use
+        self.property_type = specialist_use({'property_type': self.property_type, 'description': self.description}) or self.property_type
         # Component shop measurements are not a total for a multi-unit lot.
         # Apply after every merge/enrichment so an old snapshot cannot revive one.
         if (self.source == 'Pugh / BTG Eddisons'

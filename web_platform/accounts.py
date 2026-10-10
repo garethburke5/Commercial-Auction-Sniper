@@ -16,6 +16,13 @@ from fastapi import HTTPException
 
 from .plans import ENTITLEMENTS as PLANS
 
+def is_owner(user_id):
+    return user_id in {x.strip() for x in os.getenv('ADMIN_ACCOUNT_IDS','').split(',') if x.strip()}
+
+def require_owner(user_id):
+    if not is_owner(user_id):
+        raise HTTPException(403,'Owner access required')
+
 class Accounts:
     def __init__(self, path):
         self.path=Path(path)

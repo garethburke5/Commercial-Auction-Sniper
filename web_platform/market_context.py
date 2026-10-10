@@ -10,6 +10,9 @@ def postcode(value):
     m=POSTCODE.search(str(value or ''));return (m.group(1).upper(),m.group(2).upper()) if m else None
 
 def use_type(r):
+    from property_summary import specialist_use
+    special = specialist_use(r)
+    if special:return special
     text=str(r.get('property_type') or '')+' '+str(r.get('description') or '')[:1600]
     if re.search(r'mixed[ -]use|shop (?:and|with) (?:a |\d+ )?(?:flat|residential)',text,re.I):return 'Mixed use'
     for name,pattern in [('Industrial',r'warehouse|industrial|workshop|factory'),('Retail',r'\bretail\b|\bshop\b|betting office'),('Office',r'\boffice\b'),('Hospitality',r'\bpub\b|public house|restaurant|hotel'),('Land',r'\bland\b|development site')]:

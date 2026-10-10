@@ -1,16 +1,15 @@
 <section id="property-board" data-index="{{ url(board_index) }}" data-page="{{ page }}">
   {% if kind=='home' and upcoming %}{% include 'upcoming.html' %}{% endif %}
   <form id="property-filters" role="search" action="{{ url('/properties/') }}">
-    <div class="search-row"><label for="property-search">Search location, tenant or keyword<input id="property-search" type="search" name="q" placeholder="Try Admiral, casino, pharmacy or ST1" autocomplete="off" aria-describedby="property-search-hint"></label><button class="button" type="submit">Search properties <span aria-hidden="true">→</span></button></div>
+    <div class="search-row"><label for="property-search">Search location, tenant or keyword<input id="property-search" type="search" name="q" placeholder="Town, postcode, tenant or property type" autocomplete="off" aria-describedby="property-search-hint"></label><button class="button" type="submit">Search properties <span aria-hidden="true">→</span></button></div>
     <p id="property-search-hint" class="board-note search-hint">Search addresses, tenants, property types and descriptions, including nearby businesses. Combine words, e.g. “Admiral Liverpool”.</p>
     <details class="filter-panel"><summary>Refine your search <span>Auctioneer · guide price · yield · tenure</span></summary>
       <div class="filter-grid">
         <label>Auction house<select name="source" multiple size="4" aria-describedby="multi-hint">{% for source in catalogue.current_sources %}<option>{{ source }}</option>{% endfor %}</select><small id="multi-hint">None selected means all auction houses.</small></label>
-        <label>Maximum guide (£)<input name="max" type="number" min="0" step="1000" placeholder="No maximum"><small>Uses the lower end of a guide range.</small></label>
+        <div class="guide-range"><label>Minimum guide (£)<input name="min" type="number" min="0" step="1000" placeholder="No minimum"><small>Uses the lower end of a guide range.</small></label><label>Maximum guide (£)<input name="max" type="number" min="0" step="1000" placeholder="No maximum"><small>Uses the lower end of a guide range.</small></label></div>
         <label>Minimum GIY (%)<input name="yield" type="number" min="0" max="100" step="0.1" placeholder="No minimum"><small>Current rent only. For guide ranges, the lowest yield must qualify. Unknown yields are excluded.</small></label>
         <label>Tenure<select name="tenure"><option value="">Any tenure</option><option>Freehold</option><option>Leasehold</option><option>Long Leasehold</option></select></label>
         <label>Status<select name="status"><option value="">All catalogue lots</option><option value="available">Available lots</option><option value="unavailable">Sold / withdrawn / postponed</option></select></label>
-        <label>Minimum guide (£)<input name="min" type="number" min="0" step="1000" placeholder="No minimum"><small>Uses the lower end of a guide range.</small></label>
       </div>
       <p class="board-note">A price or yield limit includes only properties with a known value that meets it. Leave the limit blank to include unknown values. <a href="{{ url('/glossary/') }}#giy">What is GIY?</a></p>
       <div class="filter-actions"><button type="button" id="clear-filters" class="button outline">Clear filters</button><button type="submit" class="button">Apply filters</button></div>

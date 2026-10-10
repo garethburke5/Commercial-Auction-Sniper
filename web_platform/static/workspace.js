@@ -2,14 +2,16 @@
 'use strict';
 const root=document.body.dataset.prefix||'', key='auction-sniper-workspace-v1';
 const empty=()=>({properties:{},searches:[],events:[],recent:[]});
-let state=empty(), session=null, auth=null, config=null, index={}, features=new Set();
+let state=empty(), session=null, auth=null, config=null, index={}, features=new Set(), preview=null;
 try { state={...state,...JSON.parse(localStorage.getItem(key)||'{}')}; } catch (_) {}
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=v=>typeof v==='number'?'£'+v.toLocaleString('en-GB'):(v||'Not stated');
-const can=feature=>!!session&&features.has(feature);
+const signedIn=()=>!!session&&preview?.plan!=='visitor';
+const can=feature=>signedIn()&&features.has(feature);
 const notice=s=>{let e=document.querySelector('#workspace-message');if(!e){e=document.createElement('p');e.id='workspace-message';e.className='workspace-toast';e.setAttribute('role','status');document.body.append(e);}e.textContent=s;};
 function persist(){if(session)return;try{localStorage.setItem(key,JSON.stringify(state));}catch(_){notice('This browser could not save your workspace. Download your stored data for a backup.');}}
 async function api(path,method='GET',body){
+ if(preview&&method!=='GET')throw Error('Read-only customer preview. Return to My account to make changes.');
  if(auth)session=(await auth.auth.getSession()).data.session;
  if(!session||!config?.api_origin)throw Error('Sign in is required');
  const r=await fetch(config.api_origin+path,{method,headers:{Authorization:'Bearer '+session.access_token,...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined});
@@ -64,7 +66,7 @@ function render(){
  document.querySelector('#recent-items').innerHTML=state.recent.slice(0,8).map(id=>item(index[id]||state.properties[id]?.property)).join('')||'<p>Recently viewed properties appear as you research in your account.</p>';
 }
 async function toggle(id,kind){
- if(kind==='saved'&&!session){access('save');return;}
+ if(kind==='saved'&&!signedIn()){access('save');return;}
  if(kind==='watched'&&!can('watch')){access('watch');return;}
  const row=index[id]||state.properties[id]?.property;if(!row){notice('Property details are still loading. Please try again.');return;}
  const p=state.properties[id]||{property:row},on=!p[kind];
@@ -99,7 +101,7 @@ document.addEventListener('click',async e=>{
   if(b.id==='account-signout'){await auth.auth.signOut();session=null;features.clear();state=empty();location.assign(root+'/account/');}
   if(b.dataset.subscribe){
    if(!config?.billing_enabled){access('subscription');return;}
-   if(!session){access('save');return;}
+   if(!signedIn()){access('save');return;}
    const r=await api('/api/billing/checkout','POST',{plan:b.dataset.subscribe});location.assign(r.url);
   }
   if(b.id==='account-billing'){const r=await api('/api/billing/portal','POST');location.assign(r.url);}
@@ -143,13 +145,33 @@ async function loadAccount(){
  state.searches=remote.workspace.saved_searches.map(s=>({...s,id:s.search_id}));state.events=remote.workspace.events;
  const reviews=document.querySelector('#account-reviews');
  if(reviews)reviews.innerHTML=remote.workspace.reviews.map(r=>`<p><a href="${root}/due-diligence/?review=${encodeURIComponent(r.id)}">Acquisition Review · ${new Date(r.created_at*1000).toLocaleDateString('en-GB')}</a></p>`).join('');
- const name=config?.plans?.[remote.plan]?.name||remote.plan;
- document.querySelector('#account-status')?.replaceChildren(document.createTextNode('Signed in · '+name+' account. Your workspace is private to your account.'));
+ document.querySelector('#owner-controls')?.toggleAttribute('hidden',!remote.is_owner);
+ if(remote.is_owner){
+  let tier='';try{tier=sessionStorage.getItem('auction-owner-preview')||'';}catch(_){}
+  if(tier){
+   try{preview=await api('/api/admin/preview/'+encodeURIComponent(tier));features=new Set(preview.features);state=empty();}
+   catch(_){preview=null;try{sessionStorage.removeItem('auction-owner-preview');}catch(_){} }
+  }
+  document.querySelector('#owner-preview').value=preview?.plan||'';
+  document.querySelector('#owner-preview-status').textContent=preview?'Read-only customer preview: no saving, payments, uploads or purchased-report access.':'Owner account. Select a tier to preview customer access.';
+ }
+ const name=config?.plans?.[preview?.plan||remote.plan]?.name||preview?.plan||remote.plan;
+ document.querySelector('#account-status')?.replaceChildren(document.createTextNode(preview?'Read-only preview · '+name+'. Your account and purchases are unchanged.':'Signed in · '+name+' account. Your workspace is private to your account.'));
  document.querySelector('#sign-in-form')?.setAttribute('hidden','');document.querySelector('#account-signout')?.removeAttribute('hidden');
- if(config.billing_enabled)document.querySelector('#account-billing')?.removeAttribute('hidden');
+ if(config.billing_enabled&&!preview)document.querySelector('#account-billing')?.removeAttribute('hidden');
+ if(preview&&reviews)reviews.replaceChildren(document.createTextNode('Purchased reports are excluded from customer previews.'));
  const current=document.querySelector('[data-current-property]')?.dataset.currentProperty;
  if(current)state.recent=[current];render();
 }
+document.querySelector('#owner-preview')?.addEventListener('change',async e=>{
+ try{
+  await initialized;
+  const plan=e.target.value;
+  if(plan)await api('/api/admin/preview/'+encodeURIComponent(plan));
+  try{if(plan)sessionStorage.setItem('auction-owner-preview',plan);else sessionStorage.removeItem('auction-owner-preview');}catch(_){throw Error('Preview requires session storage.');}
+  location.reload();
+ }catch(err){notice(err.message);}
+});
 async function initialize(){
  try{const r=await fetch(root+'/workspace-index.json');if(!r.ok)throw Error();const data=await r.json();index=Object.fromEntries(data.rows.map(r=>[r.id,r]));render();}
  catch(_){notice('Property workspace details are unavailable. Your earlier records remain intact.');}
@@ -170,11 +192,13 @@ async function initialize(){
  }catch(_){features.clear();notice('Account services are unavailable. Free property search remains available.');}
  render();
 }
-window.AuctionWorkspace={api,register:rows=>{for(const r of rows)index[r.id]=r;render();},signedIn:()=>!!session,config:()=>config,upload:async(path,body)=>{
+window.AuctionWorkspace={api,register:rows=>{for(const r of rows)index[r.id]=r;render();},signedIn,config:()=>config,upload:async(path,body)=>{
+ if(preview)throw Error('Uploads are disabled in customer preview.');
  if(auth)session=(await auth.auth.getSession()).data.session;
  if(!session||!config?.api_origin)throw Error('Sign in to save this review');
  const r=await fetch(config.api_origin+path,{method:'POST',headers:{Authorization:'Bearer '+session.access_token},body});if(!r.ok)throw Error((await r.json()).detail||'Processing failed');return r.json();
 },download:async(path)=>{
+ if(preview)throw Error('Purchased-report downloads are disabled in customer preview.');
  if(auth)session=(await auth.auth.getSession()).data.session;
  if(!session||!config?.api_origin)throw Error('Sign in to download your review');
  const r=await fetch(config.api_origin+path,{headers:{Authorization:'Bearer '+session.access_token}});if(!r.ok)throw Error('Download unavailable');return r.blob();

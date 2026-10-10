@@ -44,6 +44,10 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
         if current is None and source_rows: current=True
         if current is None and any(d>=date.today().isoformat() for d in h.get('scope_dates',[])) and h.get('lots_seen',0)>0: current=True
         reasons=[]
+        if h.get('status') == 'LIVE' and publish[source] == 0 and current is not True:
+            reasons.append('Collector returned no published current lots; current catalogue and zero publication are not verified')
+        if h.get('status') == 'LIVE' and t.get('catalogue_complete') is False:
+            reasons.append('Advertised catalogue inventory is incomplete')
         if source_count and current is None and publish[source]==0:
             reasons.append('Source lots detected but catalogue currency and zero publication remain unverified')
         if not h and assessment:
@@ -66,6 +70,8 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
         missing=[n for n,v in [('source_lot_count',source_count),('parsed_count',parsed),('commercial_candidates',qualifying)] if v is None]
         records.append({'auctioneer':source,'collector_configured':h.get('status') not in (None,'NOT IMPLEMENTED','MISSING') or assessment.get('collector_verified',False),
             'collector_executed':h.get('collector_executed',bool(h.get('checked_at'))),'status':'DEGRADED' if reasons else h.get('status','MISSING'),
+            'collection_status':h.get('status','MISSING'),
+            'publication_status':'not independently verified' if live is None else 'matched' if live[source]==publish[source] else 'mismatch',
             'current_catalogue_detected':current,'source_lot_count':source_count,'lots_discovered':metric('lots_discovered','detail_pages_discovered','discovered_lot_urls'),
             'parsed_count':parsed,'commercial_candidates':metric('commercial_candidates'),'mixed_use_candidates':metric('mixed_use_candidates'),
             'commercial_mixed_candidates':qualifying,'residential_exclusions':metric('residential_exclusions'),
@@ -86,7 +92,7 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
         record['last_successful_harvest']=t.get('last_successful_harvest')
         record['records_banked']=t.get('records_banked')
         record['storefronts']=t.get('storefronts',[])
-    return {'schema_version':2,'source_registry':registry,'generated_at':datetime.now(timezone.utc).isoformat(),'snapshot_generated_at':snapshot.get('generated_at'),
+    return {'schema_version':3,'source_registry':registry,'generated_at':datetime.now(timezone.utc).isoformat(),'snapshot_generated_at':snapshot.get('generated_at'),
             'live_verification':'measured' if live is not None else 'not yet verified','sources':records,
             'degraded_sources':sum(r['status']=='DEGRADED' for r in records)}
 

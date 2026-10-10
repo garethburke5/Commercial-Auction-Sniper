@@ -15,6 +15,11 @@
   <nav aria-label="Main"><a {% if board %}aria-current="page"{% endif %} href="{{ url('/') }}">Find property</a><a {% if kind=='calendar' %}aria-current="page"{% endif %} href="{{ url('/auctions/') }}">Auctions</a><a {% if kind in ('sources','auctioneer') %}aria-current="page"{% endif %} href="{{ url('/auctioneers/') }}">Auctioneers</a><a href="{{ url('/deals/') }}">Commercial Deals</a><a {% if kind=='plans' %}aria-current="page"{% endif %} href="{{ url('/plans/') }}">Plans & Pricing</a><a class="research-nav" href="{{ url('/due-diligence/') }}">Acquisition Intelligence <span>↗</span></a><a href="{{ url('/account/') }}">My Auction Sniper</a></nav>
 </div></header>
 <main id="main">
+<section id="owner-controls" class="workspace-notice owner-controls" hidden aria-label="Owner controls">
+ <strong>Owner workspace</strong><a href="{{ url('/coverage/') }}">Source health</a><a href="{{ url('/admin/deals/') }}">Manage listings</a>
+ <label>View as<select id="owner-preview"><option value="">My account</option value="visitor">Logged-out visitor</option><option value="free">Free account</option><option value="investor">Premium Investor</option><option value="professional">Professional &amp; Business</option></select></label>
+ <p id="owner-preview-status" role="status">Preview customer access without changing your account.</p>
+</section>
 {% if kind!='home' %}<nav class="breadcrumbs" aria-label="Breadcrumb">{% for label,p in crumbs %}{% if not loop.first %}<span> / </span>{% endif %}<a href="{{ url(p) }}">{{ label }}</a>{% endfor %}</nav>{% endif %}
 {% if kind=='home' %}
 <section class="board-intro"><div><p class="eyebrow"><span class="live-dot"></span> UK COMMERCIAL AUCTION INTELLIGENCE</p><h1>Your next investment.<br class="mobile-break"> A clearer view.</h1><p>Search the market. Understand the income. Look beyond the guide price.</p></div><a class="intro-link" href="{{ url('/methodology/') }}#property-history"><b>{{ '{:,}'.format(catalogue.progress.by_sector.commercial + catalogue.progress.by_sector['mixed-use']) }}</b><span>commercial & mixed-use<br>historical appearances<br>linked within property pages <i>↗</i></span></a></section>

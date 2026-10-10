@@ -6,7 +6,7 @@ import math
 import unicodedata
 from board_presentation import catalogue_status
 from investment_details import _investment_facts
-from property_summary import build_opportunity_summary
+from property_summary import build_opportunity_summary, specialist_use
 
 SEARCH_INDEX_VERSION = 3
 SEARCH_FIELDS = ('address', 'description', 'tenant', 'tenancy_schedule', 'property_type',
@@ -39,6 +39,7 @@ def search_text(row):
 
 
 def enrich_board_row(row):
+    row['property_type'] = specialist_use(row) or row.get('property_type')
     # Explicit aliases, never infer passing income from previous rent or ERV.
     old = dict(row, guide=row.get('guide_price'), guide_upper=row.get('guide_price_upper'),
                rent=row.get('annual_rent'), previous_rent=row.get('historic_rent'),

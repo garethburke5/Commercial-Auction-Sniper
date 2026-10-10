@@ -49,3 +49,12 @@ def test_confirmed_unimplemented_current_source_is_visible_not_omitted(monkeypat
  r=next(r for r in reconcile({'properties':[]})['sources'] if r['auctioneer']=='Current Gap')
  assert r['status']=='DEGRADED' and not r['collector_configured'] and not r['collector_executed']
  assert r['source_lot_count'] is None and r['live_rows'] is None
+
+
+def test_old_success_without_current_inventory_cannot_be_live():
+    snapshot={'properties':[], 'source_health':[{'source':'Acuitus','status':'LIVE','lots_seen':45,'scope_dates':['2026-09-17'],'reconciliation':{'returned_lots':45}}]}
+    result=next(r for r in reconcile(snapshot)['sources'] if r['auctioneer']=='Acuitus')
+    assert result['status']=='DEGRADED' and result['published_rows']==0
+    assert 'not verified' in result['failure_reason']
+    attach(snapshot)
+    assert snapshot['source_health'][0]['coverage_status']=='DEGRADED'

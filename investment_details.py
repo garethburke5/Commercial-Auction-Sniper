@@ -521,6 +521,12 @@ def _investment_facts(p):
     if p.get("guide") and p.get("rent"):
         y=100*p["rent"]/p["guide"]; f["GIY at guide"]=f"{y:.1f}%"; f["10% ceiling"]=f'£{p["rent"]/0.10:,.0f}'
     rel=_reletting_assessment(p,f,text)
+    from property_summary import specialist_use, inaccessible_upper_parts
+    special = specialist_use(p)
+    if special:
+        rel['unit_reason'] = f"{special} use: replacement demand, permitted use and fit-out costs require evidence; floor area alone does not establish flexibility."
+    if inaccessible_upper_parts(p):
+        f['Upper accommodation'] = 'Former accommodation has no access; independent lettability and income are not established'
     f["Reletting potential"]=f'{rel["score"]:.1f}/10 — {rel["label"]}'
     f["Reletting confidence"]=rel["confidence"]
     f["Immediate pitch"]=f'{rel["pitch_score"]:.1f}/10'

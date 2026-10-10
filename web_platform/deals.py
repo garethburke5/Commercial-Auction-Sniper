@@ -89,7 +89,8 @@ def workspace_rows(a):
 def install(app,site,user,services):
     def admin(authorization):
         uid,a,b=user(authorization)
-        if uid not in {x.strip() for x in os.getenv('ADMIN_ACCOUNT_IDS','').split(',') if x.strip()}:raise HTTPException(403,'Owner access required')
+        from .accounts import require_owner
+        require_owner(uid)
         initialise(a);return uid,a,b
     @app.get('/api/deals')
     def list_deals():
