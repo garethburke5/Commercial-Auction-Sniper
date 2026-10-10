@@ -44,6 +44,9 @@ def analyse_uploaded_pack(property_ref:str,files:Iterable[tuple[str,bytes]],cata
  if reasoning_backend is not None or research_backend is not None:
   cost.ai_cost_gbp=None
   cost.estimated_gross_margin_gbp=None
+  provider=getattr(reasoning_backend,'__self__',None)
+  if callable(getattr(provider,'usage_record',None)):
+   acquisition['investigation']['provider_usage']=provider.usage_record()
  cost.elapsed_seconds=round(time.perf_counter()-started,4)
 
  return {"property":property_ref,"acquisition":acquisition,"report":model,"report_text":render_review_text(model),"analysis":due.to_dict(),"ingestion":{"coverage":coverage,"documents":[{"name":d.name,"type":d.doc_type.value,"sha256":d.sha256,"metadata":d.metadata} for d in ingested.documents],"assets":[asdict(a) for a in ingested.assets],"issues":[asdict(i) for i in ingested.issues],"duplicates":ingested.duplicates},"commercial":{"price_ex_vat_gbp":REPORT_PRICE_GBP,"vat_rate":VAT_RATE,"price_inc_vat_gbp":round(REPORT_PRICE_GBP*(1+VAT_RATE),2)},"cost_ledger":asdict(cost),"status":"completed_with_warnings" if incomplete else "completed"}

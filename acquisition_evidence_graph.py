@@ -181,10 +181,24 @@ def validate_open_review(result, packet):
         errors.append('Invalid research request structure')
     if reviewed | unresolved != source_ids:
         errors.append('Review does not account for every evidence item')
+    dispositions = result.get('document_dispositions', [])
+    sources = {s['id']:s for s in packet['sources']}
+    if not isinstance(dispositions,list):
+        errors.append('Invalid document dispositions')
+        dispositions=[]
+    for item in dispositions:
+        if not isinstance(item,dict):
+            errors.append('Invalid document disposition');continue
+        refs=set(item.get('source_ids') or [])
+        if (not refs or not refs <= reviewed or not norm(item.get('summary'))
+                or item.get('status') not in ('material_findings','no_material_findings','unresolved')
+                or any((sources[x].get('document') or sources[x].get('url')) != item.get('document') for x in refs if x in sources)):
+            errors.append('Document disposition is not bound to reviewed source evidence')
     return {'completed': not errors and not unresolved, 'provenance_valid': not errors,
             'errors': sorted(set(errors)), 'unreviewed_source_ids': sorted(unresolved),
             'reviewer': result.get('reviewer'),
             'findings': findings if not errors else [],
             'limitations': result.get('limitations', []),
             'research_requests': result.get('research_requests', []),
+            'document_dispositions': dispositions if not errors else [],
             'investment_approved': False}

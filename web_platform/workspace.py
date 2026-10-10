@@ -23,6 +23,7 @@ def changes(old,new):
     return events
 
 def initialise(accounts):
+    if accounts.managed_schema:return
     with accounts.db() as db:
         db.executescript('''
         CREATE TABLE IF NOT EXISTS workspace(user_id TEXT NOT NULL,property_id TEXT NOT NULL,watched INTEGER NOT NULL DEFAULT 0,notes TEXT NOT NULL DEFAULT '',target_price REAL,observation TEXT,updated_at INTEGER NOT NULL,PRIMARY KEY(user_id,property_id));
@@ -47,7 +48,10 @@ def update(accounts,user,pid,body,row):
             if k in body:entry[k]=body[k]
         if entry['watched'] and not entry['observation']:entry['observation']=json.dumps(observation(row))
         if not entry['watched']:entry['observation']=None
-        db.execute('INSERT OR REPLACE INTO workspace VALUES (?,?,?,?,?,?,?)',(user,pid,int(entry['watched']),entry['notes'],entry['target_price'],entry['observation'],int(time.time())))
+        db.execute('''INSERT INTO workspace VALUES (?,?,?,?,?,?,?) ON CONFLICT(user_id,property_id)
+            DO UPDATE SET watched=excluded.watched,notes=excluded.notes,target_price=excluded.target_price,
+            observation=excluded.observation,updated_at=excluded.updated_at''',
+            (user,pid,int(entry['watched']),entry['notes'],entry['target_price'],entry['observation'],int(time.time())))
     return {'updated':True}
 
 def dashboard(accounts,user,rows,*,monitoring_rows=None):
@@ -64,7 +68,7 @@ def dashboard(accounts,user,rows,*,monitoring_rows=None):
                 current=observation(observed);old=json.loads(item['observation'] or '{}')
                 for event in changes(old,current):
                     eid=hashlib.sha256(json.dumps([user,pid,old,current,event],sort_keys=True).encode()).hexdigest()
-                    db.execute('INSERT OR IGNORE INTO watch_events VALUES (?,?,?,?,?)',(eid,user,pid,json.dumps(event),int(time.time())))
+                    db.execute('INSERT INTO watch_events VALUES (?,?,?,?,?) ON CONFLICT(id) DO NOTHING',(eid,user,pid,json.dumps(event),int(time.time())))
                 db.execute('UPDATE workspace SET observation=? WHERE user_id=? AND property_id=?',(json.dumps(current),user,pid))
             item.pop('user_id');item.pop('observation',None)
             item['property']=observation(row) if row else None

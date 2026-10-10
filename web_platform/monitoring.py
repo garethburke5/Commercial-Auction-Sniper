@@ -44,15 +44,16 @@ def main():
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
     database = os.environ.get('ACCOUNT_DATABASE_PATH')
-    if not database:
-        raise SystemExit('ACCOUNT_DATABASE_PATH must point to the private persistent database')
+    database_url = os.environ.get('ACCOUNT_DATABASE_URL')
+    if not database and not database_url:
+        raise SystemExit('Configure the private account database URL or persistent SQLite path')
     snapshot = json.loads((args.root/'data/properties.json').read_text())
     if errors := check(snapshot):
         raise SystemExit('; '.join(errors))
     from .catalogue import Catalogue
     catalogue = Catalogue(args.root)
     try:
-        print(json.dumps(refresh(Accounts(database), catalogue.rows, snapshot)))
+        print(json.dumps(refresh(Accounts(database,database_url=database_url), catalogue.rows, snapshot)))
     finally:
         catalogue.close()
 

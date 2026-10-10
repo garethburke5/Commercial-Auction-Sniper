@@ -112,6 +112,7 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
     def question(key, text, why, topics, decision=True):
         attempts = [a for a in research['attempts'] if a.get('topic') in topics]
         questions.append({'id': key, 'question': text, 'why': why,
+                          'topics':topics,
                           'decision_relevant': decision,
                           'status': 'investigated_with_limits' if attempts else 'not_investigated',
                           'attempts': attempts})
@@ -356,6 +357,17 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
         result = validate_open_review(open_review, reasoning_packet(report, investigation))
         investigation['open_review'] = result
         if result['provenance_valid']:
+            disposed={}
+            for item in result.get('document_dispositions',[]):
+                if item['status']!='unresolved':
+                    disposed.setdefault(item['document'],set()).update(item['source_ids'])
+            # A useful review can clear a document without inventing an adverse
+            # finding. Its disposition must account for every source from that
+            # document, not just a selected page or familiar filename.
+            for document,refs in disposed.items():
+                expected={x['id'] for x in ledger.records.values() if x.get('document')==document}
+                if expected and expected<=refs and document in investigation['unreviewed_documents']:
+                    investigation['unreviewed_documents'].remove(document)
             for finding in result['findings']:
                 if finding['id'] not in {f['id'] for f in findings}:
                     finding = dict(finding)

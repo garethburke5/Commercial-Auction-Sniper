@@ -1,0 +1,84 @@
+# Account activation and investigation runtime: 10 October 2026
+
+## Changes and boundaries
+
+The existing Python API now accepts `ACCOUNT_DATABASE_URL` for permanent private
+PostgreSQL storage. SQLite remains supported for local work or a mounted disk.
+Existing account IDs, permissions, payment records, report ownership and owner
+previews are reused. No parallel customer-account system was introduced.
+
+`web_platform/private_schema.sql` creates a non-exposed `auction_private` schema
+and a restricted `auction_api` role. Browser anon/authenticated roles have no
+schema or table access. Every table has RLS, with access for the backend role
+only. Customer isolation remains enforced by the verified-identity API. The role
+initially has NOLOGIN; provision its application credential securely, never in
+this repository. The live Supabase migration `private_account_storage` succeeded;
+all 14 tables have RLS, neither browser role can read them, and the security
+adviser returned no findings. A transactional save/update probe was rolled back.
+
+The free Render configuration is `web_platform/render.free.yaml`. It reuses the
+Supabase project and does not require a paid Render disk. `PRIVATE_API_ONLY=true`
+avoids rendering the public website into the private process. Public pages stay
+on the current static host. Render free sleep/cold starts make this a staging and
+owner-testing setup; they are not an always-on paid monitoring promise.
+
+A new CI job tests the actual PostgreSQL driver, durable writes, rollback,
+concurrent processing claims, backend privileges, customer isolation and owner
+preview controls against disposable PostgreSQL 17. Local SQLite and existing
+account tests remain in place. `/api/readiness` reports non-sensitive activation
+booleans, distinct from the liveness-only `/healthz`.
+
+## Production research/review provider
+
+`acquisition_provider.py` supplies a concrete OpenAI Responses adapter to the
+existing investigation pipeline. Set `ACQUISITION_PROVIDER=openai`, an explicit
+`ACQUISITION_MODEL`, and the server-only `OPENAI_API_KEY`. Without all three no
+provider is activated. A fresh provider/budget belongs to each purchased review.
+Instantiation and expensive execution happen after verified report purchase;
+free snapshots and subscriptions alone still cannot trigger paid analysis.
+
+The adapter reviews complete source records in bounded batches, records the
+substantive disposition of each document and synthesises findings across the
+whole investment. Changed research triggers resynthesis; unchanged source
+batches can be reused within that review. Findings must quote their cited source
+text; unknown references, omitted review coverage and incomplete provider output
+fail closed. No property name or tenant brand is hard-coded.
+
+The research adapter uses actual web-search actions, then independently captures
+public source pages/PDFs before accepting structured facts. It rejects private
+network targets, credentials in URLs, insecure schemes, oversized sources and
+unsupported content. DNS is pinned to the checked public address with hostname
+TLS validation. A source-access failure remains an explicit investigation limit.
+Quoted and numeric facts are checked against the captured evidence. Source dates,
+scope and asking/guide/achieved distinctions remain in the evidence contract.
+
+Calls, input size, output tokens, searches, captures and elapsed time are bounded.
+Actual provider token/tool usage is retained. Monetary cost/margin remains unknown
+until reconciled with the configured model's current contracted rates; these
+resource limits are not advertised as a guaranteed dollar spending cap.
+
+A source review that remains incomplete is retained as `requires_review`, not
+silently delivered as a completed paid report or rerun automatically. The global
+Acquisition Intelligence quality gate remains closed.
+
+## Still required before operational acceptance
+
+- Deploy and verify the private API's actual database connection and restart
+  persistence. Use the Supabase pooler connection for the restricted backend
+  login, stored solely in Render environment settings.
+- Complete Supabase production email configuration and test an actual verified
+  owner sign-in. Bind `ADMIN_ACCOUNT_IDS` to that account's verified issuer/sub
+  hash, never its editable profile. Check all four read-only preview tiers.
+- Enable public configuration only after the account journey works. The
+  publishable Supabase key is public; database/API/payment keys are secret.
+- Enter provider secrets directly into host settings. Run the concrete AI
+  provider against the original Newbury pack and materially different packs;
+  evaluate actual findings, omissions, commercial usefulness, cost and runtime.
+- Verify sandbox Checkout/webhooks/cancellations/refunds and purchased-report
+  revisit/download before any live billing. Stripe connection alone is not
+  runtime authentication. No live charging or paid-product approval is implied.
+
+The 39 original Newbury PDFs were recovered and SHA-256 checked against the
+retained extraction: all 39 match. The older sale conditions remain superseded by
+the amended set. This identity check is not a fresh full-pack analytical review.
+Private documents and source extractions are not committed to this repository.

@@ -1,0 +1,30 @@
+# Free staging/account API: permanent private state lives in existing Supabase.
+# Free Render services sleep when idle. Review an always-on plan before paid launch.
+services:
+  - type: web
+    name: auction-sniper-private-api
+    runtime: python
+    plan: free
+    region: frankfurt
+    buildCommand: pip install -r web_platform/requirements.txt
+    startCommand: uvicorn web_platform.app:create_app --factory --host 0.0.0.0 --port $PORT --workers 1
+    healthCheckPath: /healthz
+    envVars:
+      - key: PRIVATE_API_ONLY
+        value: "true"
+      - key: PUBLIC_ORIGIN
+        value: https://garethburke5.github.io/Commercial-Auction-Sniper
+      - key: BILLING_LIVE
+        value: "false"
+      - key: REVIEW_OCR
+        value: "false"
+      - key: ACCOUNT_DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: AUTH_ISSUER
+        sync: false
+      - key: ADMIN_ACCOUNT_IDS
+        sync: false

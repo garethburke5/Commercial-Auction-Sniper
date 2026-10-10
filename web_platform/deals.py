@@ -5,6 +5,7 @@ from typing import Literal
 from pydantic import BaseModel,Field,field_validator
 from fastapi import HTTPException,Header,Request
 from .workspace import observation
+from .database import begin_write
 
 class Deal(BaseModel):
     address:str=Field(min_length=8,max_length=250)
@@ -60,6 +61,7 @@ class Enquiry(BaseModel):
         return v
 
 def initialise(a):
+    if a.managed_schema:return
     with a.db() as db:db.executescript('''CREATE TABLE IF NOT EXISTS deals(id TEXT PRIMARY KEY,owner_id TEXT NOT NULL,body TEXT NOT NULL,version INTEGER NOT NULL,updated_at INTEGER NOT NULL);CREATE TABLE IF NOT EXISTS deal_enquiries(id TEXT PRIMARY KEY,deal_id TEXT NOT NULL,name TEXT NOT NULL,email TEXT NOT NULL,message TEXT NOT NULL,created_at INTEGER NOT NULL);CREATE TABLE IF NOT EXISTS deal_metrics(deal_id TEXT NOT NULL,metric TEXT NOT NULL,count INTEGER NOT NULL DEFAULT 0,PRIMARY KEY(deal_id,metric));''')
 def active(d):
     return d['status'] in ('Available','Under offer') and (not d.get('expires_at') or instant(d['expires_at'])>datetime.now(timezone.utc))
@@ -112,11 +114,13 @@ def install(app,site,user,services):
         from collectors.publication_quality import commercial_decision
         if body.status!='Draft' and commercial_decision({'description':body.description,'property_type':body.property_type,'address':body.address}) is not True:raise HTTPException(400,'Particulars must establish a commercial or mixed-use opportunity')
         with a.db() as db:
-            db.execute('BEGIN IMMEDIATE');old=db.execute('SELECT owner_id,version FROM deals WHERE id=?',(did,)).fetchone()
+            begin_write(db);old=db.execute('SELECT owner_id,version FROM deals WHERE id=?',(did,)).fetchone()
             if old and old['owner_id']!=uid:raise HTTPException(404,'Unknown listing')
             if old and body.version!=old['version']:raise HTTPException(409,'Listing changed. Reload before saving.')
             version=(old['version'] if old else 0)+1
-            db.execute('INSERT OR REPLACE INTO deals VALUES (?,?,?,?,?)',(did,uid,json.dumps(body.model_dump()),version,int(time.time())))
+            db.execute('''INSERT INTO deals VALUES (?,?,?,?,?) ON CONFLICT(id)
+                DO UPDATE SET body=excluded.body,version=excluded.version,updated_at=excluded.updated_at''',
+                (did,uid,json.dumps(body.model_dump()),version,int(time.time())))
         return {'id':did,'version':version,'listing':public(body.model_dump()|{'id':did})}
     @app.post('/api/deals/{did}/enquiries')
     def enquire(did:str,body:Enquiry):
@@ -127,7 +131,7 @@ def install(app,site,user,services):
             if not row or not active(json.loads(row['body'])):raise HTTPException(404,'Listing unavailable')
             if db.execute('SELECT 1 FROM deal_enquiries WHERE email=? AND created_at>?',(body.email,int(time.time())-60)).fetchone():raise HTTPException(429,'Please wait before submitting another enquiry')
             db.execute('INSERT INTO deal_enquiries VALUES (?,?,?,?,?,?)',(uuid.uuid4().hex,did,body.name,body.email,body.message,int(time.time())))
-            db.execute("INSERT INTO deal_metrics VALUES (?,'enquiries',1) ON CONFLICT(deal_id,metric) DO UPDATE SET count=count+1",(did,))
+            db.execute("INSERT INTO deal_metrics VALUES (?,'enquiries',1) ON CONFLICT(deal_id,metric) DO UPDATE SET count=deal_metrics.count+1",(did,))
         return {'received':True,'message':'Your enquiry is recorded for the listing owner.'}
     @app.post('/api/deals/{did}/view')
     def view(did:str):
@@ -135,5 +139,5 @@ def install(app,site,user,services):
         with a.db() as db:
             row=db.execute('SELECT body FROM deals WHERE id=?',(did,)).fetchone()
             if not row or not active(json.loads(row['body'])):raise HTTPException(404,'Unknown listing')
-            db.execute("INSERT INTO deal_metrics VALUES (?,'detail_views',1) ON CONFLICT(deal_id,metric) DO UPDATE SET count=count+1",(did,))
+            db.execute("INSERT INTO deal_metrics VALUES (?,'detail_views',1) ON CONFLICT(deal_id,metric) DO UPDATE SET count=deal_metrics.count+1",(did,))
         return {'recorded':True}

@@ -24,7 +24,18 @@ def require_owner(user_id):
         raise HTTPException(403,'Owner access required')
 
 class Accounts:
-    def __init__(self, path):
+    def __init__(self, path=None, *, database_url=None):
+        self.database_url=database_url
+        self.managed_schema=bool(database_url)
+        if self.managed_schema:
+            self.path=None
+            with self.db() as db:
+                version=db.execute('SELECT version FROM schema_version WHERE id=1').fetchone()
+                if not version or version['version']!=1:
+                    raise RuntimeError('Private account database migration is required')
+            return
+        if not path:
+            raise ValueError('A private database URL or persistent SQLite path is required')
         self.path=Path(path)
         self.path.parent.mkdir(parents=True,exist_ok=True)
         with self.db() as db:
@@ -39,6 +50,14 @@ class Accounts:
 
     @contextmanager
     def db(self):
+        if self.managed_schema:
+            from .database import connect_postgres,PostgresConnection
+            with connect_postgres(self.database_url) as db:
+                db.execute('SET LOCAL search_path TO auction_private, pg_catalog')
+                db.execute("SET LOCAL statement_timeout = '30s'")
+                db.execute("SET LOCAL lock_timeout = '10s'")
+                yield PostgresConnection(db)
+            return
         db=sqlite3.connect(self.path,timeout=20)
         db.row_factory=sqlite3.Row
         try:
@@ -46,7 +65,7 @@ class Accounts:
         finally: db.close()
 
     def ensure(self,user):
-        with self.db() as db: db.execute('INSERT OR IGNORE INTO accounts(user_id) VALUES (?)',(user,))
+        with self.db() as db: db.execute('INSERT INTO accounts(user_id) VALUES (?) ON CONFLICT(user_id) DO NOTHING',(user,))
 
     def customer(self,user):
         with self.db() as db:

@@ -1,5 +1,11 @@
 # Private-service activation — current boundary
 
+**10 October update:** PostgreSQL storage for the existing account API and a
+concrete bounded research/review provider are now implemented. See
+`docs/launch-activation-2026-10-10.md` and `web_platform/render.free.yaml` for the
+current free staging path and remaining acceptance checks. Earlier dated notes
+below describe prior checkpoints, not the current implementation status.
+
 The public Pages deployment is operational without account/payment secrets.
 Registered Save is free; Watch, saved searches and alerts require membership.
 Earlier device records remain readable/exportable. This is not an activated

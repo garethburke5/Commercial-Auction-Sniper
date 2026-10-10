@@ -1,0 +1,32 @@
+name: Private account PostgreSQL integration
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['web_platform/**', 'acquisition_provider.py', 'acquisition_source_fetch.py', 'tests/test_acquisition_provider.py', '.github/workflows/private-account-tests.yml']
+permissions:
+  contents: read
+jobs:
+  postgres:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: auction_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: disposable_ci_admin
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres -d auction_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r web_platform/requirements.txt pytest
+      - run: python -m pytest web_platform/tests/test_postgres_accounts.py tests/test_acquisition_provider.py -q
+        env:
+          TEST_ACCOUNT_DATABASE_URL: postgresql://postgres:disposable_ci_admin@127.0.0.1:5432/auction_test

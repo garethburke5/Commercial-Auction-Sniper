@@ -5,6 +5,7 @@ from fastapi.responses import HTMLResponse,Response
 from acquisition_intelligence import snapshot
 from acquisition_report import render
 from .workspace import initialise,full_review_allowed
+from .database import begin_write
 
 def install(app,site,user):
     def owned(a,uid,rid):
@@ -18,9 +19,11 @@ def install(app,site,user):
         projection=report if full else snapshot(report)
         state=report.get('analysis_state','complete')
         result={'id':rid,'access':'full' if full and state=='complete' else 'snapshot',
-                'analysis_state':state,'processing_allowed':bool(full and state!='complete'),
+                'analysis_state':state,'processing_allowed':bool(full and state in ('awaiting_payment','failed')),
                 'report':projection,'html':render(projection)}
-        if state!='complete':
+        if state=='requires_review':
+            result['html']='<p class="research-scope">This analysis needs a source-quality review before delivery. Your purchase is retained; uploading again will not restart chargeable processing.</p>'+result['html']
+        elif state!='complete':
             result['html']=('<p class="research-scope">Listing snapshot only. '
                             'No legal-pack extraction, OCR or paid analysis has run.</p>')+result['html']
         return result
@@ -59,7 +62,10 @@ def install(app,site,user):
             raise HTTPException(402,'A verified report purchase is required before legal-pack analysis')
         if existing.get('analysis_state','complete')=='complete':
             return payload(rid,existing,True)
-        if not callable(getattr(app.state,'acquisition_reasoner',None)) or not callable(getattr(app.state,'acquisition_researcher',None)):
+        factory=getattr(app.state,'acquisition_provider_factory',None)
+        reasoner=getattr(app.state,'acquisition_reasoner',None)
+        researcher=getattr(app.state,'acquisition_researcher',None)
+        if not callable(factory) and (not callable(reasoner) or not callable(researcher)):
             raise HTTPException(503,'The full investigation service is not configured. No document analysis has started.')
         row=site.catalogue.rows.get(r['property_id'])
         if not row:raise HTTPException(409,'The property needs refreshed particulars before analysis')
@@ -72,13 +78,17 @@ def install(app,site,user):
         # Claim once before OCR/provider work. Concurrent submissions and browser
         # retries cannot run the same purchased review repeatedly.
         with a.db() as db:
-            db.execute('BEGIN IMMEDIATE')
+            begin_write(db)
             job=db.execute('SELECT * FROM review_processing WHERE review_id=?',(rid,)).fetchone()
             if not job or job['status'] not in ('awaiting_payment','failed'):
                 raise HTTPException(409,'This review is already processing or complete')
             if job['attempts']>=3:raise HTTPException(429,'Processing needs support review before another attempt')
             db.execute("UPDATE review_processing SET status='processing',attempts=attempts+1,updated_at=? WHERE review_id=?",(int(time.time()),rid))
+        provider=None
         try:
+            if callable(factory):
+                provider=factory()
+                reasoner,researcher=provider.review,provider.research
             from legal_pack_service import analyse_uploaded_pack
             from .fees import estimate_fee,fee_profile
             context=dict(row,guide=row.get('guide_price'),rent=row.get('annual_rent'))
@@ -86,15 +96,19 @@ def install(app,site,user):
             context['market_context']=site.market.for_property(row)
             result=analyse_uploaded_pack(row['address'],supplied,context,
                 ocr=os.getenv('REVIEW_OCR','true')=='true',
-                reasoning_backend=getattr(app.state,'acquisition_reasoner',None),
-                research_backend=getattr(app.state,'acquisition_researcher',None))
-            report=result['acquisition'];report['report_id']=rid;report['analysis_state']='complete'
+                reasoning_backend=reasoner,research_backend=researcher)
+            report=result['acquisition'];report['report_id']=rid
+            from acquisition_quality import acceptance_issues
+            needs_review=bool(provider is not None and acceptance_issues(report))
+            report['analysis_state']='requires_review' if needs_review else 'complete'
             with a.db() as db:
                 db.execute('UPDATE reviews SET report_json=? WHERE id=? AND user_id=?',(json.dumps(report),rid,uid))
-                db.execute("UPDATE review_processing SET status='complete',updated_at=? WHERE review_id=?",(int(time.time()),rid))
+                db.execute('UPDATE review_processing SET status=?,updated_at=? WHERE review_id=?',(report['analysis_state'],int(time.time()),rid))
         except Exception:
             with a.db() as db:db.execute("UPDATE review_processing SET status='failed',updated_at=? WHERE review_id=?",(int(time.time()),rid))
             raise HTTPException(503,'Analysis did not finish. Your purchase is retained; retry or contact support.')
+        finally:
+            if provider is not None:provider.close()
         # A refund/dispute received during processing still revokes delivery.
         return payload(rid,report,unlocked(a,uid,rid,r['property_id']))
     @app.get('/api/account/reviews/{rid}')

@@ -29,7 +29,9 @@ def install(app,site,user):
         from urllib.parse import parse_qsl,urlencode
         allowed={'q','source','min','max','yield','status','tenure','sort'}
         query=urlencode([(k,v) for k,v in parse_qsl(body.query) if k in allowed])
-        with a.db() as db:db.execute('INSERT OR REPLACE INTO saved_searches VALUES (?,?,?,?,?,?)',(uid,sid,body.name,query,int(body.digest),int(time.time())))
+        with a.db() as db:db.execute('''INSERT INTO saved_searches VALUES (?,?,?,?,?,?) ON CONFLICT(user_id,search_id)
+            DO UPDATE SET name=excluded.name,query=excluded.query,digest=excluded.digest,created_at=excluded.created_at''',
+            (uid,sid,body.name,query,int(body.digest),int(time.time())))
         return {'saved':True,'digest_delivery':'not active'}
     @app.delete('/api/account/searches/{sid}')
     def delete_search(sid:str,authorization:str|None=Header(default=None)):

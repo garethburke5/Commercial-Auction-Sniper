@@ -13,8 +13,9 @@ from .billing import Billing
 @lru_cache(maxsize=1)
 def private_services():
     path=os.environ.get('ACCOUNT_DATABASE_PATH')
-    if not path: raise HTTPException(503,'Private services are not enabled')
-    accounts=Accounts(path)
+    database_url=os.environ.get('ACCOUNT_DATABASE_URL')
+    if not path and not database_url: raise HTTPException(503,'Private services are not enabled')
+    accounts=Accounts(path,database_url=database_url)
     billing=Billing(accounts,os.getenv('STRIPE_SECRET_KEY'),os.getenv('STRIPE_WEBHOOK_SECRET'),
         {p:os.getenv('STRIPE_PRICE_'+p.upper()) for p in ('investor','professional','business')},os.getenv('PUBLIC_ORIGIN',''),
         {p:os.getenv('STRIPE_PRICE_'+p.upper()) for p in Billing.PRODUCTS})
@@ -22,13 +23,16 @@ def private_services():
 
 def create_app(site=None):
     site=site or Site()
-    pages=dict(site.routes())
-    board_assets=dict(site.board_assets())
+    api_only=os.getenv('PRIVATE_API_ONLY','false')=='true'
+    pages={} if api_only else dict(site.routes())
+    board_assets={} if api_only else dict(site.board_assets())
     @asynccontextmanager
     async def lifespan(app):
         yield
         site.catalogue.close()
     app=FastAPI(title='Auction Sniper platform',lifespan=lifespan,docs_url=None,redoc_url=None)
+    from acquisition_provider import provider_factory_from_environment
+    app.state.acquisition_provider_factory=provider_factory_from_environment()
     from fastapi.middleware.cors import CORSMiddleware
     from urllib.parse import urlsplit
     public=urlsplit(site.origin)
@@ -50,6 +54,25 @@ def create_app(site=None):
     def health():
         # Liveness only: no secrets, customer counts or activation claims.
         return {'status':'ok'}
+    @app.get('/api/readiness')
+    def readiness():
+        # Public booleans only; no credentials, identifiers or customer counts.
+        ready=False
+        if os.getenv('AUTH_ISSUER','').startswith('https://'):
+            try:
+                a,_=private_services()
+                with a.db() as db:ready=bool(db.execute('SELECT 1').fetchone())
+            except Exception:
+                ready=False
+        from fastapi.responses import JSONResponse
+        return JSONResponse({'accounts_ready':ready,
+            'owner_access_configured':ready and bool(os.getenv('ADMIN_ACCOUNT_IDS','').strip()),
+            'analysis_provider_configured':callable(app.state.acquisition_provider_factory),
+            'paid_reports_approved':False},status_code=200 if ready else 503)
+    @app.get('/api/account/identity')
+    def verified_identity(authorization:str|None=Header(default=None)):
+        uid=authenticated_user(authorization)
+        return {'account_id':uid,'is_owner':is_owner(uid)}
     @app.get('/api/account')
     def account(authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization)
@@ -86,7 +109,7 @@ def create_app(site=None):
         uid,a,_=user(authorization)
         from .deals import workspace_rows
         if property_id not in site.catalogue.rows and property_id not in workspace_rows(a): raise HTTPException(404,'Unknown property')
-        with a.db() as db: db.execute('INSERT OR IGNORE INTO saved VALUES (?,?,?)',(uid,property_id,int(time.time())))
+        with a.db() as db: db.execute('INSERT INTO saved VALUES (?,?,?) ON CONFLICT(user_id,property_id) DO NOTHING',(uid,property_id,int(time.time())))
         return {'saved':True}
     @app.delete('/api/account/saved/{property_id}')
     def unsave(property_id:str,authorization:str|None=Header(default=None)):

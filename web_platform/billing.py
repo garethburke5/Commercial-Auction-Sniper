@@ -10,6 +10,7 @@ import uuid
 import stripe
 from fastapi import HTTPException
 from .accounts import PLANS
+from .database import begin_write
 
 class Billing:
     PRODUCTS = frozenset({'investment_report','legal_pack_report','featured_listing','data_export'})
@@ -62,7 +63,7 @@ class Billing:
             customer=stripe.Customer.create(api_key=self.secret,metadata={'account_id':user},idempotency_key='account-'+user)['id']
             with self.accounts.db() as db:db.execute('UPDATE accounts SET customer_id=? WHERE user_id=?',(customer,user))
         with self.accounts.db() as db:
-            db.execute('BEGIN IMMEDIATE')
+            begin_write(db)
             existing=db.execute("SELECT * FROM purchases WHERE user_id=? AND product=? AND property_id=? AND status IN ('pending','paid_awaiting_fulfilment') ORDER BY created_at DESC LIMIT 1",(user,product,property_id)).fetchone()
             if existing:
                 if existing['status']=='paid_awaiting_fulfilment':raise HTTPException(409,'This order is already paid')
@@ -114,7 +115,7 @@ class Billing:
         except (ValueError,stripe.SignatureVerificationError): raise HTTPException(400,'Invalid webhook signature')
         event_id=event['id'];typ=event['type']
         with self.accounts.db() as db:
-            db.execute('BEGIN IMMEDIATE')
+            begin_write(db)
             if db.execute('SELECT 1 FROM webhook_events WHERE event_id=?',(event_id,)).fetchone(): return 'duplicate'
             if typ in ('checkout.session.completed','checkout.session.async_payment_succeeded','checkout.session.async_payment_failed','checkout.session.expired','charge.refunded','charge.dispute.created','charge.dispute.closed'):
                 self._purchase_event(db,event)
@@ -127,7 +128,8 @@ class Billing:
                     # Ambiguous multi-plan subscriptions fail closed.
                     plan=inverse.get(items[0]['price']['id'],'free') if len(items)==1 else 'free'
                     until=int(sub.get('current_period_end') or (items[0].get('current_period_end') if items else 0) or 0)
-                    db.execute('INSERT OR REPLACE INTO subscriptions VALUES (?,?,?,?,?)',
+                    db.execute('''INSERT INTO subscriptions VALUES (?,?,?,?,?) ON CONFLICT(subscription_id)
+                        DO UPDATE SET user_id=excluded.user_id,plan=excluded.plan,status=excluded.status,valid_until=excluded.valid_until''',
                                (sub['id'],account['user_id'],plan,sub['status'],until))
             db.execute('INSERT INTO webhook_events VALUES (?,?)',(event_id,int(time.time())))
         return 'processed'
