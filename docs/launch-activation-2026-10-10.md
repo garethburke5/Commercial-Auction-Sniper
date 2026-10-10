@@ -28,6 +28,13 @@ preview controls against disposable PostgreSQL 17. Local SQLite and existing
 account tests remain in place. `/api/readiness` reports non-sensitive activation
 booleans, distinct from the liveness-only `/healthz`.
 
+That PostgreSQL 17 CI run passed all 11 provider/storage checks on commit
+`108a5a2`, including the restricted database login and concurrent job claim.
+The wider local account/investigation suite passed 137 checks (four PostgreSQL
+checks were skipped locally and exercised in CI). The free Render service is
+`auction-sniper-private-api` (`srv-db52g3jbc2fs73e380ag`); its initial build
+succeeded. Database credentials and actual owner sign-in remain unconfigured.
+
 ## Production research/review provider
 
 `acquisition_provider.py` supplies a concrete OpenAI Responses adapter to the
