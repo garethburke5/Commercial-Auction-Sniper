@@ -89,3 +89,29 @@ The 39 original Newbury PDFs were recovered and SHA-256 checked against the
 retained extraction: all 39 match. The older sale conditions remain superseded by
 the amended set. This identity check is not a fresh full-pack analytical review.
 Private documents and source extractions are not committed to this repository.
+
+## Verified checkpoint after deployment
+
+- Render deployment `dep-db52g4bbc2fs73e38360` reached `live` on 10 October.
+  The service remains on the free plan. Public accounts have not been enabled.
+- PostgreSQL/provider integration: 11 passed in CI. The legal-pack CI and the
+  full publishing regression workflow passed after adding the adapter's HTTP
+  dependency to the core requirements.
+- The current deterministic pipeline was rerun against the retained original
+  extractions for Newbury (540 pages), Wrexham (276), Maybrey (402) and Dover
+  (450). Newbury's four identified rents reconcile; the other three remain
+  unreconciled. These are replay/regression checks, not fresh autonomous
+  investigation or investment-quality approval.
+- Original Newbury lease pages and service-charge table were visually inspected.
+  Overprinted lease dates still require evidence of the operative amendment;
+  a table deficit is not automatically a buyer liability. No new specimen is
+  described as approved or independently provider-validated.
+- Supabase dashboard authentication succeeded. The actual shared-pooler host
+  was retrieved. There are still no registered website users.
+- Automatic approval review rejected enabling login for the restricted
+  `auction_api` role and provisioning its credential. The role remains NOLOGIN;
+  no database credential was installed in Render. Explicit owner approval for
+  that scoped backend access is needed. Do not retry through another route.
+- Owner preview remains implemented and tested, but cannot yet be exercised
+  against the real owner account. The production analysis provider still needs
+  its API key and explicit model configuration in secure host environment settings.
