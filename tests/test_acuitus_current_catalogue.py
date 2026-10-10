@@ -57,3 +57,12 @@ def test_date_conflict_and_unknown_status_prevent_green_collection(monkeypatch):
 def test_missing_cards_not_catalogue_pending_and_incomplete_inventory_not_complete():
     cards,total,complete=acuitus.catalogue_cards(BeautifulSoup('<p>1 - 1 of 49 properties</p>'+card(),'lxml'))
     assert len(cards)==1 and total==49 and not complete
+
+
+def test_sold_post_cannot_return_to_available_stock(monkeypatch):
+    from run_collectors import _is_terminal
+    from board_presentation import UNAVAILABLE
+    monkeypatch.setattr(acuitus,'soup',lambda *a,**k:BeautifulSoup(detail(status='Sold Post'),'lxml'))
+    lot=acuitus._rich_lot('https://www.acuitus.co.uk/property/1/','',{'Auction':'29/10/2099'})
+    assert _is_terminal(lot.to_dict()) and lot.status in UNAVAILABLE
+    assert 'Sold Post' in lot.description

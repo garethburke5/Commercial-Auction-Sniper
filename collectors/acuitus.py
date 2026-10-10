@@ -223,7 +223,9 @@ def _date(value):
 
 def _status(value):
     value=norm(value).upper()
-    return {'AVAILABLE':'CURRENT','SOLD POST':'SOLD POST','SOLD PRIOR':'SOLD PRIOR',
+    # The canonical lifecycle uses SOLD for completed post-auction sales; the
+    # source wording remains in the captured particulars.
+    return {'AVAILABLE':'CURRENT','SOLD POST':'SOLD','SOLD PRIOR':'SOLD PRIOR',
             'SOLD':'SOLD','WITHDRAWN':'WITHDRAWN','WITHDRAWN PRIOR':'WITHDRAWN PRIOR','POSTPONED':'POSTPONED',
             'UNSOLD':'UNSOLD'}.get(value,'STATUS UNKNOWN')
 
