@@ -165,12 +165,12 @@ class Site:
             glossary=GROUPS, glossary_sources=SOURCES, glossary_reviewed=REVIEWED)
         yield '/privacy/',self.page('/privacy/','Privacy and cookies','privacy',
             'How the public Auction Geek website handles browsing data and external links.')
-        yield '/due-diligence/',self.page('/due-diligence/','Acquisition Intelligence','due-diligence',
-            'Turn a legal pack into a clear, investor-focused acquisition review — key terms, costs, risks, opportunities and the questions that still need answering.',noindex=True)
+        yield '/due-diligence/',self.page('/due-diligence/','Property Investment Reports','due-diligence',
+            'Know more before you bid. Understand the income, lease terms, investment risks and supporting evidence before making a property purchase.',noindex=True)
         spotlights=sorted(c.properties,key=lambda r:sum(bool(r.get(k)) for k in ('tenant','lease_expiry','tenure','annual_rent','area_sqft','image_url')),reverse=True)[:3]
         yield '/deals/',self.page('/deals/','Commercial Deals','deals','Private deals, agent opportunities and clearly labelled commercial auction spotlights.',spotlights=spotlights)
         yield '/admin/deals/',self.page('/admin/deals/','Owner listing workspace','deal-admin','Create and manage commercial property listings without editing code.',noindex=True)
-        yield '/account/',self.page('/account/','My Auction Geek','account','Your shortlist, watched properties, private notes, searches and acquisition research.',noindex=True)
+        yield '/account/',self.page('/account/','My Auction Geek','account','Your shortlist, watched properties, private notes, searches and investment reports.',noindex=True)
         yield '/plans/',self.page('/plans/','Plans & Pricing','plans',
             'Find your next investment for free. Compare memberships and one-off Full Investment Reports.')
 

@@ -97,6 +97,11 @@ def test_public_offer_controls_and_configurable_prices(site,monkeypatch):
     assert '£17' in dict(site.routes())['/plans/']
     assert json.loads(dict(site.board_assets())['/platform-config.json'])['plans']['investor']['monthly_gbp']==17
     research=BeautifulSoup(pages['/due-diligence/'],'html.parser')
-    assert research.h1.text=='Acquisition Intelligence'
-    assert 'investor-focused acquisition review' in research.select_one('.intro').text
+    assert research.h1.text=='Property Investment Reports'
+    assert 'Know more before you bid.' in research.select_one('.intro').text
     assert 'prioritise questions for your solicitor' not in pages['/due-diligence/']
+    assert research.select_one('link[rel="canonical"]')['href'].endswith('/due-diligence/')
+    assert 'noindex' in research.select_one('meta[name="robots"]')['content']
+    assert research.select_one('#main-navigation .research-nav').get_text(' ',strip=True)=='Investment Reports ↗'
+    assert home.select_one('.research-nav')['href']==research.select_one('.research-nav')['href']
+    assert 'Full Investment Report' in research.get_text() and 'Free Property Snapshot' in research.get_text()

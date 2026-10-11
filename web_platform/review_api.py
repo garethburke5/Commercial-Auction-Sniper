@@ -136,17 +136,18 @@ def install(app,site,user):
     def download(rid:str,format:str='html',authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization);r,report=owned(a,uid,rid)
         full=unlocked(a,uid,rid,r['property_id']);projection=report if full and report.get('analysis_state','complete')=='complete' else snapshot(report)
+        filename = 'auction-geek-property-snapshot' if projection.get('access')=='snapshot' else 'auction-geek-investment-report'
         if format not in ('html','docx','pdf'):raise HTTPException(400,'Unsupported report format')
         if format=='pdf':
             if not full or report.get('analysis_state','complete')!='complete':raise HTTPException(403,'A completed purchased review is required for this download')
             if not report.get('investigation'):raise HTTPException(409,'This older report needs reanalysis before PDF export')
             from acquisition_premium import render_pdf
-            return Response(render_pdf(projection),media_type='application/pdf',headers={'Content-Disposition':f'attachment; filename="acquisition-{rid}.pdf"','Cache-Control':'no-store'})
+            return Response(render_pdf(projection),media_type='application/pdf',headers={'Content-Disposition':f'attachment; filename="{filename}-{rid}.pdf"','Cache-Control':'no-store'})
         if format=='docx':
             if not full or report.get('analysis_state','complete')!='complete':raise HTTPException(403,'A completed purchased review is required for this download')
             from acquisition_document import render_docx
-            return Response(render_docx(projection),media_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document',headers={'Content-Disposition':f'attachment; filename="acquisition-{rid}.docx"','Cache-Control':'no-store'})
-        return HTMLResponse(render(projection,True),headers={'Content-Disposition':f'attachment; filename="acquisition-{rid}.html"','Cache-Control':'no-store'})
+            return Response(render_docx(projection),media_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document',headers={'Content-Disposition':f'attachment; filename="{filename}-{rid}.docx"','Cache-Control':'no-store'})
+        return HTMLResponse(render(projection,True),headers={'Content-Disposition':f'attachment; filename="{filename}-{rid}.html"','Cache-Control':'no-store'})
     @app.post('/api/account/reviews/{rid}/checkout')
     def checkout_review(rid:str,authorization:str|None=Header(default=None)):
         uid,a,b=user(authorization);r,report=owned(a,uid,rid)

@@ -20,10 +20,10 @@ def _render_legacy_analysis_workspace():
     @media(max-width:650px){[data-testid="stMainBlockContainer"]{padding:.65rem!important}}
     </style>''',unsafe_allow_html=True)
     context=property_context(st.query_params.get('property'))
-    st.markdown('### Auction Geek Acquisition Intelligence')
-    st.caption('Turn a legal pack into a clear, investor-focused acquisition review — key terms, costs, risks, opportunities and the questions that still need answering.')
+    st.markdown('### Auction Geek Property Investment Reports')
+    st.caption('Know more before you bid. Understand the income, lease terms, investment risks and supporting evidence before making a property purchase.')
     engine=engine_identity()
-    st.caption(engine['release']+' · engine '+engine['build'])
+    st.caption('Report engine '+engine['build'])
     if context:
         st.markdown('**'+context['reference']+'**')
         st.link_button('View / download legal pack ↗',context.get('legal_pack_url') or context['url'])
@@ -83,15 +83,15 @@ def _render_legacy_analysis_workspace():
     keys=list(reports);active=st.session_state.get('dd_active_report',keys[-1])
     selected=st.selectbox('Reports in this session',keys,index=keys.index(active) if active in keys else len(keys)-1,format_func=lambda k:reports[k]['property']+' · '+reports[k]['created_at'][:16].replace('T',' '))
     model=reports[selected]
-    st.caption('Your snapshot stays available during this session. Download the readable HTML below to revisit it offline. Account saving and full-review purchases require secure account and payment activation.')
+    st.caption('Your snapshot stays available during this session. Download the readable HTML below to revisit it offline. Account saving and Full Investment Report purchases require secure account and payment activation.')
     from legal_pack_exports import render_report_exports
-    st.caption('The free snapshot demonstrates the analysis. Full reviews, account saving and checkout will open after secure payment activation.')
+    st.caption('The free snapshot demonstrates the analysis. Full Investment Reports, account saving and checkout will open after secure payment activation.')
     from acquisition_intelligence import build_acquisition,snapshot
     from acquisition_report import render
     acquisition=st.session_state.get('dd_acquisitions',{}).get(selected) or build_acquisition(model,context)
     free=snapshot(acquisition)
     st.markdown(render(free),unsafe_allow_html=True)
-    st.download_button('Download acquisition snapshot',render(free,standalone=True),file_name='acquisition-snapshot.html',mime='text/html',on_click='ignore')
+    st.download_button('Download Free Property Snapshot',render(free,standalone=True),file_name='auction-geek-property-snapshot.html',mime='text/html',on_click='ignore')
     originals=st.session_state.get('dd_originals',{}) if selected==st.session_state.get('dd_originals_report') else {}
     if originals:
         with st.expander('Retrieve an original uploaded document'):
@@ -103,11 +103,11 @@ def render_buyer_due_diligence():
     """The public prototype must not bypass account/payment cost controls."""
     import os
     from urllib.parse import urlencode
-    st.markdown('### Auction Geek Acquisition Intelligence')
+    st.markdown('### Auction Geek Property Investment Reports')
     st.info('Legal-pack analysis will run through your Auction Geek account after a verified purchase. Paid reports remain under quality validation; this prototype cannot start new analysis.')
     base=os.getenv('PUBLIC_ORIGIN','https://auctiongeek.co.uk').rstrip('/')
     query=urlencode({'property':st.query_params.get('property')}) if st.query_params.get('property') else ''
-    st.link_button('Open Auction Geek research',base+'/due-diligence/'+('?' + query if query else ''))
+    st.link_button('Open Investment Reports',base+'/due-diligence/'+('?' + query if query else ''))
     # Keep completed session work retrievable without permitting another run.
     reports=st.session_state.get('dd_reports',{})
     if reports:
@@ -115,6 +115,6 @@ def render_buyer_due_diligence():
         from acquisition_report import render
         for rid,model in reports.items():
             acquisition=st.session_state.get('dd_acquisitions',{}).get(rid) or build_acquisition(model,{})
-            st.download_button('Download saved snapshot: '+model['property'],
+            st.download_button('Download saved Property Snapshot: '+model['property'],
                 render(snapshot(acquisition),standalone=True),
-                file_name='acquisition-'+rid+'.html',mime='text/html',key='saved-'+rid)
+                file_name='auction-geek-property-snapshot-'+rid+'.html',mime='text/html',key='saved-'+rid)

@@ -238,7 +238,7 @@ _source=_source.replace('include_unknown=st.toggle("Keep properties where price 
 
 import streamlit as st
 if st.query_params.get("view") == "due-diligence":
-    st.set_page_config(page_title="Buyer due diligence · Auction Geek", page_icon="🎯", layout="wide")
+    st.set_page_config(page_title="Property Investment Reports · Auction Geek", page_icon="🎯", layout="wide")
     st.markdown("""<style>
     header[data-testid="stHeader"],div[data-testid="stToolbar"], [data-testid="stSidebar"]{display:none!important}
     .stApp{background:#f7f9fc;color:#172b43}.block-container{padding:1rem!important;max-width:1100px}

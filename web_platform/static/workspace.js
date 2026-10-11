@@ -70,10 +70,10 @@ function access(feature){
   :'Available with Investor and Investor Pro.';
  const detail=document.querySelector('#access-detail');detail.replaceChildren();
  const p=document.createElement('p');p.className='small';
- p.textContent=save?(config?.accounts_enabled?'Your shortlist is private to your account.':'Registration is being activated. Free property search and the Acquisition Intelligence Snapshot remain available now.')
+ p.textContent=save?(config?.accounts_enabled?'Your shortlist is private to your account.':'Registration is being activated. Free property search and Free Property Snapshots remain available now.')
   :feature==='watch'?'Follow guide prices, status, auction dates, legal-pack availability and important particulars. Membership monitoring is separate from your free shortlist. Email delivery is being activated.'
   :feature==='saved_searches'?'Keep your applied criteria ready to reopen. New-match email delivery is being activated; normal searching stays free.'
-  :billing?'One-off Property Reports remain separate: a monthly subscription is never required to research one property.'
+  :billing?'One-off Full Investment Reports remain separate: a monthly subscription is never required to research one property.'
   :'Keep private notes and a personal bid target alongside the property evidence.';
  detail.append(p);
  const primary=document.querySelector('#access-primary');

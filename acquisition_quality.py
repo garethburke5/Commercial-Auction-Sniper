@@ -6,7 +6,7 @@ setting BILLING_LIVE must never implicitly approve Acquisition Intelligence.
 from __future__ import annotations
 
 PAID_PRODUCT_STATUS = 'quality_review_required'
-PAID_PRODUCT_MESSAGE = ('Acquisition Intelligence is undergoing investment-quality validation. '
+PAID_PRODUCT_MESSAGE = ('Full Investment Reports are undergoing investment-quality validation. '
                         'Paid report checkout is not available yet.')
 
 

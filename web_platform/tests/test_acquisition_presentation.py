@@ -33,6 +33,8 @@ def test_compact_html_preserves_all_risks_and_separates_print_evidence():
     report = full_report()
     html = render(report, standalone=True)
     assert html.count('<section class="acq-page"') == 5
+    assert 'FULL INVESTMENT REPORT' in html and 'Full Investment Report</title>' in html
+    assert 'ACQUISITION INTELLIGENCE' not in html
     assert '<details class="acq-appendix">' in html
     assert '.acq-appendix{display:none!important}' in html
     assert 'Material risk 7' in html
@@ -53,6 +55,7 @@ def test_docx_preserves_material_risks_and_uses_five_page_groups():
     assert 'Annual rent' in xml and '£35,000' in xml
     assert 'w:tblHeader' in xml and 'D9D9D9' in xml
     assert 'Title' in styles
+    assert 'FULL INVESTMENT REPORT' in xml
 
 
 def test_snapshot_cannot_access_the_commercial_export_even_if_accidentally_attached():
@@ -60,7 +63,9 @@ def test_snapshot_cannot_access_the_commercial_export_even_if_accidentally_attac
     free = snapshot(report)
     # Defence in depth: renderer ignores an accidentally attached paid projection.
     free['commercial_brief'] = report['commercial_brief']
-    assert 'Material risk 7' not in render(free)
+    html = render(free, standalone=True)
+    assert 'Material risk 7' not in html
+    assert 'Free Property Snapshot</title>' in html
     with pytest.raises(ValueError):
         render_docx(free)
     with pytest.raises(ValueError):

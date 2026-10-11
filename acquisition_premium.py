@@ -78,7 +78,7 @@ def render_pdf(report):
                 t=Table([[items[:mid],items[mid:]]],colWidths=[width/2]*2);t.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'),('LEFTPADDING',(0,0),(-1,-1),0),('RIGHTPADDING',(0,0),(-1,-1),10)]));story.extend([para('Source key','h'),t])
     def foot(canvas,doc):
         canvas.setFont('Investor',7);canvas.setFillColor(colors.HexColor(GREY));canvas.drawString(44,27,'AUCTION GEEK  |  '+brief['status']);canvas.drawRightString(A4[0]-44,27,str(doc.page))
-    doc=SimpleDocTemplate(out,pagesize=A4,leftMargin=44,rightMargin=44,topMargin=35,bottomMargin=43,title=report['property']+' - Acquisition Intelligence',author='Auction Geek')
+    doc=SimpleDocTemplate(out,pagesize=A4,leftMargin=44,rightMargin=44,topMargin=35,bottomMargin=43,title=report['property']+' - Full Investment Report',author='Auction Geek')
     doc.build(story,onFirstPage=foot,onLaterPages=foot)
     return out.getvalue()
 
@@ -119,7 +119,7 @@ def render_html(report,standalone=True):
         out.append('<p>'+e(r['document']+' p'+str(r['page'])+': '+r['note'])+'</p>')
     out.append('</details></article>')
     body='<style>'+css+'</style>'+''.join(out)
-    return '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>'+e(report['property'])+'</title></head><body>'+body+'</body></html>' if standalone else body
+    return '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>'+e(report['property'])+' — Full Investment Report</title></head><body>'+body+'</body></html>' if standalone else body
 
 def render_docx(report):
     from docx import Document
@@ -128,6 +128,9 @@ def render_docx(report):
     from docx.oxml.ns import qn
     from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
     brief=make_brief(report);doc=Document();section=doc.sections[0]
+    doc.core_properties.title = str(report['property']) + ' — Full Investment Report'
+    doc.core_properties.subject = 'Property Investment Report'
+    doc.core_properties.author = 'Auction Geek'
     section.page_width=Cm(21);section.page_height=Cm(29.7)
     section.top_margin=Cm(1.3);section.bottom_margin=Cm(1.4);section.left_margin=Cm(1.55);section.right_margin=Cm(1.55)
     for name in ('Normal','Title','Heading 1','Heading 2'):

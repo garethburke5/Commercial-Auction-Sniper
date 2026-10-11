@@ -15,16 +15,16 @@ function show(r){
  document.querySelector('#download-review-docx').hidden=r.access!=='full'||!complete;
  document.querySelector('#download-review-pdf').hidden=r.access!=='full'||!complete||!r.report?.investigation;
  if(r.processing_allowed)progress.textContent='Payment verified. Upload the legal pack to start your purchased analysis.';
- else if(r.access==='full')progress.textContent='Full review saved to My Auction Geek.';
- else progress.textContent='Free listing snapshot saved. '+(r.report?.quality_status?.message||'');
+ else if(r.access==='full')progress.textContent='Full Investment Report saved to My Auction Geek.';
+ else progress.textContent='Free Property Snapshot saved. '+(r.report?.quality_status?.message||'');
  const url=new URL(location.href);url.searchParams.set('review',id);history.replaceState(null,'',url);
 }
 async function start(){if(!ready())return;panel.hidden=false;if(id){try{show(await AuctionWorkspace.api('/api/account/reviews/'+encodeURIComponent(id)));}catch(e){progress.textContent=e.message;}}}
 let attempts=0;const timer=setInterval(()=>{if(ready()||++attempts>=20){clearInterval(timer);start();}},500);
 snapshotForm.onsubmit=async e=>{
- e.preventDefault();if(!params.get('property')){progress.textContent='Open Acquisition Intelligence from a property page.';return;}
+ e.preventDefault();if(!params.get('property')){progress.textContent='Open Investment Reports from a property page.';return;}
  const fd=new FormData();fd.append('property_id',params.get('property'));
- progress.textContent='Preparing your listing snapshot.';
+ progress.textContent='Preparing your Free Property Snapshot.';
  try{show(await AuctionWorkspace.upload('/api/account/reviews',fd));}catch(e){progress.textContent=e.message;}
 };
 uploadForm.onsubmit=async e=>{
@@ -36,6 +36,6 @@ uploadForm.onsubmit=async e=>{
 document.querySelector('#redeem-review').onclick=async()=>{try{await AuctionWorkspace.api('/api/account/reviews/'+id+'/redeem','POST');show(await AuctionWorkspace.api('/api/account/reviews/'+id));}catch(e){progress.textContent=e.message;}};
 document.querySelector('#unlock-review').onclick=async()=>{try{const r=await AuctionWorkspace.api('/api/account/reviews/'+id+'/checkout','POST');if(r.url)location.assign(r.url);else show(await AuctionWorkspace.api('/api/account/reviews/'+id));}catch(e){progress.textContent=e.message;}};
 for(const [button,format] of [['download-review','html'],['download-review-pdf','pdf'],['download-review-docx','docx']]){
- document.querySelector('#'+button).onclick=async()=>{try{const b=await AuctionWorkspace.download('/api/account/reviews/'+id+'/download?format='+format);const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='auction-geek-acquisition-review.'+format;a.click();URL.revokeObjectURL(a.href);}catch(e){progress.textContent=e.message;}};
+ document.querySelector('#'+button).onclick=async()=>{try{const b=await AuctionWorkspace.download('/api/account/reviews/'+id+'/download?format='+format);const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='auction-geek-investment-report.'+format;a.click();URL.revokeObjectURL(a.href);}catch(e){progress.textContent=e.message;}};
 }
 })();
