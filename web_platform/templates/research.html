@@ -1,14 +1,33 @@
-<section id="native-review" hidden>
- <h2>My Investment Reports</h2>
- <form id="review-snapshot"><p>Start with a Free Property Snapshot of the published auction particulars.</p><button class="button" type="submit">Create my free snapshot</button></form>
- <form id="review-upload" hidden><label>Legal pack — PDF, documents or ZIP<input type="file" name="files" multiple required></label><button class="button" type="submit">Analyse my purchased report</button></form>
- <p id="review-progress" role="status"></p><div id="acquisition-result"></div>
- <div class="workspace-toolbar"><button id="redeem-review" class="button outline" hidden>Use an included report credit</button><button id="unlock-review" class="button" hidden>Purchase Full Investment Report</button><button id="download-review" class="button outline" hidden>Download printable report</button><button id="download-review-pdf" class="button outline" hidden>Download PDF report</button><button id="download-review-docx" class="button outline" hidden>Download Word report</button></div>
-</section>
 <section class="research-workspace"><div class="research-intro">
- <h2>Understand the investment behind the documents</h2>
- <p>Full Investment Reports connect lease, title, property and market evidence to the income, costs and risks of an investment.</p>
- <p class="research-payg"><strong>Paid reports are undergoing quality validation.</strong> Report purchases are not available yet. Free Property Snapshots use published listing information; they do not include a legal-pack review.</p>
- <ol class="research-steps"><li><strong>Start with the listing</strong><span>Create a Free Property Snapshot from a property page.</span></li><li><strong>Purchase when available</strong><span>Payment must be verified before document analysis starts. At launch: Investor includes 1 report per billing month; Investor Pro includes 3. Paid reports and credit redemption remain closed for quality validation.</span></li><li><strong>Review the evidence</strong><span>Upload the legal pack for the purchased report and receive a concise assessment with source references and unresolved questions.</span></li></ol>
- <p class="small muted">Sign in to save your snapshot. <a href="{{ url('/glossary/') }}#legal-pack">Legal-pack terminology →</a></p>
-</div><p class="small muted">Investment research supports due diligence; material legal, tax, valuation and condition matters require appropriate professional verification.</p></section>
+ <h2>Know more before you bid — with or without a legal pack</h2>
+ <p>Full Investment Reports investigate the property, income, market evidence, history and investment risks. A legal pack adds detail on leases, title and contractual obligations; it is optional.</p>
+ <p class="research-payg"><strong>Paid reports are undergoing quality validation.</strong> Purchases and report credits remain closed until both evidence pathways have passed review. You can prepare a Free Property Snapshot and review its proposed scope.</p>
+ <ol class="research-steps"><li><strong>Identify your property</strong><span>Start from a property page or paste a public auction lot URL. Confirm the address before continuing.</span></li><li><strong>Review the evidence scope</strong><span>See available particulars and banked evidence, what will be investigated and what remains unverified. Choose whether to supply a legal pack.</span></li><li><strong>Purchase, then investigate</strong><span>When paid reports launch, purchase once or use an included credit. The same investigation service researches the property with or without documents.</span></li></ol>
+</div></section>
+<section id="native-review" class="report-intake">
+ <h2>Start your Property Investment Report</h2>
+ <p id="review-signin">Sign in to prepare and save your report. <a href="{{ url('/account/') }}">Sign in / Register →</a></p>
+ <form id="review-snapshot">
+  <p id="review-selected" hidden>This report will start from your selected Auction Geek property.</p>
+  <label id="review-url-label">Auction lot URL<input type="url" name="lot_url" placeholder="https://…" maxlength="2048" autocomplete="url" required></label>
+  <button class="button" type="submit">Identify property</button>
+ </form>
+ <form id="review-confirm" hidden>
+  <h3>Confirm the property</h3><p>Check the address against the auction lot page, including the postcode. For multi-unit lots, confirm the complete lot.</p>
+  <p><a id="review-source" target="_blank" rel="noopener noreferrer">Open source particulars ↗</a></p>
+  <label>Property address<input name="address" required maxlength="300"></label>
+  <button class="button" type="submit">Confirm property and see scope</button>
+ </form>
+ <form id="review-scope" hidden>
+  <h3>Your report scope</h3><p id="review-scope-property"></p><p id="review-evidence-counts"></p><p id="review-scope-investigation"></p><p id="review-scope-limits" class="small"></p>
+  <label class="report-choice"><input type="checkbox" name="pack_expected" value="true"> I will supply legal-pack documents for this report</label>
+  <p id="review-update-policy" class="small"></p>
+  <label class="report-choice"><input type="checkbox" name="accepted" value="true" required> I understand the evidence scope and its limitations</label>
+  <button class="button" type="submit">Save scope and continue</button>
+ </form>
+ <form id="review-upload" hidden><label>Legal pack — optional PDF, documents or ZIP<input type="file" name="files" multiple></label><p class="small">If you chose a scope with documents, attach them here. Otherwise, start without a pack. Up to 250 files / 120 MB; unread pages and processing limits are disclosed.</p><button class="button" type="submit">Generate my Full Investment Report</button></form>
+ <p id="review-progress" role="status" aria-live="polite"></p><div id="acquisition-result"></div>
+ <div class="workspace-toolbar"><button id="redeem-review" class="button outline" hidden>Use an included report credit</button><button id="unlock-review" class="button" hidden>Purchase Full Investment Report</button><button id="download-review" class="button outline" hidden>Download printable report</button><button id="download-review-pdf" class="button outline" hidden>Download PDF report</button><button id="download-review-docx" class="button outline" hidden>Download Word report</button><button id="update-review-pack" class="button outline" hidden>Add legal pack to deepen this report</button></div>
+ <p id="review-version-links"></p>
+</section>
+<section class="research-workspace"><h2>Clear evidence. Clear limits.</h2><p>We distinguish passing income from rental potential, asking prices from achieved transactions, and recorded facts from inference. Missing lease terms, title findings, compliance conclusions and valuations are not invented.</p><p><strong>Provisional document-update policy:</strong> one legal-pack update is included within 30 days of completing a report without a pack, for the same property and sale. Your original report remains available. Further updates or a different sale require a separate scope and price agreed before processing.</p><p class="small muted">Investment research supports due diligence; material legal, tax, valuation and condition matters require appropriate professional verification. <a href="{{ url('/glossary/') }}#legal-pack">Legal-pack terminology →</a></p></section>

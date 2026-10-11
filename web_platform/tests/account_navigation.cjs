@@ -33,7 +33,7 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
  };
  const config={accounts_enabled:enabled,api_origin:'https://private.example',billing_enabled:true,plans:{free:{name:'Free'}}};
  const remote={features:['watch'],saved_properties:[],plan:'free',is_owner:owner,workspace:{properties:[],saved_searches:[],events:[],reviews:[{id:'private-report',created_at:1}]}};
- const context={window:{AuctionIdentity:{createClient:()=>({auth})}},document:{
+ const context={Event,window:{dispatchEvent(){},AuctionIdentity:{createClient:()=>({auth})}},document:{
   body:{dataset:{prefix:'/test'},append(){}},
   querySelector:s=>elements[s]||null,
   querySelectorAll:s=>s==='[data-account-link]'?[link]:s==='[data-sign-out]'?[navSignOut,dashboardSignOut]:[],

@@ -6,21 +6,34 @@ from acquisition_intelligence import snapshot
 from acquisition_report import render
 from .workspace import initialise,full_review_allowed
 from .database import begin_write
+from .report_intake import prepare, scope, confirm_identity, UPDATE_POLICY
 
 def install(app,site,user):
-    def owned(a,uid,rid):
-        initialise(a)
-        with a.db() as db:r=db.execute('SELECT * FROM reviews WHERE id=? AND user_id=?',(rid,uid)).fetchone()
+    def owned(a,uid,rid,connection=None):
+        if connection is None:
+            initialise(a)
+            with a.db() as db:r=db.execute('SELECT * FROM reviews WHERE id=? AND user_id=?',(rid,uid)).fetchone()
+        else:r=connection.execute('SELECT * FROM reviews WHERE id=? AND user_id=?',(rid,uid)).fetchone()
         if not r:raise HTTPException(404,'Review not found')
-        return r,json.loads(r['report_json'])
+        report=json.loads(r['report_json'])
+        if report.get('analysis_state')=='intake_failed':raise HTTPException(409,'Property identification did not complete. Start again with a public lot URL.')
+        return r,report
     def unlocked(a,uid,rid,pid):
         return full_review_allowed(a,uid,rid,pid)
     def payload(rid,report,full=False):
         state=report.get('analysis_state','complete')
-        projection=report if full and state=='complete' else snapshot(report)
+        projection={k:v for k,v in report.items() if k!='_intake'} if full and state=='complete' else snapshot(report)
         result={'id':rid,'access':'full' if full and state=='complete' else 'snapshot',
                 'analysis_state':state,'processing_allowed':bool(full and state in ('awaiting_payment','failed')),
                 'report':projection,'html':render(projection)}
+        intake=report.get('_intake')
+        if intake:
+            result['scope']=scope(intake)
+            result['pack_update_id']=intake.get('pack_update_id')
+            result['pack_update_available']=bool(full and state=='complete' and
+                not intake.get('parent_review_id') and not intake.get('pack_update_id') and
+                report.get('evidence_scope',{}).get('pathway')=='public_evidence' and
+                report.get('completed_at',0)>=int(time.time())-30*86400)
         if state=='requires_review':
             result['html']='<p class="research-scope">This analysis needs a source-quality review before delivery. Your purchase is retained; uploading again will not restart chargeable processing.</p>'+result['html']
         elif state!='complete':
@@ -29,47 +42,116 @@ def install(app,site,user):
         return result
 
     @app.post('/api/account/reviews')
-    def create_snapshot(property_id:str=Form(),authorization:str|None=Header(default=None)):
+    def create_snapshot(property_id:str=Form(default=''),lot_url:str=Form(default=''),authorization:str|None=Header(default=None)):
         # This route never reads uploaded documents or calls an analysis provider.
         uid,a,_=user(authorization);initialise(a)
-        row=site.catalogue.rows.get(property_id)
-        if not row:raise HTTPException(404,'Unknown property')
         with a.db() as db:
+            begin_write(db)
             if db.execute('SELECT COUNT(*) FROM reviews WHERE user_id=? AND created_at>?',(uid,int(time.time())-3600)).fetchone()[0]>=5:raise HTTPException(429,'Hourly snapshot limit reached')
+            # Reserve a bounded intake slot before fetching user-supplied URLs.
+            rid=uuid.uuid4().hex
+            db.execute('INSERT INTO reviews VALUES (?,?,?,?,?)',(rid,uid,property_id or 'intake',json.dumps({'analysis_state':'intake_failed'}),int(time.time())))
+        try:
+            intake=prepare(site,property_id,lot_url,getattr(app.state,'report_source_capture',None))
+        except ValueError as error:raise HTTPException(400,str(error)) from None
+        except Exception:raise HTTPException(400,'The lot page could not be captured. Use a public direct auction lot URL or contact support.') from None
+        row=intake['context'];property_id=row['id']
         from acquisition_intelligence import build_acquisition
         from acquisition_build import engine_identity
         from datetime import datetime,timezone
-        rid=uuid.uuid4().hex
         model={'property':row['address'],'report_id':rid,
                'created_at':datetime.now(timezone.utc).isoformat(),
                'engine':engine_identity(),'coverage':{'pages':0,'text_documents':0},
                'documents':[],'findings':[],'missing':[]}
-        context=dict(row,guide=row.get('guide_price'),rent=row.get('annual_rent'))
-        report=build_acquisition(model,context)
-        report['analysis_state']='awaiting_payment'
-        report['first_pass']='Auction particulars only. The legal pack has not been analysed.'
+        report=build_acquisition(model,row)
+        report['analysis_state']='awaiting_confirmation'
+        report['_intake']=intake
+        report['first_pass']='Auction particulars only. Confirm the property and review the proposed evidence scope.'
         with a.db() as db:
-            db.execute('INSERT INTO reviews VALUES (?,?,?,?,?)',(rid,uid,property_id,json.dumps(report),int(time.time())))
+            db.execute('UPDATE reviews SET property_id=?,report_json=? WHERE id=? AND user_id=?',(property_id,json.dumps(report),rid,uid))
             db.execute('INSERT INTO review_processing VALUES (?,?,?,?)',(rid,'awaiting_payment',0,int(time.time())))
         return payload(rid,report)
 
+    @app.post('/api/account/reviews/{rid}/confirm')
+    def confirm(rid:str,address:str=Form(),authorization:str|None=Header(default=None)):
+        uid,a,_=user(authorization);initialise(a)
+        with a.db() as db:
+            begin_write(db)
+            r,report=owned(a,uid,rid,db)
+            if report.get('analysis_state')!='awaiting_confirmation':raise HTTPException(409,'Property identity is already confirmed')
+            try:confirm_identity(report['_intake'],address)
+            except ValueError as error:raise HTTPException(400,str(error)) from None
+            intake=report['_intake']
+            intake['context']['market_context']=site.market.for_property(intake['context'])
+            from acquisition_intelligence import build_acquisition
+            model=report['evidence_review'];model['property']=intake['context']['address']
+            report=build_acquisition(model,intake['context']);report['_intake']=intake
+            report['analysis_state']='awaiting_scope'
+            db.execute('UPDATE reviews SET report_json=? WHERE id=? AND user_id=?',(json.dumps(report),rid,uid))
+        return payload(rid,report,unlocked(a,uid,rid,r['property_id']))
+
+    @app.post('/api/account/reviews/{rid}/scope')
+    def accept_scope(rid:str,accepted:bool=Form(),pack_expected:bool=Form(default=False),authorization:str|None=Header(default=None)):
+        uid,a,_=user(authorization);initialise(a)
+        with a.db() as db:
+            begin_write(db)
+            r,report=owned(a,uid,rid,db)
+            if report.get('analysis_state')!='awaiting_scope' or not accepted:raise HTTPException(409,'Confirm the property and accept its evidence scope first')
+            report['_intake'].update(scope_accepted=True,pack_expected=bool(pack_expected or report['_intake'].get('parent_review_id')),scope_accepted_at=int(time.time()))
+            report['analysis_state']='awaiting_payment'
+            db.execute('UPDATE reviews SET report_json=? WHERE id=? AND user_id=?',(json.dumps(report),rid,uid))
+        return payload(rid,report,unlocked(a,uid,rid,r['property_id']))
+
+    @app.post('/api/account/reviews/{rid}/pack-update')
+    def pack_update(rid:str,authorization:str|None=Header(default=None)):
+        uid,a,_=user(authorization);initialise(a)
+        with a.db() as db:
+            begin_write(db)
+            r,original=owned(a,uid,rid,db)
+            from .report_credits import report_access
+            if not report_access(db,uid,rid):raise HTTPException(402,'The original report purchase or credit must remain valid')
+            intake=original.get('_intake') or {}
+            if intake.get('pack_update_id'):
+                child_id=intake['pack_update_id']
+                child=db.execute('SELECT report_json FROM reviews WHERE id=? AND user_id=?',(child_id,uid)).fetchone()
+                return payload(child_id,json.loads(child[0]),True)
+            if (original.get('analysis_state')!='complete' or intake.get('parent_review_id') or
+                original.get('evidence_scope',{}).get('pathway')!='public_evidence' or
+                original.get('completed_at',0)<int(time.time())-30*86400):
+                raise HTTPException(409,UPDATE_POLICY)
+            child_id=uuid.uuid4().hex
+            child=json.loads(json.dumps(original))
+            child.update(report_id=child_id,analysis_state='awaiting_scope')
+            child['_intake'].update(parent_review_id=rid,scope_accepted=False,pack_expected=True)
+            child.pop('completed_at',None)
+            intake['pack_update_id']=child_id
+            db.execute('INSERT INTO reviews VALUES (?,?,?,?,?)',(child_id,uid,r['property_id'],json.dumps(child),int(time.time())))
+            db.execute('INSERT INTO review_processing VALUES (?,?,?,?)',(child_id,'awaiting_payment',0,int(time.time())))
+            db.execute('UPDATE reviews SET report_json=? WHERE id=? AND user_id=?',(json.dumps(original),rid,uid))
+        return payload(child_id,child,True)
+
     @app.post('/api/account/reviews/{rid}/analyse')
-    def analyse(rid:str,files:list[UploadFile]=File(),authorization:str|None=Header(default=None)):
+    def analyse(rid:str,files:list[UploadFile]|None=File(default=None),authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization);r,existing=owned(a,uid,rid)
         # Verified webhook state grants access. Neither a Checkout redirect,
         # subscription label nor a client flag authorises costly work.
         if not unlocked(a,uid,rid,r['property_id']):
-            raise HTTPException(402,'A verified report purchase is required before legal-pack analysis')
+            raise HTTPException(402,'A verified report purchase or credit is required before investigation')
         if existing.get('analysis_state','complete')=='complete':
             return payload(rid,existing,True)
+        intake=existing.get('_intake')
+        if intake and not intake.get('scope_accepted'):raise HTTPException(409,'Confirm the property and accept the evidence scope first')
         factory=getattr(app.state,'acquisition_provider_factory',None)
         reasoner=getattr(app.state,'acquisition_reasoner',None)
         researcher=getattr(app.state,'acquisition_researcher',None)
         if not callable(factory) and (not callable(reasoner) or not callable(researcher)):
             raise HTTPException(503,'The full investigation service is not configured. No document analysis has started.')
-        row=site.catalogue.rows.get(r['property_id'])
+        row=intake['context'] if intake else site.catalogue.rows.get(r['property_id'])
         if not row:raise HTTPException(409,'The property needs refreshed particulars before analysis')
-        if not 1<=len(files)<=250:raise HTTPException(400,'Choose 1–250 files')
+        files=[f for f in (files or []) if f.filename]
+        if len(files)>250:raise HTTPException(400,'Choose up to 250 files')
+        if intake and (intake.get('pack_expected') or intake.get('parent_review_id')) and not files:
+            raise HTTPException(400,'This scope includes a legal pack. Attach it before starting the investigation.')
         supplied=[];size=0
         for f in files:
             raw=f.file.read(120*1024*1024-size+1);size+=len(raw)
@@ -98,15 +180,18 @@ def install(app,site,user):
             from legal_pack_service import analyse_uploaded_pack
             from .fees import estimate_fee,fee_profile
             context=dict(row,guide=row.get('guide_price'),rent=row.get('annual_rent'))
-            context['auctioneer_fee']=estimate_fee(row,fee_profile(row['source_slug'],site.fees),site.evidence.get(row['url'],{})).get('amount')
+            context['auctioneer_fee']=estimate_fee(row,fee_profile(row.get('source_slug','external'),site.fees),site.evidence.get(row.get('url'),{})).get('amount')
             context['market_context']=site.market.for_property(row)
             result=analyse_uploaded_pack(row['address'],supplied,context,
                 ocr=os.getenv('REVIEW_OCR','true')=='true',
+                research={'sources':intake.get('sources',[]),'records':[],'attempts':[]} if intake else None,
                 reasoning_backend=reasoner,research_backend=researcher)
             report=result['acquisition'];report['report_id']=rid
+            if intake:report['_intake']=intake
             from acquisition_quality import acceptance_issues
-            needs_review=bool(provider is not None and acceptance_issues(report))
+            needs_review=bool(acceptance_issues(report))
             report['analysis_state']='requires_review' if needs_review else 'complete'
+            if not needs_review:report['completed_at']=int(time.time())
             outcome=report['analysis_state']
             with a.db() as db:
                 db.execute('UPDATE reviews SET report_json=? WHERE id=? AND user_id=?',(json.dumps(report),rid,uid))
@@ -118,6 +203,8 @@ def install(app,site,user):
             metrics={'elapsed_seconds':round(time.monotonic()-started,3),
                      'cpu_seconds':round(time.process_time()-cpu_started,3),
                      'coverage':report.get('coverage',{}),'ocr_enabled':os.getenv('REVIEW_OCR','true')=='true',
+                     'evidence_pathway':'pack_enhanced' if files else 'public_evidence',
+                     'parent_review_id':(intake or {}).get('parent_review_id'),
                      'provider_usage':provider.usage_record() if provider is not None else None}
             from .report_costs import estimate_cost
             metrics['cost']=estimate_cost(metrics['provider_usage'] or {},metrics)
@@ -152,9 +239,11 @@ def install(app,site,user):
     def checkout_review(rid:str,authorization:str|None=Header(default=None)):
         uid,a,b=user(authorization);r,report=owned(a,uid,rid)
         if unlocked(a,uid,rid,r['property_id']):return {'already_unlocked':True}
+        if report.get('_intake',{}).get('parent_review_id'):raise HTTPException(402,'The original report payment needs review; an update cannot be purchased separately')
         from acquisition_quality import paid_report_status
         quality=paid_report_status(report)
         if not quality['purchase_available']:raise HTTPException(503,quality['message'])
+        if not report.get('_intake',{}).get('scope_accepted'):raise HTTPException(409,'Confirm the property and accept its evidence scope first')
         return {'url':b.purchase(uid,'legal_pack_report','review:'+rid)}
 
     @app.post('/api/account/reviews/{rid}/redeem')

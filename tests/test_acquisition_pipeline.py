@@ -88,8 +88,32 @@ def test_public_prototype_cannot_bypass_paid_processing(monkeypatch):
         link_button=lambda *a,**k:calls.append(a))
     monkeypatch.setitem(sys.modules,'streamlit',fake)
     sys.modules.pop('buyer_due_diligence',None)
+
     module=importlib.import_module('buyer_due_diligence')
     # No file uploader, OCR or analysis methods exist on the fake surface.
     module.render_buyer_due_diligence()
     assert calls and '/due-diligence/' in calls[0][1]
     sys.modules.pop('buyer_due_diligence',None)
+
+
+def test_external_particulars_are_subject_quote_basis_and_conflict_bound():
+    from acquisition_pipeline import enrich_external_particulars
+    from copy import deepcopy
+    context={'external_lot':True,'address':'1 High Street'}
+    research=external('subject_particulars','Current annual rent £20,000.',field='annual_rent',value=20000,basis='passing_annual')
+    for r in research['records']:r['subject']='1 High Street'
+    filled=enrich_external_particulars(context,research)
+    assert filled['rent']==20000
+    wrong=deepcopy(research);wrong['records'][0]['value']=30000
+    assert enrich_external_particulars(context,wrong)['rent'] is None
+    wrong=deepcopy(research);wrong['records'][0]['subject']='2 High Street'
+    assert enrich_external_particulars(context,wrong)['rent'] is None
+    conflict=external('subject_particulars','Current annual rent £25,000.',field='annual_rent',value=25000,basis='passing_annual')
+    for r in conflict['records']:r['subject']='1 High Street'
+    for s in conflict['sources']:s['id']='other'
+    for r in conflict['records']:r['source_id']='other'
+    combined={k:research.get(k,[])+conflict.get(k,[]) for k in ('sources','records','attempts')}
+    assert enrich_external_particulars(filled,combined)['rent'] is None
+    erv=external('subject_particulars','Estimated rental potential £20,000 per annum.',field='annual_rent',value=20000,basis='passing_annual')
+    for r in erv['records']:r['subject']='1 High Street'
+    assert enrich_external_particulars(context,erv)['rent'] is None

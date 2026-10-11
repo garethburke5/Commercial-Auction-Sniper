@@ -53,6 +53,11 @@ def build_ledger(model, catalogue, research):
         ledger.add({'document': 'Auction particulars', 'url': catalogue.get('url'),
                     'excerpt': text, 'observed_at': catalogue.get('collected_at'),
                     'source_kind': 'catalogue', 'sha256': sha256(text.encode()).hexdigest()})
+    from acquisition_market_evidence import corpus_records
+    for record in corpus_records((catalogue or {}).get('market_context')):
+        ledger.add({'document': record['source']['title'], 'url': record['source']['url'],
+                    'excerpt': record['description'], 'source_kind': 'banked_catalogue',
+                    'provenance': 'Previously captured catalogue data; verify age and comparability'})
     for source in research.get('sources', []):
         ledger.add(dict(source, source_kind='external'))
     return ledger
@@ -123,6 +128,7 @@ def reasoning_packet(report, investigation):
     payload = {'instructions': REVIEW_INSTRUCTIONS,
                'property': report.get('property'),
                'profile': investigation.get('profile'),
+               'evidence_scope': report.get('evidence_scope'),
                'investment': {key: report.get(key) for key in (
                    'guide', 'guide_upper', 'rent', 'assessment_price',
                    'assessment_price_basis', 'tenure', 'listing_status',

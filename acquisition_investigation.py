@@ -319,11 +319,17 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
              'Asking prices and auction guides alone cannot support an investment value or maximum bid.', ['market_sales', 'vacant_possession'])
     question('history', 'Investigate prior marketing, occupation and property changes.',
              'History can reveal rent resets, recurring vacancy, failed sales or changes in use.', ['history'])
-    question('covenant', 'Assess the actual legal tenant and current income collection.',
-             'A trading brand, receipt or Companies House active status is not evidence of financial strength.', ['covenant', 'payment'])
-    if profile['listed'] or profile['development']:
-        question('planning', 'Check relevant designation, permissions and nearby development status.',
-                 'Consent constraints and construction effects can alter expenditure, use and demand.', ['planning'])
+    if not profile['vacant']:
+        question('covenant', 'Assess the actual legal tenant and current income collection.',
+                 'A trading brand, receipt or Companies House active status is not evidence of financial strength.', ['covenant', 'payment'])
+    question('planning', 'Check relevant designation, permissions and nearby development status for this address.',
+             'Consent constraints and construction effects can alter expenditure, use and demand.', ['planning'])
+    question('environment', 'Investigate location-specific flood, contamination and environmental evidence.',
+             'Distinguish mapped screening from an observed defect and establish the exact site extent.', ['environment'])
+    question('expenditure', 'Investigate condition, likely expenditure and who would bear the cost for this property.',
+             'Use actual particulars, surveys, condition evidence and recovery terms; do not invent a works budget.', ['condition', 'capex'])
+    question('local-market', 'Assess local occupier demand, competing supply and rental sustainability for this property use.',
+             'Market conditions must be relevant to the location, use and evidence date.', ['local_market'])
 
     scenario_rows = []
     price = report.get('assessment_price')

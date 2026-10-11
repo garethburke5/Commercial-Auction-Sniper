@@ -4,7 +4,7 @@ The same transaction lock is used by billing and processing. Periods never roll
 over; changing a plan cannot reset usage or mint a second allowance mid-month.
 Completed redemptions survive subscription expiry, but not a funding refund.
 """
-import time
+import time,json
 from fastapi import HTTPException
 from .database import begin_write
 from .plans import CATALOGUE
@@ -64,20 +64,36 @@ def credit_access(db,user,rid):
 
 
 def report_access(db,user,rid):
-    return credit_access(db,user,rid) or bool(db.execute("SELECT 1 FROM purchases WHERE user_id=? AND product='legal_pack_report' AND property_id=? AND status='paid_awaiting_fulfilment'",(user,'review:'+rid)).fetchone())
+    def direct(target):
+        return credit_access(db,user,target) or bool(db.execute("SELECT 1 FROM purchases WHERE user_id=? AND product='legal_pack_report' AND property_id=? AND status='paid_awaiting_fulfilment'",(user,'review:'+target)).fetchone())
+    if direct(rid):return True
+    child=db.execute('SELECT property_id,report_json FROM reviews WHERE id=? AND user_id=?',(rid,user)).fetchone()
+    if not child:return False
+    parent_id=json.loads(child['report_json']).get('_intake',{}).get('parent_review_id')
+    if not parent_id:return False
+    parent=db.execute('SELECT property_id,report_json FROM reviews WHERE id=? AND user_id=?',(parent_id,user)).fetchone()
+    if not parent or parent['property_id']!=child['property_id']:return False
+    intake=json.loads(parent['report_json']).get('_intake',{})
+    # Exactly one server-linked child, never a recursive entitlement chain.
+    return bool(not intake.get('parent_review_id') and intake.get('pack_update_id')==rid and direct(parent_id))
 
 
 def redeem(accounts,user,rid):
     from acquisition_quality import paid_report_status
     with accounts.db() as db:
         begin_write(db)
-        report=db.execute('SELECT id FROM reviews WHERE id=? AND user_id=?',(rid,user)).fetchone()
+        report=db.execute('SELECT id,report_json FROM reviews WHERE id=? AND user_id=?',(rid,user)).fetchone()
         if not report:raise HTTPException(404,'Report not found')
+        intake=json.loads(report['report_json']).get('_intake',{})
+        if intake.get('parent_review_id'):
+            if report_access(db,user,rid):return {'already_unlocked':True}
+            raise HTTPException(402,'The original report payment needs review')
         if credit_access(db,user,rid):return {'already_unlocked':True}
         if db.execute("SELECT 1 FROM purchases WHERE user_id=? AND product='legal_pack_report' AND property_id=? AND status='paid_awaiting_fulfilment'",(user,'review:'+rid)).fetchone():
             return {'already_unlocked':True}
         quality=paid_report_status()
         if not quality['purchase_available']:raise HTTPException(503,quality['message'])
+        if intake and not intake.get('scope_accepted'):raise HTTPException(409,'Accept the report evidence scope first')
         # An unresolved payment must not race credit redemption and charge twice.
         if db.execute("SELECT 1 FROM purchases WHERE user_id=? AND product='legal_pack_report' AND property_id=? AND status IN ('pending','refund_review','payment_review')",(user,'review:'+rid)).fetchone():
             raise HTTPException(409,'Resolve the existing report payment before using a credit')

@@ -195,6 +195,7 @@ def build_acquisition(model,catalogue=None,*,research=None,open_review=None):
     from acquisition_quality import paid_report_status, acceptance_issues
     apply_amendments(report, research or c.get('research'))
     report['market_context'] = c.get('market_context', {})
+    report['evidence_scope'] = model.get('evidence_scope', {})
     report['investigation'] = investigate(report, model, c, research, open_review)
     report['quality_status'] = dict(paid_report_status(report), outstanding=acceptance_issues(report))
     return report
@@ -204,7 +205,7 @@ def snapshot(report):
     public_fields={'schema_version','engine','product','report_id','property','created_at',
         'what_you_are_buying','guide','guide_upper','rent','tenant','company_number','tenant_evidence',
         'tenure','lease','completion','deposit','vat','calculations','first_pass','deep_dive','cpse',
-        'listing_status','auction_date','catalogue_as_of','coverage','disclaimer','analysis_state'}
+        'listing_status','auction_date','catalogue_as_of','coverage','disclaimer','analysis_state','evidence_scope'}
     # New analytical fields are private unless explicitly reviewed for the free projection.
     out={k:v for k,v in report.items() if k in public_fields}
     from acquisition_quality import paid_report_status

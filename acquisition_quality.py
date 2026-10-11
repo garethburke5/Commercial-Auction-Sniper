@@ -24,6 +24,14 @@ def acceptance_issues(report):
         return ['No cross-evidence investigation is attached.']
     if not investigation.get('external_research', {}).get('attempts'):
         issues.append('No external-investigation attempts are recorded.')
+    if not investigation.get('external_research', {}).get('sources'):
+        issues.append('No independently captured external evidence is available for review.')
+    if not investigation.get('open_review', {}).get('findings'):
+        issues.append('No substantive source-grounded investment conclusions have been recorded.')
+    if any(s.get('capture_truncated') for s in investigation.get('external_research',{}).get('sources',[])):
+        issues.append('An external source exceeded the capture limit and needs a complete source review.')
+    if investigation.get('pipeline',{}).get('remaining_research_requests'):
+        issues.append('The evidence reviewer has outstanding research requests.')
     for question in investigation.get('research_questions', []):
         if question.get('decision_relevant') and question.get('status') == 'not_investigated':
             issues.append(question['question'])

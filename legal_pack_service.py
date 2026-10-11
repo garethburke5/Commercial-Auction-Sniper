@@ -1,4 +1,4 @@
-"""End-to-end service layer for Auction Sniper Buyer Due Diligence."""
+"""Shared investment investigation service. Legal-pack files are optional."""
 from __future__ import annotations
 from dataclasses import dataclass,asdict
 from typing import Any,Iterable
@@ -13,7 +13,7 @@ REPORT_PRICE_GBP=25.00;VAT_RATE=0.20
 class AnalysisCost:
  input_files:int=0;expanded_files:int=0;accepted_documents:int=0;visual_review_items:int=0;conversion_required_items:int=0;unsupported_items:int=0;duplicate_files:int=0;total_bytes:int=0;total_pages:int=0;extracted_chars:int=0;elapsed_seconds:float=0.0;ai_cost_gbp:float|None=0.0;infrastructure_cost_gbp:float=0.0;sale_price_ex_vat_gbp:float=REPORT_PRICE_GBP;vat_gbp:float=REPORT_PRICE_GBP*VAT_RATE;sale_price_inc_vat_gbp:float=REPORT_PRICE_GBP*(1+VAT_RATE);estimated_gross_margin_gbp:float|None=REPORT_PRICE_GBP
 
-def analyse_uploaded_pack(property_ref:str,files:Iterable[tuple[str,bytes]],catalogue:dict[str,Any]|None=None,*,ocr=False,progress=None,research=None,open_review=None,verified_transcriptions=None,reasoning_backend=None,research_backend=None)->dict[str,Any]:
+def analyse_uploaded_pack(property_ref:str,files:Iterable[tuple[str,bytes]]=(),catalogue:dict[str,Any]|None=None,*,ocr=False,progress=None,research=None,open_review=None,verified_transcriptions=None,reasoning_backend=None,research_backend=None)->dict[str,Any]:
  started=time.perf_counter();file_list=list(files);ingested=ingest_pack(file_list,ocr=ocr,progress=progress)
  if verified_transcriptions:
   from acquisition_transcription import apply_transcriptions
@@ -37,7 +37,8 @@ def analyse_uploaded_pack(property_ref:str,files:Iterable[tuple[str,bytes]],cata
  model['coverage']['total_bytes']=ingested.total_bytes
  from acquisition_intelligence import build_acquisition
  model['source_pages']=[{'document':d.name,'document_sha256':d.sha256,'page':p.get('page'),'text':p.get('text',''),'ocr':p.get('ocr',False)} for d in ingested.documents for p in (d.metadata.get('pages') or [{'page':None,'text':d.text}])]
- from acquisition_pipeline import investigate_acquisition
+ from acquisition_pipeline import investigate_acquisition,evidence_scope
+ model['evidence_scope']=evidence_scope(file_list,ingested.documents)
  acquisition=investigate_acquisition(model,catalogue or {},research=research,open_review=open_review,
                                     reasoning_backend=reasoning_backend,research_backend=research_backend)
  # A configured provider is not free merely because it has no usage adapter.

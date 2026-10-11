@@ -180,6 +180,8 @@ def commercial_brief(report):
                     f"{coverage.get('unread_pages', 0)} unread pages.",
                     'Source extracts and the document register are available in the online evidence appendix.']
     source_notes.extend(report.get('unknowns', []))
+    if report.get('evidence_scope',{}).get('summary'):
+        source_notes.insert(0,report['evidence_scope']['summary'])
     listing_status = str(report.get('listing_status') or '').upper()
     terminal = any(token in listing_status for token in ('SOLD', 'WITHDRAWN', 'UNSOLD', 'POSTPONED'))
     status = (listing_status + ' — auction pack review') if terminal else 'Acquisition review'

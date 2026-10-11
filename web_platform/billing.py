@@ -8,6 +8,7 @@ apply an older captured subscription after a newer one.
 import time
 import os
 import uuid
+import json
 import stripe
 from fastapi import HTTPException
 from .accounts import PLANS
@@ -84,6 +85,10 @@ class Billing:
                 rid=property_id.removeprefix('review:')
                 if not property_id.startswith('review:') or not db.execute('SELECT 1 FROM reviews WHERE id=? AND user_id=?',(rid,user)).fetchone():
                     raise HTTPException(404,'Report not found')
+                report=json.loads(db.execute('SELECT report_json FROM reviews WHERE id=? AND user_id=?',(rid,user)).fetchone()[0])
+                intake=report.get('_intake')
+                if intake and (intake.get('parent_review_id') or not intake.get('scope_accepted')):
+                    raise HTTPException(409,'Confirm the report evidence scope; included document updates do not require another purchase')
                 if credit_access(db,user,rid):raise HTTPException(409,'This report is already unlocked')
             existing=db.execute("SELECT * FROM purchases WHERE user_id=? AND product=? AND property_id=? AND status IN ('pending','paid_awaiting_fulfilment') ORDER BY created_at DESC LIMIT 1",(user,product,property_id)).fetchone()
             if existing:

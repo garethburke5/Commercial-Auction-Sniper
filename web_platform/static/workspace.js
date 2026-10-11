@@ -36,7 +36,7 @@ function updateSession(next){
   else try{sessionStorage.removeItem('auction-owner-preview');}catch(_){}
   render();
  }
- renderAuth();return changed;
+ renderAuth();if(changed)window.dispatchEvent(new Event('auction-auth-change'));return changed;
 }
 async function refreshSession(){
  if(auth){const {data,error}=await auth.auth.getSession();if(error)throw error;updateSession(data.session);}

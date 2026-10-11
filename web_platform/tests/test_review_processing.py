@@ -17,6 +17,14 @@ def setup(site,tmp_path,monkeypatch):
     return a,app,site.catalogue.properties[0]['id']
 
 
+def create_confirmed(c,pid):
+    r=c.post('/api/account/reviews',data={'property_id':pid},headers={'Authorization':'alice'}).json()
+    rid=r['id']
+    assert c.post(f'/api/account/reviews/{rid}/confirm',data={'address':r['scope']['property']},headers={'Authorization':'alice'}).status_code==200
+    assert c.post(f'/api/account/reviews/{rid}/scope',data={'accepted':'true'},headers={'Authorization':'alice'}).status_code==200
+    return rid
+
+
 def pay(a,rid,user='alice',status='paid_awaiting_fulfilment'):
     with a.db() as db:
         db.execute('INSERT INTO purchases(order_id,user_id,product,property_id,price_id,status,created_at) VALUES (?,?,?,?,?,?,?)',
@@ -30,7 +38,7 @@ def test_free_snapshot_and_paid_subscription_never_trigger_pack_analysis(site,tm
     with TestClient(app) as c:
         created=c.post('/api/account/reviews',data={'property_id':pid},files={'files':('ignored.pdf',b'document')},headers={'Authorization':'alice'})
         assert created.status_code==200
-        r=created.json();rid=r['id'];assert r['analysis_state']=='awaiting_payment'
+        r=created.json();rid=r['id'];assert r['analysis_state']=='awaiting_confirmation'
         assert r['report']['coverage']['pages']==0 and not r['processing_allowed']
         assert 'Listing snapshot only' in r['html']
         with a.db() as db:db.execute('INSERT INTO subscriptions VALUES (?,?,?,?,?)',('sub','alice','investor','active',int(time.time())+3600))
@@ -40,6 +48,8 @@ def test_free_snapshot_and_paid_subscription_never_trigger_pack_analysis(site,tm
 
 
 def test_owner_payment_completion_and_refund_boundaries(site,tmp_path,monkeypatch):
+    # This test isolates delivery/entitlement boundaries, not analytical approval.
+    monkeypatch.setattr('acquisition_quality.acceptance_issues',lambda report: [])
     a,app,pid=setup(site,tmp_path,monkeypatch);calls=[]
     from acquisition_intelligence import build_acquisition
     from web_platform.tests.test_acquisition_workspace import model
@@ -50,7 +60,7 @@ def test_owner_payment_completion_and_refund_boundaries(site,tmp_path,monkeypatc
         return {'acquisition':build_acquisition(model(),{'guide':200000,'rent':20000})}
     monkeypatch.setattr('legal_pack_service.analyse_uploaded_pack',process)
     with TestClient(app) as c:
-        rid=c.post('/api/account/reviews',data={'property_id':pid},headers={'Authorization':'alice'}).json()['id']
+        rid=create_confirmed(c,pid)
         pay(a,rid)
         assert c.get(f'/api/account/reviews/{rid}',headers={'Authorization':'alice'}).json()['processing_allowed']
         assert c.post(f'/api/account/reviews/{rid}/analyse',files={'files':('pack.pdf',b'x')},headers={'Authorization':'bob'}).status_code==404
@@ -69,7 +79,7 @@ def test_in_progress_and_failed_jobs_do_not_loop_unbounded(site,tmp_path,monkeyp
     def fail(*args,**kwargs):calls.append(1);raise RuntimeError('provider secret must not leak')
     monkeypatch.setattr('legal_pack_service.analyse_uploaded_pack',fail)
     with TestClient(app) as c:
-        rid=c.post('/api/account/reviews',data={'property_id':pid},headers={'Authorization':'alice'}).json()['id'];pay(a,rid)
+        rid=create_confirmed(c,pid);pay(a,rid)
         with a.db() as db:db.execute("UPDATE review_processing SET status='processing' WHERE review_id=?",(rid,))
         url=f'/api/account/reviews/{rid}/analyse';kw={'files':{'files':('p.pdf',b'x')},'headers':{'Authorization':'alice'}}
         assert c.post(url,**kw).status_code==409 and not calls
@@ -85,7 +95,7 @@ def test_paid_but_unconfigured_service_does_not_run_extraction(site,tmp_path,mon
     def forbidden(*args,**kwargs):raise AssertionError('No extraction before full provider readiness')
     monkeypatch.setattr('legal_pack_service.analyse_uploaded_pack',forbidden)
     with TestClient(app) as c:
-        rid=c.post('/api/account/reviews',data={'property_id':pid},headers={'Authorization':'alice'}).json()['id'];pay(a,rid)
+        rid=create_confirmed(c,pid);pay(a,rid)
         r=c.post(f'/api/account/reviews/{rid}/analyse',files={'files':('p.pdf',b'x')},headers={'Authorization':'alice'})
         assert r.status_code==503 and 'No document analysis has started' in r.text
 
@@ -131,7 +141,7 @@ def test_generation_attempts_include_failures_without_claiming_zero_cost(site,tm
     a,app,pid=setup(site,tmp_path,monkeypatch)
     monkeypatch.setattr('legal_pack_service.analyse_uploaded_pack',lambda *args,**kw:(_ for _ in ()).throw(RuntimeError('failure')))
     with TestClient(app) as c:
-        rid=c.post('/api/account/reviews',data={'property_id':pid},headers={'Authorization':'alice'}).json()['id'];pay(a,rid)
+        rid=create_confirmed(c,pid);pay(a,rid)
         assert c.post(f'/api/account/reviews/{rid}/analyse',files={'files':('p.pdf',b'four')},headers={'Authorization':'alice'}).status_code==503
         with a.db() as db:attempt=dict(db.execute('SELECT * FROM report_generation_attempts').fetchone())
         assert attempt['status']=='failed' and attempt['upload_bytes']==4 and attempt['attempt']==1
@@ -143,7 +153,7 @@ def test_generation_attempts_include_failures_without_claiming_zero_cost(site,tm
 def test_requires_review_does_not_deliver_full_report_html(site,tmp_path,monkeypatch):
     a,app,pid=setup(site,tmp_path,monkeypatch)
     with TestClient(app) as c:
-        rid=c.post('/api/account/reviews',data={'property_id':pid},headers={'Authorization':'alice'}).json()['id'];pay(a,rid)
+        rid=create_confirmed(c,pid);pay(a,rid)
         with a.db() as db:
             row=db.execute('SELECT report_json FROM reviews WHERE id=?',(rid,)).fetchone()
             report=json.loads(row[0]);report['analysis_state']='requires_review';report['evidence_review']=[{'topic':'private','summary':'must not deliver'}]

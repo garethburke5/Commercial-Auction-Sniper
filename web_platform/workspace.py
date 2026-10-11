@@ -82,4 +82,5 @@ def dashboard(accounts,user,rows,*,monitoring_rows=None):
 
 def full_review_allowed(accounts,user,report_id,property_id):
     from .report_credits import report_access
+    initialise(accounts)
     with accounts.db() as db:return report_access(db,user,report_id)
