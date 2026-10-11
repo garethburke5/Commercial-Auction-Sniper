@@ -9,6 +9,7 @@ function show(r){
  id=r.id;document.querySelector('#acquisition-result').innerHTML=r.html;
  const complete=(r.analysis_state||'complete')==='complete';
  document.querySelector('#unlock-review').hidden=r.access==='full'||r.processing_allowed||!AuctionWorkspace.config()?.billing_enabled||r.report?.quality_status?.purchase_available!==true;
+ document.querySelector('#redeem-review').hidden=r.access==='full'||r.processing_allowed||r.report?.quality_status?.purchase_available!==true;
  uploadForm.hidden=!r.processing_allowed;
  document.querySelector('#download-review').hidden=false;
  document.querySelector('#download-review-docx').hidden=r.access!=='full'||!complete;
@@ -32,6 +33,7 @@ uploadForm.onsubmit=async e=>{
  progress.textContent='Analysing your purchased legal pack. Scanned documents take longer; keep this page open.';
  try{show(await AuctionWorkspace.upload('/api/account/reviews/'+encodeURIComponent(id)+'/analyse',new FormData(e.target)));}catch(e){progress.textContent=e.message;}finally{button.disabled=false;}
 };
+document.querySelector('#redeem-review').onclick=async()=>{try{await AuctionWorkspace.api('/api/account/reviews/'+id+'/redeem','POST');show(await AuctionWorkspace.api('/api/account/reviews/'+id));}catch(e){progress.textContent=e.message;}};
 document.querySelector('#unlock-review').onclick=async()=>{try{const r=await AuctionWorkspace.api('/api/account/reviews/'+id+'/checkout','POST');if(r.url)location.assign(r.url);else show(await AuctionWorkspace.api('/api/account/reviews/'+id));}catch(e){progress.textContent=e.message;}};
 for(const [button,format] of [['download-review','html'],['download-review-pdf','pdf'],['download-review-docx','docx']]){
  document.querySelector('#'+button).onclick=async()=>{try{const b=await AuctionWorkspace.download('/api/account/reviews/'+id+'/download?format='+format);const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='auction-geek-acquisition-review.'+format;a.click();URL.revokeObjectURL(a.href);}catch(e){progress.textContent=e.message;}};

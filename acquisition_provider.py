@@ -74,6 +74,7 @@ class Usage:
     input_chars: int = 0
     input_tokens: int = 0
     output_tokens: int = 0
+    cached_input_tokens: int = 0
     search_calls: int = 0
     complete: bool = True
     response_ids: list[str] = field(default_factory=list)
@@ -133,6 +134,7 @@ class OpenAIInvestigator:
             raise InvestigationIncomplete('Provider usage was not measured')
         usage.input_tokens += tokens['input_tokens']
         usage.output_tokens += tokens['output_tokens']
+        usage.cached_input_tokens += (tokens.get('input_tokens_details') or {}).get('cached_tokens',0)
         usage.search_calls += sum(x.get('type') == 'web_search_call' for x in result.get('output', []))
         usage.response_ids.append(result.get('id', ''))
         if result.get('status') != 'completed':

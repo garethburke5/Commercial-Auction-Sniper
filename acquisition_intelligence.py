@@ -201,7 +201,12 @@ def build_acquisition(model,catalogue=None,*,research=None,open_review=None):
 
 def snapshot(report):
     """Actual server projection: the paid payload is not sent hidden in the DOM."""
-    out={k:v for k,v in report.items() if k not in ('evidence_review','findings','documents','questions','unknowns','opportunities','costs','market_context','lease_reconciliation','commercial_brief','lease_details','quality_review','tenancy_schedule','investigation','research','open_review','source_pages','report_media')}
+    public_fields={'schema_version','engine','product','report_id','property','created_at',
+        'what_you_are_buying','guide','guide_upper','rent','tenant','company_number','tenant_evidence',
+        'tenure','lease','completion','deposit','vat','calculations','first_pass','deep_dive','cpse',
+        'listing_status','auction_date','catalogue_as_of','coverage','disclaimer','analysis_state'}
+    # New analytical fields are private unless explicitly reviewed for the free projection.
+    out={k:v for k,v in report.items() if k in public_fields}
     from acquisition_quality import paid_report_status
     out.pop('amendment_review', None)
     out['quality_status'] = paid_report_status()

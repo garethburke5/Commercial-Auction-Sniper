@@ -85,10 +85,14 @@ def test_public_offer_controls_and_configurable_prices(site,monkeypatch):
     assert 'Free & Premium' not in ''.join(pages.values())
     plans=BeautifulSoup(pages['/plans/'],'html.parser')
     assert plans.h1.text=='Plans & Pricing'
-    assert [e.get_text(' ',strip=True) for e in plans.select('.plan-price')]==['£0 Free account','£15 /month','£25 /month']
+    assert [e.get_text(' ',strip=True) for e in plans.select('.plan-price')]==['£0 /month','£15 /month','£25 /month']
     assert 'IN DEVELOPMENT' not in pages['/plans/'] and '>PLANNED<' not in pages['/plans/']
     assert 'no subscription required' in pages['/plans/'].lower()
-    assert CATALOGUE['included_acquisition_reviews'] is None
+    assert CATALOGUE['investor']['included_reports']==1
+    assert CATALOGUE['professional']['included_reports']==3
+    assert [CATALOGUE[p]['additional_report_gbp'] for p in ('free','investor','professional')]==[19,15,12]
+    assert len(plans.select('.comparison-scroll table tbody tr'))==10
+    assert 'quality checks' in plans.get_text()
     monkeypatch.setitem(CATALOGUE['investor'],'monthly_gbp',17)
     assert '£17' in dict(site.routes())['/plans/']
     assert json.loads(dict(site.board_assets())['/platform-config.json'])['plans']['investor']['monthly_gbp']==17

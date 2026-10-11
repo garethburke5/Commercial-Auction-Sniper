@@ -16,8 +16,8 @@ def install(app,site,user):
     def unlocked(a,uid,rid,pid):
         return full_review_allowed(a,uid,rid,pid)
     def payload(rid,report,full=False):
-        projection=report if full else snapshot(report)
         state=report.get('analysis_state','complete')
+        projection=report if full and state=='complete' else snapshot(report)
         result={'id':rid,'access':'full' if full and state=='complete' else 'snapshot',
                 'analysis_state':state,'processing_allowed':bool(full and state in ('awaiting_payment','failed')),
                 'report':projection,'html':render(projection)}
@@ -79,11 +79,17 @@ def install(app,site,user):
         # retries cannot run the same purchased review repeatedly.
         with a.db() as db:
             begin_write(db)
+            from .report_credits import report_access
+            if not report_access(db,uid,rid):raise HTTPException(402,'Report payment or credit is no longer valid')
             job=db.execute('SELECT * FROM review_processing WHERE review_id=?',(rid,)).fetchone()
             if not job or job['status'] not in ('awaiting_payment','failed'):
                 raise HTTPException(409,'This review is already processing or complete')
             if job['attempts']>=3:raise HTTPException(429,'Processing needs support review before another attempt')
             db.execute("UPDATE review_processing SET status='processing',attempts=attempts+1,updated_at=? WHERE review_id=?",(int(time.time()),rid))
+            attempt=job['attempts']+1
+            db.execute('INSERT INTO report_generation_attempts(review_id,attempt,user_id,started_at,status,upload_bytes,upload_files) VALUES (?,?,?,?,?,?,?)',
+                       (rid,attempt,uid,int(time.time()),'processing',size,len(files)))
+        started=time.monotonic();cpu_started=time.process_time();outcome='failed';report={}
         provider=None
         try:
             if callable(factory):
@@ -101,6 +107,7 @@ def install(app,site,user):
             from acquisition_quality import acceptance_issues
             needs_review=bool(provider is not None and acceptance_issues(report))
             report['analysis_state']='requires_review' if needs_review else 'complete'
+            outcome=report['analysis_state']
             with a.db() as db:
                 db.execute('UPDATE reviews SET report_json=? WHERE id=? AND user_id=?',(json.dumps(report),rid,uid))
                 db.execute('UPDATE review_processing SET status=?,updated_at=? WHERE review_id=?',(report['analysis_state'],int(time.time()),rid))
@@ -108,6 +115,15 @@ def install(app,site,user):
             with a.db() as db:db.execute("UPDATE review_processing SET status='failed',updated_at=? WHERE review_id=?",(int(time.time()),rid))
             raise HTTPException(503,'Analysis did not finish. Your purchase is retained; retry or contact support.')
         finally:
+            metrics={'elapsed_seconds':round(time.monotonic()-started,3),
+                     'cpu_seconds':round(time.process_time()-cpu_started,3),
+                     'coverage':report.get('coverage',{}),'ocr_enabled':os.getenv('REVIEW_OCR','true')=='true',
+                     'provider_usage':provider.usage_record() if provider is not None else None}
+            from .report_costs import estimate_cost
+            metrics['cost']=estimate_cost(metrics['provider_usage'] or {},metrics)
+            with a.db() as db:
+                db.execute('UPDATE report_generation_attempts SET finished_at=?,status=?,metrics_json=? WHERE review_id=? AND attempt=?',
+                           (int(time.time()),outcome,json.dumps(metrics),rid,attempt))
             if provider is not None:provider.close()
         # A refund/dispute received during processing still revokes delivery.
         return payload(rid,report,unlocked(a,uid,rid,r['property_id']))
@@ -119,7 +135,7 @@ def install(app,site,user):
     @app.get('/api/account/reviews/{rid}/download')
     def download(rid:str,format:str='html',authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization);r,report=owned(a,uid,rid)
-        full=unlocked(a,uid,rid,r['property_id']);projection=report if full else snapshot(report)
+        full=unlocked(a,uid,rid,r['property_id']);projection=report if full and report.get('analysis_state','complete')=='complete' else snapshot(report)
         if format not in ('html','docx','pdf'):raise HTTPException(400,'Unsupported report format')
         if format=='pdf':
             if not full or report.get('analysis_state','complete')!='complete':raise HTTPException(403,'A completed purchased review is required for this download')
@@ -139,3 +155,19 @@ def install(app,site,user):
         quality=paid_report_status(report)
         if not quality['purchase_available']:raise HTTPException(503,quality['message'])
         return {'url':b.purchase(uid,'legal_pack_report','review:'+rid)}
+
+    @app.post('/api/account/reviews/{rid}/redeem')
+    def redeem_review(rid:str,authorization:str|None=Header(default=None)):
+        uid,a,_=user(authorization);owned(a,uid,rid)
+        from .report_credits import redeem
+        return redeem(a,uid,rid)
+
+    @app.get('/api/admin/report-usage')
+    def report_usage(authorization:str|None=Header(default=None)):
+        from .accounts import require_owner
+        uid,a,_=user(authorization);require_owner(uid)
+        with a.db() as db:
+            rows=[dict(r) for r in db.execute('SELECT review_id,attempt,started_at,finished_at,status,upload_bytes,upload_files,metrics_json FROM report_generation_attempts ORDER BY started_at DESC LIMIT 200')]
+        for row in rows:row['metrics']=json.loads(row.pop('metrics_json') or '{}')
+        return {'attempts':rows,'currency':'GBP','full_credit_use_revenue_per_report':{'investor':15,'professional':25/3},
+                'margin_status':'Unverified until representative paid-provider runs, payment fees and processing costs are reconciled.'}

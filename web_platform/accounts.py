@@ -33,6 +33,7 @@ class Accounts:
                 version=db.execute('SELECT version FROM schema_version WHERE id=1').fetchone()
                 if not version or version['version']!=1:
                     raise RuntimeError('Private account database migration is required')
+                db.execute('SELECT 1 FROM report_credit_periods LIMIT 1')
             return
         if not path:
             raise ValueError('A private database URL or persistent SQLite path is required')
@@ -46,6 +47,8 @@ class Accounts:
             CREATE TABLE IF NOT EXISTS webhook_events(event_id TEXT PRIMARY KEY,processed_at INTEGER NOT NULL);
             CREATE TABLE IF NOT EXISTS purchases(order_id TEXT PRIMARY KEY,user_id TEXT NOT NULL,product TEXT NOT NULL,property_id TEXT NOT NULL,price_id TEXT NOT NULL,session_id TEXT UNIQUE,payment_intent TEXT,status TEXT NOT NULL,created_at INTEGER NOT NULL);
             ''')
+        from .report_credits import SCHEMA
+        with self.db() as db:db.executescript(SCHEMA)
         self.path.chmod(0o600)
 
     @contextmanager

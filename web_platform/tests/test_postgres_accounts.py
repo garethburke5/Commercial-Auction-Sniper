@@ -94,3 +94,59 @@ def test_postgres_backend_has_no_public_identity_or_ddl_access(pg_accounts):
         assert not result['can_read_auth'] and not result['can_create']
     with pytest.raises(psycopg.errors.InsufficientPrivilege):
         with pg_accounts.db() as db:db.execute('UPDATE schema_version SET version=99')
+
+
+def test_postgres_credit_race_and_persistent_report_ownership(pg_accounts,monkeypatch):
+    from web_platform.tests.test_report_credits import fund
+    from web_platform.report_credits import redeem,balance
+    from web_platform.workspace import full_review_allowed
+    a=pg_accounts;a.ensure('alice');a.ensure('bob');fund(a)
+    with a.db() as db:
+        for n in range(4):db.execute('INSERT INTO reviews VALUES (?,?,?,?,?)',('r'+str(n),'alice','p','{}',1))
+    monkeypatch.setattr('acquisition_quality.paid_report_status',lambda:{'purchase_available':True})
+    def claim(n):
+        try:redeem(a,'alice','r'+str(n));return 1
+        except HTTPException as e:assert e.status_code==402;return 0
+    with ThreadPoolExecutor(max_workers=4) as pool:assert sum(pool.map(claim,range(4)))==1
+    fresh=Accounts(database_url=a.database_url)
+    assert balance(fresh,'alice')['remaining']==0
+    with fresh.db() as db:
+        rid=db.execute('SELECT review_id FROM report_credit_redemptions').fetchone()[0]
+        db.execute("UPDATE subscriptions SET status='canceled'")
+    assert full_review_allowed(fresh,'alice',rid,'p')
+    assert not full_review_allowed(fresh,'bob',rid,'p')
+
+
+def test_disposable_postgres_backup_restores_credit_and_report_ownership(pg_accounts,tmp_path):
+    """Recovery drill on CI-only data, never against the configured Supabase DB."""
+    import subprocess,shutil
+    from web_platform.tests.test_report_credits import fund
+    a=pg_accounts;a.ensure('alice');fund(a)
+    with a.db() as db:
+        db.execute('INSERT INTO reviews VALUES (?,?,?,?,?)',('recover-report','alice','p','{"analysis_state":"complete"}',1))
+        period=db.execute('SELECT period_start FROM report_credit_periods').fetchone()[0]
+        db.execute('INSERT INTO report_credit_redemptions VALUES (?,?,?,?,?)',('recover-report','alice','sub',period,2))
+    executable=shutil.which('pg_dump');container=os.getenv('TEST_PG_CONTAINER')
+    if not executable and not container:pytest.fail('pg_dump is required for the isolated recovery drill')
+    # CI uses the service image's matching PostgreSQL 17 client, avoiding
+    # whichever older pg_dump happens to be installed on the runner.
+    command=['docker','exec',container,'pg_dump','-U','postgres','-d','auction_test'] if container else [executable]
+    parsed=urlsplit(os.environ['TEST_ACCOUNT_DATABASE_URL'])
+    env=dict(os.environ,PGHOST=parsed.hostname,PGPORT=str(parsed.port or 5432),PGUSER=parsed.username,PGPASSWORD=parsed.password,PGDATABASE='auction_test')
+    archive=tmp_path/'private-backup.sql'
+    with archive.open('wb') as f:
+        subprocess.run(command+['--data-only','--schema=auction_private','--exclude-table=auction_private.schema_version','--inserts','--no-owner','--no-privileges'],env=env,stdout=f,check=True)
+    import psycopg
+    # This fixture only accepts localhost/auction_test. Restore inside a
+    # transaction and verify all ledger balances/ownership before rollback.
+    with psycopg.connect(os.environ['TEST_ACCOUNT_DATABASE_URL']) as db:
+        names=db.execute("SELECT tablename FROM pg_tables WHERE schemaname='auction_private' AND tablename!='schema_version'").fetchall()
+        from psycopg import sql
+        db.execute(sql.SQL('TRUNCATE {}').format(sql.SQL(',').join(sql.Identifier('auction_private',r[0]) for r in names)))
+        # pg_dump adds psql-only restrict guards; all data here is generated
+        # in this disposable fixture, and SQL is executed without psql.
+        restore='\n'.join(line for line in archive.read_text().splitlines() if not line.startswith('\\'))
+        db.execute(restore)
+        assert db.execute("SELECT r.user_id,p.status FROM auction_private.report_credit_redemptions r JOIN auction_private.report_credit_periods p USING(subscription_id,period_start) WHERE r.review_id='recover-report'").fetchone()==('alice','paid')
+        assert db.execute("SELECT report_json FROM auction_private.reviews WHERE id='recover-report'").fetchone()[0]=='{"analysis_state":"complete"}'
+        db.rollback()

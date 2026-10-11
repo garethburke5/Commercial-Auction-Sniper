@@ -190,3 +190,18 @@
 }
 
 .owner-controls{display:flex;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1rem}.owner-controls[hidden]{display:none}.owner-controls p{flex-basis:100%;margin:0}.owner-controls label{display:flex;gap:.5rem;align-items:center}
+
+/* Commercial offering: keep all three plans comparable on small screens. */
+.plan-card li small{color:var(--muted);font-weight:400}
+.plan-comparison{margin:2.5rem 0}.plan-comparison h2{margin-bottom:.5rem}
+.comparison-scroll{max-width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:10px;overscroll-behavior-x:contain}
+.comparison-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.comparison-scroll table{width:100%;min-width:580px;border-collapse:collapse;font-size:.94rem}
+.comparison-scroll caption{text-align:left;padding:1rem;color:var(--muted);font-size:.85rem}
+.comparison-scroll th,.comparison-scroll td{padding:.9rem 1rem;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+.comparison-scroll th:first-child{text-align:left;min-width:200px;width:43%}
+.comparison-scroll thead th{background:#f4f6f5;color:var(--ink);white-space:nowrap}
+.comparison-scroll th small{display:block;font-weight:400;color:var(--muted);font-size:.8rem;margin-top:.2rem}
+.comparison-scroll tbody tr:last-child>*{border-bottom:0}.plan-terms{margin-top:2rem}
+.contextual-membership{flex-basis:100%;font-size:.88rem;margin:.5rem 0;line-height:1.5}
+@media(max-width:650px){.plan-comparison{margin:1.75rem 0}.comparison-scroll th,.comparison-scroll td{padding:.75rem}.plan-card ul{padding-left:1.2rem}}

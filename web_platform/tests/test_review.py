@@ -92,27 +92,28 @@ def test_rendered_review_preserves_search_hero_and_contextual_history(tmp_path):
     assert prop.select_one('#property-target')
     assert 'Official example lot' not in pages['/auctioneers/']
     assert '1 September 2099' in pages['/auctions/']
-    assert 'Subscriptions are not open yet' in pages['/plans/']
+    assert 'Checkout remains closed' in pages['/plans/']
 
 
 def test_one_off_payment_ownership_signature_replay_and_refund(tmp_path,monkeypatch):
     a=Accounts(tmp_path/'private.sqlite');a.ensure('alice');a.ensure('bob')
     with a.db() as db:
         db.execute("UPDATE accounts SET customer_id='cus_A' WHERE user_id='alice'")
-    b=Billing(a,'sk_test_fixture','whsec_fixture',{},'https://example.org',{'investment_report':'price_report','arbitrary':'price_bad'})
+    b=Billing(a,'sk_test_fixture','whsec_fixture',{},'https://example.org',{'featured_listing':'price_report','arbitrary':'price_bad'})
     captured=[]
-    def create(**kwargs):
+    def create(params,options=None):
+        kwargs=dict(params,**(options or {}))
         captured.append(kwargs)
         return {'id':'cs_one','url':'https://checkout.stripe.com/example'}
-    monkeypatch.setattr('stripe.checkout.Session.create',create)
-    assert b.purchase('alice','investment_report','property_1').startswith('https://checkout.stripe.com/')
-    b.purchase('alice','investment_report','property_1')
+    monkeypatch.setattr(b.client.v1.checkout.sessions,'create',create)
+    assert b.purchase('alice','featured_listing','property_1').startswith('https://checkout.stripe.com/')
+    b.purchase('alice','featured_listing','property_1')
     assert captured[0]['idempotency_key']==captured[1]['idempotency_key']
     assert captured[0]['line_items']==[{'price':'price_report','quantity':1}]
     with pytest.raises(HTTPException):b.purchase('alice','arbitrary','property_1')
     order=a.purchases('alice')[0];assert a.purchases('bob')==[]
     session={'id':'cs_one','mode':'payment','metadata':{'order_id':order['order_id']},'client_reference_id':'alice','customer':'cus_A','status':'complete','payment_status':'unpaid','line_items':{'data':[{'price':{'id':'price_report'},'quantity':1}]},'payment_intent':{'id':'pi_one','latest_charge':{'id':'ch_one','amount_refunded':0}}}
-    monkeypatch.setattr('stripe.checkout.Session.retrieve',lambda *args,**kwargs:session)
+    monkeypatch.setattr(b.client.v1.checkout.sessions,'retrieve',lambda *args,**kwargs:session)
     def deliver(i,typ='checkout.session.completed'):
         body=json.dumps({'id':i,'type':typ,'data':{'object':{'id':'cs_one' if typ.startswith('checkout') else 'ch_one'}}}).encode()
         ts=str(int(time.time()));sig=hmac.new(b'whsec_fixture',ts.encode()+b'.'+body,hashlib.sha256).hexdigest()
@@ -124,7 +125,7 @@ def test_one_off_payment_ownership_signature_replay_and_refund(tmp_path,monkeypa
     session['customer']='cus_A';deliver('paid');assert deliver('paid')=='duplicate'
     assert a.purchases('alice')[0]['status']=='paid_awaiting_fulfilment'
     assert a.plan('alice')=='free'  # one-off purchase is not a subscription
-    with pytest.raises(HTTPException):b.purchase('alice','investment_report','property_1')
-    monkeypatch.setattr('stripe.Charge.retrieve',lambda *args,**kwargs:{'payment_intent':'pi_one','amount_refunded':100})
+    with pytest.raises(HTTPException):b.purchase('alice','featured_listing','property_1')
+    monkeypatch.setattr(b.client.v1.charges,'retrieve',lambda *args,**kwargs:{'payment_intent':'pi_one','amount_refunded':100})
     deliver('refund','charge.refunded');deliver('late_success')
     assert a.purchases('alice')[0]['status']=='refund_review'

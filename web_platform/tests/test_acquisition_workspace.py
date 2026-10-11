@@ -80,7 +80,9 @@ def test_snapshot_calculations_and_no_full_payload():
     assert calc['Gross Initial Yield (GIY)']=='14.0%' and calc['Deposit at guide']=='£25,000'
     assert calc['Seller-cost contribution']=='£3,300 including VAT'
     assert full['deep_dive'] and full['findings']
-    free=snapshot(full);assert 'evidence_review' not in free and 'questions' not in free and 'documents' not in free
+    full['future_paid_analysis']={'private':'must never leak'}
+    free=snapshot(full);assert 'future_paid_analysis' not in free
+    assert 'evidence_review' not in free and 'questions' not in free and 'documents' not in free
     assert len(free['findings'])<=3 and '£3,300' in render(free)
     full['property']='<script>alert(1)</script>';assert '<script>alert' not in render(full)
 

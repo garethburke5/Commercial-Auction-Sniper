@@ -81,6 +81,5 @@ def dashboard(accounts,user,rows,*,monitoring_rows=None):
     return {'properties':items,'events':events,'saved_searches':searches,'reviews':reviews,'monitoring_enabled':monitoring}
 
 def full_review_allowed(accounts,user,report_id,property_id):
-    with accounts.db() as db:
-        # Payment is bound to THIS report, not every future pack for this address.
-        return bool(db.execute("SELECT 1 FROM purchases WHERE user_id=? AND product='legal_pack_report' AND property_id=? AND status='paid_awaiting_fulfilment'",(user,'review:'+report_id)).fetchone())
+    from .report_credits import report_access
+    with accounts.db() as db:return report_access(db,user,report_id)

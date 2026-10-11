@@ -125,3 +125,29 @@ def test_pdf_export_remains_owner_purchase_and_refund_bound(tmp_path):
         assert response.headers['cache-control']=='no-store'
         with accounts.db() as db:db.execute("UPDATE purchases SET status='refund_review'")
         assert client.get(url,headers={'Authorization':'alice'}).status_code==403
+
+
+def test_generation_attempts_include_failures_without_claiming_zero_cost(site,tmp_path,monkeypatch):
+    a,app,pid=setup(site,tmp_path,monkeypatch)
+    monkeypatch.setattr('legal_pack_service.analyse_uploaded_pack',lambda *args,**kw:(_ for _ in ()).throw(RuntimeError('failure')))
+    with TestClient(app) as c:
+        rid=c.post('/api/account/reviews',data={'property_id':pid},headers={'Authorization':'alice'}).json()['id'];pay(a,rid)
+        assert c.post(f'/api/account/reviews/{rid}/analyse',files={'files':('p.pdf',b'four')},headers={'Authorization':'alice'}).status_code==503
+        with a.db() as db:attempt=dict(db.execute('SELECT * FROM report_generation_attempts').fetchone())
+        assert attempt['status']=='failed' and attempt['upload_bytes']==4 and attempt['attempt']==1
+        metrics=json.loads(attempt['metrics_json']);assert metrics['elapsed_seconds']>=0
+        assert metrics['provider_usage'] is None
+        assert c.get('/api/admin/report-usage',headers={'Authorization':'alice'}).status_code==403
+
+
+def test_requires_review_does_not_deliver_full_report_html(site,tmp_path,monkeypatch):
+    a,app,pid=setup(site,tmp_path,monkeypatch)
+    with TestClient(app) as c:
+        rid=c.post('/api/account/reviews',data={'property_id':pid},headers={'Authorization':'alice'}).json()['id'];pay(a,rid)
+        with a.db() as db:
+            row=db.execute('SELECT report_json FROM reviews WHERE id=?',(rid,)).fetchone()
+            report=json.loads(row[0]);report['analysis_state']='requires_review';report['evidence_review']=[{'topic':'private','summary':'must not deliver'}]
+            db.execute('UPDATE reviews SET report_json=? WHERE id=?',(json.dumps(report),rid))
+        r=c.get(f'/api/account/reviews/{rid}',headers={'Authorization':'alice'})
+        assert r.json()['access']=='snapshot' and 'evidence_review' not in r.json()['report']
+        assert c.get(f'/api/account/reviews/{rid}/download?format=pdf',headers={'Authorization':'alice'}).status_code==403

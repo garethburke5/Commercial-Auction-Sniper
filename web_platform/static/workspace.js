@@ -19,6 +19,14 @@ async function api(path,method='GET',body){
 }
 function safePath(p){return typeof p==='string'&&p.startsWith('/')&&!p.startsWith('//')?root+p:root+'/properties/';}
 function access(feature){
+ if(feature!=='save'){
+  const anchor=document.activeElement;
+  const host=anchor?.closest('.save-actions, .plan-card, form, section')||document.querySelector('main');
+  if(host){let hint=host.querySelector('.contextual-membership');if(!hint){hint=document.createElement('p');hint.className='contextual-membership';hint.setAttribute('role','status');host.append(hint);}
+   hint.replaceChildren(document.createTextNode(feature==='subscription'?'Membership checkout is being activated. ':'Property Watch, saved searches and private research tools are included with Investor from £15/month. '));
+   const link=document.createElement('a');link.href=root+'/plans/';link.textContent='Compare plans and launch availability →';hint.append(link);}
+  return;
+ }
  const dialog=document.querySelector('#access-dialog');if(!dialog)return;
  const save=feature==='save', billing=feature==='subscription';
  const title=save?'Keep your shortlist with a free account':billing?'Your membership, ready when checkout opens':feature==='saved_searches'?'Save this search & get new-match alerts':feature==='watch'?'Watch this property for meaningful changes':'Make this research your own';
@@ -27,13 +35,13 @@ function access(feature){
  document.querySelector('#access-description').textContent=save
   ?'Save is your personal shortlist. Register or sign in for free to keep properties together and return to your research.'
   :billing?'Secure subscription checkout is being activated. The initial monthly prices are shown on Plans & Pricing; no payment will be taken here.'
-  :'Available with Premium Investor and Professional & Business.';
+  :'Available with Investor and Investor Pro.';
  const detail=document.querySelector('#access-detail');detail.replaceChildren();
  const p=document.createElement('p');p.className='small';
  p.textContent=save?(config?.accounts_enabled?'Your shortlist is private to your account.':'Registration is being activated. Free property search and the Acquisition Intelligence Snapshot remain available now.')
   :feature==='watch'?'Follow guide prices, status, auction dates, legal-pack availability and important particulars. Membership monitoring is separate from your free shortlist. Email delivery is being activated.'
   :feature==='saved_searches'?'Keep your applied criteria ready to reopen. New-match email delivery is being activated; normal searching stays free.'
-  :billing?'One-off Acquisition Reviews remain separate: a monthly subscription is never required to research one property.'
+  :billing?'One-off Property Reports remain separate: a monthly subscription is never required to research one property.'
   :'Keep private notes and a personal bid target alongside the property evidence.';
  detail.append(p);
  const primary=document.querySelector('#access-primary');
@@ -58,7 +66,7 @@ function render(){
  for(const [kind,el,count]of[['saved','saved-items','saved-count'],['watched','watched-items','watch-count']]){
   const rows=Object.entries(state.properties).filter(([,p])=>p[kind]).map(([id,p])=>index[id]||p.property).filter(Boolean);
   const permitted=kind==='saved'||can('watch');
-  document.getElementById(el).innerHTML=permitted?(rows.map(item).join('')||`<p>No ${kind==='saved'?'saved':'watched'} properties yet.</p>`):'<p>Track meaningful changes with Premium Investor or Professional & Business. Earlier watches are preserved and monitoring is paused until membership is active.</p><button class="button outline" data-feature="watch">Explore Watch →</button>';
+  document.getElementById(el).innerHTML=permitted?(rows.map(item).join('')||`<p>No ${kind==='saved'?'saved':'watched'} properties yet.</p>`):'<p>Track meaningful changes with Investor or Investor Pro. Earlier watches are preserved and monitoring is paused until membership is active.</p><button class="button outline" data-feature="watch">Explore Watch →</button>';
   document.getElementById(count).textContent=permitted?rows.length:'';
  }
  document.querySelector('#saved-searches').innerHTML=can('saved_searches')?(state.searches.map(s=>`<p><a href="${esc(root+'/properties/?'+s.query)}">${esc(s.name)}</a> <button data-remove-search="${esc(s.id)}" class="textlink">Remove</button></p>`).join('')||'<p>Apply filters on Find property, then Save this search.</p>'):'<p>Save your criteria with membership. Any previously saved criteria are preserved in your stored data.</p><button class="button outline" data-feature="saved_searches">Explore saved searches →</button>';
@@ -143,8 +151,10 @@ async function loadAccount(){
  for(const p of remote.workspace.properties)state.properties[p.property_id]={...p,property:p.property};
  for(const id of remote.saved_properties)state.properties[id]={...state.properties[id],saved:true,property:index[id]||state.properties[id]?.property};
  state.searches=remote.workspace.saved_searches.map(s=>({...s,id:s.search_id}));state.events=remote.workspace.events;
+ const credits=document.querySelector('#report-credit-balance'),balance=remote.report_credits;
+ if(credits&&balance)credits.textContent=balance.period_end?`${balance.remaining} of ${balance.allowance} included report credits available until ${new Date(balance.period_end*1000).toLocaleDateString('en-GB')}. Unused credits do not roll over.`:'No included report credits are available. Full Investment Reports remain under quality review.';
  const reviews=document.querySelector('#account-reviews');
- if(reviews)reviews.innerHTML=remote.workspace.reviews.map(r=>`<p><a href="${root}/due-diligence/?review=${encodeURIComponent(r.id)}">Acquisition Review · ${new Date(r.created_at*1000).toLocaleDateString('en-GB')}</a></p>`).join('');
+ if(reviews)reviews.innerHTML=remote.workspace.reviews.map(r=>`<p><a href="${root}/due-diligence/?review=${encodeURIComponent(r.id)}">Full Investment Report · ${new Date(r.created_at*1000).toLocaleDateString('en-GB')}</a></p>`).join('');
  document.querySelector('#owner-controls')?.toggleAttribute('hidden',!remote.is_owner);
  if(remote.is_owner){
   let tier='';try{tier=sessionStorage.getItem('auction-owner-preview')||'';}catch(_){}

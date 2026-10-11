@@ -1,7 +1,7 @@
 """Public plan presentation and server-owned feature entitlements.
 
 Stripe Price IDs remain deployment configuration. Match those prices to this
-catalogue before enabling checkout; report allowances are deliberately unset.
+catalogue before enabling checkout; report allowances come from the same published catalogue.
 """
 import json
 from pathlib import Path

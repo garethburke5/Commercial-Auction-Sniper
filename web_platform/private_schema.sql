@@ -31,6 +31,24 @@ CREATE INDEX IF NOT EXISTS reviews_account_time ON reviews(user_id,created_at);
 CREATE INDEX IF NOT EXISTS deals_owner ON deals(owner_id);
 CREATE INDEX IF NOT EXISTS enquiries_deal ON deal_enquiries(deal_id);
 CREATE INDEX IF NOT EXISTS enquiries_email_time ON deal_enquiries(email,created_at);
+
+CREATE TABLE IF NOT EXISTS report_credit_periods(
+ subscription_id TEXT NOT NULL,period_start BIGINT NOT NULL,period_end BIGINT NOT NULL,
+ user_id TEXT NOT NULL,plan TEXT NOT NULL,allowance INTEGER NOT NULL CHECK(allowance>=0),
+ invoice_id TEXT NOT NULL UNIQUE,status TEXT NOT NULL,
+ PRIMARY KEY(subscription_id,period_start));
+CREATE TABLE IF NOT EXISTS report_credit_payments(
+ invoice_id TEXT NOT NULL,payment_intent TEXT NOT NULL,PRIMARY KEY(invoice_id,payment_intent));
+CREATE TABLE IF NOT EXISTS report_credit_redemptions(
+ review_id TEXT PRIMARY KEY,user_id TEXT NOT NULL,subscription_id TEXT NOT NULL,
+ period_start BIGINT NOT NULL,created_at BIGINT NOT NULL);
+CREATE INDEX IF NOT EXISTS report_credit_usage ON report_credit_redemptions(subscription_id,period_start);
+CREATE TABLE IF NOT EXISTS report_generation_attempts(
+ review_id TEXT NOT NULL,attempt INTEGER NOT NULL,user_id TEXT NOT NULL,
+ started_at BIGINT NOT NULL,finished_at BIGINT,status TEXT NOT NULL,
+ upload_bytes BIGINT NOT NULL,upload_files INTEGER NOT NULL,metrics_json TEXT,
+ PRIMARY KEY(review_id,attempt));
+
 REVOKE ALL ON ALL TABLES IN SCHEMA auction_private FROM PUBLIC,anon,authenticated;
 GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA auction_private TO auction_api;
 -- Only this backend role can access these private tables. Per-customer ownership

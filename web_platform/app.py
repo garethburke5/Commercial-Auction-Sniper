@@ -18,7 +18,10 @@ def private_services():
     accounts=Accounts(path,database_url=database_url)
     billing=Billing(accounts,os.getenv('STRIPE_SECRET_KEY'),os.getenv('STRIPE_WEBHOOK_SECRET'),
         {p:os.getenv('STRIPE_PRICE_'+p.upper()) for p in ('investor','professional','business')},os.getenv('PUBLIC_ORIGIN',''),
-        {p:os.getenv('STRIPE_PRICE_'+p.upper()) for p in Billing.PRODUCTS})
+        {p:os.getenv('STRIPE_PRICE_'+p.upper()) for p in Billing.PRODUCTS},
+        {'free':os.getenv('STRIPE_PRICE_LEGAL_PACK_REPORT'),
+         'investor':os.getenv('STRIPE_PRICE_REPORT_INVESTOR'),
+         'professional':os.getenv('STRIPE_PRICE_REPORT_PROFESSIONAL')})
     return accounts,billing
 
 def create_app(site=None):
@@ -68,6 +71,10 @@ def create_app(site=None):
                 ready=False
         from fastapi.responses import JSONResponse
         return JSONResponse({'accounts_ready':ready,
+            'release':os.getenv('RENDER_GIT_COMMIT','local'),
+            'billing_configured':bool(os.getenv('STRIPE_SECRET_KEY') and os.getenv('STRIPE_WEBHOOK_SECRET')),
+            'live_billing_enabled':os.getenv('BILLING_LIVE')=='true',
+            'production_email_confirmed':os.getenv('PRODUCTION_EMAIL_VERIFIED')=='true',
             'owner_access_configured':ready and bool(os.getenv('ADMIN_ACCOUNT_IDS','').strip()),
             'analysis_provider_configured':callable(app.state.acquisition_provider_factory),
             'paid_reports_approved':False},status_code=200 if ready else 503)
@@ -97,7 +104,8 @@ def create_app(site=None):
             rows=site.catalogue.rows
             trusted={}
         deals=workspace_rows(a)
-        return {'plan':plan,'features':sorted(PLANS[plan]),'is_owner':is_owner(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals)}
+        from .report_credits import balance
+        return {'plan':plan,'features':sorted(PLANS[plan]),'report_credits':balance(a,uid),'is_owner':is_owner(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals)}
     @app.get('/api/admin/preview/{plan}')
     def owner_preview(plan:str,authorization:str|None=Header(default=None)):
         uid,_,_=user(authorization);require_owner(uid)

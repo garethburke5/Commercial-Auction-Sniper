@@ -10,6 +10,10 @@ services:
     startCommand: uvicorn web_platform.app:create_app --factory --host 0.0.0.0 --port $PORT --workers 1
     healthCheckPath: /healthz
     envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.15"
+      - key: PIP_NO_CACHE_DIR
+        value: "true"
       - key: PRIVATE_API_ONLY
         value: "true"
       - key: PUBLIC_ORIGIN
