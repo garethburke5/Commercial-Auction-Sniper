@@ -172,7 +172,7 @@ class Site:
         yield '/admin/deals/',self.page('/admin/deals/','Owner listing workspace','deal-admin','Create and manage commercial property listings without editing code.',noindex=True)
         yield '/account/',self.page('/account/','My Auction Geek','account','Your shortlist, watched properties, private notes, searches and acquisition research.',noindex=True)
         yield '/plans/',self.page('/plans/','Plans & Pricing','plans',
-            'Find your next investment for free. Add monitoring and deeper research, or review one property with a pay-as-you-go Acquisition Review.')
+            'Find your next investment for free. Compare memberships and one-off Full Investment Reports.')
 
     def board_assets(self):
         """Small search index; card bundles load only for the selected results."""

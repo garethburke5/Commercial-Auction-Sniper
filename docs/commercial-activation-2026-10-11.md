@@ -52,7 +52,9 @@ isolation, return access and quality holds. Stripe API responses use the actual
 SDK's recursive conversion; signed-event parsing is exercised with the pinned SDK.
 The PostgreSQL workflow additionally restores a dump of disposable account/report
 data using PostgreSQL 17 and verifies ownership. This is not a production backup
-or recovery guarantee. Record its actual CI result and the deployed release below.
+or recovery guarantee. The PostgreSQL/provider CI job passed all 13 checks on commit `92de19f`,
+including this recovery drill; the report CI checks also passed. Deployed
+release status remains separate from these test results.
 
 Every claimed generation attempt records elapsed/CPU time, bytes/files, document
 coverage and available provider token/search usage, including failed attempts.
@@ -71,7 +73,8 @@ this is not a measured margin.
    delivery and real sign-in. Set `PRODUCTION_EMAIL_VERIFIED=true` only after
    that check. Bind `ADMIN_ACCOUNT_IDS` to the real verified owner identity.
 2. Store the Stripe sandbox runtime key directly in Render as `STRIPE_SECRET_KEY`
-   (never in source/chat), with permissions for the existing billing operations.
+   (never in source/chat), with customer/Checkout/Portal creation and subscription, invoice, price,
+   payment-intent and charge reads for the existing billing operations.
    Verify sandbox subscription, failed payment, refund and signed webhook delivery.
 3. Confirm API release/readiness, exact website CORS/CSP connection and persistence
    on a fresh process before enabling public accounts. Keep `BILLING_LIVE=false`.
