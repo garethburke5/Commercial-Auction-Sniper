@@ -9,13 +9,15 @@
 <meta property="og:title" content="{{ title }}"><meta property="og:description" content="{{ description }}"><meta property="og:url" content="{{ canonical }}">
 <link rel="stylesheet" href="{{ url('/static/site.css') }}?v={{ asset_version }}"><script type="application/ld+json">{{ structured|safe }}</script><script src="{{ url('/static/search.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/board.js') }}?v={{ asset_version }}" defer></script>
 <script src="{{ url('/static/identity.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/reviews.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/deals.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/workspace.js') }}?v={{ asset_version }}" defer></script>
-</head><body data-prefix="{{ url('') }}">
+<script src="{{ url('/static/navigation.js') }}?v={{ asset_version }}" defer></script>
+</head><body data-prefix="{{ url('') }}" data-page-kind="{{ kind }}">
 {% from 'cards.html' import cards with context %}
 {% from 'fees.html' import fee_panel with context %}
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header"><div class="header-inner">
   <a class="brand" href="{{ url('/') }}" aria-label="Auction Geek home"><span class="mark" aria-hidden="true">↗</span><span>AUCTION <b>GEEK</b><small>COMMERCIAL PROPERTY INTELLIGENCE</small></span></a>
-  <nav aria-label="Main"><a {% if board %}aria-current="page"{% endif %} href="{{ url('/') }}">Find property</a><a {% if kind=='calendar' %}aria-current="page"{% endif %} href="{{ url('/auctions/') }}">Auctions</a><a {% if kind in ('sources','auctioneer') %}aria-current="page"{% endif %} href="{{ url('/auctioneers/') }}">Auctioneers</a><a href="{{ url('/deals/') }}">Commercial Deals</a><a {% if kind=='plans' %}aria-current="page"{% endif %} href="{{ url('/plans/') }}">Plans & Pricing</a><a class="research-nav" href="{{ url('/due-diligence/') }}">Acquisition Intelligence <span>↗</span></a><a href="{{ url('/account/') }}">My Auction Geek</a></nav>
+  <button class="nav-toggle" type="button" aria-controls="main-navigation" aria-expanded="false" aria-label="Open menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path class="menu-lines" d="M4 6h16M4 12h16M4 18h16"/><path class="menu-close" d="m6 6 12 12M6 18 18 6"/></svg></button>
+  <nav id="main-navigation" aria-label="Main"><a {% if board %}aria-current="page"{% endif %} href="{{ url('/') }}">Find property</a><a {% if kind=='calendar' %}aria-current="page"{% endif %} href="{{ url('/auctions/') }}">Auctions</a><a {% if kind in ('sources','auctioneer') %}aria-current="page"{% endif %} href="{{ url('/auctioneers/') }}">Auctioneers</a><a href="{{ url('/deals/') }}">Commercial Deals</a><a {% if kind=='plans' %}aria-current="page"{% endif %} href="{{ url('/plans/') }}">Plans & Pricing</a><a class="research-nav" href="{{ url('/due-diligence/') }}">Acquisition Intelligence <span>↗</span></a><a href="{{ url('/account/') }}">My Auction Geek</a></nav>
 </div></header>
 <main id="main">
 <section id="owner-controls" class="workspace-notice owner-controls" hidden aria-label="Owner controls">

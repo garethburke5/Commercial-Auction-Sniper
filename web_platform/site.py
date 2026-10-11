@@ -77,7 +77,8 @@ class Site:
             + (HERE/'templates/cards.html').read_bytes() + self.prefix.encode()
             + str(SEARCH_INDEX_VERSION).encode()).hexdigest()[:12]
         self.env.globals['asset_version'] = hashlib.sha256((HERE/'static/site.css').read_bytes()
-            + (HERE/'static/workspace.js').read_bytes() + (HERE/'static/board.js').read_bytes() + (HERE/'static/search.js').read_bytes()).hexdigest()[:12]
+            + (HERE/'static/workspace.js').read_bytes() + (HERE/'static/board.js').read_bytes() + (HERE/'static/search.js').read_bytes()
+            + (HERE/'static/navigation.js').read_bytes()).hexdigest()[:12]
         self.env.globals.update(board_index=f'/board/{self.board_version}/index.json')
 
     @cached_property
