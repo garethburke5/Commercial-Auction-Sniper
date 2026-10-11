@@ -9,10 +9,42 @@ const money=v=>typeof v==='number'?'£'+v.toLocaleString('en-GB'):(v||'Not state
 const signedIn=()=>!!session&&preview?.plan!=='visitor';
 const can=feature=>signedIn()&&features.has(feature);
 const notice=s=>{let e=document.querySelector('#workspace-message');if(!e){e=document.createElement('p');e.id='workspace-message';e.className='workspace-toast';e.setAttribute('role','status');document.body.append(e);}e.textContent=s;};
+function renderAuth(){
+ // Navigation reflects the actual Supabase session, including during owner previews.
+ const authenticated=!!session;
+ document.querySelectorAll('[data-account-link]').forEach(a=>{a.textContent=authenticated?'My Auction Geek':'Sign in / Register';});
+ document.querySelectorAll('[data-sign-out]').forEach(b=>{b.hidden=!authenticated;});
+ document.querySelector('#sign-in-form')?.toggleAttribute('hidden',authenticated||!auth);
+ if(!authenticated){
+  document.querySelector('#account-billing')?.setAttribute('hidden','');
+  document.querySelector('#owner-controls')?.setAttribute('hidden','');
+  document.querySelector('#account-reviews')?.replaceChildren();
+  document.querySelector('#report-credit-balance')?.replaceChildren();
+  if(auth)document.querySelector('#account-status')?.replaceChildren(document.createTextNode('Register or sign in free to save your shortlist. Membership adds monitoring and research tools.'));
+ }
+}
+function updateSession(next){
+ const changed=next?.user?.id!==session?.user?.id;
+ session=next;
+ if(changed){
+  features.clear();state=empty();preview=null;
+  document.querySelector('#account-reviews')?.replaceChildren();
+  document.querySelector('#report-credit-balance')?.replaceChildren();
+  document.querySelector('#account-billing')?.setAttribute('hidden','');
+  document.querySelector('#owner-controls')?.setAttribute('hidden','');
+  if(next)document.querySelector('#account-status')?.replaceChildren(document.createTextNode('Signed in. Loading your private workspace…'));
+  else try{sessionStorage.removeItem('auction-owner-preview');}catch(_){}
+  render();
+ }
+ renderAuth();return changed;
+}
+async function refreshSession(){
+ if(auth){const {data,error}=await auth.auth.getSession();if(error)throw error;updateSession(data.session);}
+}
 function persist(){if(session)return;try{localStorage.setItem(key,JSON.stringify(state));}catch(_){notice('This browser could not save your workspace. Download your stored data for a backup.');}}
 async function api(path,method='GET',body){
  if(preview&&method!=='GET')throw Error('Read-only customer preview. Return to My account to make changes.');
- if(auth)session=(await auth.auth.getSession()).data.session;
+ await refreshSession();
  if(!session||!config?.api_origin)throw Error('Sign in is required');
  const r=await fetch(config.api_origin+path,{method,headers:{Authorization:'Bearer '+session.access_token,...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined});
  if(!r.ok)throw Error((await r.json()).detail||'Could not complete the request');return r.json();
@@ -91,6 +123,14 @@ document.addEventListener('click',async e=>{
  const b=e.target.closest('button');if(!b)return;
  if(b.hasAttribute('data-close-dialog')){b.closest('dialog').close();return;}
  try{
+  // This remains available while the private workspace is still loading.
+  if(b.hasAttribute('data-sign-out')){
+   if(!auth||!session||b.disabled)return;
+   b.disabled=true;
+   try{const {error}=await auth.auth.signOut();if(error)throw error;updateSession(null);location.assign(root+'/account/');}
+   finally{b.disabled=false;}
+   return;
+  }
   await initialized;
   if(b.dataset.save)await toggle(b.dataset.save,'saved');
   if(b.dataset.watch)await toggle(b.dataset.watch,'watched');
@@ -106,7 +146,6 @@ document.addEventListener('click',async e=>{
   if(b.id==='export-workspace'){
    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({schema_version:1,...state},null,2)],{type:'application/json'}));a.download='auction-geek-workspace.json';a.click();URL.revokeObjectURL(a.href);
   }
-  if(b.id==='account-signout'){await auth.auth.signOut();session=null;features.clear();state=empty();location.assign(root+'/account/');}
   if(b.dataset.subscribe){
    if(!config?.billing_enabled){access('subscription');return;}
    if(!signedIn()){access('save');return;}
@@ -147,7 +186,11 @@ document.querySelector('#import-workspace')?.addEventListener('change',async e=>
  }catch(err){notice(err.message);}
 });
 async function loadAccount(){
- const remote=await api('/api/account');features=new Set(remote.features||[]);state=empty();
+ const userId=session?.user?.id;
+ const remote=await api('/api/account');
+ // A response started before sign-out must not restore the previous customer's UI.
+ if(!userId||session?.user?.id!==userId)return;
+ features=new Set(remote.features||[]);state=empty();
  for(const p of remote.workspace.properties)state.properties[p.property_id]={...p,property:p.property};
  for(const id of remote.saved_properties)state.properties[id]={...state.properties[id],saved:true,property:index[id]||state.properties[id]?.property};
  state.searches=remote.workspace.saved_searches.map(s=>({...s,id:s.search_id}));state.events=remote.workspace.events;
@@ -159,15 +202,16 @@ async function loadAccount(){
  if(remote.is_owner){
   let tier='';try{tier=sessionStorage.getItem('auction-owner-preview')||'';}catch(_){}
   if(tier){
-   try{preview=await api('/api/admin/preview/'+encodeURIComponent(tier));features=new Set(preview.features);state=empty();}
+   try{const nextPreview=await api('/api/admin/preview/'+encodeURIComponent(tier));if(session?.user?.id!==userId)return;preview=nextPreview;features=new Set(preview.features);state=empty();}
    catch(_){preview=null;try{sessionStorage.removeItem('auction-owner-preview');}catch(_){} }
   }
+  if(session?.user?.id!==userId)return;
   document.querySelector('#owner-preview').value=preview?.plan||'';
   document.querySelector('#owner-preview-status').textContent=preview?'Read-only customer preview: no saving, payments, uploads or purchased-report access.':'Owner account. Select a tier to preview customer access.';
  }
  const name=config?.plans?.[preview?.plan||remote.plan]?.name||preview?.plan||remote.plan;
  document.querySelector('#account-status')?.replaceChildren(document.createTextNode(preview?'Read-only preview · '+name+'. Your account and purchases are unchanged.':'Signed in · '+name+' account. Your workspace is private to your account.'));
- document.querySelector('#sign-in-form')?.setAttribute('hidden','');document.querySelector('#account-signout')?.removeAttribute('hidden');
+ renderAuth();
  if(config.billing_enabled&&!preview)document.querySelector('#account-billing')?.removeAttribute('hidden');
  if(preview&&reviews)reviews.replaceChildren(document.createTextNode('Purchased reports are excluded from customer previews.'));
  const current=document.querySelector('[data-current-property]')?.dataset.currentProperty;
@@ -189,27 +233,27 @@ async function initialize(){
   const r=await fetch(root+'/platform-config.json',{cache:'no-store'});if(!r.ok)throw Error();config=await r.json();
   if(config.accounts_enabled&&window.AuctionIdentity){
    auth=window.AuctionIdentity.createClient(config.supabase_url,config.supabase_key,{auth:{flowType:'pkce'}});
-   session=(await auth.auth.getSession()).data.session;
-   document.querySelector('#sign-in-form')?.removeAttribute('hidden');
-   if(session)await loadAccount();
+   await refreshSession();
+   // Subscribe before loading workspace data so API failures cannot break sign-out updates.
    auth.auth.onAuthStateChange((event,next)=>{
-    const changed=next?.user?.id!==session?.user?.id;session=next;
-    if(!next){features.clear();state=empty();render();}
-    else if(changed)queueMicrotask(()=>loadAccount().catch(()=>{features.clear();notice('Account sync is unavailable. Try again shortly.');}));
+    const changed=updateSession(next);
+    if(next&&changed)setTimeout(()=>{
+     if(session?.user?.id===next.user.id)loadAccount().catch(()=>{features.clear();notice('Account sync is unavailable. Try again shortly.');});
+    },0);
    });
-   if(!session)document.querySelector('#account-status')?.replaceChildren(document.createTextNode('Register or sign in free to save your shortlist. Membership adds monitoring and research tools.'));
+   if(session)await loadAccount();
   }
  }catch(_){features.clear();notice('Account services are unavailable. Free property search remains available.');}
- render();
+ renderAuth();render();
 }
 window.AuctionWorkspace={api,register:rows=>{for(const r of rows)index[r.id]=r;render();},signedIn,config:()=>config,upload:async(path,body)=>{
  if(preview)throw Error('Uploads are disabled in customer preview.');
- if(auth)session=(await auth.auth.getSession()).data.session;
+ await refreshSession();
  if(!session||!config?.api_origin)throw Error('Sign in to save this review');
  const r=await fetch(config.api_origin+path,{method:'POST',headers:{Authorization:'Bearer '+session.access_token},body});if(!r.ok)throw Error((await r.json()).detail||'Processing failed');return r.json();
 },download:async(path)=>{
  if(preview)throw Error('Purchased-report downloads are disabled in customer preview.');
- if(auth)session=(await auth.auth.getSession()).data.session;
+ await refreshSession();
  if(!session||!config?.api_origin)throw Error('Sign in to download your review');
  const r=await fetch(config.api_origin+path,{headers:{Authorization:'Bearer '+session.access_token}});if(!r.ok)throw Error('Download unavailable');return r.blob();
 }};
