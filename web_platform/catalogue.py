@@ -2,6 +2,7 @@
 import gzip
 import hashlib
 import json
+import os
 import re
 import sqlite3
 import tempfile
@@ -28,9 +29,17 @@ def money(value):
     return f'£{float(value):,.0f}' if isinstance(value, (int, float)) else 'Not stated'
 
 class Catalogue:
+    @staticmethod
+    def version(root):
+        stat=(Path(root)/'data/properties.json').stat()
+        return (stat.st_dev,stat.st_ino,stat.st_size,stat.st_mtime_ns,stat.st_ctime_ns)
+
     def __init__(self, root=ROOT, *, summaries=True):
         self.root = Path(root)
-        snapshot = json.loads((self.root / 'data/properties.json').read_text())
+        with (self.root / 'data/properties.json').open() as source:
+            stat=os.fstat(source.fileno())
+            self.snapshot_version=(stat.st_dev,stat.st_ino,stat.st_size,stat.st_mtime_ns,stat.st_ctime_ns)
+            snapshot=json.load(source)
         self.snapshot = snapshot
         self.generated_at = snapshot.get('generated_at')
         self.rows = {}

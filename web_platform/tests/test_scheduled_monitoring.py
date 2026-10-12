@@ -7,6 +7,31 @@ from web_platform.tests.test_membership_product import subscribe
 from web_platform.tests.test_platform import site
 
 
+def test_account_reuses_catalogue_until_snapshot_changes(site,tmp_path,monkeypatch):
+    import json
+    from unittest.mock import patch
+    from fastapi.testclient import TestClient
+    from web_platform import app as module
+    from web_platform.catalogue import Catalogue
+    a=Accounts(tmp_path/'accounts.sqlite')
+    monkeypatch.setattr(module,'authenticated_user',lambda header:header)
+    monkeypatch.setattr(module,'private_services',lambda:(a,None))
+    monkeypatch.setenv('PRIVATE_API_ONLY','true')
+    app=module.create_app(site)
+    original=Catalogue.__init__
+    loads=[]
+    def measured(self,*args,**kwargs):
+        loads.append(1);original(self,*args,**kwargs)
+    with patch.object(Catalogue,'__init__',measured), TestClient(app) as client:
+        for _ in range(2):assert client.get('/api/account',headers={'Authorization':'buyer'}).status_code==200
+        assert not loads
+        path=site.catalogue.root/'data/properties.json'
+        snapshot=json.loads(path.read_text());snapshot['generated_at']=datetime.now(timezone.utc).isoformat()
+        replacement=path.with_suffix('.new');replacement.write_text(json.dumps(snapshot));replacement.replace(path)
+        for _ in range(2):assert client.get('/api/account',headers={'Authorization':'buyer'}).status_code==200
+        assert len(loads)==1
+
+
 def test_batch_monitors_paid_accounts_once_and_preserves_outage_baselines(tmp_path):
     a=Accounts(tmp_path/'accounts.sqlite')
     subscribe(a, 'active'); subscribe(a, 'expired')

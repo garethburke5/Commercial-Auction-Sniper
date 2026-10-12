@@ -41,12 +41,30 @@ paid-report quality gate remain disabled.
   flushed temporary file followed by atomic replacement. Tests verify that a
   failed replacement preserves the last good file. This is a publishing safety
   improvement, not a production database backup or restore drill.
+- Account visits reuse the loaded catalogue while its file identity, size and
+  modification/change times are unchanged. A replaced or edited snapshot is
+  loaded once under a lock; freshness and source-health are still checked on
+  every visit. Tests cover reuse, replacement, stale/degraded input and recovery.
+
+## Secure configuration follow-up
+
+Render dashboard sign-in completed successfully. The runtime environment has the
+existing Stripe prices and webhook secret but no `STRIPE_SECRET_KEY`. There is
+also no `OPENAI_API_KEY`, configured acquisition model/provider, or
+`ADMIN_ACCOUNT_IDS`. These are confirmed missing settings, not inferred from
+account activation. No secret values were revealed.
+
+The deployed health-check path is now `/healthz`. Render redeployment
+`dep-db6d21h42hec73bpt770` succeeded at 12:25 UTC, with repeated HTTP 200 health
+checks in its application logs. The shared-client isolation/history-write commit
+`5fe014db1c63591710244b21286a5441ee0907d1` passed PostgreSQL CI, public publishing
+and Cloudflare deployment.
 
 ## Remaining acceptance by priority
 
 | Priority | State | Remaining evidence or work |
 | --- | --- | --- |
-| 1 Backend | PARTIAL | Startup and release fixed/live. Verify account readiness and public-to-private requests with actual sessions. Set the deployed health-check path to `/healthz`. |
+| 1 Backend | PARTIAL | Startup and health check fixed/live. Verify account readiness and public-to-private requests with actual sessions. |
 | 2 Accounts | PARTIAL | Production sender configuration, delivered sign-in links, actual persistent customer sessions and isolation. |
 | 3 Owner | BLOCKED | Register and verify the real owner, then bind the verified ID and test all previews. No owner ID is inferred or fabricated. |
 | 4 Stripe | PARTIAL | Owner activation reported complete; sandbox runtime key, Checkout, signed deliveries, renewals, cancellations, failures and refunds still need deployed proof. |
@@ -57,6 +75,6 @@ paid-report quality gate remain disabled.
 | 9 Safeguards | PARTIAL | Hosted test-database checks passed. Production backup/restore including Auth, interrupted report-job recovery, retention terms and complete desktop/mobile acceptance remain open. |
 
 Render's connector supports environment updates but does not expose a read of
-the deployed environment. The dashboard currently requires sign-in. Do not
+the deployed environment; its dashboard was used after secure sign-in. Do not
 request passwords or server keys in chat, invent a customer identity, enable
 live charging, or treat code/tests as deployed customer acceptance.

@@ -2,6 +2,7 @@
 import os
 import logging
 import time
+from threading import Lock
 from contextlib import asynccontextmanager
 from functools import lru_cache
 from fastapi import FastAPI, Header, HTTPException, Request
@@ -38,10 +39,22 @@ def create_app(site=None):
     board_assets={} if api_only else dict(site.board_assets())
     logger.info('Auction Geek startup: catalogue and routes ready in %.2fs (%s properties)',
                 time.monotonic()-started, len(site.catalogue.rows))
+    latest_catalogue=site.catalogue
+    catalogue_lock=Lock()
+    def current_catalogue():
+        nonlocal latest_catalogue
+        from .catalogue import Catalogue
+        with catalogue_lock:
+            if Catalogue.version(site.catalogue.root)!=latest_catalogue.snapshot_version:
+                previous=latest_catalogue
+                latest_catalogue=Catalogue(site.catalogue.root,summaries=False)
+                if previous is not site.catalogue:previous.close()
+            return latest_catalogue
     @asynccontextmanager
     async def lifespan(app):
         yield
         site.catalogue.close()
+        if latest_catalogue is not site.catalogue:latest_catalogue.close()
     app=FastAPI(title='Auction Geek platform',lifespan=lifespan,docs_url=None,redoc_url=None)
     from acquisition_provider import provider_factory_from_environment
     app.state.acquisition_provider_factory=provider_factory_from_environment()
@@ -101,7 +114,9 @@ def create_app(site=None):
         # Bind source-health evidence to the same current snapshot as its rows.
         # The API can stay alive while the host replaces the canonical snapshot.
         try:
-            current=Catalogue(site.catalogue.root,summaries=False)
+            # Reuse immutable published rows until the snapshot file changes.
+            # Source-health/freshness is still checked on every account visit.
+            current=current_catalogue()
             healthy=healthy_sources(current.snapshot)
             rows=current.rows
             trusted={pid:row for pid,row in rows.items() if row.get('source') in healthy}
