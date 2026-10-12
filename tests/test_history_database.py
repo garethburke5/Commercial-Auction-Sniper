@@ -2,11 +2,63 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from history_database import match_score, update_history_database
 
 
 class HistoryDatabaseTests(unittest.TestCase):
+    def test_index_preserves_variants_neighbours_and_missing_postcodes(self):
+        import history_database as history
+        rows = [
+            ('33 High Street, Tean ST10 4DY', '1'),
+            ('35 High Street, Tean ST10 4DY', '2'),
+            ('33 High St, Tean ST10 4DY', '3'),
+            ('33 High Street, Tean ST11 4DY', '4'),
+            ('33 High Street, Tean', '5'),
+            ('33 High Street, Tean ST10 4DY', '6'),
+        ]
+        items=[{'source':'Example','url':'https://example.test/'+n,
+                'auction_date':'2026-10-10','address':a,'lot_number':n}
+               for a,n in rows]
+        with tempfile.TemporaryDirectory() as td:
+            path=Path(td)/'history.json'
+            result=history.update_history_database(items,path=path,observed_at='2026-10-10')
+            self.assertEqual(len(result['properties']),4)
+            self.assertEqual(len(result['auction_events']),6)
+            ids=[e['property_id'] for e in result['auction_events']]
+            self.assertEqual(ids[0],ids[2]);self.assertEqual(ids[0],ids[5])
+            self.assertNotEqual(ids[0],ids[1]);self.assertNotEqual(ids[0],ids[3])
+
+    def test_index_uses_all_variants_and_original_order_on_ties(self):
+        import history_database as history
+        address='33 High Street, Tean ST10 4DY'
+        props=[{'property_id':'first','canonical_address':'33 High Street ST11 4DY',
+                'address_variants':['33 High Street ST11 4DY',address]},
+               {'property_id':'second','canonical_address':address,'address_variants':[address]}]
+        with tempfile.TemporaryDirectory() as td:
+            path=Path(td)/'history.json'
+            path.write_text(json.dumps(dict(history.empty_database(),properties=props)))
+            result=history.update_history_database([{'source':'Example','url':'https://example.test/1',
+                'address':address,'auction_date':'2026-10-10'}],path=path,observed_at='2026-10-10')
+            self.assertEqual(result['auction_events'][0]['property_id'],'first')
+
+    def test_rebanking_does_not_compare_every_property(self):
+        import history_database as history
+        items=[{'source':'Example','url':f'https://example.test/{n}',
+                'address':f'1 High Street, AB1 {n:03d}AA',
+                'lot_number':str(n),'auction_date':'2026-10-10'} for n in range(100)]
+        # Use valid distinct postcode districts and keep exact published addresses.
+        for n,item in enumerate(items): item['address']=f'1 High Street, AB{n//10+1} {n%10}AA'
+        with tempfile.TemporaryDirectory() as td:
+            path=Path(td)/'history.json'
+            first=history.update_history_database(items,path=path,observed_at='2026-10-10')
+            with patch.object(history,'match_score',wraps=history.match_score) as score:
+                second=history.update_history_database(items,path=path,observed_at='2026-10-11')
+            self.assertEqual(score.call_count,100)
+            self.assertEqual(len(first['auction_events']),len(second['auction_events']))
+            self.assertEqual(second['stats']['added_events_last_run'],0)
+
     def test_address_variants_match_same_property(self):
         self.assertGreaterEqual(
             match_score("33 High Street, Tean, Stoke-On-Trent, ST10 4DY", "33 High St, Upper Tean, Stoke on Trent ST10 4DY"),

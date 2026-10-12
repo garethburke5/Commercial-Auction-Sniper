@@ -170,6 +170,21 @@ def update_history_database(items, path="data/property_history.json", observed_a
     properties = db["properties"]
     events = db["auction_events"]
     events_by_id = {e.get("event_id"): e for e in events if e.get("event_id")}
+    # At the existing 0.78 threshold, a match requires the same postcode:
+    # missing postcodes score at most 0.50; conflicting ones score zero.
+    # Index every variant, retaining original property order for tied scores.
+    by_postcode = {}
+    property_order = {id(prop): n for n, prop in enumerate(properties)}
+    existing_ids = {p.get("property_id") for p in properties}
+
+    def index_variant(prop, address):
+        pc = postcode(address)
+        if pc:
+            by_postcode.setdefault(pc, {})[property_order[id(prop)]] = prop
+
+    for prop in properties:
+        for address in prop.get("address_variants") or [prop.get("canonical_address")]:
+            index_variant(prop, address)
 
     added_events = updated_events = added_properties = 0
     for raw in items:
@@ -178,10 +193,10 @@ def update_history_database(items, path="data/property_history.json", observed_a
         if not address or not _text(item.get("source")) or not _text(item.get("url")):
             continue
 
-        prop, confidence = _find_property(properties, address)
+        candidates = by_postcode.get(postcode(address), {})
+        prop, confidence = _find_property((candidates[k] for k in sorted(candidates)), address)
         if prop is None:
             pid = _property_id(address)
-            existing_ids = {p.get("property_id") for p in properties}
             if pid in existing_ids:
                 pid = hashlib.sha1(f"{pid}|{address}".encode()).hexdigest()[:20]
             prop = {
@@ -194,6 +209,8 @@ def update_history_database(items, path="data/property_history.json", observed_a
                 "auction_event_ids": [],
             }
             properties.append(prop)
+            property_order[id(prop)] = len(properties) - 1
+            existing_ids.add(pid)
             added_properties += 1
             confidence = 1.0
         else:
@@ -201,6 +218,7 @@ def update_history_database(items, path="data/property_history.json", observed_a
             variants = prop.setdefault("address_variants", [])
             if address not in variants:
                 variants.append(address)
+        index_variant(prop, address)
 
         eid = _event_id(item)
         event = events_by_id.get(eid)

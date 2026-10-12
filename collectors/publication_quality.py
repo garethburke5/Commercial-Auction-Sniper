@@ -27,7 +27,9 @@ def asset_text(description):
     # Auction House's Location section describes surrounding shops/roads, not
     # the accommodation being sold. A house on a mixed-use road is still a house.
     text = re.sub(r'\bLocation(?:\s*:\s*|\s+(?=The\b|Directly\b)).*?(?=\b(?:Accommodation|Tenancy|Tenure|Planning|Note|EPC Rating|Exterior|VAT)\s*(?::|-)|$)', ' ', text)
-    text = re.sub(r'[^.;]*(?:are all within easy reach|renowned Rows)[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
+    # Start at a sentence boundary. Trying every character in a long sentence
+    # repeats the entire scan and makes API cold starts grow quadratically.
+    text = re.sub(r'(?<![^.;])[^.;]*(?:are all within easy reach|renowned Rows)[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
     text = re.sub(r'\bmixed[ -]use\s+(?:road|street|area|neighbourhood)\b','',text,flags=re.I)
     # Brochure SITUATION sections describe nearby shops/cafes and cannot turn a
     # flat or house into a commercial asset. Later factual sections remain.
@@ -99,11 +101,12 @@ def publication_exclusion(item):
                           and query.get('a')=='222' and str(query.get('lotid','')).isdigit())
         if not (_is_auction_property_url(item.get('url')) or source_catalogue):
             return 'Catalogue/search page: not an individual property'
-    if commercial_decision(item) is False:
+    decision = commercial_decision(item)
+    if decision is False:
         return 'Pure residential: no commercial or mixed-use particulars'
-    if item.get('source') == 'Barnard Marcus' and commercial_decision(item) is None:
+    if item.get('source') == 'Barnard Marcus' and decision is None:
         return 'Unverified commercial use: no asset particulars prove eligibility'
-    if (commercial_decision(item) is None
+    if (decision is None
         and re.search(r'\bparcels? of (?:freehold )?land\b', asset_text(item.get('description')), re.I)):
         return 'Unverified commercial use: land parcels have no established commercial use'
     return None

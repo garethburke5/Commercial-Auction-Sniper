@@ -1,5 +1,7 @@
 """ASGI deployment entrypoint. Public pages work without identity/billing secrets."""
 import os
+import logging
+import time
 from contextlib import asynccontextmanager
 from functools import lru_cache
 from fastapi import FastAPI, Header, HTTPException, Request
@@ -26,11 +28,16 @@ def private_services():
 
 def create_app(site=None):
     api_only=os.getenv('PRIVATE_API_ONLY','false')=='true'
+    started=time.monotonic()
+    logger=logging.getLogger('uvicorn.error')
+    logger.info('Auction Geek startup: loading %s catalogue', 'private API' if api_only else 'public site')
     if site is None:
         from .catalogue import Catalogue
         site=Site(Catalogue(summaries=not api_only))
     pages={} if api_only else dict(site.routes())
     board_assets={} if api_only else dict(site.board_assets())
+    logger.info('Auction Geek startup: catalogue and routes ready in %.2fs (%s properties)',
+                time.monotonic()-started, len(site.catalogue.rows))
     @asynccontextmanager
     async def lifespan(app):
         yield
@@ -166,4 +173,5 @@ def create_app(site=None):
             row=site.catalogue.rows.get(p.split('/')[2])
             if row: return RedirectResponse(site.prefix+row['path'],status_code=301)
         raise HTTPException(404,'Page not found')
+    logger.info('Auction Geek startup: API ready in %.2fs',time.monotonic()-started)
     return app

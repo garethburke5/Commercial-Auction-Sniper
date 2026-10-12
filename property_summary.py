@@ -32,7 +32,7 @@ def specialist_use(row):
         return None
     text = _norm(row.get('description') or row.get('desc'))
     text = re.split(r'\b(?:Location|Situation|Nearby occupiers|Local amenities)\b', text, flags=re.I)[0]
-    text = re.sub(r'[^.;]*(?:nearby|adjacent to|opposite|close to)[^.;]*[.;]?', '', text, flags=re.I)
+    text = re.sub(r'(?<![^.;])[^.;]*(?:nearby|adjacent to|opposite|close to)[^.;]*[.;]?', '', text, flags=re.I)
     text = primary + ' ' + text[:1000]
     for pattern, label in ((r'\bbetting (?:office|shop)\b', 'Betting shop'),
                            (r'\bpost office\b', 'Post office'),
