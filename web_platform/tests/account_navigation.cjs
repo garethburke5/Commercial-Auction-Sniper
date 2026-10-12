@@ -49,7 +49,7 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   assert.equal(url,'https://private.example/api/account');accountCalls++;
   if(delayed)await new Promise(resolve=>{release=resolve;});
   if(accountError)throw Error('Private API unavailable');
-  return {ok:true,json:async()=>remote};
+  return {ok:true,json:async()=>remote,blob:async()=>Buffer.from('private report')};
  }};
  vm.runInNewContext(source,context);await tick();
  return {link,navSignOut,dashboardSignOut,elements,redirects,storage,
@@ -57,6 +57,7 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   emit(event,next){stored=next;assert.ok(callback,'Auth listener must survive API errors');callback(event,next);},
   async flush(){while(timers.length){timers.shift()();await tick();}},
   release:async()=>{release();await tick();},
+  delayNext:()=>{delayed=true;},
   click:async button=>{await handlers.click({target:button});await tick();},
   failSignOut:()=>{signOutError=Error('Sign out failed. Please retry.');},
   workspace:context.window.AuctionWorkspace};
@@ -113,4 +114,19 @@ test('owner visitor preview never hides the real session or its sign-out control
  const app=await setup({initial:buyer('owner'),owner:true});expectCustomer(app);
  assert.equal(app.workspace.signedIn(),false,'Existing read-only visitor preview remains intact');
  await app.click(app.navSignOut);expectGuest(app);assert.equal(app.storage.has('auction-owner-preview'),false);
+});
+for(const method of ['api','upload','download'])test(method+' rejects a late private response after account changes',async()=>{
+ const app=await setup({initial:buyer('a')});app.delayNext();
+ const request=app.workspace[method]('/api/account');
+ const rejected=assert.rejects(request,/account changed/);await tick();
+ app.emit('SIGNED_OUT',null);app.emit('SIGNED_IN',buyer('b'));
+ await app.release();await rejected;expectCustomer(app);
+ assert.equal(app.elements['#account-reviews'].innerHTML,'');
+});
+test('logging out and back into the same account still invalidates old requests',async()=>{
+ const app=await setup({initial:buyer('a')});app.delayNext();
+ const request=app.workspace.api('/api/account');
+ const rejected=assert.rejects(request,/account changed/);await tick();
+ app.emit('SIGNED_OUT',null);app.emit('SIGNED_IN',buyer('a'));
+ await app.release();await rejected;
 });

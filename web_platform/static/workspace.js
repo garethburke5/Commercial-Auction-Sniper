@@ -2,7 +2,7 @@
 'use strict';
 const root=document.body.dataset.prefix||'', key='auction-sniper-workspace-v1';
 const empty=()=>({properties:{},searches:[],events:[],recent:[]});
-let state=empty(), session=null, auth=null, config=null, index={}, features=new Set(), preview=null;
+let state=empty(), session=null, auth=null, config=null, index={}, features=new Set(), preview=null, authEpoch=0;
 try { state={...state,...JSON.parse(localStorage.getItem(key)||'{}')}; } catch (_) {}
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=v=>typeof v==='number'?'£'+v.toLocaleString('en-GB'):(v||'Not stated');
@@ -27,6 +27,7 @@ function updateSession(next){
  const changed=next?.user?.id!==session?.user?.id;
  session=next;
  if(changed){
+  authEpoch++;
   features.clear();state=empty();preview=null;
   document.querySelector('#account-reviews')?.replaceChildren();
   document.querySelector('#report-credit-balance')?.replaceChildren();
@@ -44,10 +45,19 @@ async function refreshSession(){
 function persist(){if(session)return;try{localStorage.setItem(key,JSON.stringify(state));}catch(_){notice('This browser could not save your workspace. Download your stored data for a backup.');}}
 async function api(path,method='GET',body){
  if(preview&&method!=='GET')throw Error('Read-only customer preview. Return to My account to make changes.');
+ return accountRequest(path,{method,headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined});
+}
+async function accountRequest(path,options={},format='json'){
+ const epoch=authEpoch;
+ const current=()=>{if(epoch!==authEpoch)throw Error('Your account changed. Please retry.');};
  await refreshSession();
+ current();
  if(!session||!config?.api_origin)throw Error('Sign in is required');
- const r=await fetch(config.api_origin+path,{method,headers:{Authorization:'Bearer '+session.access_token,...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined});
- if(!r.ok)throw Error((await r.json()).detail||'Could not complete the request');return r.json();
+ const r=await fetch(config.api_origin+path,{...options,headers:{...options.headers,Authorization:'Bearer '+session.access_token}});
+ current();
+ const result=await (r.ok&&format==='blob'?r.blob():r.json());
+ current();
+ if(!r.ok)throw Error(result.detail||'Could not complete the request');return result;
 }
 function safePath(p){return typeof p==='string'&&p.startsWith('/')&&!p.startsWith('//')?root+p:root+'/properties/';}
 function access(feature){
@@ -187,6 +197,7 @@ document.querySelector('#import-workspace')?.addEventListener('change',async e=>
 });
 async function loadAccount(){
  const userId=session?.user?.id;
+ const epoch=authEpoch;
  const remote=await api('/api/account');
  // A response started before sign-out must not restore the previous customer's UI.
  if(!userId||session?.user?.id!==userId)return;
@@ -203,7 +214,7 @@ async function loadAccount(){
   let tier='';try{tier=sessionStorage.getItem('auction-owner-preview')||'';}catch(_){}
   if(tier){
    try{const nextPreview=await api('/api/admin/preview/'+encodeURIComponent(tier));if(session?.user?.id!==userId)return;preview=nextPreview;features=new Set(preview.features);state=empty();}
-   catch(_){preview=null;try{sessionStorage.removeItem('auction-owner-preview');}catch(_){} }
+   catch(_){if(authEpoch!==epoch)return;preview=null;try{sessionStorage.removeItem('auction-owner-preview');}catch(_){} }
   }
   if(session?.user?.id!==userId)return;
   document.querySelector('#owner-preview').value=preview?.plan||'';
@@ -237,25 +248,22 @@ async function initialize(){
    // Subscribe before loading workspace data so API failures cannot break sign-out updates.
    auth.auth.onAuthStateChange((event,next)=>{
     const changed=updateSession(next);
+    const epoch=authEpoch;
     if(next&&changed)setTimeout(()=>{
-     if(session?.user?.id===next.user.id)loadAccount().catch(()=>{features.clear();notice('Account sync is unavailable. Try again shortly.');});
+     if(authEpoch===epoch&&session?.user?.id===next.user.id)loadAccount().catch(()=>{if(authEpoch===epoch){features.clear();notice('Account sync is unavailable. Try again shortly.');}});
     },0);
    });
-   if(session)await loadAccount();
+   if(session){const epoch=authEpoch;try{await loadAccount();}catch(error){if(authEpoch===epoch)throw error;}}
   }
  }catch(_){features.clear();notice('Account services are unavailable. Free property search remains available.');}
  renderAuth();render();
 }
 window.AuctionWorkspace={api,register:rows=>{for(const r of rows)index[r.id]=r;render();},signedIn,config:()=>config,upload:async(path,body)=>{
  if(preview)throw Error('Uploads are disabled in customer preview.');
- await refreshSession();
- if(!session||!config?.api_origin)throw Error('Sign in to save this review');
- const r=await fetch(config.api_origin+path,{method:'POST',headers:{Authorization:'Bearer '+session.access_token},body});if(!r.ok)throw Error((await r.json()).detail||'Processing failed');return r.json();
+ return accountRequest(path,{method:'POST',body});
 },download:async(path)=>{
  if(preview)throw Error('Purchased-report downloads are disabled in customer preview.');
- await refreshSession();
- if(!session||!config?.api_origin)throw Error('Sign in to download your review');
- const r=await fetch(config.api_origin+path,{headers:{Authorization:'Bearer '+session.access_token}});if(!r.ok)throw Error('Download unavailable');return r.blob();
+ return accountRequest(path,{},'blob');
 }};
 new MutationObserver(renderButtons).observe(document.querySelector('#board-results')||document.createElement('div'),{childList:true});
 const initialized=initialize();render();

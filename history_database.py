@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
+import tempfile
 from datetime import datetime, timezone
 from difflib import SequenceMatcher
 from pathlib import Path
@@ -115,17 +117,15 @@ def load_database(path):
     p = Path(path)
     if not p.exists():
         return empty_database()
-    try:
-        data = json.loads(p.read_text(encoding="utf-8"))
-        if not isinstance(data, dict):
-            return empty_database()
-        data.setdefault("schema_version", 1)
-        data.setdefault("properties", [])
-        data.setdefault("auction_events", [])
-        data.setdefault("stats", {})
-        return data
-    except Exception:
-        return empty_database()
+    # An unreadable existing history is an error, never permission to replace
+    # the permanent record with an empty database on the next collection.
+    data = json.loads(p.read_text(encoding="utf-8"))
+    if (not isinstance(data, dict) or data.get('schema_version') != 1
+            or not isinstance(data.get('properties'), list)
+            or not isinstance(data.get('auction_events'), list)):
+        raise ValueError('Existing property history has an invalid schema; restore it before banking new data')
+    data.setdefault("stats", {})
+    return data
 
 
 def _find_property(properties, address, threshold=0.78):
@@ -295,6 +295,17 @@ def update_history_database(items, path="data/property_history.json", observed_a
         "added_events_last_run": added_events,
         "updated_events_last_run": updated_events,
     }
-    Path(path).parent.mkdir(parents=True, exist_ok=True)
-    Path(path).write_text(json.dumps(db, indent=2, ensure_ascii=False), encoding="utf-8")
+    target=Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary=None
+    try:
+        with tempfile.NamedTemporaryFile(mode='w',encoding='utf-8',dir=target.parent,
+                prefix=target.name+'.',suffix='.tmp',delete=False) as output:
+            temporary=Path(output.name)
+            json.dump(db,output,indent=2,ensure_ascii=False)
+            output.flush()
+            os.fsync(output.fileno())
+        temporary.replace(target)
+    finally:
+        if temporary is not None:temporary.unlink(missing_ok=True)
     return db

@@ -8,6 +8,24 @@ from history_database import match_score, update_history_database
 
 
 class HistoryDatabaseTests(unittest.TestCase):
+    def test_corrupt_history_is_not_silently_replaced(self):
+        with tempfile.TemporaryDirectory() as td:
+            path=Path(td)/'history.json'
+            for content in ['{truncated','[]','{}']:
+                path.write_text(content)
+                with self.assertRaises(ValueError):update_history_database([],path=path)
+                self.assertEqual(path.read_text(),content)
+
+    def test_interrupted_publish_preserves_last_good_history(self):
+        with tempfile.TemporaryDirectory() as td:
+            path=Path(td)/'history.json'
+            update_history_database([],path=path,observed_at='2026-10-10')
+            before=path.read_bytes()
+            with patch.object(Path,'replace',side_effect=OSError('simulated write failure')):
+                with self.assertRaises(OSError):update_history_database([],path=path,observed_at='2026-10-11')
+            self.assertEqual(path.read_bytes(),before)
+            self.assertEqual(list(Path(td).glob('*.tmp')),[])
+
     def test_index_preserves_variants_neighbours_and_missing_postcodes(self):
         import history_database as history
         rows = [
