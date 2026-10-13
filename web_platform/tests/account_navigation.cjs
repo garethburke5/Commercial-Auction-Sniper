@@ -19,7 +19,7 @@ class Element {
 }
 async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false}={}){
  let stored=initial,callback,release,signOutError=null,signOutCalls=0,accountCalls=0;
- const elements=Object.fromEntries(['account-dashboard','account-status','account-billing','owner-controls','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
+ const elements=Object.fromEntries(['account-title','account-intro','account-customer-content','account-dashboard','account-status','account-billing','owner-controls','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
  const link=new Element();link.textContent='Sign in / Register';
  const navSignOut=new Element('nav-signout',true),dashboardSignOut=new Element('account-signout',true);
  for(const b of [navSignOut,dashboardSignOut])b.setAttribute('data-sign-out');
@@ -64,10 +64,14 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
 }
 function expectGuest(app){
  assert.equal(app.link.textContent,'Sign in / Register');
+ assert.equal(app.elements['#account-title'].textContent,'Sign in / Register');
+ assert.equal(app.elements['#account-customer-content'].hidden,true);
  assert.equal(app.navSignOut.hidden,true);assert.equal(app.dashboardSignOut.hidden,true);
 }
 function expectCustomer(app){
  assert.equal(app.link.textContent,'My Auction Geek');
+ assert.equal(app.elements['#account-title'].textContent,'My Auction Geek');
+ assert.equal(app.elements['#account-customer-content'].hidden,false);
  assert.equal(app.navSignOut.hidden,false);assert.equal(app.dashboardSignOut.hidden,false);
  assert.equal(app.elements['#sign-in-form'].hidden,true);
 }

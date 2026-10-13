@@ -12,6 +12,11 @@ const notice=s=>{let e=document.querySelector('#workspace-message');if(!e){e=doc
 function renderAuth(){
  // Navigation reflects the actual Supabase session, including during owner previews.
  const authenticated=!!session;
+ document.querySelector('#account-customer-content')?.toggleAttribute('hidden',!authenticated);
+ const title=document.querySelector('#account-title'),intro=document.querySelector('#account-intro');
+ if(title)title.textContent=authenticated?'My Auction Geek':'Sign in / Register';
+ if(intro)intro.textContent=authenticated?'Your shortlist, watched properties, private notes, searches and investment reports.':'Your property shortlist and investment research, in one place.';
+
  document.querySelectorAll('[data-account-link]').forEach(a=>{a.textContent=authenticated?'My Auction Geek':'Sign in / Register';});
  document.querySelectorAll('[data-sign-out]').forEach(b=>{b.hidden=!authenticated;});
  document.querySelector('#sign-in-form')?.toggleAttribute('hidden',authenticated||!auth);
@@ -20,7 +25,7 @@ function renderAuth(){
   document.querySelector('#owner-controls')?.setAttribute('hidden','');
   document.querySelector('#account-reviews')?.replaceChildren();
   document.querySelector('#report-credit-balance')?.replaceChildren();
-  if(auth)document.querySelector('#account-status')?.replaceChildren(document.createTextNode('Register or sign in free to save your shortlist. Membership adds monitoring and research tools.'));
+  document.querySelector('#account-status')?.replaceChildren(document.createTextNode(auth?'Free registration. Membership is optional.':'Sign-in is currently unavailable. Please try again shortly; you can still browse properties.'));
  }
 }
 function updateSession(next){

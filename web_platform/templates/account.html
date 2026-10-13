@@ -1,8 +1,22 @@
-<div class="workspace-shell" id="account-dashboard">
+<div class="workspace-shell account-page" id="account-dashboard">
+<header class="account-heading">
+ <p class="eyebrow">MY AUCTION GEEK</p>
+ <h1 id="account-title">Sign in / Register</h1>
+ <p id="account-intro">Your property shortlist and investment research, in one place.</p>
+</header>
+<form id="sign-in-form" class="account-auth" hidden aria-label="Sign in or register">
+ <h2>Continue with your email</h2>
+ <p id="signin-help">We’ll email you a secure sign-in link. No password to remember.</p>
+ <label for="signin-email">Email address</label>
+ <input id="signin-email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" aria-describedby="signin-help" placeholder="you@example.com" required>
+ <button class="button" type="submit">Email my sign-in link</button>
+ <p class="small muted">New to Auction Geek? Use the same form to create your free account.</p>
+</form>
+<div id="account-status" class="workspace-notice" role="status">Loading secure sign-in…</div>
+<noscript><p>Enable JavaScript to sign in to your account. You can still browse properties freely.</p></noscript>
+<div id="account-customer-content" hidden>
 <section class="workspace-welcome"><div><p class="eyebrow">YOUR ACQUISITION WORKSPACE</p><h2>Keep the opportunities worth coming back to.</h2><p>Shortlist with Save. Monitor with Watch. Keep your own notes and bid targets alongside the evidence.</p></div><a class="button" href="{{ url('/properties/') }}">Discover properties →</a></section>
-<div id="account-status" class="workspace-notice" role="status">Save properties with a free account. Membership adds Watch, saved searches, notes and bid targets. Account sign-in is being activated; any earlier device records are preserved.</div>
-<form id="sign-in-form" class="account-auth" hidden><h2>Register / sign in</h2><p>We’ll email a secure sign-in link. No password to remember.</p><label>Email address<input name="email" type="email" autocomplete="email" required></label><button class="button">Email my sign-in link</button></form>
-<div class="workspace-toolbar"><button id="account-signout" type="button" data-sign-out class="button outline" hidden>Sign Out</button><button id="account-billing" class="button outline" hidden>Manage subscription & invoices</button><button id="export-workspace" class="button outline">Download my stored data</button><label class="textlink">Open earlier device backup<input id="import-workspace" type="file" accept="application/json"></label></div>
+<div class="workspace-toolbar"><button id="account-signout" type="button" data-sign-out class="button outline" hidden>Sign Out</button><button id="account-billing" class="button outline" hidden>Manage subscription & invoices</button></div>
 <nav class="workspace-nav" aria-label="My Auction Geek sections"><a href="#shortlist">Saved</a><a href="#watchlist">Watching</a><a href="#my-searches">Searches</a><a href="#my-updates">Updates</a><a href="#my-reviews">Reports</a></nav>
 <div class="workspace-columns"><section id="shortlist"><h2>Saved properties <span id="saved-count" class="count"></span></h2><div id="saved-items"><p>Save a property to start your shortlist.</p></div></section><section id="watchlist"><h2>Watching <span id="watch-count" class="count"></span></h2><p class="small muted">Membership monitors guide, status, auction date and document changes. Email alerts are being activated.</p><div id="watched-items"><p>Watch a property to track guide, status, auction date, legal-pack availability and particulars changes.</p></div></section></div>
 <section id="my-updates"><h2>Meaningful changes</h2><div id="watch-updates"><p>No changes recorded yet.</p></div></section>
@@ -10,4 +24,6 @@
 <section id="my-reviews"><h2>My Investment Reports</h2><p id="report-credit-balance" role="status"></p><p>Return to reports saved to your account. Completed purchases and credit redemptions stay accessible after your subscription ends; report-retention terms will be published before paid launch.</p><div id="account-reviews"></div><a class="button outline" href="{{ url('/due-diligence/') }}">Open Investment Reports →</a></section>
 <section><h2>Recently viewed</h2><div id="recent-items"></div></section>
 <p class="small muted">Device copies are accessible to anyone using this browser profile. Export a backup before clearing site data. <a href="{{ url('/privacy/') }}">Privacy and storage</a></p>
+</div>
+<details class="account-device-tools"><summary>Earlier device data &amp; backups</summary><p class="small muted">Access records previously saved in this browser. These are separate from your signed-in account.</p><div class="workspace-toolbar"><button id="export-workspace" class="button outline">Download my stored data</button><label class="textlink">Open earlier device backup<input id="import-workspace" type="file" accept="application/json"></label></div></details>
 </div>
