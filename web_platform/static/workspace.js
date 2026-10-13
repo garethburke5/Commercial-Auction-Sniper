@@ -36,6 +36,7 @@ function renderAuth(){
  document.querySelectorAll('[data-sign-out]').forEach(b=>{b.hidden=!authenticated;});
  const forms={signin:'sign-in-form',register:'register-form',reset:'reset-password-form',magic:'magic-link-form'};
  for(const [mode,id] of Object.entries(forms))document.getElementById(id)?.toggleAttribute('hidden',authenticated||!auth||mode!==authMode);
+ document.querySelector('#registration-next')?.toggleAttribute('hidden',authenticated||!auth||authMode!=='confirmation');
  document.querySelectorAll('[data-auth-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.authMode===authMode)));
  let legacy=false;try{const old=JSON.parse(localStorage.getItem(key)||'{}');legacy=Object.keys(old.properties||{}).length>0||(old.searches||[]).length>0;}catch(_){}
  document.querySelector('#account-device-tools')?.toggleAttribute('hidden',!authenticated||!legacy);
@@ -235,7 +236,12 @@ async function submitIdentity(f){
    const {data,error}=await auth.auth.signUp({email,password,options:{emailRedirectTo:callback,data:{full_name:name}}});
    if(error)throw error;
    if(data.session){if(updateSession(data.session))queueAccountLoad();}
-   else authFeedback('Check your inbox to confirm your email and finish creating your account. If you already have an account, sign in or reset your password.');
+   else {
+    authMode='confirmation';authFeedback('');
+    const address=document.querySelector('#registration-email');if(address)address.textContent=email;
+    for(const id of ['signin-email','reset-email']){const input=document.getElementById(id);if(input)input.value=email;}
+    renderAuth();const heading=document.querySelector('#registration-next-title');heading?.focus();heading?.scrollIntoView?.({block:'center',behavior:'auto'});
+   }
   }else if(f.id==='magic-link-form'){
    const {error}=await auth.auth.signInWithOtp({email,options:{shouldCreateUser:false,emailRedirectTo:callback}});
    if(error&&error.status===429)throw Error('Please wait a minute before requesting another email.');
