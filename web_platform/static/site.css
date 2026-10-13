@@ -246,3 +246,23 @@
  .account-page .workspace-welcome{flex-direction:column;align-items:flex-start;padding:20px;gap:10px}
  .account-page .workspace-columns{grid-template-columns:1fr}
 }
+
+/* Familiar registration, sign-in and recovery, using the existing identity service. */
+.account-entry{max-width:520px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.account-entry .account-auth{border:0;border-radius:0;margin:0;max-width:none}
+.auth-switch{display:flex;border-bottom:1px solid var(--line);padding:6px 16px 0;gap:12px}
+.auth-switch button{flex:1;border:0;border-bottom:3px solid transparent;background:transparent;padding:14px 8px;font:inherit;font-weight:600;color:#526475;cursor:pointer}
+.auth-switch button[aria-pressed="true"]{color:#087c77;border-bottom-color:#087c77}
+.auth-links{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin-top:20px}
+.auth-links .textlink,.account-auth .textlink{padding:4px 0;line-height:1.5;text-align:left;white-space:normal}
+.auth-feedback{margin:0 26px 24px;padding:14px;border-left:3px solid #087c77;background:#eef6f4;overflow-wrap:anywhere}
+.auth-feedback[data-error="true"]{border-left-color:#a33838;background:#fff3f3}
+.account-auth input:focus-visible,.auth-switch button:focus-visible,.account-settings summary:focus-visible{outline:3px solid #087c77;outline-offset:3px}
+.account-auth .button:disabled{opacity:.65;cursor:wait}
+.account-settings{margin:32px 0;border-top:1px solid var(--line);padding-top:16px}
+.account-settings>summary{cursor:pointer;font-weight:600;padding:10px 0}
+.account-settings .account-auth{margin-top:16px}
+#account-status:empty{display:none}
+@media(max-width:650px){.auth-feedback{margin:0 20px 20px}.auth-switch{padding-left:12px;padding-right:12px}.account-auth input{min-height:46px}}
+.auth-links button.textlink,.account-auth button.textlink,.account-settings button.textlink{border:0;background:transparent;color:#087c77;font:inherit;font-size:.9rem;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;margin:0;min-height:36px}
+.account-auth .auth-links{gap:8px}

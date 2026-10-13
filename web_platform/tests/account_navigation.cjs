@@ -19,7 +19,7 @@ class Element {
 }
 async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false}={}){
  let stored=initial,callback,release,signOutError=null,signOutCalls=0,accountCalls=0;
- const elements=Object.fromEntries(['account-title','account-intro','account-customer-content','account-dashboard','account-status','account-billing','owner-controls','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
+ const elements=Object.fromEntries(['account-entry','new-password-form','register-form','reset-password-form','magic-link-form','account-retry','account-title','account-intro','account-customer-content','account-dashboard','account-status','account-billing','owner-controls','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
  const link=new Element();link.textContent='Sign in / Register';
  const navSignOut=new Element('nav-signout',true),dashboardSignOut=new Element('account-signout',true);
  for(const b of [navSignOut,dashboardSignOut])b.setAttribute('data-sign-out');
@@ -133,4 +133,16 @@ test('logging out and back into the same account still invalidates old requests'
  const rejected=assert.rejects(request,/account changed/);await tick();
  app.emit('SIGNED_OUT',null);app.emit('SIGNED_IN',buyer('a'));
  await app.release();await rejected;
+});
+
+test('backend errors replace indefinite loading with a retry while retaining sign-out',async()=>{
+ const app=await setup({initial:buyer('a'),accountError:true});
+ assert.match(app.elements['#account-status'].textContent,/could not load/);
+ assert.equal(app.elements['#account-retry'].hidden,false);expectCustomer(app);
+});
+test('password recovery hides the workspace and opens the password form for the same identity',async()=>{
+ const app=await setup({initial:buyer('a')});app.emit('PASSWORD_RECOVERY',buyer('a'));
+ assert.equal(app.elements['#new-password-form'].hidden,false);
+ assert.equal(app.elements['#account-customer-content'].hidden,true);
+ app.emit('SIGNED_OUT',null);expectGuest(app);assert.equal(app.elements['#new-password-form'].hidden,true);
 });

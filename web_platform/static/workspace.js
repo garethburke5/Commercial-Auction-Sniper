@@ -3,36 +3,66 @@
 const root=document.body.dataset.prefix||'', key='auction-sniper-workspace-v1';
 const empty=()=>({properties:{},searches:[],events:[],recent:[]});
 let state=empty(), session=null, auth=null, config=null, index={}, features=new Set(), preview=null, authEpoch=0;
+let authMode='signin', recoveryMode=new URLSearchParams(location.search||'').get('mode')==='recovery', authBusy=false,authRestoring=true;
 try { state={...state,...JSON.parse(localStorage.getItem(key)||'{}')}; } catch (_) {}
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=v=>typeof v==='number'?'£'+v.toLocaleString('en-GB'):(v||'Not stated');
 const signedIn=()=>!!session&&preview?.plan!=='visitor';
 const can=feature=>signedIn()&&features.has(feature);
 const notice=s=>{let e=document.querySelector('#workspace-message');if(!e){e=document.createElement('p');e.id='workspace-message';e.className='workspace-toast';e.setAttribute('role','status');document.body.append(e);}e.textContent=s;};
+function authFeedback(message,error=false,id='auth-feedback'){
+ const e=document.getElementById(id);if(!e){notice(message);return;}
+ e.textContent=message;e.hidden=!message;e.dataset.error=String(error);
+ if(message)e.focus?.();
+}
+function setAuthMode(mode){
+ if(!['signin','register','reset','magic'].includes(mode)||authBusy)return;
+ authMode=mode;authFeedback('');renderAuth();
+ document.querySelector(({signin:'#signin-email',register:'#register-name',reset:'#reset-email',magic:'#magic-email'})[mode])?.focus();
+}
 function renderAuth(){
- // Navigation reflects the actual Supabase session, including during owner previews.
+ // This controls presentation only; all private data remains authorized by the API.
  const authenticated=!!session;
- document.querySelector('#account-customer-content')?.toggleAttribute('hidden',!authenticated);
+ document.querySelector('#account-customer-content')?.toggleAttribute('hidden',!authenticated||recoveryMode);
+ document.querySelector('#account-entry')?.toggleAttribute('hidden',authenticated||!auth);
+ document.querySelector('#new-password-form')?.toggleAttribute('hidden',!authenticated||!recoveryMode);
  const title=document.querySelector('#account-title'),intro=document.querySelector('#account-intro');
- if(title)title.textContent=authenticated?'My Auction Geek':'Sign in / Register';
+ if(title)title.textContent=authenticated?(recoveryMode?'Set your password':'My Auction Geek'):'Sign in / Register';
  if(intro)intro.textContent=authenticated?'Your shortlist, watched properties, private notes, searches and investment reports.':'Your property shortlist and investment research, in one place.';
-
+ const fullName=String(session?.user?.user_metadata?.full_name||'').trim();
+ const welcome=document.querySelector('#account-welcome');if(welcome)welcome.textContent=fullName?'Welcome, '+fullName:'Welcome to My Auction Geek';
+ const profile=document.querySelector('#profile-name');if(profile&&document.activeElement!==profile)profile.value=fullName;
  document.querySelectorAll('[data-account-link]').forEach(a=>{a.textContent=authenticated?'My Auction Geek':'Sign in / Register';});
  document.querySelectorAll('[data-sign-out]').forEach(b=>{b.hidden=!authenticated;});
- document.querySelector('#sign-in-form')?.toggleAttribute('hidden',authenticated||!auth);
+ const forms={signin:'sign-in-form',register:'register-form',reset:'reset-password-form',magic:'magic-link-form'};
+ for(const [mode,id] of Object.entries(forms))document.getElementById(id)?.toggleAttribute('hidden',authenticated||!auth||mode!==authMode);
+ document.querySelectorAll('[data-auth-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.authMode===authMode)));
+ let legacy=false;try{const old=JSON.parse(localStorage.getItem(key)||'{}');legacy=Object.keys(old.properties||{}).length>0||(old.searches||[]).length>0;}catch(_){}
+ document.querySelector('#account-device-tools')?.toggleAttribute('hidden',!authenticated||!legacy);
  if(!authenticated){
   document.querySelector('#account-billing')?.setAttribute('hidden','');
+  document.querySelector('#account-retry')?.setAttribute('hidden','');
   document.querySelector('#owner-controls')?.setAttribute('hidden','');
   document.querySelector('#account-reviews')?.replaceChildren();
   document.querySelector('#report-credit-balance')?.replaceChildren();
-  document.querySelector('#account-status')?.replaceChildren(document.createTextNode(auth?'Free registration. Membership is optional.':'Sign-in is currently unavailable. Please try again shortly; you can still browse properties.'));
+  document.querySelector('#account-status')?.replaceChildren(document.createTextNode(auth?'':'Sign-in is currently unavailable. Please try again shortly; you can still browse properties.'));
  }
+}
+function workspaceFailed(){
+ features.clear();
+ document.querySelector('#account-status')?.replaceChildren(document.createTextNode('You are signed in, but your workspace could not load. Please retry. Your saved information has not been deleted.'));
+ document.querySelector('#account-retry')?.removeAttribute('hidden');
+}
+function queueAccountLoad(){
+ const epoch=authEpoch;
+ setTimeout(()=>{if(session&&authEpoch===epoch)loadAccount().catch(()=>{if(authEpoch===epoch)workspaceFailed();});},0);
 }
 function updateSession(next){
  const changed=next?.user?.id!==session?.user?.id;
  session=next;
  if(changed){
   authEpoch++;
+  if(!next){recoveryMode=false;document.querySelectorAll('input[type=password]').forEach(e=>{e.value='';});}
   features.clear();state=empty();preview=null;
   document.querySelector('#account-reviews')?.replaceChildren();
   document.querySelector('#report-credit-balance')?.replaceChildren();
@@ -58,7 +88,7 @@ async function accountRequest(path,options={},format='json'){
  await refreshSession();
  current();
  if(!session||!config?.api_origin)throw Error('Sign in is required');
- const r=await fetch(config.api_origin+path,{...options,headers:{...options.headers,Authorization:'Bearer '+session.access_token}});
+ const r=await fetch(config.api_origin+path,{...options,signal:options.signal||(typeof AbortSignal!=='undefined'?AbortSignal.timeout(60000):undefined),headers:{...options.headers,Authorization:'Bearer '+session.access_token}});
  current();
  const result=await (r.ok&&format==='blob'?r.blob():r.json());
  current();
@@ -138,6 +168,7 @@ document.addEventListener('click',async e=>{
  const b=e.target.closest('button');if(!b)return;
  if(b.hasAttribute('data-close-dialog')){b.closest('dialog').close();return;}
  try{
+  if(b.dataset.authMode){setAuthMode(b.dataset.authMode);return;}
   // This remains available while the private workspace is still loading.
   if(b.hasAttribute('data-sign-out')){
    if(!auth||!session||b.disabled)return;
@@ -147,6 +178,21 @@ document.addEventListener('click',async e=>{
    return;
   }
   await initialized;
+  if(b.id==='account-retry'){
+   b.disabled=true;try{await loadAccount();}catch(_){workspaceFailed();}finally{b.disabled=false;}return;
+  }
+  if(b.id==='account-password-reset'){
+   if(!auth||!session||preview)return;
+   b.disabled=true;try{
+    const {error}=await auth.auth.resetPasswordForEmail(session.user.email,{redirectTo:location.origin+root+'/account/'});
+    if(error)throw error;
+    authFeedback('Check your email for a link to set or reset your password.',false,'settings-feedback');
+   }catch(_){authFeedback('We could not send a reset link. Please try again shortly.',true,'settings-feedback');}finally{b.disabled=false;}return;
+  }
+  if(b.id==='export-device-workspace'){
+   const previous=JSON.parse(localStorage.getItem(key)||'{}');
+   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({schema_version:1,...previous},null,2)],{type:'application/json'}));a.download='auction-geek-earlier-browser-records.json';a.click();URL.revokeObjectURL(a.href);return;
+  }
   if(b.dataset.save)await toggle(b.dataset.save,'saved');
   if(b.dataset.watch)await toggle(b.dataset.watch,'watched');
   if(b.hasAttribute('data-register'))access('save');
@@ -169,10 +215,59 @@ document.addEventListener('click',async e=>{
   if(b.id==='account-billing'){const r=await api('/api/billing/portal','POST');location.assign(r.url);}
  }catch(err){notice(err.message);}
 });
+async function submitIdentity(f){
+ if(authBusy)return;
+ authBusy=true;const submit=f.querySelector('button[type=submit]');if(submit)submit.disabled=true;
+ const target=f.id==='new-password-form'?'password-feedback':f.id==='profile-form'?'profile-feedback':'auth-feedback';
+ authFeedback('Please wait…',false,target);
+ try{
+  await initialized;if(!auth)throw Error('Sign-in is unavailable. Please try again shortly.');
+  const fd=new FormData(f),email=String(fd.get('email')||'').trim(),password=String(fd.get('password')||'');
+  const callback=location.origin+root+'/account/';
+  if(f.id==='sign-in-form'){
+   const {data,error}=await auth.auth.signInWithPassword({email,password});
+   if(error)throw Error('Could not sign in. Check your email and password, confirm your email if needed, or use Forgot password.');
+   if(updateSession(data.session))queueAccountLoad();authFeedback('');
+  }else if(f.id==='register-form'){
+   const name=String(fd.get('full_name')||'').trim();
+   if(!name||name.length>100)throw Error('Enter your name (up to 100 characters).');
+   if(password.length<12)throw Error('Use at least 12 characters for your password.');
+   const {data,error}=await auth.auth.signUp({email,password,options:{emailRedirectTo:callback,data:{full_name:name}}});
+   if(error)throw error;
+   if(data.session){if(updateSession(data.session))queueAccountLoad();}
+   else authFeedback('Check your inbox to confirm your email and finish creating your account. If you already have an account, sign in or reset your password.');
+  }else if(f.id==='magic-link-form'){
+   const {error}=await auth.auth.signInWithOtp({email,options:{shouldCreateUser:false,emailRedirectTo:callback}});
+   if(error&&error.status===429)throw Error('Please wait a minute before requesting another email.');
+   if(error&&error.status>=500)throw Error('Email sign-in is temporarily unavailable. Please try again shortly.');
+   authFeedback('If this email belongs to an account, a sign-in link is on its way. Check your inbox and spam folder. New here? Choose Create account.');
+  }else if(f.id==='reset-password-form'){
+   const {error}=await auth.auth.resetPasswordForEmail(email,{redirectTo:callback});if(error)throw error;
+   authFeedback('If this email belongs to an account, we’ve sent a password reset link. Check your inbox and spam folder.');
+  }else if(f.id==='new-password-form'){
+   if(!session||!recoveryMode||preview)throw Error('Open a fresh password reset link to continue.');
+   if(password.length<12)throw Error('Use at least 12 characters for your password.');
+   if(password!==fd.get('confirm_password'))throw Error('The passwords do not match.');
+   const epoch=authEpoch;const {error}=await auth.auth.updateUser({password});if(error)throw error;
+   if(epoch!==authEpoch||!session)throw Error('Your account changed. Please sign in again.');
+   recoveryMode=false;history.replaceState(null,'',root+'/account/');renderAuth();
+   document.querySelector('#account-status')?.replaceChildren(document.createTextNode('Password saved. You are signed in to your existing account.'));queueAccountLoad();
+  }else if(f.id==='profile-form'){
+   if(!session||preview)throw Error('Return to your own account to edit your details.');
+   const name=String(fd.get('full_name')||'').trim();if(!name||name.length>100)throw Error('Enter your name (up to 100 characters).');
+   const epoch=authEpoch;const {data,error}=await auth.auth.updateUser({data:{full_name:name}});if(error)throw error;
+   if(epoch!==authEpoch||!session)throw Error('Your account changed. Please sign in again.');
+   session={...session,user:data.user};renderAuth();authFeedback('Your name has been saved.',false,target);
+  }
+ }catch(error){authFeedback(error.status===429?'Please wait a minute before trying again.':error.message||'Could not complete this request. Please try again.',true,target);}
+ finally{f.querySelectorAll('input[type=password]').forEach(e=>{e.value='';});authBusy=false;if(submit)submit.disabled=false;}
+}
 document.addEventListener('submit',async e=>{
  const f=e.target;
- if(!f.dataset.noteForm&&!['sign-in-form','save-search-form'].includes(f.id))return;
+ const identityForms=['sign-in-form','register-form','reset-password-form','magic-link-form','new-password-form','profile-form'];
+ if(!f.dataset.noteForm&&!identityForms.includes(f.id)&&f.id!=='save-search-form')return;
  e.preventDefault();
+ if(identityForms.includes(f.id)){await submitIdentity(f);return;}
  try{
   await initialized;
   if(f.dataset.noteForm){
@@ -186,10 +281,7 @@ document.addEventListener('submit',async e=>{
    if(!s.name||!s.query)return;
    await api('/api/account/searches/'+s.id,'PUT',s);state.searches.unshift(s);f.closest('dialog').close();render();notice('Search saved to your account');
   }
-  if(f.id==='sign-in-form'){
-   if(!auth){access('save');return;}
-   const {error}=await auth.auth.signInWithOtp({email:new FormData(f).get('email'),options:{emailRedirectTo:location.origin+root+'/account/'}});notice(error?error.message:'Check your email for the secure sign-in link.');
-  }
+
  }catch(err){notice(err.message);}
 });
 document.querySelector('#import-workspace')?.addEventListener('change',async e=>{
@@ -201,6 +293,7 @@ document.querySelector('#import-workspace')?.addEventListener('change',async e=>
  }catch(err){notice(err.message);}
 });
 async function loadAccount(){
+ document.querySelector('#account-retry')?.setAttribute('hidden','');
  const userId=session?.user?.id;
  const epoch=authEpoch;
  const remote=await api('/api/account');
@@ -243,25 +336,26 @@ document.querySelector('#owner-preview')?.addEventListener('change',async e=>{
  }catch(err){notice(err.message);}
 });
 async function initialize(){
- try{const r=await fetch(root+'/workspace-index.json');if(!r.ok)throw Error();const data=await r.json();index=Object.fromEntries(data.rows.map(r=>[r.id,r]));render();}
+ try{const r=await fetch(root+'/workspace-index.json',{signal:typeof AbortSignal!=='undefined'?AbortSignal.timeout(15000):undefined});if(!r.ok)throw Error();const data=await r.json();index=Object.fromEntries(data.rows.map(r=>[r.id,r]));render();}
  catch(_){notice('Property workspace details are unavailable. Your earlier records remain intact.');}
  try{
   const r=await fetch(root+'/platform-config.json',{cache:'no-store'});if(!r.ok)throw Error();config=await r.json();
   if(config.accounts_enabled&&window.AuctionIdentity){
    auth=window.AuctionIdentity.createClient(config.supabase_url,config.supabase_key,{auth:{flowType:'pkce'}});
-   await refreshSession();
-   // Subscribe before loading workspace data so API failures cannot break sign-out updates.
    auth.auth.onAuthStateChange((event,next)=>{
+    if(event==='PASSWORD_RECOVERY')recoveryMode=true;
     const changed=updateSession(next);
-    const epoch=authEpoch;
-    if(next&&changed)setTimeout(()=>{
-     if(authEpoch===epoch&&session?.user?.id===next.user.id)loadAccount().catch(()=>{if(authEpoch===epoch){features.clear();notice('Account sync is unavailable. Try again shortly.');}});
-    },0);
+    if(next&&changed&&!authRestoring)queueAccountLoad();
    });
-   if(session){const epoch=authEpoch;try{await loadAccount();}catch(error){if(authEpoch===epoch)throw error;}}
+   try{await refreshSession();}catch(_){authFeedback('Your sign-in link could not be completed. Request a fresh link or sign in with your password.',true);}
+   authRestoring=false;
+   if(session){try{await loadAccount();}catch(_){workspaceFailed();}}
+
   }
  }catch(_){features.clear();notice('Account services are unavailable. Free property search remains available.');}
  renderAuth();render();
+ const params=new URLSearchParams(location.hash?.slice(1)||'');
+ if(params.has('error')){history.replaceState(null,'',root+'/account/');authFeedback('This email link has expired or has already been used. Request a fresh link or sign in with your password.',true);}
 }
 window.AuctionWorkspace={api,register:rows=>{for(const r of rows)index[r.id]=r;render();},signedIn,config:()=>config,upload:async(path,body)=>{
  if(preview)throw Error('Uploads are disabled in customer preview.');
