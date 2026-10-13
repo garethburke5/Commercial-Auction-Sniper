@@ -15,19 +15,25 @@ class Element {
  hasAttribute(name){return this.attrs.has(name);}
  replaceChildren(...nodes){this.textContent=nodes.join('');this.innerHTML='';}
  addEventListener(){}
+ querySelector(){return this.button||(this.button=new Element());}
+ reset(){this.wasReset=true;}
  closest(selector){return selector==='button'?this:null;}
 }
-async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false}={}){
+async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,hash='',pathname='/test/account/',sessionError=false,otpError=false}={}){
  let stored=initial,callback,release,signOutError=null,signOutCalls=0,accountCalls=0;
  const elements=Object.fromEntries(['account-dashboard','account-status','account-billing','owner-controls','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
  const link=new Element();link.textContent='Sign in / Register';
  const navSignOut=new Element('nav-signout',true),dashboardSignOut=new Element('account-signout',true);
  for(const b of [navSignOut,dashboardSignOut])b.setAttribute('data-sign-out');
  elements['#account-signout']=dashboardSignOut;elements['#sign-in-form']=new Element('sign-in-form',true);
+ elements['#verify-code-form']=new Element('verify-code-form',true);elements['#auth-message']=new Element('auth-message');
+ const otpRequests=[],verifications=[];
  const handlers={},redirects=[],timers=[];
  const storage=new Map(owner?[['auction-owner-preview','visitor']]:[]);
  const auth={
-  getSession:async()=>({data:{session:stored},error:null}),
+  getSession:async()=>({data:{session:stored},error:sessionError?Error('Callback failed'):null}),
+  signInWithOtp:async request=>{otpRequests.push(request);return {error:null};},
+  verifyOtp:async request=>{verifications.push(request);if(otpError)return {error:Error('expired')};stored=buyer('verified');callback('SIGNED_IN',stored);return {data:{session:stored},error:null};},
   onAuthStateChange:fn=>{callback=fn;return {data:{subscription:{unsubscribe(){}}}};},
   signOut:async()=>{signOutCalls++;if(signOutError)return {error:signOutError};stored=null;callback('SIGNED_OUT',null);return {error:null};}
  };
@@ -40,7 +46,8 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   getElementById:id=>elements['#'+id],createElement:()=>new Element(),createTextNode:s=>s,
   addEventListener:(name,fn)=>{handlers[name]=fn;}
  },localStorage:{getItem:()=>null},sessionStorage:{getItem:k=>storage.get(k),removeItem:k=>storage.delete(k)},
- location:{assign:url=>redirects.push(url)},MutationObserver:class{observe(){}},
+ location:{origin:'https://public.example',pathname,hash,search:'',assign:url=>redirects.push(url),replace:url=>redirects.push(url)},history:{replaceState:(_a,_b,url)=>redirects.push(url)},MutationObserver:class{observe(){}},
+ FormData:class{constructor(form){this.values=form.values||{};}get(key){return this.values[key];}},
  setTimeout:fn=>timers.push(fn),URLSearchParams,
  fetch:async url=>{
   if(url.endsWith('workspace-index.json'))return {ok:true,json:async()=>({rows:[]})};
@@ -52,7 +59,8 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   return {ok:true,json:async()=>remote,blob:async()=>Buffer.from('private report')};
  }};
  vm.runInNewContext(source,context);await tick();
- return {link,navSignOut,dashboardSignOut,elements,redirects,storage,
+ return {link,navSignOut,dashboardSignOut,elements,redirects,storage,otpRequests,verifications,
+  async submit(id,values){const form=elements['#'+id];form.values=values;await handlers.submit({target:form,preventDefault(){}});await tick();},
   get accountCalls(){return accountCalls;},get signOutCalls(){return signOutCalls;},
   emit(event,next){stored=next;assert.ok(callback,'Auth listener must survive API errors');callback(event,next);},
   async flush(){while(timers.length){timers.shift()();await tick();}},
@@ -129,4 +137,34 @@ test('logging out and back into the same account still invalidates old requests'
  const rejected=assert.rejects(request,/account changed/);await tick();
  app.emit('SIGNED_OUT',null);app.emit('SIGNED_IN',buyer('a'));
  await app.release();await rejected;
+});
+test('root auth errors return to account without copying them to an external URL',async()=>{
+ const app=await setup({pathname:'/test/',hash:'#error=access_denied&error_code=otp_expired'});
+ assert.deepEqual(app.redirects,['/test/account/#error=access_denied&error_code=otp_expired']);
+ assert.equal(app.accountCalls,0);
+});
+test('expired callbacks show a useful message and still permit a fresh sign-in',async()=>{
+ const app=await setup({hash:'#error=access_denied',sessionError:true});
+ assert.match(app.elements['#auth-message'].textContent,/expired/);
+ assert.equal(app.elements['#sign-in-form'].hidden,false);
+ assert.deepEqual(app.redirects,['/test/account/']);
+});
+test('email code sign-in uses the existing Supabase session and private workspace',async()=>{
+ const app=await setup();
+ await app.submit('sign-in-form',{email:' buyer@example.com '});
+ assert.equal(app.otpRequests[0].email,'buyer@example.com');
+ assert.equal(app.otpRequests[0].options.emailRedirectTo,'https://public.example/test/account/');
+ assert.equal(app.elements['#verify-code-form'].hidden,false);
+ await app.submit('verify-code-form',{token:'123456'});
+ assert.equal(app.verifications[0].type,'email');assert.equal(app.verifications[0].email,'buyer@example.com');
+ expectCustomer(app);assert.equal(app.elements['#verify-code-form'].hidden,true);
+ assert.equal(app.elements['#verify-code-form'].wasReset,true);
+});
+test('invalid email code cannot create a customer session',async()=>{
+ const app=await setup({otpError:true});
+ await app.submit('sign-in-form',{email:'buyer@example.com'});
+ await app.submit('verify-code-form',{token:'000000'});
+ expectGuest(app);assert.equal(app.accountCalls,0);
+ assert.match(app.elements['#auth-message'].textContent,/invalid or has expired/);
+ assert.equal(app.elements['#verify-code-form'].querySelector().disabled,false);
 });
