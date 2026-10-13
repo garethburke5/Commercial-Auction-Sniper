@@ -3,6 +3,24 @@
 const root=document.body.dataset.prefix||'', key='auction-sniper-workspace-v1';
 const empty=()=>({properties:{},searches:[],events:[],recent:[]});
 let state=empty(), session=null, auth=null, config=null, index={}, features=new Set(), preview=null, authEpoch=0;
+let pendingEmail='';
+// Legacy invitations can return to the site root. Preserve the callback only
+// across a same-origin navigation, before loading any account data.
+const callbackHash=new URLSearchParams((location.hash||'').replace(/^#/,''));
+const callbackQuery=new URLSearchParams(location.search||'');
+const authCallback=callbackHash.has('access_token')||callbackHash.has('error')||callbackQuery.has('code')||callbackQuery.has('error');
+if(authCallback&&location.pathname!==root+'/account/'){
+ location.replace(root+'/account/'+(location.search||'')+(location.hash||''));return;
+}
+const callbackError=callbackHash.has('error')||callbackQuery.has('error');
+if(callbackError){
+ history.replaceState(null,'',root+'/account/');
+ noticeCallbackError();
+}
+function noticeCallbackError(){
+ const target=document.querySelector('#auth-message');
+ if(target)target.textContent='That sign-in link has expired or has already been used. Request a fresh email below, then enter its code here.';
+}
 try { state={...state,...JSON.parse(localStorage.getItem(key)||'{}')}; } catch (_) {}
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=v=>typeof v==='number'?'£'+v.toLocaleString('en-GB'):(v||'Not stated');
@@ -15,6 +33,7 @@ function renderAuth(){
  document.querySelectorAll('[data-account-link]').forEach(a=>{a.textContent=authenticated?'My Auction Geek':'Sign in / Register';});
  document.querySelectorAll('[data-sign-out]').forEach(b=>{b.hidden=!authenticated;});
  document.querySelector('#sign-in-form')?.toggleAttribute('hidden',authenticated||!auth);
+ document.querySelector('#verify-code-form')?.toggleAttribute('hidden',authenticated||!auth||!pendingEmail);
  if(!authenticated){
   document.querySelector('#account-billing')?.setAttribute('hidden','');
   document.querySelector('#owner-controls')?.setAttribute('hidden','');
@@ -166,7 +185,7 @@ document.addEventListener('click',async e=>{
 });
 document.addEventListener('submit',async e=>{
  const f=e.target;
- if(!f.dataset.noteForm&&!['sign-in-form','save-search-form'].includes(f.id))return;
+ if(!f.dataset.noteForm&&!['sign-in-form','verify-code-form','save-search-form'].includes(f.id))return;
  e.preventDefault();
  try{
   await initialized;
@@ -183,9 +202,32 @@ document.addEventListener('submit',async e=>{
   }
   if(f.id==='sign-in-form'){
    if(!auth){access('save');return;}
-   const {error}=await auth.auth.signInWithOtp({email:new FormData(f).get('email'),options:{emailRedirectTo:location.origin+root+'/account/'}});notice(error?error.message:'Check your email for the secure sign-in link.');
+   const button=f.querySelector('button');if(button.disabled)return;button.disabled=true;
+   try{
+    const email=String(new FormData(f).get('email')||'').trim();
+    const {error}=await auth.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+root+'/account/'}});
+    if(error)throw error;
+    pendingEmail=email;renderAuth();
+    document.querySelector('#auth-message').textContent='Check your inbox (and spam folder). Enter the code from your latest email below. You can request a new email after 60 seconds.';
+    document.querySelector('#verify-code-form input[name=token]')?.focus();
+   }finally{button.disabled=false;}
   }
- }catch(err){notice(err.message);}
+  if(f.id==='verify-code-form'){
+   if(!auth||!pendingEmail)throw Error('Request a sign-in email first.');
+   const button=f.querySelector('button');if(button.disabled)return;button.disabled=true;
+   try{
+    const token=String(new FormData(f).get('token')||'').trim();
+    const {data,error}=await auth.auth.verifyOtp({email:pendingEmail,token,type:'email'});
+    if(error)throw Error('That code is invalid or has expired. Use the latest email, or request a new one.');
+    pendingEmail='';f.reset();updateSession(data.session);
+    document.querySelector('#auth-message').textContent='Email verified. You are signed in.';
+    await loadAccount();
+   }finally{button.disabled=false;}
+  }
+ }catch(err){
+  if(['sign-in-form','verify-code-form'].includes(f.id))document.querySelector('#auth-message').textContent=err.message;
+  else notice(err.message);
+ }
 });
 document.querySelector('#import-workspace')?.addEventListener('change',async e=>{
  try{
@@ -244,7 +286,8 @@ async function initialize(){
   const r=await fetch(root+'/platform-config.json',{cache:'no-store'});if(!r.ok)throw Error();config=await r.json();
   if(config.accounts_enabled&&window.AuctionIdentity){
    auth=window.AuctionIdentity.createClient(config.supabase_url,config.supabase_key,{auth:{flowType:'pkce'}});
-   await refreshSession();
+   // Callback errors must not hide the form or prevent a fresh sign-in.
+   try{await refreshSession();}catch(_){updateSession(null);noticeCallbackError();}
    // Subscribe before loading workspace data so API failures cannot break sign-out updates.
    auth.auth.onAuthStateChange((event,next)=>{
     const changed=updateSession(next);
