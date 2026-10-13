@@ -13,13 +13,13 @@
   <button class="button" type="submit">Sign in</button>
   <div class="auth-links"><button class="textlink" type="button" data-auth-mode="reset">Forgot password?</button><button class="textlink" type="button" data-auth-mode="magic">Email me a sign-in link instead</button></div>
  </form>
- <form id="register-form" class="account-auth" hidden aria-label="Create your free account">
-  <h2>Create your free account</h2><p>Save properties and return to your research. No subscription required.</p>
+ <form id="register-form" class="account-auth" hidden aria-label="Create your Auction Geek account">
+  <h2>Create your Auction Geek account</h2><p>One account for your property research. <a href="{{ url('/plans/') }}">Compare Free, Investor and Investor Pro</a>. No payment required to register.</p>
   <label for="register-name">Your name</label><input id="register-name" name="full_name" autocomplete="name" maxlength="100" required>
   <label for="register-email">Email address</label><input id="register-email" name="email" type="email" autocomplete="username" inputmode="email" required>
   <label for="register-password">Create a password</label><input id="register-password" name="password" type="password" autocomplete="new-password" minlength="12" aria-describedby="password-help" required>
   <p id="password-help" class="small muted">Use at least 12 characters. A unique passphrase works well.</p>
-  <button class="button" type="submit">Create free account</button>
+  <button class="button" type="submit">Create account</button>
   <p class="small muted">We’ll ask you to confirm your email. Read how we handle your information in our <a href="{{ url('/privacy/') }}">privacy notice</a>.</p>
  </form>
  <form id="reset-password-form" class="account-auth" hidden aria-label="Reset your password">
@@ -32,6 +32,12 @@
   <label for="magic-email">Email address</label><input id="magic-email" name="email" type="email" autocomplete="email" inputmode="email" required>
   <button class="button" type="submit">Email my sign-in link</button><p><button class="textlink" type="button" data-auth-mode="signin">Back to password sign-in</button></p>
  </form>
+ <section id="registration-next" class="account-auth" hidden aria-labelledby="registration-next-title">
+  <h2 id="registration-next-title" tabindex="-1">Check your email</h2>
+  <p>For a new account, open the confirmation email sent to <strong id="registration-email"></strong> to finish signing up. Check your spam folder too.</p>
+  <p>Already registered with this address? Sign in instead. If you previously used an email link, choose Set/reset password to add a password to your existing account.</p>
+  <div class="auth-links"><button class="button" type="button" data-auth-mode="signin">Go to sign in</button><button class="textlink" type="button" data-auth-mode="reset">Set/reset password</button><button class="textlink" type="button" data-auth-mode="register">Use a different email</button></div>
+ </section>
  <p id="auth-feedback" class="auth-feedback" role="status" aria-live="polite" tabindex="-1" hidden></p>
 </section>
 <form id="new-password-form" class="account-auth" hidden aria-label="Choose a new password">
