@@ -218,3 +218,31 @@
 .report-intake p,.report-intake a{overflow-wrap:anywhere}
 #review-version-links{display:flex;flex-wrap:wrap;gap:16px}
 @media(max-width:650px){.report-intake{padding:16px}.report-intake form .button{width:100%}}
+
+/* Account entry: email first for visitors; existing workspace after sign-in. */
+.account-page [hidden]{display:none!important}
+.account-page{max-width:1150px}
+.account-heading{margin:12px 0 22px}
+.account-heading h1{font-size:clamp(1.85rem,4vw,2.65rem);line-height:1.15;margin:8px 0 12px}
+.account-heading>p:last-child{margin:0;color:#526475;max-width:650px}
+.account-page .account-auth{box-sizing:border-box;max-width:520px;padding:26px;background:#fff;border:1px solid var(--line);border-radius:12px}
+.account-auth h2{font-size:1.2rem;margin:0 0 10px}
+.account-auth p{margin:0 0 20px;line-height:1.5}
+.account-auth label{display:block;font-weight:600;font-size:.9rem;margin-bottom:8px}
+.account-auth input{box-sizing:border-box;display:block;width:100%;max-width:none;min-width:0;font-size:16px;margin:0 0 14px;padding:12px}
+.account-auth .button{width:100%;min-height:46px;justify-content:center}
+.account-auth p:last-child{margin:16px 0 0}
+.account-page .account-auth+.workspace-notice{max-width:520px;box-sizing:border-box}
+.account-auth[hidden]+.workspace-notice{max-width:none}
+.account-device-tools{margin:26px 0;font-size:.85rem;color:#526475}
+.account-device-tools summary{cursor:pointer;padding:8px 0}
+.account-device-tools input{max-width:100%;box-sizing:border-box}
+@media(max-width:650px){
+ body[data-page-kind="account"] .breadcrumbs{margin-bottom:16px}
+ .account-heading{margin:8px 0 18px}
+ .account-heading .eyebrow{margin-top:0}
+ .account-page .account-auth{padding:20px}
+ .account-page .workspace-notice{padding:12px 16px;margin:14px 0}
+ .account-page .workspace-welcome{flex-direction:column;align-items:flex-start;padding:20px;gap:10px}
+ .account-page .workspace-columns{grid-template-columns:1fr}
+}
