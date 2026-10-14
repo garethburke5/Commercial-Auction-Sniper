@@ -17,14 +17,16 @@ class Element {
  addEventListener(){}
  closest(selector){return selector==='button'?this:null;}
 }
-async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false}={}){
+async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,watch=true,propertyPage=false}={}){
  let stored=initial,callback,release,signOutError=null,signOutCalls=0,accountCalls=0;
  const elements=Object.fromEntries(['account-entry','new-password-form','register-form','reset-password-form','magic-link-form','account-retry','account-title','account-intro','account-customer-content','account-dashboard','account-status','account-billing','owner-controls','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
  const link=new Element();link.textContent='Sign in / Register';
  const navSignOut=new Element('nav-signout',true),dashboardSignOut=new Element('account-signout',true);
  for(const b of [navSignOut,dashboardSignOut])b.setAttribute('data-sign-out');
  elements['#account-signout']=dashboardSignOut;elements['#sign-in-form']=new Element('sign-in-form',true);
- const handlers={},redirects=[],timers=[];
+ if(propertyPage)for(const id of ['account-dashboard','owner-preview','owner-preview-status'])delete elements['#'+id];
+ const handlers={},redirects=[],timers=[],writes=[];
+ const saveButton=new Element(),watchButton=new Element();saveButton.dataset.save='lot';watchButton.dataset.watch='lot';
  const storage=new Map(owner?[['auction-owner-preview','visitor']]:[]);
  const auth={
   getSession:async()=>({data:{session:stored},error:null}),
@@ -32,18 +34,19 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   signOut:async()=>{signOutCalls++;if(signOutError)return {error:signOutError};stored=null;callback('SIGNED_OUT',null);return {error:null};}
  };
  const config={accounts_enabled:enabled,api_origin:'https://private.example',billing_enabled:true,plans:{free:{name:'Free'}}};
- const remote={features:['watch'],saved_properties:[],plan:'free',is_owner:owner,workspace:{properties:[],saved_searches:[],events:[],reviews:[{id:'private-report',created_at:1}]}};
+ const remote={features:watch?['watch']:[],saved_properties:[],plan:'free',is_owner:owner,workspace:{properties:[],saved_searches:[],events:[],reviews:[{id:'private-report',created_at:1}]}};
  const context={Event,window:{dispatchEvent(){},AuctionIdentity:{createClient:()=>({auth})}},document:{
   body:{dataset:{prefix:'/test'},append(){}},
   querySelector:s=>elements[s]||null,
-  querySelectorAll:s=>s==='[data-account-link]'?[link]:s==='[data-sign-out]'?[navSignOut,dashboardSignOut]:[],
+  querySelectorAll:s=>s==='[data-save],[data-watch]'?[saveButton,watchButton]:s==='[data-account-link]'?[link]:s==='[data-sign-out]'?[navSignOut,dashboardSignOut]:[],
   getElementById:id=>elements['#'+id],createElement:()=>new Element(),createTextNode:s=>s,
   addEventListener:(name,fn)=>{handlers[name]=fn;}
  },localStorage:{getItem:()=>null},sessionStorage:{getItem:k=>storage.get(k),removeItem:k=>storage.delete(k)},
  location:{assign:url=>redirects.push(url)},MutationObserver:class{observe(){}},
- setTimeout:fn=>timers.push(fn),URLSearchParams,
- fetch:async url=>{
-  if(url.endsWith('workspace-index.json'))return {ok:true,json:async()=>({rows:[]})};
+ setTimeout:(fn,ms)=>ms?setTimeout(fn,ms):timers.push(fn),clearTimeout,URLSearchParams,
+ fetch:async (url,options)=>{
+  if(url.includes('/api/account/saved/')||url.includes('/api/account/workspace/')){writes.push(options);return {ok:true,json:async()=>({})};}
+  if(url.endsWith('workspace-index.json'))return {ok:true,json:async()=>({rows:[{id:'lot'}]})};
   if(url.endsWith('platform-config.json'))return {ok:true,json:async()=>config};
   if(url.includes('/api/admin/preview/'))return {ok:true,json:async()=>({plan:'visitor',features:[]})};
   assert.equal(url,'https://private.example/api/account');accountCalls++;
@@ -52,7 +55,7 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   return {ok:true,json:async()=>remote,blob:async()=>Buffer.from('private report')};
  }};
  vm.runInNewContext(source,context);await tick();
- return {link,navSignOut,dashboardSignOut,elements,redirects,storage,
+ return {saveButton,watchButton,writes,link,navSignOut,dashboardSignOut,elements,redirects,storage,
   get accountCalls(){return accountCalls;},get signOutCalls(){return signOutCalls;},
   emit(event,next){stored=next;assert.ok(callback,'Auth listener must survive API errors');callback(event,next);},
   async flush(){while(timers.length){timers.shift()();await tick();}},
@@ -145,4 +148,34 @@ test('password recovery hides the workspace and opens the password form for the 
  assert.equal(app.elements['#new-password-form'].hidden,false);
  assert.equal(app.elements['#account-customer-content'].hidden,true);
  app.emit('SIGNED_OUT',null);expectGuest(app);assert.equal(app.elements['#new-password-form'].hidden,true);
+});
+
+test('property clicks respond immediately while account loads and block duplicate clicks',async()=>{
+ const app=await setup({initial:buyer('a'),delayed:true});
+ const pending=app.click(app.saveButton);
+ assert.equal(app.saveButton.disabled,true);
+ assert.equal(app.elements['#workspace-message'].textContent,'Checking your account…');
+ await app.click(app.saveButton);assert.equal(app.writes.length,0);
+ await app.release();await pending;
+ assert.equal(app.writes.length,1);assert.equal(app.saveButton.textContent,'✓ Saved');assert.equal(app.saveButton.disabled,false);
+ await app.click(app.watchButton);assert.equal(app.watchButton.textContent,'◉ Watching');
+ await app.click(app.watchButton);assert.equal(app.watchButton.textContent,'○ Watch');
+});
+test('restricted Watch reports membership requirement without making a write',async()=>{
+ const app=await setup({initial:buyer('a'),watch:false});await app.click(app.watchButton);
+ assert.equal(app.writes.length,0);assert.match(app.elements['#workspace-message'].textContent,/requires Investor/);assert.equal(app.watchButton.textContent,'○ Watch');assert.equal(app.watchButton.disabled,false);
+});
+
+test('owner account can load entitlements and save on a property page without dashboard controls',async()=>{
+ const app=await setup({initial:buyer('owner'),owner:true,propertyPage:true});
+ app.storage.delete('auction-owner-preview');
+ app.emit('SIGNED_OUT',null);app.emit('SIGNED_IN',buyer('owner'));await app.flush();
+ await app.click(app.saveButton);assert.equal(app.saveButton.textContent,'✓ Saved');
+ await app.click(app.watchButton);assert.equal(app.watchButton.textContent,'◉ Watching');
+});
+test('bounded waiting rejects stalled work rather than leaving controls pending forever',async()=>{
+ const context={setTimeout,clearTimeout};vm.createContext(context);
+ vm.runInContext(source.slice(source.indexOf('function bounded('),source.indexOf('function authFeedback(')),context);
+ await assert.rejects(context.bounded(new Promise(()=>{}),5,'Please retry'),/Please retry/);
+ assert.equal(await context.bounded(Promise.resolve('ready'),100,'timeout'),'ready');
 });

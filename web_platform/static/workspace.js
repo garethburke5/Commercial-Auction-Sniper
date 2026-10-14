@@ -10,6 +10,10 @@ const money=v=>typeof v==='number'?'£'+v.toLocaleString('en-GB'):(v||'Not state
 const signedIn=()=>!!session&&preview?.plan!=='visitor';
 const can=feature=>signedIn()&&features.has(feature);
 const notice=s=>{let e=document.querySelector('#workspace-message');if(!e){e=document.createElement('p');e.id='workspace-message';e.className='workspace-toast';e.setAttribute('role','status');document.body.append(e);}e.textContent=s;};
+function bounded(promise,ms,message){
+ let timer;
+ return Promise.race([promise,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error(message)),ms);})]).finally(()=>clearTimeout(timer));
+}
 function authFeedback(message,error=false,id='auth-feedback'){
  const e=document.getElementById(id);if(!e){notice(message);return;}
  e.textContent=message;e.hidden=!message;e.dataset.error=String(error);
@@ -76,7 +80,7 @@ function updateSession(next){
  renderAuth();if(changed)window.dispatchEvent(new Event('auction-auth-change'));return changed;
 }
 async function refreshSession(){
- if(auth){const {data,error}=await auth.auth.getSession();if(error)throw error;updateSession(data.session);}
+ if(auth){const {data,error}=await bounded(auth.auth.getSession(),15000,'Your sign-in check timed out. Please reload this page and try again.');if(error)throw error;updateSession(data.session);}
 }
 function persist(){if(session)return;try{localStorage.setItem(key,JSON.stringify(state));}catch(_){notice('This browser could not save your workspace. Download your stored data for a backup.');}}
 async function api(path,method='GET',body){
@@ -168,6 +172,8 @@ function searchQuery(){
 }
 document.addEventListener('click',async e=>{
  const b=e.target.closest('button');if(!b)return;
+ const propertyAction=!!(b.dataset.save||b.dataset.watch);
+ if(propertyAction){if(b.disabled)return;b.disabled=true;b.setAttribute('aria-busy','true');notice('Checking your account…');}
  if(b.hasAttribute('data-close-dialog')){b.closest('dialog').close();return;}
  try{
   if(b.dataset.authMode){setAuthMode(b.dataset.authMode);return;}
@@ -179,7 +185,8 @@ document.addEventListener('click',async e=>{
    finally{b.disabled=false;}
    return;
   }
-  await initialized;
+  if(propertyAction)await bounded(initialized,20000,'Your account is taking too long to load. Nothing was changed. Please try again.');
+  else await initialized;
   if(b.id==='account-retry'){
    b.disabled=true;try{await loadAccount();}catch(_){workspaceFailed();}finally{b.disabled=false;}return;
   }
@@ -215,7 +222,8 @@ document.addEventListener('click',async e=>{
    const r=await api('/api/billing/checkout','POST',{plan:b.dataset.subscribe});location.assign(r.url);
   }
   if(b.id==='account-billing'){const r=await api('/api/billing/portal','POST');location.assign(r.url);}
- }catch(err){notice(err.message);}
+ }catch(err){notice(err.name==='TimeoutError'||err.name==='AbortError'?'The connection timed out. Please reload to check the current saved state before trying again.':err.message);}
+ finally{if(propertyAction){b.disabled=false;b.removeAttribute('aria-busy');}}
 });
 async function submitIdentity(f){
  if(authBusy)return;
@@ -322,8 +330,8 @@ async function loadAccount(){
    catch(_){if(authEpoch!==epoch)return;preview=null;try{sessionStorage.removeItem('auction-owner-preview');}catch(_){} }
   }
   if(session?.user?.id!==userId)return;
-  document.querySelector('#owner-preview').value=preview?.plan||'';
-  document.querySelector('#owner-preview-status').textContent=preview?'Read-only customer preview: no saving, payments, uploads or purchased-report access.':'Owner account. Select a tier to preview customer access.';
+  const previewSelect=document.querySelector('#owner-preview');if(previewSelect)previewSelect.value=preview?.plan||'';
+  const previewStatus=document.querySelector('#owner-preview-status');if(previewStatus)previewStatus.textContent=preview?'Read-only customer preview: no saving, payments, uploads or purchased-report access.':'Owner account. Select a tier to preview customer access.';
  }
  const name=config?.plans?.[preview?.plan||remote.plan]?.name||preview?.plan||remote.plan;
  document.querySelector('#account-status')?.replaceChildren(document.createTextNode(preview?'Read-only preview · '+name+'. Your account and purchases are unchanged.':'Signed in · '+name+' account. Your workspace is private to your account.'));
