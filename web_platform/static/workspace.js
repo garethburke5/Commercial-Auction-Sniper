@@ -216,6 +216,18 @@ document.addEventListener('click',async e=>{
   if(b.id==='export-workspace'){
    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({schema_version:1,...state},null,2)],{type:'application/json'}));a.download='auction-geek-workspace.json';a.click();URL.revokeObjectURL(a.href);
   }
+  if(b.dataset.sandboxBilling){
+   if(b.disabled)return;
+   if(preview)throw Error('Return to My account before testing billing.');
+   b.disabled=true;
+   try{
+    notice('Opening Stripe sandbox… No real payment will be taken.');
+    const plan=b.dataset.sandboxBilling;
+    const r=await api('/api/admin/billing/'+(plan==='portal'?'portal':'checkout'),'POST',plan==='portal'?undefined:{plan});
+    location.assign(r.url);
+   }finally{b.disabled=false;}
+   return;
+  }
   if(b.dataset.subscribe){
    if(!config?.billing_enabled){access('subscription');return;}
    if(!signedIn()){access('save');return;}
@@ -333,6 +345,7 @@ async function loadAccount(){
   const previewSelect=document.querySelector('#owner-preview');if(previewSelect)previewSelect.value=preview?.plan||'';
   const previewStatus=document.querySelector('#owner-preview-status');if(previewStatus)previewStatus.textContent=preview?'Read-only customer preview: no saving, payments, uploads or purchased-report access.':'Owner account. Select a tier to preview customer access.';
  }
+ document.querySelector('#owner-sandbox-billing')?.toggleAttribute('hidden',!remote.is_owner||!!preview);
  const name=config?.plans?.[preview?.plan||remote.plan]?.name||preview?.plan||remote.plan;
  document.querySelector('#account-status')?.replaceChildren(document.createTextNode(preview?'Read-only preview · '+name+'. Your account and purchases are unchanged.':'Signed in · '+name+' account. Your workspace is private to your account.'));
  renderAuth();
@@ -382,3 +395,4 @@ window.AuctionWorkspace={api,register:rows=>{for(const r of rows)index[r.id]=r;r
 new MutationObserver(renderButtons).observe(document.querySelector('#board-results')||document.createElement('div'),{childList:true});
 const initialized=initialize();render();
 })();
+
