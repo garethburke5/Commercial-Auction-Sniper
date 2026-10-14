@@ -97,11 +97,12 @@ async function accountRequest(path,options={},format='json'){
 }
 function safePath(p){return typeof p==='string'&&p.startsWith('/')&&!p.startsWith('//')?root+p:root+'/properties/';}
 function access(feature){
+ if(feature==='watch')notice('Watch is not active. Property Watch requires Investor or Investor Pro. Compare plans below.');
  if(feature!=='save'){
   const anchor=document.activeElement;
   const host=anchor?.closest('.save-actions, .plan-card, form, section')||document.querySelector('main');
   if(host){let hint=host.querySelector('.contextual-membership');if(!hint){hint=document.createElement('p');hint.className='contextual-membership';hint.setAttribute('role','status');host.append(hint);}
-   hint.replaceChildren(document.createTextNode(feature==='subscription'?'Membership checkout is being activated. ':'Property Watch, saved searches and private research tools are included with Investor from £15/month. '));
+   hint.replaceChildren(document.createTextNode(feature==='subscription'?'Membership checkout is being activated. ':feature==='watch'?'Watch is not active for this account. Property Watch is included with Investor and Investor Pro; saving to your shortlist remains free. ':'Property Watch, saved searches and private research tools are included with Investor from £15/month. '));
    const link=document.createElement('a');link.href=root+'/plans/';link.textContent='Compare plans and launch availability →';hint.append(link);}
   return;
  }
@@ -129,7 +130,7 @@ function access(feature){
 function renderButtons(){document.querySelectorAll('[data-save],[data-watch]').forEach(b=>{
  const id=b.dataset.save||b.dataset.watch,kind=b.dataset.save?'saved':'watched';
  const on=!!state.properties[id]?.[kind]&&(kind==='saved'||can('watch'));
- const text=kind==='saved'?(on?'✓ Saved':'♡ Save'):(on?'◉ Watching':'◉ Watch');
+ const text=kind==='saved'?(on?'✓ Saved':'♡ Save'):(on?'◉ Watching':'○ Watch');
  if(b.textContent!==text)b.textContent=text;b.setAttribute('aria-pressed',String(on));
 });}
 function item(row){
@@ -137,7 +138,7 @@ function item(row){
  const edit=can('notes')&&can('bid_targets');
  const notes=edit?`<form data-note-form="${esc(row.id)}"><label>Private note<textarea name="notes" maxlength="10000" rows="3">${esc(p.notes||'')}</textarea></label><label>My target / maximum bid (£)<input type="number" min="0" step="100" name="target_price" value="${esc(p.target_price??'')}"></label><button class="button outline">Save note & target</button></form>`
   :`${p.notes?`<p>${esc(p.notes)}</p>`:''}${p.target_price!=null?`<p>Stored target: ${esc(money(p.target_price))}</p>`:''}<p class="small">Private notes and saved bid targets are membership tools. Your earlier records are preserved.</p><button class="button outline" data-feature="notes">Explore research tools</button>`;
- return `<article class="workspace-card"><div>${row.image_url?`<img src="${esc(row.image_url)}" alt="" loading="lazy" width="112" height="84">`:''}<h3><a href="${esc(safePath(row.path))}">${esc(row.address)}</a></h3><p>${esc(row.source)} · ${esc(row.guide||money(row.guide_price))}</p></div><div class="save-actions"><button data-save="${esc(row.id)}" aria-pressed="${!!p.saved}">${p.saved?'✓ Saved':'♡ Save'}</button><button data-watch="${esc(row.id)}" aria-pressed="${!!p.watched&&can('watch')}">${p.watched&&can('watch')?'◉ Watching':'◉ Watch'}</button></div><details><summary>My notes & bid target</summary>${notes}</details></article>`;
+ return `<article class="workspace-card"><div>${row.image_url?`<img src="${esc(row.image_url)}" alt="" loading="lazy" width="112" height="84">`:''}<h3><a href="${esc(safePath(row.path))}">${esc(row.address)}</a></h3><p>${esc(row.source)} · ${esc(row.guide||money(row.guide_price))}</p></div><div class="save-actions"><button data-save="${esc(row.id)}" aria-pressed="${!!p.saved}">${p.saved?'✓ Saved':'♡ Save'}</button><button data-watch="${esc(row.id)}" aria-pressed="${!!p.watched&&can('watch')}">${p.watched&&can('watch')?'◉ Watching':'○ Watch'}</button></div><details><summary>My notes & bid target</summary>${notes}</details></article>`;
 }
 function render(){
  renderButtons();if(!document.querySelector('#account-dashboard'))return;
