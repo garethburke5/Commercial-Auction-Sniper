@@ -160,6 +160,14 @@ def create_app(site=None):
     @app.post('/api/billing/checkout')
     def checkout(body:Checkout,authorization:str|None=Header(default=None)):
         uid,_,b=user(authorization);return {'url':b.checkout(uid,body.plan)}
+    @app.post('/api/admin/billing/checkout')
+    def sandbox_checkout(body:Checkout,authorization:str|None=Header(default=None)):
+        uid,_,b=user(authorization)
+        return {'url':b.sandbox_action(uid,body.plan)}
+    @app.post('/api/admin/billing/portal')
+    def sandbox_portal(authorization:str|None=Header(default=None)):
+        uid,_,b=user(authorization)
+        return {'url':b.sandbox_action(uid)}
     @app.post('/api/billing/portal')
     def portal(authorization:str|None=Header(default=None)):
         uid,_,b=user(authorization);return {'url':b.portal(uid)}
@@ -190,3 +198,4 @@ def create_app(site=None):
         raise HTTPException(404,'Page not found')
     logger.info('Auction Geek startup: API ready in %.2fs',time.monotonic()-started)
     return app
+
