@@ -22,7 +22,7 @@
 <main id="main">
 <section id="owner-controls" class="workspace-notice owner-controls" hidden aria-label="Owner controls">
  <strong>Owner workspace</strong><a href="{{ url('/coverage/') }}">Source health</a><a href="{{ url('/admin/deals/') }}">Manage listings</a>
- <label>View as<select id="owner-preview"><option value="">My account</option value="visitor">Logged-out visitor</option><option value="free">Free account</option><option value="investor">Premium Investor</option><option value="professional">Professional &amp; Business</option></select></label>
+ <label>View as<select id="owner-preview"><option value="">My account</option value="visitor">Logged-out visitor</option><option value="free">Free account</option><option value="investor">Investor</option><option value="professional">Investor Pro</option></select></label>
  <p id="owner-preview-status" role="status">Preview customer access without changing your account.</p>
 </section>
 {% if kind!='home' %}<nav class="breadcrumbs" aria-label="Breadcrumb">{% for label,p in crumbs %}{% if not loop.first %}<span> / </span>{% endif %}<a href="{{ url(p) }}">{{ label }}</a>{% endfor %}</nav>{% endif %}
