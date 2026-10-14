@@ -11,7 +11,7 @@ import uuid
 import json
 import stripe
 from fastapi import HTTPException
-from .accounts import PLANS
+from .accounts import PLANS, require_owner
 from .database import begin_write
 
 def plain(value):
@@ -56,8 +56,7 @@ class Billing:
 
     def sandbox_action(self,user,plan=None):
         """Owner acceptance only; never permits a live Stripe checkout or portal."""
-        if not self.accounts.is_owner(user):
-            raise HTTPException(403,'Owner access required')
+        require_owner(user)
         if not self.secret.startswith(('sk_test_','rk_test_')) or os.getenv('BILLING_LIVE')=='true':
             raise HTTPException(409,'Sandbox testing requires test keys and live billing disabled')
         return self.checkout(user,plan) if plan is not None else self.portal(user)
