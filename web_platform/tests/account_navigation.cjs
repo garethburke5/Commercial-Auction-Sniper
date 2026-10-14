@@ -17,9 +17,9 @@ class Element {
  addEventListener(){}
  closest(selector){return selector==='button'?this:null;}
 }
-async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,watch=true,propertyPage=false}={}){
+async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,watch=true,propertyPage=false,ownerPreview=true}={}){
  let stored=initial,callback,release,signOutError=null,signOutCalls=0,accountCalls=0;
- const elements=Object.fromEntries(['account-entry','new-password-form','register-form','reset-password-form','magic-link-form','account-retry','account-title','account-intro','account-customer-content','account-dashboard','account-status','account-billing','owner-controls','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
+ const elements=Object.fromEntries(['account-entry','new-password-form','register-form','reset-password-form','magic-link-form','account-retry','account-title','account-intro','account-customer-content','account-dashboard','account-status','account-billing','owner-controls','owner-sandbox-billing','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
  const link=new Element();link.textContent='Sign in / Register';
  const navSignOut=new Element('nav-signout',true),dashboardSignOut=new Element('account-signout',true);
  for(const b of [navSignOut,dashboardSignOut])b.setAttribute('data-sign-out');
@@ -27,13 +27,13 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
  if(propertyPage)for(const id of ['account-dashboard','owner-preview','owner-preview-status'])delete elements['#'+id];
  const handlers={},redirects=[],timers=[],writes=[];
  const saveButton=new Element(),watchButton=new Element();saveButton.dataset.save='lot';watchButton.dataset.watch='lot';
- const storage=new Map(owner?[['auction-owner-preview','visitor']]:[]);
+ const storage=new Map(owner&&ownerPreview?[['auction-owner-preview','visitor']]:[]);
  const auth={
   getSession:async()=>({data:{session:stored},error:null}),
   onAuthStateChange:fn=>{callback=fn;return {data:{subscription:{unsubscribe(){}}}};},
   signOut:async()=>{signOutCalls++;if(signOutError)return {error:signOutError};stored=null;callback('SIGNED_OUT',null);return {error:null};}
  };
- const config={accounts_enabled:enabled,api_origin:'https://private.example',billing_enabled:true,plans:{free:{name:'Free'}}};
+ const config={accounts_enabled:enabled,api_origin:'https://private.example',billing_enabled:false,plans:{free:{name:'Free'}}};
  const remote={features:watch?['watch']:[],saved_properties:[],plan:'free',is_owner:owner,workspace:{properties:[],saved_searches:[],events:[],reviews:[{id:'private-report',created_at:1}]}};
  const context={Event,window:{dispatchEvent(){},AuctionIdentity:{createClient:()=>({auth})}},document:{
   body:{dataset:{prefix:'/test'},append(){}},
@@ -46,6 +46,7 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
  setTimeout:(fn,ms)=>ms?setTimeout(fn,ms):timers.push(fn),clearTimeout,URLSearchParams,
  fetch:async (url,options)=>{
   if(url.includes('/api/account/saved/')||url.includes('/api/account/workspace/')){writes.push(options);return {ok:true,json:async()=>({})};}
+  if(url.includes('/api/admin/billing/')){writes.push({url,...options});return {ok:true,json:async()=>({url:'https://checkout.stripe.test/session'})};}
   if(url.endsWith('workspace-index.json'))return {ok:true,json:async()=>({rows:[{id:'lot'}]})};
   if(url.endsWith('platform-config.json'))return {ok:true,json:async()=>config};
   if(url.includes('/api/admin/preview/'))return {ok:true,json:async()=>({plan:'visitor',features:[]})};
@@ -178,4 +179,28 @@ test('bounded waiting rejects stalled work rather than leaving controls pending 
  vm.runInContext(source.slice(source.indexOf('function bounded('),source.indexOf('function authFeedback(')),context);
  await assert.rejects(context.bounded(new Promise(()=>{}),5,'Please retry'),/Please retry/);
  assert.equal(await context.bounded(Promise.resolve('ready'),100,'timeout'),'ready');
+});
+
+
+test('owner can open sandbox checkout while public billing remains closed',async()=>{
+ const app=await setup({initial:buyer('owner'),owner:true,ownerPreview:false});
+ assert.equal(app.elements['#owner-sandbox-billing'].hidden,false);
+ const button=new Element();button.dataset.sandboxBilling='investor';
+ await app.click(button);
+ assert.equal(app.writes.length,1);
+ assert.equal(app.writes[0].url,'https://private.example/api/admin/billing/checkout');
+ assert.deepEqual(JSON.parse(app.writes[0].body),{plan:'investor'});
+ assert.equal(app.redirects[0],'https://checkout.stripe.test/session');
+ assert.equal(button.disabled,false);
+});
+test('sandbox controls are hidden and writes blocked in customer preview',async()=>{
+ const app=await setup({initial:buyer('owner'),owner:true});
+ assert.equal(app.elements['#owner-sandbox-billing'].hidden,true);
+ const button=new Element();button.dataset.sandboxBilling='investor';
+ await app.click(button);assert.equal(app.writes.length,0);
+ assert.match(app.elements['#workspace-message'].textContent,/Return to My account/);
+});
+test('ordinary customers do not see owner sandbox controls',async()=>{
+ const app=await setup({initial:buyer('customer')});
+ assert.equal(app.elements['#owner-sandbox-billing'].hidden,true);
 });

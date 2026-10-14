@@ -54,6 +54,14 @@ class Billing:
             options={'idempotency_key':f'checkout-{user}-{plan}-{int(time.time())//1800}'})
         return session['url']
 
+    def sandbox_action(self,user,plan=None):
+        """Owner acceptance only; never permits a live Stripe checkout or portal."""
+        if not self.accounts.is_owner(user):
+            raise HTTPException(403,'Owner access required')
+        if not self.secret.startswith(('sk_test_','rk_test_')) or os.getenv('BILLING_LIVE')=='true':
+            raise HTTPException(409,'Sandbox testing requires test keys and live billing disabled')
+        return self.checkout(user,plan) if plan is not None else self.portal(user)
+
     def portal(self,user):
         self.configured();customer=self.accounts.customer(user)
         if not customer: raise HTTPException(409,'No billing account exists')
@@ -229,3 +237,4 @@ class Billing:
                 self._invoice(db,event['data']['object']['id'])
             db.execute('INSERT INTO webhook_events VALUES (?,?)',(event_id,int(time.time())))
         return 'processed'
+
