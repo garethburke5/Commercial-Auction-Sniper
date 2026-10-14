@@ -1,28 +1,19 @@
 """Exercise the real sandbox guard without connecting to Stripe or a database."""
-import ast
 import os
-from pathlib import Path
 import unittest
 from unittest.mock import Mock, patch
-
-
-class HTTPException(Exception):
-    def __init__(self, status_code, detail):
-        self.status_code = status_code
-        super().__init__(detail)
-
-
-source = ast.parse((Path(__file__).parents[1] / 'billing.py').read_text())
-definition = next(n for n in source.body if isinstance(n, ast.ClassDef) and n.name == 'Billing')
-scope = {'os': os, 'HTTPException': HTTPException}
-exec(compile(ast.Module(body=[definition], type_ignores=[]), 'billing.py', 'exec'), scope)
+from fastapi import HTTPException
+from web_platform.billing import Billing
+from web_platform.accounts import Accounts
 
 
 class SandboxBillingTests(unittest.TestCase):
     def setUp(self):
-        self.billing = scope['Billing'].__new__(scope['Billing'])
-        self.billing.accounts = Mock()
-        self.billing.accounts.is_owner.return_value = True
+        self.billing = Billing.__new__(Billing)
+        self.billing.accounts = Mock(spec=Accounts)
+        owner_env = patch.dict(os.environ, {"ADMIN_ACCOUNT_IDS": "owner"})
+        owner_env.start()
+        self.addCleanup(owner_env.stop)
         self.billing.secret = 'sk_test_fixture'
         self.billing.checkout = Mock(return_value='sandbox-checkout')
         self.billing.portal = Mock(return_value='sandbox-portal')
@@ -36,7 +27,6 @@ class SandboxBillingTests(unittest.TestCase):
 
     @patch.dict(os.environ, {'BILLING_LIVE': 'false'})
     def test_non_owner_cannot_start_checkout_or_portal(self):
-        self.billing.accounts.is_owner.return_value = False
         for plan in ('investor', None):
             with self.assertRaises(HTTPException) as caught:
                 self.billing.sandbox_action('customer', plan)
