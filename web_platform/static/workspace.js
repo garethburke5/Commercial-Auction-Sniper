@@ -101,7 +101,7 @@ async function accountRequest(path,options={},format='json'){
 }
 function safePath(p){return typeof p==='string'&&p.startsWith('/')&&!p.startsWith('//')?root+p:root+'/properties/';}
 function access(feature){
- if(feature==='watch')notice('Watch is not active. Property Watch requires Investor or Investor Pro. Compare plans below.');
+ if(feature==='watch')notice('Watch is not active. Property Watch requires Investor or Investor Pro. See Plans & Pricing for membership details.');
  if(feature!=='save'){
   const anchor=document.activeElement;
   const host=anchor?.closest('.save-actions, .plan-card, form, section')||document.querySelector('main');
