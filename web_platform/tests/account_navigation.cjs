@@ -17,9 +17,9 @@ class Element {
  addEventListener(){}
  closest(selector){return selector==='button'?this:null;}
 }
-async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,watch=true,propertyPage=false,ownerPreview=true}={}){
+async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,watch=true,propertyPage=false,ownerPreview=true,checkout=false,plan='free',balance=null}={}){
  let stored=initial,callback,release,signOutError=null,signOutCalls=0,accountCalls=0;
- const elements=Object.fromEntries(['account-entry','new-password-form','register-form','reset-password-form','magic-link-form','account-retry','account-title','account-intro','account-customer-content','account-dashboard','account-status','account-billing','owner-controls','owner-sandbox-billing','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
+ const elements=Object.fromEntries(['checkout-return','checkout-return-title','checkout-return-message','checkout-refresh','account-entry','new-password-form','register-form','reset-password-form','magic-link-form','account-retry','account-title','account-intro','account-customer-content','account-dashboard','account-status','account-billing','owner-controls','owner-sandbox-billing','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
  const link=new Element();link.textContent='Sign in / Register';
  const navSignOut=new Element('nav-signout',true),dashboardSignOut=new Element('account-signout',true);
  for(const b of [navSignOut,dashboardSignOut])b.setAttribute('data-sign-out');
@@ -34,7 +34,7 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   signOut:async()=>{signOutCalls++;if(signOutError)return {error:signOutError};stored=null;callback('SIGNED_OUT',null);return {error:null};}
  };
  const config={accounts_enabled:enabled,api_origin:'https://private.example',billing_enabled:false,plans:{free:{name:'Free'}}};
- const remote={features:watch?['watch']:[],saved_properties:[],plan:'free',is_owner:owner,workspace:{properties:[],saved_searches:[],events:[],reviews:[{id:'private-report',created_at:1}]}};
+ const remote={features:watch?['watch']:[],saved_properties:[],plan,report_credits:balance,is_owner:owner,workspace:{properties:[],saved_searches:[],events:[],reviews:[{id:'private-report',created_at:1}]}};
  const context={Event,window:{dispatchEvent(){},AuctionIdentity:{createClient:()=>({auth})}},document:{
   body:{dataset:{prefix:'/test'},append(){}},
   querySelector:s=>elements[s]||null,
@@ -42,7 +42,7 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   getElementById:id=>elements['#'+id],createElement:()=>new Element(),createTextNode:s=>s,
   addEventListener:(name,fn)=>{handlers[name]=fn;}
  },localStorage:{getItem:()=>null},sessionStorage:{getItem:k=>storage.get(k),removeItem:k=>storage.delete(k)},
- location:{assign:url=>redirects.push(url)},MutationObserver:class{observe(){}},
+ location:{search:checkout?'?checkout=returned':'',assign:url=>redirects.push(url)},MutationObserver:class{observe(){}},
  setTimeout:(fn,ms)=>ms?setTimeout(fn,ms):timers.push(fn),clearTimeout,URLSearchParams,
  fetch:async (url,options)=>{
   if(url.includes('/api/account/saved/')||url.includes('/api/account/workspace/')){writes.push(options);return {ok:true,json:async()=>({})};}
@@ -56,7 +56,7 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   return {ok:true,json:async()=>remote,blob:async()=>Buffer.from('private report')};
  }};
  vm.runInNewContext(source,context);await tick();
- return {saveButton,watchButton,writes,link,navSignOut,dashboardSignOut,elements,redirects,storage,
+ return {remote,saveButton,watchButton,writes,link,navSignOut,dashboardSignOut,elements,redirects,storage,
   get accountCalls(){return accountCalls;},get signOutCalls(){return signOutCalls;},
   emit(event,next){stored=next;assert.ok(callback,'Auth listener must survive API errors');callback(event,next);},
   async flush(){while(timers.length){timers.shift()();await tick();}},
@@ -203,4 +203,40 @@ test('sandbox controls are hidden and writes blocked in customer preview',async(
 test('ordinary customers do not see owner sandbox controls',async()=>{
  const app=await setup({initial:buyer('customer')});
  assert.equal(app.elements['#owner-sandbox-billing'].hidden,true);
+});
+
+test('checkout return confirms only the verified account plan and credit balance',async()=>{
+ const app=await setup({initial:buyer('a'),checkout:true,plan:'investor',balance:{remaining:1,allowance:1,period_end:1794767170}});
+ assert.equal(app.elements['#checkout-return'].hidden,false);
+ assert.match(app.elements['#checkout-return-title'].textContent,/Investor membership is active/);
+ assert.match(app.elements['#checkout-return-message'].textContent,/1 of 1 included report credits/);
+ assert.equal(app.elements['#checkout-refresh'].hidden,true);
+ app.emit('SIGNED_OUT',null);
+ assert.match(app.elements['#checkout-return-message'].textContent,/Sign in/);
+ assert.doesNotMatch(app.elements['#checkout-return-title'].textContent,/active/);
+});
+test('checkout query alone grants no membership and pending state can be refreshed',async()=>{
+ const app=await setup({initial:buyer('a'),checkout:true});
+ assert.match(app.elements['#checkout-return-title'].textContent,/pending/);
+ assert.match(app.elements['#checkout-return-message'].textContent,/do not submit another payment/);
+ assert.equal(app.elements['#checkout-refresh'].hidden,false);
+ app.remote.plan='professional';
+ await app.click(app.elements['#checkout-refresh']);
+ assert.match(app.elements['#checkout-return-title'].textContent,/Investor Pro membership is active/);
+ assert.equal(app.writes.length,0);
+});
+test('checkout return shows a recoverable message on API failure',async()=>{
+ const app=await setup({initial:buyer('a'),checkout:true,accountError:true});
+ assert.match(app.elements['#checkout-return-title'].textContent,/could not check/);
+ assert.equal(app.elements['#checkout-refresh'].hidden,false);
+});
+test('ordinary account visits do not show checkout confirmation',async()=>{
+ const app=await setup({initial:buyer('a'),plan:'investor'});
+ assert.equal(app.elements['#checkout-return'].hidden,true);
+});
+test('slow checkout verification and stale account responses cannot show success',async()=>{
+ const app=await setup({initial:buyer('a'),checkout:true,plan:'investor',delayed:true});
+ assert.match(app.elements['#checkout-return-title'].textContent,/Checking/);
+ await app.click(app.navSignOut);await app.release();
+ assert.doesNotMatch(app.elements['#checkout-return-title'].textContent,/active/);
 });

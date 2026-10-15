@@ -3,6 +3,8 @@
 const root=document.body.dataset.prefix||'', key='auction-sniper-workspace-v1';
 const empty=()=>({properties:{},searches:[],events:[],recent:[]});
 let state=empty(), session=null, auth=null, config=null, index={}, features=new Set(), preview=null, authEpoch=0;
+const checkoutReturned=new URLSearchParams(location.search||'').get('checkout')==='returned';
+let checkoutAccount=null,checkoutFailed=false;
 let authMode='signin', recoveryMode=new URLSearchParams(location.search||'').get('mode')==='recovery', authBusy=false,authRestoring=true;
 try { state={...state,...JSON.parse(localStorage.getItem(key)||'{}')}; } catch (_) {}
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -24,7 +26,28 @@ function setAuthMode(mode){
  authMode=mode;authFeedback('');renderAuth();
  document.querySelector(({signin:'#signin-email',register:'#register-name',reset:'#reset-email',magic:'#magic-email'})[mode])?.focus();
 }
+function renderCheckoutReturn(){
+ const box=document.querySelector('#checkout-return');if(!box)return;
+ box.hidden=!checkoutReturned;if(!checkoutReturned)return;
+ const title=document.querySelector('#checkout-return-title'),message=document.querySelector('#checkout-return-message'),retry=document.querySelector('#checkout-refresh');
+ let heading='Checking your membership',detail='Welcome back from Stripe. We are checking your account. Please do not submit another payment.',refresh=false;
+ if(!session){heading='Welcome back from Stripe';detail='Sign in with the account you used at checkout to check your membership. Please do not submit another payment.';}
+ else if(checkoutFailed){heading='We could not check your membership';detail='Your payment may have completed. Check again below; please do not submit another payment. If this continues, contact team@auctiongeek.co.uk.';refresh=true;}
+ else if(checkoutAccount){
+  if(['investor','professional'].includes(checkoutAccount.plan)){
+   const name=config?.plans?.[checkoutAccount.plan]?.name||(checkoutAccount.plan==='professional'?'Investor Pro':'Investor');
+   heading='Your '+name+' membership is active';
+   detail='Welcome back. Your account membership has been verified.';
+   const balance=checkoutAccount.report_credits;
+   if(balance?.period_end)detail+=' '+balance.remaining+' of '+balance.allowance+' included report credits available until '+new Date(balance.period_end*1000).toLocaleDateString('en-GB')+'.';
+   detail+=' Report generation remains subject to launch quality approval.';
+   if(preview)detail+=' You are viewing a customer preview; select My account to use your membership.';
+  }else{heading='Your membership update is pending';detail='Your account has not yet received an active membership. Check again shortly; please do not submit another payment. If this continues, contact team@auctiongeek.co.uk.';refresh=true;}
+ }
+ title.textContent=heading;message.textContent=detail;retry.hidden=!refresh;
+}
 function renderAuth(){
+ renderCheckoutReturn();
  // This controls presentation only; all private data remains authorized by the API.
  const authenticated=!!session;
  document.querySelector('#account-customer-content')?.toggleAttribute('hidden',!authenticated||recoveryMode);
@@ -54,6 +77,7 @@ function renderAuth(){
  }
 }
 function workspaceFailed(){
+ checkoutAccount=null;checkoutFailed=true;renderCheckoutReturn();
  features.clear();
  document.querySelector('#account-status')?.replaceChildren(document.createTextNode('You are signed in, but your workspace could not load. Please retry. Your saved information has not been deleted.'));
  document.querySelector('#account-retry')?.removeAttribute('hidden');
@@ -67,6 +91,7 @@ function updateSession(next){
  session=next;
  if(changed){
   authEpoch++;
+  checkoutAccount=null;checkoutFailed=false;
   if(!next){recoveryMode=false;document.querySelectorAll('input[type=password]').forEach(e=>{e.value='';});}
   features.clear();state=empty();preview=null;
   document.querySelector('#account-reviews')?.replaceChildren();
@@ -187,7 +212,8 @@ document.addEventListener('click',async e=>{
   }
   if(propertyAction)await bounded(initialized,20000,'Your account is taking too long to load. Nothing was changed. Please try again.');
   else await initialized;
-  if(b.id==='account-retry'){
+  if(b.id==='account-retry'||b.id==='checkout-refresh'){
+   checkoutAccount=null;checkoutFailed=false;renderCheckoutReturn();
    b.disabled=true;try{await loadAccount();}catch(_){workspaceFailed();}finally{b.disabled=false;}return;
   }
   if(b.id==='account-password-reset'){
@@ -326,6 +352,7 @@ async function loadAccount(){
  const remote=await api('/api/account');
  // A response started before sign-out must not restore the previous customer's UI.
  if(!userId||session?.user?.id!==userId)return;
+ checkoutAccount=remote;checkoutFailed=false;
  features=new Set(remote.features||[]);state=empty();
  for(const p of remote.workspace.properties)state.properties[p.property_id]={...p,property:p.property};
  for(const id of remote.saved_properties)state.properties[id]={...state.properties[id],saved:true,property:index[id]||state.properties[id]?.property};
