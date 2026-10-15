@@ -46,6 +46,7 @@ class Billing:
         # Existing subscribers manage their plan via Stripe, avoiding duplicate subscriptions.
         existing=plain(self.client.v1.subscriptions.list({'customer':customer,'status':'all','limit':100}))
         if any(s['status'] not in ('canceled','incomplete_expired') for s in existing['data']):
+            self._expire_membership_checkouts(customer,user)
             return self.portal(user)
         session=self.client.v1.checkout.sessions.create({'customer':customer,'mode':'subscription',
             'line_items':[{'price':self.prices[plan],'quantity':1}],'client_reference_id':user,
@@ -65,6 +66,33 @@ class Billing:
         self.configured();customer=self.accounts.customer(user)
         if not customer: raise HTTPException(409,'No billing account exists')
         return self.client.v1.billing_portal.sessions.create({'customer':customer,'return_url':self.origin+'/account/'})['url']
+
+    def _expire_membership_checkouts(self,customer,user):
+        """Close abandoned membership links once this account has a subscription.
+
+        Report purchases and sessions belonging to another account are untouched.
+        Failures propagate so a signed subscription webhook can retry safely.
+        """
+        params={'customer':customer,'status':'open','limit':100}
+        while True:
+            page=plain(self.client.v1.checkout.sessions.list(params))
+            sessions=page.get('data',[])
+            for session in sessions:
+                if (session.get('customer')!=customer or session.get('mode')!='subscription'
+                        or session.get('client_reference_id')!=user or session.get('status')!='open'):
+                    continue
+                try:
+                    self.client.v1.checkout.sessions.expire(session['id'])
+                except stripe.InvalidRequestError:
+                    # Another delivery may already have expired it. A concurrent
+                    # checkout completion also cannot be expired after payment.
+                    current=plain(self.client.v1.checkout.sessions.retrieve(session['id']))
+                    if current.get('status') not in ('expired','complete'):raise
+            if not page.get('has_more'):return
+            if not sessions:raise HTTPException(409,'Checkout cleanup requires retry')
+            cursor=sessions[-1]['id']
+            if params.get('starting_after')==cursor:raise HTTPException(409,'Checkout cleanup requires retry')
+            params=dict(params,starting_after=cursor)
 
     def purchase(self,user,product,property_id):
         """Server-priced one-off order. Payment never automatically publishes a listing."""
@@ -281,7 +309,9 @@ class Billing:
             if typ in ('checkout.session.completed','checkout.session.async_payment_succeeded','checkout.session.async_payment_failed','checkout.session.expired','charge.refunded','charge.dispute.created','charge.dispute.closed'):
                 self._purchase_event(db,event)
             if typ in ('customer.subscription.created','customer.subscription.updated','customer.subscription.deleted'):
-                self._subscription(db,event['data']['object']['id'])
+                sub,user=self._subscription(db,event['data']['object']['id'])
+                if user and sub.get('status') in ('active','trialing','past_due','unpaid','paused'):
+                    self._expire_membership_checkouts(sub['customer'],user)
             if typ in ('invoice.paid','invoice.payment_failed','invoice.voided','invoice.marked_uncollectible'):
                 self._invoice(db,event['data']['object']['id'])
             db.execute('INSERT INTO webhook_events VALUES (?,?)',(event_id,int(time.time())))
