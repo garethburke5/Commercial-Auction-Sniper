@@ -17,7 +17,7 @@ def test_account_navigation_defaults_to_sign_in_on_all_pages(site):
         assert 'hidden' in sign_out.attrs and sign_out['type'] == 'button'
         assert soup.select_one('.nav-toggle')['aria-controls'] == nav['id']
         if path == '/account/':
-            assert soup.h1.get_text() == 'My Auction Geek'
+            assert soup.h1.get_text() == 'Sign in / Register'
             assert account['aria-current'] == 'page'
             assert soup.select_one('#account-signout').has_attr('data-sign-out')
 

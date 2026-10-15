@@ -179,7 +179,10 @@ class Billing:
         if invoice.get('status')!='paid':
             db.execute("UPDATE report_credit_periods SET status='payment_review' WHERE invoice_id=?",(iid,))
             return
-        # Prorations/one-off invoice items cannot mint a fresh monthly allowance.
+        # A paid upgrade can raise the existing cap, never reset its usage/expiry.
+        if invoice.get('billing_reason')=='subscription_update':
+            return self._upgrade_credits(db,invoice,sub,user)
+        # Other prorations/one-off items cannot mint a fresh monthly allowance.
         if invoice.get('billing_reason') not in ('subscription_create','subscription_cycle'):return
         lines=invoice.get('lines') or {}
         if lines.get('has_more'):raise HTTPException(409,'Invoice requires billing review')
@@ -196,6 +199,56 @@ class Billing:
         from .report_credits import allowance
         count=allowance(plan)
         if not count:return
+        status=self._invoice_funding(db,invoice,iid)
+        db.execute('''INSERT INTO report_credit_periods VALUES (?,?,?,?,?,?,?,?)
+            ON CONFLICT(subscription_id,period_start) DO NOTHING''',
+            (sid,start,end,user,plan,count,iid,status))
+        if status!='paid':db.execute("UPDATE report_credit_periods SET status='payment_review' WHERE invoice_id=?",(iid,))
+
+    def _upgrade_credits(self,db,invoice,sub,user):
+        """Recognise only a paid, same-period exchange of our two monthly tiers."""
+        from .report_credits import allowance
+        if invoice.get('currency')!='gbp' or invoice.get('amount_paid',0)<=0:return
+        lines=invoice.get('lines') or {}
+        if lines.get('has_more'):raise HTTPException(409,'Upgrade invoice requires billing review')
+        items=sub.get('items',{}).get('data',[])
+        if sub.get('status')!='active' or len(items)!=1 or items[0].get('quantity',1)!=1:return
+        inverse={v:k for k,v in self.prices.items()};charges=[];credits=[]
+        if len(lines.get('data',[]))!=2:return
+        for line in lines['data']:
+            parent=(line.get('parent') or {}).get('subscription_item_details') or {}
+            price=(line.get('price') or {}).get('id') or (line.get('pricing') or {}).get('price_details',{}).get('price')
+            if (price not in inverse or line.get('quantity')!=1
+                    or not line.get('proration',parent.get('proration',False))
+                    or parent.get('subscription',sub['id'])!=sub['id']):return
+            if line.get('amount',0)>0:charges.append((line,inverse[price],price))
+            elif line.get('amount',0)<0:credits.append((line,inverse[price]))
+        if len(charges)!=1 or len(credits)!=1:return
+        line,plan,price=charges[0];old_line,old_plan=credits[0]
+        if allowance(plan)<=allowance(old_plan) or items[0]['price']['id']!=price:return
+        period=line.get('period') or {};old_period=old_line.get('period') or {}
+        start,end=int(period.get('start',0)),int(period.get('end',0))
+        until=int(sub.get('current_period_end') or items[0].get('current_period_end') or 0)
+        if start>=end or period!=old_period or end!=until:return
+        funded=db.execute('''SELECT * FROM report_credit_periods
+            WHERE subscription_id=? AND user_id=? AND period_end=? AND period_start<=?''',
+            (sub['id'],user,end,start)).fetchone()
+        if not funded:
+            # Out-of-order invoice delivery: roll back and let Stripe retry after
+            # the original monthly invoice has established the funded period.
+            if end>int(time.time()):raise HTTPException(409,'Monthly invoice must be processed before its upgrade')
+            return
+        # Link both payments to this period so refund/dispute safeguards still apply.
+        status=self._invoice_funding(db,invoice,funded['invoice_id'])
+        if status!='paid':
+            db.execute("UPDATE report_credit_periods SET status='payment_review' WHERE invoice_id=?",(funded['invoice_id'],))
+            return
+        if funded['status']!='paid':return
+        db.execute('''UPDATE report_credit_periods SET allowance=?,plan=?
+            WHERE subscription_id=? AND period_start=? AND allowance<? AND status='paid' ''',
+            (allowance(plan),plan,sub['id'],funded['period_start'],allowance(plan)))
+
+    def _invoice_funding(self,db,invoice,funding_invoice_id):
         payments=invoice.get('payments') or {}
         if payments.get('has_more'):raise HTTPException(409,'Invoice payments require billing review')
         intents=[]
@@ -212,11 +265,8 @@ class Billing:
             charge=pi.get('latest_charge') or {}
             if isinstance(charge,str):charge=plain(self.client.v1.charges.retrieve(charge))
             if charge.get('refunded') or charge.get('amount_refunded',0)>0 or charge.get('disputed'):status='payment_review'
-            db.execute('INSERT INTO report_credit_payments VALUES (?,?) ON CONFLICT DO NOTHING',(iid,intent))
-        db.execute('''INSERT INTO report_credit_periods VALUES (?,?,?,?,?,?,?,?)
-            ON CONFLICT(subscription_id,period_start) DO NOTHING''',
-            (sid,start,end,user,plan,count,iid,status))
-        if status!='paid':db.execute("UPDATE report_credit_periods SET status='payment_review' WHERE invoice_id=?",(iid,))
+            db.execute('INSERT INTO report_credit_payments VALUES (?,?) ON CONFLICT DO NOTHING',(funding_invoice_id,intent))
+        return status
 
     def webhook(self,body,signature):
         self.configured()

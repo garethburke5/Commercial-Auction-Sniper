@@ -144,3 +144,82 @@ def test_costs_preserve_unknowns_and_capture_rate_card(monkeypatch):
     assert cost['rate_card']==rates
     usage['complete']=False
     assert estimate_cost(usage,metrics)['estimated_total_gbp'] is None
+
+
+@pytest.fixture
+def upgrade(store,monkeypatch):
+    a=store;start,end=fund(a)
+    b=Billing(a,'sk_test_fixture','whsec_fixture',{'investor':'p15','professional':'p25'},'https://example.org')
+    sub={'id':'sub','customer':'cus_A','status':'active','items':{'data':[{'price':{'id':'p25'},'quantity':1,'current_period_end':end}]}}
+    def line(price,amount):
+        return {'amount':amount,'quantity':1,'pricing':{'price_details':{'price':price}},
+                'period':{'start':start+60,'end':end},
+                'parent':{'subscription_item_details':{'proration':True,'subscription':'sub'}}}
+    inv={'id':'in_upgrade','customer':'cus_A','status':'paid','billing_reason':'subscription_update','currency':'gbp','amount_paid':1000,
+         'parent':{'subscription_details':{'subscription':'sub'}},'payments':{'data':[{'payment':{'payment_intent':'pi_upgrade'}}]},
+         'lines':{'data':[line('p15',-1500),line('p25',2500)]}}
+    charge={'id':'ch_upgrade','payment_intent':'pi_upgrade','amount_refunded':0}
+    monkeypatch.setattr(b.client.v1.subscriptions,'retrieve',lambda *args,**kw:sub)
+    monkeypatch.setattr(b.client.v1.invoices,'retrieve',lambda *args,**kw:inv)
+    monkeypatch.setattr(b.client.v1.payment_intents,'retrieve',lambda *args,**kw:{'latest_charge':charge})
+    monkeypatch.setattr(b.client.v1.charges,'retrieve',lambda *args,**kw:charge)
+    def event(eid,typ='invoice.paid'):
+        body=json.dumps({'id':eid,'type':typ,'livemode':False,'data':{'object':{'id':'in_upgrade' if typ.startswith('invoice') else 'ch_upgrade'}}}).encode()
+        ts=str(int(time.time()));sig=hmac.new(b'whsec_fixture',ts.encode()+b'.'+body,hashlib.sha256).hexdigest()
+        return b.webhook(body,f't={ts},v1={sig}')
+    return a,b,sub,inv,charge,event,start,end
+
+
+def test_paid_upgrade_tops_up_same_period_without_resetting_consumed_credits(upgrade):
+    a,b,sub,inv,charge,event,start,end=upgrade
+    redeem(a,'alice','r0')
+    assert event('upgrade')=='processed' and event('upgrade')=='duplicate'
+    assert a.plan('alice')=='professional'
+    assert balance(a,'alice')['allowance']==3 and balance(a,'alice')['remaining']==2
+    event('same_invoice_new_event');redeem(a,'alice','r1');event('another_notification')
+    assert balance(a,'alice')['remaining']==1
+    with a.db() as db:
+        period=dict(db.execute('SELECT * FROM report_credit_periods').fetchone())
+        assert period['period_start']==start and period['period_end']==end and period['invoice_id']=='in_1'
+        assert db.execute('SELECT COUNT(*) FROM report_credit_periods').fetchone()[0]==1
+        assert db.execute("SELECT invoice_id FROM report_credit_payments WHERE payment_intent='pi_upgrade'").fetchone()[0]=='in_1'
+
+
+@pytest.mark.parametrize('case',['unpaid','wrong_customer','unknown_price','non_proration','quantity','wrong_period','downgrade','truncated','untraceable'])
+def test_invalid_upgrade_never_adds_credits(upgrade,case):
+    a,b,sub,inv,charge,event,start,end=upgrade
+    if case=='unpaid':inv['status']='open'
+    if case=='wrong_customer':inv['customer']='cus_B'
+    if case=='unknown_price':inv['lines']['data'][1]['pricing']['price_details']['price']='other'
+    if case=='non_proration':inv['lines']['data'][1]['parent']['subscription_item_details']['proration']=False
+    if case=='quantity':inv['lines']['data'][1]['quantity']=2
+    if case=='wrong_period':inv['lines']['data'][1]['period']['end']+=100
+    if case=='downgrade':
+        inv['lines']['data'][0]['amount']=1500;inv['lines']['data'][1]['amount']=-2500
+        sub['items']['data'][0]['price']['id']='p15'
+    if case=='truncated':inv['lines']['has_more']=True
+    if case=='untraceable':inv['payments']['data']=[]
+    if case in ('truncated','untraceable'):
+        with pytest.raises(HTTPException):event('bad')
+    else:event('bad')
+    with a.db() as db:assert db.execute('SELECT allowance FROM report_credit_periods').fetchone()[0]==1
+
+
+def test_upgrade_refund_or_dispute_pauses_period_and_late_payment_cannot_restore_it(upgrade):
+    a,b,sub,inv,charge,event,start,end=upgrade
+    event('upgrade');redeem(a,'alice','r0')
+    charge['amount_refunded']=1000;event('refund','charge.refunded');event('late_invoice')
+    assert balance(a,'alice')['remaining']==0
+    assert not full_review_allowed(a,'alice','r0','property')
+
+
+def test_upgrade_waits_for_original_invoice_and_preserves_payment_review(upgrade):
+    a,b,sub,inv,charge,event,start,end=upgrade
+    with a.db() as db:db.execute('DELETE FROM report_credit_periods')
+    with pytest.raises(HTTPException) as error:event('early_upgrade')
+    assert error.value.status_code==409
+    with a.db() as db:assert not db.execute("SELECT 1 FROM webhook_events WHERE event_id='early_upgrade'").fetchone()
+    fund(a,start=start,end=end)
+    event('early_upgrade');assert balance(a,'alice')['allowance']==3
+    with a.db() as db:db.execute("UPDATE report_credit_periods SET status='payment_review'")
+    event('late_upgrade');assert balance(a,'alice')['remaining']==0
