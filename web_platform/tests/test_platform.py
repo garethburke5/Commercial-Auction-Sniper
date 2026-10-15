@@ -76,6 +76,7 @@ def test_billing_signature_replay_entitlements_and_cancellation(tmp_path,monkeyp
     b=Billing(a,'sk_test_fixture','whsec_fixture',{'investor':'price_1'},'https://example.org')
     sub={'id':'sub_1','customer':'cus_A','status':'active','items':{'data':[{'price':{'id':'price_1'},'current_period_end':int(time.time())+1000}]}}
     monkeypatch.setattr(b.client.v1.subscriptions,'retrieve',lambda *args,**kwargs:sub)
+    monkeypatch.setattr(b.client.v1.checkout.sessions,'list',lambda *args,**kwargs:{'data':[],'has_more':False})
     def deliver(event_id):
         body=json.dumps({'id':event_id,'type':'customer.subscription.updated','data':{'object':{'id':'sub_1'}}}).encode()
         ts=str(int(time.time()));sig=hmac.new(b'whsec_fixture',ts.encode()+b'.'+body,hashlib.sha256).hexdigest()
