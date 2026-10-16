@@ -29,8 +29,12 @@ No customer records or credentials were changed. Security advisor reported no
 new table warnings; existing leaked-password protection remains disabled
 ([Supabase guidance](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection)).
 
-PostgreSQL concurrency and browser checks at 360/390/430/1440px are included in
-GitHub CI; their result must be recorded after this revision is published.
+GitHub run `38972663178` passed both PostgreSQL integration and real-browser
+jobs on code revision `eb43649c5c8a7ff4832acd196d4de0888a815ac8`. The browser
+checks at 360/390/430/1440px passed: new-match labels escape supplied text,
+property links are correct, Watch controls remain functional, and there is no
+page overflow or JavaScript error. These use isolated fixtures, not live customer
+accounts. PostgreSQL tests use a disposable database, not production records.
 
 ## Still partial / blocked
 
