@@ -18,6 +18,9 @@ CREATE TABLE IF NOT EXISTS purchases(order_id TEXT PRIMARY KEY,user_id TEXT NOT 
 CREATE TABLE IF NOT EXISTS workspace(user_id TEXT NOT NULL,property_id TEXT NOT NULL,watched INTEGER NOT NULL DEFAULT 0,notes TEXT NOT NULL DEFAULT '',target_price DOUBLE PRECISION,observation TEXT,updated_at BIGINT NOT NULL,PRIMARY KEY(user_id,property_id));
 CREATE TABLE IF NOT EXISTS saved_searches(user_id TEXT NOT NULL,search_id TEXT NOT NULL,name TEXT NOT NULL,query TEXT NOT NULL,digest INTEGER NOT NULL DEFAULT 0,created_at BIGINT NOT NULL,PRIMARY KEY(user_id,search_id));
 
+CREATE TABLE IF NOT EXISTS monitoring_jobs(
+ name TEXT PRIMARY KEY,lease_owner TEXT NOT NULL,lease_until BIGINT NOT NULL,
+ started_at BIGINT NOT NULL,finished_at BIGINT,status TEXT NOT NULL,details_json TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS search_baselines(
  user_id TEXT NOT NULL,search_id TEXT NOT NULL,query TEXT NOT NULL,state_json TEXT NOT NULL,
  PRIMARY KEY(user_id,search_id));

@@ -25,6 +25,7 @@ def changes(old,new):
 
 def initialise(accounts):
     from .search_monitoring import SCHEMA
+    from .scheduled_monitoring import SCHEMA as JOB_SCHEMA
     if accounts.managed_schema:return
     with accounts.db() as db:
         db.executescript('''
@@ -33,7 +34,7 @@ def initialise(accounts):
         CREATE TABLE IF NOT EXISTS watch_events(id TEXT PRIMARY KEY,user_id TEXT NOT NULL,property_id TEXT NOT NULL,event_json TEXT NOT NULL,created_at INTEGER NOT NULL);
         CREATE TABLE IF NOT EXISTS reviews(id TEXT PRIMARY KEY,user_id TEXT NOT NULL,property_id TEXT NOT NULL,report_json TEXT NOT NULL,created_at INTEGER NOT NULL);
         CREATE TABLE IF NOT EXISTS review_processing(review_id TEXT PRIMARY KEY,status TEXT NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,updated_at INTEGER NOT NULL);
-        ''' + SCHEMA)
+        ''' + SCHEMA + JOB_SCHEMA)
 
 def update(accounts,user,pid,body,row):
     # Enforce in the service as well as the UI: no direct API or import bypass.
@@ -57,7 +58,7 @@ def update(accounts,user,pid,body,row):
             (user,pid,int(entry['watched']),entry['notes'],entry['target_price'],entry['observation'],int(time.time())))
     return {'updated':True}
 
-def dashboard(accounts,user,rows,*,monitoring_rows=None):
+def dashboard(accounts,user,rows,*,monitoring_rows=None,monitoring_stamp=None):
     initialise(accounts)
     from .plans import ENTITLEMENTS
     monitoring = 'watch' in ENTITLEMENTS[accounts.plan(user)]
@@ -70,8 +71,11 @@ def dashboard(accounts,user,rows,*,monitoring_rows=None):
         for item in items:
             pid=item['property_id'];row=rows.get(pid)
             observed=observed_rows.get(pid)
-            if monitoring and item['watched'] and observed:
-                current=observation(observed);old=json.loads(item['observation'] or '{}')
+            old=json.loads(item['observation'] or '{}')
+            ordered = pid.startswith('deal:') or old.get('_snapshot_at') is None or (monitoring_stamp is not None and monitoring_stamp >= old['_snapshot_at'])
+            if monitoring and item['watched'] and observed and ordered:
+                current=observation(observed)
+                if monitoring_stamp is not None and not pid.startswith('deal:'):current['_snapshot_at']=monitoring_stamp
                 for event in changes(old,current):
                     # Each real transition gets its own identity. The locked
                     # baseline deduplicates retries without erasing a later

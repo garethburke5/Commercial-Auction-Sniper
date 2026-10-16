@@ -160,3 +160,8 @@ def test_postgres_watch_transition_claims_and_recurring_changes(pg_accounts):
 def test_postgres_saved_search_concurrency_and_isolation(pg_accounts):
     from web_platform.tests.test_search_monitoring import exercise_matches
     exercise_matches(pg_accounts)
+
+
+def test_postgres_monitoring_job_claim_and_recovery(pg_accounts,site):
+    from web_platform.tests.test_monitoring_activation import exercise_job
+    exercise_job(pg_accounts,site)

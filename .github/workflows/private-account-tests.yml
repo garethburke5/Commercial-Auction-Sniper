@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -r web_platform/requirements.txt pytest
-      - run: python -m pytest web_platform/tests/test_postgres_accounts.py web_platform/tests/test_search_monitoring.py web_platform/tests/test_scheduled_monitoring.py tests/test_acquisition_provider.py web_platform/tests/test_private_startup.py -q
+      - run: python -m pytest web_platform/tests/test_postgres_accounts.py web_platform/tests/test_search_monitoring.py web_platform/tests/test_scheduled_monitoring.py web_platform/tests/test_monitoring_activation.py tests/test_acquisition_provider.py web_platform/tests/test_private_startup.py -q
         env:
           TEST_ACCOUNT_DATABASE_URL: postgresql://postgres:disposable_ci_admin@127.0.0.1:5432/auction_test
           TEST_PG_CONTAINER: ${{ job.services.postgres.id }}

@@ -180,3 +180,33 @@ These controls require the same deployed private API and configured Supabase
 registration as normal accounts. A connected provider plugin alone does not
 activate website login. Do not advertise owner login as operational until the
 deployed authenticated journey has been checked.
+
+
+### Protected scheduled monitoring
+
+The private API now exposes `POST /api/internal/monitor`, protected by a dedicated
+`MONITORING_SIGNING_KEY` (at least 32 characters). The request includes Unix
+seconds in `X-Monitor-Timestamp` and lowercase hex HMAC-SHA256 in
+`X-Monitor-Signature`. Sign the UTF-8 text `timestamp + "\nPOST\n/api/internal/monitor"`.
+Signatures expire after five minutes. Never use customer JWTs or a billing secret
+for this endpoint. The caller cannot supply a download URL or customer ID.
+
+Supabase Cron invokes the owner-only `auction_private.invoke_monitoring()` SQL
+function using the key in Vault. Activate only after a successful signed check:
+
+```sql
+select cron.schedule('auction-geek-monitoring', '7,22,37,52 * * * *',
+                     'select auction_private.invoke_monitoring()');
+```
+
+The function signs the request; its queued HTTP headers do not contain the key.
+Keep the scheduler function and state in the private schema. Inspect completed
+HTTP responses in `net._http_response` and application completion in
+`auction_private.monitoring_jobs`. A successful cron SQL invocation alone does
+not establish that the HTTP job completed. Verify both.
+
+The worker refreshes only the fixed canonical `data/properties.json` URL, validates
+it before an atomic replacement, and reuses the existing current catalogue and
+monitoring service. It does not need a backend redeploy for each collection.
+A failed download, stale source or interrupted run must not erase observations.
+`GET /api/admin/monitoring` requires the existing verified owner account.

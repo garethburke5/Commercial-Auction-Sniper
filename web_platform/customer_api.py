@@ -16,12 +16,13 @@ class Search(BaseModel):
     query:str=Field(max_length=2000)
     digest:bool=False
 
-def install(app,site,user):
+def install(app,site,user,catalogue=None):
     @app.put('/api/account/workspace/{pid}')
     def update_workspace(pid:str,body:WorkspaceUpdate,authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization)
         from .deals import workspace_rows
-        row=site.catalogue.rows.get(pid) or workspace_rows(a).get(pid)
+        current=catalogue() if catalogue else site.catalogue
+        row=current.rows.get(pid) or workspace_rows(a).get(pid)
         patch=body.model_dump(exclude_unset=True)
         if not row:
             # Removing a listing must not prevent its owner stopping a watch or

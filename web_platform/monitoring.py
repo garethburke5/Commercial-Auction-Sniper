@@ -38,7 +38,8 @@ def refresh(accounts, rows, snapshot, now=None, *, search_rows=None):
     for user in users:
         if 'watch' not in ENTITLEMENTS[accounts.plan(user)]:
             continue
-        dashboard(accounts, user, trustworthy)
+        from .scheduled_monitoring import timestamp
+        dashboard(accounts, user, trustworthy, monitoring_stamp=timestamp(snapshot))
         processed += 1
     with accounts.db() as db:
         after = db.execute('SELECT COUNT(*) FROM watch_events').fetchone()[0]

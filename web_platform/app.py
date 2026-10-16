@@ -110,6 +110,18 @@ def create_app(site=None):
             'owner_access_configured':ready and bool(os.getenv('ADMIN_ACCOUNT_IDS','').strip()),
             'analysis_provider_configured':callable(app.state.acquisition_provider_factory),
             'paid_reports_approved':False},status_code=200 if ready else 503)
+    @app.post('/api/internal/monitor')
+    def scheduled_check(x_monitor_timestamp:str|None=Header(default=None),x_monitor_signature:str|None=Header(default=None)):
+        from .scheduled_monitoring import authenticate,run
+        from .catalogue import ROOT
+        authenticate(x_monitor_timestamp,x_monitor_signature)
+        accounts,_=private_services()
+        return run(accounts,site.catalogue.root if not deferred_site else ROOT,current_catalogue)
+    @app.get('/api/admin/monitoring')
+    def monitoring_status(authorization:str|None=Header(default=None)):
+        uid,a,_=user(authorization);require_owner(uid)
+        from .scheduled_monitoring import status
+        return status(a)
     @app.get('/api/account/identity')
     def verified_identity(authorization:str|None=Header(default=None)):
         uid=authenticated_user(authorization)
@@ -132,11 +144,14 @@ def create_app(site=None):
             healthy=healthy_sources(current.snapshot)
             rows=current.rows
             trusted={pid:row for pid,row in rows.items() if row.get('source') in healthy}
+            from .scheduled_monitoring import timestamp
+            observed_stamp=timestamp(current.snapshot) if healthy else None
         except (OSError,ValueError,KeyError,TypeError):
             # A temporarily unreadable snapshot must not erase saved properties
             # or turn an old public-page cache into fresh monitoring evidence.
             rows=site.catalogue.rows
             trusted={}
+            observed_stamp=None
         if trusted:
             from .workspace import initialise
             from .search_monitoring import refresh_searches
@@ -144,7 +159,7 @@ def create_app(site=None):
             refresh_searches(a,uid,{row['id']:row for row in current.properties},current.snapshot)
         deals=workspace_rows(a)
         from .report_credits import balance
-        return {'plan':plan,'features':sorted(PLANS[plan]),'billing':a.billing_status(uid),'report_credits':balance(a,uid),'is_owner':is_owner(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals)}
+        return {'plan':plan,'features':sorted(PLANS[plan]),'billing':a.billing_status(uid),'report_credits':balance(a,uid),'is_owner':is_owner(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals,monitoring_stamp=observed_stamp)}
     @app.get('/api/admin/preview/{plan}')
     def owner_preview(plan:str,authorization:str|None=Header(default=None)):
         uid,_,_=user(authorization);require_owner(uid)
@@ -157,7 +172,7 @@ def create_app(site=None):
         import time
         uid,a,_=user(authorization)
         from .deals import workspace_rows
-        if property_id not in site.catalogue.rows and property_id not in workspace_rows(a): raise HTTPException(404,'Unknown property')
+        if property_id not in current_catalogue().rows and property_id not in workspace_rows(a): raise HTTPException(404,'Unknown property')
         with a.db() as db: db.execute('INSERT INTO saved VALUES (?,?,?) ON CONFLICT(user_id,property_id) DO NOTHING',(uid,property_id,int(time.time())))
         return {'saved':True}
     @app.delete('/api/account/saved/{property_id}')
@@ -172,7 +187,7 @@ def create_app(site=None):
     @app.post('/api/billing/purchase')
     def purchase(body:Purchase,authorization:str|None=Header(default=None)):
         uid,_,b=user(authorization)
-        if body.property_id not in site.catalogue.rows:raise HTTPException(404,'Unknown property')
+        if body.property_id not in current_catalogue().rows:raise HTTPException(404,'Unknown property')
         return {'url':b.purchase(uid,body.product,body.property_id)}
     @app.post('/api/billing/checkout')
     def checkout(body:Checkout,authorization:str|None=Header(default=None)):
@@ -201,7 +216,7 @@ def create_app(site=None):
     from .review_api import install as install_reviews
     install_reviews(app,site,user)
     from .customer_api import install
-    install(app,site,user)
+    install(app,site,user,current_catalogue)
     from .deals import install as install_deals
     install_deals(app,site,user,private_services)
     @app.get('/sitemap.xml')
