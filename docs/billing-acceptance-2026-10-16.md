@@ -76,5 +76,25 @@ transactions.
 
 The connected Stripe tool exposes only a live-mode account. The sandbox browser
 requires sign-in. Actual sandbox failed-renewal/recovery remains BLOCKED pending
-that access. No live payment or proprietor subscription was changed. Deployment
-of this recovery correction must be verified separately from the checks above.
+that access. No live payment or proprietor subscription was changed. 
+## Recovery correction deployed
+
+Commit `62012b58c724d0be8e99f3c57ff35a8d549f05bb` passed hosted application
+CI (263 passed, 6 skipped) and PostgreSQL CI (19 passed). Cloudflare Workers
+Builds and public publishing both reported success for this commit. Render
+deployment `dep-db963ll9fdbs7393l39g` went live at 17:47:59 UTC; application
+initialization was 1.56 seconds and subsequent health checks repeatedly returned
+HTTP 200.
+
+This verifies the release and controlled regressions, not an authenticated
+customer payment-recovery journey. The browser connection timed out while
+preparing secure sandbox sign-in and then failed to return its recovery guidance.
+No credential request or payment operation was submitted. A fresh deployment
+screenshot could not be captured. Sandbox recovery remains outstanding.
+
+
+The public readiness endpoint independently returned HTTP 200 with release
+`62012b58c724d0be8e99f3c57ff35a8d549f05bb`: accounts ready, billing configured,
+owner access configured, live billing disabled, paid reports unapproved, analysis
+provider unconfigured, and production-email verification flag unset. That last
+flag alone does not prove that previously tested account email is undeliverable.
