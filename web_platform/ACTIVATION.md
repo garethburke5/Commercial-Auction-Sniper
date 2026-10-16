@@ -42,7 +42,7 @@ cloud account service: registration and checkout explain their activation bounda
   notes, bid targets, saved searches and report index. Device data is not silently
   uploaded or copied to account storage.
 - Save = shortlist; Watch = guide/status/date/legal-pack/detail observations and
-  a change log. Changes are checked on return; scheduled email delivery is not
+  a change log. Changes are checked on return and by the signed scheduled worker; email delivery is not
   claimed or activated. Digest preferences are stored for subsequent delivery.
 - Listing-only free snapshot → report-specific Checkout → verified signed webhook
   → authenticated legal-pack upload/processing → immutable owner-only report.
@@ -125,10 +125,10 @@ Run it on the private host every 15 minutes with the same persistent
 canonical snapshot as the API. It stops
 on data older than 14 hours, withholds degraded-source observations, checks paid
 entitlement, preserves missing-property baselines and deduplicates retries.
-Do not copy private data into public CI. The command is tested, but no host
-schedule exists yet. With Render, a separate cron/worker cannot mount the web
-service's disk: run scheduling in the same service, or move state to managed
-PostgreSQL before separating workers. Saved-search matching uses only current
+Do not copy private data into public CI. On 16 October the signed API worker was
+deployed and Supabase Cron was activated against the existing private PostgreSQL
+database. See the protected scheduler section and dated activation checkpoint.
+Saved-search matching uses only current
 searchable lots, the existing Find Property filters and healthy-source evidence.
 The first healthy check establishes each source baseline without alerts; subsequent
 checks record each newly qualifying lot once. Changing criteria resets that baseline.
@@ -195,7 +195,7 @@ Supabase Cron invokes the owner-only `auction_private.invoke_monitoring()` SQL
 function using the key in Vault. Activate only after a successful signed check:
 
 ```sql
-select cron.schedule('auction-geek-monitoring', '7,22,37,52 * * * *',
+select cron.schedule('auction-geek-monitoring', '11,26,41,56 * * * *',
                      'select auction_private.invoke_monitoring()');
 ```
 

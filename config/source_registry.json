@@ -501,9 +501,16 @@
       "auctioneer": "Cheffins",
       "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
       "collector_verified": false,
-      "checked_on": "2026-10-06",
+      "checked_on": "2026-10-16",
       "source_url": "https://www.cheffins.co.uk/property-auctions.htm",
-      "failure_reason": "Main Current Catalogue still links to September sale; October CPN/timed-sale routes need direct lot reconciliation. Network access to these catalogue hosts was denied; current lot count remains unknown."
+      "failure_reason": "Timed catalogue inspected: 19 displayed records, including three upcoming CPN lots for 19 November 2026. These three property addresses are absent from the 16 October 21:40 UTC production snapshot. Automated current-catalogue collection and publication reconciliation remain outstanding; zero current inventory is not verified.",
+      "current_catalogue_detected": true,
+      "evidence_urls": [
+        "https://timedpropertyauctions.cheffins.co.uk/search",
+        "https://auctions.thecpn.co.uk/lot/details/254eea64-6e3b-4843-a8ad-5dd21cebc71b",
+        "https://auctions.thecpn.co.uk/lot/details/777d4f73-ffcd-4114-a3c2-e78b6390b715",
+        "https://auctions.thecpn.co.uk/lot/details/49d020bb-3c27-4be7-a5f3-4ae82e4540fa"
+      ]
     },
     {
       "auctioneer": "Edward Mellor",

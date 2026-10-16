@@ -99,6 +99,17 @@ def test_internal_endpoint_checks_signature_before_loading_services(site,monkeyp
     private.assert_not_called()
 
 
+def test_monitoring_status_is_owner_only(site,tmp_path,monkeypatch):
+    from web_platform import app as module
+    a=Accounts(tmp_path/'accounts.sqlite')
+    monkeypatch.setattr(module,'authenticated_user',lambda h:h)
+    monkeypatch.setattr(module,'private_services',lambda:(a,None))
+    monkeypatch.setenv('ADMIN_ACCOUNT_IDS','owner')
+    with TestClient(module.create_app(site)) as client:
+        assert client.get('/api/admin/monitoring',headers={'Authorization':'customer'}).status_code==403
+        assert client.get('/api/admin/monitoring',headers={'Authorization':'owner'}).json()=={'status':'not_run'}
+
+
 def test_older_snapshot_cannot_reverse_watch_observation(tmp_path):
     a=Accounts(tmp_path/'accounts.sqlite');subscribe(a)
     row={'id':'p','address':'Test','path':'/property/p/','guide_price':100000}

@@ -42,5 +42,57 @@ The earlier Watch/search/report-cost release was manually submitted for Render
 deployment through the dashboard after multiple newer commits failed to trigger
 an automatic deploy. Runtime success must be checked separately from build success.
 
-Pending: publish this revision, hosted tests, deploy, signed invocation, cron
-activation, observed scheduled success. Email-alert delivery remains inactive.
+Backend revision `5b5986bebcd07247637563b8545c90d528c2c6a6` passed hosted
+PostgreSQL/browser integration (`38978610511`) and public foundation
+(`38978610510`). Render deployment `dep-db9aojgjgiss738luho0` became live at
+23:07:59 UTC. API factory startup took 0.79 seconds after module import, with
+successful port binding and health checks. This also deploys the preceding Watch,
+saved-search and report-cost fixes; earlier checkpoint notes about release
+`62012b58` being current are superseded.
+
+The first signed production invocation ran 23:08:37–23:09:46 UTC. Both the HTTP
+result and private job record confirm completion: HTTP 200, no timeout, 39 healthy
+sources and 97 rows withheld by source-health controls. The catalogue was already
+at the current published timestamp, 21:40:04 UTC, so no replacement was needed.
+No eligible watched account was processed and no new event/match was generated.
+This is infrastructure acceptance, not a genuine customer-alert delivery test.
+
+Supabase Cron job 1, `auction-geek-monitoring`, is active at minutes
+11/26/41/56 of every hour (UTC). Its first automatic dispatch at 23:11 UTC
+succeeded in Cron and returned HTTP 200 with `already_checked_or_running`, as
+expected inside the ten-minute cooldown after the completed manual run. The next
+full scheduled check is due at 23:26 UTC; that later result is not yet claimed.
+
+An unsigned production request returned HTTP 401. The readiness endpoint returned
+HTTP 200 with accounts ready, owner access configured and billing configured;
+live billing, paid-report approval and AI provider configuration all remain false.
+The production-email verification flag is still false, distinct from the owner's
+earlier successful password-reset delivery.
+
+Owner status display revision `f2d45b2a8` passed local browser checks at
+360/390/430/1440px and hosted integration `38979566303`, plus public foundation
+`38979566214`. The panel is hidden for non-owners and customer previews; it shows
+completion, failure, interrupted runs and overdue checks, without claiming email
+delivery. A separate server test confirms a normal customer receives HTTP 403.
+
+Production RLS/grants were inspected: anon/authenticated cannot read the job
+table or execute the scheduler function; the existing backend role has table
+access only. No secret values are included in this record.
+
+![Live Render release](previews/auction-geek-monitoring-live-1792192161604.jpg)
+
+## Remaining launch gates
+
+- Email-alert delivery remains inactive. Render has no Resend/SMTP alert-provider
+  setting; verified recipients, preferences, retries and actual inbox delivery
+  still need completion. Working Supabase sign-in email is a separate service.
+- Render auto-deployment still requires investigation: Git credentials and no
+  build filters were verified, but new commits did not start deployments. The
+  manual deploy restored freshness; it does not establish reliable auto-updates.
+- No AI report provider/key is configured. With/without-pack output quality and
+  actual report costs remain unapproved. Paid reports and live billing stay closed.
+- Sandbox payment lifecycle, production backup/restore and the complete customer
+  journey remain open; earlier fixture successes are not production acceptance.
+- Cheffins timed catalogue inspection found three upcoming CPN lots absent from
+  the current snapshot. Registry evidence was refreshed; collector reconciliation
+  remains required. Other source gaps and Auction House regional sign-off remain.
