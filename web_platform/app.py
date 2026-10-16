@@ -137,6 +137,11 @@ def create_app(site=None):
             # or turn an old public-page cache into fresh monitoring evidence.
             rows=site.catalogue.rows
             trusted={}
+        if trusted:
+            from .workspace import initialise
+            from .search_monitoring import refresh_searches
+            initialise(a)
+            refresh_searches(a,uid,{row['id']:row for row in current.properties},current.snapshot)
         deals=workspace_rows(a)
         from .report_credits import balance
         return {'plan':plan,'features':sorted(PLANS[plan]),'billing':a.billing_status(uid),'report_credits':balance(a,uid),'is_owner':is_owner(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals)}

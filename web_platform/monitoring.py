@@ -17,7 +17,7 @@ def healthy_sources(snapshot, now=None):
             if h.get('status') == 'LIVE' and h.get('coverage_status') != 'DEGRADED'}
 
 
-def refresh(accounts, rows, snapshot, now=None):
+def refresh(accounts, rows, snapshot, now=None, *, search_rows=None):
     if errors := check(snapshot, now=now):
         raise ValueError('; '.join(errors))
     healthy = healthy_sources(snapshot, now=now)
@@ -26,6 +26,14 @@ def refresh(accounts, rows, snapshot, now=None):
     with accounts.db() as db:
         users = [r[0] for r in db.execute('SELECT DISTINCT user_id FROM workspace WHERE watched=1')]
         before = db.execute('SELECT COUNT(*) FROM watch_events').fetchone()[0]
+    from .search_monitoring import refresh_searches
+    with accounts.db() as db:
+        search_users=[r[0] for r in db.execute('SELECT DISTINCT user_id FROM saved_searches')]
+    matches_added=0
+    # Explicit current-board rows prevent archive entries becoming new alerts.
+    if search_rows is not None:
+        for user in search_users:
+            matches_added += refresh_searches(accounts,user,search_rows,snapshot,now=now)
     processed = 0
     for user in users:
         if 'watch' not in ENTITLEMENTS[accounts.plan(user)]:
@@ -35,7 +43,7 @@ def refresh(accounts, rows, snapshot, now=None):
     with accounts.db() as db:
         after = db.execute('SELECT COUNT(*) FROM watch_events').fetchone()[0]
     return {'accounts_processed': processed, 'events_added': after-before,
-            'healthy_sources': len(healthy), 'rows_withheld': len(rows)-len(trustworthy),
+            'search_matches_added':matches_added, 'healthy_sources': len(healthy), 'rows_withheld': len(rows)-len(trustworthy),
             'email_delivery': 'not enabled'}
 
 
@@ -53,7 +61,8 @@ def main():
     from .catalogue import Catalogue
     catalogue = Catalogue(args.root)
     try:
-        print(json.dumps(refresh(Accounts(database,database_url=database_url), catalogue.rows, snapshot)))
+        print(json.dumps(refresh(Accounts(database,database_url=database_url), catalogue.rows, catalogue.snapshot,
+                                 search_rows={row['id']:row for row in catalogue.properties})))
     finally:
         catalogue.close()
 

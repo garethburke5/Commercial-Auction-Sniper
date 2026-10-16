@@ -116,18 +116,24 @@ independently read back. Account connections do not activate the public journeys
    purchased-report revisit/download. Confirm report quality, customer terms,
    support contact, retention and database backup/restore before live billing.
 
-### Watch worker
+### Watch and saved-search worker
 
-`python -m web_platform.monitoring` records watch events without a browser visit.
+`python -m web_platform.monitoring` records watch events and saved-search matches
+without a browser visit. Account visits also check the current catalogue.
 Run it on the private host every 15 minutes with the same persistent
-`ACCOUNT_DATABASE_PATH` and refreshed canonical snapshot as the API. It stops
+`ACCOUNT_DATABASE_URL` (or persistent `ACCOUNT_DATABASE_PATH`) and refreshed
+canonical snapshot as the API. It stops
 on data older than 14 hours, withholds degraded-source observations, checks paid
 entitlement, preserves missing-property baselines and deduplicates retries.
 Do not copy private data into public CI. The command is tested, but no host
 schedule exists yet. With Render, a separate cron/worker cannot mount the web
 service's disk: run scheduling in the same service, or move state to managed
-PostgreSQL before separating workers. Email and saved-search match delivery
-remain unimplemented and must not be sold as operational.
+PostgreSQL before separating workers. Saved-search matching uses only current
+searchable lots, the existing Find Property filters and healthy-source evidence.
+The first healthy check establishes each source baseline without alerts; subsequent
+checks record each newly qualifying lot once. Changing criteria resets that baseline.
+Apply `private_schema.sql` before deploying this backend revision.
+Email delivery remains unimplemented and must not be sold as operational.
 
 Provider references checked 7 October 2026:
 - https://supabase.com/docs/guides/auth/auth-smtp

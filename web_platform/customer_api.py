@@ -4,6 +4,8 @@ from typing import Annotated
 from fastapi import Header,HTTPException
 from pydantic import BaseModel,Field
 from . import workspace
+from .database import begin_write
+from .search_monitoring import clear_search_state
 
 class WorkspaceUpdate(BaseModel):
     watched:bool=False
@@ -39,12 +41,19 @@ def install(app,site,user):
         from urllib.parse import parse_qsl,urlencode
         allowed={'q','source','min','max','yield','status','tenure','sort'}
         query=urlencode([(k,v) for k,v in parse_qsl(body.query) if k in allowed])
-        with a.db() as db:db.execute('''INSERT INTO saved_searches VALUES (?,?,?,?,?,?) ON CONFLICT(user_id,search_id)
+        with a.db() as db:
+            begin_write(db)
+            previous=db.execute('SELECT query FROM saved_searches WHERE user_id=? AND search_id=?',(uid,sid)).fetchone()
+            if previous and previous['query']!=query:clear_search_state(db,uid,sid)
+            db.execute('''INSERT INTO saved_searches VALUES (?,?,?,?,?,?) ON CONFLICT(user_id,search_id)
             DO UPDATE SET name=excluded.name,query=excluded.query,digest=excluded.digest,created_at=excluded.created_at''',
             (uid,sid,body.name,query,int(body.digest),int(time.time())))
         return {'saved':True,'digest_delivery':'not active'}
     @app.delete('/api/account/searches/{sid}')
     def delete_search(sid:str,authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization);workspace.initialise(a)
-        with a.db() as db:db.execute('DELETE FROM saved_searches WHERE user_id=? AND search_id=?',(uid,sid))
+        with a.db() as db:
+            begin_write(db)
+            clear_search_state(db,uid,sid)
+            db.execute('DELETE FROM saved_searches WHERE user_id=? AND search_id=?',(uid,sid))
         return {'removed':True}

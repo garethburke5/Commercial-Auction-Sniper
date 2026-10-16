@@ -155,3 +155,8 @@ def test_disposable_postgres_backup_restores_credit_and_report_ownership(pg_acco
 def test_postgres_watch_transition_claims_and_recurring_changes(pg_accounts):
     from web_platform.tests.test_scheduled_monitoring import exercise_watch_transitions
     exercise_watch_transitions(pg_accounts)
+
+
+def test_postgres_saved_search_concurrency_and_isolation(pg_accounts):
+    from web_platform.tests.test_search_monitoring import exercise_matches
+    exercise_matches(pg_accounts)

@@ -24,6 +24,7 @@ def changes(old,new):
     return events
 
 def initialise(accounts):
+    from .search_monitoring import SCHEMA
     if accounts.managed_schema:return
     with accounts.db() as db:
         db.executescript('''
@@ -32,7 +33,7 @@ def initialise(accounts):
         CREATE TABLE IF NOT EXISTS watch_events(id TEXT PRIMARY KEY,user_id TEXT NOT NULL,property_id TEXT NOT NULL,event_json TEXT NOT NULL,created_at INTEGER NOT NULL);
         CREATE TABLE IF NOT EXISTS reviews(id TEXT PRIMARY KEY,user_id TEXT NOT NULL,property_id TEXT NOT NULL,report_json TEXT NOT NULL,created_at INTEGER NOT NULL);
         CREATE TABLE IF NOT EXISTS review_processing(review_id TEXT PRIMARY KEY,status TEXT NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,updated_at INTEGER NOT NULL);
-        ''')
+        ''' + SCHEMA)
 
 def update(accounts,user,pid,body,row):
     # Enforce in the service as well as the UI: no direct API or import bypass.
@@ -89,6 +90,9 @@ def dashboard(accounts,user,rows,*,monitoring_rows=None):
             e.update(json.loads(e.pop('event_json')))
             if rows.get(e['property_id']):e['property']=observation(rows[e['property_id']])
         searches=[dict(r) for r in db.execute('SELECT search_id,name,query,digest,created_at FROM saved_searches WHERE user_id=? ORDER BY created_at DESC',(user,))]
+        from .search_monitoring import recent_matches
+        for search in searches:
+            search['matches']=recent_matches(db,user,search['search_id']) if monitoring else []
         reviews=[dict(r) for r in db.execute('SELECT id,property_id,created_at FROM reviews WHERE user_id=? ORDER BY created_at DESC',(user,))]
     return {'properties':items,'events':events,'saved_searches':searches,'reviews':reviews,'monitoring_enabled':monitoring}
 

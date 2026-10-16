@@ -39,6 +39,18 @@ const html=require('child_process').execFileSync(process.env.PYTHON||'python',['
   assert.equal(await page.locator('#watched-items [data-watch]').count(),0);
   assert.deepEqual(errors,[]);
   console.log(`${width}px: expired member can stop missing-property watch, no dead link or overflow`);
+  remote.plan='investor';remote.features=['save','watch','saved_searches'];
+  remote.workspace.properties=[];
+  remote.workspace.saved_searches=[{search_id:'s',name:'Retail research',query:'q=retail',matches:[{property:{id:'new',address:'Retail <shop> & investment',path:'/property/new/'}}]}];
+  await page.reload();
+  const match=page.locator('#saved-searches li a');
+  await match.waitFor({state:'visible'});
+  assert.equal(await match.textContent(),'Retail <shop> & investment');
+  assert.equal(await match.getAttribute('href'),'/property/new/');
+  assert.equal(await page.locator('#saved-searches shop').count(),0);
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  assert.deepEqual(errors,[]);
+  console.log(`${width}px: saved-search match shown safely with correct property link`);
   await page.close();
  }
  await browser.close();
