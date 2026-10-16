@@ -24,6 +24,11 @@
  <strong>Owner workspace</strong><a href="{{ url('/coverage/') }}">Source health</a><a href="{{ url('/admin/deals/') }}">Manage listings</a>
  <label>View as<select id="owner-preview"><option value="">My account</option value="visitor">Logged-out visitor</option><option value="free">Free account</option><option value="investor">Investor</option><option value="professional">Investor Pro</option></select></label>
  <p id="owner-preview-status" role="status">Preview customer access without changing your account.</p>
+ <details id="owner-monitoring" hidden><summary>Watch & saved-search monitoring</summary>
+ <p id="owner-monitoring-status" role="status">Open to check the last scheduled run.</p>
+ <button type="button" class="button outline" id="owner-monitoring-refresh">Refresh status</button>
+ <p class="small muted">Checks record changes in customer accounts. Email-alert delivery is not yet enabled.</p>
+ </details>
  <details id="owner-sandbox-billing" hidden><summary>Test membership billing — sandbox only</summary>
  <p>No real payment is taken. Test subscriptions change this account’s membership and report-credit allowance. Report generation remains subject to quality approval.</p>
  <div class="dialog-actions"><button type="button" class="button outline" data-sandbox-billing="investor">Test Investor — £15/month</button><button type="button" class="button outline" data-sandbox-billing="professional">Test Investor Pro — £25/month</button><button type="button" class="button outline" data-sandbox-billing="portal">Manage test subscription</button></div>

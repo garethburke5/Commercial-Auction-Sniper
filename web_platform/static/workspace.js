@@ -80,6 +80,8 @@ function renderAuth(){
   document.querySelector('#account-billing')?.setAttribute('hidden','');
   document.querySelector('#account-retry')?.setAttribute('hidden','');
   document.querySelector('#owner-controls')?.setAttribute('hidden','');
+  document.querySelector('#owner-monitoring')?.setAttribute('hidden','');
+  document.querySelector('#owner-monitoring-status')?.replaceChildren();
   document.querySelector('#account-reviews')?.replaceChildren();
   document.querySelector('#report-credit-balance')?.replaceChildren();
   document.querySelector('#account-status')?.replaceChildren(document.createTextNode(auth?'':'Sign-in is currently unavailable. Please try again shortly; you can still browse properties.'));
@@ -111,6 +113,8 @@ function updateSession(next){
   document.querySelector('#billing-status')?.setAttribute('hidden','');
   document.querySelector('#billing-status')?.replaceChildren();
   document.querySelector('#owner-controls')?.setAttribute('hidden','');
+  document.querySelector('#owner-monitoring')?.setAttribute('hidden','');
+  document.querySelector('#owner-monitoring-status')?.replaceChildren();
   if(next)document.querySelector('#account-status')?.replaceChildren(document.createTextNode('Signed in. Loading your private workspace…'));
   else try{sessionStorage.removeItem('auction-owner-preview');}catch(_){}
   render();
@@ -391,6 +395,7 @@ async function loadAccount(){
   const previewStatus=document.querySelector('#owner-preview-status');if(previewStatus)previewStatus.textContent=preview?'Read-only customer preview: no saving, payments, uploads or purchased-report access.':'Owner account. Select a tier to preview customer access.';
  }
  document.querySelector('#owner-sandbox-billing')?.toggleAttribute('hidden',!remote.is_owner||!!preview);
+ document.querySelector('#owner-monitoring')?.toggleAttribute('hidden',!remote.is_owner||!!preview);
  const name=config?.plans?.[preview?.plan||remote.plan]?.name||preview?.plan||remote.plan;
  document.querySelector('#account-status')?.replaceChildren(document.createTextNode(preview?'Read-only preview · '+name+'. Your account and purchases are unchanged.':'Signed in · '+name+' account. Your workspace is private to your account.'));
  renderAuth();
@@ -405,6 +410,26 @@ async function loadAccount(){
  const current=document.querySelector('[data-current-property]')?.dataset.currentProperty;
  if(current)state.recent=[current];render();
 }
+async function loadMonitoringStatus(){
+ const box=document.querySelector('#owner-monitoring'),output=document.querySelector('#owner-monitoring-status');
+ if(!box||box.hidden||!output||preview||!checkoutAccount?.is_owner)return;
+ const epoch=authEpoch;
+ output.textContent='Checking monitoring status…';
+ try{
+  const result=await api('/api/admin/monitoring');
+  if(epoch!==authEpoch||!session||preview)return;
+  const finished=Number(result.finished_at),started=Number(result.started_at),now=Date.now()/1000;
+  if(result.status==='completed'&&finished>0){
+   output.textContent='Last check completed '+new Date(finished*1000).toLocaleString('en-GB')+'.';
+   if(now-finished>2700)output.textContent+=' No completed check in the last 45 minutes; investigate the scheduler.';
+   if(result.details?.generated_at)output.textContent+=' Catalogue snapshot: '+new Date(result.details.generated_at).toLocaleString('en-GB')+'.';
+  }else if(result.status==='running')output.textContent=started>0&&now-started>900?'The last check was interrupted or is overdue. The next scheduled run can retry.':'A monitoring check is running.';
+  else if(result.status==='failed')output.textContent='The last check failed. Earlier observations were retained; inspect the service logs before relying on new updates.';
+  else output.textContent='No completed monitoring check is recorded yet.';
+ }catch(_){if(epoch===authEpoch&&session)output.textContent='Monitoring status could not be loaded. This does not confirm a failed check; try Refresh status.';}
+}
+document.querySelector('#owner-monitoring')?.addEventListener('toggle',e=>{if(e.target.open)loadMonitoringStatus();});
+document.querySelector('#owner-monitoring-refresh')?.addEventListener('click',loadMonitoringStatus);
 document.querySelector('#owner-preview')?.addEventListener('change',async e=>{
  try{
   await initialized;

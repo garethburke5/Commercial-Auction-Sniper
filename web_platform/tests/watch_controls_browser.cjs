@@ -16,6 +16,7 @@ const html=require('child_process').execFileSync(process.env.PYTHON||'python',['
    if(url.pathname==='/platform-config.json')return route.fulfill({json:{accounts_enabled:true,api_origin:'https://api.example'}});
    if(url.pathname==='/workspace-index.json')return route.fulfill({json:{rows:[]}});
    if(url.pathname==='/api/account')return route.fulfill({json:remote});
+   if(url.pathname==='/api/admin/monitoring')return route.fulfill({json:{status:'completed',finished_at:Math.floor(Date.now()/1000)-3600,details:{generated_at:new Date().toISOString()}}});
    if(url.pathname==='/api/account/workspace/removed'){
     writes.push(route.request().postDataJSON());return route.fulfill({json:{updated:true}});
    }
@@ -51,6 +52,16 @@ const html=require('child_process').execFileSync(process.env.PYTHON||'python',['
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   assert.deepEqual(errors,[]);
   console.log(`${width}px: saved-search match shown safely with correct property link`);
+  assert.equal(await page.locator('#owner-monitoring').isVisible(),false);
+  remote.is_owner=true;
+  await page.reload();
+  await page.locator('#owner-controls').waitFor({state:'visible'});
+  await page.locator('#owner-monitoring summary').click();
+  await page.waitForFunction(()=>document.querySelector('#owner-monitoring-status').textContent.includes('45 minutes'));
+  assert.match(await page.locator('#owner-monitoring-status').textContent(),/Last check completed/);
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  assert.deepEqual(errors,[]);
+  console.log(`${width}px: owner sees overdue monitoring status without overflow`);
   await page.close();
  }
  await browser.close();
