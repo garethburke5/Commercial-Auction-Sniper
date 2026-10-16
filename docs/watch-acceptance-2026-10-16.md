@@ -28,8 +28,10 @@ A concurrent transition test is also included in the disposable PostgreSQL CI
 suite. A real-browser test uses the account template and workspace JavaScript
 with an isolated synthetic API/session at 360, 390, 430 and 1440px.
 Local Chromium launch was blocked by the execution environment's socket
-restriction; the browser test is therefore run in GitHub CI. Its completion and
-the PostgreSQL result must be checked before claiming browser acceptance.
+restriction; the browser test was run in GitHub CI instead. Run `38958010786` passed both
+the PostgreSQL job and the browser job on `10a7e416`. All four viewport widths
+passed the stop-watch, no-dead-link, overflow and JavaScript-error assertions.
+These are isolated browser/API fixtures, not a deployed customer acceptance test.
 
 ## Still open
 
