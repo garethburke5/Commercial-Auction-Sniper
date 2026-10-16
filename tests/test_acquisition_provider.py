@@ -33,6 +33,7 @@ def test_all_source_batches_are_reviewed_and_synthesis_does_not_invent_coverage(
     def send(request):
         body=json.loads(request.content);data=json.loads(body['input']);captured.append(data)
         assert body['store'] is False
+        assert body['reasoning']=={'effort':'high'}
         if 'document_reviews' in data:
             return response({'evidence_digest':data['evidence_digest'],'reviewer':'fixture',
                              'findings':[],'limitations':[],'research_requests':[]})
@@ -72,6 +73,9 @@ def test_resource_limit_stops_before_network_and_incomplete_response_is_not_a_re
     provider.limits.max_calls=1
     with pytest.raises(InvestigationIncomplete,match='incomplete'):provider.review(packet())
     assert len(sent)==1
+    assert provider.usage_record()['complete'] is True
+    assert provider.usage_record()['response_statuses']==['incomplete']
+    assert provider.usage_record()['output_tokens']==200
 
 
 def test_research_facts_require_an_actual_source_capture_and_exact_quote():
@@ -104,3 +108,26 @@ def test_research_network_rejects_private_addresses_and_credentials(monkeypatch)
     monkeypatch.setattr('socket.getaddrinfo',lambda *a,**k:[(2,1,6,'',('127.0.0.1',443))])
     for url in ['https://localhost/path','https://example.org/path','http://example.org','https://user:password@example.org']:
         with pytest.raises(ValueError):public_endpoint(url)
+
+
+@pytest.mark.parametrize('tokens', [
+    {'input_tokens':True,'output_tokens':2},
+    {'input_tokens':100,'output_tokens':-1},
+    {'input_tokens':100,'output_tokens':2,'input_tokens_details':{'cached_tokens':101}},
+    {'input_tokens':100,'output_tokens':2,'input_tokens_details':['bad']},
+    ['bad'],
+])
+def test_invalid_usage_never_becomes_a_measured_cost(tokens):
+    provider=OpenAIInvestigator('fixture','fixture-model',client=httpx.Client(transport=httpx.MockTransport(
+        lambda r:httpx.Response(200,json={'status':'completed','usage':tokens,'output':[]}))))
+    with pytest.raises(InvestigationIncomplete,match='usage'):provider._call('test',{})
+    assert provider.usage_record()['complete'] is False
+    provider.close()
+
+
+def test_non_object_response_is_recorded_as_unmeasured():
+    provider=OpenAIInvestigator('fixture','fixture-model',client=httpx.Client(transport=httpx.MockTransport(
+        lambda r:httpx.Response(200,json=[]))))
+    with pytest.raises(InvestigationIncomplete,match='object'):provider._call('test',{})
+    assert provider.usage_record()['complete'] is False
+    provider.close()

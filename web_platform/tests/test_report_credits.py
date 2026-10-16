@@ -201,6 +201,17 @@ def test_costs_preserve_unknowns_and_capture_rate_card(monkeypatch):
     assert cost['rate_card']==rates
     usage['complete']=False
     assert estimate_cost(usage,metrics)['estimated_total_gbp'] is None
+    usage['complete']=True
+    for changes in ({'input_tokens':True},{'search_calls':-1},{'cached_input_tokens':1000001}):
+        assert estimate_cost(dict(usage,**changes),metrics)['status']=='usage_invalid'
+    for changes in ({'elapsed_seconds':float('nan')},{'coverage':{'pages':-1}},{'coverage':{'pages':True}}):
+        assert estimate_cost(usage,dict(metrics,**changes))['status']=='usage_invalid'
+    for changes in ({'elapsed_seconds':None},{'coverage':{}}):
+        result=estimate_cost(usage,dict(metrics,**changes))
+        assert result['status']=='partial_estimate' and result['estimated_total_gbp'] is None
+    monkeypatch.setenv('ACQUISITION_COST_RATES_JSON','[]')
+    assert estimate_cost(usage,metrics)['status']=='rates_invalid'
+
 
 
 @pytest.fixture

@@ -259,5 +259,9 @@ def install(app,site,user):
         with a.db() as db:
             rows=[dict(r) for r in db.execute('SELECT review_id,attempt,started_at,finished_at,status,upload_bytes,upload_files,metrics_json FROM report_generation_attempts ORDER BY started_at DESC LIMIT 200')]
         for row in rows:row['metrics']=json.loads(row.pop('metrics_json') or '{}')
-        return {'attempts':rows,'currency':'GBP','full_credit_use_revenue_per_report':{'investor':15,'professional':25/3},
+        from .plans import CATALOGUE
+        return {'attempts':rows,'currency':'GBP','full_credit_use_revenue_per_report':{
+                    tier:CATALOGUE[tier]['monthly_gbp']/CATALOGUE[tier]['included_reports']
+                    for tier in ('investor','professional')},
+                'revenue_basis':'Published subscription price divided by included reports; before tax, fees and other membership costs.',
                 'margin_status':'Unverified until representative paid-provider runs, payment fees and processing costs are reconciled.'}
