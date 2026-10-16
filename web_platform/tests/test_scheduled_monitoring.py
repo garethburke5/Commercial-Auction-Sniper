@@ -116,3 +116,62 @@ def test_stale_public_snapshot_does_not_block_current_private_deal_events(site,t
         assert dashboard['properties'][0]['property']['guide_price']==90000
         assert len(dashboard['events'])==1
         assert dashboard['events'][0]['title']=='Guide reduced'
+
+
+def exercise_watch_transitions(accounts):
+    """The same check runs against SQLite and disposable PostgreSQL in CI."""
+    import json,time
+    from concurrent.futures import ThreadPoolExecutor
+    from threading import Barrier
+    with accounts.db() as db:
+        db.execute('INSERT INTO subscriptions VALUES (?,?,?,?,?)',('sub-transitions','buyer','investor','active',int(time.time())+3600))
+    row={'id':'repeat','address':'Test property','path':'/property/repeat/','guide_price':100000}
+    update(accounts,'buyer','repeat',{'watched':True},row)
+    reduced=dict(row,guide_price=90000)
+    barrier=Barrier(4)
+    def visit(_):
+        barrier.wait(timeout=10)
+        return dashboard(accounts,'buyer',{'repeat':reduced})
+    with ThreadPoolExecutor(max_workers=4) as pool:list(pool.map(visit,range(4)))
+    with accounts.db() as db:
+        assert db.execute('SELECT COUNT(*) FROM watch_events').fetchone()[0]==1
+    dashboard(accounts,'buyer',{'repeat':row})
+    dashboard(accounts,'buyer',{'repeat':reduced})
+    dashboard(accounts,'buyer',{'repeat':reduced})
+    with accounts.db() as db:
+        events=[json.loads(r['event_json']) for r in db.execute('SELECT event_json FROM watch_events')]
+    assert len(events)==3
+    assert sum(e['title']=='Guide reduced' for e in events)==2
+    update(accounts,'buyer','repeat',{'watched':False},reduced)
+    dashboard(accounts,'buyer',{'repeat':row})
+    with accounts.db() as db:
+        assert db.execute('SELECT COUNT(*) FROM watch_events').fetchone()[0]==3
+        assert db.execute('SELECT observation FROM workspace').fetchone()[0] is None
+
+
+def test_watch_transitions_are_concurrent_safe_and_can_recur(tmp_path):
+    exercise_watch_transitions(Accounts(tmp_path/'transitions.sqlite'))
+
+
+def test_removed_property_can_be_unwatched_by_its_owner_after_membership_expires(site,tmp_path,monkeypatch):
+    from fastapi.testclient import TestClient
+    from web_platform import app as module
+    a=Accounts(tmp_path/'accounts.sqlite');subscribe(a)
+    monkeypatch.setattr(module,'authenticated_user',lambda header:header)
+    monkeypatch.setattr(module,'private_services',lambda:(a,None))
+    row={'id':'removed','address':'Earlier property','path':'/property/removed/','guide_price':100000}
+    update(a,'paid','removed',{'watched':True,'notes':'Private note','target_price':95000},row)
+    with a.db() as db:db.execute('UPDATE subscriptions SET valid_until=1')
+    with TestClient(module.create_app(site)) as c:
+        path='/api/account/workspace/removed'
+        stored=c.get('/api/account',headers={'Authorization':'paid'}).json()['workspace']['properties'][0]
+        assert stored['property']['address']=='Earlier property'
+        assert stored['property']['catalogue_missing'] is True
+        for payload in ({'watched':True},{'notes':'new research'},{'target_price':50000}):
+            assert c.put(path,json=payload,headers={'Authorization':'paid'}).status_code==404
+        assert c.put(path,json={'watched':False},headers={'Authorization':'other'}).status_code==404
+        assert c.put(path,json={'watched':False,'notes':'','target_price':None},headers={'Authorization':'paid'}).status_code==200
+    with a.db() as db:
+        stored=dict(db.execute('SELECT * FROM workspace').fetchone())
+    assert stored['watched']==0 and stored['notes']=='' and stored['target_price'] is None
+    assert stored['observation'] is None

@@ -150,3 +150,8 @@ def test_disposable_postgres_backup_restores_credit_and_report_ownership(pg_acco
         assert db.execute("SELECT r.user_id,p.status FROM auction_private.report_credit_redemptions r JOIN auction_private.report_credit_periods p USING(subscription_id,period_start) WHERE r.review_id='recover-report'").fetchone()==('alice','paid')
         assert db.execute("SELECT report_json FROM auction_private.reviews WHERE id='recover-report'").fetchone()[0]=='{"analysis_state":"complete"}'
         db.rollback()
+
+
+def test_postgres_watch_transition_claims_and_recurring_changes(pg_accounts):
+    from web_platform.tests.test_scheduled_monitoring import exercise_watch_transitions
+    exercise_watch_transitions(pg_accounts)

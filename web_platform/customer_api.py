@@ -20,8 +20,18 @@ def install(app,site,user):
         uid,a,_=user(authorization)
         from .deals import workspace_rows
         row=site.catalogue.rows.get(pid) or workspace_rows(a).get(pid)
-        if not row:raise HTTPException(404,'Unknown property')
-        return workspace.update(a,uid,pid,body.model_dump(exclude_unset=True),row)
+        patch=body.model_dump(exclude_unset=True)
+        if not row:
+            # Removing a listing must not prevent its owner stopping a watch or
+            # clearing private notes after cancellation. Never create an orphan.
+            workspace.initialise(a)
+            with a.db() as db:
+                existing=db.execute('SELECT 1 FROM workspace WHERE user_id=? AND property_id=?',(uid,pid)).fetchone()
+            clearing=bool(patch) and all(
+                (k=='watched' and v is False) or (k=='notes' and v=='') or
+                (k=='target_price' and v is None) for k,v in patch.items())
+            if not existing or not clearing:raise HTTPException(404,'Unknown property')
+        return workspace.update(a,uid,pid,patch,row)
     @app.put('/api/account/searches/{sid}')
     def save_search(sid:str,body:Search,authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization);a.require(uid,'saved_searches');workspace.initialise(a)

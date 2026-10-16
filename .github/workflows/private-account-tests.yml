@@ -31,3 +31,23 @@ jobs:
         env:
           TEST_ACCOUNT_DATABASE_URL: postgresql://postgres:disposable_ci_admin@127.0.0.1:5432/auction_test
           TEST_PG_CONTAINER: ${{ job.services.postgres.id }}
+  watch_browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pip install jinja2==3.1.6
+      - name: Install isolated browser test tools
+        run: |
+          npm install --prefix "$RUNNER_TEMP/watch-controls" playwright@1.51.1 --no-audit --no-fund
+          node "$RUNNER_TEMP/watch-controls/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Check Watch controls at mobile and desktop widths
+        run: node web_platform/tests/watch_controls_browser.cjs
+        env:
+          NODE_PATH: ${{ runner.temp }}/watch-controls/node_modules

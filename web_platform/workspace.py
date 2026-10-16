@@ -1,5 +1,6 @@
 """Private customer workspace, extending the existing verified identity store."""
-import json,time,hashlib
+import json,time,hashlib,uuid
+from .database import begin_write
 from fastapi import HTTPException
 
 FIELDS=('guide_price','guide_price_upper','auction_date','status','legal_pack_url','addendum','annual_rent','tenant','lease_expiry','tenure','occupation')
@@ -42,11 +43,12 @@ def update(accounts,user,pid,body,row):
     initialise(accounts)
     if len(body.get('notes',''))>10000:raise HTTPException(400,'Note exceeds 10,000 characters')
     with accounts.db() as db:
+        begin_write(db)
         old=db.execute('SELECT * FROM workspace WHERE user_id=? AND property_id=?',(user,pid)).fetchone()
         entry=dict(old) if old else {'watched':0,'notes':'','target_price':None,'observation':None}
         for k in ('watched','notes','target_price'):
             if k in body:entry[k]=body[k]
-        if entry['watched'] and not entry['observation']:entry['observation']=json.dumps(observation(row))
+        if entry['watched'] and not entry['observation'] and row is not None:entry['observation']=json.dumps(observation(row))
         if not entry['watched']:entry['observation']=None
         db.execute('''INSERT INTO workspace VALUES (?,?,?,?,?,?,?) ON CONFLICT(user_id,property_id)
             DO UPDATE SET watched=excluded.watched,notes=excluded.notes,target_price=excluded.target_price,
@@ -60,6 +62,9 @@ def dashboard(accounts,user,rows,*,monitoring_rows=None):
     monitoring = 'watch' in ENTITLEMENTS[accounts.plan(user)]
     observed_rows = rows if monitoring_rows is None else monitoring_rows
     with accounts.db() as db:
+        # Share the existing transaction lock with workspace writes. A dashboard
+        # visit and the worker must not both consume the same old observation.
+        begin_write(db)
         items=[dict(r) for r in db.execute('SELECT * FROM workspace WHERE user_id=?',(user,))]
         for item in items:
             pid=item['property_id'];row=rows.get(pid)
@@ -67,11 +72,18 @@ def dashboard(accounts,user,rows,*,monitoring_rows=None):
             if monitoring and item['watched'] and observed:
                 current=observation(observed);old=json.loads(item['observation'] or '{}')
                 for event in changes(old,current):
-                    eid=hashlib.sha256(json.dumps([user,pid,old,current,event],sort_keys=True).encode()).hexdigest()
+                    # Each real transition gets its own identity. The locked
+                    # baseline deduplicates retries without erasing a later
+                    # recurrence (100k -> 90k -> 100k -> 90k).
+                    eid=uuid.uuid4().hex
                     db.execute('INSERT INTO watch_events VALUES (?,?,?,?,?) ON CONFLICT(id) DO NOTHING',(eid,user,pid,json.dumps(event),int(time.time())))
                 db.execute('UPDATE workspace SET observation=? WHERE user_id=? AND property_id=?',(json.dumps(current),user,pid))
+            last_known=json.loads(item['observation'] or '{}')
             item.pop('user_id');item.pop('observation',None)
-            item['property']=observation(row) if row else None
+            item['property']=observation(row) if row else {
+                'id':pid,'address':last_known.get('address') or 'Property no longer in the catalogue',
+                'source':last_known.get('source') or '', 'catalogue_missing':True}
+
         events=[dict(r) for r in db.execute('SELECT property_id,event_json,created_at FROM watch_events WHERE user_id=? ORDER BY created_at DESC LIMIT 100',(user,))]
         for e in events:
             e.update(json.loads(e.pop('event_json')))

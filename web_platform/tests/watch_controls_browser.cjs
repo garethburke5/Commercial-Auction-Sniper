@@ -1,0 +1,45 @@
+// Real account template and JavaScript, with an isolated synthetic API/session.
+const {chromium}=require('playwright');
+const fs=require('fs'),path=require('path'),assert=require('node:assert/strict');
+process.chdir(path.resolve(__dirname,'../..'));
+const html=require('child_process').execFileSync(process.env.PYTHON||'python',['web_platform/tests/render_account_fixture.py'],{encoding:'utf8'});
+(async()=>{
+ const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH||undefined,args:['--no-sandbox']});
+ for(const width of [360,390,430,1440]){
+  const page=await browser.newPage({viewport:{width,height:900}}),writes=[],errors=[];
+  page.on('pageerror',error=>errors.push(error.message));
+  const remote={plan:'free',features:['save'],saved_properties:[],workspace:{properties:[{property_id:'removed',watched:1,notes:'',target_price:null,property:{id:'removed',address:'Earlier property',catalogue_missing:true}}],saved_searches:[],events:[],reviews:[]}};
+  await page.route('**/*',route=>{
+   const url=new URL(route.request().url());
+   if(url.pathname==='/account/')return route.fulfill({contentType:'text/html',body:html});
+   if(['/static/workspace.js','/static/navigation.js','/static/site.css'].includes(url.pathname))return route.fulfill({contentType:url.pathname.endsWith('.css')?'text/css':'text/javascript',body:fs.readFileSync('web_platform'+url.pathname,'utf8')});
+   if(url.pathname==='/platform-config.json')return route.fulfill({json:{accounts_enabled:true,api_origin:'https://api.example'}});
+   if(url.pathname==='/workspace-index.json')return route.fulfill({json:{rows:[]}});
+   if(url.pathname==='/api/account')return route.fulfill({json:remote});
+   if(url.pathname==='/api/account/workspace/removed'){
+    writes.push(route.request().postDataJSON());return route.fulfill({json:{updated:true}});
+   }
+   return route.fulfill({body:''});
+  });
+  await page.addInitScript(()=>{
+   const session={access_token:'fixture-only',user:{id:'buyer',email:'buyer@example.com',user_metadata:{full_name:'Buyer'}}};
+   window.AuctionIdentity={createClient:()=>({auth:{getSession:async()=>({data:{session}}),onAuthStateChange:()=>{}}})};
+  });
+  await page.goto('https://preview.example/account/');
+  const stop=page.locator('#watched-items [data-watch="removed"]');
+  await stop.waitFor({state:'visible'});
+  assert.equal(await stop.textContent(),'Stop Watch');
+  assert.match(await page.locator('#watched-items').textContent(),/Monitoring is paused/);
+  assert.match(await page.locator('#watched-items').textContent(),/No longer in the current catalogue/);
+  assert.equal(await page.locator('#watched-items h3 a').count(),0);
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  await stop.click();
+  await page.waitForFunction(()=>document.querySelector('#watch-count').textContent==='0');
+  assert.deepEqual(writes,[{watched:false}]);
+  assert.equal(await page.locator('#watched-items [data-watch]').count(),0);
+  assert.deepEqual(errors,[]);
+  console.log(`${width}px: expired member can stop missing-property watch, no dead link or overflow`);
+  await page.close();
+ }
+ await browser.close();
+})().catch(error=>{console.error(error);process.exit(1)});
