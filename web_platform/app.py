@@ -8,6 +8,7 @@ from functools import lru_cache
 from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.responses import HTMLResponse, Response, RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.concurrency import run_in_threadpool
 from pydantic import BaseModel
 from .site import Site,HERE
 from .accounts import Accounts,authenticated_user,PLANS,is_owner,require_owner
@@ -31,30 +32,41 @@ def create_app(site=None):
     api_only=os.getenv('PRIVATE_API_ONLY','false')=='true'
     started=time.monotonic()
     logger=logging.getLogger('uvicorn.error')
-    logger.info('Auction Geek startup: loading %s catalogue', 'private API' if api_only else 'public site')
+    deferred_site=False
     if site is None:
         from .catalogue import Catalogue
-        site=Site(Catalogue(summaries=not api_only))
+        if api_only:
+            from .deferred_site import DeferredSite
+            site=DeferredSite(lambda: Site(Catalogue(summaries=False)))
+            deferred_site=True
+        else:
+            site=Site(Catalogue())
     pages={} if api_only else dict(site.routes())
     board_assets={} if api_only else dict(site.board_assets())
-    logger.info('Auction Geek startup: catalogue and routes ready in %.2fs (%s properties)',
-                time.monotonic()-started, len(site.catalogue.rows))
-    latest_catalogue=site.catalogue
+    logger.info('Auction Geek startup: routes ready in %.2fs (catalogue %s)',
+                time.monotonic()-started, 'deferred' if deferred_site else 'loaded')
+    latest_catalogue=None if deferred_site else site.catalogue
     catalogue_lock=Lock()
     def current_catalogue():
         nonlocal latest_catalogue
         from .catalogue import Catalogue
         with catalogue_lock:
-            if Catalogue.version(site.catalogue.root)!=latest_catalogue.snapshot_version:
+            if latest_catalogue is None:
+                latest_catalogue=site.catalogue
+            if Catalogue.version(latest_catalogue.root)!=latest_catalogue.snapshot_version:
                 previous=latest_catalogue
-                latest_catalogue=Catalogue(site.catalogue.root,summaries=False)
+                latest_catalogue=Catalogue(previous.root,summaries=False)
                 if previous is not site.catalogue:previous.close()
             return latest_catalogue
     @asynccontextmanager
     async def lifespan(app):
         yield
-        site.catalogue.close()
-        if latest_catalogue is not site.catalogue:latest_catalogue.close()
+        if deferred_site:
+            site.close()
+        else:
+            site.catalogue.close()
+        if latest_catalogue is not None and latest_catalogue is not site.catalogue:
+            latest_catalogue.close()
     app=FastAPI(title='Auction Geek platform',lifespan=lifespan,docs_url=None,redoc_url=None)
     from acquisition_provider import provider_factory_from_environment
     app.state.acquisition_provider_factory=provider_factory_from_environment()
@@ -175,7 +187,12 @@ def create_app(site=None):
     async def webhook(request:Request,stripe_signature:str|None=Header(default=None)):
         body=await request.body()
         if len(body)>1000000: raise HTTPException(413,'Request too large')
-        _,b=private_services();return {'status':b.webhook(body,stripe_signature)}
+        def process():
+            _,b=private_services()
+            return {'status':b.webhook(body,stripe_signature)}
+        # Wait for the durable result before acknowledging Stripe, while keeping
+        # synchronous database/Stripe I/O off the ASGI event loop.
+        return await run_in_threadpool(process)
     from .review_api import install as install_reviews
     install_reviews(app,site,user)
     from .customer_api import install
@@ -198,4 +215,5 @@ def create_app(site=None):
         raise HTTPException(404,'Page not found')
     logger.info('Auction Geek startup: API ready in %.2fs',time.monotonic()-started)
     return app
+
 
