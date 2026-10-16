@@ -3,7 +3,8 @@
 const root=document.body.dataset.prefix||'', key='auction-sniper-workspace-v1';
 const empty=()=>({properties:{},searches:[],events:[],recent:[]});
 let state=empty(), session=null, auth=null, config=null, index={}, features=new Set(), preview=null, authEpoch=0;
-const checkoutReturned=new URLSearchParams(location.search||'').get('checkout')==='returned';
+const returnQuery=new URLSearchParams(location.search||'');
+const checkoutReturned=returnQuery.get('checkout')==='returned'||returnQuery.get('billing')==='returned';
 let checkoutAccount=null,checkoutFailed=false;
 let authMode='signin', recoveryMode=new URLSearchParams(location.search||'').get('mode')==='recovery', authBusy=false,authRestoring=true;
 try { state={...state,...JSON.parse(localStorage.getItem(key)||'{}')}; } catch (_) {}
@@ -34,7 +35,11 @@ function renderCheckoutReturn(){
  if(!session){heading='Welcome back from Stripe';detail='Sign in with the account you used at checkout to check your membership. Please do not submit another payment.';}
  else if(checkoutFailed){heading='We could not check your membership';detail='Your payment may have completed. Check again below; please do not submit another payment. If this continues, contact team@auctiongeek.co.uk.';refresh=true;}
  else if(checkoutAccount){
-  if(['investor','professional'].includes(checkoutAccount.plan)){
+  if(checkoutAccount.billing?.payment_required){
+   heading='Your payment needs attention';
+   detail='Stripe has not confirmed a successful payment. Paid monitoring and new report credits are paused; your shortlist and previously paid reports remain available. '+(checkoutAccount.billing.has_customer&&!preview&&(config.billing_enabled||checkoutAccount.is_owner)?'Use Update payment method & invoices to resolve payment.':'Contact team@auctiongeek.co.uk for help with payment.')+' Please do not start another subscription.';
+   refresh=true;
+  }else if(['investor','professional'].includes(checkoutAccount.plan)){
    const name=config?.plans?.[checkoutAccount.plan]?.name||(checkoutAccount.plan==='professional'?'Investor Pro':'Investor');
    heading='Your '+name+' membership is active';
    detail='Welcome back. Your account membership has been verified.';
@@ -42,6 +47,8 @@ function renderCheckoutReturn(){
    if(balance?.period_end)detail+=' '+balance.remaining+' of '+balance.allowance+' included report credits available until '+new Date(balance.period_end*1000).toLocaleDateString('en-GB')+'.';
    detail+=' Report generation remains subject to launch quality approval.';
    if(preview)detail+=' You are viewing a customer preview; select My account to use your membership.';
+  }else if(['canceled','incomplete_expired'].includes(checkoutAccount.billing?.status)){
+   heading='Your membership is not active';detail='Your account is on Free. Your shortlist and previously paid reports remain available.';
   }else{heading='Your membership update is pending';detail='Your account has not yet received an active membership. Check again shortly; please do not submit another payment. If this continues, contact team@auctiongeek.co.uk.';refresh=true;}
  }
  title.textContent=heading;message.textContent=detail;retry.hidden=!refresh;
@@ -68,6 +75,8 @@ function renderAuth(){
  let legacy=false;try{const old=JSON.parse(localStorage.getItem(key)||'{}');legacy=Object.keys(old.properties||{}).length>0||(old.searches||[]).length>0;}catch(_){}
  document.querySelector('#account-device-tools')?.toggleAttribute('hidden',!authenticated||!legacy);
  if(!authenticated){
+  document.querySelector('#billing-status')?.setAttribute('hidden','');
+  document.querySelector('#billing-status')?.replaceChildren();
   document.querySelector('#account-billing')?.setAttribute('hidden','');
   document.querySelector('#account-retry')?.setAttribute('hidden','');
   document.querySelector('#owner-controls')?.setAttribute('hidden','');
@@ -78,6 +87,8 @@ function renderAuth(){
 }
 function workspaceFailed(){
  checkoutAccount=null;checkoutFailed=true;renderCheckoutReturn();
+ document.querySelector('#billing-status')?.setAttribute('hidden','');
+ document.querySelector('#account-billing')?.setAttribute('hidden','');
  features.clear();
  document.querySelector('#account-status')?.replaceChildren(document.createTextNode('You are signed in, but your workspace could not load. Please retry. Your saved information has not been deleted.'));
  document.querySelector('#account-retry')?.removeAttribute('hidden');
@@ -97,6 +108,8 @@ function updateSession(next){
   document.querySelector('#account-reviews')?.replaceChildren();
   document.querySelector('#report-credit-balance')?.replaceChildren();
   document.querySelector('#account-billing')?.setAttribute('hidden','');
+  document.querySelector('#billing-status')?.setAttribute('hidden','');
+  document.querySelector('#billing-status')?.replaceChildren();
   document.querySelector('#owner-controls')?.setAttribute('hidden','');
   if(next)document.querySelector('#account-status')?.replaceChildren(document.createTextNode('Signed in. Loading your private workspace…'));
   else try{sessionStorage.removeItem('auction-owner-preview');}catch(_){}
@@ -259,7 +272,12 @@ document.addEventListener('click',async e=>{
    if(!signedIn()){access('save');return;}
    const r=await api('/api/billing/checkout','POST',{plan:b.dataset.subscribe});location.assign(r.url);
   }
-  if(b.id==='account-billing'){const r=await api('/api/billing/portal','POST');location.assign(r.url);}
+  if(b.id==='account-billing'){
+   if(b.disabled)return;
+   b.disabled=true;
+   try{const r=await api(config?.billing_enabled?'/api/billing/portal':'/api/admin/billing/portal','POST');location.assign(r.url);}
+   finally{b.disabled=false;}
+  }
  }catch(err){notice(err.name==='TimeoutError'||err.name==='AbortError'?'The connection timed out. Please reload to check the current saved state before trying again.':err.message);}
  finally{if(propertyAction){b.disabled=false;b.removeAttribute('aria-busy');}}
 });
@@ -376,7 +394,13 @@ async function loadAccount(){
  const name=config?.plans?.[preview?.plan||remote.plan]?.name||preview?.plan||remote.plan;
  document.querySelector('#account-status')?.replaceChildren(document.createTextNode(preview?'Read-only preview · '+name+'. Your account and purchases are unchanged.':'Signed in · '+name+' account. Your workspace is private to your account.'));
  renderAuth();
- if(config.billing_enabled&&!preview)document.querySelector('#account-billing')?.removeAttribute('hidden');
+ const billing=remote.billing,manage=document.querySelector('#account-billing'),billingNotice=document.querySelector('#billing-status');
+ const canManage=!!billing?.has_customer&&!preview&&(config.billing_enabled||remote.is_owner);
+ if(manage){manage.toggleAttribute('hidden',!canManage);manage.textContent=billing?.payment_required?'Update payment method & invoices':'Manage subscription & invoices';}
+ if(billingNotice){
+  billingNotice.toggleAttribute('hidden',!billing?.payment_required||!!preview);
+  billingNotice.textContent=billing?.payment_required?'Your membership payment needs attention. Paid monitoring and new report credits are paused. Your shortlist and previously paid reports remain available. '+(canManage?'Use Update payment method & invoices to resolve payment, then check your membership again.':'Contact team@auctiongeek.co.uk for help with payment.') : '';
+ }
  if(preview&&reviews)reviews.replaceChildren(document.createTextNode('Purchased reports are excluded from customer previews.'));
  const current=document.querySelector('[data-current-property]')?.dataset.currentProperty;
  if(current)state.recent=[current];render();

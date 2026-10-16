@@ -17,10 +17,11 @@ class Element {
  addEventListener(){}
  closest(selector){return selector==='button'?this:null;}
 }
-async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,watch=true,propertyPage=false,ownerPreview=true,checkout=false,plan='free',balance=null}={}){
+async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,watch=true,propertyPage=false,ownerPreview=true,checkout=false,billingReturn=false,billing=null,billingEnabled=false,plan='free',balance=null}={}){
  let stored=initial,callback,release,signOutError=null,signOutCalls=0,accountCalls=0;
  const elements=Object.fromEntries(['checkout-return','checkout-return-title','checkout-return-message','checkout-refresh','account-entry','new-password-form','register-form','reset-password-form','magic-link-form','account-retry','account-title','account-intro','account-customer-content','account-dashboard','account-status','account-billing','owner-controls','owner-sandbox-billing','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
  const link=new Element();link.textContent='Sign in / Register';
+ elements['#billing-status']=new Element('billing-status',true);
  const navSignOut=new Element('nav-signout',true),dashboardSignOut=new Element('account-signout',true);
  for(const b of [navSignOut,dashboardSignOut])b.setAttribute('data-sign-out');
  elements['#account-signout']=dashboardSignOut;elements['#sign-in-form']=new Element('sign-in-form',true);
@@ -33,8 +34,8 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   onAuthStateChange:fn=>{callback=fn;return {data:{subscription:{unsubscribe(){}}}};},
   signOut:async()=>{signOutCalls++;if(signOutError)return {error:signOutError};stored=null;callback('SIGNED_OUT',null);return {error:null};}
  };
- const config={accounts_enabled:enabled,api_origin:'https://private.example',billing_enabled:false,plans:{free:{name:'Free'}}};
- const remote={features:watch?['watch']:[],saved_properties:[],plan,report_credits:balance,is_owner:owner,workspace:{properties:[],saved_searches:[],events:[],reviews:[{id:'private-report',created_at:1}]}};
+ const config={accounts_enabled:enabled,api_origin:'https://private.example',billing_enabled:billingEnabled,plans:{free:{name:'Free'}}};
+ const remote={features:watch?['watch']:[],saved_properties:[],plan,billing,report_credits:balance,is_owner:owner,workspace:{properties:[],saved_searches:[],events:[],reviews:[{id:'private-report',created_at:1}]}};
  const context={Event,window:{dispatchEvent(){},AuctionIdentity:{createClient:()=>({auth})}},document:{
   body:{dataset:{prefix:'/test'},append(){}},
   querySelector:s=>elements[s]||null,
@@ -42,11 +43,12 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   getElementById:id=>elements['#'+id],createElement:()=>new Element(),createTextNode:s=>s,
   addEventListener:(name,fn)=>{handlers[name]=fn;}
  },localStorage:{getItem:()=>null},sessionStorage:{getItem:k=>storage.get(k),removeItem:k=>storage.delete(k)},
- location:{search:checkout?'?checkout=returned':'',assign:url=>redirects.push(url)},MutationObserver:class{observe(){}},
+ location:{search:checkout?'?checkout=returned':billingReturn?'?billing=returned':'',assign:url=>redirects.push(url)},MutationObserver:class{observe(){}},
  setTimeout:(fn,ms)=>ms?setTimeout(fn,ms):timers.push(fn),clearTimeout,URLSearchParams,
  fetch:async (url,options)=>{
   if(url.includes('/api/account/saved/')||url.includes('/api/account/workspace/')){writes.push(options);return {ok:true,json:async()=>({})};}
   if(url.includes('/api/admin/billing/')){writes.push({url,...options});return {ok:true,json:async()=>({url:'https://checkout.stripe.test/session'})};}
+  if(url.endsWith('/api/billing/portal')){writes.push({url,...options});return {ok:true,json:async()=>({url:'https://billing.stripe.test/session'})};}
   if(url.endsWith('workspace-index.json'))return {ok:true,json:async()=>({rows:[{id:'lot'}]})};
   if(url.endsWith('platform-config.json'))return {ok:true,json:async()=>config};
   if(url.includes('/api/admin/preview/'))return {ok:true,json:async()=>({plan:'visitor',features:[]})};
@@ -239,4 +241,52 @@ test('slow checkout verification and stale account responses cannot show success
  assert.match(app.elements['#checkout-return-title'].textContent,/Checking/);
  await app.click(app.navSignOut);await app.release();
  assert.doesNotMatch(app.elements['#checkout-return-title'].textContent,/active/);
+});
+
+const failedBilling=()=>({status:'past_due',plan:'investor',has_customer:true,payment_required:true});
+test('failed payment explains paused access and opens the existing billing portal',async()=>{
+ const app=await setup({initial:buyer('a'),billing:failedBilling(),billingEnabled:true});
+ assert.equal(app.elements['#billing-status'].hidden,false);
+ assert.match(app.elements['#billing-status'].textContent,/previously paid reports remain available/);
+ const button=app.elements['#account-billing'];
+ assert.equal(button.hidden,false);assert.match(button.textContent,/Update payment/);
+ await app.click(button);
+ assert.equal(app.writes[0].url,'https://private.example/api/billing/portal');
+ assert.equal(app.redirects[0],'https://billing.stripe.test/session');
+ assert.equal(button.disabled,false);
+ app.emit('SIGNED_OUT',null);
+ assert.equal(app.elements['#billing-status'].hidden,true);
+ assert.equal(app.elements['#billing-status'].textContent,'');
+});
+test('portal return waits for verified recovery and clears the failed-payment notice',async()=>{
+ const app=await setup({initial:buyer('a'),billingReturn:true,billing:failedBilling(),billingEnabled:true});
+ assert.match(app.elements['#checkout-return-title'].textContent,/payment needs attention/);
+ assert.equal(app.elements['#checkout-refresh'].hidden,false);
+ app.remote.plan='investor';app.remote.billing={...failedBilling(),status:'active',payment_required:false};
+ await app.click(app.elements['#checkout-refresh']);
+ assert.match(app.elements['#checkout-return-title'].textContent,/Investor membership is active/);
+ assert.equal(app.elements['#billing-status'].hidden,true);
+ assert.equal(app.elements['#account-billing'].textContent,'Manage subscription & invoices');
+ assert.equal(app.writes.length,0);
+});
+test('closed billing gives customers a real support instruction and owner a sandbox portal',async()=>{
+ const app=await setup({initial:buyer('a'),billingReturn:true,billing:failedBilling()});
+ assert.equal(app.elements['#account-billing'].hidden,true);
+ assert.match(app.elements['#checkout-return-message'].textContent,/Contact team@/);
+ assert.doesNotMatch(app.elements['#checkout-return-message'].textContent,/invoices below/);
+ const owner=await setup({initial:buyer('owner'),owner:true,ownerPreview:false,billing:failedBilling()});
+ await owner.click(owner.elements['#account-billing']);
+ assert.equal(owner.writes[0].url,'https://private.example/api/admin/billing/portal');
+ const preview=await setup({initial:buyer('owner'),owner:true,billing:failedBilling()});
+ assert.equal(preview.elements['#account-billing'].hidden,true);
+ assert.equal(preview.elements['#billing-status'].hidden,true);
+});
+test('free accounts without a Stripe customer have no unusable billing button',async()=>{
+ const app=await setup({initial:buyer('a'),billingEnabled:true,billing:{status:'none',has_customer:false,payment_required:false}});
+ assert.equal(app.elements['#account-billing'].hidden,true);
+});
+test('cancelled portal return shows ended membership rather than indefinite pending',async()=>{
+ const app=await setup({initial:buyer('a'),billingReturn:true,billing:{status:'canceled',has_customer:true,payment_required:false}});
+ assert.match(app.elements['#checkout-return-title'].textContent,/not active/);
+ assert.equal(app.elements['#checkout-refresh'].hidden,true);
 });

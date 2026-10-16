@@ -83,6 +83,21 @@ class Accounts:
     def require(self,user,feature):
         if feature not in PLANS[self.plan(user)]: raise HTTPException(403,'Subscription does not include this feature')
 
+    def billing_status(self,user):
+        """Customer-safe billing state; this never grants membership access."""
+        with self.db() as db:
+            account=db.execute('SELECT customer_id FROM accounts WHERE user_id=?',(user,)).fetchone()
+            rows=db.execute('SELECT plan,status,valid_until FROM subscriptions WHERE user_id=? ORDER BY valid_until DESC',(user,)).fetchall()
+        rows=[dict(r) for r in rows if r['plan'] in PLANS and r['plan']!='free']
+        now=int(time.time())
+        active=next((r for r in rows if r['status'] in ('active','trialing') and r['valid_until']>now),None)
+        pending=next((r for r in rows if r['status'] in ('past_due','unpaid','incomplete')),None)
+        current=active or pending or next(iter(rows),None)
+        status=current['status'] if current else 'none'
+        return {'status':status,'plan':current['plan'] if current else 'free',
+                'has_customer':bool(account and account['customer_id']),
+                'payment_required':not active and status in ('past_due','unpaid','incomplete')}
+
     def purchases(self,user):
         with self.db() as db:
             return [dict(r) for r in db.execute('SELECT order_id,product,property_id,status,created_at FROM purchases WHERE user_id=? ORDER BY created_at DESC',(user,))]

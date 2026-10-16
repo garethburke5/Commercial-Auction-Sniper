@@ -65,7 +65,7 @@ class Billing:
     def portal(self,user):
         self.configured();customer=self.accounts.customer(user)
         if not customer: raise HTTPException(409,'No billing account exists')
-        return self.client.v1.billing_portal.sessions.create({'customer':customer,'return_url':self.origin+'/account/'})['url']
+        return self.client.v1.billing_portal.sessions.create({'customer':customer,'return_url':self.origin+'/account/?billing=returned'})['url']
 
     def _expire_membership_checkouts(self,customer,user):
         """Close abandoned membership links once this account has a subscription.

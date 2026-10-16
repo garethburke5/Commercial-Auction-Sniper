@@ -44,3 +44,37 @@ unused shutdown, webhook body limits, error propagation, and health/billing
 responsiveness during blocked webhook/property work. Hosted CI and deployment
 measurements must be checked separately; local tests alone are not deployment
 acceptance. This change does not remove Render's free-plan idle spin-down.
+
+## Verified backend deployment
+
+Commit `1175fa3692b705d4fb526564a76c13668ef08d8b` went live on Render
+at 11:06:59 UTC (deployment `dep-db907k6q1p3s739k1b0g`). Application
+initialization was 1.70 seconds. Health and readiness returned HTTP 200;
+unauthenticated account/identity requests returned 401 and an unsigned webhook
+returned 400. Hosted CI passed 259 tests with 6 skips and 19 PostgreSQL checks.
+Free-instance wake-up latency and reliable automatic deployment remain separate
+operational issues. Live billing and paid-report approval stayed disabled.
+
+## Failed-payment recovery correction
+
+The account API now returns customer-scoped billing status without exposing
+Stripe customer or subscription identifiers. A failed payment has an explicit
+explanation, a payment-management action where available, and a support contact
+when public billing is closed. Existing owner-only sandbox controls are reused.
+Accounts without a Stripe customer no longer show an unusable billing button.
+Returning from the existing Stripe portal verifies membership against the API;
+a return URL alone cannot confirm payment. Cancellation is distinguished from
+a pending update. Notices clear on sign-out and customer changes.
+
+Local verification: 25 report-credit tests, 22 platform/membership/account tests,
+and 32 client navigation tests passed. Signed failed-renewal and recovery
+regressions cover Investor and Investor Pro, a new monthly allowance without
+rollover, retained earlier paid reports, customer isolation, and duplicate/late
+webhook notifications without duplicate credit grants. These tests mock Stripe
+responses and control application time; they are not actual Stripe sandbox
+transactions.
+
+The connected Stripe tool exposes only a live-mode account. The sandbox browser
+requires sign-in. Actual sandbox failed-renewal/recovery remains BLOCKED pending
+that access. No live payment or proprietor subscription was changed. Deployment
+of this recovery correction must be verified separately from the checks above.

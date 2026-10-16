@@ -139,7 +139,7 @@ def create_app(site=None):
             trusted={}
         deals=workspace_rows(a)
         from .report_credits import balance
-        return {'plan':plan,'features':sorted(PLANS[plan]),'report_credits':balance(a,uid),'is_owner':is_owner(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals)}
+        return {'plan':plan,'features':sorted(PLANS[plan]),'billing':a.billing_status(uid),'report_credits':balance(a,uid),'is_owner':is_owner(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals)}
     @app.get('/api/admin/preview/{plan}')
     def owner_preview(plan:str,authorization:str|None=Header(default=None)):
         uid,_,_=user(authorization);require_owner(uid)

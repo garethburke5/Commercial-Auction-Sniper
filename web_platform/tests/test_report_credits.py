@@ -122,6 +122,63 @@ def test_free_oneoff_and_member_prices_are_selected_on_server(store,monkeypatch)
     with pytest.raises(HTTPException) as e:b.purchase('alice','legal_pack_report','review:r3')
     assert e.value.status_code==409
 
+@pytest.mark.parametrize('plan,quota',[('investor',1),('professional',3)])
+def test_signed_failed_renewal_and_recovery_preserve_reports_and_period_usage(store,monkeypatch,plan,quota):
+    a=store;now=int(time.time());start=now-100;end=start+30*86400
+    b=Billing(a,'sk_test_fixture','whsec_fixture',{plan:'price_monthly'},'https://example.org')
+    sub={'id':'sub_recovery','customer':'cus_A','status':'active','items':{'data':[{'price':{'id':'price_monthly'},'quantity':1,'current_period_end':end}]}}
+    invoice={'id':'in_initial','customer':'cus_A','status':'paid','billing_reason':'subscription_create','currency':'gbp','amount_paid':1500 if quota==1 else 2500,
+             'parent':{'subscription_details':{'subscription':sub['id']}},'payments':{'data':[{'payment':{'payment_intent':'pi_initial'}}]},
+             'lines':{'data':[{'pricing':{'price_details':{'price':'price_monthly'}},'quantity':1,'period':{'start':start,'end':end},'parent':{'subscription_item_details':{'proration':False}}}]}}
+    monkeypatch.setattr(b.client.v1.subscriptions,'retrieve',lambda *args,**kw:sub)
+    monkeypatch.setattr(b.client.v1.invoices,'retrieve',lambda *args,**kw:invoice)
+    monkeypatch.setattr(b.client.v1.payment_intents,'retrieve',lambda *args,**kw:{'latest_charge':{'amount_refunded':0}})
+    def deliver(eid,typ='invoice.paid'):
+        body=json.dumps({'id':eid,'type':typ,'livemode':False,'data':{'object':{'id':invoice['id']}}}).encode()
+        ts=str(int(time.time()));sig=hmac.new(b'whsec_fixture',ts.encode()+b'.'+body,hashlib.sha256).hexdigest()
+        return b.webhook(body,f't={ts},v1={sig}')
+    deliver('initial');redeem(a,'alice','r0')
+    assert balance(a,'alice')['remaining']==quota-1
+    monkeypatch.setattr('web_platform.report_credits.time.time',lambda:end+100)
+    sub['status']='past_due';sub['items']['data'][0]['current_period_end']=end+30*86400
+    invoice.update(id='in_renewal',status='open',billing_reason='subscription_cycle',amount_paid=0,payments={'data':[]})
+    invoice['lines']['data'][0]['period']={'start':end,'end':end+30*86400}
+    assert deliver('failed','invoice.payment_failed')=='processed'
+    assert a.plan('alice')=='free' and balance(a,'alice')['remaining']==0
+    assert a.billing_status('alice')['payment_required'] is True
+    assert a.billing_status('bob')=={'status':'none','plan':'free','has_customer':False,'payment_required':False}
+    assert full_review_allowed(a,'alice','r0','property')
+    assert not full_review_allowed(a,'bob','r0','property')
+    with pytest.raises(HTTPException) as caught:redeem(a,'alice','r1')
+    assert caught.value.status_code==402
+    with a.db() as db:assert db.execute('SELECT COUNT(*) FROM report_credit_periods').fetchone()[0]==1
+    sub['status']='active'
+    invoice.update(status='paid',amount_paid=1500 if quota==1 else 2500,payments={'data':[{'payment':{'payment_intent':'pi_recovered'}}]})
+    deliver('recovered')
+    assert a.plan('alice')==plan and not a.billing_status('alice')['payment_required']
+    assert balance(a,'alice')['remaining']==quota
+    redeem(a,'alice','r1')
+    assert deliver('recovered')=='duplicate'
+    assert deliver('failed','invoice.payment_failed')=='duplicate'
+    deliver('late_failed_notification','invoice.payment_failed')
+    deliver('another_paid_notification')
+    assert a.plan('alice')==plan and balance(a,'alice')['remaining']==quota-1
+    assert full_review_allowed(a,'alice','r0','property') and full_review_allowed(a,'alice','r1','property')
+    with a.db() as db:assert db.execute('SELECT COUNT(*) FROM report_credit_periods').fetchone()[0]==2
+
+def test_billing_status_prefers_current_membership_over_old_failure(store):
+    fund(store,'investor')
+    with store.db() as db:
+        db.execute("INSERT INTO subscriptions VALUES ('old','alice','professional','unpaid',?)",(int(time.time())+60*86400,))
+    assert store.billing_status('alice')=={'status':'active','plan':'investor','has_customer':True,'payment_required':False}
+
+def test_portal_returns_to_membership_verification(store,monkeypatch):
+    b=Billing(store,'sk_test_fixture','whsec_fixture',{},'https://example.org')
+    calls=[]
+    monkeypatch.setattr(b.client.v1.billing_portal.sessions,'create',lambda params:calls.append(params) or {'url':'https://billing.stripe.test/session'})
+    assert b.portal('alice')=='https://billing.stripe.test/session'
+    assert calls==[{'customer':'cus_A','return_url':'https://example.org/account/?billing=returned'}]
+
 def test_price_mismatch_and_live_key_cannot_charge(store,monkeypatch):
     b=Billing(store,'rk_test_fixture','whsec_fixture',{'investor':'wrong'},'https://example.org')
     monkeypatch.setattr(b.client.v1.prices,'retrieve',lambda *args:{'active':True,'currency':'gbp','unit_amount':999,'recurring':{'interval':'month','interval_count':1}})
