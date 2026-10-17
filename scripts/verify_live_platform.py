@@ -9,7 +9,7 @@ from source_reconciliation import reconcile
 from web_platform.catalogue import identity
 from web_platform.board import enrich_board_row
 from collectors.publication_quality import publication_exclusion
-from board_presentation import current_board_row
+from board_presentation import searchable_catalogue_row
 
 def verify(origin,snapshot):
     html=requests.get(origin.rstrip('/')+'/',timeout=(8,30));html.raise_for_status()
@@ -19,7 +19,11 @@ def verify(origin,snapshot):
     if urlsplit(index_url).netloc!=urlsplit(origin).netloc:raise ValueError('Unexpected index host')
     response=requests.get(index_url,timeout=(8,30));response.raise_for_status();index=response.json()
     if index.get('generated_at')!=snapshot.get('generated_at'):raise ValueError('Live snapshot does not match production')
-    expected_rows={identity(r):enrich_board_row(dict(r)) for r in snapshot['properties'] if current_board_row(r) and not publication_exclusion(r)}
+    current_ids={identity(r) for r in snapshot['properties']}
+    expected_rows={}
+    for r in snapshot['properties'] + snapshot.get('archive', []):
+        if searchable_catalogue_row(r, in_current_catalogue=identity(r) in current_ids) and not publication_exclusion(r):
+            expected_rows.setdefault(identity(r),enrich_board_row(dict(r)))
     expected=set(expected_rows)
     # Revalidation intentionally retains collection time and identities. Compare
     # the customer-visible facts too, so stale rent/yield cannot pass an ID check.

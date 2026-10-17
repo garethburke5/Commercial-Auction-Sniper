@@ -8,6 +8,7 @@ from concurrent.futures import ThreadPoolExecutor
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from urllib.parse import urlparse, unquote
+from board_presentation import withdrawn_row
 
 from collectors.core import Lot, SourceResult, clean_description
 from collectors.utils import enrich_common_fields
@@ -247,7 +248,7 @@ def run():
     target_coverage=append_missing_health(results)
     merged_by_key=dict(old_by_key); merged_by_key.update(current_by_key); current_keys=set(current_by_key); pruned=0
     for source,scope_dates in authoritative_scopes:
-        stale=[k for k,item in merged_by_key.items() if k not in current_keys and item.get("source")==source and str(item.get("auction_date") or "")[:10] in scope_dates]
+        stale=[k for k,item in merged_by_key.items() if k not in current_keys and item.get("source")==source and str(item.get("auction_date") or "")[:10] in scope_dates and not withdrawn_row(item)]
         for k in stale: merged_by_key.pop(k,None); pruned+=1
     for k,item in merged_by_key.items():
         incoming_terminal=_is_terminal(item)

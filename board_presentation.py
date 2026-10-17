@@ -9,6 +9,15 @@ def catalogue_status(row):
     return status if status in UNAVAILABLE else None
 
 
+def withdrawn_row(row):
+    return catalogue_status(row) in {'WITHDRAWN', 'WITHDRAWN PRIOR'}
+
+
+def searchable_catalogue_row(row, *, in_current_catalogue=True, today=None):
+    """Withdrawal changes availability, never the ability to find a captured lot."""
+    return withdrawn_row(row) or (in_current_catalogue and current_board_row(row, today))
+
+
 def verified_post_auction_available(row, now=None):
     """A past auction date is not a sale result; require recent exact-lot evidence."""
     if row.get('source') != 'Allsop Commercial' or catalogue_status(row):

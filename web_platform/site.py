@@ -118,7 +118,7 @@ class Site:
             rows=c.properties[:50], board=True, page=1, pages=pages, upcoming=self.upcoming)
         for page in range(1,pages+1):
             path = '/properties/' if page == 1 else f'/properties/page/{page}/'
-            yield path, self.page(path,'Current auction properties','list','Commercial and mixed-use lots from the published Auction Geek catalogue.',
+            yield path, self.page(path,'Auction properties','list','Commercial and mixed-use lots, including clearly labelled withdrawn properties.',
                 rows=c.properties[(page-1)*50:page*50], page=page,pages=pages,board=True)
         for row in c.all_properties:
             evidence = self.evidence.get(row['url'], {})
@@ -167,7 +167,7 @@ class Site:
             'How the public Auction Geek website handles browsing data and external links.')
         yield '/due-diligence/',self.page('/due-diligence/','Property Investment Reports','due-diligence',
             'Know more before you bid. Understand the income, lease terms, investment risks and supporting evidence before making a property purchase.',noindex=True)
-        spotlights=sorted(c.properties,key=lambda r:sum(bool(r.get(k)) for k in ('tenant','lease_expiry','tenure','annual_rent','area_sqft','image_url')),reverse=True)[:3]
+        spotlights=sorted((r for r in c.properties if not r['unavailable']),key=lambda r:sum(bool(r.get(k)) for k in ('tenant','lease_expiry','tenure','annual_rent','area_sqft','image_url')),reverse=True)[:3]
         yield '/deals/',self.page('/deals/','Commercial Deals','deals','Private deals, agent opportunities and clearly labelled commercial auction spotlights.',spotlights=spotlights)
         yield '/admin/deals/',self.page('/admin/deals/','Owner listing workspace','deal-admin','Create and manage commercial property listings without editing code.',noindex=True)
         yield '/account/',self.page('/account/','My Auction Geek','account','Your shortlist, watched properties, private notes, searches and investment reports.',noindex=True)

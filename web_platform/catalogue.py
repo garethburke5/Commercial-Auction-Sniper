@@ -8,7 +8,7 @@ import sqlite3
 import tempfile
 from collections import Counter
 from datetime import date
-from board_presentation import current_board_row
+from board_presentation import searchable_catalogue_row
 from collectors.publication_quality import lot_identity, publication_exclusion
 from .board import enrich_board_row
 from pathlib import Path
@@ -63,7 +63,7 @@ class Catalogue:
             enrich_board_row(row,summaries=summaries)
             self.rows.setdefault(row['id'], row)
         self.all_properties = list(self.rows.values())
-        self.properties = sorted((r for r in self.all_properties if r['id'] in current_ids and current_board_row(r)), key=lambda r: (r.get('auction_date') or '9999-12-31', r['address']))
+        self.properties = sorted((r for r in self.all_properties if searchable_catalogue_row(r, in_current_catalogue=r['id'] in current_ids)), key=lambda r: (bool(r['unavailable']), r.get('auction_date') or '9999-12-31', r['address']))
         self.current_sources = sorted({name for row in self.properties for name in [row['source']]+list(row.get('source_brands') or [])})
         self.sources = {r['source_slug']: r['source'] for r in self.all_properties}
         self.progress = json.loads((self.root / 'data/auction_history/progress.json').read_text())
