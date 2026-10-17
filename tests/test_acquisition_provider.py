@@ -221,3 +221,24 @@ def test_provider_failures_have_safe_diagnostics_without_error_bodies(status,cat
     assert usage['error_category']==category and not usage['complete']
     assert 'private-provider-body' not in json.dumps(usage) and 'secret-key' not in json.dumps(usage)
     provider.close()
+
+
+@pytest.mark.parametrize('error,category',[
+    ({'code':'credit_balance_exhausted','type':'insufficient_quota'},'credit_balance_exhausted'),
+    ({'code':'project_spend_limit_exceeded','type':'insufficient_quota'},'project_spend_limit_exceeded'),
+    ({'code':'organization_spend_limit_exceeded'},'organization_spend_limit_exceeded'),
+    ({'code':'organization_usage_limit_exceeded'},'organization_usage_limit_exceeded'),
+    ({'code':None,'type':'insufficient_quota'},'insufficient_quota'),
+    ({'code':'tokens','type':'rate_limit_error'},'rate_limit_exceeded'),
+    ({'code':'slow_down','type':'rate_limit_error'},'slow_down'),
+    ({'code':'private secret-key','message':'private secret-key'},'quota_or_rate_limit'),
+    (['private secret-key'],'quota_or_rate_limit'),
+])
+def test_quota_diagnostics_distinguish_funding_from_limits_without_leaking(error,category):
+    provider=OpenAIInvestigator('secret-key','fixture-model',client=httpx.Client(transport=httpx.MockTransport(
+        lambda request:httpx.Response(429,json={'error':error}))))
+    with pytest.raises(InvestigationIncomplete):provider.review(packet())
+    usage=provider.usage_record()
+    assert usage['error_category']==category and usage['complete'] is False
+    assert 'secret-key' not in json.dumps(usage)
+    provider.close()

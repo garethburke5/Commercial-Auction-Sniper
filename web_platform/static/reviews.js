@@ -20,7 +20,7 @@ function show(r){
  $('review-validation-note').hidden=!(r.owner_validation_allowed||r.validation);
  const metrics=r.validation_metrics,usage=metrics?.provider_usage;
  $('review-validation-usage').hidden=!metrics;
- text('review-validation-usage',metrics?`Validation usage: ${usage?.calls??'unknown'} provider calls; ${usage?.input_tokens??'unknown'} input tokens; ${usage?.output_tokens??'unknown'} output tokens; ${usage?.search_calls??'unknown'} web searches. ${metrics.failure_reason||''} ${usage?.error_category||''} Cost reconciliation: ${metrics.cost?.status||'pending'}.`:'');
+ text('review-validation-usage',metrics?`Validation usage: ${usage?.calls??'unknown'} provider requests; ${usage?.input_tokens??'unknown'} recorded input tokens; ${usage?.output_tokens??'unknown'} recorded output tokens; ${usage?.search_calls??'unknown'} recorded web searches. ${usage?.complete===false?'Usage measurement is incomplete; these counts do not establish the full charge. ':''}${metrics.failure_reason||''} ${usage?.error_category||''} Cost reconciliation: ${metrics.cost?.status||'pending'}.`:'');
  uploadForm.elements.files.required=!!(s?.pack_expected||s?.parent_review_id);
  $('download-review').hidden=false;
  const diagnostic=r.access==='validation';

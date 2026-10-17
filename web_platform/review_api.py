@@ -227,7 +227,10 @@ def install(app,site,user):
             from .fees import estimate_fee,fee_profile
             context=dict(row,guide=row.get('guide_price'),rent=row.get('annual_rent'))
             context['auctioneer_fee']=estimate_fee(row,fee_profile(row.get('source_slug','external'),site.fees),site.evidence.get(row.get('url'),{})).get('amount')
-            context['market_context']=site.market.for_property(row)
+            # Scope acceptance already banked these candidates. Keep that
+            # evidence snapshot, including after a deploy, rather than repeating
+            # the cold corpus scan inside the provider's investigation budget.
+            context['market_context']=row.get('market_context') or site.market.for_property(row)
             result=analyse_uploaded_pack(row['address'],supplied,context,
                 ocr=os.getenv('REVIEW_OCR','true')=='true',
                 research={'sources':intake.get('sources',[]),'records':[],'attempts':[]} if intake else None,

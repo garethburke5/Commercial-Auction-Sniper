@@ -37,6 +37,30 @@ four comparable candidates. Thirteen existing matching, income chronology and
 history-export checks passed. This is a local resource measurement, not yet a
 successful production report.
 
+## Production intake and provider check
+
+The corrected intake completed on production and reopened from the owner
+account. The first cold lookup consumed nearly the free service's 0.15 CPU
+allocation for roughly three minutes; memory stayed around 215 MiB. Warm
+confirmation then completed promptly. Cold-start latency still needs product
+attention before launch.
+
+The browser's default 60-second account timeout also applied to report runs.
+Commit `570f7387d994218a5a279faa9ccad531cfe83def` gives intake five minutes and
+investigation twenty minutes (provider budget remains fifteen minutes), recovers
+saved job state after a failed response without repeating work, and includes
+report JavaScript in cache versioning. The fixture follow-up
+`28ae89c457b71f741121564ebeaae8e63d704922` passed the full publishing gate.
+The actual Cloudflare page was verified with asset version `d48096730b4f`.
+
+The first no-pack owner validation reached OpenAI and returned HTTP 429 on its
+first provider request. No completed provider response or report was obtained.
+Recorded token/search counters are zero but usage completeness is false; this
+does not establish a final monetary charge. No payment or report credit was
+created. The original diagnostic grouped quota and rate limits; the next change
+retains only allowlisted error categories to distinguish credits, project or
+organization spend limits, and throttling without exposing provider bodies.
+
 ## Acceptance still required
 
 Run Newbury without a pack, then with the original documents, and a materially

@@ -137,6 +137,23 @@ class OpenAIInvestigator:
             usage.complete = False
             status=exc.response.status_code if isinstance(exc,httpx.HTTPStatusError) else None
             usage.error_category={401:'authentication_failed',403:'permission_denied',404:'model_or_endpoint_unavailable',429:'quota_or_rate_limit'}.get(status,'provider_request_failed')
+            if status == 429:
+                # Persist only documented categories, never arbitrary provider
+                # messages, request contents or unrecognised error strings.
+                try:
+                    error = exc.response.json().get('error', {})
+                    code, kind = error.get('code'), error.get('type')
+                    allowed = {'credit_balance_exhausted', 'organization_spend_limit_exceeded',
+                               'project_spend_limit_exceeded', 'organization_usage_limit_exceeded',
+                               'insufficient_quota', 'rate_limit_exceeded', 'slow_down'}
+                    if isinstance(code, str) and code in allowed:
+                        usage.error_category = code
+                    elif kind == 'insufficient_quota':
+                        usage.error_category = 'insufficient_quota'
+                    elif kind == 'rate_limit_error':
+                        usage.error_category = 'rate_limit_exceeded'
+                except (ValueError, AttributeError, TypeError):
+                    pass
             raise InvestigationIncomplete('The investigation provider did not complete the request') from None
         if not isinstance(result, dict):
             usage.complete = False
