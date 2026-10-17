@@ -37,7 +37,7 @@ def test_pagination_counts_past_separately_and_deduplicates_shared_links():
            '<ul class="pagination"><a href="/search?page=2">2</a></ul>'),
            SEARCH+'?page=2':page('Showing results 2 - 2 of 2'+card(1)+card(2,'01/01/2020','Auction Ended'))}
     def fetch(url):return pages[url] if url in pages else page(DETAIL)
-    result=collect_cheffins(fetch,date(2026,10,17))
+    result=collect_cheffins(fetch,date(2026,10,17),include_rostrum=False)
     assert result.status=='LIVE' and len(result.lots)==1
     assert not result.authoritative_snapshot  # Timed results cannot retire rostrum inventory.
     assert result.reconciliation['catalogue_total_lots']==2
@@ -48,12 +48,12 @@ def test_pagination_counts_past_separately_and_deduplicates_shared_links():
 
 def test_denominator_gap_or_detail_failure_cannot_certify_empty_catalogue():
     for html in ['Showing results 1 - 2 of 2'+card(1),'<h1>Search unavailable</h1>']:
-        result=collect_cheffins(lambda u:page(html if u==SEARCH else DETAIL),date(2026,10,17))
+        result=collect_cheffins(lambda u:page(html if u==SEARCH else DETAIL),date(2026,10,17),include_rostrum=False)
         assert result.status=='DEGRADED' and not result.authoritative_snapshot
     def fail(url):
         if url==SEARCH:return page('Showing results 1 - 1 of 1'+card(1))
         raise RuntimeError('unavailable')
-    result=collect_cheffins(fail,date(2026,10,17))
+    result=collect_cheffins(fail,date(2026,10,17),include_rostrum=False)
     assert result.status=='DEGRADED' and not result.lots
 
 
@@ -63,7 +63,7 @@ def test_residential_and_unknown_assets_excluded_and_withdrawn_retained():
         if url.endswith('-1'):return page(DETAIL)
         return page(DETAIL.replace('Freehold warehouse with office accommodation, vacant possession. A large loading bay.',
             'A detached three-bedroom house with a study, near the local social club.'))
-    result=collect_cheffins(fetch,date(2026,10,17))
+    result=collect_cheffins(fetch,date(2026,10,17),include_rostrum=False)
     assert len(result.lots)==1 and result.lots[0].status=='WITHDRAWN'
     assert result.reconciliation['classification_rejections']==1
     assert commercial_decision({'description':'Function room, bar and kitchen. Business rates: Club and premises assessment.'}) is True

@@ -1,7 +1,7 @@
-"""Cheffins timed/CPN catalogue adapter.
+"""Cheffins timed/CPN and linked current rostrum catalogue adapter.
 
-Catalogue counts cover the timed feed only; the separate rostrum feed is not
-an authoritative replacement scope. Past results never imply availability.
+Each feed keeps separate reconciliation evidence. Neither is an authoritative
+replacement scope. Past results never imply availability.
 """
 import re
 from datetime import date, datetime
@@ -99,7 +99,7 @@ def detail(url, seed, page):
     return lot.finalise()
 
 
-def collect_cheffins(fetcher=None, today=None):
+def collect_cheffins(fetcher=None, today=None, include_rostrum=True):
     fetcher = fetcher or fetch
     today = today or date.today()
     targets = {}; seen = set(); pending = [SEARCH]; errors = []; totals = []
@@ -143,8 +143,37 @@ def collect_cheffins(fetcher=None, today=None):
         'detail_pages_inspected':parsed,'past_auction_exclusions':past,'classification_rejections':excluded,
         'commercial_mixed_candidates':len(lots),'catalogue_complete':complete,
         'discovery_failures':errors,'lot_outcomes':outcomes,'catalogue_pages':sorted(seen)}
-    return SourceResult(SOURCE,'LIVE' if complete else 'DEGRADED',lots,
+    result = SourceResult(SOURCE,'LIVE' if complete else 'DEGRADED',lots,
         f'Timed catalogue: {len(targets)} discovered, {past} past results, {parsed} details checked, {len(lots)} commercial/mixed-use. '+ '; '.join(errors),
         # The timed feed cannot retire rows from the separate rostrum catalogue.
         authoritative_snapshot=False, expected_count=len(lots) if complete else None,
         discovered_count=len(targets), scope_dates=tuple(sorted({l.auction_date for l in lots})),reconciliation=telemetry)
+    if include_rostrum:
+        from .cheffins_rostrum import collect_rostrum
+        rostrum, evidence = collect_rostrum(fetcher,today)
+        result.lots.extend(rostrum)
+        result.reconciliation['timed_catalogue'] = dict(telemetry)
+        result.reconciliation['rostrum_catalogue'] = evidence
+        result.reconciliation['scope'] = 'Timed/CPN feed and linked current rostrum catalogue; no archive traversal'
+        result.reconciliation['catalogue_complete'] = complete and evidence['catalogue_complete']
+        result.reconciliation['current_catalogue_detected'] |= evidence['current_catalogue_detected']
+        from board_presentation import current_board_row
+        result.reconciliation['total_commercial_mixed_candidates'] = len(result.lots)
+        result.reconciliation['commercial_mixed_candidates'] = sum(current_board_row(l.to_dict(),today) for l in result.lots)
+        # Rostrum cards contain full descriptions; residential cards can be
+        # classified without fetching their detail pages. Keep both counts.
+        result.reconciliation['lots_parsed'] = parsed + evidence['discovered_lot_urls'] if evidence['catalogue_complete'] else parsed + evidence['detail_pages_inspected']
+        for key in ('discovered_lot_urls','detail_pages_inspected','classification_rejections'):
+            result.reconciliation[key] += evidence[key]
+        for key in ('source_lot_count','catalogue_total_lots'):
+            previous=result.reconciliation[key]
+            result.reconciliation[key]=(previous+evidence['catalogue_total_lots']) if previous is not None and evidence['catalogue_total_lots'] is not None else None
+        result.reconciliation['discovery_failures'] = errors + evidence['discovery_failures']
+        result.discovered_count += evidence['discovered_lot_urls']
+        result.expected_count = len(result.lots) if result.reconciliation['catalogue_complete'] else None
+        result.scope_dates = tuple(sorted({l.auction_date for l in result.lots}))
+        if not evidence['catalogue_complete']:result.status='DEGRADED'
+        result.message += f" Rostrum: {evidence['discovered_lot_urls']} cards, {len(rostrum)} commercial/mixed-use; complete={evidence['catalogue_complete']}."
+        # Scope-specific retirement is not yet supported; neither feed can erase
+        # the other's previously banked records during a source outage.
+    return result
