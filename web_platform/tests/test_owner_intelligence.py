@@ -29,6 +29,25 @@ def test_identifies_two_genuine_goldfinger_holdings_and_crosslinks():
     assert reverse["related"][0]["path"] == "/property/liverpool/"
 
 
+def test_bearwood_proprietor_confirmed_and_links_across_auctioneers():
+    registry = OwnerRegistry.from_file()
+    coral = row("554 Bearwood Road, Bearwood, Smethwick, B66 4BT",
+                "/property/coral/", date="2026-10-22", guide=175000)
+    liverpool = row("22 Broadway, Liverpool L11 1BZ", "/property/admiral/")
+    wimbledon = row("114 Haydons Road, London SW19 1AW", "/property/william-hill/")
+    by_title = registry.index([coral, liverpool, wimbledon])
+    info = registry.context(coral, by_title)
+    assert info["company_number"] == "07198257"
+    assert info["title_number"] == "WR12213"
+    assert info["recorded_purchase_price"] == 420000
+    assert info["verified_as_of"] == "2026-10-13"
+    assert {x["path"] for x in info["related"]} == {
+        "/property/admiral/", "/property/william-hill/"
+    }
+    assert "not established" in info["seller_status"]
+    assert registry.context(row("554 Bearwood Road, Smethwick B66 4BU")) is None
+
+
 def test_does_not_claim_unverified_owner_based_on_name_or_proximity():
     registry = OwnerRegistry.from_file()
     for address in (
@@ -72,9 +91,9 @@ def test_no_link_invented_when_second_lot_not_in_catalogue():
 def test_fixture_contains_only_confirmed_registered_title_relations():
     registry = OwnerRegistry.from_file()
     assert all(item["evidence"].startswith("HM Land Registry official freehold title") for item in registry.records)
-    assert all(item["verified_as_of"] == "2026-10-14" for item in registry.records)
+    assert {item["verified_as_of"] for item in registry.records} == {"2026-10-13", "2026-10-14"}
     assert all("seller" not in item for item in registry.records)
-    assert len(registry.records) == 2
+    assert len(registry.records) == 3
 
 
 def test_rendered_property_page_contains_sourced_owner_block(tmp_path):
