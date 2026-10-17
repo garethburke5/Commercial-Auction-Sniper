@@ -92,7 +92,7 @@ def test_rendered_property_page_contains_sourced_owner_block(tmp_path):
          "annual_rent": 15000, "guide_price": 150000, "tenure": "Freehold", "property_type": "Retail"},
     ]
     (tmp_path / "data/properties.json").write_text(json.dumps({"properties": properties, "generated_at": "2026-10-17"}))
-    (tmp_path / "data/auction_history/progress.json").write_text(json.dumps({"individual_lot_records_captured": 2}))
+    (tmp_path / "data/auction_history/progress.json").write_text(json.dumps({"individual_lot_records_captured": 2, "by_sector": {"commercial": 2, "mixed-use": 0}}))
     site = Site(Catalogue(tmp_path), "https://example.org")
     pages = dict(site.routes())
     liverpool = next(item for item in site.catalogue.all_properties if "Liverpool" in item["address"])
