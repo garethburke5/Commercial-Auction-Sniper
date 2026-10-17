@@ -167,6 +167,8 @@ class Lot:
     status: str = "Live"
     description: str = ""
     collected_at: str = ""
+    source_availability: Optional[str] = None
+    availability_checked_at: Optional[str] = None
     area_sqft: Optional[float] = None
     area_sqm: Optional[float] = None
     site_area_acres: Optional[float] = None

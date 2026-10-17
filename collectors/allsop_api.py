@@ -11,7 +11,7 @@ import re
 import time
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timezone, timedelta
 from decimal import Decimal
 from urllib.parse import urlencode
 from zoneinfo import ZoneInfo
@@ -145,7 +145,8 @@ def _detail(row, get=_get):
     current_label = _text(data.get('current_rent_per_annum_header_text'))
     rent = _number(data.get('current_rent_per_annum')) if re.search(r'current', current_label, re.I) and re.search(r'£\s*[\d,]+', current_text) else None
     description = norm(title + '. Guide Price '+guide_text+'. '+particulars+'. '+current_label+' '+current_text+'. Tenancy schedule: '+schedule_text)
-    status = str(version.get('allsop_lotstatus') or row.get('lot_status') or 'Available').upper()
+    source_status = str(version.get('allsop_lotstatus') or '').upper()
+    status = source_status or str(row.get('lot_status') or 'UNKNOWN').upper()
     if status in {'AVAILABLE', 'UNSOLD', 'FOR SALE'}:
         status = 'CURRENT'
     mixed = 'Mixed Use' in types or bool(re.search(r'shop (?:and|with|&) (?:a |self-contained )?(?:flat|residential|maisonette)|mixed[ -]use', title+' '+particulars, re.I))
@@ -157,6 +158,7 @@ def _detail(row, get=_get):
               guide_price_text=guide_text, annual_rent=rent, image_url=_primary_image(detail), image_is_primary=True, image_source_url=url,
               tenure=version.get('allsop_propertytenure'), property_type='Mixed Use' if mixed else (' / '.join(types) or None),
               occupation=occupation, description=description, status=status, tenancy_schedule=schedules,
+              source_availability=source_status or None, availability_checked_at=datetime.now(timezone.utc).isoformat(),
               legal_pack_url=url+'#legal', legal_pack_status='LOGIN REQUIRED', vat_status=parse_vat(particulars))
     lot.tenant = '; '.join(dict.fromkeys(x.get('Present Lessee', '') for x in schedules if x.get('Present Lessee'))) or None
     lot.lease_term = '; '.join(dict.fromkeys(x.get('Lease Details', '') for x in schedules if x.get('Lease Details'))) or None
@@ -172,17 +174,32 @@ def _detail(row, get=_get):
     return enrich_common_fields(lot, description).finalise()
 
 
+def _auction_targets(current, past, today):
+    """Recheck recent sales too: unsold/reinstated lots remain on the market."""
+    selected = {}
+    for department in ('commercial', 'residential'):
+        upcoming = current.get('next_' + department + '_auction')
+        if upcoming:
+            selected[upcoming['allsop_auctionid']] = (upcoming, department)
+        for auction in past.get(department, []):
+            day = date.fromisoformat(_day(auction['allsop_auctiondate']))
+            label = str(auction.get('allsop_name') or '')
+            if today - timedelta(days=60) <= day < today and not re.search(r'\btest\b', label, re.I):
+                selected[auction['allsop_auctionid']] = (auction, department)
+    return list(selected.values())
+
+
 def collect():
     try:
         current = _get('/api/auctions/current?skipLots=true')['data']
-        auctions = [current[k] for k in ('next_commercial_auction', 'next_residential_auction') if current.get(k)]
+        past = _get('/api/auctions/all-past')['auction']
+        today = datetime.now(ZoneInfo('Europe/London')).date()
+        auctions = _auction_targets(current, past, today)
         targets = {}
         catalogues = []
-        for auction in auctions:
-            if _day(auction['allsop_auctiondate']) < date.today().isoformat():
-                continue
+        for auction, department in auctions:
             rows, expected, pages = _catalogue(auction)
-            is_commercial_auction=auction['allsop_auctionid']==current.get('next_commercial_auction',{}).get('allsop_auctionid')
+            is_commercial_auction = department == 'commercial'
             candidates = [r for r in rows if is_commercial_auction or r.get('is_commercial') or r.get('comm_property_types')]
             catalogues.append({'auction_id':auction['allsop_auctionid'], 'auction_date':_day(auction['allsop_auctiondate']),
                                'expected_lots':expected, 'discovered_lots':len(rows), 'commercial_candidates':len(candidates), 'pages':pages})

@@ -4,7 +4,7 @@ from html import unescape
 import re
 import math
 import unicodedata
-from board_presentation import catalogue_status
+from board_presentation import catalogue_status, verified_post_auction_available
 from investment_details import _investment_facts
 from property_summary import build_opportunity_summary, specialist_use
 
@@ -49,6 +49,8 @@ def enrich_board_row(row, *, summaries=True):
         row['opportunity'], row['highlights'] = build_opportunity_summary(old)
         row['facts'], row['chips'], row['interpretation'] = _investment_facts(old)
     row['unavailable'] = catalogue_status(row)
+    from datetime import date
+    row['post_auction_available'] = bool(row.get('auction_date') and row['auction_date'] < date.today().isoformat() and verified_post_auction_available(row))
     row['lot_label'] = str(row.get('lot_number') or 'TBC').removeprefix('Lot ')
     rent, low, high = row.get('annual_rent'), row.get('guide_price'), row.get('guide_price_upper')
     valid=lambda n: isinstance(n,(int,float)) and not isinstance(n,bool) and math.isfinite(n) and n>0
