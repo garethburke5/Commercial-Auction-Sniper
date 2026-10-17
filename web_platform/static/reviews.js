@@ -77,7 +77,15 @@ snapshotForm.onsubmit=e=>{
 };
 confirmForm.onsubmit=e=>{e.preventDefault();act(e.submitter,()=>AuctionWorkspace.upload('/api/account/reviews/'+id+'/confirm',new FormData(confirmForm)),'Confirming the property…');};
 scopeForm.onsubmit=e=>{e.preventDefault();const fd=new FormData(scopeForm);if(last?.scope?.parent_review_id)fd.set('pack_expected','true');act(e.submitter,()=>AuctionWorkspace.upload('/api/account/reviews/'+id+'/scope',fd),'Saving your evidence scope…');};
-uploadForm.onsubmit=e=>{e.preventDefault();const path=last?.owner_validation_allowed?'/api/admin/reviews/'+id+'/validate':'/api/account/reviews/'+id+'/analyse';act(e.submitter,()=>AuctionWorkspace.upload(path,new FormData(uploadForm)),'Investigating the property and its available evidence. Keep this page open; scanned documents take longer.');};
+uploadForm.onsubmit=e=>{e.preventDefault();const path=last?.owner_validation_allowed?'/api/admin/reviews/'+id+'/validate':'/api/account/reviews/'+id+'/analyse';act(e.submitter,async()=>{
+ try{return await AuctionWorkspace.upload(path,new FormData(uploadForm));}
+ catch(error){
+  // Read the saved outcome after a network/provider failure; never retry a
+  // chargeable investigation automatically or invite a duplicate submission.
+  try{const saved=await AuctionWorkspace.api('/api/account/reviews/'+encodeURIComponent(id));if(['processing','failed','requires_review','complete'].includes(saved.analysis_state))return saved;}catch(_){}
+  throw error;
+ }
+},'Investigating the property and its available evidence. Keep this page open; scanned documents take longer.');};
 $('update-review-pack').onclick=e=>act(e.currentTarget,()=>AuctionWorkspace.api('/api/account/reviews/'+id+'/pack-update','POST'),'Preparing your included document update…');
 $('redeem-review').onclick=e=>act(e.currentTarget,async()=>{await AuctionWorkspace.api('/api/account/reviews/'+id+'/redeem','POST');return AuctionWorkspace.api('/api/account/reviews/'+id);},'Verifying your report credit…');
 $('unlock-review').onclick=e=>act(e.currentTarget,async()=>{const r=await AuctionWorkspace.api('/api/account/reviews/'+id+'/checkout','POST');if(r.url){location.assign(r.url);return;}return AuctionWorkspace.api('/api/account/reviews/'+id);},'Preparing checkout…');

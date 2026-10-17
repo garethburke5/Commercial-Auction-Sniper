@@ -411,7 +411,7 @@ async function loadAccount(){
  const credits=document.querySelector('#report-credit-balance'),balance=remote.report_credits;
  if(credits&&balance)credits.textContent=balance.period_end?`${balance.remaining} of ${balance.allowance} included report credits available until ${new Date(balance.period_end*1000).toLocaleDateString('en-GB')}. Unused credits do not roll over.`:'No included report credits are available. Full Investment Reports remain under quality review.';
  const reviews=document.querySelector('#account-reviews');
- if(reviews)reviews.innerHTML=remote.workspace.reviews.map(r=>`<p><a href="${root}/due-diligence/?review=${encodeURIComponent(r.id)}">Full Investment Report · ${new Date(r.created_at*1000).toLocaleDateString('en-GB')}</a></p>`).join('');
+ if(reviews)reviews.innerHTML=remote.workspace.reviews.map(r=>`<p><a href="${root}/due-diligence/?review=${encodeURIComponent(r.id)}">Saved property research · ${new Date(r.created_at*1000).toLocaleDateString('en-GB')}</a></p>`).join('');
  document.querySelector('#owner-controls')?.toggleAttribute('hidden',!remote.is_owner);
  if(remote.is_owner){
   let tier='';try{tier=sessionStorage.getItem('auction-owner-preview')||'';}catch(_){}
@@ -530,7 +530,11 @@ async function initialize(){
 }
 window.AuctionWorkspace={api,register:rows=>{for(const r of rows)index[r.id]=r;render();},signedIn,config:()=>config,upload:async(path,body)=>{
  if(preview)throw Error('Uploads are disabled in customer preview.');
- return accountRequest(path,{method:'POST',body});
+ // Investigation has a bounded 15-minute provider budget plus document work.
+ // A browser's ordinary one-minute account timeout must not abandon that job.
+ const reportRun=/^\/api\/(?:account|admin)\/reviews\/[^/]+\/(?:analyse|validate)$/.test(path);
+ const timeout=reportRun?1200000:path==='/api/account/reviews'?300000:60000;
+ return accountRequest(path,{method:'POST',body,signal:typeof AbortSignal!=='undefined'?AbortSignal.timeout(timeout):undefined});
 },download:async(path)=>{
  if(preview)throw Error('Purchased-report downloads are disabled in customer preview.');
  return accountRequest(path,{},'blob');
