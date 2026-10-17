@@ -1,0 +1,25 @@
+{% if owner_insight %}
+<section id="owner-intelligence" class="source-disclosure owner-intelligence" aria-labelledby="owner-intelligence-title">
+  <h2 id="owner-intelligence-title">Who owns this property?</h2>
+  <p><strong>{{ owner_insight.company_name }}</strong> (company {{ owner_insight.company_number }}) is the <strong>registered freehold proprietor</strong> in the title evidence dated {{ uk_date(owner_insight.verified_as_of) }}.</p>
+  <dl class="facts">
+    <div><dt>Registered title</dt><dd>{{ owner_insight.title_number }}</dd></div>
+    {% if owner_insight.recorded_purchase_price is not none %}
+    <div><dt>Historic recorded consideration</dt><dd>{{ money(owner_insight.recorded_purchase_price) }} <span class="muted">— not a current valuation or auction result</span></dd></div>
+    {% endif %}
+  </dl>
+  <p class="small muted">{{ owner_insight.seller_status }}. {{ owner_insight.filings_status }}</p>
+  {% if owner_insight.related %}
+  <h3>Other property with the same verified registered owner</h3>
+  <ul>{% for related in owner_insight.related %}
+    <li>{% if related.path %}<a href="{{ url(related.path) }}">{{ related.address }}</a>{% else %}{{ related.address }}{% endif %} — title {{ related.title_number }} <span class="small muted">(verified {{ uk_date(related.verified_as_of) }})</span></li>
+  {% endfor %}</ul>
+  {% endif %}
+  <details><summary>Evidence and important limitations</summary>
+    <p>{{ owner_insight.source_description }}</p>
+    <p>{{ owner_insight.motivation_status }}</p>
+    <p>Shared ownership, lawyers, or low auction guides do not establish a forced sale, outstanding borrowing or the seller's intentions. Ownership may have changed after the evidence date.</p>
+    <p><a href="{{ owner_insight.company_url }}" rel="noopener noreferrer" target="_blank">Check the official Companies House record ↗</a></p>
+  </details>
+</section>
+{% endif %}
