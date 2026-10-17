@@ -1,0 +1,26 @@
+name: Owner evidence intelligence checks
+on:
+  pull_request:
+    paths:
+      - 'web_platform/owner_intelligence.py'
+      - 'web_platform/owner_evidence.json'
+      - 'web_platform/site.py'
+      - 'web_platform/templates/property.html'
+      - 'web_platform/templates/owner_intelligence.html'
+      - 'web_platform/tests/test_owner_intelligence.py'
+      - '.github/workflows/owner-intelligence-tests.yml'
+permissions:
+  contents: read
+jobs:
+  verified-owner:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install existing public platform test dependencies
+        run: pip install -r web_platform/requirements-cloudflare.txt pytest beautifulsoup4 requests lxml pypdf python-docx openpyxl
+      - name: Check provenance and rendered property cards
+        run: python -m pytest web_platform/tests/test_owner_intelligence.py web_platform/tests/test_platform.py -q
