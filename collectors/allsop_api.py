@@ -147,6 +147,8 @@ def _detail(row, get=_get):
     description = norm(title + '. Guide Price '+guide_text+'. '+particulars+'. '+current_label+' '+current_text+'. Tenancy schedule: '+schedule_text)
     source_status = str(version.get('allsop_lotstatus') or '').upper()
     status = source_status or str(row.get('lot_status') or 'UNKNOWN').upper()
+    if status == 'SOLD AFTER':
+        status = 'SOLD'
     if status in {'AVAILABLE', 'UNSOLD', 'FOR SALE'}:
         status = 'CURRENT'
     mixed = 'Mixed Use' in types or bool(re.search(r'shop (?:and|with|&) (?:a |self-contained )?(?:flat|residential|maisonette)|mixed[ -]use', title+' '+particulars, re.I))

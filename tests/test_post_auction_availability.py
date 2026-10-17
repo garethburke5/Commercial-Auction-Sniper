@@ -60,6 +60,10 @@ def test_missing_detail_status_cannot_claim_post_auction_availability():
     detail['version']['allsop_lotstatus']='Available'
     lot=_detail(row,lambda _:detail)
     assert verified_post_auction_available(lot.to_dict())
+    detail['version']['allsop_lotstatus']='Sold After'
+    lot=_detail(row,lambda _:detail)
+    assert lot.status=='SOLD' and lot.source_availability=='SOLD AFTER'
+    assert not verified_post_auction_available(lot.to_dict())
 
 
 def test_available_after_auction_is_searchable_without_changing_url(tmp_path):
