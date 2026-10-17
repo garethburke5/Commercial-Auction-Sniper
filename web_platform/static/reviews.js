@@ -13,8 +13,8 @@ function show(r){
  $('acquisition-result').innerHTML=r.html;
  snapshotForm.hidden=true;confirmForm.hidden=state!=='awaiting_confirmation';scopeForm.hidden=state!=='awaiting_scope';
  const accepted=!s||s.accepted;
- $('unlock-review').hidden=!accepted||r.access==='full'||r.processing_allowed||!AuctionWorkspace.config()?.billing_enabled||r.report?.quality_status?.purchase_available!==true;
- $('redeem-review').hidden=!accepted||r.access==='full'||r.processing_allowed||r.report?.quality_status?.purchase_available!==true;
+ $('unlock-review').hidden=!accepted||r.purchase_verified||r.access==='full'||r.processing_allowed||!AuctionWorkspace.config()?.billing_enabled||r.report?.quality_status?.purchase_available!==true;
+ $('redeem-review').hidden=!accepted||r.purchase_verified||r.access==='full'||r.processing_allowed||r.report?.quality_status?.purchase_available!==true;
  uploadForm.hidden=!r.processing_allowed;
  uploadForm.elements.files.required=!!(s?.pack_expected||s?.parent_review_id);
  $('download-review').hidden=false;
@@ -38,6 +38,8 @@ function show(r){
  progress.textContent=state==='awaiting_confirmation'?'Check and confirm the property before continuing.':
   state==='awaiting_scope'?'Review and accept the scope. No payment or paid investigation has started.':
   state==='requires_review'?'Analysis is awaiting source-quality review. Your purchase is retained.':
+  state==='processing'?(r.processing_overdue?'Your investigation is taking longer than expected. Contact team@auctiongeek.co.uk so we can check it safely. Your purchase is retained; do not pay again.':'Your investigation is in progress. Your purchase is retained; do not pay again.'):
+  state==='failed'&&!r.processing_allowed?'Your investigation needs support review. Contact team@auctiongeek.co.uk. Your purchase is retained.':
   r.processing_allowed?'Purchase or credit verified. Start the investigation; documents are optional unless included in your chosen scope.':
   r.access==='full'?'Full Investment Report saved to My Auction Geek.':
   'Free Property Snapshot saved. '+(r.report?.quality_status?.message||'');

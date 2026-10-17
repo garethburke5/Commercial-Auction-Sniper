@@ -81,6 +81,8 @@ function renderAuth(){
   document.querySelector('#account-retry')?.setAttribute('hidden','');
   document.querySelector('#owner-controls')?.setAttribute('hidden','');
   document.querySelector('#owner-monitoring')?.setAttribute('hidden','');
+  document.querySelector('#owner-report-recovery')?.setAttribute('hidden','');
+  document.querySelector('#owner-report-status')?.replaceChildren();
   document.querySelector('#owner-monitoring-status')?.replaceChildren();
   document.querySelector('#account-reviews')?.replaceChildren();
   document.querySelector('#report-credit-balance')?.replaceChildren();
@@ -114,6 +116,8 @@ function updateSession(next){
   document.querySelector('#billing-status')?.replaceChildren();
   document.querySelector('#owner-controls')?.setAttribute('hidden','');
   document.querySelector('#owner-monitoring')?.setAttribute('hidden','');
+  document.querySelector('#owner-report-recovery')?.setAttribute('hidden','');
+  document.querySelector('#owner-report-status')?.replaceChildren();
   document.querySelector('#owner-monitoring-status')?.replaceChildren();
   if(next)document.querySelector('#account-status')?.replaceChildren(document.createTextNode('Signed in. Loading your private workspace…'));
   else try{sessionStorage.removeItem('auction-owner-preview');}catch(_){}
@@ -396,6 +400,7 @@ async function loadAccount(){
  }
  document.querySelector('#owner-sandbox-billing')?.toggleAttribute('hidden',!remote.is_owner||!!preview);
  document.querySelector('#owner-monitoring')?.toggleAttribute('hidden',!remote.is_owner||!!preview);
+ document.querySelector('#owner-report-recovery')?.toggleAttribute('hidden',!remote.is_owner||!!preview);
  const name=config?.plans?.[preview?.plan||remote.plan]?.name||preview?.plan||remote.plan;
  document.querySelector('#account-status')?.replaceChildren(document.createTextNode(preview?'Read-only preview · '+name+'. Your account and purchases are unchanged.':'Signed in · '+name+' account. Your workspace is private to your account.'));
  renderAuth();
@@ -430,6 +435,43 @@ async function loadMonitoringStatus(){
 }
 document.querySelector('#owner-monitoring')?.addEventListener('toggle',e=>{if(e.target.open)loadMonitoringStatus();});
 document.querySelector('#owner-monitoring-refresh')?.addEventListener('click',loadMonitoringStatus);
+async function loadReportJobs(){
+ const box=document.querySelector('#owner-report-recovery'),output=document.querySelector('#owner-report-status');
+ if(!box||box.hidden||!output||preview||!checkoutAccount?.is_owner)return;
+ const epoch=authEpoch;output.textContent='Checking report jobs…';
+ try{
+  const result=await api('/api/admin/report-usage');
+  if(epoch!==authEpoch||!session||preview)return;
+  output.replaceChildren();
+  const jobs=result.attempts.filter(r=>r.status==='processing'||r.status==='interrupted');
+  if(!jobs.length){output.textContent='No processing or interrupted attempts in the latest 200 records.';return;}
+  for(const job of jobs){
+   const entry=document.createElement('div'),label=document.createElement('p');
+   label.style.overflowWrap='anywhere';label.textContent=`Report ${job.review_id}, attempt ${job.attempt}: ${job.status}.`;
+   entry.append(label);
+   if(job.recovery_available){
+    const confirmation=document.createElement('label'),check=document.createElement('input'),button=document.createElement('button');
+    check.type='checkbox';confirmation.append(check,document.createTextNode(' I checked provider activity and confirmed the previous worker has stopped.'));
+    button.type='button';button.className='button outline';button.textContent='Allow customer retry';button.disabled=true;
+    check.addEventListener('change',()=>{button.disabled=!check.checked;});
+    button.addEventListener('click',async()=>{
+     if(epoch!==authEpoch||preview||!checkoutAccount?.is_owner||!check.checked)return;
+     button.disabled=true;
+     try{
+      const body=new FormData();body.set('attempt',job.attempt);body.set('worker_stopped','true');
+      await window.AuctionWorkspace.upload('/api/admin/reviews/'+encodeURIComponent(job.review_id)+'/recover',body);
+      if(epoch===authEpoch&&session&&!preview)await loadReportJobs();
+     }catch(error){if(epoch===authEpoch&&session&&!preview){label.textContent=error.message;button.disabled=!check.checked;}}
+    });
+    entry.append(confirmation,button);
+   }
+   if(job.status==='interrupted')entry.append(document.createTextNode('Reconcile any provider usage before closing this attempt.'));
+   output.append(entry);
+  }
+ }catch(_){if(epoch===authEpoch&&session&&!preview)output.textContent='Report status could not be loaded. Try again.';}
+}
+document.querySelector('#owner-report-recovery')?.addEventListener('toggle',e=>{if(e.target.open)loadReportJobs();});
+document.querySelector('#owner-report-refresh')?.addEventListener('click',loadReportJobs);
 document.querySelector('#owner-preview')?.addEventListener('change',async e=>{
  try{
   await initialized;

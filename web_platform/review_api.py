@@ -7,6 +7,7 @@ from acquisition_report import render
 from .workspace import initialise,full_review_allowed
 from .database import begin_write
 from .report_intake import prepare, scope, confirm_identity, UPDATE_POLICY
+from .report_jobs import current as current_attempt, recover, STALE_SECONDS
 
 def install(app,site,user):
     def owned(a,uid,rid,connection=None):
@@ -20,12 +21,20 @@ def install(app,site,user):
         return r,report
     def unlocked(a,uid,rid,pid):
         return full_review_allowed(a,uid,rid,pid)
-    def payload(rid,report,full=False):
+    def payload(rid,report,full=False,job=None):
+        report=dict(report)
+        if job and job['status'] in ('processing','failed'):
+            report['analysis_state']=job['status']
         state=report.get('analysis_state','complete')
         projection={k:v for k,v in report.items() if k!='_intake'} if full and state=='complete' else snapshot(report)
         result={'id':rid,'access':'full' if full and state=='complete' else 'snapshot',
-                'analysis_state':state,'processing_allowed':bool(full and state in ('awaiting_payment','failed')),
+                'analysis_state':state,'purchase_verified':bool(full),
+                'processing_allowed':bool(full and state in ('awaiting_payment','failed')),
                 'report':projection,'html':render(projection)}
+        if job:
+            result['processing_overdue']=bool(state=='processing' and job['updated_at']<=int(time.time())-STALE_SECONDS)
+            result['attempts_remaining']=max(0,3-job['attempts'])
+            if job['attempts']>=3:result['processing_allowed']=False
         intake=report.get('_intake')
         if intake:
             result['scope']=scope(intake)
@@ -36,6 +45,10 @@ def install(app,site,user):
                 report.get('completed_at',0)>=int(time.time())-30*86400)
         if state=='requires_review':
             result['html']='<p class="research-scope">This analysis needs a source-quality review before delivery. Your purchase is retained; uploading again will not restart chargeable processing.</p>'+result['html']
+        elif state=='processing':
+            result['html']='<p class="research-scope">Investigation is in progress. Your purchase is retained. Do not submit another payment or upload.</p>'+result['html']
+        elif state=='failed':
+            result['html']='<p class="research-scope">The investigation did not finish. Your purchase is retained. Previous processing may have incurred costs; this snapshot is not a completed report.</p>'+result['html']
         elif state!='complete':
             result['html']=('<p class="research-scope">Listing snapshot only. '
                             'No legal-pack extraction, OCR or paid analysis has run.</p>')+result['html']
@@ -194,10 +207,17 @@ def install(app,site,user):
             if not needs_review:report['completed_at']=int(time.time())
             outcome=report['analysis_state']
             with a.db() as db:
+                begin_write(db)
+                if not current_attempt(db,rid,attempt):
+                    raise HTTPException(409,'This processing attempt was recovered; its late result has not replaced your report')
                 db.execute('UPDATE reviews SET report_json=? WHERE id=? AND user_id=?',(json.dumps(report),rid,uid))
                 db.execute('UPDATE review_processing SET status=?,updated_at=? WHERE review_id=?',(report['analysis_state'],int(time.time()),rid))
         except Exception:
-            with a.db() as db:db.execute("UPDATE review_processing SET status='failed',updated_at=? WHERE review_id=?",(int(time.time()),rid))
+            outcome='failed'
+            with a.db() as db:
+                begin_write(db)
+                if current_attempt(db,rid,attempt):
+                    db.execute("UPDATE review_processing SET status='failed',updated_at=? WHERE review_id=?",(int(time.time()),rid))
             raise HTTPException(503,'Analysis did not finish. Your purchase is retained; retry or contact support.')
         finally:
             metrics={'elapsed_seconds':round(time.monotonic()-started,3),
@@ -209,6 +229,12 @@ def install(app,site,user):
             from .report_costs import estimate_cost
             metrics['cost']=estimate_cost(metrics['provider_usage'] or {},metrics)
             with a.db() as db:
+                begin_write(db)
+                previous=db.execute('SELECT status,metrics_json FROM report_generation_attempts WHERE review_id=? AND attempt=?',(rid,attempt)).fetchone()
+                if previous and previous['status']=='interrupted':
+                    metrics['recovery']=json.loads(previous['metrics_json'] or '{}').get('recovery',{})
+                    metrics['late_result_status']=outcome
+                    outcome='interrupted'
                 db.execute('UPDATE report_generation_attempts SET finished_at=?,status=?,metrics_json=? WHERE review_id=? AND attempt=?',
                            (int(time.time()),outcome,json.dumps(metrics),rid,attempt))
             if provider is not None:provider.close()
@@ -218,7 +244,8 @@ def install(app,site,user):
     def review(rid:str,authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization);r,report=owned(a,uid,rid)
         full=unlocked(a,uid,rid,r['property_id'])
-        return payload(rid,report,full)
+        with a.db() as db:job=db.execute('SELECT * FROM review_processing WHERE review_id=?',(rid,)).fetchone()
+        return payload(rid,report,full,job)
     @app.get('/api/account/reviews/{rid}/download')
     def download(rid:str,format:str='html',authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization);r,report=owned(a,uid,rid)
@@ -258,10 +285,21 @@ def install(app,site,user):
         uid,a,_=user(authorization);require_owner(uid)
         with a.db() as db:
             rows=[dict(r) for r in db.execute('SELECT review_id,attempt,started_at,finished_at,status,upload_bytes,upload_files,metrics_json FROM report_generation_attempts ORDER BY started_at DESC LIMIT 200')]
-        for row in rows:row['metrics']=json.loads(row.pop('metrics_json') or '{}')
+        with a.db() as db:
+            jobs={r['review_id']:dict(r) for r in db.execute('SELECT * FROM review_processing')}
+        for row in rows:
+            row['metrics']=json.loads(row.pop('metrics_json') or '{}')
+            job=jobs.get(row['review_id'],{})
+            row['recovery_available']=bool(job.get('status')=='processing' and job.get('attempts')==row['attempt']
+                and row['attempt']<3 and job.get('updated_at',int(time.time()))<=int(time.time())-STALE_SECONDS)
         from .plans import CATALOGUE
         return {'attempts':rows,'currency':'GBP','full_credit_use_revenue_per_report':{
                     tier:CATALOGUE[tier]['monthly_gbp']/CATALOGUE[tier]['included_reports']
                     for tier in ('investor','professional')},
                 'revenue_basis':'Published subscription price divided by included reports; before tax, fees and other membership costs.',
                 'margin_status':'Unverified until representative paid-provider runs, payment fees and processing costs are reconciled.'}
+
+    @app.post('/api/admin/reviews/{rid}/recover')
+    def recover_review(rid:str,attempt:int=Form(),worker_stopped:bool=Form(default=False),authorization:str|None=Header(default=None)):
+        uid,a,_=user(authorization)
+        return recover(a,rid,attempt,uid,worker_stopped=worker_stopped)

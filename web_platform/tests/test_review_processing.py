@@ -161,3 +161,89 @@ def test_requires_review_does_not_deliver_full_report_html(site,tmp_path,monkeyp
         r=c.get(f'/api/account/reviews/{rid}',headers={'Authorization':'alice'})
         assert r.json()['access']=='snapshot' and 'evidence_review' not in r.json()['report']
         assert c.get(f'/api/account/reviews/{rid}/download?format=pdf',headers={'Authorization':'alice'}).status_code==403
+
+
+def stalled(a,rid,attempt=1):
+    old=int(time.time())-7200
+    with a.db() as db:
+        db.execute("UPDATE review_processing SET status='processing',attempts=?,updated_at=? WHERE review_id=?",(attempt,old,rid))
+        db.execute("INSERT INTO report_generation_attempts(review_id,attempt,user_id,started_at,status,upload_bytes,upload_files) VALUES (?,?,?,?,'processing',4,1)",(rid,attempt,'alice',old))
+
+
+def test_live_processing_state_and_retry_limit_are_customer_visible(site,tmp_path,monkeypatch):
+    a,app,pid=setup(site,tmp_path,monkeypatch)
+    with TestClient(app) as c:
+        rid=create_confirmed(c,pid);pay(a,rid);stalled(a,rid)
+        result=c.get(f'/api/account/reviews/{rid}',headers={'Authorization':'alice'}).json()
+        assert result['analysis_state']=='processing' and result['processing_overdue']
+        assert result['purchase_verified'] and not result['processing_allowed']
+        assert 'No legal-pack extraction' not in result['html']
+        assert c.get(f'/api/account/reviews/{rid}',headers={'Authorization':'bob'}).status_code==404
+        with a.db() as db:db.execute("UPDATE review_processing SET status='failed',attempts=3 WHERE review_id=?",(rid,))
+        result=c.get(f'/api/account/reviews/{rid}',headers={'Authorization':'alice'}).json()
+        assert result['analysis_state']=='failed' and result['attempts_remaining']==0
+        assert result['purchase_verified'] and not result['processing_allowed']
+
+
+def test_owner_recovery_requires_stopped_worker_and_retains_entitlement(site,tmp_path,monkeypatch):
+    a,app,pid=setup(site,tmp_path,monkeypatch);monkeypatch.setenv('ADMIN_ACCOUNT_IDS','owner')
+    with TestClient(app) as c:
+        rid=create_confirmed(c,pid);pay(a,rid);stalled(a,rid)
+        url=f'/api/admin/reviews/{rid}/recover';data={'attempt':1,'worker_stopped':'true'}
+        assert c.post(url,data=data,headers={'Authorization':'alice'}).status_code==403
+        assert c.post(url,data={'attempt':1},headers={'Authorization':'owner'}).status_code==409
+        assert c.post(url,data={'attempt':2,'worker_stopped':'true'},headers={'Authorization':'owner'}).status_code==409
+        assert c.post(url,data=data,headers={'Authorization':'owner'}).status_code==200
+        assert c.post(url,data=data,headers={'Authorization':'owner'}).status_code==409
+        result=c.get(f'/api/account/reviews/{rid}',headers={'Authorization':'alice'}).json()
+        assert result['processing_allowed'] and result['attempts_remaining']==2
+        with a.db() as db:
+            assert db.execute('SELECT count(*) FROM purchases').fetchone()[0]==1
+            assert db.execute('SELECT count(*) FROM report_credit_redemptions').fetchone()[0]==0
+            record=dict(db.execute('SELECT * FROM report_generation_attempts').fetchone())
+        assert record['status']=='interrupted'
+        assert json.loads(record['metrics_json'])['recovery']['usage_reconciliation_required']
+
+
+def test_recovery_rejects_recent_exhausted_and_completed_jobs(site,tmp_path,monkeypatch):
+    a,app,pid=setup(site,tmp_path,monkeypatch);monkeypatch.setenv('ADMIN_ACCOUNT_IDS','owner')
+    with TestClient(app) as c:
+        rid=create_confirmed(c,pid);pay(a,rid);stalled(a,rid)
+        url=f'/api/admin/reviews/{rid}/recover';kw={'data':{'attempt':1,'worker_stopped':'true'},'headers':{'Authorization':'owner'}}
+        with a.db() as db:db.execute('UPDATE review_processing SET updated_at=? WHERE review_id=?',(int(time.time()),rid))
+        assert c.post(url,**kw).status_code==409
+        with a.db() as db:db.execute('UPDATE review_processing SET attempts=3,updated_at=1 WHERE review_id=?',(rid,))
+        kw['data']['attempt']=3
+        assert c.post(url,**kw).status_code==409
+        with a.db() as db:
+            db.execute('UPDATE review_processing SET attempts=1 WHERE review_id=?',(rid,))
+            db.execute('UPDATE reviews SET report_json=? WHERE id=?',(json.dumps({'analysis_state':'complete'}),rid))
+        kw['data']['attempt']=1
+        assert c.post(url,**kw).status_code==409
+
+
+@pytest.mark.parametrize('late_failure',[False,True])
+def test_recovered_attempt_cannot_overwrite_new_attempt(site,tmp_path,monkeypatch,late_failure):
+    a,app,pid=setup(site,tmp_path,monkeypatch);monkeypatch.setenv('ADMIN_ACCOUNT_IDS','owner')
+    monkeypatch.setattr('acquisition_quality.acceptance_issues',lambda report: [])
+    from web_platform.report_jobs import recover
+    from acquisition_intelligence import build_acquisition
+    from web_platform.tests.test_acquisition_workspace import model
+    with TestClient(app) as c:
+        rid=create_confirmed(c,pid);pay(a,rid)
+        def process(*args,**kwargs):
+            with a.db() as db:db.execute('UPDATE review_processing SET updated_at=1 WHERE review_id=?',(rid,))
+            recover(a,rid,1,'owner',worker_stopped=True)
+            # A newer request has claimed processing before the old one returns.
+            with a.db() as db:db.execute("UPDATE review_processing SET status='processing',attempts=2 WHERE review_id=?",(rid,))
+            if late_failure:raise RuntimeError('late provider failure')
+            return {'acquisition':build_acquisition(model(),{'guide':200000,'rent':20000})}
+        monkeypatch.setattr('legal_pack_service.analyse_uploaded_pack',process)
+        assert c.post(f'/api/account/reviews/{rid}/analyse',headers={'Authorization':'alice'}).status_code==503
+        with a.db() as db:
+            job=dict(db.execute('SELECT * FROM review_processing WHERE review_id=?',(rid,)).fetchone())
+            report=json.loads(db.execute('SELECT report_json FROM reviews WHERE id=?',(rid,)).fetchone()[0])
+            ledger=dict(db.execute('SELECT * FROM report_generation_attempts WHERE review_id=? AND attempt=1',(rid,)).fetchone())
+        assert job['status']=='processing' and job['attempts']==2
+        assert report['analysis_state']=='failed'
+        assert ledger['status']=='interrupted' and 'recovery' in json.loads(ledger['metrics_json'])

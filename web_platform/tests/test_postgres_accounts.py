@@ -69,6 +69,25 @@ def test_postgres_parallel_processing_claim_is_exactly_once(pg_accounts):
     with a.db() as db:assert db.execute('SELECT attempts FROM review_processing').fetchone()[0]==1
 
 
+def test_postgres_interrupted_report_recovery_is_exactly_once(pg_accounts,monkeypatch):
+    from web_platform.report_jobs import recover,current
+    a=pg_accounts;monkeypatch.setenv('ADMIN_ACCOUNT_IDS','owner')
+    with a.db() as db:
+        db.execute('INSERT INTO reviews VALUES (?,?,?,?,?)',('recover','alice','p','{"analysis_state":"awaiting_payment"}',1))
+        db.execute('INSERT INTO review_processing VALUES (?,?,?,?)',('recover','processing',1,1))
+        db.execute('INSERT INTO report_generation_attempts(review_id,attempt,user_id,started_at,status,upload_bytes,upload_files) VALUES (?,?,?,?,?,?,?)',('recover',1,'alice',1,'processing',4,1))
+    def attempt(_):
+        try:recover(a,'recover',1,'owner',worker_stopped=True);return True
+        except HTTPException as error:
+            assert error.status_code==409;return False
+    with ThreadPoolExecutor(max_workers=4) as pool:assert sum(pool.map(attempt,range(4)))==1
+    with a.db() as db:
+        assert not current(db,'recover',1)
+        assert db.execute("SELECT status FROM report_generation_attempts WHERE review_id='recover'").fetchone()[0]=='interrupted'
+        assert db.execute('SELECT count(*) FROM report_credit_redemptions').fetchone()[0]==0
+        assert db.execute('SELECT count(*) FROM purchases').fetchone()[0]==0
+
+
 def test_postgres_owner_preview_and_customer_isolation(pg_accounts,site,monkeypatch):
     from web_platform import app as module
     a=pg_accounts
