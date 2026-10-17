@@ -22,6 +22,28 @@ Connells: https://www.connells.co.uk/services/modern-method-of-auction explicitl
 
 Loveitts evidence is in `loveitts-reconciliation-2026-10-17.md`. Hollis Morgan's site returned HTTP 429 during assessment; it was not bypassed, and stale search snippets were not used as current inventory. Other recorded gaps and shared Auction House feeds remain open. Withdrawn lots must remain findable with accurate availability labels.
 
+## Ongoing organic growth requirement — agreed 17 October 2026
+
+Customer acquisition has a **£0 paid-advertising budget**. Prioritise free organic discovery through Google, Bing, relevant AI search services and legitimate referrals, especially for UK commercial-property investors. This does not change the paid membership/report offering. No paid campaigns, paid backlink schemes or new growth subscriptions are authorised by this directive.
+
+### Launch acceptance within existing priorities 8 and 9
+
+Inspect and reuse the current collection, templates and publishing pipeline. Verify deployed search-friendly permanent URLs, meaningful titles/meta descriptions, canonical handling, XML sitemaps, appropriate accurate structured data, internal discovery links, crawl/index controls and mobile performance. Preserve existing URL equity; use redirects where a necessary URL change occurs.
+
+Every worthwhile property should retain a useful permanent public page after the auction, with dated evidence and accurate sold, unsold or withdrawn status. Distinguish historic records from currently available stock. Automatically expose qualifying new property, auctioneer and useful location pages through existing publishing, internal links and sitemaps. Avoid duplicate shared-feed pages, empty location combinations, thin repetitive pages and fabricated information. Private accounts, packs and purchased reports must remain protected; SEO never bypasses access controls.
+
+Establish/verify Google Search Console and Bing Webmaster Tools ownership, submit the canonical sitemap and record indexing/coverage evidence when access permits. Mark this as pending until verified; no search ranking or indexing outcome is promised. Include organic measurement for impressions, clicks, relevant query positions and privacy-respecting visitor/referral data using existing or free tools.
+
+### After essential launch functionality
+
+Build on original, attributable historical auction records, previous marketing appearances, price changes, tenant evidence and useful investment analysis. Reuse the auction calendar and existing calculators before expanding free resources, including the already-scoped commercial buyer checklist, market statistics and focused guides. New location/content pages require genuine distinct value.
+
+Make public original evidence understandable through readable HTML, clear entities, source attribution and dates for conventional and AI search discovery. Respect crawler controls and customer privacy; do not expose private report content.
+
+Assess legitimate free promotion through relevant industry/resource directories, useful data citations, editorial contributions, professional communities and referral relationships. No automated spam or unsolicited outreach is authorised; sending messages still requires explicit authorisation.
+
+This is an ongoing constraint on existing launch work, not a separate immediate workstream. Broader content development, historical expansion and promotion remain behind report quality/cost, accounts, payments, alerts and recovery acceptance. Recheck current official search-engine guidance when implementing; this roadmap records requirements, not a completed SEO audit.
+
 ## Deferred enhancements
 
 The free commercial buyer checklist is scoped in `commercial-buyer-checklist-scope.md`; no new public feature has been built. Historical expansion, deeper marketing/tenant history, wider comparisons, sponsored listings and professional-service activation remain behind launch acceptance.
