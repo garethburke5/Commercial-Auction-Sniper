@@ -101,4 +101,8 @@ DO $$ BEGIN
   REVOKE ALL ON auction_private.alert_recipients FROM PUBLIC,anon,authenticated,auction_api;
   GRANT SELECT ON auction_private.alert_recipients TO auction_api;
  END IF;
+ IF to_regclass('auction_private.active_account_sessions') IS NOT NULL THEN
+  REVOKE ALL ON auction_private.active_account_sessions FROM PUBLIC,anon,authenticated,auction_api;
+  GRANT SELECT ON auction_private.active_account_sessions TO auction_api;
+ END IF;
 END $$;

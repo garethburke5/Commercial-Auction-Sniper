@@ -28,16 +28,73 @@ def pg_accounts():
     with psycopg.connect(url,autocommit=True) as db:
         db.execute('CREATE SCHEMA IF NOT EXISTS auth')
         db.execute('CREATE TABLE IF NOT EXISTS auth.users(id uuid PRIMARY KEY,email text,email_confirmed_at timestamptz,is_anonymous boolean,deleted_at timestamptz,banned_until timestamptz)')
+        db.execute('CREATE TABLE IF NOT EXISTS auth.sessions(id uuid PRIMARY KEY,user_id uuid NOT NULL,not_after timestamptz)')
         db.execute("DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='anon') THEN CREATE ROLE anon; END IF; IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='authenticated') THEN CREATE ROLE authenticated; END IF; END $$")
         with db.transaction():db.execute((Path(__file__).parents[1]/'private_schema.sql').read_text())
         with db.transaction():db.execute((Path(__file__).parents[1]/'alert_recipients.sql').read_text())
-        db.execute('TRUNCATE auth.users')
+        with db.transaction():db.execute((Path(__file__).parents[1]/'account_sessions.sql').read_text())
+        db.execute('TRUNCATE auth.users,auth.sessions')
         db.execute("ALTER ROLE auction_api LOGIN PASSWORD 'disposable_ci_only'")
         names=db.execute("SELECT tablename FROM pg_tables WHERE schemaname='auction_private' AND tablename!='schema_version'").fetchall()
         from psycopg import sql
         db.execute(sql.SQL('TRUNCATE {}').format(sql.SQL(',').join(sql.Identifier('auction_private',r[0]) for r in names)))
     dsn=url.replace(parsed.username+':'+parsed.password+'@','auction_api:disposable_ci_only@')
     return Accounts(database_url=dsn)
+
+
+def test_postgres_revoked_sessions_fail_before_private_account_access(pg_accounts,site,monkeypatch):
+    import hashlib,jwt,psycopg
+    from uuid import uuid4
+    from types import SimpleNamespace
+    from cryptography.hazmat.primitives.asymmetric import rsa
+    from web_platform import app as module,accounts as identity
+    a=pg_accounts;subject=str(uuid4());sid=str(uuid4());other=str(uuid4())
+    issuer='https://session-test.example/auth/v1'
+    key=rsa.generate_private_key(public_exponent=65537,key_size=2048)
+    claims={'sub':subject,'session_id':sid,'iss':issuer,'aud':'authenticated',
+            'iat':int(time.time()),'exp':int(time.time())+300}
+    token=jwt.encode(claims,key,algorithm='RS256')
+    headers={'Authorization':'Bearer '+token}
+    monkeypatch.setenv('AUTH_ISSUER',issuer)
+    monkeypatch.setenv('ACCOUNT_DATABASE_URL',a.database_url)
+    monkeypatch.setattr(identity,'key_client',lambda _:SimpleNamespace(
+        get_signing_key_from_jwt=lambda _:SimpleNamespace(key=key.public_key())))
+    monkeypatch.setattr(module,'private_services',lambda:(a,None))
+    admin_url=os.environ['TEST_ACCOUNT_DATABASE_URL']
+    with psycopg.connect(admin_url) as db:
+        db.execute('INSERT INTO auth.users VALUES (%s,%s,now(),false,NULL,NULL)',(subject,'session@example.test'))
+        db.execute('INSERT INTO auth.sessions VALUES (%s,%s,NULL)',(sid,subject))
+        # A repeated base install must not grant writes on either Auth view.
+        db.execute((Path(__file__).parents[1]/'private_schema.sql').read_text())
+        for role in ('anon','authenticated'):
+            assert not db.execute("SELECT has_table_privilege(%s,'auction_private.active_account_sessions','SELECT')",(role,)).fetchone()[0]
+        for table in ('auth.sessions','auth.users'):
+            assert not db.execute('SELECT has_table_privilege(%s,%s,%s)',('auction_api',table,'SELECT')).fetchone()[0]
+        for privilege in ('INSERT','UPDATE','DELETE'):
+            assert not db.execute("SELECT has_table_privilege('auction_api','auction_private.active_account_sessions',%s)",(privilege,)).fetchone()[0]
+    with TestClient(module.create_app(site)) as client:
+        assert client.get('/api/account/identity',headers=headers).status_code==200
+        pid=site.catalogue.properties[0]['id']
+        assert client.put('/api/account/saved/'+pid,headers=headers).status_code==200
+        for update in ["UPDATE auth.users SET banned_until=now()+interval '1 hour'",
+                       "UPDATE auth.users SET banned_until=NULL,deleted_at=now()",
+                       "UPDATE auth.users SET deleted_at=NULL,is_anonymous=true",
+                       "UPDATE auth.users SET is_anonymous=false,email_confirmed_at=NULL",
+                       "UPDATE auth.users SET email_confirmed_at=now(); UPDATE auth.sessions SET not_after=now()-interval '1 second'",
+                       "UPDATE auth.sessions SET not_after=NULL,user_id='"+other+"'",
+                       "DELETE FROM auth.sessions"]:
+            with psycopg.connect(admin_url) as db:db.execute(update)
+            assert client.get('/api/account/identity',headers=headers).status_code==401
+            assert client.get('/api/account',headers=headers).status_code==401
+            assert client.get('/api/account/reviews/unknown/download',headers=headers).status_code==401
+        # A new session grants the same owner access without restoring the old JWT.
+        new_sid=str(uuid4())
+        with psycopg.connect(admin_url) as db:db.execute('INSERT INTO auth.sessions VALUES (%s,%s,NULL)',(new_sid,subject))
+        fresh={'Authorization':'Bearer '+jwt.encode(dict(claims,session_id=new_sid),key,algorithm='RS256')}
+        returned=client.get('/api/account',headers=fresh)
+        assert returned.status_code==200 and returned.json()['saved_properties']==[pid]
+        assert client.get('/api/account',headers=headers).status_code==401
+    assert identity.authenticated_user(fresh['Authorization'])==hashlib.sha256((issuer+'|'+subject).encode()).hexdigest()
 
 
 def test_postgres_daily_digest_claim_and_recipient_view(pg_accounts,monkeypatch):
