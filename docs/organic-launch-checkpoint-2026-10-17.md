@@ -27,3 +27,39 @@ Independent post-deploy requests returned HTTP 200 for `/properties/page/2/`, wi
 - AI discovery should build on readable, sourced, dated public information and normal crawl/index quality. No private reports are exposed and no special AI visibility outcome is promised.
 
 Official guidance consulted: https://developers.google.com/search/docs/crawling-indexing/block-indexing ; https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap ; https://developers.google.com/search/docs/appearance/ai-features
+
+
+## Owner traffic and SEO reporting — requested 17 October 2026
+
+Add site statistics to existing launch priorities 8/9 and the £0 organic acquisition requirement. Reuse free provider dashboards first; do not build a new analytics service or buy an SEO subscription. Owner access should link to the verified dashboards initially. A consolidated owner-only summary can follow once access and data are proven; missing data must be labelled unavailable, not zero.
+
+| View | Metrics | Initial free source |
+| --- | --- | --- |
+| Audience and content | Visits, page views, popular pages, referring sites, countries, desktop/mobile, page performance | Cloudflare Web Analytics |
+| Google discovery | Impressions, search clicks, click-through rate, average search position, queries, landing pages, indexing/sitemaps | Google Search Console |
+| Bing discovery | Search impressions/clicks, queries, indexed/crawled URLs and site issues | Bing Webmaster Tools |
+| Links | Discovered inbound links, referring domains, linked pages and internal-link information where supplied | Google Links report and Bing Backlinks |
+| Commercial outcomes | Aggregate verified registrations, subscriptions and completed report purchases | Existing private account/Stripe records after launch acceptance |
+
+Definitions matter: Cloudflare visits are navigation/referral-based visits, not a guaranteed deduplicated count of people. Hosting request totals include bots and assets and must not be labelled visitors. Use available bot exclusions and identify internal testing. Search impressions are appearances in search results, not site visits. Backlink datasets are provider-discovered samples, may lag, and must not be added together as a unique total. Rankings and traffic are not guaranteed.
+
+Inspection on 17 October: repository search found no analytics integration; the checked public homepage HTML response contained no known Cloudflare/Google/Clarity/Plausible tracking script and no Google/Bing verification meta tag. This does not prove that Cloudflare edge analytics are absent or that DNS-based webmaster verification is missing. No private provider dashboard or historical traffic count has been verified. Nothing was enabled by this inspection.
+
+Activation acceptance:
+1. Inspect existing Cloudflare Web Analytics hostname settings and verify collection for the intended UK audience; do not assume automatic injection works everywhere. Avoid duplicate beacons.
+2. Verify owner access to Google/Bing, submit the existing canonical sitemap and check returned reporting data.
+3. Keep analytics out of private account/authentication/report flows, exclude sensitive URLs and never send emails, tokens, document text or property notes. Check the actual beacon payload and update the privacy text to match the enabled implementation.
+4. Verify a controlled public visit, source/page/device attribution and delivery of metrics; record the start date and reporting delays. Show 7-/28-day trends only once data exists.
+5. Keep dashboard/API credentials server-side. Any eventual owner summary must use the existing server-verified owner permission; hiding a navigation item alone is insufficient.
+6. Use existing provider exports/APIs where supported. Do not promise automatic Google backlink ingestion: the Links report export and the Search Console performance API are different capabilities.
+
+This is scoped and pending activation, not a claim that analytics or an owner statistics page is live. Existing launch fixes retain priority.
+
+Official references checked:
+- https://developers.cloudflare.com/web-analytics/about/
+- https://developers.cloudflare.com/web-analytics/get-started/
+- https://developers.cloudflare.com/web-analytics/data-metrics/high-level-metrics/
+- https://developers.cloudflare.com/web-analytics/data-metrics/dimensions/
+- https://support.google.com/webmasters/answer/10268906
+- https://support.google.com/webmasters/answer/9049606
+- https://www.bing.com/webmasters/help/backlinks-c3a334e8
