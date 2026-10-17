@@ -24,6 +24,9 @@ def _postcode(value):
 
 def _same_property(row, record):
     """Require exact postcode AND street-number/name, not a fuzzy name match."""
+    tenure = str(row.get("tenure") or "").strip().lower()
+    if tenure and "freehold" not in tenure:
+        return False
     address = str(row.get("address") or "")
     if _postcode(address) != _postcode(record.get("address")):
         return False
