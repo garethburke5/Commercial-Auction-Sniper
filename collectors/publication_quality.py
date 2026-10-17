@@ -20,6 +20,8 @@ def asset_text(description):
     text = re.sub(r'^Joint Agents?\s*:\s*.*?(?=\s(?:A|An|The|This)\s|[.;]|$)', ' ', text)
     text = re.split(r'\b(?:Our Nearest Office|Important notices?|For more property information|Popular Searches)\b|\b(?:Viewings?|To view)\s*:', text, flags=re.I)[0]
     text = re.sub(r'\b(?:It is a (?:small )?village|The village)\b[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
+    # A named neighbouring hotel is not part of the land being sold.
+    text = re.sub(r'\b(?:adjoining|adjoins|adjacent to)\s+[^.;]{0,90}\bhotel\b', ' ', text, flags=re.I)
     text = re.sub(r'\b(?:Conveniently located for|(?:well )?(?:serviced|served) by|(?:a (?:good |further )?range of )?amenities (?:including|such as)|adjoins the)\b[^.;]*(?:[.;]|$)',
                   ' ',text,flags=re.I)
     # Local amenities are not part of the lot, even without a Location heading.
@@ -45,6 +47,14 @@ def commercial_decision(item):
     """Reject residential assets; require particulars to prove mixed use."""
     asset = asset_text(item.get('description'))
     kind = str(item.get('property_type') or '')
+    if (re.search(r'\bpart[ -]completed development\b', asset, re.I)
+        and re.search(r'\bconversion into\s+(?:\w+|\d+)\s+(?:terraced\s+)?(?:dwellings|houses)\b', asset, re.I)
+        and not MIXED.search(asset)):
+        return False
+    if (re.search(r'\b\d+[ -]bedroom home\b', asset, re.I)
+        and re.search(r'\bscope to re[ -]instate a care home\b', asset, re.I)
+        and not MIXED.search(asset)):
+        return False
     # The current opportunity can be residential despite a former commercial name.
     if (re.search(r'former public house conversion',asset,re.I)
         and re.search(r'(?:bedroom|bed)[ -](?:home|flat)|bedroom home|terraced property',asset,re.I)

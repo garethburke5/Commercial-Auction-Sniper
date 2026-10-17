@@ -12,6 +12,25 @@ from run_collectors_resilient import _finalize_published_snapshot
 
 
 class PublicationQualityContractTests(unittest.TestCase):
+    def test_recent_barnard_result_mentions_do_not_turn_housing_or_adjacent_land_into_commercial(self):
+        from collectors.publication_quality import publication_exclusion
+        base={'source':'Barnard Marcus','address':'Example property','property_type':'Commercial'}
+        excluded=[
+            'Freehold parcel of land. Adjoining Example Park Hotel. Potential subject to consent. No established commercial use.',
+            'Part completed development. The former pub has permission for conversion into three terraced dwellings.',
+            '7 bedroom home with a cottage. There is scope to re-instate a care home subject to consent.',
+        ]
+        for description in excluded:
+            with self.subTest(description=description):
+                self.assertIsNotNone(publication_exclusion(base|{'description':description}))
+        for description in [
+            'Freehold mixed-use premises with an existing ground floor retail shop and flat. Residential planning permission also exists.',
+            'Freehold hotel investment adjoining a country park.',
+            'Land currently let for cruise car parking. Residential planning permission also exists.',
+        ]:
+            with self.subTest(description=description):
+                self.assertIsNone(publication_exclusion(base|{'description':description}))
+
     def test_runner_and_finalizers_measure_the_published_active_rows(self):
         current = Lot("Example", "https://example.test/lot/1", "1 High Street, EX1 1AA",
                       auction_date="2099-10-01", image_url="https://example.test/front.jpg",
