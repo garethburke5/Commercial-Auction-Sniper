@@ -14,7 +14,9 @@ The £0 paid-advertising requirement is recorded in the existing launch roadmap.
 
 Commit `1053ec716a83dd527a4794c7ffc697c8d7db26c9` gives paginated catalogue pages distinct page-number titles/descriptions while retaining their self-canonical URLs. Static export and ASGI now share the robots policy. The public sign-in shell is crawlable so its existing noindex tag can be read; private API routes remain disallowed and authenticated.
 
-21 focused platform/export tests passed locally; two SQLite-environment-specific tests were excluded from that local run. Hosted checks install the required dependencies. Deployment completion and independent post-deploy requests must still be recorded.
+21 focused platform/export tests passed locally; two SQLite-environment-specific tests were excluded from that local run. Hosted validation for the SEO release passed 329 platform tests (12 skipped), 69 PostgreSQL tests and the browser workflow. Render deployed `1053ec716a83dd527a4794c7ffc697c8d7db26c9` successfully at 20:29 UTC; an independent readiness request returned that exact release with live billing and paid-report approval disabled.
+
+Independent post-deploy requests returned HTTP 200 for `/properties/page/2/`, with the title `Auction properties — Page 2 | Auction Geek`, and `/account/`, with `noindex,follow`. The live robots file allows crawling of the public shell while disallowing `/api/`. These checks establish deployed changes, not search-engine indexing.
 
 ## Still outstanding
 

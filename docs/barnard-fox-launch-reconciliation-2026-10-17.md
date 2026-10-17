@@ -42,3 +42,7 @@ Fox's homepage labels lot 170 unsold, whereas the canonical availability feed do
 Discovery/availability correction commit: `33429ca43c30c6f5e200f52e850974efff086318`. Production collection run `39066080736` was still running when this note was written. The local source result is not a claim that refreshed lots have reached the live website. The existing workflow must finish collection, validation and public publication before that is accepted.
 
 First-party references: https://www.barnardmarcusauctions.co.uk/auctions/upcoming/ ; https://www.barnardmarcusauctions.co.uk/auctions/15-october-2026/ ; https://www.foxandsonsauctions.co.uk/
+
+## Hosted follow-up acceptance
+
+The classification follow-up `bdcb533412ef4c236400af3c398aae6dff8868d3` passed 852 hosted collector tests and 19 subtests. Run `39066831287` completed successfully and revalidated 971 published rows from the existing 19:52 UTC snapshot; the resulting data commit is `859368cdb6f11c726e682a14c169e84f1f5e4f52`. This is revalidation of existing data, not completion of the fresh collection. Production run `39066080736` remained in its collector step at the follow-up check. Render deployment of the classification/data follow-up was still in progress/queued, so those releases are not yet independently accepted on the live backend.
