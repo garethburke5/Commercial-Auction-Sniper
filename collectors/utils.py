@@ -260,8 +260,14 @@ def enrich_common_fields(lot, text):
 
     if lot.site_area_acres is None:
         vals=[]
-        for m in re.finditer(r"([\d.]+)\s*acres?\b",combined,re.I):
-            v=_money_number(m.group(1))
+        # Never read the denominator of "1/3 acre" as three acres.
+        for m in re.finditer(r"(?<![\d./-])(\d+(?:\.\d+)?(?:\s*/\s*\d+(?:\.\d+)?)?)\s*(?:of\s+(?:an?\s+)?)?acres?\b",combined,re.I):
+            parts=m.group(1).split('/')
+            v=float(parts[0])
+            if len(parts)==2:
+                denominator=float(parts[1])
+                if denominator==0: continue
+                v/=denominator
             if v and 0.001 <= v <= 100000: vals.append(v)
         if vals: lot.site_area_acres=max(vals)
 

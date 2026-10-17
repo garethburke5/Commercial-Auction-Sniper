@@ -55,6 +55,15 @@ class SharedEnrichmentTests(unittest.TestCase):
         self.assertTrue(lot.asset_management)
         self.assertTrue(lot.refurbishment)
 
+    def test_fractional_acres_are_not_inflated_to_the_denominator(self):
+        for text,value in [('Site 1/3 acre',1/3),('Site 1/3 of an acre',1/3),
+                           ('Site 1 / 2 acres',0.5),('Site 0.12 acres',0.12),('Site 3 acres',3)]:
+            with self.subTest(text=text):
+                self.assertAlmostEqual(enrich_common_fields(self.lot(),text).site_area_acres,value)
+        self.assertIsNone(enrich_common_fields(self.lot(),'Site 1/0 acres').site_area_acres)
+        lot=enrich_common_fields(self.lot(site_area_acres=0.25),'Site 1/3 acre')
+        self.assertEqual(lot.site_area_acres,0.25)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,6 +1,7 @@
+import json
 import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from urllib.parse import urljoin, urlparse
 
 import requests
@@ -26,7 +27,8 @@ TARGET_SIGNALS = re.compile(
     r"ground[- ]floor\s+(?:shop|retail|commercial)|shop(?:\s+unit)?|retail\s+(?:unit|investment|premises)|"
     r"office(?:s|\s+unit|\s+building|\s+investment)?|warehouse|industrial(?:\s+unit|\s+property)?|"
     r"workshop|public house|pub\b|restaurant\s+(?:premises|unit|investment)|takeaway|"
-    r"care home|hotel|sports? education facility|commercial freehold|freehold commercial|ground rent investment)\b",
+    r"care home|hotel|sports? education facility|commercial freehold|freehold commercial|ground rent investment|"
+    r"currently let for (?:cruise )?car parking)\b",
     re.I,
 )
 RESIDENTIAL_ONLY_SUMMARY = re.compile(
@@ -70,38 +72,105 @@ def _sitemap_urls():
     return urls
 
 
-def _upcoming_dates():
+def _advertised_dates():
+    """Upcoming auctions plus the latest result catalogue still linked by the site.
+
+    The upcoming page also advertises available lots from its latest auction.
+    Following just those links updates current outcomes without crawling the
+    previous-auctions archive or importing every historical sitemap entry.
+    """
     s = soup(UPCOMING, use_browser=False)
     dates = set()
+    recent = set()
+    today = date.today().isoformat()
     for a in s.find_all("a", href=True):
         href = urljoin(BASE, a.get("href") or "")
-        m = re.search(r"/auctions/(\d{1,2}-[a-z]+-20\d{2})/?$", urlparse(href).path, re.I)
+        parsed = urlparse(href)
+        if parsed.hostname != urlparse(BASE).hostname:
+            continue
+        m = re.fullmatch(r"/auctions/(\d{1,2}-[a-z]+-20\d{2})/?", parsed.path, re.I)
         if m:
             iso = _slug_date(m.group(1))
-            if iso and iso >= date.today().isoformat():
-                dates.add(iso)
+            if iso:
+                (dates if iso >= today else recent).add(iso)
     text = norm(s.get_text(" ", strip=True))
     for m in re.finditer(r"(\d{1,2})(?:st|nd|rd|th)?\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(20\d{2})", text, re.I):
         try:
             iso = datetime.strptime(f"{m.group(1)} {m.group(2)} {m.group(3)}", "%d %B %Y").date().isoformat()
-            if iso >= date.today().isoformat():
+            if iso >= today:
                 dates.add(iso)
         except ValueError:
             pass
+    if recent:
+        dates.add(max(recent))
     return dates
 
 
 def _discover():
-    future_dates = _upcoming_dates()
+    scope_dates = _advertised_dates()
     urls = set()
     for url in _sitemap_urls():
-        m = LOT_RE.search(urlparse(url).path)
-        if not m:
+        parsed = urlparse(url)
+        m = LOT_RE.fullmatch(parsed.path)
+        if not m or parsed.hostname != urlparse(BASE).hostname or parsed.scheme not in ('http', 'https'):
             continue
         iso = _slug_date(m.group(1))
-        if iso and iso in future_dates:
-            urls.add(url)
-    return urls, future_dates
+        if iso and iso in scope_dates:
+            urls.add(BASE + parsed.path.rstrip('/') + '/')
+    return urls, scope_dates
+
+
+def _available_urls(auction_day):
+    """Exact-lot availability from the public catalogue's own paginated feed.
+
+    A guide price alone does not prove an old lot is still for sale. Individual
+    positive statuses remain evidence when the source count includes omitted
+    cards, but that discrepancy must keep source reconciliation degraded.
+    """
+    slug = date.fromisoformat(auction_day).strftime('%d-%B-%Y').lower()
+    page = soup(BASE + '/auctions/' + slug + '/', use_browser=False)
+    node = page.select_one('[data-dc-lots-search-options]')
+    if node is None:
+        raise ValueError('Advertised result catalogue has no public lot feed')
+    options = json.loads(node['data-dc-lots-search-options'])
+    endpoint = urljoin(BASE, options['endpointUrl'])
+    parsed = urlparse(endpoint)
+    if parsed.scheme != 'https' or parsed.netloc != urlparse(BASE).netloc or parsed.path != '/umbraco/Api/SearchApi/Search':
+        raise ValueError('Unexpected public catalogue endpoint')
+    params = {f['name']: next(o['value'] for o in f['options'] if o.get('isDefault'))
+              for f in options['filters']}
+    lot_filter = next(f for f in options['filters'] if f['name'] == 'lots')
+    params['lots'] = next(o['value'] for o in lot_filter['options'] if o['label'].strip().lower() == 'available')
+    available, seen = set(), set()
+    total = pages = None
+    with requests.Session() as session:
+        session.headers.update({'User-Agent': 'Mozilla/5.0 AuctionSniper/1.0'})
+        for number in range(1, 101):
+            response = session.get(endpoint, params={**params, 'page': number}, timeout=25)
+            response.raise_for_status()
+            data = response.json()
+            pagination = data['pagination']
+            if total is None:
+                total, pages = pagination['totalCount'], pagination['pageCount']
+                if type(total) is not int or type(pages) is not int or not 0 <= total <= 10000 or not 0 <= pages <= 100:
+                    raise ValueError('Invalid catalogue pagination')
+            if pagination['totalCount'] != total or pagination['pageCount'] != pages or pagination['currentPage'] != number:
+                raise ValueError('Catalogue changed during availability reconciliation')
+            for item in data['items']:
+                lot_url = urlparse(item['url'])
+                match = LOT_RE.fullmatch(lot_url.path)
+                if (lot_url.scheme not in ('http', 'https') or lot_url.hostname != urlparse(BASE).hostname or not match
+                    or _slug_date(match.group(1)) != auction_day):
+                    raise ValueError('Availability row is outside this auction')
+                canonical = BASE + lot_url.path.rstrip('/') + '/'
+                if canonical in seen:
+                    raise ValueError('Duplicate paginated availability row')
+                seen.add(canonical)
+                if str(item.get('statusName') or '').strip().upper() in {'AVAILABLE', 'UNSOLD'}:
+                    available.add(canonical)
+            if number >= pages:
+                break
+    return available, {'reported_rows':total, 'observed_rows':len(seen), 'complete':len(seen)==total}
 
 
 def _sale_summary(text):
@@ -223,31 +292,53 @@ def _parse_detail(s, url):
 
 def collect():
     try:
-        targets, future_dates = _discover()
-        if future_dates and not targets:
-            return SourceResult(SOURCE, "FAILED", [], f"Barnard Marcus future auction(s) {sorted(future_dates)} are published but sitemap discovery found no lot detail pages.", discovered_count=0, scope_dates=tuple(sorted(future_dates)))
+        targets, scope_dates = _discover()
+        if scope_dates and not targets:
+            return SourceResult(SOURCE, "FAILED", [], f"Barnard Marcus advertised auction(s) {sorted(scope_dates)} are published but sitemap discovery found no lot detail pages.", discovered_count=0, scope_dates=tuple(sorted(scope_dates)))
         if not targets:
-            return SourceResult(SOURCE, "CATALOGUE PENDING", [], "No published future Barnard Marcus lot pages discovered.", discovered_count=0)
+            return SourceResult(SOURCE, "CATALOGUE PENDING", [], "No advertised Barnard Marcus lot pages discovered.", discovered_count=0)
         lots = []
         failures = 0
-        with ThreadPoolExecutor(max_workers=12) as ex:
+        available_urls = set()
+        availability_failures = 0
+        availability_coverage = {}
+        for auction_day in sorted(scope_dates):
+            if auction_day < date.today().isoformat():
+                try:
+                    urls, coverage = _available_urls(auction_day)
+                    available_urls.update(urls)
+                    availability_coverage[auction_day] = coverage
+                    if not coverage['complete']:
+                        availability_failures += 1
+                except Exception:
+                    availability_failures += 1
+        # Include a newly advertised available lot even if the sitemap lags.
+        targets.update(available_urls)
+        availability_checked_at = datetime.now(timezone.utc).isoformat()
+        with ThreadPoolExecutor(max_workers=6) as ex:
             futures = {ex.submit(_hydrate, url): url for url in targets}
             for future in as_completed(futures):
                 try:
                     lot = future.result()
                     if lot:
+                        if lot.url in available_urls and lot.status == 'CURRENT':
+                            lot.source_availability = 'AVAILABLE'
+                            lot.availability_checked_at = availability_checked_at
                         lots.append(lot)
                 except Exception:
                     failures += 1
         lots = list({x.url: x for x in lots}.values())
-        status = "LIVE" if lots and failures == 0 else "DEGRADED" if lots else "FAILED"
+        status = "LIVE" if lots and failures == 0 and availability_failures == 0 else "DEGRADED" if lots else "FAILED"
         return SourceResult(
             SOURCE, status, lots,
-            f"Barnard Marcus collector: {len(targets)} future lot pages inspected from the first-party sitemap; {len(lots)} explicit commercial/mixed-use lots published after sale-particular classification; {failures} detail failures.",
+            f"Barnard Marcus collector: {len(targets)} advertised upcoming/latest-result lot pages inspected; {len(lots)} explicit commercial/mixed-use lots published after sale-particular classification; {failures} detail failures; {availability_failures} availability catalogue failures.",
             discovered_count=len(targets), authoritative_snapshot=False,
-            scope_dates=tuple(sorted(future_dates)),
+            scope_dates=tuple(sorted(scope_dates)),
             reconciliation={'detail_pages_discovered':len(targets), 'detail_pages_inspected':len(targets)-failures,
                             'detail_failures':failures, 'commercial_lots':len(lots),
+                            'availability_catalogue_failures':availability_failures,
+                            'verified_available_urls':len(available_urls),
+                            'availability_coverage':availability_coverage,
                             'non_commercial_lots':len(targets)-failures-len(lots)},
         )
     except Exception as exc:

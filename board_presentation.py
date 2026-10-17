@@ -20,7 +20,7 @@ def searchable_catalogue_row(row, *, in_current_catalogue=True, today=None):
 
 def verified_post_auction_available(row, now=None):
     """A past auction date is not a sale result; require recent exact-lot evidence."""
-    if row.get('source') != 'Allsop Commercial' or catalogue_status(row):
+    if row.get('source') not in {'Allsop Commercial', 'Barnard Marcus'} or catalogue_status(row):
         return False
     if str(row.get('source_availability') or '').upper() not in {'AVAILABLE', 'UNSOLD', 'FOR SALE'}:
         return False
