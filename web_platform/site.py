@@ -16,6 +16,7 @@ from .board import index_row, SEARCH_INDEX_VERSION
 from .fees import load_fees, directory, fee_profile, estimate_fee
 from .particulars import structured_particulars
 from .enrichment import ordered_images
+from .owner_intelligence import OwnerRegistry
 from .glossary import GROUPS, SOURCES, REVIEWED
 from .workspace import observation
 from .plans import CATALOGUE as PLAN_CATALOGUE
@@ -64,6 +65,8 @@ class Site:
         self.fee_directory = directory(self.catalogue, self.fees)
         evidence_path = HERE/'property_evidence.json'
         self.evidence = json.loads(evidence_path.read_text())['properties'] if evidence_path.exists() else {}
+        self.owners = OwnerRegistry.from_file()
+        self.owner_rows = self.owners.index(self.catalogue.all_properties)
         self.logos = {'savills-auctions':'https://www.savills.co.uk/_images/savills-square.svg',
                       'allsop-commercial':'https://assets.allsop-cdn.co.uk/build/images/packages/platform/frontend/css/logo-2f36f1d436.svg'}
         for row in getattr(self.catalogue, 'all_properties', []):
@@ -136,6 +139,7 @@ class Site:
                 f"{row['source']} · {row.get('property_type') or 'Auction property'} · Guide {row['guide']}.",
                 row=row, history=context['history'], market=context, noindex=not row['indexable'],
                 particulars=structured_particulars(detail_row), gallery=gallery,
+                owner_insight=self.owners.context(row, self.owner_rows),
                 fee=estimate_fee(row,fee_profile(row['source_slug'],self.fees),evidence))
         yield '/auctioneers/', self.page('/auctioneers/','Auctioneers & buyer fees','sources',
             'Find your next auction. Understand the buyer fees before you bid.',auctioneers=self.fee_directory)
