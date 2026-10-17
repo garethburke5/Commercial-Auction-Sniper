@@ -1,4 +1,8 @@
-"""Cheffins timed/CPN catalogue adapter; no historical harvest or inferred results."""
+"""Cheffins timed/CPN catalogue adapter.
+
+Catalogue counts cover the timed feed only; the separate rostrum feed is not
+an authoritative replacement scope. Past results never imply availability.
+"""
 import re
 from datetime import date, datetime
 from urllib.parse import urljoin, urlsplit, urlunsplit

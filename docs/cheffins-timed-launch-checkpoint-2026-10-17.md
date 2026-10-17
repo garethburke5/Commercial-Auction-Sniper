@@ -45,3 +45,9 @@ Its dashboard session requires fresh authentication before investigating the
 GitHub deployment connection. Actual Watch/search email delivery is not verified.
 Live billing and paid-report launch remain closed pending the existing acceptance
 gates. This checkpoint does not approve report quality, payments or recovery.
+
+Publication follow-up: initial CI stopped before collection because the new
+website-rendering regression was in the collector-only test suite. That test
+now belongs to `web_platform/tests`; the archive-preservation collector test
+remains in `tests`. After separation, 843 collector tests plus 8 subtests pass,
+and the website withdrawn-catalogue presentation test passes separately.
