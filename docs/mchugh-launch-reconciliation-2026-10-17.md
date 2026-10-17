@@ -28,3 +28,11 @@ Twenty-five focused collector/withdrawal tests passed; the full suite passed 866
 GitHub publication run `39069165519` was queued behind an existing production scan at this checkpoint. The new code was live on Render at 21:04:23 UTC, but that alone does not refresh catalogue data. Do not mark these ten refreshed candidates as published until the collection, validation and public deployment finish.
 
 The wider source register remains open. Barnard Marcus's latest available-lot check now matches 135 advertised and 135 observed cards, although two detail failures remain. Under The Hammer still returns HTTP 403 from its existing feed and retains eligible last-known-good rows; its access restriction was not bypassed.
+
+## Hosted publication follow-up
+
+Run `39069165519` completed successfully. Snapshot commit `efcc005674b86706d1c2739d08c4ee23aca00dd9`, generated at 21:38:33 UTC, contains all ten current McHugh commercial/mixed-use rows. Its source health records 208 discovered, 208 inspected, zero detail failures and zero past-sale exclusions. This supersedes the queued collector status above. The public Worker build was still in progress at the first follow-up, so public website acceptance remains a separate check.
+
+## Public website acceptance follow-up
+
+The Cloudflare Workers check for `efcc005674b86706d1c2739d08c4ee23aca00dd9` completed successfully. The live `https://auctiongeek.co.uk/workspace-index.json` reports the matching 21:38:33.089558 UTC generation time and 1,930 total rows. All ten current McHugh candidates are present alongside six retained older McHugh records (16 McHugh rows total). The page `https://auctiongeek.co.uk/property/ba73ae84ac3148f8783c/7-11-north-street-exeter-ex4-3qs/` returned HTTP 200 with the expected address/title and original McHugh particulars link. This supersedes the public-build-pending status above; it does not imply independent verification of investment facts or full historical coverage.
