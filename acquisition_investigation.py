@@ -110,7 +110,9 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
         return item
 
     def question(key, text, why, topics, decision=True):
-        attempts = [a for a in research['attempts'] if a.get('topic') in topics]
+        attempts = [a for a in research['attempts'] if a.get('topic') in topics
+                    and a.get('status') not in ('not_attempted', 'not_captured', 'capture_limited')
+                    and (not a.get('question_id') or a['question_id'] == key)]
         questions.append({'id': key, 'question': text, 'why': why,
                           'topics':topics,
                           'decision_relevant': decision,

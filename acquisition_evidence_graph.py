@@ -8,6 +8,7 @@ accepted. Reference validity is deliberately NOT described as factual approval.
 from __future__ import annotations
 from hashlib import sha256
 import json
+import math
 import re
 from urllib.parse import urlparse
 
@@ -84,15 +85,14 @@ External observations must quote a supplied source capture and identify scope.
             errors.append('Evidence subject and kind required')
         if not quote or (source and quote.lower() not in norm(source.get('text') or source.get('excerpt')).lower()):
             errors.append('Quoted evidence not found in source capture')
-        source_text = norm(source.get('text') or source.get('excerpt')) if source else ''
         for field in ('price','rent','area_sqft','floor_area_sqm','score'):
             value = record.get(field)
             if value is None: continue
-            if isinstance(value,bool) or not isinstance(value,(int,float)):
+            if isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value) or value < 0:
                 errors.append('Invalid numeric '+field);continue
             options={format(value,',g'),format(value,'g')}
-            if not any(re.search(r'(?<![\d,.])'+re.escape(token)+r'(?!\d|[.,]\d)',source_text) for token in options):
-                errors.append('Numeric '+field+' not supported by source capture')
+            if not any(re.search(r'(?<![\d,.])'+re.escape(token)+r'(?!\d|[.,]\d)',quote) for token in options):
+                errors.append('Numeric '+field+' not supported by the quoted passage')
         if errors:
             rejected.append({'record': record.get('id'), 'errors': errors})
         else:

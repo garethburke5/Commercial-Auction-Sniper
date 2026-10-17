@@ -51,6 +51,32 @@ def test_all_source_batches_are_reviewed_and_synthesis_does_not_invent_coverage(
     assert provider.usage_record()['output_tokens']==200*len(captured)
 
 
+def test_batch_review_keeps_evidence_scope_and_financial_context():
+    p=packet();p['evidence_scope']={'legal_pack_supplied':False};p['investment']={'rent':20000,'assessment_price':190000}
+    def send(request):
+        data=json.loads(json.loads(request.content)['input'])
+        assert data['evidence_scope']==p['evidence_scope']
+        assert data['investment']==p['investment']
+        if 'document_reviews' in data:
+            return response({'evidence_digest':data['evidence_digest'],'reviewer':'fixture',
+                             'findings':[],'limitations':[],'research_requests':[]})
+        return response(review(data))
+    provider=OpenAIInvestigator('fixture','fixture-model',client=httpx.Client(transport=httpx.MockTransport(send)))
+    provider.review(p)
+    provider.close()
+
+
+def test_completed_search_may_omit_provider_query_text():
+    provider=OpenAIInvestigator('fixture','fixture-model',client=httpx.Client(transport=httpx.MockTransport(
+        lambda r:response({},extra=[{'type':'web_search_call','status':'completed',
+                                    'action':{'type':'search'}}]))))
+    p=packet();p['requested_research']=[{'id':'planning','question':'Find listed status','topic':'planning'}]
+    result=provider.research(p)
+    assert result['attempts'][0]['question_id']=='planning'
+    assert result['attempts'][0]['status']=='attempted'
+    provider.close()
+
+
 def test_provider_cannot_invent_a_quotation_or_overclaim_a_document_review():
     p=packet();r=review(p)
     r['findings']=[{'id':'f','title':'Break','topic':'income','state':'confirmed',
@@ -82,7 +108,7 @@ def test_research_facts_require_an_actual_source_capture_and_exact_quote():
     def send(request):
         body=json.loads(request.content);data=json.loads(body['input'])
         if body.get('tools'):
-            return response({},extra=[{'type':'web_search_call','action':{'type':'search','query':'sale evidence','sources':[{'url':'https://example.org/sale'}]}}])
+            return response({},extra=[{'type':'web_search_call','status':'completed','action':{'type':'search','query':'sale evidence','sources':[{'url':'https://example.org/sale'}]}}])
         sid=data['sources'][0]['id']
         return response({'records':[
             {'source_id':sid,'subject':'A commercial investment','kind':'subject_sale_result','quote':'Sold for £200,000','details_json':'{"price":200000,"price_basis":"reported_sale"}'},
@@ -94,6 +120,59 @@ def test_research_facts_require_an_actual_source_capture_and_exact_quote():
     assert [r['price'] for r in result['records']]==[200000]
     assert {'market','history','evidence_validation'} <= {a['topic'] for a in result['attempts']}
     assert provider.usage.search_calls==1
+
+
+def test_each_research_question_gets_its_own_search_and_budget_skips_are_explicit():
+    searched=[]
+    def send(request):
+        body=json.loads(request.content);data=json.loads(body['input'])
+        assert len(data['questions'])==1
+        searched.append(data['questions'][0]['question'])
+        return response({},extra=[{'type':'web_search_call','status':'completed',
+            'action':{'type':'search','query':searched[-1],'sources':[]}}])
+    p=packet();p['requested_research']=[
+        {'id':'energy-research','question':'Find the subject EPC','topics':['energy']},
+        {'id':'market-rents','question':'Find comparable rents','topics':['market_rent']},
+        {'id':'planning','question':'Find listed status','topics':['planning']}]
+    provider=OpenAIInvestigator('fixture','fixture-model',
+        client=httpx.Client(transport=httpx.MockTransport(send)),limits=Limits(max_search_calls=2))
+    result=provider.research(p)
+    assert searched==['Find the subject EPC','Find comparable rents']
+    assert [(a['question_id'],a['status']) for a in result['attempts']]==[
+        ('energy-research','attempted'),('market-rents','attempted'),('planning','not_attempted')]
+    provider.close()
+
+
+def test_failed_search_tool_cannot_be_recorded_as_research():
+    provider=OpenAIInvestigator('fixture','fixture-model',client=httpx.Client(transport=httpx.MockTransport(
+        lambda r:response({},extra=[{'type':'web_search_call','status':'failed',
+            'action':{'type':'search','query':'EPC'}}]))))
+    p=packet();p['requested_research']=[{'question':'Find EPC','topic':'energy'}]
+    with pytest.raises(InvestigationIncomplete,match='No actual web investigation'):
+        provider.research(p)
+    provider.close()
+
+
+def test_capture_budget_is_report_wide_and_reuses_exact_source_capture():
+    captures=[]
+    def send(request):
+        body=json.loads(request.content)
+        if body.get('tools'):
+            return response({},extra=[{'type':'web_search_call','status':'completed',
+                'action':{'type':'search','query':'property evidence','sources':[
+                    {'url':'https://example.org/shared'},{'url':'https://example.org/second'}]}}])
+        return response({'records':[]})
+    def capture(url):
+        captures.append(url);return {'url':url,'text':'Original property evidence captured once only.'}
+    provider=OpenAIInvestigator('fixture','fixture-model',capture=capture,
+        client=httpx.Client(transport=httpx.MockTransport(send)),limits=Limits(max_capture_urls=1))
+    p=packet();p['requested_research']=[{'question':'Find rent','topic':'market_rent'},
+                                      {'question':'Find history','topic':'history'}]
+    result=provider.research(p)
+    assert captures==['https://example.org/shared']
+    assert len(result['sources'])==1
+    assert any(a.get('status')=='not_captured' for a in result['attempts'])
+    provider.close()
 
 
 def test_missing_credentials_leave_provider_disabled(monkeypatch):

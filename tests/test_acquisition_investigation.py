@@ -61,6 +61,29 @@ def test_numeric_assertion_must_match_source_not_just_quote():
     assert not validate_external_research(r)['records']
 
 
+def test_neighbouring_price_cannot_validate_subject_quote():
+    r=external('subject_asking_sale','Subject property asking price £265,000.',price=350000)
+    r['sources'][0]['text']+=' Neighbouring property sold for £350,000.'
+    checked=validate_external_research(r)
+    assert not checked['records']
+    assert 'quoted passage' in str(checked['rejected'])
+
+
+@pytest.mark.parametrize('value',[float('nan'),float('inf'),-1,True])
+def test_non_finite_and_invalid_research_numbers_are_rejected(value):
+    r=external('sale_comparable',f'Reported price {value}',price=value)
+    assert not validate_external_research(r)['records']
+
+
+def test_skipped_and_other_question_research_does_not_close_coverage_gap():
+    research={'attempts':[
+        {'topic':'market_rent','question_id':'market-rents','status':'not_attempted'},
+        {'topic':'market_rent','question_id':'other-rent-question','status':'attempted'}]}
+    r=build_acquisition(model(),cat(),research=research)
+    q=next(q for q in r['investigation']['research_questions'] if q['id']=='market-rents')
+    assert q['status']=='not_investigated' and q['attempts']==[]
+
+
 def test_empty_search_does_not_establish_non_compliance():
     r=build_acquisition(model(),cat(description='Grade II Listed'),research=external('epc_search',demise_document='Lease 1 Main Street.pdf',result_summary='No results for this exact address search.'))
     f=next(f for f in r['investigation']['findings'] if f['topic']=='energy')

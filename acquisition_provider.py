@@ -63,8 +63,9 @@ class Limits:
     max_total_input_chars: int = 5_000_000
     max_total_output_tokens: int = 160_000
     output_tokens_per_call: int = 8_000
-    max_search_calls: int = 6
-    max_capture_urls: int = 8
+    max_search_calls: int = 12
+    max_capture_urls: int = 24
+    max_capture_urls_per_question: int = 3
     deadline_seconds: int = 900
 
 
@@ -97,6 +98,7 @@ class OpenAIInvestigator:
         self.limits, self.usage = limits or Limits(), Usage()
         self.started = time.monotonic()
         self._review_cache = {}
+        self._source_cache = {}
 
     def close(self):
         self.client.close()
@@ -120,7 +122,7 @@ class OpenAIInvestigator:
             if remaining <= 0:
                 raise InvestigationIncomplete('Research call limit reached')
             body.update(tools=[{'type': 'web_search', 'search_context_size': 'low'}],
-                        tool_choice='required', max_tool_calls=min(3, remaining),
+                        tool_choice='required', max_tool_calls=1,
                         include=['web_search_call.action.sources'])
         usage.calls += 1
         usage.input_chars += size
@@ -214,6 +216,8 @@ class OpenAIInvestigator:
         reviews = []
         for batch in batches:
             part = {'property': packet.get('property'), 'profile': packet.get('profile'),
+                    'evidence_scope': packet.get('evidence_scope'),
+                    'investment': packet.get('investment'),
                     'demises': [{k:d.get(k) for k in ('id','label','document','interest')}
                                 for d in packet.get('demises', [])], 'sources': batch}
             part['evidence_digest'] = sha256(json.dumps(part, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
@@ -257,6 +261,28 @@ given evidence_digest. This remains unapproved investment research.''', synthesi
         return self._check_review(final, packet)
 
     def research(self, packet):
+        """Investigate each question explicitly; never infer coverage from a batch search."""
+        combined = {'sources': [], 'records': [], 'attempts': []}
+        requests = packet.get('requested_research', [])
+        for request in requests:
+            if not norm(request.get('question')):
+                raise InvestigationIncomplete('Research question is missing')
+            if self.usage.search_calls >= self.limits.max_search_calls:
+                combined['attempts'].extend({
+                    'question_id': request.get('id'), 'topic': topic,
+                    'query': request['question'], 'status': 'not_attempted',
+                    'result': 'Research budget exhausted; this question remains uninvestigated.',
+                    'observed_at': datetime.now(timezone.utc).isoformat(),
+                } for topic in (request.get('topics') or [request.get('topic') or 'investment']))
+                continue
+            result = self._research_question(dict(packet, requested_research=[request]))
+            for key in combined:
+                for item in result[key]:
+                    if item not in combined[key]:
+                        combined[key].append(item)
+        return combined
+
+    def _research_question(self, packet):
         requests = packet.get('requested_research', [])
         public_context = {'property': packet.get('property'), 'profile': packet.get('profile'),
                           'market': packet.get('market'), 'evidence_scope':packet.get('evidence_scope'),
@@ -279,7 +305,12 @@ used. Use only the public property context; do not seek private personal data.''
         for item in result.get('output', []):
             if item.get('type') == 'web_search_call':
                 action = item.get('action') or {}
-                actions.append(action)
+                # Completed search actions do not always expose their queries.
+                # Scope comes from the single question we sent, never from other
+                # questions bundled into the same provider request.
+                if (item.get('status') == 'completed'
+                        and action.get('type') in ('search', 'open_page', 'find_in_page')):
+                    actions.append(action)
                 for source in action.get('sources', []):
                     if source.get('url'): urls.append(source['url'])
                 if action.get('url'): urls.append(action['url'])
@@ -289,18 +320,33 @@ used. Use only the public property context; do not seek private personal data.''
         if not actions:
             raise InvestigationIncomplete('No actual web investigation was recorded')
         observed = datetime.now(timezone.utc).isoformat()
-        attempts = [{'topic': topic,
+        attempts = [{'topic': topic, 'question_id': r.get('id'), 'status': 'attempted',
                      'query': r.get('question', ''), 'result': 'Bounded web investigation; see captured sources and limitations',
                      'observed_at': observed, 'provider_actions': actions}
                     for r in requests for topic in (r.get('topics') or [r.get('topic') or 'investment'])]
         sources = []
-        for url in list(dict.fromkeys(urls))[:self.limits.max_capture_urls]:
+        candidates = list(dict.fromkeys(urls))
+        for url in candidates[:self.limits.max_capture_urls_per_question]:
+            if url in self._source_cache:
+                if self._source_cache[url] is not None:
+                    sources.append(self._source_cache[url])
+                continue
+            if len(self._source_cache) >= self.limits.max_capture_urls:
+                attempts.append({'topic': 'source_access', 'query': url, 'status': 'not_captured',
+                    'result': 'Report-wide source capture limit reached; no fact accepted.', 'observed_at': observed})
+                continue
+            self._source_cache[url] = None
             try:
                 source = self.capture(url)
                 source.update(id=sha256((url + source['text']).encode()).hexdigest()[:20], observed_at=observed)
+                self._source_cache[url] = source
                 sources.append(source)
             except (ValueError, OSError, httpx.HTTPError):
                 attempts.append({'topic': 'source_access', 'query': url, 'result': 'Source could not be independently captured; no fact accepted', 'observed_at': observed})
+        if len(candidates) > self.limits.max_capture_urls_per_question:
+            attempts.append({'topic': 'source_access', 'query': requests[0]['question'],
+                'status': 'capture_limited', 'uncaptured_urls': candidates[self.limits.max_capture_urls_per_question:],
+                'result': 'Additional discovered URLs were not captured; they are not accepted evidence.', 'observed_at': observed})
         if not sources:
             return {'sources': [], 'records': [], 'attempts': attempts}
         extracted = self._call('''Extract only source-grounded facts relevant to this property
