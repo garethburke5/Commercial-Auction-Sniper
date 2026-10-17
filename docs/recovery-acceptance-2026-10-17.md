@@ -25,3 +25,11 @@ Acceptance must include an authorised test account signing in, reopening its pur
 ## Source continuity check
 
 The earlier permanent-history timeout is not a current outstanding failure: Bank Published Auction History run `39050983043`, started 17 October 2026 at 16:48 UTC, completed successfully following public publishing run `39049093201`. This is source-history continuity, not a backup of customer accounts.
+
+## Production monitoring interruption and recovery
+
+On 17 October, the catalogue monitoring run started at 19:11:02 UTC remained marked running across a Render deployment. Its existing lease expired at 19:26:02. After expiry, the existing private signed scheduler function was invoked once; no lease, customer record or idempotency state was reset.
+
+Request 86 returned HTTP 200 without timeout. The durable job started at 19:26:27 and completed at 19:26:49 (22 seconds). It recorded 39 healthy sources, 282 rows withheld, zero eligible accounts processed, zero new events/search matches and email delivery disabled. The snapshot was already current (`2026-10-17T18:59:06.002057+00:00`), so it was not replaced.
+
+This verifies recovery after lease expiry on the deployed backend using the existing signed execution path. It does not prove an unattended cron retry after this particular interruption, actual customer alert delivery, or production backup restoration.
