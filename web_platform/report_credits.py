@@ -64,6 +64,8 @@ def credit_access(db,user,rid):
 
 
 def report_access(db,user,rid):
+    saved=db.execute('SELECT report_json FROM reviews WHERE id=? AND user_id=?',(rid,user)).fetchone()
+    if saved and json.loads(saved['report_json']).get('_validation'):return False
     def direct(target):
         return credit_access(db,user,target) or bool(db.execute("SELECT 1 FROM purchases WHERE user_id=? AND product='legal_pack_report' AND property_id=? AND status='paid_awaiting_fulfilment'",(user,'review:'+target)).fetchone())
     if direct(rid):return True
@@ -84,6 +86,8 @@ def redeem(accounts,user,rid):
         begin_write(db)
         report=db.execute('SELECT id,report_json FROM reviews WHERE id=? AND user_id=?',(rid,user)).fetchone()
         if not report:raise HTTPException(404,'Report not found')
+        if json.loads(report['report_json']).get('_validation'):
+            raise HTTPException(409,'Private validation specimens cannot consume report credits')
         intake=json.loads(report['report_json']).get('_intake',{})
         if intake.get('parent_review_id'):
             if report_access(db,user,rid):return {'already_unlocked':True}

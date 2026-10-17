@@ -210,3 +210,14 @@ def test_non_object_response_is_recorded_as_unmeasured():
     with pytest.raises(InvestigationIncomplete,match='object'):provider._call('test',{})
     assert provider.usage_record()['complete'] is False
     provider.close()
+
+
+@pytest.mark.parametrize('status,category',[(401,'authentication_failed'),(403,'permission_denied'),(404,'model_or_endpoint_unavailable'),(429,'quota_or_rate_limit')])
+def test_provider_failures_have_safe_diagnostics_without_error_bodies(status,category):
+    provider=OpenAIInvestigator('secret-key','fixture-model',client=httpx.Client(transport=httpx.MockTransport(
+        lambda request:httpx.Response(status,json={'error':{'message':'private-provider-body secret-key'}}))))
+    with pytest.raises(InvestigationIncomplete):provider.review(packet())
+    usage=provider.usage_record()
+    assert usage['error_category']==category and not usage['complete']
+    assert 'private-provider-body' not in json.dumps(usage) and 'secret-key' not in json.dumps(usage)
+    provider.close()

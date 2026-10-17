@@ -78,6 +78,7 @@ class Usage:
     cached_input_tokens: int = 0
     search_calls: int = 0
     complete: bool = True
+    error_category: str = ''
     response_ids: list[str] = field(default_factory=list)
     response_statuses: list[str] = field(default_factory=list)
 
@@ -134,6 +135,8 @@ class OpenAIInvestigator:
         except (httpx.HTTPError, ValueError) as exc:
             # No raw provider body, legal-pack text or credentials in API errors.
             usage.complete = False
+            status=exc.response.status_code if isinstance(exc,httpx.HTTPStatusError) else None
+            usage.error_category={401:'authentication_failed',403:'permission_denied',404:'model_or_endpoint_unavailable',429:'quota_or_rate_limit'}.get(status,'provider_request_failed')
             raise InvestigationIncomplete('The investigation provider did not complete the request') from None
         if not isinstance(result, dict):
             usage.complete = False

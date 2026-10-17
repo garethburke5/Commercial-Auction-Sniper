@@ -247,3 +247,84 @@ def test_recovered_attempt_cannot_overwrite_new_attempt(site,tmp_path,monkeypatc
         assert job['status']=='processing' and job['attempts']==2
         assert report['analysis_state']=='failed'
         assert ledger['status']=='interrupted' and 'recovery' in json.loads(ledger['metrics_json'])
+
+
+def test_private_validation_requires_owner_owned_scope_and_never_grants_paid_access(site,tmp_path,monkeypatch):
+    a,app,pid=setup(site,tmp_path,monkeypatch);calls=[]
+    monkeypatch.setenv('ADMIN_ACCOUNT_IDS','alice')
+    from acquisition_intelligence import build_acquisition
+    from web_platform.tests.test_acquisition_workspace import model
+    def process(*args,**kwargs):
+        calls.append((args,kwargs))
+        report=build_acquisition(model(),{'guide':200000,'rent':20000})
+        report['validation_fixture']='full diagnostic evidence'
+        return {'acquisition':report}
+    monkeypatch.setattr('legal_pack_service.analyse_uploaded_pack',process)
+    monkeypatch.setattr('acquisition_quality.acceptance_issues',lambda report:['Unresolved decision-changing question'])
+    with TestClient(app) as c:
+        rid=create_confirmed(c,pid);url=f'/api/admin/reviews/{rid}/validate'
+        assert c.get(f'/api/account/reviews/{rid}',headers={'Authorization':'alice'}).json()['owner_validation_allowed']
+        assert c.post(url,headers={'Authorization':'bob'}).status_code in (403,404)
+        assert c.post(f'/api/account/reviews/{rid}/analyse',data={'validation':'true'},headers={'Authorization':'alice'}).status_code==402
+        response=c.post(url,headers={'Authorization':'alice'})
+        assert response.status_code==200
+        result=response.json()
+        assert result['access']=='validation' and result['analysis_state']=='requires_review'
+        assert result['report']['validation_fixture']=='full diagnostic evidence'
+        assert not result['purchase_verified'] and not result['processing_allowed']
+        assert result['validation_issues']==['Unresolved decision-changing question']
+        assert result['validation_metrics']['purpose']=='owner_validation'
+        assert len(calls)==1 and not calls[0][0][1]
+        assert c.post(url,headers={'Authorization':'alice'}).status_code==200 and len(calls)==1
+        assert c.post(f'/api/account/reviews/{rid}/analyse',headers={'Authorization':'alice'}).status_code==409
+        assert c.post(f'/api/account/reviews/{rid}/checkout',headers={'Authorization':'alice'}).status_code==409
+        assert c.post(f'/api/account/reviews/{rid}/redeem',headers={'Authorization':'alice'}).status_code==409
+        assert c.get(f'/api/account/reviews/{rid}/download?format=pdf',headers={'Authorization':'alice'}).status_code==403
+        evidence=f'/api/admin/reviews/{rid}/validation-download?format=json'
+        assert c.get(evidence,headers={'Authorization':'alice'}).json()['validation_fixture']=='full diagnostic evidence'
+        assert c.get(evidence,headers={'Authorization':'bob'}).status_code==403
+        with a.db() as db:
+            assert db.execute('SELECT COUNT(*) FROM purchases').fetchone()[0]==0
+            assert db.execute('SELECT COUNT(*) FROM report_credit_redemptions').fetchone()[0]==0
+        monkeypatch.setenv('ADMIN_ACCOUNT_IDS','bob')
+        revoked=c.get(f'/api/account/reviews/{rid}',headers={'Authorization':'alice'}).json()
+        assert revoked['access']=='snapshot' and not revoked['owner_validation_allowed']
+        assert 'validation_fixture' not in revoked['report']
+        assert c.get(evidence,headers={'Authorization':'bob'}).status_code==404
+
+
+def test_private_validation_keeps_pack_scope_and_paid_reports_separate(site,tmp_path,monkeypatch):
+    a,app,pid=setup(site,tmp_path,monkeypatch);monkeypatch.setenv('ADMIN_ACCOUNT_IDS','alice')
+    calls=[]
+    monkeypatch.setattr('legal_pack_service.analyse_uploaded_pack',lambda *args,**kw:calls.append(1))
+    with TestClient(app) as c:
+        r=c.post('/api/account/reviews',data={'property_id':pid},headers={'Authorization':'alice'}).json();rid=r['id']
+        url=f'/api/admin/reviews/{rid}/validate'
+        assert c.post(url,headers={'Authorization':'alice'}).status_code==409
+        c.post(f'/api/account/reviews/{rid}/confirm',data={'address':r['scope']['property']},headers={'Authorization':'alice'})
+        scope=c.post(f'/api/account/reviews/{rid}/scope',data={'accepted':'true','pack_expected':'true'},headers={'Authorization':'alice'}).json()
+        assert scope['owner_validation_allowed']
+        assert c.post(url,headers={'Authorization':'alice'}).status_code==400
+        pay(a,rid)
+        assert c.post(url,files={'files':('pack.pdf',b'x')},headers={'Authorization':'alice'}).status_code==409
+        assert not calls
+
+
+def test_private_validation_retains_failed_attempts_and_limits_retries(site,tmp_path,monkeypatch):
+    a,app,pid=setup(site,tmp_path,monkeypatch);monkeypatch.setenv('ADMIN_ACCOUNT_IDS','alice')
+    calls=[]
+    def fail(*args,**kwargs):
+        calls.append(1);raise RuntimeError('private error content')
+    monkeypatch.setattr('legal_pack_service.analyse_uploaded_pack',fail)
+    with TestClient(app) as c:
+        rid=create_confirmed(c,pid);url=f'/api/admin/reviews/{rid}/validate'
+        with a.db() as db:db.execute("INSERT INTO review_processing VALUES ('other','processing',1,?)",(int(time.time()),))
+        assert c.post(url,headers={'Authorization':'alice'}).status_code==409 and not calls
+        with a.db() as db:db.execute("DELETE FROM review_processing WHERE review_id='other'")
+        for _ in range(3):assert c.post(url,headers={'Authorization':'alice'}).status_code==503
+        assert c.post(url,headers={'Authorization':'alice'}).status_code==429 and len(calls)==3
+        r=c.get(f'/api/account/reviews/{rid}',headers={'Authorization':'alice'}).json()
+        assert r['validation'] and not r['owner_validation_allowed']
+        assert r['validation_metrics']['failure_reason']=='Investigation processing failed'
+        assert 'private error content' not in json.dumps(r)
+        assert r['validation_metrics']['cost']['estimated_total_gbp'] is None
