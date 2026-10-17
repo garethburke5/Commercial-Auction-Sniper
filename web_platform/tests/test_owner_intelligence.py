@@ -42,6 +42,13 @@ def test_does_not_claim_unverified_owner_based_on_name_or_proximity():
         assert registry.context(row(address)) is None
 
 
+def test_separate_leasehold_lot_cannot_inherit_freehold_proprietor():
+    registry = OwnerRegistry.from_file()
+    upper_floor_leasehold = row("114 Haydons Road, London SW19 1AW")
+    upper_floor_leasehold["tenure"] = "Long Leasehold"
+    assert registry.context(upper_floor_leasehold) is None
+
+
 def test_optional_the_in_street_works_but_no_broad_match():
     registry = OwnerRegistry.from_file()
     assert registry.context(row("22 The Broadway, Norris Green, Liverpool L11 1BZ"))["title_number"] == "MS38328"
