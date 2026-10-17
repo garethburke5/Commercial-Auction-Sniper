@@ -118,7 +118,11 @@ class Site:
             rows=c.properties[:50], board=True, page=1, pages=pages, upcoming=self.upcoming)
         for page in range(1,pages+1):
             path = '/properties/' if page == 1 else f'/properties/page/{page}/'
-            yield path, self.page(path,'Auction properties','list','Commercial and mixed-use lots, including clearly labelled withdrawn properties.',
+            title = 'Auction properties' if page == 1 else f'Auction properties — Page {page}'
+            description = 'Commercial and mixed-use lots, including clearly labelled withdrawn properties.'
+            if page > 1:
+                description = f'Page {page} of {pages}. ' + description
+            yield path, self.page(path,title,'list',description,
                 rows=c.properties[(page-1)*50:page*50], page=page,pages=pages,board=True)
         for row in c.all_properties:
             evidence = self.evidence.get(row['url'], {})
@@ -193,6 +197,11 @@ class Site:
             index.extend(index_row(row,chunk) for row in batch)
             yield root+chunk,json.dumps({r['id']:str(module.card(r)) for r in batch},ensure_ascii=False,separators=(',',':'))
         yield root+'index.json',json.dumps({'rows':index,'generated_at':self.catalogue.generated_at},ensure_ascii=False,separators=(',',':'))
+
+    def robots(self):
+        # Public sign-in HTML carries noindex. Crawlers must be able to read
+        # that tag; private customer data remains behind authenticated APIs.
+        return 'User-agent: *\nDisallow: '+self.prefix+'/api/\nSitemap: '+self.origin+'/sitemap.xml\n'
 
     def sitemap(self, routes):
         good = {r['path'] for r in self.catalogue.all_properties if r['indexable']}

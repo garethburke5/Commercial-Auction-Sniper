@@ -35,6 +35,26 @@ def test_no_duplicate_url_variants():
     assert identity(a)==identity(dict(a,url='https://x/lot/32?view=grid'))
     assert identity(a)!=identity(dict(a,auction_date='2026-02-01'))
 
+def test_public_signin_noindex_is_crawlable_but_private_api_is_disallowed(site):
+    from urllib.robotparser import RobotFileParser
+    robots=RobotFileParser()
+    robots.parse(site.robots().splitlines())
+    assert robots.can_fetch('Googlebot',site.origin+'/account/')
+    assert not robots.can_fetch('Googlebot',site.origin+'/api/account')
+    assert 'noindex,follow' in dict(site.routes())['/account/']
+    assert site.origin+'/account/' not in site.sitemap(dict(site.routes()))
+
+def test_catalogue_pagination_has_distinct_titles_and_self_canonicals(site):
+    from bs4 import BeautifulSoup
+    site.catalogue.properties=site.catalogue.properties*26
+    pages=dict(site.routes())
+    first=BeautifulSoup(pages['/properties/'],'html.parser')
+    second=BeautifulSoup(pages['/properties/page/2/'],'html.parser')
+    assert first.title.text != second.title.text
+    assert 'Page 2' in second.title.text
+    assert second.select_one('link[rel=canonical]')['href']==site.origin+'/properties/page/2/'
+    assert 'Page 2 of 2' in second.select_one('meta[name=description]')['content']
+
 def test_private_catalogue_preserves_account_observations_without_public_summaries(site,monkeypatch):
     from web_platform.workspace import observation
     def unexpected(*args,**kwargs):

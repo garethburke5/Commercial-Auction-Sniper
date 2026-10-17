@@ -234,7 +234,7 @@ def create_app(site=None):
     @app.get('/sitemap.xml')
     def sitemap(): return Response(site.sitemap(pages),media_type='application/xml')
     @app.get('/robots.txt')
-    def robots(): return Response('User-agent: *\nDisallow: /api/\nDisallow: /account/\nSitemap: '+site.origin+'/sitemap.xml\n',media_type='text/plain')
+    def robots(): return Response(site.robots(),media_type='text/plain')
     @app.get('/{path:path}')
     def page(path:str):
         p='/'+path

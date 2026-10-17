@@ -19,7 +19,7 @@ def export(destination, origin):
         target.parent.mkdir(parents=True,exist_ok=True)
         target.write_text(content)
     (dest/'sitemap.xml').write_text(site.sitemap(routes))
-    (dest/'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /account/\nSitemap: '+origin.rstrip('/')+'/sitemap.xml\n')
+    (dest/'robots.txt').write_text(site.robots())
     (dest/'.nojekyll').touch()
     (dest/'404.html').write_text(site.page('/404.html','Page not found','missing','This address does not identify a published page. Use Properties or Auctions to continue.',noindex=True))
     site.catalogue.close()
