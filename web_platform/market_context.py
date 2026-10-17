@@ -1,5 +1,6 @@
 """Conservative corpus reuse: exact address history and explained comparables."""
 import re,json,sqlite3
+import threading
 from datetime import date
 from collections import defaultdict
 from functools import cached_property
@@ -51,39 +52,65 @@ def metrics(r):
         'giy':round(100*rent/(high or guide),2) if positive(rent) and positive(guide) and occupancy(r)=='Investment' else None}
 
 class MarketContext:
-    def __init__(self,catalogue):self.c=catalogue;self.by_address=defaultdict(list);self.by_district=defaultdict(list);self.loaded=False;self.observed=defaultdict(list)
+    def __init__(self,catalogue):
+        self.c=catalogue;self.by_address=defaultdict(list);self.by_district=defaultdict(list);self.loaded=False;self.observed=defaultdict(list)
+        self._load_lock=threading.Lock()
     def load(self):
-        if self.loaded:return
-        self.loaded=True
+        with self._load_lock:
+            if self.loaded:return
+            self.by_address.clear();self.by_district.clear();self.observed.clear()
+            self._load()
+            self.loaded=True
+
+    def _load(self):
         observations_path=self.c.root/'data/property_history.json'
         if observations_path.exists():
-            for event in json.loads(observations_path.read_text()).get('auction_events',[]):
-                address=event.get('address_as_published') or ''
-                if postcode(address):self.observed[address_key(address)].append(event)
+            import ijson
+            with observations_path.open('rb') as source:
+                for event in ijson.items(source,'auction_events.item',use_float=True):
+                    address=event.get('address_as_published') or ''
+                    if postcode(address):
+                        compact={k:event.get(k) for k in ('address_as_published','tenure','source')}
+                        compact['source_evidence']={'listing_url':(event.get('source_evidence') or {}).get('listing_url')}
+                        compact['observations']=[{k:o.get(k) for k in ('observed_at','guide_price','annual_rent','tenant','lease_term','occupation','status')} for o in event.get('observations') or []]
+                        self.observed[address_key(address)].append(compact)
         self.c.history(limit=1)
         if not self.c.history_path:return
         with sqlite3.connect(self.c.history_path.as_uri()+'?mode=ro',uri=True) as db:
-            for raw, in db.execute("SELECT record_json FROM appearances WHERE sector IN ('commercial','mixed-use') AND address IS NOT NULL AND auction_date<=?",(date.today().isoformat(),)):
+            for rowid,raw in db.execute("SELECT rowid,record_json FROM appearances WHERE sector IN ('commercial','mixed-use') AND address IS NOT NULL AND auction_date<=?",(date.today().isoformat(),)):
                 r=json.loads(raw);p=postcode(r.get('postcode') or r['address'])
                 if not p:continue
-                self.by_address[address_key(r['address'])].append(r)
+                self.by_address[address_key(r['address'])].append(rowid)
                 if positive(r.get('guide_price')) or positive(r.get('sale_price')):
-                    self.by_district[p[0]].append(r)
+                    self.by_district[p[0]].append(rowid)
+
+    def _records(self,refs):
+        if not refs:return
+        # In-memory fixture contexts retain the same public matching contract.
+        if isinstance(refs[0],dict):
+            yield from refs;return
+        with sqlite3.connect(self.c.history_path.as_uri()+'?mode=ro',uri=True) as db:
+            for start in range(0,len(refs),400):
+                batch=refs[start:start+400]
+                for raw, in db.execute('SELECT record_json FROM appearances WHERE rowid IN ('+','.join('?' for _ in batch)+') ORDER BY rowid',batch):
+                    yield json.loads(raw)
     def for_property(self,row,limit=4):
         self.load();key=address_key(row['address']);p=postcode(row['address']);typ=use_type(row);occ=occupancy(row)
         history=[]
-        for r in self.by_address.get(key,[]):
+        for r in self._records(self.by_address.get(key,[])):
             if not p or postcode(r.get('postcode') or r['address'])!=p:continue
             if r.get('tenure') and row.get('tenure') and r['tenure'].lower()!=row['tenure'].lower():continue
             if r.get('auction_date')==row.get('auction_date') and str(r.get('lot_number','')).removeprefix('Lot ')==str(row.get('lot_number','')).removeprefix('Lot '):continue
             history.append(dict(r))
+            history.sort(key=lambda x:x.get('auction_date') or '',reverse=True)
+            del history[101:]
         history.sort(key=lambda x:x.get('auction_date') or '',reverse=True)
         for i,r in enumerate(history[:-1]):
             prev=history[i+1];r['changes']=[]
             for field,label in [('guide_price','Guide'),('annual_rent','Rent'),('tenant','Tenant'),('lease_expiry','Lease expiry'),('vacancy','Occupation')]:
                 if r.get(field) is not None and prev.get(field) is not None and r[field]!=prev[field]:r['changes'].append({'label':label,'before':prev[field],'after':r[field]})
-        candidates=[];seen=set()
-        for r in self.by_district.get(p[0],[]) if p and typ else []:
+        candidates={};seen=set()
+        for r in self._records(self.by_district.get(p[0],[])) if p and typ else []:
             if address_key(r['address'])==key or use_type(r)!=typ:continue
             if not occ or occupancy(r)!=occ:continue
             if r.get('tenure') and row.get('tenure') and r['tenure'].lower()!=row['tenure'].lower():continue
@@ -101,9 +128,18 @@ class MarketContext:
             for field,label in [('tenant','Tenant'),('lease_expiry','Lease expiry'),('break_clause','Break clause'),('annual_rent','Passing rent'),('occupation','Occupation')]:
                 if r.get(field) is not None and row.get(field) is not None and str(r[field]).lower()!=str(row[field]).lower():
                     differences.append({'label':label,'then':r[field],'now':row[field]})
-            r=dict(r,why=why,differences=differences,comparison_metrics=metrics(r));candidates.append((score,r))
+            r=dict(r,why=why,differences=differences,comparison_metrics=metrics(r))
+            candidate_key=address_key(r['address'])
+            if candidate_key not in candidates or score>candidates[candidate_key][0]:
+                candidates.pop(candidate_key,None)
+                candidates[candidate_key]=(score,r)
+                if len(candidates)>limit:
+                    # Stable ties retain the earlier record, as the full sort did.
+                    lowest=min(v[0] for v in candidates.values())
+                    drop=next(k for k in reversed(candidates) if candidates[k][0]==lowest)
+                    del candidates[drop]
         selected=[]
-        for _,r in sorted(candidates,key=lambda v:v[0],reverse=True):
+        for _,r in sorted(candidates.values(),key=lambda v:v[0],reverse=True):
             k=address_key(r['address'])
             if k in seen:continue
             seen.add(k);selected.append(r)

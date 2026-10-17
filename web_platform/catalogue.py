@@ -6,6 +6,8 @@ import os
 import re
 import sqlite3
 import tempfile
+import shutil
+import threading
 from collections import Counter
 from datetime import date
 from board_presentation import searchable_catalogue_row
@@ -68,18 +70,28 @@ class Catalogue:
         self.sources = {r['source_slug']: r['source'] for r in self.all_properties}
         self.progress = json.loads((self.root / 'data/auction_history/progress.json').read_text())
         self.history_path = None
+        self._history_lock = threading.Lock()
 
     def history(self, address=None, limit=30):
         packed = self.root / 'data/auction_history/auction_history.sqlite.gz'
         if not packed.exists():
             return []
-        if self.history_path is None:
-            # Separate disposable query copy; never open the canonical corpus for writes.
-            with tempfile.NamedTemporaryFile(suffix='.sqlite', delete=False) as f:
-                f.write(gzip.decompress(packed.read_bytes()))
-                self.history_path = Path(f.name)
-            with sqlite3.connect(self.history_path) as con:
-                con.execute('CREATE INDEX IF NOT EXISTS public_address_lookup ON appearances(lower(address))')
+        with self._history_lock:
+            if self.history_path is None:
+                # The corpus exceeds the private service's RAM limit. Stream a
+                # disposable disk copy; never materialise it or modify the source.
+                path=None
+                try:
+                    with tempfile.NamedTemporaryFile(suffix='.sqlite', delete=False) as f:
+                        path=Path(f.name)
+                        with gzip.open(packed,'rb') as source:
+                            shutil.copyfileobj(source,f,length=1024*1024)
+                    with sqlite3.connect(path) as con:
+                        con.execute('CREATE INDEX IF NOT EXISTS public_address_lookup ON appearances(lower(address))')
+                    self.history_path=path
+                except Exception:
+                    if path:path.unlink(missing_ok=True)
+                    raise
         with sqlite3.connect(self.history_path.as_uri() + '?mode=ro', uri=True) as con:
             if address:
                 records = con.execute('SELECT record_json FROM appearances WHERE lower(address)=lower(?) ORDER BY auction_date DESC LIMIT ?', (address, limit)).fetchall()
