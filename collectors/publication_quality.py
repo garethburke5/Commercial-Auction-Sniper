@@ -69,6 +69,7 @@ def commercial_decision(item):
     # A collector-generated type is not independent evidence. In particular,
     # nearby restaurants previously caused flats to be labelled "Mixed Use".
     positive = bool(COMMERCIAL.search(asset) or MIXED.search(asset)
+                    or re.search(r'\bclub and premises assessment\b', asset, re.I)
                     or re.search(r'\b(?:hairdressing salon|haulage yard|storage building|industrial development opportunity)\b', asset, re.I)
                     or re.search(r'\b(?:children[’\']s home|estate agency|estate agents?|vet(?:erinary)? (?:surgery|practice|clinic)|ground[ -]floor shops?|shop\s+(?:let|leased|producing|tenanted)|commercial space|(?:hair|beauty) salon|barbers?|(?:block|parade) of (?:\d+|\w+) shops|sports? education facility)\b', asset, re.I))
     residential = bool(RESIDENTIAL.search(asset+' '+str(item.get('address') or '')) or re.fullmatch(r'(?:Residential|House|Flat|Apartment|Bungalow)(?: / Residential)?', kind, re.I))

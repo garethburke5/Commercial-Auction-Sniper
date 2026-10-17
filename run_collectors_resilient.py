@@ -229,7 +229,8 @@ def _install_replacements():
     from collectors.under_the_hammer import collect_under_the_hammer
     from collectors.iamsold import collect_iamsold
     from collectors.wilsons import collect_wilsons
-    for collector in (collect_sutton_kersh, collect_edward_mellor, collect_under_the_hammer, collect_iamsold, collect_wilsons):
+    from collectors.cheffins_current import collect_cheffins
+    for collector in (collect_sutton_kersh, collect_edward_mellor, collect_under_the_hammer, collect_iamsold, collect_wilsons, collect_cheffins):
         if not any(getattr(c,'__name__','')==collector.__name__ for c in upgraded):upgraded.append(collector)
     pipeline.COLLECTORS = upgraded
 
