@@ -1,6 +1,6 @@
 import re
 import time
-from datetime import date
+from datetime import date, datetime
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urljoin, urlparse
 
@@ -65,6 +65,41 @@ def _auction_date(card):
     return None
 
 
+def _catalogue_date(s):
+    heading = s.find('h1')
+    if not heading:return None
+    matches = re.findall(r'\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(20\d{2})\b', heading.get_text(' ',strip=True))
+    if len(matches) != 1:return None
+    try:return datetime.strptime(' '.join(matches[0]), '%d %B %Y').date().isoformat()
+    except ValueError:return None
+
+
+def _detail_particulars(s):
+    legacy = _particulars(s)
+    if legacy:return legacy
+    # McHugh's current EIG template has sibling fact sections, rather than
+    # Paul Fosh's lot-data-heading containers. Never include the bidding-help
+    # modal or neighbouring-lot cards in classification/income extraction.
+    sections = []
+    has_description = False
+    tagline = s.select_one('h3.lot-details-tagline')
+    if tagline:sections.append(norm(tagline.get_text(' ',strip=True)))
+    for heading in s.select('h3.lot-details-heading'):
+        label = norm(heading.get_text(' ',strip=True))
+        if label.lower() not in {'description','local authority','tenancy','tenure',
+                'epc rating','council tax band','lease start date','lease duration',
+                'accommodation','rental income','rateable value'}:continue
+        parts = []
+        for sibling in heading.next_siblings:
+            if getattr(sibling,'name',None) in {'h1','h2','h3','h4'}:break
+            text = sibling.get_text(' ',strip=True) if hasattr(sibling,'get_text') else str(sibling)
+            if norm(text):parts.append(norm(text))
+        if parts:
+            sections.append(label+' '+norm(' '.join(parts)))
+            if label.lower() == 'description':has_description = True
+    return norm(' '.join(sections)) if has_description else ''
+
+
 def _terminal_status(text):
     """Read explicit per-lot result labels only.
 
@@ -92,11 +127,17 @@ def _targets(s):
     return targets
 
 
-def _hydrate(href,card):
+def _hydrate(href,card,catalogue_date=None):
     auction_date=_auction_date(card)
+    terminal = _terminal_status(card)
+    # "Auction Ended" is the result timestamp for an early withdrawal/sale,
+    # not the advertised sale date. Retain these lots within the current sale.
+    if (terminal and auction_date and auction_date < date.today().isoformat()
+            and catalogue_date and catalogue_date >= date.today().isoformat()):
+        auction_date = catalogue_date
     if not auction_date:raise ValueError('Lot has no evidenced auction closing date; no fixed-date fallback')
     if auction_date < date.today().isoformat():return None, 'past_sale'
-    s=_fetch(href);h1=s.find('h1');text=_particulars(s)
+    s=_fetch(href);h1=s.find('h1');text=_detail_particulars(s)
     if not h1 or not text:raise ValueError('Exact lot address/particulars missing')
     address=norm(h1.get_text(' ',strip=True))
     mixed=bool(MIXED.search(card) or MIXED.search(text))
@@ -112,18 +153,18 @@ def _hydrate(href,card):
         guide_price=parse_guide(card),annual_rent=parse_rent(text),tenure=parse_tenure(card+' '+text),
         vat_status=parse_vat(text),legal_pack_url=lp,legal_pack_status=lp_status,
         description=text,property_type='Mixed Use' if mixed else 'Commercial',
-        status=_terminal_status(card) or 'CURRENT')
+        status=terminal or 'CURRENT')
     return enrich_common_fields(lot,text).finalise(),'mixed_use' if mixed else 'commercial'
 
 
 def collect():
     try:
-        s,catalogue_url=_catalogue_soup();targets=_targets(s)
+        s,catalogue_url=_catalogue_soup();targets=_targets(s);catalogue_date=_catalogue_date(s)
         lots=[];outcomes=[]
         def inspect(pair):
             href,card=pair
             try:
-                lot,outcome=_hydrate(href,card)
+                lot,outcome=_hydrate(href,card,catalogue_date)
                 return lot,{'url':href,'outcome':outcome,'parsed':True}
             except Exception as exc:
                 return None,{'url':href,'outcome':'detail_failure','parsed':False,'reason':f'{type(exc).__name__}: {exc}'}
