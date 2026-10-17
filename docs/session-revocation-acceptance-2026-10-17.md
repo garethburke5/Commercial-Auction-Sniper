@@ -18,3 +18,9 @@ This reuses Supabase Auth and its existing client sign-out. It does not create a
 - Production acceptance must distinguish installed grants and live release from an actual user sign-out/return journey. Never test by deleting a real customer's session without authorisation.
 
 Current official reference: https://supabase.com/docs/guides/auth/sessions — “How to ensure an access token (JWT) cannot be used after a user signs out”. Reviewed the Supabase changelog before implementation; the new view uses existing UUID/timestamp Auth fields verified against the deployed project.
+
+## Verified release
+
+Commit `1b505005ac0bf5c14cd5d5193913884dd8fe8d4c` passed 327 application checks (12 PostgreSQL-only cases skipped there), 69 separate PostgreSQL/integration checks and the browser suite at 360/390/430/1440 pixels. Render deployment `dep-db9shsbm8hqs73arasbg` became live at 19:20:23 UTC. Cloudflare Workers build and public publishing also succeeded. The live API independently returned that exact release with accounts ready, owner access configured and live billing/alert delivery/paid reports still disabled.
+
+Production migration `private_current_account_session_validation` succeeded. Read-only backend access and denied public/client/Auth-table access were verified; no real user/session row was changed. Supabase advisors reported no additional issue from this view (the existing leaked-password-protection warning remains). Real browser sign-out/return remains part of final customer acceptance, separate from the signed-token/database regression proof above.

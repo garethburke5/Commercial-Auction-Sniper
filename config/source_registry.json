@@ -564,13 +564,30 @@
     },
     {
       "auctioneer": "Connells Property Auctions",
-      "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
-      "collector_verified": false
+      "state": "IAMSOLD_RELATIONSHIP_VERIFIED_INVENTORY_RECONCILIATION_REQUIRED",
+      "collector_verified": false,
+      "checked_on": "2026-10-17",
+      "canonical_source": "iamsold",
+      "source_url": "https://www.connells.co.uk/services/modern-method-of-auction",
+      "evidence_urls": [
+        "https://www.connells.co.uk/services/modern-method-of-auction"
+      ],
+      "scope": "Connells explicitly describes its modern method of auction as provided through iamsold. This establishes a distribution relationship, not that every Connells lot or traditional/group auction is ingested.",
+      "failure_reason": "Existing iamsold collector is available; brand-level current commercial inventory and any separate traditional catalogue remain unverified. Do not create duplicate rows or mark the brand complete from group membership alone."
     },
     {
       "auctioneer": "Fox & Sons Property Auctions",
-      "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
-      "collector_verified": false
+      "state": "UPCOMING_CATALOGUE_PENDING_SHARED_RESULTS_IDENTIFIED",
+      "collector_verified": false,
+      "checked_on": "2026-10-17",
+      "canonical_source": "Barnard Marcus",
+      "source_url": "https://www.foxandsonsauctions.co.uk/Current_Auction.html",
+      "evidence_urls": [
+        "https://www.foxandsonsauctions.co.uk/",
+        "https://www.foxandsonsauctions.co.uk/Current_Auction.html"
+      ],
+      "scope": "Current-auction page invites entries for 17 November 2026. Homepage publishes 22 results from 15 October, all linking to exact Barnard Marcus lot pages. Separate modern-method auctions also exist through iamsold; this is not a whole-brand equivalence claim.",
+      "failure_reason": "First-party shared catalogue relationship verified, but Barnard Marcus current-source health is degraded and post-auction/brand inventory reconciliation is incomplete. No duplicate collector or automatic merged-source sign-off added."
     },
     {
       "auctioneer": "Aberdein Considine",
