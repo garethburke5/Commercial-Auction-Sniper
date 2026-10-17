@@ -17,6 +17,11 @@ const html=require('child_process').execFileSync(process.env.PYTHON||'python',['
    if(url.pathname==='/platform-config.json')return route.fulfill({json:{accounts_enabled:true,api_origin:'https://api.example'}});
    if(url.pathname==='/workspace-index.json')return route.fulfill({json:{rows:[]}});
    if(url.pathname==='/api/account')return route.fulfill({json:remote});
+   if(url.pathname==='/api/account/alerts'){
+    remote.alert_preferences.enabled=route.request().postDataJSON().enabled;
+    return route.fulfill({json:remote.alert_preferences});
+   }
+   if(url.pathname==='/api/account/searches/s')return route.fulfill({json:{saved:true}});
    if(url.pathname==='/api/admin/monitoring')return route.fulfill({json:{status:'completed',finished_at:Math.floor(Date.now()/1000)-3600,details:{generated_at:new Date().toISOString()}}});
    if(url.pathname==='/api/admin/report-usage')return route.fulfill({json:{attempts:[{review_id:'a'.repeat(32),attempt:1,status:reportRecovered?'interrupted':'processing',recovery_available:!reportRecovered}]}});
    if(url.pathname==='/api/admin/reviews/'+'a'.repeat(32)+'/recover'){
@@ -35,6 +40,8 @@ const html=require('child_process').execFileSync(process.env.PYTHON||'python',['
   const stop=page.locator('#watched-items [data-watch="removed"]');
   await stop.waitFor({state:'visible'});
   assert.equal(await stop.textContent(),'Stop Watch');
+  assert(await page.locator('#email-alerts-enabled').isDisabled());
+  assert.match(await page.locator('#email-alerts-status').textContent(),/not yet enabled/);
   assert.match(await page.locator('#watched-items').textContent(),/Monitoring is paused/);
   assert.match(await page.locator('#watched-items').textContent(),/No longer in the current catalogue/);
   assert.equal(await page.locator('#watched-items h3 a').count(),0);
@@ -45,7 +52,8 @@ const html=require('child_process').execFileSync(process.env.PYTHON||'python',['
   assert.equal(await page.locator('#watched-items [data-watch]').count(),0);
   assert.deepEqual(errors,[]);
   console.log(`${width}px: expired member can stop missing-property watch, no dead link or overflow`);
-  remote.plan='investor';remote.features=['save','watch','saved_searches'];
+  remote.plan='investor';remote.features=['save','watch','saved_searches','alerts'];
+  remote.alert_preferences={enabled:false,delivery_available:true};
   remote.workspace.properties=[];
   remote.workspace.saved_searches=[{search_id:'s',name:'Retail research',query:'q=retail',matches:[{property:{id:'new',address:'Retail <shop> & investment',path:'/property/new/'}}]}];
   await page.reload();
@@ -54,6 +62,11 @@ const html=require('child_process').execFileSync(process.env.PYTHON||'python',['
   assert.equal(await match.textContent(),'Retail <shop> & investment');
   assert.equal(await match.getAttribute('href'),'/property/new/');
   assert.equal(await page.locator('#saved-searches shop').count(),0);
+  await page.locator('#email-alerts-enabled').check();
+  await page.waitForFunction(()=>document.querySelector('#email-alerts-status').textContent.includes('Daily email updates enabled'));
+  await page.locator('[data-search-digest="s"]').check();
+  await page.waitForFunction(()=>document.querySelector('[data-search-digest="s"]').disabled===false);
+  assert(await page.locator('[data-search-digest="s"]').isChecked());
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   assert.deepEqual(errors,[]);
   console.log(`${width}px: saved-search match shown safely with correct property link`);

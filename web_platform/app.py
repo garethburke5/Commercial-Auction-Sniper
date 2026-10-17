@@ -102,10 +102,12 @@ def create_app(site=None):
             except Exception:
                 ready=False
         from fastapi.responses import JSONResponse
+        from .alert_delivery import configured as alerts_configured
         return JSONResponse({'accounts_ready':ready,
             'release':os.getenv('RENDER_GIT_COMMIT','local'),
             'billing_configured':bool(os.getenv('STRIPE_SECRET_KEY') and os.getenv('STRIPE_WEBHOOK_SECRET')),
             'live_billing_enabled':os.getenv('BILLING_LIVE')=='true',
+            'alert_delivery_enabled':alerts_configured(),
             'production_email_confirmed':os.getenv('PRODUCTION_EMAIL_VERIFIED')=='true',
             'owner_access_configured':ready and bool(os.getenv('ADMIN_ACCOUNT_IDS','').strip()),
             'analysis_provider_configured':callable(app.state.acquisition_provider_factory),
@@ -116,7 +118,14 @@ def create_app(site=None):
         from .catalogue import ROOT
         authenticate(x_monitor_timestamp,x_monitor_signature)
         accounts,_=private_services()
-        return run(accounts,site.catalogue.root if not deferred_site else ROOT,current_catalogue)
+        result=run(accounts,site.catalogue.root if not deferred_site else ROOT,current_catalogue)
+        from .alert_delivery import run as deliver
+        try:result['email_delivery']=deliver(accounts)
+        except Exception:
+            # Preserve a successful catalogue check; a durable outbox retries
+            # separately. Do not include provider errors or recipients in logs.
+            result['email_delivery']={'status':'needs_review'}
+        return result
     @app.get('/api/admin/monitoring')
     def monitoring_status(authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization);require_owner(uid)
@@ -159,7 +168,8 @@ def create_app(site=None):
             refresh_searches(a,uid,{row['id']:row for row in current.properties},current.snapshot)
         deals=workspace_rows(a)
         from .report_credits import balance
-        return {'plan':plan,'features':sorted(PLANS[plan]),'billing':a.billing_status(uid),'report_credits':balance(a,uid),'is_owner':is_owner(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals,monitoring_stamp=observed_stamp)}
+        from .alert_delivery import preferences
+        return {'alert_preferences':preferences(a,uid),'plan':plan,'features':sorted(PLANS[plan]),'billing':a.billing_status(uid),'report_credits':balance(a,uid),'is_owner':is_owner(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals,monitoring_stamp=observed_stamp)}
     @app.get('/api/admin/preview/{plan}')
     def owner_preview(plan:str,authorization:str|None=Header(default=None)):
         uid,_,_=user(authorization);require_owner(uid)
@@ -215,6 +225,8 @@ def create_app(site=None):
         return await run_in_threadpool(process)
     from .review_api import install as install_reviews
     install_reviews(app,site,user)
+    from .alert_api import install as install_alerts
+    install_alerts(app,user,private_services)
     from .customer_api import install
     install(app,site,user,current_catalogue)
     from .deals import install as install_deals

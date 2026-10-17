@@ -61,6 +61,24 @@ CREATE TABLE IF NOT EXISTS report_generation_attempts(
  upload_bytes BIGINT NOT NULL,upload_files INTEGER NOT NULL,metrics_json TEXT,
  PRIMARY KEY(review_id,attempt));
 
+
+CREATE TABLE IF NOT EXISTS alert_preferences(
+ user_id TEXT PRIMARY KEY,auth_subject TEXT NOT NULL,email TEXT NOT NULL,enabled INTEGER NOT NULL,
+ enabled_at BIGINT NOT NULL,unsubscribe_token TEXT NOT NULL UNIQUE,updated_at BIGINT NOT NULL);
+CREATE TABLE IF NOT EXISTS alert_outbox(
+ id TEXT PRIMARY KEY,user_id TEXT NOT NULL,payload_json TEXT NOT NULL,
+ status TEXT NOT NULL,created_at BIGINT NOT NULL,first_attempt_at BIGINT,
+ next_attempt_at BIGINT NOT NULL,lease_until BIGINT NOT NULL,lease_owner TEXT,
+ attempts INTEGER NOT NULL DEFAULT 0,provider_id TEXT,last_error TEXT);
+CREATE INDEX IF NOT EXISTS alert_outbox_due ON alert_outbox(status,next_attempt_at);
+CREATE INDEX IF NOT EXISTS alert_outbox_user ON alert_outbox(user_id,created_at);
+CREATE TABLE IF NOT EXISTS alert_outbox_events(
+ event_key TEXT PRIMARY KEY,outbox_id TEXT NOT NULL,kind TEXT NOT NULL,source_id TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS alert_outbox_events_message ON alert_outbox_events(outbox_id);
+CREATE TABLE IF NOT EXISTS alert_receipts(
+ event_id TEXT PRIMARY KEY,provider_id TEXT NOT NULL,kind TEXT NOT NULL,received_at BIGINT NOT NULL);
+CREATE INDEX IF NOT EXISTS alert_receipts_message ON alert_receipts(provider_id);
+
 REVOKE ALL ON ALL TABLES IN SCHEMA auction_private FROM PUBLIC,anon,authenticated;
 GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA auction_private TO auction_api;
 -- Only this backend role can access these private tables. Per-customer ownership
@@ -76,3 +94,11 @@ DO $$ DECLARE item record; BEGIN
 END $$;
 INSERT INTO schema_version(id,version) VALUES (1,1) ON CONFLICT(id) DO NOTHING;
 REVOKE INSERT,UPDATE,DELETE ON schema_version FROM auction_api;
+
+-- A repeat installation must not broaden access to the recipient projection.
+DO $$ BEGIN
+ IF to_regclass('auction_private.alert_recipients') IS NOT NULL THEN
+  REVOKE ALL ON auction_private.alert_recipients FROM PUBLIC,anon,authenticated,auction_api;
+  GRANT SELECT ON auction_private.alert_recipients TO auction_api;
+ END IF;
+END $$;

@@ -49,7 +49,8 @@ def install(app,site,user,catalogue=None):
             db.execute('''INSERT INTO saved_searches VALUES (?,?,?,?,?,?) ON CONFLICT(user_id,search_id)
             DO UPDATE SET name=excluded.name,query=excluded.query,digest=excluded.digest,created_at=excluded.created_at''',
             (uid,sid,body.name,query,int(body.digest),int(time.time())))
-        return {'saved':True,'digest_delivery':'not active'}
+        from .alert_delivery import configured
+        return {'saved':True,'digest_delivery':'opt-in required' if configured() else 'not active'}
     @app.delete('/api/account/searches/{sid}')
     def delete_search(sid:str,authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization);workspace.initialise(a)

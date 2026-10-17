@@ -191,6 +191,13 @@ function item(row){
  return `<article class="workspace-card"><div>${row.image_url?`<img src="${esc(row.image_url)}" alt="" loading="lazy" width="112" height="84">`:''}<h3>${row.catalogue_missing?esc(row.address):`<a href="${esc(safePath(row.path))}">${esc(row.address)}</a>`}</h3><p>${row.catalogue_missing?'No longer in the current catalogue. You can still remove this property or stop its watch.':`${esc(row.source)} · ${esc(row.guide||money(row.guide_price))}`}</p></div><div class="save-actions"><button data-save="${esc(row.id)}" aria-pressed="${!!p.saved}">${p.saved?'✓ Saved':'♡ Save'}</button><button data-watch="${esc(row.id)}" aria-pressed="${!!p.watched&&can('watch')}">${p.watched?(can('watch')?'◉ Watching':'Stop Watch'):'○ Watch'}</button></div><details><summary>My notes & bid target</summary>${notes}</details></article>`;
 }
 function render(){
+ const emailToggle=document.querySelector('#email-alerts-enabled'),emailStatus=document.querySelector('#email-alerts-status');
+ if(emailToggle){
+  const pref=checkoutAccount?.alert_preferences;
+  emailToggle.checked=!!pref?.enabled&&!preview;
+  emailToggle.disabled=!!preview||!signedIn()||(!pref?.enabled&&(!pref?.delivery_available||!can('alerts')));
+  emailStatus.textContent=preview?'Email settings cannot be changed in a customer preview.':!pref?.delivery_available?'Email delivery is not yet enabled. Your updates remain available in My Auction Geek.':!can('alerts')?'Email alerts require an active Investor or Investor Pro membership.':pref.enabled?'Daily email updates enabled. You can switch them off here or unsubscribe in any email.':'Email updates are off. Enable them to receive new updates at your verified account address.';
+ }
  renderButtons();if(!document.querySelector('#account-dashboard'))return;
  for(const [kind,el,count]of[['saved','saved-items','saved-count'],['watched','watched-items','watch-count']]){
   const rows=Object.entries(state.properties).filter(([,p])=>p[kind]).map(([id,p])=>index[id]||p.property).filter(Boolean);
@@ -198,10 +205,28 @@ function render(){
   document.getElementById(el).innerHTML=(!permitted?'<p>Monitoring is paused until membership is active. You can still stop earlier watches.</p><button class="button outline" data-feature="watch">Explore Watch →</button>':'')+(rows.map(item).join('')||`<p>No ${kind==='saved'?'saved':'watched'} properties yet.</p>`);
   document.getElementById(count).textContent=rows.length;
  }
- document.querySelector('#saved-searches').innerHTML=can('saved_searches')?(state.searches.map(s=>`<p><a href="${esc(root+'/properties/?'+s.query)}">${esc(s.name)}</a> <button data-remove-search="${esc(s.id)}" class="textlink">Remove</button></p>${(s.matches||[]).length?`<ul>${s.matches.map(m=>`<li>New match: <a href="${esc(safePath(m.property?.path))}">${esc(m.property?.address||'View property')}</a></li>`).join('')}</ul>`:''}`).join('')||'<p>Apply filters on Find property, then Save this search.</p>'):'<p>Save your criteria with membership. Any previously saved criteria are preserved in your stored data.</p><button class="button outline" data-feature="saved_searches">Explore saved searches →</button>';
+ document.querySelector('#saved-searches').innerHTML=can('saved_searches')?(state.searches.map(s=>`<p><a href="${esc(root+'/properties/?'+s.query)}">${esc(s.name)}</a> <label class="small"><input type="checkbox" data-search-digest="${esc(s.id)}" ${s.digest?'checked':''} ${preview?'disabled':''}> Include in email digest</label> <button data-remove-search="${esc(s.id)}" class="textlink">Remove</button></p>${(s.matches||[]).length?`<ul>${s.matches.map(m=>`<li>New match: <a href="${esc(safePath(m.property?.path))}">${esc(m.property?.address||'View property')}</a></li>`).join('')}</ul>`:''}`).join('')||'<p>Apply filters on Find property, then Save this search.</p>'):'<p>Save your criteria with membership. Any previously saved criteria are preserved in your stored data.</p><button class="button outline" data-feature="saved_searches">Explore saved searches →</button>';
  document.querySelector('#watch-updates').innerHTML=can('watch')?(state.events.slice(0,50).map(e=>`<article class="watch-event"><b>${esc(e.title)}</b><p><a href="${esc(safePath(e.property?.path))}">${esc(e.property?.address||e.property_id)}</a></p><p>${esc(money(e.before))} → ${esc(money(e.after))}</p><small>Observed ${esc(new Date(e.at||e.created_at*1000).toLocaleDateString('en-GB'))}</small></article>`).join('')||'<p>No changes recorded. Watches begin with the snapshot available when you select Watch.</p>'):'<p>Property-change monitoring is included with membership.</p>';
  document.querySelector('#recent-items').innerHTML=state.recent.slice(0,8).map(id=>item(index[id]||state.properties[id]?.property)).join('')||'<p>Recently viewed properties appear as you research in your account.</p>';
 }
+document.querySelector('#email-alerts-enabled')?.addEventListener('change',async event=>{
+ const input=event.target,epoch=authEpoch;input.disabled=true;
+ try{
+  const result=await api('/api/account/alerts','PUT',{enabled:input.checked});
+  if(epoch!==authEpoch||preview)return;
+  checkoutAccount.alert_preferences=result;render();
+ }catch(error){if(epoch===authEpoch){render();notice(error.message);}}
+});
+document.querySelector('#saved-searches')?.addEventListener('change',async event=>{
+ const input=event.target.closest('[data-search-digest]');if(!input||preview)return;
+ const search=state.searches.find(s=>s.id===input.dataset.searchDigest);if(!search)return;
+ const epoch=authEpoch;input.disabled=true;
+ try{
+  await api('/api/account/searches/'+encodeURIComponent(search.id),'PUT',{name:search.name,query:search.query,digest:input.checked});
+  if(epoch!==authEpoch||preview)return;
+  search.digest=input.checked;render();notice('Search email preference saved. Delivery also requires email updates to be enabled.');
+ }catch(error){if(epoch===authEpoch){render();notice(error.message);}}
+});
 async function toggle(id,kind){
  if(kind==='saved'&&!signedIn()){access('save');return;}
  if(kind==='watched'&&!can('watch')&&!state.properties[id]?.watched){access('watch');return;}

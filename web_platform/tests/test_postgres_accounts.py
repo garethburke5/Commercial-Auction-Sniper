@@ -27,14 +27,47 @@ def pg_accounts():
     import psycopg
     with psycopg.connect(url,autocommit=True) as db:
         db.execute('CREATE SCHEMA IF NOT EXISTS auth')
+        db.execute('CREATE TABLE IF NOT EXISTS auth.users(id uuid PRIMARY KEY,email text,email_confirmed_at timestamptz,is_anonymous boolean,deleted_at timestamptz,banned_until timestamptz)')
         db.execute("DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='anon') THEN CREATE ROLE anon; END IF; IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='authenticated') THEN CREATE ROLE authenticated; END IF; END $$")
         with db.transaction():db.execute((Path(__file__).parents[1]/'private_schema.sql').read_text())
+        with db.transaction():db.execute((Path(__file__).parents[1]/'alert_recipients.sql').read_text())
+        db.execute('TRUNCATE auth.users')
         db.execute("ALTER ROLE auction_api LOGIN PASSWORD 'disposable_ci_only'")
         names=db.execute("SELECT tablename FROM pg_tables WHERE schemaname='auction_private' AND tablename!='schema_version'").fetchall()
         from psycopg import sql
         db.execute(sql.SQL('TRUNCATE {}').format(sql.SQL(',').join(sql.Identifier('auction_private',r[0]) for r in names)))
     dsn=url.replace(parsed.username+':'+parsed.password+'@','auction_api:disposable_ci_only@')
     return Accounts(database_url=dsn)
+
+
+def test_postgres_daily_digest_claim_and_recipient_view(pg_accounts,monkeypatch):
+    from web_platform.tests.test_alert_delivery import seed,rows,accepted
+    from web_platform import alert_delivery as alerts
+    import base64,psycopg
+    for k,v in {'ALERT_EMAIL_ENABLED':'true','RESEND_API_KEY':'synthetic',
+                'RESEND_WEBHOOK_SECRET':'whsec_'+base64.b64encode(b'synthetic-secret').decode(),
+                'ALERT_EMAIL_FROM':'Auction Geek <updates@auctiongeek.co.uk>',
+                'ALERT_UNSUBSCRIBE_ORIGIN':'https://api.example.test'}.items():monkeypatch.setenv(k,v)
+    a=pg_accounts;seed(a)
+    subject='00000000-0000-4000-8000-000000000001'
+    with a.db() as db:db.execute('UPDATE alert_preferences SET auth_subject=?',(subject,))
+    with psycopg.connect(os.environ['TEST_ACCOUNT_DATABASE_URL']) as db:
+        db.execute('INSERT INTO auth.users VALUES (%s,%s,now(),false,NULL,NULL)',(subject,'owned@example.test'))
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        assert sum(pool.map(lambda _:alerts.enqueue(a),range(4)))==1
+    assert len(rows(a,'alert_outbox_events'))==4
+    calls=[]
+    def post(*args,**kw):calls.append(kw);return accepted()
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        results=list(pool.map(lambda _:alerts.dispatch(a,post=post),range(4)))
+    assert len(calls)==1 and sum(r['accepted'] for r in results)==1
+    with a.db() as db:assert alerts.recipient(db,'paid')=='owned@example.test'
+    with psycopg.connect(os.environ['TEST_ACCOUNT_DATABASE_URL']) as db:
+        db.execute('UPDATE auth.users SET email=%s',('changed@example.test',))
+        assert db.execute("SELECT has_table_privilege('auction_api','auth.users','SELECT')").fetchone()[0] is False
+        assert db.execute("SELECT has_table_privilege('anon','auction_private.alert_recipients','SELECT')").fetchone()[0] is False
+        assert db.execute("SELECT has_table_privilege('auction_api','auction_private.alert_recipients','UPDATE')").fetchone()[0] is False
+    with a.db() as db:assert alerts.recipient(db,'paid') is None
 
 
 def test_postgres_persistence_upserts_and_rollback(pg_accounts):
