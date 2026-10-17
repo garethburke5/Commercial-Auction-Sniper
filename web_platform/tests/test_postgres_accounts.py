@@ -171,13 +171,26 @@ def test_postgres_credit_race_and_persistent_report_ownership(pg_accounts,monkey
 
 def test_disposable_postgres_backup_restores_credit_and_report_ownership(pg_accounts,tmp_path):
     """Recovery drill on CI-only data, never against the configured Supabase DB."""
-    import subprocess,shutil
+    import subprocess,shutil,hashlib,psycopg
     from web_platform.tests.test_report_credits import fund
     a=pg_accounts;a.ensure('alice');fund(a)
+    subject='00000000-0000-4000-8000-000000000002'
+    issuer='https://recovery-fixture.example/auth/v1'
+    uid=hashlib.sha256((issuer+'|'+subject).encode()).hexdigest()
+    with psycopg.connect(os.environ['TEST_ACCOUNT_DATABASE_URL']) as db:
+        db.execute('INSERT INTO auth.users VALUES (%s,%s,now(),false,NULL,NULL)',(subject,'recovery@example.test'))
     with a.db() as db:
         db.execute('INSERT INTO reviews VALUES (?,?,?,?,?)',('recover-report','alice','p','{"analysis_state":"complete"}',1))
         period=db.execute('SELECT period_start FROM report_credit_periods').fetchone()[0]
         db.execute('INSERT INTO report_credit_redemptions VALUES (?,?,?,?,?)',('recover-report','alice','sub',period,2))
+        for table in ('accounts','subscriptions','report_credit_periods','report_credit_redemptions','reviews'):
+            db.execute('UPDATE '+table+' SET user_id=? WHERE user_id=?',(uid,'alice'))
+        # Restore must preserve opt-out and an unknown provider outcome: neither
+        # should become a fresh email or a new paid report/credit after recovery.
+        db.execute('INSERT INTO alert_preferences VALUES (?,?,?,?,?,?,?)',
+                   (uid,subject,'recovery@example.test',0,1,'fixture-unsubscribe',1))
+        db.execute("INSERT INTO alert_outbox(id,user_id,payload_json,status,created_at,next_attempt_at,lease_until,attempts,last_error) VALUES (?,?,?,'needs_review',1,1,0,1,'provider_outcome_unknown')",
+                   ('recover-digest',uid,'{}'))
     executable=shutil.which('pg_dump');container=os.getenv('TEST_PG_CONTAINER')
     if not executable and not container:pytest.fail('pg_dump is required for the isolated recovery drill')
     # CI uses the service image's matching PostgreSQL 17 client, avoiding
@@ -187,20 +200,25 @@ def test_disposable_postgres_backup_restores_credit_and_report_ownership(pg_acco
     env=dict(os.environ,PGHOST=parsed.hostname,PGPORT=str(parsed.port or 5432),PGUSER=parsed.username,PGPASSWORD=parsed.password,PGDATABASE='auction_test')
     archive=tmp_path/'private-backup.sql'
     with archive.open('wb') as f:
-        subprocess.run(command+['--data-only','--schema=auction_private','--exclude-table=auction_private.schema_version','--inserts','--no-owner','--no-privileges'],env=env,stdout=f,check=True)
-    import psycopg
+        subprocess.run(command+['--data-only','--schema=auction_private','--schema=auth','--exclude-table=auction_private.schema_version','--inserts','--no-owner','--no-privileges'],env=env,stdout=f,check=True)
     # This fixture only accepts localhost/auction_test. Restore inside a
     # transaction and verify all ledger balances/ownership before rollback.
     with psycopg.connect(os.environ['TEST_ACCOUNT_DATABASE_URL']) as db:
         names=db.execute("SELECT tablename FROM pg_tables WHERE schemaname='auction_private' AND tablename!='schema_version'").fetchall()
         from psycopg import sql
         db.execute(sql.SQL('TRUNCATE {}').format(sql.SQL(',').join(sql.Identifier('auction_private',r[0]) for r in names)))
+        db.execute('TRUNCATE auth.users')
         # pg_dump adds psql-only restrict guards; all data here is generated
         # in this disposable fixture, and SQL is executed without psql.
         restore='\n'.join(line for line in archive.read_text().splitlines() if not line.startswith('\\'))
         db.execute(restore)
-        assert db.execute("SELECT r.user_id,p.status FROM auction_private.report_credit_redemptions r JOIN auction_private.report_credit_periods p USING(subscription_id,period_start) WHERE r.review_id='recover-report'").fetchone()==('alice','paid')
+        assert db.execute("SELECT r.user_id,p.status FROM auction_private.report_credit_redemptions r JOIN auction_private.report_credit_periods p USING(subscription_id,period_start) WHERE r.review_id='recover-report'").fetchone()==(uid,'paid')
         assert db.execute("SELECT report_json FROM auction_private.reviews WHERE id='recover-report'").fetchone()[0]=='{"analysis_state":"complete"}'
+        restored_subject=str(db.execute("SELECT id FROM auth.users WHERE email='recovery@example.test'").fetchone()[0])
+        assert hashlib.sha256((issuer+'|'+restored_subject).encode()).hexdigest()==uid
+        assert db.execute('SELECT enabled FROM auction_private.alert_preferences WHERE user_id=%s',(uid,)).fetchone()[0]==0
+        assert db.execute("SELECT status FROM auction_private.alert_outbox WHERE id='recover-digest'").fetchone()[0]=='needs_review'
+        assert db.execute('SELECT count(*) FROM auction_private.alert_recipients').fetchone()[0]==0
         db.rollback()
 
 
