@@ -535,8 +535,22 @@
     },
     {
       "auctioneer": "Loveitts",
-      "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
-      "collector_verified": false
+      "state": "CURRENT_INVENTORY_MATCHED_CANONICAL_HEALTH_ACCEPTANCE_PENDING",
+      "collector_verified": true,
+      "collector_module": "collectors.auction_house_regions_resilient",
+      "canonical_source": "Auction House Coventry & Warwickshire",
+      "checked_on": "2026-10-17",
+      "source_url": "https://www.loveitts.co.uk/auctions",
+      "current_catalogue_detected": true,
+      "scope": "Dated manual reconciliation: 22 Loveitts current listings across two pages matched by address and postcode to the existing 24-lot canonical regional feed. No independent collector or duplicate property rows added.",
+      "failure_reason": "Current Loveitts inventory matched to Auction House Coventry & Warwickshire. Separate Loveitts health attribution and continuing catalogue divergence monitoring remain pending; this is not blanket future inventory sign-off.",
+      "evidence_urls": [
+        "https://www.loveitts.co.uk/auctions",
+        "https://www.loveitts.co.uk/auctions?page=2",
+        "https://www.auctionhouse.co.uk/loveitts",
+        "https://www.auctionhouse.co.uk/coventryandwarwickshire"
+      ],
+      "evidence_file": "docs/loveitts-reconciliation-2026-10-17.md"
     },
     {
       "auctioneer": "iamsold",
