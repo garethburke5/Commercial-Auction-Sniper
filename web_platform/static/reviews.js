@@ -53,6 +53,7 @@ function show(r){
   r.access==='full'?'Full Investment Report saved to My Auction Geek.':
   'Free Property Snapshot saved. '+(r.report?.quality_status?.message||'');
  const url=new URL(location.href);url.searchParams.set('review',id);history.replaceState(null,'',url);
+ window.dispatchEvent(new CustomEvent('auction-report-loaded',{detail:{id,available:!!r.supporting_evidence_available}}));
 }
 async function act(button,run,message){
  if(!ready()){progress.textContent='Sign in / Register using the link above, then return to prepare your report.';return;}

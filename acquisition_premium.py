@@ -6,8 +6,33 @@ import base64
 from pathlib import Path
 from acquisition_presentation import make_brief
 from acquisition_editorial import safe_text
+from acquisition_evidence_links import evidence_detail
 
 NAVY='#193444'; TEAL='#246B70'; GREY='#596770'; LIGHT='#EDF2F3'
+
+def reference_text(row):
+    return row['label'] + (' · '+row['page_label'] if row.get('page_label') else '')
+
+def evidence_html(report, rows):
+    """Portable authorised downloads include retained extracts, never fake PDFs."""
+    out=['<section class="supporting-evidence"><h2>Supporting evidence</h2><p>These are retained extracts and extracted page text, not images of the original documents. Page numbers refer to the supplied PDF. Check the original where layout, handwriting or a plan matters.</p>']
+    for row in rows:
+        if not row['private']:continue
+        out.append('<section class="evidence-card" id="evidence-'+row['id']+'"><h3>'+escape(reference_text(row))+'</h3><p class="caption">Document: '+escape(str(row['document']))+'</p>')
+        detail=evidence_detail(report,row)
+        if row['restricted']:out.append('<p>This source cannot be displayed here. Consult the named document and page.</p>')
+        elif not detail['pages']:out.append('<p>No shareable extract is retained. Consult the named document and page.</p>')
+        for page in detail['pages']:
+            out.append('<h4>'+('Page '+escape(str(page['number'])) if page['number'] else 'Page not recorded')+'</h4>')
+            if page['ocr']:out.append('<p class="caption">Text was extracted using OCR and may contain reading errors.</p>')
+            if page['unmatched_extract']:out.append('<p>The cited extract could not be matched exactly to the retained page text; no highlight has been assumed.</p>')
+            for extract in page['extracts']:out.append('<blockquote>'+escape(extract)+'</blockquote>')
+            if page['segments']:
+                out.append('<details><summary>Read the retained page text</summary><p>'+''.join(('<mark>'+escape(s['text'])+'</mark>') if s['highlighted'] else escape(s['text']) for s in page['segments'])+'</p></details>')
+            else:out.append('<p class="caption">Only this extract was retained; the complete page is not available here.</p>')
+        out.append('</section>')
+    out.append('</section>')
+    return ''.join(out)
 
 def chart_png(block):
     import matplotlib
@@ -75,6 +100,7 @@ def render_pdf(report):
     styles['head'].textColor=colors.white
     styles['h'].keepWithNext=True
     styles['callout']=styles['body']
+    styles['evidence']=ParagraphStyle('evidence',parent=styles['caption'],fontSize=8,leading=10.3)
     def para(t,style='body'):return Paragraph(escape(str(t)).replace('\n','<br/>'),styles.get(style,styles['body']))
     story=[]
     for i,page in enumerate(brief['pages']+brief.get('appendix_pages',[])):
@@ -84,7 +110,7 @@ def render_pdf(report):
             if kind=='hero':
                 from PIL import Image as PILImage
                 im=PILImage.open(b['path']); ih=102 if brief['product_outcome']=='free_snapshot' else 152; iw=ih*im.width/im.height
-                t=Table([[Image(b['path'],width=iw,height=ih),para(b['text'])]],colWidths=[iw+17,width-iw-17]);t.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'),('LEFTPADDING',(0,0),(0,0),0),('RIGHTPADDING',(0,0),(-1,-1),0)]));story.extend([t,Spacer(1,7),para(b['credit'],'caption'),Spacer(1,5)])
+                t=Table([[Image(b['path'],width=iw,height=ih),para(b['text'])]],colWidths=[iw+17,width-iw-17]);t.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'),('LEFTPADDING',(0,0),(0,0),0),('RIGHTPADDING',(0,0),(-1,-1),0)]));story.extend([t,Spacer(1,7),Paragraph(escape(b['credit'])+(' · <link href="'+escape(b['source_url'],quote=True)+'">Photo source</link>' if b.get('source_url') else '')+(' · <link href="'+escape(b['license_url'],quote=True)+'">Licence</link>' if b.get('license_url') else ''),styles['caption']),Spacer(1,5)])
             elif kind in ('p','h'):story.append(para(b['text'],'h' if kind=='h' else b.get('style','body')))
             elif kind=='photo':
                 from PIL import Image as PILImage
@@ -100,19 +126,16 @@ def render_pdf(report):
             elif kind=='chart':
                 data=chart_png(b);from PIL import Image as PILImage
                 im=PILImage.open(BytesIO(data));story.extend([para(b['title'],'h'),Image(BytesIO(data),width=width,height=width*im.height/im.width),Spacer(1,7)])
-            elif kind=='sources':
-                # Full titles/URLs are linked in HTML; PDF uses compact IDs and
-                # document names, arranged in two columns, with page anchors.
+            elif kind=='evidence':
                 items=[]
-                for r in b['rows']:
-                    label=r['label'].replace('Official Copy (Lease)','Lease').replace(' Street',' St').replace('Official Copy of Register - EDOC REGISTRATION - ','Title ').replace('Official Copy (Register) - ','Title ')
-                    if r.get('pages'):label+=' (pages '+', '.join(r['pages'])+')'
-                    if r.get('url'):
-                        items.append(Paragraph(escape(r['id']+' ')+'<link href="'+escape(r['url'],quote=True)+'">'+escape(label)+'</link>',styles['caption']))
-                    else:
-                        items.append(para(r['id']+' '+label,'caption'))
-                mid=(len(items)+1)//2
-                t=Table([[items[:mid],items[mid:]]],colWidths=[width/2]*2);t.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'),('LEFTPADDING',(0,0),(-1,-1),0),('RIGHTPADDING',(0,0),(-1,-1),10)]));story.extend([para('Source key','h'),t])
+                for row in b['rows']:
+                    label=escape(reference_text(row))
+                    if row.get('href'):
+                        action='View evidence' if row['private'] else 'Open original source'
+                        label+=' - <link color="#246B70" href="'+escape(row['href'],quote=True)+'">'+action+'</link>'
+                    elif row.get('restricted'):label+=' (access restricted)'
+                    items.append(label)
+                story.append(Paragraph('  ·  '.join(items),styles['evidence']))
     def foot(canvas,doc):
         canvas.setFont('Investor',7);canvas.setFillColor(colors.HexColor(GREY));canvas.drawString(44,27,'AUCTION GEEK  |  '+brief['status']);canvas.drawRightString(A4[0]-44,27,str(doc.page))
     doc=SimpleDocTemplate(out,pagesize=A4,leftMargin=44,rightMargin=44,topMargin=35,bottomMargin=43,title=report['property']+' - '+({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Investment Report')),author='Auction Geek')
@@ -121,14 +144,14 @@ def render_pdf(report):
 
 def render_html(report,standalone=True):
     brief=make_brief(report); e=lambda v:escape(safe_text(v))
-    css='''body{margin:0;background:#edf1f2;font-family:Arial,sans-serif;color:#193444}article{max-width:850px;margin:auto;background:white}section.page{padding:35px 46px;border-bottom:1px solid #ddd}h1{font-size:30px;line-height:1.12}h2{font-size:22px}h3{font-size:16px;margin:18px 0 9px}p{font-size:14px;line-height:1.5}p.small{font-size:12px}p.caption,p.meta{font-size:11px;color:#596770}.kicker{font-size:10px;letter-spacing:.13em}.photo,.chart{width:100%;height:auto}.hero{display:flex;gap:22px;align-items:flex-start}.hero img{width:150px;max-height:220px;object-fit:contain}.metrics{display:grid;grid-template-columns:repeat(3,1fr);background:#edf2f3;padding:15px;gap:15px}.metrics b{display:block;font-size:24px;margin-top:7px}.metrics span{font-size:10px}table{border-collapse:collapse;width:100%;font-size:12px;margin:14px 0}th{background:#193444;color:white}td,th{padding:10px;border:1px solid #d9d9d9;text-align:left;vertical-align:top}tr:nth-child(odd){background:#edf2f3}.sources{columns:2;font-size:10px}.sources p{font-size:10px;break-inside:avoid}details{padding:16px 40px}.flag{padding:9px 15px;background:#e8eeee;font-size:12px}@media(max-width:600px){section.page{padding:25px 18px}.metrics{grid-template-columns:repeat(2,1fr)}table{font-size:11px}td,th{padding:6px}.sources{columns:1}}@media print{body{background:white}section.page{padding:0;border:0;break-after:page}section.page:last-of-type{break-after:auto}details,.flag{display:none}@page{size:A4;margin:16mm}p{font-size:9pt}table{font-size:8pt}td,th{padding:5pt}}'''
+    css='''body{margin:0;background:#edf1f2;font-family:Arial,sans-serif;color:#193444}article{max-width:850px;margin:auto;background:white}section.page{padding:35px 46px;border-bottom:1px solid #ddd}h1{font-size:30px;line-height:1.12}h2{font-size:22px}h3{font-size:16px;margin:18px 0 9px}p{font-size:14px;line-height:1.5}p.small{font-size:12px}p.caption,p.meta{font-size:11px;color:#596770}.kicker{font-size:10px;letter-spacing:.13em}.photo,.chart{width:100%;height:auto}.hero{display:flex;gap:22px;align-items:flex-start}.hero img{width:150px;max-height:220px;object-fit:contain}.metrics{display:grid;grid-template-columns:repeat(3,1fr);background:#edf2f3;padding:15px;gap:15px}.metrics b{display:block;font-size:24px;margin-top:7px}.metrics span{font-size:10px}table{border-collapse:collapse;width:100%;font-size:12px;margin:14px 0}th{background:#193444;color:white}td,th{padding:10px;border:1px solid #d9d9d9;text-align:left;vertical-align:top}tr:nth-child(odd){background:#edf2f3}.context-evidence{font-size:11px;line-height:1.6;margin:0 0 12px;color:#596770;overflow-wrap:anywhere}.context-evidence a{color:#246B70;text-decoration:underline}.supporting-evidence{padding:30px 40px}.evidence-card{padding:16px 0;border-bottom:1px solid #ddd;scroll-margin-top:20px}.evidence-card:target{background:#f4f8f8}.evidence-card blockquote{margin:12px 0;padding:12px 16px;border-left:3px solid #246B70;background:#edf2f3;font-size:14px;line-height:1.6;overflow-wrap:anywhere}mark{background:#fff2aa;color:inherit}details{padding:16px 40px}.flag{padding:9px 15px;background:#e8eeee;font-size:12px}@media(max-width:600px){section.page{padding:25px 18px}.metrics{grid-template-columns:repeat(2,1fr)}table{font-size:11px}td,th{padding:6px}.sources{columns:1}}@media print{body{background:white}section.page{padding:0;border:0;break-after:page}section.page:last-of-type{break-after:auto}details,.flag,.supporting-evidence{display:none}@page{size:A4;margin:16mm}p{font-size:9pt}table{font-size:8pt}td,th{padding:5pt}}'''
     out=['<article><div class="flag">'+e(brief['status'])+'</div>']
     for page in brief['pages']+brief.get('appendix_pages',[]):
         out.append('<section class="page">')
         for b in page['blocks']:
             k=b['kind']
             if k=='hero':
-                data=Path(b['path']).read_bytes();out.append('<div class="hero"><img alt="Property photograph" src="data:image/jpeg;base64,'+base64.b64encode(data).decode()+'"><p>'+e(b['text'])+'</p></div><p class="caption">'+e(b['credit'])+'</p>')
+                data=Path(b['path']).read_bytes();out.append('<div class="hero"><img alt="Property photograph" src="data:image/jpeg;base64,'+base64.b64encode(data).decode()+'"><p>'+e(b['text'])+'</p></div><p class="caption">'+e(b['credit'])+(' · <a href="'+escape(b['source_url'],quote=True)+'">Photo source</a>' if b.get('source_url') else '')+(' · <a href="'+escape(b['license_url'],quote=True)+'">Licence</a>' if b.get('license_url') else '')+'</p>')
             elif k in ('p','h'):
                 tag='h2' if k=='h' else 'h1' if b.get('style')=='title' else 'p';out.append('<'+tag+' class="'+e(b.get('style',''))+'">'+e(b['text'])+'</'+tag+'>')
             elif k in ('photo','chart'):
@@ -137,22 +160,23 @@ def render_html(report,standalone=True):
                 out.append('<img class="'+k+'" alt="'+e(b.get('title','Property photograph'))+'" src="data:image/'+('jpeg' if k=='photo' else 'png')+';base64,'+base64.b64encode(data).decode()+'">')
             elif k=='metrics':out.append('<div class="metrics">'+''.join('<div><span>'+e(a)+'</span><b>'+e(v)+'</b></div>' for a,v in b['items'])+'</div>')
             elif k=='table':out.append('<table><thead><tr>'+''.join('<th>'+e(x)+'</th>' for x in b['headers'])+'</tr></thead><tbody>'+''.join('<tr>'+''.join('<td>'+e(x)+'</td>' for x in row)+'</tr>' for row in b['rows'])+'</tbody></table>')
-            elif k=='sources':out.append('<h3>Source key</h3><div class="sources">'+''.join('<p id="'+e(r['id'])+'"><b>'+e(r['id'])+'</b> '+ ('<a href="'+e(r['url'])+'">'+e(r['label'])+'</a>' if r.get('url') else e(r['label']))+'</p>' for r in b['rows'])+'</div>')
+            elif k=='evidence':
+                links=[]
+                for row in b['rows']:
+                    label=e(reference_text(row));href=row.get('href')
+                    if row['private'] and row['available'] and (standalone or not report.get('_evidence_context')):href='#evidence-'+row['id']
+                    if href:
+                        action='View evidence' if row['private'] else 'Open original source'
+                        attrs=(' data-evidence-id="'+row['id']+'"' if row['private'] and not standalone and report.get('_evidence_context') else '')
+                        if not row['private']:attrs+=' target="_blank" rel="noopener noreferrer"'
+                        label+=' · <a href="'+escape(href,quote=True)+'"'+attrs+' aria-label="'+escape(action+': '+reference_text(row),quote=True)+'">'+action+'</a>'
+                    elif row.get('restricted'):label+=' (access restricted)'
+                    links.append('<span>'+label+'</span>')
+                out.append('<div class="context-evidence">'+'<span class="source-divider"> · </span>'.join(links)+'</div>')
         out.append('</section>')
-    out.append('<details><summary>Original source extracts</summary><p>The report above contains the edited assessment. These extracts preserve the source wording so individual points can be checked. An older document does not establish the current condition of the building.</p>')
-    seen=set()
-    for f in brief['appendix_findings']:
-        for source in f.get('evidence',[]):
-            excerpt=source.get('excerpt') or source.get('text') or ''
-            key=(source.get('document') or source.get('title'),source.get('page'),excerpt,source.get('url'))
-            if key in seen:continue
-            seen.add(key)
-            label=(source.get('document') or source.get('title') or 'Source')+(' - page '+str(source['page']) if source.get('page') else '')
-            out.append('<details><summary>'+e(label)+'</summary>')
-            if source.get('url'):out.append('<p><a href="'+e(source['url'])+'">Open source</a></p>')
-            if excerpt:out.append('<blockquote>'+escape(excerpt)+'</blockquote>')
-            out.append('</details>')
-    out.append('</details></article>')
+    if standalone or not report.get('_evidence_context'):
+        if any(r['private'] for r in brief['references']):out.append(evidence_html(report,brief['references']))
+    out.append('</article>')
     body='<style>'+css+'</style>'+''.join(out)
     return '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>'+e(report['property'])+' — '+({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Investment Report'))+'</title></head><body>'+body+'</body></html>' if standalone else body
 
@@ -218,12 +242,14 @@ def render_docx(report):
             elif k=='chart':paragraph(b['title'],style='Heading 1');doc.add_picture(BytesIO(chart_png(b)),width=Cm(17.9))
             elif k=='metrics':table([a for a,v in b['items']],[[v for a,v in b['items']]],[1/len(b['items'])]*len(b['items']))
             elif k=='table' and b['rows']:table(b['headers'],b['rows'],b['widths'])
-            elif k=='sources':
-                paragraph('Source key',style='Heading 1')
-                # Two compact columns keep the reference key readable without a
-                # long repeated table; exact links also remain in HTML.
-                txt='\n'.join(r['id']+' '+r['label'] for r in b['rows'])
-                paragraph(txt,size=6.5)
+            elif k=='evidence':
+                for row in b['rows']:
+                    p=paragraph(reference_text(row),size=8)
+                    if row.get('href'):
+                        from docx.opc.constants import RELATIONSHIP_TYPE as RT
+                        link=OxmlElement('w:hyperlink');link.set(qn('r:id'),p.part.relate_to(row['href'],RT.HYPERLINK,is_external=True))
+                        run=OxmlElement('w:r');props=OxmlElement('w:rPr');color=OxmlElement('w:color');color.set(qn('w:val'),'246B70');props.append(color);run.append(props)
+                        text=OxmlElement('w:t');text.text=' - '+('View evidence' if row['private'] else 'Open original source');run.append(text);link.append(run);p._p.append(link)
     foot=section.footer.paragraphs[0];foot.text='AUCTION GEEK  |  '+brief['status']+'  |  '
     fld=OxmlElement('w:fldSimple');fld.set(qn('w:instr'),'PAGE');foot._p.append(fld)
     for run in foot.runs:run.font.size=Pt(7)

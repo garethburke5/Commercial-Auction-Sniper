@@ -34,6 +34,15 @@ jobs:
           python-version: '3.11'
       - run: pip install -r web_platform/requirements-cloudflare.txt pytest beautifulsoup4 requests lxml pypdf python-docx openpyxl
       - run: python -m pytest web_platform/tests tests/test_legal_pack_engine.py tests/test_legal_pack_report.py tests/test_legal_pack_ingest.py tests/test_legal_pack_service.py tests/test_legal_pack_review.py tests/test_legal_evidence_provenance.py tests/test_acquisition_lease_evidence.py tests/test_acquisition_property_evidence.py tests/test_registry_scan_coverage.py tests/test_acquisition_investigation.py tests/test_acquisition_pipeline.py tests/test_acuitus_current_catalogue.py tests/test_specialist_office_use.py tests/test_source_reconciliation.py -q
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check evidence links and account sign-in in Chromium
+        run: |
+          npm install --prefix "$RUNNER_TEMP/evidence-browser" playwright@1.51.1 --no-audit --no-fund
+          node "$RUNNER_TEMP/evidence-browser/node_modules/playwright/cli.js" install --with-deps chromium
+          NODE_PATH="$RUNNER_TEMP/evidence-browser/node_modules" node web_platform/tests/report_evidence_browser.cjs
+          NODE_PATH="$RUNNER_TEMP/evidence-browser/node_modules" node web_platform/tests/account_auth_browser.cjs
       - uses: actions/configure-pages@v5
         id: pages
       - run: python -m web_platform.export --output public-dist --origin "$SITE_ORIGIN"

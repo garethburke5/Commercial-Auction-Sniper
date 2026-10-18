@@ -98,6 +98,8 @@ def dashboard(accounts,user,rows,*,monitoring_rows=None,monitoring_stamp=None):
         for search in searches:
             search['matches']=recent_matches(db,user,search['search_id']) if monitoring else []
         reviews=[dict(r) for r in db.execute('SELECT id,property_id,created_at FROM reviews WHERE user_id=? ORDER BY created_at DESC',(user,))]
+        from .report_credits import report_access
+        for review in reviews:review['purchased_access']=report_access(db,user,review['id'])
     return {'properties':items,'events':events,'saved_searches':searches,'reviews':reviews,'monitoring_enabled':monitoring}
 
 def full_review_allowed(accounts,user,report_id,property_id):

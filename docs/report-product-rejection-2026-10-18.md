@@ -166,3 +166,29 @@ statistics remain in scope. Report product acceptance takes precedence over
 further source expansion and a new analytics dashboard. Existing collection and
 essential reliability work continue. No launch gate or unrelated priority is
 silently marked complete by this rejection.
+
+## Contextual evidence — additional acceptance requirement
+
+Apply to the Free Property Snapshot and Full Investment Report:
+
+- Put readable document/source names and page numbers beside important findings.
+  Remove coded references and the full source-key page from the main PDF.
+- Link public claims to the original authoritative webpage. Link private PDF
+  references only when the delivered report has a real saved-report destination.
+  A local review specimen must not invent an online evidence destination.
+- Provide Supporting evidence within My Auction Geek for purchased reports,
+  with authenticated deep links to the relevant retained extract/page text.
+  Exact highlighting must match the same document, page and supplied hash.
+- Clearly distinguish extracted page text from the original PDF image; identify
+  OCR and unmatched extracts. Where only an extract was retained, say so.
+- Respect document restrictions, report ownership, purchase/credit entitlement,
+  quality holds and refund/dispute revocation. Membership expiry alone must not
+  revoke a separately purchased report. No credentials in evidence links.
+- If a source cannot be shown, retain its readable name and page, with no fake
+  link. Keep the complete evidence register internally for audit and review.
+- Test the PDF-to-sign-in return, logout/account-change races, public/private
+  separation and portable HTML references. Preserve the versions currently
+  being reviewed while preparing replacement specimens.
+
+These requirements add to commercial and editorial acceptance. A working
+viewer or passing permission test does not approve a report for paid launch.

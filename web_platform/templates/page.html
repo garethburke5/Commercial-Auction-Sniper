@@ -8,7 +8,7 @@
 <link rel="canonical" href="{{ canonical }}">{% if noindex %}<meta name="robots" content="noindex,follow">{% endif %}
 <meta property="og:title" content="{{ title }}"><meta property="og:description" content="{{ description }}"><meta property="og:url" content="{{ canonical }}">
 <link rel="stylesheet" href="{{ url('/static/site.css') }}?v={{ asset_version }}"><script type="application/ld+json">{{ structured|safe }}</script><script src="{{ url('/static/search.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/board.js') }}?v={{ asset_version }}" defer></script>
-<script src="{{ url('/static/identity.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/reviews.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/deals.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/workspace.js') }}?v={{ asset_version }}" defer></script>
+<script src="{{ url('/static/identity.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/reviews.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/report-evidence.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/deals.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/workspace.js') }}?v={{ asset_version }}" defer></script>
 <script src="{{ url('/static/navigation.js') }}?v={{ asset_version }}" defer></script>
 </head><body data-prefix="{{ url('') }}" data-page-kind="{{ kind }}">
 {% from 'cards.html' import cards with context %}

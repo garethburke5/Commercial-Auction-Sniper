@@ -31,6 +31,8 @@ def free_snapshot_exportable(report):
                 and not scope.get('uploaded_files')
                 and not report.get('documents') and not report.get('lease_details')
                 and not report.get('source_pages')
+                and not report.get('evidence_review', {}).get('source_pages')
+                and not report.get('evidence_review', {}).get('documents')
                 and not any(e.get('source_kind') == 'legal_pack'
                             for e in report['investigation'].get('evidence', [])))
     if not scope_ok:return False

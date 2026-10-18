@@ -6,6 +6,7 @@ from acquisition_investigation import cash, ratio
 from acquisition_editorial import safe_text, lease_events
 from acquisition_interpretation import interpret, money, dated, source_evidence
 from acquisition_public_insights import public_insights
+from acquisition_evidence_links import EvidenceReferences, public_url
 
 
 def compact(value): return re.sub(r'\s+', ' ', str(value or '')).strip()
@@ -46,23 +47,15 @@ def make_brief(report):
     analysis=interpret(report); inv=report['investigation']; finance=analysis['finance']; ds=inv.get('demises',[])
     has_pack=bool(report.get('evidence_scope',{}).get('legal_pack_supplied',bool(report.get('documents'))))
     external=inv.get('external_research',{}).get('records',[]); profile=inv.get('profile',{})
-    price,rent=finance['price'],finance['rent'];principal=finance['principal'];refs_by_key={}
-    def refs(evidence):
-        ids=[]
-        for e in evidence or []:
-            key=(e.get('url'),e.get('document') or e.get('title'))
-            if not any(key):continue
-            if key not in refs_by_key:refs_by_key[key]={'id':f'S{len(refs_by_key)+1:02}','label':key[1] or key[0],'url':key[0],'pages':[]}
-            row=refs_by_key[key]
-            if e.get('page') and str(e['page']) not in row['pages']:row['pages'].append(str(e['page']))
-            ids.append(row['id'])
-        return ', '.join(dict.fromkeys(ids))
+    price,rent=finance['price'],finance['rent'];principal=finance['principal'];reference_index=EvidenceReferences(report)
+    def refs(evidence,context=None):
+        return reference_index.add(evidence,context)
     def p(text,style='body'):return {'kind':'p','text':safe_text(text),'style':style}
     def h(text):return {'kind':'h','text':text}
-    def cite(evidence):
-        value=refs(evidence)
-        return [p('Sources: '+value+'.','caption')] if value else []
-    def section(card):return [h(card['title']),p(card['body'])]+cite(card['evidence'])
+    def cite(evidence,context=None):
+        rows=refs(evidence,context)
+        return [{'kind':'evidence','rows':rows}] if rows else []
+    def section(card):return [h(card['title']),p(card['body'])]+cite(card['evidence'],card['title'])
     def table(headers,rows,widths):return {'kind':'table','headers':headers,'rows':rows,'widths':widths}
     def chart(title,kind,rows,**kw):return dict(kind='chart',chart=kind,title=title,rows=rows,**kw)
     def card(key):return next((c for c in analysis['cards'] if c['id']==key),None)
@@ -82,7 +75,8 @@ def make_brief(report):
     # A supplied, correctly attributed photograph is optional. Never invent one.
     def overview(text):
         if photo and Path(photo).is_file():
-            return [{'kind':'hero','path':photo,'text':text,'credit':media.get('photo_credit','Property photograph; capture date unconfirmed.')}]
+            return [{'kind':'hero','path':photo,'text':text,'credit':media.get('photo_credit','Property photograph; capture date unconfirmed.'),
+                     'source_url':public_url(media.get('source_url')),'license_url':public_url(media.get('license_url'))}]
         return [p(text)]
     heritage=next((r for r in external if r.get('kind')=='heritage_designation'),None)
     sale=next((r for r in external if r.get('kind')=='subject_sale_result'),None)
@@ -90,7 +84,9 @@ def make_brief(report):
     achieved=[r for r in records if r.get('kind')=='sale_comparable' and r.get('price_basis')=='achieved' and r.get('comparable') is True and r.get('price') and r.get('rent') is not None]
     def finish(pages,appendix,outcome,status):
         from acquisition_editorial import audit_brief
-        result={'pages':pages,'appendix_pages':appendix,'financial_view':finance,'references':list(refs_by_key.values()),
+        if has_pack:
+            for finding in analysis['findings']:refs(finding.get('evidence'),finding.get('title'))
+        result={'pages':pages,'appendix_pages':appendix,'financial_view':finance,'references':list(reference_index.rows.values()),
                 'executive_assessment':analysis['opening']+' '+analysis['assessment']+' '+analysis['market_summary'],'conclusion':analysis['conclusion'],
                 'status':status,'appendix_findings':analysis['findings'] if has_pack else [],
                 'selection_note':'Original source extracts are retained for checking. They are not the edited customer assessment.',
@@ -101,6 +97,7 @@ def make_brief(report):
     if not has_pack:
         intro=analysis['ownership']+' '+analysis['opening']
         blocks=header+overview(intro)
+        if heritage:blocks+=cite(record_ref(heritage),'Listed building status')
         if report.get('auction_date'):
             from datetime import date
             try:
@@ -130,8 +127,6 @@ def make_brief(report):
         if not sale and not m and not report.get('guide'):
             blocks.append(p('No reliable purchase price or comparable completed sale has been established in the available research.'))
         blocks+=[h('What is still unknown'),p('No legal pack was analysed. '+('The ownership boundaries, building condition, works, insurance and other holding costs still need investigation. The likely rent and cost of getting the building ready are also unconfirmed.' if vacant else 'The current leases, exact ownership boundaries, building condition and landlord costs still need investigation. The gross yield excludes purchase costs, repairs, empty periods, borrowing and tax.'))]
-        if heritage:refs(record_ref(heritage))
-        blocks+=[{'kind':'sources','rows':list(refs_by_key.values())}]
         return finish([{'title':'Free Property Snapshot','blocks':blocks}],[],'free_snapshot','Free Property Snapshot')
     incomplete=not inv.get('income_reconciled') and inv.get('market',{}).get('price_support')=='inconclusive' and inv.get('market',{}).get('erv_support')=='inconclusive'
     if incomplete:
@@ -153,18 +148,19 @@ def make_brief(report):
         if analysis['unedited_findings']:
             topics=sorted({f.get('topic','document') for f in analysis['unedited_findings']})
             blocks.append(p('Other findings about '+', '.join(topics)+' still need a clear, checked explanation. They have not been treated as settled conclusions.'))
-        blocks+=[h('Why this matters to a buyer'),p('Until the documents are matched to the correct premises and dates, we cannot say which income continues after purchase or which costs the buyer takes on. Independent market evidence is also incomplete. A high advertised yield would not resolve these gaps.'),h('What is needed next'),p('The current leases, later changes, title plans and rent receipts need checking together, followed by relevant completed sales and lettings. This research update is free; a completed £19 Investment Report cannot yet be provided.'),{'kind':'sources','rows':list(refs_by_key.values())}]
+        blocks+=[h('Why this matters to a buyer'),p('Until the documents are matched to the correct premises and dates, we cannot say which income continues after purchase or which costs the buyer takes on. Independent market evidence is also incomplete. A high advertised yield would not resolve these gaps.'),h('What is needed next'),p('The current leases, later changes, title plans and rent receipts need checking together, followed by relevant completed sales and lettings. This research update is free; a completed £19 Investment Report cannot yet be provided.')]
         return finish([{'title':'Research update','blocks':blocks}],[],'insufficient_evidence','Research update - no charge')
-    # Five readable main pages; source detail has its own appendix.
-    page1=header+overview(analysis['ownership'])+[h('The investment in plain English'),p(analysis['opening']),p(analysis['assessment'])]
-    interaction=card('income-building-interaction')
-    if interaction:page1+=cite(interaction['evidence'])
+    # The summary cites its principal lease; detailed findings carry their own
+    # sources on the following pages, avoiding a detached source-key paragraph.
+    page1=header+overview(analysis['ownership'])
+    if heritage:page1+=cite(record_ref(heritage),'Listed building status')
+    page1+=[h('The investment in plain English'),p(analysis['opening']),p(analysis['assessment'])]
+    if principal:page1+=cite(principal.get('evidence',[])+[e for b in principal.get('breaks',[]) for e in b.get('evidence',[])],'Main income and lease terms')
     if analysis['priority_summary']:page1.append(p(analysis['priority_summary']))
     page1+=[h('What would need to be right'),p('The rent must be collectable, the space being sold must match the income, and the buyer must be able to fund repairs and any empty period. Those checks matter more than the headline percentage.')]
     if sale:page1+=[p('The auctioneer reports a sale at '+cash(price)+'. Completion and subsequent availability have not been independently checked.','small')]+cite(record_ref(sale))
     if report.get('guide'):
         page1.append(p('The earlier guide was '+cash(report['guide'])+(' to '+cash(report['guide_upper']) if report.get('guide_upper') and report['guide_upper']!=report['guide'] else '')+'. It is separate from the reported sale price used here.','small'))
-    if heritage:refs(record_ref(heritage))
     page2=[h('Where the income comes from')]
     if inv.get('income_reconciled'):
         rows=[[d['label'],d['annual_rent'],f"{ratio(d['annual_rent'],rent):.1f}%"] for d in ds if d.get('annual_rent') is not None]
@@ -174,7 +170,7 @@ def make_brief(report):
         page2+=[chart('When the main lease terms change','timeline',events),p('An early termination right allows a tenant to leave if the lease conditions are met; it is not a prediction that they will leave. A rent review is an opportunity to reassess the rent, not a guaranteed increase.','small')]+cite([e for x in events for e in x['evidence']])
     for d in ds:
         if not d.get('document') or d.get('residential_reversion'):continue
-        page2+=[h(d['label']),p(lease_terms(d),'small')]
+        page2+=[h(d['label']),p(lease_terms(d),'small')]+cite([e for b in d.get('breaks',[]) for e in b.get('evidence',[])])
     residential=[d for d in ds if d.get('residential_reversion')]
     if residential:page2.append(p('The flats contribute only '+money(sum(d.get('annual_rent') or 0 for d in residential))+' a year in ground rent. Their long leases mean the buyer cannot simply let them at residential market rents.','small'))
     # Select by source finding type, not a case-specific identifier.
@@ -234,6 +230,7 @@ def make_brief(report):
     if finance['illustrative_tax']:costrows.append(['Illustrative purchase tax',cash(finance['illustrative_tax']['amount'])]);refs([finance['illustrative_tax']['source']])
     if finance['capital_basis']:costrows.append(['Subtotal before unpriced costs',cash(finance['capital_basis'])])
     page5+=[table(['Purchase cash','Amount'],costrows,[.74,.26]),p('The subtotal is not the full budget. Buyer’s legal and survey fees, finance, any VAT requirement and initial work still need pricing. The tax illustration assumes a single freehold non-residential or mixed-use purchase; the solicitor must check the tax treatment and any additional amounts that are taxable.','small')]
+    page5+=cite([e for c in report.get('costs',[]) for e in c.get('evidence',[])]+([finance['illustrative_tax']['source']] if finance['illustrative_tax'] else []))
     if finance['rent_loss_cases']:
         page5+=[chart('Annual income if the main tenant leaves','downside',[[('All stated rent received' if not s['months'] else f"Main unit empty for {s['months']} months"),s['rent_remaining']] for s in finance['rent_loss_cases']]),p('The scenarios assume every other rent continues unchanged. They show rent before costs, not profit, and do not predict how long the shop would be empty.','caption'),p('During an empty period the landlord could still pay insurance, management and maintenance, as well as letting fees, rent incentives and work needed for a new tenant. A weaker income record could also make borrowing or selling harder.','small')]
     if profile.get('listed') and profile.get('jurisdiction')=='England':
@@ -243,11 +240,10 @@ def make_brief(report):
         page5+=[p(f"The accounts record {money(c['amount'])} of building expenditure for {period}. This is past spending, not a forecast of the buyer’s costs. We have not established how much was recovered from tenants or whether the same work will recur.",'small')]+cite(c['evidence'])
     page5+=[h('Our investment assessment'),p(analysis['conclusion'])]
     # No unfamiliar material issue is hidden in order to achieve the page target.
-    appendix=[h('Evidence notes and remaining checks'),p('The conclusions above distinguish records in the supplied pack from current conditions that have not been confirmed. The source key identifies the documents and pages used. This review has not completed independent commercial acceptance and is not approved for paid release.','small')]
+    appendix=[h('Further checks before purchase'),p('These additional points remain part of the investment assessment. Document names and pages sit beside each finding. This review has not completed independent commercial acceptance and is not approved for paid release.','small')]
     selected_ids={c['id'] for c in selected}|{'income-building-interaction'}
     remaining=[c for c in analysis['cards'] if c['id'] not in selected_ids and not c['id'].startswith(('cpse-rent-arrears','income-unreconciled'))]
     for c in remaining:appendix+=[h(c['title']),p(c['body'],'small')]+cite(c['evidence'])
     for f in analysis['unedited_findings']:
         appendix+=[h('Further review: '+f['title']),p(f.get('summary') or f['finding'],'small'),p(f['consequence'],'small'),p('This finding still needs editorial review. The report must be held before customer release.','small')]+cite(f.get('evidence'))
-    appendix.append({'kind':'sources','rows':list(refs_by_key.values())})
     return finish([{'title':t,'blocks':b} for t,b in zip(['The investment','Income','Building and ownership','Market evidence','Cash and conclusion'],[page1,page2,page3,page4,page5])],[{'title':'Evidence appendix','blocks':appendix}],'review_required','Investment Report - review copy')

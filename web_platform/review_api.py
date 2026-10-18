@@ -22,6 +22,21 @@ def install(app,site,user):
         return r,report
     def unlocked(a,uid,rid,pid):
         return full_review_allowed(a,uid,rid,pid)
+    def linked_report(rid, report):
+        # A transient destination, never persisted as evidence or an access token.
+        return dict(report, _evidence_context={'review_id':rid,'origin':getattr(site,'origin','')})
+    def evidence_report(rid, authorization):
+        uid,a,_=user(authorization);r,report=owned(a,uid,rid)
+        state=report.get('analysis_state','complete')
+        with a.db() as db:job=db.execute('SELECT status FROM review_processing WHERE review_id=?',(rid,)).fetchone()
+        if job and job['status'] in ('processing','failed'):state=job['status']
+        diagnostic=bool(is_owner(uid) and report.get('_validation') and state in ('complete','requires_review'))
+        from acquisition_quality import free_snapshot_exportable
+        public_free=state in ('complete','requires_review') and free_snapshot_exportable(report)
+        if not (diagnostic or public_free or (state=='complete' and unlocked(a,uid,rid,r['property_id']))):
+            raise HTTPException(403,'Supporting evidence requires access to the completed report')
+        if not report.get('investigation'):raise HTTPException(409,'Supporting evidence is unavailable for this older report')
+        return linked_report(rid,report),public_free
     def payload(rid,report,full=False,job=None,owner=False):
         report=dict(report)
         if job and job['status'] in ('processing','failed'):
@@ -30,13 +45,21 @@ def install(app,site,user):
         validation=bool(owner and report.get('_validation'))
         diagnostic=validation and state in ('complete','requires_review')
         from acquisition_quality import free_snapshot_exportable
-        public_free=free_snapshot_exportable(report)
+        public_free=state in ('complete','requires_review') and free_snapshot_exportable(report)
         projection={k:v for k,v in report.items() if not k.startswith('_')} if diagnostic or public_free or (full and state=='complete') else snapshot(report)
+        delivered=diagnostic or public_free or (full and state=='complete')
+        # Customer JSON carries display metadata. Source text is delivered by the
+        # separately authorised evidence endpoint; raw audit JSON is owner-only.
+        metadata=projection
+        if delivered and not diagnostic:
+            metadata={k:v for k,v in projection.items() if k in ('property','report_id','created_at','engine','coverage','evidence_scope','quality_status','product_eligibility','analysis_state')}
+            if projection.get('investigation'):metadata['investigation']={'available':True}
         result={'id':rid,'access':'full' if full and state=='complete' else 'snapshot',
                 'free_snapshot_available':public_free,
                 'analysis_state':state,'purchase_verified':bool(full),
                 'processing_allowed':bool(full and state in ('awaiting_payment','failed')),
-                'report':projection,'html':render(projection)}
+                'report':metadata,'html':render(linked_report(rid,projection) if delivered else projection),
+                'supporting_evidence_available':bool(delivered and projection.get('investigation'))}
         result['owner_validation_allowed']=bool(owner and not full and
             state in ('awaiting_payment','failed') and report.get('_intake',{}).get('scope_accepted')
             and not report.get('_intake',{}).get('parent_review_id'))
@@ -306,6 +329,25 @@ def install(app,site,user):
         if result['validation'] and attempt:result['validation_metrics']=json.loads(attempt['metrics_json'] or '{}')
         return result
 
+    @app.get('/api/account/reviews/{rid}/evidence')
+    def supporting_evidence(rid:str,authorization:str|None=Header(default=None)):
+        report,public_free=evidence_report(rid,authorization)
+        from acquisition_presentation import make_brief
+        from acquisition_evidence_links import summary
+        rows=make_brief(report)['references']
+        return {'property':report['property'],'sources':[summary(row) for row in rows if not public_free or not row['private']]}
+
+    @app.get('/api/account/reviews/{rid}/evidence/{eid}')
+    def supporting_extract(rid:str,eid:str,authorization:str|None=Header(default=None)):
+        report,public_free=evidence_report(rid,authorization)
+        from acquisition_presentation import make_brief
+        from acquisition_evidence_links import evidence_detail
+        row=next((r for r in make_brief(report)['references'] if r['id']==eid and (not public_free or not r['private'])),None)
+        if row is None:raise HTTPException(404,'Evidence reference not found')
+        if row['restricted']:raise HTTPException(403,'This source cannot be displayed. Consult the named document and page.')
+        if not row['available']:raise HTTPException(404,'No shareable extract is retained for this reference')
+        return evidence_detail(report,row)
+
     @app.get('/api/admin/reviews/{rid}/validation-download')
     def validation_download(rid:str,format:str='html',authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization);require_owner(uid);r,report=owned(a,uid,rid)
@@ -313,6 +355,7 @@ def install(app,site,user):
             raise HTTPException(409,'No completed private validation output is available')
         headers={'Content-Disposition':f'attachment; filename="auction-geek-private-validation-{rid}.{format}"','Cache-Control':'no-store'}
         if format=='json':return Response(json.dumps(report),media_type='application/json',headers=headers)
+        report=linked_report(rid,report)
         if format=='pdf':
             from acquisition_premium import render_pdf
             return Response(render_pdf(report),media_type='application/pdf',headers=headers)
@@ -328,6 +371,7 @@ def install(app,site,user):
         public_free=free_snapshot_exportable(report)
         full=unlocked(a,uid,rid,r['property_id']);complete=report.get('analysis_state','complete')=='complete'
         projection=report if public_free or (full and complete) else snapshot(report)
+        if public_free or (full and complete):projection=linked_report(rid,projection)
         filename = 'auction-geek-property-snapshot' if public_free or projection.get('access')=='snapshot' else 'auction-geek-investment-report'
         if format not in ('html','docx','pdf'):raise HTTPException(400,'Unsupported report format')
         if format=='pdf':

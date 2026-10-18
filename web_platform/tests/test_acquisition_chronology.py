@@ -45,7 +45,7 @@ def test_cross_document_rents_are_not_promoted_to_current_income_or_free_payload
     assert len(report['lease_reconciliation'])==2
     assert 'lease_reconciliation' not in snapshot(report)
     html = render(report)
-    assert 'Original source extracts' in html
+    assert 'Supporting evidence' in html
     assert '2012.09.14 Lease.pdf' in html and 'Completed Lease.pdf' in html
     assert 'annual rent £50,000 per annum' in html
     assert 'annual rent £35,000 per annum' in html

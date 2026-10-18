@@ -85,6 +85,7 @@ function renderAuth(){
   document.querySelector('#owner-report-status')?.replaceChildren();
   document.querySelector('#owner-monitoring-status')?.replaceChildren();
   document.querySelector('#account-reviews')?.replaceChildren();
+  document.querySelector('#account-evidence')?.replaceChildren();
   document.querySelector('#report-credit-balance')?.replaceChildren();
   document.querySelector('#account-status')?.replaceChildren(document.createTextNode(auth?'':'Sign-in is currently unavailable. Please try again shortly; you can still browse properties.'));
  }
@@ -110,6 +111,7 @@ function updateSession(next){
   if(!next){recoveryMode=false;document.querySelectorAll('input[type=password]').forEach(e=>{e.value='';});}
   features.clear();state=empty();preview=null;
   document.querySelector('#account-reviews')?.replaceChildren();
+  document.querySelector('#account-evidence')?.replaceChildren();
   document.querySelector('#report-credit-balance')?.replaceChildren();
   document.querySelector('#account-billing')?.setAttribute('hidden','');
   document.querySelector('#billing-status')?.setAttribute('hidden','');
@@ -354,7 +356,7 @@ async function submitIdentity(f){
    if(password!==fd.get('confirm_password'))throw Error('The passwords do not match.');
    const epoch=authEpoch;const {error}=await auth.auth.updateUser({password});if(error)throw error;
    if(epoch!==authEpoch||!session)throw Error('Your account changed. Please sign in again.');
-   recoveryMode=false;history.replaceState(null,'',root+'/account/');renderAuth();
+   recoveryMode=false;history.replaceState(null,'',root+'/account/');renderAuth();window.dispatchEvent(new Event('auction-auth-change'));
    document.querySelector('#account-status')?.replaceChildren(document.createTextNode('Password saved. You are signed in to your existing account.'));queueAccountLoad();
   }else if(f.id==='profile-form'){
    if(!session||preview)throw Error('Return to your own account to edit your details.');
@@ -412,6 +414,15 @@ async function loadAccount(){
  if(credits&&balance)credits.textContent=balance.period_end?`${balance.remaining} of ${balance.allowance} included report credits available until ${new Date(balance.period_end*1000).toLocaleDateString('en-GB')}. Unused credits do not roll over.`:'No included report credits are available. Full Investment Reports remain under quality review.';
  const reviews=document.querySelector('#account-reviews');
  if(reviews)reviews.innerHTML=remote.workspace.reviews.map(r=>`<p><a href="${root}/due-diligence/?review=${encodeURIComponent(r.id)}">Saved property research · ${new Date(r.created_at*1000).toLocaleDateString('en-GB')}</a></p>`).join('');
+ const evidence=document.querySelector('#account-evidence');
+ if(evidence){
+  evidence.replaceChildren();
+  for(const review of remote.workspace.reviews.filter(r=>r.purchased_access)){
+   const p=document.createElement('p'),a=document.createElement('a');a.href=root+'/due-diligence/?review='+encodeURIComponent(review.id)+'#supporting-evidence';
+   a.textContent='Supporting evidence · report saved '+new Date(review.created_at*1000).toLocaleDateString('en-GB');p.append(a);evidence.append(p);
+  }
+  if(!evidence.childElementCount)evidence.textContent='Supporting evidence for purchased reports will appear here. Public sources remain available beside findings in your Free Snapshot.';
+ }
  document.querySelector('#owner-controls')?.toggleAttribute('hidden',!remote.is_owner);
  if(remote.is_owner){
   let tier='';try{tier=sessionStorage.getItem('auction-owner-preview')||'';}catch(_){}
@@ -437,6 +448,7 @@ async function loadAccount(){
   billingNotice.textContent=billing?.payment_required?'Your membership payment needs attention. Paid monitoring and new report credits are paused. Your shortlist and previously paid reports remain available. '+(canManage?'Use Update payment method & invoices to resolve payment, then check your membership again.':'Contact team@auctiongeek.co.uk for help with payment.') : '';
  }
  if(preview&&reviews)reviews.replaceChildren(document.createTextNode('Purchased reports are excluded from customer previews.'));
+ if(preview&&evidence)evidence.replaceChildren(document.createTextNode('Purchased evidence is excluded from customer previews.'));
  const current=document.querySelector('[data-current-property]')?.dataset.currentProperty;
  if(current)state.recent=[current];render();
 }
@@ -528,7 +540,7 @@ async function initialize(){
  const params=new URLSearchParams(location.hash?.slice(1)||'');
  if(params.has('error')){history.replaceState(null,'',root+'/account/');authFeedback('This email link has expired or has already been used. Request a fresh link or sign in with your password.',true);}
 }
-window.AuctionWorkspace={api,register:rows=>{for(const r of rows)index[r.id]=r;render();},signedIn,config:()=>config,upload:async(path,body)=>{
+window.AuctionWorkspace={api,register:rows=>{for(const r of rows)index[r.id]=r;render();},signedIn,canReturnToReport:()=>signedIn()&&!recoveryMode&&!preview,config:()=>config,upload:async(path,body)=>{
  if(preview)throw Error('Uploads are disabled in customer preview.');
  // Investigation has a bounded 15-minute provider budget plus document work.
  // A browser's ordinary one-minute account timeout must not abandon that job.

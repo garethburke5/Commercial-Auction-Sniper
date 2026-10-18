@@ -106,3 +106,21 @@ costs. Finally prove purchase/redemption, ownership, downloads, reopening after
 logout, access after membership ends and no-charge/refund behaviour for rejected
 outputs. Owner approval applies to the actual product. Paid checkout remains
 closed; provider configuration or a passing test suite cannot approve it.
+
+## Evidence the customer can verify
+
+Important findings need contextual, human-readable source labels and document
+page numbers. Public evidence links to its original webpage. Private references
+in an authorised saved-report PDF link to Supporting evidence in the account,
+using identifiers rather than credentials. Standalone review PDFs without a
+saved-report destination use plain document/page labels; portable HTML can link
+to retained extracts within that file. Do not use a source-key page as the
+customer's primary verification route.
+
+The service currently retains extracted page text and quotations, not original
+uploaded PDFs for viewing. Say this plainly. Highlight only exact text matched
+to the cited document/page and available hash. Indicate OCR, missing page text
+and unresolved matches. Restricted documents remain identifiable but unlinked.
+Preserve internal source records independently of presentation. Every online
+private request must verify ownership, completed-report access and revocation;
+a subscription expiring does not revoke a separately purchased report.
