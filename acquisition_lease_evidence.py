@@ -170,7 +170,7 @@ def extract_lease_evidence(documents):
         for pattern in [
             r"(?:Tenant must|Tenant shall).{0,80}keep (?:the Property|the Flat).{0,180}?repair[^.]{0,180}\.",
             r"Tenant shall pay.{0,160}proportion.{0,180}external and structural repairs[^.]{0,150}\.",
-            r"Landlord shall use reasonable endeavours.{0,320}reasonable state of repair\.",
+            r"Landlord shall use reasonable endeavours.{0,320}reasonable state of repair\.(?:\s*Without prejudice.{0,400}?Uninsured Risk\.)?",
             r"Service Charge:\s*a fair proportion.{0,600}?(?:Service Charge\.|Services\.)",
             r"(?:To\s+repair.{0,30}exterior and structure of the Building\s+)?The Landlord must:\s*(?:\d+\.[\d.]+\s*)?repair and where necessary renew the foundations.{0,130}?Building[;.]",
         ]:

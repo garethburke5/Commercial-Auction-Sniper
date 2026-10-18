@@ -118,7 +118,17 @@ probabilities, risk scores, market comparables or regulatory exemptions. Request
 targeted primary-source research where it can resolve a significant uncertainty.
 Give each claim source IDs and any opposing evidence, a clear inference label,
 financial/operational consequences and a proportionate resolution. Record the
-disposition of every substantive document and any unreviewed pages. Sources must
+disposition of every substantive document and any unreviewed pages. Explain why
+the income might be sustainable, what happens at the earliest tenant break, and
+how a replacement letting could differ after incentives, downtime and costs.
+For repairs distinguish the duty to carry out work, the right to recover its
+cost, each tenant's share and the cash exposure while recovery is outstanding.
+Treat sold-off flats as the actual reversion acquired, not accessible residential
+market rent. Rank the few issues that could stop a purchase ahead of routine
+checks, state who can resolve them and what evidence would change the conclusion.
+Where market evidence is insufficient, provide a bounded sensitivity labelled
+as an assumption; never call it a valuation, forecast, ERV or recommended bid.
+Sources must
 be inspected, not merely cited. Return findings, additional research requests,
 unreviewed document IDs and limitations. Never declare product approval.'''
 

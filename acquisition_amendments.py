@@ -34,10 +34,12 @@ def apply_amendments(report, research):
              'base': disbursement, 'vat': round(disbursement * .2, 2), 'basis': 'Explicit amount plus VAT at 20%', 'evidence': [evidence]},
             {'label': 'Seller legal-fee contribution (latest addendum)', 'amount': legal,
              'basis': 'Fixed contribution; VAT treatment on this element not stated', 'evidence': [evidence]}])
-        report['findings'] = [f for f in report['findings'] if f['id'] not in ('seller-fee', 'disbursements-cap')]
+        replaced_findings = [f for f in report['findings'] if f['id'] in ('seller-fee', 'seller-fee-conflict', 'disbursements-cap')]
+        report['findings'] = [f for f in report['findings'] if f not in replaced_findings]
         report['calculations'] = [c for c in report['calculations'] if c['label'] not in ('Seller-cost contribution', 'Quantified additional costs')]
         total = sum(c['amount'] for c in report['costs'])
         report['calculations'].append({'label': 'Quantified additional costs', 'value': f'£{total:,.0f}',
              'working': 'Latest explicit seller-cost amendment plus auction fee; excludes tax, advisers, works and VAT on any amount whose VAT treatment is unstated.'})
         report['amendment_review'].append({'status': 'applied_limited_cost_amendment', 'evidence': evidence,
-            'superseded_costs': superseded, 'remaining_question': 'Confirm VAT treatment of the legal-fee element and the completion statement.'})
+            'superseded_costs': superseded, 'superseded_findings': replaced_findings,
+            'remaining_question': 'Confirm VAT treatment of the legal-fee element and the completion statement.'})

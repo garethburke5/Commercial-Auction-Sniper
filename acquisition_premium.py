@@ -45,14 +45,14 @@ def render_pdf(report):
     styles['callout']=styles['body']
     def para(t,style='body'):return Paragraph(escape(str(t)).replace('\n','<br/>'),styles.get(style,styles['body']))
     story=[]
-    for i,page in enumerate(brief['pages']):
+    for i,page in enumerate(brief['pages']+brief.get('appendix_pages',[])):
         if i:story.append(PageBreak())
         for b in page['blocks']:
             kind=b['kind']
             if kind in ('p','h'):story.append(para(b['text'],'h' if kind=='h' else b.get('style','body')))
             elif kind=='photo':
                 from PIL import Image as PILImage
-                im=PILImage.open(b['path']);h=width*im.height/im.width;story.extend([Image(b['path'],width=width,height=h),Spacer(1,5)])
+                im=PILImage.open(b['path']);scale=min(width/im.width,155/im.height);story.extend([Image(b['path'],width=im.width*scale,height=im.height*scale,hAlign='LEFT'),Spacer(1,5)])
             elif kind=='metrics':
                 cells=[Paragraph('<font size="7.4">'+escape(label.upper())+'</font><br/><br/><b><font size="17">'+escape(value)+'</font></b>',styles['body']) for label,value in b['items']]
                 t=Table([cells],colWidths=[width/len(cells)]*len(cells));t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,-1),colors.HexColor(LIGHT)),('VALIGN',(0,0),(-1,-1),'TOP'),('TOPPADDING',(0,0),(-1,-1),11),('BOTTOMPADDING',(0,0),(-1,-1),10)]));story.extend([t,Spacer(1,12)])
@@ -86,7 +86,7 @@ def render_html(report,standalone=True):
     brief=make_brief(report); e=lambda v:escape(str(v))
     css='''body{margin:0;background:#edf1f2;font-family:Arial,sans-serif;color:#193444}article{max-width:850px;margin:auto;background:white}section.page{padding:35px 46px;border-bottom:1px solid #ddd}h1{font-size:30px;line-height:1.12}h2{font-size:22px}h3{font-size:16px;margin:18px 0 9px}p{font-size:14px;line-height:1.5}p.small{font-size:12px}p.caption,p.meta{font-size:11px;color:#596770}.kicker{font-size:10px;letter-spacing:.13em}.photo,.chart{width:100%;height:auto}.metrics{display:grid;grid-template-columns:repeat(4,1fr);background:#edf2f3;padding:15px;gap:15px}.metrics b{display:block;font-size:24px;margin-top:7px}.metrics span{font-size:10px}table{border-collapse:collapse;width:100%;font-size:12px;margin:14px 0}th{background:#193444;color:white}td,th{padding:10px;border:1px solid #d9d9d9;text-align:left;vertical-align:top}tr:nth-child(odd){background:#edf2f3}.sources{columns:2;font-size:10px}.sources p{font-size:10px;break-inside:avoid}details{padding:16px 40px}.flag{padding:9px 15px;background:#e8eeee;font-size:12px}@media(max-width:600px){section.page{padding:25px 18px}.metrics{grid-template-columns:repeat(2,1fr)}table{font-size:11px}td,th{padding:6px}.sources{columns:1}}@media print{body{background:white}section.page{padding:0;border:0;break-after:page}section.page:last-of-type{break-after:auto}details,.flag{display:none}@page{size:A4;margin:16mm}p{font-size:9pt}table{font-size:8pt}td,th{padding:5pt}}'''
     out=['<article><div class="flag">'+e(brief['status'])+'</div>']
-    for page in brief['pages']:
+    for page in brief['pages']+brief.get('appendix_pages',[]):
         out.append('<section class="page">')
         for b in page['blocks']:
             k=b['kind']
@@ -171,7 +171,7 @@ def render_docx(report):
                 prevent=OxmlElement('w:cantSplit');row._tr.get_or_add_trPr().append(prevent)
         repeat=OxmlElement('w:tblHeader');t.rows[0]._tr.get_or_add_trPr().append(repeat)
         return t
-    for i,page in enumerate(brief['pages']):
+    for i,page in enumerate(brief['pages']+brief.get('appendix_pages',[])):
         if i:doc.add_page_break()
         for b in page['blocks']:
             k=b['kind']

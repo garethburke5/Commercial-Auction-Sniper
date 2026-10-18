@@ -148,6 +148,7 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
 
     rents = [x['annual_rent'] for x in demises]
     comparable_income = (not profile['vacant'] and len(rents) > 0 and
+                         all(d.get('document') and d.get('evidence') for d in demises) and
                          all(isinstance(r, (int, float)) for r in rents) and
                          isinstance(report.get('rent'), (int, float)) and
                          abs(sum(rents) - report['rent']) < .01)
@@ -155,6 +156,21 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
     temporal_conflict = any(d.get('temporal_status') in ('STATED TERM ENDED / HOLDING OVER UNCONFIRMED','DRAFT / UNCERTAIN','FUTURE STATED TERM') for d in report.get('lease_reconciliation', []))
     income_reconciled = comparable_income and not same_demise and not temporal_conflict
     if income_reconciled:profile['multi_let']=len(demises)>1
+
+    # A repair clause is not a net-income warranty. Carry the actual allocation
+    # into the investment assessment, including long-lease reversion duties.
+    repair_leases = [l for l in model.get('lease_details', []) if l.get('repairs')]
+    if repair_leases:
+        repair_evidence = [e for l in repair_leases for r in l['repairs']
+                           for e in r.get('evidence', [])]
+        add('repair-recovery', 'Landlord obligations and tenant recovery must be reconciled',
+            ' '.join(_label(l['document']) + ': ' + ' '.join(r['text'] for r in l['repairs'])
+                     for l in repair_leases),
+            'The party obliged to organise or fund work is not necessarily the party that ultimately pays. '
+            'Lease recovery rights do not prove full recovery or timely payment; voids and disputes can leave a landlord cash shortfall.',
+            'Map each roof, structure, shared service and insurance obligation to the relevant demise, '
+            'lease clause and recoverable share. Obtain the current budget, reserve balance, arrears and planned works.',
+            repair_evidence, state='unresolved', materiality='price_sensitive', topic='repairs')
     if income_reconciled:
         add('income-reconciliation', 'Lease rents reconcile to the advertised total',
             f"{len(rents)} separately identified lease rents total {cash(sum(rents))} a year.",
@@ -163,7 +179,8 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
             [e for d in demises for e in d['evidence']], state='confirmed', materiality='information', topic='income')
     elif not profile['vacant']:
         add('income-unreconciled', 'Current contractual income is not fully reconciled',
-            'The supplied lease amounts cannot safely be aggregated into the advertised current income.',
+            ('The supplied lease amounts cannot safely be aggregated into the advertised current income.'
+             if model.get('lease_details') else 'Operative leases were not supplied; the advertised rent remains a published claim.'),
             'A yield based on an unreconciled rent can overstate the income being acquired; earlier leases, variations and concessions must be resolved.',
             'Produce a demise-by-demise schedule of the operative lease, current reserved rent and payment evidence.',
             [e for d in demises for e in d['evidence']], state='unresolved', materiality='decision_gate', topic='income')
@@ -204,6 +221,9 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
             listing_note = (' Listed status is not an automatic exemption. The historic-building exception depends on unacceptable alteration of character or appearance; establish the actual improvement options and consent position.' if profile['listed'] else '')
             rent_note = (f" The identified lease rent is {cash(row['annual_rent'])} a year" +
                         (f" ({ratio(row['annual_rent'], report['rent']):.1f}% of the advertised income)." if income_reconciled else '.')) if row.get('annual_rent') else ''
+            if not row.get('document'):
+                finding='The sale/letting extent and certificate coverage have not been reconciled to operative documents.'
+                rent_note=(' The published whole-property rent is '+cash(report.get('rent'))+' a year; no lease-verified unit allocation is available.') if report.get('rent') else ''
             primary_guidance = [r for r in research['records'] if r['kind'] == 'regulatory_guidance' and profile['jurisdiction'] in r.get('jurisdictions', [])]
             negative_checks = [r for r in research['records'] if r['kind'] in ('epc_search','exemption_search') and _scope_matches(r,row)]
             findings_from_search = ' '.join(r.get('result_summary','') for r in negative_checks)
