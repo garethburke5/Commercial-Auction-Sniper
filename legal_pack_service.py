@@ -14,7 +14,7 @@ REPORT_PRICE_GBP=float(CATALOGUE["one_off_report_gbp"])
 class AnalysisCost:
  input_files:int=0;expanded_files:int=0;accepted_documents:int=0;visual_review_items:int=0;conversion_required_items:int=0;unsupported_items:int=0;duplicate_files:int=0;total_bytes:int=0;total_pages:int=0;extracted_chars:int=0;elapsed_seconds:float=0.0;ai_cost_gbp:float|None=0.0;infrastructure_cost_gbp:float|None=None;advertised_price_gbp:float=REPORT_PRICE_GBP;sale_price_ex_vat_gbp:float|None=None;vat_gbp:float|None=None;sale_price_inc_vat_gbp:float|None=None;estimated_gross_margin_gbp:float|None=None
 
-def analyse_uploaded_pack(property_ref:str,files:Iterable[tuple[str,bytes]]=(),catalogue:dict[str,Any]|None=None,*,ocr=False,progress=None,research=None,open_review=None,verified_transcriptions=None,reasoning_backend=None,research_backend=None)->dict[str,Any]:
+def analyse_uploaded_pack(property_ref:str,files:Iterable[tuple[str,bytes]]=(),catalogue:dict[str,Any]|None=None,*,ocr=False,progress=None,research=None,open_review=None,verified_transcriptions=None,reasoning_backend=None,research_backend=None,writing_backend=None,editorial_backend=None)->dict[str,Any]:
  started=time.perf_counter();file_list=list(files);ingested=ingest_pack(file_list,ocr=ocr,progress=progress)
  if verified_transcriptions:
   from acquisition_transcription import apply_transcriptions
@@ -40,9 +40,9 @@ def analyse_uploaded_pack(property_ref:str,files:Iterable[tuple[str,bytes]]=(),c
  from acquisition_pipeline import investigate_acquisition,evidence_scope
  model['evidence_scope']=evidence_scope(file_list,ingested.documents)
  acquisition=investigate_acquisition(model,catalogue or {},research=research,open_review=open_review,
-                                    reasoning_backend=reasoning_backend,research_backend=research_backend)
+                                    reasoning_backend=reasoning_backend,research_backend=research_backend,writing_backend=writing_backend,editorial_backend=editorial_backend)
  # A configured provider is not free merely because it has no usage adapter.
- if reasoning_backend is not None or research_backend is not None:
+ if reasoning_backend is not None or research_backend is not None or writing_backend is not None:
   cost.ai_cost_gbp=None
   cost.estimated_gross_margin_gbp=None
   provider=getattr(reasoning_backend,'__self__',None)

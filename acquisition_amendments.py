@@ -13,12 +13,36 @@ def apply_amendments(report, research):
     for record in records:
         if record.get('kind') != 'auction_addendum':
             continue
-        evidence = {'document': record['source']['title'], 'url': record['source']['url'],
+        evidence = {'document': record['source'].get('title') or 'Auction addendum', 'url': record['source']['url'],
                     'observed_at': record['source']['observed_at'], 'excerpt': record['quote']}
         if norm(record['subject']).casefold() != norm(report['property']).casefold():
             report['amendment_review'].append({'status': 'scope_unresolved', 'evidence': evidence})
             continue
         text = norm(record['quote'])
+        # A public, whole-property rent review can supersede the brochure's
+        # annual figure. Do not apply this shortcut to private leases, multiple
+        # lettings, proposals, or an addendum for a different lot.
+        previous = [r for r in records if r.get('id') == record.get('supersedes_record_id')
+                    and r.get('kind') == 'subject_particulars' and r.get('field') == 'annual_rent'
+                    and norm(r.get('subject')).casefold() == norm(report['property']).casefold()
+                    and r.get('rent') == report.get('rent')
+                    and re.search(r'entire property is let', norm(r.get('quote')), re.I)]
+        reviewed_rent = re.search(r'rent review has been settled and documented at £([\d,]+(?:\.\d+)?)\s*p\.?a\.?', text, re.I)
+        competing = [r for r in records if r.get('kind') == 'auction_addendum'
+                     and norm(r.get('subject')).casefold() == norm(report['property']).casefold()
+                     and r.get('scope') == 'whole_property'
+                     and r.get('supersedes_record_id') == record.get('supersedes_record_id')
+                     and re.search(r'rent review has been settled and documented at', norm(r.get('quote')), re.I)]
+        if (not report.get('documents') and not report.get('lease_details') and len(previous) == 1
+                and record.get('scope') == 'whole_property' and reviewed_rent
+                and len({r.get('rent') for r in competing}) == 1
+                and record.get('rent') == float(reviewed_rent[1].replace(',', ''))):
+            old = report['rent']; report['rent'] = record['rent']
+            report['calculations'] = [c for c in report.get('calculations', []) if 'yield' not in c.get('label', '').lower()]
+            report['amendment_review'].append({'status': 'applied_public_rent_review',
+                'previous_rent': old, 'published_rent': report['rent'], 'evidence': evidence,
+                'remaining_question': 'Published amendment only; signed documents and current receipts remain unverified.'})
+            continue
         match = re.search(r'costs of disbursements being £([\d,]+(?:\.\d+)?) plus VAT and £([\d,]+(?:\.\d+)?) towards the legal fees', text, re.I)
         explicit = re.search(r'(?:following amendments apply|replac(?:e|es|ing))', text, re.I)
         if not match or not explicit:

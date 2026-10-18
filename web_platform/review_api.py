@@ -262,7 +262,7 @@ def install(app,site,user):
             result=analyse_uploaded_pack(row['address'],supplied,context,
                 ocr=os.getenv('REVIEW_OCR','true')=='true',
                 research={'sources':intake.get('sources',[]),'records':[],'attempts':[]} if intake else None,
-                reasoning_backend=reasoner,research_backend=researcher)
+                reasoning_backend=reasoner,research_backend=researcher,writing_backend=getattr(provider,'write',None),editorial_backend=getattr(provider,'edit',None))
             report=result['acquisition'];report['report_id']=rid
             if intake:report['_intake']=intake
             if validation:report['_validation']=existing['_validation']

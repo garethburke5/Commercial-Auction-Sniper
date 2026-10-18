@@ -80,7 +80,7 @@ def interpret(report):
         if repairs:
             combined+=' The landlord could therefore lose most of the income while still having to arrange and fund building repairs.' if share>50 else 'Building repair obligations could continue while that income is missing.'
         if profile.get('listed') and repairs:combined+=' The listed status makes it especially important to price the right repairs before committing.'
-        inputs=matching('income-concentration')+repairs+energy+insurance
+        inputs=matching('income-concentration')+repairs
         add('income-building-interaction','When income falls, the building still needs funding',combined,inputs,principal.get('evidence',[]),kind='interaction')
     elif not profile.get('vacant'):
         combined='The rent figures have not yet been matched to all the current leases and later changes. The advertised total should not be treated as confirmed income.'

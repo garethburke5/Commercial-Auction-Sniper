@@ -353,10 +353,10 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
              'An attractive gross yield can conceal over-renting and a lower reversionary income.', ['market_rent'])
     question('market-price', 'Find genuinely comparable achieved investment sales and vacant-possession evidence.',
              'Asking prices and auction guides alone cannot support an investment value or maximum bid.', ['market_sales', 'vacant_possession'])
-    question('history', 'Investigate prior marketing, occupation and property changes.',
+    question('history', 'Find earlier asking prices and listing dates for the same property and ownership; compare the income and tenants then and now. Distinguish a listing-added date from evidence of the price on that date. Investigate the reason for any change without guessing.',
              'History can reveal rent resets, recurring vacancy, failed sales or changes in use.', ['history'])
     if not profile['vacant']:
-        question('covenant', 'Assess the actual legal tenant and current income collection.',
+        question('covenant', 'Identify each commercial legal tenant separately from the trading name; investigate the business history, available financial evidence, rent receipts and any deposit or guarantor. Do not assume an individual tenant has company accounts.',
                  'A trading brand, receipt or Companies House active status is not evidence of financial strength.', ['covenant', 'payment'])
     question('planning', 'Check relevant designation, permissions and nearby development status for this address.',
              'Consent constraints and construction effects can alter expenditure, use and demand.', ['planning'])

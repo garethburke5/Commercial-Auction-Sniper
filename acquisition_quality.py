@@ -48,6 +48,11 @@ def evidence_sufficiency(report):
         return {'outcome': 'free_snapshot', 'charge_eligible': False,
                 'reasons': ['Public-evidence pathway: operative contractual obligations are unverified.']}
     reasons = []
+    from acquisition_narrative import validate_narrative, editorial_review_valid
+    if not validate_narrative(report, report.get('written_assessment'))['valid']:
+        reasons.append('A complete evidence-bound written assessment is still required.')
+    if not editorial_review_valid(report):
+        reasons.append('The finished narrative still requires a paragraph-by-paragraph editorial review.')
     editorial = report.get('editorial_quality')
     if editorial is None:
         from acquisition_presentation import make_brief

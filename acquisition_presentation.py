@@ -43,6 +43,11 @@ def market_commentary(record):
 
 
 def make_brief(report):
+    from acquisition_narrative import render_narrative
+    return render_narrative(report, _make_brief(report))
+
+
+def _make_brief(report):
     if report.get('access')=='snapshot':raise ValueError('Full report required')
     analysis=interpret(report); inv=report['investigation']; finance=analysis['finance']; ds=inv.get('demises',[])
     has_pack=bool(report.get('evidence_scope',{}).get('legal_pack_supplied',bool(report.get('documents'))))
