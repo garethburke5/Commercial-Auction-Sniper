@@ -44,7 +44,8 @@ def market_commentary(record):
 
 def make_brief(report):
     from acquisition_narrative import render_narrative
-    return render_narrative(report, _make_brief(report))
+    from acquisition_evidence_links import end_references
+    return end_references(render_narrative(report, _make_brief(report)), report)
 
 
 def _make_brief(report):
@@ -110,7 +111,7 @@ def _make_brief(report):
                 if (prepared-auction_day).days>180:blocks.append(p('These figures come from the auction on '+auction_day.strftime('%d %B %Y').lstrip('0')+'. They describe the property at that time; the present rent and lease arrangements need fresh confirmation.','small'))
             except ValueError:pass
         insights=public_insights(report)
-        blocks.append(h('The point that deserves a closer look'))
+        blocks.append(h('Property and rental income'))
         if insights:
             for x in insights[:2]:
                 blocks+=[p(x['finding']+' '+x['consequence'])]+cite([dict(x['source'],document=x['source'].get('title'))]+[dict(s,document=s.get('title')) for s in x.get('additional_sources',[])])
@@ -123,15 +124,15 @@ def _make_brief(report):
             else:
                 blocks+=[p('The advertised rent is a starting point, rather than proof of income received. The leases and payment history are needed to check whether tenants can leave early, receive rent concessions or owe money.')]
         blocks.append(h('Price and local context'))
-        if sale:blocks+=[p('The auctioneer reports a sale at '+cash(price)+'. This is a reported auction result; completion has not been independently checked.')]+cite(record_ref(sale))
+        if sale:blocks+=[p('The auctioneer reports a sale at '+cash(price)+'.')]+cite(record_ref(sale))
         if report.get('guide'):
-            blocks.append(p('The '+('earlier auction guide was ' if sale else 'auction guide is ')+cash(report['guide'])+(' to '+cash(report['guide_upper']) if report.get('guide_upper') and report['guide_upper']!=report['guide'] else '')+'. A guide is an indication from the seller, not a valuation.'))
+            blocks.append(p('The '+('earlier auction guide was ' if sale else 'auction guide is ')+cash(report['guide'])+(' to '+cash(report['guide_upper']) if report.get('guide_upper') and report['guide_upper']!=report['guide'] else '')+'.'))
         m=next((x for x in analysis['market'] if x['record'] in achieved),None) or next(iter(analysis['market']),None)
         if m:
             blocks+=[p(m['body']+' Differences in location, accommodation and lease terms mean it cannot establish this property’s value on its own.')]+cite(m['evidence'])
         if not sale and not m and not report.get('guide'):
             blocks.append(p('No reliable purchase price or comparable completed sale has been established in the available research.'))
-        blocks+=[h('What is still unknown'),p('No legal pack was analysed. '+('The ownership boundaries, building condition, works, insurance and other holding costs still need investigation. The likely rent and cost of getting the building ready are also unconfirmed.' if vacant else 'The current leases, exact ownership boundaries, building condition and landlord costs still need investigation. The gross yield excludes purchase costs, repairs, empty periods, borrowing and tax.'))]
+        blocks+=[h('Other considerations'),p('No legal pack was analysed. '+('The ownership boundaries, building condition, works, insurance and other holding costs still need investigation. The likely rent and cost of getting the building ready are also unconfirmed.' if vacant else 'The current leases, exact ownership boundaries, building condition and landlord costs still need investigation. The gross yield excludes purchase costs, repairs, empty periods, borrowing and tax.'))]
         return finish([{'title':'Free Property Snapshot','blocks':blocks}],[],'free_snapshot','Free Property Snapshot')
     incomplete=not inv.get('income_reconciled') and inv.get('market',{}).get('price_support')=='inconclusive' and inv.get('market',{}).get('erv_support')=='inconclusive'
     if incomplete:
@@ -162,7 +163,7 @@ def _make_brief(report):
     page1+=[h('The investment in plain English'),p(analysis['opening']),p(analysis['assessment'])]
     if principal:page1+=cite(principal.get('evidence',[])+[e for b in principal.get('breaks',[]) for e in b.get('evidence',[])],'Main income and lease terms')
     if analysis['priority_summary']:page1.append(p(analysis['priority_summary']))
-    page1+=[h('What would need to be right'),p('The rent must be collectable, the space being sold must match the income, and the buyer must be able to fund repairs and any empty period. Those checks matter more than the headline percentage.')]
+    page1+=[h('Before making an offer'),p('The rent must be collectable, the space being sold must match the income, and the buyer must be able to fund repairs and any empty period. Those checks matter more than the headline percentage.')]
     if sale:page1+=[p('The auctioneer reports a sale at '+cash(price)+'. Completion and subsequent availability have not been independently checked.','small')]+cite(record_ref(sale))
     if report.get('guide'):
         page1.append(p('The earlier guide was '+cash(report['guide'])+(' to '+cash(report['guide_upper']) if report.get('guide_upper') and report['guide_upper']!=report['guide'] else '')+'. It is separate from the reported sale price used here.','small'))

@@ -11,7 +11,19 @@ from acquisition_evidence_links import evidence_detail
 NAVY='#193444'; TEAL='#246B70'; GREY='#596770'; LIGHT='#EDF2F3'
 
 def reference_text(row):
-    return row['label'] + (' · '+row['page_label'] if row.get('page_label') else '')
+    return (str(row['number'])+'. ' if row.get('number') else '') + row['label'] + (' · '+row['page_label'] if row.get('page_label') else '')
+
+def note_numbers(block):
+    return ','.join(label for label, _ in note_groups(block))
+
+def note_groups(block):
+    numbers=sorted(set(block.get('endnote_numbers', [])))
+    groups=[]
+    for number in numbers:
+        if groups and number==groups[-1][-1]+1:groups[-1].append(number)
+        else:groups.append([number])
+    return [
+        item for g in groups for item in ([(str(g[0])+'-'+str(g[-1]),g[0])] if len(g)>2 else [(str(n),n) for n in g])]
 
 def evidence_html(report, rows):
     """Portable authorised downloads include retained extracts, never fake PDFs."""
@@ -111,7 +123,11 @@ def render_pdf(report):
                 from PIL import Image as PILImage
                 im=PILImage.open(b['path']); ih=102 if brief['product_outcome']=='free_snapshot' else 152; iw=ih*im.width/im.height
                 t=Table([[Image(b['path'],width=iw,height=ih),para(b['text'])]],colWidths=[iw+17,width-iw-17]);t.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'),('LEFTPADDING',(0,0),(0,0),0),('RIGHTPADDING',(0,0),(-1,-1),0)]));story.extend([t,Spacer(1,7),Paragraph(escape(b['credit'])+(' · <link href="'+escape(b['source_url'],quote=True)+'">Photo source</link>' if b.get('source_url') else '')+(' · <link href="'+escape(b['license_url'],quote=True)+'">Licence</link>' if b.get('license_url') else ''),styles['caption']),Spacer(1,5)])
-            elif kind in ('p','h'):story.append(para(b['text'],'h' if kind=='h' else b.get('style','body')))
+            elif kind in ('p','h'):
+                text=escape(str(b['text'])).replace('\n','<br/>')
+                if b.get('endnote_numbers'):
+                    text+=' <super><font size="6.5">'+','.join('<link href="#source-'+str(n)+'">'+label+'</link>' for label,n in note_groups(b))+'</font></super>'
+                story.append(Paragraph(text,styles['h' if kind=='h' else b.get('style','body')]))
             elif kind=='photo':
                 from PIL import Image as PILImage
                 im=PILImage.open(b['path']);scale=min(width/im.width,155/im.height);story.extend([Image(b['path'],width=im.width*scale,height=im.height*scale,hAlign='LEFT'),Spacer(1,5)])
@@ -130,12 +146,22 @@ def render_pdf(report):
                 items=[]
                 for row in b['rows']:
                     label=escape(reference_text(row))
+                    if row.get('number'):label='<a name="source-'+str(row['number'])+'"/>'+label
                     if row.get('href'):
                         action='View evidence' if row['private'] else 'Open original source'
                         label+=' - <link color="#246B70" href="'+escape(row['href'],quote=True)+'">'+action+'</link>'
                     elif row.get('restricted'):label+=' (access restricted)'
                     items.append(label)
-                story.append(Paragraph('  ·  '.join(items),styles['evidence']))
+                # One source per line in full reports; compact, still numbered
+                # sources keep a short snapshot on one readable page.
+                if brief['product_outcome']=='free_snapshot':
+                    story.append(Paragraph('  ·  '.join(items),styles['evidence']))
+                else:
+                    mid=(len(items)+1)//2
+                    cells=[[Paragraph(items[j],styles['evidence']),Paragraph(items[mid+j],styles['evidence']) if mid+j<len(items) else ''] for j in range(mid)]
+                    t=Table(cells,colWidths=[width/2]*2,hAlign='LEFT')
+                    t.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'),('LEFTPADDING',(0,0),(-1,-1),0),('RIGHTPADDING',(0,0),(-1,-1),12),('TOPPADDING',(0,0),(-1,-1),0),('BOTTOMPADDING',(0,0),(-1,-1),5)]))
+                    story.append(t)
     def foot(canvas,doc):
         canvas.setFont('Investor',7);canvas.setFillColor(colors.HexColor(GREY));canvas.drawString(44,27,'AUCTION GEEK  |  '+brief['status']);canvas.drawRightString(A4[0]-44,27,str(doc.page))
     doc=SimpleDocTemplate(out,pagesize=A4,leftMargin=44,rightMargin=44,topMargin=35,bottomMargin=43,title=report['property']+' - '+({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Investment Report')),author='Auction Geek')
@@ -153,7 +179,9 @@ def render_html(report,standalone=True):
             if k=='hero':
                 data=Path(b['path']).read_bytes();out.append('<div class="hero"><img alt="Property photograph" src="data:image/jpeg;base64,'+base64.b64encode(data).decode()+'"><p>'+e(b['text'])+'</p></div><p class="caption">'+e(b['credit'])+(' · <a href="'+escape(b['source_url'],quote=True)+'">Photo source</a>' if b.get('source_url') else '')+(' · <a href="'+escape(b['license_url'],quote=True)+'">Licence</a>' if b.get('license_url') else '')+'</p>')
             elif k in ('p','h'):
-                tag='h2' if k=='h' else 'h1' if b.get('style')=='title' else 'p';out.append('<'+tag+' class="'+e(b.get('style',''))+'">'+e(b['text'])+'</'+tag+'>')
+                tag='h2' if k=='h' else 'h1' if b.get('style')=='title' else 'p'
+                notes=(' <sup class="endnote-links">'+','.join('<a href="#source-'+str(n)+'" aria-label="Sources '+label+'">'+label+'</a>' for label,n in note_groups(b))+'</sup>') if b.get('endnote_numbers') else ''
+                out.append('<'+tag+' class="'+e(b.get('style',''))+'">'+e(b['text'])+notes+'</'+tag+'>')
             elif k in ('photo','chart'):
                 data=Path(b['path']).read_bytes() if k=='photo' else chart_png(b)
                 if k=='chart':out.append('<h3>'+e(b['title'])+'</h3>')
@@ -171,12 +199,13 @@ def render_html(report,standalone=True):
                         if not row['private']:attrs+=' target="_blank" rel="noopener noreferrer"'
                         label+=' · <a href="'+escape(href,quote=True)+'"'+attrs+' aria-label="'+escape(action+': '+reference_text(row),quote=True)+'">'+action+'</a>'
                     elif row.get('restricted'):label+=' (access restricted)'
-                    links.append('<span>'+label+'</span>')
-                out.append('<div class="context-evidence">'+'<span class="source-divider"> · </span>'.join(links)+'</div>')
+                    links.append('<div'+(' id="source-'+str(row['number'])+'"' if row.get('number') else '')+'>'+label+'</div>')
+                out.append('<div class="context-evidence end-sources">'+''.join(links)+'</div>')
         out.append('</section>')
     if standalone or not report.get('_evidence_context'):
         if any(r['private'] for r in brief['references']):out.append(evidence_html(report,brief['references']))
     out.append('</article>')
+    css+=' .end-sources{columns:2;column-gap:24px}.end-sources>div{break-inside:avoid;margin:0 0 7px}.endnote-links{font-size:9px}.endnote-links a{color:#246B70;text-decoration:none}@media(max-width:600px){.end-sources{columns:1}}'
     body='<style>'+css+'</style>'+''.join(out)
     return '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>'+e(report['property'])+' — '+({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Investment Report'))+'</title></head><body>'+body+'</body></html>' if standalone else body
 
@@ -237,7 +266,10 @@ def render_docx(report):
             if k=='hero':
                 doc.add_picture(b['path'],height=Cm(4));paragraph(b['credit'],size=7);paragraph(b['text'])
             elif k=='h':paragraph(b['text'],style='Heading 1')
-            elif k=='p':paragraph(b['text'],size=7.2 if b.get('style')=='caption' else 8 if b.get('style') in ('small','meta','kicker') else None,style='Title' if b.get('style')=='title' else None)
+            elif k=='p':
+                p=paragraph(b['text'],size=7.2 if b.get('style')=='caption' else 8 if b.get('style') in ('small','meta','kicker') else None,style='Title' if b.get('style')=='title' else None)
+                if b.get('endnote_numbers'):
+                    run=p.add_run(' '+note_numbers(b));run.font.superscript=True;run.font.size=Pt(7)
             elif k=='photo':doc.add_picture(b['path'],width=Cm(17.9))
             elif k=='chart':paragraph(b['title'],style='Heading 1');doc.add_picture(BytesIO(chart_png(b)),width=Cm(17.9))
             elif k=='metrics':table([a for a,v in b['items']],[[v for a,v in b['items']]],[1/len(b['items'])]*len(b['items']))

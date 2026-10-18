@@ -194,14 +194,30 @@ def extract_property_evidence(documents):
                     "A negative result in one survey must not overwrite a positive finding in another survey.",
                     "Reconcile the survey date and inspected areas with today's layout, and obtain current management or refurbishment evidence where needed.", section="property", severity="INFORMATION")
             # A labelled sample result is stronger than a glossary or risk legend.
-            positive = _match(d, r"Asbestos Type\.\s*((?:Trace\s+)?(?:Crocidolite|Chrysotile|Amosite)(?:\s*/\s*(?:Low\s+)?(?:Chrysotile|Crocidolite|Amosite))?)\b")
-            if positive:
-                sample = _match(d, r"Sample No[.,]?\s+[A-Z0-9]+", pages=[positive[0]])
-                add("asbestos-sample", d, [(d, positive), (d, sample)], "Asbestos identified in a dated sample",
-                    "A sample entry in the supplied asbestos survey identifies " + positive[2].group(1) + ".",
+            sample_count = 0
+            for sample_page in _pages(d):
+                positive = _match(d, r"Asbestos Type\.\s*((?:Trace\s+)?(?:Crocidolite|Chrysotile|Amosite)(?:\s*/\s*(?:Low\s+)?(?:Chrysotile|Crocidolite|Amosite))?)\b", pages=[sample_page])
+                sample = _match(d, r"Sample No[.,]?\s+[A-Z0-9]+", pages=[sample_page]) if positive else None
+                if not positive or not sample:
+                    continue
+                # adjacent sample, generic risk band or a lease covenant.
+                detail = positive[0].get('text', '')
+                location = re.search(r"Location[.:][ \t]*([^\r\n]+?)(?=\s+Element[.:]|[\r\n]|$)", detail, re.I)
+                material = re.search(r"Element[.:][ \t]*([^\r\n]+?)(?=\s+Asbestos Type[.:]|[\r\n]|$)", detail, re.I)
+                score = _match(d, r"Overall Score:\s*(\d+)\b", pages=[positive[0]])
+                surveyed = _match(d, r"Survey Performed:\s*(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})\b")
+                found = "A sample entry in the supplied asbestos survey identifies " + positive[2].group(1) + "."
+                if location and material:
+                    found += " The sampled material is " + material[1] + " at " + location[1] + "."
+                if sample:found += " " + sample[2][0] + "."
+                if score:found += " The sample's overall score is " + score[2][1] + "."
+                if surveyed:found += " The survey was performed on " + surveyed[2][1] + "."
+                add("asbestos-sample" + ("-" + re.sub(r"\W+", "", sample[2][0]) if sample_count else ""), d, [(d, positive), (d, sample), (d, score), (d, surveyed)], "Asbestos identified in a dated sample",
+                    found,
                     "Existing or disturbed asbestos may require management, specialist works and a cost allowance.",
                     "The dated sample is not proof of the material's present condition or current demise. Risk legends elsewhere in the report are not findings for this sample.",
                     "Verify the sample location and rating visually, map it to today's layout and obtain current reinspection or removal evidence before pricing work.", section="property", visual=True)
+                sample_count += 1
 
         # Do not attach a detached OCR numeric column to a reserve label. Report
         # the unresolved table and request visual reconciliation, never a new cost.

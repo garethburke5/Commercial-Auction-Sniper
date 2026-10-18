@@ -342,7 +342,8 @@ def install(app,site,user):
         report,public_free=evidence_report(rid,authorization)
         from acquisition_presentation import make_brief
         from acquisition_evidence_links import evidence_detail
-        row=next((r for r in make_brief(report)['references'] if r['id']==eid and (not public_free or not r['private'])),None)
+        brief=make_brief(report)
+        row=next((r for r in brief['references']+brief.get('reference_aliases',[]) if r['id']==eid and (not public_free or not r['private'])),None)
         if row is None:raise HTTPException(404,'Evidence reference not found')
         if row['restricted']:raise HTTPException(403,'This source cannot be displayed. Consult the named document and page.')
         if not row['available']:raise HTTPException(404,'No shareable extract is retained for this reference')

@@ -54,7 +54,7 @@ def interpret(report):
     if profile.get('vacant'):
         opening='This is a purchase of an empty building, so the investment depends on finding an occupier and paying the costs of getting it ready. There is no current rental income to offset those costs.'
     elif rent is not None and price:
-        opening=f"The attraction is {money(rent)} in {'lease' if inv.get('income_reconciled') else 'advertised'} rent each year against a {money(price)} price. This gives a gross yield of {rent/price*100:.2f}%, meaning annual rent divided by price before any costs."
+        opening=f"The {'annual lease rent' if inv.get('income_reconciled') else 'advertised annual rent'} of {money(rent)} provides a gross yield of {rent/price*100:.2f}% at a price of {money(price)}, before purchase and running costs."
     else:
         opening='The available information does not establish both the purchase price and current annual rent, so it cannot yet show the return a buyer could receive.'
     ownership=f"The property is advertised as {str(report.get('tenure') or 'having unconfirmed ownership').lower()}."
@@ -85,8 +85,8 @@ def interpret(report):
     elif not profile.get('vacant'):
         combined='The rent figures have not yet been matched to all the current leases and later changes. The advertised total should not be treated as confirmed income.'
     for f in title:
-        add('ownership-extent','Establish exactly what the sale includes',
-            'The title excludes the ground floor within one part of the title plan. That does not mean the whole ground floor is excluded. The plan needs to be compared with the shops and lease plans, so a buyer knows which space they would own and which rent belongs to it.',[f])
+        add('ownership-extent','Title boundaries and access',
+            'The register excludes the ground floor within a defined part of the title plan. This is a description of the ownership boundary, not by itself a title defect. Compare that area with the lease plans and access rights; it matters commercially if rental space, access or repair responsibilities are affected.',[f])
     for f in energy:
         unit=next((d for d in ds if any(e.get('document')==d.get('document') for e in f.get('evidence',[]))),None)
         name=unit['label'] if unit else 'the relevant commercial space'
@@ -105,7 +105,9 @@ def interpret(report):
     asbestos=matching('asbestos-sample');fire=matching('fire-actions')
     if asbestos or fire:
         body=''
-        if asbestos:body+='A sample in an older survey contains asbestos. Its present condition and the exact location need checking before work is planned. '
+        if asbestos:
+            body+=' '.join(f.get('finding') or f.get('summary') or '' for f in asbestos)+' '
+            body+='Use the sample location, survey rating and recommendations to identify any management or works needed; the dated survey does not establish the material’s condition today. '
         if fire:
             raw=fire[0].get('finding','');m=re.search(r'(\d{2}/\d{2}/\d{4}).*?(\d+) actions',raw)
             if m:

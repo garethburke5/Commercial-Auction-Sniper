@@ -109,14 +109,14 @@ closed; provider configuration or a passing test suite cannot approve it.
 
 ## Evidence the customer can verify
 
-Important findings need contextual, human-readable source labels and document
-page numbers. Public evidence links to its original webpage. Private references
-in an authorised saved-report PDF link to Supporting evidence in the account,
-using identifiers rather than credentials. Standalone review PDFs without a
-saved-report destination use plain document/page labels; portable HTML can link
-to retained extracts within that file. Do not use a source-key page as the
-customer's primary verification route.
-
+All full source references belong together at the end of the report. Use small
+numbered references in the narrative where helpful; make them link to the
+source list. Each source identifies the document and relevant PDF pages, or
+links to the original public webpage. Consolidate repeated references without
+merging different documents or versions. Preserve the complete evidence register.
+Private sources link to the account's authorised Supporting evidence view only
+when a real saved-report destination exists. Portable HTML may link to its retained
+extracts. An offline PDF must not invent a private-source URL.
 The service currently retains extracted page text and quotations, not original
 uploaded PDFs for viewing. Say this plainly. Highlight only exact text matched
 to the cited document/page and available hash. Indicate OCR, missing page text

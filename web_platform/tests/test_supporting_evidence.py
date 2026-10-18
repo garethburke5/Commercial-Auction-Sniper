@@ -96,3 +96,20 @@ def test_free_public_source_needs_no_purchase_and_inconsistent_pack_scope_fails_
     with a.db() as db:db.execute('DELETE FROM review_processing')
     r['evidence_review']['source_pages']=[{'document':'Private lease.pdf','page':1,'text':'PRIVATE LEASE'}];save()
     assert c.get(BASE+'/evidence',headers=H).status_code==403
+
+
+def test_old_paragraph_evidence_links_keep_the_same_owner_and_refund_checks(setup):
+    from acquisition_presentation import make_brief
+    c,a,r,save,buy=setup
+    r['investigation']['findings'].append({'id':'extra-lease-clause','title':'Additional clause',
+        'topic':'lease','finding':'A separate lease clause needs review.','consequence':'Check the clause.',
+        'resolution':'Check the original lease.','materiality':'routine',
+        'evidence':[{'document':'Completed Lease.pdf','page':3,'excerpt':'A separate clause.'}]})
+    save();buy()
+    b=make_brief(r);current={x['id'] for x in b['references']}
+    old=next(x for x in b['reference_aliases'] if x['document']=='Completed Lease.pdf' and x['id'] not in current)
+    url=BASE+'/evidence/'+old['id']
+    assert c.get(url,headers=H).status_code==200
+    assert c.get(url,headers={'Authorization':'bob'}).status_code==404
+    buy('refund_review')
+    assert c.get(url,headers=H).status_code==403

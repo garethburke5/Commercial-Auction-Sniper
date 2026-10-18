@@ -307,7 +307,11 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
             continue
         if f.get('id') in {'seller-fee', 'disbursements-cap', 'works-balance', 'search-cost', 'enquiries'}:
             level = 'routine'
-        elif f.get('id') in {'title-exclusion', 'vat-conflict', 'seller-fee-conflict', 'fee-conflict'}:
+        elif f.get('id') == 'title-exclusion':
+            # A boundary/vertical exclusion can be entirely ordinary. A loss
+            # of income-producing space requires a plan-based finding.
+            level = 'routine'
+        elif f.get('id') in {'vat-conflict', 'seller-fee-conflict', 'fee-conflict'}:
             level = 'decision_gate'
         elif f.get('severity') == 'INFORMATION':
             continue
