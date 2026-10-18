@@ -16,6 +16,12 @@ This supersedes the 12 October status table. It separates implemented controls, 
 
 ## Immediate priority override — report quality
 
+The current feature-wide feedback audit is
+[`report-feedback-status-2026-10-18.md`](report-feedback-status-2026-10-18.md).
+It distinguishes shared implementation from edited specimens and unfinished
+customer behaviour, and reconciles the owner's later corrections. Do not count
+a report rewrite, additional test case or deployment as product acceptance.
+
 The owner made Property Investment Reports the immediate priority on 17 October and rejected both subsequent Newbury specimens on 18 October. Defer further source expansion and analytics-dashboard development while completing the report product. Continue existing collection and essential reliability work. All other launch priorities remain in scope.
 
 **Binding report brief:** [`report-product-rejection-2026-10-18.md`](report-product-rejection-2026-10-18.md). The standard is also reflected in [`investment-report-standard.md`](investment-report-standard.md). The 17 October report checkpoint remains historical engineering evidence, not the current acceptance specification.

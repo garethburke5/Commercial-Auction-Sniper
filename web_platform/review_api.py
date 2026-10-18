@@ -87,7 +87,9 @@ def install(app,site,user):
         if validation:
             if state=='failed':result['html']='<p class="research-scope">Validation did not finish. Review the usage record before retrying.</p>'+result['html']
         elif public_free:
-            result['html']='<p class="research-scope">Free Property Snapshot. Public evidence only; no legal pack was analysed. No purchase is required for this download.</p>'+result['html']
+            # The shared report renderer puts the scope note at the end. Do not
+            # reintroduce a process disclaimer above the customer's assessment.
+            pass
         elif state=='requires_review':
             result['html']='<p class="research-scope">This analysis needs a source-quality review before delivery. Your purchase is retained; uploading again will not restart chargeable processing.</p>'+result['html']
         elif state=='processing':

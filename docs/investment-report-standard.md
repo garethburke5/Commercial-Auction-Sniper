@@ -1,5 +1,11 @@
 # Investment report standard
 
+The owner's feedback applies to the whole Snapshot and Full Investment Report
+service. The current requirement-to-implementation audit is
+[`report-feedback-status-2026-10-18.md`](report-feedback-status-2026-10-18.md).
+Use its precedence rules when reading older review records. Implemented
+safeguards, edited specimens and accepted product behaviour are different states.
+
 **Current decision, 18 October 2026: both Newbury specimens are rejected for paid
 release. The £19 price remains the intended price; paid reporting stays closed.**
 The binding next-submission gates, specimen defects and diverse test matrix are in

@@ -1,8 +1,13 @@
-# Owner's final editorial direction, 18 October 2026
+# Owner's editorial direction, 18 October 2026
 
 This supersedes the earlier request for full contextual source labels after
 individual paragraphs. Both the free snapshot and paid assessment must read as
 an experienced investor explaining the property to another investor.
+
+This is a feature-wide requirement, not a Newbury-only writing brief. See
+[`report-feedback-status-2026-10-18.md`](report-feedback-status-2026-10-18.md)
+for which requirements have reusable implementation, which have only edited
+specimen evidence and which still lack a working customer outcome.
 
 ## Reusable changes
 

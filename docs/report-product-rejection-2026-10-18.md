@@ -3,6 +3,13 @@
 **Decision: REJECTED for paid release. Intended Full Investment Report price: £19.**
 **Effective: 18 October 2026. Investment reports remain the first launch priority.**
 
+**Later owner feedback controls:** read
+[`report-feedback-status-2026-10-18.md`](report-feedback-status-2026-10-18.md) and
+[`report-editorial-direction-2026-10-18.md`](report-editorial-direction-2026-10-18.md)
+for current interpretation, source placement and implementation status. The
+original rejection below is historical evidence; its wording must not override
+the owner's later corrections or imply that requested work has been completed.
+
 This records the owner's review of the two Newbury specimens and replaces the
 report acceptance requirements in the 17 October checkpoint. It is a product
 decision, not certification of the underlying legal evidence. The owner's 5/10
@@ -167,12 +174,14 @@ further source expansion and a new analytics dashboard. Existing collection and
 essential reliability work continue. No launch gate or unrelated priority is
 silently marked complete by this rejection.
 
-## Contextual evidence — additional acceptance requirement
+## Supporting evidence — updated acceptance requirement
 
 Apply to the Free Property Snapshot and Full Investment Report:
 
-- Put readable document/source names and page numbers beside important findings.
-  Remove coded references and the full source-key page from the main PDF.
+- Put all full document/source names, relevant page numbers and source links
+  together at the end of the report. Optional small numbered references in the
+  narrative link to that list. Do not repeat full labels after paragraphs.
+  This supersedes the earlier request for labels beside individual findings.
 - Link public claims to the original authoritative webpage. Link private PDF
   references only when the delivered report has a real saved-report destination.
   A local review specimen must not invent an online evidence destination.
