@@ -146,6 +146,10 @@ def interpret(report):
         add(f['id'],'A leasehold purchase has obligations to another owner','The interest is leasehold, so the buyer would hold the property under a lease from another owner. Its remaining term, rent, repair obligations and restrictions need checking alongside any tenancy that produces the investment income.',[f])
     for f in matching('vacancy-carry'):
         add(f['id'],'The empty period needs its own budget','An empty property produces no current rent. A buyer needs to budget for the time needed to secure an occupier, any work, insurance and other costs that continue before a letting starts.',[f])
+    for f in findings:
+        if 'lease expressly replaces an earlier rent' in f.get('title','').lower():
+            add(f['id'],'The newer lease replaces the old rent',
+                sentence(f['finding'])+' The two amounts must not be added together. This explains the lease wording; payment history and any later changes still need checking.',[f],kind='rent_substitution')
     # Findings covered by dedicated income, date and cost narratives below.
     for f in findings:
         if f['id'] in covered:continue

@@ -25,7 +25,7 @@ The downside explanation distinguishes lost rent from continuing insurance, mana
 | Newbury | Retained mixed-use legal evidence plus two primary achieved-sale comparisons | Five-page review plus one-page appendix; still requires commercial acceptance |
 | Newbury | Public information only | One-page free snapshot |
 | Bearwood | Original extracted legal pack | One-page free research update; current lease/rent position incomplete |
-| Northgate | Original extracted legal pack | One-page free research update; conflicting rents and lease hierarchy incomplete |
+| Northgate | Original extracted legal pack | One-page free research update; explicit replacement of £45,000 with £39,000 resolved, but ownership/lease extent and current receipts incomplete |
 | Shipley | Original extracted legal pack | One-page free research update; superior lease and current letting relationship incomplete |
 | Wallington | Primary public particulars | One-page snapshot explains tenant half rent and seller funding separately |
 | Bedford | Conflicting primary public pages | One-page snapshot preserves the income discrepancy without inventing arrears |
@@ -34,7 +34,9 @@ The downside explanation distinguishes lost rent from continuing insurance, mana
 
 The industrial case first exposed a missed public lease-break insight and an asset-type error caused by a reference to the Valuation Office Agency. The reusable exact-unit break interpretation and headline classification were corrected and tested. This case is now a regression case, not an untouched acceptance holdout. Its historical 2024 auction information is labelled accordingly. No full industrial legal-pack report has passed acceptance.
 
-169 focused report, access-control and collector tests pass, plus 27 separate legacy legal-pack/provenance tests. The nine final PDFs have no page-overflow or automated editorial failures. Visual review covers all delivered pages. Test success does not establish report value.
+172 focused report, access-control and collector tests pass, plus three substitution subtests and 27 separate legacy legal-pack/provenance tests. The broader platform suite also passes. The nine final PDFs have no page-overflow or automated editorial failures. Visual review covers all delivered pages. Test success does not establish report value.
+
+The final cross-case review found a false rent conflict in Northgate: the current lease expressly replaces the rent in its attached old lease. The shared extractor now recognises that relationship only when an explicit replacement clause, a labelled old-lease annex and the position of every competing rent support it. It does not borrow replacement wording from another document or certify payment. Missing clauses, ambiguous new rents and unbounded annexes retain the conflict. The research update explains the resolved rent relationship instead of asking the reader to solve it again.
 
 ## Limits that remain open
 

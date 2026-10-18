@@ -10,6 +10,42 @@ def lease(name, pages):
 
 
 class LeaseEvidenceTests(unittest.TestCase):
+    def test_explicit_substitution_separates_new_rent_from_annexed_old_lease(self):
+        doc = lease('Renewal of 8 Example Road.pdf', [
+            'Annual Rent: rent at a rate of £27,500 per annum.',
+            'This Lease shall reserve the Annual Rent instead of, and not in addition to, the Existing Lease Annual Rent.',
+            'ANNEX 1 Certified copy of the Existing Lease',
+            'Yearly Rent: £32,000 per annum.'])
+        result = extract_lease_evidence([doc])
+        row = result['leases'][0]
+        self.assertEqual(row['annual_rent'], 27500)
+        self.assertEqual(row['rent_substitution']['earlier_amounts'], [32000])
+        self.assertEqual({e['page'] for e in row['rent_substitution']['evidence']}, {1, 2, 3, 4})
+        self.assertFalse(row.get('rent_conflicted'))
+        self.assertIn('not proof of payment', result['findings'][0]['meaning'])
+
+    def test_later_rent_is_not_selected_without_explicit_replacement_and_annex_scope(self):
+        for pages in [
+            ['Annual Rent: rent at a rate of £27,500 per annum.',
+             'ANNEX 1 Certified copy of the Existing Lease', 'Yearly Rent: £32,000 per annum.'],
+            ['Annual Rent: rent at a rate of £27,500 per annum.',
+             'This Lease shall reserve the Annual Rent instead of, and not in addition to, the Existing Lease Annual Rent.',
+             'Yearly Rent: £32,000 per annum.'],
+            ['Annual Rent: rent at a rate of £27,500 per annum. Initial Rent: £25,000 per annum.',
+             'This Lease shall reserve the Annual Rent instead of, and not in addition to, the Existing Lease Annual Rent.',
+             'ANNEX 1 Certified copy of the Existing Lease', 'Yearly Rent: £32,000 per annum.'],
+        ]:
+            with self.subTest(pages=pages):
+                row = extract_lease_evidence([lease('Renewal.pdf', pages)])['leases'][0]
+                self.assertIsNone(row['annual_rent'])
+                self.assertTrue(row['rent_conflicted'])
+
+    def test_replacement_clause_from_another_document_cannot_resolve_rent(self):
+        docs = [lease('Lease.pdf', ['Annual Rent: rent at a rate of £27,500 per annum.',
+                 'ANNEX 1 Certified copy of the Existing Lease', 'Yearly Rent: £32,000 per annum.']),
+                lease('Other lease.pdf', ['This Lease shall reserve the Annual Rent instead of, and not in addition to, the Existing Lease Annual Rent.'])]
+        self.assertTrue(extract_lease_evidence(docs)['leases'][0]['rent_conflicted'])
+
     def test_individual_tenants_and_separate_demises(self):
         docs = [lease("Unit A lease.pdf", ["(2) JANE DOE of 1 Example Road (Tenant). Annual Rent: rent at a rate of £12,000.00 per annum."]),
                 lease("Unit B lease.pdf", ["(2) ADAM JONES and JULIA JONES of 9 Example Road (Tenant). Annual Rent: rent at a rate of £7,000 per annum."])]

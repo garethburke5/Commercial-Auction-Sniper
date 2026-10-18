@@ -138,6 +138,8 @@ def make_brief(report):
         header[0]=p('AUCTION GEEK  /  RESEARCH UPDATE / NO CHARGE','kicker')
         blocks=header+[h('The pack does not yet support a full investment report'),p('We found documents that need to be read together before the current rent and ownership can be established. Some may describe earlier arrangements, rather than extra lettings. Adding their rent figures would give a misleading picture.'),p(analysis['opening']),h('What the documents do tell us')]
         commercial=[d for d in ds if d.get('document') and not d.get('residential_reversion')]
+        substitutions=[c for c in analysis['cards'] if c['kind']=='rent_substitution']
+        for c in substitutions:blocks+=section(c)
         for di,d in enumerate(commercial[:3],1):
             label=d['label'] if 'unresolved' not in d['label'].lower() else f'Lease record {di}'
             blocks+=[p(label+': '+(f"The document records {money(d['annual_rent'])} annual rent. " if d.get('annual_rent') is not None else 'The current annual rent cannot be established from this document alone. ')+lease_terms(d),'small')]+cite(d.get('evidence'))
@@ -145,7 +147,7 @@ def make_brief(report):
             if 'different lease rent amounts' in f['title'].lower():
                 amounts=list(dict.fromkeys([x.rstrip(',') for x in re.findall(r'£[\d,]+(?:\.\d{1,2})?',f.get('finding',''))]))
                 if amounts:blocks+=[p('The lease material contains '+ ' and '.join(amounts)+'. These figures may relate to different periods or arrangements. The current amount cannot be selected safely until the later documents are checked.','small')]+cite(f.get('evidence'))
-        other=[c for c in analysis['cards'] if c['kind']!='interaction' and c['id'] not in ('income-unreconciled','lease-extent-unresolved')]
+        other=[c for c in analysis['cards'] if c['kind'] not in ('interaction','rent_substitution') and c['id'] not in ('income-unreconciled','lease-extent-unresolved')]
         for c in other[:2]:blocks+=section(c)
         # Never silently omit an unfamiliar material issue just to make it short.
         if analysis['unedited_findings']:

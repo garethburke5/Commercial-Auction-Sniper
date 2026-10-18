@@ -68,6 +68,41 @@ def _uncertain_date(text):
                 or re.search(r"\b(?:tbc|to be confirmed|insert date)\b", text, re.I))
 
 
+def _rent_substitution(document, rents):
+    """Resolve a quoted old rent only with an explicit, bounded replacement.
+
+    The old lease must be a labelled annex, and every competing rent must be
+    inside that annex. This does not establish execution, payment or later changes.
+    """
+    if len(rents) >= 30:
+        return None
+    pages = list(_pages(document))
+    annexes = [(p, text) for p, text in pages if re.search(
+        r'\bANNEX\s+\d+\s+(?:Certified\s+)?copy of the Existing Lease\b', text, re.I)]
+    if len(annexes) != 1:
+        return None
+    annex_page, annex_text = annexes[0]
+    boundary = annex_page.get('page')
+    if not isinstance(boundary, int):
+        return None
+    head = [(m, ev) for m, ev in rents if isinstance(ev.get('page'), int) and ev['page'] < boundary]
+    tail = [(m, ev) for m, ev in rents if isinstance(ev.get('page'), int) and ev['page'] > boundary]
+    if len(head) != 1 or not tail or len(head) + len(tail) != len(rents):
+        return None
+    clause = None
+    for page, text in pages:
+        if not isinstance(page.get('page'), int) or page['page'] >= boundary:
+            continue
+        match = re.search(r'\bThis Lease shall reserve the Annual Rent instead of,? and not in addition to,? the Existing Lease Annual Rent\.', text, re.I)
+        if match:
+            clause = _evidence(document, page, match.group())
+    if clause is None or not re.match(r'Annual Rent[’”\'\"]?\s*(?::|means)?\s*(?:rent\s+)?(?:at\s+)?(?:a\s+)?rate of\s+£', head[0][1]['excerpt'], re.I):
+        return None
+    return {'amount': float(head[0][0].group(1).replace(',', '')),
+            'earlier_amounts': sorted({float(m.group(1).replace(',', '')) for m, _ in tail}),
+            'evidence': [head[0][1], clause, _evidence(document, annex_page, annex_text)] + [ev for _, ev in tail]}
+
+
 def extract_lease_evidence(documents):
     leases, findings = [], []
 
@@ -116,9 +151,20 @@ def extract_lease_evidence(documents):
             row["evidence"].append(ev)
 
         rents = _matches(document,
-            r"\b(?:Annual|Initial|Yearly) Rent[’'\"]?\s*(?::|means)?\s*(?:rent\s+)?(?:at\s+)?(?:a\s+)?(?:rate\s+of\s+|the yearly sum of\s+)?[^£.]{0,80}£\s*([\d,]+(?:\.\d{1,2})?)", 3)
+            r"\b(?:Annual|Initial|Yearly) Rent[’'\"]?\s*(?::|means)?\s*(?:rent\s+)?(?:at\s+)?(?:a\s+)?(?:rate\s+of\s+|the yearly sum of\s+)?[^£.]{0,80}£\s*([\d,]+(?:\.\d{1,2})?)", 30)
         amounts = {float(m.group(1).replace(",", "")) for m, _ in rents}
-        if len(amounts) == 1:
+        substitution = _rent_substitution(document, rents) if len(amounts) > 1 else None
+        if substitution:
+            row['annual_rent'] = substitution['amount']
+            row['rent_substitution'] = substitution
+            row['evidence'].extend(substitution['evidence'])
+            earlier = ' and '.join(f'£{v:,.0f}' for v in substitution['earlier_amounts'])
+            finding(document, 'rent-substitution', 'Lease expressly replaces an earlier rent',
+                    f"The lease states annual rent of £{substitution['amount']:,.0f} and expressly replaces the earlier rent. The {earlier} figure is in the attached copy of the old lease.",
+                    'The two amounts are not additional rents and should not be added together.',
+                    'This establishes the amount stated in this lease, not proof of payment or the absence of later changes.',
+                    'Check the signed lease, subsequent changes and payment history.', substitution['evidence'], 'INFORMATION')
+        elif len(amounts) == 1:
             row["annual_rent"] = next(iter(amounts))
             row["evidence"].append(rents[0][1])
         elif len(amounts) > 1:
