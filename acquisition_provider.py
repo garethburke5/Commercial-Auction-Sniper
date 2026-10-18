@@ -414,7 +414,23 @@ exemption_search, regulatory_guidance, auction_addendum, subject_sale_result,
 subject_asking_sale, subject_asking_rent, sale_comparable, rental_comparable,
 planning_context, tenant_covenant, tenant_identity, occupation_history,
 marketing_history, subject_particulars, income_concession,
-potential_rent and comparable_terms.
+potential_rent, comparable_terms, accommodation, tax_treatment, business_rates,
+tenant_security, operating_cost and reletting_cost.
+For a scoped passage describing this entire property, use subject_particulars
+with field=published_particulars and scope=whole_property. Never apply that scope
+to a neighbouring lot, one unit of a multi-let property or generic site text.
+If an exact catalogue entry says Sold Prior without a price, use
+kind=subject_sale_status and status=sold_prior; do not infer a price from a yield.
+For accommodation identify the exact unit, area_sqft, area_basis and included
+floors. Keep EPC assessment area separate. Every numerical field must be quoted.
+For business_rates identify the assessed unit, rateable_value and list/effective
+date; this is not the actual bill and does not establish relief eligibility.
+For tax_treatment distinguish marketing claims from auction conditions and
+official guidance; do not conclude VAT or TOGC treatment from an advert alone.
+For tenant_security identify the contractual tenant and exact demise_document;
+quote the operative deposit or guarantee evidence, not boilerplate definitions.
+For operating_cost/reletting_cost keep cost_amount, date, scope, one-off/annual
+basis and recovery evidence separate. A historic invoice is not a current budget.
 For a whole-property rent-review addendum, record kind=auction_addendum, rent,
 scope=whole_property and supersedes_record_id pointing to a subject_particulars
 annual_rent record that expressly says the entire property is let. Use this
@@ -425,8 +441,12 @@ never passing income. Conflicting published annual incomes may be separate
 subject_particulars records with field=annual_rent, basis=published_annual and rent.
 For sale_comparable include the actual comparable address, achieved price and
 reserved rent when both are supported in the quotation. Put supplementary
-incentives/breaks in comparable_terms, subject set to that comparable address and
-comparison_source_id set to the source_id of the related sale evidence. For subject_particulars that fill missing catalogue fields,
+incentives/breaks in comparable_terms, with subject set to that comparable address
+and comparison_source_id set to the source_id of the related sale evidence.
+Include fixed rent uplifts, their effective dates, rent-free periods, deposits,
+guarantors, floor areas and any differing rent at the sale date. Preserve an
+unknown effective date; do not replace sale-date rent with a future uplift.
+For subject_particulars that fill missing catalogue fields,
 use the confirmed property address verbatim as subject and one field/value per
 record. Allowed fields: guide_price, annual_rent, tenure, occupation,
 property_type, country. Numeric guide_price requires basis=guide. annual_rent

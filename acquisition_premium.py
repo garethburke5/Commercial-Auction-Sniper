@@ -132,7 +132,12 @@ def render_pdf(report):
                 from PIL import Image as PILImage
                 im=PILImage.open(b['path']);scale=min(width/im.width,155/im.height);story.extend([Image(b['path'],width=im.width*scale,height=im.height*scale,hAlign='LEFT'),Spacer(1,5)])
             elif kind=='metrics':
-                cells=[Paragraph('<font size="7.4">'+escape(label.upper())+'</font><br/><br/><b><font size="17">'+escape(value)+'</font></b>',styles['body']) for label,value in b['items']]
+                cells=[]
+                for label,value in b['items']:
+                    # Fit long states such as "Not established" inside their
+                    # own column rather than overprinting the neighbouring rent.
+                    size=max(12,min(17,(width/len(b['items'])-16)/max(pdfmetrics.stringWidth(value,'Investor-Bold',1),1)))
+                    cells.append(Paragraph('<font size="7.4">'+escape(label.upper())+'</font><br/><br/><b><font size="'+str(size)+'">'+escape(value)+'</font></b>',styles['body']))
                 t=Table([cells],colWidths=[width/len(cells)]*len(cells));t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,-1),colors.HexColor(LIGHT)),('VALIGN',(0,0),(-1,-1),'TOP'),('TOPPADDING',(0,0),(-1,-1),11),('BOTTOMPADDING',(0,0),(-1,-1),10)]));story.extend([t,Spacer(1,12)])
             elif kind=='table':
                 if not b['rows']:continue

@@ -139,6 +139,7 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
         row = {'id': sha256(lease['document'].encode()).hexdigest()[:12],
                'document': lease['document'], 'label': label, 'demise_identified': identified,
                'tenant': lease.get('tenant'), 'annual_rent': lease.get('annual_rent'),
+               'rent_deposit': lease.get('rent_deposit'), 'guarantee': lease.get('guarantee'),
                'interest': lease.get('interest'), 'term': lease.get('term'),
                'lease_date': lease.get('lease_date'), 'lease_date_evidence': lease.get('lease_date_evidence',[]),
                'breaks': lease.get('breaks', []), 'reviews': lease.get('reviews', []),
@@ -357,7 +358,7 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
              'An attractive gross yield can conceal over-renting and a lower reversionary income.', ['market_rent'])
     question('market-price', 'Find genuinely comparable achieved investment sales and vacant-possession evidence.',
              'Asking prices and auction guides alone cannot support an investment value or maximum bid.', ['market_sales', 'vacant_possession'])
-    question('history', 'Find earlier asking prices and listing dates for the same property and ownership; compare the income and tenants then and now. Distinguish a listing-added date from evidence of the price on that date. Investigate the reason for any change without guessing.',
+    question('history', 'Find earlier asking prices and listing dates for the same property and ownership; compare the income and tenants then and now. Distinguish a listing-added date from evidence of the price on that date. Report ordinary asking-price differences concisely; investigate reasons only where evidence suggests a material change.',
              'History can reveal rent resets, recurring vacancy, failed sales or changes in use.', ['history'])
     if not profile['vacant']:
         question('covenant', 'Identify each commercial legal tenant separately from the trading name; investigate the business history, available financial evidence, rent receipts and any deposit or guarantor. Do not assume an individual tenant has company accounts.',
@@ -368,6 +369,10 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
              'Distinguish mapped screening from an observed defect and establish the exact site extent.', ['environment'])
     question('expenditure', 'Investigate condition, likely expenditure and who would bear the cost for this property.',
              'Use actual particulars, surveys, condition evidence and recovery terms; do not invent a works budget.', ['condition', 'capex'])
+    question('accommodation', 'Establish the accommodation of each unit: floor-by-floor areas, measurement basis and the accommodation producing each rent. Distinguish EPC areas, quoted total areas, sales floors and storage.',
+             'A total area or a rent per square foot is misleading if the compared space differs.', ['accommodation','market'])
+    question('tax-and-rates', 'Check the marketed VAT position against auction conditions, relevant option-to-tax or transfer-of-going-concern evidence; identify the exact rating assessments and potential empty-property liabilities or relief. Obtain current primary guidance for the jurisdiction.',
+             'VAT cash requirements and holding costs can materially change acquisition expenditure and vacancy exposure.', ['tax','rates'])
     question('local-market', 'Assess local occupier demand, competing supply and rental sustainability for this property use.',
              'Market conditions must be relevant to the location, use and evidence date.', ['local_market'])
 

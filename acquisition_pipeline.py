@@ -81,7 +81,10 @@ def _merge_research(current, extra):
 
 
 def investigate_acquisition(model, catalogue=None, *, research=None, open_review=None,
-                            reasoning_backend=None, research_backend=None, writing_backend=None, editorial_backend=None):
+                            reasoning_backend=None, research_backend=None, writing_backend=None, editorial_backend=None,
+                            max_editorial_revisions=1):
+    if type(max_editorial_revisions) is not int or not 0 <= max_editorial_revisions <= 2:
+        raise ValueError('Editorial revisions must be bounded between zero and two')
     if open_review is not None and reasoning_backend is not None:
         raise ValueError('Supply a reasoning backend or an existing review, not both')
     if open_review is not None and research_backend is not None:
@@ -128,23 +131,35 @@ def investigate_acquisition(model, catalogue=None, *, research=None, open_review
     if report['investigation']['pipeline']['remaining_research_requests']:
         report['quality_status']['outstanding'].append('The evidence reviewer has outstanding research requests.')
     if writing_backend is not None:
-        from acquisition_narrative import writing_packet, validate_narrative
-        candidate = writing_backend(writing_packet(report))
-        check = validate_narrative(report, candidate)
-        report['written_assessment'] = candidate
-        report['narrative_validation'] = check
-        stages.append({'stage': 'written_assessment', 'contract_valid': check['valid']})
-        if not check['valid']:
-            report['quality_status']['outstanding'].append('The written assessment failed evidence or coverage checks.')
-        elif editorial_backend is not None:
-            from acquisition_narrative import editorial_packet, editorial_review_valid
+        from acquisition_narrative import writing_packet, validate_narrative, editorial_packet, editorial_review_valid
+        feedback = None
+        for revision in range(max_editorial_revisions + 1):
+            packet = writing_packet(report)
+            if feedback is not None:
+                packet['revision_feedback'] = feedback
+                packet['previous_draft'] = report.get('written_assessment')
+            candidate = writing_backend(packet)
+            check = validate_narrative(report, candidate)
+            report['written_assessment'] = candidate
+            report['narrative_validation'] = check
+            # An earlier pass can never approve a replacement draft.
+            report.pop('narrative_editorial_review', None)
+            stages.append({'stage': 'written_assessment', 'revision': revision, 'contract_valid': check['valid']})
+            if not check['valid']:
+                feedback = {'contract_errors': check['errors']}
+                continue
+            if editorial_backend is None:
+                break
             report['narrative_editorial_review'] = editorial_backend(editorial_packet(report))
             if not isinstance(report['narrative_editorial_review'], dict):
                 raise ValueError('Editorial backend must return a structured review')
             passed = editorial_review_valid(report)
-            stages.append({'stage': 'editorial_review', 'passed': passed})
-            if not passed:
-                report['quality_status']['outstanding'].append('The completed narrative requires editorial correction.')
+            stages.append({'stage': 'editorial_review', 'revision': revision, 'passed': passed})
+            if passed:
+                break
+            feedback = {'editorial_issues': report['narrative_editorial_review'].get('issues'),
+                        'instruction': 'Correct the issues and return a complete, evidence-bound assessment.'}
+        report['investigation']['pipeline']['editorial_revision_limit'] = max_editorial_revisions
     report['investigation']['pipeline']['writing_provider_used'] = writing_backend is not None
     from acquisition_presentation import make_brief
     brief = make_brief(report)

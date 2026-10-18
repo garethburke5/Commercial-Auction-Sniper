@@ -48,6 +48,8 @@ def investment_exposure(report, principal, rent, capital):
             loss = rounded(principal['annual_rent'] * months / 12)
             cases.append({'label': 'Full stated rent' if not months else f'{months}-month principal-unit void',
                           'months': months, 'rent_lost': loss, 'rent_remaining': rounded(rent-loss),
+                          'capital_return_pct': percent(rent-loss, capital),
+                          'capital_basis': capital,
                           'basis': 'Other rents collected unchanged; before all holding, reletting, repair, finance and tax costs.'})
     capacity = []
     if rent is not None and capital:
@@ -141,10 +143,17 @@ def financial_view(report):
     if not any('seller' in str(c.get('label','')).lower() for c in valid_costs):
         unknown_costs.insert(0,'seller costs and reimbursements')
     capital = rounded((subtotal or price)+tax['amount']) if price is not None and tax else subtotal or price
+    # Every return on expenditure uses the same identified acquisition total,
+    # including the explicitly illustrative tax. Unknown costs remain excluded,
+    # not zero. The purchase-price yield remains a separate headline measure.
+    denominator = capital
+    for scenario in scenarios:
+        scenario['return_pct'] = percent(scenario['cash_before_finance_tax'], capital)
     loss_cases, capacity = investment_exposure(report, principal, rent, capital)
     return {'price': price, 'rent': rent, 'fixed_fees': fixed, 'known_subtotal': subtotal, 'illustrative_tax':tax,
             'denominator': denominator,
-            'denominator_basis': 'price plus quantified fixed fees' if subtotal else 'price only; fees are not established',
+            'denominator_basis': ('price plus quantified fees' if subtotal else 'price; fees are not established') + (' and illustrative purchase tax' if tax else '; purchase tax is unpriced'),
+            'gross_return_on_identified_capital_pct': percent(rent, capital) if rent is not None else None,
             'principal': principal, 'income_reconciled': reconciled,
             'scenarios': scenarios, 'price_rows': price_rows,
             'rent_loss_cases': loss_cases, 'cost_capacity': capacity,

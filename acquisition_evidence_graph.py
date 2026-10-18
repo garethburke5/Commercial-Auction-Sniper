@@ -85,7 +85,7 @@ External observations must quote a supplied source capture and identify scope.
             errors.append('Evidence subject and kind required')
         if not quote or (source and quote.lower() not in norm(source.get('text') or source.get('excerpt')).lower()):
             errors.append('Quoted evidence not found in source capture')
-        for field in ('price','rent','area_sqft','floor_area_sqm','score'):
+        for field in ('price','rent','area_sqft','floor_area_sqm','score','rateable_value','deposit_amount','cost_amount'):
             value = record.get(field)
             if value is None: continue
             if isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value) or value < 0:
@@ -103,9 +103,16 @@ External observations must quote a supplied source capture and identify scope.
             'attempts': list(research.get('attempts', [])), 'rejected': rejected}
 
 
-REVIEW_INSTRUCTIONS = '''Prioritise actual investment significance: confirmed
-problems, potential risks and routine provisions are different. An exclusion in
-a title register needs a visual comparison of the coloured title plan, lease
+REVIEW_INSTRUCTIONS = '''Prioritise actual investment significance. Confirmed
+problems, potential risks and routine provisions are different.
+Unresolved fire-safety actions and near-term breaks affecting most rent deserve
+main-report prominence; small accounting balances do not. State whether historic
+actions are known to remain outstanding, or their completion is simply unknown.
+Explain all income-producing units and sold-off interests before assessing the
+rent total. Examine deposits and guarantees against the actual contractual tenant.
+Check floor areas, rates, VAT evidence, repair recovery and reletting expenditure.
+Keep rent at a comparable sale distinct from later uplifts and concessions.
+An exclusion in a title register needs a visual comparison of the coloured title plan, lease
 plans and sale particulars before asserting missing rental space or a defect.
 For asbestos distinguish positive sample results from covenants and legends;
 identify the material, location, date, rating, recommendation and later evidence.

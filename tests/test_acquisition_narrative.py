@@ -10,10 +10,17 @@ from test_acquisition_investigation import model, cat, external
 
 def draft(packet):
     # Deliberately mechanical fixture: tests validate boundaries, not prose quality.
+    sections = SECTIONS if packet['product']=='full' else ('assessment','market','checks')
+    facts = {f['id']: f for f in packet['facts']}
+    assigned = {key: [] for key in sections}
+    for fid in packet['required_fact_ids']:
+        places = facts[fid].get('required_sections', []) if packet['product']=='full' else []
+        key = next((key for key in sections if key in places), sections[0])
+        assigned[key].append(fid)
     return {'evidence_digest': packet['evidence_digest'], 'sections': [
         {'key': key, 'heading': key.title(), 'paragraphs': [{'text': 'The available evidence needs careful review.',
-          'fact_ids': packet['required_fact_ids'] if i == 0 else ['purchase']}]}
-        for i, key in enumerate(SECTIONS if packet['product']=='full' else ('assessment','market','checks'))]}
+          'fact_ids': assigned[key] or ['purchase']}]}
+        for key in sections]}
 
 
 def test_changed_evidence_or_property_rejects_stale_prose():

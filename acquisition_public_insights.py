@@ -34,7 +34,47 @@ def public_insights(report):
             'consequence': 'The buyer needs the latest rent schedule and an explanation of the difference before relying on either figure. The difference does not prove that a tenant owes rent.',
             'source': rents[0]['source'], 'additional_sources': [r['source'] for r in rents[1:]], 'status': 'Source discrepancy'})
     observations.extend(catalogue_lease_insights(report))
+    observations.extend(occupation_insights(report, records))
     return observations
+
+
+def occupation_insights(report, records):
+    """Interpret explicit whole-property occupation, without parsing UI statuses.
+
+    Only scoped particulars qualify. The full captured page may contain hidden
+    alternative statuses and neighbouring lots, so it is deliberately not read.
+    """
+    results=[]
+    rent=report.get('rent')
+    vacant=report.get('investigation',{}).get('profile',{}).get('vacant')
+    for r in records:
+        if r.get('kind')!='subject_particulars' or r.get('field')!='published_particulars' or r.get('scope')!='whole_property':continue
+        text=norm(r.get('quote')); finding='';consequence=''
+        single=re.search(r'(?:property is |property (?:is )?comprises .*?property is )?fully let to ([A-Za-z][A-Za-z &.,-]*? (?:Limited|Ltd))\b',text,re.I)
+        multi=re.search(r'multi-let to (\d+|two|three|four|five|six|seven|eight|nine|ten) tenants',text,re.I)
+        if single and number(rent) and rent>0 and not multi and not vacant:
+            finding=f"The investment is let to {single[1]}, so one tenant supports the advertised £{rent:,.0f} annual rent."
+            expiry=re.search(r'(?:lease )?expiring (\d{2}\.\d{2}\.\d{4})',text,re.I)
+            if expiry:
+                from datetime import datetime
+                try:finding+=' The advertised lease expires on '+datetime.strptime(expiry[1],'%d.%m.%Y').strftime('%d %B %Y').lstrip('0')+'.'
+                except ValueError:pass
+            unused=re.search(r'(20\d{2}) break (?:option )?(?:not|has not been) exercised',text,re.I)
+            if unused:
+                finding+=' The auctioneer says the '+unused[1]+' break option was not exercised.'
+            consequence='A full year without this tenant would remove the stated rental income. The purchase budget should therefore allow for an empty period and the cost of finding a replacement occupier.'
+        elif multi and not vacant:
+            finding=f"The property is let to {multi[1].lower()} tenants. This spreads occupancy across several businesses."
+            consequence='The individual rents and lease dates determine how much income could be lost at once; the total rent alone cannot show whether one occupier dominates the investment.'
+            if re.search(r'co-terminus leaseholds',text,re.I):
+                consequence+=' The purchase also involves linked headleases, so ground rent and obligations to the superior landlord belong in the ownership budget.'
+        elif vacant and re.search(r'conversion|redevelopment',text,re.I):
+            finding='The premises are vacant. The marketing suggests conversion or redevelopment, subject to obtaining the necessary consents.'
+            consequence='The investment depends on the achievable use, works budget and time to occupation. A proposed alternative use should not be valued as an approved scheme.'
+        if finding:
+            results.append({'title':'Occupation and investment exposure','finding':finding,'consequence':consequence,
+                'source':r['source'],'source_record_id':r.get('id'),'status':'Published property particulars'})
+    return results
 
 
 def catalogue_lease_insights(report):

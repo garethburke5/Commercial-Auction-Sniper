@@ -68,11 +68,13 @@ def _make_brief(report):
     def record_ref(r):return source_evidence(r)
     price_basis=str(report.get('assessment_price_basis') or '')
     price_label='Reported sale price' if 'reported sale' in price_basis.lower() else 'Guide price' if 'guide' in price_basis.lower() else 'Price used'
+    prior_sale=next((r for r in external if r.get('kind')=='subject_sale_status' and r.get('status')=='sold_prior' and compact(r.get('subject')).casefold()==compact(report['property']).casefold() and re.search(r'\bSold Prior\b',r.get('quote',''),re.I)),None)
+    if prior_sale and price is None:price_label='Sale price'
     vacant=profile.get('vacant');yield_value=ratio(rent,price) if not vacant else None
     title='PROPERTY SNAPSHOT / FREE' if not has_pack else 'INVESTMENT REPORT / REVIEW COPY'
     date_text=str(report.get('created_at',''))[:10]
     header=[p('AUCTION GEEK  /  '+title,'kicker'),p(report['property'],'title'),p('Prepared '+date_text+('  |  Review of a reported sale' if str(report.get('listing_status','')).upper()=='SOLD' else ''),'meta')]
-    metrics=[(price_label,cash(price)),('Current income' if vacant else 'Annual lease rent' if inv.get('income_reconciled') else 'Advertised annual rent','Vacant' if vacant else cash(rent)),('Gross yield',f'{yield_value:.2f}%' if yield_value is not None else 'Not established')]
+    metrics=[(price_label,'Not disclosed' if prior_sale and price is None else cash(price)),('Current income' if vacant else 'Annual lease rent' if inv.get('income_reconciled') else 'Advertised annual rent','Vacant' if vacant else cash(rent)),('Gross yield',f'{yield_value:.2f}%' if yield_value is not None else 'Not applicable' if vacant else 'Not calculable')]
     header.append({'kind':'metrics','items':metrics})
     media=report.get('report_media') or {};photo=media.get('photo_path')
     if photo and Path(photo).is_file():
@@ -111,7 +113,7 @@ def _make_brief(report):
                 if (prepared-auction_day).days>180:blocks.append(p('These figures come from the auction on '+auction_day.strftime('%d %B %Y').lstrip('0')+'. They describe the property at that time; the present rent and lease arrangements need fresh confirmation.','small'))
             except ValueError:pass
         insights=public_insights(report)
-        blocks.append(h('Property and rental income'))
+        blocks.append(h('Property and investment potential' if vacant else 'Property and rental income'))
         if insights:
             for x in insights[:2]:
                 blocks+=[p(x['finding']+' '+x['consequence'])]+cite([dict(x['source'],document=x['source'].get('title'))]+[dict(s,document=s.get('title')) for s in x.get('additional_sources',[])])
@@ -123,16 +125,29 @@ def _make_brief(report):
                 blocks+=[p('A buyer would need to fund the empty period and any work before rent starts. An agent’s estimate of possible rent is not the same as an agreed tenancy.')]
             else:
                 blocks+=[p('The advertised rent is a starting point, rather than proof of income received. The leases and payment history are needed to check whether tenants can leave early, receive rent concessions or owe money.')]
-        blocks.append(h('Price and local context'))
+        for area in analysis['underwriting']['accommodation'][:1]:
+            detail=f"The quoted floor area is {area['area_sqft']:,.0f} sq ft."
+            if area['rent_per_sqft'] is not None:
+                detail+=f" The {area['rent_basis']} annual rent equates to {cash(area['rent_per_sqft'])} per sq ft on that area."
+            elif vacant and price:
+                detail+=f" The purchase price equates to {cash(price/area['area_sqft'])} per sq ft before acquisition costs and works."
+            detail+=' '+area['area_basis'].rstrip('.')+'.'
+            blocks+=[p(detail)]+cite(area['evidence'])
+        blocks.append(h('Auction price'))
         if sale:blocks+=[p('The auctioneer reports a sale at '+cash(price)+'.')]+cite(record_ref(sale))
         if report.get('guide'):
             blocks.append(p('The '+('earlier auction guide was ' if sale else 'auction guide is ')+cash(report['guide'])+(' to '+cash(report['guide_upper']) if report.get('guide_upper') and report['guide_upper']!=report['guide'] else '')+'.'))
+            guide_record=next((r for r in external if r.get('kind')=='subject_particulars' and r.get('field')=='guide_price' and compact(r.get('subject')).casefold()==compact(report['property']).casefold()),None)
+            if guide_record:blocks+=cite(record_ref(guide_record))
         m=next((x for x in analysis['market'] if x['record'] in achieved),None) or next(iter(analysis['market']),None)
         if m:
             blocks+=[p(m['body']+' Differences in location, accommodation and lease terms mean it cannot establish this property’s value on its own.')]+cite(m['evidence'])
         if not sale and not m and not report.get('guide'):
-            blocks.append(p('No reliable purchase price or comparable completed sale has been established in the available research.'))
-        blocks+=[h('Other considerations'),p('No legal pack was analysed. '+('The ownership boundaries, building condition, works, insurance and other holding costs still need investigation. The likely rent and cost of getting the building ready are also unconfirmed.' if vacant else 'The current leases, exact ownership boundaries, building condition and landlord costs still need investigation. The gross yield excludes purchase costs, repairs, empty periods, borrowing and tax.'))]
+            if prior_sale:blocks+=[p('The auctioneer reports that the property sold before the auction. No sale price is shown.')]+cite(record_ref(prior_sale))
+            else:blocks.append(p('A purchase price is needed before the rental return can be calculated.'))
+        if not vacant and yield_value is not None:
+            blocks.append(p('The gross yield excludes purchase costs, repairs, empty periods, borrowing and tax.','small'))
+        blocks.append(p('This initial snapshot reviews the available auction particulars and supporting public sources, including any cited addenda. No full legal-pack assessment was undertaken.','caption'))
         return finish([{'title':'Free Property Snapshot','blocks':blocks}],[],'free_snapshot','Free Property Snapshot')
     incomplete=not inv.get('income_reconciled') and inv.get('market',{}).get('price_support')=='inconclusive' and inv.get('market',{}).get('erv_support')=='inconclusive'
     if incomplete:
@@ -164,30 +179,43 @@ def _make_brief(report):
     if principal:page1+=cite(principal.get('evidence',[])+[e for b in principal.get('breaks',[]) for e in b.get('evidence',[])],'Main income and lease terms')
     if analysis['priority_summary']:page1.append(p(analysis['priority_summary']))
     page1+=[h('Before making an offer'),p('The rent must be collectable, the space being sold must match the income, and the buyer must be able to fund repairs and any empty period. Those checks matter more than the headline percentage.')]
-    if sale:page1+=[p('The auctioneer reports a sale at '+cash(price)+'. Completion and subsequent availability have not been independently checked.','small')]+cite(record_ref(sale))
+    if sale:page1+=[p('The auctioneer reports a sale at '+cash(price)+'.','small')]+cite(record_ref(sale))
     if report.get('guide'):
         page1.append(p('The earlier guide was '+cash(report['guide'])+(' to '+cash(report['guide_upper']) if report.get('guide_upper') and report['guide_upper']!=report['guide'] else '')+'. It is separate from the reported sale price used here.','small'))
     page2=[h('Where the income comes from')]
     if inv.get('income_reconciled'):
         rows=[[d['label'],d['annual_rent'],f"{ratio(d['annual_rent'],rent):.1f}%"] for d in ds if d.get('annual_rent') is not None]
-        page2+=[chart('Annual rent by letting','income',rows),p('The rents in the identified leases add up to '+money(rent)+' a year. This checks the stated total, but does not show whether the money is being paid or whether the tenants can afford future payments.')]+cite([e for d in ds for e in d.get('evidence',[])])
+        page2+=[chart('Annual rent by letting','income',rows),p('The commercial rents and ground rents total '+money(rent)+' a year.')]+cite([e for d in ds for e in d.get('evidence',[])])
     events,unresolved=lease_events(ds)
     if events:
         page2+=[chart('When the main lease terms change','timeline',events),p('An early termination right allows a tenant to leave if the lease conditions are met; it is not a prediction that they will leave. A rent review is an opportunity to reassess the rent, not a guaranteed increase.','small')]+cite([e for x in events for e in x['evidence']])
     for d in ds:
         if not d.get('document') or d.get('residential_reversion'):continue
         page2+=[h(d['label']),p(lease_terms(d),'small')]+cite([e for b in d.get('breaks',[]) for e in b.get('evidence',[])])
+        security=next((s for s in analysis['underwriting']['tenant_security'] if s['unit']==d['label']),None)
+        if security and security['contractual_tenant']:
+            page2+=[p('The contractual tenant is '+security['contractual_tenant']+'. The trading name alone does not identify who owes the rent.','small')]+cite(security['evidence'])
+        for event in analysis['underwriting']['lease_horizons']:
+            if event['unit'] != d['label'] or event['past_event']:continue
+            detail=(f"The break is {event['months_until']} complete months after this assessment date. " if event['months_until'] is not None and event['months_until'] <= 24 else '')
+            if event['coincident_rent_review']:
+                detail+='The rent review falls on the same date. It will not preserve the tenancy if the tenant validly exercises the break.'
+            if detail:page2+=[p(detail,'small')]+cite(event['evidence'])
     residential=[d for d in ds if d.get('residential_reversion')]
     if residential:page2.append(p('The flats contribute only '+money(sum(d.get('annual_rent') or 0 for d in residential))+' a year in ground rent. Their long leases mean the buyer cannot simply let them at residential market rents.','small'))
     # Select by source finding type, not a case-specific identifier.
     arrears=next((c for c in analysis['cards'] if c['id'].startswith('cpse-rent-arrears')),None)
     if arrears:page2+=[p(arrears['body'],'small')]+cite(arrears['evidence'])
-    page3=[h('The building could need money as well as management')]
-    main_ids={'ownership-extent','safety','repair-allocation'}
-    selected=[c for c in analysis['cards'] if c['id'] in main_ids or c['id'].startswith(('epc-','cover-hazard')) or (c['kind']=='additional_review' and any(f['id'] in c['finding_ids'] and f['materiality']=='decision_gate' for f in analysis['findings']))]
+    page3=[h('Building and legal issues that could affect the purchase')]
+    main_ids={'ownership-extent','repair-allocation'}
+    selected=[c for c in analysis['cards'] if c['id'] in main_ids or c['id'].startswith(('epc-','cover-hazard','fire-safety-','asbestos-')) or (c['kind']=='additional_review' and any(f['id'] in c['finding_ids'] and f['materiality']=='decision_gate' for f in analysis['findings']))]
     for c in selected:page3+=section(c)
     if not selected:page3.append(p('The available evidence does not establish the building’s condition or the costs that will fall to the landlord. A current survey, insurance quotation and review of the repair clauses are needed to complete the purchase budget.'))
     page4=[h('What the market evidence says about the price')]
+    areas=analysis['underwriting']['accommodation']
+    if areas:
+        page4+=[table(['Advertised accommodation','Area (sq ft)','Annual rent','Rent / sq ft'],[[r['label'],f"{r['area_sqft']:,.0f}",cash(r['annual_rent']),cash(r['rent_per_sqft'])] for r in areas],[.43,.16,.21,.2]),p('These calculations use the quoted areas and rent bases. Ground-floor sales space and basement storage need separate comparison; these totals are not a measured or zoned rental valuation.','caption')]
+        page4+=cite([e for r in areas for e in r['evidence']])
     if achieved and yield_value is not None:
         page4+=[chart('Annual rent divided by sale price','yield',[[report['property'].split(',')[0],yield_value]]+[[r.get('address') or r['source']['title'],ratio(r['rent'],r['price'])] for r in achieved[:3]]),p('These are gross yields before costs and rent concessions. A higher percentage can reflect greater risk; it does not by itself mean a bargain.','small')]
     else:
@@ -210,6 +238,8 @@ def _make_brief(report):
         if explicit_break:differences.append('The tenant can end the lease on '+datetime.strptime(explicit_break[1],'%d.%m.%Y').strftime('%d %B %Y').lstrip('0')+', subject to the lease conditions.')
         concession=re.search(r'rent free period until\s+([A-Za-z]+\s+20\d{2})',terms,re.I)
         if concession:differences.append('A rent-free period until '+concession[1]+' reduced the cash collected around the sale.')
+        uplift=re.search(r'fixed rental uplift[^.]*',terms,re.I)
+        if uplift:differences.append('The particulars also state a '+uplift[0].strip()+'. The sale comparison uses the rent advertised at that sale; the exact uplift date must be checked before describing the later rent.')
         if re.search('full repairing and insuring',terms,re.I):differences.append('The tenant is said to carry repair and insurance costs, but the full clauses and building condition have not been checked.')
         elif 'not been internally inspected by savills' in context.lower():differences.append('Savills had not inspected internally; condition and repair costs remain unverified.')
         if differences:page4+=[p(' '.join(differences),'small')]
@@ -229,7 +259,7 @@ def _make_brief(report):
         for m in rentals[:2]:page4+=[p(m['body'],'small')]+cite(m['evidence'])
     if not achieved:
         for m in [x for x in analysis['market'] if x not in rentals][:2]:page4+=[p(m['body'],'small')]+cite(m['evidence'])
-    page4.append(p('A local letting assessment still needs to establish a realistic replacement rent, competing space, likely incentives and time to find a tenant. No new rent, letting period or value has been invented.','small'))
+    page4.append(p('A local letting assessment should establish a replacement rent, likely incentives and time to find a tenant, taking account of competing premises.','small'))
     page5=[h('The cash needed and the cost of losing a tenant')]
     costrows=[[price_label,cash(price)]]
     for c in report.get('costs',[]):costrows.append([c['label'],cash(c['amount'])]);refs(c.get('evidence'))
@@ -238,7 +268,10 @@ def _make_brief(report):
     page5+=[table(['Purchase cash','Amount'],costrows,[.74,.26]),p('The subtotal is not the full budget. Buyer’s legal and survey fees, finance, any VAT requirement and initial work still need pricing. The tax illustration assumes a single freehold non-residential or mixed-use purchase; the solicitor must check the tax treatment and any additional amounts that are taxable.','small')]
     page5+=cite([e for c in report.get('costs',[]) for e in c.get('evidence',[])]+([finance['illustrative_tax']['source']] if finance['illustrative_tax'] else []))
     if finance['rent_loss_cases']:
-        page5+=[chart('Annual income if the main tenant leaves','downside',[[('All stated rent received' if not s['months'] else f"Main unit empty for {s['months']} months"),s['rent_remaining']] for s in finance['rent_loss_cases']]),p('The scenarios assume every other rent continues unchanged. They show rent before costs, not profit, and do not predict how long the shop would be empty.','caption'),p('During an empty period the landlord could still pay insurance, management and maintenance, as well as letting fees, rent incentives and work needed for a new tenant. A weaker income record could also make borrowing or selling harder.','small')]
+        page5+=[chart('Annual rent and return on identified purchase expenditure','downside',[[('All stated rent received' if not s['months'] else f"Main unit empty for {s['months']} months"),s['rent_remaining'],f"{s['capital_return_pct']:.2f}% before running costs" if s['capital_return_pct'] is not None else 'Return not established'] for s in finance['rent_loss_cases']]),p('Returns use the same '+cash(finance['capital_basis'])+' purchase subtotal. Other rents continue unchanged. Running costs, repairs, finance, tax on income and unpriced initial expenditure are excluded. These are rent scenarios, not predicted profits or vacancy periods.','caption')]
+    capacities=[c for c in finance['cost_capacity'] if c['hurdle_pct'] in (10,12)]
+    if capacities:
+        page5+=[table(['Illustrative annual return','Annual income needed','Allowance for unrecovered costs'],[[str(c['hurdle_pct'])+'%',cash(c['required_annual_cash']),cash(c['annual_cost_capacity'])] for c in capacities],[.29,.29,.42]),p('The allowance is the stated rent less the income needed for that return on the purchase subtotal. It is not an expense forecast. A negative figure is a shortfall even before expenses; additional purchase costs or lost rent reduce the allowance.','caption')]
     if profile.get('listed') and profile.get('jurisdiction')=='England':
         page5+=[p('Listed buildings can qualify for relief from empty-property business rates until reoccupied. Ask the council to confirm that this space qualifies; a standard business-rates bill has not been assumed.','small')]+cite([{'document':'GOV.UK: empty-property rates relief, checked 18 October 2026','url':'https://www.gov.uk/business-rates-relief/empty-property-relief'}])
     for c in finance['historical_costs'][:1]:
@@ -246,7 +279,7 @@ def _make_brief(report):
         page5+=[p(f"The accounts record {money(c['amount'])} of building expenditure for {period}. This is past spending, not a forecast of the buyer’s costs. We have not established how much was recovered from tenants or whether the same work will recur.",'small')]+cite(c['evidence'])
     page5+=[h('Our investment assessment'),p(analysis['conclusion'])]
     # No unfamiliar material issue is hidden in order to achieve the page target.
-    appendix=[h('Further checks before purchase'),p('These additional points remain part of the investment assessment. Document names and pages sit beside each finding. This review has not completed independent commercial acceptance and is not approved for paid release.','small')]
+    appendix=[h('Further checks before purchase'),p('Supporting document names and page references are collected at the end. These additional checks should be read alongside the main assessment.','small')]
     selected_ids={c['id'] for c in selected}|{'income-building-interaction'}
     remaining=[c for c in analysis['cards'] if c['id'] not in selected_ids and not c['id'].startswith(('cpse-rent-arrears','income-unreconciled'))]
     for c in remaining:appendix+=[h(c['title']),p(c['body'],'small')]+cite(c['evidence'])

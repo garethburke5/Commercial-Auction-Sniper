@@ -8,6 +8,7 @@ from __future__ import annotations
 import re
 from acquisition_financials import financial_view
 from acquisition_editorial import customer_findings, exact_date, lease_events
+from acquisition_underwriting import underwriting_view, presentation_priority
 
 
 def money(v):
@@ -39,7 +40,7 @@ def source_evidence(record):
 
 
 def interpret(report):
-    inv=report['investigation']; finance=financial_view(report)
+    inv=report['investigation']; finance=financial_view(report); underwriting=underwriting_view(report)
     findings=customer_findings(report); ds=inv.get('demises',[])
     profile=inv.get('profile',{}); external=inv.get('external_research',{}).get('records',[])
     cards=[]; covered=set(); unedited=[]
@@ -48,20 +49,24 @@ def interpret(report):
         for f in finds:
             covered.add(f['id']);ev.extend(f.get('evidence',[]))
         cards.append({'id':key,'title':title,'body':sentence(body),'finding_ids':[f['id'] for f in finds],
-                      'evidence':ev,'kind':kind})
+                      'evidence':ev,'kind':kind,
+                      'priority':min((presentation_priority(f) for f in finds),default=50)})
     def matching(prefix): return [f for f in findings if f['id'].startswith(prefix)]
     principal=finance['principal']; rent=finance['rent']; price=finance['price']
     if profile.get('vacant'):
         opening='This is a purchase of an empty building, so the investment depends on finding an occupier and paying the costs of getting it ready. There is no current rental income to offset those costs.'
     elif rent is not None and price:
         opening=f"The {'annual lease rent' if inv.get('income_reconciled') else 'advertised annual rent'} of {money(rent)} provides a gross yield of {rent/price*100:.2f}% at a price of {money(price)}, before purchase and running costs."
+    elif rent is not None:
+        opening=f'The advertised annual rent is {money(rent)}. A purchase price is needed to calculate the gross rental yield.'
     else:
         opening='The available information does not establish both the purchase price and current annual rent, so it cannot yet show the return a buyer could receive.'
-    ownership=f"The property is advertised as {str(report.get('tenure') or 'having unconfirmed ownership').lower()}."
+    ownership=f"The property is {str(report['tenure']).lower()}." if report.get('tenure') else 'The ownership interest needs confirming.'
     residential=[d for d in ds if d.get('residential_reversion')]
     commercial=[d for d in ds if d.get('document') and not d.get('residential_reversion')]
     if inv.get('income_reconciled'):
         ownership+=f" The identified income comes from {len(commercial)} commercial {'letting' if len(commercial)==1 else 'lettings'}."
+        ownership+=' '+ '; '.join(f"{d['label']} produces {money(d['annual_rent'])} a year" for d in commercial)+'.'
     if residential:
         ownership+=f" The {len(residential)} flats have already been sold on long leases. A buyer would receive {money(sum(d.get('annual_rent') or 0 for d in residential))} a year in ground rent, rather than the market rents from letting the flats."
     if profile.get('listed'):
@@ -103,21 +108,17 @@ def interpret(report):
             body='The insurance certificate expressly excludes subsidence. That leaves a potentially serious gap if the building suffers that type of damage. The environmental search is a warning about possible hazards, not evidence that the building is damaged. A buyer needs an insurance quotation that addresses the exclusion, alongside advice on the building’s condition.'
             add(f['id'],'Check the insurance gap before taking ownership',body,[f])
     asbestos=matching('asbestos-sample');fire=matching('fire-actions')
-    if asbestos or fire:
-        body=''
-        if asbestos:
-            body+=' '.join(f.get('finding') or f.get('summary') or '' for f in asbestos)+' '
-            body+='Use the sample location, survey rating and recommendations to identify any management or works needed; the dated survey does not establish the material’s condition today. '
-        if fire:
-            raw=fire[0].get('finding','');m=re.search(r'(\d{2}/\d{2}/\d{4}).*?(\d+) actions',raw)
-            if m:
-                from datetime import datetime
-                when=datetime.strptime(m[1],'%d/%m/%Y').strftime('%d %B %Y').lstrip('0')
-                body+=f'The fire assessment dated {when} recorded {m[2]} actions. '
-            else:body+='An older fire assessment records work to be addressed. '
-            body+='We have not seen evidence that all the work was completed. '
-        body+='These records justify checking the current position and obtaining costs; they do not establish the condition of the building today.'
-        add('safety','Check whether the safety work was completed',body,asbestos+fire)
+    for f in fire:
+        body=sentence(f.get('finding') or f.get('summary'))+' '
+        body+='Completion records are needed to establish which actions, if any, remain outstanding. Any remaining work needs costing and responsibility allocating before the buyer can settle the purchase budget.'
+        add('fire-safety-'+f['id'],'Fire-safety work and completion records',body,[f])
+    for f in asbestos:
+        reviewed=f.get('reviewed_interpretation') or {}
+        body=sentence(f.get('finding') or f.get('summary'))+' '
+        if reviewed:
+            body+=' '.join(sentence(reviewed.get(k,'')) for k in ('location','investment_significance'))+' '
+        body+='The survey describes the material at its inspection date. Its location, current condition and management recommendations determine the practical implications.'
+        add('asbestos-'+f['id'],'Historical asbestos survey',body,[f])
     if repairs:
         clauses=' '.join(x.get('text','') for lease in report.get('lease_details',[]) for x in lease.get('repairs',[]))
         structural=bool(re.search(r'The Landlord must:.{0,180}foundations, roof.{0,100}chimneys',clauses,re.I))
@@ -181,7 +182,8 @@ def interpret(report):
         market.append({'record':r,'body':body,'terms':terms,'evidence':source_evidence(r)+[e for t in terms for e in source_evidence(t)]})
     market_summary=('We found a completed investment sale, but its different location, tenant and lease terms mean it cannot establish a fair price for this property on its own.' if any(m['record'].get('price_basis')=='achieved' for m in market) else 'The available research does not establish a fair value for the property.')
     priority=[]
-    if title:priority.append('which ground-floor space is included in the title')
+    if any(f.get('materiality')=='decision_gate' for f in title):priority.append('whether the title includes the required space and access')
+    if fire:priority.append('which fire-safety actions remain and what they would cost')
     if energy:priority.append('what the shop’s energy obligations require')
     if insurance:priority.append('whether suitable insurance can be obtained')
     priority_summary=('The most important unanswered questions are '+', '.join(priority[:-1])+(' and ' if len(priority)>1 else '')+priority[-1]+'.' if priority else '')
@@ -196,7 +198,8 @@ def interpret(report):
         conclusion='The investment becomes more convincing when the current leases and receipts support the rent, the cost of ownership is clear, and other completed transactions support the price. If those checks reveal lower income or substantial unpaid work, the price would need to leave room for them.'
     if title or energy or insurance:
         conclusion+=' The ownership, letting and insurance questions need clear answers before a buyer can sensibly judge whether the price allows enough for the risks.'
-    return {'version':'interpretation-1','opening':opening,'ownership':ownership,'assessment':assessment,'conclusion':conclusion,'market_summary':market_summary,'priority_summary':priority_summary,
-            'cards':cards,'market':market,'finance':finance,'findings':findings,'covered_finding_ids':sorted(covered),
+    cards.sort(key=lambda c:(c['priority'],c['id']))
+    return {'version':'interpretation-2','opening':opening,'ownership':ownership,'assessment':assessment,'conclusion':conclusion,'market_summary':market_summary,'priority_summary':priority_summary,
+            'cards':cards,'market':market,'finance':finance,'underwriting':underwriting,'findings':findings,'covered_finding_ids':sorted(covered),
             'unedited_findings':unedited,'inputs':{'income_reconciled':bool(inv.get('income_reconciled')),'principal_document':principal.get('document') if principal else None},
             'method':'Evidence-triggered interpretation; no address-specific rules and no independent-review approval.'}
