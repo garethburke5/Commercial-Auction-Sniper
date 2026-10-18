@@ -72,3 +72,18 @@ special conditions and completion charges. No unsupported asbestos, fire or
 title defect has been introduced.
 
 Paid purchases remain closed. A polished snapshot is not a paid-report pass.
+
+## Legal-pack continuation
+
+Eleven user-supplied originals were ingested without AI-provider calls. The untouched first run accepted ten documents, flagged the legacy CPSE DOC for conversion, and flagged local-search page 34 for visual review. That page was subsequently inspected as a highways map. Local LibreOffice conversion preserved the CPSE original and both hashes; this is not evidence that production now converts legacy Word automatically.
+
+The first legal-pack PDF is rejected. It failed to explain the contractual rent provisions and the separate proposed long lease, missed material seller costs and recovery restrictions, and generated vague generic text. The independent reviewed assessment is an analyst-authored benchmark; it must never be presented as unattended engine output or paid-product acceptance.
+
+Shared corrections in this continuation:
+- DOCX extraction retains paragraph/table order, so questions remain beside replies. Merged cells are emitted once while distinct cells with identical text remain separate.
+- A bounded parser calculates explicit percentage seller contributions from special conditions and the assessment price. Conflicting percentages are not silently selected. It does not claim to recognise every fee or resolve later addenda.
+- Service-charge caps retain their whole definition, indexation and cessation wording. A nearby cap is not automatically interpreted as a cap on every repair expense.
+
+Validation: 119 selected tests passed, plus 3 subtests. The converted eleven-document rerun captures the percentage seller contribution and service-charge cap. The original and revised machine outputs, input hashes, conversion record and reviewed report are retained privately; no legal-pack documents are published in this repository.
+
+Still failing commercial acceptance: general rent-schedule/date conflict interpretation; occupational lease versus proposed long-lease reconciliation; comparison of coloured plans and basement footprint; full charge and SDLT reconciliation; checking attachments referenced in CPSE; evidence-bound natural prose without reviewer repair. No external enquiries were sent, no bid or purchase was made, and the paid gate remains unchanged. The Savills secure sign-in submission did not produce a visibly authenticated session; use of the supplied pack is recorded separately from site retrieval.

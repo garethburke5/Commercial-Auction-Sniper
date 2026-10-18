@@ -124,18 +124,26 @@ def extract_pdf(raw,ocr=False,progress=None,budget=None):
   return ''.join(chunks).strip(),{'pages':pages,'page_count':count,'extraction':method+(' + Tesseract OCR' if ocr_pages else ''),'ocr_pages':ocr_pages,'unread_pages':unread,'ocr_requested':ocr}
 def extract_docx(raw):
  if Document is None:raise RuntimeError("python-docx is not installed")
- doc=Document(BytesIO(raw));blocks=[];paragraphs=[]
- for i,p in enumerate(doc.paragraphs,1):
-  txt=_clean(p.text)
-  if txt:paragraphs.append({"paragraph":i,"text":txt});blocks.append(f"--- PARAGRAPH {i} ---\n{txt}")
- tables=[]
- for ti,table in enumerate(doc.tables,1):
-  rows=[]
-  for ri,row in enumerate(table.rows,1):
-   vals=[_clean(c.text) for c in row.cells];line=" | ".join(vals);rows.append({"row":ri,"cells":vals})
-   if line.strip(" |"):blocks.append(f"--- TABLE {ti} ROW {ri} ---\n{line}")
-  tables.append({"table":ti,"rows":rows})
- return "\n".join(blocks),{"paragraphs":paragraphs,"tables":tables,"extraction":"python-docx"}
+ from docx.text.paragraph import Paragraph
+ from docx.table import Table
+ doc=Document(BytesIO(raw));blocks=[];paragraphs=[];tables=[];pi=0;ti=0
+ # CPSE replies and sale conditions alternate paragraphs and answer tables.
+ # Reading all paragraphs first separates questions from their actual answers.
+ for element in doc.element.body:
+  if element.tag.endswith('}p'):
+   pi+=1;txt=_clean(Paragraph(element,doc).text)
+   if txt:paragraphs.append({"paragraph":pi,"text":txt});blocks.append(f"--- PARAGRAPH {pi} ---\n{txt}")
+  elif element.tag.endswith('}tbl'):
+   ti+=1;table=Table(element,doc);rows=[]
+   for ri,row in enumerate(table.rows,1):
+    vals=[];seen_cells=set()
+    for cell in row.cells:
+     if cell._tc in seen_cells:continue
+     seen_cells.add(cell._tc);vals.append(_clean(cell.text))
+    line=" | ".join(vals);rows.append({"row":ri,"cells":vals})
+    if line.strip(" |"):blocks.append(f"--- TABLE {ti} ROW {ri} ---\n{line}")
+   tables.append({"table":ti,"rows":rows})
+ return "\n".join(blocks),{"paragraphs":paragraphs,"tables":tables,"extraction":"python-docx/document-order"}
 def extract_xlsx(raw):
  if load_workbook is None:raise RuntimeError("openpyxl is not installed")
  wb=load_workbook(BytesIO(raw),read_only=True,data_only=True);blocks=[];sheets=[]

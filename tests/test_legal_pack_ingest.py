@@ -13,6 +13,24 @@ def test_docx_ingestion_preserves_paragraphs_and_tables():
  raw=make_docx_bytes();doc=ingest_bytes('Special conditions - 8 Red Street.docx',raw)
  assert doc.doc_type==DocType.SPECIAL_CONDITIONS and '£20,000' in doc.text and 'Boots Opticians' in doc.text
  assert doc.metadata['tables'][0]['rows'][0]['cells'][0]=='Tenant' and doc.metadata['sha256']==doc.sha256
+
+def test_question_and_answer_tables_remain_in_document_order():
+ bio=BytesIO();d=Document()
+ d.add_paragraph('Has asbestos been identified?')
+ d.add_table(rows=1,cols=1).cell(0,0).text='No survey held; see separate attachment.'
+ d.add_paragraph('Has rent been paid?')
+ d.add_table(rows=1,cols=1).cell(0,0).text='Yes'
+ d.save(bio);doc=ingest_bytes('Replies.docx',bio.getvalue())
+ assert doc.text.index('Has asbestos') < doc.text.index('No survey held') < doc.text.index('Has rent') < doc.text.index('Yes')
+ assert doc.metadata['tables'][1]['rows'][0]['cells']==['Yes']
+
+def test_merged_cells_are_read_once_without_deduplicating_distinct_cells():
+ bio=BytesIO();d=Document();t=d.add_table(rows=2,cols=2)
+ t.cell(0,0).merge(t.cell(0,1)).text='One merged reply'
+ t.cell(1,0).text=t.cell(1,1).text='Same separate value'
+ d.save(bio);doc=ingest_bytes('Replies.docx',bio.getvalue())
+ assert doc.text.count('One merged reply')==1
+ assert doc.text.count('Same separate value')==2
 def test_content_sniffing_beats_wrong_extension():
  raw=make_docx_bytes();doc=ingest_bytes('mystery.bin',raw)
  assert doc.doc_type==DocType.SPECIAL_CONDITIONS and doc.metadata['detected_type']=='docx'

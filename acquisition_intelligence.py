@@ -57,6 +57,21 @@ def build_acquisition(model,catalogue=None,*,research=None,open_review=None):
         deposit=guide*float(m.group(1))/100
         calculations.append({'label':'Deposit at guide','value':money(deposit),'working':f'{m.group(1)}% × {money(guide)}. Part of the purchase price, not an additional cost.','evidence':evidence_for('Deposit recorded in the sale conditions')})
     costs=[]
+    from acquisition_financials import percentage_seller_cost
+    percentage_cost=percentage_seller_cost(model,upper or guide)
+    if percentage_cost['cost']:
+        costs.append(percentage_cost['cost'])
+        pc=percentage_cost['cost']
+        add('seller-percentage-fee','Seller costs increase the purchase budget',
+            pc['evidence'][0]['excerpt'],'The charge is payable in addition to the purchase price.',
+            f"At the assessment price, this contribution is {money(pc['amount'])}. It increases with the final purchase price.",
+            'Confirm the full completion statement and the SDLT treatment of seller costs.',pc['evidence'],'costs',impact=money(pc['amount']))
+    elif percentage_cost['conflict']:
+        add('seller-percentage-conflict','Different seller cost percentages need reconciliation',
+            'The supplied conditions contain different percentage contributions.',
+            'Selecting one percentage could understate the purchase budget.',
+            'No percentage contribution has been included in the quantified costs.',
+            'Confirm the operative conditions and any later addendum.',percentage_cost['evidence'],'costs')
     ev=evidence_for('Additional seller fees')
     seller_terms={}
     for f in groups.get('Additional seller fees',[]):

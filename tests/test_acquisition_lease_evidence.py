@@ -10,6 +10,15 @@ def lease(name, pages):
 
 
 class LeaseEvidenceTests(unittest.TestCase):
+    def test_service_charge_cap_keeps_indexation_and_scope(self):
+        doc=lease('Shop lease.pdf', ['LEASE. Service Charge: a fair proportion of structural repair costs including managing agent costs, provided that such costs will be capped at £3,200.00 per annum until the first anniversary and thereafter increase by Retail Price Index per annum. After 8-year anniversary there is no cap. Service Media: pipes.'])
+        result=extract_lease_evidence([doc])
+        entry=result['leases'][0]['service_charge'][0]
+        self.assertIn('Retail Price Index',entry['text'])
+        self.assertIn('After 8-year anniversary there is no cap',entry['text'])
+        self.assertEqual(entry['evidence'][0]['page'],1)
+        self.assertIn('scope',entry['basis'].lower())
+
     def test_explicit_substitution_separates_new_rent_from_annexed_old_lease(self):
         doc = lease('Renewal of 8 Example Road.pdf', [
             'Annual Rent: rent at a rate of £27,500 per annum.',

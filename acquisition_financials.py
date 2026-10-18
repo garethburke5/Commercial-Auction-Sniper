@@ -8,6 +8,34 @@ from math import isfinite
 import re
 
 
+def percentage_seller_cost(model, price):
+    """Read a single explicit percentage contribution from special conditions.
+
+    Percentage amounts are price-dependent; deposits and default charges are
+    not additional seller fees. Conflicting clauses remain unresolved.
+    """
+    if not number(price):return {'cost':None,'conflict':False,'evidence':[]}
+    names={d['document'] for d in model.get('documents',[]) if str(d.get('type','')).replace(' ','_')=='special_conditions'}
+    candidates={};evidence=[]
+    pattern=(r'(?:Buyer|Purchaser) shall pay to the Seller an amount equal to '
+             r'(\d+(?:\.\d+)?)%\s*(plus (?:an amount equivalent to the current rate of value added tax|VAT))?'
+             r'\s*of the Price as a contribution towards the (?:legal and agent[’\x27]s|legal|agent[’\x27]s) costs')
+    for source in model.get('source_pages',[]):
+        if source.get('document') not in names:continue
+        text=re.sub(r'\s+',' ',source.get('text',''))
+        for match in re.finditer(pattern,text,re.I):
+            rate=float(match[1]);vat_rate=.2 if match[2] else 0
+            if not 0<rate<100:continue
+            candidates[(rate,vat_rate)]=True
+            evidence.append({k:source[k] for k in ('document','document_sha256','page') if k in source}|{'excerpt':match.group()})
+    if len(candidates)!=1:return {'cost':None,'conflict':len(candidates)>1,'evidence':evidence}
+    rate,vat_rate=next(iter(candidates));base=rounded(price*rate/100);vat=rounded(base*vat_rate)
+    return {'conflict':False,'evidence':evidence,'cost':{
+        'label':'Seller legal and agent contribution','amount':rounded(base+vat),'base':base,'vat':vat,
+        'percentage':rate,'price_basis':price,'evidence':evidence,
+        'basis':f'{rate:g}% of the assessment price'+(' plus VAT modelled at 20%' if vat_rate else '; VAT not specified')}}
+
+
 def historical_costs(report):
     """Recover a narrow service-charge total only when the printed sum reconciles.
 

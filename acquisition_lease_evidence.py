@@ -262,6 +262,19 @@ def extract_lease_evidence(documents):
             row["service_charge"].append({"text": match.group(0), "evidence": [ev],
                 "basis": "Stated allocation; check variation powers, budget, recovery conditions and actual collections"})
 
+        # Keep a cap with the full defined charge, rather than interpreting a
+        # nearby management-cost cap as a cap on every building expense.
+        for page, value in pages:
+            cap = re.search(r'\bService Charge:\s*(.{0,1800}?\bcapped at\s*£[\d,.]+.{0,650}?)(?=\bService Media:|\bSigns:|$)', value, re.I)
+            if not cap:continue
+            ev = _evidence(document, page, cap.group())
+            row['service_charge'].append({'text':cap.group(), 'evidence':[ev],
+                'basis':'Cap wording retained with its definition; scope, indexation and end date require interpretation.'})
+            finding(document,'service-charge-cap','Service-charge recovery includes a cap',
+                cap.group(), 'The landlord may be unable to recover all building expenditure from this tenant.',
+                'Read the cap alongside the defined services and other occupiers’ contributions; it is not an estimate of repair costs.',
+                'Confirm which costs the cap covers, the current indexed limit and when the limit ends.',[ev])
+
         excluded = _matches(document,
             r"agree that the provisions of sections 24 to 28 of the LTA 1954 are excluded.{0,90}?\.", 1)
         if excluded:
