@@ -130,7 +130,10 @@ def _enhance_savills_lot(lot):
     """Capture material facts Savills publishes in prose, without inventing them."""
     text=norm(lot.description or ""); low=text.lower()
     total_rent=_savills_total_rent(text)
-    if total_rent: lot.annual_rent=total_rent
+    # A topped-up headline must not replace the tenant's explicitly stated rent.
+    current=re.search(r'\bcurrent rent(?: payable)?(?: is| of)?\s*£\s*([\d,]+(?:\.\d+)?)\s*(?:per annum|p\.?a\.?)',text,re.I)
+    if current: lot.annual_rent=_money(current.group(1))
+    elif total_rent: lot.annual_rent=total_rent
 
     total_area_patterns=(r"Total Floor Area\s+([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft",r"Comprising\s+([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft\s+in Total",r"office of\s+([\d,]+(?:\.\d+)?)\s*sq\.?\s*ft")
     for pattern in total_area_patterns:
@@ -139,7 +142,9 @@ def _enhance_savills_lot(lot):
             lot.area_sqft=_money(m.group(1))
             if lot.area_sqft: lot.area_sqm=round(lot.area_sqft/10.7639,2)
             break
-    if re.search(r"\bLong Leasehold\b",text,re.I): lot.tenure="Long Leasehold"
+    explicit_tenure=re.search(r'\bTenure\s*[:\-]?\s*(Freehold|Long Leasehold|Leasehold)\b',text,re.I)
+    if explicit_tenure: lot.tenure=explicit_tenure.group(1).title()
+    elif not lot.tenure and re.search(r"\bLong Leasehold\b",text,re.I): lot.tenure="Long Leasehold"
     m=re.search(r"term of\s+(\d+)\s+years\s+from\s+(\d{1,2}\.\d{1,2}\.\d{4})",text,re.I)
     if m:
         unexpired=re.search(r"approximately\s+(\d+)\s+years\s+unexpired",text,re.I)

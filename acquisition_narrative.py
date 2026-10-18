@@ -152,7 +152,10 @@ def writing_packet(report):
     add('finance', dict(_clean(finance), gross_yield=round(finance['rent']/finance['price']*100, 2) if finance['price'] and finance['rent'] is not None else None), sale, True)
     add('ownership', {'explanation': a['ownership'], 'profile': inv.get('profile'), 'income_reconciled': inv.get('income_reconciled')}, leases + [e for r in ext if r.get('kind') == 'heritage_designation' for e in source_evidence(r)], pack)
     u = a['underwriting']
-    add('underwriting', _clean(u), leases + [e for item in u['accommodation'] + u['comparable_qualifications'] + u['commercial_checks'] for e in item.get('evidence', [])], pack)
+    terms=u.get('published_terms',{})
+    term_evidence=terms.get('evidence',[])+terms.get('lease_evidence',[])+[x['source'] for x in terms.get('energy',[])]
+    if terms.get('company'):term_evidence.append(terms['company']['source'])
+    add('underwriting', _clean(u), leases + term_evidence + [e for item in u['accommodation'] + u['comparable_qualifications'] + u['commercial_checks'] for e in item.get('evidence', [])], pack or bool(terms.get('top_up')))
     if pack:
         add('capital-returns', {'capital': finance['capital_basis'], 'basis': finance['denominator_basis'],
             'gross_return_pct': finance['gross_return_on_identified_capital_pct'],

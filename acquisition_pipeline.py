@@ -91,6 +91,8 @@ def investigate_acquisition(model, catalogue=None, *, research=None, open_review
         raise ValueError('New research requires a fresh reasoning pass')
     context = catalogue or {}
     evidence = deepcopy(research or context.get('research') or {})
+    from acquisition_public_terms import reconcile_published_inputs
+    context = reconcile_published_inputs(context, evidence)
     report = build_acquisition(model, context, research=evidence)
     stages = []
 
@@ -100,6 +102,7 @@ def investigate_acquisition(model, catalogue=None, *, research=None, open_review
         packet['requested_research'] = requests
         evidence = _merge_research(evidence, research_backend(packet))
         context = enrich_external_particulars(context, evidence)
+        context = reconcile_published_inputs(context, evidence)
         report = build_acquisition(model, context, research=evidence)
         stages.append({'stage': phase, 'accepted_records': len(report['investigation']['external_research']['records']),
                        'rejected_records': len(report['investigation']['external_research']['rejected'])})
@@ -122,6 +125,7 @@ def investigate_acquisition(model, catalogue=None, *, research=None, open_review
                 raise ValueError('Reasoning backend must return a structured review')
             stages.append({'stage': 'review_after_research'})
     report = build_acquisition(model, context, research=evidence, open_review=review)
+    report['published_input_corrections'] = context.get('published_input_corrections', [])
     report['investigation']['pipeline'] = {
         'research_provider_used': research_backend is not None,
         'reasoning_provider_used': reasoning_backend is not None,

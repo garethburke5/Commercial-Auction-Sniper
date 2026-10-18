@@ -40,6 +40,8 @@ def source_evidence(record):
 
 
 def interpret(report):
+    from acquisition_public_terms import published_terms
+    public = published_terms(report)
     inv=report['investigation']; finance=financial_view(report); underwriting=underwriting_view(report)
     findings=customer_findings(report); ds=inv.get('demises',[])
     profile=inv.get('profile',{}); external=inv.get('external_research',{}).get('records',[])
@@ -56,12 +58,15 @@ def interpret(report):
     if profile.get('vacant'):
         opening='This is a purchase of an empty building, so the investment depends on finding an occupier and paying the costs of getting it ready. There is no current rental income to offset those costs.'
     elif rent is not None and price:
-        opening=f"The {'annual lease rent' if inv.get('income_reconciled') else 'advertised annual rent'} of {money(rent)} provides a gross yield of {rent/price*100:.2f}% at a price of {money(price)}, before purchase and running costs."
+        label='annual lease rent' if inv.get('income_reconciled') else 'current tenant rent' if public.get('passing') == rent else 'advertised annual rent'
+        opening=f"The {label} of {money(rent)} provides a gross yield of {rent/price*100:.2f}% at a {'guide price' if 'guide' in str(report.get('assessment_price_basis')).lower() else 'price'} of {money(price)}, before purchase and running costs."
     elif rent is not None:
         opening=f'The advertised annual rent is {money(rent)}. A purchase price is needed to calculate the gross rental yield.'
     else:
         opening='The available information does not establish both the purchase price and current annual rent, so it cannot yet show the return a buyer could receive.'
     ownership=f"The property is {str(report['tenure']).lower()}." if report.get('tenure') else 'The ownership interest needs confirming.'
+    if public.get('upper_parts_sold') and not inv.get('income_reconciled'):
+        ownership+=' The upper parts have already been sold on long leases; their residential letting income is not included in this investment.'
     residential=[d for d in ds if d.get('residential_reversion')]
     commercial=[d for d in ds if d.get('document') and not d.get('residential_reversion')]
     if inv.get('income_reconciled'):

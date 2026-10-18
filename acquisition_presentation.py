@@ -49,6 +49,8 @@ def make_brief(report):
 
 
 def _make_brief(report):
+    from acquisition_public_terms import published_terms, natural_date
+    public = published_terms(report)
     if report.get('access')=='snapshot':raise ValueError('Full report required')
     analysis=interpret(report); inv=report['investigation']; finance=analysis['finance']; ds=inv.get('demises',[])
     has_pack=bool(report.get('evidence_scope',{}).get('legal_pack_supplied',bool(report.get('documents'))))
@@ -73,8 +75,9 @@ def _make_brief(report):
     vacant=profile.get('vacant');yield_value=ratio(rent,price) if not vacant else None
     title='PROPERTY SNAPSHOT / FREE' if not has_pack else 'INVESTMENT REPORT / REVIEW COPY'
     date_text=str(report.get('created_at',''))[:10]
-    header=[p('AUCTION GEEK  /  '+title,'kicker'),p(report['property'],'title'),p('Prepared '+date_text+('  |  Review of a reported sale' if str(report.get('listing_status','')).upper()=='SOLD' else ''),'meta')]
-    metrics=[(price_label,'Not disclosed' if prior_sale and price is None else cash(price)),('Current income' if vacant else 'Annual lease rent' if inv.get('income_reconciled') else 'Advertised annual rent','Vacant' if vacant else cash(rent)),('Gross yield',f'{yield_value:.2f}%' if yield_value is not None else 'Not applicable' if vacant else 'Not calculable')]
+    display_address=re.sub(r'\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b',lambda m:m[0].upper(),report['property'],flags=re.I)
+    header=[p('AUCTION GEEK  /  '+title,'kicker'),p(display_address,'title'),p('Prepared '+date_text+('  |  Review of a reported sale' if str(report.get('listing_status','')).upper()=='SOLD' else ''),'meta')]
+    metrics=[(price_label,'Not disclosed' if prior_sale and price is None else cash(price)),('Current income' if vacant else 'Annual lease rent' if inv.get('income_reconciled') else 'Current tenant rent' if public.get('passing') == rent else 'Advertised annual rent','Vacant' if vacant else cash(rent)),('Gross yield',f'{yield_value:.2f}%' if yield_value is not None else 'Not applicable' if vacant else 'Not calculable')]
     header.append({'kind':'metrics','items':metrics})
     media=report.get('report_media') or {};photo=media.get('photo_path')
     if photo and Path(photo).is_file():
@@ -103,8 +106,9 @@ def _make_brief(report):
         return result
     # A genuinely useful public introduction; no legal-pack conclusions leak here.
     if not has_pack:
-        intro=analysis['ownership']+' '+analysis['opening']
+        intro=analysis['opening']+' '+analysis['ownership']
         blocks=header+overview(intro)
+        if public['evidence']:blocks+=cite(public['evidence'])
         if heritage:blocks+=cite(record_ref(heritage),'Listed building status')
         if report.get('auction_date'):
             from datetime import date
@@ -114,10 +118,23 @@ def _make_brief(report):
             except ValueError:pass
         insights=public_insights(report)
         blocks.append(h('Property and investment potential' if vacant else 'Property and rental income'))
-        if insights:
+        if public.get('top_up') is not None:
+            end=natural_date(public['uplift_date']) if public.get('uplift_date') else str(public['uplift_year'])
+            detail=f"The advertised {cash(public['headline'])} includes a seller-funded top-up equivalent to {cash(public['top_up'])} a year until the tenant’s rent rises in {end}."
+            if public.get('uplift_date'):detail=detail.replace('rises in '+end,'rises on '+end)
+            if price:detail+=f" This produces a headline gross yield of {public['headline']/price*100:.2f}%."
+            detail+=' Check the sale conditions for the amount, payment timing and protection of the seller’s contribution.'
+            blocks+=[p(detail)]+cite(public['evidence']+public['lease_evidence'])
+        if public.get('tenant') and (public.get('top_up') is not None or public.get('break_year') or public.get('company')):
+            detail='The commercial premises are let to '+public['tenant']+'.'
+            if public.get('expiry'):detail+=' The advertised lease expires on '+natural_date(public['expiry'])+'.'
+            if public.get('break_year'):
+                detail+=f" Earlier particulars describe a tenant break in year {public['break_term']} ({public['break_year']}). This could end the income before the lease expires; the signed lease needs to establish the exact date and conditions."
+            blocks+=[p(detail)]+cite(public['evidence']+public['lease_evidence'])
+        elif insights:
             for x in insights[:2]:
                 blocks+=[p(x['finding']+' '+x['consequence'])]+cite([dict(x['source'],document=x['source'].get('title'))]+[dict(s,document=s.get('title')) for s in x.get('additional_sources',[])])
-        else:
+        elif public.get('top_up') is None:
             epc=next((r for r in external if r.get('kind')=='epc_certificate'),None)
             if epc:
                 blocks+=[p('The energy certificate we found is for '+str(epc.get('address') or epc.get('subject'))+'. It does not establish the energy position for every shop in this investment. Check that each certificate covers the space actually being let; any required work could affect costs and future lettings.')]+cite(record_ref(epc))
@@ -125,7 +142,14 @@ def _make_brief(report):
                 blocks+=[p('A buyer would need to fund the empty period and any work before rent starts. An agent’s estimate of possible rent is not the same as an agreed tenancy.')]
             else:
                 blocks+=[p('The advertised rent is a starting point, rather than proof of income received. The leases and payment history are needed to check whether tenants can leave early, receive rent concessions or owe money.')]
-        for area in analysis['underwriting']['accommodation'][:1]:
+        areas=analysis['underwriting']['accommodation']
+        floors={a['label'].casefold():a for a in areas}
+        for area in areas[:1]:
+            if 'ground-floor shop' in floors and 'basement' in floors:
+                ground,basement=floors['ground-floor shop'],floors['basement']
+                detail=f"The ground-floor shop measures {ground['area_sqft']:,.0f} sq ft, with a further {basement['area_sqft']:,.0f} sq ft in the basement. The basement should be valued separately from the ground-floor selling space."
+                blocks+=[p(detail)]+cite(ground['evidence']+basement['evidence'])
+                break
             detail=f"The quoted floor area is {area['area_sqft']:,.0f} sq ft."
             if area['rent_per_sqft'] is not None:
                 detail+=f" The {area['rent_basis']} annual rent equates to {cash(area['rent_per_sqft'])} per sq ft on that area."
@@ -133,9 +157,18 @@ def _make_brief(report):
                 detail+=f" The purchase price equates to {cash(price/area['area_sqft'])} per sq ft before acquisition costs and works."
             detail+=' '+area['area_basis'].rstrip('.')+'.'
             blocks+=[p(detail)]+cite(area['evidence'])
-        blocks.append(h('Auction price'))
+        company=public.get('company')
+        if company:
+            detail='Companies House records the tenant’s incorporation on '+natural_date(company['incorporated'])+'.'
+            if company.get('first_accounts_due') and company['first_accounts_due'] >= date_text:
+                detail+=' Its first accounts are not due until '+natural_date(company['first_accounts_due'])+'.'
+                detail+=' A rent deposit or guarantor would therefore be important evidence when assessing the security behind the rent.'
+            blocks+=[p(detail)]+cite([company['source']])
+        for epc in public['energy'][:1]:
+            blocks+=[p(f"The marketing brochure gives {epc['address']} an Energy Performance Certificate (EPC) rating of {epc['rating']} ({epc['score']}). The certificate itself is needed to check its date and the floors it covers.")]+cite([epc['source']])
+        if sale or analysis['market'] or not report.get('guide'):blocks.append(h('Auction price'))
         if sale:blocks+=[p('The auctioneer reports a sale at '+cash(price)+'.')]+cite(record_ref(sale))
-        if report.get('guide'):
+        if report.get('guide') and (sale or price != report.get('guide')):
             blocks.append(p('The '+('earlier auction guide was ' if sale else 'auction guide is ')+cash(report['guide'])+(' to '+cash(report['guide_upper']) if report.get('guide_upper') and report['guide_upper']!=report['guide'] else '')+'.'))
             guide_record=next((r for r in external if r.get('kind')=='subject_particulars' and r.get('field')=='guide_price' and compact(r.get('subject')).casefold()==compact(report['property']).casefold()),None)
             if guide_record:blocks+=cite(record_ref(guide_record))
@@ -145,9 +178,7 @@ def _make_brief(report):
         if not sale and not m and not report.get('guide'):
             if prior_sale:blocks+=[p('The auctioneer reports that the property sold before the auction. No sale price is shown.')]+cite(record_ref(prior_sale))
             else:blocks.append(p('A purchase price is needed before the rental return can be calculated.'))
-        if not vacant and yield_value is not None:
-            blocks.append(p('The gross yield excludes purchase costs, repairs, empty periods, borrowing and tax.','small'))
-        blocks.append(p('This initial snapshot reviews the available auction particulars and supporting public sources, including any cited addenda. No full legal-pack assessment was undertaken.','caption'))
+        blocks.append(p('This is an initial property investment snapshot. No legal pack was analysed. Gross yields exclude purchase expenses, repairs, empty periods, borrowing and tax.','caption'))
         return finish([{'title':'Free Property Snapshot','blocks':blocks}],[],'free_snapshot','Free Property Snapshot')
     incomplete=not inv.get('income_reconciled') and inv.get('market',{}).get('price_support')=='inconclusive' and inv.get('market',{}).get('erv_support')=='inconclusive'
     if incomplete:

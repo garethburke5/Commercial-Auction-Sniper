@@ -29,6 +29,7 @@ def presentation_priority(finding):
 
 
 def underwriting_view(report):
+    from acquisition_public_terms import published_terms
     inv = report.get('investigation', {})
     records = inv.get('external_research', {}).get('records', [])
     norm = lambda x: ' '.join(str(x or '').casefold().split())
@@ -118,4 +119,5 @@ def underwriting_view(report):
     return {'as_of': as_of.isoformat() if as_of else None, 'units': units,
             'lease_horizons': horizons, 'accommodation': accommodation,
             'comparable_qualifications': comparable_qualifications,
-            'tenant_security': security, 'commercial_checks': commercial_checks}
+            'tenant_security': security, 'commercial_checks': commercial_checks,
+            'published_terms': published_terms(report)}

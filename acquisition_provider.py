@@ -415,7 +415,17 @@ subject_asking_sale, subject_asking_rent, sale_comparable, rental_comparable,
 planning_context, tenant_covenant, tenant_identity, occupation_history,
 marketing_history, subject_particulars, income_concession,
 potential_rent, comparable_terms, accommodation, tax_treatment, business_rates,
-tenant_security, operating_cost and reletting_cost.
+tenant_security, operating_cost, reletting_cost, published_lease_terms,
+epc_marketing, company_record and combined_property_marketing.
+Use published_lease_terms for an exact unit's marketed lease terms, with unit
+and the complete scoped quote including commencement, break, uplift and expiry.
+Use epc_marketing for a rating quoted in a brochure (address, rating, score).
+Do not classify a marketing rating as an inspected EPC certificate.
+For company_record include company_name and company_number, with official
+incorporation and first-accounts dates; active status is not a credit assessment.
+Earlier asking prices covering additional properties or residential income sold
+off before the auction belong in combined_property_marketing, with the different
+scope stated. Never describe them as a like-for-like price reduction.
 For a scoped passage describing this entire property, use subject_particulars
 with field=published_particulars and scope=whole_property. Never apply that scope
 to a neighbouring lot, one unit of a multi-let property or generic site text.
@@ -435,7 +445,7 @@ For a whole-property rent-review addendum, record kind=auction_addendum, rent,
 scope=whole_property and supersedes_record_id pointing to a subject_particulars
 annual_rent record that expressly says the entire property is let. Use this
 only for an explicitly settled and documented review, never a proposed uplift.
-For a disclosed half-rent seller top-up, use income_concession with the headline annual rent in rent and the complete
+For any disclosed seller or vendor top-up, use income_concession with the headline annual rent in rent and the complete
 concession/top-up passage in quote. Potential/ERV rent belongs in potential_rent,
 never passing income. Conflicting published annual incomes may be separate
 subject_particulars records with field=annual_rent, basis=published_annual and rent.
@@ -453,6 +463,9 @@ property_type, country. Numeric guide_price requires basis=guide. annual_rent
 requires basis=passing_annual and an explicit current annual GBP amount, never
 potential, historic, weekly or monthly rent. The exact supporting quote must
 include the amount or textual value. Keep uncertain or conflicting facts unknown.
+Include rent as well as value for an annual_rent record. Always capture an
+explicit current rent and the Tenure label, even when the catalogue already
+contains values; these allow discrepancies in stored listings to be detected.
 Use explicit price_basis (asking, guide,
 reported_sale, achieved) and rent_basis. Preserve postcode/area discrepancies,
 date and scope, jurisdiction, demise_document where known. A SOLD label is not

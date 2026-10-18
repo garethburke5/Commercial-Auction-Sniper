@@ -209,6 +209,12 @@ def _detail(href, auction, source_commercial=False):
 
     h1 = ds.find("h1")
     address = norm(h1.get_text(" ", strip=True)) if h1 else href.rstrip("/").split("/")[-1].replace("-", " ").title()
+    # Dynamic lot headings may be absent from server HTML; modal/login headings
+    # are not property addresses. The page title retains the exact lot identity.
+    page_title=norm(ds.title.get_text(' ',strip=True)) if ds.title else ''
+    if page_title.startswith('Savills Property Auctions | '):
+        candidate=page_title.split(' | ',1)[1]
+        if re.search(r'\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b',candidate,re.I):address=candidate
     lot_number = _first([r"\bLot\s*#?\s*(\d+[A-Za-z]?)\b"], text)
     if lot_number:
         lot_number = "Lot " + lot_number

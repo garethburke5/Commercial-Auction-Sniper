@@ -96,6 +96,10 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
     report['assessment_price_basis'] = 'Auctioneer-reported sale price; completion not verified' if result_prices else 'Upper guide' if report.get('guide_upper') else 'Guide price'
     ledger = build_ledger(model, catalogue, research)
     profile = _profile(report, model, catalogue)
+    designations=[r for r in research['records'] if r.get('kind')=='heritage_designation'
+                  and norm(r.get('subject')).casefold()==norm(report['property']).casefold()
+                  and re.search(r'Grade:\s*(?:II\*?|I)\b',r.get('quote',''))]
+    if designations:profile['listed']=True
     findings, questions, demises = [], [], []
     as_of = _date(str(report.get('created_at', ''))[:10]) or date.today()
 

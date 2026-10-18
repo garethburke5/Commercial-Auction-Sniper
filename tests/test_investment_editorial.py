@@ -102,7 +102,7 @@ def test_no_pack_snapshot_never_exposes_private_lease_conclusions():
     m=model();m.update(documents=[],lease_details=[])
     r=build_acquisition(m,cat(),research=external('subject_asking_sale','Asking price £250,000.',price=250000,price_basis='asking',description='Every legal obligation is verified.'))
     text=paragraphs(make_brief(r))
-    assert 'Every legal obligation' not in text and 'No full legal-pack assessment was undertaken.' in text
+    assert 'Every legal obligation' not in text and 'No legal pack was analysed.' in text
 
 
 def test_published_break_joins_only_the_exact_unit_and_printed_rent():
