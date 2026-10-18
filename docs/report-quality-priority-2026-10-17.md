@@ -1,5 +1,12 @@
 # Property Investment Reports — quality-first checkpoint, 17 October 2026
 
+**Historical checkpoint. Updated acceptance requirements:** the two 18 October
+Newbury customer specimens have been rejected for paid release. The controlling
+rejection, free/paid product distinction and next-submission gates are in
+[`report-product-rejection-2026-10-18.md`](report-product-rejection-2026-10-18.md).
+Provider/key status below records the earlier inspection, not the current blocker
+to report formulation. Offline quality work does not depend on API credit.
+
 The owner has explicitly reprioritised report quality ahead of further source expansion and the statistics dashboard. Paid purchases remain closed. The next product milestone is independently reviewed, useful real-property reports, not another UI polish or green test count.
 
 ## Confirmed defects and corrections
