@@ -91,6 +91,8 @@ External observations must quote a supplied source capture and identify scope.
             if isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value) or value < 0:
                 errors.append('Invalid numeric '+field);continue
             options={format(value,',g'),format(value,'g')}
+            if float(value).is_integer():
+                options.update((format(value,',.0f'), format(value,'.0f')))
             if not any(re.search(r'(?<![\d,.])'+re.escape(token)+r'(?!\d|[.,]\d)',quote) for token in options):
                 errors.append('Numeric '+field+' not supported by the quoted passage')
         if errors:

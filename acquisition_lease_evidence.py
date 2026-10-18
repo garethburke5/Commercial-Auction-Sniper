@@ -11,6 +11,28 @@ import re
 from legal_pack_review import document_pages, norm
 
 MONTH = r"(?:January|February|March|April|May|June|July|August|September|October|November|December)"
+DAY = r"\d{1,2}(?:st|nd|rd|th)?"
+
+
+def document_role(document):
+    """Identify supporting instruments from their own opening, not quoted leases.
+
+    A register, variation or licence can contain rent and term wording without
+    creating another letting. Keep these documents in the evidence inventory.
+    """
+    pages = list(_pages(document))
+    front = pages[0][1][:1800] if pages else ''
+    if re.search(r'official copy.*register of title|official copy of (?:the )?register|A: Property Register|Title number.*Edition date', front, re.I):
+        return 'title_register'
+    if re.search(r'\bdeed of variation\b', front, re.I):
+        return 'variation'
+    if re.search(r'\blicen[cs]e\b.{0,100}\balteration', front, re.I):
+        return 'alterations_licence'
+    if re.search(r'\b(?:deed of assignment|licen[cs]e to assign)\b', front, re.I):
+        return 'assignment'
+    if re.search(r'\bDear Sirs\b', front, re.I):
+        return 'supporting_correspondence'
+    return 'lease_candidate'
 
 
 def _pages(document):
@@ -67,7 +89,10 @@ def extract_lease_evidence(documents):
         text = " ".join(value for _, value in pages)
         if not re.search(r"\b(?:lease|tenant|rent)\b", text, re.I):
             continue
-        row = {"document": document.name, "evidence": [], "tenant": None,
+        role = document_role(document)
+        if role != 'lease_candidate':
+            continue
+        row = {"document": document.name, "document_role": role, "evidence": [], "tenant": None,
                "annual_rent": None, "rent_basis": "Lease amount; current collection not certified",
                "term": None, "breaks": [], "reviews": [], "repairs": [], "service_charge": [],
                "security": None, "guarantee": "No separately identified guarantor established",
@@ -97,6 +122,7 @@ def extract_lease_evidence(documents):
             row["annual_rent"] = next(iter(amounts))
             row["evidence"].append(rents[0][1])
         elif len(amounts) > 1:
+            row['rent_conflicted'] = True
             finding(document, "rent-conflict", "Different lease rent amounts need reconciliation",
                     "; ".join(ev["excerpt"] for _, ev in rents),
                     "An initial or revised rent cannot safely be selected from competing amounts.",
@@ -105,7 +131,7 @@ def extract_lease_evidence(documents):
                     [ev for _, ev in rents])
 
         terms = _matches(document,
-            r"\b(?:Contractual Term:\s*)?(?:a\s+)?term (?:of\s+)?(?:\d+|FIVE|TEN|FIFTEEN|TWENTY)[ -]?years from.{0,150}?(?:\]\s*20\d{2}|\b20\d{2}\b)(?:\.)?", 1)
+            r"\b(?:Contractual Term:\s*)?(?:a\s+)?term (?:of\s+)?(?:\d+|FIVE|TEN|FIFTEEN|TWENTY)[ -]?years from.{0,150}?(?:\]\s*20\d{2}|\b20\d{2}\b)(?:\s+to and including\s+.{0,60}?\b20\d{2}\b)?(?:\.)?", 1)
         if terms:
             row["term"] = {"text": terms[0][0].group(0),
                            "uncertain": _uncertain_date(terms[0][0].group(0)),
@@ -114,28 +140,35 @@ def extract_lease_evidence(documents):
 
         # A defined break date plus the operative tenant/landlord termination power.
         # A contents heading, generic forfeiture or guarantor new-lease clause is not a break.
+        date_pattern = r"[‘'’\"“”]?Break Date[’'‘\"“”]?\s*(?::|means)?\s*(\[[^\]]{1,100}\]\s*20\d{2}|" + DAY + r"\s+" + MONTH + r"\s+20\d{2})"
+        defined_dates = [(p, m) for p, v in pages for m in re.finditer(date_pattern, v, re.I)]
+        unique_dates = {norm(m.group(1)) for _, m in defined_dates}
         for page, value in pages:
-            date = re.search(r"[‘'’\"]?Break Date[’'‘\"]?\s*:?\s*(\[[^\]]{1,100}\]\s*20\d{2}|\d{1,2}\s+" + MONTH + r"\s+20\d{2})", value, re.I)
+            date = re.search(date_pattern, value, re.I)
+            date_page = page
+            if date is None and len(unique_dates) == 1:
+                date_page, date = defined_dates[0]
             power = re.search(r"\b(The\s+)?(Tenant|Landlord|Either party) may (?:terminate|determine) (?:this |the )?[Ll]ease.{0,260}", value, re.I)
             if not (date and power):
                 continue
-            start = max(0, date.start() - 100)
+            start = max(0, (date.start() if date_page == page else power.start()) - 100)
             end = min(len(value), power.end() + 1350)
             excerpt = value[start:end]
-            notice = re.search(r"not less than\s+(?:\w+|\d+)\s+(?:months?|weeks?|days?)[^.;]{0,100}", excerpt, re.I)
-            condition = re.search(r"(?:Break Notice shall have no effect|Subject to clause\s+[\d.]+)[\s\S]{0,1000}", excerpt, re.I)
+            notice = re.search(r"(?:not less than|at least)\s+(?:\w+|\d+)\s+(?:months?|weeks?|days?)[^.;]{0,100}", excerpt, re.I)
+            condition = re.search(r"(?:Break Notice.{0,60}?shall (?:have|be of) no effect|Subject to clause\s+[\d.]+)[\s\S]{0,1000}", excerpt, re.I)
             ev = _evidence(document, page, excerpt)
+            break_evidence = [ev] if date_page == page else [_evidence(document, date_page, date.group(0)), ev]
             item = {"party": power.group(2), "date_raw": norm(date.group(1)),
                     "notice_raw": norm(notice.group(0)) if notice else None,
                     "conditions_raw": norm(condition.group(0)) if condition else None,
-                    "uncertain": _uncertain_date(date.group(1)), "evidence": [ev]}
+                    "uncertain": _uncertain_date(date.group(1)), "evidence": break_evidence}
             row["breaks"].append(item)
             finding(document, "break-" + str(page.get("page")),
                     "Tenant break limits income certainty" if power.group(2).lower() == "tenant" else "Lease break requires review",
                     f"{power.group(2)} break date wording: {item['date_raw']}. " + (item["notice_raw"] or "Notice period not established from this extract."),
                     "The contractual expiry is not the earliest date on which rent may stop.",
                     "Assess letting risk and cash flow at the break; the right remains conditional on the full clause.",
-                    "Confirm the effective date, notice deadline, satisfaction of all break conditions and any notice already served.", [ev])
+                    "Confirm the effective date, notice deadline, satisfaction of all break conditions and any notice already served.", break_evidence)
 
         review_dates = _matches(document,
             r"[‘'’\"]?(?:The )?Review Dates?[’'‘\"]?\s*(?::|means)\s*.{0,180}?(?:\b20\d{2}\b[^.]{0,75}\.|Commencement Date\.|anniversary[^.]{0,100}\.)", 2)

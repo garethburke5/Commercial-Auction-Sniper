@@ -34,6 +34,9 @@ Owner-only statistics remain scoped and **pending activation/verification**: Clo
 
 ## Latest verification additions
 
+18 October implementation: shared renderer, evidence safeguards and free Snapshot downloads rebuilt; eight review documents across seven properties produced. See `report-rebuild-validation-2026-10-18.md` for actual results and remaining gates. This is not paid-product approval.
+
+
 Cheffins commit `ef0a64302c882a016115fcadff56a1f51c6d0f12` adds current-rostrum integration, evidenced medical/garage classification fixes and safe handling of component floor areas and partial occupation. The fresh dual-feed check and 884 passing collector tests plus 19 subtests are recorded in `cheffins-rostrum-launch-checkpoint-2026-10-17.md`. Render deployment `dep-db9umfu90tus73c9vlfg` became live at 21:45:07 UTC. Production run `39071920684` is collecting; new Cheffins rostrum records are not yet accepted as publicly deployed.
 
 McHugh production run `39069165519` completed successfully and committed snapshot `efcc005674b86706d1c2739d08c4ee23aca00dd9`, generated at 21:38:33 UTC. All ten qualifying current McHugh rows are present in that snapshot, with zero detail failures. The Cloudflare Workers build subsequently succeeded. The live workspace index matches the 21:38:33 snapshot and contains all ten current rows plus six retained older McHugh records (16 total); the new Exeter page returned HTTP 200 with the expected address and original auctioneer link.

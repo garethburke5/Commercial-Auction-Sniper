@@ -17,6 +17,46 @@ def paid_report_status(report=None):
             'message': PAID_PRODUCT_MESSAGE}
 
 
+def free_snapshot_exportable(report):
+    """Only an explicit, finished public-evidence result may bypass purchase.
+
+    Never treat a missing scope flag or a failed pack extraction as public data.
+    Check retained evidence too, so an inconsistent stored scope fails closed.
+    """
+    scope = report.get('evidence_scope') or {}
+    return bool(report.get('investigation')
+                and report.get('analysis_state', 'complete') in ('complete', 'requires_review')
+                and scope.get('pathway') == 'public_evidence'
+                and scope.get('legal_pack_supplied') is False
+                and not scope.get('uploaded_files')
+                and not report.get('documents') and not report.get('lease_details')
+                and not report.get('source_pages')
+                and not any(e.get('source_kind') == 'legal_pack'
+                            for e in report['investigation'].get('evidence', [])))
+
+
+def evidence_sufficiency(report):
+    """A result classification, not an override for the closed release gate."""
+    investigation = report.get('investigation') or {}
+    scope = report.get('evidence_scope') or {}
+    if not scope.get('legal_pack_supplied', bool(report.get('documents'))):
+        return {'outcome': 'free_snapshot', 'charge_eligible': False,
+                'reasons': ['Public-evidence pathway: operative contractual obligations are unverified.']}
+    reasons = []
+    records = investigation.get('market', {}).get('records', [])
+    independent = [r for r in records if r.get('kind') in ('sale_comparable', 'rental_comparable')
+                   and r.get('comparable') is True
+                   and (r.get('price_basis') == 'achieved' or r.get('rent_basis') == 'achieved')]
+    if not independent:
+        reasons.append('No supported independent achieved commercial comparable has been established.')
+    if not investigation.get('profile', {}).get('vacant') and not investigation.get('income_reconciled'):
+        reasons.append('Current contractual income has not been reconciled.')
+    if not investigation.get('open_review', {}).get('completed'):
+        reasons.append('Source-grounded commercial review is incomplete.')
+    return {'outcome': 'insufficient_evidence' if reasons else 'full_report_candidate',
+            'charge_eligible': not reasons, 'reasons': reasons}
+
+
 def acceptance_issues(report):
     investigation = report.get('investigation') or {}
     issues = []
@@ -41,4 +81,5 @@ def acceptance_issues(report):
         issues.append('Independent open-ended evidence review has not been completed.')
     if report.get('coverage', {}).get('unread_pages') and not investigation.get('visual_review_complete'):
         issues.append('Unread source pages still need a recorded visual disposition.')
+    issues.extend(evidence_sufficiency(report)['reasons'])
     return issues

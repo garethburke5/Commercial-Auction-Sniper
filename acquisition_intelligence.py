@@ -184,7 +184,7 @@ def build_acquisition(model,catalogue=None,*,research=None,open_review=None):
     # promoted to current passing rent or combined across historical versions.
     for lease_detail in report['lease_details']:
         chronology = next((x for x in lease_reconciliation if x['document']==lease_detail['document']), {})
-        if lease_detail.get('annual_rent') is None and len(chronology.get('rent_amounts',[]))==1:
+        if lease_detail.get('annual_rent') is None and not lease_detail.get('rent_conflicted') and len(chronology.get('rent_amounts',[]))==1:
             lease_detail['annual_rent']=chronology['rent_amounts'][0]
             lease_detail['rent_basis']='Single amount in this lease; chronology and current collection require verification'
             lease_detail['evidence']=list(lease_detail.get('evidence',[]))+chronology.get('evidence',[])

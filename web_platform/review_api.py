@@ -29,8 +29,11 @@ def install(app,site,user):
         state=report.get('analysis_state','complete')
         validation=bool(owner and report.get('_validation'))
         diagnostic=validation and state in ('complete','requires_review')
-        projection={k:v for k,v in report.items() if not k.startswith('_')} if diagnostic or (full and state=='complete') else snapshot(report)
+        from acquisition_quality import free_snapshot_exportable
+        public_free=free_snapshot_exportable(report)
+        projection={k:v for k,v in report.items() if not k.startswith('_')} if diagnostic or public_free or (full and state=='complete') else snapshot(report)
         result={'id':rid,'access':'full' if full and state=='complete' else 'snapshot',
+                'free_snapshot_available':public_free,
                 'analysis_state':state,'purchase_verified':bool(full),
                 'processing_allowed':bool(full and state in ('awaiting_payment','failed')),
                 'report':projection,'html':render(projection)}
@@ -60,6 +63,8 @@ def install(app,site,user):
                 report.get('completed_at',0)>=int(time.time())-30*86400)
         if validation:
             if state=='failed':result['html']='<p class="research-scope">Validation did not finish. Review the usage record before retrying.</p>'+result['html']
+        elif public_free:
+            result['html']='<p class="research-scope">Free Property Snapshot. Public evidence only; no legal pack was analysed. No purchase is required for this download.</p>'+result['html']
         elif state=='requires_review':
             result['html']='<p class="research-scope">This analysis needs a source-quality review before delivery. Your purchase is retained; uploading again will not restart chargeable processing.</p>'+result['html']
         elif state=='processing':
@@ -319,16 +324,19 @@ def install(app,site,user):
     @app.get('/api/account/reviews/{rid}/download')
     def download(rid:str,format:str='html',authorization:str|None=Header(default=None)):
         uid,a,_=user(authorization);r,report=owned(a,uid,rid)
-        full=unlocked(a,uid,rid,r['property_id']);projection=report if full and report.get('analysis_state','complete')=='complete' else snapshot(report)
-        filename = 'auction-geek-property-snapshot' if projection.get('access')=='snapshot' else 'auction-geek-investment-report'
+        from acquisition_quality import free_snapshot_exportable
+        public_free=free_snapshot_exportable(report)
+        full=unlocked(a,uid,rid,r['property_id']);complete=report.get('analysis_state','complete')=='complete'
+        projection=report if public_free or (full and complete) else snapshot(report)
+        filename = 'auction-geek-property-snapshot' if public_free or projection.get('access')=='snapshot' else 'auction-geek-investment-report'
         if format not in ('html','docx','pdf'):raise HTTPException(400,'Unsupported report format')
         if format=='pdf':
-            if not full or report.get('analysis_state','complete')!='complete':raise HTTPException(403,'A completed purchased review is required for this download')
+            if not public_free and not (full and complete):raise HTTPException(403,'A completed purchased review is required for this download')
             if not report.get('investigation'):raise HTTPException(409,'This older report needs reanalysis before PDF export')
             from acquisition_premium import render_pdf
             return Response(render_pdf(projection),media_type='application/pdf',headers={'Content-Disposition':f'attachment; filename="{filename}-{rid}.pdf"','Cache-Control':'no-store'})
         if format=='docx':
-            if not full or report.get('analysis_state','complete')!='complete':raise HTTPException(403,'A completed purchased review is required for this download')
+            if not public_free and not (full and complete):raise HTTPException(403,'A completed purchased review is required for this download')
             from acquisition_document import render_docx
             return Response(render_docx(projection),media_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document',headers={'Content-Disposition':f'attachment; filename="{filename}-{rid}.docx"','Cache-Control':'no-store'})
         return HTMLResponse(render(projection,True),headers={'Content-Disposition':f'attachment; filename="{filename}-{rid}.html"','Cache-Control':'no-store'})

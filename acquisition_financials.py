@@ -5,6 +5,58 @@ This is a sensitivity, not a valuation or a claim about market rent/expenses.
 """
 from decimal import Decimal, ROUND_HALF_UP
 from math import isfinite
+import re
+
+
+def historical_costs(report):
+    """Recover a narrow service-charge total only when the printed sum reconciles.
+
+    This is historic building spend, not a forecast or the landlord's net cost.
+    Require the period, expenditure heading, component/subtotal arithmetic and
+    one unambiguous total; never infer recovery percentages from this total.
+    """
+    rows = []
+    for source in report.get('investigation', {}).get('evidence', []):
+        text = source.get('text') or ''
+        if source.get('source_kind') != 'legal_pack' or not re.search(r'(?:service.?charge|resi SC)\b', source.get('document', ''), re.I):
+            continue
+        period = re.search(r'Expendi?t?ure\s+(\d{2}/\d{2})\s*-\s*(\d{2}/\d{2}/\d{4})', text, re.I)
+        if not period or re.search(r'reserve|collected|% of total', text, re.I):
+            continue
+        amounts = [float(x.replace(',', '')) for x in re.findall(r'^\s*(\d[\d,]*(?:\.\d{1,2})?)\s*$', text, re.M)]
+        # Recognise components -> subtotal -> other cost -> grand total.
+        if len(amounts) < 5:
+            continue
+        total = amounts[-1]
+        matches = [i for i in range(2, len(amounts)-2)
+                   if rounded(sum(amounts[:i])) == amounts[i]
+                   and rounded(amounts[i] + sum(amounts[i+1:-1])) == total]
+        if len(matches) != 1:
+            continue
+        rows.append({'label': 'Historical service-charge expenditure', 'amount': total,
+                     'period': period[1] + ' - ' + period[2],
+                     'basis': 'Printed components reconcile to the total. Recovery, scope and recurrence remain unverified.',
+                     'evidence': [source]})
+    return rows
+
+
+def investment_exposure(report, principal, rent, capital):
+    """Decision-useful arithmetic without pretending unknown expenses are zero."""
+    cases = []
+    if principal and rent is not None:
+        for months in (0, 6, 12):
+            loss = rounded(principal['annual_rent'] * months / 12)
+            cases.append({'label': 'Full stated rent' if not months else f'{months}-month principal-unit void',
+                          'months': months, 'rent_lost': loss, 'rent_remaining': rounded(rent-loss),
+                          'basis': 'Other rents collected unchanged; before all holding, reletting, repair, finance and tax costs.'})
+    capacity = []
+    if rent is not None and capital:
+        for hurdle in (8, 10, 12):
+            required = rounded(capital*hurdle/100)
+            capacity.append({'hurdle_pct': hurdle, 'required_annual_cash': required,
+                             'annual_cost_capacity': rounded(rent-required),
+                             'basis': 'Illustrative unlevered cash-return hurdle, not a market valuation or recommended return.'})
+    return cases, capacity
 
 
 def number(value):
@@ -88,10 +140,14 @@ def financial_view(report):
         unknown_costs.insert(0,'auctioneer fee / buyer premium')
     if not any('seller' in str(c.get('label','')).lower() for c in valid_costs):
         unknown_costs.insert(0,'seller costs and reimbursements')
+    capital = rounded((subtotal or price)+tax['amount']) if price is not None and tax else subtotal or price
+    loss_cases, capacity = investment_exposure(report, principal, rent, capital)
     return {'price': price, 'rent': rent, 'fixed_fees': fixed, 'known_subtotal': subtotal, 'illustrative_tax':tax,
             'denominator': denominator,
             'denominator_basis': 'price plus quantified fixed fees' if subtotal else 'price only; fees are not established',
             'principal': principal, 'income_reconciled': reconciled,
             'scenarios': scenarios, 'price_rows': price_rows,
+            'rent_loss_cases': loss_cases, 'cost_capacity': capacity,
+            'capital_basis': capital, 'historical_costs': historical_costs(report),
             'unknown_costs': unknown_costs,
             'costs_complete': False}

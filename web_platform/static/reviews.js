@@ -24,8 +24,8 @@ function show(r){
  uploadForm.elements.files.required=!!(s?.pack_expected||s?.parent_review_id);
  $('download-review').hidden=false;
  const diagnostic=r.access==='validation';
- $('download-review-docx').hidden=!diagnostic&&(r.access!=='full'||!complete);
- $('download-review-pdf').hidden=(!diagnostic&&(r.access!=='full'||!complete))||!r.report?.investigation;
+ $('download-review-docx').hidden=!diagnostic&&!r.free_snapshot_available&&(r.access!=='full'||!complete);
+ $('download-review-pdf').hidden=(!diagnostic&&!r.free_snapshot_available&&(r.access!=='full'||!complete))||!r.report?.investigation;
  $('download-validation-json').hidden=!diagnostic;
  $('update-review-pack').hidden=!r.pack_update_available;
  if(s){
@@ -90,6 +90,6 @@ $('update-review-pack').onclick=e=>act(e.currentTarget,()=>AuctionWorkspace.api(
 $('redeem-review').onclick=e=>act(e.currentTarget,async()=>{await AuctionWorkspace.api('/api/account/reviews/'+id+'/redeem','POST');return AuctionWorkspace.api('/api/account/reviews/'+id);},'Verifying your report credit…');
 $('unlock-review').onclick=e=>act(e.currentTarget,async()=>{const r=await AuctionWorkspace.api('/api/account/reviews/'+id+'/checkout','POST');if(r.url){location.assign(r.url);return;}return AuctionWorkspace.api('/api/account/reviews/'+id);},'Preparing checkout…');
 for(const [button,format] of [['download-review','html'],['download-review-pdf','pdf'],['download-review-docx','docx'],['download-validation-json','json']]){
- $(button).onclick=()=>act($(button),async()=>{const current=epoch,validation=last?.access==='validation',path=validation?'/api/admin/reviews/'+id+'/validation-download':'/api/account/reviews/'+id+'/download',b=await AuctionWorkspace.download(path+'?format='+format);if(current!==epoch)return;const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=(validation?'auction-geek-private-validation':'auction-geek-investment-report')+'.'+format;a.click();URL.revokeObjectURL(a.href);progress.textContent='Report downloaded.';},'Preparing download…');
+ $(button).onclick=()=>act($(button),async()=>{const current=epoch,validation=last?.access==='validation',path=validation?'/api/admin/reviews/'+id+'/validation-download':'/api/account/reviews/'+id+'/download',b=await AuctionWorkspace.download(path+'?format='+format);if(current!==epoch)return;const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=(validation?'auction-geek-private-validation':last?.free_snapshot_available?'auction-geek-property-snapshot':'auction-geek-investment-report')+'.'+format;a.click();URL.revokeObjectURL(a.href);progress.textContent='Report downloaded.';},'Preparing download…');
 }
 })();

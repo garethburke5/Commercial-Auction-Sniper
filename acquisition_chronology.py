@@ -16,6 +16,8 @@ def _date(value):
 
 
 def lease_chronology(model):
+    from types import SimpleNamespace
+    from acquisition_lease_evidence import document_role
     reviewed = _date(str(model.get('created_at') or '')[:10]) or date.today()
     documents = []; leases = []
     for source in model.get('documents', []):
@@ -25,6 +27,11 @@ def lease_chronology(model):
         doc['document_date'] = dated.isoformat() if dated else None
         doc['date_basis'] = 'Filename; execution date not independently established' if dated else None
         doc['temporal_status'] = 'SUPPORTING'
+        pages = [p for p in model.get('source_pages', []) if p.get('document') == name]
+        if pages:
+            role = document_role(SimpleNamespace(name=name, text='', metadata={'pages': pages}))
+            if role != 'lease_candidate':
+                doc['type'] = role
         if re.search(r'licen[cs]e\s+(?:for\s+)?alt(?:s|erations?)\b', name, re.I):
             # A licence discussing the lease is not another occupational lease.
             doc['type'] = 'licence for alterations'

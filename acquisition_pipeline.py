@@ -127,4 +127,6 @@ def investigate_acquisition(model, catalogue=None, *, research=None, open_review
     }
     if report['investigation']['pipeline']['remaining_research_requests']:
         report['quality_status']['outstanding'].append('The evidence reviewer has outstanding research requests.')
+    from acquisition_quality import evidence_sufficiency
+    report['product_eligibility'] = evidence_sufficiency(report)
     return report

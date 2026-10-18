@@ -5,6 +5,7 @@ from html import escape
 import base64
 from pathlib import Path
 from acquisition_presentation import make_brief
+from acquisition_editorial import safe_text
 
 NAVY='#193444'; TEAL='#246B70'; GREY='#596770'; LIGHT='#EDF2F3'
 
@@ -12,18 +13,48 @@ def chart_png(block):
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
-    from matplotlib.ticker import FuncFormatter
-    rows=block['rows']; fig,ax=plt.subplots(figsize=(7.2,1.25 if len(rows)<4 else 1.8),dpi=180)
-    labels=[r[0].replace('Full-year void: ','12-month main-unit void').replace('Six-month void: ','6-month main-unit void') for r in rows]
-    if block['chart']=='downside':
-        labels=['Full rent' if i==0 else '6-month main-unit void' if 'Six-month' in r[0] else '12-month main-unit void' for i,r in enumerate(rows)]
-    labels=[x.replace(' Street',' St').replace(' (First Floor Flat)',' - first floor').replace(' (Second Floor Flat)',' - second floor') for x in labels]
-    vals=[r[1] for r in rows]; bars=ax.barh(labels,vals,color=[TEAL]+[NAVY]*(len(rows)-1),height=.5)
-    ax.invert_yaxis();ax.spines[['top','right','left','bottom']].set_visible(False);ax.set_xticks([]);ax.tick_params(axis='y',length=0,labelsize=8)
-    maxv=max(vals or [1]);ax.set_xlim(0,maxv*1.25)
-    for bar,v in zip(bars,vals):ax.text(v+maxv*.02,bar.get_y()+bar.get_height()/2,f'£{v:,.0f}',va='center',fontsize=8,color=NAVY)
-    fig.subplots_adjust(left=.42,right=.99,top=.98,bottom=.04)
-    out=BytesIO();fig.savefig(out,format='png',bbox_inches='tight',facecolor='white');plt.close(fig);return out.getvalue()
+    import matplotlib.dates as mdates
+    from datetime import date
+    from textwrap import fill
+    rows = block['rows']
+    height = max(1.3, len(rows)*.39 + .35)
+    fig, ax = plt.subplots(figsize=(7.2, height), dpi=180)
+    ax.spines[['top', 'right', 'left', 'bottom']].set_visible(False)
+    ax.tick_params(axis='y', length=0, labelsize=8)
+    if block['chart'] == 'timeline':
+        values = [mdates.date2num(date.fromisoformat(row['date'])) for row in rows]
+        labels = [fill(row['label'].replace(' Street', ' St'), 40) for row in rows]
+        ax.set_yticks(range(len(rows)), labels)
+        ax.scatter(values, range(len(rows)), color=TEAL, s=40, zorder=3)
+        spread = max(max(values)-min(values), 365)
+        ax.set_xlim(min(values)-spread*.15, max(values)+spread*.7)
+        for i, (value, row) in enumerate(zip(values, rows)):
+            ax.annotate(date.fromisoformat(row['date']).strftime('%d %b %Y'), (value, i), xytext=(8, 0), textcoords='offset points', va='center', fontsize=8, color=NAVY)
+        ax.xaxis.set_major_locator(mdates.YearLocator())
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+        ax.tick_params(axis='x', labelsize=7, length=0)
+        ax.grid(axis='x', color='#e3e9ec', linewidth=.5)
+        ax.set_ylim(len(rows)-.5, -.5)
+    else:
+        labels = []
+        for row in rows:
+            label = row[0].replace(' Street', ' St').replace(' (First Floor Flat)', ' - first floor').replace(' (Second Floor Flat)', ' - second floor')
+            if len(row) > 2:
+                label += ' | ' + str(row[2])
+            labels.append(fill(label, 42))
+        vals = [row[1] for row in rows]
+        bars = ax.barh(range(len(rows)), vals, color=[TEAL] + [NAVY]*(len(rows)-1), height=.5)
+        ax.set_yticks(range(len(rows)), labels)
+        ax.invert_yaxis(); ax.set_xticks([])
+        scale = max([abs(v) for v in vals] or [1]) or 1
+        ax.set_xlim(min(0, min(vals, default=0))-scale*.04, max(0, max(vals, default=0))+scale*.30)
+        ax.axvline(0, color='#bbc8ce', linewidth=.5)
+        for bar, value in zip(bars, vals):
+            label = f'{value:.2f}%' if block['chart']=='yield' else f'£{value:,.2f}' if block['chart'] == 'comparables' else f'£{value:,.0f}'
+            ax.text(value+scale*.02, bar.get_y()+bar.get_height()/2, label, va='center', fontsize=8, color=NAVY)
+    fig.subplots_adjust(left=.45, right=.99, top=.96, bottom=.18 if block['chart']=='timeline' else .03)
+    out = BytesIO(); fig.savefig(out, format='png', bbox_inches='tight', facecolor='white'); plt.close(fig)
+    return out.getvalue()
 
 def render_pdf(report):
     from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,Table,TableStyle,PageBreak,Image,KeepTogether
@@ -42,6 +73,7 @@ def render_pdf(report):
     styles={k:ParagraphStyle(k,fontName='Investor',fontSize=s,leading=l,textColor=colors.HexColor(NAVY),spaceAfter=gap) for k,s,l,gap in [('body',9.3,12.7,7),('small',8.3,11.2,6),('caption',7.3,9.3,4),('meta',8.2,11,8),('kicker',8,10,6),('title',21,24,8),('h',12.5,15,8),('cell',8.1,10.4,0),('head',8,10.2,0)]}
     for k in ('title','h','kicker'):styles[k].fontName='Investor-Bold'
     styles['head'].textColor=colors.white
+    styles['h'].keepWithNext=True
     styles['callout']=styles['body']
     def para(t,style='body'):return Paragraph(escape(str(t)).replace('\n','<br/>'),styles.get(style,styles['body']))
     story=[]
@@ -78,12 +110,12 @@ def render_pdf(report):
                 t=Table([[items[:mid],items[mid:]]],colWidths=[width/2]*2);t.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'),('LEFTPADDING',(0,0),(-1,-1),0),('RIGHTPADDING',(0,0),(-1,-1),10)]));story.extend([para('Source key','h'),t])
     def foot(canvas,doc):
         canvas.setFont('Investor',7);canvas.setFillColor(colors.HexColor(GREY));canvas.drawString(44,27,'AUCTION GEEK  |  '+brief['status']);canvas.drawRightString(A4[0]-44,27,str(doc.page))
-    doc=SimpleDocTemplate(out,pagesize=A4,leftMargin=44,rightMargin=44,topMargin=35,bottomMargin=43,title=report['property']+' - Full Investment Report',author='Auction Geek')
+    doc=SimpleDocTemplate(out,pagesize=A4,leftMargin=44,rightMargin=44,topMargin=35,bottomMargin=43,title=report['property']+' - '+({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Investment Report')),author='Auction Geek')
     doc.build(story,onFirstPage=foot,onLaterPages=foot)
     return out.getvalue()
 
 def render_html(report,standalone=True):
-    brief=make_brief(report); e=lambda v:escape(str(v))
+    brief=make_brief(report); e=lambda v:escape(safe_text(v))
     css='''body{margin:0;background:#edf1f2;font-family:Arial,sans-serif;color:#193444}article{max-width:850px;margin:auto;background:white}section.page{padding:35px 46px;border-bottom:1px solid #ddd}h1{font-size:30px;line-height:1.12}h2{font-size:22px}h3{font-size:16px;margin:18px 0 9px}p{font-size:14px;line-height:1.5}p.small{font-size:12px}p.caption,p.meta{font-size:11px;color:#596770}.kicker{font-size:10px;letter-spacing:.13em}.photo,.chart{width:100%;height:auto}.metrics{display:grid;grid-template-columns:repeat(4,1fr);background:#edf2f3;padding:15px;gap:15px}.metrics b{display:block;font-size:24px;margin-top:7px}.metrics span{font-size:10px}table{border-collapse:collapse;width:100%;font-size:12px;margin:14px 0}th{background:#193444;color:white}td,th{padding:10px;border:1px solid #d9d9d9;text-align:left;vertical-align:top}tr:nth-child(odd){background:#edf2f3}.sources{columns:2;font-size:10px}.sources p{font-size:10px;break-inside:avoid}details{padding:16px 40px}.flag{padding:9px 15px;background:#e8eeee;font-size:12px}@media(max-width:600px){section.page{padding:25px 18px}.metrics{grid-template-columns:repeat(2,1fr)}table{font-size:11px}td,th{padding:6px}.sources{columns:1}}@media print{body{background:white}section.page{padding:0;border:0;break-after:page}section.page:last-of-type{break-after:auto}details,.flag{display:none}@page{size:A4;margin:16mm}p{font-size:9pt}table{font-size:8pt}td,th{padding:5pt}}'''
     out=['<article><div class="flag">'+e(brief['status'])+'</div>']
     for page in brief['pages']+brief.get('appendix_pages',[]):
@@ -106,7 +138,7 @@ def render_html(report,standalone=True):
         out.append('<h3>Lease chronology</h3><p>Amounts below belong to their source documents. They are not automatically current income.</p><table><thead><tr><th>Source lease</th><th>Rent in this document</th><th>Stated term</th><th>Continuing effect</th></tr></thead><tbody>')
         for lease in chronology:
             amounts=', '.join('£'+format(value,',.0f') for value in lease.get('rent_amounts',[])) or 'Not established'
-            out.append('<tr>'+''.join('<td>'+e(value)+'</td>' for value in (lease['document'],amounts,lease.get('term',''),lease.get('temporal_status','')) )+'</tr>')
+            out.append('<tr>'+''.join('<td>'+e(value)+'</td>' for value in (lease['document'],amounts,safe_text(lease.get('term','')),lease.get('temporal_status','')) )+'</tr>')
         out.append('</tbody></table>')
     for f in brief['appendix_findings']:
         out.append('<details><summary>'+e(f['materiality'].replace('_',' ')+' - '+f['title'])+'</summary><p>'+e(f['finding'])+'</p><p>'+e(f['consequence'])+'</p><p>'+e(f['resolution'])+'</p>')
@@ -119,7 +151,7 @@ def render_html(report,standalone=True):
         out.append('<p>'+e(r['document']+' p'+str(r['page'])+': '+r['note'])+'</p>')
     out.append('</details></article>')
     body='<style>'+css+'</style>'+''.join(out)
-    return '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>'+e(report['property'])+' — Full Investment Report</title></head><body>'+body+'</body></html>' if standalone else body
+    return '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>'+e(report['property'])+' — '+({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Investment Report'))+'</title></head><body>'+body+'</body></html>' if standalone else body
 
 def render_docx(report):
     from docx import Document
@@ -128,7 +160,7 @@ def render_docx(report):
     from docx.oxml.ns import qn
     from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
     brief=make_brief(report);doc=Document();section=doc.sections[0]
-    doc.core_properties.title = str(report['property']) + ' — Full Investment Report'
+    doc.core_properties.title = str(report['property']) + ' — ' + ({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Investment Report'))
     doc.core_properties.subject = 'Property Investment Report'
     doc.core_properties.author = 'Auction Geek'
     section.page_width=Cm(21);section.page_height=Cm(29.7)

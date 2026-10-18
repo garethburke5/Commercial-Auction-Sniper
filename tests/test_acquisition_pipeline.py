@@ -24,7 +24,7 @@ def test_reasoning_receives_financial_context_and_resynthesises_new_evidence():
     assert len(searches)==len(seen)==2
     assert seen[0]['evidence_digest']!=seen[1]['evidence_digest']
     assert r['investigation']['market']['price_support']=='evidence_requires_adjustment'
-    assert 'Comparable achieved sales are available' in make_brief(r)['executive_assessment']
+    assert 'Achieved comparable evidence exists' in make_brief(r)['executive_assessment']
     assert not r['quality_status']['purchase_available']
     assert make_brief(r)['conclusion']!=make_brief(r)['executive_assessment']
 
@@ -56,7 +56,7 @@ def test_sold_status_does_not_turn_guide_into_sale_price_or_invent_auctioneer():
     b=make_brief(r)
     assert 'Allsop' not in str(b)
     metrics=next(x['items'] for x in b['pages'][0]['blocks'] if x['kind']=='metrics')
-    assert metrics[0][0]=='Price basis'
+    assert metrics[0][0]=='Guide price'
 
 
 def test_claims_cannot_cite_unreviewed_sources():

@@ -28,6 +28,7 @@ def ratio(numerator, denominator):
 
 
 def _label(document):
+    document = document.rsplit('::', 1)[-1].rsplit('/', 1)[-1]
     name = re.sub(r'(?:\.(?:pdf|docx?))+$', '', document, flags=re.I)
     name = re.sub(r'^Official Copy\s*\(Lease\)\s*[\d.]+\s*-\s*[A-Z]{1,3}\d+\s*-\s*', '', name, flags=re.I)
     name = re.sub(r'^Lease\s*(?:\([^)]*\))?\s*-?\s*', '', name, flags=re.I)
@@ -130,9 +131,13 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
 
     # Leases remain separate until their demises and temporal relationship are
     # established. Do not silently choose a later lease or sum conflicting ones.
-    for lease in model.get('lease_details', []):
+    for lease_index, lease in enumerate(model.get('lease_details', []), 1):
+        label = lease.get('demise') or _label(lease['document'])
+        identified = bool(lease.get('demise') or re.search(r'\b(?:(?:unit|shop)\s+\w|flat\b|arcade\b|\d+\s+[A-Za-z]+\s+(?:Street|Road|Square|Lane|Avenue))', label, re.I))
+        if not identified:
+            label = f'Lease document {lease_index} — unit unresolved'
         row = {'id': sha256(lease['document'].encode()).hexdigest()[:12],
-               'document': lease['document'], 'label': _label(lease['document']),
+               'document': lease['document'], 'label': label, 'demise_identified': identified,
                'tenant': lease.get('tenant'), 'annual_rent': lease.get('annual_rent'),
                'interest': lease.get('interest'), 'term': lease.get('term'),
                'lease_date': lease.get('lease_date'), 'lease_date_evidence': lease.get('lease_date_evidence',[]),
@@ -148,7 +153,7 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
 
     rents = [x['annual_rent'] for x in demises]
     comparable_income = (not profile['vacant'] and len(rents) > 0 and
-                         all(d.get('document') and d.get('evidence') for d in demises) and
+                         all(d.get('document') and d.get('evidence') and d.get('demise_identified') for d in demises) and
                          all(isinstance(r, (int, float)) for r in rents) and
                          isinstance(report.get('rent'), (int, float)) and
                          abs(sum(rents) - report['rent']) < .01)
@@ -188,7 +193,16 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
     commercial = [x for x in demises if not x['residential_reversion']]
     from acquisition_energy import pack_certificates
     certificates_in_pack = pack_certificates(model,demises)
+    unresolved_demises = [d for d in commercial if d.get('document') and not d.get('demise_identified')]
+    if unresolved_demises:
+        add('lease-extent-unresolved', 'Lease documents are not a verified tenancy schedule',
+            'The physical extent and current status of '+str(len(unresolved_demises))+' lease document(s) remain unresolved. They have not been counted as separate current lettings.',
+            'Earlier leases, renewals and retained interests can refer to the same accommodation. Adding them or assigning an EPC to each would misstate the investment.',
+            'Reconcile the operative leases, variations, assignments and plans to the current sale extent and tenant schedule.',
+            [e for d in unresolved_demises for e in d['evidence']], materiality='decision_gate', topic='ownership')
     for row in commercial:
+        if row in unresolved_demises:
+            continue
         certificates = [r for r in research['records'] + certificates_in_pack if r['kind'] == 'epc_certificate' and _scope_matches(r, row)]
         pack_epcs = [f for f in model.get('findings', []) if f.get('title') == 'Energy rating in the certificate']
         if len(commercial) == 1 and len(pack_epcs) == 1:
@@ -415,9 +429,11 @@ def assess_market(report, records):
     achieved_rents = [r for r in market if r['kind'] == 'rental_comparable' and r.get('rent_basis') == 'achieved' and r.get('comparable') is True]
     asks = [r for r in market if r['kind'] == 'subject_asking_sale' and isinstance(r.get('price'), (int, float))]
     comments = []
-    if asks and report.get('guide'):
-        ask = asks[0]['price']; upper = report.get('guide_upper') or report['guide']
-        comments.append(f"The {cash(report['guide'])}–{cash(upper)} auction guide is {100-ratio(upper, ask):.1f}%–{100-ratio(report['guide'], ask):.1f}% below a {cash(ask)} asking price for the same property. This is a marketing comparison, not evidence of a discount to market value or a completed sale.")
+    if asks and report.get('assessment_price'):
+        ask = asks[0]['price']; price = report['assessment_price']
+        if ask > 0:
+            change = (price / ask - 1) * 100
+            comments.append(f"The {cash(price)} assessment price is {abs(change):.1f}% {'below' if change < 0 else 'above'} the {cash(ask)} subject marketing ask. Basis: {report.get('assessment_price_basis', 'assessment input')}. This is price history, not evidence of a discount to market value.")
     comments.append('Achieved investment-sale evidence ' + ('has been recorded; differences still need valuation judgement.' if achieved_sales else 'has not been established at a sufficiently comparable level. The guide is not independently supported as fair value.'))
     comments.append('Achieved rental evidence ' + ('has been recorded; adjust for unit, size, condition, location, incentives and date.' if achieved_rents else 'has not been established. Asking rents provide context, not a proven ERV or reletting timescale.'))
     return {'records': market, 'comments': comments,
