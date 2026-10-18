@@ -88,3 +88,7 @@ The free commercial buyer checklist is scoped in `commercial-buyer-checklist-sco
 ## Next external configuration needed
 
 Use existing provider accounts and enter secrets directly into Render's environment settings, never public builds or chat. The old missing-report-key note is superseded as an immediate work dependency: report formulation and offline quality acceptance proceed without provider credit. Production provider availability, automated output and complete cost accounting still require separate verification before release. The daily alerts service requires its verified Resend sender/key/webhook settings. Keep `BILLING_LIVE=false`, the paid-report approval gate off and alert sending disabled until their corresponding acceptance steps are complete. Production backup recovery needs a verified owner-controlled export/restore method; a healthy database alone is not backup evidence.
+
+### Editorial rejection follow-through, 18 October 2026
+
+The next report build adds separate investment interpretation and plain-English editing, two primary achieved Newbury comparisons, and nine revised documents across eight properties. See `docs/report-editorial-rebuild-2026-10-18.md` for the changes, evidence and explicit limits. Paid-report approval remains closed. Original launch priorities remain in place; this work does not approve paid reports, live billing, alert delivery or owner analytics activation.

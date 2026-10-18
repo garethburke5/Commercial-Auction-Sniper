@@ -271,7 +271,19 @@ few issues affecting income, value, capex, finance or exit. Preserve opposing
 evidence and source quotations. Do not promote a question to a fact. Do not
 claim that missing or unread pages were reviewed. Consolidate repeated risks and
 document dispositions; keep different demises and versions separate. Return the
-given evidence_digest. This remains unapproved investment research.''', synthesis, schema=SYNTHESIS_SCHEMA)
+given evidence_digest. This remains unapproved investment research.
+After investigating, explain how the findings interact: loss of tenant income
+alongside continuing landlord costs; lease breaks alongside reletting prospects;
+ownership boundaries alongside the rent and accommodation; insurance exclusions
+alongside identified building risks. Distinguish established facts, conditional
+consequences and unresolved questions. Do not invent rents, valuations or costs.
+Then edit every finding, consequence and resolution for a first-time commercial
+property buyer. Use natural British English and complete sentences. Explain any
+necessary legal term. Avoid compressed notes such as operative demise, reserved
+rent, underwrite, decision-blocking, covenant strength and unreconciled evidence.
+Say what was found, why it matters and what would change the investment decision.
+Remove repetition, but preserve different units, conflicting evidence and every
+material issue. Keep source quotations exact in their separate quotation fields.''', synthesis, schema=SYNTHESIS_SCHEMA)
         # Coverage belongs to the actual source review stages, not a synthesis
         # model's optimistic declaration. A missed source cannot disappear.
         final['reviewed_source_ids'] = sorted(reviewed)

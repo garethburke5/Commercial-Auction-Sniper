@@ -66,3 +66,10 @@ def test_sold_post_cannot_return_to_available_stock(monkeypatch):
     lot=acuitus._rich_lot('https://www.acuitus.co.uk/property/1/','',{'Auction':'29/10/2099'})
     assert _is_terminal(lot.to_dict()) and lot.status in UNAVAILABLE
     assert 'Sold Post' in lot.description
+
+
+def test_industrial_headline_is_not_changed_by_valuation_office_reference(monkeypatch):
+    page=detail(use='',description='The property comprises two industrial units. Areas from the Valuation Office Agency.').replace('<p>Lease renewed;', '<p>Freehold Industrial Investment</p><p>Lease renewed;').replace('<li><span>Sector</span></li>','').replace('Bank/Office','Industrial')
+    monkeypatch.setattr(acuitus,'soup',lambda *a,**k:BeautifulSoup(page,'lxml'))
+    lot=acuitus._rich_lot('https://www.acuitus.co.uk/property/1/','')
+    assert lot.property_type=='Industrial'

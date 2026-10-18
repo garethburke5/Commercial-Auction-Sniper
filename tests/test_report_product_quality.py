@@ -98,7 +98,7 @@ def test_potential_rent_cannot_become_current_income():
     r=build_acquisition(model(),cat(occupation='Vacant'),research=external('potential_rent',quote,rent=45000))
     findings=public_insights(r)
     assert findings and 'not an existing tenancy' in findings[0]['finding']
-    assert 'passing yield' in findings[0]['consequence']
+    assert 'cannot be used' in findings[0]['consequence'] and 'current income' in findings[0]['consequence']
 
 
 def test_incomplete_commercial_evidence_rejects_paid_eligibility_even_with_a_pack():

@@ -24,7 +24,7 @@ def test_reasoning_receives_financial_context_and_resynthesises_new_evidence():
     assert len(searches)==len(seen)==2
     assert seen[0]['evidence_digest']!=seen[1]['evidence_digest']
     assert r['investigation']['market']['price_support']=='evidence_requires_adjustment'
-    assert 'Achieved comparable evidence exists' in make_brief(r)['executive_assessment']
+    assert 'completed investment sale' in make_brief(r)['executive_assessment']
     assert not r['quality_status']['purchase_available']
     assert make_brief(r)['conclusion']!=make_brief(r)['executive_assessment']
 
@@ -75,8 +75,8 @@ def test_uncertain_lease_dates_are_readable_and_remain_uncertain():
     text=lease_terms({'lease_date':'2 April 2026',
         'term':{'text':'a term of FIVE years to [1march April] 2031','uncertain':True},
         'breaks':[{'date_raw':'[2march April] 2029','uncertain':True,'notice_raw':'six months','conditions_raw':'rent paid'}]})
-    assert 'march April' not in text and 'requires confirmation' in text
-    assert 'six months' in text and 'Subject to break conditions' in text
+    assert 'march April' not in text and 'needs confirmation' in text
+    assert 'six months' in text and 'meeting the lease conditions' in text
 
 
 def test_public_prototype_cannot_bypass_paid_processing(monkeypatch):

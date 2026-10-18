@@ -30,7 +30,7 @@ def test_word_report_is_owner_purchase_and_refund_bound(site,tmp_path,monkeypatc
         assert response.status_code==200 and response.headers['cache-control']=='no-store'
         with ZipFile(BytesIO(response.content)) as archive:
             xml=archive.read('word/document.xml').decode()
-            assert 'PROPERTY SNAPSHOT / FREE' in xml and 'Advertised rent' in xml
+            assert 'PROPERTY SNAPSHOT / FREE' in xml and 'Advertised annual rent' in xml
             assert 'Private reviewed acquisition conclusion' not in xml
         with accounts.db() as db:db.execute("UPDATE purchases SET status='refund_review'")
         assert client.get(url,headers={'Authorization':'alice'}).status_code==403

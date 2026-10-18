@@ -70,7 +70,7 @@ def render_pdf(report):
         pdfmetrics.registerFont(TTFont('Investor-Bold',str(fonts/'VeraBd.ttf')))
         pdfmetrics.registerFontFamily('Investor',normal='Investor',bold='Investor-Bold',italic='Investor',boldItalic='Investor-Bold')
     brief=make_brief(report);out=BytesIO();width=A4[0]-88
-    styles={k:ParagraphStyle(k,fontName='Investor',fontSize=s,leading=l,textColor=colors.HexColor(NAVY),spaceAfter=gap) for k,s,l,gap in [('body',9.3,12.7,7),('small',8.3,11.2,6),('caption',7.3,9.3,4),('meta',8.2,11,8),('kicker',8,10,6),('title',21,24,8),('h',12.5,15,8),('cell',8.1,10.4,0),('head',8,10.2,0)]}
+    styles={k:ParagraphStyle(k,fontName='Investor',fontSize=s,leading=l,textColor=colors.HexColor(NAVY),spaceAfter=gap) for k,s,l,gap in [('body',10.1,14.1,8),('small',9.2,12.6,7),('caption',7.3,9.5,5),('meta',8.2,11,8),('kicker',8,10,6),('title',21,24,8),('h',13,16,9),('cell',8.1,10.4,0),('head',8,10.2,0)]}
     for k in ('title','h','kicker'):styles[k].fontName='Investor-Bold'
     styles['head'].textColor=colors.white
     styles['h'].keepWithNext=True
@@ -81,7 +81,11 @@ def render_pdf(report):
         if i:story.append(PageBreak())
         for b in page['blocks']:
             kind=b['kind']
-            if kind in ('p','h'):story.append(para(b['text'],'h' if kind=='h' else b.get('style','body')))
+            if kind=='hero':
+                from PIL import Image as PILImage
+                im=PILImage.open(b['path']); ih=102 if brief['product_outcome']=='free_snapshot' else 152; iw=ih*im.width/im.height
+                t=Table([[Image(b['path'],width=iw,height=ih),para(b['text'])]],colWidths=[iw+17,width-iw-17]);t.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'),('LEFTPADDING',(0,0),(0,0),0),('RIGHTPADDING',(0,0),(-1,-1),0)]));story.extend([t,Spacer(1,7),para(b['credit'],'caption'),Spacer(1,5)])
+            elif kind in ('p','h'):story.append(para(b['text'],'h' if kind=='h' else b.get('style','body')))
             elif kind=='photo':
                 from PIL import Image as PILImage
                 im=PILImage.open(b['path']);scale=min(width/im.width,155/im.height);story.extend([Image(b['path'],width=im.width*scale,height=im.height*scale,hAlign='LEFT'),Spacer(1,5)])
@@ -102,6 +106,7 @@ def render_pdf(report):
                 items=[]
                 for r in b['rows']:
                     label=r['label'].replace('Official Copy (Lease)','Lease').replace(' Street',' St').replace('Official Copy of Register - EDOC REGISTRATION - ','Title ').replace('Official Copy (Register) - ','Title ')
+                    if r.get('pages'):label+=' (pages '+', '.join(r['pages'])+')'
                     if r.get('url'):
                         items.append(Paragraph(escape(r['id']+' ')+'<link href="'+escape(r['url'],quote=True)+'">'+escape(label)+'</link>',styles['caption']))
                     else:
@@ -116,13 +121,15 @@ def render_pdf(report):
 
 def render_html(report,standalone=True):
     brief=make_brief(report); e=lambda v:escape(safe_text(v))
-    css='''body{margin:0;background:#edf1f2;font-family:Arial,sans-serif;color:#193444}article{max-width:850px;margin:auto;background:white}section.page{padding:35px 46px;border-bottom:1px solid #ddd}h1{font-size:30px;line-height:1.12}h2{font-size:22px}h3{font-size:16px;margin:18px 0 9px}p{font-size:14px;line-height:1.5}p.small{font-size:12px}p.caption,p.meta{font-size:11px;color:#596770}.kicker{font-size:10px;letter-spacing:.13em}.photo,.chart{width:100%;height:auto}.metrics{display:grid;grid-template-columns:repeat(4,1fr);background:#edf2f3;padding:15px;gap:15px}.metrics b{display:block;font-size:24px;margin-top:7px}.metrics span{font-size:10px}table{border-collapse:collapse;width:100%;font-size:12px;margin:14px 0}th{background:#193444;color:white}td,th{padding:10px;border:1px solid #d9d9d9;text-align:left;vertical-align:top}tr:nth-child(odd){background:#edf2f3}.sources{columns:2;font-size:10px}.sources p{font-size:10px;break-inside:avoid}details{padding:16px 40px}.flag{padding:9px 15px;background:#e8eeee;font-size:12px}@media(max-width:600px){section.page{padding:25px 18px}.metrics{grid-template-columns:repeat(2,1fr)}table{font-size:11px}td,th{padding:6px}.sources{columns:1}}@media print{body{background:white}section.page{padding:0;border:0;break-after:page}section.page:last-of-type{break-after:auto}details,.flag{display:none}@page{size:A4;margin:16mm}p{font-size:9pt}table{font-size:8pt}td,th{padding:5pt}}'''
+    css='''body{margin:0;background:#edf1f2;font-family:Arial,sans-serif;color:#193444}article{max-width:850px;margin:auto;background:white}section.page{padding:35px 46px;border-bottom:1px solid #ddd}h1{font-size:30px;line-height:1.12}h2{font-size:22px}h3{font-size:16px;margin:18px 0 9px}p{font-size:14px;line-height:1.5}p.small{font-size:12px}p.caption,p.meta{font-size:11px;color:#596770}.kicker{font-size:10px;letter-spacing:.13em}.photo,.chart{width:100%;height:auto}.hero{display:flex;gap:22px;align-items:flex-start}.hero img{width:150px;max-height:220px;object-fit:contain}.metrics{display:grid;grid-template-columns:repeat(3,1fr);background:#edf2f3;padding:15px;gap:15px}.metrics b{display:block;font-size:24px;margin-top:7px}.metrics span{font-size:10px}table{border-collapse:collapse;width:100%;font-size:12px;margin:14px 0}th{background:#193444;color:white}td,th{padding:10px;border:1px solid #d9d9d9;text-align:left;vertical-align:top}tr:nth-child(odd){background:#edf2f3}.sources{columns:2;font-size:10px}.sources p{font-size:10px;break-inside:avoid}details{padding:16px 40px}.flag{padding:9px 15px;background:#e8eeee;font-size:12px}@media(max-width:600px){section.page{padding:25px 18px}.metrics{grid-template-columns:repeat(2,1fr)}table{font-size:11px}td,th{padding:6px}.sources{columns:1}}@media print{body{background:white}section.page{padding:0;border:0;break-after:page}section.page:last-of-type{break-after:auto}details,.flag{display:none}@page{size:A4;margin:16mm}p{font-size:9pt}table{font-size:8pt}td,th{padding:5pt}}'''
     out=['<article><div class="flag">'+e(brief['status'])+'</div>']
     for page in brief['pages']+brief.get('appendix_pages',[]):
         out.append('<section class="page">')
         for b in page['blocks']:
             k=b['kind']
-            if k in ('p','h'):
+            if k=='hero':
+                data=Path(b['path']).read_bytes();out.append('<div class="hero"><img alt="Property photograph" src="data:image/jpeg;base64,'+base64.b64encode(data).decode()+'"><p>'+e(b['text'])+'</p></div><p class="caption">'+e(b['credit'])+'</p>')
+            elif k in ('p','h'):
                 tag='h2' if k=='h' else 'h1' if b.get('style')=='title' else 'p';out.append('<'+tag+' class="'+e(b.get('style',''))+'">'+e(b['text'])+'</'+tag+'>')
             elif k in ('photo','chart'):
                 data=Path(b['path']).read_bytes() if k=='photo' else chart_png(b)
@@ -132,23 +139,19 @@ def render_html(report,standalone=True):
             elif k=='table':out.append('<table><thead><tr>'+''.join('<th>'+e(x)+'</th>' for x in b['headers'])+'</tr></thead><tbody>'+''.join('<tr>'+''.join('<td>'+e(x)+'</td>' for x in row)+'</tr>' for row in b['rows'])+'</tbody></table>')
             elif k=='sources':out.append('<h3>Source key</h3><div class="sources">'+''.join('<p id="'+e(r['id'])+'"><b>'+e(r['id'])+'</b> '+ ('<a href="'+e(r['url'])+'">'+e(r['label'])+'</a>' if r.get('url') else e(r['label']))+'</p>' for r in b['rows'])+'</div>')
         out.append('</section>')
-    out.append('<details><summary>Full findings and evidence appendix</summary><p>'+e(brief['selection_note'])+'</p>')
-    chronology=report.get('lease_reconciliation',[])
-    if chronology:
-        out.append('<h3>Lease chronology</h3><p>Amounts below belong to their source documents. They are not automatically current income.</p><table><thead><tr><th>Source lease</th><th>Rent in this document</th><th>Stated term</th><th>Continuing effect</th></tr></thead><tbody>')
-        for lease in chronology:
-            amounts=', '.join('£'+format(value,',.0f') for value in lease.get('rent_amounts',[])) or 'Not established'
-            out.append('<tr>'+''.join('<td>'+e(value)+'</td>' for value in (lease['document'],amounts,safe_text(lease.get('term','')),lease.get('temporal_status','')) )+'</tr>')
-        out.append('</tbody></table>')
+    out.append('<details><summary>Original source extracts</summary><p>The report above contains the edited assessment. These extracts preserve the source wording so individual points can be checked. An older document does not establish the current condition of the building.</p>')
+    seen=set()
     for f in brief['appendix_findings']:
-        out.append('<details><summary>'+e(f['materiality'].replace('_',' ')+' - '+f['title'])+'</summary><p>'+e(f['finding'])+'</p><p>'+e(f['consequence'])+'</p><p>'+e(f['resolution'])+'</p>')
-        for s in f.get('evidence',[]):
-            excerpt = 'External reference: '+s['url'] if s.get('url') else s.get('excerpt') or s.get('text','')
-            out.append('<p><b>'+e(s.get('document',''))+' p'+e(s.get('page',''))+'</b></p><blockquote>'+e(excerpt)+'</blockquote>')
-        out.append('</details>')
-    out.append('<h3>Research and review limits</h3><p>'+e('; '.join(report.get('quality_status',{}).get('outstanding',[])))+'</p>')
-    for r in report['investigation'].get('visual_dispositions',[]):
-        out.append('<p>'+e(r['document']+' p'+str(r['page'])+': '+r['note'])+'</p>')
+        for source in f.get('evidence',[]):
+            excerpt=source.get('excerpt') or source.get('text') or ''
+            key=(source.get('document') or source.get('title'),source.get('page'),excerpt,source.get('url'))
+            if key in seen:continue
+            seen.add(key)
+            label=(source.get('document') or source.get('title') or 'Source')+(' - page '+str(source['page']) if source.get('page') else '')
+            out.append('<details><summary>'+e(label)+'</summary>')
+            if source.get('url'):out.append('<p><a href="'+e(source['url'])+'">Open source</a></p>')
+            if excerpt:out.append('<blockquote>'+escape(excerpt)+'</blockquote>')
+            out.append('</details>')
     out.append('</details></article>')
     body='<style>'+css+'</style>'+''.join(out)
     return '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>'+e(report['property'])+' — '+({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Investment Report'))+'</title></head><body>'+body+'</body></html>' if standalone else body
@@ -207,7 +210,9 @@ def render_docx(report):
         if i:doc.add_page_break()
         for b in page['blocks']:
             k=b['kind']
-            if k=='h':paragraph(b['text'],style='Heading 1')
+            if k=='hero':
+                doc.add_picture(b['path'],height=Cm(4));paragraph(b['credit'],size=7);paragraph(b['text'])
+            elif k=='h':paragraph(b['text'],style='Heading 1')
             elif k=='p':paragraph(b['text'],size=7.2 if b.get('style')=='caption' else 8 if b.get('style') in ('small','meta','kicker') else None,style='Title' if b.get('style')=='title' else None)
             elif k=='photo':doc.add_picture(b['path'],width=Cm(17.9))
             elif k=='chart':paragraph(b['title'],style='Heading 1');doc.add_picture(BytesIO(chart_png(b)),width=Cm(17.9))

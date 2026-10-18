@@ -134,8 +134,11 @@ def _rich_lot(href, card, card_fields=None):
         tenure=parse_tenure(combined),vat_status=parse_vat(combined),legal_pack_status=lp_status,
         legal_pack_url=lp_url,status=_status(facts.get("Status") or (card_fields or {}).get("Status")),description=text[:9000])
 
-    sector=_section(text,"Sector",["Auction Venue","Property Information","Location"])
-    lot.property_type=sector[:120] if sector else _fallback_type(combined)
+    sector=facts.get('Sector') or _section(text,"Sector",["Auction Venue","Property Information","Location"])
+    # Headline asset use outranks references such as Valuation Office Agency
+    # in footnotes. These are not descriptions of the investment's use.
+    headline_use=_fallback_type(headline)
+    lot.property_type=sector[:120] if sector else headline_use if headline_use!='Commercial' else _fallback_type(combined)
     tenure=_section(text,"Tenure",["Description","VAT","EPC","Tenancy & Accommodation"])
     if tenure:
         lot.tenure=parse_tenure(tenure) or lot.tenure

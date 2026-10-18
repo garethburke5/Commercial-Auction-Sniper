@@ -29,15 +29,16 @@ def render_validation(report, prefix, source_digest):
     text = '\n'.join(p.extract_text() for p in pdf.pages)
     expected = len(brief['pages']) + len(brief['appendix_pages'])
     failures = []
-    if (brief['product_outcome'] == 'free_snapshot' and len(pdf.pages) > 2) or (brief['product_outcome']=='insufficient_evidence' and len(pdf.pages)>3) or (brief['product_outcome']=='review_required' and len(pdf.pages) != expected):
+    if (brief['product_outcome'] == 'free_snapshot' and len(pdf.pages) > 1) or (brief['product_outcome']=='insufficient_evidence' and len(pdf.pages)>3) or (brief['product_outcome']=='review_required' and len(pdf.pages) != expected):
         failures.append(f'Rendered {len(pdf.pages)} pages; planned {expected}. Inspect overflow.')
     if any(x in text.casefold() for x in ('march april', '2march', '1march')):
         failures.append('Malformed amended date leaked into the customer PDF.')
+    failures.extend('Editorial: '+x['code'] for x in brief['editorial_quality']['blockers'])
     result = {'engine': engine_identity(), 'input_sha256': source_digest,
               'method': 'Retained evidence presentation replay; no source re-extraction or provider calls',
               'property': report['property'], 'main_pages': len(brief['pages']), 'actual_pages': len(pdf.pages),
               'chart_types': [b['chart'] for p in brief['pages'] for b in p['blocks'] if b['kind']=='chart'],
-              'evidence_eligibility': evidence_sufficiency(report), 'failures': failures,
+              'evidence_eligibility': evidence_sufficiency(report), 'editorial_quality': brief['editorial_quality'], 'failures': failures,
               'paid_release_approved': False, 'provider_calls': 0}
     prefix.with_suffix('.validation.json').write_text(json.dumps(result, indent=2))
     return result

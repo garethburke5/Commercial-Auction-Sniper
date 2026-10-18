@@ -96,3 +96,50 @@ def lease_events(demises):
         elif term.get('uncertain'):
             unresolved.append({'label': unit['label'] + ' / expiry', 'reason': 'Date unresolved; no expiry assumed.', 'evidence': term.get('evidence', [])})
     return sorted(events, key=lambda x: x['date']), unresolved
+
+
+# Stage C checks are deliberately separate from source validation and product
+# approval. These checks catch known defects; they cannot certify good writing.
+UNEXPLAINED_JARGON = (
+    'operative demise', 'reserved rent', 'reversionary interest', 'underwrite',
+    'decision-blocking', 'supported adjustment to the subject', 'materiality controls',
+    'unreconciled evidence', 'source-grounded', 'operative interests', 'operative income',
+    'covenant strength', 'passing yield', 'ERV', 'reletting void',
+)
+
+
+def audit_brief(brief):
+    """Inspect actual customer prose, not the retained quotations or field names.
+
+    Headings/labels are allowed to be short; narrative must use sentences.
+    No readability score is treated as proof of analytical or editorial quality.
+    """
+    blockers=[];warnings=[];seen={};paragraphs=[]
+    pages=brief.get('pages',[])+brief.get('appendix_pages',[])
+    for pi,page in enumerate(pages,1):
+        for bi,block in enumerate(page['blocks']):
+            if block['kind']=='hero':text=block['text']
+            elif block['kind']=='p' and block.get('style','body') in ('body','small','callout'):text=block['text']
+            else:continue
+            at=f'page {pi}, paragraph {bi+1}'
+            paragraphs.append(text)
+            for term in UNEXPLAINED_JARGON:
+                if re.search(r'\b'+re.escape(term)+r'\b',text,re.I):blockers.append({'code':'unexplained_term','location':at,'term':term})
+            if text and text[-1] not in '.?!':blockers.append({'code':'unfinished_sentence','location':at})
+            if re.search(r'\b(?:\d{1,2}\s*)?(?:March\s*April|July\s*June)\b|\{\{|\bNone\b|\bundefined\b',text,re.I):blockers.append({'code':'extraction_artifact','location':at})
+            key=re.sub(r'\W+',' ',text).casefold().strip()
+            if len(key)>90 and key in seen:blockers.append({'code':'duplicate_paragraph','location':at,'first_location':seen[key]})
+            seen[key]=at
+            sentences=re.split(r'(?<=[.!?])\s+(?=[A-Z])',text)
+            if len(text.split())>125:warnings.append({'code':'long_paragraph','location':at,'words':len(text.split())})
+            for sentence in sentences:
+                # Conservative detector for compressed notes. Names and headings
+                # are not tested; complex natural sentences are not rephrased.
+                if len(sentence.split())>5 and not re.search(r'\b(?:is|are|was|were|be|been|being|has|have|had|can|could|may|might|must|should|would|will|does|do|did|need|needs|show|shows|gives|give|provides|provide|supplies|supply|contains|contain|records|record|states|state|reports|report|includes|include|excludes|exclude|means|mean|leaves|leave|depends|depend|contribute|contributes|runs|run|ends|end|ask|check|obtain|confirm|allow|compare|consider|establish|establishes|justify|justifies|assume|assumes|qualify|qualifies|receive|receives|found|sold|quote|quotes|remain|remains|require|requires|rent|pay|cost|costs|want|wanting|retain|retains|make|makes|prevent|prevents|change|changes|start|starts|tell|tells|reflect|reflects|let|lets|identify|identifies|belong|belongs|match|matches|add|adds|distinguish|distinguishes|explains|explain|come|comes|matter|recorded|describe|describes|disclose|pays|rents)\b',sentence,re.I):
+                    warnings.append({'code':'check_sentence_structure','location':at,'text':sentence})
+    unedited=brief.get('interpretation',{}).get('unedited_findings',[])
+    if unedited:blockers.append({'code':'material_findings_need_editing','finding_ids':[f['id'] for f in unedited]})
+    if brief.get('product_outcome')=='review_required' and not brief.get('conclusion'):blockers.append({'code':'missing_conclusion'})
+    return {'version':'editorial-1','checked_paragraphs':len(paragraphs),'blockers':blockers,'warnings':warnings,
+            'automated_checks_passed':not blockers,'human_editorial_approval':False,
+            'scope':'Sentence completion, known jargon, duplication, extraction artefacts and material-finding coverage; not a certification of prose quality.'}

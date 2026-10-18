@@ -24,7 +24,7 @@ def free_snapshot_exportable(report):
     Check retained evidence too, so an inconsistent stored scope fails closed.
     """
     scope = report.get('evidence_scope') or {}
-    return bool(report.get('investigation')
+    scope_ok = bool(report.get('investigation')
                 and report.get('analysis_state', 'complete') in ('complete', 'requires_review')
                 and scope.get('pathway') == 'public_evidence'
                 and scope.get('legal_pack_supplied') is False
@@ -33,6 +33,9 @@ def free_snapshot_exportable(report):
                 and not report.get('source_pages')
                 and not any(e.get('source_kind') == 'legal_pack'
                             for e in report['investigation'].get('evidence', [])))
+    if not scope_ok:return False
+    from acquisition_presentation import make_brief
+    return make_brief(report)['editorial_quality']['automated_checks_passed']
 
 
 def evidence_sufficiency(report):
@@ -43,6 +46,12 @@ def evidence_sufficiency(report):
         return {'outcome': 'free_snapshot', 'charge_eligible': False,
                 'reasons': ['Public-evidence pathway: operative contractual obligations are unverified.']}
     reasons = []
+    editorial = report.get('editorial_quality')
+    if editorial is None:
+        from acquisition_presentation import make_brief
+        editorial = make_brief(report)['editorial_quality']
+    if not editorial.get('automated_checks_passed'):
+        reasons.append('Customer-facing writing has unresolved quality checks.')
     records = investigation.get('market', {}).get('records', [])
     independent = [r for r in records if r.get('kind') in ('sale_comparable', 'rental_comparable')
                    and r.get('comparable') is True
