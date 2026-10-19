@@ -19,6 +19,14 @@ response does not establish that value. Formulation and output review do not
 depend on API credit: replay retained evidence, check originals, and inspect the
 same PDF/HTML renderer used by the customer service.
 
+## Focused feedback, 19 October 2026
+
+The latest binding refinements and automatic/manual distinction are recorded in
+[report-feedback-2026-10-19.md](report-feedback-2026-10-19.md). The Surbiton free
+snapshot is near approval in approach; its paid specimen still needs reliable
+end-to-end reproduction. Neither an analyst-edited PDF nor passing tests opens
+paid reporting.
+
 ## The buyer must be able to answer
 
 1. **What is being bought?** Identify the estate, units and occupiers. Distinguish

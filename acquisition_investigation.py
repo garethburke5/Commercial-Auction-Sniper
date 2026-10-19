@@ -147,9 +147,16 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
                'interest': lease.get('interest'), 'term': lease.get('term'),
                'lease_date': lease.get('lease_date'), 'lease_date_evidence': lease.get('lease_date_evidence',[]),
                'breaks': lease.get('breaks', []), 'reviews': lease.get('reviews', []),
+               'security': lease.get('security'),
                'evidence': lease.get('evidence', []), 'epc': None,
                'residential_reversion': lease.get('interest') == 'Residential long lease'}
         demises.append(row)
+        if lease.get('security'):
+            security = lease['security']
+            add('renewal-rights-' + row['id'], 'The lease intends to exclude automatic renewal rights',
+                security['position'],
+                'If the exclusion procedure was valid, the tenant has no automatic right to renew under the Landlord and Tenant Act 1954. This affects possession and reletting at expiry; it does not guarantee future rent.',
+                security['action'], security.get('evidence', []), topic='lease')
     if not demises:
         demises.append({'id': 'subject', 'label': report.get('property'), 'document': None,
                        'tenant': report.get('tenant'), 'annual_rent': report.get('rent'),

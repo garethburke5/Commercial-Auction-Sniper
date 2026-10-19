@@ -1,6 +1,17 @@
 from copy import deepcopy
 import pytest
 from acquisition_financials import financial_view, non_residential_sdlt
+
+
+def test_unrecovered_cost_scenarios_preserve_loss_and_do_not_infer_recovery():
+    from acquisition_financials import unrecovered_cost_scenarios
+    rows=unrecovered_cost_scenarios(24000,300000,(0,5000,30000))
+    assert [r['cash_remaining'] for r in rows]==[24000,19000,-6000]
+    assert [r['cash_return_pct'] for r in rows]==[8,6.33,-2]
+    assert all(r['period']=='Year in which the cost is paid' for r in rows)
+    assert all('not a repair quotation' in r['basis'] for r in rows)
+    assert unrecovered_cost_scenarios(None,300000)==[]
+    assert unrecovered_cost_scenarios(24000,0)==[]
 from acquisition_intelligence import build_acquisition
 from acquisition_presentation import make_brief
 from test_acquisition_investigation import model, cat, external

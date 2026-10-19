@@ -31,6 +31,35 @@ def test_changed_evidence_or_property_rejects_stale_prose():
         assert not validate_narrative(changed,d)['valid']
 
 
+def test_extracted_renewal_position_reaches_required_writer_fact_with_original_page():
+    m=model()
+    security={'position':'Lease states LTA 1954 sections 24–28 excluded',
+              'verified_procedure':False,
+              'action':'Check the warning notice and declaration.',
+              'evidence':[{'document':'Unit A lease.pdf','page':17,
+                           'excerpt':'The parties agree that sections 24 to 28 are excluded.'}]}
+    m['lease_details'][0]['security']=security
+    r=build_acquisition(m,cat())
+    assert r['investigation']['demises'][0]['security']==security
+    p=writing_packet(r)
+    f=next(f for f in p['facts'] if f['id']=='renewal-rights-0')
+    assert f['required'] and f['required_sections']==['income','property']
+    assert f['evidence'][0]['page']==17
+    assert f['content']['verified_procedure'] is False
+    d=draft(p)
+    for s in d['sections']:
+        for para in s['paragraphs']:
+            para['fact_ids']=[i for i in para['fact_ids'] if i != f['id']]
+    assert 'Material evidence omitted' in str(validate_narrative(r,d)['errors'])
+
+
+def test_tenant_security_is_required_in_income_or_assessment():
+    p=writing_packet(build_acquisition(model(),cat()))
+    f=next(f for f in p['facts'] if f['id']=='tenant-security')
+    assert f['required']
+    assert f['required_sections']==['income','assessment']
+
+
 def test_unsupported_number_and_unknown_fact_are_rejected_before_rendering():
     r=build_acquisition(model(),cat());d=draft(writing_packet(r))
     d['sections'][0]['paragraphs'][0]['text']='The rent is £987,654.'

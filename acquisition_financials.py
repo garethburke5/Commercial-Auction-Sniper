@@ -107,6 +107,26 @@ def non_residential_sdlt(consideration):
     return rounded(min(max(consideration-150000,0),100000)*.02 + max(consideration-250000,0)*.05)
 
 
+def unrecovered_cost_scenarios(rent, capital, amounts=(0, 5000, 15000, 30000)):
+    """Hypothetical landlord cash costs in one year, not a works estimate.
+
+    Amounts are the unrecovered balance, not a gross building invoice. Never
+    infer recovery from a cap or assume the same one-off bill recurs annually.
+    """
+    if not number(rent) or not number(capital) or capital <= 0:
+        return []
+    if any(not number(amount) for amount in amounts):
+        raise ValueError('Scenario costs must be finite non-negative amounts')
+    return [{'unrecovered_cost': rounded(amount),
+             'cash_remaining': rounded(rent - amount),
+             'cash_return_pct': percent(rent - amount, capital),
+             'period': 'Year in which the cost is paid',
+             'basis': 'Illustrative unrecovered landlord expenditure, not a repair quotation or forecast. '
+                      'Full stated rent assumed collected; excludes other expenses, finance and tax. '
+                      'Recovery amounts and timing are not assumed.'}
+            for amount in amounts]
+
+
 def financial_view(report):
     inv = report.get('investigation') or {}
     price = report.get('assessment_price')
@@ -185,6 +205,7 @@ def financial_view(report):
             'principal': principal, 'income_reconciled': reconciled,
             'scenarios': scenarios, 'price_rows': price_rows,
             'rent_loss_cases': loss_cases, 'cost_capacity': capacity,
+            'unrecovered_cost_scenarios': unrecovered_cost_scenarios(rent, capital),
             'capital_basis': capital, 'historical_costs': historical_costs(report),
             'unknown_costs': unknown_costs,
             'costs_complete': False}
