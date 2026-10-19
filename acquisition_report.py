@@ -14,7 +14,7 @@ def _render_legacy(report,standalone=False):
     snap=report.get('access')=='snapshot';out=['<style>'+REVIEW_CSS+'''
 .ai-findings{display:grid;gap:16px}.ai-finding{padding:22px;background:#fff;border:1px solid #d4dfe6;border-radius:9px}.ai-level{font-size:.68rem;font-weight:800;letter-spacing:.08em;color:#496174}.ai-numbers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.ai-number{padding:16px;background:#edf5f2;border-radius:9px}.ai-number strong{font-size:1.25rem;display:block;color:#006c5d}.ai-deep{border:2px solid #138474;border-radius:12px;padding:22px;background:#f3faf7}.ai-evidence{font-size:.83rem}.ai-evidence blockquote{max-height:none}.ai-steps{display:flex;gap:10px;flex-wrap:wrap}.ai-steps a{padding:6px;border-bottom:1px solid #a7bcbf}.ai-question{padding:16px;background:#f2f5f8;margin:12px 0}.ai-docs{width:100%;border-collapse:collapse}.ai-docs td,.ai-docs th{border-bottom:1px solid #d6e1e5;padding:10px;text-align:left}.ai-paywall{padding:24px;background:#163946;color:white!important;border-radius:10px;margin:25px 0}.ai-paywall h2,.ai-paywall p{color:white!important}.ai-paywall a{color:#a7efdc!important}
 @media(max-width:650px){.ai-numbers{grid-template-columns:1fr 1fr}.ai-finding,.ai-deep{padding:16px}.ai-docs,.ai-docs tbody,.ai-docs tr,.ai-docs td{display:block}.ai-docs thead{display:none}}
-</style><article class="dd-report"><p class="dd-kicker">AUCTION GEEK / INVESTMENT REPORTS</p><h1>'''+e(report['property'])+'</h1><p class="dd-muted">'+('Free Property Snapshot' if snap else 'Full Investment Report')+' · '+e(report['created_at'][:10])+' · '+e(report['report_id'])+engine_label+'</p>',
+</style><article class="dd-report"><p class="dd-kicker">AUCTION GEEK / INVESTMENT REPORTS</p><h1>'''+e(report['property'])+'</h1><p class="dd-muted">'+('Investment Report Preview' if snap else 'Full Investment Report')+' · '+e(report['created_at'][:10])+' · '+e(report['report_id'])+engine_label+'</p>',
     '<h2>What you are buying</h2><p>'+e(report['what_you_are_buying'])+'</p><div class="ai-numbers">']
     for label,v in [('Guide price',money(report.get('guide'))),('Current annual rent',money(report.get('rent'))),('Tenant',report.get('tenant') or 'Not established'),('Tenure',report.get('tenure') or 'Not established'),('Lease',report.get('lease')),('Completion',report.get('completion'))]:out.append('<div class="ai-number"><small>'+label+'</small><strong>'+e(v)+'</strong></div>')
     out.append('</div><h2>The numbers</h2><div class="ai-numbers">')
@@ -68,7 +68,7 @@ def _render_legacy(report,standalone=False):
             out.append('</section>')
     out.append('<footer>'+e(report['disclaimer'])+' GIY: Gross Initial Yield. FRI: Full Repairing and Insuring. TOGC: Transfer of a Going Concern. CPSE: Commercial Property Standard Enquiries.</footer></article>')
     html=''.join(out)
-    if standalone:html='<!doctype html><html lang="en-GB"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>'+e(report['property'])+' — '+('Free Property Snapshot' if snap else 'Full Investment Report')+'</title><body>'+html+'</body></html>'
+    if standalone:html='<!doctype html><html lang="en-GB"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>'+e(report['property'])+' — '+('Investment Report Preview' if snap else 'Full Investment Report')+'</title><body>'+html+'</body></html>'
     return html
 
 

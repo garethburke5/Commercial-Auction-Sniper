@@ -15,6 +15,7 @@ from .catalogue import Catalogue, money
 from .board import index_row, SEARCH_INDEX_VERSION
 from .fees import load_fees, directory, fee_profile, estimate_fee
 from .particulars import structured_particulars
+from .free_snapshot import build_snapshot
 from .enrichment import ordered_images
 from .glossary import GROUPS, SOURCES, REVIEWED
 from .workspace import observation
@@ -80,6 +81,7 @@ class Site:
             + (HERE/'static/workspace.js').read_bytes() + (HERE/'static/board.js').read_bytes() + (HERE/'static/search.js').read_bytes()
             + (HERE/'static/navigation.js').read_bytes() + (HERE/'static/reviews.js').read_bytes()
             + (HERE/'static/report-evidence.js').read_bytes()).hexdigest()[:12]
+        self.env.globals['snapshot_version'] = hashlib.sha256((HERE/'static/snapshot.css').read_bytes() + (HERE/'static/snapshot.js').read_bytes()).hexdigest()[:12]
         self.env.globals.update(board_index=f'/board/{self.board_version}/index.json')
 
     @cached_property
@@ -111,6 +113,15 @@ class Site:
             canonical=self.origin+path, path=path, crumbs=crumbs, catalogue=self.catalogue,
             structured=json.dumps(structured).replace('<','\\u003c'), **ctx)
 
+    def snapshot(self, row):
+        fee = estimate_fee(row, fee_profile(row['source_slug'], self.fees), self.evidence.get(row['url'], {}))
+        return build_snapshot(row, fee, self.catalogue.generated_at)
+
+    def snapshot_page(self, row):
+        return self.env.get_template('snapshot.html').render(
+            s=self.snapshot(row), row={k: row[k] for k in ('path', 'id')},
+            canonical=self.origin + row['snapshot_path'])
+
     def routes(self):
         c = self.catalogue
         pages = max(1, math.ceil(len(c.properties)/50))
@@ -126,6 +137,8 @@ class Site:
             yield path, self.page(path,title,'list',description,
                 rows=c.properties[(page-1)*50:page*50], page=page,pages=pages,board=True)
         for row in c.all_properties:
+            if row.get('snapshot_path'):
+                yield row['snapshot_path'], self.snapshot_page(row)
             evidence = self.evidence.get(row['url'], {})
             detail_row = dict(row)
             if evidence.get('sections'):
@@ -206,6 +219,7 @@ class Site:
 
     def sitemap(self, routes):
         good = {r['path'] for r in self.catalogue.all_properties if r['indexable']}
+        good.update(r['snapshot_path'] for r in self.catalogue.all_properties if r.get('snapshot_path') and self.snapshot(r)['indexable'])
         paths = [p for p in routes if p not in ('/due-diligence/','/account/','/admin/deals/','/coverage/') and (not p.startswith('/property/') or p in good)]
         return '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(
             '<url><loc>'+escape(self.origin+p)+'</loc></url>' for p in paths)+'</urlset>'

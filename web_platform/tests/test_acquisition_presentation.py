@@ -65,7 +65,7 @@ def test_snapshot_cannot_access_the_commercial_export_even_if_accidentally_attac
     free['commercial_brief'] = report['commercial_brief']
     html = render(free, standalone=True)
     assert 'Material risk 7' not in html
-    assert 'Free Property Snapshot</title>' in html
+    assert 'Investment Report Preview</title>' in html
     with pytest.raises(ValueError):
         render_docx(free)
     with pytest.raises(ValueError):

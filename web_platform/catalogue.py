@@ -13,6 +13,7 @@ from datetime import date
 from board_presentation import searchable_catalogue_row
 from collectors.publication_quality import lot_identity, publication_exclusion
 from .board import enrich_board_row
+from .free_snapshot import eligible
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
@@ -53,6 +54,7 @@ class Catalogue:
             row['id'] = identity(row)
             row['slug'] = slug(row['address'])[:110]
             row['path'] = f"/property/{row['id']}/{row['slug']}/"
+            row['snapshot_path'] = row['path'] + 'snapshot/' if eligible(row) else None
             row['source_slug'] = slug(row['source'])
             row['image_url'] = safe_url(row.get('image_url'))
             row['legal_pack_url'] = safe_url(row.get('legal_pack_url'))

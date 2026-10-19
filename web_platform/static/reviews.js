@@ -51,7 +51,7 @@ function show(r){
   state==='failed'&&!r.processing_allowed?'Your investigation needs support review. Contact team@auctiongeek.co.uk. Your purchase is retained.':
   r.processing_allowed?'Purchase or credit verified. Start the investigation; documents are optional unless included in your chosen scope.':
   r.access==='full'?'Full Investment Report saved to My Auction Geek.':
-  'Free Property Snapshot saved. '+(r.report?.quality_status?.message||'');
+  'Report preparation saved. '+(r.report?.quality_status?.message||'');
  const url=new URL(location.href);url.searchParams.set('review',id);history.replaceState(null,'',url);
  window.dispatchEvent(new CustomEvent('auction-report-loaded',{detail:{id,available:!!r.supporting_evidence_available}}));
 }

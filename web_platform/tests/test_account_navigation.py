@@ -8,6 +8,12 @@ from web_platform.tests.test_platform import site
 def test_account_navigation_defaults_to_sign_in_on_all_pages(site):
     for path, html in site.routes():
         soup = BeautifulSoup(html, 'html.parser')
+        if path.endswith('/snapshot/'):
+            # Public printable snapshots intentionally have no account client.
+            assert soup.select_one('#print-snapshot')
+            assert not soup.select_one('[data-account-link]')
+            assert not any('identity.js' in script.get('src', '') for script in soup.select('script'))
+            continue
         nav = soup.select_one('#main-navigation')
         account = nav.select_one('[data-account-link]')
         assert account.get_text() == 'Sign in / Register'

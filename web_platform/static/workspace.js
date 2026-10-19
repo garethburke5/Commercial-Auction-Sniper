@@ -421,7 +421,7 @@ async function loadAccount(){
    const p=document.createElement('p'),a=document.createElement('a');a.href=root+'/due-diligence/?review='+encodeURIComponent(review.id)+'#supporting-evidence';
    a.textContent='Supporting evidence · report saved '+new Date(review.created_at*1000).toLocaleDateString('en-GB');p.append(a);evidence.append(p);
   }
-  if(!evidence.childElementCount)evidence.textContent='Supporting evidence for purchased reports will appear here. Public sources remain available beside findings in your Free Snapshot.';
+  if(!evidence.childElementCount)evidence.textContent='Supporting evidence for purchased reports will appear here. Public sources are listed at the end of each Free Property Snapshot.';
  }
  document.querySelector('#owner-controls')?.toggleAttribute('hidden',!remote.is_owner);
  if(remote.is_owner){

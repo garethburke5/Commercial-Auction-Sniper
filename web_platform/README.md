@@ -24,6 +24,39 @@ snapshot/corpus refreshes. This is an incremental release, not a DNS migration.
 
 ## Implemented boundary
 
+### Free snapshots and paid investment reports
+
+Every published lot has an anonymous `/property/{id}/{slug}/snapshot/` page,
+linked from its listing and card. `free_snapshot.py` projects only captured public
+catalogue facts and already-held buyer-fee evidence. It has no research, model,
+account, payment or private-report dependency. The public export writes ordinary
+HTML when the catalogue is published; repeated reads do not run the builder.
+The sole page script opens the browser's print dialog. No PDF service, model call,
+account API or saved PDF is involved in viewing or downloading a free snapshot.
+Browser users select Save as PDF in their print destination menu.
+
+The snapshot calculates gross yields using current advertised rent and the
+correct price/range, checks explicit gross-yield discrepancies, and uses income
+components only when they reconcile to the total. Historical, estimated and
+vacant-possession rent cannot become passing income. Captured EPC information
+does not establish legal compliance or coverage of an unidentified unit.
+Sources appear together at the end. Missing data is described briefly without
+inventing figures, defects, comparables or conclusions. Thin snapshots are
+noindex and excluded from the sitemap; substantive pages have self-canonicals.
+
+The signed-in investment-report intake is labelled **Investment Report Preview**,
+not the free public snapshot. Full Investment Reports remain £19 and subject to
+the existing closed quality gate and server-side purchase/credit checks before
+research or legal-pack processing. The separately authorised owner-validation
+route is still a chargeable test facility, never part of a free snapshot request.
+
+Regression coverage: `tests/test_free_snapshot.py` exercises price/rent safety,
+anonymous repeated requests, no provider invocation, private-data exclusion,
+print-only script, source placement, indexability and static export. Existing
+`tests/test_review_processing.py` retains the paid-processing boundary checks.
+Hosting/build/storage allowances still apply; zero AI calls is not a promise of
+unlimited free infrastructure.
+
 - Useful home, paginated current properties, individual appearance URLs,
   auctioneer collections, dated auction pages/calendar, history, methodology and
   privacy and legal-pack research pages. No empty login, pricing or intelligence pages.

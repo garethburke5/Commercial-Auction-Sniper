@@ -24,6 +24,7 @@
       <p class="muted small">Reletting scores are indicative assessments from captured evidence, not valuations. GIY excludes costs and fees.</p>
       <div class="research-links"><a href="{{ url(r.path) }}#history">Property history</a><a href="{{ r.legal_pack_url or r.url }}" rel="noopener noreferrer">Legal pack ↗</a><a href="{{ r.map_url }}" rel="noopener noreferrer">Map ↗</a><a href="{{ url('/auctioneers/'~r.source_slug~'/') }}#buyer-fees">Buyer fees</a></div>
     </details>
+    {% if r.snapshot_path %}<a class="textlink" href="{{ url(r.snapshot_path) }}">Free Property Snapshot →</a>{% endif %}
     <a class="property-action" href="{{ url(r.path) }}">View property & research <span>→</span></a>
   </div>
 </article>
