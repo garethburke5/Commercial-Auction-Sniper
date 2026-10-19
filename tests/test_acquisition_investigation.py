@@ -49,6 +49,19 @@ def test_epc_expiry_and_jurisdiction_are_not_assumed():
     assert 'April 2018' not in ' '.join(f['finding'] for f in r2['investigation']['findings'])
 
 
+@pytest.mark.parametrize('rating', ['D', 'F'])
+def test_expiry_alone_is_routine_but_does_not_hide_a_substandard_rating(rating):
+    r=build_acquisition(model(),cat(),research=external('epc_certificate',
+        demise_document='Lease 1 Main Street.pdf',rating=rating,valid_until='2020-01-01'))
+    findings=r['investigation']['findings']
+    expired=next(f for f in findings if f['id'].startswith('epc-expired'))
+    assert expired['materiality']=='routine'
+    substandard=[f for f in findings if f['id'].startswith('epc-substandard')]
+    assert bool(substandard)==(rating=='F')
+    if substandard:
+        assert substandard[0]['materiality']=='decision_gate'
+
+
 def test_asking_price_is_not_valuation_or_achieved_comparable():
     r=build_acquisition(model(),cat(),research=external('subject_asking_sale','The asking price is £265,000.',price=265000,price_basis='asking'))
     m=r['investigation']['market'];assert m['valuation'] is None and m['maximum_bid'] is None

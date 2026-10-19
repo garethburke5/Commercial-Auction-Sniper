@@ -79,13 +79,8 @@ def investment_exposure(report, principal, rent, capital):
                           'capital_return_pct': percent(rent-loss, capital),
                           'capital_basis': capital,
                           'basis': 'Other rents collected unchanged; before all holding, reletting, repair, finance and tax costs.'})
-    capacity = []
-    if rent is not None and capital:
-        for hurdle in (8, 10, 12):
-            required = rounded(capital*hurdle/100)
-            capacity.append({'hurdle_pct': hurdle, 'required_annual_cash': required,
-                             'annual_cost_capacity': rounded(rent-required),
-                             'basis': 'Illustrative unlevered cash-return hurdle, not a market valuation or recommended return.'})
+    from acquisition_operating_costs import return_headroom
+    capacity = return_headroom(rent, capital)
     return cases, capacity
 
 
@@ -198,6 +193,9 @@ def financial_view(report):
     for scenario in scenarios:
         scenario['return_pct'] = percent(scenario['cash_before_finance_tax'], capital)
     loss_cases, capacity = investment_exposure(report, principal, rent, capital)
+    from acquisition_operating_costs import observed_management, return_headroom
+    management = observed_management(inv.get('evidence', []), rent)
+    after_management_capacity = return_headroom(rent, capital, management['annualised_management']) if management else []
     return {'price': price, 'rent': rent, 'fixed_fees': fixed, 'known_subtotal': subtotal, 'illustrative_tax':tax,
             'denominator': denominator,
             'denominator_basis': ('price plus quantified fees' if subtotal else 'price; fees are not established') + (' and illustrative purchase tax' if tax else '; purchase tax is unpriced'),
@@ -205,6 +203,8 @@ def financial_view(report):
             'principal': principal, 'income_reconciled': reconciled,
             'scenarios': scenarios, 'price_rows': price_rows,
             'rent_loss_cases': loss_cases, 'cost_capacity': capacity,
+            'management_illustration': management,
+            'cost_capacity_after_management': after_management_capacity,
             'unrecovered_cost_scenarios': unrecovered_cost_scenarios(rent, capital),
             'capital_basis': capital, 'historical_costs': historical_costs(report),
             'unknown_costs': unknown_costs,

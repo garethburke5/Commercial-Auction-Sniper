@@ -230,9 +230,9 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
                 add('epc-expired-' + row['id'], 'Expired energy certificate: ' + row['label'],
                     f"The matched {cert.get('rating')} certificate expired on {cert.get('valid_until')}.",
                     'The historic rating does not establish current sale/letting compliance or the cost of reletting.',
-                    'Obtain the latest correctly scoped certificate or an evidenced basis for non-requirement.',
-                    [_source(cert)], state='confirmed', materiality='decision_gate', topic='energy', exposed_rent=row.get('annual_rent'))
-            elif cert.get('rating') in ('F', 'G'):
+                    'Check when a valid EPC was supplied for this sale, any continuing marketing, and any new letting or works trigger. Expiry alone during an unchanged tenancy does not establish a renewal duty or a MEES breach.',
+                    [_source(cert)], state='confirmed', materiality='routine', topic='energy', exposed_rent=row.get('annual_rent'))
+            if cert.get('rating') in ('F', 'G'):
                 add('epc-substandard-' + row['id'], 'Substandard rating needs a letting-compliance assessment',
                     f"The matched certificate rates {row['label']} {cert['rating']}.",
                     'If the relevant tenancy is within MEES, continued letting needs improvement or a valid exemption; works, downtime and finance conditions can affect value.',
@@ -372,7 +372,7 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
     question('history', 'Find earlier asking prices and listing dates for the same property and ownership; compare the income and tenants then and now. Distinguish a listing-added date from evidence of the price on that date. Report ordinary asking-price differences concisely; investigate reasons only where evidence suggests a material change.',
              'History can reveal rent resets, recurring vacancy, failed sales or changes in use.', ['history'])
     if not profile['vacant']:
-        question('covenant', 'Identify each commercial legal tenant separately from the trading name; investigate the business history, available financial evidence, rent receipts and any deposit or guarantor. Do not assume an individual tenant has company accounts.',
+        question('covenant', 'Identify each commercial legal tenant separately from the trading name; investigate business history, latest full accounts, available unrestricted reserves/cash, liabilities, recent performance, rent receipts and deposit or guarantor. For charities use Charity Commission accounts and distinguish restricted funds from available reserves. A deficit alone does not establish financial weakness. Do not assume an individual tenant has company accounts.',
                  'A trading brand, receipt or Companies House active status is not evidence of financial strength.', ['covenant', 'payment'])
     question('planning', 'Check relevant designation, permissions and nearby development status for this address.',
              'Consent constraints and construction effects can alter expenditure, use and demand.', ['planning'])
@@ -382,7 +382,7 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
              'Use actual particulars, surveys, condition evidence and recovery terms; do not invent a works budget.', ['condition', 'capex'])
     question('accommodation', 'Establish the accommodation of each unit: floor-by-floor areas, measurement basis and the accommodation producing each rent. Distinguish EPC areas, quoted total areas, sales floors and storage.',
              'A total area or a rent per square foot is misleading if the compared space differs.', ['accommodation','market'])
-    question('tax-and-rates', 'Check the marketed VAT position against auction conditions, relevant option-to-tax or transfer-of-going-concern evidence; identify the exact rating assessments and potential empty-property liabilities or relief. Obtain current primary guidance for the jurisdiction.',
+    question('tax-and-rates', 'Check VAT against auction conditions and option-to-tax or transfer-of-going-concern evidence. Retrieve the exact unit rating assessment, effective date and current list year from the Valuation Office; check current empty-property multiplier, supplements, initial exemption and reliefs. Occupied charitable or small-business relief does not automatically apply to a vacant investment. Distinguish a constant-rate vacancy illustration from an actual bill across future tax years. Obtain current primary guidance for the jurisdiction.',
              'VAT cash requirements and holding costs can materially change acquisition expenditure and vacancy exposure.', ['tax','rates'])
     question('local-market', 'Assess local occupier demand, competing supply and rental sustainability for this property use.',
              'Market conditions must be relevant to the location, use and evidence date.', ['local_market'])
