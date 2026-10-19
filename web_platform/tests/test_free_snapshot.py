@@ -45,7 +45,8 @@ def test_source_yield_discrepancy_not_our_computed_yield_or_net_yield():
     s = build_snapshot(lot(description='Gross yield of 18%.', gross_yield=14.05))
     assert s['insights'][0][0] == 'Advertised yield differs from the calculation'
     assert '14.05%' in s['insights'][0][1]
-    for description in ('Gross yield 14%.', 'Net yield of 18%.', 'Target gross yield of over 15%.'):
+    for description in ('Gross yield 14%.', 'Net yield of 18%.', 'Target gross yield of over 15%.',
+                        'Target gross yield 18%.', 'Over 10% gross yield.', 'At least 12% GIY.', '18% gross yield target.'):
         assert all('differs' not in title for title, _ in build_snapshot(lot(description=description))['insights'])
     assert all('differs' not in title for title, _ in build_snapshot(lot(description='Gross yield 13.5%.',guide_price_upper=200000))['insights'])
 

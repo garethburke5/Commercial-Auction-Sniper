@@ -148,8 +148,17 @@ def build_snapshot(row, fee=None, captured_at=None, *, published_sections=()):
     # than the collector's description. They are never private report findings.
     advertised_text = clean(r.get('description')) + ' ' + ' '.join(
         clean(section.get('text')) for section in published_sections if isinstance(section, dict))
-    advertised = re.findall(r'\b(?:gross(?:\s+(?:initial|rental))?\s+yield|GIY)\s*(?:of|:|is)?\s*(\d+(?:\.\d+)?)\s*%', advertised_text, re.I)
-    advertised += re.findall(r'\b(\d+(?:\.\d+)?)\s*%\s+(?:gross(?:\s+(?:initial|rental))?\s+yield|GIY)\b', advertised_text, re.I)
+    advertised = []
+    for pattern in (r'\b(?:gross(?:\s+(?:initial|rental))?\s+yield|GIY)\s*(?:of|:|is)?\s*(\d+(?:\.\d+)?)\s*%',
+                    r'\b(\d+(?:\.\d+)?)\s*%\s+(?:gross(?:\s+(?:initial|rental))?\s+yield|GIY)\b'):
+        for match in re.finditer(pattern, advertised_text, re.I):
+            before = advertised_text[max(0, match.start()-40):match.start()]
+            after = advertised_text[match.end():match.end()+25]
+            if re.search(r'(?:\b(?:over|above|below|under|at least|up to|in excess of|circa|approximately|approx\.?|target|targeted|potential|expected|estimated|achievable)|[~≥≤><])\s*$', before, re.I):
+                continue
+            if re.match(r'\s+(?:target|potential|expected|estimated)\b', after, re.I):
+                continue
+            advertised.append(match[1])
     if rent and guide and advertised:
         stated = {float(v) for v in advertised}
         if len(stated) == 1:
