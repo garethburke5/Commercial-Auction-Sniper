@@ -95,7 +95,7 @@ def snapshot_particulars(row):
     return [{'title': title, 'items': groups[title]} for title in order if groups.get(title)]
 
 
-def build_snapshot(row, fee=None, captured_at=None):
+def build_snapshot(row, fee=None, captured_at=None, *, published_sections=()):
     """Pure calculation/projection, also used by export and anonymous-page tests."""
     # Structured particulars are generated exclusively from these public fields.
     allowed = ('address', 'postcode', 'source', 'url', 'description', 'tenure', 'occupation',
@@ -144,15 +144,19 @@ def build_snapshot(row, fee=None, captured_at=None):
     insights = []
     # A source's stated yield is independent of our derived catalogue GIY.
     # Match only explicit gross yields, not net yields or target returns.
-    advertised = re.findall(r'\b(?:gross(?:\s+(?:initial|rental))?\s+yield|GIY)\s*(?:of|:|is)?\s*(\d+(?:\.\d+)?)\s*%', clean(r.get('description')), re.I)
-    advertised += re.findall(r'\b(\d+(?:\.\d+)?)\s*%\s+gross(?:\s+(?:initial|rental))?\s+yield\b', clean(r.get('description')), re.I)
+    # Public marketing headings may live in the existing evidence bank rather
+    # than the collector's description. They are never private report findings.
+    advertised_text = clean(r.get('description')) + ' ' + ' '.join(
+        clean(section.get('text')) for section in published_sections if isinstance(section, dict))
+    advertised = re.findall(r'\b(?:gross(?:\s+(?:initial|rental))?\s+yield|GIY)\s*(?:of|:|is)?\s*(\d+(?:\.\d+)?)\s*%', advertised_text, re.I)
+    advertised += re.findall(r'\b(\d+(?:\.\d+)?)\s*%\s+(?:gross(?:\s+(?:initial|rental))?\s+yield|GIY)\b', advertised_text, re.I)
     if rent and guide and advertised:
         stated = {float(v) for v in advertised}
         if len(stated) == 1:
             quoted = stated.pop()
             if not (100 * rent / high - .15 <= quoted <= 100 * rent / guide + .15):
                 calculated = f'{100 * rent / high:.2f}–{100 * rent / guide:.2f}%' if high != guide else f'{100 * rent / guide:.2f}%'
-                insights.append(('Advertised yield differs from the calculation', f'The particulars quote a gross yield of {quoted:g}%. The captured annual rent and guide price produce {calculated}. Check which rent and price the advertised figure uses before comparing this property with other investments.'))
+                insights.append(('Advertised yield differs from the calculation', f'The captured particulars quote a gross yield of {quoted:g}%, compared with {calculated} calculated from the annual rent and guide price shown above.'))
     components = []
     candidates = r.get('income_components') or []
     if rent and isinstance(candidates, list) and candidates and all(isinstance(c, dict) and number(c.get('annual_rent')) and clean(c.get('label')) for c in candidates):

@@ -114,8 +114,11 @@ class Site:
             structured=json.dumps(structured).replace('<','\\u003c'), **ctx)
 
     def snapshot(self, row):
-        fee = estimate_fee(row, fee_profile(row['source_slug'], self.fees), self.evidence.get(row['url'], {}))
-        return build_snapshot(row, fee, self.catalogue.generated_at)
+        evidence = self.evidence.get(row['url'], {})
+        fee_row = dict(row, guide_price_upper=row.get('guide_price_upper') or row.get('guide_price_high'))
+        fee = estimate_fee(fee_row, fee_profile(row['source_slug'], self.fees), evidence)
+        return build_snapshot(row, fee, self.catalogue.generated_at,
+                              published_sections=evidence.get('sections') or [])
 
     def snapshot_page(self, row):
         return self.env.get_template('snapshot.html').render(

@@ -59,6 +59,15 @@ def test_only_reconciled_unit_income_can_explain_concentration():
     assert not build_snapshot(lot(income_components=[{'label': 'Shop','annual_rent': True}]))['components']
 
 
+def test_banked_marketing_giy_is_checked_without_replacing_tenancy_facts():
+    s = build_snapshot(lot(annual_rent=10616, guide_price=70000), published_sections=[
+        {'title':'Key investment points','text':'Investment let at £10,616 per annum (14.15% GIY on Guide Price)'}])
+    assert s['yield'] == '15.17%'
+    assert s['insights'][0][0] == 'Advertised yield differs from the calculation'
+    assert '14.15%' in s['insights'][0][1] and '15.17%' in s['insights'][0][1]
+    assert 'two flats above' in str(s['sections'])
+
+
 def test_fee_subtotal_does_not_claim_all_in_cost_or_use_wrong_price():
     fee = {'amount': 3000, 'upper': 3200, 'basis': 'Published tariff',
            'sources': [{'url': 'javascript:alert(1)', 'label': 'Unsafe'}, {'url': 'https://example.com/fees', 'label': 'Buyer fees'}]}
