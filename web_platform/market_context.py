@@ -14,6 +14,30 @@ def address_key(value):
 def postcode(value):
     m=POSTCODE.search(str(value or ''));return (m.group(1).upper(),m.group(2).upper()) if m else None
 
+def street_address_key(value):
+    """Fallback for numbered street addresses with optional locality/county lines.
+
+    Never discard unit, floor, range or extent information. Ambiguous/unstructured
+    addresses retain exact matching only; this is not fuzzy postcode matching.
+    """
+    text=str(value or '')
+    codes=POSTCODE.findall(text)
+    if len(codes)!=1 or ',' not in text:return None
+    street,tail=text.split(',',1)
+    street=address_key(street)
+    if not re.fullmatch(r'\d+[a-z]?(?:\s*[-/]\s*\d+[a-z]?)?\s+[a-z][a-z0-9 /-]*',street):return None
+    tail=POSTCODE.sub('',tail)
+    if re.search(r'\d|\b(?:units?|flats?|apartments?|suites?|floors?|ground|basement|upper|lower|rear|front|parts?|land|garages?|parking|roof|airspace|rights|shops?|stores?|premises|and|with|including|excluding)\b|[&/]',tail,re.I):return None
+    # Only unambiguous terminal road-type abbreviations, not names such as St John.
+    street=re.sub(r'\b(rd|st|ave)\.?$',lambda m:{'rd':'road','st':'street','ave':'avenue'}[m[1]],street)
+    street=re.sub(r'\s*([- /])\s*',lambda m:m[1] if m[1] in '-/' else ' ',street)
+    return (street,tuple(part.upper() for part in codes[0]))
+
+def same_property_address(left,right):
+    if address_key(left)==address_key(right):return True
+    key=street_address_key(left)
+    return key is not None and key==street_address_key(right)
+
 def use_type(r):
     from property_summary import specialist_use
     special = specialist_use(r)
@@ -57,12 +81,12 @@ def metrics(r):
 
 class MarketContext:
     def __init__(self,catalogue):
-        self.c=catalogue;self.by_address=defaultdict(list);self.by_district=defaultdict(list);self.loaded=False;self.observed=defaultdict(list)
+        self.c=catalogue;self.by_address=defaultdict(list);self.by_street=defaultdict(list);self.by_district=defaultdict(list);self.loaded=False;self.observed=defaultdict(list)
         self._load_lock=threading.Lock()
     def load(self):
         with self._load_lock:
             if self.loaded:return
-            self.by_address.clear();self.by_district.clear();self.observed.clear()
+            self.by_address.clear();self.by_street.clear();self.by_district.clear();self.observed.clear()
             self._load()
             self.loaded=True
 
@@ -85,6 +109,8 @@ class MarketContext:
                 r=json.loads(raw);p=postcode(r.get('postcode') or r['address'])
                 if not p:continue
                 self.by_address[address_key(r['address'])].append(rowid)
+                street_key=street_address_key(r['address'])
+                if street_key:self.by_street[street_key].append(rowid)
                 if positive(r.get('guide_price')) or positive(r.get('sale_price')):
                     self.by_district[p[0]].append(rowid)
 
@@ -101,9 +127,13 @@ class MarketContext:
     def for_property(self,row,limit=4):
         self.load();key=address_key(row['address']);p=postcode(row['address']);typ=use_type(row);occ=occupancy(row)
         history=[];appearance_keys=set()
-        for r in self._records(self.by_address.get(key,[])):
+        refs=list(self.by_address.get(key,[]))+list(self.by_street.get(street_address_key(row['address']),[]))
+        for r in self._records(refs):
             if not p or postcode(r.get('postcode') or r['address'])!=p:continue
             if r.get('tenure') and row.get('tenure') and r['tenure'].lower()!=row['tenure'].lower():continue
+            exact=address_key(r['address'])==key
+            # Require affirmative agreement on the interest for a broader match.
+            if not exact and (not r.get('tenure') or not row.get('tenure')):continue
             historical_url=urlsplit(str(r.get('original_url') or ''))
             current_url=urlsplit(str(row.get('url') or ''))
             same_source=historical_url.netloc and (historical_url.netloc.lower(),historical_url.path.rstrip('/')) == (current_url.netloc.lower(),current_url.path.rstrip('/'))
@@ -118,6 +148,7 @@ class MarketContext:
             if appearance in appearance_keys:continue
             appearance_keys.add(appearance)
             record=dict(r)
+            record['match_basis']='Exact address' if exact else 'Same numbered street address, postcode and tenure; locality wording differs'
             record['comparison_notes']=[]
             before,after=metrics(r)['area_sqft'],metrics(row)['area_sqft']
             if before and after and abs(before-after)/max(before,after)>0.05:
@@ -125,8 +156,6 @@ class MarketContext:
             if not r.get('tenure'):
                 record['comparison_notes'].append('Tenure was not recorded for this appearance. Confirm that it covers the same property interest.')
             history.append(record)
-            history.sort(key=lambda x:x.get('auction_date') or '',reverse=True)
-            del history[101:]
         history.sort(key=lambda x:x.get('auction_date') or '',reverse=True)
         for i,r in enumerate(history[:-1]):
             prev=history[i+1];r['changes']=[]
@@ -134,7 +163,7 @@ class MarketContext:
                 if r.get(field) is not None and prev.get(field) is not None and r[field]!=prev[field]:r['changes'].append({'label':label,'before':prev[field],'after':r[field]})
         candidates={};seen=set()
         for r in self._records(self.by_district.get(p[0],[])) if p and typ else []:
-            if address_key(r['address'])==key or use_type(r)!=typ:continue
+            if same_property_address(r['address'],row['address']) or use_type(r)!=typ:continue
             if not occ or occupancy(r)!=occ:continue
             if r.get('tenure') and row.get('tenure') and r['tenure'].lower()!=row['tenure'].lower():continue
             try:age=(date.today()-date.fromisoformat(r['auction_date'][:10])).days
@@ -167,7 +196,7 @@ class MarketContext:
             if k in seen:continue
             seen.add(k);selected.append(r)
             if len(selected)>=limit:break
-        return {'observations':self.observations(row),'history':history[:100],'comparables':selected,'metrics':metrics(row),'matching':'Exact full address and postcode; contradictory tenures excluded. Extent remains subject to source verification.'}
+        return {'observations':self.observations(row),'history':history,'comparables':selected,'metrics':metrics(row),'matching':'Exact address or matching numbered street address, postcode and tenure; unit and extent qualifiers retained. Extent remains subject to source verification.'}
 
     def observations(self,row):
         """Use already banked source observations; a capture date is not a sale date."""
