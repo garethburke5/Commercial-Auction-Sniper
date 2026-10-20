@@ -110,3 +110,11 @@ useful free listings/snapshots, £0 advertising and SEO retained. See
 | H8 | Browser and full customer acceptance | New mobile/desktop history UI tests added; production owner/visitor/purchaser/pass/subscriber journeys and actual Stripe payments must pass before claiming ready. |
 
 History work does not approve or supersede R1–R9. Paid reports remain closed.
+
+### Evening verification and collector repair
+
+- Public workflow `39499771880` passed the platform/report suite, Chromium account/evidence/history checks, static export and Pages publication for `7739e226`. Hosted PostgreSQL checks also passed. This is not confirmation that Cloudflare has updated the main domain.
+- The 17:28 historical collection batch completed successfully. This does not establish complete twenty-year coverage.
+- The 17:05 current scan was stopped by its publication quality gate. A two-bedroom Landkey house had been misclassified as commercial because its location paragraph mentioned the village pub. The classifier now excludes that location evidence while retaining genuine commercial accommodation and preserving excluded records.
+- The classifier regression suite passed (79 tests and 6 subtests). Reprocessing the retained failed candidate in an isolated temporary directory passed the full unchanged publication gate: 1,003 published properties; South West rich-particular coverage 66.7%. A fresh scheduled scan and subsequent live publication remain to be verified.
+- Actual Stripe sandbox checkout-to-access, tax/terms confirmation and private archive migration remain outstanding. All history sales gates remain disabled.

@@ -73,6 +73,23 @@ def test_residential_label_does_not_exclude_woodborough_mixed_use():
     assert commercial_decision(row) is True
 
 
+@pytest.mark.parametrize('commercial_unit', [False, True])
+def test_named_village_amenities_do_not_turn_landkey_house_into_retail(commercial_unit):
+    text = ('Two Bedroom Terraced House A two-bedroom mid-terraced character property located in Landkey, Devon. '
+            'The property comprises a dining room, living room, kitchen and bathroom, with two bedrooms. '
+            'Landkey is approximately three miles from Barnstaple and has a village shop, primary school, '
+            'church, village hall and public house. Barnstaple provides a wider range of shops. ')
+    if commercial_unit:
+        text += 'The sale also includes a ground floor retail unit let to a convenience store.'
+    row = {'source': 'Auction House South West', 'address': '1 Bethal Cottages, EX32 0JE',
+           'url': 'https://example.com/bethal', 'property_type': 'Retail', 'description': text}
+    assert commercial_decision(row) is commercial_unit
+    snapshot = prepare_publication({'properties': [row]})
+    assert bool(snapshot['properties']) is commercial_unit
+    if not commercial_unit:
+        assert snapshot['excluded_properties'][0]['address'] == row['address']
+
+
 @pytest.mark.parametrize('text',[
     'A one-bedroom open plan apartment. Accommodation: Bedroom and bathroom. Viewings: Bridgfords Estate Agents.',
     'A traditional semi-detached property with 2 bedrooms. Viewings: Blundells Estate Agents. Important Notice: Fees apply.',

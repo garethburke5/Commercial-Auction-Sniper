@@ -20,6 +20,10 @@ def asset_text(description):
     text = re.sub(r'^Joint Agents?\s*:\s*.*?(?=\s(?:A|An|The|This)\s|[.;]|$)', ' ', text)
     text = re.split(r'\b(?:Our Nearest Office|Important notices?|For more property information|Popular Searches)\b|\b(?:Viewings?|To view)\s*:', text, flags=re.I)[0]
     text = re.sub(r'\b(?:It is a (?:small )?village|The village)\b[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
+    # Unheaded location prose can name the village rather than say "the village".
+    # Its shop/pub is not commercial accommodation within the house being sold.
+    text = re.sub(r'(?<![^.;])[^.;]*\bmiles? from\b[^.;]*\band has a village shop\b[^.;]*(?:[.;]|$)',
+                  ' ', text, flags=re.I)
     # A named neighbouring hotel is not part of the land being sold.
     text = re.sub(r'\b(?:adjoining|adjoins|adjacent to)\s+[^.;]{0,90}\bhotel\b', ' ', text, flags=re.I)
     text = re.sub(r'\b(?:Conveniently located for|(?:well )?(?:serviced|served) by|(?:a (?:good |further )?range of )?amenities (?:including|such as)|adjoins the)\b[^.;]*(?:[.;]|$)',
