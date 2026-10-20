@@ -164,3 +164,13 @@ def test_address_ranges_units_and_duplicates():
     result=context.for_property(row)
     assert len(result['history'])==1
     assert 'floor area differs' in result['history'][0]['comparison_notes'][0]
+
+def test_same_source_lot_with_corrected_date_is_not_an_earlier_appearance():
+    from web_platform.market_context import MarketContext,address_key
+    row={'address':'102-106 High Street, Esher, Surrey, KT10 9QJ','tenure':'Leasehold','url':'https://allsop.co.uk/lot-overview/esher/c261001-217','auction_date':'2026-10-07','lot_number':'74'}
+    same=dict(row,auction_date='2026-10-01',original_url=row['url']+'?view=grid')
+    past=dict(row,auction_date='2022-11-01',lot_number='25',original_url='https://allsop.co.uk/lot-overview/esher/c221101-160')
+    market=MarketContext(None);market.loaded=True
+    market.by_address[address_key(row['address'])]=[same,past]
+    result=market.for_property(row)
+    assert len(result['history'])==1 and result['history'][0]['auction_date']=='2022-11-01'

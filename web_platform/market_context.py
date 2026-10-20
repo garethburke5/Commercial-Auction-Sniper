@@ -2,6 +2,7 @@
 import re,json,sqlite3
 import threading
 from datetime import date
+from urllib.parse import urlsplit
 from collections import defaultdict
 from functools import cached_property
 
@@ -103,6 +104,15 @@ class MarketContext:
         for r in self._records(self.by_address.get(key,[])):
             if not p or postcode(r.get('postcode') or r['address'])!=p:continue
             if r.get('tenure') and row.get('tenure') and r['tenure'].lower()!=row['tenure'].lower():continue
+            historical_url=urlsplit(str(r.get('original_url') or ''))
+            current_url=urlsplit(str(row.get('url') or ''))
+            same_source=historical_url.netloc and (historical_url.netloc.lower(),historical_url.path.rstrip('/')) == (current_url.netloc.lower(),current_url.path.rstrip('/'))
+            try:near_date=abs((date.fromisoformat(str(r.get('auction_date'))[:10])-date.fromisoformat(str(row.get('auction_date'))[:10])).days)<=14
+            except ValueError:near_date=False
+            if same_source and near_date and str(r.get('lot_number','')).removeprefix('Lot ')==str(row.get('lot_number','')).removeprefix('Lot '):
+                # A small date correction is not a new auction appearance.
+                # URLs reused in later years must still retain earlier appearances.
+                continue
             if r.get('auction_date')==row.get('auction_date') and str(r.get('lot_number','')).removeprefix('Lot ')==str(row.get('lot_number','')).removeprefix('Lot '):continue
             appearance=(r.get('auctioneer') or r.get('source'),r.get('auction_date'),str(r.get('lot_number') or ''),address_key(r['address']))
             if appearance in appearance_keys:continue

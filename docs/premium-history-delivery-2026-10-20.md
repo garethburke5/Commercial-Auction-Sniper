@@ -53,3 +53,12 @@ Still outstanding: wider historical auction/geographic pages with genuinely usef
 ## Existing launch work remains required
 
 The £19 report acceptance programme is not replaced by this history work: original-pack interpretation, proportionate commercial analysis, natural writing, end references, unfamiliar-property holdouts, customer delivery/refunds and measured costs remain open. Scheduled current collection and the bounded six-hour historical continuation remain configured; this does not establish all-UK or 20-year completeness. See the master backlog for report, archive, account, email and launch priorities.
+
+## Verification update
+
+Local platform suite: 289 passed, 14 PostgreSQL cases skipped pending hosted CI.
+An additional Esher regression now excludes the same source lot with a corrected
+nearby auction date from previous-appearance counts; the older 2022 appearance
+remains. The live page showed 1 October versus 7 October for the same source URL.
+This fixes duplicate counting, not the unresolved source-date discrepancy itself.
+Frontend publication and actual browser checks are tracked separately from API deployment.
