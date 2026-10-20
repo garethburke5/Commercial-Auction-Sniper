@@ -7,6 +7,28 @@ from web_platform.accounts import Accounts
 from web_platform.tests.test_platform import site
 
 
+def test_coverage_requires_owner_and_does_not_claim_national_completeness(site,tmp_path,monkeypatch):
+    a=Accounts(tmp_path/'coverage.sqlite')
+    def identity(header):
+        if not header:raise HTTPException(401,'Sign in required')
+        return header
+    monkeypatch.setattr(module,'authenticated_user',identity)
+    monkeypatch.setattr(module,'private_services',lambda:(a,None))
+    monkeypatch.setenv('ADMIN_ACCOUNT_IDS','owner')
+    site.catalogue.snapshot['source_health']=[{'source':'Example','status':'DEGRADED',
+        'expected_count':None,'lots_seen':0,'reconciliation':{'detail_failures':3,'rows':['a','b']}}]
+    with TestClient(module.create_app(site)) as c:
+        assert c.get('/api/admin/coverage').status_code==401
+        assert c.get('/api/admin/coverage',headers={'Authorization':'buyer'}).status_code==403
+        result=c.get('/api/admin/coverage',headers={'Authorization':'owner'}).json()
+        assert result['national_coverage_verified'] is False
+        assert result['national_auctioneer_denominator'] is None
+        source=result['current']['sources'][0]
+        assert source['expected_count'] is None and source['lots_seen']==0
+        assert source['reconciliation']['rows']=={'record_count':2}
+        assert result['historical']['individual_lot_records_captured']==site.catalogue.progress.get('individual_lot_records_captured')
+
+
 def test_exact_source_sections_keep_lease_qualifiers_out_of_vat():
     from web_platform.enrichment import extract_html
     from web_platform.particulars import structured_particulars

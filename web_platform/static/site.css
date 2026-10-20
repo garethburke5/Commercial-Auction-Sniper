@@ -191,6 +191,7 @@
 }
 
 .owner-controls{display:flex;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1rem}.owner-controls[hidden]{display:none}.owner-controls p{flex-basis:100%;margin:0}.owner-controls label{display:flex;gap:.5rem;align-items:center}
+.owner-controls>details{flex-basis:100%;min-width:0;max-width:100%}.owner-controls>details>summary{cursor:pointer;font-weight:700}.owner-controls details p{margin:.75rem 0}.owner-controls table{width:100%;border-collapse:collapse;font-size:.9rem}.owner-controls th,.owner-controls td{padding:.55rem;text-align:left;border-bottom:1px solid #dfe5e9}.owner-controls th{font-weight:700}
 
 /* Commercial offering: keep all three plans comparable on small screens. */
 .plan-card li small{color:var(--muted);font-weight:400}

@@ -30,7 +30,7 @@ Do not report all jobs complete from passing software tests or a few specimen PD
 | D6 | Resolve repeat properties across auctioneers | Conservative building/unit matching; no merging neighbours or separate flats. Retain provenance and uncertain matches. |
 | D7 | Complete property timelines and comparisons | Dated guides, asking prices, rent changes, results and reappearances visible to customers and available to reports. |
 | D8 | Preserve outcomes/permanent pages | Sold, sold prior, unsold, withdrawn and reoffered states updated without losing earlier evidence. |
-| D9 | Owner coverage dashboard | Current completeness, historical depth, failed collections, missing sources and publication discrepancies; distinguish source health from nationwide coverage. |
+| D9 | Owner coverage dashboard | Owner-only API and expandable workspace panel now implemented with catalogue timestamps, source counts/statuses, historical totals and gaps. Browser/deployed acceptance pending; national denominator remains unknown. |
 | D10 | Resolve named source gaps | Bond Wolfe detail failures; Barnard Marcus incomplete particulars; Under The Hammer access; Cheffins final reconciliation; Loveitts/Fox/Connells shared-feed attribution; remaining registry assessments. |
 | D11 | Search and listing accuracy | Tenant/business-name search; correct classification, unit areas, current rent, yield filters, original hero images, duplicate prevention and clear fees. Recheck old snags before claiming closed. |
 

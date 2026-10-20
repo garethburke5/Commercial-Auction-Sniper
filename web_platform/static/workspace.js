@@ -81,6 +81,8 @@ function renderAuth(){
   document.querySelector('#account-retry')?.setAttribute('hidden','');
   document.querySelector('#owner-controls')?.setAttribute('hidden','');
   document.querySelector('#owner-monitoring')?.setAttribute('hidden','');
+  document.querySelector('#owner-coverage')?.setAttribute('hidden','');
+  document.querySelector('#owner-coverage-status')?.replaceChildren();
   document.querySelector('#owner-report-recovery')?.setAttribute('hidden','');
   document.querySelector('#owner-report-status')?.replaceChildren();
   document.querySelector('#owner-monitoring-status')?.replaceChildren();
@@ -118,6 +120,8 @@ function updateSession(next){
   document.querySelector('#billing-status')?.replaceChildren();
   document.querySelector('#owner-controls')?.setAttribute('hidden','');
   document.querySelector('#owner-monitoring')?.setAttribute('hidden','');
+  document.querySelector('#owner-coverage')?.setAttribute('hidden','');
+  document.querySelector('#owner-coverage-status')?.replaceChildren();
   document.querySelector('#owner-report-recovery')?.setAttribute('hidden','');
   document.querySelector('#owner-report-status')?.replaceChildren();
   document.querySelector('#owner-monitoring-status')?.replaceChildren();
@@ -440,6 +444,8 @@ async function loadAccount(){
  }
  document.querySelector('#owner-sandbox-billing')?.toggleAttribute('hidden',!remote.is_owner||!!preview);
  document.querySelector('#owner-monitoring')?.toggleAttribute('hidden',!remote.is_owner||!!preview);
+ document.querySelector('#owner-coverage')?.toggleAttribute('hidden',!remote.is_owner||!!preview);
+ if(preview)document.querySelector('#owner-coverage-status')?.replaceChildren();
  document.querySelector('#owner-report-recovery')?.toggleAttribute('hidden',!remote.is_owner||!!preview);
  const name=config?.plans?.[preview?.plan||remote.plan]?.name||preview?.plan||remote.plan;
  document.querySelector('#account-status')?.replaceChildren(document.createTextNode(preview?'Read-only preview · '+name+'. Your account and purchases are unchanged.':'Signed in · '+name+' account. Your workspace is private to your account.'));
@@ -474,6 +480,39 @@ async function loadMonitoringStatus(){
   else output.textContent='No completed monitoring check is recorded yet.';
  }catch(_){if(epoch===authEpoch&&session)output.textContent='Monitoring status could not be loaded. This does not confirm a failed check; try Refresh status.';}
 }
+async function loadCoverage(){
+ const box=document.querySelector('#owner-coverage'),output=document.querySelector('#owner-coverage-status');
+ if(!box||box.hidden||!output||preview||!checkoutAccount?.is_owner)return;
+ const epoch=authEpoch;output.textContent='Checking auction coverage…';
+ try{
+  const result=await api('/api/admin/coverage');
+  if(epoch!==authEpoch||!session||preview||!checkoutAccount?.is_owner)return;
+  const current=result.current,history=result.historical;
+  const number=value=>Number.isFinite(value)?value.toLocaleString('en-GB'):'Unavailable';
+  const date=value=>value?new Date(value).toLocaleString('en-GB'):'Unavailable';
+  output.replaceChildren();
+  const paragraph=text=>{const p=document.createElement('p');p.textContent=text;output.append(p);};
+  paragraph(`Current catalogue: ${number(current.published_current_rows)} rows across ${number(current.reported_sources)} reported sources. Snapshot: ${date(current.snapshot_generated_at)}.`);
+  if(current.snapshot_generated_at&&Date.now()-Date.parse(current.snapshot_generated_at)>14*3600000)paragraph('The current snapshot is over 14 hours old. Check collection and publication before relying on it as current inventory.');
+  paragraph(`Historical database: ${number(history.individual_lot_records_captured)} auction appearances, including ${number(history.records_with_address)} with addresses and ${number(history.partial_lot_records)} partial records. Counted: ${date(history.generated_at)}.`);
+  paragraph(`${number(history.catalogues_incomplete_or_unreconciled)} historical catalogues remain incomplete or unreconciled; ${number(history.catalogue_fetch_or_parse_failures)} fetch/parse failures were recorded. Repeat appearances are included in the totals.`);
+  paragraph('Nationwide completeness has not been verified. Current-source counts reflect the commercial catalogue; historical holdings include other property types. A source marked LIVE is not proof that every UK property has been captured.');
+  const table=document.createElement('table'),head=document.createElement('thead'),tr=document.createElement('tr');
+  for(const title of ['Auction source','Collection status','Seen / expected','Published']){const th=document.createElement('th');th.textContent=title;tr.append(th);}
+  head.append(tr);table.append(head);const body=document.createElement('tbody');
+  for(const row of current.sources){const tr=document.createElement('tr');
+   for(const value of [row.source,row.status,`${number(row.lots_seen)} / ${number(row.expected_count)}`,number(row.published_rows)]){const td=document.createElement('td');td.textContent=value;tr.append(td);}
+   body.append(tr);
+  }
+  table.append(body);const wrap=document.createElement('div');wrap.style.overflowX='auto';wrap.append(table);output.append(wrap);
+  const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Historical holdings by auctioneer';details.append(summary);
+  const list=document.createElement('ul');
+  for(const [source,count] of Object.entries(history.by_auctioneer||{})){const item=document.createElement('li');item.textContent=`${source}: ${number(count)} appearances`;list.append(item);}
+  details.append(list);output.append(details);
+ }catch(_){if(epoch===authEpoch&&session)output.textContent='Coverage data could not be loaded. Missing data does not mean zero properties. Try Refresh coverage.';}
+}
+document.querySelector('#owner-coverage')?.addEventListener('toggle',e=>{if(e.target.open)loadCoverage();});
+document.querySelector('#owner-coverage-refresh')?.addEventListener('click',loadCoverage);
 document.querySelector('#owner-monitoring')?.addEventListener('toggle',e=>{if(e.target.open)loadMonitoringStatus();});
 document.querySelector('#owner-monitoring-refresh')?.addEventListener('click',loadMonitoringStatus);
 async function loadReportJobs(){

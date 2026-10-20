@@ -15,6 +15,10 @@ TASKS=(
     ('sutton_kersh', ['scripts/harvest_sutton_kersh_results.py','--catalogues','4','--workers','2']),
     ('acuitus', ['scripts/harvest_acuitus_canonical.py','--all-incomplete']),
     ('allsop', ['historical_allsop.py','--workers','2']),
+    ('savills', ['historical_corpus.py','harvest-savills','--workers','2']),
+    ('clive_emson_catalogues', ['scripts/harvest_clive_emson_canonical.py','--all-incomplete']),
+    ('mchugh', ['scripts/harvest_mchugh_results.py','2']),
+    ('phillip_arnold', ['scripts/harvest_phillip_arnold_results.py','2']),
 )
 
 

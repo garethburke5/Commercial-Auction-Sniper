@@ -2,9 +2,6 @@ name: Auction Sniper Scan
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: ['collectors/savills_all_future.py', 'tests/test_savills_hanover_regression.py', '.github/workflows/auction-sniper-scan.yml']
   schedule:
     - cron: '17 */6 * * *'
   workflow_call:

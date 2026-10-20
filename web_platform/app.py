@@ -1,5 +1,6 @@
 """ASGI deployment entrypoint. Public pages work without identity/billing secrets."""
 import os
+import json
 import logging
 import time
 from threading import Lock
@@ -118,9 +119,10 @@ def create_app(site=None):
         from .catalogue import ROOT
         authenticate(x_monitor_timestamp,x_monitor_signature)
         accounts,billing=private_services()
-        result=run(accounts,site.catalogue.root if not deferred_site else ROOT,current_catalogue)
         from .report_resolution import retry_refunds
-        result['report_refunds']=retry_refunds(billing)
+        refund_result=retry_refunds(billing)
+        result=run(accounts,site.catalogue.root if not deferred_site else ROOT,current_catalogue)
+        result['report_refunds']=refund_result
         from .alert_delivery import run as deliver
         try:result['email_delivery']=deliver(accounts)
         except Exception:
@@ -133,6 +135,14 @@ def create_app(site=None):
         uid,a,_=user(authorization);require_owner(uid)
         from .scheduled_monitoring import status
         return status(a)
+    @app.get('/api/admin/coverage')
+    def owner_coverage(authorization:str|None=Header(default=None)):
+        uid,_,_=user(authorization);require_owner(uid)
+        from scripts.audit_auction_coverage import audit
+        catalogue=current_catalogue()
+        registry_path=catalogue.root/'config/source_registry.json'
+        registry=json.loads(registry_path.read_text()) if registry_path.exists() else {}
+        return audit(catalogue.snapshot,catalogue.progress,registry)
     @app.get('/api/account/identity')
     def verified_identity(authorization:str|None=Header(default=None)):
         uid=authenticated_user(authorization)
