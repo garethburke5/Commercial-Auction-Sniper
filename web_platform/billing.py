@@ -49,6 +49,7 @@ class Billing:
             self._expire_membership_checkouts(customer,user)
             return self.portal(user)
         session=self.client.v1.checkout.sessions.create({'customer':customer,'mode':'subscription',
+            'custom_text':{'submit':{'message':'Your membership includes unlimited Premium Property History & Intelligence at no extra charge. Your published monthly Investment Report allowance remains separate.'}},
             'line_items':[{'price':self.prices[plan],'quantity':1}],'client_reference_id':user,
             'integration_identifier':'auction_geek_membership_abkqmfzt',
             'success_url':self.origin+'/account/?checkout=returned','cancel_url':self.origin+'/account/'},
@@ -93,6 +94,28 @@ class Billing:
             cursor=sessions[-1]['id']
             if params.get('starting_after')==cursor:raise HTTPException(409,'Checkout cleanup requires retry')
             params=dict(params,starting_after=cursor)
+
+    def _expire_history_checkouts(self,db,user,customer):
+        """A newly entitled subscriber must not retain payable history links."""
+        from .history_access import access
+        if access(self.accounts,user,{},db=db)['kind']!='subscription':return
+        pending=db.execute('''SELECT p.order_id,p.session_id FROM purchases p
+            JOIN history_order_terms t ON t.order_id=p.order_id
+            WHERE p.user_id=? AND p.status='pending' AND p.session_id IS NOT NULL''',(user,)).fetchall()
+        for order in pending:
+            session=plain(self.client.v1.checkout.sessions.retrieve(order['session_id']))
+            if (session.get('customer')!=customer or session.get('client_reference_id')!=user
+                    or session.get('mode')!='payment'
+                    or (session.get('metadata') or {}).get('order_id')!=order['order_id']):
+                raise HTTPException(409,'History checkout ownership requires review')
+            if session.get('status')=='open':
+                try:self.client.v1.checkout.sessions.expire(session['id'])
+                except stripe.InvalidRequestError:
+                    session=plain(self.client.v1.checkout.sessions.retrieve(session['id']))
+                    if session.get('status') not in ('expired','complete'):raise
+                else:session['status']='expired'
+            if session.get('status')=='expired':
+                db.execute("UPDATE purchases SET status='expired' WHERE order_id=? AND user_id=? AND status='pending'",(order['order_id'],user))
 
     def purchase(self,user,product,property_id):
         """Server-priced one-off order. Payment never automatically publishes a listing."""
@@ -324,6 +347,7 @@ class Billing:
                 sub,user=self._subscription(db,event['data']['object']['id'])
                 if user and sub.get('status') in ('active','trialing','past_due','unpaid','paused'):
                     self._expire_membership_checkouts(sub['customer'],user)
+                if user:self._expire_history_checkouts(db,user,sub['customer'])
             if typ in ('invoice.paid','invoice.payment_failed','invoice.voided','invoice.marked_uncollectible'):
                 self._invoice(db,event['data']['object']['id'])
             db.execute('INSERT INTO webhook_events VALUES (?,?)',(event_id,int(time.time())))

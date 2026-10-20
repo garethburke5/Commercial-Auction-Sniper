@@ -42,7 +42,7 @@ function renderCheckoutReturn(){
   }else if(['investor','professional'].includes(checkoutAccount.plan)){
    const name=config?.plans?.[checkoutAccount.plan]?.name||(checkoutAccount.plan==='professional'?'Investor Pro':'Investor');
    heading='Your '+name+' membership is active';
-   detail='Welcome back. Your account membership has been verified.';
+   detail='Welcome back. Your account membership has been verified. Unlimited Premium Property History & Intelligence is included at no extra charge.';
    const balance=checkoutAccount.report_credits;
    if(balance?.period_end)detail+=' '+balance.remaining+' of '+balance.allowance+' included report credits available until '+new Date(balance.period_end*1000).toLocaleDateString('en-GB')+'.';
    detail+=' Report generation remains subject to launch quality approval.';
@@ -149,7 +149,7 @@ async function accountRequest(path,options={},format='json'){
  current();
  const result=await (r.ok&&format==='blob'?r.blob():r.json());
  current();
- if(!r.ok)throw Error(result.detail||'Could not complete the request');return result;
+ if(!r.ok){const error=Error(result.detail||'Could not complete the request');error.status=r.status;throw error;}return result;
 }
 function safePath(p){return typeof p==='string'&&p.startsWith('/')&&!p.startsWith('//')?root+p:root+'/properties/';}
 function access(feature){
@@ -169,7 +169,7 @@ function access(feature){
  document.querySelector('#access-eyebrow').textContent=save?'FREE REGISTERED ACCOUNT':billing?'PLANS & PRICING':'MEMBERSHIP TOOLS';
  document.querySelector('#access-description').textContent=save
   ?'Save is your personal shortlist. Register or sign in for free to keep properties together and return to your research.'
-  :billing?'Secure subscription checkout is being activated. The initial monthly prices are shown on Plans & Pricing; no payment will be taken here.'
+  :billing?'Investor and Investor Pro include unlimited Premium Property History & Intelligence at no extra charge. Secure subscription checkout is being activated. Prices are shown on Plans & Pricing; no payment will be taken here.'
   :'Available with Investor and Investor Pro.';
  const detail=document.querySelector('#access-detail');detail.replaceChildren();
  const p=document.createElement('p');p.className='small';
@@ -197,6 +197,11 @@ function item(row){
  return `<article class="workspace-card"><div>${row.image_url?`<img src="${esc(row.image_url)}" alt="" loading="lazy" width="112" height="84">`:''}<h3>${row.catalogue_missing?esc(row.address):`<a href="${esc(safePath(row.path))}">${esc(row.address)}</a>`}</h3><p>${row.catalogue_missing?'No longer in the current catalogue. You can still remove this property or stop its watch.':`${esc(row.source)} · ${esc(row.guide||money(row.guide_price))}`}</p></div><div class="save-actions"><button data-save="${esc(row.id)}" aria-pressed="${!!p.saved}">${p.saved?'✓ Saved':'♡ Save'}</button><button data-watch="${esc(row.id)}" aria-pressed="${!!p.watched&&can('watch')}">${p.watched?(can('watch')?'◉ Watching':'Stop Watch'):'○ Watch'}</button></div><details><summary>My notes & bid target</summary>${notes}</details></article>`;
 }
 function render(){
+ const historyStatus=document.querySelector('#account-history-status'),historyAccess=checkoutAccount?.history_access;
+ if(historyStatus)historyStatus.textContent=!preview&&signedIn()&&historyAccess?.allowed
+  ?historyAccess.kind==='subscription'?'Included with your membership — unlimited Premium Property History & Intelligence. No extra charge and no report credits used.':'Your history pass is active until '+new Date(historyAccess.expires_at*1000).toLocaleString('en-GB')+'.'
+  :'Unlimited Premium Property History & Intelligence is included with Investor and Investor Pro. Permanent property unlocks and 24-hour Day Passes are also available when purchases open.';
+
  const emailToggle=document.querySelector('#email-alerts-enabled'),emailStatus=document.querySelector('#email-alerts-status');
  if(emailToggle){
   const pref=checkoutAccount?.alert_preferences;

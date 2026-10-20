@@ -318,7 +318,9 @@ def test_postgres_monitoring_job_claim_and_recovery(pg_accounts,site):
 
 def test_postgres_history_entitlement_and_rls(pg_accounts):
     from web_platform.history_access import access,subject_key
+    from web_platform.tests.test_history_memberships import check_cancelled_paid_through
     a=pg_accounts;a.ensure('alice');a.ensure('bob')
+    check_cancelled_paid_through(a,{'address':'1 High Street, AB1 2CD','tenure':'Freehold'})
     row={'address':'1 High Street, AB1 2CD','tenure':'Freehold'}
     with a.db() as db:
         begin_write(db)

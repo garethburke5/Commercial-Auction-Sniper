@@ -91,7 +91,7 @@ def test_public_offer_controls_and_configurable_prices(site,monkeypatch):
     assert CATALOGUE['investor']['included_reports']==1
     assert CATALOGUE['professional']['included_reports']==3
     assert [CATALOGUE[p]['additional_report_gbp'] for p in ('free','investor','professional')]==[19,15,12]
-    assert len(plans.select('.comparison-scroll table tbody tr'))==10
+    assert len(plans.select('.comparison-scroll table tbody tr'))==11
     assert 'quality checks' in plans.get_text()
     monkeypatch.setitem(CATALOGUE['investor'],'monthly_gbp',17)
     assert '£17' in dict(site.routes())['/plans/']

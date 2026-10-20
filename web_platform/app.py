@@ -180,8 +180,9 @@ def create_app(site=None):
             refresh_searches(a,uid,{row['id']:row for row in current.properties},current.snapshot)
         deals=workspace_rows(a)
         from .report_credits import balance
+        from .history_access import access as history_access
         from .alert_delivery import preferences
-        return {'alert_preferences':preferences(a,uid),'plan':plan,'features':sorted(PLANS[plan]),'billing':a.billing_status(uid),'report_credits':balance(a,uid),'is_owner':is_owner(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals,monitoring_stamp=observed_stamp)}
+        return {'history_access':history_access(a,uid,{}),'alert_preferences':preferences(a,uid),'plan':plan,'features':sorted(PLANS[plan]),'billing':a.billing_status(uid),'report_credits':balance(a,uid),'is_owner':is_owner(uid),'saved_properties':saved,'purchases':a.purchases(uid),'workspace':dashboard(a,uid,rows|deals,monitoring_rows=trusted|deals,monitoring_stamp=observed_stamp)}
     @app.get('/api/admin/preview/{plan}')
     def owner_preview(plan:str,authorization:str|None=Header(default=None)):
         uid,_,_=user(authorization);require_owner(uid)

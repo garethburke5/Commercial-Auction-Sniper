@@ -17,14 +17,23 @@ print('</main></body></html>')
   const page=await browser.newPage({viewport:{width,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.route('https://preview.example/**',r=>r.fulfill({contentType:r.request().url().endsWith('.json')?'application/json':'text/html',body:r.request().url().endsWith('.json')?'{}':html}));
   await page.goto('https://preview.example/property/example/');
-  await page.addScriptTag({content:`window.signed=false;window.AuctionWorkspace={canReturnToReport:()=>window.signed,api:async()=>window.delayed?new Promise(resolve=>window.release=resolve):{html:'<p>Private earlier guide £123,456</p>',access:{expires_at:null}}};`});
+  await page.addScriptTag({content:`window.signed=false;window.calls=[];window.grant={kind:'subscription',expires_at:Math.floor(Date.now()/1000)+3600};window.AuctionWorkspace={canReturnToReport:()=>window.signed,api:async(path)=>{window.calls.push(path);if(path==='/api/history/products')return {purchases_available:true,products:{property_history:{enabled:true},history_day_pass:{enabled:true}}};if(window.deny){const e=Error('Premium history access is required');e.status=403;throw e;}return window.delayed?new Promise(resolve=>window.release=resolve):{html:'<p>Private earlier guide £123,456</p>',access:window.grant};}};`});
   await page.addScriptTag({content:fs.readFileSync('web_platform/static/history.js','utf8')});
   assert.equal(await page.locator('[data-history-buy=property_history] strong').textContent(),'£2.99');
   assert(await page.locator('[data-history-buy=property_history]').isDisabled());
   await page.locator('[data-history-load]').click();assert.match(await page.locator('[data-history-status]').textContent(),/Sign in/);
-  await page.evaluate(()=>window.signed=true);await page.locator('[data-history-load]').click();
+  assert.equal(await page.evaluate(()=>window.calls.length),0);
+  await page.evaluate(()=>{window.signed=true;dispatchEvent(new Event('auction-auth-change'));});
   await page.waitForFunction(()=>document.querySelector('[data-history-content]').textContent.includes('£123,456'));
-  await page.evaluate(()=>{window.signed=false;dispatchEvent(new Event('auction-auth-change'));});
+  assert.match(await page.locator('[data-history-status]').textContent(),/Included with your membership/);
+  assert(!(await page.locator('[data-history-preview]').isVisible()));
+  assert.equal(await page.evaluate(()=>window.calls.filter(x=>x==='/api/history/products').length),0);
+  // A pass expiring on an open page clears the data and restores the free choices.
+  await page.evaluate(()=>{window.grant={kind:'history_day_pass',expires_at:Date.now()/1000+0.4};dispatchEvent(new Event('auction-auth-change'));});
+  await page.waitForFunction(()=>document.querySelector('[data-history-status]').textContent.startsWith('History access until'));
+  await page.evaluate(()=>window.deny=true);
+  await page.waitForFunction(()=>document.querySelector('[data-history-content]').hidden&&!document.querySelector('[data-history-buy=property_history]').disabled);
+  await page.evaluate(()=>{window.deny=false;window.signed=false;dispatchEvent(new Event('auction-auth-change'));});
   assert.equal(await page.locator('[data-history-content]').textContent(),'');
   await page.evaluate(()=>{window.signed=true;window.delayed=true;});await page.locator('[data-history-load]').click();
   await page.waitForFunction(()=>!!window.release);
@@ -32,7 +41,13 @@ print('</main></body></html>')
   await page.waitForTimeout(30);assert.equal(await page.locator('[data-history-content]').textContent(),'');
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.deepEqual(errors,[]);
   fs.mkdirSync('test-artifacts',{recursive:true});await page.screenshot({path:`test-artifacts/history-${width}.png`,fullPage:true});
-  console.log(`${width}px: visible pricing, signed-out denial, sign-out clearance, stale-response isolation, no overflow`);await page.close();
+  // Existing signed-in session on navigation opens history without a click or auth event.
+  await page.goto('https://preview.example/property/example/');
+  await page.addScriptTag({content:`window.AuctionWorkspace={canReturnToReport:()=>true,api:async()=>({html:'<p>Already signed in</p>',access:{kind:'subscription',expires_at:null}})};`});
+  await page.addScriptTag({content:fs.readFileSync('web_platform/static/history.js','utf8')});
+  await page.waitForFunction(()=>document.querySelector('[data-history-content]').textContent.includes('Already signed in'));
+  assert(!(await page.locator('[data-history-preview]').isVisible()));
+  console.log(`${width}px: automatic membership access, no duplicate purchase offer, pass expiry, sign-out and stale-response isolation`);await page.close();
  }
  await browser.close();
 })().catch(e=>{console.error(e);process.exit(1)});

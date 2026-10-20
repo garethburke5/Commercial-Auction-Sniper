@@ -1,5 +1,5 @@
 <section id="history" class="premium-history" data-history-property="{{ row.id }}">
- <div class="history-preview-heading"><div><p class="eyebrow">LOOK BEYOND TODAY’S LISTING</p><h2>Property History &amp; Investment Intelligence</h2></div><span class="history-lock" aria-label="Premium access"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg></span></div>
+ <div class="history-preview-heading"><div><p class="eyebrow">LOOK BEYOND TODAY’S LISTING</p><h2>Premium Property History &amp; Intelligence</h2></div><span class="history-lock" aria-label="Premium access"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg></span></div>
  <div data-history-preview>
  {% if history_preview.previous_appearances %}<p class="history-found"><strong>{{ history_preview.previous_appearances }} earlier auction appearance{{ 's' if history_preview.previous_appearances != 1 else '' }} identified.</strong> Compare the recorded prices, income and outcomes with this listing.</p>
  {% elif history_preview.has_changes %}<p class="history-found"><strong>Changes to this property’s listing have been recorded.</strong> Explore how the advertised terms have changed.</p>
@@ -7,10 +7,10 @@
  {% if history_preview.previous_appearances or history_preview.has_changes %}
  <div class="history-preview-points"><div><b>Previous guides &amp; results</b><span>See what was advertised and the result recorded</span></div><div><b>Rental &amp; lease changes</b><span>Compare the income and terms across appearances</span></div><div><b>Original auction evidence</b><span>Follow the sources behind the historical records</span></div></div>
  <div class="history-unlock-options">
- <button type="button" data-history-buy="property_history" disabled><span>This property</span><strong>{{ plans.history_products.property_history.price_label }}</strong><small>Permanent history access</small></button>
+ <button type="button" data-history-buy="property_history" disabled><span>Unlock this property’s history</span><strong>{{ plans.history_products.property_history.price_label }}</strong><small>Permanent history access</small></button>
  <button type="button" data-history-buy="history_day_pass" disabled><span>All property histories</span><strong>{{ plans.history_products.history_day_pass.price_label }}</strong><small>24-hour Day Pass</small></button>
  </div>
- <p class="small">History purchases are coming soon. Investor memberships include premium history access. Full Investment Reports are a separate product.</p>
+ <p><a class="textlink" href="{{ url('/plans/#investor') }}">Get unlimited Premium Property History with Investor membership — £{{ plans.investor.monthly_gbp }}/month →</a></p><p class="small">Unlimited Premium Property History &amp; Intelligence is included with Investor and Investor Pro at no extra charge. History purchases are coming soon. Full Investment Reports use your separate report allowance or a one-off purchase.</p>
  {% endif %}
  <div class="history-preview-actions"><a class="textlink" href="{{ url('/account/') }}">Sign in to your account →</a><button type="button" class="button outline" data-history-load>Check my history access</button></div>
  </div>

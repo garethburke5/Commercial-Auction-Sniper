@@ -37,9 +37,16 @@ def access(accounts, user, row, *, now=None, db=None):
     now = int(time.time()) if now is None else now
     key = subject_key(row)
     def check(con):
-        membership = con.execute("SELECT plan FROM subscriptions WHERE user_id=? AND status IN ('active','trialing') AND valid_until>?", (user,now)).fetchall()
-        if any(r['plan'] in ('investor','professional','business') for r in membership):
-            return {'allowed':True, 'kind':'subscription', 'expires_at':None}
+        membership = con.execute('''SELECT s.plan,s.valid_until FROM subscriptions s
+            WHERE s.user_id=? AND s.valid_until>? AND (
+                s.status IN ('active','trialing') OR
+                (s.status='canceled' AND EXISTS (
+                    SELECT 1 FROM report_credit_periods p
+                    WHERE p.subscription_id=s.subscription_id AND p.user_id=s.user_id
+                    AND p.status='paid' AND p.period_start<=? AND p.period_end>=s.valid_until)))''', (user,now,now)).fetchall()
+        ends=[r['valid_until'] for r in membership if CATALOGUE.get(r['plan'],{}).get('premium_history') or r['plan']=='business']
+        if ends:
+            return {'allowed':True, 'kind':'subscription', 'expires_at':max(ends)}
         grants = con.execute('''SELECT p.product,t.subject_key,t.expires_at FROM purchases p
             JOIN history_order_terms t ON t.order_id=p.order_id
             WHERE p.user_id=? AND p.status='paid_awaiting_fulfilment' AND t.paid_at IS NOT NULL''', (user,)).fetchall()

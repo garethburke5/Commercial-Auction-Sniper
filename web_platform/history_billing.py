@@ -9,6 +9,8 @@ from .history_access import PRODUCTS, access, offers, sales_ready, subject_key
 def purchase(billing,user,product,row,*,sandbox=False):
     from .billing import plain
     if product not in PRODUCTS:raise HTTPException(400,'Unknown history product')
+    if access(billing.accounts,user,row)['allowed']:
+        raise HTTPException(409,'You already have access to this property history')
     if sandbox:
         from .accounts import require_owner
         require_owner(user)
@@ -75,13 +77,18 @@ def purchase(billing,user,product,row,*,sandbox=False):
     if tax_rates:line['tax_rates']=tax_rates
     session=billing.client.v1.checkout.sessions.create({
         'customer':customer,'mode':'payment','line_items':[line], 'client_reference_id':user,
+        'custom_text':{'submit':{'message':'Active Investor and Investor Pro members already have unlimited Premium Property History & Intelligence included. Do not purchase additional history access if your membership already covers it.'}},
         'metadata':{'order_id':order_id}, 'payment_intent_data':{'metadata':{'order_id':order_id}},
         'integration_identifier':'auction_geek_history_qmztbskv',
         'success_url':billing.origin+row['path']+'?history_purchase=returned#history',
         'cancel_url':billing.origin+row['path']+'#history'},
         options={'idempotency_key':'history-order-'+order_id})
     with billing.accounts.db() as db:
+        begin_write(db)
         db.execute('UPDATE purchases SET session_id=? WHERE order_id=?',(session['id'],order_id))
+        included=access(billing.accounts,user,row,db=db)['kind']=='subscription'
+        if included:billing._expire_history_checkouts(db,user,customer)
+    if included:raise HTTPException(409,'You already have access to this property history')
     return session['url']
 
 def validate_payment(db,order,session,intent,charge,test):

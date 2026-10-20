@@ -111,6 +111,13 @@ useful free listings/snapshots, £0 advertising and SEO retained. See
 
 History work does not approve or supersede R1–R9. Paid reports remain closed.
 
+### Subscriber history benefit
+
+- Investor (£15/month) and Investor Pro (£25/month) include unlimited Premium Property History & Intelligence, with no history fees or report-credit consumption. Existing report allowances and prices are unchanged.
+- Pricing cards/table, history previews/directory, account dashboard, membership and history checkout copy, and FAQs now explain this benefit and the £2.99 property / £5 Day Pass alternatives.
+- The authenticated history API checks membership on the server. The browser opens included history automatically, hides purchase offers, shows “Included with your membership”, and rechecks access at the paid-through time. Cancelled subscriptions retain history only where an unexpired paid invoice period supports access; permanent purchases remain independent.
+- Duplicate purchases are rejected before Stripe setup and again within the write transaction. Verified subscription updates close previously opened history checkouts. Hosted browser/PostgreSQL and main-domain deployment verification must pass before claiming live acceptance; existing paid-launch gates remain closed.
+
 ### Evening verification and collector repair
 
 - Public workflow `39499771880` passed the platform/report suite, Chromium account/evidence/history checks, static export and Pages publication for `7739e226`. Hosted PostgreSQL checks also passed. This is not confirmation that Cloudflare has updated the main domain.
