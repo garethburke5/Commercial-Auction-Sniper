@@ -503,8 +503,8 @@ this collection and must be reconciled source by source before import.
 
 ## Continuation
 
-20 October: the owner resumed archive work. Scheduled runs now perform two
-rotating tasks, each capped at ten minutes, recording failures/timeouts separately
+20 October: the owner resumed archive work. Scheduled runs now rotate through 50 existing archive tasks, running four
+tasks per batch, each capped at five minutes, recording failures/timeouts separately
 from captured-lot counts. `continuation_collection.json` preserves the next task.
 Explicit `all` and `retained-legacy` dispatches remain available for broader work.
 The rebuilt database is also committed in checksum-verified parts under
@@ -528,3 +528,11 @@ counted complete, but it no longer consumes a harvest slot on every run while
 later first-party result sheets remain usable. Transient download and parser
 failures still fail the pass. Successfully banked sheets with non-contiguous
 published numbering remain explicitly incomplete and are not downloaded again.
+
+The target is every UK auctioneer's individual lots over the preceding 20 years,
+with guide ranges, reported sale prices, outcomes and original evidence wherever
+available. Older recovered records are retained. `progress.json` now includes
+`twenty_year_coverage`: populated price fields and sold-without-price counts by
+auctioneer/year, with unknown and future dates separated. Missing years and
+missing prices do not imply zero auctions or a zero sale price. These counts
+measure stored evidence, not verified national completeness.

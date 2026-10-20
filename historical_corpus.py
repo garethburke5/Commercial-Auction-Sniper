@@ -806,6 +806,8 @@ def _build_database(in_memory=False):
                          "Exact address groups are not a verified count of unique physical buildings.",
                          "Completeness refers to surviving published catalogue content, not all lots originally offered.",
                          "Legacy partial lots retain location and lot number; missing street addresses remain null."]}
+    from scripts.historical_price_coverage import coverage
+    report["twenty_year_coverage"] = coverage(con)
     paul_state = DATA / "paul_fosh_collection.json"
     if paul_state.exists():
         report["paul_fosh_results"] = json.loads(paul_state.read_text())

@@ -14,11 +14,29 @@ Do not report all jobs complete from passing software tests or a few specimen PD
 | Refund rejected one-off reports | Durable outbox, current-payment verification, duplicate prevention and scheduled retry implemented. Real Stripe sandbox refund acceptance remains open. Paid sales stay closed. |
 | Exhausted processing retries | Third failed customer attempt enters settlement; owner validation and included updates cannot create compensation for an unpaid job. |
 | Restore current scanning | Latest scheduled runs 39334268851 and 39371647710 stopped at the Savills Hanover tenure regression, before collection. Parser correction published in `514d71d`; 1,039 collector tests plus 22 subtests passed. Production run `39402418825` passed regression checks and reached collection; fresh publication remains pending. |
-| Resume historical collection | Existing workflow was explicitly disabled on 8 October. Resumed with two rotating ten-minute tasks per scheduled run and persisted outcomes. Runs `39402418694` and `39403320245` completed and committed checkpoints `91b1a724` and `5ff31149`. Neither batch added appearances or addresses; total remains 270,629. The six-hour schedule is active; this is automated collection, not a promise of an agent working between conversations. |
+| Resume historical collection | Existing workflow was explicitly disabled on 8 October. Initially resumed with two rotating ten-minute tasks; expanded to four five-minute tasks from a 50-task rotation, with persisted outcomes. Runs `39402418694` and `39403320245` completed and committed checkpoints `91b1a724` and `5ff31149`. Neither batch added appearances or addresses; total remains 270,629. The six-hour schedule is active; this is automated collection, not a promise of an agent working between conversations. |
 | Publish the actual rebuilt historical database | Existing compressed database is 99,928,416 bytes; old workflow could commit newer counts while leaving the older database above its 99 MB staging threshold. Verified multipart delivery is implemented and the site reader prefers it. The rebuilt 144,216,157-byte compressed database was checkpointed successfully in five parts; legacy storage is retained. |
 | Measured coverage audit | `coverage-audit-2026-10-20.json` records the current retained source evidence. A reusable audit command is included. No national denominator has been established. |
 
 ## Comprehensive coverage and historical database
+
+Owner scope clarified on 20 October: every UK auction house, every past auction
+over the preceding 20 years (currently 20 October 2006 onward), every individual
+property lot and all property types. Capture advertised guide/range and reported
+sale price wherever published, with outcome, auction date and original evidence.
+Retain older records too. The earlier Savills-to-2013 target is a recovery
+milestone, not the limit of the programme. A sold lot with an undisclosed price
+must retain its sold status and a missing price, never an inferred amount.
+
+Each rebuilt corpus now measures 20-year holdings by auctioneer and year,
+including guide-price counts, sale-price counts, both-price counts and sold lots
+missing a sale amount. Unknown/future dates are counted separately. This measures
+stored evidence; it does not certify coverage of all auctions or all auctioneers.
+The scheduled continuation has been expanded from ten tasks to 50 existing
+archive tasks, including the regional Auction House collectors. It runs four
+five-minute tasks per six-hour batch, preserving the existing 20-minute collection
+budget and each saved checkpoint. It still needs reconciliation against the full
+UK registry: a supported collector is not proof of 20-year coverage.
 
 | ID | Job | Completion evidence required |
 |---|---|---|

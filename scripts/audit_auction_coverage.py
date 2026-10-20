@@ -33,7 +33,7 @@ def audit(snapshot,history,registry):
             'records_with_address','partial_lot_records','exact_address_groups',
             'groups_with_repeat_appearances','by_auctioneer','by_sector','by_year',
             'surviving_catalogues_completely_harvested','catalogues_incomplete_or_unreconciled',
-            'catalogue_fetch_or_parse_failures','limits')},
+            'catalogue_fetch_or_parse_failures','twenty_year_coverage','limits')},
         'priority_assessments':assessments,
         'limits':['Current source health covers the collectors configured for the commercial board, not every UK auctioneer.',
             'Historical appearances include repeat listings and residential lots; they are not unique physical buildings.',
