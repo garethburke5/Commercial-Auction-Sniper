@@ -275,3 +275,27 @@
 #evidence-detail{scroll-margin-top:5rem;overflow-wrap:anywhere}#evidence-detail:empty{display:none}.evidence-page{padding:1rem 0}.evidence-page blockquote{margin:.75rem 0;padding:1rem;border-left:3px solid #246b70;background:#edf2f3;white-space:pre-wrap;line-height:1.65}.evidence-page mark{background:#fff1a6;color:#193444}.evidence-page details p{white-space:pre-wrap;line-height:1.65}
 #evidence-list .textlink{white-space:normal;text-align:left;line-height:1.5}#my-evidence{margin:1.5rem 0}
 @media(max-width:600px){.report-evidence{padding:1rem}.evidence-page blockquote{padding:.75rem}}
+
+/* Make the paid report and its price visible beside the free product. */
+.report-offer{padding:28px;border:1px solid #183c57;border-radius:12px;background:#182e48;color:#fff;margin:30px 0;box-shadow:0 8px 24px #182e4812}
+.report-offer-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.report-offer .eyebrow{color:#efd59d;margin:0 0 9px}
+.report-offer h2{font-size:1.65rem;margin:0;color:#fff}
+.report-offer-price{flex:none;padding:12px 20px;border-radius:9px;background:#f3d69b;color:#182e48;text-align:center}
+.report-offer-price strong{display:block;font-size:2.6rem;font-weight:850;line-height:1.1;letter-spacing:-.04em}
+.report-offer-price span{display:block;font-size:.72rem;font-weight:650;margin-top:4px}
+.report-offer>p{color:#e0e8f0;max-width:700px}
+.report-offer-benefits{display:flex;gap:10px 22px;flex-wrap:wrap;padding:0;list-style:none;font-size:.83rem;margin:18px 0 24px}
+.report-offer-benefits li::before{content:'✓';color:#f3d69b;font-weight:800;margin-right:8px}
+.report-offer-actions{display:flex;align-items:center;gap:14px 20px;flex-wrap:wrap}
+.report-offer-actions .button{background:#f3d69b;border-color:#f3d69b;color:#182e48;font-size:.87rem;padding:12px 20px}
+.report-offer-actions .button:hover{background:#ffe6b6;border-color:#ffe6b6;color:#182e48}
+.report-offer-actions>span{font-size:.8rem;color:#e0e8f0}
+.report-offer .report-offer-availability{font-size:.74rem;line-height:1.6;color:#c4d3e1;margin:18px 0 0}
+.report-offer-shortcut{display:flex;align-items:center;gap:12px;border:1px solid #dec389;background:#fff8e9;border-radius:8px;padding:12px 14px;margin:15px 0;text-decoration:none;color:#182e48;font-size:.82rem;font-weight:750}
+.report-offer-shortcut>span:first-child{flex:1;min-width:0;line-height:1.35}
+.report-offer-shortcut small{display:block;font-size:.65rem;font-weight:500;margin-top:5px;color:#536071}
+.report-offer-shortcut strong{font-size:1.65rem;line-height:1.2;white-space:nowrap}
+.report-offer-shortcut:hover{background:#ffedc7;color:#182e48;border-color:#b98429}
+.report-offer a:focus-visible,.report-offer-shortcut:focus-visible{outline:3px solid #b98429;outline-offset:4px}
+@media(max-width:650px){.report-offer{padding:22px 18px}.report-offer h2{font-size:1.4rem}.report-offer-heading{gap:16px}.report-offer-price{padding:10px 16px}.report-offer-benefits{display:grid;gap:10px}.report-offer-actions .button{width:100%}}
