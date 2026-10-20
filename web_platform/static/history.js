@@ -3,10 +3,14 @@
 const panel=document.querySelector('[data-history-property]');if(!panel)return;
 const content=panel.querySelector('[data-history-content]'),preview=panel.querySelector('[data-history-preview]'),status=panel.querySelector('[data-history-status]');
 let epoch=0,expiry;
-function clear(){epoch++;clearTimeout(expiry);content.replaceChildren();content.hidden=true;preview.hidden=false;status.textContent='';}
+function clear(){epoch++;clearTimeout(expiry);content.replaceChildren();content.hidden=true;preview.hidden=false;status.textContent='';panel.querySelectorAll('[data-history-buy]').forEach(b=>b.disabled=true);}
+async function availability(current){
+ try{const result=await window.AuctionWorkspace.api('/api/history/products');if(current!==epoch)return;if(result?.purchases_available)panel.querySelectorAll('[data-history-buy]').forEach(b=>{b.disabled=!result.products[b.dataset.historyBuy]?.enabled;});}catch(_){}
+}
 async function load(){
  clear();const current=epoch,workspace=window.AuctionWorkspace;
  if(!workspace?.canReturnToReport()){status.textContent='Sign in to check your property history access.';return;}
+ availability(current);
  status.textContent='Checking your history access…';
  try{
   const result=await workspace.api('/api/history/'+encodeURIComponent(panel.dataset.historyProperty));
@@ -26,8 +30,6 @@ panel.querySelectorAll('[data-history-buy]').forEach(button=>button.addEventList
  try{const result=await workspace.api('/api/history/checkout','POST',{product:button.dataset.historyBuy,property_id:panel.dataset.historyProperty});location.assign(result.url);}
  catch(error){status.textContent=error.message;button.disabled=false;}
 }));
-// Availability comes from the server; the page cannot enable a payment grant.
-fetch((document.body.dataset.prefix||'')+'/platform-config.json',{cache:'no-store'}).then(r=>r.json()).then(config=>{if(!config.api_origin)return null;return fetch(config.api_origin+'/api/history/products',{cache:'no-store'});})
- .then(r=>r?.ok?r.json():null).then(result=>{if(result?.purchases_available)panel.querySelectorAll('[data-history-buy]').forEach(b=>{b.disabled=!result.products[b.dataset.historyBuy]?.enabled;});}).catch(()=>{});
+// Anonymous browsing never calls the private API just to display prices.
 if(new URLSearchParams(location.search).get('history_purchase')==='returned')status.textContent='Payment confirmation can take a moment. Sign in and check your history access. Please do not pay again.';
 })();
