@@ -62,6 +62,17 @@ CREATE TABLE IF NOT EXISTS report_generation_attempts(
  PRIMARY KEY(review_id,attempt));
 
 
+
+CREATE TABLE IF NOT EXISTS report_rejections(
+ review_id TEXT PRIMARY KEY,user_id TEXT NOT NULL,created_at BIGINT NOT NULL,reason TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS report_credit_returns(
+ review_id TEXT PRIMARY KEY,user_id TEXT NOT NULL,created_at BIGINT NOT NULL,
+ replacement_review_id TEXT UNIQUE);
+CREATE TABLE IF NOT EXISTS report_refunds(
+ order_id TEXT PRIMARY KEY,review_id TEXT NOT NULL,user_id TEXT NOT NULL,
+ status TEXT NOT NULL,refund_id TEXT,updated_at BIGINT NOT NULL);
+CREATE INDEX IF NOT EXISTS report_refunds_due ON report_refunds(status,updated_at);
+
 CREATE TABLE IF NOT EXISTS alert_preferences(
  user_id TEXT PRIMARY KEY,auth_subject TEXT NOT NULL,email TEXT NOT NULL,enabled INTEGER NOT NULL,
  enabled_at BIGINT NOT NULL,unsubscribe_token TEXT NOT NULL UNIQUE,updated_at BIGINT NOT NULL);

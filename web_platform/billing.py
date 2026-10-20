@@ -121,6 +121,8 @@ class Billing:
                 if not property_id.startswith('review:') or not db.execute('SELECT 1 FROM reviews WHERE id=? AND user_id=?',(rid,user)).fetchone():
                     raise HTTPException(404,'Report not found')
                 report=json.loads(db.execute('SELECT report_json FROM reviews WHERE id=? AND user_id=?',(rid,user)).fetchone()[0])
+                if db.execute('SELECT 1 FROM report_rejections WHERE review_id=? AND user_id=?',(rid,user)).fetchone():
+                    raise HTTPException(409,'This report was not approved for delivery. Do not pay again for it.')
                 intake=report.get('_intake')
                 if intake and (intake.get('parent_review_id') or not intake.get('scope_accepted')):
                     raise HTTPException(409,'Confirm the report evidence scope; included document updates do not require another purchase')
@@ -159,7 +161,7 @@ class Billing:
             if isinstance(intent,str):intent=plain(self.client.v1.payment_intents.retrieve(intent,{'expand':['latest_charge']}))
             charge=intent.get('latest_charge') or {}
             if isinstance(charge,str):charge=plain(self.client.v1.charges.retrieve(charge))
-            if order['status'] in ('refund_review','payment_review'):status=order['status']
+            if order['status'] in ('refund_review','payment_review','quality_refund_pending','quality_refunded'):status=order['status']
             elif charge.get('refunded') or charge.get('amount_refunded',0)>0:status='refund_review'
             elif charge.get('disputed'):status='payment_review'
             elif session.get('payment_status')=='paid' and session.get('status')=='complete':status='paid_awaiting_fulfilment'

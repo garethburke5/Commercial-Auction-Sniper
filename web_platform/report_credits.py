@@ -8,6 +8,7 @@ import time,json
 from fastapi import HTTPException
 from .database import begin_write
 from .plans import CATALOGUE
+from .report_resolution import SCHEMA as RESOLUTION_SCHEMA, returned_credits
 
 SCHEMA = '''
 CREATE TABLE IF NOT EXISTS report_credit_periods(
@@ -26,7 +27,7 @@ CREATE TABLE IF NOT EXISTS report_generation_attempts(
  started_at BIGINT NOT NULL,finished_at BIGINT,status TEXT NOT NULL,
  upload_bytes BIGINT NOT NULL,upload_files INTEGER NOT NULL,metrics_json TEXT,
  PRIMARY KEY(review_id,attempt));
-'''
+''' + RESOLUTION_SCHEMA
 
 
 def allowance(plan):
@@ -45,27 +46,37 @@ def current_period(db, user, now):
     for row in rows:
         p=dict(row);p['allowance']=min(p['allowance'],allowance(p['current_plan']))
         p['used']=db.execute('''SELECT COUNT(*) FROM report_credit_redemptions
-            WHERE user_id=? AND created_at>=? AND created_at<?''',
+            WHERE user_id=? AND created_at>=? AND created_at<?
+            AND NOT EXISTS (SELECT 1 FROM report_credit_returns c
+                WHERE c.replacement_review_id=report_credit_redemptions.review_id)''',
             (user,p['period_start'],p['period_end'])).fetchone()[0]
         p['remaining']=max(0,p['allowance']-p['used']);choices.append(p)
     return max(choices,key=lambda p:(p['remaining'],p['period_start'],p['subscription_id']),default=None)
 
 
 def balance(accounts,user):
-    with accounts.db() as db:p=current_period(db,user,int(time.time()))
-    return ({k:p[k] for k in ('allowance','used','remaining','period_start','period_end')} if p
+    with accounts.db() as db:
+        p=current_period(db,user,int(time.time()))
+        replacements=len(returned_credits(db,user))
+    result=({k:p[k] for k in ('allowance','used','remaining','period_start','period_end')} if p
             else {'allowance':0,'used':0,'remaining':0,'period_start':None,'period_end':None})
+    if replacements:
+        result['replacement_credits']=replacements
+        result['remaining']+=replacements
+    return result
 
 
 def credit_access(db,user,rid):
     return bool(db.execute('''SELECT 1 FROM report_credit_redemptions r
         JOIN report_credit_periods p ON p.subscription_id=r.subscription_id AND p.period_start=r.period_start
-        WHERE r.user_id=? AND r.review_id=? AND p.user_id=? AND p.status='paid' ''',(user,rid,user)).fetchone())
+        WHERE r.user_id=? AND r.review_id=? AND p.user_id=? AND p.status='paid'
+        AND NOT EXISTS (SELECT 1 FROM report_credit_returns c WHERE c.review_id=r.review_id)''',(user,rid,user)).fetchone())
 
 
 def report_access(db,user,rid):
     saved=db.execute('SELECT report_json FROM reviews WHERE id=? AND user_id=?',(rid,user)).fetchone()
     if saved and json.loads(saved['report_json']).get('_validation'):return False
+    if db.execute('SELECT 1 FROM report_rejections WHERE review_id=? AND user_id=?',(rid,user)).fetchone():return False
     def direct(target):
         return credit_access(db,user,target) or bool(db.execute("SELECT 1 FROM purchases WHERE user_id=? AND product='legal_pack_report' AND property_id=? AND status='paid_awaiting_fulfilment'",(user,'review:'+target)).fetchone())
     if direct(rid):return True
@@ -86,6 +97,8 @@ def redeem(accounts,user,rid):
         begin_write(db)
         report=db.execute('SELECT id,report_json FROM reviews WHERE id=? AND user_id=?',(rid,user)).fetchone()
         if not report:raise HTTPException(404,'Report not found')
+        if db.execute('SELECT 1 FROM report_rejections WHERE review_id=? AND user_id=?',(rid,user)).fetchone():
+            raise HTTPException(409,'This report was not approved for delivery. Use another property for a new report.')
         if json.loads(report['report_json']).get('_validation'):
             raise HTTPException(409,'Private validation specimens cannot consume report credits')
         intake=json.loads(report['report_json']).get('_intake',{})
@@ -103,7 +116,16 @@ def redeem(accounts,user,rid):
             raise HTTPException(409,'Resolve the existing report payment before using a credit')
         if db.execute('SELECT 1 FROM report_credit_redemptions WHERE review_id=?',(rid,)).fetchone():
             raise HTTPException(409,'This report credit requires payment review')
-        now=int(time.time());p=current_period(db,user,now)
+        now=int(time.time())
+        replacements=returned_credits(db,user)
+        if replacements:
+            replacement=replacements[0]
+            db.execute('INSERT INTO report_credit_redemptions VALUES (?,?,?,?,?)',
+                       (rid,user,replacement['subscription_id'],replacement['period_start'],now))
+            db.execute('UPDATE report_credit_returns SET replacement_review_id=? WHERE review_id=?',
+                       (rid,replacement['review_id']))
+            return {'already_unlocked':False,'redeemed':True,'replacement_credit':True}
+        p=current_period(db,user,now)
         if not p or not p['remaining']:raise HTTPException(402,'No included report credits remain for this billing month')
         db.execute('INSERT INTO report_credit_redemptions VALUES (?,?,?,?,?)',
                    (rid,user,p['subscription_id'],p['period_start'],now))

@@ -411,7 +411,11 @@ async function loadAccount(){
  for(const id of remote.saved_properties)state.properties[id]={...state.properties[id],saved:true,property:index[id]||state.properties[id]?.property};
  state.searches=remote.workspace.saved_searches.map(s=>({...s,id:s.search_id}));state.events=remote.workspace.events;
  const credits=document.querySelector('#report-credit-balance'),balance=remote.report_credits;
- if(credits&&balance)credits.textContent=balance.period_end?`${balance.remaining} of ${balance.allowance} included report credits available until ${new Date(balance.period_end*1000).toLocaleDateString('en-GB')}. Unused credits do not roll over.`:'No included report credits are available. Full Investment Reports remain under quality review.';
+ if(credits&&balance){
+  const replacements=balance.replacement_credits||0,monthly=balance.remaining-replacements;
+  const monthlyText=balance.period_end?`${monthly} of ${balance.allowance} monthly report credits available until ${new Date(balance.period_end*1000).toLocaleDateString('en-GB')}. Unused monthly credits do not roll over.`:'No monthly report credits are available.';
+  credits.textContent=monthlyText+(replacements?` ${replacements} replacement report credit${replacements===1?'':'s'} available; these remain available after membership ends.`:'')+' Full Investment Reports remain under quality review.';
+ }
  const reviews=document.querySelector('#account-reviews');
  if(reviews)reviews.innerHTML=remote.workspace.reviews.map(r=>`<p><a href="${root}/due-diligence/?review=${encodeURIComponent(r.id)}">Saved property research · ${new Date(r.created_at*1000).toLocaleDateString('en-GB')}</a></p>`).join('');
  const evidence=document.querySelector('#account-evidence');

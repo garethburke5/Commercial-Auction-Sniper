@@ -37,7 +37,7 @@ def install(app,site,user):
             raise HTTPException(403,'Supporting evidence requires access to the completed report')
         if not report.get('investigation'):raise HTTPException(409,'Supporting evidence is unavailable for this older report')
         return linked_report(rid,report),public_free
-    def payload(rid,report,full=False,job=None,owner=False):
+    def payload(rid,report,full=False,job=None,owner=False,resolution=None):
         report=dict(report)
         if job and job['status'] in ('processing','failed'):
             report['analysis_state']=job['status']
@@ -86,6 +86,11 @@ def install(app,site,user):
                 report.get('completed_at',0)>=int(time.time())-30*86400)
         if validation:
             if state=='failed':result['html']='<p class="research-scope">Validation did not finish. Review the usage record before retrying.</p>'+result['html']
+        elif resolution:
+            result['resolution']=resolution
+            result['processing_allowed']=False
+            result['owner_validation_allowed']=False
+            result['html']='<p class="research-scope">'+resolution['message']+'</p>'+result['html']
         elif public_free:
             # The shared report renderer puts the scope note at the end. Do not
             # reintroduce a process disclaimer above the customer's assessment.
@@ -191,7 +196,11 @@ def install(app,site,user):
         return payload(child_id,child,True)
 
     def run_analysis(rid,files,authorization,*,validation=False):
-        uid,a,_=user(authorization);r,existing=owned(a,uid,rid)
+        uid,a,billing=user(authorization);r,existing=owned(a,uid,rid)
+        from .report_resolution import status as resolution_status, reject, retry_refunds
+        with a.db() as db:resolution=resolution_status(db,uid,rid)
+        if resolution:
+            return review(rid,authorization)
         if validation:
             require_owner(uid)
             if unlocked(a,uid,rid,r['property_id']) or existing.get('_intake',{}).get('parent_review_id'):
@@ -277,6 +286,8 @@ def install(app,site,user):
                 begin_write(db)
                 if not current_attempt(db,rid,attempt):
                     raise HTTPException(409,'This processing attempt was recovered; its late result has not replaced your report')
+                if needs_review and not validation:
+                    reject(db,uid,rid,report)
                 db.execute('UPDATE reviews SET report_json=? WHERE id=? AND user_id=?',(json.dumps(report),rid,uid))
                 db.execute('UPDATE review_processing SET status=?,updated_at=? WHERE review_id=?',(report['analysis_state'],int(time.time()),rid))
         except Exception as error:
@@ -287,7 +298,13 @@ def install(app,site,user):
                 begin_write(db)
                 if current_attempt(db,rid,attempt):
                     db.execute("UPDATE review_processing SET status='failed',updated_at=? WHERE review_id=?",(int(time.time()),rid))
+                    if attempt>=3 and not validation:
+                        reject(db,uid,rid,existing,reason='generation_failed')
+            if attempt>=3 and not validation:
+                retry_refunds(billing,user=uid,rid=rid)
             detail='Private validation did not finish. Check the recorded provider usage before retrying.' if validation else 'Analysis did not finish. Your purchase is retained; retry or contact support.'
+            if attempt>=3 and not validation:
+                detail='Analysis could not be completed. Check this report for your returned credit or refund status.'
             raise HTTPException(503,detail)
         finally:
             metrics={'elapsed_seconds':round(time.monotonic()-started,3),
@@ -310,6 +327,8 @@ def install(app,site,user):
                 db.execute('UPDATE report_generation_attempts SET finished_at=?,status=?,metrics_json=? WHERE review_id=? AND attempt=?',
                            (int(time.time()),outcome,json.dumps(metrics),rid,attempt))
             if provider is not None:provider.close()
+        if not validation:
+            retry_refunds(billing,user=uid,rid=rid)
         # A refund/dispute received during processing still revokes delivery.
         return review(rid,authorization)
 
@@ -327,9 +346,17 @@ def install(app,site,user):
         with a.db() as db:
             job=db.execute('SELECT * FROM review_processing WHERE review_id=?',(rid,)).fetchone()
             attempt=db.execute('SELECT metrics_json FROM report_generation_attempts WHERE review_id=? ORDER BY attempt DESC LIMIT 1',(rid,)).fetchone() if is_owner(uid) else None
-        result=payload(rid,report,full,job,owner=is_owner(uid))
+            from .report_resolution import status as resolution_status
+            resolution=resolution_status(db,uid,rid)
+        result=payload(rid,report,full,job,owner=is_owner(uid),resolution=resolution)
         if result['validation'] and attempt:result['validation_metrics']=json.loads(attempt['metrics_json'] or '{}')
         return result
+
+    @app.post('/api/admin/report-refunds/retry')
+    def retry_report_refunds(authorization:str|None=Header(default=None)):
+        uid,a,billing=user(authorization);require_owner(uid)
+        from .report_resolution import retry_refunds
+        return retry_refunds(billing)
 
     @app.get('/api/account/reviews/{rid}/evidence')
     def supporting_evidence(rid:str,authorization:str|None=Header(default=None)):

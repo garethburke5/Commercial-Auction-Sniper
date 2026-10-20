@@ -34,6 +34,9 @@ class Accounts:
                 if not version or version['version']!=1:
                     raise RuntimeError('Private account database migration is required')
                 db.execute('SELECT 1 FROM report_credit_periods LIMIT 1')
+                db.execute('SELECT 1 FROM report_rejections LIMIT 0')
+                db.execute('SELECT 1 FROM report_credit_returns LIMIT 0')
+                db.execute('SELECT 1 FROM report_refunds LIMIT 0')
                 db.execute('SELECT 1 FROM active_account_sessions LIMIT 0')
             return
         if not path:

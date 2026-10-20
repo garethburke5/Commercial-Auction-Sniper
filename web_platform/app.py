@@ -117,8 +117,10 @@ def create_app(site=None):
         from .scheduled_monitoring import authenticate,run
         from .catalogue import ROOT
         authenticate(x_monitor_timestamp,x_monitor_signature)
-        accounts,_=private_services()
+        accounts,billing=private_services()
         result=run(accounts,site.catalogue.root if not deferred_site else ROOT,current_catalogue)
+        from .report_resolution import retry_refunds
+        result['report_refunds']=retry_refunds(billing)
         from .alert_delivery import run as deliver
         try:result['email_delivery']=deliver(accounts)
         except Exception:

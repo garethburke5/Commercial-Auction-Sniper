@@ -17,6 +17,29 @@ def test_sql_placeholder_translation_preserves_literal_questions():
     assert placeholders("SELECT '?' AS q, ? AS value, 'it''s ?' AS quoted")=="SELECT '?' AS q, %s AS value, 'it''s ?' AS quoted"
 
 
+def test_postgres_quality_return_is_private_and_redeemable_once(pg_accounts,monkeypatch):
+    from web_platform.tests.test_report_credits import fund
+    from web_platform.report_credits import redeem,balance,report_access
+    from web_platform.report_resolution import reject
+    a=pg_accounts;a.ensure('alice');fund(a)
+    monkeypatch.setattr('acquisition_quality.paid_report_status',lambda *args:{'purchase_available':True})
+    with a.db() as db:
+        for rid in ('rejected','replacement'):
+            db.execute('INSERT INTO reviews VALUES (?,?,?,?,?)',(rid,'alice','property','{}',1))
+        for table in ('report_rejections','report_credit_returns','report_refunds'):
+            for role in ('anon','authenticated'):
+                assert not db.execute('SELECT has_table_privilege(?,?,?)',(role,'auction_private.'+table,'SELECT')).fetchone()[0]
+    redeem(a,'alice','rejected')
+    with a.db() as db:
+        begin_write(db);reject(db,'alice','rejected',{});reject(db,'alice','rejected',{})
+    assert balance(a,'alice')['remaining']==1
+    redeem(a,'alice','replacement')
+    assert balance(a,'alice')['remaining']==0
+    with a.db() as db:
+        assert not report_access(db,'alice','rejected')
+        assert report_access(db,'alice','replacement')
+
+
 @pytest.fixture
 def pg_accounts():
     url=os.getenv('TEST_ACCOUNT_DATABASE_URL')

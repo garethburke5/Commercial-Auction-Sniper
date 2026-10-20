@@ -86,7 +86,9 @@ def test_in_progress_and_failed_jobs_do_not_loop_unbounded(site,tmp_path,monkeyp
         with a.db() as db:db.execute("UPDATE review_processing SET status='failed' WHERE review_id=?",(rid,))
         for _ in range(3):
             response=c.post(url,**kw);assert response.status_code==503 and 'secret' not in response.text
-        assert c.post(url,**kw).status_code==429 and len(calls)==3
+        final=c.post(url,**kw)
+        assert final.status_code==200 and len(calls)==3
+        assert final.json()['resolution']['reason']=='generation_failed'
 
 
 def test_paid_but_unconfigured_service_does_not_run_extraction(site,tmp_path,monkeypatch):
