@@ -53,6 +53,8 @@ class Accounts:
             ''')
         from .report_credits import SCHEMA
         with self.db() as db:db.executescript(SCHEMA)
+        from .history_access import SCHEMA as HISTORY_SCHEMA
+        with self.db() as db:db.executescript(HISTORY_SCHEMA)
         self.path.chmod(0o600)
 
     @contextmanager

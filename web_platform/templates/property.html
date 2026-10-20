@@ -14,8 +14,7 @@
   </section>
   <section id="investment-details"><h2>Investment analysis</h2>{% if row.interpretation %}<div class="investment-read">{% for note in row.interpretation %}<p>{{ note }}</p>{% endfor %}<p class="small">Indicative interpretation of captured evidence, not a valuation or independent market appraisal.</p></div>{% else %}<p>There is not enough captured information for a detailed investment assessment.</p>{% endif %}</section>
   {% if row.income_components %}<section class="income-breakdown"><h2>What produces the income</h2><p class="small muted">Separately stated passing income. Ground-rent income is distinguished from ground rent payable.</p><dl class="facts">{% for component in row.income_components %}<div><dt>{{ component.label|capitalize }}</dt><dd>{{ money(component.annual_rent) }} p.a. · {{ component.share_pct }}% of these components<details><summary>Source wording</summary>{{ component.source_text }}</details></dd></div>{% endfor %}</dl></section>{% endif %}
-  <section id="history"><h2>Property history &amp; timeline</h2><p class="small muted">Previous auction appearances matched to this exact address. Matches are provisional: check the source, property extent and tenure before comparing.</p>{% include 'history.html' %}{% include 'observations.html' %}</section>
-  {% include 'market.html' %}
+  {% include 'history_preview.html' %}
   <section class="report-context report-offer" id="full-investment-report" aria-labelledby="report-offer-title">
     <div class="report-offer-heading"><div><p class="eyebrow">TAKE A CLOSER LOOK BEFORE YOU BID</p><h2 id="report-offer-title">Full Investment Report</h2></div><div class="report-offer-price"><strong>£{{ plans.one_off_report_gbp }}</strong><span>one-off purchase</span></div></div>
     <p>Understand the rental income, ownership costs and investment risks, with deeper research into this property and relevant market evidence.</p>

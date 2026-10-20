@@ -80,7 +80,7 @@ class Site:
         self.env.globals['asset_version'] = hashlib.sha256((HERE/'static/site.css').read_bytes()
             + (HERE/'static/workspace.js').read_bytes() + (HERE/'static/board.js').read_bytes() + (HERE/'static/search.js').read_bytes()
             + (HERE/'static/navigation.js').read_bytes() + (HERE/'static/reviews.js').read_bytes()
-            + (HERE/'static/report-evidence.js').read_bytes()).hexdigest()[:12]
+            + (HERE/'static/report-evidence.js').read_bytes() + (HERE/'static/history.js').read_bytes()).hexdigest()[:12]
         self.env.globals['snapshot_version'] = hashlib.sha256((HERE/'static/snapshot.css').read_bytes() + (HERE/'static/snapshot.js').read_bytes()).hexdigest()[:12]
         self.env.globals.update(board_index=f'/board/{self.board_version}/index.json')
 
@@ -97,6 +97,8 @@ class Site:
 
     def page(self, path, title, kind, description, **ctx):
         schema = {'@context':'https://schema.org','@type':'WebPage','name':title,'url':self.origin+path,'description':description}
+        if kind == 'property':
+            schema.update(isAccessibleForFree=False, hasPart={'@type':'WebPageElement', 'isAccessibleForFree':False, 'cssSelector':'.premium-history'})
         if kind == 'glossary':
             schema.update({'@type':'DefinedTermSet','hasDefinedTerm':[
                 {'@type':'DefinedTerm','name':name,'description':definition,
@@ -152,10 +154,11 @@ class Site:
             gallery = ordered_images([{'url':row.get('image_url'),'label':'Auctioneer primary photograph'}] if row.get('image_url') else [], row['url'])
             if row.get('image_url'):
                 gallery += ordered_images(row.get('gallery_images') or evidence.get('gallery') or [], row['url'], row.get('image_url'))
-            context=self.market.for_property(row)
+            from .history_access import preview
+            history_preview=preview(self.market.for_property(row))
             yield row['path'], self.page(row['path'],row['address'],'property',
                 f"{row['source']} · {row.get('property_type') or 'Auction property'} · Guide {row['guide']}.",
-                row=row, history=context['history'], market=context, noindex=not row['indexable'],
+                row=row, history_preview=history_preview, noindex=not row['indexable'],
                 particulars=structured_particulars(detail_row), gallery=gallery,
                 fee=estimate_fee(row,fee_profile(row['source_slug'],self.fees),evidence))
         yield '/auctioneers/', self.page('/auctioneers/','Auctioneers & buyer fees','sources',
@@ -175,7 +178,7 @@ class Site:
             yield p,self.page(p,f'{c.sources[source]} · {uk_date(date)}','list',
                 'Captured commercial lots for this auction. Check the auctioneer for catalogue changes.',rows=rows)
         yield '/history/',self.page('/history/','Commercial auction history','history',
-            'Individual auction appearances with source evidence. Repeated appearances are preserved.',history=c.history())
+            'Explore our auction archive, understand how properties are matched and find historical intelligence within property listings.')
         yield '/methodology/',self.page('/methodology/','How Auction Geek works','methodology',
             'Understand source evidence, guide prices, missing information and conservative property-history matching.')
         yield '/coverage/',self.page('/coverage/','Auctioneer coverage & collection health','coverage',

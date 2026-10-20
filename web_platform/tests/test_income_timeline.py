@@ -22,8 +22,11 @@ def test_observation_timeline_exact_address_tenure_and_source(site):
  assert len(context['observations'])==1
  assert {c['label'] for c in context['observations'][0]['changes']}=={'Guide price','Status'}
  html=dict(site.routes())[row['path']]
- assert 'Changes observed in the source listing' in html
- assert '£150,000 → £125,000' in html and 'observed 1 October 2026' in html
+ assert 'Changes to this property’s listing have been recorded' in html
+ assert 'Changes observed in the source listing' not in html
+ assert '£150,000 → £125,000' not in html and 'observed 1 October 2026' not in html
+ private=site.env.get_template('history_private.html').render(row=row,history=context['history'],market=context,kind='private-history')
+ assert '£150,000 → £125,000' in private and 'observed 1 October 2026' in private
 
 def test_upcoming_counts_actual_rows_and_yield_has_no_preset(site):
  from bs4 import BeautifulSoup

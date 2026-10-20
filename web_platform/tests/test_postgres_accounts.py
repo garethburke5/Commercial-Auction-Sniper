@@ -315,3 +315,18 @@ def test_postgres_saved_search_concurrency_and_isolation(pg_accounts):
 def test_postgres_monitoring_job_claim_and_recovery(pg_accounts,site):
     from web_platform.tests.test_monitoring_activation import exercise_job
     exercise_job(pg_accounts,site)
+
+def test_postgres_history_entitlement_and_rls(pg_accounts):
+    from web_platform.history_access import access,subject_key
+    a=pg_accounts;a.ensure('alice');a.ensure('bob')
+    row={'address':'1 High Street, AB1 2CD','tenure':'Freehold'}
+    with a.db() as db:
+        begin_write(db)
+        db.execute('INSERT INTO purchases(order_id,user_id,product,property_id,price_id,status,created_at) VALUES (?,?,?,?,?,?,?)',('history_order','alice','property_history','p1','price1','paid_awaiting_fulfilment',1))
+        db.execute('INSERT INTO history_order_terms(order_id,subject_key,amount_pence,duration_seconds,terms_version,paid_at) VALUES (?,?,?,?,?,?)',('history_order',subject_key(row),299,0,'test',1))
+        for role in ('anon','authenticated'):
+            assert not db.execute('SELECT has_table_privilege(?,?,?)',(role,'auction_private.history_order_terms','SELECT')).fetchone()[0]
+    assert access(a,'alice',row)['allowed']
+    assert not access(a,'bob',row)['allowed']
+    with a.db() as db:db.execute("UPDATE purchases SET status='refund_review' WHERE order_id='history_order'")
+    assert not access(a,'alice',row)['allowed']

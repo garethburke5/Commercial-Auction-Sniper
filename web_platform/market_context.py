@@ -6,7 +6,10 @@ from collections import defaultdict
 from functools import cached_property
 
 POSTCODE=re.compile(r'\b([A-Z]{1,2}\d[A-Z\d]?)\s*(\d[A-Z]{2})\b',re.I)
-def address_key(value):return re.sub(r'[^a-z0-9]','',str(value).lower().replace('&','and'))
+def address_key(value):
+    # Preserve token boundaries: 1–3 must never collide with 13 or 1/3.
+    value=str(value).lower().replace('&','and').replace('–','-').replace('—','-')
+    return re.sub(r'\s+',' ',re.sub(r'[^a-z0-9/\-]+',' ',value)).strip()
 def postcode(value):
     m=POSTCODE.search(str(value or ''));return (m.group(1).upper(),m.group(2).upper()) if m else None
 
@@ -96,12 +99,22 @@ class MarketContext:
                     yield json.loads(raw)
     def for_property(self,row,limit=4):
         self.load();key=address_key(row['address']);p=postcode(row['address']);typ=use_type(row);occ=occupancy(row)
-        history=[]
+        history=[];appearance_keys=set()
         for r in self._records(self.by_address.get(key,[])):
             if not p or postcode(r.get('postcode') or r['address'])!=p:continue
             if r.get('tenure') and row.get('tenure') and r['tenure'].lower()!=row['tenure'].lower():continue
             if r.get('auction_date')==row.get('auction_date') and str(r.get('lot_number','')).removeprefix('Lot ')==str(row.get('lot_number','')).removeprefix('Lot '):continue
-            history.append(dict(r))
+            appearance=(r.get('auctioneer') or r.get('source'),r.get('auction_date'),str(r.get('lot_number') or ''),address_key(r['address']))
+            if appearance in appearance_keys:continue
+            appearance_keys.add(appearance)
+            record=dict(r)
+            record['comparison_notes']=[]
+            before,after=metrics(r)['area_sqft'],metrics(row)['area_sqft']
+            if before and after and abs(before-after)/max(before,after)>0.05:
+                record['comparison_notes'].append('The recorded floor area differs from this listing. The units or extent may have changed; prices may not be directly comparable.')
+            if not r.get('tenure'):
+                record['comparison_notes'].append('Tenure was not recorded for this appearance. Confirm that it covers the same property interest.')
+            history.append(record)
             history.sort(key=lambda x:x.get('auction_date') or '',reverse=True)
             del history[101:]
         history.sort(key=lambda x:x.get('auction_date') or '',reverse=True)

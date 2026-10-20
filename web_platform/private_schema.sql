@@ -90,6 +90,15 @@ CREATE TABLE IF NOT EXISTS alert_receipts(
  event_id TEXT PRIMARY KEY,provider_id TEXT NOT NULL,kind TEXT NOT NULL,received_at BIGINT NOT NULL);
 CREATE INDEX IF NOT EXISTS alert_receipts_message ON alert_receipts(provider_id);
 
+
+CREATE TABLE IF NOT EXISTS history_order_terms(
+ order_id TEXT PRIMARY KEY REFERENCES purchases(order_id),
+ subject_key TEXT NOT NULL, amount_pence BIGINT NOT NULL,
+ duration_seconds BIGINT NOT NULL, terms_version TEXT NOT NULL,
+ paid_at BIGINT, expires_at BIGINT, currency TEXT,
+ total_pence BIGINT, tax_pence BIGINT, receipt_url TEXT
+);
+
 REVOKE ALL ON ALL TABLES IN SCHEMA auction_private FROM PUBLIC,anon,authenticated;
 GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA auction_private TO auction_api;
 -- Only this backend role can access these private tables. Per-customer ownership

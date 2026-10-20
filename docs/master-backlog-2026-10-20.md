@@ -91,3 +91,22 @@ does not convert those into fresh production acceptance.
 - Hosted PostgreSQL integration passed for the report-resolution tables and replacement-credit flow. Hosted public tests and Chromium evidence/account checks passed for the combined release; static publication was still running.
 - Cloudflare build `290b827c-96a3-444d-8567-433234e068ff` for `514d71d` was still in progress. Do not confuse a successful Render deployment or GitHub Pages build with main-domain frontend acceptance.
 - Current collection and permanent historical banking now have scheduled workflows. They do not establish complete national coverage. All-property-type banking, remaining source failures and the full-report acceptance matrix remain open.
+
+## Premium history directive — evening update
+
+The owner has authorised platform-wide premium history and one-off passes, with
+useful free listings/snapshots, £0 advertising and SEO retained. See
+`premium-history-delivery-2026-10-20.md` for implementation and acceptance.
+
+| ID | Job | Current state / required proof |
+|---|---|---|
+| H1 | Public preview and private history API | Implemented; historical figures removed from public rendering, authorisation before private rendering. Website protection is not full archive secrecy. |
+| H2 | Private archive migration | Blocking: source repository is public, including historical files and prior commits. Inventory dependencies, preserve backups, migrate collector/build access and test all public download surfaces before sales. |
+| H3 | £2.99 property unlock and £5 Day Pass | Configurable prices, private entitlement schema and signed-webhook integration implemented. Sandbox products created and non-secret Render price IDs configured; real Stripe checkout-to-access acceptance remains open. |
+| H4 | £10 Supporter Pass | Seven-day entitlement model present; purchase option deliberately disabled until initial journeys pass. |
+| H5 | History quality | Duplicate suppression and address-range collision fix implemented; title/extent, rent conflicts, source verification and achieved-price classifications need broader acceptance. |
+| H6 | History access terms and VAT | Confirm registration/tax treatment, publish appropriate terms and cancellation handling; checkout fails closed until configured. |
+| H7 | Public archive SEO and analytics | Preserve current useful crawlable content; expand quality archive pages, connect Google/Bing/Cloudflare metrics and build owner conversion/revenue reporting. No fabricated metrics. |
+| H8 | Browser and full customer acceptance | New mobile/desktop history UI tests added; production owner/visitor/purchaser/pass/subscriber journeys and actual Stripe payments must pass before claiming ready. |
+
+History work does not approve or supersede R1–R9. Paid reports remain closed.

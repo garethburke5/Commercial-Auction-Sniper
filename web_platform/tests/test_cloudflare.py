@@ -67,7 +67,8 @@ def test_export_and_history_with_or_without_stdlib_sqlite(site, tmp_path, missin
         exporter.Site = lambda origin: Site(catalogue, origin)
         cloudflare.build(output)
         assert (output / 'index.html').exists()
-        assert 'Historical fixture auctioneer' in (output / 'history/index.html').read_text()
+        assert 'Historical fixture auctioneer' not in (output / 'history/index.html').read_text()
+        assert '£90,000' not in (output / row['path'].strip('/') / 'index.html').read_text()
         assert not list(output.rglob('*.sqlite*'))
     ''')
     result = subprocess.run([sys.executable, '-c', script, str(site.catalogue.root),

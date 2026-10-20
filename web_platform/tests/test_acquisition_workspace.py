@@ -36,11 +36,11 @@ def test_private_deal_admin_and_report_routes_are_owner_scoped(site,tmp_path,mon
         assert c.get('/api/account',headers={'Authorization':'bob'}).json()['workspace']['properties']==[]
 
 def test_comparables_respect_use_occupancy_tenure_and_full_address():
-    from web_platform.market_context import MarketContext,metrics
+    from web_platform.market_context import MarketContext,metrics,address_key
     m=MarketContext(None);m.loaded=True
     row={'address':'1 High Street, AB1 2CD','property_type':'Retail','annual_rent':10000,'guide_price':100000,'tenure':'Freehold'}
     historical=dict(row,auction_date='2024-01-01',lot_number='3',postcode='AB1 2CD')
-    m.by_address['1highstreetab12cd']=[historical,dict(historical,tenure='Leasehold')]
+    m.by_address[address_key(row['address'])]=[historical,dict(historical,tenure='Leasehold')]
     m.by_district['AB1']=[dict(historical,address='2 High Street, AB1 3CD'),dict(historical,address='3 High Street, AB1 3CD',occupation='Vacant'),dict(historical,address='4 High Street, AB1 3CD',property_type='Warehouse')]
     result=m.for_property(row)
     assert len(result['history'])==1 and len(result['comparables'])==1

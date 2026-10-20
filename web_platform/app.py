@@ -202,6 +202,8 @@ def create_app(site=None):
         uid,a,_=user(authorization)
         with a.db() as db: db.execute('DELETE FROM saved WHERE user_id=? AND property_id=?',(uid,property_id))
         return {'saved':False}
+    from .history_api import install as install_history
+    install_history(app,site,user,current_catalogue)
     class Checkout(BaseModel): plan:str
     class Purchase(BaseModel):
         product:str

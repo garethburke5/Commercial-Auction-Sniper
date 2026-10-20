@@ -87,8 +87,9 @@ def test_rendered_review_preserves_search_hero_and_contextual_history(tmp_path):
     assert len(prop.select('[data-gallery-src]'))==2
     assert '£1,500' in prop.select_one('#property-fees').get_text()
     assert '+ VAT' in prop.select_one('#property-fees').get_text()
-    assert '£75,000–£80,000' in prop.select_one('#history').get_text()
-    assert '£85,000' in prop.select_one('#history').get_text() and '£9,000' in prop.select_one('#history').get_text()
+    assert '1 earlier auction appearance identified' in prop.select_one('#history').get_text()
+    assert '£75,000–£80,000' not in str(prop)
+    assert '£85,000' not in str(prop) and '£9,000' not in str(prop)
     assert prop.select_one('#property-target')
     assert 'Official example lot' not in pages['/auctioneers/']
     assert '1 September 2099' in pages['/auctions/']

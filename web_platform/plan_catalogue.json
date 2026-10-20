@@ -21,5 +21,28 @@
   },
   "report_name": "Full Investment Report",
   "one_off_report_gbp": 19,
-  "provisional": true
+  "provisional": true,
+  "history_products": {
+    "property_history": {
+      "name": "Single Property History",
+      "amount_pence": 299,
+      "price_label": "\u00a32.99",
+      "duration_seconds": 0,
+      "enabled": true
+    },
+    "history_day_pass": {
+      "name": "Auction Geek Day Pass",
+      "amount_pence": 500,
+      "price_label": "\u00a35",
+      "duration_seconds": 86400,
+      "enabled": true
+    },
+    "history_supporter_pass": {
+      "name": "Supporter Pass",
+      "amount_pence": 1000,
+      "price_label": "\u00a310",
+      "duration_seconds": 604800,
+      "enabled": false
+    }
+  }
 }

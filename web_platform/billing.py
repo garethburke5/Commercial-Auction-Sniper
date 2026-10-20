@@ -18,7 +18,7 @@ def plain(value):
     return value.to_dict() if hasattr(value,'to_dict') else value
 
 class Billing:
-    PRODUCTS = frozenset({'investment_report','legal_pack_report','featured_listing','data_export'})
+    PRODUCTS = frozenset({'investment_report','legal_pack_report','featured_listing','data_export','property_history','history_day_pass','history_supporter_pass'})
 
     def __init__(self,accounts,secret,webhook_secret,prices,origin,one_off_prices=None,report_prices=None):
         self.accounts=accounts;self.secret=secret;self.webhook_secret=webhook_secret
@@ -101,6 +101,9 @@ class Billing:
             quality = paid_report_status()
             if not quality['purchase_available']:
                 raise HTTPException(503, quality['message'])
+        from .history_access import PRODUCTS as HISTORY_PRODUCTS
+        if product in HISTORY_PRODUCTS:
+            raise HTTPException(400,'Use the property history checkout')
         self.configured()
         price_id=self.one_off_prices.get(product)
         report_plan=self.accounts.plan(user) if product=='legal_pack_report' else None
@@ -161,6 +164,10 @@ class Billing:
             if isinstance(intent,str):intent=plain(self.client.v1.payment_intents.retrieve(intent,{'expand':['latest_charge']}))
             charge=intent.get('latest_charge') or {}
             if isinstance(charge,str):charge=plain(self.client.v1.charges.retrieve(charge))
+            from .history_access import PRODUCTS as HISTORY_PRODUCTS
+            if order['product'] in HISTORY_PRODUCTS:
+                from .history_billing import validate_payment
+                validate_payment(db,order,session,intent,charge,self.secret.startswith(('sk_test_','rk_test_')))
             if order['status'] in ('refund_review','payment_review','quality_refund_pending','quality_refunded'):status=order['status']
             elif charge.get('refunded') or charge.get('amount_refunded',0)>0:status='refund_review'
             elif charge.get('disputed'):status='payment_review'
@@ -168,6 +175,9 @@ class Billing:
             elif session.get('status')=='expired':status='expired'
             else:status='pending'
             db.execute('UPDATE purchases SET session_id=?,payment_intent=?,status=? WHERE order_id=?',(session['id'],intent.get('id'),status,order_id))
+            if order['product'] in HISTORY_PRODUCTS:
+                from .history_billing import grant
+                grant(db,order,session,charge,status)
         elif typ in ('charge.refunded','charge.dispute.created','charge.dispute.closed'):
             charge=plain(self.client.v1.charges.retrieve(obj.get('charge') if typ.startswith('charge.dispute.') else obj['id']))
             db.execute("UPDATE report_credit_periods SET status='payment_review' WHERE invoice_id IN (SELECT invoice_id FROM report_credit_payments WHERE payment_intent=?)",(charge.get('payment_intent'),))
