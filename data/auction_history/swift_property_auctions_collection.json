@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-08T19:33:13.201603+00:00",
+  "checked_at": "2026-10-20T21:51:06.432874+00:00",
   "source_url": "https://www.swiftpropertyauctions.co.uk/previous-auctions",
-  "catalogues_discovered": 15,
+  "catalogues_discovered": 16,
   "catalogues_captured": 15,
   "catalogues_complete": 15,
   "appearances_captured": 137,
@@ -12,7 +12,7 @@
   "run_new_partial_lots": 0,
   "date_range": [
     "2024-07-16",
-    "2026-09-02"
+    "2026-10-14"
   ],
   "by_sector": {
     "residential": 89,
@@ -29,6 +29,12 @@
     "sold_prior": 23,
     "sold_after": 4
   },
-  "failures": [],
-  "complete": true
+  "failures": [
+    {
+      "source_id": "85367",
+      "auction_date": "2026-10-14",
+      "error": "catalogue reconciliation failed: {'published_lot_denominator': 6, 'visible_source_rows': 9, 'distinct_appearance_identities': 9, 'heading_auction_date': '2026-10-14', 'heading_date_matches_archive': True, 'malformed_source_rows': [], 'catalogue_complete': False}"
+    }
+  ],
+  "complete": false
 }
