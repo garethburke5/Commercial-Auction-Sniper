@@ -13,9 +13,9 @@ Do not report all jobs complete from passing software tests or a few specimen PD
 | Return credits for rejected reports | Shared transactional implementation published in `258c628`; replacement survives membership expiry; original funding revocation applies. Hosted PostgreSQL checks passed. Actual customer journey still open. |
 | Refund rejected one-off reports | Durable outbox, current-payment verification, duplicate prevention and scheduled retry implemented. Real Stripe sandbox refund acceptance remains open. Paid sales stay closed. |
 | Exhausted processing retries | Third failed customer attempt enters settlement; owner validation and included updates cannot create compensation for an unpaid job. |
-| Restore current scanning | Latest scheduled runs 39334268851 and 39371647710 stopped at the Savills Hanover tenure regression, before collection. Parser correction and regression checks prepared; fresh production collection/publication still required. |
-| Resume historical collection | Existing workflow was explicitly disabled on 8 October. Resume with two rotating ten-minute tasks per scheduled run and persisted outcomes, rather than an all-source run that risks losing its checkpoint. |
-| Publish the actual rebuilt historical database | Existing compressed database is 99,928,416 bytes; old workflow could commit newer counts while leaving the older database above its 99 MB staging threshold. Add verified multipart delivery and prefer it in the site reader. |
+| Restore current scanning | Latest scheduled runs 39334268851 and 39371647710 stopped at the Savills Hanover tenure regression, before collection. Parser correction published in `514d71d`; 1,039 collector tests plus 22 subtests passed. Production run `39402418825` passed regression checks and reached collection; fresh publication remains pending. |
+| Resume historical collection | Existing workflow was explicitly disabled on 8 October. Resumed with two rotating ten-minute tasks per scheduled run and persisted outcomes. Runs `39402418694` and `39403320245` completed and committed checkpoints `91b1a724` and `5ff31149`. Neither batch added appearances or addresses; total remains 270,629. The six-hour schedule is active; this is automated collection, not a promise of an agent working between conversations. |
+| Publish the actual rebuilt historical database | Existing compressed database is 99,928,416 bytes; old workflow could commit newer counts while leaving the older database above its 99 MB staging threshold. Verified multipart delivery is implemented and the site reader prefers it. The rebuilt 144,216,157-byte compressed database was checkpointed successfully in five parts; legacy storage is retained. |
 | Measured coverage audit | `coverage-audit-2026-10-20.json` records the current retained source evidence. A reusable audit command is included. No national denominator has been established. |
 
 ## Comprehensive coverage and historical database
@@ -30,7 +30,7 @@ Do not report all jobs complete from passing software tests or a few specimen PD
 | D6 | Resolve repeat properties across auctioneers | Conservative building/unit matching; no merging neighbours or separate flats. Retain provenance and uncertain matches. |
 | D7 | Complete property timelines and comparisons | Dated guides, asking prices, rent changes, results and reappearances visible to customers and available to reports. |
 | D8 | Preserve outcomes/permanent pages | Sold, sold prior, unsold, withdrawn and reoffered states updated without losing earlier evidence. |
-| D9 | Owner coverage dashboard | Owner-only API and expandable workspace panel now implemented with catalogue timestamps, source counts/statuses, historical totals and gaps. Browser/deployed acceptance pending; national denominator remains unknown. |
+| D9 | Owner coverage dashboard | Owner-only API and expandable workspace panel now implemented with catalogue timestamps, source counts/statuses, historical totals and gaps. Hosted Chromium tests passed, including mobile overflow and sign-out clearance; API deployed on Render. The main-domain frontend still awaited Cloudflare publication at the last check. Actual owner-session acceptance remains open because the verification browser is signed out; national denominator remains unknown. |
 | D10 | Resolve named source gaps | Bond Wolfe detail failures; Barnard Marcus incomplete particulars; Under The Hammer access; Cheffins final reconciliation; Loveitts/Fox/Connells shared-feed attribution; remaining registry assessments. |
 | D11 | Search and listing accuracy | Tenant/business-name search; correct classification, unit areas, current rent, yield filters, original hero images, duplicate prevention and clear fees. Recheck old snags before claiming closed. |
 
@@ -65,3 +65,11 @@ Do not report all jobs complete from passing software tests or a few specimen PD
 Every status update should state what changed, what was actually verified and
 what remains. Existing docs contain dated historical checkpoints; this backlog
 does not convert those into fresh production acceptance.
+
+## Release verification on 20 October
+
+- Render release `5ff311490600b6c8b742fdc14e9b33e252cdc8cb` became live at 09:54 UTC and includes customer compensation, archive loading and the owner coverage API.
+- Paid reports, live billing and alert sending remain disabled. No customer charge, refund or email was manually issued in this batch.
+- Hosted PostgreSQL integration passed for the report-resolution tables and replacement-credit flow. Hosted public tests and Chromium evidence/account checks passed for the combined release; static publication was still running.
+- Cloudflare build `290b827c-96a3-444d-8567-433234e068ff` for `514d71d` was still in progress. Do not confuse a successful Render deployment or GitHub Pages build with main-domain frontend acceptance.
+- Current collection and permanent historical banking now have scheduled workflows. They do not establish complete national coverage. All-property-type banking, remaining source failures and the full-report acceptance matrix remain open.
