@@ -17,7 +17,7 @@ async function load(){
   if(current!==epoch||!workspace.canReturnToReport())return;
   content.innerHTML=result.html;content.hidden=false;preview.hidden=true;if(lock)lock.hidden=true;
   status.textContent=result.access.kind==='subscription'?'Included with your membership — unlimited Premium Property History & Intelligence.':result.access.expires_at?'History access until '+new Date(result.access.expires_at*1000).toLocaleString('en-GB')+'.':'Your permanent property history access is active.';
-  if(result.access.expires_at)expiry=setTimeout(load,Math.max(0,Math.min(2147483647,result.access.expires_at*1000-Date.now())));
+  if(result.access.expires_at)expiry=setTimeout(load,Math.max(1000,Math.min(2147483647,result.access.expires_at*1000-Date.now())));
  }catch(error){if(current===epoch){preview.hidden=false;status.textContent=error.message||'We could not check history access. Please try again.';if(error.status===403)availability(current);}}
 }
 window.addEventListener('auction-auth-change',()=>{clear();if(window.AuctionWorkspace?.canReturnToReport())load();});
